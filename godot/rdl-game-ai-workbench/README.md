@@ -48,6 +48,7 @@ http://127.0.0.1:8765/v1/observe
 - `Reset` returns the mock world to its initial state.
 - `Mock` mode uses the built-in mock decision record.
 - `Runtime` mode sends the selected NPC's bounded observation to the Python bridge and displays the returned structured action.
+- Runtime `approach(target_id)` actions are resolved through the mock world provider and update later observations.
 - Click `NPC A` or `NPC B` in the 2D World View to update the Agent Inspector.
 - The Bounded Observation panel shows what the selected mock NPC can observe.
 - The Decision Record panel shows the latest mock action decision derived from that bounded observation.
@@ -82,9 +83,22 @@ selected agent bounded observation
 → workbench display
 ```
 
-It does not apply the action to the Godot world. Actual response, changed
-interaction conditions, and subsequent bounded observation belong to the next
-interaction-loop phase.
+## P2 Interaction Loop Boundary
+
+The workbench now has a minimal world-resolution path for runtime actions:
+
+```text
+bounded observation
+→ runtime action
+→ MockStateProvider.resolve_action()
+→ changed world reference state
+→ subsequent bounded observation
+```
+
+Only `approach(target_id)` changes the mock world. It moves the selected agent
+toward a visible target and records the before/after positions in the Decision
+Record and Timeline. This remains outside `EFP`, `M_B`, `F`, `F'`, `E`, `H`,
+Human Attention, relation history, and reconstruction.
 
 ## Structure
 

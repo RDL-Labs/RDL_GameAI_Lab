@@ -12,6 +12,7 @@ var entity_buttons = {}
 var provider_mode = "mock"
 var runtime_pending = false
 var runtime_decision = {}
+var runtime_resolution = {}
 
 var tick_label
 var status_label
@@ -183,6 +184,7 @@ func _on_reset_pressed():
 	selected_agent_id = "npc_a"
 	runtime_pending = false
 	runtime_decision = {}
+	runtime_resolution = {}
 	state_provider.reset()
 	_refresh_all()
 
@@ -205,6 +207,7 @@ func _on_mode_selected(index):
 		provider_mode = "mock"
 	runtime_pending = false
 	runtime_decision = {}
+	runtime_resolution = {}
 	_refresh_all()
 	_request_runtime_action_if_needed()
 
@@ -220,6 +223,7 @@ func _request_runtime_action_if_needed():
 
 	runtime_pending = true
 	runtime_decision = {}
+	runtime_resolution = {}
 	_refresh_decision()
 
 	var headers = ["Content-Type: application/json"]
@@ -254,7 +258,8 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 		return
 
 	runtime_decision = parsed
-	_refresh_decision()
+	runtime_resolution = state_provider.resolve_action(runtime_decision)
+	_refresh_all()
 
 func _refresh_all():
 	var state = state_provider.get_state()
@@ -382,6 +387,19 @@ func _refresh_runtime_decision():
 		decision_text.append_text("target: %s\n" % action["target_id"])
 	decision_text.append_text("observation: %s\n" % inspection.get("observation_id", "?"))
 	decision_text.append_text("reason: %s\n" % inspection.get("reason", "?"))
+	if not runtime_resolution.is_empty():
+		decision_text.append_text("\nWorld Resolution:\n")
+		decision_text.append_text("tick: %d\n" % runtime_resolution.get("tick", -1))
+		decision_text.append_text("action: %s\n" % runtime_resolution.get("action_type", "?"))
+		if runtime_resolution.get("target_id", "") != "":
+			decision_text.append_text("target: %s\n" % runtime_resolution["target_id"])
+		if runtime_resolution.has("before_position") and runtime_resolution.has("after_position"):
+			var before_position = runtime_resolution["before_position"]
+			var after_position = runtime_resolution["after_position"]
+			decision_text.append_text("before: (%.1f, %.1f)\n" % [before_position.x, before_position.y])
+			decision_text.append_text("after: (%.1f, %.1f)\n" % [after_position.x, after_position.y])
+		decision_text.append_text("next observation: %s\n" % runtime_resolution.get("subsequent_observation_id", "?"))
+		decision_text.append_text("note: %s\n" % runtime_resolution.get("note", "?"))
 
 func _labels_for(items):
 	if items.is_empty():

@@ -38,6 +38,12 @@ Acceptance:
 Goal:
 - Establish one complete action-to-subsequent-observation loop.
 
+Contract:
+- [P2 Interaction Loop Contract](../docs/experiment-contracts/P2_interaction_loop_contract.md)
+
+Evidence:
+- [P2 Interaction Loop Evidence](../docs/experiment-evidence/P2_interaction_loop_evidence.md)
+
 ```text
 EFP
 → F

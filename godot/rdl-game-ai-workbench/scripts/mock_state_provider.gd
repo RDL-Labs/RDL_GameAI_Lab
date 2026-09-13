@@ -63,6 +63,7 @@ const INITIAL_PLACES = [
 ]
 
 const PERCEPTION_RADIUS = 145.0
+const ACTION_STEP_DISTANCE = 36.0
 
 var tick = 0
 var agents = []
@@ -71,12 +72,17 @@ var objects = []
 var places = []
 var events = []
 var decision_records = []
+var action_offsets = {}
+var resolution_records = []
 
 func reset():
 	tick = 0
 	agents = []
 	for agent in INITIAL_AGENTS:
 		agents.append(agent.duplicate(true))
+	action_offsets = {}
+	for agent in agents:
+		action_offsets[agent["id"]] = Vector2.ZERO
 	food = INITIAL_FOOD.duplicate(true)
 	objects = []
 	for object_data in INITIAL_OBJECTS:
@@ -86,6 +92,7 @@ func reset():
 		places.append(place.duplicate(true))
 	events = ["tick 000: workbench reset"]
 	decision_records = [_build_decision_record("npc_a"), _build_decision_record("npc_b")]
+	resolution_records = []
 	return get_state()
 
 func step():
@@ -109,6 +116,7 @@ func get_state():
 		"places": places.duplicate(true),
 		"perception_radius": PERCEPTION_RADIUS,
 		"decision_records": decision_records.duplicate(true),
+		"resolution_records": resolution_records.duplicate(true),
 		"events": events.duplicate(true)
 	}
 
@@ -156,12 +164,27 @@ func get_latest_decision(agent_id):
 			return record.duplicate(true)
 	return {}
 
+func resolve_action(decision):
+	var action = decision.get("action", {})
+	var action_type = action.get("type", "idle")
+	if action_type == "approach":
+		return _resolve_approach(decision, action.get("target_id", ""))
+	return _record_resolution(decision.get("agent_id", ""), action_type, "", "no world change for action")
+
+func get_latest_resolution(agent_id):
+	for i in range(resolution_records.size() - 1, -1, -1):
+		var record = resolution_records[i]
+		if record.get("agent_id", "") == agent_id:
+			return record.duplicate(true)
+	return {}
+
 func _update_mock_positions():
 	for i in range(agents.size()):
 		var agent = agents[i]
 		var base = INITIAL_AGENTS[i]["position"]
 		var phase = float(tick + i * 3)
-		agent["position"] = base + Vector2(sin(phase * 0.35) * 18.0, cos(phase * 0.25) * 12.0)
+		var offset = action_offsets.get(agent["id"], Vector2.ZERO)
+		agent["position"] = base + Vector2(sin(phase * 0.35) * 18.0, cos(phase * 0.25) * 12.0) + offset
 		if (tick + i) % 2 == 0:
 			agent["mood"] = "curious"
 		else:
@@ -192,3 +215,66 @@ func _build_decision_record(agent_id):
 
 func _is_visible(origin, target, radius):
 	return origin.distance_to(target) <= radius
+
+func _resolve_approach(decision, target_id):
+	var agent_id = decision.get("agent_id", "")
+	var agent_index = _find_agent_index(agent_id)
+	var target = _get_object(target_id)
+	if agent_index == -1 or target.is_empty():
+		return _record_resolution(agent_id, "approach", target_id, "target or agent not found")
+
+	var agent = agents[agent_index]
+	var before_position = agent["position"]
+	var direction = target["position"] - before_position
+	if direction.length() > ACTION_STEP_DISTANCE:
+		direction = direction.normalized() * ACTION_STEP_DISTANCE
+	var after_position = before_position + direction
+	agent["position"] = after_position
+	action_offsets[agent_id] = action_offsets.get(agent_id, Vector2.ZERO) + direction
+
+	var before_observation = decision.get("inspection", {}).get("observation_id", "")
+	var subsequent_observation = get_observation(agent_id)
+	var summary = "%d visible object(s)" % subsequent_observation.get("visible_objects", []).size()
+	return _record_resolution(
+		agent_id,
+		"approach",
+		target_id,
+		"actual response moved agent; changed conditions now yield %s" % summary,
+		before_position,
+		after_position,
+		before_observation,
+		"obs-%06d-%s" % [tick, agent_id]
+	)
+
+func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = ""):
+	var record = {
+		"tick": tick,
+		"agent_id": agent_id,
+		"action_type": action_type,
+		"target_id": target_id,
+		"note": note,
+		"source_observation_id": source_observation_id,
+		"subsequent_observation_id": subsequent_observation_id
+	}
+	if before_position != null and after_position != null:
+		record["before_position"] = before_position
+		record["after_position"] = after_position
+	resolution_records.append(record)
+	if resolution_records.size() > 80:
+		resolution_records.pop_front()
+	events.append("tick %03d: resolved %s for %s -> %s" % [tick, action_type, agent_id, note])
+	if events.size() > 80:
+		events.pop_front()
+	return record
+
+func _find_agent_index(agent_id):
+	for i in range(agents.size()):
+		if agents[i].get("id", "") == agent_id:
+			return i
+	return -1
+
+func _get_object(object_id):
+	for object_data in objects:
+		if object_data.get("id", "") == object_id:
+			return object_data
+	return {}

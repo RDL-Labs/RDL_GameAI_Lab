@@ -159,6 +159,8 @@ Next implementation boundary:
 - [P1 Bounded Perception Contract](docs/experiment-contracts/P1_bounded_perception_contract.md)
 - [P1 Bounded Perception Evidence](docs/experiment-evidence/P1_bounded_perception_evidence.md)
 - [Runtime Bridge](runtime/README.md)
+- [P2 Interaction Loop Contract](docs/experiment-contracts/P2_interaction_loop_contract.md)
+- [P2 Interaction Loop Evidence](docs/experiment-evidence/P2_interaction_loop_evidence.md)
 
 Current bridge stop rule:
 
@@ -168,8 +170,16 @@ Godot bounded observation
 → Python Runtime structured action
 ```
 
-This does not yet apply actions back into the world and does not implement
-`EFP`, `M_B`, `F`, `F'`, `E`, `H`, or Human Attention.
+Current P2 loop:
+
+```text
+Runtime structured action
+→ Godot world resolution
+→ changed interaction conditions
+→ subsequent bounded observation
+```
+
+This does not implement `EFP`, `M_B`, `F`, `F'`, `E`, `H`, or Human Attention.
 
 The lab uses acceptance evidence rather than feature-count completion. A green test or deterministic replay means only that no contract violation was observed inside the declared finite test Boundary.
 
