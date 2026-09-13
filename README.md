@@ -144,6 +144,7 @@ See [Experiment Roadmap](notes/experiment-roadmap.md).
 Next implementation boundary:
 
 - [P1 Bounded Perception Contract](docs/experiment-contracts/P1_bounded_perception_contract.md)
+- [P1 Bounded Perception Evidence](docs/experiment-evidence/P1_bounded_perception_evidence.md)
 
 The lab uses acceptance evidence rather than feature-count completion. A green test or deterministic replay means only that no contract violation was observed inside the declared finite test Boundary.
 
@@ -162,6 +163,7 @@ docs/
   source-inventory/     Working-material inventories from source projects
   design/               GameAI-specific design drafts
   experiment-contracts/ Bounded acceptance contracts for staged experiments
+  experiment-evidence/  Evidence notes for current experiment acceptance
 experiments/            Small runnable prototypes
 notes/                  Experiment roadmaps and logs
 ```
