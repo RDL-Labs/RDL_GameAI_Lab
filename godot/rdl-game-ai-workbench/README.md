@@ -6,10 +6,10 @@ It is not the game implementation. It is a minimal view / interaction / observat
 
 ## Current Boundary
 
-- Godot-only runtime
-- no Python connection
+- Godot workbench with mock mode enabled by default
+- optional localhost Python runtime bridge
 - no external dependencies
-- mock state only
+- mock state remains the world source for PR1
 - no RDL semantic logic yet
 - no `EFP`, `M_B`, `F`, `F'`, `E`, or `H` implementation
 
@@ -27,12 +27,27 @@ Run the project. The configured main scene is:
 res://scenes/main.tscn
 ```
 
+To try the optional runtime bridge, start the Python runtime from the repository
+root before switching the toolbar mode from `Mock` to `Runtime`:
+
+```powershell
+python -m runtime.bridge
+```
+
+The workbench posts the selected agent's bounded observation to:
+
+```text
+http://127.0.0.1:8765/v1/observe
+```
+
 ## Current Interaction
 
 - `Run` advances ticks continuously.
 - `Pause` stops ticking.
 - `Step` advances exactly one tick while paused.
 - `Reset` returns the mock world to its initial state.
+- `Mock` mode uses the built-in mock decision record.
+- `Runtime` mode sends the selected NPC's bounded observation to the Python bridge and displays the returned structured action.
 - Click `NPC A` or `NPC B` in the 2D World View to update the Agent Inspector.
 - The Bounded Observation panel shows what the selected mock NPC can observe.
 - The Decision Record panel shows the latest mock action decision derived from that bounded observation.
@@ -54,7 +69,22 @@ Action decisions use the selected agent observation packet shape from:
 docs/experiment-contracts/P1_bounded_perception_contract.md
 ```
 
-This remains mock behavior only. It does not implement `EFP`, `M_B`, `F`, `F'`, `E`, or `H`.
+This remains bridge behavior only. It does not implement `EFP`, `M_B`, `F`, `F'`, `E`, or `H`.
+
+## PR1 Runtime Bridge Boundary
+
+The runtime bridge establishes only this path:
+
+```text
+selected agent bounded observation
+→ localhost JSON POST
+→ structured action response
+→ workbench display
+```
+
+It does not apply the action to the Godot world. Actual response, changed
+interaction conditions, and subsequent bounded observation belong to the next
+interaction-loop phase.
 
 ## Structure
 
@@ -64,6 +94,8 @@ scenes/
 scripts/
   workbench_main.gd       UI and interaction shell
   mock_state_provider.gd  Mock world, observation, and decision source; replace later with an experiment adapter
+runtime/
+  Python localhost bridge and minimal observation-to-action boundary
 ```
 
 ## Future Adapter Boundary
