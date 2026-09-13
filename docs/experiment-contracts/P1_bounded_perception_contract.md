@@ -23,6 +23,8 @@ In scope:
 Out of scope:
 
 - `EFP`, `M_B`, `F`, `F'`, `E`, or `H` implementation
+- structural conflict to `E/H` evaluation
+- Human Attention workflow or Human Attention load
 - affect expression
 - learning or T1 reconstruction
 - Python connection
@@ -47,6 +49,15 @@ engine/world reference state
 ```
 
 The workbench may render complete state for human inspection. That does not grant the agent access to complete state.
+
+Enterprise-derived constraints carried forward:
+
+```text
+Structural Conflict != E != H
+Human Attention load != H
+```
+
+For later phases, structural conflict may matter only after an actual interaction changes later conditions and produces a subsequent bounded observation / `EFP'` that can be interpreted with the same pre-update `M_B`.
 
 ## Minimal State Shape
 
@@ -98,4 +109,4 @@ Stop P1 when the current finite boundary is operationally sufficient to prove:
 agent behavior is mediated by bounded perception
 ```
 
-Do not continue P1 into affect, heat, relation history, or reconstruction unless a concrete break requires it.
+Do not continue P1 into affect, heat, relation history, Human Attention, or reconstruction unless a concrete break requires it.
