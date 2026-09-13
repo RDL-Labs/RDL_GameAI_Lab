@@ -65,7 +65,7 @@ func get_agent(agent_id: String) -> Dictionary:
 	return {}
 
 func _update_mock_positions() -> void:
-	for i in agents.size():
+	for i in range(agents.size()):
 		var agent := agents[i]
 		var base: Vector2 = INITIAL_AGENTS[i]["position"]
 		var phase := float(tick + i * 3)
