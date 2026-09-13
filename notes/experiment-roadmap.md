@@ -13,6 +13,8 @@ Acceptance:
 - `EFP` is treated as a bounded section of interaction, not a permanently independent exogenous input.
 - `F` and `F'` use the same pre-update `M_B`.
 - affect labels do not directly add system `H`.
+- static structural conflict does not directly become `E` or `H`.
+- Human Attention load does not directly become `H`.
 - `ξ` is not removed by deterministic replay or full engine snapshots.
 
 ## P1: Bounded Perception
@@ -29,6 +31,7 @@ Evidence:
 Acceptance:
 - agent action selection does not directly read the complete engine-side world state.
 - perception boundary and relevant context are recoverable in logs.
+- Human Attention is out of scope for the initial Godot workbench.
 
 ## P2: Interaction Loop
 
@@ -39,13 +42,15 @@ Goal:
 EFP
 → F
 → action
-→ world / relation changes
+→ changed interaction conditions
+→ subsequent bounded observation
 → EFP'
 ```
 
 Acceptance:
-- the agent's action measurably changes conditions generating later `EFP'`.
-- the later observation is not fabricated as an independent fixture when interaction should determine it.
+- the agent's action measurably changes the interaction conditions that generate later `EFP'`.
+- the later bounded observation is caused by those changed conditions, not fabricated as an independent fixture.
+- static structural conflict is not promoted directly to `E` or `H`; only a subsequent `EFP'` interpreted with the same pre-update `M_B` can feed `F / F'`, `E`, and unresolved residual `H`.
 
 ## P3: F / F' and E
 
@@ -55,6 +60,7 @@ Goal:
 Acceptance:
 - `F` and `F'` are interpreted with an identical frozen pre-update `M_B`.
 - `E` is the discrepancy between those interpreted states, not engine truth minus agent representation.
+- `E` is not static structural conflict by itself.
 
 ## P4: Unresolved Residual to H
 
@@ -63,7 +69,7 @@ Goal:
 
 Acceptance:
 - resolved discrepancy does not remain as system heat.
-- `fear`, `fun`, `jealousy`, `anger`, `stress`, or static conflict cannot directly increment `H`.
+- `fear`, `fun`, `jealousy`, `anger`, `stress`, Human Attention load, or static conflict cannot directly increment `H`.
 - heat provenance remains inspectable enough to know what unresolved relation produced it.
 
 ## P5: Relation History
@@ -171,6 +177,7 @@ Acceptance:
 
 ```text
 Canary / Shadow / Promotion stack
+Human Attention workflow
 advanced structure induction
 large-scale long-horizon learning
 advanced LLM dialogue
