@@ -20,6 +20,9 @@ Acceptance:
 Goal:
 - Build the smallest agent that acts from bounded perception rather than engine reference state.
 
+Contract:
+- [P1 Bounded Perception Contract](../docs/experiment-contracts/P1_bounded_perception_contract.md)
+
 Acceptance:
 - agent action selection does not directly read the complete engine-side world state.
 - perception boundary and relevant context are recoverable in logs.
