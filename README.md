@@ -35,6 +35,7 @@ This repository treats the attached inventory documents as source material, not 
 
 - [Animal Crossing style village simulator design](docs/design/RDLどうぶつの森風村シミュレーター設計文書.md)
 - [Affect, history, and relational constraint model draft](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル_DRAFT_v0.1.md)
+- [Game AI design method draft](docs/design/RDL_GameAI_設計手法_DRAFT_v0.1.md)
 
 ## First Prototype Candidates
 
