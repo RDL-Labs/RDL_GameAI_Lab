@@ -29,6 +29,7 @@ POST http://127.0.0.1:8765/v1/observe
 
 ```json
 {
+  "observation_id": "obs-000012-001-npc_a",
   "tick": 12,
   "agent_id": "npc_a",
   "observation": {

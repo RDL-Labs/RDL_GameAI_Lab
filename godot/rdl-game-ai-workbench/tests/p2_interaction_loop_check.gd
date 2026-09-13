@@ -9,6 +9,7 @@ func _initialize():
 	var before_agent = provider.get_agent("npc_b")
 	var before_position = before_agent["position"]
 	var before_observation = provider.get_observation("npc_b")
+	var source_observation_id = before_observation["observation_id"]
 	var visible_food = false
 	for item in before_observation["visible_objects"]:
 		if item.get("id", "") == "food_01":
@@ -25,7 +26,7 @@ func _initialize():
 			"target_id": "food_01"
 		},
 		"inspection": {
-			"observation_id": "obs-000000-npc_b"
+			"observation_id": source_observation_id
 		}
 	}
 
@@ -39,6 +40,9 @@ func _initialize():
 		return
 	if resolution.get("subsequent_observation_id", "") == "":
 		_fail("expected resolution to record subsequent observation id")
+		return
+	if resolution.get("subsequent_observation_id", "") == source_observation_id:
+		_fail("expected subsequent observation id to differ from source observation id")
 		return
 	if after_observation["tick"] != resolution["tick"]:
 		_fail("expected subsequent observation to be generated from the resolution tick")

@@ -70,6 +70,15 @@ P2 interaction loop check passed
 
 This check verifies that `approach(food_01)` changes `npc_b`'s position through `MockStateProvider.resolve_action()` and that a subsequent bounded observation id is recorded from the resolution tick.
 
+It also verifies:
+
+```text
+source_observation_id
+!= subsequent_observation_id
+```
+
+This preserves `same tick != same observation` before P3 introduces `F/F'`.
+
 ## Manual Workbench Check
 
 1. Start the runtime:

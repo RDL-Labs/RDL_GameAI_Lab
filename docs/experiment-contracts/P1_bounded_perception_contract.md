@@ -73,6 +73,7 @@ places[]
 Agent observation packet:
 
 ```text
+observation_id
 tick
 agent_id
 visible_agents[]
@@ -80,6 +81,8 @@ visible_objects[]
 visible_places[]
 perception_rule
 ```
+
+`observation_id` identifies an observation instance, not just a tick. Multiple observations may occur in the same tick when an action is resolved and the changed interaction conditions are observed again.
 
 Action decision record:
 

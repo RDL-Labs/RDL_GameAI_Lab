@@ -44,7 +44,7 @@ def decide_action(packet: dict[str, Any]) -> dict[str, Any]:
     """Return a structured action for one bounded observation packet."""
 
     tick, agent_id, observation = _validate_packet(packet)
-    observation_id = f"obs-{tick:06d}-{agent_id}"
+    observation_id = str(packet.get("observation_id") or f"obs-{tick:06d}-{agent_id}")
 
     visible_objects = observation.get("visible_objects", [])
     for item in visible_objects:
@@ -116,4 +116,3 @@ def _is_food(item: dict[str, Any]) -> bool:
     kind = str(item.get("kind", item.get("role", ""))).lower()
     label = str(item.get("label", "")).lower()
     return kind == "food" or "food" in label
-

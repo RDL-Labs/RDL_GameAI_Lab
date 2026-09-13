@@ -50,6 +50,13 @@ runtime action
 → new bounded observation
 ```
 
+The source observation and subsequent observation must have distinct observation instance IDs even when they occur in the same tick:
+
+```text
+same tick
+!= same observation
+```
+
 Invalid shortcut:
 
 ```text
@@ -75,6 +82,7 @@ P2 is accepted only when evidence shows:
 - the action is applied through a world-resolution function.
 - the selected agent's world position changes.
 - the subsequent bounded observation is generated after that world change.
+- the subsequent observation id differs from the source observation id.
 - the Timeline records the resolution path.
 - the implementation does not add `E`, `H`, Human Attention, or T1 Reconstruction.
 

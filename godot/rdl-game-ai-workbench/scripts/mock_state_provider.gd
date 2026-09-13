@@ -74,9 +74,11 @@ var events = []
 var decision_records = []
 var action_offsets = {}
 var resolution_records = []
+var observation_seq = 0
 
 func reset():
 	tick = 0
+	observation_seq = 0
 	agents = []
 	for agent in INITIAL_AGENTS:
 		agents.append(agent.duplicate(true))
@@ -149,6 +151,7 @@ func get_observation(agent_id):
 			visible_places.append(place.duplicate(true))
 
 	return {
+		"observation_id": _next_observation_id(agent_id),
 		"tick": tick,
 		"agent_id": agent_id,
 		"perception_rule": "distance <= %.1f from agent position" % PERCEPTION_RADIUS,
@@ -243,7 +246,7 @@ func _resolve_approach(decision, target_id):
 		before_position,
 		after_position,
 		before_observation,
-		"obs-%06d-%s" % [tick, agent_id]
+		subsequent_observation.get("observation_id", "")
 	)
 
 func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = ""):
@@ -278,3 +281,7 @@ func _get_object(object_id):
 		if object_data.get("id", "") == object_id:
 			return object_data
 	return {}
+
+func _next_observation_id(agent_id):
+	observation_seq += 1
+	return "obs-%06d-%03d-%s" % [tick, observation_seq, agent_id]

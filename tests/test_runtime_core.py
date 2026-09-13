@@ -7,6 +7,7 @@ class RuntimeCoreTests(unittest.TestCase):
     def test_selects_visible_food_from_bounded_observation(self):
         response = decide_action(
             {
+                "observation_id": "obs-000012-001-npc_a",
                 "tick": 12,
                 "agent_id": "npc_a",
                 "observation": {
@@ -25,6 +26,21 @@ class RuntimeCoreTests(unittest.TestCase):
 
         self.assertEqual(response["agent_id"], "npc_a")
         self.assertEqual(response["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(response["inspection"]["observation_id"], "obs-000012-001-npc_a")
+
+    def test_falls_back_to_legacy_observation_id(self):
+        response = decide_action(
+            {
+                "tick": 12,
+                "agent_id": "npc_a",
+                "observation": {
+                    "visible_agents": [],
+                    "visible_objects": [],
+                    "visible_places": [],
+                },
+            }
+        )
+
         self.assertEqual(response["inspection"]["observation_id"], "obs-000012-npc_a")
 
     def test_hidden_entities_are_not_needed_for_decision(self):

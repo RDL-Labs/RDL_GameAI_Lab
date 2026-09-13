@@ -333,6 +333,7 @@ func _refresh_observation(state):
 	var visible_object_count = observation["visible_objects"].size()
 	observation_text.text = ""
 	observation_text.append_text("[b]%s[/b]\n" % selected_agent_id)
+	observation_text.append_text("id: %s\n" % observation.get("observation_id", "?"))
 	observation_text.append_text("rule: %s\n" % observation["perception_rule"])
 	observation_text.append_text("visible agents: %s\n" % _labels_for(observation["visible_agents"]))
 	observation_text.append_text("visible objects: %s\n" % _labels_for(observation["visible_objects"]))
@@ -419,6 +420,7 @@ func _build_runtime_packet(agent_id):
 	var origin = agent.get("position", Vector2.ZERO)
 
 	return {
+		"observation_id": observation.get("observation_id", ""),
 		"tick": observation["tick"],
 		"agent_id": agent_id,
 		"observation": {
