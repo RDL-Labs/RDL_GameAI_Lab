@@ -23,6 +23,9 @@ Goal:
 Contract:
 - [P1 Bounded Perception Contract](../docs/experiment-contracts/P1_bounded_perception_contract.md)
 
+Evidence:
+- [P1 Bounded Perception Evidence](../docs/experiment-evidence/P1_bounded_perception_evidence.md)
+
 Acceptance:
 - agent action selection does not directly read the complete engine-side world state.
 - perception boundary and relevant context are recoverable in logs.
