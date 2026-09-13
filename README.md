@@ -22,6 +22,8 @@ F / F' use the same pre-update M_B
 E = discrepancy between interpreted / predicted states
 H = unresolved residual of E
 H != fear / fun / jealousy / stress
+Structural Conflict != E != H
+Human Attention load != H
 ∀B_finite: ξ(B) != 0
 ```
 
@@ -33,6 +35,16 @@ Engine world state / simulation reference
 != Agent EFP
 != Agent M_B
 ```
+
+Enterprise boundary note:
+
+```text
+static structural conflict
+!= E
+!= H
+```
+
+A structural conflict becomes relevant to `E -> H` only through an actual interaction chain: action / response changes later interaction conditions, the subsequent `EFP'` is interpreted with the same pre-update `M_B`, and only unresolved residual enters `H`. Human Attention is not system `H`; early Godot experiments keep Human Attention out of scope.
 
 ## Design Method
 
@@ -131,6 +143,7 @@ advanced LLM dialogue
 culture generation
 full canary / shadow stack
 large-scale learning
+Human Attention workflow
 ```
 
 First experiential question:
