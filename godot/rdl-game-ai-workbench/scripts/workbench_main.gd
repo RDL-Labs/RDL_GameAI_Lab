@@ -13,6 +13,8 @@ var tick_label
 var status_label
 var world_panel
 var inspector_text
+var observation_text
+var decision_text
 var timeline_text
 var tick_timer
 
@@ -98,6 +100,28 @@ func _build_ui():
 	inspector_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	right.add_child(inspector_text)
 
+	var observation_title = Label.new()
+	observation_title.text = "Bounded Observation"
+	observation_title.add_theme_font_size_override("font_size", 16)
+	right.add_child(observation_title)
+
+	observation_text = RichTextLabel.new()
+	observation_text.name = "BoundedObservation"
+	observation_text.custom_minimum_size = Vector2(360, 180)
+	observation_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right.add_child(observation_text)
+
+	var decision_title = Label.new()
+	decision_title.text = "Decision Record"
+	decision_title.add_theme_font_size_override("font_size", 16)
+	right.add_child(decision_title)
+
+	decision_text = RichTextLabel.new()
+	decision_text.name = "DecisionRecord"
+	decision_text.custom_minimum_size = Vector2(360, 110)
+	decision_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right.add_child(decision_text)
+
 	var timeline_title = Label.new()
 	timeline_title.text = "Timeline / Event Log"
 	timeline_title.add_theme_font_size_override("font_size", 16)
@@ -105,7 +129,7 @@ func _build_ui():
 
 	timeline_text = RichTextLabel.new()
 	timeline_text.name = "Timeline"
-	timeline_text.custom_minimum_size = Vector2(360, 360)
+	timeline_text.custom_minimum_size = Vector2(360, 250)
 	timeline_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	timeline_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	right.add_child(timeline_text)
@@ -156,6 +180,8 @@ func _refresh_all():
 	_refresh_status()
 	_refresh_world(state)
 	_refresh_inspector()
+	_refresh_observation(state)
+	_refresh_decision()
 	_refresh_timeline(state)
 
 func _refresh_status():
@@ -169,7 +195,11 @@ func _refresh_world(state):
 		child.queue_free()
 	entity_buttons.clear()
 
-	_add_entity_button(state["food"], Color(0.38, 0.68, 0.36), false)
+	for place in state["places"]:
+		_add_entity_button(place, Color(0.55, 0.55, 0.55), false)
+
+	for object_data in state["objects"]:
+		_add_entity_button(object_data, Color(0.38, 0.68, 0.36), false)
 
 	for agent in state["agents"]:
 		_add_entity_button(agent, Color(0.35, 0.55, 0.9), true)
@@ -206,7 +236,49 @@ func _refresh_inspector():
 	inspector_text.append_text("- no Python connection\n")
 	inspector_text.append_text("- no RDL semantic logic yet\n")
 
+func _refresh_observation(state):
+	var observation = state_provider.get_observation(selected_agent_id)
+	if observation.is_empty():
+		observation_text.text = "No bounded observation available."
+		return
+
+	var world_object_count = state["objects"].size()
+	var visible_object_count = observation["visible_objects"].size()
+	observation_text.text = ""
+	observation_text.append_text("[b]%s[/b]\n" % selected_agent_id)
+	observation_text.append_text("rule: %s\n" % observation["perception_rule"])
+	observation_text.append_text("visible agents: %s\n" % _labels_for(observation["visible_agents"]))
+	observation_text.append_text("visible objects: %s\n" % _labels_for(observation["visible_objects"]))
+	observation_text.append_text("visible places: %s\n" % _labels_for(observation["visible_places"]))
+	observation_text.append_text("world objects visible to observer UI: %d\n" % world_object_count)
+	observation_text.append_text("objects inside selected agent boundary: %d\n" % visible_object_count)
+	if visible_object_count < world_object_count:
+		observation_text.append_text("bounded evidence: at least one world object is outside this observation.\n")
+
+func _refresh_decision():
+	var decision = state_provider.get_latest_decision(selected_agent_id)
+	if decision.is_empty():
+		decision_text.text = "No decision record available."
+		return
+
+	decision_text.text = ""
+	decision_text.append_text("tick: %d\n" % decision["tick"])
+	decision_text.append_text("agent: %s\n" % decision["agent_id"])
+	decision_text.append_text("observation: %s\n" % decision["observation_summary"])
+	decision_text.append_text("action: %s\n" % decision["chosen_action"])
+	decision_text.append_text("reason: %s\n" % decision["decision_reason"])
+
 func _refresh_timeline(state):
 	timeline_text.text = ""
 	for event in state["events"]:
 		timeline_text.append_text(event + "\n")
+
+func _labels_for(items):
+	if items.is_empty():
+		return "(none)"
+	var text = ""
+	for item in items:
+		if text != "":
+			text += ", "
+		text += item.get("label", item.get("id", "?"))
+	return text
