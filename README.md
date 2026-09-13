@@ -31,6 +31,11 @@ This repository treats the attached inventory documents as source material, not 
 - [RDL_Enterprise game AI parts](docs/source-inventory/RDL_Enterprise_ゲームAI転用パーツ一覧.md)
 - [RDL_Demos game AI inventory](docs/source-inventory/RDL_Demos_ゲームAI素材棚卸し.md)
 
+## Design Documents
+
+- [Animal Crossing style village simulator design](docs/design/RDLどうぶつの森風村シミュレーター設計文書.md)
+- [Affect, history, and relational constraint model draft](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル_DRAFT_v0.1.md)
+
 ## First Prototype Candidates
 
 - `heat-stress-npc`: a minimal NPC whose stress rises from prediction error and changes attention depth.
