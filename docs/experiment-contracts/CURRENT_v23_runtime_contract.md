@@ -1,7 +1,7 @@
 # Current Core v2.3 Runtime Contract
 
 This document is the current operational contract for `RDL_GameAI_Lab`.
-It replaces the old phase-specific P1/P2/P3 contracts as the active reference.
+It replaces the older phase-specific contracts as the active reference.
 
 ## Current finite path
 
@@ -60,11 +60,11 @@ conditions:
 
 The selected dimensions are GameAI-local experiment choices, not Core-required variables.
 
-If selected coverage is missing, the canonical section is not formed. Missing values are not converted to zero.
+If selected coverage is missing, the canonical section is not formed. Missing values are not converted to zero. Boundary conditions and formed RIB_B mappings are immutable after formation.
 
 ## Frozen M_B
 
-P4 uses an explicit finite immutable diagnostic evaluator scoped to one exact:
+The runtime uses an explicit finite immutable diagnostic evaluator scoped to one exact:
 
 ```text
 agent
@@ -86,7 +86,10 @@ A valid comparison requires:
 - same exact finite context;
 - same complete selected coverage;
 - same frozen pre-update `model_ref`;
+- distinct observation instances;
 - no M_B update between F and F'.
+
+Reposting the same observation id does not manufacture a new F' comparison.
 
 `E` is retained as a signed per-dimension delta between the two interpreted states. The current runtime does not aggregate E into H.
 
