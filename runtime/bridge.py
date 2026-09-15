@@ -8,18 +8,23 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 
 from .core import ObservationError, decide_action
+from .v23_acquisition import GameAICanonicalAcquisitionSidecar
 
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
+CANONICAL_SIDECAR = GameAICanonicalAcquisitionSidecar()
 
 
 class BridgeHandler(BaseHTTPRequestHandler):
-    server_version = "RDLGameAIRuntime/0.1"
+    server_version = "RDLGameAIRuntime/0.2"
 
     def do_GET(self) -> None:
         if self.path == "/health":
             self._send_json(200, {"ok": True, "service": "rdl-gameai-runtime"})
+            return
+        if self.path == "/v1/canonical-snapshot":
+            self._send_json(200, CANONICAL_SIDECAR.snapshot())
             return
         self._send_json(404, {"error": "not_found"})
 
@@ -38,6 +43,10 @@ class BridgeHandler(BaseHTTPRequestHandler):
             self._send_json(422, {"error": "invalid_observation", "detail": str(exc)})
             return
 
+        # The canonical sidecar is deliberately diagnostic-only. Capture occurs
+        # only after the existing action path has accepted the packet, and its
+        # result cannot change the action response.
+        CANONICAL_SIDECAR.capture(packet)
         self._send_json(200, response)
 
     def log_message(self, format: str, *args: Any) -> None:
@@ -78,4 +87,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
