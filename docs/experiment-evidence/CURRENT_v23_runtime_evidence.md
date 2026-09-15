@@ -1,6 +1,6 @@
 # Current Core v2.3 Runtime Evidence
 
-This file records the current finite acceptance evidence for the active GameAI runtime path. Older P1/P2/P3 evidence files are superseded by this consolidated record and may be removed from the working tree.
+This file records the current finite acceptance evidence for the active GameAI runtime path. Superseded phase-specific evidence has been consolidated here and removed from the active working tree.
 
 ## Current implemented chain
 
@@ -23,6 +23,7 @@ bounded observation
 - `runtime/v23_acquisition.py` — finite B / coverage / provenance / RIB_B acquisition
 - `runtime/v23_interpretation.py` — frozen M_B / F / F' / E
 - `godot/rdl-game-ai-workbench/scripts/mock_state_provider.gd` — actual mock-world action resolution and subsequent observation generation
+- `godot/rdl-game-ai-workbench/tests/current_interaction_loop_check.gd` — current Godot changed-condition acceptance check
 
 ## Current tests
 
@@ -34,22 +35,23 @@ python -m unittest discover -s tests -v
 
 The test surface includes:
 
-- existing bounded observation action behavior;
+- bounded observation action behavior;
 - RIB_B acquisition from accepted observation packets;
 - missing selected coverage rejection;
+- immutable B conditions / RIB_B values / provenance;
 - acquisition non-intervention on action decisions;
-- frozen M_B immutability / exact selected dimension mapping;
+- frozen M_B mapping immutability;
 - same pre-update M_B requirement for F/F';
+- distinct observation-instance requirement;
+- duplicate observation replay does not manufacture a comparison;
 - finite boundary-condition drift rejection;
 - no cross-context E formation;
 - sidecar action-decision non-intervention;
 - E remains `E-only-not-reviewed` and does not contain H.
 
-## Godot interaction evidence retained in current implementation
+## Godot interaction evidence
 
 `MockStateProvider.resolve_action()` applies `approach(target_id)` to the world-side selected-agent position, then creates a subsequent bounded observation after the world change. Source and subsequent observations use distinct observation instance ids even when they occur inside the same tick.
-
-This establishes the actual changed-condition chain needed before canonical comparison:
 
 ```text
 source observation
@@ -67,6 +69,7 @@ Current acceptance establishes only that, inside the declared mock-workbench and
 ```text
 Observation != RIB_B
 same frozen pre-update M_B forms F / F'
+F/F' use distinct observation instances
 E = Delta(F,F')
 ```
 
