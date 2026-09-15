@@ -1,7 +1,7 @@
-"""Read-only Core v2.3 acquisition sidecar for bounded GameAI observations.
+"""Read-only Core v2.3 acquisition layer for bounded GameAI observations.
 
-This module stops at RIB_B formation. It does not implement agent M_B,
-F/F', E, H, M_delta, or T1 reconstruction.
+This module forms finite RIB_B sections only. Higher layers may interpret those
+sections, but acquisition itself does not create M_B, F/F', E, H, M_delta, or T1.
 """
 
 from __future__ import annotations
@@ -109,7 +109,7 @@ def boundary_for_packet(
         purpose=purpose,
         dimensions=dimensions,
         conditions={
-            "packet_schema": "p1-bounded-observation-v1",
+            "packet_schema": "bounded-observation-v1",
             "perception_rule": str(perception_rule),
         },
     )
