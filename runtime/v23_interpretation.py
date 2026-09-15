@@ -8,6 +8,7 @@ unresolved review, H, M_delta, or T1 reconstruction.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import hashlib
 import math
 from types import MappingProxyType
 from typing import Any, Mapping
@@ -196,15 +197,17 @@ def build_diagnostic_frozen_mb(section: GameAIRIBSection) -> FrozenGameAIMB:
     experiments may replace them only by creating a new model_ref/window.
     """
 
+    context_digest = hashlib.sha256(repr(section.context_key).encode("utf-8")).hexdigest()[:12]
     return FrozenGameAIMB(
         agent_id=section.agent_id,
-        model_ref=f"gameai-p4:{section.agent_id}:{section.boundary.boundary_id}:v1",
+        model_ref=f"gameai-p4:{section.agent_id}:{context_digest}:v1",
         boundary=section.boundary,
         coefficients={dimension: 1.0 for dimension in section.boundary.dimensions},
         biases={dimension: 0.0 for dimension in section.boundary.dimensions},
         provenance={
             "scope": "P4 finite diagnostic evaluator",
             "selection": "explicit identity projection over selected RIB_B dimensions",
+            "context_digest": context_digest,
         },
     )
 
