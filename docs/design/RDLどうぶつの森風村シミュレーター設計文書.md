@@ -1,164 +1,320 @@
 # RDLどうぶつの森風村シミュレーター設計文書
-（既存パーツ転用版）
+## 更新版 — Core v2.3 / 現行Demos・Enterprise・Human参照
 
 ## 1. コンセプト
 
-RDL_Demos（特に `rdl_village`）と RDL_Enterprise の既存実装を活かし、**実験的な内部構造を保ちつつ娯楽性の高い「ゆるい村生活」**を実現する。
+`RDL_Demos`（特に現行 `rdl_village`）、`RDL_Enterprise`、`RDL_Human` の現在実装・設計規律を素材として使い、**実験可能な内部構造を保ちつつ娯楽性の高い「ゆるい村生活」**を目指す。
 
-- 死なない・深刻に壊れない
-- 日常の小さな感情の波（飢餓・嫉妬・喧嘩・葛藤）が観察でき、プレイヤーが軽く介入できる
-- NPCが自律的に生活しつつ、プレイヤーを「相談相手」「ちょっと特別な住人」として認識する
-- 裏側では H_vec / 関係記憶 / 予測場 / 構造衝突などが動いているが、表層は居心地の良い村として感じられる
+目標体験:
 
-目標体験：
-「この村、ちゃんと生きてるな」「ちょっと拗ねてるな」「仲裁したらすぐ仲直りした」——そんな観察と小さな関わりの積み重ね。
+> 「この村、ちゃんと昨日を引きずってるな」「ちょっと拗ねてるな」「仲裁したら少し関係が戻った」
 
----
+ただし、Core記号を感情メーターやゲーム変数へ直接翻訳しない。
 
-## 2. 既存パーツのマッピング
-
-| 役割 | 主な利用パーツ | 出典 | 転用内容 |
-|------|----------------|------|----------|
-| NPC本体・意思決定 | `VillageNPC`, `BasalDynamicsSystem`, `UpperContextSystem`, `BodyState`, `ScheduleBlock` | rdl_village (`npc.py`) | 四層サイクルを生活リズムに転用。欲求を「気分・エネルギー・興味・飢餓」にソフト化 |
-| 関係 | `RelationState`（方向付き）, `RelationMemorySystem`, `ActionMemory` | rdl_village (`relations.py`) | 多軸関係を維持。親密度コアは安定、一時的な不和・嫉妬軸を追加 |
-| 対話 | `RelationalDialogueSystem`, `DialogueIntent`, `DialogueEvent`, `build_vocabulary()` | rdl_village (`dialogue.py`) | LLM非依存のまま、口調個性＋感情状態に応じたバリエーション |
-| 知覚・予測 | `PerceptionSystem`, `PredictionField`, `PlaceMeaning`, `ResourceBelief` | rdl_village (`perception.py`) | 真値を直接見ない。プレイヤーの行動や他NPCの様子をぼんやり予測 |
-| 世界・資源 | `PhysicalWorld`, `PlaceSystem`, `ResourceNode`, `ResourceCycleSystem`, `VillageClock` | rdl_village (`world.py`) | 場所に意味を持たせ、食料資源は再生する。枯渇しても致命的にしない |
-| プロファイル | `Profile`, `NeuroProfile`, 各種Coeffs | rdl_village (`profiles.py`) | 気質・好み・嫉妬しやすさ・喧嘩しやすさなどの個体差 |
-| シミュレーション基盤 | `VillageSimulation`, `VillageEventBus`, `OutcomeEvaluator` | rdl_village (`simulation.py`) | 同一tick内の公平な意図解決を維持 |
-| 熱・気分 | `HState`, `HeatVector` | rdl_enterprise (`h_state.py`) | 軽い不機嫌・すね・興奮の蓄積。すぐ散逸させる |
-| 構造衝突 | `StructuralConflict`, `StructuralConflictInbox` | rdl_enterprise (`conflict_inbox.py`) | 「AもしたいBもしたい」を溜め、即解決しない |
-| プレイヤー相談 | `HumanAttentionGate`, `ReviewRequest` | rdl_enterprise (`attention.py`) | 自律で決めきれないときにプレイヤーに聞きに行く |
-| 試験的行動 | `CanaryManager`, `ShadowEvaluator` | rdl_enterprise (`canary.py`, `shadow.py`) | 新しい反応やセリフを試し、悪化したら戻す |
-| 豊かさ指標 | `richness.measure`（entropy, JS divergence, day drift） | rdl_village (`richness.py`) | 生存率ではなく「生活の多様性・関係の動き・日次変化」で評価 |
-| 性格パラメータ参考 | `Persona`（patience, ambiguity など） | rdl_simulation (`agent.py`) | 必要に応じて気質の補助軸として流用 |
+```text
+Core H != mood meter
+Core ξ != curiosity / unknown count
+static StructuralConflict != E != H
+Human Attention != H
+legacy Village HVec / XiPool / LeapEngine != current Core primitives
+```
 
 ---
 
-## 3. コアシステム設計
+## 2. 既存パーツの現在のマッピング
 
-### 3.1 資源・飢餓（死なない）
+| 役割 | 主な利用パーツ | 出典 | 現在の読み方 |
+|---|---|---|---|
+| NPC生活・身体 | `VillageNPC`, body/schedule systems | current `rdl_village` | 生活AI素材。legacy loadをCore Hと呼ばない |
+| 関係履歴 | `RelationState`, `RelationMemorySystem`, `ActionMemory` | `rdl_village` | 多軸・方向付き関係の実装素材 |
+| 対話 | structured dialogue system | `rdl_village` | LLM非依存の構造化会話素材 |
+| 知覚・予測場 | `PerceptionSystem`, `PredictionField`, `PlaceMeaning` | `rdl_village` | world truthとagent側モデルを分離する素材 |
+| 世界・資源 | clock / place / resource systems | `rdl_village` | living-world substrate |
+| シミュレーション | simultaneous resolution / seeded run / logs | `rdl_village` | 公平なtick解決・再現可能実験素材 |
+| Canonical finite path | `v23_*` modules | current `rdl_village` | `B/RIB_B/F-F'/E/review/H/M_Δ/T1/authority/re-entry` の参照実装 |
+| Structural conflict | conflict inbox | Enterprise | GameAI-localな未処理課題候補。E/Hとは分離 |
+| Staged trial | canary / shadow / promotion | Enterprise | 必要時のInspection / deployment tool |
+| Provenance / durability | RIBSection / frozen context / persistence patterns | Enterprise v2.3 | later GameAI canonical runtimeの設計参考 |
+| Human sensitivity hypotheses | SFO-related, secure-base, context/time-scale models | Human v2.3 | T3仮説。Core primitiveへ昇格させない |
+| 豊かさ観測 | `richness.measure` 等 | `rdl_village` | 単一survival scalarを避ける評価素材 |
 
-- 飢餓度：0〜100で管理。100でキャップ。
-- 上昇：時間経過・活動量に応じて緩やかに上昇。
-- 上限時：死亡なし。「とてもお腹が空いている」状態。
-  - 移動が少し鈍る
-  - 対話が短くなる／食べ物を優先して探す
-  - 軽い不機嫌熱が乗る
-- 回復：
-  - 自分で果物・料理を摂取
-  - プレイヤーから食べ物をもらう
-  - 家や食堂で一定時間過ごす
-- 資源ノードはゆっくり再生。永久枯渇させない。
-
-### 3.2 構造衝突（AもBもしたい）
-
-- 発生例：
-  - 今すぐ食べたい vs 珍しい果物を誰かにあげたい
-  - 家で休みたい vs 誘われている
-  - 新しい家具を買いたい vs 貯金したい
-- `ConflictInbox` に溜め、即座に自動解決しない。
-- プレイヤーが近づくと `HumanAttentionGate` 経由で相談する。
-- プレイヤーの選択は軽く記憶され、今後の傾向と関係値に反映。
-- 無視され続けた場合は自分でそれなりに決める（不機嫌は最小限）。
-
-### 3.3 軽い嫉妬
-
-- トリガー：プレイヤーの注目・贈り物が特定NPCに偏ったとき。
-- 表れ：
-  - 少しそっけない
-  - 「最近○○さんのことばっかりだね…」系の遠回しな発言
-  - 自分のところに来て構ってほしがる
-- 関係軸：一時的な「注目バランス感」「ちょっとした独占欲」を使用。コア親密度はほぼ動かさない。
-- 解消：時間経過、プレイヤーが構う、贈り物。自然減衰を早めに。
-
-### 3.4 軽い喧嘩
-
-- 発生：嫉妬の昂り、好みの違い、資源の取り合いのこじれ、など。
-- 表れ：短い言い合い、そっぽを向く、距離を置く。セリフが一時的に刺々しくなる程度。
-- 関係：一時的な「不和度」軸のみ変動。コアは維持。
-- 解消：
-  - 半日〜1日程度で自然復帰
-  - プレイヤーの仲裁
-  - 共通イベントや趣味で自然に仲直り
-- 仲直り後に軽いフォローが入ると良い。
-
-### 3.5 感情・熱の扱い（HState）
-
-- 用途：軽い不機嫌・すね・興奮・もやもや。
-- 特徴：閾値を低くせず、散逸を早めにする。深刻な蓄積を起こさない。
-- 高飢餓・長時間の衝突・嫉妬が続くと少し熱が乗るが、すぐに下がる。
-
-### 3.6 対話と個性
-
-- 語彙ノードベースを維持しつつ、感情状態（飢餓・嫉妬・喧嘩中・衝突中）でトーンと内容を変える。
-- キャラ固有の口調をプロファイルで保持。
-- プレイヤーとの過去の相談・仲裁・贈り物を軽く参照した発話を可能にする。
+旧 `Enterprise HState` を「軽い不機嫌・すね・興奮」そのものとして転用する設計は採用しない。
 
 ---
 
-## 4. 日常の流れ（イメージ）
+## 3. Core v2.3との接続
 
-1. 朝：起床 → 軽い支度 → 広場や畑へ
-2. 昼：趣味・仕事・他NPCとの交流。飢餓が高まると食事行動を割り込み。
-3. 途中：構造衝突が発生したら「考え中」態度。プレイヤーに会うと相談。
-4. 嫉妬や軽い喧嘩が発生することもあるが、すぐに収束しやすい。
-5. 夕方：帰宅傾向。プレイヤーや仲の良いNPCとの会話が増える。
-6. 夜：就寝。関係と記憶の軽い更新。
+ゲーム表層へ行く前に、interactionの意味境界を保つ。
 
-プレイヤーは「特別な住人」として認識され、相談・仲裁・贈り物で関係が育つ。管理義務は負わせない。
+```text
+world / relation interaction
+↓
+bounded observation packet
+↓ acquisition under Purpose / finite B
+RIB_B
+↓ explicit frozen M_B when implemented
+F / F'
+↓
+E
+↓ finite assessment
+unresolved only
+↓
+H
+```
 
----
-
-## 5. プレイヤーの役割
-
-- 強制的な管理者ではなく、**観察者と軽い相談相手**
-- 主な関わり：
-  - 食べ物や贈り物を渡す
-  - 構造衝突の相談に乗る
-  - 軽い喧嘩の仲裁
-  - 話を聞く・一緒に過ごす
-- 介入しなくても村は回る。介入すると関係が深まり、小さな変化が観察できる。
-
----
-
-## 6. 評価指標（豊かさ）
-
-`richness.py` の思想を踏襲し、生存率ではなく以下を重視：
-
-- 行動レパートリーの多様性
-- 関係軸の動き（嫉妬・不和・仲直りを含む）
-- 日次の生活構造の変化
-- 構造衝突の発生と解消のパターン
-- プレイヤー介入後の関係変化
-
-単一スカラーに圧縮しない。
+現在のGameAI LabはP3 acquisitionまで。村ゲームの感情・長期学習を先にCore Hへ接続しない。
 
 ---
 
-## 7. 実装時の注意・優先度
+## 4. 村生活の主要システム
 
-**優先して手を入れる箇所**
-1. `BodyState` / BasalDynamics の欲求を「死なない飢餓＋気分」に変更
-2. `RelationState` に一時的不和・嫉妬関連軸を追加
-3. `ConflictInbox` ＋ `HumanAttentionGate` の接続（相談フロー）
-4. 対話の感情状態分岐
-5. HState の散逸を早めに調整
+### 4.1 飢餓・身体状態
 
-**後回しでよいもの**
-- 本格的な学習・構造帰納の強化
-- 複雑な複数資源の競合
-- 高度な影評価やカナリアの本格運用（軽く使う程度で十分）
+死なない村を前提に、飢餓・疲労・快適さ等は **GameAI-local body state** として扱う。
 
-**絶対に避けること**
-- 死亡・永久的な関係破綻・村からの排除
-- プレイヤーに強い管理義務を負わせる設計
-- 嫉妬・喧嘩の深刻化
+例:
+
+```text
+hunger
+energy
+comfort
+activity_need
+```
+
+これらをCore Hへ直接加算しない。
+
+高飢餓は、
+
+- 食料行動の優先度
+- 移動速度
+- dialogue tone
+- attention / action bias
+
+等へ影響できる。
+
+### 4.2 構造衝突
+
+例:
+
+```text
+食べたい vs 誰かへ渡したい
+休みたい vs 誘いに応じたい
+買いたい vs 貯めたい
+```
+
+`StructuralConflict` 的なrecordはGameAI-local inboxとして使える。
+
+```text
+StructuralConflict != E != H
+```
+
+即解決せず、後続interaction・選択・履歴へ接続する。
+
+### 4.3 軽い嫉妬・不和
+
+単一「嫉妬値」を人格中核へ置かず、関係履歴・attention imbalance・current contextから表層反応を形成する。
+
+候補relation axes:
+
+```text
+trust
+closeness
+recent_hurt
+attention_imbalance
+repair_support
+```
+
+一時的不和と長期親密度を同一軸へ潰さない。
+
+### 4.4 仲直り / recoverability
+
+重要な面白さは破断量だけでなく、回復経路にもある。
+
+候補:
+
+```text
+natural decay
+shared activity
+player mediation
+gift / care
+trusted companion effect
+safe place effect
+```
+
+Human由来のsecure-base仮説は、この回復可能性を考えるT3素材として使える。
+
+### 4.5 感情表現
+
+```text
+interaction history
++ relation history
++ sensitivity profile
++ body state
++ current context
++ unresolved provenance when present
+↓
+AffectExpression / ActionBias / DialogueTone
+```
+
+禁止:
+
+```text
+fear -> H += x
+jealousy -> H += x
+hunger -> H += x
+```
 
 ---
 
-## 8. 参照元
+## 5. 個体差
 
-- RDL_Demos（特に `rdl_village` 一式）
-- RDL_Enterprise（`h_state`, `conflict_inbox`, `attention`, `canary`, `shadow` など）
-- 本議論で固めた要件：死なない飢餓 / 構造衝突の相談 / 軽い嫉妬 / 深刻にならない喧嘩
+プロファイルはGameAI-local stateとして扱う。
+
+候補:
+
+```text
+novelty_sensitivity
+threat_sensitivity
+attachment_sensitivity
+stability_preference
+recoverability_sensitivity
+social_rejection_sensitivity
+```
+
+同じ出来事でも履歴と感度で反応が分かれることを狙う。
+
+---
+
+## 6. プレイヤーの役割
+
+プレイヤーは強制的な管理者ではなく、**観察者・特別な住人・時々の相談相手**。
+
+主な関わり:
+
+- 食べ物や贈り物
+- 会話
+- 仲裁
+- 一緒に過ごす
+- 相談への応答
+
+EnterpriseのHuman Attention workflowをそのままNPC心理へ移植せず、必要ならGameAI-local consultation mechanicとして再設計する。
+
+---
+
+## 7. 日常の流れ
+
+例:
+
+```text
+朝
+→ routine / place selection
+
+昼
+→ work / hobby / social interaction
+→ body needs may bias action
+
+途中
+→ conflict / invitation / gift / failure
+→ relation history updates
+
+夕方
+→ familiar-place / trusted-relation effects
+
+夜
+→ reduced activity
+→ history remains available for later interpretation
+```
+
+「夜に一括で人格更新」のような固定処理をCore要件にしない。
+
+---
+
+## 8. Richness / interestingness
+
+単一スカラーへ圧縮しない。
+
+観測候補:
+
+```text
+behavior variety
+individual divergence
+history dependence
+relation dependence
+place meaning drift
+daily variation
+repair / reconciliation patterns
+readability
+surprise
+recoverability
+rupture diversity
+```
+
+```text
+survival rate != whole success
+randomness != interestingness
+maximum conflict != richness
+```
+
+---
+
+## 9. 実装順
+
+現行GameAI Lab roadmapへ従う。
+
+```text
+P1 bounded perception          accepted
+P2 actual interaction loop     accepted
+P3 RIB_B acquisition           current
+P4 frozen M_B / F/F' / E
+P5 finite unresolved review / H
+P6 relation history
+P7 sensitivity / affect
+P8 M_Δ / T1 reconstruction
+P9 finite-context authority
+P10 long-run richness
+```
+
+村の全感情システムを先に実装しない。
+
+---
+
+## 10. 後で採掘するEnterprise機構
+
+具体的な破断が出た場合のみ導入候補:
+
+```text
+Canary
+Shadow
+Promotion
+Durability
+Replay persistence
+Structure induction
+```
+
+これらはCore primitiveではなくInspection / deployment / durability tool。
+
+---
+
+## 11. 避けること
+
+意味上:
+
+- `HState/HVec`を気分メーターとしてCore Hへ同一視
+- `XiPool`をCore ξとして利用
+- static conflictをE/H化
+- observation packetを無条件にRIB_B化
+- nonzero Eを自動unresolved化
+- Human AttentionをNPC心理熱へ同一視
+
+体験上:
+
+- プレイヤーへ強い管理義務を負わせる
+- 一度の出来事で関係全体を永久破壊
+- 常時喧嘩・嫉妬を最大化
+- 最適生存行動だけへ収束
+
+---
+
+## 12. 一文圧縮
+
+> **現行の村シミュレーター設計は、Demosのliving-world素材とv2.3 finite-context runtime、Enterpriseのprovenance/durability規律、HumanのT3仮説を分離して組み合わせ、履歴が読めるが固定されない日常AIを作る。**
