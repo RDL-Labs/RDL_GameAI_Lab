@@ -2,16 +2,18 @@
 
 Date: 2026-09-14
 
+Migration note: this evidence predates the lab's Core v2.3 `RIB / RIB_B` resync. It remains valid for the actual action-to-subsequent-observation chain. It does not claim that either observation packet is already canonical `RIB_B`.
+
 ## Evidence Boundary
 
 This evidence covers the minimal Godot Workbench interaction loop only.
 
-It does not claim completion of RDL GameAI, `EFP`, `M_B`, `F/F'`, `E`, `H`, Human Attention, relation history, learning, or T1 Reconstruction.
+It does not claim completion of canonical `RIB_B`, `M_B`, `F/F'`, `E`, `H`, Human Attention, relation history, learning, or T1 Reconstruction.
 
 ## Implemented Chain
 
 ```text
-selected agent bounded observation
+selected agent bounded observation packet
 → Python Runtime structured action
 → MockStateProvider.resolve_action()
 → selected agent position change
@@ -35,78 +37,66 @@ Python runtime tests:
 python -m unittest discover -s tests
 ```
 
-Expected result:
+Godot parse/runtime smoke check used during original evidence:
 
 ```text
-Ran 3 tests
-OK
+Godot_v4.7.2-stable_win64_console.exe --headless --path <workbench> --quit-after 1
 ```
-
-Godot parse/runtime smoke check:
-
-```text
-D:\Godot\Godot_v4.7.2-stable_win64_console.exe --headless --path D:\GitHub\RDL_GameAI_Lab\godot\rdl-game-ai-workbench --quit-after 1
-```
-
-Expected result:
-
-```text
-Godot starts without GDScript parse errors.
-```
-
-Known environment warnings about `user://logs` and Windows certificate store do not indicate a script parse failure.
 
 P2 world-resolution check:
 
 ```text
-D:\Godot\Godot_v4.7.2-stable_win64_console.exe --headless --path D:\GitHub\RDL_GameAI_Lab\godot\rdl-game-ai-workbench --script res://tests/p2_interaction_loop_check.gd
+Godot_v4.7.2-stable_win64_console.exe --headless --path <workbench> --script res://tests/p2_interaction_loop_check.gd
 ```
 
-Observed result:
+Observed original result:
 
 ```text
 P2 interaction loop check passed
 ```
 
-This check verifies that `approach(food_01)` changes `npc_b`'s position through `MockStateProvider.resolve_action()` and that a subsequent bounded observation id is recorded from the resolution tick.
+The check verifies that `approach(food_01)` changes the selected agent's position through `MockStateProvider.resolve_action()` and that a subsequent bounded observation id is recorded after the resolution.
 
 It also verifies:
 
 ```text
-source_observation_id
-!= subsequent_observation_id
+source_observation_id != subsequent_observation_id
 ```
 
-This preserves `same tick != same observation` before P3 introduces `F/F'`.
+This preserves:
 
-## Manual Workbench Check
+```text
+same tick != same observation instance
+```
 
-1. Start the runtime:
+before later phases introduce canonical acquisition and interpretation.
 
-   ```powershell
-   python -m runtime.bridge
-   ```
+## Core v2.3 Reading
 
-2. Open `godot/rdl-game-ai-workbench/project.godot` in Godot 4.7.
-3. Run the project.
-4. Select `NPC B`.
-5. Switch mode from `Mock` to `Runtime`.
-6. Confirm the Decision Record shows:
+P2 establishes:
 
-   ```text
-   action: approach
-   target: food_01
-   World Resolution:
-   before: (...)
-   after: (...)
-   next observation: obs-...
-   ```
+```text
+action
+→ actual world response
+→ changed interaction conditions
+→ later bounded observation packet
+```
 
-7. Confirm the Timeline includes a `resolved approach` event.
+P2 does **not** establish:
+
+```text
+source observation == RIB_B(t)
+subsequent observation == RIB_B(t+Δ)
+```
+
+Current P3 explicitly forms canonical diagnostic sections from accepted observation packets under finite Purpose / B.
+
+Only after a future P4 supplies an explicit frozen pre-update `M_B` may two compatible sections form `F / F' / E`.
 
 ## Non-Goals Preserved
 
-- No `E` or `H` field was added.
+- No canonical `F/F'`, `E`, or `H` field was added by P2.
 - Static structural conflict is not promoted to `E` or `H`.
 - Human Attention is not implemented.
 - The Runtime still receives only the bounded observation packet, not full world state.
+- Current P3 acquisition sidecar remains read-only and cannot change the P2 action response.
