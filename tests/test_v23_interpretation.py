@@ -73,6 +73,23 @@ class V23InterpretationTests(unittest.TestCase):
         with self.assertRaises(InterpretationError):
             model.interpret(changed)
 
+    def test_frozen_model_mappings_are_immutable(self):
+        first = acquire_rib_section(packet("obs-1", tick=1, objects=1))
+        model = build_diagnostic_frozen_mb(first)
+
+        with self.assertRaises(TypeError):
+            model.coefficients["visible_objects_count"] = 2.0
+        with self.assertRaises(TypeError):
+            model.biases["visible_objects_count"] = 1.0
+
+    def test_same_observation_instance_cannot_form_f_fprime_pair(self):
+        section = acquire_rib_section(packet("obs-1", tick=1, objects=1))
+        model = build_diagnostic_frozen_mb(section)
+        interpretation = model.interpret(section)
+
+        with self.assertRaises(InterpretationError):
+            compare_interpretations(interpretation, interpretation)
+
     def test_sidecar_creates_e_only_after_second_same_context_section(self):
         sidecar = GameAIFrozenComparisonSidecar()
         self.assertIsNone(sidecar.capture(packet("obs-1", tick=1, objects=1)))
@@ -86,6 +103,16 @@ class V23InterpretationTests(unittest.TestCase):
         self.assertIn("npc_a", snapshot["latest_E"])
         self.assertNotIn("H", snapshot["latest_E"]["npc_a"])
         self.assertIn("H", snapshot["not_implemented"])
+
+    def test_duplicate_observation_is_not_counted_as_new_comparison(self):
+        sidecar = GameAIFrozenComparisonSidecar()
+        first_packet = packet("obs-1", tick=1, objects=1)
+        sidecar.capture(first_packet)
+        self.assertIsNone(sidecar.capture(first_packet))
+
+        snapshot = sidecar.snapshot()
+        self.assertEqual(snapshot["comparisons"], 0)
+        self.assertEqual(snapshot["duplicate_observations"], 1)
 
     def test_different_context_gets_distinct_frozen_model_and_no_cross_context_e(self):
         sidecar = GameAIFrozenComparisonSidecar()
