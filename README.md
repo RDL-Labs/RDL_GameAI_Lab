@@ -11,6 +11,7 @@
 - [Core v2.3 semantic reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)
 - [GameAI design method](docs/design/RDL_GameAI_設計手法.md)
 - [Affect / history / relational constraint model](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル.md)
+- [NPC layering profile](docs/design/RDL_GameAI_NPC_レイヤリング_Profile.md)
 - [Current runtime contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md)
 - [Current runtime evidence](docs/experiment-evidence/CURRENT_v23_runtime_evidence.md)
 - [Roadmap](notes/experiment-roadmap.md)
@@ -30,6 +31,33 @@ Structural Conflict != E != H
 ∀B_finite: ξ(B) != 0
 ξ != runtime uncertainty / coverage / novelty / exploration scalar
 ```
+
+## NPC layering profile — design-only
+
+`Aporapeiron/RDL_General_Modules` の **RDL 横断レイヤリング・キット**を、GameAI-localな整理Viewとして適用する。
+
+```text
+Generation / DNA
+      ↓
+Neural / Sensitivity
+      ↓
+Physical / Body
+      ↓
+Experience / Relation History
+      ↓
+Realtime / Current Context
+```
+
+このProfileはNPCの普遍的存在論でも、Core `M_B` の分解定義でもない。
+
+```text
+SensitivityProfile != M_B by identity
+BodyState          != M_B by identity
+RelationHistory    != M_B by identity
+CurrentContext     != M_B by identity
+```
+
+現在は **design-only**。canonical sidecar、existing action path、graph / reconstruction authorityは変更しない。relation historyとindividual sensitivityの実験を進める際に、Layer別read-only snapshotから段階導入する。
 
 ## Current vertical slice
 
@@ -99,6 +127,10 @@ Use current v2.3 bounded acquisition, `RIBSection`, frozen interpretation contex
 
 Use as a v2.3-aligned T3 hypothesis mine. Human-specific heat, SFO, self-boundary, cognitive-space, affect, and temporal models remain application hypotheses rather than Core primitives.
 
+### RDL_General_Modules
+
+Use the current `RDL 横断レイヤリング・キット` as a lightweight organization aid. It may structure GameAI-local generation, sensitivity, body, history, and realtime conditions, but does not override Core semantics or confer runtime authority.
+
 ## Next boundary
 
 The next step is finite assessment of E:
@@ -123,6 +155,16 @@ relation history
 → finite-context authority / fresh re-entry
 → long-run richness
 ```
+
+The layering profile follows that order rather than bypassing it:
+
+```text
+Experience / Relation History
+→ Neural / Sensitivity
+→ reviewed cross-layer influence
+```
+
+Generation / DNA and reproduction remain deferred.
 
 ## Tests
 
