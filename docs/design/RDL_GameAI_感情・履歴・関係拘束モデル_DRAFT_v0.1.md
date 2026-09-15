@@ -1,654 +1,398 @@
 # RDL_GameAI 感情・履歴・関係拘束モデル
-## DRAFT v0.1 — 「強いAI」ではなく「面白いAI」のための最小設計
+## DRAFT v0.2 — Core v2.3準拠 / 「強いAI」ではなく「面白いAI」のための最小設計
 
 ### 0. 位置づけ
 
-本書は、RDLをゲームAIへ転用する際の「感情らしさ」を、固定的な感情メーターではなく、**有限な関係履歴・現在の解釈・個体差・未解消不整合の組み合わせから立ち上がる表層現象**として扱うための設計メモである。
+本書は、ゲームAIの「感情らしさ」を固定的な感情メーターではなく、**有限な相互作用履歴・現在の解釈・個体差・関係拘束・未解決不整合のprovenanceから立ち上がる表層現象**として扱うための設計メモである。
 
-基準となる意味論は T0 BASE / SPEC v2.1 とする。  
-既存の `RDL_Demos` / `rdl_village` / `RDL_Enterprise` の実装は素材として利用するが、それらの旧来の `H_vec` / `HState` / 感情表現を、そのままT0上の意味へ昇格させない。
+意味論の基準は `RDL_Core` BASE / SPEC v2.3 とする。
 
-このゲームAIが目指すのは、勝率・最適性・生存率の最大化ではない。
+```text
+SILN / RIB / RIB_B / B / M_B / ξ
+→ Core
 
-> **世界・他者・自身の履歴との相互作用によって、理解可能だが固定されない振る舞いを生むこと。**
+Sensitivity / Affect / Threat / Opportunity / Recoverability / SFO-like bias
+→ GameAI-local / Human-derived hypothesis
+```
+
+`RDL_Demos`、`RDL_Enterprise`、`RDL_Human` は素材鉱山として利用するが、旧 `HVec / XiPool / HState / Human heat` 等をCore意味へ昇格させない。
 
 ---
 
 ## 1. 基本原則
 
-### 1.1 H は感情そのものではない
+### 1.1 Hは感情そのものではない
 
-T0における `H` は、`E` のうち現在の `M_B` で吸収・解消されず、残存・蓄積・伝播した未解消不整合である。
+Core `H` は、同じ更新前 `M_B` で形成した `F / F'` の差 `E` のうち、現在構造で吸収・解消されず、有限assessment後も未解決として残る部分である。
+
+```text
+RIB_B(t)
+↓ same frozen M_B
+F(t)
+
+RIB_B(t+Δ)
+↓ same frozen M_B
+F'(t+Δ)
+↓
+E = Δ(F,F')
+↓ finite assessment
+unresolved only
+↓
+H_vec → H
+```
 
 したがって、
 
 ```text
 Hが高い
-≠ 不機嫌
-≠ 怖い
-≠ 楽しい
-≠ 嫉妬
+!= 不機嫌
+!= 怖い
+!= 楽しい
+!= 嫉妬
+!= stress
 ```
 
-とする。
+非ゼロ `E` があっても、resolved / ordinary temporal change / boundary change等なら `H ≈ 0` でよい。
 
-ゲーム上で見える感情・態度・行動は、`H` の量だけでなく、**何について熱が発生しているか**、どの関係履歴が現在を拘束しているか、どのような個体感度を持つかによって変わる。
+### 1.2 Observation / RIB_B / Fを分ける
 
----
+```text
+Engine world state
+!= bounded observation packet
+!= canonical RIB_B
+!= F
+```
 
-### 1.2 感情表現は「熱の発生源」と「関係文脈」から派生する
+感情モデルはraw packetへ直接反応する前に、どのfinite B / Purposeで何が取得されたかを保持する。
+
+### 1.3 感情表現は派生層
 
 概念的には次のように扱う。
 
 ```text
-H_total
-= どの程度、未解消不整合が残っているか
-
-H_vec / provenance
-= 何について未解消なのか
-
-関係履歴 / C_rel
-= 現在の解釈・予測をどの方向へ強く拘束しているか
-
-SensitivityProfile
-= 何をどの程度強く拾いやすい個体か
-
-CurrentContext
-= 今どの状況・相手・場所・時間なのか
-
-Affect / Behavior
-= プレイヤーから見える表層
-```
-
-したがって同じ `H_total` でも、表現は異なりうる。
-
-```text
-食料に関する残差
-→ 焦り / 食べ物への固執 / 会話短縮
-
-プレイヤー関係の残差
-→ すねる / 寂しがる / 距離を取る
-
-他NPCとの関係残差
-→ 警戒 / 嫉妬 / 一時的不和
-
-行動失敗の残差
-→ 苛立つ / 別の方法を試す
-
-理解不能な出来事の残差
-→ 戸惑う / 様子を見る
-```
-
-これらは固定対応ではない。同じ発生源でも個体差と履歴によって異なる表現を取りうる。
-
----
-
-## 2. 「楽しい履歴」と「怖い履歴」
-
-### 2.1 両者は強い関係拘束履歴として扱える
-
-「楽しかった」「怖かった」は、いずれも後続の解釈・予測・選択を強く拘束する履歴になりうる。
-
-違いは単純な強度ではなく、**拘束の方向・対象・文脈**にある。
-
-```text
-楽しかった履歴
-→ 再接近 / 再訪 / 信頼 / 期待 / 探索を強く拘束しやすい
-
-怖かった履歴
-→ 回避 / 警戒 / 距離確保 / 慎重化を強く拘束しやすい
-```
-
-したがって、
-
-```text
-記憶の強さ
-≠ 快 / 不快
-
-関係拘束の強さ C_rel
-×
-拘束の方向
-×
-対象
-×
-文脈
-```
-
-として扱う。
-
----
-
-### 2.2 同じ対象に複数の強い履歴が共存してよい
-
-たとえばNPC Aについて、
-
-```text
-Aと祭りで遊んだ
-→ 楽しい拘束が強い
-
-Aに危険時に置いていかれた
-→ 怖い / 不信の拘束も強い
-```
-
-が同時に成立してよい。
-
-その結果、
-
-```text
-Aと一緒にいたい
-+
-危険時にはAへ全面的には頼りたくない
-```
-
-という、単一の好感度では表現しにくい関係が成立する。
-
-RDL_GameAIでは、このような**混合した関係拘束**を面白さの主要な源泉とみなす。
-
----
-
-## 3. 強い履歴と H の関係
-
-強い履歴そのものは `H` ではない。
-
-履歴は `M_B` の一部として現在の解釈・予測を拘束する。  
-その予測と後続の作用断面が食い違い、かつその不整合が吸収・解消されない場合に `H` が残る。
-
-```text
-強い関係履歴
+finite interaction history
++ relation history / relation constraints
++ sensitivity profile
++ body state
++ current context
++ H provenance when unresolved exists
 ↓
-M_B の拘束として現在の予測を形成
-↓
-EFP_t
-↓
-F
-↓
-行動 / 応答
-↓
-相互作用条件が変化
-↓
-EFP_t+Δ
-↓
-同じ更新前 M_B で F'
-↓
-Δ(F, F') = E
-↓
-未解消分のみ H
-```
-
-例：
-
-```text
-「Aは助けてくれる」
-という強い信頼履歴
-↓
-危険時にAが助けてくれなかった
-↓
-大きな不整合 E
-↓
-現在構造で処理できなければ H
-```
-
-逆に、強い怖い履歴があっても、その状況を十分に予測・処理できるなら、必ずしも大きな `H` は残らない。
-
----
-
-## 4. 「怖い」「楽しい」を何で決めるか
-
-### 4.1 固定タグではなく評価断面として扱う
-
-出来事へ直接 `fear=true` / `fun=true` を付与することを基本としない。
-
-現在の `M_B`、関係履歴、個体感度、現在文脈から、その出来事がどのような可能域を開く／狭めると評価されたかを見る。
-
-最小の補助評価軸として、以下を候補とする。
-
-| 軸 | 意味 |
-|---|---|
-| `Threat` | 強く維持している関係・資源・安全・期待などが壊れる可能性 |
-| `Opportunity` | 良い関係・選択肢・探索可能性が広がる可能性 |
-| `Control` | 自分の行動によって状況を変えられる見込み |
-| `Recoverability` | 失敗・逸脱後に元へ戻れる見込み |
-| `Novelty` | 現在の予測からどの程度外れた新奇性があるか |
-
-これらはT0の必須変数ではなく、ゲームAI向けの操作補助である。
-
----
-
-### 4.2 怖い方向の評価
-
-概念的には、
-
-```text
-Threat が高い
-×
-Control が低い
-×
-Recoverability が低い
-→ 怖い方向へ評価されやすい
-```
-
-とする。
-
-より言語的には、
-
-> **強く守っている関係拘束が、自分では処理しきれない形で壊れそう**
-
-なとき、怖い表現が立ち上がりやすい。
-
----
-
-### 4.3 楽しい方向の評価
-
-概念的には、
-
-```text
-Novelty がある
-×
-Opportunity がある
-×
-Control / Recoverability が十分
-→ 楽しい方向へ評価されやすい
-```
-
-とする。
-
-より言語的には、
-
-> **安全に戻れる範囲で、関係や可能性が予想以上に広がる**
-
-とき、楽しい表現が立ち上がりやすい。
-
----
-
-### 4.4 怖いと楽しいは排他的でなくてよい
-
-同じ出来事が、
-
-```text
-高Novelty
-+
-一定のThreat
-+
-十分なRecoverability
-```
-
-を持つなら、「ちょっと怖いけど楽しい」が成立してよい。
-
-ゲームAIでは、このような混合状態を積極的に許容する。
-
----
-
-## 5. 個体差 — 感度と履歴を分ける
-
-### 5.1 感度は「何を強く拾いやすいか」
-
-個体差は、履歴だけでなく、同じ作用断面に対してどの程度強く評価が立ち上がるかにも置く。
-
-候補となる最小感度：
-
-```text
-threat_sensitivity
-novelty_sensitivity
-control_loss_sensitivity
-recoverability_sensitivity
-```
-
-必要に応じて、
-
-```text
-social_rejection_sensitivity
-attention_imbalance_sensitivity
-```
-
-などを追加できる。
-
----
-
-### 5.2 感度・履歴・Hを混同しない
-
-```text
-感度
-= 同じ入力の何を強く拾うか
-
-履歴 / C_rel
-= 何に対して現在の解釈・予測が強く拘束されているか
-
-H
-= その解釈・予測から生じた不整合のうち未解消で残ったもの
-```
-
-したがって、
-
-> **気質が「何を強く感じやすいか」を決め、履歴が「何に対してそう感じるか」を形成する。**
-
-と整理できる。
-
----
-
-### 5.3 同じ出来事への個体差
-
-例：知らない洞窟
-
-```text
-NPC A
-threat_sensitivity 高
-→ 暗さ・未知を強く危険評価
-→ 怖がりやすい
-
-NPC B
-novelty_sensitivity 高
-→ 未知を機会として強く評価
-→ 楽しみやすい
-
-NPC C
-control_loss_sensitivity 高
-→ 一人なら怖い
-→ 信頼する仲間と一緒なら楽しめる
-```
-
-「性格」は単一ラベルではなく、こうした感度と履歴の組み合わせから表層的に見えるものとする。
-
----
-
-## 6. トラウマ様再活性をどう扱うか
-
-これは現実の臨床的トラウマを説明・診断するモデルではない。  
-ゲームAI上の**履歴依存反応の極端例**としてのみ扱う。
-
-概念的には、
-
-```text
-過去の強い出来事
-↓
-強い関係拘束が形成される
-↓
-その後の M_B の一部として残る
-↓
-似た cue / EFP が到来
-↓
-過去履歴を含む M_B が強い脅威予測を形成
-↓
-現在の後続作用との不整合が未解消
-↓
-H が再発生 / 再前景化
-```
-
-と扱える。
-
-重要なのは、
-
-```text
-過去のHをそのまま保存して再放出する
-```
-
-ことを必須としない点である。
-
-過去の相互作用が現在の `M_B` を変えており、そのため同じような作用断面への解釈が変わる、と見る。
-
----
-
-## 7. 「感情メーター」ではなく履歴から感情らしさを立ち上げる
-
-本設計では、可能な限り以下の直接実装を避ける。
-
-```text
-anger = 0.73
-fear = 0.42
-fun = 0.81
-```
-
-代わりに、
-
-```text
-有限知覚
-+
-関係履歴
-+
-関係拘束強度
-+
-現在の身体状態
-+
-個体感度
-+
-現在文脈
-+
-未解消不整合 H
-↓
-行動候補への重み
-↓
-距離・視線・移動・会話・相談・回避・再接近
-↓
-プレイヤーには「感情らしいもの」として見える
-```
-
-を基本方向とする。
-
-必要なら表示・デバッグ用に「怖そう」「楽しそう」等の派生スコアを計算してよいが、それを基底状態として特権化しない。
-
----
-
-## 8. どうぶつの森風村シミュレーターへの反映
-
-既存設計の以下の意味を修正する。
-
-### 8.1 `HState = 軽い不機嫌・すね・興奮` ではない
-
-旧案：
-
-```text
-HState
-→ 軽い不機嫌・すね・興奮・もやもや
-```
-
-改定案：
-
-```text
-HState
-→ 未解消不整合の残存状態
-
-AffectExpression
-→ Hの発生源 + 関係履歴 + 個体感度 + 現在文脈から派生
-```
-
----
-
-### 8.2 飢餓は H ではない
-
-```text
-Hunger
-= BodyState / need pressure
-
-食料が見つからない
-期待した食事が得られない
-他NPCに先に取られる
-など
-↓
-予測不整合が生じる
-↓
-未解消分のみ H
-```
-
-したがって「飢餓が高いから直接Hを加算」は基本仕様にしない。
-
----
-
-### 8.3 嫉妬は独立した固定感情値でなくてもよい
-
-例：
-
-```text
-プレイヤーとの強い接近履歴
-+
-attention_imbalance_sensitivity
-+
-最近の注目偏り
-+
-「自分にも来るはず」という予測
-↓
-後続観測との不整合
-↓
-一時的な距離・すね・接近要求
-```
-
-この表層をゲーム上「嫉妬」と呼んでよい。
-
----
-
-### 8.4 喧嘩も H の量ではなく相互作用として扱う
-
-```text
-NPC A の解釈・応答
-→ NPC B の後続EFP生成条件を変える
-→ B の応答
-→ A の後続EFP生成条件を変える
-```
-
-喧嘩はこの相互作用の一形態であり、両者の `H` が同じ方向・同じ量で増える必要はない。
-
----
-
-## 9. 最小実装モデル
-
-最初から「人間感情」を完全再現しない。
-
-### 9.1 保持するもの
-
-```text
-SensitivityProfile
-RelationalHistory
-RelationConstraint
-BodyState
-Prediction / Interpretation
-H_vec + provenance
-CurrentContext
-```
-
-### 9.2 派生させるもの
-
-```text
-Threat
-Opportunity
-Control
-Recoverability
-Novelty
-
 AffectExpression
 ActionBias
 DialogueTone
 ```
 
-### 9.3 最初は保持しないもの
+`AffectExpression` 自体はT0 primitiveではない。
+
+---
+
+## 2. 「楽しい履歴」と「怖い履歴」
+
+### 2.1 履歴はHではない
+
+強い履歴は、現在の `M_B` やGameAI-local relation modelの形成条件になりうる。
 
 ```text
-固定のfear meter
-固定のfun meter
-固定のjealousy meter
-固定のanger meter
-```
-
-必要性が実験で現れた場合に限り再検討する。
-
----
-
-## 10. 最小受入シナリオ
-
-このモデルが「面白いAI」に寄与しているかを見るため、最初は以下を確認する。
-
-1. **同じ出来事を違うNPCが違って受け取る**
-   - 感度差だけでも行動が分岐する。
-
-2. **同じNPCが履歴によって後日違う反応をする**
-   - 昨日の出来事が今日の行動に影響する。
-
-3. **強い履歴があるだけでは H が発生しない**
-   - 現在の相互作用で不整合が生じて初めてH経路へ入る。
-
-4. **怖い履歴があっても安全文脈では反応が弱まる**
-   - 相手・場所・仲間・時間などで反応が変わる。
-
-5. **楽しい履歴が期待外れを生むことがある**
-   - 強い正方向履歴も不整合の発生源になりうる。
-
-6. **「怖いけど楽しい」が成立する**
-   - 感情表現を排他的カテゴリへ潰さない。
-
-7. **表層行動から履歴が推測できる**
-   - プレイヤーが「昨日のことを引きずっている」と感じられる。
-
----
-
-## 11. この設計でいう「面白さ」
-
-本プロジェクトにおける面白さは、単一のスカラー最大化では定義しない。
-
-最低限、次のような観測を分けて持つ。
-
-```text
-個体差
-関係依存性
-履歴依存性
-行動の可読性
-意外性
-変化可能性
-混合した関係拘束
-非最適行動の意味
-```
-
-目標は、
-
-> **完全には読めないが、後から振り返ると「この個体ならそうするかもしれない」と思えるAI**
-
-である。
-
----
-
-## 12. 非主張
-
-本書は以下を主張しない。
-
-- 現実の人間感情を完全に説明する。
-- 臨床的トラウマを再現・診断する。
-- `Threat / Opportunity / Control / Recoverability / Novelty` が普遍的な感情理論である。
-- 強い関係拘束が必ず感情として表出する。
-- `H` が感情強度そのものである。
-- 現在の有限Boundaryを越えて、このモデルが終端的に正しい。
-
-本書はゲームAIにおける有限な操作モデルであり、実験結果に応じて再検査・更新する。
-
----
-
-## 13. 圧縮モデル
-
-```text
-相互作用
-↓ B / 知覚 / 時間 / 対象による切り出し
-EFP
+過去のinteraction
 ↓
+relation history / current M_B formation
+↓
+現在のRIB_Bをどう読むかが変わる
+```
+
+履歴そのものを `H` として保存・再放出する必要はない。
+
+### 2.2 同じ対象に複数方向の履歴が共存してよい
+
+例:
+
+```text
+Aと祭りで遊んだ
+→ 再接近したい履歴
+
+危険時にAに置いていかれた
+→ 警戒したい履歴
+```
+
+結果:
+
+```text
+Aと一緒にいたい
++
+危険時には全面的に頼りたくない
+```
+
+単一好感度へ潰さない。
+
+### 2.3 relation constraintは方向を持つ
+
+GameAI-local descriptor候補:
+
+```text
+binding_strength
+trust_support
+avoidance_support
+secure_base_strength
+recall_bias
+```
+
+これらは必要に応じて `C_rel` 的補助として使えるがCore必須変数ではない。
+
+---
+
+## 3. 感情評価の補助軸
+
+出来事へ最初から `fear=true` / `fun=true` を貼らない。
+
+候補となるGameAI-local descriptor:
+
+| 軸 | 操作的意味 |
+|---|---|
+| `Threat` | 保持したい関係・資源・安全・期待が壊れる可能性 |
+| `Opportunity` | 新しい関係・選択肢・探索可能性が広がる可能性 |
+| `Control` | 自分の行動が状況へ影響できる見込み |
+| `Recoverability` | 逸脱後に戻れる・支援を得られる見込み |
+| `Novelty` | 現行解釈・予測からの新奇性 |
+
+これらはCore `E/H/ξ` ではない。
+
+### 怖い方向の仮説
+
+```text
+Threat 高
+× Control 低
+× Recoverability 低
+→ fear-like expression が立ち上がりやすい
+```
+
+### 楽しい方向の仮説
+
+```text
+Novelty 高
+× Opportunity 高
+× Control / Recoverability が十分
+→ fun-like expression が立ち上がりやすい
+```
+
+### 混合状態
+
+```text
+Novelty 高
++ Threat あり
++ Recoverability 十分
+→ 「怖いけど楽しい」も可能
+```
+
+排他的emotion state machineへ固定しない。
+
+---
+
+## 4. 個体差
+
+### 4.1 sensitivityとhistoryを分ける
+
+候補:
+
+```text
+threat_sensitivity
+novelty_sensitivity
+attachment_sensitivity
+stability_preference
+control_loss_sensitivity
+recoverability_sensitivity
+social_rejection_sensitivity
+```
+
+```text
+SensitivityProfile
+= 何を強く拾いやすいか
+
+RelationHistory
+= 何が過去に起き、どの関係が形成されたか
+
 M_B
-├─ 関係履歴 / C_rel
-├─ 個体感度
-├─ 身体状態
-└─ 現在文脈
-↓
-F（解釈・予測）
-↓
-行動 / 応答
-↓
-相互作用条件が変化
-↓
-EFP'
-↓ same pre-update M_B
-F'
-↓
-E = Δ(F,F')
-↓
-未解消分
+= finite Bのもとで現在の解釈・予測・選択・応答・更新を拘束する自己側構造
+
 H
-↓
-発生源・履歴・感度・文脈と合わせて
-AffectExpression / ActionBias / DialogueTone
-↓
-新たな相互作用
+= 現在の比較で未解決として残った部分
 ```
 
-この循環によって、感情を直接「付与」するのではなく、**履歴が現在の解釈を拘束し、その結果として感情らしい振る舞いが立ち上がる**ことを狙う。
+これらを混同しない。
+
+### 4.2 同じ出来事への違い
+
+```text
+未知の洞窟
+
+NPC A: threat_sensitivity 高
+→ 警戒表現
+
+NPC B: novelty_sensitivity 高
+→ 探索表現
+
+NPC C: control_loss_sensitivity 高
+→ 一人なら警戒
+→ trusted companion同伴なら探索可能
+```
+
+「性格」は固定ラベルではなく、感度・履歴・関係・場所・身体状態・現在文脈の組み合わせから表層化するものとして扱う。
+
+---
+
+## 5. 安全基地 / recoverability
+
+Human由来の安全基地仮説はGameAIで有用。
+
+候補:
+
+```text
+trusted companion
+safe home
+familiar place
+reliable player
+```
+
+これらは単純な `fear -= x` ではなく、
+
+```text
+available action space
+expected support
+recoverability
+attention / exploration bias
+```
+
+を変えるfinite relation conditionとして検証する。
+
+---
+
+## 6. 履歴依存の再活性
+
+現実の臨床概念を再現するモデルとはしない。
+
+ゲームAI上の極端な履歴依存例として、次の形を考えられる。
+
+```text
+past interaction
+↓
+relation / M_B formation changes
+↓
+later similar finite RIB_B
+↓
+current interpretation differs because history differs
+↓
+behavior / affect expression differs
+```
+
+重要:
+
+```text
+過去Hを保存して再放出する
+```
+
+ことを必須にしない。
+
+---
+
+## 7. 感情を直接Hへ書き戻さない
+
+禁止する短絡:
+
+```text
+fear += 1 → H += 1
+jealousy += 1 → H += 1
+stress += 1 → H += 1
+Human Attention request → H += 1
+```
+
+許される流れ:
+
+```text
+interaction
+→ RIB_B
+→ interpretation under M_B
+→ E
+→ finite assessment
+→ unresolved H if any
+
+separately:
+interaction/history/context/body/sensitivity
+→ AffectExpression
+```
+
+両者はprovenanceを共有しうるが、同じ状態変数ではない。
+
+---
+
+## 8. 関係履歴の最小表現候補
+
+初期GameAIでは以下のようなfinite recordで十分。
+
+```text
+InteractionHistoryRecord
+  tick / time
+  actor
+  counterpart
+  place
+  action
+  observed response
+  source observation id
+  subsequent observation id
+  relation effects
+  relevant body/context state
+```
+
+履歴は「真実の完全記録」ではなく、そのagent / experiment Boundaryで保持した有限record。
+
+---
+
+## 9. 面白さの評価
+
+感情量を最大化しない。
+
+観測候補:
+
+```text
+同じNPCでも履歴で反応が変わるか
+異なるNPCで同じ出来事への反応が分かれるか
+混合した関係が残るか
+感情表現が固定周期で振動するだけになっていないか
+プレイヤーが履歴から反応を理解できるか
+驚きがrandomnessだけでないか
+回復・仲直り・再接近が起こりうるか
+```
+
+---
+
+## 10. 現在の導入順
+
+```text
+P3  RIB_B acquisition
+P4  explicit frozen M_B / F / F' / E
+P5  finite unresolved review / H
+P6  relation history
+P7  sensitivity + affect expression
+P8  M_Δ / T1 reconstruction
+```
+
+したがって、感情実装を先に本格化しない。
+
+---
+
+## 11. 破断条件
+
+次の場合は設計を引き直す。
+
+- Hを気分メーターとして直接使う
+- observation packetをRIB_Bと無条件に同一視する
+- nonzero Eをunresolvedと自動判定する
+- fear / fun / jealousy等からCore Hを直接増減する
+- Human側の心理的熱やSFOをCore primitiveへ昇格する
+- 単一好感度ですべての関係履歴を潰す
+- 一回のイベントで人格全体を上書きする
+- ξをnovelty / unknown countとして数値化する
+
+---
+
+## 一文圧縮
+
+> **GameAIの感情らしさは、Hそのものではなく、有限interactionの履歴・関係拘束・個体感度・身体・文脈・未解決provenanceが組み合わさって表層化するものとして設計する。**
