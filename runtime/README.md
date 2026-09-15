@@ -2,100 +2,56 @@
 
 This is the minimal Python-side runtime boundary for the Godot workbench.
 
-It remains intentionally small:
+Current properties:
 
 - localhost HTTP only
 - Python standard library only
 - bounded observation packet in
 - structured action JSON out
-- existing action policy remains unchanged
-- read-only Core v2.3 acquisition sidecar attached after accepted decisions
-- no agent `M_B`, `F`, `F'`, `E`, `H`, `M_Δ`, or T1 reconstruction yet
-- no Human Attention workflow
+- existing action policy unchanged
+- read-only Core v2.3 canonical sidecar attached after accepted decisions
+- canonical path currently reaches `RIB_B -> frozen M_B -> F/F' -> E`
+- no unresolved review, `H`, `M_Δ`, T1 reconstruction, or canonical authority cutover yet
 
 ## Run
-
-From the repository root:
 
 ```bash
 python -m runtime.bridge
 ```
 
-Default endpoint:
-
 ```text
 POST http://127.0.0.1:8765/v1/observe
+GET  http://127.0.0.1:8765/health
+GET  http://127.0.0.1:8765/v1/canonical-snapshot
 ```
 
-Health:
+## Existing action path
+
+The runtime still selects an action from the accepted bounded observation. The canonical sidecar cannot modify that response.
 
 ```text
-GET http://127.0.0.1:8765/health
+bounded observation
+-> existing decide_action()
+-> structured action response
 ```
 
-Read-only canonical acquisition snapshot:
+The Godot workbench resolves the action, changes mock-world conditions, and generates a later bounded observation.
+
+## Canonical acquisition
+
+The raw observation packet is not canonical `RIB_B` by identity.
 
 ```text
-GET http://127.0.0.1:8765/v1/canonical-snapshot
+accepted bounded observation
+-> Purpose / finite B
+   + selected dimensions
+   + conditions
+   + coverage
+   + provenance
+-> RIB_B
 ```
 
-## Request
-
-```json
-{
-  "observation_id": "obs-000012-001-npc_a",
-  "tick": 12,
-  "agent_id": "npc_a",
-  "observation": {
-    "visible_agents": [],
-    "visible_objects": [
-      {
-        "id": "food_01",
-        "kind": "food",
-        "relative_position": [1.0, 0.0]
-      }
-    ],
-    "visible_places": []
-  }
-}
-```
-
-## Existing Action Response
-
-```json
-{
-  "agent_id": "npc_a",
-  "action": {
-    "type": "approach",
-    "target_id": "food_01"
-  },
-  "inspection": {
-    "observation_id": "obs-000012-001-npc_a",
-    "runtime": "rdl-gameai-minimal-runtime",
-    "reason": "first visible food object selected from bounded observation"
-  }
-}
-```
-
-The acquisition sidecar does not alter this response.
-
-## Core v2.3 Acquisition Boundary
-
-The bounded observation packet is **not** called canonical `RIB_B` by identity.
-
-```text
-accepted bounded observation packet
-  ↓ gameai-v23-acquisition-v1
-Purpose / finite B
-+ selected dimensions
-+ conditions
-+ coverage
-+ provenance
-  ↓
-RIB_B diagnostic section
-```
-
-Current selected demo-local dimensions:
+Current selected GameAI-local dimensions:
 
 ```text
 visible_agents_count
@@ -103,21 +59,74 @@ visible_objects_count
 visible_places_count
 ```
 
-If a selected source field is missing or not a list, the section is not formed. Missing coverage is not converted to zero.
+Missing selected coverage is not converted to zero.
 
-Current sidecar output deliberately states:
+## Frozen M_B / F / F' / E
+
+For each exact finite context, the read-only sidecar creates one immutable diagnostic evaluator:
 
 ```text
-authority = read-only-acquisition-sidecar
-stage = RIB_B-acquisition-only
-not_implemented = M_B / F / F' / E / H / M_delta / T1
+agent
++ boundary id
++ Purpose
++ selected dimensions
++ conditions
+-> frozen model_ref
+```
+
+The first model is intentionally simple: identity projection over the selected count dimensions. This is a finite experiment model, not a Core constant and not action authority.
+
+```text
+RIB_B(t)
+-> same frozen pre-update M_B
+-> F(t)
+
+RIB_B(t+Δ)
+-> same frozen pre-update M_B
+-> F'(t+Δ)
+-> E = Δ(F,F')
+```
+
+A change in finite context opens a different model/window. No E is formed across different contexts or different model refs.
+
+The current E record remains:
+
+```text
+status = E-only-not-reviewed
+```
+
+It is not automatically unresolved and is not H.
+
+## Snapshot
+
+`GET /v1/canonical-snapshot` reports:
+
+```text
+authority = read-only-comparison-sidecar
+stage = RIB_B-frozen-M_B-F-F_prime-E
+latest RIB_B sections
+finite diagnostic M_B records
+latest interpretations
+latest E records
 xi_status = unrecovered-relations-remain
 ```
 
-`xi_status` is qualitative and does not assign a numeric value to Core ξ.
+Core ξ remains qualitative; no runtime scalar is assigned to it.
 
-## Stop Rule
+## Current stop rule
 
-This stage is accepted only as an acquisition boundary. It does not claim that observation counts are an NPC's actual interpretation structure or that a canonical mismatch has been formed.
+The current runtime stops at E.
 
-The next stage must introduce an explicit finite frozen `M_B` evaluator before any `F/F'/E` comparison is allowed.
+```text
+implemented:
+Observation -> RIB_B -> frozen M_B -> F/F' -> E
+
+not implemented:
+finite unresolved assessment
+H_vec / H / θ
+M_Δ
+T1
+canonical authority cutover
+```
+
+The next semantic step must classify E through an explicit finite assessment. Nonzero E alone is insufficient for H.
