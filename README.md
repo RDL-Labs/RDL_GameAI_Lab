@@ -6,182 +6,188 @@ The target is behavior that becomes understandable through history and relations
 
 > **世界・他者・自身の履歴との相互作用によって、理解可能だが固定されない振る舞いを生むAIを検証する。**
 
-This repository treats `RDL_Enterprise`, `RDL_Demos`, and `RDL_Human` as source mines. Their implementations and hypotheses are working material, not semantic authority. Canonical semantics are checked against `Aporapeiron/RDL_Core` T0/T1.
+This repository treats `RDL_Demos`, `RDL_Enterprise`, and `RDL_Human` as source mines. Their implementations and hypotheses are working material, not semantic authority. Canonical semantics are checked against `Aporapeiron/RDL_Core` T0/T1 v2.3.
 
 ## Semantic Baseline
 
 - [RDL_Core T0/T1 semantic reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)
-- [Game AI design method draft](docs/design/RDL_GameAI_設計手法_DRAFT_v0.1.md)
+- [Game AI design method](docs/design/RDL_GameAI_設計手法_DRAFT_v0.1.md)
+- [Experiment roadmap](notes/experiment-roadmap.md)
 
-Core invariants currently used by the lab:
+Current invariants:
 
 ```text
-interaction is foundational
-EFP = bounded action-section from interaction
-F / F' use the same pre-update M_B
-E = discrepancy between interpreted / predicted states
-H = unresolved residual of E
-H != fear / fun / jealousy / stress
-Structural Conflict != E != H
-Human Attention load != H
+SILN participates in one or more RIBs
+Purpose / finite B selects a finite action-section RIB_B
+Engine world state != Agent Observation packet != RIB_B != Agent M_B
+F / F' use the same frozen pre-update M_B
+E = Δ(F, F')
+nonzero E != unresolved by definition
+only finite-assessed unresolved remainder may enter H
+H != fear / fun / jealousy / stress / Human Attention
+static Structural Conflict != E != H
 ∀B_finite: ξ(B) != 0
+ξ != runtime uncertainty / coverage / novelty / exploration scalar
 ```
 
-Engine world state may be used as a simulation reference, but:
+## Current Vertical Slice
+
+P1 and P2 are already accepted as pre-canonical interaction evidence:
 
 ```text
-Engine world state / simulation reference
-!= Agent Observation
-!= Agent EFP
-!= Agent M_B
-```
-
-Enterprise boundary note:
-
-```text
-static structural conflict
-!= E
-!= H
-```
-
-A structural conflict becomes relevant to `E -> H` only through an actual interaction chain: action / response changes later interaction conditions, the subsequent `EFP'` is interpreted with the same pre-update `M_B`, and only unresolved residual enters `H`. Human Attention is not system `H`; early Godot experiments keep Human Attention out of scope.
-
-## Design Method
-
-The lab follows a vertical-slice and bounded-acceptance discipline adapted from `RDL_Enterprise`.
-
-```text
-T0
-  semantic invariants
-
-T1
-  Probe → Expansion → Inspection → Selection → Reconstruction
-
-Enterprise design discipline
-  finite Boundary
-  provenance
-  staged commitment
-  shallow normal path
-  acceptance evidence
-  stop rule
-
-GameAI
-  sensors / body / world interface
-  interestingness-oriented Selection criteria
-  experiments
-```
-
-New concepts, state variables, or gates are added only when they are needed to inspect an observed break, recover missing provenance, or test an explicit GameAI question.
-
-## Experiment Themes
-
-1. **Interaction-grounded NPC behavior**
-   - Build from bounded perception rather than omniscient engine state.
-   - Let actions change the conditions generating later `EFP'`.
-   - Preserve the same pre-update `M_B` when comparing `F / F'`.
-
-2. **History, relation, and affect expression**
-   - Do not use `HState` as a direct mood meter.
-   - Treat `H` as unresolved inconsistency.
-   - Derive visible affect from heat provenance, relation history, individual sensitivity, body state, and current context.
-
-3. **Learning without policy collapse**
-   - Use T1-style `Probe → Expansion → Inspection → Selection → Reconstruction`.
-   - Allow contextual coexistence instead of globally overwriting old structures.
-   - Use canary / shadow / replay only when an actual experiment requires them.
-
-4. **Living-world simulation**
-   - Reuse `rdl_village` and related demos for body, perception, relations, dialogue, and environment.
-   - Keep agent knowledge distinct from engine-side reference state.
-
-5. **Richness metrics**
-   - Avoid optimizing only for survival or win rate.
-   - Observe behavior variety, individual divergence, history dependence, relation dependence, place meaning drift, readability, surprise, and rupture diversity as separate bounded dimensions.
-
-6. **Browser-sized demos**
-   - Prefer small inspectable experiments before integrated worlds.
-   - Keep each demo focused on one mechanism unless integration itself is the experiment.
-
-## Source Inventory
-
-- [RDL_Enterprise game AI parts](docs/source-inventory/RDL_Enterprise_ゲームAI転用パーツ一覧.md)
-- [RDL_Demos game AI inventory](docs/source-inventory/RDL_Demos_ゲームAI素材棚卸し.md)
-- [RDL_Human game AI inventory](docs/source-inventory/RDL_Human_ゲームAI素材棚卸し.md)
-
-## Design Documents
-
-- [Animal Crossing style village simulator design](docs/design/RDLどうぶつの森風村シミュレーター設計文書.md)
-- [Affect, history, and relational constraint model draft](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル_DRAFT_v0.1.md)
-- [Game AI design method draft](docs/design/RDL_GameAI_設計手法_DRAFT_v0.1.md)
-
-## Current First Acceptance Boundary
-
-The first integrated experiment should remain small enough to inspect:
-
-```text
-NPC: 3
-places: about 4
-food: 1 resource family
-bounded perception
-directional relations
-simple body state
-relation history
-sensitivity profile
-one-day cycle
-simple player talk / gift / consultation
-seeded simulation
-replay log
-```
-
-Initially deferred:
-
-```text
-death
-reproduction
-complex economy
-advanced LLM dialogue
-culture generation
-full canary / shadow stack
-large-scale learning
-Human Attention workflow
-```
-
-First experiential question:
-
-> **同じNPCを数日眺めたとき、「こいつ昨日のこと引きずってるな」と感じられるか。**
-
-## Experiment Roadmap
-
-See [Experiment Roadmap](notes/experiment-roadmap.md).
-
-Next implementation boundary:
-
-- [P1 Bounded Perception Contract](docs/experiment-contracts/P1_bounded_perception_contract.md)
-- [P1 Bounded Perception Evidence](docs/experiment-evidence/P1_bounded_perception_evidence.md)
-- [Runtime Bridge](runtime/README.md)
-- [P2 Interaction Loop Contract](docs/experiment-contracts/P2_interaction_loop_contract.md)
-- [P2 Interaction Loop Evidence](docs/experiment-evidence/P2_interaction_loop_evidence.md)
-
-Current bridge stop rule:
-
-```text
-Godot bounded observation
-→ localhost JSON bridge
-→ Python Runtime structured action
-```
-
-Current P2 loop:
-
-```text
-Runtime structured action
-→ Godot world resolution
+Godot engine reference state
+→ bounded observation packet
+→ Python structured action
+→ Godot actual world resolution
 → changed interaction conditions
 → subsequent bounded observation
 ```
 
-This does not implement `EFP`, `M_B`, `F`, `F'`, `E`, `H`, or Human Attention.
+The new Core v2.3 migration inserts an explicit acquisition boundary before any `F/F'/E` work:
 
-The lab uses acceptance evidence rather than feature-count completion. A green test or deterministic replay means only that no contract violation was observed inside the declared finite test Boundary.
+```text
+bounded observation packet
+→ Purpose / finite B acquisition
+→ selected dimensions + conditions + coverage + provenance
+→ RIB_B
+```
+
+Current read-only sidecar stops there. It intentionally does **not** create agent `M_B`, `F`, `F'`, `E`, `H`, `M_Δ`, or T1 state.
+
+## Read-only Canonical Acquisition Sidecar
+
+The Python bridge now observes accepted bounded packets after the existing action decision path and records a diagnostic finite section.
+
+Current selected demo-local dimensions:
+
+```text
+visible_agents_count
+visible_objects_count
+visible_places_count
+```
+
+These are not Core-required variables.
+
+Run the bridge:
+
+```bash
+python -m runtime.bridge
+```
+
+Existing action endpoint:
+
+```text
+POST /v1/observe
+```
+
+Read-only canonical snapshot:
+
+```text
+GET /v1/canonical-snapshot
+```
+
+The snapshot reports:
+
+```text
+authority = read-only-acquisition-sidecar
+stage = RIB_B-acquisition-only
+source observation id
+Purpose / boundary id
+selected dimensions
+coverage
+provenance
+xi_status = unrecovered-relations-remain
+```
+
+Missing selected coverage is not invented as zero. The sidecar cannot change the action response.
+
+## Source Mines — Current Reading
+
+### RDL_Demos
+
+Current Village v2.3 is valuable for:
+
+```text
+finite B / RIB_B
+same-frozen M_B comparison
+explicit unresolved review
+H / theta / M_delta
+T1 Probe / Selection / Reconstruction
+finite-context authority
+fresh re-entry
+operational coverage
+```
+
+Legacy/local `LocalLoadVector`, `ExplorationState`, `LeapEngine`, and aliases such as `HVec / XiPool / Boundary` are not Core semantics by name.
+
+### RDL_Enterprise
+
+Current Enterprise v2.3 is valuable for:
+
+```text
+bounded acquisition
+RIBSection
+frozen interpretation context
+provenance / coverage separation
+restart durability
+staged commitment / authority
+changed-condition acceptance harness
+```
+
+Enterprise-local Human Attention, static structural conflict, coverage metrics, and compatibility `*CompiledMB` names are not Core `H / E / ξ / M_B` by identity.
+
+### RDL_Human
+
+Current Human is a v2.3-aligned T3 hypothesis mine. Human-specific heat, SFO, self-boundary, cognitive-space, affect, and temporal models remain application hypotheses rather than Core primitives.
+
+## Experiment Themes
+
+1. **Interaction-grounded NPC behavior**
+   - bounded observation, explicit acquisition, actual world response, later observation.
+
+2. **History, relation, and affect expression**
+   - affect is derived from finite interaction history, relation state, sensitivity, body state, context, and unresolved provenance when present.
+
+3. **Learning without policy collapse**
+   - T1-style Probe → Expansion → Inspection → Selection → Reconstruction.
+   - preserve contextual coexistence where supported.
+
+4. **Living-world simulation**
+   - reuse Village world/body/perception/relation/dialogue ideas without importing legacy Core-like aliases as semantics.
+
+5. **Richness metrics**
+   - behavior variety, individual divergence, history dependence, relation dependence, place-meaning drift, readability, surprise, recoverability, rupture diversity.
+
+6. **Browser-sized demos**
+   - small inspectable experiments before integrated worlds.
+
+## Current Experiment Status
+
+```text
+P0 Core v2.3 + source-mine resync      current migration
+P1 bounded perception                  accepted
+P2 actual interaction loop             accepted
+P3 canonical RIB_B acquisition         first read-only implementation
+P4 frozen M_B / F / F' / E             next
+P5 finite unresolved review / H         later
+P6 relation history                     later
+P7 sensitivity / affect                 later
+P8 M_delta / T1 reconstruction          later
+P9 finite-context authority / re-entry  later
+P10 richness / long-run behavior        later
+```
+
+## Tests
+
+Python:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Godot P2 interaction check remains the existing acceptance path documented in `docs/experiment-evidence/P2_interaction_loop_evidence.md`.
+
+A green test means only that no contract violation was observed inside the declared finite test Boundary.
 
 ```text
 current finite Boundaryで operationally sufficient
@@ -194,11 +200,17 @@ current finite Boundaryで operationally sufficient
 
 ```text
 docs/
-  semantic-reference/   Canonical T0/T1 references used by the lab
-  source-inventory/     Working-material inventories from source projects
+  semantic-reference/   current Core semantic reading
+  source-inventory/     current source-mine evaluations
   design/               GameAI-specific design drafts
-  experiment-contracts/ Bounded acceptance contracts for staged experiments
-  experiment-evidence/  Evidence notes for current experiment acceptance
-experiments/            Small runnable prototypes
-notes/                  Experiment roadmaps and logs
+  experiment-contracts/ bounded acceptance contracts
+  experiment-evidence/  acceptance evidence
+runtime/
+  existing action runtime
+  read-only v2.3 acquisition sidecar
+godot/
+  bounded world / interaction workbench
+experiments/            small runnable prototypes
+notes/                  roadmap and logs
+tests/                  Python runtime and canonical-sidecar tests
 ```
