@@ -1,7 +1,8 @@
 """Observation-to-action boundary for the minimal GameAI runtime.
 
 The runtime only receives bounded observation packets. It has no access to the
-Godot world reference state, and it does not implement RDL semantics.
+Godot world reference state, and its existing action policy remains separate
+from the canonical read-only RDL sidecar.
 """
 
 from __future__ import annotations
@@ -64,7 +65,7 @@ def decide_action(packet: dict[str, Any]) -> dict[str, Any]:
             action_type="idle",
             target_id=None,
             observation_id=observation_id,
-            reason="agent observed another agent, but PR1 does not resolve interaction",
+            reason="agent observed another agent, but the minimal runtime has no social action yet",
         ).to_json()
 
     return RuntimeDecision(

@@ -48,7 +48,7 @@ func _initialize():
 		_fail("expected subsequent observation to be generated from the resolution tick")
 		return
 
-	print("P2 interaction loop check passed")
+	print("Current interaction loop check passed")
 	quit(0)
 
 func _fail(message):

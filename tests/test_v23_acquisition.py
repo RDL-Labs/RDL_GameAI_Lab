@@ -40,6 +40,7 @@ class V23AcquisitionTests(unittest.TestCase):
         self.assertEqual(section.coverage, section.boundary.dimensions)
         self.assertEqual(section.xi_status, "unrecovered-relations-remain")
         self.assertEqual(section.provenance["source"], "accepted-bounded-observation-packet")
+        self.assertEqual(section.boundary.conditions["packet_schema"], "bounded-observation-v1")
 
     def test_missing_selected_dimension_is_not_invented_as_zero(self):
         packet = self._packet()
@@ -59,6 +60,16 @@ class V23AcquisitionTests(unittest.TestCase):
 
         self.assertEqual(section.values, {"visible_agents_count": 1.0})
         self.assertIn("social-presence-check", section.context_key)
+
+    def test_boundary_and_section_mappings_are_immutable(self):
+        section = acquire_rib_section(self._packet())
+
+        with self.assertRaises(TypeError):
+            section.boundary.conditions["perception_rule"] = "changed"
+        with self.assertRaises(TypeError):
+            section.values["visible_agents_count"] = 99.0
+        with self.assertRaises(TypeError):
+            section.provenance["source"] = "changed"
 
     def test_sidecar_does_not_change_existing_action_decision(self):
         packet = self._packet()

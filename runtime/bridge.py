@@ -8,16 +8,16 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 
 from .core import ObservationError, decide_action
-from .v23_acquisition import GameAICanonicalAcquisitionSidecar
+from .v23_interpretation import GameAIFrozenComparisonSidecar
 
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
-CANONICAL_SIDECAR = GameAICanonicalAcquisitionSidecar()
+CANONICAL_SIDECAR = GameAIFrozenComparisonSidecar()
 
 
 class BridgeHandler(BaseHTTPRequestHandler):
-    server_version = "RDLGameAIRuntime/0.2"
+    server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
         if self.path == "/health":
@@ -43,9 +43,9 @@ class BridgeHandler(BaseHTTPRequestHandler):
             self._send_json(422, {"error": "invalid_observation", "detail": str(exc)})
             return
 
-        # The canonical sidecar is deliberately diagnostic-only. Capture occurs
-        # only after the existing action path has accepted the packet, and its
-        # result cannot change the action response.
+        # Canonical v2.3 observation remains diagnostic-only. Capture occurs
+        # only after the existing action path accepts the packet, and neither
+        # RIB_B acquisition nor frozen M_B/F/F'/E can alter the action response.
         CANONICAL_SIDECAR.capture(packet)
         self._send_json(200, response)
 

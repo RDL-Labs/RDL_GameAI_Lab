@@ -1,12 +1,14 @@
-"""Read-only Core v2.3 acquisition sidecar for bounded GameAI observations.
+"""Read-only Core v2.3 acquisition layer for bounded GameAI observations.
 
-This module stops at RIB_B formation. It does not implement agent M_B,
-F/F', E, H, M_delta, or T1 reconstruction.
+This module forms finite RIB_B sections only. Higher layers may interpret those
+sections, but acquisition itself does not create M_B, F/F', E, H, M_delta, or T1.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import math
+from types import MappingProxyType
 from typing import Any, Mapping
 
 DEFAULT_PURPOSE = "bounded-action-context"
@@ -41,6 +43,11 @@ class GameAIBoundary:
         unknown = set(self.dimensions) - set(DEFAULT_DIMENSIONS)
         if unknown:
             raise AcquisitionError(f"unsupported dimensions: {sorted(unknown)}")
+        object.__setattr__(
+            self,
+            "conditions",
+            MappingProxyType({str(k): str(v) for k, v in self.conditions.items()}),
+        )
 
     @property
     def context_key(self) -> tuple[Any, ...]:
@@ -48,7 +55,7 @@ class GameAIBoundary:
             self.boundary_id,
             self.purpose,
             self.dimensions,
-            tuple(sorted((str(k), str(v)) for k, v in self.conditions.items())),
+            tuple(sorted(self.conditions.items())),
         )
 
 
@@ -63,6 +70,33 @@ class GameAIRIBSection:
     coverage: tuple[str, ...]
     provenance: Mapping[str, str]
     xi_status: str = XI_STATUS
+
+    def __post_init__(self) -> None:
+        if not self.section_id:
+            raise AcquisitionError("section_id must be non-empty")
+        if not self.source_observation_id:
+            raise AcquisitionError("source_observation_id must be non-empty")
+        if self.tick < 0:
+            raise AcquisitionError("tick must be non-negative")
+        if not self.agent_id:
+            raise AcquisitionError("agent_id must be non-empty")
+        if tuple(self.coverage) != self.boundary.dimensions:
+            raise AcquisitionError("coverage must exactly match selected boundary dimensions")
+
+        frozen_values: dict[str, float] = {}
+        for dimension in self.boundary.dimensions:
+            if dimension not in self.values:
+                raise AcquisitionError(f"values missing selected dimension {dimension}")
+            value = float(self.values[dimension])
+            if not math.isfinite(value):
+                raise AcquisitionError(f"values.{dimension} must be finite")
+            frozen_values[dimension] = value
+        if set(self.values) != set(self.boundary.dimensions):
+            raise AcquisitionError("values must contain exactly the selected dimensions")
+
+        object.__setattr__(self, "values", MappingProxyType(frozen_values))
+        object.__setattr__(self, "coverage", tuple(self.coverage))
+        object.__setattr__(self, "provenance", MappingProxyType(dict(self.provenance)))
 
     @property
     def context_key(self) -> tuple[Any, ...]:
@@ -109,7 +143,7 @@ def boundary_for_packet(
         purpose=purpose,
         dimensions=dimensions,
         conditions={
-            "packet_schema": "p1-bounded-observation-v1",
+            "packet_schema": "bounded-observation-v1",
             "perception_rule": str(perception_rule),
         },
     )

@@ -25,7 +25,7 @@ const INITIAL_FOOD = {
 	"label": "Mock Food",
 	"role": "mock object",
 	"position": Vector2(190, 260),
-	"note": "Clickable selection is limited to mock NPCs for P0."
+	"note": "Clickable selection is limited to mock NPCs in the current workbench."
 }
 
 const INITIAL_OBJECTS = [

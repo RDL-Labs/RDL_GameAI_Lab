@@ -1,5 +1,5 @@
 # RDLどうぶつの森風村シミュレーター設計文書
-## 更新版 — Core v2.3 / 現行Demos・Enterprise・Human参照
+## CURRENT — Core v2.3 / 現行Demos・Enterprise・Human参照
 
 ## 1. コンセプト
 
@@ -9,7 +9,7 @@
 
 > 「この村、ちゃんと昨日を引きずってるな」「ちょっと拗ねてるな」「仲裁したら少し関係が戻った」
 
-ただし、Core記号を感情メーターやゲーム変数へ直接翻訳しない。
+Core記号を感情メーターやゲーム変数へ直接翻訳しない。
 
 ```text
 Core H != mood meter
@@ -18,8 +18,6 @@ static StructuralConflict != E != H
 Human Attention != H
 legacy Village HVec / XiPool / LeapEngine != current Core primitives
 ```
-
----
 
 ## 2. 既存パーツの現在のマッピング
 
@@ -40,11 +38,7 @@ legacy Village HVec / XiPool / LeapEngine != current Core primitives
 
 旧 `Enterprise HState` を「軽い不機嫌・すね・興奮」そのものとして転用する設計は採用しない。
 
----
-
 ## 3. Core v2.3との接続
-
-ゲーム表層へ行く前に、interactionの意味境界を保つ。
 
 ```text
 world / relation interaction
@@ -52,7 +46,7 @@ world / relation interaction
 bounded observation packet
 ↓ acquisition under Purpose / finite B
 RIB_B
-↓ explicit frozen M_B when implemented
+↓ explicit frozen M_B
 F / F'
 ↓
 E
@@ -62,17 +56,13 @@ unresolved only
 H
 ```
 
-現在のGameAI LabはP3 acquisitionまで。村ゲームの感情・長期学習を先にCore Hへ接続しない。
-
----
+現在のGameAI Lab runtimeは **E形成まで**。村ゲームの感情・長期学習を先にCore Hへ接続せず、次にfinite assessmentを入れる。
 
 ## 4. 村生活の主要システム
 
 ### 4.1 飢餓・身体状態
 
 死なない村を前提に、飢餓・疲労・快適さ等は **GameAI-local body state** として扱う。
-
-例:
 
 ```text
 hunger
@@ -81,20 +71,9 @@ comfort
 activity_need
 ```
 
-これらをCore Hへ直接加算しない。
-
-高飢餓は、
-
-- 食料行動の優先度
-- 移動速度
-- dialogue tone
-- attention / action bias
-
-等へ影響できる。
+これらをCore Hへ直接加算しない。高飢餓は食料行動の優先度、移動速度、dialogue tone、attention / action bias等へ影響できる。
 
 ### 4.2 構造衝突
-
-例:
 
 ```text
 食べたい vs 誰かへ渡したい
@@ -128,10 +107,6 @@ repair_support
 
 ### 4.4 仲直り / recoverability
 
-重要な面白さは破断量だけでなく、回復経路にもある。
-
-候補:
-
 ```text
 natural decay
 shared activity
@@ -164,11 +139,7 @@ jealousy -> H += x
 hunger -> H += x
 ```
 
----
-
 ## 5. 個体差
-
-プロファイルはGameAI-local stateとして扱う。
 
 候補:
 
@@ -182,8 +153,6 @@ social_rejection_sensitivity
 ```
 
 同じ出来事でも履歴と感度で反応が分かれることを狙う。
-
----
 
 ## 6. プレイヤーの役割
 
@@ -199,11 +168,7 @@ social_rejection_sensitivity
 
 EnterpriseのHuman Attention workflowをそのままNPC心理へ移植せず、必要ならGameAI-local consultation mechanicとして再設計する。
 
----
-
 ## 7. 日常の流れ
-
-例:
 
 ```text
 朝
@@ -227,13 +192,9 @@ EnterpriseのHuman Attention workflowをそのままNPC心理へ移植せず、�
 
 「夜に一括で人格更新」のような固定処理をCore要件にしない。
 
----
-
 ## 8. Richness / interestingness
 
 単一スカラーへ圧縮しない。
-
-観測候補:
 
 ```text
 behavior variety
@@ -255,28 +216,19 @@ randomness != interestingness
 maximum conflict != richness
 ```
 
----
-
-## 9. 実装順
-
-現行GameAI Lab roadmapへ従う。
+## 9. 現在からの実装順
 
 ```text
-P1 bounded perception          accepted
-P2 actual interaction loop     accepted
-P3 RIB_B acquisition           current
-P4 frozen M_B / F/F' / E
-P5 finite unresolved review / H
-P6 relation history
-P7 sensitivity / affect
-P8 M_Δ / T1 reconstruction
-P9 finite-context authority
-P10 long-run richness
+current: RIB_B / frozen M_B / F-F' / E
+next: finite assessment / unresolved review / H
+then: relation history
+then: sensitivity / affect
+then: M_Δ / T1 reconstruction
+then: finite-context authority
+then: long-run richness
 ```
 
 村の全感情システムを先に実装しない。
-
----
 
 ## 10. 後で採掘するEnterprise機構
 
@@ -292,8 +244,6 @@ Structure induction
 ```
 
 これらはCore primitiveではなくInspection / deployment / durability tool。
-
----
 
 ## 11. 避けること
 
@@ -312,8 +262,6 @@ Structure induction
 - 一度の出来事で関係全体を永久破壊
 - 常時喧嘩・嫉妬を最大化
 - 最適生存行動だけへ収束
-
----
 
 ## 12. 一文圧縮
 
