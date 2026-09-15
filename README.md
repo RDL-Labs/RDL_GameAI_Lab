@@ -12,6 +12,7 @@
 - [GameAI design method](docs/design/RDL_GameAI_設計手法.md)
 - [Affect / history / relational constraint model](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル.md)
 - [NPC layering profile](docs/design/RDL_GameAI_NPC_レイヤリング_Profile.md)
+- [NPC layer-based design plan](docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md)
 - [Current runtime contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md)
 - [Current runtime evidence](docs/experiment-evidence/CURRENT_v23_runtime_evidence.md)
 - [Roadmap](notes/experiment-roadmap.md)
