@@ -36,6 +36,31 @@ E exists
 
 The canonical path is read-only and does not yet own action/reconstruction authority.
 
+## Layering view — design-only
+
+The current NPC layering profile is an organization aid for future GameAI-local state, not a cutover of runtime authority.
+
+```text
+Generation / DNA
+      ↓
+Neural / Sensitivity
+      ↓
+Physical / Body
+      ↓
+Experience / Relation History
+      ↓
+Realtime / Current Context
+```
+
+```text
+Layer Profile
+!= Core M_B decomposition
+!= action authority
+!= graph mutation authority
+```
+
+The roadmap below determines when each layer may become operational.
+
 ## Next 1 — finite assessment / unresolved residual / H
 
 Goal:
@@ -60,24 +85,28 @@ Acceptance:
 - the chosen `H = ||H_vec||` norm is explicitly GameAI-local;
 - fear/fun/jealousy/stress/Human Attention/static conflict cannot directly increment H.
 
-## Next 2 — relation history
+## Next 2 — relation history / Experience Layer
 
 Goal:
-- prior interaction history changes present interpretation and action.
+- prior interaction history changes present interpretation and action;
+- operationalize the first persistent part of the NPC layering profile without collapsing it into Core `M_B` by identity.
 
 Acceptance:
 - the same present event can yield different interpretation/behavior after different finite histories;
 - positive and negative relation histories may coexist;
-- history is finite provenance, not complete world truth.
+- history is finite provenance, not complete world truth;
+- `RelationHistory != M_B by identity` remains explicit;
+- any Experience-layer snapshot is read-only until a separately reviewed influence path is accepted.
 
 Experiential check:
 
 > **同じNPCを数日眺めたとき、「こいつ昨日のこと引きずってるな」と感じられるか。**
 
-## Next 3 — individual sensitivity / affect expression
+## Next 3 — individual sensitivity / affect expression / Neural Layer
 
 Goal:
-- separate sensitivity from learned history and derive visible affect as a GameAI-local layer.
+- separate sensitivity from learned history and derive visible affect as a GameAI-local layer;
+- connect Neural / Sensitivity with Experience, Body, and Current Context without turning the layer map into a Core ontology.
 
 Candidate dimensions:
 
@@ -92,9 +121,10 @@ recoverability_sensitivity
 
 Acceptance:
 - same history/context can yield different behavior across profiles;
-- sensitivity is not personality, relation strength, Core H, or Core ξ;
+- sensitivity is not personality, relation strength, Core H, Core ξ, or Core M_B by identity;
 - similar total H may yield different affect because provenance/history/context differ;
-- visible affect remains derived rather than T0 primitive.
+- visible affect remains derived rather than T0 primitive;
+- cross-layer influence has explicit finite inputs, provenance, and break conditions.
 
 ## Next 4 — M_Δ / T1 reconstruction
 
@@ -115,6 +145,10 @@ Acceptance:
 - Selection distinguishes `retain / reject / defer`;
 - retained relations, valid conditions, break conditions, unresolved items, and provenance are explicit;
 - `M_B'` remains finite and continues to leave ξ.
+
+Layering note:
+- GameAI-local Experience / Sensitivity / Body / Context may provide finite conditions or provenance to a reconstruction experiment;
+- they do not become canonical `M_B` fields merely because they are arranged in a Layer Profile.
 
 ## Next 5 — finite-context authority / fresh re-entry
 
@@ -152,15 +186,19 @@ Acceptance:
 ## Deferred until a break requires them
 
 ```text
+Generation / DNA runtime implementation
+reproduction / inheritance / evolution
+epigenetic / development layer
 large-scale Canary / Shadow / Promotion stack
 Human Attention workflow
 advanced structure induction
 large-scale long-horizon learning
 advanced LLM dialogue
 complex economy
-reproduction
 culture generation
 ```
+
+Generation / DNA is already defined as a design layer, but no current runtime work depends on it.
 
 ## Global stop rule
 
@@ -172,4 +210,12 @@ current finite Boundaryで operationally sufficient
 != universally valid
 != all NPC behavior evaluated
 != RDL theory proven
+```
+
+The same applies to the Layer Profile:
+
+```text
+Complete_B(NPC Layer Profile) = true
+and
+ξ(B) != 0
 ```
