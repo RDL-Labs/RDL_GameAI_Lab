@@ -2,101 +2,129 @@
 
 ## Status
 
-This document records the semantic reference used by `RDL_GameAI_Lab`.
-It does not copy or replace the canonical RDL definitions.
+This document records the semantic reference currently used by `RDL_GameAI_Lab`.
+It does not copy or replace canonical RDL definitions.
 
 Canonical source:
 
 - Repository: `Aporapeiron/RDL_Core`
 - T0 BASE: `00_T0_基盤層/T0 基底措定（BASE）.md`
 - T0 SPEC: `00_T0_基盤層/T0 最低動作仕様（SPEC）.md`
-- T1 overview: `01_T1_SILN操作層/T1_SILN操作_総論.md`
-- T1 expansion: `01_T1_SILN操作層/T1_SILN展開.md`
-- T1 inspection / selection: `01_T1_SILN操作層/T1_検査と選別.md`
-- T1 reconstruction: `01_T1_SILN操作層/T1_再構成.md`
+- T1: `01_T1_SILN操作層/`
 
 Reference state checked for this lab:
 
-- BASE / SPEC: formal v2.1, interaction / action-section version
-- T0 v2.1 promotion commit: `6e27275a1f6ce81fbaa47681f11a4a4a8b44231e`
-- latest RDL_Core commit checked when this reference was written: `19c5eeca3f851abb428becd46c415e037a5c00d8`
+- BASE / SPEC: formal v2.3, `RIB / RIB_B` model
+- current Core synchronization line checked: `9272be829c2f80b211b2601a2c10a50ad1f2ad2c`
+- checked: 2026-09-15
 
-If these references change, GameAI semantics should be rechecked rather than silently assuming compatibility.
+If canonical references change, GameAI semantics must be rechecked rather than silently assuming compatibility.
 
 ---
 
 ## T0 invariants used by GameAI
 
-### Interaction is foundational
+### SILN and interaction are prior to a one-way input model
 
-GameAI does not treat one-way input as an independent foundational primitive.
-An action or observation is an operational section cut from ongoing interaction by a finite Boundary, observation position, time section, and target direction.
+GameAI does not promote engine packets or sensor payloads into an independent foundational input primitive.
+A SILN participates in one or more relational interaction bundles `RIB`; the operational action side is cut from those interactions by a finite Boundary.
 
 ```text
-relation-network interaction
-  ↓ finite B / observation position / time / target direction
-EFP
+nonlinear relational network
+        ↕
+      SILN
+    ↕ RIB_i
+        ↓ Purpose / finite B / observation position / time / target direction
+      RIB_B
 ```
 
 ### Finite Boundary always leaves unrecovered relation
 
 ```text
-∀B_finite: ξ(B) ≠ 0
+∀B_finite: ξ(B) != 0
 ```
 
 A deterministic engine, complete simulation snapshot, fixed seed, or replay trace may serve as a bounded experimental reference. None is promoted to terminal Truth or completeness.
 
-### Engine state is not agent observation
+`ξ` is not a runtime uncertainty score, missing-count metric, queue size, novelty scalar, or stress value.
+
+### Engine state, observation, RIB_B, and M_B are distinct
 
 ```text
 Engine world state / simulation reference
-!= Agent Observation
-!= Agent EFP
+!= Agent Observation packet
+!= canonical RIB_B
 != Agent M_B
 ```
 
-The engine may expose a broader reference state for experiments while each agent remains bounded by its own observation and relation structure.
+The engine may expose a broad reference state for experiments while each agent remains bounded by its own observation and relation structure.
 
-### EFP is an uninterpreted action bundle cut from interaction
+An observation packet is evidence available to an acquisition adapter. It becomes a canonical `RIB_B` only after a finite Purpose / B selects the relevant action-section, dimensions, conditions, coverage, and provenance.
 
 ```text
-interaction
+bounded observation packet
+  ↓ acquisition under Purpose / finite B
+RIB_B
+```
+
+Missing selected coverage must not be silently converted to zero.
+
+### RIB_B is an uninterpreted finite action-section
+
+```text
+{RIB_i}
   ↓ Section_B(...)
-EFP
-  ↓ interp(M_B, EFP)
+RIB_B
+  ↓ interp(M_B, RIB_B)
 F
 ```
 
-`EFP` does not have to be a simple independent exogenous input. A prior agent response may change the conditions generating the next `EFP'`.
+`RIB_B` is not required to be an independent exogenous input. A prior response may change the conditions generating later RIBs and therefore the next `RIB_B(t+Δ)`.
 
 ```text
-EFP_t
-→ F_t
+RIB_B(t)
+→ F(t)
 → response / action
 → interaction conditions change
-→ EFP_t+Δ
+→ later RIBs
+→ RIB_B(t+Δ)
 ```
 
 ### F and F' use the same pre-update M_B
 
 ```text
-F(t)    = interp(M_B, EFP(t))
-F'(t+Δ) = interp(M_B, EFP(t+Δ))
+F(t)    = interp(M_B, RIB_B(t))
+F'(t+Δ) = interp(M_B, RIB_B(t+Δ))
 E(t+Δ)  = Δ(F, F')
 ```
 
-The comparison boundary must remain frozen until `E` is obtained.
-Learning or reconstruction must not rewrite the comparison halfway through.
+The comparison boundary must remain frozen until `E` is obtained. Learning or reconstruction must not rewrite the comparison halfway through.
 
-### H is unresolved inconsistency, not emotion
+### E is not world-truth error and is not automatically H
+
+`E` is the discrepancy between the two interpretations formed under the same pre-update `M_B`.
+
+```text
+static structural conflict != E
+engine truth - agent state != canonical E by definition
+nonzero E != unresolved by definition
+```
+
+GameAI requires a finite assessment of whether a discrepancy is absorbed, explained, ordinary temporal change, boundary/coverage change, unresolved, or still pending before operationally routing anything into H.
+
+### H is unresolved remainder, not emotion
 
 ```text
 E
-↓ absorb / resolve under current M_B
-unresolved residual
+↓ current structure / bounded local absorption / finite assessment
+unresolved remainder only
 ↓
-H
+H_vec
+↓
+H = ||H_vec||
 ```
+
+The exact norm is implementation-local unless a specific experiment declares it.
 
 Therefore:
 
@@ -106,35 +134,44 @@ H != fun
 H != anger
 H != jealousy
 H != stress
+H != Human Attention load
 ```
 
-Affect may be derived from the source of unresolved inconsistency, relation history, sensitivity profile, body state, and current context, but affect labels do not directly create system H.
+Affect may be derived from H provenance, relation history, sensitivity profile, body state, and current context, but affect labels do not directly create system H.
 
-### C10 remains active
+### H >= theta is only entry to M_delta
 
-If the current EFP section is insufficient, the conditions generating it may be re-targeted and inspected as interaction-derived structure.
-The lab must not permanently freeze EFP as a simple exogenous input model.
+```text
+H < theta  -> maintain / local update
+H >= theta -> M_delta
+```
+
+`H` is not a direct update vector for `M_B'`. Once in `M_delta`, T1 owns the formation path.
 
 ---
 
 ## T1 operational method used by GameAI
 
-T1 is used as the abstract formation / metabolism path for agent structures.
+When `M_delta` is entered, current `M_B` becomes the finite self-side subject (`SILN_SELF`) for inspection and reconstruction.
 
 ```text
+current M_B -> SILN_SELF
+      ↓
 Probe
 → Expansion
 → Inspection
 → Selection
 → Reconstruction
+→ finite M_B'
+→ fresh re-entry validation
 ```
 
 ### Probe
 
-Probe performs bounded contact with interaction and obtains differences available under the current Boundary.
+Probe performs bounded contact with interaction and obtains differences available under the current or explicitly changed finite Boundary.
 
 ```text
-Probe_B(interaction) → {Δ}_B
+Probe_B(interaction) -> finite probe evidence
 with ξ' != 0
 ```
 
@@ -142,12 +179,11 @@ Probe does not retrieve or eliminate ξ itself.
 
 ### Expansion
 
-Expansion opens a possibility space rather than collapsing immediately to one explanation or policy.
-External theories, algorithms, psychology models, game-AI methods, simulation tools, and LLMs may be borrowed as expansion tools when useful.
+Expansion opens a possibility space rather than collapsing immediately to one explanation or policy. External theories, algorithms, psychology models, game-AI methods, simulation tools, and LLMs may be borrowed as finite-purpose tools.
 
 ### Inspection
 
-Inspection applies tools such as replay, simulation, counterfactual reruns, canary trials, shadow evaluation, scenario tests, or statistical checks.
+Inspection may use replay, simulation, counterfactual reruns, canary trials, shadow evaluation, scenario tests, or statistical checks.
 
 ```text
 Inspection tool != Selection criterion
@@ -155,39 +191,23 @@ Inspection tool != Selection criterion
 
 ### Selection
 
-Selection criteria belong to the GameAI design Boundary.
-The lab does not assume that winning, survival, or reward maximization is the sole criterion.
-Possible criteria include history continuity, individual divergence, relational richness, readability, surprise, non-collapse into one dominant policy, and bounded safety.
+Selection criteria belong to the GameAI design Boundary. Winning, survival, or reward maximization is not assumed to be the sole criterion.
 
 ```text
 retain / reject / defer
 ```
 
-`DEFER` is not the same as `REJECT`.
+`DEFER` is not `REJECT`.
+
+Possible GameAI criteria include history continuity, individual divergence, relational richness, readability, surprise, non-collapse into one dominant policy, and bounded safety.
 
 ### Reconstruction
 
-Selected relation structure can be incorporated into a later `M_B'`.
-GameAI may use repair, phase-shift, or coexistence / parallel reconstruction.
+Only retained relations may contribute to a later `M_B'`. A reconstruction proposal must preserve its finite valid conditions, break conditions, unresolved items, and provenance.
 
-Example:
+`M_B'` remains finite, revisable, and accompanied by ξ.
 
-```text
-old:
-  forest → enjoyable
-
-new experience:
-  attacked alone at night
-
-avoid global overwrite:
-  forest → dangerous
-
-prefer contextual coexistence when supported:
-  forest + daytime + trusted companion → enjoyable
-  forest + night + alone               → alert / avoid
-```
-
-The reconstructed `M_B'` remains finite and continues to carry ξ.
+A fresh re-entry must observe new `RIB_B'` sections and revalidate the reconstructed structure rather than declaring terminal success.
 
 ---
 
@@ -195,39 +215,42 @@ The reconstructed `M_B'` remains finite and continues to carry ξ.
 
 ```text
 T0
-  defines minimum semantic invariants
+  minimum semantic invariants
 
 T1
-  defines abstract formation / inspection / reconstruction process
+  formation / inspection / selection / reconstruction path
 
 T2 tools
-  provide inspection and durability mechanisms
+  durability and inspection mechanisms when needed
 
 GameAI design
-  defines sensors, body, world interface, Selection criteria,
-  acceptable loss, interestingness dimensions, and experiment Boundary
+  sensors, body, world interface,
+  Purpose / B acquisition rules,
+  Selection criteria,
+  acceptable loss,
+  interestingness dimensions,
+  experiment contracts
 ```
-
-`Selection != inspection tool` is a key constraint.
 
 ---
 
-## Relationship to RDL_Enterprise
+## Relationship to source mines
 
-`RDL_Enterprise` is a reference implementation and design-method mine, not the canonical semantic source.
-GameAI may reuse Enterprise mechanisms such as replay, canary, shadow, promotion, provenance, durability, and staged escalation only after translating them through the current T0/T1 boundary.
+### RDL_Demos
 
-Useful Enterprise design invariants include:
+`RDL_Demos` is a working implementation mine, not semantic authority. Its current Village v2.3 implementation is valuable because it now distinguishes canonical `RIB_B / E / H / M_delta / T1 / authority` from legacy-local `LocalLoadVector / ExplorationState / LeapEngine` mechanisms.
 
-```text
-Observation != Candidate != Commitment != Active
-UNKNOWN != UNRESOLVED != NOT_EVALUATED
-Authority != Truth
-same pre-update M_B for F / F'
-Context / Provenance must recover semantic external conditions
-bounded replay != world identity
-test success != theory truth
-```
+Legacy names such as `HVec`, `XiPool`, and `Boundary` must not be imported as Core meaning by name alone.
+
+### RDL_Enterprise
+
+`RDL_Enterprise` is a reference implementation and design-method mine. Its current v2.3 work is useful for bounded acquisition, provenance, same-frozen-`M_B` comparison, durable state, staged commitment, and live changed-condition acceptance.
+
+Enterprise-local Human Attention, structural conflict, coverage metrics, and compatibility `*CompiledMB` names are not Core `H`, `E`, `ξ`, or `M_B` by identity.
+
+### RDL_Human
+
+`RDL_Human` is a T3 hypothesis mine. Current Human v2.3 documents explicitly separate Human-specific heat, SFO, self-boundary metaphors, cognitive-space variables, and other hypotheses from Core primitives.
 
 ---
 
@@ -236,14 +259,15 @@ test success != theory truth
 When a new GameAI feature is proposed, check in this order:
 
 ```text
-1. Does it violate T0 BASE / SPEC?
-2. Does T1 already provide the formation / selection / reconstruction role?
-3. Is the proposed mechanism only a tool or implementation detail?
-4. What GameAI-specific Selection criterion justifies retaining it?
-5. What finite acceptance evidence would establish operational sufficiency?
+1. Does it violate T0 BASE / SPEC v2.3?
+2. Is raw observation being confused with RIB_B?
+3. Does T1 already provide the formation / selection / reconstruction role?
+4. Is the proposed mechanism only a tool or implementation detail?
+5. What GameAI-specific Selection criterion justifies retaining it?
+6. What finite acceptance evidence would establish operational sufficiency?
 ```
 
-If the feature is not needed to resolve an observed break, recover provenance, or test a declared GameAI question, it may remain deferred.
+If a feature is not needed to resolve an observed break, recover provenance, or test a declared GameAI question, it may remain deferred.
 
 ---
 
@@ -251,11 +275,12 @@ If the feature is not needed to resolve an observed break, recover provenance, o
 
 This reference does not claim that:
 
-- the simulator engine state is world Truth;
+- simulator engine state is world Truth;
+- an observation packet is automatically a canonical `RIB_B`;
 - deterministic replay proves completeness;
-- old `HState` / `HVec` implementations automatically satisfy T0 v2.1;
+- legacy `HState`, `HVec`, `XiPool`, or `LeapEngine` automatically satisfy current T0;
 - RDL_Human hypotheses are foundational GameAI variables;
 - Enterprise implementation names are normative RDL primitives;
 - passing GameAI tests proves RDL itself.
 
-This document is a bounded reference and should be revised when the canonical T0/T1 source or the GameAI Boundary changes.
+This document is a bounded reference and must be revised when canonical T0/T1 or the GameAI Boundary changes.

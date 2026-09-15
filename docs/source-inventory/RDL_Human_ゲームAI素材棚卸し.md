@@ -1,33 +1,42 @@
-# RDL_Human — ゲームAI素材棚卸し
+# RDL_Human — ゲームAI素材棚卸し（2026-09-15再確認）
+
+Source:
+
+```text
+https://github.com/Aporapeiron/RDL_Human
+checked current line through: 4926d6e1525d77103d6d3d693a6a3cc1d53dd057
+```
 
 ## 位置づけ
 
-`RDL_Human` は、GameAIに人間心理をそのまま移植するための規範ではない。
-本Labでは、**気質・愛着・感情表現・時間スケール・関係依存の性格表現を考えるためのT3仮説鉱山**として扱う。
+`RDL_Human` はGameAIへ「人間心理の真理」を移植する規範ではない。
 
-意味論の正本は `Aporapeiron/RDL_Core` の T0/T1 とする。
-Human側の神経物質対応や人間固有仮説は、そのままGameAIのCore Primitiveへ昇格させない。
+現在のHuman本体は Core BASE / SPEC v2.3へ同期し、Human固有の心理的熱、SFO、自己境界、認知空間、流体比喩、時間層などを **T3仮説変数・比喩・操作モデル**としてCore primitiveから明示的に分離している。
 
----
+このためGameAIでは、Humanを以前より安全に **感度・関係拘束・安全基地・文脈依存性・時間スケールの仮説鉱山**として利用できる。
 
-## 1. 採掘価値の高い領域
+## 1. 現行意味境界
 
-### 1.1 SFO — 固定性格ではなく流向
-
-Human側には、性格を固定ラベルではなく、認知空間上でどちらへ流れやすいかという動的流向として扱う設計がある。
-
-ゲーム向け抽象化候補：
+Human側自身が次を明示している。
 
 ```text
-Explore   → 新奇・探索へ流れやすい
-Maintain  → 安定・維持へ流れやすい
-Connect   → 同期・接近へ流れやすい
-Defend    → 警戒・距離確保へ流れやすい
+人間 / 人格 != M_B
+未知刺激 / 新奇性 / ノイズ != ξ
+Human側の心理的「熱」 != Core H
+Human側の「自己境界」仮説 != Core Bそのもの
+RIB_B != F
+Function != M_B
 ```
 
-GameAIでは、これを人格ラベルではなく `SensitivityProfile` や行動バイアス候補として扱える。
+GameAIもこの境界を継承する。
 
-例：
+## 2. 採掘価値の高い領域
+
+### 2.1 SFO / directional tendency
+
+固定人格タイプではなく、どの方向へ流れやすいかという仮説として使う。
+
+GameAI-local候補:
 
 ```text
 novelty_sensitivity
@@ -36,17 +45,12 @@ attachment_sensitivity
 threat_sensitivity
 ```
 
----
+これらはSelectionやaction biasの補助になりうるが、Core `M_B / H / ξ` ではない。
 
-### 1.2 多重境界とコスト地形
-
-Human側では、同じ個体でも場所・相手・身体状態・過去履歴などによって認知空間のコスト地形が変わり、観測される性格表現が変わるという考え方がある。
-
-GameAIへの翻訳：
+### 2.2 文脈依存の性格表現
 
 ```text
-trait
-× history
+history
 × relationship
 × place
 × body state
@@ -54,31 +58,9 @@ trait
 → visible behavior / personality expression
 ```
 
-これにより、
+固定ラベルではなく、finite contextによって表現が変わる設計素材として有用。
 
-```text
-NPC A = 慎重
-```
-
-という固定属性ではなく、
-
-```text
-知らない場所 + 単独
-→ 慎重
-
-安心できる仲間 + 慣れた場所
-→ 活発 / 甘える
-```
-
-という状況依存の個体差を作れる。
-
----
-
-### 1.3 愛着 / 安全基地
-
-Human側の愛着翻訳には、特定他者が探索後の回復点・安全基地として機能するという構造がある。
-
-GameAIへの翻訳候補：
+### 2.3 安全基地 / recoverability
 
 ```text
 trusted companion
@@ -87,183 +69,115 @@ familiar place
 reliable player
 ```
 
-これらは `Recoverability` を高める関係的条件として利用できる。
+これらが探索・回復可能性・行動選択へどう影響するかという仮説は、GameAIのrelation-aware behaviorに有用。
 
-例：
+ただし単純な `fear -= x` として持ち込まず、現在のinteraction / interpretation / action possibilityを変える関係条件として検証する。
 
-```text
-未知の森 + 単独
-→ fear tendency ↑
+### 2.4 関係拘束・再呼出し
 
-未知の森 + trusted companion
-→ fear tendency ↓
-→ exploration / fun tendency ↑
-```
-
-重要なのは、安心を単純な `fear -= x` とするのではなく、現在の解釈・予測・行動可能域を変える関係拘束として扱うこと。
-
----
-
-### 1.4 関係境界の粘着性
-
-愛着・嫉妬・保護・排他・信頼などを別々の感情メーターとして持つのではなく、
-
-```text
-誰を重要対象として強く結びつけるか
-誰を自己圏 / 親密圏へ内側化するか
-どの履歴が繰り返し再呼出しされるか
-```
-
-という上流構造として扱える。
-
-GameAI向け候補：
+GameAI-local候補:
 
 ```text
 binding_strength
-inside_weight
-recall_bias
 secure_base_strength
+recall_bias
 ```
 
-これらは `C_rel` の実装候補であり、T0 Core必須変数ではない。
+これらは `C_rel` 的な応用候補になりうるが、Core必須変数ではない。
 
----
+### 2.5 複数時間スケール
 
-### 1.5 複数時間スケール
-
-Human側の4層時間スケールは、そのまま固定階層として採用せず、**変化速度の違いを分ける設計道具**として使える。
-
-GameAI向け簡略化：
+固定4層として採用せず、変化速度を分離する設計道具として使う。
 
 ```text
 slow
-  temperament / body constraints
+  temperament-like sensitivity / body constraints
 
 medium-slow
-  strong relational bindings / long-term preferences
+  strong relational bindings / long-term preference
 
 medium
-  recent history / habits / learned place meanings
+  recent history / habit / place meaning
 
 fast
-  current prediction / dialogue context / short affect expression
+  current interpretation / dialogue context / affect expression
 ```
 
-これにより、単発イベントで人格全体が書き換わることを防ぎつつ、長期履歴が徐々に沈殿する構造を作れる。
+## 3. 感情設計への利用
 
----
-
-## 2. 感情設計への利用
-
-Human側の素材は、GameAIで感情値を直接持つためではなく、**なぜ同じ出来事でも個体・文脈・関係によって違う表現になるか**を考える素材として使う。
-
-現在のGameAI側の基本方針：
+GameAIでは感情語をCore状態へ直接置かない。
 
 ```text
-H
-= unresolved inconsistency
-
-AffectExpression
-= H provenance
+finite interaction history
 + relation history
 + sensitivity profile
 + body state
 + current context
++ unresolved provenance when present
+↓
+AffectExpression
+ActionBias
+DialogueTone
 ```
 
-Human側の概念はこの派生層へ接続する。
-
----
-
-## 3. そのまま持ち込まないもの
-
-以下は自動移植しない。
+重要:
 
 ```text
-DA / 5-HT / OXT / NA の固定対応
-人間の神経生理そのもの
-臨床心理モデルの直接再現
-H = 感情強度
-愛着理論 = NPC真理モデル
-SFO = 固定人格タイプ
-4層 = 実在する固定階層
+H != emotion strength
+Human heat != Core H
+novelty != ξ
+SFO != fixed personality type
 ```
 
-必要な場合はGameAI向けの抽象係数へ翻訳する。
+## 4. 旧資料の扱い
 
----
+Human repoでは `SSDからの翻訳/` や `_archive/`、PRE-v2.3 referenceが現行定義根拠から分離されている。
 
-## 4. GameAIへの接続候補
+GameAIでHumanを採掘する場合も、各フォルダーの `CURRENT / PRE-v2.3 REFERENCE` 区分を優先する。
+
+旧資料から概念を借りる場合は、現行Core v2.3へ再翻訳してからGameAI-local hypothesisとして扱う。
+
+## 5. GameAIへの優先度
+
+High:
 
 ```text
-RDL_Human
-  ↓
-SensitivityProfile
-  novelty_sensitivity
-  threat_sensitivity
-  attachment_sensitivity
-  stability_preference
-
-RelationalBinding
-  binding_strength
-  secure_base_strength
-  recall_bias
-
-Contextual Personality
-  place
-  partner
-  body state
-  recent history
-
-Temporal Layers
-  slow traits
-  deep history
-  recent history
-  current context
+sensitivity profiles
+context-dependent personality expression
+secure-base / recoverability hypotheses
+relation binding / recall bias
+multi-timescale sedimentation
 ```
 
-これらはT0/T1の上に置くGameAI固有の実装候補である。
-
----
-
-## 5. GameAIでの使用原則
-
-Human由来の概念を使う際は、以下を確認する。
+Medium:
 
 ```text
-1. T0/SPECと衝突していないか
-2. HやEを直接感情値へ短絡していないか
-3. 固定人格ラベルへ潰していないか
-4. 履歴・関係・文脈を残しているか
+SFO directional hypotheses
+attachment-style-like recurrent patterns
+social / dialogue hypotheses
+```
+
+Deferred:
+
+```text
+neurotransmitter-like mappings
+clinical models
+human physiology reproduction
+Human psychological heat as system state
+```
+
+## 6. GameAIでの使用原則
+
+```text
+1. Core v2.3と衝突していないか
+2. Human variableをCore primitiveへ昇格させていないか
+3. H/E/ξを心理値へ短絡していないか
+4. history / relation / contextを残しているか
 5. 個体差が感度と履歴の両方から出るか
-6. 人間仮説をゲームNPCの普遍真理として扱っていないか
+6. Human仮説をNPC普遍真理として扱っていないか
+7. finite Bと破断条件を明示しているか
 ```
 
----
+## 一文圧縮
 
-## 6. 優先度
-
-初期導入優先度：
-
-```text
-High
-- sensitivity profile
-- contextual personality
-- secure-base / recoverability effect
-- relation binding strength
-
-Medium
-- multi-timescale sedimentation
-- attachment-style-like patterns
-
-Deferred
-- neurotransmitter-like implementation
-- clinical trauma reproduction
-- detailed human-specific physiology
-```
-
----
-
-## 7. 一文圧縮
-
-> `RDL_Human` は、GameAIに「人間らしさ」を直接移植する鉱山ではなく、**気質・関係拘束・安全基地・文脈依存性・時間スケールから、固定メーターではない感情らしい振る舞いを立ち上げるための仮説鉱山**として使う。
+> **現行RDL_Humanは、Core v2.3との境界を明示した上で、気質・関係拘束・安全基地・文脈依存性・時間スケールからGameAI固有の感情らしい振る舞いを設計するためのT3仮説鉱山として使う。**

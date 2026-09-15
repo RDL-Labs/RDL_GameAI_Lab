@@ -2,7 +2,19 @@
 
 P1 introduces the smallest agent boundary needed to act from limited observation instead of complete engine reference state.
 
-This is an experiment contract, not a semantic implementation of RDL Core.
+This is an experiment contract, not an implementation of RDL Core semantics.
+
+## Current Status
+
+P1 is **accepted and retained** as pre-canonical interaction evidence under the current Core v2.3 roadmap.
+
+Important migration reading:
+
+```text
+bounded observation packet != canonical RIB_B
+```
+
+P1 proves bounded perception. P3 separately defines how an accepted observation packet is acquired into a finite `RIB_B` under Purpose / B.
 
 ## Goal
 
@@ -20,9 +32,10 @@ In scope:
 - action selection from perceived data only
 - recoverable logs showing what the agent could observe
 
-Out of scope:
+Out of scope for P1 itself:
 
-- `EFP`, `M_B`, `F`, `F'`, `E`, or `H` implementation
+- canonical `RIB_B` acquisition
+- `M_B`, `F`, `F'`, `E`, or `H`
 - structural conflict to `E/H` evaluation
 - Human Attention workflow or Human Attention load
 - affect expression
@@ -50,14 +63,15 @@ engine/world reference state
 
 The workbench may render complete state for human inspection. That does not grant the agent access to complete state.
 
-Enterprise-derived constraints carried forward:
+Core v2.3 follow-on boundary:
 
 ```text
-Structural Conflict != E != H
-Human Attention load != H
+agent observation packet
+↓ later P3 acquisition under Purpose / finite B
+RIB_B
 ```
 
-For later phases, structural conflict may matter only after an actual interaction changes later conditions and produces a subsequent bounded observation / `EFP'` that can be interpreted with the same pre-update `M_B`.
+The observation packet is evidence/source material for that later acquisition step; it is not automatically the canonical section.
 
 ## Minimal State Shape
 
@@ -96,20 +110,20 @@ decision_reason
 
 ## Acceptance Evidence
 
-P1 is accepted only when evidence shows:
+P1 is accepted when evidence shows:
 
-- action selection receives an observation packet, not the full world reference state.
-- perception boundary and relevant context are recoverable from logs.
-- at least one object outside the boundary exists in world state but is absent from that agent's observation.
-- the workbench can show both the world reference view and the selected agent's bounded observation without merging them.
-- deterministic replay of the same seed produces the same observation and action records.
+- action selection receives an observation packet, not full world reference state;
+- perception boundary and relevant context are recoverable from logs;
+- at least one object outside the boundary exists in world state but is absent from that agent observation;
+- the workbench can show both world reference view and selected agent observation without merging them;
+- deterministic replay under the declared test conditions reproduces the relevant observation/action records.
 
 ## Stop Rule
 
-Stop P1 when the current finite boundary is operationally sufficient to prove:
+P1 stops when the current finite experiment Boundary is operationally sufficient to establish:
 
 ```text
 agent behavior is mediated by bounded perception
 ```
 
-Do not continue P1 into affect, heat, relation history, Human Attention, or reconstruction unless a concrete break requires it.
+Do not reinterpret that success as proof that canonical `RIB_B`, `M_B`, `F/F'`, `E`, or `H` already exist.
