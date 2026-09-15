@@ -16,8 +16,8 @@ RDL_Core v2.3
   T1 SILN operations
       ↓ semantic / operational authority
 
-RDL_Demos / RDL_Enterprise / RDL_Human
-      ↓ extraction / translation
+RDL_Demos / RDL_Enterprise / RDL_Human / RDL_General_Modules
+      ↓ extraction / translation / organization aid
 
 RDL_GameAI_Lab
   game-specific Purpose / B
@@ -26,6 +26,8 @@ RDL_GameAI_Lab
   experiments
   implementations
 ```
+
+`RDL_General_Modules` の Layering は整理補助であり、Core semantic authorityではない。
 
 ## 2. 現行最低意味境界
 
@@ -168,6 +170,17 @@ Function != M_B
 
 HumanはT3仮説鉱山として扱う。Sensitivity、secure-base、relation binding、context-dependent personality、multi-timescale、SFO系仮説等をGameAI-local modelとして試すが、Core primitiveへ昇格させない。
 
+### RDL_General_Modules
+
+`RDL 横断レイヤリング・キット` を、複数のGameAI-local状態を時間スケールや拘束伝播で整理する補助Viewとして使う。
+
+```text
+Layer Profile
+!= Core primitive
+!= canonical M_B decomposition
+!= runtime authority
+```
+
 ## 8. 実装規律
 
 ```text
@@ -261,6 +274,74 @@ DialogueTone
 
 `Threat / Opportunity / Control / Recoverability / Novelty` 等はGameAI-local descriptorでありCore primitiveではない。
 
+## 12. NPC レイヤリング Profile
+
+GameAI-localな要素を、実装上の更新速度・保持時間・拘束伝播で次のように整理する。
+
+```text
+Generation / DNA
+      ↓
+Neural / Sensitivity
+      ↓
+Physical / Body
+      ↓
+Experience / Relation History
+      ↓
+Realtime / Current Context
+```
+
+対応候補：
+
+```text
+Generation / DNA
+= seeded generation constraints / future inheritance range
+
+Neural / Sensitivity
+= SensitivityProfile
+
+Physical / Body
+= BodyState
+
+Experience / Relation History
+= InteractionHistoryRecord / RelationHistory / relation constraints
+
+Realtime / Current Context
+= current bounded situation / current action / short-term context
+```
+
+ただし、各LayerをCore `M_B`へ自動同一視しない。
+
+```text
+SensitivityProfile != M_B by identity
+BodyState          != M_B by identity
+RelationHistory    != M_B by identity
+CurrentContext     != M_B by identity
+```
+
+現段階ではdesign-onlyであり、existing action path / canonical sidecar / graph mutation authorityを変更しない。
+
+導入順はroadmapに従う。
+
+```text
+finite assessment / H
+→ Experience / Relation History
+→ Neural / Sensitivity + Affect
+→ reviewed cross-layer influence
+→ later T1 / authority work
+```
+
+Generation / DNA と reproduction は、現在のcutoverには不要なので deferred とする。
+
+Layer Profileが局所的に完成しても、
+
+```text
+Complete_B(NPC Layer Profile) = true
+and
+ξ(B) != 0
+```
+
+を維持する。
+
 ## 一文圧縮
 
-> **GameAI Labは、更新済みのRDL鉱山を部品庫として使い、Core v2.3の有限 `B / RIB_B / M_B` 境界を崩さず、実際のinteraction chainを有限受入証拠で伸ばす。**
+> **GameAI Labは、更新済みのRDL鉱山を部品庫として使い、Core v2.3の有限 `B / RIB_B / M_B` 境界を崩さず、GameAI-localな状態を必要に応じてレイヤリングしながら、実際のinteraction chainを有限受入証拠で伸ばす。**
