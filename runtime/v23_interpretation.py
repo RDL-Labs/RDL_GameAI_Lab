@@ -1,8 +1,8 @@
 """Read-only Core v2.3 interpretation/comparison sidecar for GameAI.
 
-P4 introduces an explicit finite frozen self-side evaluator M_B and forms
-F / F' / E from already-acquired RIB_B sections. It deliberately stops before
-unresolved review, H, M_delta, or T1 reconstruction.
+This module introduces an explicit finite frozen self-side evaluator M_B and
+forms F / F' / E from already-acquired RIB_B sections. It deliberately stops
+before unresolved review, H, M_delta, or T1 reconstruction.
 """
 
 from __future__ import annotations
@@ -51,9 +51,9 @@ def _freeze_numeric_mapping(
 class FrozenGameAIMB:
     """Finite self-side evaluator used only for the declared GameAI boundary.
 
-    Coefficients are P4-local implementation choices, not Core constants and
-    not action authority. The object is immutable after construction so F/F'
-    comparison can prove use of the same pre-update M_B.
+    Coefficients are GameAI-local implementation choices, not Core constants
+    and not action authority. The object is immutable after construction so
+    F/F' comparison can prove use of the same pre-update M_B.
     """
 
     agent_id: str
@@ -190,22 +190,17 @@ class GameAIMismatch:
 
 
 def build_diagnostic_frozen_mb(section: GameAIRIBSection) -> FrozenGameAIMB:
-    """Create the minimal finite P4 evaluator for one exact context.
-
-    Identity coefficients make the comparison mechanically inspectable. They
-    are not claimed to be a universal GameAI interpretation model; later
-    experiments may replace them only by creating a new model_ref/window.
-    """
+    """Create the minimal finite diagnostic evaluator for one exact context."""
 
     context_digest = hashlib.sha256(repr(section.context_key).encode("utf-8")).hexdigest()[:12]
     return FrozenGameAIMB(
         agent_id=section.agent_id,
-        model_ref=f"gameai-p4:{section.agent_id}:{context_digest}:v1",
+        model_ref=f"gameai-diagnostic-mb:{section.agent_id}:{context_digest}:v1",
         boundary=section.boundary,
         coefficients={dimension: 1.0 for dimension in section.boundary.dimensions},
         biases={dimension: 0.0 for dimension in section.boundary.dimensions},
         provenance={
-            "scope": "P4 finite diagnostic evaluator",
+            "scope": "finite diagnostic evaluator",
             "selection": "explicit identity projection over selected RIB_B dimensions",
             "context_digest": context_digest,
         },
@@ -224,6 +219,8 @@ def compare_interpretations(
         raise InterpretationError("F/F' must use the same frozen pre-update M_B")
     if current.context_key != later.context_key:
         raise InterpretationError("F/F' finite boundary context changed")
+    if current.source_observation_id == later.source_observation_id:
+        raise InterpretationError("F/F' require distinct observation instances")
     if set(current.values) != set(later.values):
         raise InterpretationError("F/F' selected interpretation dimensions differ")
 
@@ -262,6 +259,7 @@ class GameAIFrozenComparisonSidecar:
         self._latest_mismatches: dict[str, GameAIMismatch] = {}
         self._captures = 0
         self._comparisons = 0
+        self._duplicate_observations = 0
         self._failures: list[dict[str, str]] = []
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
@@ -287,6 +285,10 @@ class GameAIFrozenComparisonSidecar:
         self._latest_interpretations[section.agent_id] = interpretation
 
         previous = self._previous.get(key)
+        if previous is not None and previous.source_observation_id == interpretation.source_observation_id:
+            self._duplicate_observations += 1
+            return None
+
         self._previous[key] = interpretation
         if previous is None:
             return None
@@ -302,6 +304,7 @@ class GameAIFrozenComparisonSidecar:
             "stage": "RIB_B-frozen-M_B-F-F_prime-E",
             "captures": self._captures,
             "comparisons": self._comparisons,
+            "duplicate_observations": self._duplicate_observations,
             "latest_sections": {
                 agent_id: section.to_json()
                 for agent_id, section in sorted(self._latest_sections.items())
