@@ -84,9 +84,9 @@ identity diagnostic M_B = universal GameAI model
 passing tests = RDL theory proven
 ```
 
-## Next evidence boundary
+## Finite assessment evidence
 
-The next evidence must demonstrate an explicit finite assessment layer that distinguishes at least:
+The assessment tests now demonstrate an explicit finite assessment layer that distinguishes:
 
 ```text
 zero
@@ -97,4 +97,6 @@ boundary / coverage change
 unresolved
 ```
 
-Only reviewed unresolved dimensions may later enter H.
+Only reviewed unresolved dimensions enter single-comparison diagnostic H. `tests/test_v23_assessment.py` verifies pending H=0, L2 residual (3,4) giving H=5, partial resolution, all non-residual classifications, atomic invalid-review rejection, provenance requirements, context isolation, capacity retention, replay handling, and a real localhost observe/review/snapshot roundtrip with unchanged action responses.
+
+Verification: `python -m unittest discover -s tests -v` passed 25 tests. This is fixture-based finite evidence, not validation of an autonomous unresolved classifier. Godot scene/UI was not modified or visually revalidated in this change. Temporal H accumulation, θ, reconstruction, and persistent review history remain unevaluated.

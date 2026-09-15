@@ -31,7 +31,7 @@ Current stop rule:
 ```text
 E exists
 != unresolved established
-!= H established
+!= H established without explicit review
 ```
 
 The canonical path is read-only and does not yet own action/reconstruction authority.
@@ -61,7 +61,13 @@ Layer Profile
 
 The roadmap below determines when each layer may become operational.
 
+Use the [NPC layer design plan v0.2](../docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md#111-状態の所有更新保持) as the shared design blueprint. For each new state, specify its owner, update trigger, retention, influence path, provenance, and controlled comparison test. Layers do not prescribe a class hierarchy or require simultaneous implementation.
+
+Introduce each cross-layer path as a read-only snapshot first, then enable its influence under an explicit acceptance contract. Keep one owner per state; derived context snapshots retain their source identity. Retention within an experiment does not imply restart persistence.
+
 ## Next 1 — finite assessment / unresolved residual / H
+
+Implemented bounded first slice: explicit per-dimension review with basis/reviewer/evidence, pending by default, and diagnostic single-comparison residual `H_vec / H` (local L2). The API is documented in the current runtime contract. Before temporal accumulation is enabled, define retention/decay and repeated-event accounting separately. θ and action authority remain deferred. The layer design plan's `E-only-not-reviewed` label describes the unchanged raw E record; assessment is a separate record.
 
 Goal:
 - classify E without treating magnitude as unresolved by definition;
@@ -97,6 +103,8 @@ Acceptance:
 - history is finite provenance, not complete world truth;
 - `RelationHistory != M_B by identity` remains explicit;
 - any Experience-layer snapshot is read-only until a separately reviewed influence path is accepted.
+- declare history retention/forgetting and event provenance; compare histories while holding current observation, body, and sensitivity fixed;
+- changes affecting canonical interpretation use an explicit model/context boundary and never mutate M_B within an F/F' comparison.
 
 Experiential check:
 
@@ -125,6 +133,8 @@ Acceptance:
 - similar total H may yield different affect because provenance/history/context differ;
 - visible affect remains derived rather than T0 primitive;
 - cross-layer influence has explicit finite inputs, provenance, and break conditions.
+- vary sensitivity, body, or current context one at a time before testing combined effects; record unchanged outcomes as well as changed behavior;
+- assign body values such as fatigue to one owner and expose sourced snapshots to current context.
 
 ## Next 4 — M_Δ / T1 reconstruction
 

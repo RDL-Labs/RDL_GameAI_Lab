@@ -1,4 +1,4 @@
-# RDL_GameAI NPC レイヤー別設計計画 v0.1
+# RDL_GameAI NPC レイヤー別設計計画 v0.2
 
 *DESIGN PLANNING VIEW — `Aporapeiron/RDL_General_Modules` の「RDL 横断レイヤリング_キット」GameAI応用を、GameAI Labの設計計画へ展開*
 
@@ -458,6 +458,49 @@ reproduction / evolution
 
 ## 11. 設計計画としての使い方
 
+5LayerをNPC設計の共通設計図として採用する。Layerは責務・更新・検証の配置先であり、クラス数やモジュール数を規定しない。実装は現行roadmapの順に、必要な状態から追加する。
+
+### 11.1 状態の所有・更新・保持
+
+以下は実装時に具体化する初期契約であり、現在の実装済みschemaを表すものではない。
+
+| Layer / 所有する状態 | 更新契機 | 保持期間 | 影響先 | 有限な検証 |
+|---|---|---|---|---|
+| Generation / 生成範囲・seed | 個体生成時のみ | 個体の生涯 | Sensitivity・Bodyの初期可能域 | 同じseedで初期条件を再現し、生涯中は不変。実装はdeferred |
+| Neural / SensitivityProfile | 初期化。学習による更新は別途検証後 | 複数interactionを跨ぐ低速状態 | 注意・反応傾向、AffectExpression候補 | 履歴・身体・現在条件を固定し、感度差の影響だけを比較 |
+| Physical / BodyState | world resolutionによる負傷・消耗・回復 | 次の身体更新まで | 行動可能域・現在の感覚能力 | 同じ判断条件で、負傷による移動制約と回復を確認 |
+| Experience / RelationHistory | 受理されたinteraction結果 | 有限件数・時間窓。忘却条件を明示 | 後続の解釈・行動条件 | 同じ現在条件で異なる履歴を比較。正負履歴の共存を確認 |
+| Realtime / CurrentContext | 新しい観測・action結果 | tickまたは短期window | 今回の判断に渡す条件 | 古い観測を新しい事実として再利用せず、観測IDと時点を追跡 |
+
+各データには所有先を一つ定め、他Layerは参照または由来を持つ派生値として利用する。例えば現在のfatigueはBodyStateが所有し、CurrentContextには判断時点のsnapshotを渡す。Godotのworld stateとNPCが取得できた身体情報も区別する。
+
+保持期間は実験内の論理的な寿命を指す。プロセス再起動・save/loadを跨ぐ永続化は、その実験で必要になった時点で別途契約化する。
+
+### 11.2 Layer間の影響契約
+
+Layer間の接続は一方向の階段へ固定しない。次の循環を許容するが、各接続は個別に導入・検証する。
+
+```text
+CurrentContext + Body + Sensitivity + Experience
+→ 有限な判断条件
+→ action → world resolution
+→ 新しいCurrentContext / Body変化
+→ 受理された結果がExperienceへ残る
+→ 後続の判断条件が変わる
+```
+
+各接続には、入力snapshot ID、適用B / Purpose、更新契機、出力先、provenance、失効・破断条件を記録する。観測用snapshotを先に確認し、その後に検証された影響経路を有効にする。上図は将来のGameAI-local経路であり、現行read-only canonical sidecarへ行動権限を追加するものではない。
+
+canonical比較へ接続する場合、同じ比較内のF/F'は同一の凍結M_Bを使用する。履歴や感度の変更で解釈条件を変える場合は、新しいmodel/contextとして明示する。Layer値からE/Hへ直接加算しない。
+
+### 11.3 最小比較実験
+
+「NPCが逃げる」を将来の比較例とする。基準ケースに対して、感度だけ、身体だけ、履歴だけ、現在観測だけを変え、判断に渡った条件と行動結果を記録する。複数Layerの組み合わせ検証は、その後に追加する。
+
+行動差が出ない場合も結果として保持する。逃走など特定の結果を強制せず、どの条件が何を変えたかを追跡できることを受入条件とする。
+
+### 11.4 機能追加時の記入項目
+
 新しいNPC機能案が出たら、まずどのLayerへ置くかを仮置きする。
 
 例：
@@ -490,6 +533,7 @@ Layer
 → break condition
 → read-only observation
 → reviewed influence
+→ controlled comparison test
 ```
 
 の順に設計する。
@@ -517,3 +561,8 @@ Layer間・Layer外・重複・未回収関係は残る。
 ## 一文圧縮
 
 > **GameAI Labでは、Generation/DNA・Neural/Sensitivity・Physical/Body・Experience/Relation History・Realtime/Current Context のLayerを、NPC機能の設計・実装・検査順序を整理する計画枠として使い、各Layerを段階的に実装する。**
+
+## 改訂履歴
+
+- v0.2: 5Layerを共通設計図として採用し、状態の所有・更新・保持、影響契約、条件を一つずつ変える比較実験を追加。実装順序と現行runtime境界は維持。
+- v0.1: レイヤー別の設計計画を作成。

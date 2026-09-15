@@ -1,5 +1,7 @@
 # RDL GameAI Runtime
 
+Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. H is diagnostic and scoped to one reviewed comparison.
+
 This is the minimal Python-side runtime boundary for the Godot workbench.
 
 Current properties:
@@ -11,7 +13,7 @@ Current properties:
 - existing action policy unchanged
 - read-only Core v2.3 canonical sidecar attached after accepted decisions
 - canonical path currently reaches `RIB_B -> frozen M_B -> F/F' -> E`
-- no unresolved review, `H`, `M_Δ`, T1 reconstruction, or canonical authority cutover yet
+- explicit diagnostic residual review and per-comparison H; no temporal accumulation, `M_Δ`, T1 reconstruction, or canonical authority cutover yet
 
 ## Run
 
@@ -115,18 +117,17 @@ Core ξ remains qualitative; no runtime scalar is assigned to it.
 
 ## Current stop rule
 
-The current runtime stops at E.
+The comparison path retains raw E; a separate explicit assessment forms per-comparison residual H.
 
 ```text
 implemented:
 Observation -> RIB_B -> frozen M_B -> F/F' -> E
 
 not implemented:
-finite unresolved assessment
-H_vec / H / θ
+temporal H accumulation / θ
 M_Δ
 T1
 canonical authority cutover
 ```
 
-The next semantic step must classify E through an explicit finite assessment. Nonzero E alone is insufficient for H.
+Finite assessment now requires explicit reviewer, basis, and evidence. Nonzero E alone is insufficient for H. Temporal accumulation and retention dynamics require a further contract.

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from threading import RLock
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 
@@ -14,6 +15,7 @@ from .v23_interpretation import GameAIFrozenComparisonSidecar
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
 CANONICAL_SIDECAR = GameAIFrozenComparisonSidecar()
+CANONICAL_LOCK = RLock()
 
 
 class BridgeHandler(BaseHTTPRequestHandler):
@@ -24,11 +26,23 @@ class BridgeHandler(BaseHTTPRequestHandler):
             self._send_json(200, {"ok": True, "service": "rdl-gameai-runtime"})
             return
         if self.path == "/v1/canonical-snapshot":
-            self._send_json(200, CANONICAL_SIDECAR.snapshot())
+            with CANONICAL_LOCK:
+                snapshot = CANONICAL_SIDECAR.snapshot()
+            self._send_json(200, snapshot)
             return
         self._send_json(404, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        if self.path == "/v1/assessment-review":
+            try:
+                payload = self._read_json()
+                with CANONICAL_LOCK:
+                    result = CANONICAL_SIDECAR.assessments.review(payload)
+            except (ValueError, ObservationError) as exc:
+                self._send_json(422, {"error": "invalid_review", "detail": str(exc)})
+                return
+            self._send_json(200, result)
+            return
         if self.path != "/v1/observe":
             self._send_json(404, {"error": "not_found"})
             return
@@ -46,7 +60,8 @@ class BridgeHandler(BaseHTTPRequestHandler):
         # Canonical v2.3 observation remains diagnostic-only. Capture occurs
         # only after the existing action path accepts the packet, and neither
         # RIB_B acquisition nor frozen M_B/F/F'/E can alter the action response.
-        CANONICAL_SIDECAR.capture(packet)
+        with CANONICAL_LOCK:
+            CANONICAL_SIDECAR.capture(packet)
         self._send_json(200, response)
 
     def log_message(self, format: str, *args: Any) -> None:

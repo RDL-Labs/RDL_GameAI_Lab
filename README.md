@@ -98,7 +98,7 @@ Current E is explicitly labeled:
 E-only-not-reviewed
 ```
 
-No unresolved classification or H is inferred from E magnitude.
+No unresolved classification or H is inferred from E magnitude. A separate finite assessment ledger now accepts explicit per-dimension reviews and exposes single-comparison residual H. The original E record remains unchanged.
 
 ## Runtime
 
@@ -110,6 +110,7 @@ python -m runtime.bridge
 POST /v1/observe
 GET  /health
 GET  /v1/canonical-snapshot
+POST /v1/assessment-review
 ```
 
 The snapshot exposes current finite `RIB_B`, diagnostic `M_B`, interpretations, and E provenance.
@@ -134,7 +135,7 @@ Use the current `RDL 横断レイヤリング・キット` as a lightweight orga
 
 ## Next boundary
 
-The next step is finite assessment of E:
+Finite assessment now supports:
 
 ```text
 zero
@@ -145,7 +146,7 @@ boundary / coverage change
 unresolved
 ```
 
-Only reviewed unresolved dimensions may later enter `H_vec -> H -> θ`.
+Only explicitly reviewed unresolved dimensions enter diagnostic `H_vec -> H` (GameAI-local L2, per comparison). Temporal accumulation, θ, automatic review, and action authority remain deferred. See the [review API and finite contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api).
 
 After that:
 

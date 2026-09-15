@@ -91,7 +91,7 @@ A valid comparison requires:
 
 Reposting the same observation id does not manufacture a new F' comparison.
 
-`E` is retained as a signed per-dimension delta between the two interpreted states. The current runtime does not aggregate E into H.
+`E` is retained as a signed per-dimension delta between the two interpreted states. A separate explicit review may select unresolved residuals; raw E is never automatically aggregated into H.
 
 ## ξ
 
@@ -119,11 +119,41 @@ bounded observation
 Not implemented yet:
 
 ```text
-finite unresolved assessment
-H_vec / H / θ
+temporal H accumulation / θ
 M_Δ
 T1 reconstruction
 finite-context authority cutover
 ```
 
-The next semantic step is explicit finite assessment of E. Nonzero E alone must not become H.
+Explicit finite assessment and single-comparison residual H are now implemented as a diagnostic path. Nonzero E alone never becomes H.
+
+## Finite assessment API
+
+`GET /v1/canonical-snapshot` includes `assessment.records`. Each record identifies the original E pair, frozen model and finite context. Zero dimensions start as `zero`; nonzero dimensions start as `pending`. H=0 before review means no admitted residual, not proof of resolution.
+
+`POST /v1/assessment-review` accepts the following shape. Use an actual `assessment_id` and current revision from the snapshot, and review all selected dimensions:
+
+```json
+{
+  "assessment_id": "<id from snapshot>",
+  "expected_revision": 0,
+  "reviewer": "local-experiment-reviewer",
+  "basis": "<finite criterion and why the remainder is unresolved>",
+  "evidence": "<fixture or observation evidence reference>",
+  "dimensions": {
+    "visible_agents_count": {"status": "zero"},
+    "visible_objects_count": {"status": "unresolved", "residual": 1.0},
+    "visible_places_count": {"status": "zero"}
+  }
+}
+```
+
+This example requires an E whose agents/places deltas are zero and whose object delta has magnitude at least 1. Review statuses are `zero`, `pending`, `resolved`, `ordinary_temporal_change`, `boundary_coverage_change`, `unresolved`. A boundary/coverage change that prevents E formation still remains an acquisition/comparison exclusion; the review status cannot manufacture a cross-context E.
+
+Only `unresolved` has a positive residual, bounded by `abs(E_dimension)`. All other statuses contribute zero. `H_vec` retains these nonnegative magnitudes and `H = L2(H_vec)` within this single comparison. This is a GameAI-local model, with no temporal sum, decay, cancellation, θ, or reconstruction. Re-review replaces the current assessment atomically; resolving a dimension removes its residual. Stale revisions and incomplete/invalid reviews return 422 without changing state.
+
+Reviewer/basis/evidence are declared provenance, not authenticated identity or automatic proof of semantic correctness. An experiment must supply its finite review criterion. Fear, fun, attention, and static conflict are not accepted dimensions. No autonomous unresolved classifier is claimed.
+
+Retention: at most 128 comparison records per process. Capacity exhaustion preserves existing records and increments `capacity_rejections`; further E can still be observed but is not admitted for review. Repeated pair registration is idempotent. Snapshot exposes all retained contexts separately; there is no agent-wide H total. Restart clears the ledger; only the latest review/revision is retained, not a durable audit history.
+
+The API is a localhost diagnostic control. Review/capture/snapshot operations are serialized by a shared lock. Neither review nor H changes the action response, Godot state, or frozen M_B. A review UI and persistent ledger remain future work.

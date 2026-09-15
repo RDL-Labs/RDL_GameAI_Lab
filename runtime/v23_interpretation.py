@@ -1,8 +1,8 @@
 """Read-only Core v2.3 interpretation/comparison sidecar for GameAI.
 
 This module introduces an explicit finite frozen self-side evaluator M_B and
-forms F / F' / E from already-acquired RIB_B sections. It deliberately stops
-before unresolved review, H, M_delta, or T1 reconstruction.
+forms F / F' / E from already-acquired RIB_B sections. A separate finite ledger
+supports explicit residual review; neither path has action authority.
 """
 
 from __future__ import annotations
@@ -12,6 +12,7 @@ import hashlib
 import math
 from types import MappingProxyType
 from typing import Any, Mapping
+from .v23_assessment import FiniteAssessmentLedger
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -261,6 +262,7 @@ class GameAIFrozenComparisonSidecar:
         self._comparisons = 0
         self._duplicate_observations = 0
         self._failures: list[dict[str, str]] = []
+        self.assessments = FiniteAssessmentLedger()
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
         try:
@@ -296,6 +298,7 @@ class GameAIFrozenComparisonSidecar:
         mismatch = compare_interpretations(previous, interpretation)
         self._latest_mismatches[section.agent_id] = mismatch
         self._comparisons += 1
+        self.assessments.register(mismatch)
         return mismatch
 
     def snapshot(self) -> dict[str, Any]:
@@ -322,6 +325,7 @@ class GameAIFrozenComparisonSidecar:
                 for agent_id, mismatch in sorted(self._latest_mismatches.items())
             },
             "failures": list(self._failures),
-            "not_implemented": ["unresolved-review", "H", "M_delta", "T1", "authority-cutover"],
+            "assessment": self.assessments.snapshot(),
+            "not_implemented": ["temporal-H-accumulation", "theta", "M_delta", "T1", "authority-cutover"],
             "xi_status": XI_STATUS,
         }
