@@ -8,6 +8,8 @@ from the canonical read-only RDL sidecar.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from copy import deepcopy
+import math
 from typing import Any
 
 
@@ -42,6 +44,36 @@ class RuntimeDecision:
 
 
 def decide_action(packet: dict[str, Any]) -> dict[str, Any]:
+    return apply_body_constraint(packet, _decide_action(packet))
+
+
+def apply_body_constraint(packet, response):
+    body = packet["observation"].get("body")
+    if body is None:
+        return response
+    if not isinstance(body, dict):
+        raise ObservationError("observation.body must be an object")
+    scale = body.get("movement_scale")
+    if type(scale) not in (int, float) or not math.isfinite(scale) or not 0 <= scale <= 1:
+        raise ObservationError("body movement_scale must be finite in [0,1]")
+    if body.get("agent_id") != packet["agent_id"]:
+        raise ObservationError("body owner must match observed agent")
+    if not isinstance(body.get("snapshot_id"), str) or not body["snapshot_id"]:
+        raise ObservationError("body snapshot_id required")
+    if type(body.get("revision")) is not int or body["revision"] < 0:
+        raise ObservationError("body revision must be non-negative integer")
+    response = deepcopy(response)
+    if scale == 0 and response["action"]["type"] == "approach":
+        response["action"] = {"type": "idle"}
+        response["inspection"]["reason"] = "self body snapshot reports no movement capability"
+    response["inspection"]["body"] = {
+        "snapshot_id": body["snapshot_id"], "revision": body["revision"],
+        "movement_scale": scale, "authority": "bounded-self-body-report",
+    }
+    return response
+
+
+def _decide_action(packet: dict[str, Any]) -> dict[str, Any]:
     """Return a structured action for one bounded observation packet."""
 
     tick, agent_id, observation = _validate_packet(packet)

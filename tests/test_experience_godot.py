@@ -25,7 +25,10 @@ class GodotExperienceTests(unittest.TestCase):
     def test_real_workbench_short_profile_retries_next_tick(self):
         self._run_workbench(True, "short")
 
-    def _run_workbench(self, influence, profile="standard"):
+    def test_real_workbench_body_constraint_and_recovery(self):
+        self._run_workbench(True, body=True)
+
+    def _run_workbench(self, influence, profile="standard", body=False):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()
         with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
@@ -38,7 +41,7 @@ class GodotExperienceTests(unittest.TestCase):
                 project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
                 completed = subprocess.run(
                     [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
-                     "--script", "res://tests/experience_http_check.gd"],
+                     "--script", "res://tests/body_http_check.gd" if body else "res://tests/experience_http_check.gd"],
                     capture_output=True, text=True, timeout=40,
                     env={**os.environ, "RDL_TEST_HISTORY_INFLUENCE": "1" if influence else "0",
                          "RDL_TEST_RETRY_PROFILE": profile},
@@ -46,16 +49,20 @@ class GodotExperienceTests(unittest.TestCase):
                 )
                 output = completed.stdout + completed.stderr
                 self.assertEqual(completed.returncode, 0, output)
-                self.assertIn("Experience influence check passed" if influence else "Experience HTTP check passed", output)
+                marker = "Body HTTP check passed" if body else ("Experience influence check passed" if influence else "Experience HTTP check passed")
+                self.assertIn(marker, output)
                 snapshot = history.snapshot()
                 expected = (5 if profile == "short" else 4) if influence else 12
+                if body:
+                    expected = 2
                 self.assertEqual(len(snapshot["records"]), expected)
                 self.assertEqual(snapshot["pending_results"], 0)
                 self.assertEqual(snapshot["capacity_rejections"], 0)
                 self.assertEqual(len(snapshot["relations"]), 1)
                 relation = snapshot["relations"][0]
                 self.assertTrue(relation["approach_progress"])
-                self.assertTrue(relation["approach_no_progress"])
+                if not body:
+                    self.assertTrue(relation["approach_no_progress"])
                 for record in snapshot["records"]:
                     self.assertEqual(record["agent_id"], "npc_b")
                     self.assertEqual(record["action"]["target_id"], "food_01")

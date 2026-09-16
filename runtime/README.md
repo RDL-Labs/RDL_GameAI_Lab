@@ -1,5 +1,9 @@
 # RDL GameAI Runtime
 
+Optional `observation.body` snapshots constrain approach eligibility; stopped
+agents idle even under history influence. Godot controls actual displacement.
+See the [Body contract](../docs/experiment-contracts/BODY_movement_contract.md).
+
 Individual retry experiment: `python -m runtime.bridge --history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
 The [profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md) defines fixed 1/3/5 tick response tendencies and their finite limits.
 

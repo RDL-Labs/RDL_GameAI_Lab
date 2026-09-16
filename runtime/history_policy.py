@@ -3,7 +3,7 @@
 from copy import deepcopy
 from types import MappingProxyType
 
-from .core import ObservationError, RuntimeDecision, _is_food, decide_action
+from .core import ObservationError, RuntimeDecision, _is_food, decide_action, apply_body_constraint
 from .sensitivity import RETRY_PROFILES
 
 
@@ -67,6 +67,7 @@ class HistoryInfluencePolicy:
                 target_id=candidate, observation_id=key[1],
                 reason="finite history retry window: recent no-progress targets deferred",
             ).to_json()
+        response = apply_body_constraint(packet, response)
         response["inspection"]["history_influence"] = {
             "policy": POLICY_ID, "retry_ticks": profile.retry_ticks,
             "profile_id": profile.profile_id,

@@ -75,13 +75,16 @@ var decision_records = []
 var action_offsets = {}
 var resolution_records = []
 var observation_seq = 0
+var body_states = {}
 
 func reset():
 	tick = 0
 	observation_seq = 0
+	body_states = {}
 	agents = []
 	for agent in INITIAL_AGENTS:
 		agents.append(agent.duplicate(true))
+		body_states[agent["id"]] = {"movement_scale": 1.0, "revision": 0}
 	action_offsets = {}
 	for agent in agents:
 		action_offsets[agent["id"]] = Vector2.ZERO
@@ -181,6 +184,22 @@ func get_latest_resolution(agent_id):
 			return record.duplicate(true)
 	return {}
 
+func set_movement_scale(agent_id, scale):
+	if not body_states.has(agent_id) or not is_finite(float(scale)) or scale < 0.0 or scale > 1.0:
+		return false
+	var body = body_states[agent_id]
+	if body["movement_scale"] != scale:
+		body["movement_scale"] = float(scale)
+		body["revision"] += 1
+	return true
+
+func get_body_snapshot(agent_id):
+	if not body_states.has(agent_id):
+		return {}
+	var body = body_states[agent_id]
+	return {"agent_id": agent_id, "movement_scale": body["movement_scale"],
+		"revision": body["revision"], "snapshot_id": "body-%s-%d" % [agent_id, body["revision"]]}
+
 func get_interaction_result(resolution):
 	if resolution.get("action_type", "") != "approach":
 		return {}
@@ -204,7 +223,8 @@ func _update_mock_positions():
 		var base = INITIAL_AGENTS[i]["position"]
 		var phase = float(tick + i * 3)
 		var offset = action_offsets.get(agent["id"], Vector2.ZERO)
-		agent["position"] = base + Vector2(sin(phase * 0.35) * 18.0, cos(phase * 0.25) * 12.0) + offset
+		var desired = base + Vector2(sin(phase * 0.35) * 18.0, cos(phase * 0.25) * 12.0) + offset
+		agent["position"] += (desired - agent["position"]) * body_states[agent["id"]]["movement_scale"]
 		if (tick + i) % 2 == 0:
 			agent["mood"] = "curious"
 		else:
@@ -246,8 +266,9 @@ func _resolve_approach(decision, target_id):
 	var agent = agents[agent_index]
 	var before_position = agent["position"]
 	var direction = target["position"] - before_position
-	if direction.length() > ACTION_STEP_DISTANCE:
-		direction = direction.normalized() * ACTION_STEP_DISTANCE
+	var step_distance = ACTION_STEP_DISTANCE * body_states[agent_id]["movement_scale"]
+	if direction.length() > step_distance:
+		direction = direction.normalized() * step_distance
 	var after_position = before_position + direction
 	agent["position"] = after_position
 	action_offsets[agent_id] = action_offsets.get(agent_id, Vector2.ZERO) + direction

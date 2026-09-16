@@ -21,6 +21,7 @@ var history_request
 var tick_label
 var status_label
 var mode_select
+var movement_select
 var world_panel
 var inspector_text
 var observation_text
@@ -111,6 +112,13 @@ func _build_ui():
 	inspector_title.text = "Agent Inspector"
 	inspector_title.add_theme_font_size_override("font_size", 16)
 	right.add_child(inspector_title)
+	movement_select = OptionButton.new()
+	movement_select.add_item("Movement: full")
+	movement_select.add_item("Movement: limited")
+	movement_select.add_item("Movement: stopped")
+	movement_select.tooltip_text = "Selected agent movement capability"
+	movement_select.item_selected.connect(_on_movement_selected)
+	right.add_child(movement_select)
 
 	inspector_text = RichTextLabel.new()
 	inspector_text.name = "AgentInspector"
@@ -207,6 +215,15 @@ func _on_tick_timer_timeout():
 
 func _on_agent_pressed(agent_id):
 	selected_agent_id = agent_id
+	_refresh_all()
+	_request_runtime_action_if_needed()
+
+func _on_movement_selected(index):
+	_cancel_runtime_requests()
+	runtime_pending = false
+	runtime_decision = {}
+	runtime_resolution = {}
+	state_provider.set_movement_scale(selected_agent_id, [1.0, 0.5, 0.0][index])
 	_refresh_all()
 	_request_runtime_action_if_needed()
 
@@ -347,6 +364,8 @@ func _refresh_inspector():
 		return
 
 	var position = agent["position"]
+	var scale = state_provider.get_body_snapshot(selected_agent_id)["movement_scale"]
+	movement_select.select(0 if scale == 1.0 else (2 if scale == 0.0 else 1))
 	inspector_text.text = ""
 	inspector_text.append_text("[b]%s[/b]\n" % agent["label"])
 	inspector_text.append_text("id: %s\n" % agent["id"])
@@ -462,6 +481,7 @@ func _build_runtime_packet(agent_id):
 		"agent_id": agent_id,
 		"observation": {
 			"visible_agents": _runtime_entities(observation["visible_agents"], origin),
+			"body": state_provider.get_body_snapshot(agent_id),
 			"visible_objects": _runtime_entities(observation["visible_objects"], origin),
 			"visible_places": _runtime_entities(observation["visible_places"], origin)
 		}

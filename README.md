@@ -137,6 +137,10 @@ Use the current `RDL 横断レイヤリング・キット` as a lightweight orga
 
 ## Next boundary
 
+The Inspector now offers full/limited/stopped movement for the selected NPC.
+Godot owns the body state and enforces displacement; Runtime consumes a bounded
+self snapshot. See the [Body movement contract](docs/experiment-contracts/BODY_movement_contract.md).
+
 The optional history policy now supports fixed per-agent retry tendencies:
 `--history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
 This is the first bounded individual-response experiment; see the

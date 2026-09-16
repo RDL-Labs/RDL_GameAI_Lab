@@ -1,5 +1,15 @@
 # Current Core v2.3 Runtime Evidence
 
+## Body movement
+
+Current full suite: 57 passing tests with GODOT_BIN configured, including four
+real Godot/HTTP checks. The new Body check exercises the actual Inspector
+callback and verifies displacement 0 -> 36 -> 18 for stopped -> full -> limited,
+stopped ambient movement, other-agent isolation, reset restoration, and two
+accepted movement results. Python checks body validation, history-policy
+constraint enforcement, recovery and absence of direct canonical H effects.
+Headless execution is verified; interactive visual layout is not inspected.
+
 ## Fixed retry profiles
 
 Current full suite: 51 passing tests with `GODOT_BIN` configured. Added

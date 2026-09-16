@@ -116,6 +116,12 @@ Experiential check:
 
 ## Next 3 — individual sensitivity / affect expression / Neural Layer
 
+Minimal Body slice implemented: selected-agent movement capability is owned by
+Godot, projected as a self snapshot, and applied to action eligibility and world
+resolution. Full/limited/stopped controls and recovery are tested over real HTTP.
+See [the Body contract](../docs/experiment-contracts/BODY_movement_contract.md).
+This is an intervention experiment, not injury/fatigue dynamics or affect.
+
 Minimal fixed response-profile slice implemented: per-agent short/standard/long retry windows (1/3/5 ticks), immutable within a run. Same-history/same-observation comparisons establish a local action difference; actual Godot verifies short-profile retry after one tick. See [the profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md). This does not complete multi-dimensional sensitivity, Body, affect expression, learned updates, or social history.
 
 Goal:
