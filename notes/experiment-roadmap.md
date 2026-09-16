@@ -116,6 +116,12 @@ Experiential check:
 
 ## Next 3 — individual sensitivity / affect expression / Neural Layer
 
+Minimal derived response expression is now visible in Runtime Inspector:
+engaged/holding/restricted/observing, with independent body/history factors and
+source IDs. It is display-only; equal H can accompany different expressions.
+See [the expression contract](../docs/experiment-contracts/EXPRESSION_response_contract.md).
+Psychological affect, social relations and learned sensitivity remain open.
+
 Minimal Body slice implemented: selected-agent movement capability is owned by
 Godot, projected as a self snapshot, and applied to action eligibility and world
 resolution. Full/limited/stopped controls and recovery are tested over real HTTP.

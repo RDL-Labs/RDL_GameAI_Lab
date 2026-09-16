@@ -5,6 +5,7 @@ from types import MappingProxyType
 
 from .core import ObservationError, RuntimeDecision, _is_food, decide_action, apply_body_constraint
 from .sensitivity import RETRY_PROFILES
+from .expression import with_expression
 
 
 POLICY_ID = "approach-retry-window-v2"
@@ -75,5 +76,6 @@ class HistoryInfluencePolicy:
             "action_changed": response["action"] != baseline["action"],
             "authority": "GameAI-local-action-policy; not-canonical-M_B",
         }
+        response = with_expression(response)
         self._decisions[key] = (deepcopy(packet), deepcopy(response))
         return response

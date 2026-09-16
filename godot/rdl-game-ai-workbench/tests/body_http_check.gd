@@ -22,6 +22,10 @@ func _run():
 				return
 			await process_frame
 		var after = workbench.state_provider.get_agent("npc_b")["position"]
+		var expected_expression = "restricted" if i == 0 else "engaged"
+		if not workbench.inspector_text.get_parsed_text().contains("reaction: " + expected_expression):
+			_fail("expected body-derived expression in Inspector")
+			return
 		if not is_equal_approx(before.distance_to(after), distances[i]):
 			_fail("unexpected displacement: %s" % before.distance_to(after))
 			return

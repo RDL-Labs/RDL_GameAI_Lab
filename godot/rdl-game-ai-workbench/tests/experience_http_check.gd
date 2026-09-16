@@ -24,6 +24,10 @@ func _run():
 			await process_frame
 		if influence and workbench.runtime_decision.get("action", {}).get("type", "") == "idle":
 			var trace = workbench.runtime_decision.get("inspection", {}).get("history_influence", {})
+			var expression = workbench.runtime_decision.get("inspection", {}).get("expression", {})
+			if expression.get("label", "") != "holding" or not workbench.inspector_text.get_parsed_text().contains("reaction: holding"):
+				_fail("expected derived holding expression in Inspector")
+				return
 			if progress == 0 or no_progress == 0 or not trace.get("action_changed", false):
 				_fail("expected history-backed idle after real no-progress result")
 				return

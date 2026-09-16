@@ -1,5 +1,8 @@
 # RDL GameAI Runtime
 
+Action responses include `inspection.expression`, a pure derived response label
+with body/profile/history provenance. See the [expression contract](../docs/experiment-contracts/EXPRESSION_response_contract.md).
+
 Optional `observation.body` snapshots constrain approach eligibility; stopped
 agents idle even under history influence. Godot controls actual displacement.
 See the [Body contract](../docs/experiment-contracts/BODY_movement_contract.md).

@@ -137,6 +137,10 @@ Use the current `RDL 横断レイヤリング・キット` as a lightweight orga
 
 ## Next boundary
 
+Runtime Inspector now shows a derived reaction (`engaged`, `holding`,
+`restricted`, `observing`) with body/history factors. Decision Record exposes
+its source IDs. This is a [display-only expression](docs/experiment-contracts/EXPRESSION_response_contract.md), not an emotion estimate or an H update.
+
 The Inspector now offers full/limited/stopped movement for the selected NPC.
 Godot owns the body state and enforces displacement; Runtime consumes a bounded
 self snapshot. See the [Body movement contract](docs/experiment-contracts/BODY_movement_contract.md).

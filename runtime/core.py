@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from copy import deepcopy
 import math
 from typing import Any
+from .expression import with_expression
 
 
 RUNTIME_NAME = "rdl-gameai-minimal-runtime"
@@ -44,7 +45,7 @@ class RuntimeDecision:
 
 
 def decide_action(packet: dict[str, Any]) -> dict[str, Any]:
-    return apply_body_constraint(packet, _decide_action(packet))
+    return with_expression(apply_body_constraint(packet, _decide_action(packet)))
 
 
 def apply_body_constraint(packet, response):

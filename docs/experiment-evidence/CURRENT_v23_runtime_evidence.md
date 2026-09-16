@@ -1,5 +1,15 @@
 # Current Core v2.3 Runtime Evidence
 
+## Derived response expression
+
+Current suite: 62 passing tests with GODOT_BIN, including four actual Godot/HTTP
+checks. New evidence covers expression derivation from final action/body/history
+trace, coexisting factors, equal-H/different-expression cases and non-intervention.
+Headless Inspector parsed text is asserted for restricted, engaged and holding.
+The initial UI assertion incorrectly used RichTextLabel.text for append_text
+content; it was corrected to get_parsed_text and the full suite passed.
+Interactive visual layout remains unverified.
+
 ## Body movement
 
 Current full suite: 57 passing tests with GODOT_BIN configured, including four

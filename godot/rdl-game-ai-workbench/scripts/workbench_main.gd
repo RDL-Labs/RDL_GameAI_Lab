@@ -253,6 +253,7 @@ func _request_runtime_action_if_needed():
 	runtime_decision = {}
 	runtime_resolution = {}
 	_refresh_decision()
+	_refresh_inspector()
 
 	var headers = ["Content-Type: application/json"]
 	var body = JSON.stringify(packet)
@@ -370,7 +371,15 @@ func _refresh_inspector():
 	inspector_text.append_text("[b]%s[/b]\n" % agent["label"])
 	inspector_text.append_text("id: %s\n" % agent["id"])
 	inspector_text.append_text("role: %s\n" % agent["role"])
-	inspector_text.append_text("mock mood: %s\n" % agent["mood"])
+	if provider_mode == "runtime":
+		if not runtime_pending and runtime_decision.get("agent_id", "") == selected_agent_id:
+			var expression = runtime_decision.get("inspection", {}).get("expression", {})
+			inspector_text.append_text("reaction: %s\n" % expression.get("label", "unavailable"))
+			inspector_text.append_text("factors: %s\n" % ", ".join(expression.get("factors", [])))
+		else:
+			inspector_text.append_text("reaction: awaiting observation\n")
+	else:
+		inspector_text.append_text("mock mood: %s\n" % agent["mood"])
 	inspector_text.append_text("position: (%.1f, %.1f)\n\n" % [position.x, position.y])
 	inspector_text.append_text("P0 boundary:\n")
 	inspector_text.append_text("- mock data only\n")
@@ -442,6 +451,11 @@ func _refresh_runtime_decision():
 		decision_text.append_text("target: %s\n" % action["target_id"])
 	decision_text.append_text("observation: %s\n" % inspection.get("observation_id", "?"))
 	decision_text.append_text("reason: %s\n" % inspection.get("reason", "?"))
+	var expression = inspection.get("expression", {})
+	if not expression.is_empty():
+		decision_text.append_text("reaction: %s\n" % expression.get("label", "?"))
+		decision_text.append_text("profile: %s / body: %s\n" % [expression.get("profile_id", "none"), expression.get("body_snapshot_id", "none")])
+		decision_text.append_text("history sources: %s\n" % ", ".join(expression.get("history_record_ids", [])))
 	if not runtime_resolution.is_empty():
 		decision_text.append_text("\nWorld Resolution:\n")
 		decision_text.append_text("tick: %d\n" % runtime_resolution.get("tick", -1))
