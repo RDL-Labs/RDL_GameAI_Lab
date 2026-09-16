@@ -181,6 +181,23 @@ func get_latest_resolution(agent_id):
 			return record.duplicate(true)
 	return {}
 
+func get_interaction_result(resolution):
+	if resolution.get("action_type", "") != "approach":
+		return {}
+	if not resolution.has("before_position") or not resolution.has("after_position"):
+		return {}
+	var outcome = "approach_no_progress"
+	if resolution["before_position"] != resolution["after_position"]:
+		outcome = "approach_progress"
+	return {
+		"agent_id": resolution["agent_id"],
+		"source_observation_id": resolution["source_observation_id"],
+		"subsequent_observation_id": resolution["subsequent_observation_id"],
+		"target_id": resolution["target_id"],
+		"tick": resolution["tick"],
+		"outcome": outcome
+	}
+
 func _update_mock_positions():
 	for i in range(agents.size()):
 		var agent = agents[i]

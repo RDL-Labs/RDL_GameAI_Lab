@@ -1,5 +1,33 @@
 # Current Core v2.3 Runtime Evidence
 
+## Experience read-only slice
+
+With `GODOT_BIN` configured, the complete suite now passes 39 tests, including seven Experience unit/HTTP tests and one real Workbench HTTP test
+covering result correlation, separate progress/no-progress histories, replay and
+conflict handling, finite capacity, agent/context isolation, and HTTP snapshot
+acceptance without changes to action or canonical state. Godot 4.7.2 headless
+main-scene startup and `current_interaction_loop_check.gd` pass; the latter also
+checks bounded outcome reporting for movement and already-at-target conditions.
+Log-directory/certificate-store warnings occur in this test environment, with
+no script parse errors. The real Godot-to-HTTP test instantiates the actual
+Workbench, selects NPC B, enables Runtime mode, and completes 12 reports:
+3 approach-progress and 9 approach-no-progress records, with zero pending
+results or capacity rejections. All source IDs are distinct, each later ID
+differs from its source, 11 canonical comparisons form, and retained H remains
+zero without explicit review. Interactive GUI appearance was not inspected.
+History-driven behavior remains unimplemented.
+
+Reproduce on Windows PowerShell (port 8765 must be free; the test does not stop
+or reuse an existing service):
+
+```powershell
+$env:GODOT_BIN = 'D:\Godot\Godot_v4.7.2-stable_win64_console.exe'
+python -m unittest discover -s tests -v
+```
+
+Without `GODOT_BIN`, the live test is explicitly skipped. Test-owned HTTP and
+Godot processes are shut down after completion.
+
 This file records the current finite acceptance evidence for the active GameAI runtime path. Superseded phase-specific evidence has been consolidated here and removed from the active working tree.
 
 ## Current implemented chain

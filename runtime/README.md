@@ -1,5 +1,7 @@
 # RDL GameAI Runtime
 
+The [Experience history API](../docs/experiment-contracts/EXPERIENCE_history_contract.md) accepts `POST /v1/interaction-result` for admitted approach decisions and exposes `GET /v1/experience-snapshot`. Godot reports bounded outcomes automatically in Runtime mode. Storage is read-only with respect to action and canonical semantics.
+
 Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. Diagnostic H is available per comparison and as retained residuals per exact context/frozen model.
 
 This is the minimal Python-side runtime boundary for the Godot workbench.

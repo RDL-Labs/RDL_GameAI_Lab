@@ -93,6 +93,8 @@ Acceptance:
 
 ## Next 2 — relation history / Experience Layer
 
+Read-only first slice implemented: admitted Runtime approach decisions are matched to bounded Godot result reports, with source/subsequent observation IDs, agent/target/context separation, and separate progress/no-progress histories. See [the Experience contract](../docs/experiment-contracts/EXPERIENCE_history_contract.md). Retention is 128 admitted decisions per process with no eviction. History-driven behavior and social positive/negative relation semantics remain the next acceptance boundary; they are not established by movement-result history alone.
+
 Goal:
 - prior interaction history changes present interpretation and action;
 - operationalize the first persistent part of the NPC layering profile without collapsing it into Core `M_B` by identity.

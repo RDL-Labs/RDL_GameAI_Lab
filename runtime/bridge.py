@@ -10,18 +10,25 @@ from typing import Any
 
 from .core import ObservationError, decide_action
 from .v23_interpretation import GameAIFrozenComparisonSidecar
+from .experience import InteractionHistory, HistoryError
 
 
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
 CANONICAL_SIDECAR = GameAIFrozenComparisonSidecar()
 CANONICAL_LOCK = RLock()
+EXPERIENCE = InteractionHistory()
 
 
 class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/experience-snapshot":
+            with CANONICAL_LOCK:
+                snapshot = EXPERIENCE.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/health":
             self._send_json(200, {"ok": True, "service": "rdl-gameai-runtime"})
             return
@@ -33,6 +40,16 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self._send_json(404, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        if self.path == "/v1/interaction-result":
+            try:
+                payload = self._read_json()
+                with CANONICAL_LOCK:
+                    record = EXPERIENCE.record_result(payload)
+            except (ValueError, ObservationError) as exc:
+                self._send_json(422, {"error": "invalid_interaction_result", "detail": str(exc)})
+                return
+            self._send_json(200, {"accepted": True, "record": record})
+            return
         if self.path == "/v1/assessment-review":
             try:
                 payload = self._read_json()
@@ -62,6 +79,10 @@ class BridgeHandler(BaseHTTPRequestHandler):
         # RIB_B acquisition nor frozen M_B/F/F'/E can alter the action response.
         with CANONICAL_LOCK:
             CANONICAL_SIDECAR.capture(packet)
+            try:
+                EXPERIENCE.register_decision(packet, response)
+            except HistoryError as exc:
+                self.log_message("history admission rejected: %s", str(exc))
         self._send_json(200, response)
 
     def log_message(self, format: str, *args: Any) -> None:

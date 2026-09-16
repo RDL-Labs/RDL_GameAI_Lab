@@ -111,6 +111,8 @@ POST /v1/observe
 GET  /health
 GET  /v1/canonical-snapshot
 POST /v1/assessment-review
+POST /v1/interaction-result
+GET  /v1/experience-snapshot
 ```
 
 The snapshot exposes current finite `RIB_B`, diagnostic `M_B`, interpretations, and E provenance.
@@ -148,7 +150,11 @@ unresolved
 
 Only explicitly reviewed unresolved dimensions enter diagnostic `H_vec -> H`. Both per-comparison H and retained H per exact context/frozen model are available. The local retention rule sums latest reviewed residuals until explicit resolution, without time decay or signed cancellation. θ, automatic review, and action authority remain deferred. See the [review API and finite contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api).
 
-After that:
+The first read-only Experience slice now records reported approach outcomes,
+keeping progress/no-progress histories separate per agent, target, and context.
+It does not yet influence behavior. See the [Experience contract](docs/experiment-contracts/EXPERIENCE_history_contract.md).
+
+Remaining sequence:
 
 ```text
 relation history

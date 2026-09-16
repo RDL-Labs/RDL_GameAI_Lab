@@ -47,6 +47,19 @@ func _initialize():
 	if after_observation["tick"] != resolution["tick"]:
 		_fail("expected subsequent observation to be generated from the resolution tick")
 		return
+	var history_result = provider.get_interaction_result(resolution)
+	if history_result.get("outcome", "") != "approach_progress":
+		_fail("expected bounded progress result")
+		return
+	if history_result.has("before_position") or history_result.has("after_position"):
+		_fail("history result must not export world positions")
+		return
+	for i in range(20):
+		decision["inspection"]["observation_id"] = provider.get_observation("npc_b")["observation_id"]
+		resolution = provider.resolve_action(decision)
+	if provider.get_interaction_result(resolution).get("outcome", "") != "approach_no_progress":
+		_fail("expected no-progress result after reaching the target")
+		return
 
 	print("Current interaction loop check passed")
 	quit(0)

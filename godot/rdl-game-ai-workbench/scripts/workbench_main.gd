@@ -4,6 +4,7 @@ const MockStateProviderScript = preload("res://scripts/mock_state_provider.gd")
 const WORLD_SIZE = Vector2(460, 340)
 const TICK_SECONDS = 0.6
 const RUNTIME_URL = "http://127.0.0.1:8765/v1/observe"
+const RESULT_URL = "http://127.0.0.1:8765/v1/interaction-result"
 
 var state_provider = MockStateProviderScript.new()
 var is_running = false
@@ -13,6 +14,9 @@ var provider_mode = "mock"
 var runtime_pending = false
 var runtime_decision = {}
 var runtime_resolution = {}
+var history_pending = false
+var history_status = ""
+var history_request
 
 var tick_label
 var status_label
@@ -160,6 +164,11 @@ func _build_runtime_request():
 	runtime_request.name = "RuntimeRequest"
 	runtime_request.request_completed.connect(_on_runtime_request_completed)
 	add_child(runtime_request)
+	history_request = HTTPRequest.new()
+	history_request.name = "HistoryRequest"
+	history_request.timeout = 5.0
+	history_request.request_completed.connect(_on_history_completed)
+	add_child(history_request)
 
 func _on_run_pressed():
 	is_running = true
@@ -179,6 +188,7 @@ func _on_step_pressed():
 	_request_runtime_action_if_needed()
 
 func _on_reset_pressed():
+	_cancel_runtime_requests()
 	is_running = false
 	tick_timer.stop()
 	selected_agent_id = "npc_a"
@@ -201,6 +211,7 @@ func _on_agent_pressed(agent_id):
 	_request_runtime_action_if_needed()
 
 func _on_mode_selected(index):
+	_cancel_runtime_requests()
 	if index == 1:
 		provider_mode = "runtime"
 	else:
@@ -214,7 +225,7 @@ func _on_mode_selected(index):
 func _request_runtime_action_if_needed():
 	if provider_mode != "runtime":
 		return
-	if runtime_pending:
+	if runtime_pending or history_pending:
 		return
 
 	var packet = _build_runtime_packet(selected_agent_id)
@@ -259,7 +270,31 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 
 	runtime_decision = parsed
 	runtime_resolution = state_provider.resolve_action(runtime_decision)
+	var interaction_result = state_provider.get_interaction_result(runtime_resolution)
+	history_status = ""
+	if not interaction_result.is_empty():
+		history_pending = true
+		history_status = "pending"
+		var error = history_request.request(RESULT_URL, ["Content-Type: application/json"], HTTPClient.METHOD_POST, JSON.stringify(interaction_result))
+		if error != OK:
+			history_pending = false
+			history_status = "report failed: %d" % error
 	_refresh_all()
+
+func _on_history_completed(result, response_code, _headers, body):
+	history_pending = false
+	var parsed = JSON.parse_string(body.get_string_from_utf8())
+	if result == HTTPRequest.RESULT_SUCCESS and response_code == 200 and typeof(parsed) == TYPE_DICTIONARY and parsed.get("accepted", false):
+		history_status = "accepted"
+	else:
+		history_status = "report failed: HTTP %d" % response_code
+	_refresh_decision()
+
+func _cancel_runtime_requests():
+	runtime_request.cancel_request()
+	history_request.cancel_request()
+	history_pending = false
+	history_status = ""
 
 func _refresh_all():
 	var state = state_provider.get_state()
@@ -401,6 +436,8 @@ func _refresh_runtime_decision():
 			decision_text.append_text("after: (%.1f, %.1f)\n" % [after_position.x, after_position.y])
 		decision_text.append_text("next observation: %s\n" % runtime_resolution.get("subsequent_observation_id", "?"))
 		decision_text.append_text("note: %s\n" % runtime_resolution.get("note", "?"))
+		if history_status != "":
+			decision_text.append_text("History: %s\n" % history_status)
 
 func _labels_for(items):
 	if items.is_empty():
