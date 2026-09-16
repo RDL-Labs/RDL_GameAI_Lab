@@ -99,6 +99,8 @@ Goal:
 - prior interaction history changes present interpretation and action;
 - operationalize the first persistent part of the NPC layering profile without collapsing it into Core `M_B` by identity.
 
+Bounded action influence is now available behind `--history-influence`: recent no-progress history defers a visible approach target for three ticks. Controlled same-observation comparisons and actual Workbench HTTP tests validate the effect. Canonical history-dependent interpretation and social relation semantics remain open; see [the influence contract](../docs/experiment-contracts/EXPERIENCE_influence_contract.md).
+
 Acceptance:
 - the same present event can yield different interpretation/behavior after different finite histories;
 - positive and negative relation histories may coexist;

@@ -1,5 +1,10 @@
 # RDL GameAI Runtime
 
+Optional history-to-action experiment: `python -m runtime.bridge --history-influence`.
+This enables the [finite retry-window policy](../docs/experiment-contracts/EXPERIENCE_influence_contract.md).
+Default startup retains the existing policy. The experimental decision cache
+is limited to 128 observations per process and requires a fresh runtime afterward.
+
 The [Experience history API](../docs/experiment-contracts/EXPERIENCE_history_contract.md) accepts `POST /v1/interaction-result` for admitted approach decisions and exposes `GET /v1/experience-snapshot`. Godot reports bounded outcomes automatically in Runtime mode. Storage is read-only with respect to action and canonical semantics.
 
 Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. Diagnostic H is available per comparison and as retained residuals per exact context/frozen model.

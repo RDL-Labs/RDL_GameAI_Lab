@@ -12,6 +12,7 @@ func _run():
 	workbench._on_mode_selected(1)
 	var progress = 0
 	var no_progress = 0
+	var influence = OS.get_environment("RDL_TEST_HISTORY_INFLUENCE") == "1"
 	for iteration in range(12):
 		if iteration > 0:
 			workbench._request_runtime_action_if_needed()
@@ -21,6 +22,16 @@ func _run():
 				_fail("HTTP roundtrip timed out")
 				return
 			await process_frame
+		if influence and workbench.runtime_decision.get("action", {}).get("type", "") == "idle":
+			var trace = workbench.runtime_decision.get("inspection", {}).get("history_influence", {})
+			if progress == 0 or no_progress == 0 or not trace.get("action_changed", false):
+				_fail("expected history-backed idle after real no-progress result")
+				return
+			print("Experience influence check passed: progress=%d no_progress=%d then idle" % [progress, no_progress])
+			workbench.queue_free()
+			await process_frame
+			quit(0)
+			return
 		if workbench.history_status != "accepted":
 			_fail("history not accepted: %s / %s" % [workbench.history_status, workbench.runtime_decision])
 			return
@@ -29,7 +40,7 @@ func _run():
 			progress += 1
 		else:
 			no_progress += 1
-	if progress == 0 or no_progress == 0:
+	if influence or progress == 0 or no_progress == 0:
 		_fail("expected both progress and no-progress")
 		return
 	print("Experience HTTP check passed: progress=%d no_progress=%d" % [progress, no_progress])

@@ -2,6 +2,8 @@
 
 This GameAI-local layer owns finite interaction history. It is not Core M_B,
 H, affect, trust, or an action policy. It does not change canonical comparisons.
+An optional [separate retry policy](EXPERIENCE_influence_contract.md) now reads
+this history to affect local action selection; storage itself remains unchanged.
 
 ## Path
 
@@ -79,8 +81,8 @@ a test-owned localhost bridge when `GODOT_BIN` is set. It verifies 12 accepted
 results, both outcome categories, distinct observation instances, zero pending
 results, and no automatic H contribution. It requires port 8765 to be free.
 
-This slice establishes read-only Experience storage, not the complete Next 2
-behavioral acceptance. Next, define a reviewed influence path and compare the
-same current observation/body/sensitivity with different finite histories.
+This slice establishes read-only Experience storage. A separate opt-in influence
+contract now demonstrates a bounded history-to-action comparison with the same
+current observation. It does not establish the complete Next 2 social model.
 Social support/avoidance, positive/negative social histories, forgetting,
 restart persistence, and canonical model reconstruction remain unimplemented.

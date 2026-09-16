@@ -152,7 +152,7 @@ Only explicitly reviewed unresolved dimensions enter diagnostic `H_vec -> H`. Bo
 
 The first read-only Experience slice now records reported approach outcomes,
 keeping progress/no-progress histories separate per agent, target, and context.
-It does not yet influence behavior. See the [Experience contract](docs/experiment-contracts/EXPERIENCE_history_contract.md).
+Storage remains separate from action authority. The optional [history retry experiment](docs/experiment-contracts/EXPERIENCE_influence_contract.md) uses recent no-progress history to defer a visible target for three ticks. Enable it with `python -m runtime.bridge --history-influence`. See the [Experience contract](docs/experiment-contracts/EXPERIENCE_history_contract.md).
 
 Remaining sequence:
 

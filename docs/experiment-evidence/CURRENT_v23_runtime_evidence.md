@@ -1,5 +1,16 @@
 # Current Core v2.3 Runtime Evidence
 
+## Optional history influence
+
+With `GODOT_BIN` configured, the current suite passes 46 tests. The real
+Workbench/HTTP experiment passes both default and opt-in policy cases. Default:
+3 progress + 9 no-progress reports. Opt-in: 3 progress + 1 no-progress, then idle
+with a history source trace. Six additional controlled policy tests cover
+same-packet/different-history actions, retry boundary, visible alternatives,
+agent/context isolation, latest progress, and frozen replay/capacity.
+This establishes local action influence, not canonical M_B learning or affect.
+Earlier read-only evidence below remains valid for default mode.
+
 ## Experience read-only slice
 
 With `GODOT_BIN` configured, the complete suite now passes 39 tests, including seven Experience unit/HTTP tests and one real Workbench HTTP test
@@ -15,7 +26,7 @@ Workbench, selects NPC B, enables Runtime mode, and completes 12 reports:
 results or capacity rejections. All source IDs are distinct, each later ID
 differs from its source, 11 canonical comparisons form, and retained H remains
 zero without explicit review. Interactive GUI appearance was not inspected.
-History-driven behavior remains unimplemented.
+History-driven behavior is now tested separately in the optional policy above.
 
 Reproduce on Windows PowerShell (port 8765 must be free; the test does not stop
 or reuse an existing service):

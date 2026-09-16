@@ -11,6 +11,7 @@ from typing import Any
 from .core import ObservationError, decide_action
 from .v23_interpretation import GameAIFrozenComparisonSidecar
 from .experience import InteractionHistory, HistoryError
+from .history_policy import HistoryInfluencePolicy
 
 
 DEFAULT_HOST = "127.0.0.1"
@@ -66,7 +67,14 @@ class BridgeHandler(BaseHTTPRequestHandler):
 
         try:
             packet = self._read_json()
-            response = decide_action(packet)
+            with CANONICAL_LOCK:
+                policy = getattr(self.server, "history_policy", None)
+                response = policy.decide(packet, EXPERIENCE) if policy else decide_action(packet)
+                CANONICAL_SIDECAR.capture(packet)
+                try:
+                    EXPERIENCE.register_decision(packet, response)
+                except HistoryError as exc:
+                    self.log_message("history admission rejected: %s", str(exc))
         except json.JSONDecodeError:
             self._send_json(400, {"error": "invalid_json"})
             return
@@ -74,15 +82,6 @@ class BridgeHandler(BaseHTTPRequestHandler):
             self._send_json(422, {"error": "invalid_observation", "detail": str(exc)})
             return
 
-        # Canonical v2.3 observation remains diagnostic-only. Capture occurs
-        # only after the existing action path accepts the packet, and neither
-        # RIB_B acquisition nor frozen M_B/F/F'/E can alter the action response.
-        with CANONICAL_LOCK:
-            CANONICAL_SIDECAR.capture(packet)
-            try:
-                EXPERIENCE.register_decision(packet, response)
-            except HistoryError as exc:
-                self.log_message("history admission rejected: %s", str(exc))
         self._send_json(200, response)
 
     def log_message(self, format: str, *args: Any) -> None:
@@ -107,8 +106,9 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
 
-def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT) -> None:
+def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, history_influence: bool = False) -> None:
     server = ThreadingHTTPServer((host, port), BridgeHandler)
+    server.history_policy = HistoryInfluencePolicy() if history_influence else None
     print("RDL GameAI Runtime listening on http://%s:%d" % (host, port))
     server.serve_forever()
 
@@ -117,8 +117,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the RDL GameAI Runtime bridge.")
     parser.add_argument("--host", default=DEFAULT_HOST)
     parser.add_argument("--port", default=DEFAULT_PORT, type=int)
+    parser.add_argument("--history-influence", action="store_true", help="Enable finite history retry experiment")
     args = parser.parse_args()
-    run(args.host, args.port)
+    run(args.host, args.port, args.history_influence)
 
 
 if __name__ == "__main__":
