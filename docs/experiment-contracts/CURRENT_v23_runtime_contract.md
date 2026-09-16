@@ -119,7 +119,7 @@ bounded observation
 Not implemented yet:
 
 ```text
-temporal H accumulation / θ
+time decay / θ
 M_Δ
 T1 reconstruction
 finite-context authority cutover
@@ -150,10 +150,22 @@ Explicit finite assessment and single-comparison residual H are now implemented 
 
 This example requires an E whose agents/places deltas are zero and whose object delta has magnitude at least 1. Review statuses are `zero`, `pending`, `resolved`, `ordinary_temporal_change`, `boundary_coverage_change`, `unresolved`. A boundary/coverage change that prevents E formation still remains an acquisition/comparison exclusion; the review status cannot manufacture a cross-context E.
 
-Only `unresolved` has a positive residual, bounded by `abs(E_dimension)`. All other statuses contribute zero. `H_vec` retains these nonnegative magnitudes and `H = L2(H_vec)` within this single comparison. This is a GameAI-local model, with no temporal sum, decay, cancellation, θ, or reconstruction. Re-review replaces the current assessment atomically; resolving a dimension removes its residual. Stale revisions and incomplete/invalid reviews return 422 without changing state.
+Only `unresolved` has a positive residual, bounded by `abs(E_dimension)`. All other statuses contribute zero. Each record exposes these nonnegative magnitudes as `H_vec` and `H = L2(H_vec)` within the single comparison. Context-level retention is defined below. Re-review replaces the current assessment atomically; resolving a dimension removes its residual. Stale revisions and incomplete/invalid reviews return 422 without changing state.
 
 Reviewer/basis/evidence are declared provenance, not authenticated identity or automatic proof of semantic correctness. An experiment must supply its finite review criterion. Fear, fun, attention, and static conflict are not accepted dimensions. No autonomous unresolved classifier is claimed.
 
-Retention: at most 128 comparison records per process. Capacity exhaustion preserves existing records and increments `capacity_rejections`; further E can still be observed but is not admitted for review. Repeated pair registration is idempotent. Snapshot exposes all retained contexts separately; there is no agent-wide H total. Restart clears the ledger; only the latest review/revision is retained, not a durable audit history.
+Retention: at most 128 comparison records per process. Capacity exhaustion preserves existing records and increments `capacity_rejections`; further E can still be observed but is not admitted for review. Repeated pair registration is idempotent. Snapshot exposes all retained contexts separately; there is no agent-wide H total. Restart clears the ledger; only the latest review/revision is retained, not a durable audit history. The 128-case bound applies to the assessment ledger, not to all sidecar observation/model caches.
+
+### Retained H across comparisons
+
+`assessment.retained_H` groups records by exact finite context (including agent) and frozen `model_ref`. For every dimension, sum the unresolved residual magnitudes in the latest revision of each admitted comparison, then take the L2 norm of that vector. This is the explicit GameAI-local `Remain(H, dt) = H` baseline: elapsed ticks do not decay a residual; a later zero E does not clear earlier unresolved records.
+
+Each comparison contributes once. Re-review replaces its contribution rather than adding a new one. Resolution removes the relevant contribution. Positive and negative E do not cancel because the selected model retains magnitudes. Every group exposes source assessment IDs/revisions, pending-dimension count, and comparison count. H=0 with pending items is not evidence of complete resolution. Capacity rejection means retained H covers only admitted cases. Numeric overflow is reported as unavailable (`H=null`, `status=numeric_overflow`), never as a finite result.
+
+A reviewer must distinguish a new residual event from renewed evidence of an existing problem. Fresh observation IDs alone do not prove independent unresolved events: use `pending` or another non-residual classification when that is not established, or re-review the original case. No semantic event deduplication is claimed.
+
+Within a context, already accepted observation IDs are ignored even after intervening observations; the first accepted instance owns the ID. A new observation with a regressing tick is rejected from canonical comparison. Distinct instances at the same tick remain valid. The current process is one observation-ID namespace: after resetting Godot tick/IDs, restart the runtime before beginning a new experiment. Automatic session/reset coordination remains deferred.
+
+Retained H does not enable θ, M_Δ, action authority, cross-context transfer, or a general time-decay law.
 
 The API is a localhost diagnostic control. Review/capture/snapshot operations are serialized by a shared lock. Neither review nor H changes the action response, Godot state, or frozen M_B. A review UI and persistent ledger remain future work.

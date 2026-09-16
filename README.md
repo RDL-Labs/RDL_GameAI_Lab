@@ -146,7 +146,7 @@ boundary / coverage change
 unresolved
 ```
 
-Only explicitly reviewed unresolved dimensions enter diagnostic `H_vec -> H` (GameAI-local L2, per comparison). Temporal accumulation, θ, automatic review, and action authority remain deferred. See the [review API and finite contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api).
+Only explicitly reviewed unresolved dimensions enter diagnostic `H_vec -> H`. Both per-comparison H and retained H per exact context/frozen model are available. The local retention rule sums latest reviewed residuals until explicit resolution, without time decay or signed cancellation. θ, automatic review, and action authority remain deferred. See the [review API and finite contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api).
 
 After that:
 

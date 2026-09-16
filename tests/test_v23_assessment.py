@@ -101,8 +101,84 @@ class AssessmentTests(unittest.TestCase):
                     self.assertEqual(post("/v1/observe", observed), decide_action(observed))
                 self.assertEqual(post("/v1/assessment-review", self.review())["H"], 5)
                 with urlopen(base + "/v1/canonical-snapshot", timeout=3) as response:
-                    self.assertEqual(json.load(response)["assessment"]["records"][0]["H"], 5)
+                    assessment = json.load(response)["assessment"]
+                    self.assertEqual(assessment["records"][0]["H"], 5)
+                    self.assertEqual(assessment["retained_H"][0]["H"], 5)
             finally:
                 server.shutdown()
                 thread.join()
                 server.server_close()
+
+    def test_retention_sums_latest_revisions_without_signed_cancellation(self):
+        self.ledger.review(self.review())
+        self.sidecar.capture(packet("c", tick=2))
+        second = self.ledger.snapshot()["records"][1]
+        payload = self.review()
+        payload["assessment_id"] = second["assessment_id"]
+        self.ledger.review(payload)
+        retained = self.ledger.snapshot()["retained_H"][0]
+        self.assertEqual(retained["H"], 10)
+        self.assertEqual(len(retained["contributions"]), 2)
+        # Re-review replaces a contribution, not an additional event.
+        payload["expected_revision"] = 1
+        self.ledger.review(payload)
+        self.assertEqual(self.ledger.snapshot()["retained_H"][0]["H"], 10)
+        payload["expected_revision"] = 2
+        for name in ("visible_agents_count", "visible_objects_count"):
+            payload["dimensions"][name] = {"status": "resolved"}
+        self.ledger.review(payload)
+        self.assertEqual(self.ledger.snapshot()["retained_H"][0]["H"], 5)
+        self.sidecar.capture(packet("later", tick=10000))
+        self.assertEqual(self.ledger.snapshot()["retained_H"][0]["H"], 5)
+
+    def test_retention_is_separate_for_context_and_model(self):
+        from dataclasses import replace
+        self.ledger.review(self.review())
+        other = replace(self.mismatch, model_ref="different-frozen-model")
+        other_id = self.ledger.register(other)
+        payload = self.review()
+        payload["assessment_id"] = other_id
+        self.ledger.review(payload)
+        self.sidecar.capture(packet("c", tick=2, perception_rule="other"))
+        self.sidecar.capture(packet("d", tick=3, objects=2, perception_rule="other"))
+        self.assertEqual([g["H"] for g in self.ledger.snapshot()["retained_H"]], [5, 5, 0])
+
+    def test_nonadjacent_replay_does_not_manufacture_reverse_comparison(self):
+        self.ledger.review(self.review())
+        self.assertIsNone(self.sidecar.capture(packet("a", tick=0)))
+        self.assertIsNone(self.sidecar.capture(packet("b", tick=1, agents=3, objects=4)))
+        snapshot = self.sidecar.snapshot()
+        self.assertEqual(snapshot["comparisons"], 1)
+        self.assertEqual(snapshot["latest_sections"]["npc_a"]["source_observation_id"], "b")
+        self.assertEqual(snapshot["assessment"]["retained_H"][0]["H"], 5)
+
+    def test_out_of_order_rejected_but_distinct_same_tick_allowed(self):
+        self.assertIsNone(self.sidecar.capture(packet("old", tick=0)))
+        self.assertIsNotNone(self.sidecar.capture(packet("same-tick", tick=1, objects=2)))
+        snapshot = self.sidecar.snapshot()
+        self.assertEqual(snapshot["comparisons"], 2)
+        self.assertIn("precedes", snapshot["failures"][0]["error"])
+
+    def test_capacity_and_restart_are_explicit(self):
+        self.ledger.review(self.review())
+        self.ledger.capacity = 1
+        self.sidecar.capture(packet("c", tick=2))
+        self.assertEqual(self.ledger.snapshot()["retained_H"][0]["H"], 5)
+        self.assertEqual(self.ledger.snapshot()["capacity_rejections"], 1)
+        self.assertEqual(GameAIFrozenComparisonSidecar().assessments.snapshot()["retained_H"], [])
+
+    def test_numeric_overflow_is_reported_without_nonfinite_json(self):
+        from dataclasses import replace
+        for index in range(2):
+            mismatch = replace(self.mismatch, later_section_id=f"large-{index}",
+                               deltas={"visible_agents_count": 0, "visible_objects_count": 1e308,
+                                       "visible_places_count": 0})
+            payload = self.review()
+            payload["assessment_id"] = self.ledger.register(mismatch)
+            payload["dimensions"]["visible_agents_count"] = {"status": "zero"}
+            payload["dimensions"]["visible_objects_count"]["residual"] = 1e308
+            self.ledger.review(payload)
+        snapshot = self.ledger.snapshot()
+        self.assertIsNone(snapshot["retained_H"][0]["H"])
+        self.assertEqual(snapshot["retained_H"][0]["status"], "numeric_overflow")
+        json.dumps(snapshot, allow_nan=False)

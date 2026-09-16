@@ -102,7 +102,7 @@ class V23InterpretationTests(unittest.TestCase):
         self.assertEqual(snapshot["comparisons"], 1)
         self.assertIn("npc_a", snapshot["latest_E"])
         self.assertNotIn("H", snapshot["latest_E"]["npc_a"])
-        self.assertIn("temporal-H-accumulation", snapshot["not_implemented"])
+        self.assertIn("time-decay", snapshot["not_implemented"])
         self.assertEqual(snapshot["assessment"]["records"][0]["H"], 0)
 
     def test_duplicate_observation_is_not_counted_as_new_comparison(self):

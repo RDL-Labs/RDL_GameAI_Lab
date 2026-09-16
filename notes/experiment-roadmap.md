@@ -67,7 +67,7 @@ Introduce each cross-layer path as a read-only snapshot first, then enable its i
 
 ## Next 1 — finite assessment / unresolved residual / H
 
-Implemented bounded first slice: explicit per-dimension review with basis/reviewer/evidence, pending by default, and diagnostic single-comparison residual `H_vec / H` (local L2). The API is documented in the current runtime contract. Before temporal accumulation is enabled, define retention/decay and repeated-event accounting separately. θ and action authority remain deferred. The layer design plan's `E-only-not-reviewed` label describes the unchanged raw E record; assessment is a separate record.
+Implemented bounded slice: explicit per-dimension review with basis/reviewer/evidence, pending by default, diagnostic single-comparison residual `H_vec / H`, and retained H scoped to exact context/frozen model. The GameAI-local baseline retains latest reviewed residual magnitudes until explicit resolution; no time decay or signed cancellation. Replay/re-review cannot add the same contribution twice. Capacity and semantic repeated-event review limits are documented in the current contract. θ and action authority remain deferred. The layer design plan's `E-only-not-reviewed` label describes the unchanged raw E record; assessment is a separate record.
 
 Goal:
 - classify E without treating magnitude as unresolved by definition;

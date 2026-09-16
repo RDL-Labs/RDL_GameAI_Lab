@@ -1,6 +1,6 @@
 # RDL GameAI Runtime
 
-Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. H is diagnostic and scoped to one reviewed comparison.
+Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. Diagnostic H is available per comparison and as retained residuals per exact context/frozen model.
 
 This is the minimal Python-side runtime boundary for the Godot workbench.
 
@@ -13,7 +13,7 @@ Current properties:
 - existing action policy unchanged
 - read-only Core v2.3 canonical sidecar attached after accepted decisions
 - canonical path currently reaches `RIB_B -> frozen M_B -> F/F' -> E`
-- explicit diagnostic residual review and per-comparison H; no temporal accumulation, `M_Δ`, T1 reconstruction, or canonical authority cutover yet
+- explicit diagnostic residual review, per-comparison H, and retained H by finite context/model; no time decay, `M_Δ`, T1 reconstruction, or canonical authority cutover yet
 
 ## Run
 
@@ -124,10 +124,10 @@ implemented:
 Observation -> RIB_B -> frozen M_B -> F/F' -> E
 
 not implemented:
-temporal H accumulation / θ
+time decay / θ
 M_Δ
 T1
 canonical authority cutover
 ```
 
-Finite assessment now requires explicit reviewer, basis, and evidence. Nonzero E alone is insufficient for H. Temporal accumulation and retention dynamics require a further contract.
+Finite assessment requires explicit reviewer, basis, and evidence. Nonzero E alone is insufficient for H. Snapshot `assessment.retained_H` sums the latest reviewed residuals per dimension within each exact context/model, then takes local L2. Re-review replaces a contribution; explicit resolution removes it. There is no time decay, signed cancellation, cross-context total, or restart persistence. The contract specifies retention limits and repeated-event accounting.

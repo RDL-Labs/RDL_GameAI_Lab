@@ -92,6 +92,49 @@ class FiniteAssessmentLedger:
 
     def snapshot(self):
         return {"records": [self._export(record) for record in self.records.values()],
+                "retained_H": self._retained_h(),
                 "capacity": self.capacity, "capacity_rejections": self.capacity_rejections,
                 "retention": "process lifetime; capacity rejects new cases; no eviction",
                 "authority": "diagnostic-only"}
+
+    def _retained_h(self):
+        """Recompute from latest revisions so replay/re-review cannot add twice."""
+        groups = {}
+        for record in self.records.values():
+            identity = json.dumps([record["context"], record["E"]["model_ref"]])
+            groups.setdefault(identity, []).append(record)
+        result = []
+        for identity, records in groups.items():
+            first = records[0]
+            values = {name: [] for name in first["dimensions"]}
+            contributions = []
+            for record in records:
+                residuals = {name: item["residual"] for name, item in record["dimensions"].items()
+                             if item["status"] == "unresolved"}
+                for name, value in residuals.items():
+                    values[name].append(value)
+                if residuals:
+                    contributions.append({"assessment_id": record["assessment_id"],
+                                          "revision": record["revision"], "H_vec": residuals})
+            try:
+                vector = {name: math.fsum(items) for name, items in values.items()}
+                magnitude = math.hypot(*vector.values())
+                finite = math.isfinite(magnitude)
+            except OverflowError:
+                vector, magnitude, finite = None, None, False
+            result.append({
+                "context_id": hashlib.sha256(identity.encode()).hexdigest(),
+                "agent_id": first["E"]["agent_id"],
+                "model_ref": first["E"]["model_ref"],
+                "context": deepcopy(first["context"]),
+                "H_vec": vector if finite else None,
+                "H": magnitude if finite else None,
+                "status": "finite" if finite else "numeric_overflow",
+                "norm": "GameAI-local L2 of per-dimension residual sums",
+                "retention_rule": "retain-until-explicit-review; no-time-decay",
+                "comparison_count": len(records),
+                "pending_dimensions": sum(item["status"] == "pending"
+                                          for record in records for item in record["dimensions"].values()),
+                "contributions": contributions,
+            })
+        return result

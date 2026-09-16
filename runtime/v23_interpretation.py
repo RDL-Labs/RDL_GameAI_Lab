@@ -255,6 +255,7 @@ class GameAIFrozenComparisonSidecar:
     def __init__(self) -> None:
         self._models: dict[tuple[Any, ...], FrozenGameAIMB] = {}
         self._previous: dict[tuple[Any, ...], GameAIInterpretation] = {}
+        self._seen_observations: dict[tuple[Any, ...], set[str]] = {}
         self._latest_sections: dict[str, GameAIRIBSection] = {}
         self._latest_interpretations: dict[str, GameAIInterpretation] = {}
         self._latest_mismatches: dict[str, GameAIMismatch] = {}
@@ -283,14 +284,19 @@ class GameAIFrozenComparisonSidecar:
             return None
 
         self._captures += 1
-        self._latest_sections[section.agent_id] = section
-        self._latest_interpretations[section.agent_id] = interpretation
-
-        previous = self._previous.get(key)
-        if previous is not None and previous.source_observation_id == interpretation.source_observation_id:
+        seen = self._seen_observations.setdefault(key, set())
+        if interpretation.source_observation_id in seen:
             self._duplicate_observations += 1
             return None
 
+        previous = self._previous.get(key)
+        if previous is not None and interpretation.tick < previous.tick:
+            self._failures.append({"observation_id": interpretation.source_observation_id,
+                                   "error": "observation tick precedes comparison window"})
+            return None
+        seen.add(interpretation.source_observation_id)
+        self._latest_sections[section.agent_id] = section
+        self._latest_interpretations[section.agent_id] = interpretation
         self._previous[key] = interpretation
         if previous is None:
             return None
@@ -326,6 +332,6 @@ class GameAIFrozenComparisonSidecar:
             },
             "failures": list(self._failures),
             "assessment": self.assessments.snapshot(),
-            "not_implemented": ["temporal-H-accumulation", "theta", "M_delta", "T1", "authority-cutover"],
+            "not_implemented": ["time-decay", "theta", "M_delta", "T1", "authority-cutover"],
             "xi_status": XI_STATUS,
         }
