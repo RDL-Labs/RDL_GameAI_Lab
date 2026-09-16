@@ -16,7 +16,10 @@ target while `0 <= current_tick - result_tick < 3`. Select the first remaining
 visible food in observation order, or idle if none remains. A newer progress
 result removes that deferral. At exactly result_tick+3 retry becomes possible.
 
-Three ticks is a GameAI-local experimental parameter, not a Core constant.
+Three ticks is the default GameAI-local experimental parameter, not a Core constant.
+The [fixed sensitivity profiles](SENSITIVITY_retry_profile_contract.md) now allow
+per-agent 1/3/5 tick windows via `--retry-profile`, using policy version v2.
+In the formulas above, substitute the configured duration for 3.
 No-progress includes already reaching the target; it does not establish danger,
 dislike, failed survival, or unresolved E. The hypothesis is simply that repeating
 an approach with no displacement can briefly be deferred. This policy is not

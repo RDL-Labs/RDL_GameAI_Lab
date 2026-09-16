@@ -12,6 +12,7 @@ from .core import ObservationError, decide_action
 from .v23_interpretation import GameAIFrozenComparisonSidecar
 from .experience import InteractionHistory, HistoryError
 from .history_policy import HistoryInfluencePolicy
+from .sensitivity import parse_retry_profiles
 
 
 DEFAULT_HOST = "127.0.0.1"
@@ -106,9 +107,12 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
 
-def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, history_influence: bool = False) -> None:
+def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, history_influence: bool = False, retry_profiles=None) -> None:
+    if retry_profiles and not history_influence:
+        raise ValueError("retry profiles require history influence")
+    policy = HistoryInfluencePolicy(profiles=retry_profiles) if history_influence else None
     server = ThreadingHTTPServer((host, port), BridgeHandler)
-    server.history_policy = HistoryInfluencePolicy() if history_influence else None
+    server.history_policy = policy
     print("RDL GameAI Runtime listening on http://%s:%d" % (host, port))
     server.serve_forever()
 
@@ -118,8 +122,16 @@ def main() -> None:
     parser.add_argument("--host", default=DEFAULT_HOST)
     parser.add_argument("--port", default=DEFAULT_PORT, type=int)
     parser.add_argument("--history-influence", action="store_true", help="Enable finite history retry experiment")
+    parser.add_argument("--retry-profile", action="append", default=[], metavar="AGENT=PROFILE",
+                        help="Fixed retry tendency: short, standard, or long; requires --history-influence")
     args = parser.parse_args()
-    run(args.host, args.port, args.history_influence)
+    try:
+        profiles = parse_retry_profiles(args.retry_profile)
+        if profiles and not args.history_influence:
+            raise ValueError("--retry-profile requires --history-influence")
+    except ValueError as exc:
+        parser.error(str(exc))
+    run(args.host, args.port, args.history_influence, profiles)
 
 
 if __name__ == "__main__":

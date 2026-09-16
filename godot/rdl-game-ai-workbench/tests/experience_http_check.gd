@@ -28,6 +28,22 @@ func _run():
 				_fail("expected history-backed idle after real no-progress result")
 				return
 			print("Experience influence check passed: progress=%d no_progress=%d then idle" % [progress, no_progress])
+			if OS.get_environment("RDL_TEST_RETRY_PROFILE") == "short":
+				workbench._on_step_pressed()
+				deadline = Time.get_ticks_msec() + 5000
+				while workbench.runtime_pending or workbench.history_pending:
+					if Time.get_ticks_msec() > deadline:
+						_fail("profile retry timed out")
+						return
+					await process_frame
+				var retried = workbench.runtime_decision
+				if retried.get("action", {}).get("type", "") != "approach" or workbench.history_status != "accepted":
+					_fail("short profile should retry after one tick")
+					return
+				if retried.get("inspection", {}).get("history_influence", {}).get("profile_id", "") != "retry-short-v1":
+					_fail("expected short profile provenance")
+					return
+				print("Short profile retry check passed")
 			workbench.queue_free()
 			await process_frame
 			quit(0)

@@ -1,5 +1,15 @@
 # Current Core v2.3 Runtime Evidence
 
+## Fixed retry profiles
+
+Current full suite: 51 passing tests with `GODOT_BIN` configured. Added
+controlled same-history/same-observation profile comparisons, all retry
+boundaries, immutable configuration and assignment validation. A third actual
+Godot/HTTP test verifies short-profile idle followed by retry after one Step,
+with five completed reports and no pending results. Existing default and
+standard-profile end-to-end checks remain green. This is finite evidence for
+one response parameter, not full sensitivity/affect implementation.
+
 ## Optional history influence
 
 With `GODOT_BIN` configured, the current suite passes 46 tests. The real

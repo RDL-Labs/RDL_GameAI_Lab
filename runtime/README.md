@@ -1,5 +1,8 @@
 # RDL GameAI Runtime
 
+Individual retry experiment: `python -m runtime.bridge --history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
+The [profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md) defines fixed 1/3/5 tick response tendencies and their finite limits.
+
 Optional history-to-action experiment: `python -m runtime.bridge --history-influence`.
 This enables the [finite retry-window policy](../docs/experiment-contracts/EXPERIENCE_influence_contract.md).
 Default startup retains the existing policy. The experimental decision cache

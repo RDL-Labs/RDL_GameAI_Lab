@@ -137,6 +137,11 @@ Use the current `RDL 横断レイヤリング・キット` as a lightweight orga
 
 ## Next boundary
 
+The optional history policy now supports fixed per-agent retry tendencies:
+`--history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
+This is the first bounded individual-response experiment; see the
+[sensitivity profile contract](docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md).
+
 Finite assessment now supports:
 
 ```text

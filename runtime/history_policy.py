@@ -1,20 +1,26 @@
 """Opt-in finite retry policy; GameAI-local and independent of Core M_B/H."""
 
 from copy import deepcopy
+from types import MappingProxyType
 
 from .core import ObservationError, RuntimeDecision, _is_food, decide_action
+from .sensitivity import RETRY_PROFILES
 
 
-RETRY_TICKS = 3
-POLICY_ID = "approach-retry-window-v1"
+POLICY_ID = "approach-retry-window-v2"
 
 
 class HistoryInfluencePolicy:
     """Freeze each decision by observation identity for one finite experiment."""
 
-    def __init__(self, capacity=128):
+    def __init__(self, capacity=128, profiles=None):
         self.capacity = capacity
         self._decisions = {}
+        configured = dict(profiles or {})
+        for agent, name in configured.items():
+            if not isinstance(agent, str) or not agent.strip() or not isinstance(name, str) or name not in RETRY_PROFILES:
+                raise ValueError("invalid agent retry profile")
+        self._profiles = MappingProxyType({agent: RETRY_PROFILES[name] for agent, name in configured.items()})
 
     def decide(self, packet, history):
         baseline = decide_action(packet)
@@ -26,6 +32,7 @@ class HistoryInfluencePolicy:
             return deepcopy(response)
         if len(self._decisions) >= self.capacity:
             raise ObservationError("history-policy decision capacity reached; start a fresh runtime")
+        profile = self._profiles.get(key[0], RETRY_PROFILES["standard"])
 
         latest = {}
         rule = str(packet["observation"].get("perception_rule", "unspecified"))
@@ -47,9 +54,9 @@ class HistoryInfluencePolicy:
                 continue
             record = latest.get(item["id"])
             if (record is not None and record["outcome"] == "approach_no_progress"
-                    and packet["tick"] - record["tick"] < RETRY_TICKS):
+                    and packet["tick"] - record["tick"] < profile.retry_ticks):
                 deferred.append({"target_id": item["id"], "record_id": record["record_id"],
-                                 "retry_at_tick": record["tick"] + RETRY_TICKS})
+                                 "retry_at_tick": record["tick"] + profile.retry_ticks})
             elif candidate is None:
                 candidate = item["id"]
 
@@ -61,7 +68,8 @@ class HistoryInfluencePolicy:
                 reason="finite history retry window: recent no-progress targets deferred",
             ).to_json()
         response["inspection"]["history_influence"] = {
-            "policy": POLICY_ID, "retry_ticks": RETRY_TICKS,
+            "policy": POLICY_ID, "retry_ticks": profile.retry_ticks,
+            "profile_id": profile.profile_id,
             "deferred_targets": deferred,
             "action_changed": response["action"] != baseline["action"],
             "authority": "GameAI-local-action-policy; not-canonical-M_B",
