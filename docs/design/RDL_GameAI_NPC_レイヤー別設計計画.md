@@ -1,28 +1,24 @@
-# RDL_GameAI NPC レイヤー別設計計画 v0.2
+# RDL_GameAI NPC レイヤー別設計計画 v0.3
 
-*DESIGN PLANNING VIEW — `Aporapeiron/RDL_General_Modules` の「RDL 横断レイヤリング_キット」GameAI応用を、GameAI Labの設計計画へ展開*
+*DESIGN PLANNING VIEW — `RDL 横断レイヤリング_キット` GameAI応用*
 
 ## 0. 目的
 
-この文書は、NPC設計を一つの大きな personality / behavior system としてまとめず、更新速度・保持時間・拘束伝播の異なるLayerごとに分けて計画するための整理表である。
+NPC設計を一つの personality / behavior system としてまとめず、更新速度・保持時間・拘束伝播の異なるLayerごとに分けて計画する。
 
 ```text
 Generation / DNA
         ↓
-Neural / Sensitivity
+Neural Dynamics
         ↓
 Physical / Body
         ↓
 Experience / Relation History
         ↓
 Realtime / Current Context
-
-変化しにくい
-        ↓
-変化しやすい
 ```
 
-これはNPCの存在論ではなく、設計・実装・試験を分割するためのProfileである。
+これはNPCの存在論ではなく、設計・実装・試験を分割するProfileである。
 
 ```text
 Layer Profile
@@ -31,7 +27,7 @@ Layer Profile
 != runtime authority
 ```
 
-各Layerの内容は、現行GameAI Labの意味境界に合わせて GameAI-local condition / profile / history / state として扱う。
+全体での位置づけは `RDL_GameAI_全体設計地図.md` を参照する。
 
 ---
 
@@ -49,60 +45,132 @@ DNA = immutable during lifetime
 
 として扱う。
 
-### 候補
+### 神経系への接続
+
+DNAは行動・人格そのものを指定しない。
+
+各神経パラメーターについて、基準分布を与える。
 
 ```text
-危険感度の初期範囲
-探索傾向
-学習速度レンジ
-記憶減衰特性
-身体サイズ範囲
-移動能力上限
-感覚性能範囲
+NeuralGeneParameter
+- mean / μ
+- variance or sigma / σ
+- optional mutation_rate
 ```
 
-GameAI Lab上では、例えば次のschema候補へ翻訳できる。
+例:
 
 ```text
-sensitivity range
-learning-rate range
-memory-decay range
-exploration tendency range
+D1 μ / σ
+D2 μ / σ
+D3 μ / σ
+D4 μ / σ
+5-HT1 μ / σ
+5-HT2 μ / σ
+5-HT3 μ / σ
+5-HT4 μ / σ
+OXT μ / σ
+NA α1 μ / σ
+NA α2 μ / σ
+NA β μ / σ
+```
+
+概念的には、
+
+```text
+DNA
+→ Neural parameter baseline distribution
+→ reaction / learning / retention tendency
+```
+
+となる。
+
+身体側についても、
+
+```text
 body-size range
 movement capability range
 sensory capability range
 ```
 
-### 設計上の意味
+等の生成可能域を持たせられる。
 
-DNA自体をCore `M_B` としない。
+### Coreとの分離
 
 ```text
-DNA
-→ possible SensitivityProfile range
-→ possible body / morphology range
-→ possible learning / reaction tendencies
+DNA != Core M_B
+DNA != personality
+DNA != behavior command
 ```
-
-という生成可能域の拘束として扱う。
 
 ### 現在の扱い
 
 ```text
-status = deferred / design-only
+schema / design = active
+runtime reproduction / evolution = deferred
 ```
 
-現行vertical sliceには不要。reproduction / evolutionを扱う段階で有効化する。
+Generation/DNAの意味設計自体は確定方向へ進めるが、繁殖・進化runtimeは現行vertical sliceの必須条件としない。
 
 ---
 
-## 2. Neural / Sensitivity Layer
+## 2. Neural Dynamics Layer
 
 ### 役割
 
-取得した相互作用や履歴に対して、何を拾いやすく、どの程度反応しやすいかを拘束する比較的低速な個体差。
+同じ現在条件・同じ履歴でも、個体によって何を拾い、どの程度反応し、どの程度保持・反復しやすいかを変える比較的低速なGameAI-local条件。
 
-### 候補
+神経物質名は生物学的実在の厳密再現ではなく、操作的近似ラベルとして使う。
+
+### 初期構造
+
+```text
+Dopamine
+├ D1  : action facilitation
+├ D2  : action inhibition
+├ D3  : repetition / habit fixation
+└ D4  : low-stimulation exploration
+
+Serotonin
+├ 5-HT1 : damping / calming
+├ 5-HT2 : sensitivity amplification
+├ 5-HT3 : forced interrupt
+└ 5-HT4 : processing / switching speed
+
+Oxytocin
+└ OXT : relation salience / persistence
+
+Noradrenaline
+├ α1 : threat focus
+├ α2 : recovery / return regulation
+└ β  : emergency action output
+```
+
+### OXTの対象
+
+OXT的な関係重みは人間関係だけへ限定しない。
+
+```text
+Person
+Object
+Place / Space
+Concept
+Community
+```
+
+への関係保持・接近・再想起等へ作用する候補とする。
+
+```text
+OXT high
+!= likes everyone
+!= friendship score
+```
+
+具体的な関係内容はExperience / Relation Historyや、後のM_B形成から生じる。
+
+### 派生Sensitivity
+
+既存の、
 
 ```text
 novelty_sensitivity
@@ -114,19 +182,7 @@ recoverability_sensitivity
 social_rejection_sensitivity
 ```
 
-将来候補として、
-
-```text
-learning rate
-forgetting / memory decay tendency
-generalization strength
-exploration / exploitation tendency
-reaction speed tendency
-```
-
-も検査できる。
-
-### 設計上の意味
+等は、必要に応じてNeural Dynamics・Body・Historyから導出するGameAI-localな観測軸として保持する。
 
 ```text
 SensitivityProfile
@@ -136,15 +192,19 @@ SensitivityProfile
 != Core M_B by identity
 ```
 
-同じ現在条件・同じ履歴でも、Sensitivityの差によってAffectExpressionやActionBiasが分かれるかを観察する。
-
 ### 現在の扱い
 
+現行runtimeでは固定retry sensitivity等の最小sliceが存在する。
+
+今後は、
+
 ```text
-status = roadmap Next 3 candidate
+fixed profile
+→ multi-dimensional neural parameters
+→ context/body/history-modulated neural state
 ```
 
-Experience / Relation History導入後に接続する。
+へ段階的に拡張する。
 
 ---
 
@@ -154,39 +214,37 @@ Experience / Relation History導入後に接続する。
 
 NPCの身体状態と、現在利用可能な行動可能域を扱う。
 
-### 候補
+候補:
 
 ```text
-health
-stamina
-fatigue
+FoodNeed
+RestNeed
+EnergyReserve
+ActiveEnergy
 injury
 movement capability
 available body parts
-turning capability
-attack range
 current sensory capability
 ```
 
-### 設計上の意味
+身体状態は低〜中速状態だが、負傷・飢餓・急激な消耗により急変しうる。
+
+### 所有
+
+現在の身体状態はBody Layerが所有し、Current Contextへは判断時点のsnapshotを渡す。
 
 ```text
-physical world itself
+world physical state
 != BodyState
+!= CurrentContext snapshot
 != Core M_B by identity
 ```
 
-同じ判断傾向・同じ履歴でも、BodyStateが異なれば可能な行動やAffectExpressionが変化しうる。
-
-Physical Layerは通常は低〜中速だが、負傷などによって急変する場合がある。
-
 ### 現在の扱い
 
-```text
-status = partial concept / later connection
-```
+movement capabilityの最小sliceは実装済み。
 
-Sensitivity / Affect導入時にCurrent Contextと合わせて接続する候補。
+今後、Food / Rest / Energy / Injury / Recoveryを生活実装ロードマップに従って追加する。
 
 ---
 
@@ -194,56 +252,59 @@ Sensitivity / Affect導入時にCurrent Contextと合わせて接続する候補
 
 ### 役割
 
-生涯中の有限interactionから蓄積された比較的持続的な履歴・関係拘束を保持する。
+有限interactionから蓄積された比較的持続的な履歴・関係拘束を保持する。
 
-### 候補
+候補:
 
 ```text
 InteractionHistoryRecord
 RelationHistory
-binding_strength
 trust_support
 avoidance_support
-secure_base_strength
+secure_base_support
 recall_bias
 place-specific history
 action success / failure history
+DialogueTurn history
+item / exchange history
 ```
 
-具体的には、
+例:
 
 ```text
-この場所には餌がある
-この場所では過去に襲われた
-この個体は危険
-この経路は成功率が高い
-この行動は失敗しやすい
+Aに助けられた
+Aに物を取られた
+この場所では襲われた
+この場所には食料がある
+この道具で救助が成功した
+Playerがこの物を「石像」と呼んだ
 ```
 
-のような有限な履歴が入る。
-
-### 設計上の意味
-
-```text
-past interaction
-→ finite relation history
-→ later interpretation / action conditions may differ
-```
-
-同じ相手に対する正負両方向の履歴を共存させ、単一好感度へ潰さない。
+複数方向・矛盾した履歴は共存できる。
 
 ```text
 RelationHistory != complete world truth
+RelationHistory != single friendship score
 RelationHistory != Core M_B by identity
+```
+
+### 睡眠との接続
+
+日中の詳細履歴は、睡眠時Consolidationによって選別・圧縮・一般化・誤接続され得る。
+
+```text
+Experience History
+→ Selection
+→ Compression
+→ Association
+→ compact relation candidates
 ```
 
 ### 現在の扱い
 
-```text
-status = roadmap Next 2
-```
+movement outcome historyと限定的なhistory influenceは実装済み。
 
-現在のレイヤー計画で、最初に実装候補へ上げるLayer。
+社会的RelationHistory、睡眠圧縮、会話履歴への展開は今後のacceptance boundaryとする。
 
 ---
 
@@ -253,20 +314,19 @@ status = roadmap Next 2
 
 tickまたは短期windowで高速に変化する現在条件を扱う。
 
-### 候補
+候補:
 
 ```text
 current bounded observation
 currently visible agents / objects / places
 current action
 immediate target
-current hunger / fatigue
+current place
 recent sound / event
 short-term priority
-current place / local context
+body snapshot
+neural state snapshot
 ```
-
-### 設計上の意味
 
 ```text
 CurrentContext
@@ -275,276 +335,177 @@ CurrentContext
 != Core M_B
 ```
 
-現在情報は、finite B / Purpose / selected dimensions / coverage / provenance を通してcanonical pathへ入る。
-
-### 現在の扱い
-
-```text
-status = partially present in current runtime
-```
-
-現行runtimeにはbounded observationとaction/world resolutionがあるため、最も既存実装へ近いLayer。
+現在情報はfinite B / Purpose / selected dimensions / coverage / provenance を通してcanonical pathへ入る。
 
 ---
 
 ## 6. 更新速度の目安
 
-初期Profileでは、次のように見る。
-
 ```text
-Generation / DNA       : lifetime fixed
-Neural / Sensitivity   : very slow
+Generation / DNA       : lifetime fixed in first implementation
+Neural Dynamics        : slow baseline + fast current fluctuation
 Physical / Body        : slow to medium, sometimes abrupt
-Experience / History   : medium / cumulative
+Experience / History   : cumulative + consolidation
 Realtime / Context     : fast
 ```
 
-これは厳密な全順序ではない。
+Neural Dynamicsは、
 
 ```text
-Physical injury
-→ sudden change
-
-Realtime repetition
-→ Experience sedimentation
+slow genetic baseline
++
+current modulation
 ```
 
-のような例外を許す。
+を分ける。
 
 ---
 
 ## 7. Layer間の拘束伝播
 
-低速Layerは、高速Layerの可能域を拘束しうる。
-
-```text
-Generation / DNA
-      ↓
-Sensitivity + Body possibility
-      ↓
-Experience formation tendencies
-      ↓
-Realtime response possibilities
-```
-
-一方、高速Layerで反復した関係は、より低速なLayerへ沈降しうる。
-
-```text
-Realtime interaction repeated
-      ↓
-Experience / Relation History
-```
-
-さらに将来、有限な検査を通して、
-
-```text
-long-run Experience
-      ↓
-slow Sensitivity / learned constraint update
-```
-
-を試すこともできる。
-
-ただし、Layer間伝播は自動でCore `M_B` reconstruction authorityを意味しない。
-
----
-
-## 8. 生殖・進化への拡張
-
-Generation / DNA Layerを他Layerから分離しておくと、生殖を後から追加しやすい。
-
-```text
-DNA_A --\
-         > recombination / mutation -> DNA_child
-DNA_B --/
-```
-
-概念的には、
-
-```text
-DNA_child = Recombine(DNA_A, DNA_B) + Mutation
-```
-
-新個体では、
-
-```text
-DNA_child
-→ initial sensitivity ranges
-→ initial body / morphology ranges
-```
-
-として初期化する。
-
-Experience / Realtimeは原則として直接継承しない。
-
-> **経験内容そのものではなく、学習・反応・身体形成の可能域が継承される。**
-
-この分離により、将来的に、
-
-```text
-DNA variation
-↓
-Sensitivity / Body differences
-↓
-Experience formation differences
-↓
-behavior differences
-↓
-survival / reproduction differences
-↓
-next-generation DNA distribution
-```
-
-という進化的loopを追加できる。
-
-現段階では実装しない。
-
----
-
-## 9. エピジェネティクス等の中間Layer
-
-初期Profileには入れない。
-
-必要になった場合だけ、
+一方向の階段へ固定しない。
 
 ```text
 DNA
- ↓
-Expression / Development
- ↓
-Sensitivity / Body
+→ Neural baseline / Body possibility
+
+Neural + Body + Experience + CurrentContext
+→ current action / attention / interpretation conditions
+
+world resolution
+→ new CurrentContext / Body state
+
+accepted interaction
+→ Experience History
+
+Sleep / repeated experience
+→ compact relation structure
 ```
 
-のような中間Layerを追加する。
+各接続は個別に導入・検証する。
 
-Layer数は固定しない。
+Layer間伝播はcanonical `M_B` reconstruction authorityを自動的に意味しない。
 
 ---
 
-## 10. 現行roadmapとの対応
+## 8. 睡眠はLayerではなく更新契機
+
+Sleepを6番目の内部Layerにはしない。
 
 ```text
-Current
-E-only-not-reviewed
-      ↓
-Next 1
-finite assessment / unresolved / H
-      ↓
-Next 2
-Experience / Relation History
-      ↓
-Next 3
-Neural / Sensitivity
-+ Physical / Body
-+ Realtime / Current Context
-      ↓
-Next 4+
-M_Δ / T1 reconstruction
+Sleep
+├ Body Recovery
+└ Experience Consolidation
 ```
 
-Generation / DNAは別系列で保持する。
+として、Body / Experience / Neural weighting / 関係形成を横断する更新イベントとする。
 
-```text
-Generation / DNA
-      ↓ later
-seeded individual difference
-      ↓ later
-reproduction / evolution
-```
-
-したがって、5Layerを一度に実装する必要はない。
+誤一般化や誤接続を許容するが、provenance・参照整合性は保持する。
 
 ---
 
-## 11. 設計計画としての使い方
+## 9. Communicationも横断interaction
 
-5LayerをNPC設計の共通設計図として採用する。Layerは責務・更新・検証の配置先であり、クラス数やモジュール数を規定しない。実装は現行roadmapの順に、必要な状態から追加する。
+Communication / Lexiconも内部Layerとして固定しない。
 
-### 11.1 状態の所有・更新・保持
+```text
+Realtime interaction
+→ DialogueTurn
+→ Experience History
+→ Relation / Lexicon candidate
+→ later behavior / sleep consolidation
+```
 
-以下は実装時に具体化する初期契約であり、現在の実装済みschemaを表すものではない。
+Player介入もこの経路へ入れる。
 
-| Layer / 所有する状態 | 更新契機 | 保持期間 | 影響先 | 有限な検証 |
+```text
+Player utterance
+!= World Truth
+```
+
+---
+
+## 10. 生殖・進化への拡張
+
+将来的には、
+
+```text
+DNA_A --\
+         > recombination / mutation → DNA_child
+DNA_B --/
+```
+
+とする。
+
+```text
+DNA_child
+→ neural parameter μ / σ
+→ body possibility
+→ later experience formation difference
+```
+
+Experience / Realtimeの内容自体は原則として直接遺伝しない。
+
+---
+
+## 11. 状態の所有・更新・保持
+
+| Layer | 主な所有状態 | 更新契機 | 保持 | 主な影響先 |
 |---|---|---|---|---|
-| Generation / 生成範囲・seed | 個体生成時のみ | 個体の生涯 | Sensitivity・Bodyの初期可能域 | 同じseedで初期条件を再現し、生涯中は不変。実装はdeferred |
-| Neural / SensitivityProfile | 初期化。学習による更新は別途検証後 | 複数interactionを跨ぐ低速状態 | 注意・反応傾向、AffectExpression候補 | 履歴・身体・現在条件を固定し、感度差の影響だけを比較 |
-| Physical / BodyState | world resolutionによる負傷・消耗・回復 | 次の身体更新まで | 行動可能域・現在の感覚能力 | 同じ判断条件で、負傷による移動制約と回復を確認 |
-| Experience / RelationHistory | 受理されたinteraction結果 | 有限件数・時間窓。忘却条件を明示 | 後続の解釈・行動条件 | 同じ現在条件で異なる履歴を比較。正負履歴の共存を確認 |
-| Realtime / CurrentContext | 新しい観測・action結果 | tickまたは短期window | 今回の判断に渡す条件 | 古い観測を新しい事実として再利用せず、観測IDと時点を追跡 |
+| Generation / DNA | gene parameter μ/σ, morphology range | generation | lifetime | Neural / Body baseline |
+| Neural Dynamics | baseline/current neural parameters | generation + current modulation | slow/short mixed | attention, action, retention bias |
+| Physical / Body | hunger, energy, injury, capability | world/body resolution | until body update | action possibility |
+| Experience / History | finite interaction/dialogue/relation history | accepted event + consolidation | finite/cumulative | later interpretation/action |
+| Realtime / Context | current observation/target/place/snapshots | each new observation | tick/window | current decision |
 
-各データには所有先を一つ定め、他Layerは参照または由来を持つ派生値として利用する。例えば現在のfatigueはBodyStateが所有し、CurrentContextには判断時点のsnapshotを渡す。Godotのworld stateとNPCが取得できた身体情報も区別する。
-
-保持期間は実験内の論理的な寿命を指す。プロセス再起動・save/loadを跨ぐ永続化は、その実験で必要になった時点で別途契約化する。
-
-### 11.2 Layer間の影響契約
-
-Layer間の接続は一方向の階段へ固定しない。次の循環を許容するが、各接続は個別に導入・検証する。
-
-```text
-CurrentContext + Body + Sensitivity + Experience
-→ 有限な判断条件
-→ action → world resolution
-→ 新しいCurrentContext / Body変化
-→ 受理された結果がExperienceへ残る
-→ 後続の判断条件が変わる
-```
-
-各接続には、入力snapshot ID、適用B / Purpose、更新契機、出力先、provenance、失効・破断条件を記録する。観測用snapshotを先に確認し、その後に検証された影響経路を有効にする。上図は将来のGameAI-local経路であり、現行read-only canonical sidecarへ行動権限を追加するものではない。
-
-canonical比較へ接続する場合、同じ比較内のF/F'は同一の凍結M_Bを使用する。履歴や感度の変更で解釈条件を変える場合は、新しいmodel/contextとして明示する。Layer値からE/Hへ直接加算しない。
-
-### 11.3 最小比較実験
-
-「NPCが逃げる」を将来の比較例とする。基準ケースに対して、感度だけ、身体だけ、履歴だけ、現在観測だけを変え、判断に渡った条件と行動結果を記録する。複数Layerの組み合わせ検証は、その後に追加する。
-
-行動差が出ない場合も結果として保持する。逃走など特定の結果を強制せず、どの条件が何を変えたかを追跡できることを受入条件とする。
-
-### 11.4 機能追加時の記入項目
-
-新しいNPC機能案が出たら、まずどのLayerへ置くかを仮置きする。
-
-例：
-
-```text
-「昨日助けてもらったことを覚える」
-→ Experience / Relation History
-
-「同じ出来事でも臆病な個体だけ逃げやすい」
-→ Neural / Sensitivity
-
-「怪我で移動が遅くなる」
-→ Physical / Body
-
-「今目の前に敵がいる」
-→ Realtime / Current Context
-
-「子に探索傾向が遺伝する」
-→ Generation / DNA
-```
-
-その上で、
-
-```text
-Layer
-→ required input
-→ update timing
-→ persistence
-→ provenance
-→ break condition
-→ read-only observation
-→ reviewed influence
-→ controlled comparison test
-```
-
-の順に設計する。
-
-これにより、複数の性質を一つの巨大な `personality` や `state` へ押し込めることを避ける。
+各状態にはownerを一つ定め、他Layerではsource付きsnapshotまたは派生値として参照する。
 
 ---
 
-## 12. ξ と実体化防止
+## 12. Controlled Comparison
 
-このLayer分解が設計上うまく機能しても、NPC全体が本当にこの5Layerで構成されているとは扱わない。
+新しい影響経路を導入する場合、可能な限り一つずつ条件を変える。
+
+例:
+
+```text
+same observation
+same history
+same body
+Neural parameter only differs
+→ behavior comparison
+```
+
+```text
+same observation
+same neural profile
+same body
+different finite history
+→ behavior comparison
+```
+
+変化が起きなかった結果も保持する。
+
+---
+
+## 13. canonical接続
+
+canonical比較へ接続する場合、同じF/F'比較では同一の凍結M_Bを使用する。
+
+```text
+Layer value
+→ direct E/H increment
+```
+
+は禁止する。
+
+Layer状態や履歴をcanonical形成へ接続する場合は、T1の有限な形成・検査・選別・再構成経路を別途通す。
+
+---
+
+## 14. ξ と実体化防止
+
+このLayer分解が実装上十分に機能しても、NPC全体を説明し尽くしたとは扱わない。
 
 ```text
 Complete_B(NPC Layer Plan) = true
@@ -552,17 +513,37 @@ and
 ξ(B) != 0
 ```
 
-Layer間・Layer外・重複・未回収関係は残る。
-
 > **Layerは設計計画を切り分ける道具であって、NPCそのものではない。**
+
+---
+
+## 15. 文書接続
+
+```text
+RDL_GameAI_全体設計地図.md
+→ 全体配置
+
+RDL_GameAI_神経パラメーター設計図.md
+→ Neural Dynamics詳細
+
+RDL_GameAI_睡眠システム設計.md
+→ Sleep / Consolidation詳細
+
+RDL_GameAI_実装手順予定.md
+→ Body / life featureの実装順
+
+notes/experiment-roadmap.md
+→ canonical成熟度
+```
 
 ---
 
 ## 一文圧縮
 
-> **GameAI Labでは、Generation/DNA・Neural/Sensitivity・Physical/Body・Experience/Relation History・Realtime/Current Context のLayerを、NPC機能の設計・実装・検査順序を整理する計画枠として使い、各Layerを段階的に実装する。**
+> **GameAI Labでは、NPCを Generation/DNA・Neural Dynamics・Physical/Body・Experience/Relation History・Realtime/Current Context の異なる時間スケールとして整理する。DNAは神経力学分布の基準を与え、神経力学・身体・履歴・現在文脈の相互作用が個体差を生む。睡眠・会話は複数Layerを横断する更新・interactionとして扱い、各LayerをCore `M_B`へ自動同一視しない。**
 
 ## 改訂履歴
 
-- v0.2: 5Layerを共通設計図として採用し、状態の所有・更新・保持、影響契約、条件を一つずつ変える比較実験を追加。実装順序と現行runtime境界は維持。
-- v0.1: レイヤー別の設計計画を作成。
+- v0.3: Neural/SensitivityをNeural Dynamicsへ具体化。DNAを神経パラメーターμ/σの基準分布として更新。Sleep / Communicationを横断系として明示。既存runtimeのExperience・Body・Sensitivity最小sliceへ同期。
+- v0.2: 状態の所有・更新・保持、影響契約、条件を一つずつ変える比較実験を追加。
+- v0.1: レイヤー別設計計画を作成。
