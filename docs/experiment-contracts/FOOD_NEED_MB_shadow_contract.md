@@ -12,8 +12,29 @@ validated Godot body snapshot
 → shadow F / F' / E
 ```
 
-It has no bridge endpoint, action authority, assessment ledger, H, theta,
-M_delta, T1, graph mutation, or persistence.
+It has default-off, loopback-only bridge endpoints when explicitly enabled. It
+has no registration in the global canonical sidecar, action authority,
+assessment ledger, H, theta, M_delta, T1, graph mutation, or persistence.
+
+## Controlled HTTP exposure
+
+Start explicitly on loopback:
+
+```powershell
+python -m runtime.bridge --food-mb-shadow
+```
+
+```text
+POST /v1/food-mb-shadow/open     body = bounded observation packet
+POST /v1/food-mb-shadow/compare  body = {window_id, packet}
+GET  /v1/food-mb-shadow          finite shadow snapshot
+```
+
+Without the flag, all three paths return `404 food_mb_shadow_disabled`. Enabling
+the flag on a non-loopback host is rejected before the server starts. Boundary
+selection is bridge-owned and fixed to `visible_food_count`; clients cannot
+supply arbitrary dimensions or rules. The shadow sidecar and lock belong to the
+HTTP server instance, not the module-global canonical sidecar.
 
 ## Window contract
 
@@ -47,8 +68,9 @@ does not invalidate an otherwise valid frozen F/F' comparison.
 - later current FoodNeed 0.2 does not enter F'; it becomes a distinct candidate;
 - invalid next-source state is isolated from the completed comparison;
 - windows are single-use and capacity is finite;
-- the default Boundary, bridge, action path, assessment and global sidecar remain
-  outside this experiment.
+- the default Boundary, ordinary observe/action path, assessment and global
+  sidecar remain outside this experiment;
+- HTTP exposure is default-off and non-loopback enablement is rejected.
 
 ## Non-claims
 

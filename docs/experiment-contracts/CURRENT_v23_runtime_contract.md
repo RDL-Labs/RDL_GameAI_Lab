@@ -61,10 +61,11 @@ M_B. The owner body module is not M_B by identity.
 History retry influence applies only to approach and cannot intercept pickup or
 eat. See [the Food contract](FOOD_minimal_loop_contract.md).
 
-An offline, default-off [FoodNeed shadow contract](FOOD_NEED_MB_shadow_contract.md)
-now forms a separate finite relation and shadow F/F'/E for controlled tests. It
-is not registered in this runtime's global canonical sidecar and has no bridge,
-assessment, H, action, or Godot authority.
+A default-off [FoodNeed shadow contract](FOOD_NEED_MB_shadow_contract.md) forms a
+separate finite relation and shadow F/F'/E for controlled tests. An explicit
+loopback-only flag exposes dedicated endpoints, but the experiment is not
+registered in this runtime's global canonical sidecar and has no assessment, H,
+action, or Godot authority.
 
 ## Finite B
 

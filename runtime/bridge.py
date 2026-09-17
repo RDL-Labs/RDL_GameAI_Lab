@@ -13,6 +13,11 @@ from .v23_interpretation import GameAIFrozenComparisonSidecar
 from .experience import InteractionHistory, HistoryError
 from .history_policy import HistoryInfluencePolicy
 from .sensitivity import parse_retry_profiles
+from .v23_food_admission import (
+    FoodAdmissionError,
+    FoodNeedShadowComparisonSidecar,
+    food_shadow_boundary_for_packet,
+)
 
 
 DEFAULT_HOST = "127.0.0.1"
@@ -26,6 +31,15 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/food-mb-shadow":
+            sidecar = getattr(self.server, "food_mb_shadow", None)
+            if sidecar is None:
+                self._send_json(404, {"error": "food_mb_shadow_disabled"})
+                return
+            with self.server.food_mb_shadow_lock:
+                snapshot = sidecar.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/v1/experience-snapshot":
             with CANONICAL_LOCK:
                 snapshot = EXPERIENCE.snapshot()
@@ -42,6 +56,9 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self._send_json(404, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        if self.path in ("/v1/food-mb-shadow/open", "/v1/food-mb-shadow/compare"):
+            self._handle_food_mb_shadow()
+            return
         if self.path == "/v1/interaction-result":
             try:
                 payload = self._read_json()
@@ -85,6 +102,39 @@ class BridgeHandler(BaseHTTPRequestHandler):
 
         self._send_json(200, response)
 
+    def _handle_food_mb_shadow(self) -> None:
+        sidecar = getattr(self.server, "food_mb_shadow", None)
+        if sidecar is None:
+            self._send_json(404, {"error": "food_mb_shadow_disabled"})
+            return
+        try:
+            payload = self._read_json()
+            with self.server.food_mb_shadow_lock:
+                if self.path.endswith("/open"):
+                    boundary = food_shadow_boundary_for_packet(payload)
+                    window_id = sidecar.open_window(payload, boundary)
+                    result = {"window_id": window_id, "window": sidecar.snapshot()["windows"][window_id]}
+                else:
+                    window_id = payload.get("window_id")
+                    packet = payload.get("packet")
+                    if not isinstance(window_id, str) or not window_id:
+                        raise FoodAdmissionError("window_id must be a non-empty string")
+                    if not isinstance(packet, dict):
+                        raise FoodAdmissionError("packet must be an object")
+                    mismatch = sidecar.compare_later(window_id, packet)
+                    result = {
+                        "window_id": window_id,
+                        "E": mismatch.to_json(),
+                        "window": sidecar.snapshot()["windows"][window_id],
+                    }
+        except json.JSONDecodeError:
+            self._send_json(400, {"error": "invalid_json"})
+            return
+        except (ValueError, FoodAdmissionError) as exc:
+            self._send_json(422, {"error": "invalid_food_mb_shadow_request", "detail": str(exc)})
+            return
+        self._send_json(200, result)
+
     def log_message(self, format: str, *args: Any) -> None:
         print("%s - %s" % (self.address_string(), format % args))
 
@@ -107,12 +157,22 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
 
-def run(host: str = DEFAULT_HOST, port: int = DEFAULT_PORT, history_influence: bool = False, retry_profiles=None) -> None:
+def run(
+    host: str = DEFAULT_HOST,
+    port: int = DEFAULT_PORT,
+    history_influence: bool = False,
+    retry_profiles=None,
+    food_mb_shadow: bool = False,
+) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
+    if food_mb_shadow and host not in ("127.0.0.1", "localhost", "::1"):
+        raise ValueError("FoodNeed M_B shadow experiment requires a loopback host")
     policy = HistoryInfluencePolicy(profiles=retry_profiles) if history_influence else None
     server = ThreadingHTTPServer((host, port), BridgeHandler)
     server.history_policy = policy
+    server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
+    server.food_mb_shadow_lock = RLock()
     print("RDL GameAI Runtime listening on http://%s:%d" % (host, port))
     server.serve_forever()
 
@@ -124,14 +184,18 @@ def main() -> None:
     parser.add_argument("--history-influence", action="store_true", help="Enable finite history retry experiment")
     parser.add_argument("--retry-profile", action="append", default=[], metavar="AGENT=PROFILE",
                         help="Fixed retry tendency: short, standard, or long; requires --history-influence")
+    parser.add_argument("--food-mb-shadow", action="store_true",
+                        help="Enable loopback-only FoodNeed M_B shadow endpoints")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
         if profiles and not args.history_influence:
             raise ValueError("--retry-profile requires --history-influence")
+        if args.food_mb_shadow and args.host not in ("127.0.0.1", "localhost", "::1"):
+            raise ValueError("--food-mb-shadow requires a loopback --host")
     except ValueError as exc:
         parser.error(str(exc))
-    run(args.host, args.port, args.history_influence, profiles)
+    run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow)
 
 
 if __name__ == "__main__":

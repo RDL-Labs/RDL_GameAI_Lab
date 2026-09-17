@@ -27,6 +27,30 @@ class FoodAdmissionError(ValueError):
     """Raised when a finite FoodNeed relation cannot be formed."""
 
 
+def food_shadow_boundary_for_packet(packet: Mapping[str, Any]) -> GameAIBoundary:
+    """Build the one allowlisted HTTP shadow boundary from a bounded packet."""
+
+    agent_id = packet.get("agent_id")
+    observation = packet.get("observation")
+    if not isinstance(agent_id, str) or not agent_id:
+        raise FoodAdmissionError("agent_id must be a non-empty string")
+    if not isinstance(observation, Mapping):
+        raise FoodAdmissionError("observation must be an object")
+    perception_rule = observation.get("perception_rule", "unspecified")
+    if perception_rule is None:
+        perception_rule = "unspecified"
+    return GameAIBoundary(
+        boundary_id=f"gameai:{agent_id}:food-admission-shadow",
+        purpose="food-need-admission-shadow",
+        dimensions=(FOOD_INPUT_DIMENSION,),
+        conditions={
+            "packet_schema": "bounded-observation-v1",
+            "perception_rule": str(perception_rule),
+            "profile": "food-shadow-v1",
+        },
+    )
+
+
 @dataclass(frozen=True)
 class FoodNeedAdmissionSource:
     agent_id: str

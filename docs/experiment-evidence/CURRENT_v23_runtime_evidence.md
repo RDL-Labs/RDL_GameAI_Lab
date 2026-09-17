@@ -2,13 +2,15 @@
 
 ## FoodNeed M_B admission PR 1
 
-Current suite: 82 passing tests with Godot 4.7.2, including five actual
+Current suite: 85 passing tests with Godot 4.7.2, including five actual
 Godot/HTTP checks. PR 1 adds opt-in `visible_food_count` acquisition and pure,
 immutable FoodNeed relation formation with deterministic model identity. PR 2
 adds explicit, single-use, finite-capacity offline shadow F/F'/E windows.
+PR 3 adds default-off, loopback-only open/compare/snapshot HTTP exposure and
+proves the disabled path returns 404 and the global canonical snapshot is unchanged.
 Validation rejects malformed owner/snapshot/revision/value/boundary inputs.
-The default three-count Boundary, global canonical sidecar, bridge, action,
-assessment, and Godot world behavior remain unchanged.
+The default three-count Boundary, ordinary observe bridge path, global canonical
+sidecar, action, assessment, and Godot world behavior remain unchanged.
 
 ## Minimal Food loop
 

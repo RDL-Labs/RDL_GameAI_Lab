@@ -1,6 +1,13 @@
 import copy
+import json
+import threading
 import unittest
+from http.server import ThreadingHTTPServer
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
+from unittest.mock import patch
 
+from runtime import bridge
 from runtime.core import decide_action
 from runtime.v23_acquisition import DEFAULT_DIMENSIONS, GameAIBoundary, acquire_rib_section
 from runtime.v23_food_admission import (
@@ -212,6 +219,66 @@ class FoodMBAdmissionTests(unittest.TestCase):
         with self.assertRaises(FoodAdmissionError):
             sidecar.open_window(second, food_boundary())
         self.assertEqual(sidecar.snapshot()["capacity_rejections"], 1)
+
+    def test_http_shadow_is_default_off(self):
+        server = ThreadingHTTPServer(("127.0.0.1", 0), bridge.BridgeHandler)
+        server.history_policy = None
+        server.food_mb_shadow = None
+        server.food_mb_shadow_lock = threading.RLock()
+        thread = threading.Thread(target=server.serve_forever)
+        thread.start()
+        try:
+            with self.assertRaises(HTTPError) as caught:
+                urlopen(f"http://127.0.0.1:{server.server_port}/v1/food-mb-shadow", timeout=3)
+            self.assertEqual(caught.exception.code, 404)
+            caught.exception.close()
+        finally:
+            server.shutdown()
+            thread.join(timeout=3)
+            server.server_close()
+
+    def test_http_shadow_open_compare_snapshot_does_not_touch_global_canonical(self):
+        canonical = bridge.GameAIFrozenComparisonSidecar()
+        with patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 0), bridge.BridgeHandler)
+            server.history_policy = None
+            server.food_mb_shadow = FoodNeedShadowComparisonSidecar()
+            server.food_mb_shadow_lock = threading.RLock()
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            base = f"http://127.0.0.1:{server.server_port}"
+
+            def post(path, payload):
+                request = Request(base + path, data=json.dumps(payload).encode(),
+                                  headers={"Content-Type": "application/json"}, method="POST")
+                with urlopen(request, timeout=3) as response:
+                    return json.load(response)
+
+            try:
+                before = canonical.snapshot()
+                opened = post("/v1/food-mb-shadow/open", food_packet())
+                later = food_packet()
+                later["observation_id"] = "obs-food-2"
+                later["tick"] = 8
+                later["observation"]["visible_objects"] = []
+                compared = post("/v1/food-mb-shadow/compare", {
+                    "window_id": opened["window_id"], "packet": later,
+                })
+                with urlopen(base + "/v1/food-mb-shadow", timeout=3) as response:
+                    snapshot = json.load(response)
+
+                self.assertEqual(compared["E"]["deltas"]["visible_food_salience"], -0.8)
+                self.assertEqual(snapshot["windows"][opened["window_id"]]["status"], "compared")
+                self.assertEqual(canonical.snapshot(), before)
+                self.assertEqual(decide_action(food_packet()), decide_action(copy.deepcopy(food_packet())))
+            finally:
+                server.shutdown()
+                thread.join(timeout=3)
+                server.server_close()
+
+    def test_shadow_flag_rejects_non_loopback_host(self):
+        with self.assertRaisesRegex(ValueError, "loopback"):
+            bridge.run(host="0.0.0.0", port=0, food_mb_shadow=True)
 
 
 if __name__ == "__main__":

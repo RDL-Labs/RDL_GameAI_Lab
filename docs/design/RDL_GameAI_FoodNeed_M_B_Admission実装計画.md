@@ -3,7 +3,7 @@
 **文書種別:** Canonical Admission Experiment Plan  
 **版:** v0.1  
 **対象:** `RDL_GameAI_Lab`  
-**状態:** PR 1（schema / pure formation）とPR 2（offline shadow comparison）実装済み。runtime bridge / global canonical sidecar接続なし。
+**状態:** PR 1-3実装済み。default-off・loopback限定shadow bridgeまでoperational。global canonical sidecar接続なし。
 
 ## 0. 目的
 
@@ -209,6 +209,10 @@ frozen FoodNeedによるF/F'、distinct next-model candidateを実装済み。
 - shadow resultがaction selectionへ流入する。
 
 ### PR 3 — Controlled bridge exposure
+
+**状態: implemented。** `--food-mb-shadow` の明示flag、loopback host制約、専用
+open / compare / snapshot endpointを実装済み。server instanceごとのsidecar / lockで
+global canonical sidecarから分離する。
 
 - localhost、default-offの明示experiment flagを追加。
 - bridgeはvalidated body snapshotをshadow admission requestへ変換する。

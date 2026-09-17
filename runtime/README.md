@@ -90,6 +90,23 @@ an explicit single-use shadow window can then form F/F'/E with the same frozen
 FoodNeed. The default Boundary, global sidecar, bridge, assessment, and action
 path do not use it. See the [shadow contract](../docs/experiment-contracts/FOOD_NEED_MB_shadow_contract.md).
 
+Enable the controlled exposure explicitly:
+
+```powershell
+python -m runtime.bridge --food-mb-shadow
+```
+
+The flag is accepted only with a loopback host. It enables:
+
+```text
+POST /v1/food-mb-shadow/open
+POST /v1/food-mb-shadow/compare
+GET  /v1/food-mb-shadow
+```
+
+Without the flag these paths return 404. They use a server-instance shadow
+sidecar and never register models or E in `GET /v1/canonical-snapshot`.
+
 For each exact finite context, the read-only sidecar creates one immutable diagnostic evaluator:
 
 ```text
