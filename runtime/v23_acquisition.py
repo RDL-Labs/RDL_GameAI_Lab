@@ -17,6 +17,7 @@ DEFAULT_DIMENSIONS = (
     "visible_objects_count",
     "visible_places_count",
 )
+SUPPORTED_DIMENSIONS = DEFAULT_DIMENSIONS + ("visible_food_count",)
 XI_STATUS = "unrecovered-relations-remain"
 
 
@@ -40,7 +41,7 @@ class GameAIBoundary:
             raise AcquisitionError("dimensions must be non-empty")
         if len(set(self.dimensions)) != len(self.dimensions):
             raise AcquisitionError("dimensions must be unique")
-        unknown = set(self.dimensions) - set(DEFAULT_DIMENSIONS)
+        unknown = set(self.dimensions) - set(SUPPORTED_DIMENSIONS)
         if unknown:
             raise AcquisitionError(f"unsupported dimensions: {sorted(unknown)}")
         object.__setattr__(
@@ -170,6 +171,7 @@ def acquire_rib_section(
         "visible_agents_count": "visible_agents",
         "visible_objects_count": "visible_objects",
         "visible_places_count": "visible_places",
+        "visible_food_count": "visible_objects",
     }
 
     values: dict[str, float] = {}
@@ -182,7 +184,16 @@ def acquire_rib_section(
                 f"observation.{source_key} must be a list to form {dimension}; "
                 "missing coverage is not converted to zero"
             )
-        values[dimension] = float(len(source_value))
+        if dimension == "visible_food_count":
+            values[dimension] = float(
+                sum(
+                    1
+                    for item in source_value
+                    if isinstance(item, Mapping) and item.get("kind") == "food"
+                )
+            )
+        else:
+            values[dimension] = float(len(source_value))
         coverage.append(dimension)
 
     observation_id = packet.get("observation_id")

@@ -13,6 +13,7 @@
 | [睡眠](RDL_GameAI_睡眠システム設計.md) | current design / status unclear | Layerでない横断更新イベント。design-only |
 | [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md) | current design | 体験の核。schema・Phaseの正本ではない |
 | [生活機能順](RDL_GameAI_実装手順予定.md) | current plan / navigation incomplete | 生活Phaseと横断系、canonical成熟度の分離 |
+| [FoodNeed M_B Admission計画](RDL_GameAI_FoodNeed_M_B_Admission実装計画.md) | PR 1-2 operational | opt-in acquisition、immutable relation、offline shadow F/F'/E。bridge/global sidecar接続は未実装 |
 | [会話](RDL_GameAI_簡易会話からプレイヤー介入まで.md) | current design / phase ambiguous | intent・referent・DialogueTurn・語彙。Communication Stepは生活Phaseと別 |
 | [Player](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md) | current draft | 外部語彙・情報入力、直接操作・Truth権限なし |
 | [設計手法](RDL_GameAI_設計手法.md) | partially stale | 設計規律・有限検証・semantic fallibility / structural integrity |

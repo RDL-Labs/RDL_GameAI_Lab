@@ -82,6 +82,14 @@ Missing selected coverage is not converted to zero.
 
 ## Frozen M_B / F / F' / E
 
+FoodNeed admission PR 1-2 remains default-off and offline. `v23_food_admission.py` can validate
+an explicit body snapshot and form an immutable
+`food_need -> visible_food_salience` relation with deterministic identity.
+`visible_food_count` is available only through an explicit custom Boundary;
+an explicit single-use shadow window can then form F/F'/E with the same frozen
+FoodNeed. The default Boundary, global sidecar, bridge, assessment, and action
+path do not use it. See the [shadow contract](../docs/experiment-contracts/FOOD_NEED_MB_shadow_contract.md).
+
 For each exact finite context, the read-only sidecar creates one immutable diagnostic evaluator:
 
 ```text

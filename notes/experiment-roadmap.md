@@ -186,6 +186,11 @@ Acceptance:
 
 ## Maturity 4: M_Δ / T1 reconstruction (unimplemented)
 
+Before T1 work, FoodNeed may be evaluated through a separate default-off shadow
+admission experiment. Its [implementation plan](../docs/design/RDL_GameAI_FoodNeed_M_B_Admission実装計画.md)
+forms a finite `food_need → visible_food_salience` relation and freezes it per
+comparison window. This is not T1 reconstruction or canonical action authority.
+
 Entry prerequisite: cross-layer separation acceptance and an explicit finite θ / M_Δ experiment contract. Do not promote local layer state into M_B by identity. SPEC v2.4 resolution and the current T1 Probe signature are recorded in the [semantic reference](../docs/semantic-reference/RDL_Core_T0_T1_reference.md); configurable ρ_B is not implemented.
 
 ```text
