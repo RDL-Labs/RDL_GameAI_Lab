@@ -365,7 +365,8 @@ func _refresh_inspector():
 		return
 
 	var position = agent["position"]
-	var scale = state_provider.get_body_snapshot(selected_agent_id)["movement_scale"]
+	var body = state_provider.get_body_snapshot(selected_agent_id)
+	var scale = body["movement_scale"]
 	movement_select.select(0 if scale == 1.0 else (2 if scale == 0.0 else 1))
 	inspector_text.text = ""
 	inspector_text.append_text("[b]%s[/b]\n" % agent["label"])
@@ -380,11 +381,13 @@ func _refresh_inspector():
 			inspector_text.append_text("reaction: awaiting observation\n")
 	else:
 		inspector_text.append_text("mock mood: %s\n" % agent["mood"])
-	inspector_text.append_text("position: (%.1f, %.1f)\n\n" % [position.x, position.y])
-	inspector_text.append_text("P0 boundary:\n")
-	inspector_text.append_text("- mock data only\n")
+	inspector_text.append_text("position: (%.1f, %.1f)\n" % [position.x, position.y])
+	inspector_text.append_text("food need: %.2f\n" % body.get("food_need", 0.0))
+	inspector_text.append_text("held food: %s\n\n" % ", ".join(body.get("held_food_ids", [])))
+	inspector_text.append_text("Workbench boundary:\n")
+	inspector_text.append_text("- bounded local Food / Body / History experiments\n")
 	inspector_text.append_text("- optional localhost runtime bridge in Runtime mode\n")
-	inspector_text.append_text("- no RDL semantic logic yet\n")
+	inspector_text.append_text("- no T1 or canonical action authority\n")
 
 func _refresh_observation(state):
 	var observation = state_provider.get_observation(selected_agent_id)
@@ -467,6 +470,11 @@ func _refresh_runtime_decision():
 			var after_position = runtime_resolution["after_position"]
 			decision_text.append_text("before: (%.1f, %.1f)\n" % [before_position.x, before_position.y])
 			decision_text.append_text("after: (%.1f, %.1f)\n" % [after_position.x, after_position.y])
+		var effects = runtime_resolution.get("effects", {})
+		if effects.has("before_food_need"):
+			decision_text.append_text("food need: %.2f -> %.2f\n" % [effects["before_food_need"], effects["after_food_need"]])
+		if effects.has("held_food_ids"):
+			decision_text.append_text("held food: %s\n" % ", ".join(effects["held_food_ids"]))
 		decision_text.append_text("next observation: %s\n" % runtime_resolution.get("subsequent_observation_id", "?"))
 		decision_text.append_text("note: %s\n" % runtime_resolution.get("note", "?"))
 		if history_status != "":
@@ -514,5 +522,6 @@ func _runtime_entities(items, origin):
 		}
 		if item.get("role", "") == "mock object" and item.get("id", "").begins_with("food"):
 			entity["kind"] = "food"
+			entity["within_reach"] = item.get("within_reach", false)
 		result.append(entity)
 	return result

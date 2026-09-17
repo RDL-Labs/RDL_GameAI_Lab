@@ -7,7 +7,7 @@
 **責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のC軸。生活機能の縦実装順と、D軸の接続点を管理する。
 **依存:** [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md)、[Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)、各横断系の正本文書。
 **非責務:** canonical成熟度・内部Layerの正本ではない。canonical maturity != game feature phase。
-**状態:** 以下のPhaseは予定。現行mock foodへのapproachやmovement_scaleは素材となるが、食事・睡眠・生活エネルギー循環の完成を意味しない。
+**状態:** Phase 1の最小Food loopはoperational。以降のPhaseは予定。栄養・在庫・長期飢餓、睡眠・生活エネルギー循環の完成を意味しない。
 
 ## 0. 実装方針
 
@@ -56,6 +56,22 @@ Relation Constraints
 ---
 
 ## Phase 1 — Food
+
+### Implemented bounded slice
+
+```text
+FoodNeed
+→ bounded food perception
+→ approach
+→ pickup
+→ eat
+→ food consumed
+→ FoodNeed decreases
+```
+
+GodotがFoodNeed・pickup reach・world object・held foodを所有し、Runtimeはbounded observation / self-body snapshotからactionを選ぶ。[Food contract](../experiment-contracts/FOOD_minimal_loop_contract.md)で実Godot/HTTP縦断を固定する。
+
+Remaining: food varieties、栄養、保管、腐敗、所有、競争、空腹による行動不能、Energy/Sleepとの接続、学習された食物選択、永続化。
 
 最小の生存循環を作る。
 

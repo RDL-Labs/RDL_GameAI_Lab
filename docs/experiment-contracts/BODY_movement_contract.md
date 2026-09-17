@@ -15,6 +15,11 @@ reference in `inspection.body`. This is a reported self snapshot, not independen
 proof of world state. Missing body preserves legacy behavior; it is not inferred
 as evidence of health. Snapshot identity is local to the current run.
 
+The same body snapshot now carries Food-owned `food_need`, `held_food_ids`
+and a finite feature flag. These fields are governed by the separate
+[Food contract](FOOD_minimal_loop_contract.md); their presence does not turn
+the movement experiment into a general biological body model.
+
 The action path returns idle when a reported zero capability would otherwise
 produce approach. The constraint is applied after the optional history policy
 too, so a visible alternative cannot bypass it. Positive scales preserve the

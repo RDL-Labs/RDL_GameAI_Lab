@@ -50,6 +50,14 @@ E                       != H
 
 The current canonical sidecar is read-only. It cannot change the existing action response.
 
+## Minimal Food action path
+
+The first game-feature contract adds bounded `approach / pickup / eat`
+selection while Godot retains world-resolution authority. FoodNeed and held
+food are body snapshot fields and are not selected canonical count dimensions.
+History retry influence applies only to approach and cannot intercept pickup or
+eat. See [the Food contract](FOOD_minimal_loop_contract.md).
+
 ## Finite B
 
 The current first boundary is intentionally small:

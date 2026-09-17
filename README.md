@@ -29,8 +29,9 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 
 - Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。
 - GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
+- First game feature: [minimal Food loop](docs/experiment-contracts/FOOD_minimal_loop_contract.md)。FoodNeed → approach → pickup → eat → world消費 / Need低下。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
-- Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話・生活機能の詳細設計。
+- Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・在庫・飢餓等の広い生活機能。
 
 固定retry profileは神経値から導出したものではありません。設計上の「DNA μ/σ → dynamic neural state → derived sensitivity」と現行実装を区別します。
 

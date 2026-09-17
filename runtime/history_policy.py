@@ -62,7 +62,7 @@ class HistoryInfluencePolicy:
                 candidate = item["id"]
 
         response = baseline
-        if deferred:
+        if baseline["action"]["type"] == "approach" and deferred:
             response = RuntimeDecision(
                 agent_id=key[0], action_type="approach" if candidate else "idle",
                 target_id=candidate, observation_id=key[1],

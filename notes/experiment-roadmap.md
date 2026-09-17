@@ -5,6 +5,11 @@ This roadmap starts from the current runtime state, synchronized to Core `9c60c5
 Role: axis A in the [overall map](../docs/design/RDL_GameAI_全体設計地図.md), tracking canonical operational maturity and separation of adjacent local influences. It depends on the [runtime contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md) and [evidence](../docs/experiment-evidence/CURRENT_v23_runtime_evidence.md).
 It does not own game-feature phases; those belong to the [life-feature roadmap](../docs/design/RDL_GameAI_実装手順予定.md). Canonical maturity != game feature phase.
 
+Game-feature note: the first [minimal Food loop](../docs/experiment-contracts/FOOD_minimal_loop_contract.md)
+is operational. Its changed world observations may enter the existing diagnostic
+path, but FoodNeed and held-food state are not canonical M_B fields and Food
+completion does not advance Maturity 4/T1.
+
 ## Maturity summary
 
 Numbers below identify review areas, not one canonical computation chain. Local history/body/profile/expression are adjacent influence experiments, not additional Core primitives or mandatory stages between H and M_Δ.

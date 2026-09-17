@@ -1,6 +1,15 @@
 # Current Runtime Evidence
 
-## Current verification (2026-09-17)
+## Minimal Food loop
+
+Current suite: 70 passing tests with Godot 4.7.2, including five actual
+Godot/HTTP checks. The Food check observes three approaches, pickup and eat;
+world and held food are empty after consumption; FoodNeed changes from 0.80 to
+0.20; Inspector and Timeline expose the final state. Python tests cover bounded
+food-state validation and prove history retry cannot override pickup or eat.
+Godot editor headless parse also succeeds.
+
+## Previous verification (2026-09-17)
 
 65 tests passed with `GODOT_BIN=D:\Godot\Godot_v4.7.2-stable_win64_console.exe`,
 including all four actual Godot/HTTP checks. Run: `python -m unittest discover -s tests`.
@@ -12,7 +21,7 @@ not alter local decisions, expressions, history, or frozen models. A changed
 selected-count fixture still forms E without automatically creating H.
 See [the contract](../experiment-contracts/CROSS_LAYER_separation_contract.md).
 
-Runtime behavior is unchanged. Docs now distinguish operational diagnostic H,
+At that checkpoint, runtime behavior was unchanged. Docs distinguished operational diagnostic H,
 local layers, and unimplemented θ / M_Δ / T1 / canonical authority, and pin Core
 BASE v2.3 / SPEC v2.4 at `9c60c5b`. The sections below are historical verification
 records; their test counts describe those earlier increments, not the current suite.

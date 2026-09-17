@@ -15,6 +15,7 @@ from .expression import with_expression
 
 
 RUNTIME_NAME = "rdl-gameai-minimal-runtime"
+FOOD_ACTION_THRESHOLD = 0.5
 
 
 class ObservationError(ValueError):
@@ -81,15 +82,46 @@ def _decide_action(packet: dict[str, Any]) -> dict[str, Any]:
     observation_id = str(packet.get("observation_id") or f"obs-{tick:06d}-{agent_id}")
 
     visible_objects = observation.get("visible_objects", [])
-    for item in visible_objects:
-        if _is_food(item):
-            return RuntimeDecision(
-                agent_id=agent_id,
-                action_type="approach",
-                target_id=str(item["id"]),
-                observation_id=observation_id,
-                reason="first visible food object selected from bounded observation",
-            ).to_json()
+    body = observation.get("body")
+    if isinstance(body, dict) and body.get("food_actions_enabled", False):
+        if body["food_need"] >= FOOD_ACTION_THRESHOLD:
+            held_food_ids = body.get("held_food_ids", [])
+            if held_food_ids:
+                return RuntimeDecision(
+                    agent_id=agent_id,
+                    action_type="eat",
+                    target_id=str(held_food_ids[0]),
+                    observation_id=observation_id,
+                    reason="held food selected while bounded FoodNeed meets the finite threshold",
+                ).to_json()
+            for item in visible_objects:
+                if _is_food(item) and item.get("within_reach") is True:
+                    return RuntimeDecision(
+                        agent_id=agent_id,
+                        action_type="pickup",
+                        target_id=str(item["id"]),
+                        observation_id=observation_id,
+                        reason="visible food is within reach while bounded FoodNeed meets the finite threshold",
+                    ).to_json()
+            for item in visible_objects:
+                if _is_food(item):
+                    return RuntimeDecision(
+                        agent_id=agent_id,
+                        action_type="approach",
+                        target_id=str(item["id"]),
+                        observation_id=observation_id,
+                        reason="visible food selected while bounded FoodNeed meets the finite threshold",
+                    ).to_json()
+    else:
+        for item in visible_objects:
+            if _is_food(item):
+                return RuntimeDecision(
+                    agent_id=agent_id,
+                    action_type="approach",
+                    target_id=str(item["id"]),
+                    observation_id=observation_id,
+                    reason="first visible food object selected from bounded observation",
+                ).to_json()
 
     visible_agents = observation.get("visible_agents", [])
     if visible_agents:
@@ -133,9 +165,34 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
 
     _validate_entities(observation["visible_agents"], "visible_agents")
     _validate_entities(observation["visible_objects"], "visible_objects")
+    for index, item in enumerate(observation["visible_objects"]):
+        if "within_reach" in item and type(item["within_reach"]) is not bool:
+            raise ObservationError(f"visible_objects[{index}].within_reach must be boolean")
     _validate_entities(observation["visible_places"], "visible_places")
+    _validate_food_state(observation.get("body"), agent_id)
 
     return tick, agent_id, observation
+
+
+def _validate_food_state(body: Any, agent_id: str) -> None:
+    if not isinstance(body, dict):
+        return
+    enabled = body.get("food_actions_enabled", False)
+    if type(enabled) is not bool:
+        raise ObservationError("body food_actions_enabled must be boolean")
+    if not enabled:
+        return
+    if body.get("agent_id") != agent_id:
+        raise ObservationError("food body owner must match observed agent")
+    food_need = body.get("food_need")
+    if type(food_need) not in (int, float) or not math.isfinite(food_need) or not 0 <= food_need <= 1:
+        raise ObservationError("body food_need must be finite in [0,1]")
+    held = body.get("held_food_ids")
+    if not isinstance(held, list) or any(not isinstance(item, str) or not item for item in held):
+        raise ObservationError("body held_food_ids must contain non-empty strings")
+    for index, item in enumerate(body.get("held_food_ids", [])):
+        if item in body["held_food_ids"][:index]:
+            raise ObservationError("body held_food_ids must be unique")
 
 
 def _validate_entities(items: list[Any], field_name: str) -> None:

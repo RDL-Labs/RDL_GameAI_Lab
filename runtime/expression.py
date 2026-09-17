@@ -16,8 +16,12 @@ def with_expression(decision):
         flags.append("movement-limited")
     if deferred:
         flags.append("recent-no-progress")
-    if scale == 0:
+    if scale == 0 and action == "idle":
         label = "restricted"
+    elif action == "eat":
+        label = "feeding"
+    elif action == "pickup":
+        label = "acquiring"
     elif action == "approach":
         label = "engaged"
     elif deferred:

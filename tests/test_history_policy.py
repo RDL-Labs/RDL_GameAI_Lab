@@ -27,6 +27,22 @@ class HistoryPolicyTests(unittest.TestCase):
                 self.assertTrue(trace["action_changed"])
                 self.assertEqual(trace["deferred_targets"][0]["record_id"], history.snapshot()["records"][0]["record_id"])
 
+    def test_history_retry_policy_does_not_override_pickup_or_eat(self):
+        history = self.history()
+        for within_reach, held, expected in ((True, [], "pickup"), (True, ["food_01"], "eat")):
+            observed = food_packet("food-" + expected)
+            observed["tick"] = 2
+            observed["observation"]["visible_objects"][0]["within_reach"] = within_reach
+            observed["observation"]["body"] = {
+                "agent_id": "npc_a", "snapshot_id": "body-food",
+                "revision": 1, "movement_scale": 1.0,
+                "food_actions_enabled": True, "food_need": 0.8,
+                "held_food_ids": held,
+            }
+            response = HistoryInfluencePolicy().decide(observed, history)
+            self.assertEqual(response["action"]["type"], expected)
+            self.assertFalse(response["inspection"]["history_influence"]["action_changed"])
+
     def test_retry_boundary_and_future_history_exclusion(self):
         history = self.history()
         for tick, expected in ((0, "approach"), (1, "idle"), (3, "idle"), (4, "approach")):

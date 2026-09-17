@@ -10,6 +10,8 @@ This is a minimal observable expression layer, not a complete affect model.
 | Label | Rule, in priority order |
 |---|---|
 | restricted | Reported movement capability is zero |
+| feeding | The selected action is eat |
+| acquiring | The selected action is pickup |
 | engaged | The selected action is approach |
 | holding | Idle with at least one history-deferred target |
 | observing | Other current idle decisions |
@@ -42,8 +44,9 @@ current reaction. Mock mode keeps its existing mock mood.
 Five Python tests cover basic expression mapping, history/profile differences,
 coexisting body/history factors, pure non-intervening derivation, and different
 expressions at equal H=0. Actual Godot/HTTP tests assert Inspector parsed text
-for restricted, engaged and holding responses. The full suite passes 62 tests
-with GODOT_BIN set. Visual layout has not been inspected interactively.
+for restricted, engaged, holding and feeding responses. Current suite status is
+recorded in [runtime evidence](../experiment-evidence/CURRENT_v23_runtime_evidence.md).
+Visual layout has not been inspected interactively.
 
 This does not establish fear, joy, attachment, social affect, animation, learned
 expression, or H-derived emotion. Those require additional operational criteria.

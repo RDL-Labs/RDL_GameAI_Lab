@@ -7,7 +7,8 @@ This Godot project is the world / interaction surface for `RDL_GameAI_Lab`. It i
 - mock world reference state
 - bounded per-agent observation
 - optional localhost Python runtime bridge
-- actual mock-world resolution for `approach(target_id)`
+- actual mock-world resolution for `approach / pickup / eat`
+- per-agent FoodNeed and held-food state owned by Godot
 - subsequent bounded observation after changed conditions
 - canonical v2.3 semantics remain on the Python read-only sidecar
 
@@ -44,7 +45,10 @@ selected bounded observation
 → subsequent bounded observation
 ```
 
-Only `approach(target_id)` currently changes the mock world. The provider records before/after positions and distinct source/subsequent observation ids.
+`approach(target_id)` changes position. At bounded pickup reach, Runtime can
+select `pickup(target_id)`; held food can then be consumed with
+`eat(target_id)`, lowering FoodNeed. The provider records distinct
+source/subsequent observation IDs and finite world effects.
 
 ## Canonical path
 
@@ -59,11 +63,14 @@ accepted bounded observation
 → frozen diagnostic M_B
 → F / F'
 → E
+→ explicit finite review
+→ diagnostic H / retained H
 ```
 
 This canonical sidecar is diagnostic-only and cannot change the action response.
 
-Current E remains `E-only-not-reviewed`; no H is formed yet.
+Raw E remains `E-only-not-reviewed`; explicit assessment is a separate
+record. No automatic unresolved classification or action authority is inferred.
 
 ## Workbench controls
 
@@ -75,6 +82,7 @@ Current E remains `E-only-not-reviewed`; no H is formed yet.
 - `Runtime` mode sends the selected NPC observation to the Python bridge and resolves the returned action.
 - Clicking NPC A or NPC B changes the selected inspector target.
 - World View may show more state for human inspection than the selected agent can observe.
+- Agent Inspector shows FoodNeed and held food. Runtime mode displays acquiring / feeding expressions for pickup / eat.
 
 ## Structure
 

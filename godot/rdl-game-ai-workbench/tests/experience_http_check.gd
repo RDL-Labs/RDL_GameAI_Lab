@@ -8,6 +8,7 @@ func _initialize():
 func _run():
 	var workbench = Workbench.new()
 	root.add_child(workbench)
+	workbench.state_provider.set_food_actions_enabled(false)
 	workbench.selected_agent_id = "npc_b"
 	workbench._on_mode_selected(1)
 	var progress = 0

@@ -20,19 +20,12 @@ const INITIAL_AGENTS = [
 	}
 ]
 
-const INITIAL_FOOD = {
-	"id": "food_01",
-	"label": "Mock Food",
-	"role": "mock object",
-	"position": Vector2(190, 260),
-	"note": "Clickable selection is limited to mock NPCs in the current workbench."
-}
-
 const INITIAL_OBJECTS = [
 	{
 		"id": "food_01",
 		"label": "Mock Food",
 		"role": "mock object",
+		"kind": "food",
 		"position": Vector2(190, 260),
 		"note": "Visible only when inside the selected agent perception radius."
 	},
@@ -64,10 +57,12 @@ const INITIAL_PLACES = [
 
 const PERCEPTION_RADIUS = 145.0
 const ACTION_STEP_DISTANCE = 36.0
+const PICKUP_DISTANCE = 8.0
+const FOOD_NEED_PER_TICK = 0.02
+const FOOD_RECOVERY = 0.6
 
 var tick = 0
 var agents = []
-var food = {}
 var objects = []
 var places = []
 var events = []
@@ -76,6 +71,7 @@ var action_offsets = {}
 var resolution_records = []
 var observation_seq = 0
 var body_states = {}
+var food_actions_enabled = true
 
 func reset():
 	tick = 0
@@ -84,11 +80,15 @@ func reset():
 	agents = []
 	for agent in INITIAL_AGENTS:
 		agents.append(agent.duplicate(true))
-		body_states[agent["id"]] = {"movement_scale": 1.0, "revision": 0}
+		body_states[agent["id"]] = {
+			"movement_scale": 1.0,
+			"food_need": 0.8,
+			"held_food_ids": [],
+			"revision": 0
+		}
 	action_offsets = {}
 	for agent in agents:
 		action_offsets[agent["id"]] = Vector2.ZERO
-	food = INITIAL_FOOD.duplicate(true)
 	objects = []
 	for object_data in INITIAL_OBJECTS:
 		objects.append(object_data.duplicate(true))
@@ -102,6 +102,7 @@ func reset():
 
 func step():
 	tick += 1
+	_update_food_needs()
 	_update_mock_positions()
 	decision_records.append(_build_decision_record("npc_a"))
 	decision_records.append(_build_decision_record("npc_b"))
@@ -116,7 +117,6 @@ func get_state():
 	return {
 		"tick": tick,
 		"agents": agents.duplicate(true),
-		"food": food.duplicate(true),
 		"objects": objects.duplicate(true),
 		"places": places.duplicate(true),
 		"perception_radius": PERCEPTION_RADIUS,
@@ -146,7 +146,10 @@ func get_observation(agent_id):
 	var visible_objects = []
 	for object_data in objects:
 		if _is_visible(agent["position"], object_data["position"], PERCEPTION_RADIUS):
-			visible_objects.append(object_data.duplicate(true))
+			var visible_object = object_data.duplicate(true)
+			if object_data.get("kind", "") == "food":
+				visible_object["within_reach"] = agent["position"].distance_to(object_data["position"]) <= PICKUP_DISTANCE
+			visible_objects.append(visible_object)
 
 	var visible_places = []
 	for place in places:
@@ -175,6 +178,10 @@ func resolve_action(decision):
 	var action_type = action.get("type", "idle")
 	if action_type == "approach":
 		return _resolve_approach(decision, action.get("target_id", ""))
+	if action_type == "pickup":
+		return _resolve_pickup(decision, action.get("target_id", ""))
+	if action_type == "eat":
+		return _resolve_eat(decision, action.get("target_id", ""))
 	return _record_resolution(decision.get("agent_id", ""), action_type, "", "no world change for action")
 
 func get_latest_resolution(agent_id):
@@ -197,8 +204,18 @@ func get_body_snapshot(agent_id):
 	if not body_states.has(agent_id):
 		return {}
 	var body = body_states[agent_id]
-	return {"agent_id": agent_id, "movement_scale": body["movement_scale"],
-		"revision": body["revision"], "snapshot_id": "body-%s-%d" % [agent_id, body["revision"]]}
+	return {
+		"agent_id": agent_id,
+		"movement_scale": body["movement_scale"],
+		"food_actions_enabled": food_actions_enabled,
+		"food_need": body["food_need"],
+		"held_food_ids": body["held_food_ids"].duplicate(),
+		"revision": body["revision"],
+		"snapshot_id": "body-%s-%d" % [agent_id, body["revision"]]
+	}
+
+func set_food_actions_enabled(enabled):
+	food_actions_enabled = bool(enabled)
 
 func get_interaction_result(resolution):
 	if resolution.get("action_type", "") != "approach":
@@ -229,6 +246,14 @@ func _update_mock_positions():
 			agent["mood"] = "curious"
 		else:
 			agent["mood"] = "observing"
+
+func _update_food_needs():
+	for agent_id in body_states:
+		var body = body_states[agent_id]
+		var next_need = min(1.0, body["food_need"] + FOOD_NEED_PER_TICK)
+		if not is_equal_approx(next_need, body["food_need"]):
+			body["food_need"] = next_need
+			body["revision"] += 1
 
 func _build_mock_event():
 	var actor = agents[tick % agents.size()]
@@ -287,7 +312,51 @@ func _resolve_approach(decision, target_id):
 		subsequent_observation.get("observation_id", "")
 	)
 
-func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = ""):
+func _resolve_pickup(decision, target_id):
+	var agent_id = decision.get("agent_id", "")
+	var agent_index = _find_agent_index(agent_id)
+	var object_index = _find_object_index(target_id)
+	var source_observation_id = decision.get("inspection", {}).get("observation_id", "")
+	if agent_index == -1 or object_index == -1:
+		return _record_resolution(agent_id, "pickup", target_id, "target or agent not found")
+	var target = objects[object_index]
+	if target.get("kind", "") != "food":
+		return _record_resolution(agent_id, "pickup", target_id, "target is not food")
+	if agents[agent_index]["position"].distance_to(target["position"]) > PICKUP_DISTANCE:
+		return _record_resolution(agent_id, "pickup", target_id, "target is outside pickup reach")
+	var body = body_states[agent_id]
+	objects.remove_at(object_index)
+	body["held_food_ids"].append(target_id)
+	body["revision"] += 1
+	var subsequent_observation = get_observation(agent_id)
+	return _record_resolution(
+		agent_id, "pickup", target_id, "food moved from world to agent inventory",
+		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
+		{"held_food_ids": body["held_food_ids"].duplicate(), "food_need": body["food_need"]}
+	)
+
+func _resolve_eat(decision, target_id):
+	var agent_id = decision.get("agent_id", "")
+	var source_observation_id = decision.get("inspection", {}).get("observation_id", "")
+	if not body_states.has(agent_id):
+		return _record_resolution(agent_id, "eat", target_id, "agent not found")
+	var body = body_states[agent_id]
+	var held_index = body["held_food_ids"].find(target_id)
+	if held_index == -1:
+		return _record_resolution(agent_id, "eat", target_id, "food is not held")
+	var before_need = body["food_need"]
+	body["held_food_ids"].remove_at(held_index)
+	body["food_need"] = max(0.0, before_need - FOOD_RECOVERY)
+	body["revision"] += 1
+	var subsequent_observation = get_observation(agent_id)
+	return _record_resolution(
+		agent_id, "eat", target_id, "held food consumed; FoodNeed decreased",
+		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
+		{"before_food_need": before_need, "after_food_need": body["food_need"],
+			"held_food_ids": body["held_food_ids"].duplicate()}
+	)
+
+func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = "", effects = {}):
 	var record = {
 		"tick": tick,
 		"agent_id": agent_id,
@@ -300,6 +369,8 @@ func _record_resolution(agent_id, action_type, target_id, note, before_position 
 	if before_position != null and after_position != null:
 		record["before_position"] = before_position
 		record["after_position"] = after_position
+	if not effects.is_empty():
+		record["effects"] = effects.duplicate(true)
 	resolution_records.append(record)
 	if resolution_records.size() > 80:
 		resolution_records.pop_front()
@@ -319,6 +390,12 @@ func _get_object(object_id):
 		if object_data.get("id", "") == object_id:
 			return object_data
 	return {}
+
+func _find_object_index(object_id):
+	for i in range(objects.size()):
+		if objects[i].get("id", "") == object_id:
+			return i
+	return -1
 
 func _next_observation_id(agent_id):
 	observation_seq += 1
