@@ -11,6 +11,11 @@ Godot owns world objects, pickup reach, per-agent FoodNeed, held food IDs and
 world resolution. Python receives only bounded observation and self-body
 snapshots, then selects `approach / pickup / eat`.
 
+Semantic target: current FoodNeed is an intended finite `M_B` participant because
+it constrains current interpretation and selection. Current implementation:
+FoodNeed remains Godot-owned GameAI-local state and is not yet admitted to the
+canonical count-sidecar `M_B`. Semantic eligibility is not operational admission.
+
 ## Finite rules
 
 - Each agent starts with FoodNeed 0.8; each tick adds 0.02, capped at 1.0.

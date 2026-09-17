@@ -37,7 +37,10 @@ ID. Runtime restart is still required after resetting Godot's observation IDs.
 
 ## Semantics
 
-Body is a GameAI-local action condition. It is not canonical M_B, H, or an emotion.
+The Body owner/state container is not canonical M_B, H, or an emotion by
+identity. Finite current body relations such as movement capability or FoodNeed
+are semantically eligible to participate in M_B when explicitly admitted under
+a declared boundary. They are not admitted to the current canonical runtime M_B.
 The current canonical evaluator still selects only visible entity counts; body
 changes alone do not form a count mismatch or add H. Later world/visibility
 changes may naturally produce E under the existing comparison contract.

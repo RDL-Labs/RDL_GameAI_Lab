@@ -19,6 +19,7 @@ class CrossLayerSeparationTests(unittest.TestCase):
         return history
 
     def test_combined_local_layers_preserve_selected_canonical_path(self):
+        """Current local changes must not silently mutate the frozen canonical M_B."""
         reference = None
         actions, expressions = set(), set()
         for outcome, profile, scale in itertools.product(

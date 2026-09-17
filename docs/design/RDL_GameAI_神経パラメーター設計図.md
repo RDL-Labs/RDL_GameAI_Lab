@@ -352,6 +352,13 @@ D3
 
 ## 12. 設計上の不変条件
 
+現在のNeural Dynamics module自体は `M_B` ではないが、現在の解釈・予測・選択を拘束するものとして明示的に採用されたD1 / D2 / OXT / NA等の有限な値・関係はcurrent `M_B` を構成し得る。同じ神経力学は、将来の `M_B` 形成・再構成傾向にも影響し得る。この二つを区別し、現行runtimeへ神経parameterやreconstruction authorityを追加したとは扱わない。
+
+```text
+current neural relations ⊂ current M_B when explicitly admitted
+Neural Dynamics → later M_B formation / reconstruction tendencies
+```
+
 > **神経パラメーターは行動命令ではなく、反応・注意・行動・記憶・再構成の重み付け条件である。**
 
 > **DNAは神経パラメーターの基準分布を規定するが、実際の行動・状態・M_Bを直接決定しない。**

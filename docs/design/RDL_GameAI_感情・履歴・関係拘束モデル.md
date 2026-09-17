@@ -81,7 +81,7 @@ DialogueTone
 
 ## 4. 履歴と関係拘束
 
-強い履歴はHではない。過去interactionはrelation historyや現在の `M_B` 形成条件になりうる。
+強い履歴はHではない。History store全体も `M_B` ではない。一方、過去interactionから現在採用された有限なlearned relationはcurrent `M_B` を構成し得る。
 
 ```text
 past interaction
@@ -91,6 +91,18 @@ past interaction
 
 canonical M_B formation requires a separate reviewed formation contract
 ```
+
+```text
+source modules / stores
+→ finite adopted current relations
+⊂ M_B
+
+M_B + current RIB_B
+→ interpretation / action conditions
+→ derived AffectExpression
+```
+
+`AffectExpression != M_B by identity` かつ `AffectExpression != H` を維持する。現行runtimeでは履歴由来relationのcanonical admissionはまだ行わない。
 
 同じ対象へ複数方向の履歴が共存してよい。
 

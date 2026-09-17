@@ -25,6 +25,16 @@ Realtime / Current Context
 
 これはNPCの存在論ではなく、設計・実装・試験を分割するProfileである。
 
+| Layer | Owner / source | Current relation例 | `M_B` relation |
+|---|---|---|---|
+| Generation / DNA | generation schema | μ/σ baseline | expressed current relationを介して間接参加 |
+| Neural Dynamics | neural state | D1 / D2 / OXT / NA等 | eligible / intended |
+| Physical / Body | Godot | FoodNeed / movement capability | eligible / intended |
+| Experience | history store | retained learned relation | eligible / intended |
+| Realtime | observation / self state | raw observation / current commitment | `RIB_B` と `M_B` に項目別分離 |
+
+Layerは `M_B` の排他的field分割ではない。owner/store自体ではなく、そこから現在採用された有限な関係だけが `M_B` participantになり得る。現行canonical runtimeへのadmissionは別の有限契約で扱う。
+
 ```text
 Layer Profile
 != Core primitive

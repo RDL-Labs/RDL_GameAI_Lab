@@ -68,6 +68,20 @@ Realtime / Current Context
 
 これは存在論や一方向の固定階層ではなく、更新速度・保持・拘束伝播を比較するView。Neural Dynamicsは遅い基準と速い瞬間変動を持ち、Bodyも急変しうる。
 
+```text
+Generation / DNA
+Neural Dynamics
+Physical / Body
+Experience / Relation History
+Realtime self-side constraints
+        ↓
+finite adopted current relations
+        ↓
+       M_B
+```
+
+Layerは `M_B` の5つの排他的fieldではない。各module/store/world sourceは `M_B` と同一ではないが、そこから現在採用された有限な個体側拘束は `M_B` を構成し得る。raw current observationは基本的に `RIB_B` 側であり、現在priority・action commitment・短期保持関係など個体側拘束として成立したものだけを別のadmission境界で扱う。
+
 設計上の関係:
 
 ```text
@@ -150,6 +164,8 @@ semantic fallibility allowed
 structural integrity required
 
 SensitivityProfile / BodyState / RelationHistory != M_B by identity
+finite adopted relations sourced from them may constitute M_B
+semantic eligibility != current operational admission
 OXT != B
 AffectExpression != H
 Novelty != ξ

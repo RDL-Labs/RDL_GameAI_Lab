@@ -63,7 +63,13 @@ CurrentContext     != M_B by identity
 bounded observation != RIB_B
 ```
 
-これらは現在の `M_B` 形成・解釈・行動へ影響しうる GameAI-local 条件だが、それだけでCore `M_B` そのものにはならない。
+これらのcontainer / owner / storeは、それ自体ではCore `M_B` ではない。ただし、宣言されたmodel/context Boundaryで明示的に採用された有限な現在parameter・関係は `M_B` の構成関係になり得る。
+
+```text
+module / store != M_B by identity
+finite currently adopted relations / parameters ⊂ M_B
+semantic eligibility != current operational admission
+```
 
 現行canonical pathは従来どおり、
 
@@ -106,7 +112,7 @@ movement capability range
 sensory capability range
 ```
 
-DNAは `M_B` ではなく、後続Layerが取りうる可能域を拘束する生成条件として扱う。
+DNA自体はcurrent `M_B` ではなく、後続Layerが取りうる可能域を拘束する生成条件として扱う。DNAから表現されたcurrent neural/body relationが個体側拘束として採用された場合、その有限な関係は `M_B` を構成し得る。
 
 ```text
 DNA
@@ -177,7 +183,7 @@ physical world itself
 
 である。
 
-BodyStateは現在の行動可能域やAffectExpressionへ影響しうるが、canonical `M_B` へ名前だけで昇格させない。
+BodyState ownerは `M_B` と同一ではない。FoodNeed・movement capability・fatigue・injury等の現在有効な有限関係は意味論上 `M_B` participantになり得るが、canonical runtimeへは宣言したadmission境界なしに追加しない。
 
 ---
 
@@ -214,7 +220,7 @@ RelationHistory != complete world truth
 RelationHistory != Core M_B by identity
 ```
 
-を維持する。
+を維持する。一方、履歴storeから現在採用された `A may help`、`route often succeeds` 等の有限なlearned relationは `M_B` を構成し得る。store全体と採用済み現在関係を区別する。
 
 ---
 
@@ -243,10 +249,10 @@ current place / local context
 CurrentContext
 != bounded observation packet
 != canonical RIB_B
-!= Core M_B
+!= Core M_B by identity
 ```
 
-である。
+である。raw current observationは `RIB_B` 側を基本とする。current priority、action commitment、短期保持関係など、個体側拘束として明示的に成立した項目だけが `M_B` participantになり得る。
 
 現在情報は finite B / Purpose / coverage / provenance を通して canonical pathへ入る。
 
@@ -397,4 +403,4 @@ Layer間・Layer外・重複・未回収関係は残る。
 
 ## 13. 一文圧縮
 
-> **GameAI Labでは、NPCを Generation/DNA・Neural Dynamics・Physical/Body・Experience/Relation History・Realtime/Current Context の異なる時間スケールとして整理する。ただし各LayerをCore `M_B`へ自動同一視せず、現行canonical pathとruntime authorityを維持したまま、relation historyとindividual sensitivityから段階的に実装する。**
+> **GameAI Labでは、5 Layerを現在の `M_B` を構成し得る関係の出所・更新速度・保持時間・provenanceを整理するViewとして使う。owner module/storeを `M_B` と同一視せず、有限な現在関係を宣言したBoundaryで段階的にadmitし、現行canonical pathとruntime authorityを維持する。**

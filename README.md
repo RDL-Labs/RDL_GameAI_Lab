@@ -25,6 +25,8 @@
 
 canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_Bの分解定義でもありません。Neural Dynamicsは内部状態の配置先であり、その影響経路は横断系としても検査します。睡眠は第6Layerではなく横断更新イベントです。
 
+各Layerは、現在の有限なagent-side関係・parameterの出所、更新速度、保持時間、provenanceを整理するViewです。owner module / store自体は `M_B` ではありませんが、宣言したBoundaryで明示的に採用された現在関係は `M_B` を構成し得ます。現行canonical runtimeはFoodNeedを含む全parameterをまだoperational admissionしていません。
+
 ## Current implementation
 
 - Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。

@@ -55,6 +55,9 @@ The current canonical sidecar is read-only. It cannot change the existing action
 The first game-feature contract adds bounded `approach / pickup / eat`
 selection while Godot retains world-resolution authority. FoodNeed and held
 food are body snapshot fields and are not selected canonical count dimensions.
+FoodNeed is semantically intended to participate in a future explicitly formed
+M_B relation network, but it is not admitted to the current frozen count-sidecar
+M_B. The owner body module is not M_B by identity.
 History retry influence applies only to approach and cannot intercept pickup or
 eat. See [the Food contract](FOOD_minimal_loop_contract.md).
 

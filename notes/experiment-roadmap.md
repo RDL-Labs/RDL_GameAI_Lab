@@ -7,8 +7,9 @@ It does not own game-feature phases; those belong to the [life-feature roadmap](
 
 Game-feature note: the first [minimal Food loop](../docs/experiment-contracts/FOOD_minimal_loop_contract.md)
 is operational. Its changed world observations may enter the existing diagnostic
-path, but FoodNeed and held-food state are not canonical M_B fields and Food
-completion does not advance Maturity 4/T1.
+path. FoodNeed is semantically intended as a finite M_B participant, while its
+current canonical runtime admission remains deferred; held-food/world state is
+not copied wholesale into M_B. Food completion does not advance Maturity 4/T1.
 
 ## Maturity summary
 
@@ -63,7 +64,7 @@ The canonical path is read-only and does not yet own action/reconstruction autho
 
 ## Layering view with bounded operational slices
 
-The profile organizes local Experience, fixed Sensitivity, Body, and Realtime implementations. Expression is derived display-only. DNA is deferred. These do not acquire canonical action/reconstruction authority.
+The profile organizes provenance, update tempo, and retention for relations sourced from local Experience, fixed Sensitivity, Body, and Realtime implementations. Expression is derived display-only. DNA is deferred. Finite adopted relations from these sources may semantically constitute M_B, but none acquire canonical admission or action/reconstruction authority merely by appearing in the profile.
 
 ```text
 Generation / DNA
@@ -132,7 +133,7 @@ Acceptance:
 - the same present event can yield different interpretation/behavior after different finite histories;
 - positive and negative relation histories may coexist;
 - history is finite provenance, not complete world truth;
-- `RelationHistory != M_B by identity` remains explicit;
+- `RelationHistory` store is not `M_B` by identity; finite currently adopted learned relations may participate under an explicit boundary;
 - any Experience-layer snapshot is read-only until a separately reviewed influence path is accepted.
 - declare history retention/forgetting and event provenance; compare histories while holding current observation, body, and sensitivity fixed;
 - changes affecting canonical interpretation use an explicit model/context boundary and never mutate M_B within an F/F' comparison.
@@ -176,7 +177,7 @@ recoverability_sensitivity
 
 Acceptance:
 - same history/context can yield different behavior across profiles;
-- sensitivity is not personality, relation strength, Core H, Core ξ, or Core M_B by identity;
+- sensitivity container is not personality, relation strength, Core H, Core ξ, or Core M_B by identity; explicitly adopted finite neural constraints may participate in M_B;
 - similar total H may yield different affect because provenance/history/context differ;
 - visible affect remains derived rather than T0 primitive;
 - cross-layer influence has explicit finite inputs, provenance, and break conditions.

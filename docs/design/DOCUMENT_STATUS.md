@@ -25,8 +25,14 @@
 
 ## 今回の変更境界
 
-変更対象は `README.md`、`docs/design/`、`notes/experiment-roadmap.md`。
-前回から未commitの層間分離テスト、契約・Evidence・semantic reference変更は保全し、今回改変しない。
+### M_B参加意味論（2026-09-17）
+
+- Layer docs: current。5 Layerは `M_B` の外部状態系や5分割ではなく、関係の出所・更新速度・保持時間・provenanceを整理するViewへ改訂。
+- Food contract: FoodNeedはsemantic `M_B` participantとしてintended。現行canonical count-sidecarへのadmissionはdeferred。
+- Cross-layer contract: 現行runtimeのfrozen `M_B` をlocal変更が黙示mutationしないことの分離契約。Body / Neural / History由来relationの永久除外は主張しない。
+- Runtime authority、graph mutation、θ / M_Δ / T1 cutoverは変更なし。
+
+変更対象は `README.md`、`docs/design/`、`docs/experiment-contracts/`、`notes/experiment-roadmap.md` と層間分離テストの説明文。runtime / Godot挙動、Evidence、semantic referenceは変更しない。
 DNA・動的神経状態・睡眠・会話・生活機能の詳細は設計候補であり、文書整合によって実装済みに昇格しない。
 
 ## 残す表記と未実装範囲
@@ -37,7 +43,7 @@ DNA・動的神経状態・睡眠・会話・生活機能の詳細は設計候�
 
 ## 検証
 
-- 対象15文書のローカルリンク113件、見出しアンカー1件、コードフェンスを確認。エラーなし。
-- Godot 4.7.2の実HTTP連携4件を含む既存65テスト成功、skipなし。
-- runtime / godot / tests / experiments / contracts / evidence / semantic-referenceの追跡ファイルは作業前autostashとの内容差分なし。前回の未追跡層間分離テスト・契約も編集せず保持。
+- README、docs、notesのMarkdown 29件についてローカルリンクとコードフェンスを確認。エラーなし。
+- Godot 4.7.2の実HTTP連携5件を含む既存70テスト成功、skipなし。
+- runtime / godot / experimentsの追跡ファイルは差分なし。test変更は層間分離acceptanceの意味を明示するdocstringのみで、assertionと挙動は不変。
 - 未解消競合なし、git diff --check成功。新規commit・pushは実施していない。

@@ -410,4 +410,6 @@ Aが名称不明の像を見る
 
 ## 一文圧縮
 
+DialogueTurn storeとLexicon databaseは `M_B` ではない。一方、現在採用された `word ↔ referent`、`speaker ↔ trust`、`warning ↔ danger` 等の有限な関係は `M_B` を構成し得る。raw発話をWorld Truthやcanonical `M_B` へ直接コピーせず、保持・選別・admissionのprovenanceを残す。
+
 > **まずNPC同士が有限な意味を伝達できる通信基盤を作り、その上へ語彙獲得と伝播を載せる。プレイヤーは拠点のしゃべる神の像として未知の物や場所へ名前を与えられるが、その言葉はTruthではなくNPCが観測した一つの情報として扱う。**

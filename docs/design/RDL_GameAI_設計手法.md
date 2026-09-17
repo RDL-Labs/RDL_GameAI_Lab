@@ -316,7 +316,7 @@ Realtime / Current Context
 = current bounded situation / current action / short-term context
 ```
 
-ただし、各LayerをCore `M_B`へ自動同一視しない。
+ただし、各LayerをCore `M_B`へ自動同一視しない。Layerはrelation provenance / update tempo / retentionを整理するViewであり、`M_B` の5つの排他的fieldではない。
 
 ```text
 SensitivityProfile != M_B by identity
@@ -324,6 +324,14 @@ BodyState          != M_B by identity
 RelationHistory    != M_B by identity
 CurrentContext     != M_B by identity
 ```
+
+```text
+owner module / store != M_B by identity
+finite currently adopted agent-side relations / parameters ⊂ M_B
+semantic eligibility != current operational admission
+```
+
+raw observationは基本的に `RIB_B` 側へ入り、current priority・action commitment・retained learned relation等が個体側拘束として採用された場合だけ `M_B` participantになり得る。同一F/F'比較中はpre-update `M_B` を凍結する。
 
 現段階ではExperience・fixed Sensitivity・Bodyの有限なaction influenceを契約下で実装済み。canonical sidecarにはaction / graph mutation authorityを与えない。次は[層間分離の検証](../experiment-contracts/CROSS_LAYER_separation_contract.md)を固定し、T1の形成契約を別途設計する。
 

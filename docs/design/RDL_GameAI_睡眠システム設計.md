@@ -429,4 +429,6 @@ provenance消失
 
 ## 一文圧縮
 
+睡眠中のExperience History選別・圧縮・関連付けは、future `M_B` reconstructionへ渡し得るcandidate relation changesを作る。ただしHistory storeやsleep process自体は `M_B` ではなく、睡眠もT1ではない。採用には別の有限な検査・選別・再構成契約が必要である。
+
 > **睡眠は、身体回復と同時に大量の経験・対人関係・語彙・場所・物を有限な関係構造へ圧縮・再構成する時間であり、忘却・一般化・誤接続が個体固有の癖や不可解な行動を生んでよい。**
