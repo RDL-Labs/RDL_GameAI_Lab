@@ -1,307 +1,96 @@
 # RDL Game AI Lab
 
-`RDL_GameAI_Lab` is an experimental playground for building **interesting game AI rather than merely strong game AI**.
+**強さだけでなく、履歴から理解できる個体差や意外性を持つGameAIを実験する。**
 
-> **世界・他者・自身の履歴との相互作用によって、理解可能だが固定されない振る舞いを生むAIを検証する。**
-
-`RDL_Demos`、`RDL_Enterprise`、`RDL_Human` は素材鉱山として扱い、Core意味論は現行 `RDL_Core` T0/T1 v2.3 と分離して参照する。
+目指す体験は、かわいい生き物が小さな世界で食べ、休み、失敗し、助け合い、回復しながら暮らす生活シミュレーション。現在動くものは、そのための有限な実験Workbenchであり、完成した生活ゲームではありません。
 
 ## Start here
 
-- [Overall GameAI design map](docs/design/RDL_GameAI_全体設計地図.md)
-- [Core v2.3 semantic reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)
-- [Current experiment roadmap](notes/experiment-roadmap.md)
-- [NPC layer-based design plan](docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md)
-- [Neural parameter blueprint](docs/design/RDL_GameAI_神経パラメーター設計図.md)
-- [Sleep / consolidation design](docs/design/RDL_GameAI_睡眠システム設計.md)
-- [Affect / history / relational constraint model](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル.md)
-- [GameAI design method](docs/design/RDL_GameAI_設計手法.md)
+1. [全体設計地図](docs/design/RDL_GameAI_全体設計地図.md): 4軸と各文書の正本
+2. [Game Concept](docs/design/RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md): 体験・世界観
+3. [NPC Layer Plan](docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md): 状態の所有・更新・保持・検証
+4. [Canonical Experiment Roadmap](notes/experiment-roadmap.md): 実装成熟度と残る境界
+5. [Current Runtime Contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md): 現行動作の有限契約
 
-## Four separate planning views
+生活機能の追加順は[Game Feature Roadmap](docs/design/RDL_GameAI_実装手順予定.md)で管理します。
 
-GameAI Lab now keeps four kinds of design apart.
+## Four separate axes
+
+| 軸 | 管理するもの |
+|---|---|
+| A. Canonical RDL maturity | RIB_B / frozen M_B / E / review / H、将来のT1・authority |
+| B. NPC internal layers | Generation / DNA、Neural Dynamics、Physical / Body、Experience / Relation History、Realtime / Current Context |
+| C. Game feature implementation | Food・Rest・Energy・Safety・Rescue等の生活機能 |
+| D. Cross-cutting systems | World Time・Communication・Vocabulary・Player・Sleep Consolidation等 |
+
+canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_Bの分解定義でもありません。Neural Dynamicsは内部状態の配置先であり、その影響経路は横断系としても検査します。睡眠は第6Layerではなく横断更新イベントです。
+
+## Current implementation
+
+- Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。
+- GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
+- Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
+- Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話・生活機能の詳細設計。
+
+固定retry profileは神経値から導出したものではありません。設計上の「DNA μ/σ → dynamic neural state → derived sensitivity」と現行実装を区別します。
+
+[Runtime evidence](docs/experiment-evidence/CURRENT_v23_runtime_evidence.md)と[層間分離契約](docs/experiment-contracts/CROSS_LAYER_separation_contract.md)が確認範囲を示します。保持はprocess-localであり、再起動永続化を意味しません。
+
+## Semantic boundaries
+
+意味論の基準は[Core reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)の同期点 `9c60c5b`（BASE v2.3 / SPEC v2.4）。Demos・Enterprise・Humanは素材・仮説の参照元、General ModulesのLayeringは整理補助です。
 
 ```text
-A. Canonical / RDL maturity
-B. NPC internal layer profile
-C. Game feature roadmap
-D. Cross-cutting systems
-```
-
-```text
-canonical maturity
-!= NPC internal structure
-!= game-feature implementation order
-!= sleep / communication / time update cycle
-```
-
-See the [overall design map](docs/design/RDL_GameAI_全体設計地図.md) for their connections.
-
-## Current semantic boundary
-
-```text
-SILN participates in one or more RIBs
-Purpose / finite B selects RIB_B
-Engine world state != Agent Observation != RIB_B != Agent M_B
+Engine state != observation != RIB_B != M_B
 F / F' use the same frozen pre-update M_B
-E = Δ(F,F')
-nonzero E != unresolved by definition
-only finite-reviewed unresolved remainder may enter H
-H != fear / fun / jealousy / stress / Human Attention
 Structural Conflict != E != H
-∀B_finite: ξ(B) != 0
-ξ != runtime uncertainty / coverage / novelty / exploration scalar
+nonzero E != unresolved by definition
+H != emotion / Human Attention
+Novelty != ξ
+Player statement != World Truth
+semantic fallibility allowed; structural integrity required
 ```
 
-GameAI-local Body / Experience / Neural / Current Context conditions are not Core primitives merely because they influence behavior.
+誤認・誤命名・誤一般化は設計上許容しますが、参照破損・provenance消失・意図しないcanonical mutationは許容しません。詳細は[設計手法](docs/design/RDL_GameAI_設計手法.md)へ。
 
-## NPC layering profile
-
-```text
-Generation / DNA
-      ↓
-Neural Dynamics
-      ↓
-Physical / Body
-      ↓
-Experience / Relation History
-      ↓
-Realtime / Current Context
-```
-
-This is an organization and testing view, not a canonical `M_B` decomposition.
-
-### Generation / DNA
-
-DNA is modeled as a baseline generator rather than a personality label.
-
-```text
-DNA
-→ neural parameter μ / σ
-→ body / sensory possibility ranges
-```
-
-Runtime reproduction / evolution remains deferred.
-
-### Neural Dynamics
-
-The design keeps fine-grained operational labels available:
-
-```text
-DA: D1 / D2 / D3 / D4
-5-HT: 5-HT1 / 5-HT2 / 5-HT3 / 5-HT4
-OXT
-NA: α1 / α2 / β
-```
-
-These bias attention, action, repetition, relation persistence, alerting and recovery; they are not direct behavior commands or Core primitives.
-
-## Current operational slices
-
-The canonical path is still read-only with respect to action / graph mutation, but the runtime now has several bounded GameAI-local and diagnostic slices around it.
-
-Canonical observation / interpretation path:
-
-```text
-bounded observation
-→ Purpose / finite B / selected dimensions / conditions / coverage / provenance
-→ RIB_B
-→ same frozen pre-update M_B
-→ F / F'
-→ E
-→ explicit finite review
-→ diagnostic H only for reviewed unresolved residual
-```
-
-Experience / Body / response-profile slices are kept separate from canonical authority.
-
-Current implemented bounded experiments include:
-
-```text
-finite E review / unresolved residual / retained H
-finite InteractionHistory for admitted approach outcomes
-opt-in history-based retry influence
-fixed per-agent retry sensitivity profiles
-bounded body movement capability and recovery checks
-derived display-only response expression
-```
-
-See [notes/experiment-roadmap.md](notes/experiment-roadmap.md) and the experiment contracts for exact acceptance boundaries.
-
-## Cross-cutting systems
-
-### Sleep / consolidation
-
-Sleep is not a sixth NPC layer.
-
-```text
-Sleep
-├ Body Recovery
-└ Experience Consolidation
-```
-
-The design allows forgetting, compression, generalization and even semantically wrong associations, while retaining structural provenance.
-
-### Communication / vocabulary
-
-Communication is treated as finite interaction rather than truth transfer.
-
-```text
-speaker state
-→ CommunicativeIntent
-→ Expression
-→ listener observes
-→ listener interprets under its own finite relation structure
-→ response
-```
-
-A communicated meaning is not copied directly into another NPC and is not automatically world truth.
-
-### Player interface
-
-The provisional player role is a fixed talking statue / oracle-like object in the home area. The main early intervention is vocabulary supply and naming rather than direct NPC control. Player statements remain ordinary observed information from the NPC perspective.
-
-### World time
-
-World time connects daily routine, food, fatigue, sleep, safe return, absence detection and later search/rescue behavior.
-
-## Game concept direction
-
-The current game direction is:
-
-> **かわいい生き物が、食料・休息・身体・安全・経験・仲間との関係に拘束されながら、小さな世界で失敗し、助け合い、休み、回復しながら必死に暮らす。**
-
-The first life-system development line is:
-
-```text
-Food
-→ Rest / Sleep
-→ EnergyReserve / ActiveEnergy
-→ Safety / Danger
-→ Incapacitation / Injury
-→ Rescue / Recovery
-→ Hunting
-```
-
-Later:
-
-```text
-Materials
-→ Tools
-→ Crafting
-→ Barter
-→ Emergent Value
-```
-
-These game-feature phases do not override the canonical roadmap.
-
-## Semantic fallibility
-
-GameAI deliberately allows semantic/cognitive error while preserving structural integrity.
-
-```text
-semantic fallibility allowed
-structural integrity required
-```
-
-Allowed examples:
-
-```text
-misrecognition
-wrong naming
-over-generalization
-biased relation formation
-odd sleep association
-rumor / misunderstanding
-```
-
-Not allowed as intentional behavior:
-
-```text
-broken IDs
-lost provenance
-invalid references
-silent canonical mutation
-```
-
-The aim is to observe how mistakes form, propagate, break and repair.
-
-## Source mines
-
-### RDL_Demos
-
-Use as an implementation and finite-operation source where its semantics are compatible with current Core boundaries.
-
-### RDL_Enterprise
-
-Use bounded acquisition, provenance, explicit selection/revision, authority separation and durable trace patterns as implementation material. Enterprise's conservative error handling is not automatically required for GameAI semantic cognition.
-
-### RDL_Human
-
-Use as a hypothesis mine for neural dynamics, affect, relation and temporal behavior. Human-specific labels remain application-level hypotheses unless separately adopted by GameAI.
-
-### RDL_General_Modules
-
-Use the current horizontal layering kit as an organization aid. It does not confer runtime or canonical authority.
-
-## Runtime
+## Run
 
 ```bash
 python -m runtime.bridge
 ```
 
-Key endpoints currently include observation, canonical snapshot, assessment review, interaction-result and experience-snapshot paths. Exact runtime behavior is governed by the current experiment contracts.
+Godot 4.7で [project.godot](godot/rdl-game-ai-workbench/project.godot) を開き、Run Projectを実行します。RuntimeモードでPython bridgeに接続します。MockモードはGodot単体です。
 
-## Next boundaries
-
-Near-term work now splits into two independent lines.
-
-Canonical maturity:
-
-```text
-current reviewed E/H + bounded local influences
-→ richer relation history / neural influence
-→ M_Δ / T1 reconstruction
-→ finite-context authority / fresh re-entry
-```
-
-Game-world vertical development:
-
-```text
-Food / Rest / Energy
-→ Safety / Injury / Rescue
-→ Hunting
-```
-
-Cross-cutting systems such as World Time, Sleep Consolidation and Communication should be attached where their minimum vertical experiments become testable rather than forced into the canonical sequence.
-
-## Tests
+履歴の行動影響は任意です。
 
 ```bash
+python -m runtime.bridge --history-influence --retry-profile npc_a=long --retry-profile npc_b=short
+```
+
+観測IDを再利用するWorkbench Reset後はRuntimeも再起動してください。API・容量・review・停止境界の詳細は[現行契約](docs/experiment-contracts/CURRENT_v23_runtime_contract.md)と各機能契約を参照します。
+
+## Verify
+
+```powershell
+$env:GODOT_BIN = 'D:\Godot\Godot_v4.7.2-stable_win64_console.exe'
 python -m unittest discover -s tests -v
 ```
 
-A green test means only that no contract violation was observed inside the declared finite test Boundary.
+GODOT_BINなしではGodot連携テストはskipされます。テスト成功は宣言した有限Boundary内の確認であり、全ゲーム挙動やRDL理論の証明ではありません。
+
+## Repository
 
 ```text
-current finite Boundaryで operationally sufficient
-!= terminally complete
-!= universally valid
-!= all game behavior evaluated
+docs/design/                design map and responsibility documents
+docs/semantic-reference/    pinned Core reading
+docs/source-inventory/      source-mine evaluations
+docs/experiment-contracts/  finite runtime contracts
+docs/experiment-evidence/   verification records
+notes/experiment-roadmap.md canonical maturity
+runtime/                   local action runtime and diagnostic sidecar
+godot/                     world and interaction workbench
+experiments/                bounded prototypes
+tests/                     acceptance tests
 ```
 
-## Repository shape
-
-```text
-docs/
-  semantic-reference/   current Core reading
-  source-inventory/     source-mine evaluations
-  design/               GameAI design documents
-  experiment-contracts/ runtime acceptance contracts
-  experiment-evidence/  runtime evidence
-runtime/                 action runtime + read-only canonical sidecar
-godot/                   bounded world / interaction workbench
-experiments/             small runnable prototypes
-notes/                   forward canonical roadmap
-tests/                   Python acceptance tests
-```
+[文書棚卸し](docs/design/DOCUMENT_STATUS.md)に整理理由を記録しています。

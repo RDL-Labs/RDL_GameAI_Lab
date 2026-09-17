@@ -1,6 +1,10 @@
 # RDL_GameAI 感情・履歴・関係拘束モデル
 
-*CURRENT — Core v2.3準拠*
+*CURRENT DESIGN — Coreの同期点はsemantic referenceを参照*
+
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のB/D軸。履歴・関係拘束と派生表現の分離を管理する。
+**依存:** [神経設計](RDL_GameAI_神経パラメーター設計図.md)、[睡眠設計](RDL_GameAI_睡眠システム設計.md)、[Core reference](../semantic-reference/RDL_Core_T0_T1_reference.md)。
+**非責務・状態:** Hの再定義や神経サブタイプ定義はしない。心理的AffectExpression / ActionBias / DialogueToneは候補であり、現行display-only Response Expressionと同一ではない。
 
 ## 0. 位置づけ
 
@@ -58,10 +62,12 @@ Engine world state
 
 ## 3. 感情表現は派生層
 
+以下は将来の派生経路。現在の固定retry profileを遡って神経由来の人格変数とは呼ばない。
+
 ```text
-finite interaction history
+Neural Dynamics → derived sensitivity
++ finite interaction history
 + relation history / relation constraints
-+ sensitivity profile
 + body state
 + current context
 + H provenance when unresolved exists
@@ -79,9 +85,11 @@ DialogueTone
 
 ```text
 past interaction
-→ relation history / M_B formation
-→ later finite RIB_B interpretation changes
-→ behavior / affect may differ
+→ raw Experience History
+→ sourced local relation candidates / compressed constraints
+→ later local behavior / affect may differ
+
+canonical M_B formation requires a separate reviewed formation contract
 ```
 
 同じ対象へ複数方向の履歴が共存してよい。
@@ -95,6 +103,8 @@ Aと祭りで遊んだ
 ```
 
 単一好感度へ潰さない。
+
+raw Experience History、compressed relation constraints、sleep-consolidated relation candidates、canonical M_Bを同一視しない。睡眠は横断更新windowであって自動的なT1ではない。候補にはsource record・変換規則・時点・適用条件を残す。意味上の誤一般化・誤接続は許容しても、raw履歴や参照・provenanceの破損は許さない。
 
 GameAI-local relation descriptor候補:
 
@@ -134,7 +144,7 @@ Novelty 高 × Opportunity 高 × Control/Recoverability 十分
 
 ## 6. 個体差
 
-候補:
+神経状態・Body・Historyから導く観測軸の候補（固定人格変数ではない）:
 
 ```text
 threat_sensitivity
@@ -147,8 +157,11 @@ social_rejection_sensitivity
 ```
 
 ```text
-SensitivityProfile
-= 何を強く拾いやすいか
+derived sensitivity
+= Neural Dynamicsを経て何を強く拾いやすいか
+
+current fixed SensitivityProfile
+= 神経由来ではない有限retry比較用profile
 
 RelationHistory
 = 何が過去に起き、どの関係が形成されたか
@@ -237,7 +250,7 @@ InteractionHistoryRecord
 
 ## 11. 現在の導入順
 
-現行runtimeは `E` まで形成済み。次はfinite assessment / unresolved review。その後にrelation history、sensitivity / affect、M_Δ / T1へ進む。
+現行runtimeは `E / explicit finite review / H / retained H` までdiagnosticとして実装済み。有限な結果履歴、固定retry sensitivity、movement_scale、派生Response Expressionもoperational。ただし心理的感情・社会関係意味論を実装したとは扱わない。層間分離を検証した後、θ / M_Δ / T1を別契約で扱う。
 
 ## 12. 破断条件
 

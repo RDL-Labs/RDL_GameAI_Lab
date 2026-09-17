@@ -4,6 +4,11 @@
 **版:** v0.2  
 **位置づけ:** RDL_GameAI_Lab / GameAI-local implementation plan
 
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のC軸。生活機能の縦実装順と、D軸の接続点を管理する。
+**依存:** [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md)、[Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)、各横断系の正本文書。
+**非責務:** canonical成熟度・内部Layerの正本ではない。canonical maturity != game feature phase。
+**状態:** 以下のPhaseは予定。現行mock foodへのapproachやmovement_scaleは素材となるが、食事・睡眠・生活エネルギー循環の完成を意味しない。
+
 ## 0. 実装方針
 
 最初から大規模な生活・経済・クラフトシステムを作らない。
@@ -34,14 +39,19 @@ Materials
 
 ```text
 World Time
+Experience History
 Sleep Consolidation
 Communication / Lexicon
 Player Intervention
 Neural Dynamics
-Relation Formation
+Relation Constraints
 ```
 
-全体配置は `RDL_GameAI_全体設計地図.md` を参照する。
+全体配置は[設計地図](RDL_GameAI_全体設計地図.md)、canonical成熟度は[experiment roadmap](../../notes/experiment-roadmap.md)を参照する。
+
+## Vertical life features
+
+以下のPhase 1-11はこの文書内の生活機能順だけを表す。横断系は後掲の独立した接続一覧を使い、Phase番号を割り当てない。
 
 ---
 
@@ -337,7 +347,21 @@ currency = true
 
 ---
 
-## Cross-cutting 1 — World Time
+## Cross-cutting systems
+
+World Time・Experience History・Neural Dynamics・Relation Constraints・Sleep Consolidation・Communication / Vocabulary・Player Interventionは、複数の生活Phaseへ必要時に接続する。各系は次の正本で定義し、本書では生活機能との接続点だけを管理する。
+
+| 横断系 | 正本 / 現在の境界 | 生活機能への接続例 |
+|---|---|---|
+| World Time | 本書。現行tickと日周期モデルは別 | 食事・休息・帰還・不在検出 |
+| Experience History | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)。現行は有限approach結果のみ | 採食・救助・失敗・会話の記録候補 |
+| Neural Dynamics | [神経設計](RDL_GameAI_神経パラメーター設計図.md)。動的状態は未実装 | 注意・行動・保持の偏り |
+| Relation Constraints | [履歴モデル](RDL_GameAI_感情・履歴・関係拘束モデル.md)。社会的圧縮関係は未実装 | 人・物・場所への関係候補 |
+| Sleep Consolidation | [睡眠設計](RDL_GameAI_睡眠システム設計.md)。未実装 | Restを契機に回復・履歴整理を別々に検証 |
+| Communication / Vocabulary | [会話設計](RDL_GameAI_簡易会話からプレイヤー介入まで.md)。未実装 | 救助・交換・命名の局所伝播 |
+| Player Intervention | [Player Role](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md)。未実装 | 会話を介した語彙・情報入力のみ |
+
+### World Time
 
 ```text
 morning
@@ -352,7 +376,7 @@ morning
 
 ---
 
-## Cross-cutting 2 — Sleep Consolidation
+### Sleep Consolidation
 
 ```text
 Experience History
@@ -365,11 +389,11 @@ Experience History
 
 睡眠はBody RecoveryでもありExperience Consolidationでもある。
 
-意味上の誤接続を許容する。
+Sleep != Layer、sleep != T1。GameAI-side trigger/windowとしてlocal候補を形成する。意味上の誤接続は許容するが、元履歴・参照・provenanceを破壊しない。canonical採用は別契約。
 
 ---
 
-## Cross-cutting 3 — Communication / Lexicon
+### Communication / Lexicon
 
 初期intent:
 
@@ -388,7 +412,7 @@ ACK
 
 ---
 
-## Cross-cutting 4 — Player Intervention
+### Player Intervention
 
 暫定的には拠点内のしゃべる神の像をPlayer Interfaceとする。
 
@@ -405,18 +429,9 @@ PlayerはTruth Sourceではない。
 
 ---
 
-## Cross-cutting 5 — Neural Dynamics
+### Neural Dynamics
 
-細粒度parameterを保持する。
-
-```text
-DA: D1 D2 D3 D4
-5-HT: 1 2 3 4
-OXT
-NA: α1 α2 β
-```
-
-DNAは各parameterの基準μ/σを与える。
+設計経路はDNA → neural μ/σ → actual dynamic state → derived sensitivity。サブタイプと操作的意味は神経設計を正本とし、ここでは再定義しない。現行の固定retry profileはこの経路とは別の最小実験。
 
 神経状態は行動命令ではなく、注意・行動・保持・再構成への偏りとして使う。
 

@@ -4,6 +4,10 @@
 **版:** v0.1  
 **位置づけ:** RDL_GameAI_Lab / GameAI-local design
 
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)におけるPlayerの存在形式・許可する介入・禁止権限。
+**依存:** [Communication](RDL_GameAI_簡易会話からプレイヤー介入まで.md)の発話・履歴、[Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md)の体験。
+**非責務・状態:** 会話schema・語彙伝播の詳細はCommunicationへ委ねる。暫定design-onlyであり、Workbenchの実験者UIをゲーム内Player能力とは扱わない。
+
 ## 0. 一文定義
 
 > **プレイヤーは拠点内に置かれた「しゃべる神の像」のような存在として、生き物たちから話しかけられ、質問に答え、未知の物や場所へ名前を与える。**
@@ -38,7 +42,12 @@
 知らないと答える
 ```
 
-直接的な命令・強制操作は主機能にしない。
+初期PlayerにNPC直接操作・状態書換・強制移動・全知的世界アクセスを与えない。外部語彙・情報源に限定する。
+
+```text
+Player → Communication → lexical / informational input
+Player statement != World Truth
+```
 
 ---
 
@@ -173,6 +182,8 @@ trust != truth
 ---
 
 ## 9. M_Bとの接続
+
+以下はlocalな名称・意味候補の形成。canonical M_Bへの採用は別の有限契約による検査・選別・再構成が必要であり、Player発言による直接書換ではない。
 
 ```text
 unknown target

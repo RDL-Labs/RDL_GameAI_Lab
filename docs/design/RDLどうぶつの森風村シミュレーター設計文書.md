@@ -1,5 +1,9 @@
 # RDLどうぶつの森風村シミュレーター設計文書
-## CURRENT — Core v2.3 / 現行Demos・Enterprise・Human参照
+## Historical Reference
+
+**位置づけ:** 旧村コンセプトとsource-mine対応表の参照資料。現行設計の正本ではないため、既存リンクを保ってこの場所に残す。
+**依存・責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)から参照する採掘候補・設計経緯。下記の「現在」やCore v2.3表記は旧整理時点の記述を含む。
+**非責務:** 現行の[Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md)、[Player Role](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md)、[生活機能順](RDL_GameAI_実装手順予定.md)、[canonical roadmap](../../notes/experiment-roadmap.md)を上書きしない。住人型Player・贈物・仲裁の旧案は初期Player能力として採用しない。
 
 ## 1. コンセプト
 
@@ -56,7 +60,7 @@ unresolved only
 H
 ```
 
-現在のGameAI Lab runtimeは **E形成まで**。村ゲームの感情・長期学習を先にCore Hへ接続せず、次にfinite assessmentを入れる。
+現在のGameAI Lab runtimeは **E / explicit finite review / H / retained H** と、最小のlocal History・Sensitivity・Body・Expressionまで。村ゲームの心理的感情や長期学習が実装されたという意味ではない。θ / M_Δ / T1は未実装。
 
 ## 4. 村生活の主要システム
 
@@ -219,11 +223,10 @@ maximum conflict != richness
 ## 9. 現在からの実装順
 
 ```text
-current: RIB_B / frozen M_B / F-F' / E
-next: finite assessment / unresolved review / H
-then: relation history
-then: sensitivity / affect
-then: M_Δ / T1 reconstruction
+current canonical: RIB_B / frozen M_B / F-F' / E / review / H / retained H
+current local: finite history / fixed sensitivity / body / derived expression
+next: cross-layer separation acceptance
+then: explicit θ / M_Δ / T1 reconstruction contract
 then: finite-context authority
 then: long-run richness
 ```

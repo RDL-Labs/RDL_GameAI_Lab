@@ -8,15 +8,18 @@ It does not copy or replace canonical RDL definitions.
 Canonical source:
 
 - Repository: `Aporapeiron/RDL_Core`
-- T0 BASE: `00_T0_基盤層/T0 基底措定（BASE）.md`
-- T0 SPEC: `00_T0_基盤層/T0 最低動作仕様（SPEC）.md`
+- T0 BASE: `00_T0_基盤層/T0 基底措定 (BASE).md`
+- T0 SPEC: `00_T0_基盤層/T0最低動作仕様 (SPEC).md`
 - T1: `01_T1_SILN操作層/`
 
 Reference state checked for this lab:
 
-- BASE / SPEC: formal v2.3, `RIB / RIB_B` model
-- current Core synchronization line checked: `9272be829c2f80b211b2601a2c10a50ad1f2ad2c`
-- checked: 2026-09-15
+- BASE: formal v2.3; SPEC: formal v2.4 (Standard Model resolution `ρ_B`)
+- Core synchronization commit: `9c60c5b61922a2dc15195d257ce5475fc636ffac`
+- checked: 2026-09-17 against committed sources and remote main SHA
+- [Pinned source tree](https://github.com/Aporapeiron/RDL_Core/tree/9c60c5b61922a2dc15195d257ce5475fc636ffac)
+
+Versions belong to individual documents, not uniformly to all T0/T1. Existing `v23_*` code and contract filenames remain compatibility names.
 
 If canonical references change, GameAI semantics must be rechecked rather than silently assuming compatibility.
 
@@ -150,7 +153,7 @@ H >= theta -> M_delta
 
 ---
 
-## T1 operational method used by GameAI
+## T1 reference method (not implemented in GameAI)
 
 When `M_delta` is entered, current `M_B` becomes the finite self-side subject (`SILN_SELF`) for inspection and reconstruction.
 
@@ -171,8 +174,10 @@ Probe
 Probe performs bounded contact with interaction and obtains differences available under the current or explicitly changed finite Boundary.
 
 ```text
-Probe_B(interaction) -> finite probe evidence
-with ξ' != 0
+Probe_B(target, condition_k) → RIB_B^{probe,k}
+F_k = interp(M_B, RIB_B^{probe,k})
+{Δ}_B = Compare({RIB_B^{probe,k}}, {F_k}, prior)
+with ξ'(B) != 0
 ```
 
 Probe does not retrieve or eliminate ξ itself.
@@ -210,6 +215,16 @@ Only retained relations may contribute to a later `M_B'`. A reconstruction propo
 A fresh re-entry must observe new `RIB_B'` sections and revalidate the reconstructed structure rather than declaring terminal success.
 
 ---
+
+## Operational resolution in SPEC v2.4
+
+The Standard Model may declare relation-distinction granularity as `ρ_B` in `Section_B(... resolution = ρ_B, ...)`. Core Requirements are unchanged. Finer resolution does not guarantee larger E/H or eliminate ξ.
+
+GameAI currently selects three visible-entity counts. Configurable `ρ_B` is not implemented; sensor radius, movement scale, and retry ticks are not relabeled as ρ. A future meaning-changing resolution selection must declare a comparison context/model boundary, not mutate the frozen F/F' window.
+
+## Current GameAI adoption
+
+Finite acquisition, frozen diagnostic interpretation, E, explicit residual review, and retained H are operational. History, fixed sensitivity, body, and derived expression support a separate local behavior/display path. θ, M_Δ, T1 reconstruction, and canonical action authority remain unimplemented. This is not a claim that all T0 operation is implemented.
 
 ## Responsibility split
 
@@ -259,7 +274,7 @@ Enterprise-local Human Attention, structural conflict, coverage metrics, and com
 When a new GameAI feature is proposed, check in this order:
 
 ```text
-1. Does it violate T0 BASE / SPEC v2.3?
+1. Does it violate pinned T0 BASE / SPEC (currently v2.3 / v2.4)?
 2. Is raw observation being confused with RIB_B?
 3. Does T1 already provide the formation / selection / reconstruction role?
 4. Is the proposed mechanism only a tool or implementation detail?

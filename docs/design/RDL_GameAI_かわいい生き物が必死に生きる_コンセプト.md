@@ -4,6 +4,9 @@
 **版:** v0.1  
 **位置づけ:** RDL_GameAI_Lab / GameAI-local design
 
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)から読む体験・世界観の核。
+**依存・非責務:** 実装順は[生活機能ロードマップ](RDL_GameAI_実装手順予定.md)、内部構造は[Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)、介入能力は[Player Role](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md)が正本。以下の具体例は体験要件であり、schemaや実装済み機能の一覧ではない。
+
 ## 0. 一文コンセプト
 
 > **かわいい生き物たちが、食料・休息・身体・安全・経験・仲間との関係に拘束されながら、危険生物も存在する小さな世界で、失敗し、助け合い、休み、回復しながら必死に暮らしている生活シミュレーション。**
@@ -358,6 +361,8 @@ Player発言はTruthではない。
 ## 15. Sleep / Experience Consolidation
 
 睡眠は身体回復だけでなく経験整理の契機とする。
+
+SleepはLayerではなく横断回復・consolidationイベント。sleep != T1。詳細の所有・provenance・canonical接続境界は[睡眠設計](RDL_GameAI_睡眠システム設計.md)へ委ねる。
 
 ```text
 Experience History

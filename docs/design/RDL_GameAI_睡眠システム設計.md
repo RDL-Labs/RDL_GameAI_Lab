@@ -4,6 +4,10 @@
 **版:** v0.1  
 **位置づけ:** RDL_GameAI_Lab / GameAI-local design
 
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のD軸。Body Recovery / Experience Consolidationという横断更新イベントの設計。
+**依存:** [神経設計](RDL_GameAI_神経パラメーター設計図.md)、[感情・履歴モデル](RDL_GameAI_感情・履歴・関係拘束モデル.md)、[生活機能順](RDL_GameAI_実装手順予定.md)。
+**非責務・状態:** Layer追加、canonical authority、生活Phaseの管理はしない。以下はdesign-onlyであり、現行runtimeの履歴保持に睡眠・忘却・圧縮はない。
+
 ## 0. 一文定義
 
 > **睡眠は、身体を回復させる生活行動であると同時に、その日までに蓄積した大量の経験・対人関係・場所・物・語彙などを選別・圧縮・再構成し、翌日の有限な関係構造へ反映する契機である。**
@@ -24,6 +28,8 @@
 ---
 
 ## 1. 二つの役割
+
+Sleep != Layer。BodyとExperience等を横断する回復・consolidationイベントであり、第6Layerにはしない。
 
 ```text
 Sleep
@@ -93,9 +99,18 @@ Experience History
 
 睡眠そのものをT1と同一視しない。
 
-> **睡眠を契機としてGameAI側からT1的な整理処理を起動する。**
+> **睡眠はGameAI-side trigger/windowであり、別途契約された場合にT1的な検査・選別・再構成経路を呼び出す候補となる。**
 
 canonical M_Bへの接続は、別途有限な形成・検査・再構成経路を必要とする。
+
+```text
+raw Experience History
+!= compressed relation constraints
+!= sleep-consolidated relation candidates
+!= canonical M_B
+```
+
+圧縮・誤接続の出力をlocal候補として保存し、元履歴を黙って書き換えない。source record ID・変換規則・時点・適用条件を追跡する。候補の生成だけでcanonical採用・行動権限を与えない。
 
 ---
 
@@ -190,6 +205,8 @@ Playerがobject_12を「石像」と呼んだ
 - 一般関係へ圧縮済みの元イベント
 
 ただし生ログの保存期間と、行動に使う圧縮関係の寿命は別契約にできる。
+
+忘却は表現・利用・保持の明示的な規則として行う。元ログを期限切れにする場合も、由来の有限な要約や失効表示を定め、存在しない参照へ黙って付け替えない。
 
 ---
 

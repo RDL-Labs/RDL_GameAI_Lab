@@ -2,6 +2,9 @@
 
 *DESIGN PROFILE — `Aporapeiron/RDL_General_Modules` の「RDL 横断レイヤリング・キット」を GameAI Lab へ適用*
 
+**位置づけ・責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のB軸。Layer名・目的・時間スケール・分離原則を管理する。
+**依存・非責務:** 所有・更新・保持・比較は[Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)、神経値の詳細は[神経設計](RDL_GameAI_神経パラメーター設計図.md)。本文はschemaやcanonical authorityを定義しない。
+
 ## 0. 位置づけ
 
 本Profileは、NPC内部で更新速度・保持時間・拘束伝播の異なる要素を、実装と観察のために整理する補助Viewである。
@@ -20,7 +23,7 @@ Layer Profile
 != runtime authority
 ```
 
-現行runtimeの canonical sidecar は `E` までの read-only path を維持する。本Profileを導入しただけでは、action / graph / M_B reconstruction authority は増えない。
+現行canonical sidecarはE / explicit review / H / retained Hまでのdiagnostic path。本Profileを導入しただけでは、action / graph / M_B reconstruction authorityは増えない。
 
 ---
 
@@ -31,7 +34,7 @@ GameAI Labでは、初期整理として次を使う。
 ```text
 Generation / DNA Layer
         ↓
-Neural / Sensitivity Layer
+Neural Dynamics Layer
         ↓
 Physical / Body Layer
         ↓
@@ -71,6 +74,8 @@ bounded observation
 → same frozen pre-update M_B
 → F / F'
 → E
+→ explicit finite review
+→ unresolved H / retained H
 ```
 
 を維持する。
@@ -92,7 +97,7 @@ DNA = immutable during lifetime
 候補：
 
 ```text
-sensitivity range
+neural parameter baseline distributions (μ / σ)
 learning-rate range
 memory-decay range
 exploration tendency range
@@ -105,20 +110,22 @@ DNAは `M_B` ではなく、後続Layerが取りうる可能域を拘束する�
 
 ```text
 DNA
-→ possible SensitivityProfile range
-→ possible body/morphology range
-→ possible learning / reaction tendencies
+→ neural parameter baseline distributions (μ / σ)
+→ actual neural state
+→ derived sensitivity / reaction tendencies
+
+DNA → possible body/morphology range
 ```
 
 現行roadmapでは reproduction は deferred なので、まずはschema / seeded generation用の設計概念として保持する。
 
 ---
 
-## 4. Neural / Sensitivity Layer
+## 4. Neural Dynamics Layer
 
-比較的低速な個体差。
+遅い基準分布と、身体・文脈・履歴・揺らぎによる速い瞬間値を分けるGameAI-localな状態。
 
-現行候補：
+派生感度の候補（人格を直接指定する独立変数ではない）：
 
 ```text
 novelty_sensitivity
@@ -130,7 +137,7 @@ recoverability_sensitivity
 social_rejection_sensitivity
 ```
 
-このLayerは、同じ履歴・同じ現在条件でも異なる拾い方・反応傾向を生むための GameAI-local Profile である。
+設計上はDNA μ/σ → dynamic neural state → derived sensitivity → attention / action / memory / consolidation biasとする。同じ履歴・現在条件でも異なる反応を比較できる。現行の固定retry profileは最小の比較用実装であり、神経値から導出されていない。
 
 ```text
 SensitivityProfile
@@ -140,7 +147,7 @@ SensitivityProfile
 != Core M_B by identity
 ```
 
-将来的には、長期経験によって一部が遅く変化する可能性を検査できるが、初期段階では低速または固定寄りに扱う。
+動的神経値・DNA生成・長期経験による更新は未実装。名称の変更はruntimeの変更を意味しない。
 
 ---
 
@@ -198,7 +205,7 @@ past interaction
 → later interpretation / action conditions may differ
 ```
 
-Experience Layerは現在のroadmap `Next 2 — relation history` と直接接続できる。
+Experienceの実装成熟度は[canonical roadmap](../../notes/experiment-roadmap.md)のMaturity 2で管理する。raw履歴・圧縮relation constraints・睡眠由来候補・canonical M_Bを区別し、詳細の保持契約はLayer計画へ委ねる。
 
 ただし、
 
@@ -251,10 +258,10 @@ CurrentContext
 
 ```text
 Generation / DNA       : lifetime fixed in first implementation
-Neural / Sensitivity   : very slow
+Neural Dynamics        : slow baseline + fast current fluctuation
 Physical / Body        : slow to medium, sometimes abrupt
-Experience / History   : medium / cumulative
-Realtime / Context     : fast
+Experience / Relation History : medium / cumulative
+Realtime / Current Context   : fast
 ```
 
 と整理する。
@@ -272,7 +279,9 @@ Realtime / Context     : fast
 ```text
 Generation / DNA
       ↓
-Sensitivity + Body possibility
+neural μ/σ + Body possibility
+      ↓
+dynamic neural state / derived sensitivity
       ↓
 Experience formation tendencies
       ↓
@@ -304,19 +313,13 @@ slow Sensitivity / learned constraint update
 ## 10. 現行roadmapへの対応
 
 ```text
-Current runtime
-E-only-not-reviewed
+Current canonical: E / explicit finite review / H / retained H
+Current local: Experience / fixed Sensitivity / Body / Realtime
+Current display: derived Response Expression
       ↓
-Next 1: finite assessment / unresolved / H
-      ↓
-Next 2: relation history
-      ↳ Experience Layer を実装候補化
-      ↓
-Next 3: individual sensitivity / affect
-      ↳ Neural / Sensitivity Layer を実装候補化
-      ↳ Physical / Body + Realtime / Context と接続
-      ↓
-Next 4+: M_Δ / T1 reconstruction
+Cross-layer separation acceptance
+      ↓ future, unimplemented
+θ / M_Δ / T1 reconstruction / canonical authority
 ```
 
 Generation / DNAは、現行runtimeの次のcutoverには不要。
@@ -327,7 +330,8 @@ reproduction / evolutionを扱う段階で、
 DNA_A + DNA_B
 → recombination / mutation
 → DNA_child
-→ initial sensitivity / body possibility ranges
+→ neural μ/σ / body possibility ranges
+→ actual neural state / derived sensitivity
 ```
 
 として接続できる。
@@ -338,7 +342,7 @@ DNA_A + DNA_B
 
 ### Stage A — design-only
 
-現在。
+Generation / DNAおよび各Layerの未採用候補がこの段階。Profile全体がdesign-onlyという意味ではない。
 
 - Layer名と責務だけ定義する。
 - 既存runtime action pathを変更しない。
@@ -349,12 +353,13 @@ DNA_A + DNA_B
 
 relation history / sensitivity導入時に、Layer別のread-only snapshotを追加してよい。
 
-例：
+将来の統合schema例（この形式の実装済みAPIではない）：
 
 ```text
 npc_profile:
   generation: ...
-  sensitivity: ...
+  neural_dynamics: ...
+  derived_sensitivity: ...
   body: ...
   experience: ...
   realtime: ...
@@ -367,6 +372,10 @@ npc_profile:
 各Layerがaction / interpretationへ影響する場合は、Layerごとに有限な入力・出力・provenance・break conditionを検査する。
 
 一括で「NPC personality system」としてcutoverしない。
+
+現在のStage C相当は、Experienceのno-progressによる再試行抑制、Sensitivityの固定1/3/5 tick、Bodyのmovement_scaleによる行動・移動制約に限定する。Realtime観測はoperational。Expressionは表示専用の派生値で、Stage Cの行動権限を持たない。心理的感情・社会関係・学習感度・生理モデルは未評価。
+
+Stage A/B/Cは各Layerの採用段階であり、canonical roadmapのMaturityや生活機能Phaseとは別軸。睡眠はLayerではなくBody Recovery / Experience Consolidationの横断更新イベント。Communicationも横断interactionとして扱う。
 
 ---
 
@@ -388,4 +397,4 @@ Layer間・Layer外・重複・未回収関係は残る。
 
 ## 13. 一文圧縮
 
-> **GameAI Labでは、NPCを Generation/DNA・Neural/Sensitivity・Physical/Body・Experience/Relation History・Realtime/Current Context の異なる時間スケールとして整理する。ただし各LayerをCore `M_B`へ自動同一視せず、現行canonical pathとruntime authorityを維持したまま、relation historyとindividual sensitivityから段階的に実装する。**
+> **GameAI Labでは、NPCを Generation/DNA・Neural Dynamics・Physical/Body・Experience/Relation History・Realtime/Current Context の異なる時間スケールとして整理する。ただし各LayerをCore `M_B`へ自動同一視せず、現行canonical pathとruntime authorityを維持したまま、relation historyとindividual sensitivityから段階的に実装する。**

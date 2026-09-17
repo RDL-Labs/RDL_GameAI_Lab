@@ -2,6 +2,11 @@
 
 *DESIGN PLANNING VIEW — `RDL 横断レイヤリング_キット` GameAI応用*
 
+**文書責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のB軸。Layerごとの所有・更新契機・保持・snapshot・reviewed influence・比較受入を管理する。
+**依存:** [Layer Profile](RDL_GameAI_NPC_レイヤリング_Profile.md)、[神経設計](RDL_GameAI_神経パラメーター設計図.md)、[睡眠設計](RDL_GameAI_睡眠システム設計.md)。
+**非責務:** 神経サブタイプの意味定義、生活Phase、canonical authorityの付与。
+**状態:** 固定retry・movement・有限結果履歴は最小operational。以下のDNA・動的神経状態・睡眠・会話schemaは設計候補。
+
 ## 0. 目的
 
 NPC設計を一つの personality / behavior system としてまとめず、更新速度・保持時間・拘束伝播の異なるLayerごとに分けて計画する。
@@ -27,7 +32,7 @@ Layer Profile
 != runtime authority
 ```
 
-全体での位置づけは `RDL_GameAI_全体設計地図.md` を参照する。
+全体配置は[設計地図](RDL_GameAI_全体設計地図.md)、生活機能順は[実装手順予定](RDL_GameAI_実装手順予定.md)、canonical成熟度は[experiment roadmap](../../notes/experiment-roadmap.md)を正本とする。
 
 ---
 
@@ -54,7 +59,7 @@ DNAは行動・人格そのものを指定しない。
 ```text
 NeuralGeneParameter
 - mean / μ
-- variance or sigma / σ
+- standard deviation / σ
 - optional mutation_rate
 ```
 
@@ -79,8 +84,9 @@ NA β μ / σ
 
 ```text
 DNA
-→ Neural parameter baseline distribution
-→ reaction / learning / retention tendency
+→ neural parameter baseline distributions (μ / σ)
+→ actual neural state (body / context / history / fluctuation)
+→ derived sensitivity / reaction / learning / retention tendency
 ```
 
 となる。
@@ -124,27 +130,7 @@ Generation/DNAの意味設計自体は確定方向へ進めるが、繁殖・進
 
 ### 初期構造
 
-```text
-Dopamine
-├ D1  : action facilitation
-├ D2  : action inhibition
-├ D3  : repetition / habit fixation
-└ D4  : low-stimulation exploration
-
-Serotonin
-├ 5-HT1 : damping / calming
-├ 5-HT2 : sensitivity amplification
-├ 5-HT3 : forced interrupt
-└ 5-HT4 : processing / switching speed
-
-Oxytocin
-└ OXT : relation salience / persistence
-
-Noradrenaline
-├ α1 : threat focus
-├ α2 : recovery / return regulation
-└ β  : emergency action output
-```
+DA / 5-HT / OXT / NAと各サブタイプの操作的意味は[神経パラメーター設計図](RDL_GameAI_神経パラメーター設計図.md)を正本とする。本書はbaseline/current stateの所有、snapshot、適用時点、比較受入を管理し、ラベルの意味を再定義しない。
 
 ### OXTの対象
 
@@ -164,6 +150,7 @@ Community
 OXT high
 != likes everyone
 != friendship score
+!= B
 ```
 
 具体的な関係内容はExperience / Relation Historyや、後のM_B形成から生じる。
@@ -199,12 +186,11 @@ SensitivityProfile
 今後は、
 
 ```text
-fixed profile
-→ multi-dimensional neural parameters
-→ context/body/history-modulated neural state
+implemented: fixed retry profile (1/3/5 ticks), not neural-derived
+planned: DNA μ/σ → dynamic neural state → derived sensitivity
 ```
 
-へ段階的に拡張する。
+固定retryはExperience再試行抑制に接続済み。神経状態・学習更新は未実装であり、名称整理だけで導出済みとは扱わない。
 
 ---
 
@@ -242,9 +228,7 @@ world physical state
 
 ### 現在の扱い
 
-movement capabilityの最小sliceは実装済み。
-
-今後、Food / Rest / Energy / Injury / Recoveryを生活実装ロードマップに従って追加する。
+Godot-owned movement_scaleの最小sliceは実装済み。有限な自己身体snapshotを通じて行動制約と移動解決に接続する。Food / Rest / Energy / Injury / Recoveryは生活機能ロードマップ側の未実装候補。
 
 ---
 
@@ -302,9 +286,9 @@ Experience History
 
 ### 現在の扱い
 
-movement outcome historyと限定的なhistory influenceは実装済み。
+movement outcome historyとopt-in retry influenceは実装済み。128 admission / processの有限保持であり、progress / no-progressは社会的な正負関係ではない。社会的RelationHistory・睡眠圧縮・会話履歴は未実装。
 
-社会的RelationHistory、睡眠圧縮、会話履歴への展開は今後のacceptance boundaryとする。
+raw Experience History、compressed relation constraints、sleep-consolidated relation candidates、canonical M_Bは別物。派生候補にはsource・変換規則・時点を残し、raw recordを黙って書き換えない。保持期限後も採用由来を有限に追跡できる契約を先に定める。
 
 ---
 
@@ -335,7 +319,15 @@ CurrentContext
 != Core M_B
 ```
 
-現在情報はfinite B / Purpose / selected dimensions / coverage / provenance を通してcanonical pathへ入る。
+現在情報は、finite B / Purpose / selected dimensions / coverage / provenance を通してcanonical pathへ入る。
+
+### 現在の扱い
+
+```text
+status = operational: bounded observation / action / world resolution
+```
+
+現行runtimeにはbounded observationとaction/world resolutionがあるため、最も既存実装へ近いLayer。
 
 ---
 
@@ -402,6 +394,8 @@ Sleep
 
 誤一般化や誤接続を許容するが、provenance・参照整合性は保持する。
 
+sleep != T1。睡眠はGameAI-side trigger/windowであり、別契約を満たす場合に形成・検査・選別・再構成経路を呼び出す候補に留まる。
+
 ---
 
 ## 9. Communicationも横断interaction
@@ -450,15 +444,19 @@ Experience / Realtimeの内容自体は原則として直接遺伝しない。
 
 ## 11. 状態の所有・更新・保持
 
+以下は将来schemaを含む設計表であり、現行APIの一覧ではない。現行保持はprocess-localで再起動永続化を含まない。
+
 | Layer | 主な所有状態 | 更新契機 | 保持 | 主な影響先 |
 |---|---|---|---|---|
 | Generation / DNA | gene parameter μ/σ, morphology range | generation | lifetime | Neural / Body baseline |
 | Neural Dynamics | baseline/current neural parameters | generation + current modulation | slow/short mixed | attention, action, retention bias |
 | Physical / Body | hunger, energy, injury, capability | world/body resolution | until body update | action possibility |
-| Experience / History | finite interaction/dialogue/relation history | accepted event + consolidation | finite/cumulative | later interpretation/action |
-| Realtime / Context | current observation/target/place/snapshots | each new observation | tick/window | current decision |
+| Experience / Relation History | raw history / sourced derived relation candidatesを区別 | accepted event / 別途consolidation | rawと派生値に別の有限保持契約 | later interpretation/action |
+| Realtime / Current Context | current observation/target/place/snapshots | each new observation | tick/window | current decision |
 
 各状態にはownerを一つ定め、他Layerではsource付きsnapshotまたは派生値として参照する。
+
+各接続は入力snapshot ID、Purpose / B、時点、出力owner、保持・失効条件、provenanceを先に定める。read-only snapshot検証の後、影響を個別にreviewする。Layer間の一括authority切替はしない。
 
 ---
 
@@ -489,6 +487,8 @@ different finite history
 ---
 
 ## 13. canonical接続
+
+現在はE / explicit review / H / retained Hまでdiagnosticとしてoperational。固定retry・Body・History・派生表示とは別経路であり、θ / M_Δ / T1 / canonical action authorityは未実装。
 
 canonical比較へ接続する場合、同じF/F'比較では同一の凍結M_Bを使用する。
 

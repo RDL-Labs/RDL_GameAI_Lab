@@ -1,7 +1,12 @@
-# Current Core v2.3 Runtime Contract
+# Current Runtime Contract
 
 This document is the current operational contract for `RDL_GameAI_Lab`.
 It replaces the older phase-specific contracts as the active reference.
+
+Core reference: BASE v2.3 / SPEC v2.4 at `9c60c5b`; see the
+[semantic reference](../semantic-reference/RDL_Core_T0_T1_reference.md).
+The filename is retained for compatibility. Local behavior/display is covered by
+the [cross-layer separation contract](CROSS_LAYER_separation_contract.md).
 
 ## Current finite path
 
@@ -27,6 +32,8 @@ RIB_B(t+Δ)
   -> same frozen pre-update M_B
   -> F'(t+Δ)
   -> E = Δ(F,F')
+  -> explicit finite residual review
+  -> H / retained H per exact context and frozen model
 ```
 
 ## Required separations

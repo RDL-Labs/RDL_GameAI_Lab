@@ -1,17 +1,20 @@
 # RDL_GameAI 設計手法
 
-*CURRENT — Core v2.3 / RIB_B準拠*
+*CURRENT — Core 9c60c5b / BASE v2.3 / SPEC v2.4 / RIB_B準拠*
+
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)を横断する設計・有限検証の規律。
+**依存・非責務:** 意味論はCore reference、実装成熟度は[canonical roadmap](../../notes/experiment-roadmap.md)。Layerの細部・生活Phase・神経サブタイプの正本はそれぞれの責務文書に置く。
 
 ## 0. 目的
 
-`RDL_GameAI_Lab` は、`RDL_Demos`、`RDL_Enterprise`、`RDL_Human` を素材鉱山として使いながら、意味論は `Aporapeiron/RDL_Core` T0/T1 v2.3 を基準に再検査する。
+`RDL_GameAI_Lab` は、`RDL_Demos`、`RDL_Enterprise`、`RDL_Human` を素材鉱山として使いながら、意味論は[同期済みCore参照](../semantic-reference/RDL_Core_T0_T1_reference.md)を基準に再検査する。
 
 既存実装のクラス名・変数名・過去語彙は、それだけではCore意味を保証しない。本設計手法自身も有限Boundary上の運用方針であり、自己例外化しない。
 
 ## 1. 権威順序
 
 ```text
-RDL_Core v2.3
+RDL_Core (pinned semantic reference)
   T0 BASE / SPEC
   T1 SILN operations
       ↓ semantic / operational authority
@@ -183,6 +186,8 @@ Layer Profile
 
 ## 8. 実装規律
 
+semantic fallibility allowed / structural integrity required。誤認・誤一般化・誤接続・語彙誤伝播はlocal候補として許容するが、履歴破損・参照破損・provenance消失・canonical authority混同を意図した動作として扱わない。sleep != T1、Player statement != World Truthを維持する。
+
 ```text
 Observation != Candidate != Commitment != Active
 UNKNOWN != UNRESOLVED != NOT_EVALUATED
@@ -209,6 +214,8 @@ relevant history refs
 
 ## 9. 現行vertical slice
 
+以下は将来のformation / re-entryを含む参照経路。現行のactionはcanonical Fから駆動されず、独立したGameAI-local policyが所有する。H以降のT1経路は未実装。
+
 ```text
 world interaction
 → bounded observation
@@ -229,7 +236,7 @@ world interaction
 → later behavior change
 ```
 
-現在実装済みなのは `E` まで。次はfinite assessment / unresolved reviewである。
+現在は `E → explicit finite review → H → retained H` までdiagnosticとして実装済み。raw Eの `E-only-not-reviewed` は別レコードのreview状態とは独立である。Experience・fixed Sensitivity・Body・Realtimeは最小operational、Expressionは行動決定後の派生表示。θ / M_Δ / T1 / canonical action authorityは未実装。
 
 ## 10. GameAI固有のSelection / richness
 
@@ -263,7 +270,7 @@ finite interaction / interpretation history
 + unresolved provenance when present
 + RelationalHistory
 + RelationConstraint
-+ SensitivityProfile
++ derived sensitivity (planned Neural Dynamics output)
 + BodyState
 + CurrentContext
 ↓
@@ -281,7 +288,7 @@ GameAI-localな要素を、実装上の更新速度・保持時間・拘束伝�
 ```text
 Generation / DNA
       ↓
-Neural / Sensitivity
+Neural Dynamics
       ↓
 Physical / Body
       ↓
@@ -296,8 +303,8 @@ Realtime / Current Context
 Generation / DNA
 = seeded generation constraints / future inheritance range
 
-Neural / Sensitivity
-= SensitivityProfile
+Neural Dynamics
+= neural baseline / dynamic state / derived sensitivity (planned)
 
 Physical / Body
 = BodyState
@@ -318,14 +325,14 @@ RelationHistory    != M_B by identity
 CurrentContext     != M_B by identity
 ```
 
-現段階ではdesign-onlyであり、existing action path / canonical sidecar / graph mutation authorityを変更しない。
+現段階ではExperience・fixed Sensitivity・Bodyの有限なaction influenceを契約下で実装済み。canonical sidecarにはaction / graph mutation authorityを与えない。次は[層間分離の検証](../experiment-contracts/CROSS_LAYER_separation_contract.md)を固定し、T1の形成契約を別途設計する。
 
-導入順はroadmapに従う。
+以下は局所sliceの採用順の参照であり、一本のcanonical経路や生活Phaseではない。現在の固定retry profileは神経値から導出されたものではない。
 
 ```text
 finite assessment / H
 → Experience / Relation History
-→ Neural / Sensitivity + Affect
+→ Neural Dynamics + Affect
 → reviewed cross-layer influence
 → later T1 / authority work
 ```
@@ -344,4 +351,4 @@ and
 
 ## 一文圧縮
 
-> **GameAI Labは、更新済みのRDL鉱山を部品庫として使い、Core v2.3の有限 `B / RIB_B / M_B` 境界を崩さず、GameAI-localな状態を必要に応じてレイヤリングしながら、実際のinteraction chainを有限受入証拠で伸ばす。**
+> **GameAI Labは、RDL鉱山を部品庫として使い、同期済みCoreの有限 `B / RIB_B / M_B` 境界を崩さず、GameAI-localな状態を必要に応じてレイヤリングしながら、実際のinteraction chainを有限受入証拠で伸ばす。**

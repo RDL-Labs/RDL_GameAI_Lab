@@ -1,6 +1,24 @@
 # Experiment Roadmap
 
-This roadmap starts from the **current** Core v2.3 runtime state. Superseded phase-by-phase P1/P2/P3 history is kept in Git history rather than in the active working tree.
+This roadmap starts from the current runtime state, synchronized to Core `9c60c5b` (BASE v2.3 / SPEC v2.4). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
+
+Role: axis A in the [overall map](../docs/design/RDL_GameAI_全体設計地図.md), tracking canonical operational maturity and separation of adjacent local influences. It depends on the [runtime contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md) and [evidence](../docs/experiment-evidence/CURRENT_v23_runtime_evidence.md).
+It does not own game-feature phases; those belong to the [life-feature roadmap](../docs/design/RDL_GameAI_実装手順予定.md). Canonical maturity != game feature phase.
+
+## Maturity summary
+
+Numbers below identify review areas, not one canonical computation chain. Local history/body/profile/expression are adjacent influence experiments, not additional Core primitives or mandatory stages between H and M_Δ.
+
+| Area | Implemented slice | Remaining boundary |
+|---|---|---|
+| 1. Finite assessment / H | Explicit review, residual H and retained H by exact frozen context | Automatic classification, decay, restart durability; θ not implemented |
+| 2. Experience influence (local) | Bounded approach history and opt-in retry policy | Social relations, compressed constraints, sleep/dialogue history |
+| 3. Local profile / Body / Expression | Fixed 1/3/5 tick retry, movement_scale, sourced display projection | Dynamic Neural Dynamics, neural-derived sensitivity, psychological affect |
+| 4. M_Δ / T1 | Not implemented | Trigger, finite Probe / selection / reconstruction contract |
+| 5. Authority / fresh re-entry | Not implemented | Reviewed M_B' activation in finite context |
+| 6. Long-run richness | No acceptance established | Long-run controlled observation and provenance |
+
+Existing cross-layer separation tests cover bounded combinations only; they do not establish dynamic neural or sleep systems.
 
 ## Current state
 
@@ -24,9 +42,11 @@ accepted observation
 → same frozen pre-update M_B
 → F / F'
 → E = Δ(F,F')
+→ explicit finite review
+→ H / retained H per exact context and frozen model
 ```
 
-Current stop rule:
+Continuing invariant (not the current stopping point):
 
 ```text
 E exists
@@ -36,14 +56,14 @@ E exists
 
 The canonical path is read-only and does not yet own action/reconstruction authority.
 
-## Layering view — design-only
+## Layering view with bounded operational slices
 
-The current NPC layering profile is an organization aid for future GameAI-local state, not a cutover of runtime authority.
+The profile organizes local Experience, fixed Sensitivity, Body, and Realtime implementations. Expression is derived display-only. DNA is deferred. These do not acquire canonical action/reconstruction authority.
 
 ```text
 Generation / DNA
       ↓
-Neural / Sensitivity
+Neural Dynamics
       ↓
 Physical / Body
       ↓
@@ -59,13 +79,13 @@ Layer Profile
 != graph mutation authority
 ```
 
-The roadmap below determines when each layer may become operational.
+Sections 1-3 below retain adoption order and broader goals; their minimal slices are already operational, not future work in their entirety. Before T1, validate the [cross-layer separation contract](../docs/experiment-contracts/CROSS_LAYER_separation_contract.md).
 
-Use the [NPC layer design plan v0.2](../docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md#111-状態の所有更新保持) as the shared design blueprint. For each new state, specify its owner, update trigger, retention, influence path, provenance, and controlled comparison test. Layers do not prescribe a class hierarchy or require simultaneous implementation.
+Use the [NPC layer design plan](../docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md#11-状態の所有更新保持) as the shared design blueprint. For each new state, specify its owner, update trigger, retention, influence path, provenance, and controlled comparison test. Layers do not prescribe a class hierarchy or require simultaneous implementation.
 
 Introduce each cross-layer path as a read-only snapshot first, then enable its influence under an explicit acceptance contract. Keep one owner per state; derived context snapshots retain their source identity. Retention within an experiment does not imply restart persistence.
 
-## Next 1 — finite assessment / unresolved residual / H
+## Maturity 1: Finite assessment / H (bounded slice implemented)
 
 Implemented bounded slice: explicit per-dimension review with basis/reviewer/evidence, pending by default, diagnostic single-comparison residual `H_vec / H`, and retained H scoped to exact context/frozen model. The GameAI-local baseline retains latest reviewed residual magnitudes until explicit resolution; no time decay or signed cancellation. Replay/re-review cannot add the same contribution twice. Capacity and semantic repeated-event review limits are documented in the current contract. θ and action authority remain deferred. The layer design plan's `E-only-not-reviewed` label describes the unchanged raw E record; assessment is a separate record.
 
@@ -91,9 +111,11 @@ Acceptance:
 - the chosen `H = ||H_vec||` norm is explicitly GameAI-local;
 - fear/fun/jealousy/stress/Human Attention/static conflict cannot directly increment H.
 
-## Next 2 — relation history / Experience Layer
+## Maturity 2: Experience influence (local, partial)
 
-Read-only first slice implemented: admitted Runtime approach decisions are matched to bounded Godot result reports, with source/subsequent observation IDs, agent/target/context separation, and separate progress/no-progress histories. See [the Experience contract](../docs/experiment-contracts/EXPERIENCE_history_contract.md). Retention is 128 admitted decisions per process with no eviction. History-driven behavior and social positive/negative relation semantics remain the next acceptance boundary; they are not established by movement-result history alone.
+Remaining boundary: social positive/negative meaning, canonical history-dependent interpretation, sleep compression, forgetting and durable history. The broader acceptance goals below are not all met by current approach outcomes.
+
+History storage and opt-in action influence are implemented: admitted Runtime approach decisions are matched to bounded Godot result reports, with source/subsequent observation IDs and agent/target/context separation. See [the Experience contract](../docs/experiment-contracts/EXPERIENCE_history_contract.md). Retention is 128 admitted decisions per process with no eviction. Social positive/negative relation semantics remain open; progress/no-progress does not establish them.
 
 Goal:
 - prior interaction history changes present interpretation and action;
@@ -114,7 +136,9 @@ Experiential check:
 
 > **同じNPCを数日眺めたとき、「こいつ昨日のこと引きずってるな」と感じられるか。**
 
-## Next 3 — individual sensitivity / affect expression / Neural Layer
+## Maturity 3: Local profiles / Body / Expression (partial)
+
+Remaining boundary: DNA μ/σ → dynamic Neural Dynamics → derived sensitivity is design-only. Current fixed retry profiles are not neural-derived. The broader affect goals below are not claims of current psychological modeling.
 
 Minimal derived response expression is now visible in Runtime Inspector:
 engaged/holding/restricted/observing, with independent body/history factors and
@@ -128,11 +152,11 @@ resolution. Full/limited/stopped controls and recovery are tested over real HTTP
 See [the Body contract](../docs/experiment-contracts/BODY_movement_contract.md).
 This is an intervention experiment, not injury/fatigue dynamics or affect.
 
-Minimal fixed response-profile slice implemented: per-agent short/standard/long retry windows (1/3/5 ticks), immutable within a run. Same-history/same-observation comparisons establish a local action difference; actual Godot verifies short-profile retry after one tick. See [the profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md). This does not complete multi-dimensional sensitivity, Body, affect expression, learned updates, or social history.
+Minimal fixed response-profile slice implemented: per-agent short/standard/long retry windows (1/3/5 ticks), immutable within a run. Same-history/same-observation comparisons establish a local action difference; actual Godot verifies short-profile retry after one tick. See [the profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md). Multi-dimensional sensitivity, biological body dynamics, psychological affect, learned updates, and social history remain open; the bounded Body and display-expression slices above are implemented.
 
 Goal:
 - separate sensitivity from learned history and derive visible affect as a GameAI-local layer;
-- connect Neural / Sensitivity with Experience, Body, and Current Context without turning the layer map into a Core ontology.
+- connect Neural Dynamics with Experience, Body, and Current Context without turning the layer map into a Core ontology.
 
 Candidate dimensions:
 
@@ -154,7 +178,9 @@ Acceptance:
 - vary sensitivity, body, or current context one at a time before testing combined effects; record unchanged outcomes as well as changed behavior;
 - assign body values such as fatigue to one owner and expose sourced snapshots to current context.
 
-## Next 4 — M_Δ / T1 reconstruction
+## Maturity 4: M_Δ / T1 reconstruction (unimplemented)
+
+Entry prerequisite: cross-layer separation acceptance and an explicit finite θ / M_Δ experiment contract. Do not promote local layer state into M_B by identity. SPEC v2.4 resolution and the current T1 Probe signature are recorded in the [semantic reference](../docs/semantic-reference/RDL_Core_T0_T1_reference.md); configurable ρ_B is not implemented.
 
 ```text
 H >= θ
@@ -178,7 +204,7 @@ Layering note:
 - GameAI-local Experience / Sensitivity / Body / Context may provide finite conditions or provenance to a reconstruction experiment;
 - they do not become canonical `M_B` fields merely because they are arranged in a Layer Profile.
 
-## Next 5 — finite-context authority / fresh re-entry
+## Maturity 5: Finite-context authority / fresh re-entry (unimplemented)
 
 Goal:
 - activate reconstructed `M_B'` only inside the finite context supported by evidence.
@@ -189,7 +215,7 @@ Acceptance:
 - one context is not silently generalized to another;
 - outside migrated contexts previous behavior remains available until separately reviewed.
 
-## Next 6 — richness / long-run behavior
+## Maturity 6: Richness / long-run behavior (acceptance open)
 
 Observe separately:
 

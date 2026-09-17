@@ -4,6 +4,10 @@
 **版:** v0.1  
 **位置づけ:** RDL_GameAI_Lab / GameAI-local design
 
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のB/D軸。操作的ラベル、DNA基準分布、動的状態、派生感度の正本。
+**依存:** [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)の所有・更新境界、[睡眠設計](RDL_GameAI_睡眠システム設計.md)の横断更新。
+**非責務・状態:** 実在生物学の断定、canonical M_Bの定義・更新権限ではない。全サブタイプ・DNA・動的神経状態はdesign-only。既存の固定retry profileは神経値由来ではない。
+
 ## 0. 一文定義
 
 > **神経パラメーターは、個体が同じ観測・経験・関係に対してどの程度反応し、行動し、保持し、再構成しやすいかを規定するGameAI-localな基層パラメーターである。**
@@ -14,7 +18,8 @@
 神経力学パラメーター
 → 観測・行動・注意・学習・記憶・睡眠整理への偏り
 → Experience History
-→ M_B の形成・圧縮・再構成
+→ GameAI-local relation candidates
+→ canonical形成へ接続する場合のみ別契約の検査・選別・再構成
 → 個体固有の行動傾向
 ```
 
@@ -54,6 +59,8 @@ NeuralGeneParameter
 - sigma / σ
 - optional mutation_rate
 ```
+
+σは標準偏差として扱い、分散はσ²と区別する。DNAは神経基準分布を与えるが、Body・context・historyからなる瞬間状態を直接指定しない。
 
 例:
 
@@ -195,6 +202,8 @@ Aに助けられた
 ```text
 OXT高
 != Aが好き
+!= friendship score
+!= B
 ```
 
 具体的な関係内容はExperienceと再構成から形成される。
@@ -220,6 +229,11 @@ Body / Energy systemとの接続が強い。
 ---
 
 ## 7. 派生Sensitivity
+
+```text
+DNA → neural μ/σ → dynamic state → derived sensitivity
+→ attention / action / memory / consolidation bias
+```
 
 必要に応じ、下位神経値・Body・Historyから、
 
@@ -247,6 +261,8 @@ recoverability_sensitivity
 
 ## 8. M_Bとの関係
 
+以下の形成は将来の接続案。現行のcanonical M_Bは凍結count evaluatorであり、神経状態・圧縮履歴そのものではない。
+
 ```text
 Neural Dynamics
 → 何を拾うか
@@ -264,13 +280,16 @@ M_B
 
 ## 9. 睡眠との接続
 
+SleepはLayerではなく横断回復・consolidationイベント。sleep != T1。local候補の形成とcanonical採用を分離する。
+
 ```text
 Experience History
 → Neural weighting
 → Selection
 → Compression
 → Association
-→ relation / M_B formation candidate
+→ GameAI-local relation candidate
+→ canonical形成へ接続する場合のみ別契約で検査・選別・再構成
 ```
 
 候補:
@@ -308,7 +327,7 @@ DNA neural baseline
 
 ## 11. 初期実装
 
-まずデータ構造として全サブタイプのスロットを保持する。
+将来の実装案として全サブタイプのスロットを検討する。現在のデータ構造に存在するという意味ではなく、本整理では追加しない。
 
 初期接続候補:
 

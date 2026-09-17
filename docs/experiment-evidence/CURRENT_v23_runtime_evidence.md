@@ -1,4 +1,21 @@
-# Current Core v2.3 Runtime Evidence
+# Current Runtime Evidence
+
+## Current verification (2026-09-17)
+
+65 tests passed with `GODOT_BIN=D:\Godot\Godot_v4.7.2-stable_win64_console.exe`,
+including all four actual Godot/HTTP checks. Run: `python -m unittest discover -s tests`.
+No tests skipped. Interactive visual layout was not inspected.
+
+New `test_cross_layer_separation.py` verifies 27 combinations of history, retry
+profile and body scale against equal canonical snapshots; explicit H review does
+not alter local decisions, expressions, history, or frozen models. A changed
+selected-count fixture still forms E without automatically creating H.
+See [the contract](../experiment-contracts/CROSS_LAYER_separation_contract.md).
+
+Runtime behavior is unchanged. Docs now distinguish operational diagnostic H,
+local layers, and unimplemented θ / M_Δ / T1 / canonical authority, and pin Core
+BASE v2.3 / SPEC v2.4 at `9c60c5b`. The sections below are historical verification
+records; their test counts describe those earlier increments, not the current suite.
 
 ## Derived response expression
 

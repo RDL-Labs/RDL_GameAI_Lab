@@ -4,6 +4,10 @@
 **版:** v0.1  
 **位置づけ:** RDL_GameAI_Lab / GameAI-local design
 
+**責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のD軸。intent・Expression・referent・DialogueTurn・lexicon・NPC語彙伝播。
+**依存:** [Player Role](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md)、[履歴モデル](RDL_GameAI_感情・履歴・関係拘束モデル.md)、[睡眠設計](RDL_GameAI_睡眠システム設計.md)。
+**非責務・状態:** Playerの能力付与やcanonical形成の正本ではない。Communicationはdesign-onlyで、現行のdisplay-only Response Expressionは通信基盤ではない。
+
 ## 0. 目的
 
 ```text
@@ -27,6 +31,9 @@ NPC同士の簡易コミュニケーション
 ```text
 Aが伝えた意味
 != Bへ直接コピーされる内部状態
+
+speaker meaning != listener internal state
+utterance != truth
 ```
 
 基本形:
@@ -41,6 +48,8 @@ A current state
 ```
 
 聞き間違い・意味不明・referent取り違え・無視・不信・後の意味変化を許容する。
+
+意味上の取り違えは候補・解釈状態として表現し、record ID・source・参照整合性は保持する。誤解を理由にprovenanceを失わない。
 
 ---
 
@@ -151,6 +160,13 @@ interpretation_status
 
 ## 6. 会話履歴
 
+```text
+Communication → DialogueTurn → Experience History
+→ local relation formation candidates → Sleep consolidation
+```
+
+raw turn、圧縮relation、睡眠候補、canonical M_Bを分離する。canonical形成へ自動変換しない。
+
 会話内容を永続Truthにはしない。
 
 ただし、
@@ -256,6 +272,11 @@ A knows word
 
 プレイヤーは世界を直接操作する存在ではなく、初期には外部から語彙を供給できる存在として接続する。
 
+```text
+Player → Communication → lexical / informational input
+Player statement != World Truth
+```
+
 暫定Player Interface:
 
 ```text
@@ -344,19 +365,21 @@ DialogueTurn / naming experience
 
 ## 14. 実装順
 
+以下はCommunication内の局所Step。生活機能のPhase、canonical roadmapのMaturityとは番号を共有しない。実装済み段階を示すものではない。
+
 ```text
-Phase 1  GREET / ACK
-Phase 2  CALL / POINT
-Phase 3  WARN / HELP
-Phase 4  REQUEST / OFFER
-Phase 5  DialogueTurn / history
-Phase 6  initial shared vocabulary
-Phase 7  NPC vocabulary transmission
-Phase 8  Player statue conversation
-Phase 9  Player naming
-Phase 10 naming-word NPC transmission
-Phase 11 correction / disagreement
-Phase 12 Player trust difference
+Communication Step 1  GREET / ACK
+Communication Step 2  CALL / POINT
+Communication Step 3  WARN / HELP
+Communication Step 4  REQUEST / OFFER
+Communication Step 5  DialogueTurn / history
+Communication Step 6  initial shared vocabulary
+Communication Step 7  NPC vocabulary transmission
+Communication Step 8  Player statue conversation
+Communication Step 9  Player naming
+Communication Step 10 naming-word NPC transmission
+Communication Step 11 correction / disagreement
+Communication Step 12 Player trust difference
 ```
 
 ---
