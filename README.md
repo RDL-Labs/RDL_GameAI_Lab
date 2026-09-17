@@ -4,18 +4,38 @@
 
 > **世界・他者・自身の履歴との相互作用によって、理解可能だが固定されない振る舞いを生むAIを検証する。**
 
-`RDL_Demos`、`RDL_Enterprise`、`RDL_Human` は素材鉱山として扱い、意味論の権威は `Aporapeiron/RDL_Core` T0/T1 v2.3 に置く。
+`RDL_Demos`、`RDL_Enterprise`、`RDL_Human` は素材鉱山として扱い、Core意味論は現行 `RDL_Core` T0/T1 v2.3 と分離して参照する。
 
-## Current references
+## Start here
 
+- [Overall GameAI design map](docs/design/RDL_GameAI_全体設計地図.md)
 - [Core v2.3 semantic reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)
-- [GameAI design method](docs/design/RDL_GameAI_設計手法.md)
-- [Affect / history / relational constraint model](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル.md)
-- [NPC layering profile](docs/design/RDL_GameAI_NPC_レイヤリング_Profile.md)
+- [Current experiment roadmap](notes/experiment-roadmap.md)
 - [NPC layer-based design plan](docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md)
-- [Current runtime contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md)
-- [Current runtime evidence](docs/experiment-evidence/CURRENT_v23_runtime_evidence.md)
-- [Roadmap](notes/experiment-roadmap.md)
+- [Neural parameter blueprint](docs/design/RDL_GameAI_神経パラメーター設計図.md)
+- [Sleep / consolidation design](docs/design/RDL_GameAI_睡眠システム設計.md)
+- [Affect / history / relational constraint model](docs/design/RDL_GameAI_感情・履歴・関係拘束モデル.md)
+- [GameAI design method](docs/design/RDL_GameAI_設計手法.md)
+
+## Four separate planning views
+
+GameAI Lab now keeps four kinds of design apart.
+
+```text
+A. Canonical / RDL maturity
+B. NPC internal layer profile
+C. Game feature roadmap
+D. Cross-cutting systems
+```
+
+```text
+canonical maturity
+!= NPC internal structure
+!= game-feature implementation order
+!= sleep / communication / time update cycle
+```
+
+See the [overall design map](docs/design/RDL_GameAI_全体設計地図.md) for their connections.
 
 ## Current semantic boundary
 
@@ -33,14 +53,14 @@ Structural Conflict != E != H
 ξ != runtime uncertainty / coverage / novelty / exploration scalar
 ```
 
-## NPC layering profile — design-only
+GameAI-local Body / Experience / Neural / Current Context conditions are not Core primitives merely because they influence behavior.
 
-`Aporapeiron/RDL_General_Modules` の **RDL 横断レイヤリング・キット**を、GameAI-localな整理Viewとして適用する。
+## NPC layering profile
 
 ```text
 Generation / DNA
       ↓
-Neural / Sensitivity
+Neural Dynamics
       ↓
 Physical / Body
       ↓
@@ -49,56 +69,180 @@ Experience / Relation History
 Realtime / Current Context
 ```
 
-このProfileはNPCの普遍的存在論でも、Core `M_B` の分解定義でもない。
+This is an organization and testing view, not a canonical `M_B` decomposition.
+
+### Generation / DNA
+
+DNA is modeled as a baseline generator rather than a personality label.
 
 ```text
-SensitivityProfile != M_B by identity
-BodyState          != M_B by identity
-RelationHistory    != M_B by identity
-CurrentContext     != M_B by identity
+DNA
+→ neural parameter μ / σ
+→ body / sensory possibility ranges
 ```
 
-現在は **design-only**。canonical sidecar、existing action path、graph / reconstruction authorityは変更しない。relation historyとindividual sensitivityの実験を進める際に、Layer別read-only snapshotから段階導入する。
+Runtime reproduction / evolution remains deferred.
 
-## Current vertical slice
+### Neural Dynamics
 
-The live mock workbench + Python runtime currently reaches E while keeping canonical observation read-only:
+The design keeps fine-grained operational labels available:
 
 ```text
-Godot engine reference state
-→ bounded agent observation
-→ existing Python structured action
-→ Godot world resolution
-→ changed interaction conditions
-→ subsequent bounded observation
+DA: D1 / D2 / D3 / D4
+5-HT: 5-HT1 / 5-HT2 / 5-HT3 / 5-HT4
+OXT
+NA: α1 / α2 / β
+```
 
-accepted bounded observation
+These bias attention, action, repetition, relation persistence, alerting and recovery; they are not direct behavior commands or Core primitives.
+
+## Current operational slices
+
+The canonical path is still read-only with respect to action / graph mutation, but the runtime now has several bounded GameAI-local and diagnostic slices around it.
+
+Canonical observation / interpretation path:
+
+```text
+bounded observation
 → Purpose / finite B / selected dimensions / conditions / coverage / provenance
 → RIB_B
-→ frozen diagnostic M_B
+→ same frozen pre-update M_B
 → F / F'
 → E
+→ explicit finite review
+→ diagnostic H only for reviewed unresolved residual
 ```
 
-The canonical sidecar runs only after the existing action path accepts a packet. It cannot alter the returned action.
+Experience / Body / response-profile slices are kept separate from canonical authority.
 
-Current selected GameAI-local dimensions:
+Current implemented bounded experiments include:
 
 ```text
-visible_agents_count
-visible_objects_count
-visible_places_count
+finite E review / unresolved residual / retained H
+finite InteractionHistory for admitted approach outcomes
+opt-in history-based retry influence
+fixed per-agent retry sensitivity profiles
+bounded body movement capability and recovery checks
+derived display-only response expression
 ```
 
-Missing selected coverage is not invented as zero. A boundary-condition change opens a different comparison window. `F/F'` comparison requires the same frozen `model_ref`.
+See [notes/experiment-roadmap.md](notes/experiment-roadmap.md) and the experiment contracts for exact acceptance boundaries.
 
-Current E is explicitly labeled:
+## Cross-cutting systems
+
+### Sleep / consolidation
+
+Sleep is not a sixth NPC layer.
 
 ```text
-E-only-not-reviewed
+Sleep
+├ Body Recovery
+└ Experience Consolidation
 ```
 
-No unresolved classification or H is inferred from E magnitude. A separate finite assessment ledger now accepts explicit per-dimension reviews and exposes single-comparison residual H. The original E record remains unchanged.
+The design allows forgetting, compression, generalization and even semantically wrong associations, while retaining structural provenance.
+
+### Communication / vocabulary
+
+Communication is treated as finite interaction rather than truth transfer.
+
+```text
+speaker state
+→ CommunicativeIntent
+→ Expression
+→ listener observes
+→ listener interprets under its own finite relation structure
+→ response
+```
+
+A communicated meaning is not copied directly into another NPC and is not automatically world truth.
+
+### Player interface
+
+The provisional player role is a fixed talking statue / oracle-like object in the home area. The main early intervention is vocabulary supply and naming rather than direct NPC control. Player statements remain ordinary observed information from the NPC perspective.
+
+### World time
+
+World time connects daily routine, food, fatigue, sleep, safe return, absence detection and later search/rescue behavior.
+
+## Game concept direction
+
+The current game direction is:
+
+> **かわいい生き物が、食料・休息・身体・安全・経験・仲間との関係に拘束されながら、小さな世界で失敗し、助け合い、休み、回復しながら必死に暮らす。**
+
+The first life-system development line is:
+
+```text
+Food
+→ Rest / Sleep
+→ EnergyReserve / ActiveEnergy
+→ Safety / Danger
+→ Incapacitation / Injury
+→ Rescue / Recovery
+→ Hunting
+```
+
+Later:
+
+```text
+Materials
+→ Tools
+→ Crafting
+→ Barter
+→ Emergent Value
+```
+
+These game-feature phases do not override the canonical roadmap.
+
+## Semantic fallibility
+
+GameAI deliberately allows semantic/cognitive error while preserving structural integrity.
+
+```text
+semantic fallibility allowed
+structural integrity required
+```
+
+Allowed examples:
+
+```text
+misrecognition
+wrong naming
+over-generalization
+biased relation formation
+odd sleep association
+rumor / misunderstanding
+```
+
+Not allowed as intentional behavior:
+
+```text
+broken IDs
+lost provenance
+invalid references
+silent canonical mutation
+```
+
+The aim is to observe how mistakes form, propagate, break and repair.
+
+## Source mines
+
+### RDL_Demos
+
+Use as an implementation and finite-operation source where its semantics are compatible with current Core boundaries.
+
+### RDL_Enterprise
+
+Use bounded acquisition, provenance, explicit selection/revision, authority separation and durable trace patterns as implementation material. Enterprise's conservative error handling is not automatically required for GameAI semantic cognition.
+
+### RDL_Human
+
+Use as a hypothesis mine for neural dynamics, affect, relation and temporal behavior. Human-specific labels remain application-level hypotheses unless separately adopted by GameAI.
+
+### RDL_General_Modules
+
+Use the current horizontal layering kit as an organization aid. It does not confer runtime or canonical authority.
 
 ## Runtime
 
@@ -106,86 +250,30 @@ No unresolved classification or H is inferred from E magnitude. A separate finit
 python -m runtime.bridge
 ```
 
-```text
-POST /v1/observe
-GET  /health
-GET  /v1/canonical-snapshot
-POST /v1/assessment-review
-POST /v1/interaction-result
-GET  /v1/experience-snapshot
-```
+Key endpoints currently include observation, canonical snapshot, assessment review, interaction-result and experience-snapshot paths. Exact runtime behavior is governed by the current experiment contracts.
 
-The snapshot exposes current finite `RIB_B`, diagnostic `M_B`, interpretations, and E provenance.
+## Next boundaries
 
-## Source mines — current reading
+Near-term work now splits into two independent lines.
 
-### RDL_Demos
-
-Use current Village v2.3 for finite B/RIB_B, same-frozen M_B comparison, explicit unresolved review, H/θ/M_Δ, T1 reconstruction, finite-context authority, fresh re-entry, and operational coverage. Legacy/local `LocalLoadVector`, `ExplorationState`, `LeapEngine`, `HVec`, `XiPool`, and `Boundary` are not Core semantics by name.
-
-### RDL_Enterprise
-
-Use current v2.3 bounded acquisition, `RIBSection`, frozen interpretation context, provenance/coverage separation, restart durability, staged commitment/authority, and changed-condition acceptance. Human Attention, static structural conflict, coverage metrics, and compatibility `*CompiledMB` names are not Core H/E/ξ/M_B by identity.
-
-### RDL_Human
-
-Use as a v2.3-aligned T3 hypothesis mine. Human-specific heat, SFO, self-boundary, cognitive-space, affect, and temporal models remain application hypotheses rather than Core primitives.
-
-### RDL_General_Modules
-
-Use the current `RDL 横断レイヤリング・キット` as a lightweight organization aid. It may structure GameAI-local generation, sensitivity, body, history, and realtime conditions, but does not override Core semantics or confer runtime authority.
-
-## Next boundary
-
-Runtime Inspector now shows a derived reaction (`engaged`, `holding`,
-`restricted`, `observing`) with body/history factors. Decision Record exposes
-its source IDs. This is a [display-only expression](docs/experiment-contracts/EXPRESSION_response_contract.md), not an emotion estimate or an H update.
-
-The Inspector now offers full/limited/stopped movement for the selected NPC.
-Godot owns the body state and enforces displacement; Runtime consumes a bounded
-self snapshot. See the [Body movement contract](docs/experiment-contracts/BODY_movement_contract.md).
-
-The optional history policy now supports fixed per-agent retry tendencies:
-`--history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
-This is the first bounded individual-response experiment; see the
-[sensitivity profile contract](docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md).
-
-Finite assessment now supports:
+Canonical maturity:
 
 ```text
-zero
-pending
-resolved
-ordinary temporal change
-boundary / coverage change
-unresolved
-```
-
-Only explicitly reviewed unresolved dimensions enter diagnostic `H_vec -> H`. Both per-comparison H and retained H per exact context/frozen model are available. The local retention rule sums latest reviewed residuals until explicit resolution, without time decay or signed cancellation. θ, automatic review, and action authority remain deferred. See the [review API and finite contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api).
-
-The first read-only Experience slice now records reported approach outcomes,
-keeping progress/no-progress histories separate per agent, target, and context.
-Storage remains separate from action authority. The optional [history retry experiment](docs/experiment-contracts/EXPERIENCE_influence_contract.md) uses recent no-progress history to defer a visible target for three ticks. Enable it with `python -m runtime.bridge --history-influence`. See the [Experience contract](docs/experiment-contracts/EXPERIENCE_history_contract.md).
-
-Remaining sequence:
-
-```text
-relation history
-→ sensitivity / affect
+current reviewed E/H + bounded local influences
+→ richer relation history / neural influence
 → M_Δ / T1 reconstruction
 → finite-context authority / fresh re-entry
-→ long-run richness
 ```
 
-The layering profile follows that order rather than bypassing it:
+Game-world vertical development:
 
 ```text
-Experience / Relation History
-→ Neural / Sensitivity
-→ reviewed cross-layer influence
+Food / Rest / Energy
+→ Safety / Injury / Rescue
+→ Hunting
 ```
 
-Generation / DNA and reproduction remain deferred.
+Cross-cutting systems such as World Time, Sleep Consolidation and Communication should be attached where their minimum vertical experiments become testable rather than forced into the canonical sequence.
 
 ## Tests
 
@@ -207,13 +295,13 @@ current finite Boundaryで operationally sufficient
 ```text
 docs/
   semantic-reference/   current Core reading
-  source-inventory/     current source-mine evaluations
-  design/               current GameAI design documents
-  experiment-contracts/ current runtime contract
-  experiment-evidence/  current runtime evidence
+  source-inventory/     source-mine evaluations
+  design/               GameAI design documents
+  experiment-contracts/ runtime acceptance contracts
+  experiment-evidence/  runtime evidence
 runtime/                 action runtime + read-only canonical sidecar
 godot/                   bounded world / interaction workbench
 experiments/             small runnable prototypes
-notes/                   forward roadmap
+notes/                   forward canonical roadmap
 tests/                   Python acceptance tests
 ```
