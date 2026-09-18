@@ -767,11 +767,13 @@ func _resolve_flee(decision, target_id):
 	)
 
 func _build_safety_context(agent, visible_places):
-	var danger_id = ""
+	var danger_candidates = []
 	for place in places:
 		if place.get("danger_capable", false) and agent["position"].distance_to(place["position"]) <= place.get("radius", 0.0):
-			danger_id = place["id"]
-			break
+			danger_candidates.append({
+				"danger_id": place["id"],
+				"severity": place.get("danger_level", "low")
+			})
 	var safe_candidates = []
 	var reached_safe_target_id = ""
 	for place in visible_places:
@@ -788,8 +790,8 @@ func _build_safety_context(agent, visible_places):
 			reached_safe_target_id = place["id"]
 	return {
 		"schema_version": "bounded-safety-context-v1",
-		"exposed": not danger_id.is_empty(),
-		"danger_id": danger_id,
+		"exposed": not danger_candidates.is_empty(),
+		"danger_candidates": danger_candidates,
 		"safe_candidates": safe_candidates,
 		"safe_reached": not reached_safe_target_id.is_empty(),
 		"reached_safe_target_id": reached_safe_target_id

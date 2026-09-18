@@ -44,6 +44,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Phase 3 status: [Energy Evidence](docs/experiment-evidence/ENERGY_phase3_reference_evidence.md)で参照実装を閉じた。次の生活境界はSafety / Dangerで、具体的AcceptanceなしにEnergy内部を拡張しない。
 - Safety: opt-in隔離modeでGodot所有のstatic danger zoneをbounded contextへ投影し、NPC Bがsafe Plazaを固定targetとして `flee`、圏外後も継続し、Plaza到達の後続観測で `idle / COMPLETE` に戻る。predator・負傷・Energy連携はまだ行わない。
 - Safety selection: Godotはsafe/uncertainと有限距離bandの候補記述だけを渡す。Runtimeの独立selectorが `safe > uncertain`、同安全度なら近い候補を一度だけ選び、その後の順位変化はTrajectory targetを変えない。
+- Danger selection: Godotは現在接触中のdanger sourceと `low / medium / high` だけを渡す。Runtimeは支配sourceを有限選択してprovenanceへ残すが、safe target・Energy・負傷には権限を持たない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

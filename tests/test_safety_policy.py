@@ -15,7 +15,9 @@ class SafetyTrajectoryPolicyTests(unittest.TestCase):
                 "safety_context": {
                     "schema_version": "bounded-safety-context-v1",
                     "exposed": exposed,
-                    "danger_id": "danger_gully" if exposed else "",
+                    "danger_candidates": ([{
+                        "danger_id": "danger_gully", "severity": "high",
+                    }] if exposed else []),
                     "safe_candidates": ([{
                         "target_id": target, "safety": "safe", "distance_band": "far",
                     }] if target else []),
@@ -76,6 +78,6 @@ class SafetyTrajectoryPolicyTests(unittest.TestCase):
         released = policy.decide(self.packet("safe-2", exposed=False, target=""))
         self.assertEqual(released["inspection"]["safety"]["trajectory_phase"], "RELEASED")
         changed = copy.deepcopy(first_packet)
-        changed["observation"]["safety_context"]["danger_id"] = "other"
+        changed["observation"]["safety_context"]["danger_candidates"][0]["danger_id"] = "other"
         with self.assertRaises(ObservationError):
             policy.decide(changed)

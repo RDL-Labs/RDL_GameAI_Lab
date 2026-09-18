@@ -14,7 +14,9 @@ class RuntimeCoreTests(unittest.TestCase):
                 "safety_context": {
                     "schema_version": "bounded-safety-context-v1",
                     "exposed": exposed,
-                    "danger_id": "danger_gully" if exposed else "",
+                    "danger_candidates": ([{
+                        "danger_id": "danger_gully", "severity": "high",
+                    }] if exposed else []),
                     "safe_candidates": ([{
                         "target_id": safe_target_id, "safety": "safe", "distance_band": "far",
                     }] if safe_target_id else []),

@@ -13,6 +13,7 @@ import math
 from typing import Any
 from .expression import with_expression
 from .safety_target_selection import SafetySelectionError, SafetyTargetSelectionPolicy
+from .safety_danger_selection import DangerSelectionError, SafetyDangerSelectionPolicy
 
 
 RUNTIME_NAME = "rdl-gameai-minimal-runtime"
@@ -88,9 +89,10 @@ def _decide_action(packet: dict[str, Any]) -> dict[str, Any]:
     body = observation.get("body")
     if isinstance(body, dict) and body.get("safety_actions_enabled", False):
         safety = observation["safety_context"]
+        danger_selection = _select_safety_danger(safety["danger_candidates"])
         selection = _select_safety_target(safety["safe_candidates"])
         selected = selection["selected"]
-        if safety["exposed"] and selected:
+        if danger_selection["selected"] and selected:
             return RuntimeDecision(
                 agent_id=agent_id, action_type="flee", target_id=selected["target_id"],
                 observation_id=observation_id,
@@ -329,16 +331,15 @@ def _validate_safety_state(observation: dict[str, Any], agent_id: str) -> None:
         raise ObservationError("safety_context.exposed must be boolean")
     if type(safety.get("safe_reached")) is not bool:
         raise ObservationError("safety_context.safe_reached must be boolean")
-    if not isinstance(safety.get("danger_id"), str):
-        raise ObservationError("safety_context.danger_id must be a string")
+    danger_selection = _select_safety_danger(safety.get("danger_candidates"))
+    if safety["exposed"] != bool(danger_selection["selected"]):
+        raise ObservationError("safety_context.exposed must match danger candidates")
     _select_safety_target(safety.get("safe_candidates"))
     reached_target_id = safety.get("reached_safe_target_id")
     if not isinstance(reached_target_id, str):
         raise ObservationError("safety_context.reached_safe_target_id must be a string")
     if safety["safe_reached"] != bool(reached_target_id):
         raise ObservationError("safe_reached must match reached_safe_target_id presence")
-    if safety["exposed"] and not safety["danger_id"]:
-        raise ObservationError("exposed safety context requires danger_id")
 
 
 def _validate_entities(items: list[Any], field_name: str) -> None:
@@ -359,4 +360,11 @@ def _select_safety_target(candidates):
     try:
         return SafetyTargetSelectionPolicy().select(candidates)
     except SafetySelectionError as exc:
+        raise ObservationError(str(exc)) from exc
+
+
+def _select_safety_danger(candidates):
+    try:
+        return SafetyDangerSelectionPolicy().select(candidates)
+    except DangerSelectionError as exc:
         raise ObservationError(str(exc)) from exc

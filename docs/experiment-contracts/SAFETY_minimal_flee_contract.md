@@ -8,7 +8,7 @@
 
 ```text
 NPC inside Godot-owned danger zone
-→ bounded safety_context(exposed, finite safe candidates)
+→ bounded safety_context(finite danger sources, finite safe candidates)
 → Runtime flee(safe target)
 → Godot world-position change
 → subsequent bounded safety observation
@@ -25,6 +25,9 @@ exposes safe Plaza and uncertain Grove as bounded candidates. The independent
 Plaza. `SafetyTrajectoryPolicy` fixes that target once, continues after zone exit, and completes only when Godot reports
 the bounded `safe_reached` position fact and its `reached_safe_target_id`.
 Completion requires that identity to equal the committed target.
+The independent [Safety Danger Selection contract](SAFETY_danger_selection_contract.md)
+selects the dominant bounded danger source for provenance without changing the
+escape-target rule.
 
 ## Isolation
 

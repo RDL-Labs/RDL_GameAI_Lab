@@ -33,6 +33,10 @@ Safety candidate selection is now an independent finite policy: `safe` precedes
 `uncertain`, then bounded distance breaks equal-safety ties. Selection runs once;
 later rank changes do not replace the committed trajectory target.
 
+Bounded danger sources now have an independent dominant-source selector using
+`high > medium > low`. This is provenance only: it does not alter safe-target
+selection, trajectory persistence, Energy, or injury.
+
 ρ v0.x is a [closed operational reference](../docs/experiment-evidence/RHO_v0_reference_evidence.md):
 Food/Rest profiles, finite projections, packet provenance, cross-domain reuse,
 and the Rest candidate-description causal chain are established. Further ρ

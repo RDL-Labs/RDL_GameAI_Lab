@@ -11,7 +11,7 @@ func _run():
 	workbench.selected_agent_id = "npc_b"
 	workbench.state_provider.set_safety_actions_enabled(true)
 	var initial = workbench.state_provider.get_observation("npc_b")["safety_context"]
-	if not initial["exposed"] or initial["danger_id"] != "danger_gully":
+	if not initial["exposed"] or initial["danger_candidates"] != [{"danger_id": "danger_gully", "severity": "high"}]:
 		_fail("NPC B did not begin in bounded danger exposure: %s" % initial)
 		return
 	workbench._on_mode_selected(1)

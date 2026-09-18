@@ -7,6 +7,7 @@ from typing import Any
 from .core import ObservationError, RuntimeDecision, apply_body_constraint, decide_action
 from .expression import with_expression
 from .safety_target_selection import SafetyTargetSelectionPolicy
+from .safety_danger_selection import SafetyDangerSelectionPolicy
 
 
 POLICY_ID = "safety-escape-trajectory-v1"
@@ -19,11 +20,12 @@ class SafetyTrajectory:
 
 
 class SafetyTrajectoryPolicy:
-    def __init__(self, capacity: int = 128, target_selection=None):
+    def __init__(self, capacity: int = 128, target_selection=None, danger_selection=None):
         self.capacity = capacity
         self._trajectories: dict[str, SafetyTrajectory] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
         self._target_selection = target_selection or SafetyTargetSelectionPolicy()
+        self._danger_selection = danger_selection or SafetyDangerSelectionPolicy()
         self._selections: dict[str, dict[str, Any]] = {}
 
     def decide(self, packet: dict[str, Any]) -> dict[str, Any]:
@@ -44,6 +46,7 @@ class SafetyTrajectoryPolicy:
             raise ObservationError("Safety policy decision capacity reached; start a fresh runtime")
 
         safety = observation["safety_context"]
+        danger_selection = self._danger_selection.select(safety["danger_candidates"])
         candidates = {candidate["target_id"]: candidate for candidate in safety["safe_candidates"]}
         trajectory = self._trajectories.get(agent_id)
         completed_target = None
@@ -96,6 +99,8 @@ class SafetyTrajectoryPolicy:
             "trajectory_phase": phase,
             "target_id": trajectory.target_id if trajectory else completed_target,
             "danger_exposed": safety["exposed"],
+            "dominant_danger": deepcopy(danger_selection["selected"]),
+            "danger_selection": deepcopy(danger_selection),
             "safe_reached": safety["safe_reached"],
             "reached_safe_target_id": safety["reached_safe_target_id"],
             "target_selection": deepcopy(self._selections.get(agent_id)),
