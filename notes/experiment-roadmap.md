@@ -24,10 +24,12 @@ Phase 3 Energy is closed as an operational reference. Safety / Danger is the
 next life-feature boundary; it must not reopen Energy without a named coupling
 Acceptance.
 
-Phase 4 now has its first opt-in static-zone trajectory: bounded exposure fixes
-a visible safe target, `flee` persists after zone exit, and only a subsequent
-`safe_reached` observation completes at Plaza and returns `idle`. Predator,
-injury, Energy coupling, and learning are deferred.
+Phase 4 now has a static-zone trajectory and a separate opt-in moving-threat
+fixture: bounded exposure fixes a visible safe target, `flee` persists after
+exposure clears, and only a subsequent `safe_reached` observation completes at
+Plaza and returns `idle`. The moving fixture changes Godot-owned position but
+does not expose position, velocity, or route prediction to Runtime. Predator
+ontology, injury, Energy coupling, and learning are deferred.
 
 Safety candidate selection is now an independent finite policy: `safe` precedes
 `uncertain`, then bounded distance breaks equal-safety ties. Selection runs once;

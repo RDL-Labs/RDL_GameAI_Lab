@@ -42,7 +42,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Sleep behavior: opt-in隔離modeで `RestNeed >= 0.85`、明示sleep window、bounded safe placeが揃った時だけPlazaへapproachしてsleepする。GodotがRestNeedを回復し、`consolidation=not_run`を記録する。
 - Energy: opt-in時のみGodotが独立したActiveEnergy / EnergyReserveと個体別ActiveEnergyCapacityを所有する。実移動はActiveEnergyだけを消費、short restはActiveEnergyだけを小回復、Sleepは両方を回復し、ActiveEnergy回復はcapacityで止まる。reserve移送と行動選択への接続はまだ行わない。
 - Phase 3 status: [Energy Evidence](docs/experiment-evidence/ENERGY_phase3_reference_evidence.md)で参照実装を閉じた。次の生活境界はSafety / Dangerで、具体的AcceptanceなしにEnergy内部を拡張しない。
-- Safety: opt-in隔離modeでGodot所有のstatic danger zoneをbounded contextへ投影し、NPC Bがsafe Plazaを固定targetとして `flee`、圏外後も継続し、Plaza到達の後続観測で `idle / COMPLETE` に戻る。predator・負傷・Energy連携はまだ行わない。
+- Safety: opt-in隔離modeでGodot所有のstatic danger zone、または別fixtureのmoving threatをbounded contextへ投影する。NPC Bはsafe Plazaを固定targetとして `flee`、exposure消失後も継続し、Plaza到達の後続観測で `idle / COMPLETE` に戻る。moving fixtureは位置だけを更新し、predator ontology・負傷・Energy連携はまだ行わない。
 - Safety selection: Godotはsafe/uncertainと有限距離bandの候補記述だけを渡す。Runtimeの独立selectorが `safe > uncertain`、同安全度なら近い候補を一度だけ選び、その後の順位変化はTrajectory targetを変えない。
 - Danger selection: Godotは現在接触中のdanger sourceと `low / medium / high` だけを渡す。Runtimeは支配sourceを有限選択してprovenanceへ残すが、safe target・Energy・負傷には権限を持たない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。

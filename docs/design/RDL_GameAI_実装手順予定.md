@@ -207,7 +207,7 @@ ActiveEnergyCapacity
 
 ## Phase 4 — Safety / Danger
 
-**現在地:** static Danger Gully内のNPC Bがbounded safety contextだけを受ける。danger sourceは `high > medium > low` で支配sourceを有限選択し、safe candidateは `safe > uncertain`、同安全度なら有限距離順で比較してsafe Plazaを一度だけ固定する。圏外へ出た後も同じtargetへ `flee` を継続、Plaza到達の後続観測で `idle / COMPLETE` へ戻る最小Trajectoryを実装済み。predator、移動脅威、危険方向・経路比較、Energy連携、負傷は未実装。
+**現在地:** static Danger Gullyまたは別opt-in fixtureのmoving threatに接したNPC Bがbounded safety contextだけを受ける。danger sourceは `high > medium > low` で支配sourceを有限選択し、safe candidateは `safe > uncertain`、同安全度なら有限距離順で比較してsafe Plazaを一度だけ固定する。exposure消失後も同じtargetへ `flee` を継続、Plaza到達の後続観測で `idle / COMPLETE` へ戻る最小Trajectoryを実装済み。moving threatは固定stepでGodot位置を変えるだけで、predator ontology、危険方向・経路比較、Energy連携、負傷は未実装。
 
 ```text
 安全な拠点

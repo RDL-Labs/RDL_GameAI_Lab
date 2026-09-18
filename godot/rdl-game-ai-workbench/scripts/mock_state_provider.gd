@@ -72,6 +72,17 @@ const SAFETY_DANGER_PLACE = {
 	"danger_level": "high"
 }
 
+const SAFETY_MOVING_THREAT = {
+	"id": "threat_01",
+	"label": "Mock Dangerous Creature",
+	"role": "mock object",
+	"kind": "dangerous_creature",
+	"position": Vector2(260, 180),
+	"threat_capable": true,
+	"threat_radius": 70.0,
+	"danger_level": "high"
+}
+
 const PERCEPTION_RADIUS = 145.0
 const ACTION_STEP_DISTANCE = 36.0
 const PICKUP_DISTANCE = 8.0
@@ -86,6 +97,7 @@ const ACTIVE_ENERGY_REST_RECOVERY = 0.25
 const ACTIVE_ENERGY_SLEEP_RECOVERY = 0.75
 const ENERGY_RESERVE_INITIAL = 0.4
 const ENERGY_RESERVE_SLEEP_RECOVERY = 0.4
+const THREAT_STEP_DISTANCE = 12.0
 const REST_REACH_DISTANCE = 12.0
 const BASE_ID = "plaza"
 const BASE_FOOD_INITIAL = 1.0
@@ -111,6 +123,7 @@ var sleep_window_enabled = false
 var active_energy_enabled = false
 var energy_reserve_enabled = false
 var safety_actions_enabled = false
+var moving_threat_enabled = false
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
@@ -150,10 +163,12 @@ func reset():
 	objects = []
 	for object_data in INITIAL_OBJECTS:
 		objects.append(object_data.duplicate(true))
+	if safety_actions_enabled and moving_threat_enabled:
+		objects.append(SAFETY_MOVING_THREAT.duplicate(true))
 	places = []
 	for place in INITIAL_PLACES:
 		places.append(place.duplicate(true))
-	if safety_actions_enabled:
+	if safety_actions_enabled and not moving_threat_enabled:
 		places.append(SAFETY_DANGER_PLACE.duplicate(true))
 	events = ["tick 000: workbench reset"]
 	decision_records = [_build_decision_record("npc_a"), _build_decision_record("npc_b")]
@@ -346,12 +361,31 @@ func set_safety_actions_enabled(enabled):
 		rest_actions_enabled = false
 		sleep_actions_enabled = false
 		sleep_window_enabled = false
-		if _get_place(SAFETY_DANGER_PLACE["id"]).is_empty():
+		if moving_threat_enabled and _get_object(SAFETY_MOVING_THREAT["id"]).is_empty():
+			objects.append(SAFETY_MOVING_THREAT.duplicate(true))
+		elif not moving_threat_enabled and _get_place(SAFETY_DANGER_PLACE["id"]).is_empty():
 			places.append(SAFETY_DANGER_PLACE.duplicate(true))
 	else:
 		for index in range(places.size() - 1, -1, -1):
 			if places[index].get("id", "") == SAFETY_DANGER_PLACE["id"]:
 				places.remove_at(index)
+		for index in range(objects.size() - 1, -1, -1):
+			if objects[index].get("id", "") == SAFETY_MOVING_THREAT["id"]:
+				objects.remove_at(index)
+
+func set_moving_threat_enabled(enabled):
+	moving_threat_enabled = bool(enabled)
+	for index in range(places.size() - 1, -1, -1):
+		if places[index].get("id", "") == SAFETY_DANGER_PLACE["id"]:
+			places.remove_at(index)
+	for index in range(objects.size() - 1, -1, -1):
+		if objects[index].get("id", "") == SAFETY_MOVING_THREAT["id"]:
+			objects.remove_at(index)
+	if safety_actions_enabled:
+		if moving_threat_enabled:
+			objects.append(SAFETY_MOVING_THREAT.duplicate(true))
+		else:
+			places.append(SAFETY_DANGER_PLACE.duplicate(true))
 
 func get_life_context(agent_id):
 	var agent = get_agent(agent_id)
@@ -755,6 +789,8 @@ func _resolve_flee(decision, target_id):
 	var after_position = before_position + direction
 	agents[agent_index]["position"] = after_position
 	action_offsets[agent_id] = action_offsets.get(agent_id, Vector2.ZERO) + direction
+	if moving_threat_enabled:
+		_move_threat_toward(after_position)
 	var subsequent_observation = get_observation(agent_id)
 	var subsequent_safety = subsequent_observation.get("safety_context", {})
 	return _record_resolution(
@@ -773,6 +809,12 @@ func _build_safety_context(agent, visible_places):
 			danger_candidates.append({
 				"danger_id": place["id"],
 				"severity": place.get("danger_level", "low")
+			})
+	for object_data in objects:
+		if object_data.get("threat_capable", false) and agent["position"].distance_to(object_data["position"]) <= object_data.get("threat_radius", 0.0):
+			danger_candidates.append({
+				"danger_id": object_data["id"],
+				"severity": object_data.get("danger_level", "low")
 			})
 	var safe_candidates = []
 	var reached_safe_target_id = ""
@@ -796,6 +838,16 @@ func _build_safety_context(agent, visible_places):
 		"safe_reached": not reached_safe_target_id.is_empty(),
 		"reached_safe_target_id": reached_safe_target_id
 	}
+
+func _move_threat_toward(target_position):
+	for index in range(objects.size()):
+		if objects[index].get("id", "") != SAFETY_MOVING_THREAT["id"]:
+			continue
+		var direction = target_position - objects[index]["position"]
+		if direction.length() > THREAT_STEP_DISTANCE:
+			direction = direction.normalized() * THREAT_STEP_DISTANCE
+		objects[index]["position"] += direction
+		return
 
 func _change_active_energy(agent_id, delta):
 	if not active_energy_enabled or not body_states.has(agent_id):

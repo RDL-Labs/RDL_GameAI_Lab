@@ -43,9 +43,10 @@ danger exit != injury or recovery
 Safety != Energy authority
 ```
 
-Predators, moving threats, danger-direction and route comparison, Energy cost,
-interruption, learning, injury, rescue, and
-canonical admission remain absent.
+Moving threats are outside this static-zone contract and are isolated in the
+[Safety Moving Threat contract](SAFETY_moving_threat_contract.md). Predator
+ontology, danger-direction and route comparison, Energy cost, interruption,
+learning, injury, rescue, and canonical admission remain absent.
 
 ## Evidence
 
