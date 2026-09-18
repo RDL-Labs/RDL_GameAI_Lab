@@ -16,6 +16,7 @@ POLICY_ID = "base-food-assisted-trajectory-v1"
 HABIT_SUCCESS_THRESHOLD = 2
 INTERRUPT_THRESHOLD = 0.7
 THREAT_PROFILE_THRESHOLDS = {"cautious": 0.4, "standard": 0.7, "steadfast": 0.9}
+NOVELTY_RESPONSES = {"ignore", "inspect", "divert"}
 ACTIVE_CUE_BANDS = {"low", "critical", "empty"}
 VALID_CUE_RESPONSES = {"follow", "ignore"}
 
@@ -31,7 +32,8 @@ class TrajectoryState:
 class BaseFoodLifePolicy:
     """Keep one finite trajectory until completion or structural release."""
 
-    def __init__(self, capacity: int = 128, cue_responses=None, threat_profiles=None):
+    def __init__(self, capacity: int = 128, cue_responses=None, threat_profiles=None,
+                 novelty_responses=None):
         self.capacity = capacity
         configured = dict(cue_responses or {})
         for agent_id, response in configured.items():
@@ -43,6 +45,11 @@ class BaseFoodLifePolicy:
             if not isinstance(agent_id, str) or not agent_id or profile not in THREAT_PROFILE_THRESHOLDS:
                 raise ValueError("invalid Base-Food threat profile")
         self._threat_profiles = configured_threat_profiles
+        configured_novelty_responses = dict(novelty_responses or {})
+        for agent_id, response in configured_novelty_responses.items():
+            if not isinstance(agent_id, str) or not agent_id or response not in NOVELTY_RESPONSES:
+                raise ValueError("invalid Base-Food novelty response")
+        self._novelty_responses = configured_novelty_responses
         self._trajectories: dict[str, TrajectoryState] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
         self._results: dict[str, dict[str, Any]] = {}
@@ -81,13 +88,31 @@ class BaseFoodLifePolicy:
             else "no assisted Base-Food goal formed from bounded life context"
         )
         threat_profile = self._threat_profiles.get(agent_id, "standard")
+        novelty_response = self._novelty_responses.get(agent_id, "inspect")
         interrupt, interrupt_threshold = _select_interrupt(
-            context["interrupt_candidates"], threat_profile
+            context["interrupt_candidates"], threat_profile, novelty_response
         )
+        interrupt_outcome = "continue"
+        trajectory_interrupted = False
         if trajectory is not None and interrupt is not None:
-            action_type = "idle"
-            reason = "hold committed Base-Food trajectory for finite interrupt candidate"
-        elif trajectory is not None:
+            if interrupt["kind"] == "novelty" and novelty_response == "ignore":
+                interrupt_outcome = "ignore"
+            elif interrupt["kind"] == "novelty" and novelty_response == "divert":
+                action_type = "approach"
+                target_id = interrupt["target_id"]
+                reason = "temporarily divert toward bounded novelty while retaining Base-Food trajectory"
+                interrupt_outcome = "divert"
+                trajectory_interrupted = True
+            else:
+                action_type = "idle"
+                reason = (
+                    "inspect bounded novelty while retaining Base-Food trajectory"
+                    if interrupt["kind"] == "novelty"
+                    else "hold committed Base-Food trajectory for finite interrupt candidate"
+                )
+                interrupt_outcome = "inspect" if interrupt["kind"] == "novelty" else "hold"
+                trajectory_interrupted = True
+        if trajectory is not None and not trajectory_interrupted:
             held = body.get("held_food_ids", [])
             visible = {item["id"]: item for item in observation["visible_objects"]}
             if held:
@@ -137,12 +162,13 @@ class BaseFoodLifePolicy:
             "interrupt": {
                 "threshold": interrupt_threshold,
                 "threat_profile": threat_profile,
+                "novelty_response": novelty_response,
                 "selected": deepcopy(interrupt),
-                "outcome": "hold" if interrupt is not None and trajectory is not None else "continue",
+                "outcome": interrupt_outcome,
                 "authority": "GameAI-local-observation-comparison; not-action-authority",
             },
         }
-        if interrupt is not None and trajectory is not None:
+        if trajectory_interrupted:
             life["trajectory_phase"] = "SUSPENDED"
         decision["inspection"]["life"] = life
         decision = with_expression(apply_body_constraint(packet, decision))
@@ -185,6 +211,7 @@ class BaseFoodLifePolicy:
             "policy": POLICY_ID,
             "cue_responses": deepcopy(self._cue_responses),
             "threat_profiles": deepcopy(self._threat_profiles),
+            "novelty_responses": deepcopy(self._novelty_responses),
             "trajectories": {
                 agent_id: deepcopy(vars(state))
                 for agent_id, state in self._trajectories.items()
@@ -261,11 +288,16 @@ def _validate_life_packet(packet):
         if not isinstance(candidate_id, str) or not candidate_id or candidate_id in seen_candidate_ids:
             raise ObservationError("interrupt candidate IDs must be finite and unique")
         seen_candidate_ids.add(candidate_id)
-        if candidate.get("kind") not in {"generic", "threat"}:
+        if candidate.get("kind") not in {"generic", "threat", "novelty"}:
             raise ObservationError("unsupported interrupt candidate kind")
         salience = candidate.get("salience")
         if isinstance(salience, bool) or not isinstance(salience, (int, float)) or not 0.0 <= salience <= 1.0:
             raise ObservationError("interrupt candidate salience must be between 0 and 1")
+        if candidate["kind"] == "novelty":
+            target_id = candidate.get("target_id")
+            visible_ids = {item.get("id") for item in observation["visible_objects"]}
+            if not isinstance(target_id, str) or not target_id or target_id not in visible_ids:
+                raise ObservationError("novelty target_id must name a visible object")
     context["interrupt_candidates"] = candidates
     return agent_id, observation_id, observation, context
 
@@ -290,7 +322,7 @@ def _short_prediction(context):
     return "base_food_stable"
 
 
-def _select_interrupt(candidates, threat_profile):
+def _select_interrupt(candidates, threat_profile, novelty_response):
     threat_threshold = THREAT_PROFILE_THRESHOLDS[threat_profile]
     eligible = [
         candidate for candidate in candidates
@@ -300,7 +332,14 @@ def _select_interrupt(candidates, threat_profile):
     ]
     if not eligible:
         return None, threat_threshold
-    selected = max(eligible, key=lambda candidate: (candidate["salience"], candidate["candidate_id"]))
+    actionable = [
+        candidate for candidate in eligible
+        if candidate["kind"] != "novelty" or novelty_response != "ignore"
+    ]
+    selected = max(
+        actionable or eligible,
+        key=lambda candidate: (candidate["salience"], candidate["candidate_id"]),
+    )
     selected_threshold = threat_threshold if selected["kind"] == "threat" else INTERRUPT_THRESHOLD
     return deepcopy(selected), selected_threshold
 
@@ -326,4 +365,16 @@ def parse_threat_profiles(values):
         if not agent_id or profile not in THREAT_PROFILE_THRESHOLDS or agent_id in configured:
             raise ValueError("invalid or duplicate Base-Food threat profile")
         configured[agent_id] = profile
+    return configured
+
+
+def parse_novelty_responses(values):
+    configured = {}
+    for value in values:
+        if not isinstance(value, str) or "=" not in value:
+            raise ValueError("novelty response must use AGENT=ignore|inspect|divert")
+        agent_id, response = value.split("=", 1)
+        if not agent_id or response not in NOVELTY_RESPONSES or agent_id in configured:
+            raise ValueError("invalid or duplicate Base-Food novelty response")
+        configured[agent_id] = response
     return configured

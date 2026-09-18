@@ -1,6 +1,6 @@
 # Base-Food Assisted Loop Contract
 
-**Status:** Phase 1-7 operational finite experiment
+**Status:** Phase 1-8 operational finite experiment
 **Boundary:** GameAI-local policy plus Godot-owned world resolution
 
 ## Operational path
@@ -50,6 +50,14 @@ world state can hold or preserve a trajectory according to the configured NPC
 profile. The profile changes only this comparison; it is not a diagnosis,
 emotion, dynamic neural value, or Threat-issued command.
 
+Phase 8 admits `novelty` candidates only when `target_id` names an object in
+the current bounded observation. Fixed NPC-side responses are `ignore`,
+`inspect`, and `divert`. Ignore continues the existing Base-Food action;
+inspect reports `SUSPENDED` and emits idle; divert reports `SUSPENDED` and uses
+the existing approach action toward the novelty target. Inspect and divert keep
+the original Goal/Trajectory, which resumes from current world state after the
+candidate disappears.
+
 ## Authority
 
 - Godot owns and resolves World truth.
@@ -73,5 +81,5 @@ Decision Record show the coarse cue, short prediction, Goal, phase, and deposit 
 
 The following v0.3 stages are not operational yet:
 
-- Novelty-specific interruption and dynamic/derived interrupt thresholds
+- dynamic/derived interrupt thresholds and learned Novelty dispositions
 - Player-authored Statue utterances

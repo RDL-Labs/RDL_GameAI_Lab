@@ -57,6 +57,17 @@ The same bounded Threat candidate may therefore hold one NPC's trajectory while
 another continues. These profiles are fixed experiment configuration, not a
 diagnosis, dynamic neural state, affect, canonical M_B, or H.
 
+Phase 8 adds fixed NPC-side Novelty responses:
+
+    python -m runtime.bridge --base-food-life --base-food-novelty-response npc_b=divert
+
+The response is one of `ignore / inspect / divert`. Novelty must identify an
+object inside the current bounded observation. Ignore preserves the current
+Base-Food action, inspect holds it with no world action, and divert uses the
+existing approach action toward the visible novelty. Inspect/divert retain the
+original trajectory and it resumes after the candidate disappears. This is not
+general curiosity learning or a canonical model update.
+
 Current properties:
 
 - localhost HTTP only

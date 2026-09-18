@@ -1,7 +1,12 @@
 import unittest
 
 from runtime.core import ObservationError
-from runtime.life_policy import BaseFoodLifePolicy, parse_cue_responses, parse_threat_profiles
+from runtime.life_policy import (
+    BaseFoodLifePolicy,
+    parse_cue_responses,
+    parse_novelty_responses,
+    parse_threat_profiles,
+)
 
 
 class BaseFoodLifePolicyTests(unittest.TestCase):
@@ -157,6 +162,52 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
         for values in (["npc_a=fearful"], ["npc_a"], ["npc_a=cautious", "npc_a=steadfast"]):
             with self.subTest(values=values), self.assertRaises(ValueError):
                 parse_threat_profiles(values)
+
+    def test_same_novelty_supports_ignore_inspect_and_divert(self):
+        novelty = [{
+            "candidate_id": "novelty-1", "kind": "novelty",
+            "salience": 0.8, "target_id": "food_01",
+        }]
+        expected = {
+            "ignore": ({"type": "approach", "target_id": "food_01"}, "GO_TO_SITE"),
+            "inspect": ({"type": "idle"}, "SUSPENDED"),
+            "divert": ({"type": "approach", "target_id": "food_01"}, "SUSPENDED"),
+        }
+        for response, (action, phase) in expected.items():
+            with self.subTest(response=response):
+                decision = BaseFoodLifePolicy(
+                    novelty_responses={"npc_a": response}
+                ).decide(self.packet(interrupts=novelty))
+                life = decision["inspection"]["life"]
+                self.assertEqual(decision["action"], action)
+                self.assertEqual(life["trajectory_phase"], phase)
+                self.assertEqual(life["interrupt"]["outcome"], response)
+
+    def test_novelty_target_must_be_visible(self):
+        with self.assertRaises(ObservationError):
+            BaseFoodLifePolicy().decide(self.packet(interrupts=[{
+                "candidate_id": "novelty-1", "kind": "novelty",
+                "salience": 0.8, "target_id": "hidden-object",
+            }]))
+
+    def test_novelty_response_parser_is_finite(self):
+        self.assertEqual(parse_novelty_responses(["npc_a=divert"]), {"npc_a": "divert"})
+        for values in (["npc_a=flee"], ["npc_a"], ["npc_a=ignore", "npc_a=inspect"]):
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                parse_novelty_responses(values)
+
+    def test_ignored_novelty_does_not_hide_actionable_threat(self):
+        decision = BaseFoodLifePolicy(
+            novelty_responses={"npc_a": "ignore"},
+            threat_profiles={"npc_a": "cautious"},
+        ).decide(self.packet(interrupts=[
+            {"candidate_id": "novelty-1", "kind": "novelty", "salience": 0.9, "target_id": "food_01"},
+            {"candidate_id": "threat-1", "kind": "threat", "salience": 0.6},
+        ]))
+        life = decision["inspection"]["life"]
+        self.assertEqual(decision["action"], {"type": "idle"})
+        self.assertEqual(life["interrupt"]["selected"]["candidate_id"], "threat-1")
+        self.assertEqual(life["interrupt"]["outcome"], "hold")
 
 
 if __name__ == "__main__":
