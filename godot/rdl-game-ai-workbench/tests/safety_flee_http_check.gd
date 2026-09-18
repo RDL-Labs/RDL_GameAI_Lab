@@ -33,13 +33,13 @@ func _run():
 			_fail("unexpected Safety action: %s" % action)
 			return
 	var final_context = workbench.state_provider.get_observation("npc_b")["safety_context"]
-	if final_context["exposed"]:
-		_fail("flee chain did not leave the bounded danger zone: %s" % final_context)
+	if final_context["exposed"] or not final_context["safe_reached"]:
+		_fail("flee chain did not reach the bounded safe target: %s" % final_context)
 		return
 	if actions.is_empty() or actions[-1] != "idle" or actions.slice(0, -1).any(func(action): return action != "flee"):
 		_fail("unexpected Safety chain: %s" % actions)
 		return
-	print("Safety flee check passed: %s -> clear" % [actions])
+	print("Safety trajectory check passed: %s -> safe target complete" % [actions])
 	workbench.queue_free()
 	await process_frame
 	quit(0)

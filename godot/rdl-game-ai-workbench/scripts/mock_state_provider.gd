@@ -773,15 +773,18 @@ func _build_safety_context(agent, visible_places):
 			danger_id = place["id"]
 			break
 	var safe_target_id = ""
+	var safe_reached = false
 	for place in visible_places:
 		if place.get("rest_safety", "unknown") == "safe":
 			safe_target_id = place["id"]
+			safe_reached = agent["position"].distance_to(place["position"]) <= REST_REACH_DISTANCE
 			break
 	return {
 		"schema_version": "bounded-safety-context-v1",
 		"exposed": not danger_id.is_empty(),
 		"danger_id": danger_id,
-		"safe_target_id": safe_target_id
+		"safe_target_id": safe_target_id,
+		"safe_reached": safe_reached
 	}
 
 func _change_active_energy(agent_id, delta):

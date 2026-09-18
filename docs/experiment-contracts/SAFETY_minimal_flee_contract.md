@@ -1,8 +1,8 @@
 # Minimal Safety Flee Contract
 
-**Status:** Opt-in bounded danger-exit loop operational
+**Status:** Opt-in bounded safe-target trajectory operational
 
-**Boundary:** Static danger-zone exposure and visible safe-target escape only
+**Boundary:** Static danger-zone exposure and committed visible safe-target escape only
 
 ## Finite loop
 
@@ -12,14 +12,17 @@ NPC inside Godot-owned danger zone
 → Runtime flee(safe target)
 → Godot world-position change
 → subsequent bounded safety observation
-→ outside danger zone
+→ outside danger zone, same target retained
+→ safe target reached
 → idle
 ```
 
 Godot owns zone geometry, agent position, containment truth, and movement
 resolution. Runtime sees only the versioned bounded safety context and cannot
 inspect hidden World state. The current fixture starts NPC B in Danger Gully and
-exposes safe Plaza as the escape target.
+exposes safe Plaza as the escape target. `SafetyTrajectoryPolicy` fixes that
+target once, continues after zone exit, and completes only when Godot reports
+the bounded `safe_reached` position fact.
 
 ## Isolation
 
@@ -43,5 +46,7 @@ canonical admission remain absent.
 
 - Runtime tests verify `flee / idle`, display-only `escaping` expression,
   malformed context rejection, and action-mode isolation.
-- `safety_flee_http_check.gd` verifies the live chain:
-  `flee → flee → flee → idle`, with the final observation outside Danger Gully.
+- `safety_flee_http_check.gd` verifies the live chain: six `flee` actions followed
+  by `idle`, with the final observation outside Danger Gully and at safe Plaza.
+- Policy tests verify danger-exit persistence, fixed-target completion,
+  structural release, and frozen observation replay.

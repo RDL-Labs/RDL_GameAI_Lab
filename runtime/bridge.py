@@ -128,8 +128,11 @@ class BridgeHandler(BaseHTTPRequestHandler):
             with CANONICAL_LOCK:
                 life_policy = getattr(self.server, "life_policy", None)
                 rest_policy = getattr(self.server, "rest_policy", None)
+                safety_policy = getattr(self.server, "safety_policy", None)
                 history_policy = getattr(self.server, "history_policy", None)
-                if rest_policy:
+                if safety_policy:
+                    response = safety_policy.decide(packet)
+                elif rest_policy:
                     response = rest_policy.decide(packet)
                 elif life_policy:
                     response = life_policy.decide(packet)

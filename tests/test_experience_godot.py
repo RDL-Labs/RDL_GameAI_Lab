@@ -13,6 +13,7 @@ from runtime.experience import InteractionHistory
 from runtime.history_policy import HistoryInfluencePolicy
 from runtime.life_policy import BaseFoodLifePolicy
 from runtime.rest_policy import RestTrajectoryPolicy
+from runtime.safety_policy import SafetyTrajectoryPolicy
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
@@ -24,6 +25,7 @@ class GodotExperienceTests(unittest.TestCase):
         with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
             server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
             server.history_policy = None
+            server.safety_policy = SafetyTrajectoryPolicy()
             thread = threading.Thread(target=server.serve_forever)
             thread.start()
             try:
@@ -37,7 +39,7 @@ class GodotExperienceTests(unittest.TestCase):
                 )
                 output = completed.stdout + completed.stderr
                 self.assertEqual(completed.returncode, 0, output)
-                self.assertIn("Safety flee check passed", output)
+                self.assertIn("Safety trajectory check passed", output)
                 print(output.strip())
             finally:
                 server.shutdown()

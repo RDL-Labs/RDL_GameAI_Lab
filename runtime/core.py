@@ -324,6 +324,8 @@ def _validate_safety_state(observation: dict[str, Any], agent_id: str) -> None:
         raise ObservationError("unsupported safety_context schema")
     if type(safety.get("exposed")) is not bool:
         raise ObservationError("safety_context.exposed must be boolean")
+    if type(safety.get("safe_reached")) is not bool:
+        raise ObservationError("safety_context.safe_reached must be boolean")
     for field in ("danger_id", "safe_target_id"):
         if not isinstance(safety.get(field), str):
             raise ObservationError(f"safety_context.{field} must be a string")

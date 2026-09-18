@@ -16,6 +16,7 @@ class RuntimeCoreTests(unittest.TestCase):
                     "exposed": exposed,
                     "danger_id": "danger_gully" if exposed else "",
                     "safe_target_id": safe_target_id,
+                    "safe_reached": False,
                 },
                 "body": {
                     "agent_id": "npc_b", "snapshot_id": "body-safety-1",

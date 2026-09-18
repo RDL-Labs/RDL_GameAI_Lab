@@ -24,10 +24,10 @@ Phase 3 Energy is closed as an operational reference. Safety / Danger is the
 next life-feature boundary; it must not reopen Energy without a named coupling
 Acceptance.
 
-Phase 4 now has its first opt-in static-zone slice: bounded exposure selects a
-visible safe target, `flee` changes the Godot position, and a subsequent clear
-observation returns `idle`. Predator, injury, Energy coupling, and learning are
-deferred.
+Phase 4 now has its first opt-in static-zone trajectory: bounded exposure fixes
+a visible safe target, `flee` persists after zone exit, and only a subsequent
+`safe_reached` observation completes at Plaza and returns `idle`. Predator,
+injury, Energy coupling, and learning are deferred.
 
 ρ v0.x is a [closed operational reference](../docs/experiment-evidence/RHO_v0_reference_evidence.md):
 Food/Rest profiles, finite projections, packet provenance, cross-domain reuse,
