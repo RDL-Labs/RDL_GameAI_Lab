@@ -34,13 +34,14 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。
 - GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
 - First game feature: [minimal Food loop](docs/experiment-contracts/FOOD_minimal_loop_contract.md)。FoodNeed → approach → pickup → eat → world消費 / Need低下。
-- Current direction: [最小Rest loop](docs/experiment-contracts/REST_minimal_loop_contract.md)に[Rest Goal / Trajectory](docs/experiment-contracts/REST_trajectory_contract.md)を追加し、固定target、generic保留、同一target復帰、完了、構造的releaseまで実縦断した。Sleep / Consolidationは未実装。神の像にaction authorityは与えない。
+- Current direction: Restの固定target・interrupt復帰に加え、[最小Sleep生活行動](docs/experiment-contracts/SLEEP_life_action_contract.md)としてRestNeed + 明示window + safe place → sleep → 回復を実縦断した。World TimeとSleep Consolidationは未実装。神の像にaction authorityは与えない。
 - Operational assisted slice: 粗いcueからBase–Foodを完遂し、follow / ignore結果を分離する。deposit成功を有限経験として保持し、2成功後のみcueなしのlearned relationから同じ一周を自律起動できる。generic保留・再開、Threat profile差、Novelty三応答と復帰、両端の調整用extreme profile比較まで実装済み。
 - Reference status: [Base–Food completion evidence](docs/experiment-evidence/BASE_FOOD_reference_loop_evidence.md)と[ρ v0.x evidence](docs/experiment-evidence/RHO_v0_reference_evidence.md)を固定。FoodNeed canonical promotionはshadow維持、ρ追加展開はdeferred。
 - Observation resolution: [ρ contract](docs/experiment-contracts/RHO_observation_resolution_contract.md)でFood / RestのLOW / MID / HIGH、版付きprofile、packet sidecar、provenanceを実装。default actionとcanonical pathは非介入。Restの二重opt-in実験のみ候補記述へ接続済み。
 - Rest behavior: opt-in隔離modeでGodot所有RestNeedがtick増加し、独立した[有限target selection](docs/experiment-contracts/REST_target_selection_contract.md)が一度だけ候補を選ぶ。[ρ Rest candidate実験](docs/experiment-contracts/RHO_rest_candidate_description_contract.md)はLOW/HIGHで候補記述だけを変え、同じselectorから異なるtargetを得る。Trajectoryはgeneric interrupt後も同じtargetへ復帰する。Food priorityは未接続。
+- Sleep behavior: opt-in隔離modeで `RestNeed >= 0.85`、明示sleep window、bounded safe placeが揃った時だけPlazaへapproachしてsleepする。GodotがRestNeedを回復し、`consolidation=not_run`を記録する。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
-- Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・一般在庫・飢餓等の広い生活機能。
+- Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
 固定retry profileは神経値から導出したものではありません。設計上の「DNA μ/σ → dynamic neural state → derived sensitivity」と現行実装を区別します。
 

@@ -69,6 +69,7 @@ const FOOD_NEED_PER_TICK = 0.02
 const FOOD_RECOVERY = 0.6
 const REST_NEED_PER_TICK = 0.03
 const REST_RECOVERY = 0.6
+const SLEEP_RECOVERY = 0.9
 const REST_REACH_DISTANCE = 12.0
 const BASE_ID = "plaza"
 const BASE_FOOD_INITIAL = 1.0
@@ -89,6 +90,8 @@ var observation_seq = 0
 var body_states = {}
 var food_actions_enabled = true
 var rest_actions_enabled = false
+var sleep_actions_enabled = false
+var sleep_window_enabled = false
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
@@ -240,6 +243,8 @@ func resolve_action(decision):
 		return _resolve_deposit(decision, action.get("target_id", ""))
 	if action_type == "rest":
 		return _resolve_rest(decision, action.get("target_id", ""))
+	if action_type == "sleep":
+		return _resolve_sleep(decision, action.get("target_id", ""))
 	return _record_resolution(decision.get("agent_id", ""), action_type, "", "no world change for action")
 
 func get_latest_resolution(agent_id):
@@ -274,6 +279,9 @@ func get_body_snapshot(agent_id):
 	if rest_actions_enabled:
 		snapshot["rest_actions_enabled"] = true
 		snapshot["rest_need"] = body["rest_need"]
+	if sleep_actions_enabled:
+		snapshot["sleep_actions_enabled"] = true
+		snapshot["sleep_window"] = sleep_window_enabled
 	return snapshot
 
 func get_life_context(agent_id):
@@ -387,6 +395,17 @@ func set_rest_actions_enabled(enabled):
 	rest_actions_enabled = bool(enabled)
 	if rest_actions_enabled:
 		food_actions_enabled = false
+		sleep_actions_enabled = false
+		sleep_window_enabled = false
+
+func set_sleep_actions_enabled(enabled):
+	sleep_actions_enabled = bool(enabled)
+	rest_actions_enabled = sleep_actions_enabled
+	if sleep_actions_enabled:
+		food_actions_enabled = false
+
+func set_sleep_window(enabled):
+	sleep_window_enabled = bool(enabled)
 
 func get_interaction_result(resolution):
 	if resolution.get("action_type", "") != "approach":
@@ -615,6 +634,31 @@ func _resolve_rest(decision, target_id):
 		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
 		{"before_rest_need": before_need, "after_rest_need": body["rest_need"],
 			"rest_kind": "short_rest"}
+	)
+
+func _resolve_sleep(decision, target_id):
+	var agent_id = decision.get("agent_id", "")
+	var agent_index = _find_agent_index(agent_id)
+	var place = _get_place(target_id)
+	var source_observation_id = decision.get("inspection", {}).get("observation_id", "")
+	if not sleep_actions_enabled or not sleep_window_enabled:
+		return _record_resolution(agent_id, "sleep", target_id, "Sleep action is outside the finite sleep window")
+	if agent_index == -1 or place.is_empty() or not place.get("rest_capable", false):
+		return _record_resolution(agent_id, "sleep", target_id, "Sleep target is unavailable")
+	if place.get("rest_safety", "unknown") != "safe":
+		return _record_resolution(agent_id, "sleep", target_id, "long sleep requires a bounded safe place")
+	if agents[agent_index]["position"].distance_to(place["position"]) > REST_REACH_DISTANCE:
+		return _record_resolution(agent_id, "sleep", target_id, "agent is outside sleep reach")
+	var body = body_states[agent_id]
+	var before_need = body["rest_need"]
+	body["rest_need"] = max(0.0, before_need - SLEEP_RECOVERY)
+	body["revision"] += 1
+	var subsequent_observation = get_observation(agent_id)
+	return _record_resolution(
+		agent_id, "sleep", target_id, "bounded sleep completed; RestNeed decreased",
+		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
+		{"before_rest_need": before_need, "after_rest_need": body["rest_need"],
+			"sleep_kind": "bounded_sleep", "consolidation": "not_run"}
 	)
 
 func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = "", effects = {}):

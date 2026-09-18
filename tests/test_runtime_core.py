@@ -5,6 +5,38 @@ from runtime.core import ObservationError, decide_action
 
 
 class RuntimeCoreTests(unittest.TestCase):
+    def sleep_packet(self, *, within_reach=False, rest_need=0.9,
+                     sleep_window=True, safety="safe"):
+        packet = self.rest_packet(within_reach=within_reach, rest_need=rest_need)
+        packet["observation_id"] = "sleep-state"
+        body = packet["observation"]["body"]
+        body["sleep_actions_enabled"] = True
+        body["sleep_window"] = sleep_window
+        packet["observation"]["visible_places"][0]["rest_safety"] = safety
+        return packet
+
+    def test_sleep_requires_window_need_and_safe_place(self):
+        approach = decide_action(self.sleep_packet())
+        sleep = decide_action(self.sleep_packet(within_reach=True))
+        outside_window = decide_action(self.sleep_packet(sleep_window=False))
+        below_threshold = decide_action(self.sleep_packet(rest_need=0.8))
+        unsafe = decide_action(self.sleep_packet(safety="uncertain"))
+        self.assertEqual(approach["action"], {"type": "approach", "target_id": "plaza"})
+        self.assertEqual(sleep["action"], {"type": "sleep", "target_id": "plaza"})
+        self.assertEqual(sleep["inspection"]["expression"]["label"], "sleeping")
+        for response in (outside_window, below_threshold, unsafe):
+            self.assertEqual(response["action"], {"type": "idle"})
+
+    def test_sleep_state_rejects_malformed_window_or_missing_rest_state(self):
+        malformed = self.sleep_packet()
+        malformed["observation"]["body"]["sleep_window"] = "night"
+        with self.assertRaises(ObservationError):
+            decide_action(malformed)
+        missing_rest = self.sleep_packet()
+        missing_rest["observation"]["body"]["rest_actions_enabled"] = False
+        with self.assertRaises(ObservationError):
+            decide_action(missing_rest)
+
     def rest_packet(self, *, within_reach=False, rest_need=0.8):
         return {
             "observation_id": "rest-state",

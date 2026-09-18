@@ -17,6 +17,7 @@ from .expression import with_expression
 RUNTIME_NAME = "rdl-gameai-minimal-runtime"
 FOOD_ACTION_THRESHOLD = 0.5
 REST_ACTION_THRESHOLD = 0.5
+SLEEP_ACTION_THRESHOLD = 0.85
 
 
 class ObservationError(ValueError):
@@ -84,6 +85,30 @@ def _decide_action(packet: dict[str, Any]) -> dict[str, Any]:
 
     visible_objects = observation.get("visible_objects", [])
     body = observation.get("body")
+    if isinstance(body, dict) and body.get("sleep_actions_enabled", False):
+        if body["sleep_window"] and body["rest_need"] >= SLEEP_ACTION_THRESHOLD:
+            safe_places = [
+                place for place in observation.get("visible_places", [])
+                if place.get("rest_capable") is True and place.get("rest_safety") == "safe"
+            ]
+            for place in safe_places:
+                if place.get("within_reach") is True:
+                    return RuntimeDecision(
+                        agent_id=agent_id, action_type="sleep", target_id=str(place["id"]),
+                        observation_id=observation_id,
+                        reason="reachable bounded safe place selected inside the finite sleep window",
+                    ).to_json()
+            if safe_places:
+                return RuntimeDecision(
+                    agent_id=agent_id, action_type="approach", target_id=str(safe_places[0]["id"]),
+                    observation_id=observation_id,
+                    reason="visible bounded safe place selected inside the finite sleep window",
+                ).to_json()
+        return RuntimeDecision(
+            agent_id=agent_id, action_type="idle", target_id=None,
+            observation_id=observation_id,
+            reason="bounded Sleep trigger is incomplete",
+        ).to_json()
     if isinstance(body, dict) and body.get("rest_actions_enabled", False):
         if body["rest_need"] >= REST_ACTION_THRESHOLD:
             for place in observation.get("visible_places", []):
@@ -208,6 +233,7 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
             raise ObservationError(f"visible_places[{index}].rest_distance_band is unsupported")
     _validate_food_state(observation.get("body"), agent_id)
     _validate_rest_state(observation.get("body"), agent_id)
+    _validate_sleep_state(observation.get("body"), agent_id)
 
     return tick, agent_id, observation
 
@@ -248,6 +274,20 @@ def _validate_rest_state(body: Any, agent_id: str) -> None:
     rest_need = body.get("rest_need")
     if type(rest_need) not in (int, float) or not math.isfinite(rest_need) or not 0 <= rest_need <= 1:
         raise ObservationError("body rest_need must be finite in [0,1]")
+
+
+def _validate_sleep_state(body: Any, agent_id: str) -> None:
+    if not isinstance(body, dict):
+        return
+    enabled = body.get("sleep_actions_enabled", False)
+    if type(enabled) is not bool:
+        raise ObservationError("body sleep_actions_enabled must be boolean")
+    if not enabled:
+        return
+    if body.get("rest_actions_enabled") is not True:
+        raise ObservationError("Sleep requires the bounded Rest body state")
+    if type(body.get("sleep_window")) is not bool:
+        raise ObservationError("body sleep_window must be boolean")
 
 
 def _validate_entities(items: list[Any], field_name: str) -> None:

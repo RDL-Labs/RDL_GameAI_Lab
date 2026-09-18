@@ -6,7 +6,7 @@
 
 **責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のD軸。Body Recovery / Experience Consolidationという横断更新イベントの設計。
 **依存:** [神経設計](RDL_GameAI_神経パラメーター設計図.md)、[感情・履歴モデル](RDL_GameAI_感情・履歴・関係拘束モデル.md)、[生活機能順](RDL_GameAI_実装手順予定.md)。
-**非責務・状態:** Layer追加、canonical authority、生活Phaseの管理はしない。以下はdesign-onlyであり、現行runtimeの履歴保持に睡眠・忘却・圧縮はない。
+**非責務・状態:** Layer追加、canonical authority、生活Phaseの管理はしない。[最小Sleep生活行動](../experiment-contracts/SLEEP_life_action_contract.md)はoperational。以下のExperience選別・忘却・圧縮・再関連付け、World Time、Energy回復はdesign-only。
 
 ## 0. 一文定義
 

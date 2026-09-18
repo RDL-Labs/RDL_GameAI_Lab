@@ -10,7 +10,7 @@
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
 | [神経](RDL_GameAI_神経パラメーター設計図.md) | current design / status unclear | 操作的ラベル・DNA μ/σ・動的状態・派生感度。design-only |
-| [睡眠](RDL_GameAI_睡眠システム設計.md) | current design / status unclear | Layerでない横断更新イベント。design-only |
+| [睡眠](RDL_GameAI_睡眠システム設計.md) | minimal life action operational / consolidation design-only | bounded安全場所でのSleep回復は実装済み。横断Consolidationは未実装 |
 | [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md) | current design | 体験の核。schema・Phaseの正本ではない |
 | [生活機能順](RDL_GameAI_実装手順予定.md) | current plan / navigation incomplete | 生活Phaseと横断系、canonical成熟度の分離 |
 | [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | completed reference plan v0.3 | 神の像の粗いcueからNPC自身の予測・Goal・Trajectory・経験・自律化へ進むBase–Food参照loop |
@@ -20,7 +20,8 @@
 | [ρ v0.x Evidence](../experiment-evidence/RHO_v0_reference_evidence.md) | closed operational reference | Food非介入、Rest横断再利用、候補記述→固定selector→target差、再開条件 |
 | [ρ observation contract](../experiment-contracts/RHO_observation_resolution_contract.md) | operational reference | LOW/MID/HIGH、NPC/domain別選択、packet sidecar、exact値非漏洩、default/canonical非介入 |
 | [ρ Rest observation contract](../experiment-contracts/RHO_rest_observation_contract.md) | minimal diagnostic projection operational | Rest LOW/MID/HIGH、有限trend、可視休息文脈、RestNeed・sleep行動・consolidation非介入 |
-| [Minimal Rest loop contract](../experiment-contracts/REST_minimal_loop_contract.md) | opt-in isolated loop operational | Godot所有RestNeed、bounded rest point、approach、short rest、回復。Sleep / consolidation未実装 |
+| [Minimal Rest loop contract](../experiment-contracts/REST_minimal_loop_contract.md) | opt-in isolated loop operational | Godot所有RestNeed、bounded rest point、approach、short rest、回復。Sleepは別契約、Consolidation未実装 |
+| [Minimal Sleep life-action contract](../experiment-contracts/SLEEP_life_action_contract.md) | opt-in bounded action operational | RestNeed + 明示window + safe place、Sleep回復。World Time / Consolidation未実装 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
 | [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |
 | [ρ Rest Candidate Description contract](../experiment-contracts/RHO_rest_candidate_description_contract.md) | double-opt-in causal experiment operational | ρ→候補記述、固定selector→target、Trajectory固定。LOW/HIGH実Godot比較 |

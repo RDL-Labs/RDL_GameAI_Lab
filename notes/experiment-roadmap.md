@@ -13,9 +13,9 @@ not copied wholesale into M_B. Food completion does not advance Maturity 4/T1.
 The assisted-to-autonomous [Base–Food reference loop](../docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md)
 is complete. Current game-feature work is the isolated Rest line: Godot-owned
 RestNeed, finite target selection, fixed-target Trajectory, generic interruption,
-same-target resume, short-rest recovery, and structural release are operational.
-Food/Rest arbitration, Sleep, and Sleep Consolidation remain deferred. Canonical
-maturity remains independent.
+same-target resume, short-rest recovery, structural release, and a bounded safe-place
+Sleep life action are operational. Food/Rest arbitration, World Time, sleep pressure,
+and Sleep Consolidation remain deferred. Canonical maturity remains independent.
 
 ρ v0.x is a [closed operational reference](../docs/experiment-evidence/RHO_v0_reference_evidence.md):
 Food/Rest profiles, finite projections, packet provenance, cross-domain reuse,
