@@ -21,6 +21,14 @@ Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and 
 
 This is the minimal Python-side runtime boundary for the Godot workbench.
 
+The assisted Base-Food experiment is opt-in with
+python -m runtime.bridge --base-food-life.
+
+It consumes only the coarse God Statue cue, NPC-observed stock band, known Base
+relation, bounded visible Food, and self-body snapshot. It maintains a finite
+GameAI-local Goal/Trajectory through deposit. It does not admit precise Base
+stock, add canonical action authority, or implement habit learning.
+
 Current properties:
 
 - localhost HTTP only

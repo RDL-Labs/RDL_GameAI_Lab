@@ -12,6 +12,7 @@ from .core import ObservationError, decide_action
 from .v23_interpretation import GameAIFrozenComparisonSidecar
 from .experience import InteractionHistory, HistoryError
 from .history_policy import HistoryInfluencePolicy
+from .life_policy import BaseFoodLifePolicy
 from .sensitivity import parse_retry_profiles
 from .v23_food_admission import (
     FoodAdmissionError,
@@ -86,8 +87,12 @@ class BridgeHandler(BaseHTTPRequestHandler):
         try:
             packet = self._read_json()
             with CANONICAL_LOCK:
-                policy = getattr(self.server, "history_policy", None)
-                response = policy.decide(packet, EXPERIENCE) if policy else decide_action(packet)
+                life_policy = getattr(self.server, "life_policy", None)
+                history_policy = getattr(self.server, "history_policy", None)
+                if life_policy:
+                    response = life_policy.decide(packet)
+                else:
+                    response = history_policy.decide(packet, EXPERIENCE) if history_policy else decide_action(packet)
                 CANONICAL_SIDECAR.capture(packet)
                 try:
                     EXPERIENCE.register_decision(packet, response)
@@ -163,14 +168,18 @@ def run(
     history_influence: bool = False,
     retry_profiles=None,
     food_mb_shadow: bool = False,
+    base_food_life: bool = False,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
     if food_mb_shadow and host not in ("127.0.0.1", "localhost", "::1"):
         raise ValueError("FoodNeed M_B shadow experiment requires a loopback host")
+    if base_food_life and history_influence:
+        raise ValueError("Base-Food life policy and history influence are separate opt-in policies")
     policy = HistoryInfluencePolicy(profiles=retry_profiles) if history_influence else None
     server = ThreadingHTTPServer((host, port), BridgeHandler)
     server.history_policy = policy
+    server.life_policy = BaseFoodLifePolicy() if base_food_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
     server.food_mb_shadow_lock = RLock()
     print("RDL GameAI Runtime listening on http://%s:%d" % (host, port))
@@ -186,6 +195,8 @@ def main() -> None:
                         help="Fixed retry tendency: short, standard, or long; requires --history-influence")
     parser.add_argument("--food-mb-shadow", action="store_true",
                         help="Enable loopback-only FoodNeed M_B shadow endpoints")
+    parser.add_argument("--base-food-life", action="store_true",
+                        help="Enable the assisted Base-Food Goal/Trajectory policy")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -193,9 +204,11 @@ def main() -> None:
             raise ValueError("--retry-profile requires --history-influence")
         if args.food_mb_shadow and args.host not in ("127.0.0.1", "localhost", "::1"):
             raise ValueError("--food-mb-shadow requires a loopback --host")
+        if args.base_food_life and args.history_influence:
+            raise ValueError("--base-food-life cannot be combined with --history-influence")
     except ValueError as exc:
         parser.error(str(exc))
-    run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow)
+    run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow, args.base_food_life)
 
 
 if __name__ == "__main__":

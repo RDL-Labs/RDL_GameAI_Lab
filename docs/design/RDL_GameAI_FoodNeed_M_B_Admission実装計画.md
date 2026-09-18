@@ -223,6 +223,11 @@ global canonical sidecarから分離する。
 
 ### PR 4 — Admission review
 
+**状態: deferred pending Base–Food loop evidence。** shadowからcanonical model profileへ
+昇格する前に、[Base–Food循環](RDL_GameAI_Codex_BaseFood循環完成計画.md)で神の像の粗いcue、NPC自身の短期予測、
+Goal形成、Trajectory継続、従う/無視の結果、経験hook、cueなしの自律起動、site depletion、carry、return、deposit、repeatの実相互作用を観測する。FoodNeed単独の
+成功だけでpromotionを判断しない。
+
 実Godot/HTTP evidenceを確認した後、次のどちらかを明示判断する。
 
 ```text

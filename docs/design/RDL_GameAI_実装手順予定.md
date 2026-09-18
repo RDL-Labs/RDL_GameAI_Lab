@@ -1,17 +1,41 @@
 # RDL_GameAI — 実装手順予定
 
 **文書種別:** Implementation Roadmap / DRAFT  
-**版:** v0.2  
+**版:** v0.5
 **位置づけ:** RDL_GameAI_Lab / GameAI-local implementation plan
 
 **責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のC軸。生活機能の縦実装順と、D軸の接続点を管理する。
 **依存:** [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md)、[Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)、各横断系の正本文書。
 **非責務:** canonical成熟度・内部Layerの正本ではない。canonical maturity != game feature phase。
-**状態:** Phase 1の最小Food loopはoperational。以降のPhaseは予定。栄養・在庫・長期飢餓、睡眠・生活エネルギー循環の完成を意味しない。
+**状態:** Phase 1の最小Food loopはoperational。現在は[Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md)を優先し、Phase 1をBase–Resource参照実装へ深化する。Phase 2以降はこの循環完成まで保留。
 
 ## 0. 実装方針
 
 最初から大規模な生活・経済・クラフトシステムを作らない。
+
+2026-09-18からassisted-to-autonomous方針を採用する。機能を薄く横へ増やす前に、最も単純な
+Base–Food循環を神の像の粗いcue・NPC自身の短期予測・Goal形成・Trajectory継続・経験・自律起動まで深く完成させる。
+
+```text
+God Statue evaluates precise Food state
+→ emits coarse cue without action authority
+→ NPC observes and interprets
+→ NPC short directional prediction
+→ replenish Goal
+→ gather_and_return Trajectory
+→ local phase continuation without full reselection
+→ known Food Site expedition
+→ harvest / site depletion
+→ carry / return / deposit
+→ Base stock restored
+→ consumption
+→ next expedition
+```
+
+この循環をFood専用品にせず、Wood / Stone / Herb / Water等へresource ruleを
+差し替えて展開できる `Base–Resource` 参照実装とする。ただし早期のgeneral framework化はしない。
+
+神の像の精密計算はNPCのM_Bではない。NPCが受け取った有限cueと解釈関係のみがNPC側の候補になる。Goalは目標状態、Trajectoryはそこへ向かう行動系列、Commitmentは維持強度として分ける。
 
 第一開発ライン:
 
@@ -71,7 +95,30 @@ FoodNeed
 
 GodotがFoodNeed・pickup reach・world object・held foodを所有し、Runtimeはbounded observation / self-body snapshotからactionを選ぶ。[Food contract](../experiment-contracts/FOOD_minimal_loop_contract.md)で実Godot/HTTP縦断を固定する。
 
-Remaining: food varieties、栄養、保管、腐敗、所有、競争、空腹による行動不能、Energy/Sleepとの接続、学習された食物選択、永続化。
+### Current completion target: Base–Food reference loop
+
+最小sliceの次は種類や栄養へ広げず、次の一本を完成させる。
+
+```text
+Base stock consumption
+→ short future direction
+→ replenish_base_food Goal
+→ GO_TO_SITE / GATHER / RETURN_BASE / DEPOSIT Trajectory
+→ known Food Site selection
+→ outbound travel
+→ bounded resource-band observation
+→ harvest and site depletion
+→ carry
+→ finite return decision
+→ Base deposit
+→ stock recovery
+→ consumption
+→ repeated expedition
+```
+
+正本は[Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md)。Base / Siteのworld truthとNPC observationを分け、Future Predictionは短い方向予測としてGameAI-localに留める。毎tickの全候補再選択を行わず、構造的解除条件がない限り現在phaseを継続する。既存FoodNeed shadow `M_B`、global canonical sidecar、H、T1、action authorityを変更しない。
+
+Phase 1の次段階では、God Statue morning assessment、coarse cue、cue非権限性、Goal / Trajectory / Phase / Commitment、Base–Food完遂、従う/無視の結果、経験hook、cueなしの自律起動を順に実装対象とする。その後generic interrupt API、Threat、Novelty、極端な個体profileの順に検証する。food varieties、栄養、腐敗、sharing、individual food ID、所有、競争、狩猟、social coordination、永続化は参照循環完成後までdeferred。
 
 最小の生存循環を作る。
 
@@ -105,6 +152,8 @@ consume
 ---
 
 ## Phase 2 — Rest / Sleep
+
+**開始条件:** Base–Food full-cycle evidenceが成立し、同じ循環を次機能へ応用できる境界が確認されていること。
 
 食料とは別の生活要求として休息を成立させる。
 

@@ -13,9 +13,11 @@
 | [睡眠](RDL_GameAI_睡眠システム設計.md) | current design / status unclear | Layerでない横断更新イベント。design-only |
 | [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md) | current design | 体験の核。schema・Phaseの正本ではない |
 | [生活機能順](RDL_GameAI_実装手順予定.md) | current plan / navigation incomplete | 生活Phaseと横断系、canonical成熟度の分離 |
+| [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | current priority plan v0.3 | 神の像の粗いcueからNPC自身の予測・Goal・Trajectory・経験・自律化へ進むBase–Food参照loop |
+| [Base–Food assisted contract](../experiment-contracts/BASE_FOOD_assisted_loop_contract.md) | Phase 1-3 operational | coarse cueからdepositまで。経験・習慣化・cueなし起動はdeferred |
 | [FoodNeed M_B Admission計画](RDL_GameAI_FoodNeed_M_B_Admission実装計画.md) | PR 1-3 operational | opt-in acquisition、immutable relation、shadow F/F'/E、default-off loopback bridge。global sidecar接続は未実装 |
 | [会話](RDL_GameAI_簡易会話からプレイヤー介入まで.md) | current design / phase ambiguous | intent・referent・DialogueTurn・語彙。Communication Stepは生活Phaseと別 |
-| [Player](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md) | current draft | 外部語彙・情報入力、直接操作・Truth権限なし |
+| [Player](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md) | current draft | 外部語彙・情報入力と有限な自動生活cue。直接操作・Truth権限なし |
 | [設計手法](RDL_GameAI_設計手法.md) | partially stale | 設計規律・有限検証・semantic fallibility / structural integrity |
 | [canonical roadmap](../../notes/experiment-roadmap.md) | partially stale | Maturityごとのimplemented slice / remaining boundary |
 | [README](../../README.md) | duplicate / partially stale | 入口・実行案内。詳細は正本へ |
@@ -32,6 +34,15 @@
 - Food contract: FoodNeedはsemantic `M_B` participantとしてintended。現行canonical count-sidecarへのadmissionはdeferred。
 - Cross-layer contract: 現行runtimeのfrozen `M_B` をlocal変更が黙示mutationしないことの分離契約。Body / Neural / History由来relationの永久除外は主張しない。
 - Runtime authority、graph mutation、θ / M_Δ / T1 cutoverは変更なし。
+
+### Assisted-to-autonomous Base–Food方針（2026-09-18）
+
+- 神の像はWorldの精密Food状態を粗い生活cueへ圧縮するが、NPCへaction commandを与えない。
+- NPCはcueを有限観測として受け、自身のM_Bで解釈・短期予測し、Goal / Trajectory / Commitment / Phaseを形成する。
+- 毎朝cue → Base–Food完遂 → 従う/無視の結果 → 経験hook → cueなしの自律起動を段階的に検証する。
+- Threat / Noveltyによる割り込みと個体差は、その後に追加する。
+- FoodNeed shadow PR4 canonical promotionはfull-cycle evidenceまでdeferred。
+- sharing / spoilage / individual IDs / hunting / social / multi-resource実装は今回含めない。
 
 変更対象は `README.md`、`docs/design/`、`docs/experiment-contracts/`、`notes/experiment-roadmap.md` と層間分離テストの説明文。runtime / Godot挙動、Evidence、semantic referenceは変更しない。
 DNA・動的神経状態・睡眠・会話・生活機能の詳細は設計候補であり、文書整合によって実装済みに昇格しない。

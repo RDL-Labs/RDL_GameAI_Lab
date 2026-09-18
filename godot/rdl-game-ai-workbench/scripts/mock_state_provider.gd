@@ -60,6 +60,11 @@ const ACTION_STEP_DISTANCE = 36.0
 const PICKUP_DISTANCE = 8.0
 const FOOD_NEED_PER_TICK = 0.02
 const FOOD_RECOVERY = 0.6
+const BASE_ID = "plaza"
+const BASE_FOOD_INITIAL = 1.0
+const BASE_FOOD_CAPACITY = 10.0
+const BASE_FOOD_DEPOSIT = 4.0
+const BASE_REACH_DISTANCE = 12.0
 
 var tick = 0
 var agents = []
@@ -72,11 +77,15 @@ var resolution_records = []
 var observation_seq = 0
 var body_states = {}
 var food_actions_enabled = true
+var base_food_stock = BASE_FOOD_INITIAL
+var base_food_revision = 0
 
 func reset():
 	tick = 0
 	observation_seq = 0
 	body_states = {}
+	base_food_stock = BASE_FOOD_INITIAL
+	base_food_revision = 0
 	agents = []
 	for agent in INITIAL_AGENTS:
 		agents.append(agent.duplicate(true))
@@ -119,6 +128,8 @@ func get_state():
 		"agents": agents.duplicate(true),
 		"objects": objects.duplicate(true),
 		"places": places.duplicate(true),
+		"base_food_stock": base_food_stock,
+		"base_food_band": _base_food_band(),
 		"perception_radius": PERCEPTION_RADIUS,
 		"decision_records": decision_records.duplicate(true),
 		"resolution_records": resolution_records.duplicate(true),
@@ -182,6 +193,8 @@ func resolve_action(decision):
 		return _resolve_pickup(decision, action.get("target_id", ""))
 	if action_type == "eat":
 		return _resolve_eat(decision, action.get("target_id", ""))
+	if action_type == "deposit":
+		return _resolve_deposit(decision, action.get("target_id", ""))
 	return _record_resolution(decision.get("agent_id", ""), action_type, "", "no world change for action")
 
 func get_latest_resolution(agent_id):
@@ -212,6 +225,31 @@ func get_body_snapshot(agent_id):
 		"held_food_ids": body["held_food_ids"].duplicate(),
 		"revision": body["revision"],
 		"snapshot_id": "body-%s-%d" % [agent_id, body["revision"]]
+	}
+
+func get_life_context(agent_id):
+	var agent = get_agent(agent_id)
+	var base = _get_place(BASE_ID)
+	if agent.is_empty() or base.is_empty():
+		return {}
+	var band = _base_food_band()
+	return {
+		"god_statue_cue": {
+			"source": "system_assessment",
+			"topic": "base_food",
+			"band": band,
+			"delivery": "morning",
+			"assessment_revision": base_food_revision
+		},
+		"observed_base_food_band": band,
+		"known_base": {
+			"id": BASE_ID,
+			"relative_position": [
+				base["position"].x - agent["position"].x,
+				base["position"].y - agent["position"].y
+			]
+		},
+		"at_base": agent["position"].distance_to(base["position"]) <= BASE_REACH_DISTANCE
 	}
 
 func set_food_actions_enabled(enabled):
@@ -284,7 +322,7 @@ func _is_visible(origin, target, radius):
 func _resolve_approach(decision, target_id):
 	var agent_id = decision.get("agent_id", "")
 	var agent_index = _find_agent_index(agent_id)
-	var target = _get_object(target_id)
+	var target = _get_target(target_id)
 	if agent_index == -1 or target.is_empty():
 		return _record_resolution(agent_id, "approach", target_id, "target or agent not found")
 
@@ -356,6 +394,33 @@ func _resolve_eat(decision, target_id):
 			"held_food_ids": body["held_food_ids"].duplicate()}
 	)
 
+func _resolve_deposit(decision, target_id):
+	var agent_id = decision.get("agent_id", "")
+	var agent_index = _find_agent_index(agent_id)
+	var source_observation_id = decision.get("inspection", {}).get("observation_id", "")
+	var base = _get_place(BASE_ID)
+	if agent_index == -1 or target_id != BASE_ID or base.is_empty():
+		return _record_resolution(agent_id, "deposit", target_id, "Base or agent not found")
+	if agents[agent_index]["position"].distance_to(base["position"]) > BASE_REACH_DISTANCE:
+		return _record_resolution(agent_id, "deposit", target_id, "agent is outside Base reach")
+	var body = body_states[agent_id]
+	if body["held_food_ids"].is_empty():
+		return _record_resolution(agent_id, "deposit", target_id, "no held food to deposit")
+	var deposited_ids = body["held_food_ids"].duplicate()
+	var before_stock = base_food_stock
+	body["held_food_ids"] = []
+	body["revision"] += 1
+	base_food_stock = min(BASE_FOOD_CAPACITY, base_food_stock + BASE_FOOD_DEPOSIT * deposited_ids.size())
+	base_food_revision += 1
+	var subsequent_observation = get_observation(agent_id)
+	return _record_resolution(
+		agent_id, "deposit", target_id, "held food deposited; Base stock increased",
+		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
+		{"deposited_food_ids": deposited_ids, "before_base_food_stock": before_stock,
+			"after_base_food_stock": base_food_stock, "base_food_band": _base_food_band(),
+			"held_food_ids": []}
+	)
+
 func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = "", effects = {}):
 	var record = {
 		"tick": tick,
@@ -390,6 +455,27 @@ func _get_object(object_id):
 		if object_data.get("id", "") == object_id:
 			return object_data
 	return {}
+
+func _get_place(place_id):
+	for place in places:
+		if place.get("id", "") == place_id:
+			return place
+	return {}
+
+func _get_target(target_id):
+	var object_data = _get_object(target_id)
+	if not object_data.is_empty():
+		return object_data
+	return _get_place(target_id)
+
+func _base_food_band():
+	if base_food_stock <= 0.0:
+		return "empty"
+	if base_food_stock <= 1.0:
+		return "critical"
+	if base_food_stock <= 2.0:
+		return "low"
+	return "enough"
 
 func _find_object_index(object_id):
 	for i in range(objects.size()):

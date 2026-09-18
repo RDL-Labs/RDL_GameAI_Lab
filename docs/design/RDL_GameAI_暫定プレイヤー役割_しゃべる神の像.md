@@ -145,7 +145,9 @@ Player = Truth
 
 とはしない。
 
-NPCはPlayer発言を、
+Base–Food初期教育で神の像が出す朝の生活cueは、Playerの自由発言とは別の有限なsystem-generated assessment channelとする。system側は精密World値を評価できるが、NPCへ渡すのは粗いFood指標だけであり、action command・canonical Truth・直接操作権限にはしない。
+
+NPCはPlayer発言またはこの有限cueを、
 
 ```text
 信じる

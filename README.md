@@ -11,6 +11,7 @@
 3. [NPC Layer Plan](docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md): 状態の所有・更新・保持・検証
 4. [Canonical Experiment Roadmap](notes/experiment-roadmap.md): 実装成熟度と残る境界
 5. [Current Runtime Contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md): 現行動作の有限契約
+6. [Base–Food循環完成計画](docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md): 現在優先する参照生活ループ
 
 生活機能の追加順は[Game Feature Roadmap](docs/design/RDL_GameAI_実装手順予定.md)で管理します。
 
@@ -32,8 +33,10 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。
 - GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
 - First game feature: [minimal Food loop](docs/experiment-contracts/FOOD_minimal_loop_contract.md)。FoodNeed → approach → pickup → eat → world消費 / Need低下。
+- Current direction: 神の像の粗いFood cue → NPC観測・短期予測 → Goal → 継続するTrajectory → Base–Food完遂 → 経験 → cueなしの自律起動を段階的に成立させる。神の像にaction authorityは与えない。
+- Operational assisted slice: opt-inで粗いcue + 在庫bandからGoalを形成し、GO_TO_SITE / GATHER / RETURN_BASE / DEPOSITを完遂する。経験学習とcueなし自律化はまだdeferred。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
-- Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・在庫・飢餓等の広い生活機能。
+- Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
 固定retry profileは神経値から導出したものではありません。設計上の「DNA μ/σ → dynamic neural state → derived sensitivity」と現行実装を区別します。
 
@@ -61,6 +64,8 @@ semantic fallibility allowed; structural integrity required
 ```bash
 python -m runtime.bridge
 ```
+
+Assisted Base–Food実験は明示的に有効化します: python -m runtime.bridge --base-food-life
 
 Godot 4.7で [project.godot](godot/rdl-game-ai-workbench/project.godot) を開き、Run Projectを実行します。RuntimeモードでPython bridgeに接続します。MockモードはGodot単体です。
 

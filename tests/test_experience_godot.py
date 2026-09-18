@@ -11,6 +11,7 @@ from unittest.mock import patch
 from runtime import bridge
 from runtime.experience import InteractionHistory
 from runtime.history_policy import HistoryInfluencePolicy
+from runtime.life_policy import BaseFoodLifePolicy
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
@@ -52,6 +53,35 @@ class GodotExperienceTests(unittest.TestCase):
                 self.assertEqual(history.snapshot()["pending_results"], 0)
                 self.assertEqual(canonical.snapshot()["comparisons"], 4)
                 self.assertTrue(all(group["H"] == 0 for group in canonical.assessments.snapshot()["retained_H"]))
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
+    def test_real_workbench_assisted_base_food_loop(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.life_policy = BaseFoodLifePolicy()
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/base_food_http_check.gd"],
+                    capture_output=True, text=True, timeout=40,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Base-Food HTTP check passed", output)
+                self.assertGreaterEqual(len(history.snapshot()["records"]), 2)
+                self.assertGreaterEqual(canonical.snapshot()["comparisons"], 1)
                 print(output.strip())
             finally:
                 server.shutdown()

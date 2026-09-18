@@ -7,8 +7,9 @@ This Godot project is the world / interaction surface for `RDL_GameAI_Lab`. It i
 - mock world reference state
 - bounded per-agent observation
 - optional localhost Python runtime bridge
-- actual mock-world resolution for `approach / pickup / eat`
+- actual mock-world resolution for `approach / pickup / eat / deposit`
 - per-agent FoodNeed and held-food state owned by Godot
+- Godot-owned Base Food stock with coarse NPC-facing band and God Statue cue
 - subsequent bounded observation after changed conditions
 - canonical v2.3 semantics remain on the Python read-only sidecar
 
@@ -49,6 +50,11 @@ selected bounded observation
 select `pickup(target_id)`; held food can then be consumed with
 `eat(target_id)`, lowering FoodNeed. The provider records distinct
 source/subsequent observation IDs and finite world effects.
+
+With the Runtime started using `--base-food-life`, the Workbench also resolves
+the opt-in assisted loop from coarse cue through Goal, Food pickup, Base return,
+and deposit. The exact Base stock remains in Godot. Runtime receives only the
+coarse cue, observed stock band, known Base relation, and bounded observation.
 
 ## Canonical path
 

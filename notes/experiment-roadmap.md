@@ -10,6 +10,12 @@ is operational. Its changed world observations may enter the existing diagnostic
 path. FoodNeed is semantically intended as a finite M_B participant, while its
 current canonical runtime admission remains deferred; held-food/world state is
 not copied wholesale into M_B. Food completion does not advance Maturity 4/T1.
+Current game-feature priority is the assisted-to-autonomous
+[Base–Food reference loop](../docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md).
+A God Statue compresses precise Food state into a coarse external cue without action
+authority. The NPC interprets it, predicts locally, completes a persistent trajectory,
+records obey/ignore outcomes, and later gains a cue-independent trigger path. Threat
+and novelty interruption follow afterward. Canonical maturity remains independent.
 
 ## Maturity summary
 

@@ -384,6 +384,9 @@ func _refresh_inspector():
 	inspector_text.append_text("position: (%.1f, %.1f)\n" % [position.x, position.y])
 	inspector_text.append_text("food need: %.2f\n" % body.get("food_need", 0.0))
 	inspector_text.append_text("held food: %s\n\n" % ", ".join(body.get("held_food_ids", [])))
+	var life_context = state_provider.get_life_context(selected_agent_id)
+	inspector_text.append_text("Base food: %s\n" % life_context.get("observed_base_food_band", "unknown"))
+	inspector_text.append_text("God Statue cue: %s\n\n" % life_context.get("god_statue_cue", {}).get("band", "none"))
 	inspector_text.append_text("Workbench boundary:\n")
 	inspector_text.append_text("- bounded local Food / Body / History experiments\n")
 	inspector_text.append_text("- optional localhost runtime bridge in Runtime mode\n")
@@ -404,6 +407,11 @@ func _refresh_observation(state):
 	observation_text.append_text("visible agents: %s\n" % _labels_for(observation["visible_agents"]))
 	observation_text.append_text("visible objects: %s\n" % _labels_for(observation["visible_objects"]))
 	observation_text.append_text("visible places: %s\n" % _labels_for(observation["visible_places"]))
+	var life_context = state_provider.get_life_context(selected_agent_id)
+	observation_text.append_text("life cue: %s / observed stock: %s\n" % [
+		life_context.get("god_statue_cue", {}).get("band", "none"),
+		life_context.get("observed_base_food_band", "unknown")
+	])
 	observation_text.append_text("world objects visible to observer UI: %d\n" % world_object_count)
 	observation_text.append_text("objects inside selected agent boundary: %d\n" % visible_object_count)
 	if visible_object_count < world_object_count:
@@ -454,6 +462,14 @@ func _refresh_runtime_decision():
 		decision_text.append_text("target: %s\n" % action["target_id"])
 	decision_text.append_text("observation: %s\n" % inspection.get("observation_id", "?"))
 	decision_text.append_text("reason: %s\n" % inspection.get("reason", "?"))
+	var life = inspection.get("life", {})
+	if not life.is_empty():
+		decision_text.append_text("goal: %s\n" % str(life.get("goal", "none")))
+		decision_text.append_text("trajectory: %s / %s\n" % [
+			life.get("trajectory_phase", "NONE"), life.get("commitment", "none")
+		])
+		decision_text.append_text("prediction: %s\n" % life.get("short_prediction", "none"))
+		decision_text.append_text("cue authority: %s\n" % life.get("authority", "?"))
 	var expression = inspection.get("expression", {})
 	if not expression.is_empty():
 		decision_text.append_text("reaction: %s\n" % expression.get("label", "?"))
@@ -475,6 +491,11 @@ func _refresh_runtime_decision():
 			decision_text.append_text("food need: %.2f -> %.2f\n" % [effects["before_food_need"], effects["after_food_need"]])
 		if effects.has("held_food_ids"):
 			decision_text.append_text("held food: %s\n" % ", ".join(effects["held_food_ids"]))
+		if effects.has("before_base_food_stock"):
+			decision_text.append_text("Base stock: %.1f -> %.1f (%s)\n" % [
+				effects["before_base_food_stock"], effects["after_base_food_stock"],
+				effects.get("base_food_band", "?")
+			])
 		decision_text.append_text("next observation: %s\n" % runtime_resolution.get("subsequent_observation_id", "?"))
 		decision_text.append_text("note: %s\n" % runtime_resolution.get("note", "?"))
 		if history_status != "":
@@ -504,6 +525,7 @@ func _build_runtime_packet(agent_id):
 		"observation": {
 			"visible_agents": _runtime_entities(observation["visible_agents"], origin),
 			"body": state_provider.get_body_snapshot(agent_id),
+			"life_context": state_provider.get_life_context(agent_id),
 			"visible_objects": _runtime_entities(observation["visible_objects"], origin),
 			"visible_places": _runtime_entities(observation["visible_places"], origin)
 		}
