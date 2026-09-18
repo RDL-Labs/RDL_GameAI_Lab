@@ -13,6 +13,12 @@ accepts bounded `rest_need` and a visible rest-capable place, then emits
 Food and Rest action modes cannot be enabled together until a separate priority
 contract exists.
 
+`python -m runtime.bridge --rest-trajectory` enables the isolated
+[Rest Goal / Trajectory policy](../docs/experiment-contracts/REST_trajectory_contract.md).
+It keeps one fixed rest target through generic interruption and releases it on
+observed recovery or target disappearance. Observed safety is not yet used for
+selection.
+
 Individual retry experiment: `python -m runtime.bridge --history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
 The [profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md) defines fixed 1/3/5 tick response tendencies and their finite limits.
 

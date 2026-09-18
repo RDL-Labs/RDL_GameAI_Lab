@@ -1,6 +1,6 @@
 # Minimal Rest Loop Contract
 
-**Status:** Opt-in isolated loop operational
+**Status:** Reference baseline operational; Goal/Trajectory extension available
 
 **Boundary:** Godot-owned RestNeed and short-rest world resolution; no Sleep or consolidation
 
@@ -51,6 +51,7 @@ or canonical admission in this contract.
 - `rest_http_check.gd` verifies the live localhost chain from Runtime decisions
   through repeated Godot world changes to `rest` and recovery.
 
-The next behavior boundary is explicit Rest Goal/Trajectory ownership and
-interruption/recovery rules. Sleep remains a later, separately contracted
-world action and consolidation window.
+The [Rest Goal / Trajectory contract](REST_trajectory_contract.md) now extends
+this baseline with fixed-target commitment, generic interruption, same-target
+resume, completion, and structural release. Sleep remains a later, separately
+contracted world action and consolidation window.

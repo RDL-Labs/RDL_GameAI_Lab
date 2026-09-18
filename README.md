@@ -34,11 +34,11 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。
 - GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
 - First game feature: [minimal Food loop](docs/experiment-contracts/FOOD_minimal_loop_contract.md)。FoodNeed → approach → pickup → eat → world消費 / Need低下。
-- Current direction: [最小Rest loop](docs/experiment-contracts/REST_minimal_loop_contract.md)でRestNeed → rest point → short rest → recoveryの実縦断を開始した。次はRest固有Goal / Trajectory境界であり、Sleep / Consolidationは未実装。神の像にaction authorityは与えない。
+- Current direction: [最小Rest loop](docs/experiment-contracts/REST_minimal_loop_contract.md)に[Rest Goal / Trajectory](docs/experiment-contracts/REST_trajectory_contract.md)を追加し、固定target、generic保留、同一target復帰、完了、構造的releaseまで実縦断した。Sleep / Consolidationは未実装。神の像にaction authorityは与えない。
 - Operational assisted slice: 粗いcueからBase–Foodを完遂し、follow / ignore結果を分離する。deposit成功を有限経験として保持し、2成功後のみcueなしのlearned relationから同じ一周を自律起動できる。generic保留・再開、Threat profile差、Novelty三応答と復帰、両端の調整用extreme profile比較まで実装済み。
 - Reference status: [Base–Food completion evidence](docs/experiment-evidence/BASE_FOOD_reference_loop_evidence.md)を固定し、FoodNeed canonical promotionはshadow維持と判断。次の応用対象はRest / Sleep。
 - Observation resolution: [ρ contract](docs/experiment-contracts/RHO_observation_resolution_contract.md)で、Foodと[最小Rest投影](docs/experiment-contracts/RHO_rest_observation_contract.md)のLOW / MID / HIGH有限観測差を生成し、版付き契約でNPC/domain別に選択できる。明示設定したdomainだけ通常packetの独立sidecarへ付与し、既存action・canonical pathには未接続。
-- Rest behavior: opt-in隔離modeでGodot所有RestNeedがtick増加し、Runtimeがbounded rest pointへapproach、到達後short restでNeedを低下させる。Foodとのpriority policyはまだ導入しない。
+- Rest behavior: opt-in隔離modeでGodot所有RestNeedがtick増加し、RuntimeのRest policyがGoal / Trajectoryを維持する。generic interrupt後も同じrest pointへ復帰し、short rest後に完了する。Foodとのpriority policyはまだ導入しない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

@@ -20,6 +20,7 @@ from .life_policy import (
     parse_threat_profiles,
 )
 from .sensitivity import parse_retry_profiles
+from .rest_policy import RestTrajectoryPolicy
 from .v23_food_admission import (
     FoodAdmissionError,
     FoodNeedShadowComparisonSidecar,
@@ -38,6 +39,15 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/rest-snapshot":
+            policy = getattr(self.server, "rest_policy", None)
+            if policy is None:
+                self._send_json(404, {"error": "rest_trajectory_disabled"})
+                return
+            with CANONICAL_LOCK:
+                snapshot = policy.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/v1/life-snapshot":
             policy = getattr(self.server, "life_policy", None)
             if policy is None:
@@ -117,8 +127,11 @@ class BridgeHandler(BaseHTTPRequestHandler):
             packet = self._read_json()
             with CANONICAL_LOCK:
                 life_policy = getattr(self.server, "life_policy", None)
+                rest_policy = getattr(self.server, "rest_policy", None)
                 history_policy = getattr(self.server, "history_policy", None)
-                if life_policy:
+                if rest_policy:
+                    response = rest_policy.decide(packet)
+                elif life_policy:
                     response = life_policy.decide(packet)
                 else:
                     response = history_policy.decide(packet, EXPERIENCE) if history_policy else decide_action(packet)
@@ -202,6 +215,7 @@ def run(
     threat_profiles=None,
     novelty_responses=None,
     life_profiles=None,
+    rest_trajectory: bool = False,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -209,6 +223,8 @@ def run(
         raise ValueError("FoodNeed M_B shadow experiment requires a loopback host")
     if base_food_life and history_influence:
         raise ValueError("Base-Food life policy and history influence are separate opt-in policies")
+    if rest_trajectory and (base_food_life or history_influence):
+        raise ValueError("Rest trajectory is an isolated opt-in policy")
     if cue_responses and not base_food_life:
         raise ValueError("Base-Food cue responses require the life policy")
     if threat_profiles and not base_food_life:
@@ -226,6 +242,7 @@ def run(
         novelty_responses=novelty_responses,
         life_profiles=life_profiles,
     ) if base_food_life else None
+    server.rest_policy = RestTrajectoryPolicy() if rest_trajectory else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
     server.food_mb_shadow_lock = RLock()
     print("RDL GameAI Runtime listening on http://%s:%d" % (host, port))
@@ -251,6 +268,8 @@ def main() -> None:
                         help="Novelty response: ignore, inspect, or divert")
     parser.add_argument("--base-food-extreme-profile", action="append", default=[], metavar="AGENT=PROFILE",
                         help="Tuning preset: trajectory_locked or context_switching")
+    parser.add_argument("--rest-trajectory", action="store_true",
+                        help="Enable isolated Rest Goal/Trajectory policy")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -260,6 +279,8 @@ def main() -> None:
             raise ValueError("--food-mb-shadow requires a loopback --host")
         if args.base_food_life and args.history_influence:
             raise ValueError("--base-food-life cannot be combined with --history-influence")
+        if args.rest_trajectory and (args.base_food_life or args.history_influence):
+            raise ValueError("--rest-trajectory cannot be combined with other action policies")
         cue_responses = parse_cue_responses(args.base_food_cue_response)
         if cue_responses and not args.base_food_life:
             raise ValueError("--base-food-cue-response requires --base-food-life")
@@ -275,7 +296,8 @@ def main() -> None:
     except ValueError as exc:
         parser.error(str(exc))
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
-        args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles)
+        args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles,
+        args.rest_trajectory)
 
 
 if __name__ == "__main__":
