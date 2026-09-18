@@ -2,6 +2,7 @@ extends RefCounted
 class_name MockStateProvider
 
 const ObservationResolutionAdapterScript = preload("res://scripts/observation_resolution_adapter.gd")
+const ObservationResolutionProfileScript = preload("res://scripts/observation_resolution_profile.gd")
 
 const INITIAL_AGENTS = [
 	{
@@ -84,6 +85,7 @@ var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
 var interrupt_candidates = []
+var observation_resolution_profile = ObservationResolutionProfileScript.new()
 
 func reset():
 	tick = 0
@@ -280,6 +282,22 @@ func get_food_resolution_projection(agent_id, level):
 	return ObservationResolutionAdapterScript.project_food(
 		level, _base_food_band(), base_food_revision, food_site_visible
 	)
+
+func configure_observation_resolution(assignments):
+	return observation_resolution_profile.configure(assignments)
+
+func get_selected_food_resolution_projection(agent_id):
+	var selection = observation_resolution_profile.select(agent_id, "food")
+	if selection.is_empty():
+		return {}
+	var projection = get_food_resolution_projection(agent_id, selection["level"])
+	if projection.is_empty():
+		return {}
+	projection["selection"] = selection
+	return projection
+
+func get_observation_resolution_assignments():
+	return observation_resolution_profile.snapshot()
 
 func set_god_statue_cue_enabled(enabled):
 	god_statue_cue_enabled = bool(enabled)

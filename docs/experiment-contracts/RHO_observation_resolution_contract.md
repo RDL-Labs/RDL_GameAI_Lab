@@ -1,6 +1,7 @@
 # ρ Observation Resolution Contract
 
-**Status:** Food projection slice operational  
+**Status:** Food projection and versioned profile selection operational
+
 **Boundary:** Godot-local observation projection; no Runtime policy or canonical admission
 
 ## Operational slice
@@ -17,6 +18,14 @@ into three finite distinction schemas:
 Every projection includes `profile_id`, domain, level, rule version, and an
 explicit GameAI-local authority boundary. It contains no exact Base stock.
 Unsupported levels fail closed.
+
+`ObservationResolutionProfile` owns only the finite agent/domain assignment.
+Its `rho-profile-selection-v1` contract supports the `food` domain, uses MID as
+the explicit default, and permits LOW/MID/HIGH assignments. Configuration is
+atomic: an unsupported domain or level rejects the whole candidate without
+replacing the last accepted assignment. Selection provenance records the
+profile version, agent, domain, level, and whether the level was explicit or
+defaulted.
 
 ## Non-intervention
 
@@ -38,9 +47,14 @@ provider state. It verifies distinct finite schemas, no exact-stock leakage,
 invalid-level rejection, authority provenance, and unchanged world/default
 context before and after projection.
 
+`rho_profile_selection_check.gd` fixes `npc_a: food LOW` and `npc_b: food HIGH`
+against one unchanged World. It verifies distinct selected schemas, versioned
+provenance, atomic rejection, and non-intervention in World and life context.
+
 ## Next boundary
 
-Add a versioned profile-selection contract before attaching ρ projection to
-normal observation packets. After that non-intervention check, reuse the
-Adapter structure for the minimal Rest / Sleep context. Learning, DNA, Neural
-derivation, salience changes, and canonical admission remain deferred.
+Normal observation packets still do not include this projection. Before that
+connection, decide the finite packet field and preserve legacy packet behavior
+for unconfigured runs. Then reuse the Adapter structure for the minimal Rest /
+Sleep context. Learning, DNA, Neural derivation, salience changes, true temporal
+trend, and canonical admission remain deferred.
