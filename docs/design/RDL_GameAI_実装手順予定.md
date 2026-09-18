@@ -184,7 +184,7 @@ Experience Consolidationは横断系として段階接続する。
 
 ## Phase 3 — EnergyReserve / ActiveEnergy
 
-**現在地:** `ActiveEnergy` の最小opt-in loop、独立した `EnergyReserve` の最小Sleep回復、個体別 `ActiveEnergyCapacity` 上限は実装済み。実移動はActiveEnergyだけを消費し、short restはActiveEnergyだけを小回復、bounded Sleepは両方を異なる有限量で回復する。reserve移送、capacityの動的変化、枯渇時の行動拘束、Need arbitrationは未実装。
+**現在地:** 参照実装として完了し、[Phase 3 Energy Evidence](../experiment-evidence/ENERGY_phase3_reference_evidence.md)を固定済み。`ActiveEnergy` の最小opt-in loop、独立した `EnergyReserve` の最小Sleep回復、個体別 `ActiveEnergyCapacity` 上限が実装されている。reserve移送、capacityの動的変化、枯渇時の行動拘束、Need arbitrationは未実装のまま、具体的なゲーム要件が出るまで拡張を停止する。
 
 ```text
 EnergyReserve

@@ -20,6 +20,10 @@ dynamic capacity change, energy-driven action authority,
 Food/Rest arbitration, World Time, sleep pressure, and Sleep Consolidation remain
 deferred. Canonical maturity remains independent.
 
+Phase 3 Energy is closed as an operational reference. Safety / Danger is the
+next life-feature boundary; it must not reopen Energy without a named coupling
+Acceptance.
+
 ρ v0.x is a [closed operational reference](../docs/experiment-evidence/RHO_v0_reference_evidence.md):
 Food/Rest profiles, finite projections, packet provenance, cross-domain reuse,
 and the Rest candidate-description causal chain are established. Further ρ
