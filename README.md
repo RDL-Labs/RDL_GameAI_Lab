@@ -37,6 +37,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Current direction: 完了したBase–Food参照構造を、Food固有定数を持ち込まずRest / Sleep生活循環へ応用する。神の像にaction authorityは与えない。
 - Operational assisted slice: 粗いcueからBase–Foodを完遂し、follow / ignore結果を分離する。deposit成功を有限経験として保持し、2成功後のみcueなしのlearned relationから同じ一周を自律起動できる。generic保留・再開、Threat profile差、Novelty三応答と復帰、両端の調整用extreme profile比較まで実装済み。
 - Reference status: [Base–Food completion evidence](docs/experiment-evidence/BASE_FOOD_reference_loop_evidence.md)を固定し、FoodNeed canonical promotionはshadow維持と判断。次の応用対象はRest / Sleep。
+- Observation resolution: [ρ contract](docs/experiment-contracts/RHO_observation_resolution_contract.md)のFood投影sliceで、同一WorldからLOW / MID / HIGHの有限観測差を生成。既存action/canonical pathには未接続。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

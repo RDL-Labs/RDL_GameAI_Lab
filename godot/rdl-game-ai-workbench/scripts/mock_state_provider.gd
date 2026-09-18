@@ -1,6 +1,8 @@
 extends RefCounted
 class_name MockStateProvider
 
+const ObservationResolutionAdapterScript = preload("res://scripts/observation_resolution_adapter.gd")
+
 const INITIAL_AGENTS = [
 	{
 		"id": "npc_a",
@@ -265,6 +267,19 @@ func get_life_context(agent_id):
 
 func set_interrupt_candidates(candidates):
 	interrupt_candidates = candidates.duplicate(true)
+
+func get_food_resolution_projection(agent_id, level):
+	var agent = get_agent(agent_id)
+	if agent.is_empty():
+		return {}
+	var food_site_visible = false
+	for object_data in objects:
+		if object_data.get("kind", "") == "food" and _is_visible(agent["position"], object_data["position"], PERCEPTION_RADIUS):
+			food_site_visible = true
+			break
+	return ObservationResolutionAdapterScript.project_food(
+		level, _base_food_band(), base_food_revision, food_site_visible
+	)
 
 func set_god_statue_cue_enabled(enabled):
 	god_statue_cue_enabled = bool(enabled)
