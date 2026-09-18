@@ -72,8 +72,9 @@ requires exactly equal decisions.
 
 ## Next boundary
 
-The minimal Rest projection now proves cross-domain reuse without copying
-Food-specific distinctions. The next boundary is an owned RestNeed and a
-world-changing rest interaction under a separate behavior contract. Runtime
-action use, Sleep Consolidation, learning, DNA, Neural derivation, salience
-changes, and canonical admission remain deferred.
+The Rest line now includes owned RestNeed, world-changing short rest, independent
+target selection, and fixed-target Trajectory contracts. A double-opt-in causal
+experiment connects `rho_rest` to candidate description before the unchanged
+selector; default Runtime behavior still ignores the sidecar. Sleep
+Consolidation, learning, DNA, Neural derivation, salience changes, Food/Rest
+arbitration, and canonical admission remain deferred.

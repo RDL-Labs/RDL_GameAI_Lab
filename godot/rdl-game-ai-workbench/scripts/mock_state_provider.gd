@@ -52,7 +52,7 @@ const INITIAL_PLACES = [
 		"rest_safety": "safe"
 	},
 	{
-		"id": "grove",
+		"id": "z_grove",
 		"label": "Grove",
 		"role": "mock place",
 		"position": Vector2(355, 245),

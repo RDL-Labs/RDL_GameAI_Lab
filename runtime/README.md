@@ -19,6 +19,11 @@ It keeps one fixed rest target through generic interruption and releases it on
 observed recovery or target disappearance. Observed safety is not yet used for
 selection.
 
+Add `--rest-rho-candidates` with `--rest-trajectory` to enable the
+[ρ Rest candidate-description experiment](../docs/experiment-contracts/RHO_rest_candidate_description_contract.md).
+ρ changes only the bounded candidate fields passed to the unchanged selector;
+it does not select or commit the target directly.
+
 Individual retry experiment: `python -m runtime.bridge --history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
 The [profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md) defines fixed 1/3/5 tick response tendencies and their finite limits.
 

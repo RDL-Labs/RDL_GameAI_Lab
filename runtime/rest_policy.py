@@ -7,6 +7,7 @@ from typing import Any
 from .core import ObservationError, RuntimeDecision, apply_body_constraint, decide_action
 from .expression import with_expression
 from .rest_target_selection import RestTargetSelectionPolicy
+from .rest_candidate_description import RestCandidateDescriptionAdapter
 
 
 POLICY_ID = "rest-trajectory-v1"
@@ -24,12 +25,14 @@ class RestTrajectory:
 class RestTrajectoryPolicy:
     """Maintain one Rest target across observations and finite interruption."""
 
-    def __init__(self, capacity: int = 128, target_selection=None):
+    def __init__(self, capacity: int = 128, target_selection=None, use_rho_candidates=False):
         self.capacity = capacity
         self._trajectories: dict[str, RestTrajectory] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
         self._target_selection = target_selection or RestTargetSelectionPolicy()
         self._selection_records: dict[str, dict[str, Any]] = {}
+        self._use_rho_candidates = bool(use_rho_candidates)
+        self._candidate_description = RestCandidateDescriptionAdapter()
 
     def decide(self, packet: dict[str, Any]) -> dict[str, Any]:
         decide_action(packet)  # Validate the shared bounded packet contract.
@@ -61,7 +64,16 @@ class RestTrajectoryPolicy:
             structural_release = True
 
         if trajectory is None and not completed and body["rest_need"] >= REST_GOAL_THRESHOLD:
-            selection = self._target_selection.select(observation["visible_places"])
+            candidate_places = observation["visible_places"]
+            description = None
+            if self._use_rho_candidates:
+                description = self._candidate_description.describe(
+                    candidate_places, observation.get("observation_resolution")
+                )
+                candidate_places = description["descriptions"]
+            selection = self._target_selection.select(candidate_places)
+            if selection and description is not None:
+                selection["candidate_description"] = description
             target = selection.get("selected", {})
             if target:
                 trajectory = RestTrajectory(target_id=target["target_id"])

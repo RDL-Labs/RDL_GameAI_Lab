@@ -43,9 +43,11 @@ Release occurs when the fixed target:
 
 ## Separation from ρ
 
-This first selector consumes fixed bounded `rest_safety` and
-`rest_distance_band` fields. It does not inspect `observation_resolution`,
-ρ profile IDs, or ρ levels.
+The selector itself consumes only bounded `rest_safety` and
+`rest_distance_band` fields. It never inspects `observation_resolution`, ρ
+profile IDs, or ρ levels. An independent
+[ρ candidate-description adapter](RHO_rest_candidate_description_contract.md)
+may now produce those same fields before selection in a double-opt-in experiment.
 
 ```text
 rho_rest → candidate distinction          # later experiment
@@ -53,13 +55,13 @@ selection rule → chosen target             # this contract
 trajectory → persistence                   # separate contract
 ```
 
-The current World exposes Plaza as `safe` and Grove as `uncertain`; both are in
+The current World exposes Plaza as `safe` and `z_grove` as `uncertain`; both are in
 the same coarse `near` band for the integration fixture. The selector chooses
 Plaza, after which the trajectory remains fixed through interruption and
 candidate-rank changes.
 
 ## Deferred
 
-ρ-dependent candidate descriptions, learned safety, exact-distance
-optimization, dynamic pathfinding, Threat/Novelty response, and Food/Rest Need
-arbitration remain outside this contract.
+Learned safety, dynamic ρ, exact-distance optimization, dynamic pathfinding,
+Threat/Novelty response, and Food/Rest Need arbitration remain outside this
+contract.

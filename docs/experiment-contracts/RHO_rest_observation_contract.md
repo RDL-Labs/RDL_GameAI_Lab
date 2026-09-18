@@ -45,6 +45,8 @@ not silently attach the default Food projection.
 worsening trend, visible safe rest context, per-agent LOW/HIGH selection,
 Rest-only packet attachment, and unchanged World/default life context.
 
-The next Rest slice may introduce an owned RestNeed and world-changing rest
-interaction, but only under a separate behavior contract. This observation
-contract does not authorize that step.
+The separate Rest behavior contracts now provide RestNeed, world-changing short
+rest, target selection, and Trajectory. An additional
+[double-opt-in experiment](RHO_rest_candidate_description_contract.md) connects
+ρ to candidate description while preserving this projection's lack of direct
+selection or action authority.

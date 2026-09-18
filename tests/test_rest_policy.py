@@ -75,6 +75,31 @@ class RestTrajectoryPolicyTests(unittest.TestCase):
             "plaza",
         )
 
+    def test_rho_candidate_mode_changes_description_before_selection(self):
+        def sidecar(level):
+            return {
+                "schema_version": "rho-observation-resolution-packet-v1",
+                "domains": {"rest": {
+                    "level": level, "rule_version": "rho-rest-projection-v1",
+                    "selection": {"selection_profile_version": "rho-profile-selection-v1"},
+                }},
+            }
+
+        targets = {}
+        for level in ("LOW", "HIGH"):
+            policy = RestTrajectoryPolicy(use_rho_candidates=True)
+            packet = self.packet("rest-%s" % level.lower())
+            packet["observation"]["visible_places"].append({
+                "id": "z_grove", "rest_capable": True, "rest_safety": "uncertain",
+                "within_reach": False, "rest_distance_band": "near",
+            })
+            packet["observation"]["observation_resolution"] = sidecar(level)
+            decision = policy.decide(packet)
+            targets[level] = decision["action"]["target_id"]
+            record = decision["inspection"]["rest"]["target_selection"]
+            self.assertEqual(record["candidate_description"]["rho_level"], level)
+        self.assertEqual(targets, {"LOW": "z_grove", "HIGH": "plaza"})
+
     def test_target_disappearance_structurally_releases(self):
         policy = RestTrajectoryPolicy()
         policy.decide(self.packet("rest-1"))
