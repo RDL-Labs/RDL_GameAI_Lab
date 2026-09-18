@@ -3,7 +3,7 @@ extends RefCounted
 
 const PROFILE_VERSION = "rho-profile-selection-v1"
 const DEFAULT_LEVEL = "MID"
-const SUPPORTED_DOMAINS = ["food"]
+const SUPPORTED_DOMAINS = ["food", "rest"]
 const SUPPORTED_LEVELS = ["LOW", "MID", "HIGH"]
 
 var _assignments = {}
@@ -41,3 +41,8 @@ func select(agent_id, domain):
 
 func snapshot():
 	return _assignments.duplicate(true)
+
+func explicit_domains(agent_id):
+	if not _assignments.has(agent_id):
+		return []
+	return _assignments[agent_id].keys()

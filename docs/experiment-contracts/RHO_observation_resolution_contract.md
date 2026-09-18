@@ -1,6 +1,6 @@
 # ρ Observation Resolution Contract
 
-**Status:** Food projection, versioned selection, and opt-in packet sidecar operational
+**Status:** Food/Rest projection, versioned selection, and opt-in packet sidecar operational
 
 **Boundary:** Godot-local observation projection; no Runtime policy or canonical admission
 
@@ -20,8 +20,8 @@ explicit GameAI-local authority boundary. It contains no exact Base stock.
 Unsupported levels fail closed.
 
 `ObservationResolutionProfile` owns only the finite agent/domain assignment.
-Its `rho-profile-selection-v1` contract supports the `food` domain, uses MID as
-the explicit default, and permits LOW/MID/HIGH assignments. Configuration is
+Its `rho-profile-selection-v1` contract supports the `food` and `rest` domains,
+uses MID as the explicit default, and permits LOW/MID/HIGH assignments. Configuration is
 atomic: an unsupported domain or level rejects the whole candidate without
 replacing the last accepted assignment. Selection provenance records the
 profile version, agent, domain, level, and whether the level was explicit or
@@ -34,7 +34,8 @@ observation:
 observation_resolution
 └── schema_version: rho-observation-resolution-packet-v1
     └── domains
-        └── food: selected finite projection + provenance
+        ├── food: selected finite projection + provenance
+        └── rest: selected finite projection + provenance
 ```
 
 The existing bounded fields are unchanged. An unconfigured or disabled run
@@ -71,8 +72,8 @@ requires exactly equal decisions.
 
 ## Next boundary
 
-Reuse the Adapter and `domains` packet structure for a minimal Rest / Sleep
-context without copying Food-specific distinctions. Runtime action use remains
-deferred until a separate causal Acceptance is defined. Learning, DNA, Neural
-derivation, salience changes, true temporal trend, and canonical admission also
-remain deferred.
+The minimal Rest projection now proves cross-domain reuse without copying
+Food-specific distinctions. The next boundary is an owned RestNeed and a
+world-changing rest interaction under a separate behavior contract. Runtime
+action use, Sleep Consolidation, learning, DNA, Neural derivation, salience
+changes, and canonical admission remain deferred.

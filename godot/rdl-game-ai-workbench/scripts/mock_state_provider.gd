@@ -47,7 +47,9 @@ const INITIAL_PLACES = [
 		"label": "Plaza",
 		"role": "mock place",
 		"position": Vector2(90, 80),
-		"radius": 95.0
+		"radius": 95.0,
+		"rest_capable": true,
+		"rest_safety": "safe"
 	},
 	{
 		"id": "grove",
@@ -87,11 +89,16 @@ var god_statue_cue_enabled = true
 var interrupt_candidates = []
 var observation_resolution_profile = ObservationResolutionProfileScript.new()
 var observation_resolution_enabled = false
+var mock_rest_contexts = {}
 
 func reset():
 	tick = 0
 	observation_seq = 0
 	body_states = {}
+	mock_rest_contexts = {
+		"npc_a": {"fatigue_band": "tired", "previous_fatigue_band": "tiring"},
+		"npc_b": {"fatigue_band": "tired", "previous_fatigue_band": "tiring"}
+	}
 	base_food_stock = BASE_FOOD_INITIAL
 	base_food_revision = 0
 	god_statue_cue_enabled = true
@@ -188,11 +195,15 @@ func get_observation(agent_id):
 		"visible_places": visible_places
 	}
 	if observation_resolution_enabled:
-		var food_projection = get_selected_food_resolution_projection(agent_id)
-		if not food_projection.is_empty():
+		var domains = {}
+		for domain in observation_resolution_profile.explicit_domains(agent_id):
+			var projection = get_selected_resolution_projection(agent_id, domain)
+			if not projection.is_empty():
+				domains[domain] = projection
+		if not domains.is_empty():
 			observation["observation_resolution"] = {
 				"schema_version": "rho-observation-resolution-packet-v1",
-				"domains": {"food": food_projection}
+				"domains": domains
 			}
 	return observation
 
@@ -310,6 +321,39 @@ func get_selected_food_resolution_projection(agent_id):
 		return {}
 	projection["selection"] = selection
 	return projection
+
+func get_rest_resolution_projection(agent_id, level):
+	var agent = get_agent(agent_id)
+	if agent.is_empty() or not mock_rest_contexts.has(agent_id):
+		return {}
+	var rest_context = {"availability": "not_observed", "safety": "unknown"}
+	for place in places:
+		if place.get("rest_capable", false) and _is_visible(
+			agent["position"], place["position"], PERCEPTION_RADIUS + place.get("radius", 0.0)
+		):
+			rest_context = {"availability": "available", "safety": place.get("rest_safety", "unknown")}
+			break
+	var source = mock_rest_contexts[agent_id]
+	return ObservationResolutionAdapterScript.project_rest(
+		level, source["fatigue_band"], source["previous_fatigue_band"], rest_context
+	)
+
+func get_selected_rest_resolution_projection(agent_id):
+	var selection = observation_resolution_profile.select(agent_id, "rest")
+	if selection.is_empty():
+		return {}
+	var projection = get_rest_resolution_projection(agent_id, selection["level"])
+	if projection.is_empty():
+		return {}
+	projection["selection"] = selection
+	return projection
+
+func get_selected_resolution_projection(agent_id, domain):
+	if domain == "food":
+		return get_selected_food_resolution_projection(agent_id)
+	if domain == "rest":
+		return get_selected_rest_resolution_projection(agent_id)
+	return {}
 
 func get_observation_resolution_assignments():
 	return observation_resolution_profile.snapshot()
