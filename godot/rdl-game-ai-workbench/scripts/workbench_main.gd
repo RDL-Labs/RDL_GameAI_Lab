@@ -556,17 +556,21 @@ func _build_runtime_packet(agent_id):
 	var agent = state_provider.get_agent(agent_id)
 	var origin = agent.get("position", Vector2.ZERO)
 
+	var packet_observation = {
+		"visible_agents": _runtime_entities(observation["visible_agents"], origin),
+		"body": state_provider.get_body_snapshot(agent_id),
+		"life_context": state_provider.get_life_context(agent_id),
+		"visible_objects": _runtime_entities(observation["visible_objects"], origin),
+		"visible_places": _runtime_entities(observation["visible_places"], origin)
+	}
+	if observation.has("observation_resolution"):
+		packet_observation["observation_resolution"] = observation["observation_resolution"].duplicate(true)
+
 	return {
 		"observation_id": observation.get("observation_id", ""),
 		"tick": observation["tick"],
 		"agent_id": agent_id,
-		"observation": {
-			"visible_agents": _runtime_entities(observation["visible_agents"], origin),
-			"body": state_provider.get_body_snapshot(agent_id),
-			"life_context": state_provider.get_life_context(agent_id),
-			"visible_objects": _runtime_entities(observation["visible_objects"], origin),
-			"visible_places": _runtime_entities(observation["visible_places"], origin)
-		}
+		"observation": packet_observation
 	}
 
 func _runtime_entities(items, origin):

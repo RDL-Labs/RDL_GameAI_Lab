@@ -86,6 +86,7 @@ var base_food_revision = 0
 var god_statue_cue_enabled = true
 var interrupt_candidates = []
 var observation_resolution_profile = ObservationResolutionProfileScript.new()
+var observation_resolution_enabled = false
 
 func reset():
 	tick = 0
@@ -177,7 +178,7 @@ func get_observation(agent_id):
 		if _is_visible(agent["position"], place["position"], PERCEPTION_RADIUS + place.get("radius", 0.0)):
 			visible_places.append(place.duplicate(true))
 
-	return {
+	var observation = {
 		"observation_id": _next_observation_id(agent_id),
 		"tick": tick,
 		"agent_id": agent_id,
@@ -186,6 +187,14 @@ func get_observation(agent_id):
 		"visible_objects": visible_objects,
 		"visible_places": visible_places
 	}
+	if observation_resolution_enabled:
+		var food_projection = get_selected_food_resolution_projection(agent_id)
+		if not food_projection.is_empty():
+			observation["observation_resolution"] = {
+				"schema_version": "rho-observation-resolution-packet-v1",
+				"domains": {"food": food_projection}
+			}
+	return observation
 
 func get_latest_decision(agent_id):
 	for i in range(decision_records.size() - 1, -1, -1):
@@ -284,7 +293,13 @@ func get_food_resolution_projection(agent_id, level):
 	)
 
 func configure_observation_resolution(assignments):
-	return observation_resolution_profile.configure(assignments)
+	if not observation_resolution_profile.configure(assignments):
+		return false
+	observation_resolution_enabled = true
+	return true
+
+func disable_observation_resolution():
+	observation_resolution_enabled = false
 
 func get_selected_food_resolution_projection(agent_id):
 	var selection = observation_resolution_profile.select(agent_id, "food")

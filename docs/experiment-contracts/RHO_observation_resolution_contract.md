@@ -1,6 +1,6 @@
 # ρ Observation Resolution Contract
 
-**Status:** Food projection and versioned profile selection operational
+**Status:** Food projection, versioned selection, and opt-in packet sidecar operational
 
 **Boundary:** Godot-local observation projection; no Runtime policy or canonical admission
 
@@ -27,6 +27,19 @@ replacing the last accepted assignment. Selection provenance records the
 profile version, agent, domain, level, and whether the level was explicit or
 defaulted.
 
+An explicitly configured provider adds one sibling field to the normal bounded
+observation:
+
+```text
+observation_resolution
+└── schema_version: rho-observation-resolution-packet-v1
+    └── domains
+        └── food: selected finite projection + provenance
+```
+
+The existing bounded fields are unchanged. An unconfigured or disabled run
+omits the field entirely and therefore retains the legacy packet shape.
+
 ## Non-intervention
 
 The first slice is diagnostic only. Calling the adapter does not change:
@@ -51,10 +64,15 @@ context before and after projection.
 against one unchanged World. It verifies distinct selected schemas, versioned
 provenance, atomic rejection, and non-intervention in World and life context.
 
+`rho_observation_packet_check.gd` verifies opt-in attachment, unchanged legacy
+fields, exact-value non-leakage, disable behavior, and unchanged World state.
+The Python Runtime test sends equal packets with and without the sidecar and
+requires exactly equal decisions.
+
 ## Next boundary
 
-Normal observation packets still do not include this projection. Before that
-connection, decide the finite packet field and preserve legacy packet behavior
-for unconfigured runs. Then reuse the Adapter structure for the minimal Rest /
-Sleep context. Learning, DNA, Neural derivation, salience changes, true temporal
-trend, and canonical admission remain deferred.
+Reuse the Adapter and `domains` packet structure for a minimal Rest / Sleep
+context without copying Food-specific distinctions. Runtime action use remains
+deferred until a separate causal Acceptance is defined. Learning, DNA, Neural
+derivation, salience changes, true temporal trend, and canonical admission also
+remain deferred.

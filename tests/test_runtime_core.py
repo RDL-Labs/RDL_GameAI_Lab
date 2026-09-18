@@ -1,9 +1,33 @@
 import unittest
+from copy import deepcopy
 
 from runtime.core import ObservationError, decide_action
 
 
 class RuntimeCoreTests(unittest.TestCase):
+    def test_observation_resolution_sidecar_does_not_change_action(self):
+        packet = {
+            "observation_id": "rho-non-intervention",
+            "tick": 0,
+            "agent_id": "npc_a",
+            "observation": {
+                "visible_agents": [],
+                "visible_objects": [{"id": "food_01", "kind": "food"}],
+                "visible_places": [],
+            },
+        }
+        enriched = deepcopy(packet)
+        enriched["observation"]["observation_resolution"] = {
+            "schema_version": "rho-observation-resolution-packet-v1",
+            "domains": {"food": {
+                "level": "LOW",
+                "distinctions": {"supply_status": "needs_supply"},
+                "selection": {"selection_profile_version": "rho-profile-selection-v1"},
+            }},
+        }
+
+        self.assertEqual(decide_action(packet), decide_action(enriched))
+
     def food_packet(self, *, within_reach=False, held=None, food_need=0.8):
         return {
             "observation_id": "food-state",
