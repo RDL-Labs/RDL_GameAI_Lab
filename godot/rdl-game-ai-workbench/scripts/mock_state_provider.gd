@@ -128,6 +128,7 @@ func reset():
 			"food_need": 0.8,
 			"rest_need": 0.8,
 			"active_energy": ACTIVE_ENERGY_INITIAL,
+			"active_energy_capacity": ACTIVE_ENERGY_INITIAL,
 			"energy_reserve": ENERGY_RESERVE_INITIAL,
 			"held_food_ids": [],
 			"revision": 0
@@ -294,12 +295,27 @@ func get_body_snapshot(agent_id):
 		snapshot["sleep_window"] = sleep_window_enabled
 	if active_energy_enabled:
 		snapshot["active_energy"] = body["active_energy"]
+		snapshot["active_energy_capacity"] = body["active_energy_capacity"]
 	if energy_reserve_enabled:
 		snapshot["energy_reserve"] = body["energy_reserve"]
 	return snapshot
 
 func set_active_energy_enabled(enabled):
 	active_energy_enabled = bool(enabled)
+
+func set_active_energy_capacity(agent_id, capacity):
+	if not body_states.has(agent_id) or typeof(capacity) not in [TYPE_FLOAT, TYPE_INT]:
+		return false
+	var numeric_capacity = float(capacity)
+	if not is_finite(numeric_capacity) or numeric_capacity <= 0.0 or numeric_capacity > 1.0:
+		return false
+	var body = body_states[agent_id]
+	if is_equal_approx(body["active_energy_capacity"], numeric_capacity):
+		return true
+	body["active_energy_capacity"] = numeric_capacity
+	body["active_energy"] = min(body["active_energy"], numeric_capacity)
+	body["revision"] += 1
+	return true
 
 func set_energy_reserve_enabled(enabled):
 	energy_reserve_enabled = bool(enabled)
@@ -695,7 +711,7 @@ func _change_active_energy(agent_id, delta):
 		return {}
 	var body = body_states[agent_id]
 	var before_energy = body["active_energy"]
-	body["active_energy"] = clamp(before_energy + delta, 0.0, 1.0)
+	body["active_energy"] = clamp(before_energy + delta, 0.0, body["active_energy_capacity"])
 	if not is_equal_approx(before_energy, body["active_energy"]):
 		body["revision"] += 1
 	return {

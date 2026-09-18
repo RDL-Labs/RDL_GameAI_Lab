@@ -19,7 +19,8 @@ bounded sleep
 
 Godot owns `active_energy` and applies each world/body change. The bounded body
 snapshot exposes it only when the experiment is explicitly enabled. Values are
-clamped to `[0, 1]`, and each changed value advances body revision provenance.
+clamped to the agent's finite `ActiveEnergyCapacity`, and each changed value
+advances body revision provenance.
 
 ## Separation
 

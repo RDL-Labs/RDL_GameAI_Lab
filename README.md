@@ -40,7 +40,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Observation resolution: [ρ contract](docs/experiment-contracts/RHO_observation_resolution_contract.md)でFood / RestのLOW / MID / HIGH、版付きprofile、packet sidecar、provenanceを実装。default actionとcanonical pathは非介入。Restの二重opt-in実験のみ候補記述へ接続済み。
 - Rest behavior: opt-in隔離modeでGodot所有RestNeedがtick増加し、独立した[有限target selection](docs/experiment-contracts/REST_target_selection_contract.md)が一度だけ候補を選ぶ。[ρ Rest candidate実験](docs/experiment-contracts/RHO_rest_candidate_description_contract.md)はLOW/HIGHで候補記述だけを変え、同じselectorから異なるtargetを得る。Trajectoryはgeneric interrupt後も同じtargetへ復帰する。Food priorityは未接続。
 - Sleep behavior: opt-in隔離modeで `RestNeed >= 0.85`、明示sleep window、bounded safe placeが揃った時だけPlazaへapproachしてsleepする。GodotがRestNeedを回復し、`consolidation=not_run`を記録する。
-- Energy: opt-in時のみGodotが独立したActiveEnergy / EnergyReserveを所有する。実移動はActiveEnergyだけを消費、short restはActiveEnergyだけを小回復、Sleepは両方を回復する。reserve移送と行動選択への接続はまだ行わない。
+- Energy: opt-in時のみGodotが独立したActiveEnergy / EnergyReserveと個体別ActiveEnergyCapacityを所有する。実移動はActiveEnergyだけを消費、short restはActiveEnergyだけを小回復、Sleepは両方を回復し、ActiveEnergy回復はcapacityで止まる。reserve移送と行動選択への接続はまだ行わない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

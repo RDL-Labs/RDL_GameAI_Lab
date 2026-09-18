@@ -15,7 +15,8 @@ is complete. Current game-feature work is the isolated Rest line: Godot-owned
 RestNeed, finite target selection, fixed-target Trajectory, generic interruption,
 same-target resume, short-rest recovery, structural release, and a bounded safe-place
 Sleep life action plus independent opt-in ActiveEnergy and EnergyReserve body
-loops are operational. Reserve transfer, capacity, energy-driven action authority,
+loops and finite per-agent ActiveEnergyCapacity are operational. Reserve transfer,
+dynamic capacity change, energy-driven action authority,
 Food/Rest arbitration, World Time, sleep pressure, and Sleep Consolidation remain
 deferred. Canonical maturity remains independent.
 

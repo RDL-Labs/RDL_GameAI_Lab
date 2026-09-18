@@ -18,6 +18,19 @@ from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_active_energy_capacity_bounds_recovery(self):
+        project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+        completed = subprocess.run(
+            [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+             "--script", "res://tests/active_energy_capacity_check.gd"],
+            capture_output=True, text=True, timeout=40,
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+        )
+        output = completed.stdout + completed.stderr
+        self.assertEqual(completed.returncode, 0, output)
+        self.assertIn("ActiveEnergyCapacity check passed", output)
+        print(output.strip())
+
     def test_energy_reserve_world_loop(self):
         project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
         completed = subprocess.run(
