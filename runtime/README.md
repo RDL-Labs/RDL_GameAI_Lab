@@ -27,7 +27,8 @@ python -m runtime.bridge --base-food-life.
 It consumes only the coarse God Statue cue, NPC-observed stock band, known Base
 relation, bounded visible Food, and self-body snapshot. It maintains a finite
 GameAI-local Goal/Trajectory through deposit. It does not admit precise Base
-stock, add canonical action authority, or implement habit learning.
+stock or add canonical action authority. Its finite two-success habit boundary
+does not implement a general learning system.
 
 Phase 4 follow/ignore evidence is configurable per agent:
 
@@ -40,6 +41,12 @@ Successful assisted deposits are accepted at POST /v1/life-result and inspected
 through GET /v1/life-snapshot. Records are finite and idempotent. Two distinct
 successes enable the cue-independent low-stock trigger for that agent; one does
 not. This is GameAI-local habit evidence, not canonical M_B admission.
+
+Phase 6 accepts finite `generic` interrupt candidates in `life_context`. A
+candidate at or above the fixed 0.7 salience threshold holds the committed
+trajectory as `SUSPENDED`; removing it resumes the prior Base-Food path. The
+candidate is observation material, not action authority. Threat semantics,
+Novelty semantics, and per-agent interrupt thresholds remain deferred.
 
 Current properties:
 

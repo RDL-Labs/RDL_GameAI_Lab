@@ -1,11 +1,12 @@
 import unittest
 
+from runtime.core import ObservationError
 from runtime.life_policy import BaseFoodLifePolicy, parse_cue_responses
 
 
 class BaseFoodLifePolicyTests(unittest.TestCase):
     def packet(self, *, cue="low", observed="low", at_base=True,
-               position="far", held=None, observation_id="life-1"):
+               position="far", held=None, observation_id="life-1", interrupts=None):
         item = {"id": "food_01", "kind": "food", "within_reach": position == "near"}
         return {
             "observation_id": observation_id,
@@ -28,6 +29,7 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
                     "observed_base_food_band": observed,
                     "known_base": {"id": "base"},
                     "at_base": at_base,
+                    "interrupt_candidates": list(interrupts or []),
                 },
             },
         }
@@ -102,6 +104,40 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
         response = policy.decide(packet)
         self.assertEqual(response["action"], {"type": "idle"})
         self.assertFalse(response["inspection"]["life"]["habit_ready"])
+
+    def test_generic_interrupt_holds_then_resumes_committed_trajectory(self):
+        policy = BaseFoodLifePolicy()
+        policy.decide(self.packet())
+        held = policy.decide(self.packet(
+            observation_id="life-2",
+            interrupts=[{"candidate_id": "candidate-1", "kind": "generic", "salience": 0.8}],
+        ))
+        resumed = policy.decide(self.packet(observation_id="life-3"))
+        self.assertEqual(held["action"], {"type": "idle"})
+        self.assertEqual(held["inspection"]["life"]["trajectory_phase"], "SUSPENDED")
+        self.assertEqual(held["inspection"]["life"]["interrupt"]["outcome"], "hold")
+        self.assertEqual(resumed["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(resumed["inspection"]["life"]["trajectory_phase"], "GO_TO_SITE")
+
+    def test_subthreshold_interrupt_does_not_break_trajectory(self):
+        response = BaseFoodLifePolicy().decide(self.packet(
+            interrupts=[{"candidate_id": "candidate-1", "kind": "generic", "salience": 0.6}],
+        ))
+        self.assertEqual(response["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(response["inspection"]["life"]["interrupt"]["outcome"], "continue")
+
+    def test_interrupt_candidates_have_a_finite_phase_six_schema(self):
+        invalid_candidates = [
+            [{"candidate_id": "candidate-1", "kind": "threat", "salience": 0.8}],
+            [{"candidate_id": "candidate-1", "kind": "generic", "salience": 1.1}],
+            [
+                {"candidate_id": "duplicate", "kind": "generic", "salience": 0.8},
+                {"candidate_id": "duplicate", "kind": "generic", "salience": 0.9},
+            ],
+        ]
+        for index, candidates in enumerate(invalid_candidates):
+            with self.subTest(index=index), self.assertRaises(ObservationError):
+                BaseFoodLifePolicy().decide(self.packet(interrupts=candidates))
 
 
 if __name__ == "__main__":

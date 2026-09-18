@@ -1,6 +1,6 @@
 # Base-Food Assisted Loop Contract
 
-**Status:** Phase 1-5 operational finite experiment
+**Status:** Phase 1-6 operational finite experiment
 **Boundary:** GameAI-local policy plus Godot-owned world resolution
 
 ## Operational path
@@ -36,6 +36,13 @@ an NPC may form the same Goal from observed low stock with no God Statue cue.
 One success is insufficient. Cue-free completion uses the learned relation but
 does not manufacture another cue-result record.
 
+Phase 6 adds a finite generic interrupt comparison. `life_context` may contain
+generic candidates with unique IDs and salience in `[0, 1]`. A candidate at or
+above the fixed `0.7` threshold holds an existing committed trajectory and
+reports `SUSPENDED`; it does not erase the Goal or choose another world action.
+When the candidate disappears, the retained trajectory resumes from current
+world state. Sub-threshold candidates do not interrupt it.
+
 ## Authority
 
 - Godot owns and resolves World truth.
@@ -59,5 +66,5 @@ Decision Record show the coarse cue, short prediction, Goal, phase, and deposit 
 
 The following v0.3 stages are not operational yet:
 
-- generic, Threat, or Novelty interruption
+- Threat or Novelty-specific interruption and per-agent thresholds
 - Player-authored Statue utterances

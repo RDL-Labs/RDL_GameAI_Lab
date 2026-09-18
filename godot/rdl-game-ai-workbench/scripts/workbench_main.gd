@@ -491,6 +491,14 @@ func _refresh_runtime_decision():
 		decision_text.append_text("habit: %d / %s\n" % [
 			life.get("habit_successes", 0), str(life.get("habit_ready", false))
 		])
+		var interrupt = life.get("interrupt", {})
+		var selected_interrupt = interrupt.get("selected")
+		var interrupt_id = "none"
+		if typeof(selected_interrupt) == TYPE_DICTIONARY:
+			interrupt_id = selected_interrupt.get("candidate_id", "unknown")
+		decision_text.append_text("interrupt: %s / %s\n" % [
+			interrupt.get("outcome", "continue"), interrupt_id
+		])
 		decision_text.append_text("cue authority: %s\n" % life.get("authority", "?"))
 	var expression = inspection.get("expression", {})
 	if not expression.is_empty():

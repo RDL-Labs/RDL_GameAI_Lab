@@ -14,6 +14,7 @@ from .expression import with_expression
 
 POLICY_ID = "base-food-assisted-trajectory-v1"
 HABIT_SUCCESS_THRESHOLD = 2
+INTERRUPT_THRESHOLD = 0.7
 ACTIVE_CUE_BANDS = {"low", "critical", "empty"}
 VALID_CUE_RESPONSES = {"follow", "ignore"}
 
@@ -73,7 +74,11 @@ class BaseFoodLifePolicy:
             if cue_response == "ignore"
             else "no assisted Base-Food goal formed from bounded life context"
         )
-        if trajectory is not None:
+        interrupt = _select_interrupt(context["interrupt_candidates"])
+        if trajectory is not None and interrupt is not None:
+            action_type = "idle"
+            reason = "hold committed Base-Food trajectory for finite interrupt candidate"
+        elif trajectory is not None:
             held = body.get("held_food_ids", [])
             visible = {item["id"]: item for item in observation["visible_objects"]}
             if held:
@@ -120,7 +125,15 @@ class BaseFoodLifePolicy:
             "goal": trajectory.goal if trajectory else None,
             "trajectory_phase": trajectory.phase if trajectory else "NONE",
             "commitment": trajectory.commitment if trajectory else "none",
+            "interrupt": {
+                "threshold": INTERRUPT_THRESHOLD,
+                "selected": deepcopy(interrupt),
+                "outcome": "hold" if interrupt is not None and trajectory is not None else "continue",
+                "authority": "GameAI-local-observation-comparison; not-action-authority",
+            },
         }
+        if interrupt is not None and trajectory is not None:
+            life["trajectory_phase"] = "SUSPENDED"
         decision["inspection"]["life"] = life
         decision = with_expression(apply_body_constraint(packet, decision))
         self._decisions[key] = (deepcopy(packet), deepcopy(decision))
@@ -226,6 +239,23 @@ def _validate_life_packet(packet):
         raise ObservationError("life_context.known_base.id is required")
     if type(context.get("at_base")) is not bool:
         raise ObservationError("life_context.at_base must be boolean")
+    candidates = context.get("interrupt_candidates", [])
+    if not isinstance(candidates, list):
+        raise ObservationError("life_context.interrupt_candidates must be a list")
+    seen_candidate_ids = set()
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            raise ObservationError("interrupt candidate must be an object")
+        candidate_id = candidate.get("candidate_id")
+        if not isinstance(candidate_id, str) or not candidate_id or candidate_id in seen_candidate_ids:
+            raise ObservationError("interrupt candidate IDs must be finite and unique")
+        seen_candidate_ids.add(candidate_id)
+        if candidate.get("kind") != "generic":
+            raise ObservationError("Phase 6 supports only generic interrupt candidates")
+        salience = candidate.get("salience")
+        if isinstance(salience, bool) or not isinstance(salience, (int, float)) or not 0.0 <= salience <= 1.0:
+            raise ObservationError("interrupt candidate salience must be between 0 and 1")
+    context["interrupt_candidates"] = candidates
     return agent_id, observation_id, observation, context
 
 
@@ -247,6 +277,13 @@ def _short_prediction(context):
     if context["observed_base_food_band"] in ACTIVE_CUE_BANDS:
         return "base_food_shortage_may_worsen"
     return "base_food_stable"
+
+
+def _select_interrupt(candidates):
+    eligible = [candidate for candidate in candidates if candidate["salience"] >= INTERRUPT_THRESHOLD]
+    if not eligible:
+        return None
+    return deepcopy(max(eligible, key=lambda candidate: (candidate["salience"], candidate["candidate_id"])))
 
 
 def parse_cue_responses(values):

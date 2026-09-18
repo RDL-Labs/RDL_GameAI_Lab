@@ -81,6 +81,7 @@ var food_actions_enabled = true
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
+var interrupt_candidates = []
 
 func reset():
 	tick = 0
@@ -89,6 +90,7 @@ func reset():
 	base_food_stock = BASE_FOOD_INITIAL
 	base_food_revision = 0
 	god_statue_cue_enabled = true
+	interrupt_candidates = []
 	agents = []
 	for agent in INITIAL_AGENTS:
 		agents.append(agent.duplicate(true))
@@ -257,8 +259,12 @@ func get_life_context(agent_id):
 				base["position"].y - agent["position"].y
 			]
 		},
-		"at_base": agent["position"].distance_to(base["position"]) <= BASE_REACH_DISTANCE
+		"at_base": agent["position"].distance_to(base["position"]) <= BASE_REACH_DISTANCE,
+		"interrupt_candidates": interrupt_candidates.duplicate(true)
 	}
+
+func set_interrupt_candidates(candidates):
+	interrupt_candidates = candidates.duplicate(true)
 
 func set_god_statue_cue_enabled(enabled):
 	god_statue_cue_enabled = bool(enabled)
