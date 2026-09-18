@@ -15,6 +15,7 @@ from .expression import with_expression
 POLICY_ID = "base-food-assisted-trajectory-v1"
 HABIT_SUCCESS_THRESHOLD = 2
 INTERRUPT_THRESHOLD = 0.7
+THREAT_PROFILE_THRESHOLDS = {"cautious": 0.4, "standard": 0.7, "steadfast": 0.9}
 ACTIVE_CUE_BANDS = {"low", "critical", "empty"}
 VALID_CUE_RESPONSES = {"follow", "ignore"}
 
@@ -30,13 +31,18 @@ class TrajectoryState:
 class BaseFoodLifePolicy:
     """Keep one finite trajectory until completion or structural release."""
 
-    def __init__(self, capacity: int = 128, cue_responses=None):
+    def __init__(self, capacity: int = 128, cue_responses=None, threat_profiles=None):
         self.capacity = capacity
         configured = dict(cue_responses or {})
         for agent_id, response in configured.items():
             if not isinstance(agent_id, str) or not agent_id or response not in VALID_CUE_RESPONSES:
                 raise ValueError("invalid Base-Food cue response")
         self._cue_responses = configured
+        configured_threat_profiles = dict(threat_profiles or {})
+        for agent_id, profile in configured_threat_profiles.items():
+            if not isinstance(agent_id, str) or not agent_id or profile not in THREAT_PROFILE_THRESHOLDS:
+                raise ValueError("invalid Base-Food threat profile")
+        self._threat_profiles = configured_threat_profiles
         self._trajectories: dict[str, TrajectoryState] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
         self._results: dict[str, dict[str, Any]] = {}
@@ -74,7 +80,10 @@ class BaseFoodLifePolicy:
             if cue_response == "ignore"
             else "no assisted Base-Food goal formed from bounded life context"
         )
-        interrupt = _select_interrupt(context["interrupt_candidates"])
+        threat_profile = self._threat_profiles.get(agent_id, "standard")
+        interrupt, interrupt_threshold = _select_interrupt(
+            context["interrupt_candidates"], threat_profile
+        )
         if trajectory is not None and interrupt is not None:
             action_type = "idle"
             reason = "hold committed Base-Food trajectory for finite interrupt candidate"
@@ -126,7 +135,8 @@ class BaseFoodLifePolicy:
             "trajectory_phase": trajectory.phase if trajectory else "NONE",
             "commitment": trajectory.commitment if trajectory else "none",
             "interrupt": {
-                "threshold": INTERRUPT_THRESHOLD,
+                "threshold": interrupt_threshold,
+                "threat_profile": threat_profile,
                 "selected": deepcopy(interrupt),
                 "outcome": "hold" if interrupt is not None and trajectory is not None else "continue",
                 "authority": "GameAI-local-observation-comparison; not-action-authority",
@@ -174,6 +184,7 @@ class BaseFoodLifePolicy:
         return {
             "policy": POLICY_ID,
             "cue_responses": deepcopy(self._cue_responses),
+            "threat_profiles": deepcopy(self._threat_profiles),
             "trajectories": {
                 agent_id: deepcopy(vars(state))
                 for agent_id, state in self._trajectories.items()
@@ -250,8 +261,8 @@ def _validate_life_packet(packet):
         if not isinstance(candidate_id, str) or not candidate_id or candidate_id in seen_candidate_ids:
             raise ObservationError("interrupt candidate IDs must be finite and unique")
         seen_candidate_ids.add(candidate_id)
-        if candidate.get("kind") != "generic":
-            raise ObservationError("Phase 6 supports only generic interrupt candidates")
+        if candidate.get("kind") not in {"generic", "threat"}:
+            raise ObservationError("unsupported interrupt candidate kind")
         salience = candidate.get("salience")
         if isinstance(salience, bool) or not isinstance(salience, (int, float)) or not 0.0 <= salience <= 1.0:
             raise ObservationError("interrupt candidate salience must be between 0 and 1")
@@ -279,11 +290,19 @@ def _short_prediction(context):
     return "base_food_stable"
 
 
-def _select_interrupt(candidates):
-    eligible = [candidate for candidate in candidates if candidate["salience"] >= INTERRUPT_THRESHOLD]
+def _select_interrupt(candidates, threat_profile):
+    threat_threshold = THREAT_PROFILE_THRESHOLDS[threat_profile]
+    eligible = [
+        candidate for candidate in candidates
+        if candidate["salience"] >= (
+            threat_threshold if candidate["kind"] == "threat" else INTERRUPT_THRESHOLD
+        )
+    ]
     if not eligible:
-        return None
-    return deepcopy(max(eligible, key=lambda candidate: (candidate["salience"], candidate["candidate_id"])))
+        return None, threat_threshold
+    selected = max(eligible, key=lambda candidate: (candidate["salience"], candidate["candidate_id"]))
+    selected_threshold = threat_threshold if selected["kind"] == "threat" else INTERRUPT_THRESHOLD
+    return deepcopy(selected), selected_threshold
 
 
 def parse_cue_responses(values):
@@ -295,4 +314,16 @@ def parse_cue_responses(values):
         if not agent_id or response not in VALID_CUE_RESPONSES or agent_id in configured:
             raise ValueError("invalid or duplicate Base-Food cue response")
         configured[agent_id] = response
+    return configured
+
+
+def parse_threat_profiles(values):
+    configured = {}
+    for value in values:
+        if not isinstance(value, str) or "=" not in value:
+            raise ValueError("threat profile must use AGENT=cautious|standard|steadfast")
+        agent_id, profile = value.split("=", 1)
+        if not agent_id or profile not in THREAT_PROFILE_THRESHOLDS or agent_id in configured:
+            raise ValueError("invalid or duplicate Base-Food threat profile")
+        configured[agent_id] = profile
     return configured

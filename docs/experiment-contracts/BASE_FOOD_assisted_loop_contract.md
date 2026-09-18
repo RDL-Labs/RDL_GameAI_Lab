@@ -1,6 +1,6 @@
 # Base-Food Assisted Loop Contract
 
-**Status:** Phase 1-6 operational finite experiment
+**Status:** Phase 1-7 operational finite experiment
 **Boundary:** GameAI-local policy plus Godot-owned world resolution
 
 ## Operational path
@@ -43,6 +43,13 @@ reports `SUSPENDED`; it does not erase the Goal or choose another world action.
 When the candidate disappears, the retained trajectory resumes from current
 world state. Sub-threshold candidates do not interrupt it.
 
+Phase 7 admits `threat` candidates through the same bounded observation field.
+Fixed NPC-side profiles provide finite thresholds: `cautious=0.4`,
+`standard=0.7`, and `steadfast=0.9`. Thus the same Threat candidate and same
+world state can hold or preserve a trajectory according to the configured NPC
+profile. The profile changes only this comparison; it is not a diagnosis,
+emotion, dynamic neural value, or Threat-issued command.
+
 ## Authority
 
 - Godot owns and resolves World truth.
@@ -66,5 +73,5 @@ Decision Record show the coarse cue, short prediction, Goal, phase, and deposit 
 
 The following v0.3 stages are not operational yet:
 
-- Threat or Novelty-specific interruption and per-agent thresholds
+- Novelty-specific interruption and dynamic/derived interrupt thresholds
 - Player-authored Statue utterances

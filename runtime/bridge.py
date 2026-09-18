@@ -12,7 +12,7 @@ from .core import ObservationError, decide_action
 from .v23_interpretation import GameAIFrozenComparisonSidecar
 from .experience import InteractionHistory, HistoryError
 from .history_policy import HistoryInfluencePolicy
-from .life_policy import BaseFoodLifePolicy, parse_cue_responses
+from .life_policy import BaseFoodLifePolicy, parse_cue_responses, parse_threat_profiles
 from .sensitivity import parse_retry_profiles
 from .v23_food_admission import (
     FoodAdmissionError,
@@ -193,6 +193,7 @@ def run(
     food_mb_shadow: bool = False,
     base_food_life: bool = False,
     cue_responses=None,
+    threat_profiles=None,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -202,10 +203,14 @@ def run(
         raise ValueError("Base-Food life policy and history influence are separate opt-in policies")
     if cue_responses and not base_food_life:
         raise ValueError("Base-Food cue responses require the life policy")
+    if threat_profiles and not base_food_life:
+        raise ValueError("Base-Food threat profiles require the life policy")
     policy = HistoryInfluencePolicy(profiles=retry_profiles) if history_influence else None
     server = ThreadingHTTPServer((host, port), BridgeHandler)
     server.history_policy = policy
-    server.life_policy = BaseFoodLifePolicy(cue_responses=cue_responses) if base_food_life else None
+    server.life_policy = BaseFoodLifePolicy(
+        cue_responses=cue_responses, threat_profiles=threat_profiles
+    ) if base_food_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
     server.food_mb_shadow_lock = RLock()
     print("RDL GameAI Runtime listening on http://%s:%d" % (host, port))
@@ -225,6 +230,8 @@ def main() -> None:
                         help="Enable the assisted Base-Food Goal/Trajectory policy")
     parser.add_argument("--base-food-cue-response", action="append", default=[], metavar="AGENT=RESPONSE",
                         help="NPC cue disposition: follow or ignore; requires --base-food-life")
+    parser.add_argument("--base-food-threat-profile", action="append", default=[], metavar="AGENT=PROFILE",
+                        help="Threat interruption profile: cautious, standard, or steadfast")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -237,10 +244,13 @@ def main() -> None:
         cue_responses = parse_cue_responses(args.base_food_cue_response)
         if cue_responses and not args.base_food_life:
             raise ValueError("--base-food-cue-response requires --base-food-life")
+        threat_profiles = parse_threat_profiles(args.base_food_threat_profile)
+        if threat_profiles and not args.base_food_life:
+            raise ValueError("--base-food-threat-profile requires --base-food-life")
     except ValueError as exc:
         parser.error(str(exc))
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
-        args.base_food_life, cue_responses)
+        args.base_food_life, cue_responses, threat_profiles)
 
 
 if __name__ == "__main__":

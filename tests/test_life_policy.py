@@ -1,7 +1,7 @@
 import unittest
 
 from runtime.core import ObservationError
-from runtime.life_policy import BaseFoodLifePolicy, parse_cue_responses
+from runtime.life_policy import BaseFoodLifePolicy, parse_cue_responses, parse_threat_profiles
 
 
 class BaseFoodLifePolicyTests(unittest.TestCase):
@@ -128,7 +128,7 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
 
     def test_interrupt_candidates_have_a_finite_phase_six_schema(self):
         invalid_candidates = [
-            [{"candidate_id": "candidate-1", "kind": "threat", "salience": 0.8}],
+            [{"candidate_id": "candidate-1", "kind": "novelty", "salience": 0.8}],
             [{"candidate_id": "candidate-1", "kind": "generic", "salience": 1.1}],
             [
                 {"candidate_id": "duplicate", "kind": "generic", "salience": 0.8},
@@ -138,6 +138,25 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
         for index, candidates in enumerate(invalid_candidates):
             with self.subTest(index=index), self.assertRaises(ObservationError):
                 BaseFoodLifePolicy().decide(self.packet(interrupts=candidates))
+
+    def test_same_threat_observation_differs_by_agent_profile(self):
+        threat = [{"candidate_id": "threat-1", "kind": "threat", "salience": 0.7}]
+        cautious = BaseFoodLifePolicy(threat_profiles={"npc_a": "cautious"}).decide(
+            self.packet(interrupts=threat)
+        )
+        steadfast = BaseFoodLifePolicy(threat_profiles={"npc_a": "steadfast"}).decide(
+            self.packet(interrupts=threat)
+        )
+        self.assertEqual(cautious["action"], {"type": "idle"})
+        self.assertEqual(cautious["inspection"]["life"]["interrupt"]["threat_profile"], "cautious")
+        self.assertEqual(steadfast["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(steadfast["inspection"]["life"]["interrupt"]["threat_profile"], "steadfast")
+
+    def test_threat_profile_parser_is_finite(self):
+        self.assertEqual(parse_threat_profiles(["npc_a=cautious"]), {"npc_a": "cautious"})
+        for values in (["npc_a=fearful"], ["npc_a"], ["npc_a=cautious", "npc_a=steadfast"]):
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                parse_threat_profiles(values)
 
 
 if __name__ == "__main__":

@@ -499,6 +499,9 @@ func _refresh_runtime_decision():
 		decision_text.append_text("interrupt: %s / %s\n" % [
 			interrupt.get("outcome", "continue"), interrupt_id
 		])
+		decision_text.append_text("threat profile: %s / threshold %.2f\n" % [
+			interrupt.get("threat_profile", "standard"), interrupt.get("threshold", 0.7)
+		])
 		decision_text.append_text("cue authority: %s\n" % life.get("authority", "?"))
 	var expression = inspection.get("expression", {})
 	if not expression.is_empty():

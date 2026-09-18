@@ -14,7 +14,7 @@
 | [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md) | current design | 体験の核。schema・Phaseの正本ではない |
 | [生活機能順](RDL_GameAI_実装手順予定.md) | current plan / navigation incomplete | 生活Phaseと横断系、canonical成熟度の分離 |
 | [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | current priority plan v0.3 | 神の像の粗いcueからNPC自身の予測・Goal・Trajectory・経験・自律化へ進むBase–Food参照loop |
-| [Base–Food assisted contract](../experiment-contracts/BASE_FOOD_assisted_loop_contract.md) | Phase 1-6 operational | cue-result経験、cueなし自律完遂、generic interruptによる一時保留・再開まで。Threat / Novelty固有評価はdeferred |
+| [Base–Food assisted contract](../experiment-contracts/BASE_FOOD_assisted_loop_contract.md) | Phase 1-7 operational | cue-result経験、cueなし自律完遂、generic保留・再開、固定Threat profile差まで。Novelty固有評価はdeferred |
 | [FoodNeed M_B Admission計画](RDL_GameAI_FoodNeed_M_B_Admission実装計画.md) | PR 1-3 operational | opt-in acquisition、immutable relation、shadow F/F'/E、default-off loopback bridge。global sidecar接続は未実装 |
 | [会話](RDL_GameAI_簡易会話からプレイヤー介入まで.md) | current design / phase ambiguous | intent・referent・DialogueTurn・語彙。Communication Stepは生活Phaseと別 |
 | [Player](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md) | current draft | 外部語彙・情報入力と有限な自動生活cue。直接操作・Truth権限なし |

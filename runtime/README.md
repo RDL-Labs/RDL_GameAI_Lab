@@ -45,8 +45,17 @@ not. This is GameAI-local habit evidence, not canonical M_B admission.
 Phase 6 accepts finite `generic` interrupt candidates in `life_context`. A
 candidate at or above the fixed 0.7 salience threshold holds the committed
 trajectory as `SUSPENDED`; removing it resumes the prior Base-Food path. The
-candidate is observation material, not action authority. Threat semantics,
-Novelty semantics, and per-agent interrupt thresholds remain deferred.
+candidate is observation material, not action authority. Threat and Novelty
+interpretation are separate later phases.
+
+Phase 7 adds fixed NPC-side Threat profiles:
+
+    python -m runtime.bridge --base-food-life --base-food-threat-profile npc_b=cautious
+
+`cautious / standard / steadfast` map to finite thresholds `0.4 / 0.7 / 0.9`.
+The same bounded Threat candidate may therefore hold one NPC's trajectory while
+another continues. These profiles are fixed experiment configuration, not a
+diagnosis, dynamic neural state, affect, canonical M_B, or H.
 
 Current properties:
 
