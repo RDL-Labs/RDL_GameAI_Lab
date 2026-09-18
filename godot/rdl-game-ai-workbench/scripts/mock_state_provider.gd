@@ -65,6 +65,9 @@ const ACTION_STEP_DISTANCE = 36.0
 const PICKUP_DISTANCE = 8.0
 const FOOD_NEED_PER_TICK = 0.02
 const FOOD_RECOVERY = 0.6
+const REST_NEED_PER_TICK = 0.03
+const REST_RECOVERY = 0.6
+const REST_REACH_DISTANCE = 12.0
 const BASE_ID = "plaza"
 const BASE_FOOD_INITIAL = 1.0
 const BASE_FOOD_CAPACITY = 10.0
@@ -83,6 +86,7 @@ var resolution_records = []
 var observation_seq = 0
 var body_states = {}
 var food_actions_enabled = true
+var rest_actions_enabled = false
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
@@ -109,6 +113,7 @@ func reset():
 		body_states[agent["id"]] = {
 			"movement_scale": 1.0,
 			"food_need": 0.8,
+			"rest_need": 0.8,
 			"held_food_ids": [],
 			"revision": 0
 		}
@@ -130,6 +135,7 @@ func step():
 	tick += 1
 	_consume_base_food()
 	_update_food_needs()
+	_update_rest_needs()
 	_update_mock_positions()
 	decision_records.append(_build_decision_record("npc_a"))
 	decision_records.append(_build_decision_record("npc_b"))
@@ -183,7 +189,10 @@ func get_observation(agent_id):
 	var visible_places = []
 	for place in places:
 		if _is_visible(agent["position"], place["position"], PERCEPTION_RADIUS + place.get("radius", 0.0)):
-			visible_places.append(place.duplicate(true))
+			var visible_place = place.duplicate(true)
+			if rest_actions_enabled and place.get("rest_capable", false):
+				visible_place["within_reach"] = agent["position"].distance_to(place["position"]) <= REST_REACH_DISTANCE
+			visible_places.append(visible_place)
 
 	var observation = {
 		"observation_id": _next_observation_id(agent_id),
@@ -225,6 +234,8 @@ func resolve_action(decision):
 		return _resolve_eat(decision, action.get("target_id", ""))
 	if action_type == "deposit":
 		return _resolve_deposit(decision, action.get("target_id", ""))
+	if action_type == "rest":
+		return _resolve_rest(decision, action.get("target_id", ""))
 	return _record_resolution(decision.get("agent_id", ""), action_type, "", "no world change for action")
 
 func get_latest_resolution(agent_id):
@@ -247,7 +258,7 @@ func get_body_snapshot(agent_id):
 	if not body_states.has(agent_id):
 		return {}
 	var body = body_states[agent_id]
-	return {
+	var snapshot = {
 		"agent_id": agent_id,
 		"movement_scale": body["movement_scale"],
 		"food_actions_enabled": food_actions_enabled,
@@ -256,6 +267,10 @@ func get_body_snapshot(agent_id):
 		"revision": body["revision"],
 		"snapshot_id": "body-%s-%d" % [agent_id, body["revision"]]
 	}
+	if rest_actions_enabled:
+		snapshot["rest_actions_enabled"] = true
+		snapshot["rest_need"] = body["rest_need"]
+	return snapshot
 
 func get_life_context(agent_id):
 	var agent = get_agent(agent_id)
@@ -364,6 +379,11 @@ func set_god_statue_cue_enabled(enabled):
 func set_food_actions_enabled(enabled):
 	food_actions_enabled = bool(enabled)
 
+func set_rest_actions_enabled(enabled):
+	rest_actions_enabled = bool(enabled)
+	if rest_actions_enabled:
+		food_actions_enabled = false
+
 func get_interaction_result(resolution):
 	if resolution.get("action_type", "") != "approach":
 		return {}
@@ -420,6 +440,16 @@ func _update_food_needs():
 		var next_need = min(1.0, body["food_need"] + FOOD_NEED_PER_TICK)
 		if not is_equal_approx(next_need, body["food_need"]):
 			body["food_need"] = next_need
+			body["revision"] += 1
+
+func _update_rest_needs():
+	if not rest_actions_enabled:
+		return
+	for agent_id in body_states:
+		var body = body_states[agent_id]
+		var next_need = min(1.0, body["rest_need"] + REST_NEED_PER_TICK)
+		if not is_equal_approx(next_need, body["rest_need"]):
+			body["rest_need"] = next_need
 			body["revision"] += 1
 
 func _consume_base_food():
@@ -560,6 +590,27 @@ func _resolve_deposit(decision, target_id):
 		{"deposited_food_ids": deposited_ids, "before_base_food_stock": before_stock,
 			"after_base_food_stock": base_food_stock, "base_food_band": _base_food_band(),
 			"held_food_ids": []}
+	)
+
+func _resolve_rest(decision, target_id):
+	var agent_id = decision.get("agent_id", "")
+	var agent_index = _find_agent_index(agent_id)
+	var place = _get_place(target_id)
+	var source_observation_id = decision.get("inspection", {}).get("observation_id", "")
+	if not rest_actions_enabled or agent_index == -1 or place.is_empty() or not place.get("rest_capable", false):
+		return _record_resolution(agent_id, "rest", target_id, "Rest action or target is unavailable")
+	if agents[agent_index]["position"].distance_to(place["position"]) > REST_REACH_DISTANCE:
+		return _record_resolution(agent_id, "rest", target_id, "agent is outside rest reach")
+	var body = body_states[agent_id]
+	var before_need = body["rest_need"]
+	body["rest_need"] = max(0.0, before_need - REST_RECOVERY)
+	body["revision"] += 1
+	var subsequent_observation = get_observation(agent_id)
+	return _record_resolution(
+		agent_id, "rest", target_id, "short rest completed; RestNeed decreased",
+		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
+		{"before_rest_need": before_need, "after_rest_need": body["rest_need"],
+			"rest_kind": "short_rest"}
 	)
 
 func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = "", effects = {}):

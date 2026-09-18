@@ -587,5 +587,9 @@ func _runtime_entities(items, origin):
 		if item.get("role", "") == "mock object" and item.get("id", "").begins_with("food"):
 			entity["kind"] = "food"
 			entity["within_reach"] = item.get("within_reach", false)
+		if item.get("rest_capable", false):
+			entity["rest_capable"] = true
+			entity["rest_safety"] = item.get("rest_safety", "unknown")
+			entity["within_reach"] = item.get("within_reach", false)
 		result.append(entity)
 	return result

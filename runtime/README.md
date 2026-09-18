@@ -7,6 +7,12 @@ Optional `observation.body` snapshots constrain approach eligibility; stopped
 agents idle even under history influence. Godot controls actual displacement.
 See the [Body contract](../docs/experiment-contracts/BODY_movement_contract.md).
 
+The [opt-in minimal Rest slice](../docs/experiment-contracts/REST_minimal_loop_contract.md)
+accepts bounded `rest_need` and a visible rest-capable place, then emits
+`approach`, `rest`, or `idle`. Godot owns RestNeed, reachability, and recovery.
+Food and Rest action modes cannot be enabled together until a separate priority
+contract exists.
+
 Individual retry experiment: `python -m runtime.bridge --history-influence --retry-profile npc_a=long --retry-profile npc_b=short`.
 The [profile contract](../docs/experiment-contracts/SENSITIVITY_retry_profile_contract.md) defines fixed 1/3/5 tick response tendencies and their finite limits.
 

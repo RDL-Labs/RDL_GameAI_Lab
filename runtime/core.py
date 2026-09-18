@@ -16,6 +16,7 @@ from .expression import with_expression
 
 RUNTIME_NAME = "rdl-gameai-minimal-runtime"
 FOOD_ACTION_THRESHOLD = 0.5
+REST_ACTION_THRESHOLD = 0.5
 
 
 class ObservationError(ValueError):
@@ -83,6 +84,33 @@ def _decide_action(packet: dict[str, Any]) -> dict[str, Any]:
 
     visible_objects = observation.get("visible_objects", [])
     body = observation.get("body")
+    if isinstance(body, dict) and body.get("rest_actions_enabled", False):
+        if body["rest_need"] >= REST_ACTION_THRESHOLD:
+            for place in observation.get("visible_places", []):
+                if place.get("rest_capable") is True and place.get("within_reach") is True:
+                    return RuntimeDecision(
+                        agent_id=agent_id,
+                        action_type="rest",
+                        target_id=str(place["id"]),
+                        observation_id=observation_id,
+                        reason="reachable bounded rest point selected while RestNeed meets the finite threshold",
+                    ).to_json()
+            for place in observation.get("visible_places", []):
+                if place.get("rest_capable") is True:
+                    return RuntimeDecision(
+                        agent_id=agent_id,
+                        action_type="approach",
+                        target_id=str(place["id"]),
+                        observation_id=observation_id,
+                        reason="visible bounded rest point selected while RestNeed meets the finite threshold",
+                    ).to_json()
+        return RuntimeDecision(
+            agent_id=agent_id,
+            action_type="idle",
+            target_id=None,
+            observation_id=observation_id,
+            reason="RestNeed is below threshold or no bounded rest point is visible",
+        ).to_json()
     if isinstance(body, dict) and body.get("food_actions_enabled", False):
         if body["food_need"] >= FOOD_ACTION_THRESHOLD:
             held_food_ids = body.get("held_food_ids", [])
@@ -169,7 +197,13 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
         if "within_reach" in item and type(item["within_reach"]) is not bool:
             raise ObservationError(f"visible_objects[{index}].within_reach must be boolean")
     _validate_entities(observation["visible_places"], "visible_places")
+    for index, place in enumerate(observation["visible_places"]):
+        if "rest_capable" in place and type(place["rest_capable"]) is not bool:
+            raise ObservationError(f"visible_places[{index}].rest_capable must be boolean")
+        if "within_reach" in place and type(place["within_reach"]) is not bool:
+            raise ObservationError(f"visible_places[{index}].within_reach must be boolean")
     _validate_food_state(observation.get("body"), agent_id)
+    _validate_rest_state(observation.get("body"), agent_id)
 
     return tick, agent_id, observation
 
@@ -193,6 +227,23 @@ def _validate_food_state(body: Any, agent_id: str) -> None:
     for index, item in enumerate(body.get("held_food_ids", [])):
         if item in body["held_food_ids"][:index]:
             raise ObservationError("body held_food_ids must be unique")
+
+
+def _validate_rest_state(body: Any, agent_id: str) -> None:
+    if not isinstance(body, dict):
+        return
+    enabled = body.get("rest_actions_enabled", False)
+    if type(enabled) is not bool:
+        raise ObservationError("body rest_actions_enabled must be boolean")
+    if not enabled:
+        return
+    if body.get("food_actions_enabled", False):
+        raise ObservationError("Food and Rest actions cannot both be enabled in the minimal Rest slice")
+    if body.get("agent_id") != agent_id:
+        raise ObservationError("rest body owner must match observed agent")
+    rest_need = body.get("rest_need")
+    if type(rest_need) not in (int, float) or not math.isfinite(rest_need) or not 0 <= rest_need <= 1:
+        raise ObservationError("body rest_need must be finite in [0,1]")
 
 
 def _validate_entities(items: list[Any], field_name: str) -> None:

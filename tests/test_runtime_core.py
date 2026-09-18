@@ -5,6 +5,54 @@ from runtime.core import ObservationError, decide_action
 
 
 class RuntimeCoreTests(unittest.TestCase):
+    def rest_packet(self, *, within_reach=False, rest_need=0.8):
+        return {
+            "observation_id": "rest-state",
+            "tick": 4,
+            "agent_id": "npc_a",
+            "observation": {
+                "visible_agents": [],
+                "visible_objects": [],
+                "visible_places": [{
+                    "id": "plaza", "rest_capable": True,
+                    "rest_safety": "safe", "within_reach": within_reach,
+                }],
+                "body": {
+                    "agent_id": "npc_a", "snapshot_id": "body-rest-1",
+                    "revision": 1, "movement_scale": 1.0,
+                    "food_actions_enabled": False,
+                    "rest_actions_enabled": True, "rest_need": rest_need,
+                    "held_food_ids": [],
+                },
+            },
+        }
+
+    def test_rest_actions_progress_from_approach_to_short_rest(self):
+        approach = decide_action(self.rest_packet())
+        rest = decide_action(self.rest_packet(within_reach=True))
+        wait = decide_action(self.rest_packet(within_reach=True, rest_need=0.2))
+        self.assertEqual(approach["action"], {"type": "approach", "target_id": "plaza"})
+        self.assertEqual(rest["action"], {"type": "rest", "target_id": "plaza"})
+        self.assertEqual(rest["inspection"]["expression"]["label"], "recovering")
+        self.assertEqual(wait["action"], {"type": "idle"})
+
+    def test_rest_state_rejects_invalid_need_and_food_coactivation(self):
+        for field, value in (("rest_need", -0.1), ("rest_need", 1.1),
+                             ("rest_actions_enabled", "yes"),
+                             ("food_actions_enabled", True)):
+            with self.subTest(field=field, value=value):
+                packet = self.rest_packet()
+                packet["observation"]["body"][field] = value
+                with self.assertRaises(ObservationError):
+                    decide_action(packet)
+
+        for field in ("rest_capable", "within_reach"):
+            with self.subTest(place_field=field):
+                packet = self.rest_packet()
+                packet["observation"]["visible_places"][0][field] = "yes"
+                with self.assertRaises(ObservationError):
+                    decide_action(packet)
+
     def test_observation_resolution_sidecar_does_not_change_action(self):
         packet = {
             "observation_id": "rho-non-intervention",

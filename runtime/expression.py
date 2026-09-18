@@ -22,6 +22,8 @@ def with_expression(decision):
         label = "feeding"
     elif action == "pickup":
         label = "acquiring"
+    elif action == "rest":
+        label = "recovering"
     elif action == "approach":
         label = "engaged"
     elif deferred:
