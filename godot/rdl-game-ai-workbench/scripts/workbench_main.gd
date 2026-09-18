@@ -563,6 +563,8 @@ func _build_runtime_packet(agent_id):
 		"visible_objects": _runtime_entities(observation["visible_objects"], origin),
 		"visible_places": _runtime_entities(observation["visible_places"], origin)
 	}
+	if observation.has("safety_context"):
+		packet_observation["safety_context"] = observation["safety_context"].duplicate(true)
 	if observation.has("observation_resolution"):
 		packet_observation["observation_resolution"] = observation["observation_resolution"].duplicate(true)
 

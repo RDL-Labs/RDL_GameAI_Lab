@@ -62,6 +62,16 @@ const INITIAL_PLACES = [
 	}
 ]
 
+const SAFETY_DANGER_PLACE = {
+	"id": "danger_gully",
+	"label": "Danger Gully",
+	"role": "mock place",
+	"position": Vector2(260, 180),
+	"radius": 85.0,
+	"danger_capable": true,
+	"danger_level": "high"
+}
+
 const PERCEPTION_RADIUS = 145.0
 const ACTION_STEP_DISTANCE = 36.0
 const PICKUP_DISTANCE = 8.0
@@ -100,6 +110,7 @@ var sleep_actions_enabled = false
 var sleep_window_enabled = false
 var active_energy_enabled = false
 var energy_reserve_enabled = false
+var safety_actions_enabled = false
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
@@ -142,6 +153,8 @@ func reset():
 	places = []
 	for place in INITIAL_PLACES:
 		places.append(place.duplicate(true))
+	if safety_actions_enabled:
+		places.append(SAFETY_DANGER_PLACE.duplicate(true))
 	events = ["tick 000: workbench reset"]
 	decision_records = [_build_decision_record("npc_a"), _build_decision_record("npc_b")]
 	resolution_records = []
@@ -221,6 +234,8 @@ func get_observation(agent_id):
 		"visible_objects": visible_objects,
 		"visible_places": visible_places
 	}
+	if safety_actions_enabled:
+		observation["safety_context"] = _build_safety_context(agent, visible_places)
 	if observation_resolution_enabled:
 		var domains = {}
 		for domain in observation_resolution_profile.explicit_domains(agent_id):
@@ -256,6 +271,8 @@ func resolve_action(decision):
 		return _resolve_rest(decision, action.get("target_id", ""))
 	if action_type == "sleep":
 		return _resolve_sleep(decision, action.get("target_id", ""))
+	if action_type == "flee":
+		return _resolve_flee(decision, action.get("target_id", ""))
 	return _record_resolution(decision.get("agent_id", ""), action_type, "", "no world change for action")
 
 func get_latest_resolution(agent_id):
@@ -298,6 +315,8 @@ func get_body_snapshot(agent_id):
 		snapshot["active_energy_capacity"] = body["active_energy_capacity"]
 	if energy_reserve_enabled:
 		snapshot["energy_reserve"] = body["energy_reserve"]
+	if safety_actions_enabled:
+		snapshot["safety_actions_enabled"] = true
 	return snapshot
 
 func set_active_energy_enabled(enabled):
@@ -319,6 +338,20 @@ func set_active_energy_capacity(agent_id, capacity):
 
 func set_energy_reserve_enabled(enabled):
 	energy_reserve_enabled = bool(enabled)
+
+func set_safety_actions_enabled(enabled):
+	safety_actions_enabled = bool(enabled)
+	if safety_actions_enabled:
+		food_actions_enabled = false
+		rest_actions_enabled = false
+		sleep_actions_enabled = false
+		sleep_window_enabled = false
+		if _get_place(SAFETY_DANGER_PLACE["id"]).is_empty():
+			places.append(SAFETY_DANGER_PLACE.duplicate(true))
+	else:
+		for index in range(places.size() - 1, -1, -1):
+			if places[index].get("id", "") == SAFETY_DANGER_PLACE["id"]:
+				places.remove_at(index)
 
 func get_life_context(agent_id):
 	var agent = get_agent(agent_id)
@@ -705,6 +738,51 @@ func _resolve_sleep(decision, target_id):
 		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
 		energy_effects
 	)
+
+func _resolve_flee(decision, target_id):
+	var agent_id = decision.get("agent_id", "")
+	var agent_index = _find_agent_index(agent_id)
+	var target = _get_place(target_id)
+	if not safety_actions_enabled or agent_index == -1 or target.is_empty():
+		return _record_resolution(agent_id, "flee", target_id, "Safety action or target is unavailable")
+	if target.get("rest_safety", "unknown") != "safe":
+		return _record_resolution(agent_id, "flee", target_id, "flee target is not a bounded safe place")
+	var before_position = agents[agent_index]["position"]
+	var direction = target["position"] - before_position
+	var step_distance = ACTION_STEP_DISTANCE * body_states[agent_id]["movement_scale"]
+	if direction.length() > step_distance:
+		direction = direction.normalized() * step_distance
+	var after_position = before_position + direction
+	agents[agent_index]["position"] = after_position
+	action_offsets[agent_id] = action_offsets.get(agent_id, Vector2.ZERO) + direction
+	var subsequent_observation = get_observation(agent_id)
+	var subsequent_safety = subsequent_observation.get("safety_context", {})
+	return _record_resolution(
+		agent_id, "flee", target_id, "bounded flee changed danger exposure",
+		before_position, after_position,
+		decision.get("inspection", {}).get("observation_id", ""),
+		subsequent_observation.get("observation_id", ""),
+		{"before_exposed": true, "after_exposed": subsequent_safety.get("exposed", false),
+			"safety_model": "bounded-danger-zone-v1"}
+	)
+
+func _build_safety_context(agent, visible_places):
+	var danger_id = ""
+	for place in places:
+		if place.get("danger_capable", false) and agent["position"].distance_to(place["position"]) <= place.get("radius", 0.0):
+			danger_id = place["id"]
+			break
+	var safe_target_id = ""
+	for place in visible_places:
+		if place.get("rest_safety", "unknown") == "safe":
+			safe_target_id = place["id"]
+			break
+	return {
+		"schema_version": "bounded-safety-context-v1",
+		"exposed": not danger_id.is_empty(),
+		"danger_id": danger_id,
+		"safe_target_id": safe_target_id
+	}
 
 func _change_active_energy(agent_id, delta):
 	if not active_energy_enabled or not body_states.has(agent_id):

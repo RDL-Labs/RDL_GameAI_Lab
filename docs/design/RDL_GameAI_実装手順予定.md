@@ -207,6 +207,8 @@ ActiveEnergyCapacity
 
 ## Phase 4 — Safety / Danger
 
+**現在地:** static Danger Gully内のNPC Bがbounded safety contextだけを受け、safe Plazaへ `flee` し、圏外の後続観測で `idle` へ戻る最小縦断を実装済み。predator、移動脅威、危険度比較、Energy連携、負傷は未実装。
+
 ```text
 安全な拠点
 → 探索

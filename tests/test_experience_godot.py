@@ -18,6 +18,32 @@ from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_real_workbench_flees_bounded_danger_zone(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/safety_flee_http_check.gd"],
+                    capture_output=True, text=True, timeout=40,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Safety flee check passed", output)
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_active_energy_capacity_bounds_recovery(self):
         project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
         completed = subprocess.run(

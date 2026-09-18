@@ -85,6 +85,19 @@ def _decide_action(packet: dict[str, Any]) -> dict[str, Any]:
 
     visible_objects = observation.get("visible_objects", [])
     body = observation.get("body")
+    if isinstance(body, dict) and body.get("safety_actions_enabled", False):
+        safety = observation["safety_context"]
+        if safety["exposed"] and safety["safe_target_id"]:
+            return RuntimeDecision(
+                agent_id=agent_id, action_type="flee", target_id=safety["safe_target_id"],
+                observation_id=observation_id,
+                reason="bounded danger exposure selects the visible safe target",
+            ).to_json()
+        return RuntimeDecision(
+            agent_id=agent_id, action_type="idle", target_id=None,
+            observation_id=observation_id,
+            reason="no bounded danger exposure or no visible safe target",
+        ).to_json()
     if isinstance(body, dict) and body.get("sleep_actions_enabled", False):
         if body["sleep_window"] and body["rest_need"] >= SLEEP_ACTION_THRESHOLD:
             safe_places = [
@@ -234,6 +247,7 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
     _validate_food_state(observation.get("body"), agent_id)
     _validate_rest_state(observation.get("body"), agent_id)
     _validate_sleep_state(observation.get("body"), agent_id)
+    _validate_safety_state(observation, agent_id)
 
     return tick, agent_id, observation
 
@@ -288,6 +302,33 @@ def _validate_sleep_state(body: Any, agent_id: str) -> None:
         raise ObservationError("Sleep requires the bounded Rest body state")
     if type(body.get("sleep_window")) is not bool:
         raise ObservationError("body sleep_window must be boolean")
+
+
+def _validate_safety_state(observation: dict[str, Any], agent_id: str) -> None:
+    body = observation.get("body")
+    if not isinstance(body, dict):
+        return
+    enabled = body.get("safety_actions_enabled", False)
+    if type(enabled) is not bool:
+        raise ObservationError("body safety_actions_enabled must be boolean")
+    if not enabled:
+        return
+    if body.get("agent_id") != agent_id:
+        raise ObservationError("safety body owner must match observed agent")
+    if body.get("food_actions_enabled", False) or body.get("rest_actions_enabled", False):
+        raise ObservationError("Safety actions must be isolated from Food and Rest actions")
+    safety = observation.get("safety_context")
+    if not isinstance(safety, dict):
+        raise ObservationError("observation.safety_context required")
+    if safety.get("schema_version") != "bounded-safety-context-v1":
+        raise ObservationError("unsupported safety_context schema")
+    if type(safety.get("exposed")) is not bool:
+        raise ObservationError("safety_context.exposed must be boolean")
+    for field in ("danger_id", "safe_target_id"):
+        if not isinstance(safety.get(field), str):
+            raise ObservationError(f"safety_context.{field} must be a string")
+    if safety["exposed"] and not safety["danger_id"]:
+        raise ObservationError("exposed safety context requires danger_id")
 
 
 def _validate_entities(items: list[Any], field_name: str) -> None:

@@ -5,6 +5,51 @@ from runtime.core import ObservationError, decide_action
 
 
 class RuntimeCoreTests(unittest.TestCase):
+    def safety_packet(self, *, exposed=True, safe_target_id="plaza"):
+        return {
+            "observation_id": "safety-state", "tick": 4, "agent_id": "npc_b",
+            "observation": {
+                "visible_agents": [], "visible_objects": [],
+                "visible_places": [{"id": "plaza"}],
+                "safety_context": {
+                    "schema_version": "bounded-safety-context-v1",
+                    "exposed": exposed,
+                    "danger_id": "danger_gully" if exposed else "",
+                    "safe_target_id": safe_target_id,
+                },
+                "body": {
+                    "agent_id": "npc_b", "snapshot_id": "body-safety-1",
+                    "revision": 1, "movement_scale": 1.0,
+                    "food_actions_enabled": False, "safety_actions_enabled": True,
+                    "held_food_ids": [],
+                },
+            },
+        }
+
+    def test_safety_action_flees_only_with_exposure_and_safe_target(self):
+        flee = decide_action(self.safety_packet())
+        clear = decide_action(self.safety_packet(exposed=False))
+        no_target = decide_action(self.safety_packet(safe_target_id=""))
+        self.assertEqual(flee["action"], {"type": "flee", "target_id": "plaza"})
+        self.assertEqual(flee["inspection"]["expression"]["label"], "escaping")
+        self.assertEqual(clear["action"], {"type": "idle"})
+        self.assertEqual(no_target["action"], {"type": "idle"})
+
+    def test_safety_state_rejects_malformed_or_coactivated_context(self):
+        cases = []
+        missing = self.safety_packet()
+        del missing["observation"]["safety_context"]
+        cases.append(missing)
+        malformed = self.safety_packet()
+        malformed["observation"]["safety_context"]["exposed"] = "yes"
+        cases.append(malformed)
+        coactivated = self.safety_packet()
+        coactivated["observation"]["body"]["rest_actions_enabled"] = True
+        cases.append(coactivated)
+        for packet in cases:
+            with self.assertRaises(ObservationError):
+                decide_action(packet)
+
     def sleep_packet(self, *, within_reach=False, rest_need=0.9,
                      sleep_window=True, safety="safe"):
         packet = self.rest_packet(within_reach=within_reach, rest_need=rest_need)

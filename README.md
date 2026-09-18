@@ -42,6 +42,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Sleep behavior: opt-in隔離modeで `RestNeed >= 0.85`、明示sleep window、bounded safe placeが揃った時だけPlazaへapproachしてsleepする。GodotがRestNeedを回復し、`consolidation=not_run`を記録する。
 - Energy: opt-in時のみGodotが独立したActiveEnergy / EnergyReserveと個体別ActiveEnergyCapacityを所有する。実移動はActiveEnergyだけを消費、short restはActiveEnergyだけを小回復、Sleepは両方を回復し、ActiveEnergy回復はcapacityで止まる。reserve移送と行動選択への接続はまだ行わない。
 - Phase 3 status: [Energy Evidence](docs/experiment-evidence/ENERGY_phase3_reference_evidence.md)で参照実装を閉じた。次の生活境界はSafety / Dangerで、具体的AcceptanceなしにEnergy内部を拡張しない。
+- Safety: opt-in隔離modeでGodot所有のstatic danger zoneをbounded contextへ投影し、NPC Bがsafe Plazaへ `flee`、圏外の後続観測で `idle` に戻る。predator・負傷・Energy連携はまだ行わない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
