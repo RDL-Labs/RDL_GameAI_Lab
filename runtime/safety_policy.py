@@ -6,6 +6,7 @@ from typing import Any
 
 from .core import ObservationError, RuntimeDecision, apply_body_constraint, decide_action
 from .expression import with_expression
+from .safety_target_selection import SafetyTargetSelectionPolicy
 
 
 POLICY_ID = "safety-escape-trajectory-v1"
@@ -18,10 +19,12 @@ class SafetyTrajectory:
 
 
 class SafetyTrajectoryPolicy:
-    def __init__(self, capacity: int = 128):
+    def __init__(self, capacity: int = 128, target_selection=None):
         self.capacity = capacity
         self._trajectories: dict[str, SafetyTrajectory] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
+        self._target_selection = target_selection or SafetyTargetSelectionPolicy()
+        self._selections: dict[str, dict[str, Any]] = {}
 
     def decide(self, packet: dict[str, Any]) -> dict[str, Any]:
         decide_action(packet)  # Validate the shared bounded packet contract.
@@ -41,6 +44,7 @@ class SafetyTrajectoryPolicy:
             raise ObservationError("Safety policy decision capacity reached; start a fresh runtime")
 
         safety = observation["safety_context"]
+        candidates = {candidate["target_id"]: candidate for candidate in safety["safe_candidates"]}
         trajectory = self._trajectories.get(agent_id)
         completed_target = None
         if (
@@ -56,15 +60,19 @@ class SafetyTrajectoryPolicy:
             target_id = None
             reason = "committed safe target reached in subsequent bounded observation"
         else:
-            if trajectory is None and safety["exposed"] and safety["safe_target_id"]:
-                trajectory = SafetyTrajectory(target_id=safety["safe_target_id"])
-                self._trajectories[agent_id] = trajectory
+            if trajectory is None and safety["exposed"]:
+                selection = self._target_selection.select(safety["safe_candidates"])
+                selected = selection["selected"]
+                if selected:
+                    trajectory = SafetyTrajectory(target_id=selected["target_id"])
+                    self._trajectories[agent_id] = trajectory
+                    self._selections[agent_id] = selection
             if trajectory is None:
                 phase = "NONE"
                 action_type = "idle"
                 target_id = None
                 reason = "no bounded danger exposure formed a Safety trajectory"
-            elif safety["safe_target_id"] != trajectory.target_id:
+            elif trajectory.target_id not in candidates:
                 completed_target = trajectory.target_id
                 del self._trajectories[agent_id]
                 trajectory = None
@@ -90,6 +98,7 @@ class SafetyTrajectoryPolicy:
             "danger_exposed": safety["exposed"],
             "safe_reached": safety["safe_reached"],
             "reached_safe_target_id": safety["reached_safe_target_id"],
+            "target_selection": deepcopy(self._selections.get(agent_id)),
         }
         decision = with_expression(apply_body_constraint(packet, decision))
         self._decisions[key] = (deepcopy(packet), deepcopy(decision))
@@ -103,4 +112,5 @@ class SafetyTrajectoryPolicy:
                 for agent_id, trajectory in self._trajectories.items()
             },
             "decision_count": len(self._decisions),
+            "target_selections": deepcopy(self._selections),
         }

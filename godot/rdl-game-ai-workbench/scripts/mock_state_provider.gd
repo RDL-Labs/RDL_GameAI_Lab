@@ -772,20 +772,27 @@ func _build_safety_context(agent, visible_places):
 		if place.get("danger_capable", false) and agent["position"].distance_to(place["position"]) <= place.get("radius", 0.0):
 			danger_id = place["id"]
 			break
-	var safe_target_id = ""
-	var safe_reached = false
+	var safe_candidates = []
+	var reached_safe_target_id = ""
 	for place in visible_places:
-		if place.get("rest_safety", "unknown") == "safe":
-			safe_target_id = place["id"]
-			safe_reached = agent["position"].distance_to(place["position"]) <= REST_REACH_DISTANCE
-			break
+		var safety = place.get("rest_safety", "unknown")
+		if safety not in ["safe", "uncertain"]:
+			continue
+		var distance = agent["position"].distance_to(place["position"])
+		safe_candidates.append({
+			"target_id": place["id"],
+			"safety": safety,
+			"distance_band": _rest_distance_band(distance)
+		})
+		if reached_safe_target_id.is_empty() and distance <= REST_REACH_DISTANCE:
+			reached_safe_target_id = place["id"]
 	return {
 		"schema_version": "bounded-safety-context-v1",
 		"exposed": not danger_id.is_empty(),
 		"danger_id": danger_id,
-		"safe_target_id": safe_target_id,
-		"safe_reached": safe_reached,
-		"reached_safe_target_id": safe_target_id if safe_reached else ""
+		"safe_candidates": safe_candidates,
+		"safe_reached": not reached_safe_target_id.is_empty(),
+		"reached_safe_target_id": reached_safe_target_id
 	}
 
 func _change_active_energy(agent_id, delta):

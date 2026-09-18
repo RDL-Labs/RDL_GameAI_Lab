@@ -12,6 +12,7 @@ from copy import deepcopy
 import math
 from typing import Any
 from .expression import with_expression
+from .safety_target_selection import SafetySelectionError, SafetyTargetSelectionPolicy
 
 
 RUNTIME_NAME = "rdl-gameai-minimal-runtime"
@@ -87,9 +88,11 @@ def _decide_action(packet: dict[str, Any]) -> dict[str, Any]:
     body = observation.get("body")
     if isinstance(body, dict) and body.get("safety_actions_enabled", False):
         safety = observation["safety_context"]
-        if safety["exposed"] and safety["safe_target_id"]:
+        selection = _select_safety_target(safety["safe_candidates"])
+        selected = selection["selected"]
+        if safety["exposed"] and selected:
             return RuntimeDecision(
-                agent_id=agent_id, action_type="flee", target_id=safety["safe_target_id"],
+                agent_id=agent_id, action_type="flee", target_id=selected["target_id"],
                 observation_id=observation_id,
                 reason="bounded danger exposure selects the visible safe target",
             ).to_json()
@@ -326,9 +329,9 @@ def _validate_safety_state(observation: dict[str, Any], agent_id: str) -> None:
         raise ObservationError("safety_context.exposed must be boolean")
     if type(safety.get("safe_reached")) is not bool:
         raise ObservationError("safety_context.safe_reached must be boolean")
-    for field in ("danger_id", "safe_target_id"):
-        if not isinstance(safety.get(field), str):
-            raise ObservationError(f"safety_context.{field} must be a string")
+    if not isinstance(safety.get("danger_id"), str):
+        raise ObservationError("safety_context.danger_id must be a string")
+    _select_safety_target(safety.get("safe_candidates"))
     reached_target_id = safety.get("reached_safe_target_id")
     if not isinstance(reached_target_id, str):
         raise ObservationError("safety_context.reached_safe_target_id must be a string")
@@ -350,3 +353,10 @@ def _is_food(item: dict[str, Any]) -> bool:
     kind = str(item.get("kind", item.get("role", ""))).lower()
     label = str(item.get("label", "")).lower()
     return kind == "food" or "food" in label
+
+
+def _select_safety_target(candidates):
+    try:
+        return SafetyTargetSelectionPolicy().select(candidates)
+    except SafetySelectionError as exc:
+        raise ObservationError(str(exc)) from exc

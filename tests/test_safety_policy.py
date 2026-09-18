@@ -16,7 +16,9 @@ class SafetyTrajectoryPolicyTests(unittest.TestCase):
                     "schema_version": "bounded-safety-context-v1",
                     "exposed": exposed,
                     "danger_id": "danger_gully" if exposed else "",
-                    "safe_target_id": target,
+                    "safe_candidates": ([{
+                        "target_id": target, "safety": "safe", "distance_band": "far",
+                    }] if target else []),
                     "safe_reached": reached,
                     "reached_safe_target_id": target if reached else "",
                 },
@@ -49,6 +51,22 @@ class SafetyTrajectoryPolicyTests(unittest.TestCase):
         continued = policy.decide(mismatch)
         self.assertEqual(continued["action"], {"type": "flee", "target_id": "plaza"})
         self.assertEqual(continued["inspection"]["safety"]["trajectory_phase"], "FLEE_TO_SAFE")
+
+    def test_candidate_rank_change_does_not_reselect_committed_target(self):
+        policy = SafetyTrajectoryPolicy()
+        first = self.packet("safe-1", exposed=True, target="plaza")
+        first["observation"]["safety_context"]["safe_candidates"].append({
+            "target_id": "shelter_b", "safety": "uncertain", "distance_band": "near",
+        })
+        formed = policy.decide(first)
+        self.assertEqual(formed["action"]["target_id"], "plaza")
+        changed = self.packet("safe-2", exposed=False, target="plaza")
+        changed["observation"]["safety_context"]["safe_candidates"] = [
+            {"target_id": "shelter_b", "safety": "safe", "distance_band": "within_reach"},
+            {"target_id": "plaza", "safety": "uncertain", "distance_band": "far"},
+        ]
+        continued = policy.decide(changed)
+        self.assertEqual(continued["action"], {"type": "flee", "target_id": "plaza"})
 
     def test_missing_target_releases_and_replay_is_frozen(self):
         policy = SafetyTrajectoryPolicy()

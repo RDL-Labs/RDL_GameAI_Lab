@@ -29,6 +29,10 @@ a visible safe target, `flee` persists after zone exit, and only a subsequent
 `safe_reached` observation completes at Plaza and returns `idle`. Predator,
 injury, Energy coupling, and learning are deferred.
 
+Safety candidate selection is now an independent finite policy: `safe` precedes
+`uncertain`, then bounded distance breaks equal-safety ties. Selection runs once;
+later rank changes do not replace the committed trajectory target.
+
 ρ v0.x is a [closed operational reference](../docs/experiment-evidence/RHO_v0_reference_evidence.md):
 Food/Rest profiles, finite projections, packet provenance, cross-domain reuse,
 and the Rest candidate-description causal chain are established. Further ρ

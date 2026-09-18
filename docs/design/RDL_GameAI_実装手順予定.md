@@ -207,7 +207,7 @@ ActiveEnergyCapacity
 
 ## Phase 4 — Safety / Danger
 
-**現在地:** static Danger Gully内のNPC Bがbounded safety contextだけを受け、safe Plazaを一度だけ固定し、圏外へ出た後も同じtargetへ `flee` を継続、Plaza到達の後続観測で `idle / COMPLETE` へ戻る最小Trajectoryを実装済み。predator、移動脅威、危険度比較、Energy連携、負傷は未実装。
+**現在地:** static Danger Gully内のNPC Bがbounded safety contextだけを受け、`safe > uncertain`、同安全度なら有限距離順で候補比較し、safe Plazaを一度だけ固定する。圏外へ出た後も同じtargetへ `flee` を継続、Plaza到達の後続観測で `idle / COMPLETE` へ戻る最小Trajectoryを実装済み。predator、移動脅威、危険方向・経路比較、Energy連携、負傷は未実装。
 
 ```text
 安全な拠点

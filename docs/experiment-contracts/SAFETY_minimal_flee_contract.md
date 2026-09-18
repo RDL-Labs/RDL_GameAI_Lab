@@ -8,7 +8,7 @@
 
 ```text
 NPC inside Godot-owned danger zone
-→ bounded safety_context(exposed, danger_id, visible safe_target_id)
+→ bounded safety_context(exposed, finite safe candidates)
 → Runtime flee(safe target)
 → Godot world-position change
 → subsequent bounded safety observation
@@ -20,8 +20,9 @@ NPC inside Godot-owned danger zone
 Godot owns zone geometry, agent position, containment truth, and movement
 resolution. Runtime sees only the versioned bounded safety context and cannot
 inspect hidden World state. The current fixture starts NPC B in Danger Gully and
-exposes safe Plaza as the escape target. `SafetyTrajectoryPolicy` fixes that
-target once, continues after zone exit, and completes only when Godot reports
+exposes safe Plaza and uncertain Grove as bounded candidates. The independent
+[Safety Target Selection contract](SAFETY_target_selection_contract.md) selects
+Plaza. `SafetyTrajectoryPolicy` fixes that target once, continues after zone exit, and completes only when Godot reports
 the bounded `safe_reached` position fact and its `reached_safe_target_id`.
 Completion requires that identity to equal the committed target.
 
@@ -39,8 +40,8 @@ danger exit != injury or recovery
 Safety != Energy authority
 ```
 
-Predators, moving threats, danger severity comparison, target selection among
-multiple safe places, Energy cost, interruption, learning, injury, rescue, and
+Predators, moving threats, danger-direction and route comparison, Energy cost,
+interruption, learning, injury, rescue, and
 canonical admission remain absent.
 
 ## Evidence
