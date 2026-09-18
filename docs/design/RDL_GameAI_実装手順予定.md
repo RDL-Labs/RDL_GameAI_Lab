@@ -95,7 +95,7 @@ FoodNeed
 
 GodotがFoodNeed・pickup reach・world object・held foodを所有し、Runtimeはbounded observation / self-body snapshotからactionを選ぶ。[Food contract](../experiment-contracts/FOOD_minimal_loop_contract.md)で実Godot/HTTP縦断を固定する。
 
-### Current completion target: Base–Food reference loop
+### Completed reference target: Base–Food reference loop
 
 最小sliceの次は種類や栄養へ広げず、次の一本を完成させる。
 
@@ -119,6 +119,8 @@ Base stock consumption
 正本は[Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md)。Base / Siteのworld truthとNPC observationを分け、Future Predictionは短い方向予測としてGameAI-localに留める。毎tickの全候補再選択を行わず、構造的解除条件がない限り現在phaseを継続する。既存FoodNeed shadow `M_B`、global canonical sidecar、H、T1、action authorityを変更しない。
 
 Phase 1の次段階では、God Statue morning assessment、coarse cue、cue非権限性、Goal / Trajectory / Phase / Commitment、Base–Food完遂、従う/無視の結果、経験hook、cueなしの自律起動を順に実装対象とする。その後generic interrupt API、Threat、Novelty、極端な個体profileの順に検証する。food varieties、栄養、腐敗、sharing、individual food ID、所有、競争、狩猟、social coordination、永続化は参照循環完成後までdeferred。
+
+2026-09-18に[実行Evidence](../experiment-evidence/BASE_FOOD_reference_loop_evidence.md)を固定し、上記の参照循環、割り込み、極端profile比較まで完了した。Phase 2の開始条件は成立済み。次はFood固有定数を持ち込まず、同じ構造をRest / Sleepへ応用する。
 
 最小の生存循環を作る。
 
@@ -153,7 +155,7 @@ consume
 
 ## Phase 2 — Rest / Sleep
 
-**開始条件:** Base–Food full-cycle evidenceが成立し、同じ循環を次機能へ応用できる境界が確認されていること。
+**開始条件:** 成立済み。Base–Food full-cycle evidenceと再利用境界は[Evidence](../experiment-evidence/BASE_FOOD_reference_loop_evidence.md)で固定した。
 
 食料とは別の生活要求として休息を成立させる。
 

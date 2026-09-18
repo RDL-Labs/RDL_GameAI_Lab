@@ -33,7 +33,7 @@ ConceptとPlayer Roleは、この4軸を使って何を体験させ、どこか�
 | B / D | [神経パラメーター設計図](RDL_GameAI_神経パラメーター設計図.md) | 操作的神経ラベル・DNA基準・動的状態・派生感度 |
 | B / D | [感情・履歴・関係拘束](RDL_GameAI_感情・履歴・関係拘束モデル.md) | 履歴種別・派生表現。Hを感情にしない |
 | C | [Game Feature Roadmap](RDL_GameAI_実装手順予定.md) | 生活機能の縦実装順と横断系の接続点 |
-| C | [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | 最初のBase–Resource参照実装。現在の優先作業 |
+| C | [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | 完了した最初のBase–Resource参照実装 |
 | D | [睡眠システム](RDL_GameAI_睡眠システム設計.md) | 回復・選別・圧縮・関連付け。睡眠自体はLayerでもT1でもない |
 | D | [Communication](RDL_GameAI_簡易会話からプレイヤー介入まで.md) | intent・referent・DialogueTurn・lexicon・局所伝播 |
 | 介入 / D | [Player Role](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md) | 外部語彙・情報源と有限な自動生活cue。直接操作・Truth権限は与えない |
@@ -96,11 +96,11 @@ DNA → neural baseline distributions (μ / σ)
 
 ## 4. C: Game feature implementation
 
-第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recovery → Hunting。ただし現在は横へ進まず、神の像の粗いFood cueを足掛かりに、NPC自身の予測・Goal / Trajectory・Base–Food完遂・経験・cueなしの自律起動までを成立させる。
+第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recovery → Hunting。Base–Food参照loopは完了し、現在は同じNeed → Goal → Trajectory → world change → experience構造をRest / Sleepへ応用する境界にある。
 
 第二生活ラインはMaterials → Tools → Crafting → Barter → Emergent Value。
 
-具体的Phaseと受入はGame Feature Roadmap、現在のPhase 1詳細はBase–Food循環完成計画に置く。mock foodへのapproachが動くことと、Food生活循環が完成していることは別である。canonical成熟度の番号から生活機能の完成度を推定しない。
+具体的Phaseと受入はGame Feature Roadmap、完了したPhase 1詳細はBase–Food循環完成計画とEvidenceに置く。mock foodへのapproachが動くことと、Food生活循環が完成していることは別である。canonical成熟度の番号から生活機能の完成度を推定しない。
 
 ## 5. D: Cross-cutting systems
 
@@ -156,7 +156,7 @@ Playerは暫定的に拠点のしゃべる像。NPC直接操作・状態書換�
 
 実装済みの有限sliceは、reviewed / retained H、approach結果履歴、opt-in retry influence、固定感度、movement_scale、Realtime観測、display-only Response Expression、minimal Food loop、default-off FoodNeed shadow admission。
 
-次の実装優先はassisted-to-autonomous Base–Food reference loop。神の像は精密World状態を粗いcueへ圧縮する外部補助であり、直接操作・Truth注入・action authorityを持たない。NPCがcueを解釈して一周し、結果を経験へ残し、最終的にcueなしで起動できる縦断を先に固定する。Threat / Novelty割り込み、canonical promotion、Rest以降はその後に扱う。
+Base–Food reference loopはassisted-to-autonomous、Threat / Novelty割り込み、extreme tuningまで完了し、Evidenceを固定した。FoodNeed canonical promotionはshadow維持と判断した。次の実装優先はRest / Sleepであり、Food固有意味論をコピーせず参照loopの構造だけを再利用する。
 
 ## 8. 共通の不変条件
 

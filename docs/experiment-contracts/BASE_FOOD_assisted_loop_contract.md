@@ -3,6 +3,8 @@
 **Status:** Phase 1-8 operational finite experiment
 **Boundary:** GameAI-local policy plus Godot-owned world resolution
 
+Completion evidence: [Base-Food Reference Loop Evidence](../experiment-evidence/BASE_FOOD_reference_loop_evidence.md)
+
 ## Operational path
 
 Godot owns the precise Base stock, agent position, held Food, and world objects.

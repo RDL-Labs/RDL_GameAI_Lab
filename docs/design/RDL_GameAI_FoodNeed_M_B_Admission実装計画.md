@@ -223,7 +223,7 @@ global canonical sidecarから分離する。
 
 ### PR 4 — Admission review
 
-**状態: deferred pending Base–Food loop evidence。** shadowからcanonical model profileへ
+**状態: reviewed after Base–Food evidence; retain as shadow experiment。** shadowからcanonical model profileへ
 昇格する前に、[Base–Food循環](RDL_GameAI_Codex_BaseFood循環完成計画.md)で神の像の粗いcue、NPC自身の短期予測、
 Goal形成、Trajectory継続、従う/無視の結果、経験hook、cueなしの自律起動、site depletion、carry、return、deposit、repeatの実相互作用を観測する。FoodNeed単独の
 成功だけでpromotionを判断しない。
@@ -238,6 +238,12 @@ promote as a new finite canonical model profile
 
 promotionには新しいruntime contract、model profile version、fresh process/re-entry、rollback
 手順が必要。PR 4はT1やautomatic reconstructionを有効化しない。
+
+2026-09-18 review: [Base–Food reference loop evidence](../experiment-evidence/BASE_FOOD_reference_loop_evidence.md)
+で実Godot/HTTPの全Stageとextreme tuning比較まで確認した。判断は
+`retain as shadow experiment`。生活行動の成功だけではdefault canonical modelを変更する
+診断上の必要性を示さないため、別version contract、fresh-process entry、rollbackを伴う
+promotionは行わない。少なくとも一つの非Food生活loopへ同じ構造を応用した後に再検討する。
 
 ## 8. Controlled comparisons
 

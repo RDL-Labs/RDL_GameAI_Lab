@@ -11,7 +11,7 @@
 3. [NPC Layer Plan](docs/design/RDL_GameAI_NPC_レイヤー別設計計画.md): 状態の所有・更新・保持・検証
 4. [Canonical Experiment Roadmap](notes/experiment-roadmap.md): 実装成熟度と残る境界
 5. [Current Runtime Contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md): 現行動作の有限契約
-6. [Base–Food循環完成計画](docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md): 現在優先する参照生活ループ
+6. [Base–Food循環完成計画](docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md): 完了した参照生活ループ
 
 生活機能の追加順は[Game Feature Roadmap](docs/design/RDL_GameAI_実装手順予定.md)で管理します。
 
@@ -33,8 +33,9 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。
 - GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
 - First game feature: [minimal Food loop](docs/experiment-contracts/FOOD_minimal_loop_contract.md)。FoodNeed → approach → pickup → eat → world消費 / Need低下。
-- Current direction: 神の像の粗いFood cue → NPC観測・短期予測 → Goal → 継続するTrajectory → Base–Food完遂 → 経験 → cueなしの自律起動を段階的に成立させる。神の像にaction authorityは与えない。
+- Current direction: 完了したBase–Food参照構造を、Food固有定数を持ち込まずRest / Sleep生活循環へ応用する。神の像にaction authorityは与えない。
 - Operational assisted slice: 粗いcueからBase–Foodを完遂し、follow / ignore結果を分離する。deposit成功を有限経験として保持し、2成功後のみcueなしのlearned relationから同じ一周を自律起動できる。generic保留・再開、Threat profile差、Novelty三応答と復帰、両端の調整用extreme profile比較まで実装済み。
+- Reference status: [Base–Food completion evidence](docs/experiment-evidence/BASE_FOOD_reference_loop_evidence.md)を固定し、FoodNeed canonical promotionはshadow維持と判断。次の応用対象はRest / Sleep。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

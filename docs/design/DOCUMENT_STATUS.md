@@ -13,8 +13,9 @@
 | [睡眠](RDL_GameAI_睡眠システム設計.md) | current design / status unclear | Layerでない横断更新イベント。design-only |
 | [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md) | current design | 体験の核。schema・Phaseの正本ではない |
 | [生活機能順](RDL_GameAI_実装手順予定.md) | current plan / navigation incomplete | 生活Phaseと横断系、canonical成熟度の分離 |
-| [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | current priority plan v0.3 | 神の像の粗いcueからNPC自身の予測・Goal・Trajectory・経験・自律化へ進むBase–Food参照loop |
-| [Base–Food assisted contract](../experiment-contracts/BASE_FOOD_assisted_loop_contract.md) | Phase 1-8 + extreme tuning operational | cue-result経験、cueなし自律完遂、interrupt三系統、Novelty復帰、両端preset比較まで |
+| [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | completed reference plan v0.3 | 神の像の粗いcueからNPC自身の予測・Goal・Trajectory・経験・自律化へ進むBase–Food参照loop |
+| [Base–Food assisted contract](../experiment-contracts/BASE_FOOD_assisted_loop_contract.md) | reference baseline complete | Phase 1-8、interrupt三系統、Novelty復帰、両端preset比較まで。Evidence固定済み |
+| [Base–Food completion evidence](../experiment-evidence/BASE_FOOD_reference_loop_evidence.md) | current evidence | 実Godot/HTTP 111 tests、Stage 1-4、FoodNeed shadow維持判断、Rest開始境界 |
 | [FoodNeed M_B Admission計画](RDL_GameAI_FoodNeed_M_B_Admission実装計画.md) | PR 1-3 operational | opt-in acquisition、immutable relation、shadow F/F'/E、default-off loopback bridge。global sidecar接続は未実装 |
 | [会話](RDL_GameAI_簡易会話からプレイヤー介入まで.md) | current design / phase ambiguous | intent・referent・DialogueTurn・語彙。Communication Stepは生活Phaseと別 |
 | [Player](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md) | current draft | 外部語彙・情報入力と有限な自動生活cue。直接操作・Truth権限なし |
@@ -39,9 +40,9 @@
 
 - 神の像はWorldの精密Food状態を粗い生活cueへ圧縮するが、NPCへaction commandを与えない。
 - NPCはcueを有限観測として受け、自身のM_Bで解釈・短期予測し、Goal / Trajectory / Commitment / Phaseを形成する。
-- 毎朝cue → Base–Food完遂 → 従う/無視の結果 → 経験hook → cueなしの自律起動を段階的に検証する。
-- Threat / Noveltyによる割り込みと個体差は、その後に追加する。
-- FoodNeed shadow PR4 canonical promotionはfull-cycle evidenceまでdeferred。
+- 毎朝cue → Base–Food完遂 → 従う/無視の結果 → 経験hook → cueなしの自律起動まで検証済み。
+- generic / Threat / Novelty割り込み、復帰、固定個体差、extreme tuning比較まで検証済み。
+- FoodNeed shadow PR4はEvidence review後もshadow維持。次の再検討点は非Food生活loopの成立後。
 - sharing / spoilage / individual IDs / hunting / social / multi-resource実装は今回含めない。
 
 変更対象は `README.md`、`docs/design/`、`docs/experiment-contracts/`、`notes/experiment-roadmap.md` と層間分離テストの説明文。runtime / Godot挙動、Evidence、semantic referenceは変更しない。
