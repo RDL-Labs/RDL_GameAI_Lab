@@ -17,6 +17,20 @@ HABIT_SUCCESS_THRESHOLD = 2
 INTERRUPT_THRESHOLD = 0.7
 THREAT_PROFILE_THRESHOLDS = {"cautious": 0.4, "standard": 0.7, "steadfast": 0.9}
 NOVELTY_RESPONSES = {"ignore", "inspect", "divert"}
+LIFE_PROFILE_PRESETS = {
+    "trajectory_locked": {
+        "generic_threshold": 0.95,
+        "threat_threshold": 0.95,
+        "novelty_threshold": 0.95,
+        "novelty_response": "ignore",
+    },
+    "context_switching": {
+        "generic_threshold": 0.25,
+        "threat_threshold": 0.25,
+        "novelty_threshold": 0.25,
+        "novelty_response": "divert",
+    },
+}
 ACTIVE_CUE_BANDS = {"low", "critical", "empty"}
 VALID_CUE_RESPONSES = {"follow", "ignore"}
 
@@ -33,7 +47,7 @@ class BaseFoodLifePolicy:
     """Keep one finite trajectory until completion or structural release."""
 
     def __init__(self, capacity: int = 128, cue_responses=None, threat_profiles=None,
-                 novelty_responses=None):
+                 novelty_responses=None, life_profiles=None):
         self.capacity = capacity
         configured = dict(cue_responses or {})
         for agent_id, response in configured.items():
@@ -50,6 +64,13 @@ class BaseFoodLifePolicy:
             if not isinstance(agent_id, str) or not agent_id or response not in NOVELTY_RESPONSES:
                 raise ValueError("invalid Base-Food novelty response")
         self._novelty_responses = configured_novelty_responses
+        configured_life_profiles = dict(life_profiles or {})
+        for agent_id, profile in configured_life_profiles.items():
+            if not isinstance(agent_id, str) or not agent_id or profile not in LIFE_PROFILE_PRESETS:
+                raise ValueError("invalid Base-Food extreme profile")
+            if agent_id in configured_threat_profiles or agent_id in configured_novelty_responses:
+                raise ValueError("extreme profile cannot mix with per-axis interrupt settings")
+        self._life_profiles = configured_life_profiles
         self._trajectories: dict[str, TrajectoryState] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
         self._results: dict[str, dict[str, Any]] = {}
@@ -87,10 +108,20 @@ class BaseFoodLifePolicy:
             if cue_response == "ignore"
             else "no assisted Base-Food goal formed from bounded life context"
         )
+        life_profile = self._life_profiles.get(agent_id)
+        preset = LIFE_PROFILE_PRESETS.get(life_profile, {})
         threat_profile = self._threat_profiles.get(agent_id, "standard")
-        novelty_response = self._novelty_responses.get(agent_id, "inspect")
+        threat_threshold = preset.get(
+            "threat_threshold", THREAT_PROFILE_THRESHOLDS[threat_profile]
+        )
+        novelty_response = preset.get(
+            "novelty_response", self._novelty_responses.get(agent_id, "inspect")
+        )
+        generic_threshold = preset.get("generic_threshold", INTERRUPT_THRESHOLD)
+        novelty_threshold = preset.get("novelty_threshold", INTERRUPT_THRESHOLD)
         interrupt, interrupt_threshold = _select_interrupt(
-            context["interrupt_candidates"], threat_profile, novelty_response
+            context["interrupt_candidates"], threat_threshold, generic_threshold,
+            novelty_threshold, novelty_response
         )
         interrupt_outcome = "continue"
         trajectory_interrupted = False
@@ -163,6 +194,9 @@ class BaseFoodLifePolicy:
                 "threshold": interrupt_threshold,
                 "threat_profile": threat_profile,
                 "novelty_response": novelty_response,
+                "life_profile": life_profile or "axis_defaults",
+                "generic_threshold": generic_threshold,
+                "novelty_threshold": novelty_threshold,
                 "selected": deepcopy(interrupt),
                 "outcome": interrupt_outcome,
                 "authority": "GameAI-local-observation-comparison; not-action-authority",
@@ -212,6 +246,7 @@ class BaseFoodLifePolicy:
             "cue_responses": deepcopy(self._cue_responses),
             "threat_profiles": deepcopy(self._threat_profiles),
             "novelty_responses": deepcopy(self._novelty_responses),
+            "life_profiles": deepcopy(self._life_profiles),
             "trajectories": {
                 agent_id: deepcopy(vars(state))
                 for agent_id, state in self._trajectories.items()
@@ -322,12 +357,14 @@ def _short_prediction(context):
     return "base_food_stable"
 
 
-def _select_interrupt(candidates, threat_profile, novelty_response):
-    threat_threshold = THREAT_PROFILE_THRESHOLDS[threat_profile]
+def _select_interrupt(candidates, threat_threshold, generic_threshold,
+                      novelty_threshold, novelty_response):
     eligible = [
         candidate for candidate in candidates
         if candidate["salience"] >= (
-            threat_threshold if candidate["kind"] == "threat" else INTERRUPT_THRESHOLD
+            threat_threshold if candidate["kind"] == "threat" else (
+                novelty_threshold if candidate["kind"] == "novelty" else generic_threshold
+            )
         )
     ]
     if not eligible:
@@ -340,7 +377,11 @@ def _select_interrupt(candidates, threat_profile, novelty_response):
         actionable or eligible,
         key=lambda candidate: (candidate["salience"], candidate["candidate_id"]),
     )
-    selected_threshold = threat_threshold if selected["kind"] == "threat" else INTERRUPT_THRESHOLD
+    selected_threshold = (
+        threat_threshold if selected["kind"] == "threat" else (
+            novelty_threshold if selected["kind"] == "novelty" else generic_threshold
+        )
+    )
     return deepcopy(selected), selected_threshold
 
 
@@ -377,4 +418,16 @@ def parse_novelty_responses(values):
         if not agent_id or response not in NOVELTY_RESPONSES or agent_id in configured:
             raise ValueError("invalid or duplicate Base-Food novelty response")
         configured[agent_id] = response
+    return configured
+
+
+def parse_life_profiles(values):
+    configured = {}
+    for value in values:
+        if not isinstance(value, str) or "=" not in value:
+            raise ValueError("extreme profile must use AGENT=trajectory_locked|context_switching")
+        agent_id, profile = value.split("=", 1)
+        if not agent_id or profile not in LIFE_PROFILE_PRESETS or agent_id in configured:
+            raise ValueError("invalid or duplicate Base-Food extreme profile")
+        configured[agent_id] = profile
     return configured

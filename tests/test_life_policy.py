@@ -4,6 +4,7 @@ from runtime.core import ObservationError
 from runtime.life_policy import (
     BaseFoodLifePolicy,
     parse_cue_responses,
+    parse_life_profiles,
     parse_novelty_responses,
     parse_threat_profiles,
 )
@@ -208,6 +209,39 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
         self.assertEqual(decision["action"], {"type": "idle"})
         self.assertEqual(life["interrupt"]["selected"]["candidate_id"], "threat-1")
         self.assertEqual(life["interrupt"]["outcome"], "hold")
+
+    def test_extreme_profiles_expose_tuning_bounds(self):
+        candidates = [
+            {"candidate_id": "generic-1", "kind": "generic", "salience": 0.8},
+            {"candidate_id": "novelty-1", "kind": "novelty", "salience": 0.85, "target_id": "food_01"},
+        ]
+        locked = BaseFoodLifePolicy(
+            life_profiles={"npc_a": "trajectory_locked"}
+        ).decide(self.packet(interrupts=candidates))
+        switching = BaseFoodLifePolicy(
+            life_profiles={"npc_a": "context_switching"}
+        ).decide(self.packet(interrupts=candidates))
+        self.assertEqual(locked["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(locked["inspection"]["life"]["interrupt"]["outcome"], "continue")
+        self.assertEqual(switching["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(switching["inspection"]["life"]["trajectory_phase"], "SUSPENDED")
+        self.assertEqual(switching["inspection"]["life"]["interrupt"]["outcome"], "divert")
+
+    def test_extreme_profile_is_not_mixed_with_axis_overrides(self):
+        with self.assertRaises(ValueError):
+            BaseFoodLifePolicy(
+                life_profiles={"npc_a": "trajectory_locked"},
+                novelty_responses={"npc_a": "inspect"},
+            )
+
+    def test_extreme_profile_parser_is_finite(self):
+        self.assertEqual(
+            parse_life_profiles(["npc_a=context_switching"]),
+            {"npc_a": "context_switching"},
+        )
+        for values in (["npc_a=balanced"], ["npc_a"], ["npc_a=trajectory_locked", "npc_a=context_switching"]):
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                parse_life_profiles(values)
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ from .history_policy import HistoryInfluencePolicy
 from .life_policy import (
     BaseFoodLifePolicy,
     parse_cue_responses,
+    parse_life_profiles,
     parse_novelty_responses,
     parse_threat_profiles,
 )
@@ -200,6 +201,7 @@ def run(
     cue_responses=None,
     threat_profiles=None,
     novelty_responses=None,
+    life_profiles=None,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -213,6 +215,8 @@ def run(
         raise ValueError("Base-Food threat profiles require the life policy")
     if novelty_responses and not base_food_life:
         raise ValueError("Base-Food novelty responses require the life policy")
+    if life_profiles and not base_food_life:
+        raise ValueError("Base-Food extreme profiles require the life policy")
     policy = HistoryInfluencePolicy(profiles=retry_profiles) if history_influence else None
     server = ThreadingHTTPServer((host, port), BridgeHandler)
     server.history_policy = policy
@@ -220,6 +224,7 @@ def run(
         cue_responses=cue_responses,
         threat_profiles=threat_profiles,
         novelty_responses=novelty_responses,
+        life_profiles=life_profiles,
     ) if base_food_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
     server.food_mb_shadow_lock = RLock()
@@ -244,6 +249,8 @@ def main() -> None:
                         help="Threat interruption profile: cautious, standard, or steadfast")
     parser.add_argument("--base-food-novelty-response", action="append", default=[], metavar="AGENT=RESPONSE",
                         help="Novelty response: ignore, inspect, or divert")
+    parser.add_argument("--base-food-extreme-profile", action="append", default=[], metavar="AGENT=PROFILE",
+                        help="Tuning preset: trajectory_locked or context_switching")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -262,10 +269,13 @@ def main() -> None:
         novelty_responses = parse_novelty_responses(args.base_food_novelty_response)
         if novelty_responses and not args.base_food_life:
             raise ValueError("--base-food-novelty-response requires --base-food-life")
+        life_profiles = parse_life_profiles(args.base_food_extreme_profile)
+        if life_profiles and not args.base_food_life:
+            raise ValueError("--base-food-extreme-profile requires --base-food-life")
     except ValueError as exc:
         parser.error(str(exc))
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
-        args.base_food_life, cue_responses, threat_profiles, novelty_responses)
+        args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles)
 
 
 if __name__ == "__main__":

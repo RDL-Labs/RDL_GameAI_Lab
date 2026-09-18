@@ -68,6 +68,17 @@ existing approach action toward the visible novelty. Inspect/divert retain the
 original trajectory and it resumes after the candidate disappears. This is not
 general curiosity learning or a canonical model update.
 
+The final v0.3 tuning slice bundles the interrupt axes into two deliberately
+extreme operational presets:
+
+    python -m runtime.bridge --base-food-life --base-food-extreme-profile npc_b=trajectory_locked
+
+`trajectory_locked` uses `0.95` generic/Threat/Novelty thresholds and ignores
+Novelty. `context_switching` uses `0.25` thresholds and diverts toward visible
+Novelty. A preset cannot be combined with per-axis Threat/Novelty settings for
+the same agent. These are tuning bounds, not personalities, diagnoses, DNA,
+dynamic neural state, affect, canonical M_B, or H.
+
 Current properties:
 
 - localhost HTTP only

@@ -58,6 +58,13 @@ the existing approach action toward the novelty target. Inspect and divert keep
 the original Goal/Trajectory, which resumes from current world state after the
 candidate disappears.
 
+The post-Phase-8 tuning step provides two extreme operational presets.
+`trajectory_locked` uses `0.95` generic/Threat/Novelty thresholds with Novelty
+ignore; `context_switching` uses `0.25` thresholds with Novelty divert. The
+presets expose useful tuning bounds under equal observations. They are mutually
+exclusive with per-axis Threat/Novelty settings for the same agent and are not
+personality, diagnosis, DNA, dynamic neural state, affect, canonical M_B, or H.
+
 ## Authority
 
 - Godot owns and resolves World truth.
@@ -82,4 +89,5 @@ Decision Record show the coarse cue, short prediction, Goal, phase, and deposit 
 The following v0.3 stages are not operational yet:
 
 - dynamic/derived interrupt thresholds and learned Novelty dispositions
+- D3/D4-like axes, personality claims, and neural/DNA derivation
 - Player-authored Statue utterances

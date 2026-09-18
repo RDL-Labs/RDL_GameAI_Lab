@@ -503,6 +503,10 @@ func _refresh_runtime_decision():
 			interrupt.get("threat_profile", "standard"), interrupt.get("threshold", 0.7)
 		])
 		decision_text.append_text("novelty response: %s\n" % interrupt.get("novelty_response", "inspect"))
+		decision_text.append_text("tuning profile: %s\n" % interrupt.get("life_profile", "axis_defaults"))
+		decision_text.append_text("generic / novelty thresholds: %.2f / %.2f\n" % [
+			interrupt.get("generic_threshold", 0.7), interrupt.get("novelty_threshold", 0.7)
+		])
 		decision_text.append_text("cue authority: %s\n" % life.get("authority", "?"))
 	var expression = inspection.get("expression", {})
 	if not expression.is_empty():
