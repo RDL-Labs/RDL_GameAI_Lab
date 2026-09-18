@@ -22,6 +22,7 @@
 | [ρ Rest observation contract](../experiment-contracts/RHO_rest_observation_contract.md) | minimal diagnostic projection operational | Rest LOW/MID/HIGH、有限trend、可視休息文脈、RestNeed・sleep行動・consolidation非介入 |
 | [Minimal Rest loop contract](../experiment-contracts/REST_minimal_loop_contract.md) | opt-in isolated loop operational | Godot所有RestNeed、bounded rest point、approach、short rest、回復。Sleepは別契約、Consolidation未実装 |
 | [Minimal Sleep life-action contract](../experiment-contracts/SLEEP_life_action_contract.md) | opt-in bounded action operational | RestNeed + 明示window + safe place、Sleep回復。World Time / Consolidation未実装 |
+| [Minimal ActiveEnergy loop contract](../experiment-contracts/ACTIVE_ENERGY_minimal_loop_contract.md) | opt-in body loop operational | 実移動で消費、short restで小回復、Sleepで大回復。EnergyReserve・行動権限は未実装 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
 | [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |
 | [ρ Rest Candidate Description contract](../experiment-contracts/RHO_rest_candidate_description_contract.md) | double-opt-in causal experiment operational | ρ→候補記述、固定selector→target、Trajectory固定。LOW/HIGH実Godot比較 |

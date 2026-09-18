@@ -14,8 +14,10 @@ The assisted-to-autonomous [Base–Food reference loop](../docs/design/RDL_GameA
 is complete. Current game-feature work is the isolated Rest line: Godot-owned
 RestNeed, finite target selection, fixed-target Trajectory, generic interruption,
 same-target resume, short-rest recovery, structural release, and a bounded safe-place
-Sleep life action are operational. Food/Rest arbitration, World Time, sleep pressure,
-and Sleep Consolidation remain deferred. Canonical maturity remains independent.
+Sleep life action and the first opt-in ActiveEnergy movement/recovery loop are
+operational. EnergyReserve, energy-driven action authority, Food/Rest arbitration,
+World Time, sleep pressure, and Sleep Consolidation remain deferred. Canonical
+maturity remains independent.
 
 ρ v0.x is a [closed operational reference](../docs/experiment-evidence/RHO_v0_reference_evidence.md):
 Food/Rest profiles, finite projections, packet provenance, cross-domain reuse,

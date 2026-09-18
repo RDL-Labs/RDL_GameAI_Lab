@@ -70,6 +70,10 @@ const FOOD_RECOVERY = 0.6
 const REST_NEED_PER_TICK = 0.03
 const REST_RECOVERY = 0.6
 const SLEEP_RECOVERY = 0.9
+const ACTIVE_ENERGY_INITIAL = 1.0
+const ACTIVE_ENERGY_APPROACH_COST = 0.08
+const ACTIVE_ENERGY_REST_RECOVERY = 0.25
+const ACTIVE_ENERGY_SLEEP_RECOVERY = 0.75
 const REST_REACH_DISTANCE = 12.0
 const BASE_ID = "plaza"
 const BASE_FOOD_INITIAL = 1.0
@@ -92,6 +96,7 @@ var food_actions_enabled = true
 var rest_actions_enabled = false
 var sleep_actions_enabled = false
 var sleep_window_enabled = false
+var active_energy_enabled = false
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
@@ -119,6 +124,7 @@ func reset():
 			"movement_scale": 1.0,
 			"food_need": 0.8,
 			"rest_need": 0.8,
+			"active_energy": ACTIVE_ENERGY_INITIAL,
 			"held_food_ids": [],
 			"revision": 0
 		}
@@ -282,7 +288,12 @@ func get_body_snapshot(agent_id):
 	if sleep_actions_enabled:
 		snapshot["sleep_actions_enabled"] = true
 		snapshot["sleep_window"] = sleep_window_enabled
+	if active_energy_enabled:
+		snapshot["active_energy"] = body["active_energy"]
 	return snapshot
+
+func set_active_energy_enabled(enabled):
+	active_energy_enabled = bool(enabled)
 
 func get_life_context(agent_id):
 	var agent = get_agent(agent_id)
@@ -529,6 +540,9 @@ func _resolve_approach(decision, target_id):
 	var after_position = before_position + direction
 	agent["position"] = after_position
 	action_offsets[agent_id] = action_offsets.get(agent_id, Vector2.ZERO) + direction
+	var energy_effects = {}
+	if active_energy_enabled and direction.length() > 0.0:
+		energy_effects = _change_active_energy(agent_id, -ACTIVE_ENERGY_APPROACH_COST)
 
 	var before_observation = decision.get("inspection", {}).get("observation_id", "")
 	var subsequent_observation = get_observation(agent_id)
@@ -541,7 +555,8 @@ func _resolve_approach(decision, target_id):
 		before_position,
 		after_position,
 		before_observation,
-		subsequent_observation.get("observation_id", "")
+		subsequent_observation.get("observation_id", ""),
+		energy_effects
 	)
 
 func _resolve_pickup(decision, target_id):
@@ -628,12 +643,14 @@ func _resolve_rest(decision, target_id):
 	var before_need = body["rest_need"]
 	body["rest_need"] = max(0.0, before_need - REST_RECOVERY)
 	body["revision"] += 1
+	var energy_effects = _change_active_energy(agent_id, ACTIVE_ENERGY_REST_RECOVERY)
 	var subsequent_observation = get_observation(agent_id)
+	energy_effects.merge({"before_rest_need": before_need, "after_rest_need": body["rest_need"],
+		"rest_kind": "short_rest"})
 	return _record_resolution(
 		agent_id, "rest", target_id, "short rest completed; RestNeed decreased",
 		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
-		{"before_rest_need": before_need, "after_rest_need": body["rest_need"],
-			"rest_kind": "short_rest"}
+		energy_effects
 	)
 
 func _resolve_sleep(decision, target_id):
@@ -653,13 +670,29 @@ func _resolve_sleep(decision, target_id):
 	var before_need = body["rest_need"]
 	body["rest_need"] = max(0.0, before_need - SLEEP_RECOVERY)
 	body["revision"] += 1
+	var energy_effects = _change_active_energy(agent_id, ACTIVE_ENERGY_SLEEP_RECOVERY)
 	var subsequent_observation = get_observation(agent_id)
+	energy_effects.merge({"before_rest_need": before_need, "after_rest_need": body["rest_need"],
+		"sleep_kind": "bounded_sleep", "consolidation": "not_run"})
 	return _record_resolution(
 		agent_id, "sleep", target_id, "bounded sleep completed; RestNeed decreased",
 		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),
-		{"before_rest_need": before_need, "after_rest_need": body["rest_need"],
-			"sleep_kind": "bounded_sleep", "consolidation": "not_run"}
+		energy_effects
 	)
+
+func _change_active_energy(agent_id, delta):
+	if not active_energy_enabled or not body_states.has(agent_id):
+		return {}
+	var body = body_states[agent_id]
+	var before_energy = body["active_energy"]
+	body["active_energy"] = clamp(before_energy + delta, 0.0, 1.0)
+	if not is_equal_approx(before_energy, body["active_energy"]):
+		body["revision"] += 1
+	return {
+		"before_active_energy": before_energy,
+		"after_active_energy": body["active_energy"],
+		"energy_model": "active-energy-v1"
+	}
 
 func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = "", effects = {}):
 	var record = {

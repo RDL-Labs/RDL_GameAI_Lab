@@ -21,6 +21,9 @@ RestNeed >= 0.85
 Godot owns RestNeed, the explicit sleep-window fixture, place truth,
 reachability, and recovery. Runtime receives only bounded body and place fields.
 One bounded Sleep reduces RestNeed by `0.9`.
+When the separate ActiveEnergy experiment is enabled, the same resolved Sleep
+also restores a larger finite amount of ActiveEnergy. That body effect is
+specified by the ActiveEnergy contract and still does not run consolidation.
 
 Only a place described as `safe` is eligible. In the current World the policy
 passes over uncertain `z_grove` and approaches safe Plaza. Outside the window,

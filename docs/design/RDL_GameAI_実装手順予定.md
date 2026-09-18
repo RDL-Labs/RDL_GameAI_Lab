@@ -184,6 +184,8 @@ Experience Consolidationは横断系として段階接続する。
 
 ## Phase 3 — EnergyReserve / ActiveEnergy
 
+**現在地:** `ActiveEnergy` の最小opt-in loopは実装済み。実移動で消費し、short restで小回復、bounded Sleepで大回復する。`EnergyReserve`、capacity、枯渇時の行動拘束、Need arbitrationは未実装。
+
 ```text
 EnergyReserve
 ActiveEnergy
