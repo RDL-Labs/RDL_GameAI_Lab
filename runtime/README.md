@@ -29,6 +29,13 @@ relation, bounded visible Food, and self-body snapshot. It maintains a finite
 GameAI-local Goal/Trajectory through deposit. It does not admit precise Base
 stock, add canonical action authority, or implement habit learning.
 
+Phase 4 follow/ignore evidence is configurable per agent:
+
+    python -m runtime.bridge --base-food-life --base-food-cue-response npc_b=ignore
+
+This fixed experimental disposition belongs to the NPC-side policy. It is not
+encoded in the God Statue cue and does not modify canonical M_B or H.
+
 Current properties:
 
 - localhost HTTP only

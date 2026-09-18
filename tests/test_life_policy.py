@@ -1,6 +1,6 @@
 import unittest
 
-from runtime.life_policy import BaseFoodLifePolicy
+from runtime.life_policy import BaseFoodLifePolicy, parse_cue_responses
 
 
 class BaseFoodLifePolicyTests(unittest.TestCase):
@@ -60,6 +60,19 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
         response = policy.decide(packet)
         self.assertEqual(response["action"], {"type": "idle"})
         self.assertEqual(response["inspection"]["life"]["trajectory_phase"], "NONE")
+
+    def test_ignore_is_agent_owned_and_forms_no_goal(self):
+        response = BaseFoodLifePolicy(cue_responses={"npc_a": "ignore"}).decide(self.packet())
+        self.assertEqual(response["action"], {"type": "idle"})
+        self.assertEqual(response["inspection"]["life"]["cue_response"], "ignore")
+        self.assertIsNone(response["inspection"]["life"]["goal"])
+        self.assertIn("ignored", response["inspection"]["reason"])
+
+    def test_cue_response_parser_is_finite(self):
+        self.assertEqual(parse_cue_responses(["npc_a=ignore"]), {"npc_a": "ignore"})
+        for values in (["npc_a=delay"], ["npc_a"], ["npc_a=follow", "npc_a=ignore"]):
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                parse_cue_responses(values)
 
 
 if __name__ == "__main__":

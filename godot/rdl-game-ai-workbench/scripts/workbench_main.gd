@@ -469,6 +469,7 @@ func _refresh_runtime_decision():
 			life.get("trajectory_phase", "NONE"), life.get("commitment", "none")
 		])
 		decision_text.append_text("prediction: %s\n" % life.get("short_prediction", "none"))
+		decision_text.append_text("cue response: %s\n" % life.get("cue_response", "follow"))
 		decision_text.append_text("cue authority: %s\n" % life.get("authority", "?"))
 	var expression = inspection.get("expression", {})
 	if not expression.is_empty():

@@ -14,6 +14,7 @@ from .expression import with_expression
 
 POLICY_ID = "base-food-assisted-trajectory-v1"
 ACTIVE_CUE_BANDS = {"low", "critical", "empty"}
+VALID_CUE_RESPONSES = {"follow", "ignore"}
 
 
 @dataclass
@@ -27,8 +28,13 @@ class TrajectoryState:
 class BaseFoodLifePolicy:
     """Keep one finite trajectory until completion or structural release."""
 
-    def __init__(self, capacity: int = 128):
+    def __init__(self, capacity: int = 128, cue_responses=None):
         self.capacity = capacity
+        configured = dict(cue_responses or {})
+        for agent_id, response in configured.items():
+            if not isinstance(agent_id, str) or not agent_id or response not in VALID_CUE_RESPONSES:
+                raise ValueError("invalid Base-Food cue response")
+        self._cue_responses = configured
         self._trajectories: dict[str, TrajectoryState] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
 
@@ -45,7 +51,8 @@ class BaseFoodLifePolicy:
 
         body = observation["body"]
         trajectory = self._trajectories.get(agent_id)
-        if trajectory is None and _should_form_goal(context):
+        cue_response = self._cue_responses.get(agent_id, "follow")
+        if trajectory is None and cue_response == "follow" and _should_form_goal(context):
             target_id = _first_visible_food_id(observation)
             if target_id:
                 trajectory = TrajectoryState(
@@ -57,7 +64,11 @@ class BaseFoodLifePolicy:
 
         action_type = "idle"
         target_id = None
-        reason = "no assisted Base-Food goal formed from bounded life context"
+        reason = (
+            "NPC ignored the finite God Statue cue"
+            if cue_response == "ignore"
+            else "no assisted Base-Food goal formed from bounded life context"
+        )
         if trajectory is not None:
             held = body.get("held_food_ids", [])
             visible = {item["id"]: item for item in observation["visible_objects"]}
@@ -96,6 +107,7 @@ class BaseFoodLifePolicy:
             "cue": deepcopy(context["god_statue_cue"]),
             "observed_base_food_band": context["observed_base_food_band"],
             "short_prediction": _short_prediction(context),
+            "cue_response": cue_response,
             "goal": trajectory.goal if trajectory else None,
             "trajectory_phase": trajectory.phase if trajectory else "NONE",
             "commitment": trajectory.commitment if trajectory else "none",
@@ -111,6 +123,7 @@ class BaseFoodLifePolicy:
     def snapshot(self) -> dict[str, Any]:
         return {
             "policy": POLICY_ID,
+            "cue_responses": deepcopy(self._cue_responses),
             "trajectories": {
                 agent_id: deepcopy(vars(state))
                 for agent_id, state in self._trajectories.items()
@@ -180,3 +193,15 @@ def _short_prediction(context):
     if context["observed_base_food_band"] in ACTIVE_CUE_BANDS:
         return "base_food_shortage_may_worsen"
     return "base_food_stable"
+
+
+def parse_cue_responses(values):
+    configured = {}
+    for value in values:
+        if not isinstance(value, str) or "=" not in value:
+            raise ValueError("cue response must use AGENT=follow|ignore")
+        agent_id, response = value.split("=", 1)
+        if not agent_id or response not in VALID_CUE_RESPONSES or agent_id in configured:
+            raise ValueError("invalid or duplicate Base-Food cue response")
+        configured[agent_id] = response
+    return configured

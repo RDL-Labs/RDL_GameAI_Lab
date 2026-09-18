@@ -34,7 +34,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
 - First game feature: [minimal Food loop](docs/experiment-contracts/FOOD_minimal_loop_contract.md)。FoodNeed → approach → pickup → eat → world消費 / Need低下。
 - Current direction: 神の像の粗いFood cue → NPC観測・短期予測 → Goal → 継続するTrajectory → Base–Food完遂 → 経験 → cueなしの自律起動を段階的に成立させる。神の像にaction authorityは与えない。
-- Operational assisted slice: opt-inで粗いcue + 在庫bandからGoalを形成し、GO_TO_SITE / GATHER / RETURN_BASE / DEPOSITを完遂する。経験学習とcueなし自律化はまだdeferred。
+- Operational assisted slice: opt-inで粗いcue + 在庫bandからGoalを形成し、GO_TO_SITE / GATHER / RETURN_BASE / DEPOSITを完遂する。NPC側のfollow / ignore分岐とignore時の在庫枯渇・FoodNeed悪化まで確認済み。経験学習とcueなし自律化はまだdeferred。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・睡眠整理・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

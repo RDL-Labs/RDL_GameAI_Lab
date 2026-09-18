@@ -64,6 +64,7 @@ const BASE_ID = "plaza"
 const BASE_FOOD_INITIAL = 1.0
 const BASE_FOOD_CAPACITY = 10.0
 const BASE_FOOD_DEPOSIT = 4.0
+const BASE_FOOD_CONSUMPTION_PER_TICK = 0.15
 const BASE_REACH_DISTANCE = 12.0
 
 var tick = 0
@@ -111,6 +112,7 @@ func reset():
 
 func step():
 	tick += 1
+	_consume_base_food()
 	_update_food_needs()
 	_update_mock_positions()
 	decision_records.append(_build_decision_record("npc_a"))
@@ -292,6 +294,18 @@ func _update_food_needs():
 		if not is_equal_approx(next_need, body["food_need"]):
 			body["food_need"] = next_need
 			body["revision"] += 1
+
+func _consume_base_food():
+	if base_food_stock <= 0.0:
+		return
+	var before_stock = base_food_stock
+	base_food_stock = max(0.0, base_food_stock - BASE_FOOD_CONSUMPTION_PER_TICK)
+	base_food_revision += 1
+	events.append("tick %03d: Base food consumed %.2f -> %.2f (%s)" % [
+		tick, before_stock, base_food_stock, _base_food_band()
+	])
+	if events.size() > 80:
+		events.pop_front()
 
 func _build_mock_event():
 	var actor = agents[tick % agents.size()]
