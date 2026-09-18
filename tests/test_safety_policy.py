@@ -18,6 +18,7 @@ class SafetyTrajectoryPolicyTests(unittest.TestCase):
                     "danger_id": "danger_gully" if exposed else "",
                     "safe_target_id": target,
                     "safe_reached": reached,
+                    "reached_safe_target_id": target if reached else "",
                 },
                 "body": {
                     "agent_id": "npc_b", "snapshot_id": "body-safety-1",
@@ -39,6 +40,15 @@ class SafetyTrajectoryPolicyTests(unittest.TestCase):
         self.assertEqual(complete["action"], {"type": "idle"})
         self.assertEqual(complete["inspection"]["safety"]["trajectory_phase"], "COMPLETE")
         self.assertEqual(policy.snapshot()["trajectories"], {})
+
+    def test_reaching_a_different_safe_target_does_not_complete_commitment(self):
+        policy = SafetyTrajectoryPolicy()
+        policy.decide(self.packet("safe-1", exposed=True, target="plaza"))
+        mismatch = self.packet("safe-2", exposed=False, reached=True, target="plaza")
+        mismatch["observation"]["safety_context"]["reached_safe_target_id"] = "shelter_b"
+        continued = policy.decide(mismatch)
+        self.assertEqual(continued["action"], {"type": "flee", "target_id": "plaza"})
+        self.assertEqual(continued["inspection"]["safety"]["trajectory_phase"], "FLEE_TO_SAFE")
 
     def test_missing_target_releases_and_replay_is_frozen(self):
         policy = SafetyTrajectoryPolicy()

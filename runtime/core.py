@@ -329,6 +329,11 @@ def _validate_safety_state(observation: dict[str, Any], agent_id: str) -> None:
     for field in ("danger_id", "safe_target_id"):
         if not isinstance(safety.get(field), str):
             raise ObservationError(f"safety_context.{field} must be a string")
+    reached_target_id = safety.get("reached_safe_target_id")
+    if not isinstance(reached_target_id, str):
+        raise ObservationError("safety_context.reached_safe_target_id must be a string")
+    if safety["safe_reached"] != bool(reached_target_id):
+        raise ObservationError("safe_reached must match reached_safe_target_id presence")
     if safety["exposed"] and not safety["danger_id"]:
         raise ObservationError("exposed safety context requires danger_id")
 

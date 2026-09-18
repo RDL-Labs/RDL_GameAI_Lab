@@ -43,7 +43,11 @@ class SafetyTrajectoryPolicy:
         safety = observation["safety_context"]
         trajectory = self._trajectories.get(agent_id)
         completed_target = None
-        if trajectory is not None and safety["safe_reached"]:
+        if (
+            trajectory is not None
+            and safety["safe_reached"]
+            and safety["reached_safe_target_id"] == trajectory.target_id
+        ):
             completed_target = trajectory.target_id
             del self._trajectories[agent_id]
             trajectory = None
@@ -85,6 +89,7 @@ class SafetyTrajectoryPolicy:
             "target_id": trajectory.target_id if trajectory else completed_target,
             "danger_exposed": safety["exposed"],
             "safe_reached": safety["safe_reached"],
+            "reached_safe_target_id": safety["reached_safe_target_id"],
         }
         decision = with_expression(apply_body_constraint(packet, decision))
         self._decisions[key] = (deepcopy(packet), deepcopy(decision))

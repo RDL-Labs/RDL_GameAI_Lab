@@ -784,7 +784,8 @@ func _build_safety_context(agent, visible_places):
 		"exposed": not danger_id.is_empty(),
 		"danger_id": danger_id,
 		"safe_target_id": safe_target_id,
-		"safe_reached": safe_reached
+		"safe_reached": safe_reached,
+		"reached_safe_target_id": safe_target_id if safe_reached else ""
 	}
 
 func _change_active_energy(agent_id, delta):
