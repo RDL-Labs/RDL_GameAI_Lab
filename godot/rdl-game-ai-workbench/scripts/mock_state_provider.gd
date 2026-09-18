@@ -74,6 +74,8 @@ const ACTIVE_ENERGY_INITIAL = 1.0
 const ACTIVE_ENERGY_APPROACH_COST = 0.08
 const ACTIVE_ENERGY_REST_RECOVERY = 0.25
 const ACTIVE_ENERGY_SLEEP_RECOVERY = 0.75
+const ENERGY_RESERVE_INITIAL = 0.4
+const ENERGY_RESERVE_SLEEP_RECOVERY = 0.4
 const REST_REACH_DISTANCE = 12.0
 const BASE_ID = "plaza"
 const BASE_FOOD_INITIAL = 1.0
@@ -97,6 +99,7 @@ var rest_actions_enabled = false
 var sleep_actions_enabled = false
 var sleep_window_enabled = false
 var active_energy_enabled = false
+var energy_reserve_enabled = false
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
@@ -125,6 +128,7 @@ func reset():
 			"food_need": 0.8,
 			"rest_need": 0.8,
 			"active_energy": ACTIVE_ENERGY_INITIAL,
+			"energy_reserve": ENERGY_RESERVE_INITIAL,
 			"held_food_ids": [],
 			"revision": 0
 		}
@@ -290,10 +294,15 @@ func get_body_snapshot(agent_id):
 		snapshot["sleep_window"] = sleep_window_enabled
 	if active_energy_enabled:
 		snapshot["active_energy"] = body["active_energy"]
+	if energy_reserve_enabled:
+		snapshot["energy_reserve"] = body["energy_reserve"]
 	return snapshot
 
 func set_active_energy_enabled(enabled):
 	active_energy_enabled = bool(enabled)
+
+func set_energy_reserve_enabled(enabled):
+	energy_reserve_enabled = bool(enabled)
 
 func get_life_context(agent_id):
 	var agent = get_agent(agent_id)
@@ -671,6 +680,7 @@ func _resolve_sleep(decision, target_id):
 	body["rest_need"] = max(0.0, before_need - SLEEP_RECOVERY)
 	body["revision"] += 1
 	var energy_effects = _change_active_energy(agent_id, ACTIVE_ENERGY_SLEEP_RECOVERY)
+	energy_effects.merge(_change_energy_reserve(agent_id, ENERGY_RESERVE_SLEEP_RECOVERY))
 	var subsequent_observation = get_observation(agent_id)
 	energy_effects.merge({"before_rest_need": before_need, "after_rest_need": body["rest_need"],
 		"sleep_kind": "bounded_sleep", "consolidation": "not_run"})
@@ -692,6 +702,20 @@ func _change_active_energy(agent_id, delta):
 		"before_active_energy": before_energy,
 		"after_active_energy": body["active_energy"],
 		"energy_model": "active-energy-v1"
+	}
+
+func _change_energy_reserve(agent_id, delta):
+	if not energy_reserve_enabled or not body_states.has(agent_id):
+		return {}
+	var body = body_states[agent_id]
+	var before_reserve = body["energy_reserve"]
+	body["energy_reserve"] = clamp(before_reserve + delta, 0.0, 1.0)
+	if not is_equal_approx(before_reserve, body["energy_reserve"]):
+		body["revision"] += 1
+	return {
+		"before_energy_reserve": before_reserve,
+		"after_energy_reserve": body["energy_reserve"],
+		"reserve_model": "energy-reserve-v1"
 	}
 
 func _record_resolution(agent_id, action_type, target_id, note, before_position = null, after_position = null, source_observation_id = "", subsequent_observation_id = "", effects = {}):

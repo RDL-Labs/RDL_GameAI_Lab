@@ -2,7 +2,7 @@
 
 **Status:** Opt-in body loop operational
 
-**Boundary:** Movement cost and Rest/Sleep recovery only; no EnergyReserve or action authority
+**Boundary:** Movement cost and Rest/Sleep recovery only; EnergyReserve is a separate contract and has no action authority
 
 ## Finite loop
 
@@ -30,9 +30,9 @@ ActiveEnergy recovery != Sleep Consolidation
 ActiveEnergy observation != Runtime action authority
 ```
 
-The Runtime does not select actions from ActiveEnergy in this slice. Food/Rest
-arbitration, exhaustion effects, capacity, reserve transfer, and canonical
-admission remain absent.
+The Runtime does not select actions from ActiveEnergy in this slice. The
+separate EnergyReserve experiment does not transfer into this value. Food/Rest
+arbitration, exhaustion effects, capacity, and canonical admission remain absent.
 
 ## Evidence
 
