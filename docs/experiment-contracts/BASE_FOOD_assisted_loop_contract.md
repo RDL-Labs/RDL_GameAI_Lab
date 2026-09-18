@@ -1,6 +1,6 @@
 # Base-Food Assisted Loop Contract
 
-**Status:** Phase 1-4 operational finite experiment
+**Status:** Phase 1-5 operational finite experiment
 **Boundary:** GameAI-local policy plus Godot-owned world resolution
 
 ## Operational path
@@ -29,6 +29,13 @@ forms no Goal and returns idle. Godot continues Base consumption and FoodNeed
 change, so ignored shortage can produce observable empty-stock and worsening-need
 evidence without turning the cue into a command.
 
+Successful deposit is reported to POST /v1/life-result and retained as a finite,
+idempotent GameAI-local cue-result relation. GET /v1/life-snapshot exposes the
+records and habit boundary. Two distinct replenish successes are required before
+an NPC may form the same Goal from observed low stock with no God Statue cue.
+One success is insufficient. Cue-free completion uses the learned relation but
+does not manufacture another cue-result record.
+
 ## Authority
 
 - Godot owns and resolves World truth.
@@ -52,8 +59,5 @@ Decision Record show the coarse cue, short prediction, Goal, phase, and deposit 
 
 The following v0.3 stages are not operational yet:
 
-- cue-result experience relation
-- habit strengthening or cue dependency reduction
-- cue-independent Goal formation
 - generic, Threat, or Novelty interruption
 - Player-authored Statue utterances

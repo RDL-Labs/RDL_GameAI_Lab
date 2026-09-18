@@ -32,6 +32,15 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/life-snapshot":
+            policy = getattr(self.server, "life_policy", None)
+            if policy is None:
+                self._send_json(404, {"error": "base_food_life_disabled"})
+                return
+            with CANONICAL_LOCK:
+                snapshot = policy.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/v1/food-mb-shadow":
             sidecar = getattr(self.server, "food_mb_shadow", None)
             if sidecar is None:
@@ -57,6 +66,20 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self._send_json(404, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        if self.path == "/v1/life-result":
+            policy = getattr(self.server, "life_policy", None)
+            if policy is None:
+                self._send_json(404, {"error": "base_food_life_disabled"})
+                return
+            try:
+                payload = self._read_json()
+                with CANONICAL_LOCK:
+                    record = policy.record_result(payload)
+            except (ValueError, ObservationError) as exc:
+                self._send_json(422, {"error": "invalid_life_result", "detail": str(exc)})
+                return
+            self._send_json(200, {"accepted": True, "record": record})
+            return
         if self.path in ("/v1/food-mb-shadow/open", "/v1/food-mb-shadow/compare"):
             self._handle_food_mb_shadow()
             return

@@ -5,6 +5,7 @@ const WORLD_SIZE = Vector2(460, 340)
 const TICK_SECONDS = 0.6
 const RUNTIME_URL = "http://127.0.0.1:8765/v1/observe"
 const RESULT_URL = "http://127.0.0.1:8765/v1/interaction-result"
+const LIFE_RESULT_URL = "http://127.0.0.1:8765/v1/life-result"
 
 var state_provider = MockStateProviderScript.new()
 var is_running = false
@@ -289,6 +290,7 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 	runtime_decision = parsed
 	runtime_resolution = state_provider.resolve_action(runtime_decision)
 	var interaction_result = state_provider.get_interaction_result(runtime_resolution)
+	var life_result = state_provider.get_life_result(runtime_decision, runtime_resolution)
 	history_status = ""
 	if not interaction_result.is_empty():
 		history_pending = true
@@ -297,6 +299,13 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 		if error != OK:
 			history_pending = false
 			history_status = "report failed: %d" % error
+	elif not life_result.is_empty():
+		history_pending = true
+		history_status = "life result pending"
+		var error = history_request.request(LIFE_RESULT_URL, ["Content-Type: application/json"], HTTPClient.METHOD_POST, JSON.stringify(life_result))
+		if error != OK:
+			history_pending = false
+			history_status = "life result failed: %d" % error
 	_refresh_all()
 
 func _on_history_completed(result, response_code, _headers, body):
@@ -385,8 +394,12 @@ func _refresh_inspector():
 	inspector_text.append_text("food need: %.2f\n" % body.get("food_need", 0.0))
 	inspector_text.append_text("held food: %s\n\n" % ", ".join(body.get("held_food_ids", [])))
 	var life_context = state_provider.get_life_context(selected_agent_id)
+	var statue_cue = life_context.get("god_statue_cue")
+	var statue_band = "none"
+	if typeof(statue_cue) == TYPE_DICTIONARY:
+		statue_band = statue_cue.get("band", "none")
 	inspector_text.append_text("Base food: %s\n" % life_context.get("observed_base_food_band", "unknown"))
-	inspector_text.append_text("God Statue cue: %s\n\n" % life_context.get("god_statue_cue", {}).get("band", "none"))
+	inspector_text.append_text("God Statue cue: %s\n\n" % statue_band)
 	inspector_text.append_text("Workbench boundary:\n")
 	inspector_text.append_text("- bounded local Food / Body / History experiments\n")
 	inspector_text.append_text("- optional localhost runtime bridge in Runtime mode\n")
@@ -408,8 +421,12 @@ func _refresh_observation(state):
 	observation_text.append_text("visible objects: %s\n" % _labels_for(observation["visible_objects"]))
 	observation_text.append_text("visible places: %s\n" % _labels_for(observation["visible_places"]))
 	var life_context = state_provider.get_life_context(selected_agent_id)
+	var statue_cue = life_context.get("god_statue_cue")
+	var statue_band = "none"
+	if typeof(statue_cue) == TYPE_DICTIONARY:
+		statue_band = statue_cue.get("band", "none")
 	observation_text.append_text("life cue: %s / observed stock: %s\n" % [
-		life_context.get("god_statue_cue", {}).get("band", "none"),
+		statue_band,
 		life_context.get("observed_base_food_band", "unknown")
 	])
 	observation_text.append_text("world objects visible to observer UI: %d\n" % world_object_count)
@@ -470,6 +487,10 @@ func _refresh_runtime_decision():
 		])
 		decision_text.append_text("prediction: %s\n" % life.get("short_prediction", "none"))
 		decision_text.append_text("cue response: %s\n" % life.get("cue_response", "follow"))
+		decision_text.append_text("goal trigger: %s\n" % life.get("goal_trigger", "none"))
+		decision_text.append_text("habit: %d / %s\n" % [
+			life.get("habit_successes", 0), str(life.get("habit_ready", false))
+		])
 		decision_text.append_text("cue authority: %s\n" % life.get("authority", "?"))
 	var expression = inspection.get("expression", {})
 	if not expression.is_empty():

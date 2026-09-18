@@ -80,6 +80,7 @@ var body_states = {}
 var food_actions_enabled = true
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
+var god_statue_cue_enabled = true
 
 func reset():
 	tick = 0
@@ -87,6 +88,7 @@ func reset():
 	body_states = {}
 	base_food_stock = BASE_FOOD_INITIAL
 	base_food_revision = 0
+	god_statue_cue_enabled = true
 	agents = []
 	for agent in INITIAL_AGENTS:
 		agents.append(agent.duplicate(true))
@@ -235,14 +237,18 @@ func get_life_context(agent_id):
 	if agent.is_empty() or base.is_empty():
 		return {}
 	var band = _base_food_band()
-	return {
-		"god_statue_cue": {
+	var cue = null
+	if god_statue_cue_enabled:
+		cue = {
 			"source": "system_assessment",
 			"topic": "base_food",
 			"band": band,
 			"delivery": "morning",
+			"cue_id": "god-food-%03d" % base_food_revision,
 			"assessment_revision": base_food_revision
-		},
+		}
+	return {
+		"god_statue_cue": cue,
 		"observed_base_food_band": band,
 		"known_base": {
 			"id": BASE_ID,
@@ -253,6 +259,9 @@ func get_life_context(agent_id):
 		},
 		"at_base": agent["position"].distance_to(base["position"]) <= BASE_REACH_DISTANCE
 	}
+
+func set_god_statue_cue_enabled(enabled):
+	god_statue_cue_enabled = bool(enabled)
 
 func set_food_actions_enabled(enabled):
 	food_actions_enabled = bool(enabled)
@@ -272,6 +281,26 @@ func get_interaction_result(resolution):
 		"target_id": resolution["target_id"],
 		"tick": resolution["tick"],
 		"outcome": outcome
+	}
+
+func get_life_result(decision, resolution):
+	if resolution.get("action_type", "") != "deposit":
+		return {}
+	var effects = resolution.get("effects", {})
+	if effects.get("base_food_band", "") != "enough":
+		return {}
+	var life = decision.get("inspection", {}).get("life", {})
+	var cue = life.get("cue")
+	if typeof(cue) != TYPE_DICTIONARY:
+		return {}
+	var source_observation_id = resolution.get("source_observation_id", "")
+	return {
+		"result_id": "life-%s-deposit" % source_observation_id,
+		"agent_id": resolution.get("agent_id", ""),
+		"source_observation_id": source_observation_id,
+		"cue_id": cue.get("cue_id", ""),
+		"response": life.get("cue_response", ""),
+		"outcome": "replenish_success"
 	}
 
 func _update_mock_positions():

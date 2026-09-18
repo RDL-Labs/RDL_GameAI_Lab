@@ -62,10 +62,11 @@ class GodotExperienceTests(unittest.TestCase):
     def test_real_workbench_assisted_base_food_loop(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()
+        life_policy = BaseFoodLifePolicy()
         with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
             server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
             server.history_policy = None
-            server.life_policy = BaseFoodLifePolicy()
+            server.life_policy = life_policy
             thread = threading.Thread(target=server.serve_forever)
             thread.start()
             try:
@@ -82,6 +83,8 @@ class GodotExperienceTests(unittest.TestCase):
                 self.assertIn("Base-Food HTTP check passed", output)
                 self.assertGreaterEqual(len(history.snapshot()["records"]), 2)
                 self.assertGreaterEqual(canonical.snapshot()["comparisons"], 1)
+                self.assertEqual(len(life_policy.snapshot()["results"]), 1)
+                self.assertEqual(life_policy.snapshot()["results"][0]["outcome"], "replenish_success")
                 print(output.strip())
             finally:
                 server.shutdown()
@@ -110,6 +113,42 @@ class GodotExperienceTests(unittest.TestCase):
                 self.assertEqual(completed.returncode, 0, output)
                 self.assertIn("Base-Food ignore check passed", output)
                 self.assertEqual(history.snapshot()["records"], [])
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
+    def test_real_workbench_learned_relation_runs_without_cue(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        life_policy = BaseFoodLifePolicy()
+        for index in range(2):
+            life_policy.record_result({
+                "result_id": f"seed-{index}", "agent_id": "npc_b",
+                "source_observation_id": f"seed-observation-{index}",
+                "cue_id": f"seed-cue-{index}", "response": "follow",
+                "outcome": "replenish_success",
+            })
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.life_policy = life_policy
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/base_food_autonomous_http_check.gd"],
+                    capture_output=True, text=True, timeout=40,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Base-Food autonomous check passed", output)
+                self.assertEqual(len(life_policy.snapshot()["results"]), 2)
                 print(output.strip())
             finally:
                 server.shutdown()

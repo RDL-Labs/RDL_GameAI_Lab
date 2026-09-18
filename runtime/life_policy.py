@@ -13,6 +13,7 @@ from .expression import with_expression
 
 
 POLICY_ID = "base-food-assisted-trajectory-v1"
+HABIT_SUCCESS_THRESHOLD = 2
 ACTIVE_CUE_BANDS = {"low", "critical", "empty"}
 VALID_CUE_RESPONSES = {"follow", "ignore"}
 
@@ -37,6 +38,7 @@ class BaseFoodLifePolicy:
         self._cue_responses = configured
         self._trajectories: dict[str, TrajectoryState] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
+        self._results: dict[str, dict[str, Any]] = {}
 
     def decide(self, packet: dict[str, Any]) -> dict[str, Any]:
         agent_id, observation_id, observation, context = _validate_life_packet(packet)
@@ -51,8 +53,10 @@ class BaseFoodLifePolicy:
 
         body = observation["body"]
         trajectory = self._trajectories.get(agent_id)
-        cue_response = self._cue_responses.get(agent_id, "follow")
-        if trajectory is None and cue_response == "follow" and _should_form_goal(context):
+        cue = context["god_statue_cue"]
+        cue_response = self._cue_responses.get(agent_id, "follow") if cue else "autonomous"
+        learned_trigger = cue is None and self._habit_ready(agent_id)
+        if trajectory is None and cue_response != "ignore" and _should_form_goal(context, learned_trigger):
             target_id = _first_visible_food_id(observation)
             if target_id:
                 trajectory = TrajectoryState(
@@ -108,6 +112,11 @@ class BaseFoodLifePolicy:
             "observed_base_food_band": context["observed_base_food_band"],
             "short_prediction": _short_prediction(context),
             "cue_response": cue_response,
+            "goal_trigger": "learned_low_stock_relation" if learned_trigger else (
+                "god_statue_cue" if cue else "none"
+            ),
+            "habit_successes": self._success_count(agent_id),
+            "habit_ready": self._habit_ready(agent_id),
             "goal": trajectory.goal if trajectory else None,
             "trajectory_phase": trajectory.phase if trajectory else "NONE",
             "commitment": trajectory.commitment if trajectory else "none",
@@ -120,6 +129,34 @@ class BaseFoodLifePolicy:
     def complete_deposit(self, agent_id: str) -> None:
         self._trajectories.pop(agent_id, None)
 
+    def record_result(self, payload: dict[str, Any]) -> dict[str, Any]:
+        if not isinstance(payload, dict):
+            raise ObservationError("life result must be an object")
+        for field in ("result_id", "agent_id", "source_observation_id"):
+            if not isinstance(payload.get(field), str) or not payload[field]:
+                raise ObservationError(f"life result {field} must be non-empty")
+        if payload.get("response") != "follow" or payload.get("outcome") != "replenish_success":
+            raise ObservationError("unsupported life result response/outcome")
+        cue_id = payload.get("cue_id")
+        if not isinstance(cue_id, str) or not cue_id:
+            raise ObservationError("life result cue_id must be non-empty")
+        result = {
+            "result_id": payload["result_id"],
+            "agent_id": payload["agent_id"],
+            "source_observation_id": payload["source_observation_id"],
+            "cue_id": cue_id,
+            "response": "follow",
+            "outcome": "replenish_success",
+            "relation": "low_base_food -> replenish_base_food",
+            "authority": "GameAI-local-experience; not-canonical-M_B",
+        }
+        existing = self._results.get(result["result_id"])
+        if existing is not None and existing != result:
+            raise ObservationError("conflicting life result replay")
+        self._results[result["result_id"]] = result
+        self.complete_deposit(result["agent_id"])
+        return deepcopy(result)
+
     def snapshot(self) -> dict[str, Any]:
         return {
             "policy": POLICY_ID,
@@ -129,7 +166,22 @@ class BaseFoodLifePolicy:
                 for agent_id, state in self._trajectories.items()
             },
             "decisions": len(self._decisions),
+            "results": deepcopy(list(self._results.values())),
+            "habit_success_threshold": HABIT_SUCCESS_THRESHOLD,
+            "habit_ready_agents": sorted({
+                result["agent_id"] for result in self._results.values()
+                if self._habit_ready(result["agent_id"])
+            }),
         }
+
+    def _success_count(self, agent_id):
+        return sum(
+            result["agent_id"] == agent_id and result["outcome"] == "replenish_success"
+            for result in self._results.values()
+        )
+
+    def _habit_ready(self, agent_id):
+        return self._success_count(agent_id) >= HABIT_SUCCESS_THRESHOLD
 
 
 def _validate_life_packet(packet):
@@ -156,14 +208,17 @@ def _validate_life_packet(packet):
     if not isinstance(context, dict):
         raise ObservationError("observation.life_context must be an object")
     cue = context.get("god_statue_cue")
-    if not isinstance(cue, dict):
-        raise ObservationError("life_context.god_statue_cue must be an object")
-    if cue.get("source") != "system_assessment" or cue.get("topic") != "base_food":
-        raise ObservationError("unsupported God Statue cue provenance")
-    if cue.get("delivery") != "morning":
-        raise ObservationError("God Statue Food cue must use the finite morning delivery")
-    if cue.get("band") not in {"enough", "low", "critical", "empty"}:
-        raise ObservationError("unsupported God Statue Food cue band")
+    if cue is not None:
+        if not isinstance(cue, dict):
+            raise ObservationError("life_context.god_statue_cue must be an object or null")
+        if cue.get("source") != "system_assessment" or cue.get("topic") != "base_food":
+            raise ObservationError("unsupported God Statue cue provenance")
+        if cue.get("delivery") != "morning":
+            raise ObservationError("God Statue Food cue must use the finite morning delivery")
+        if cue.get("band") not in {"enough", "low", "critical", "empty"}:
+            raise ObservationError("unsupported God Statue Food cue band")
+        if not isinstance(cue.get("cue_id"), str) or not cue["cue_id"]:
+            raise ObservationError("God Statue cue_id must be non-empty")
     if context.get("observed_base_food_band") not in {"enough", "low", "critical", "empty"}:
         raise ObservationError("unsupported observed Base Food band")
     known_base = context.get("known_base")
@@ -174,11 +229,10 @@ def _validate_life_packet(packet):
     return agent_id, observation_id, observation, context
 
 
-def _should_form_goal(context):
-    return (
-        context["god_statue_cue"]["band"] in ACTIVE_CUE_BANDS
-        and context["observed_base_food_band"] in ACTIVE_CUE_BANDS
-    )
+def _should_form_goal(context, learned_trigger):
+    cue = context["god_statue_cue"]
+    cue_active = cue is not None and cue["band"] in ACTIVE_CUE_BANDS
+    return context["observed_base_food_band"] in ACTIVE_CUE_BANDS and (cue_active or learned_trigger)
 
 
 def _first_visible_food_id(observation):

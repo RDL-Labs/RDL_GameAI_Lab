@@ -23,7 +23,7 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
                 "life_context": {
                     "god_statue_cue": {
                         "source": "system_assessment", "topic": "base_food",
-                        "band": cue, "delivery": "morning",
+                        "band": cue, "delivery": "morning", "cue_id": "cue-1",
                     },
                     "observed_base_food_band": observed,
                     "known_base": {"id": "base"},
@@ -73,6 +73,35 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
         for values in (["npc_a=delay"], ["npc_a"], ["npc_a=follow", "npc_a=ignore"]):
             with self.subTest(values=values), self.assertRaises(ValueError):
                 parse_cue_responses(values)
+
+    def test_two_successes_enable_cue_independent_goal(self):
+        policy = BaseFoodLifePolicy()
+        for index in range(2):
+            policy.record_result({
+                "result_id": f"result-{index}", "agent_id": "npc_a",
+                "source_observation_id": f"source-{index}", "cue_id": f"cue-{index}",
+                "response": "follow", "outcome": "replenish_success",
+            })
+        packet = self.packet(observation_id="autonomous")
+        packet["observation"]["life_context"]["god_statue_cue"] = None
+        response = policy.decide(packet)
+        self.assertEqual(response["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(response["inspection"]["life"]["goal_trigger"], "learned_low_stock_relation")
+        self.assertTrue(response["inspection"]["life"]["habit_ready"])
+
+    def test_one_success_is_not_enough_and_replay_is_idempotent(self):
+        policy = BaseFoodLifePolicy()
+        result = {
+            "result_id": "result-1", "agent_id": "npc_a",
+            "source_observation_id": "source-1", "cue_id": "cue-1",
+            "response": "follow", "outcome": "replenish_success",
+        }
+        self.assertEqual(policy.record_result(result), policy.record_result(result))
+        packet = self.packet(observation_id="autonomous")
+        packet["observation"]["life_context"]["god_statue_cue"] = None
+        response = policy.decide(packet)
+        self.assertEqual(response["action"], {"type": "idle"})
+        self.assertFalse(response["inspection"]["life"]["habit_ready"])
 
 
 if __name__ == "__main__":

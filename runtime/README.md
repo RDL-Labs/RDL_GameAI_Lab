@@ -36,6 +36,11 @@ Phase 4 follow/ignore evidence is configurable per agent:
 This fixed experimental disposition belongs to the NPC-side policy. It is not
 encoded in the God Statue cue and does not modify canonical M_B or H.
 
+Successful assisted deposits are accepted at POST /v1/life-result and inspected
+through GET /v1/life-snapshot. Records are finite and idempotent. Two distinct
+successes enable the cue-independent low-stock trigger for that agent; one does
+not. This is GameAI-local habit evidence, not canonical M_B admission.
+
 Current properties:
 
 - localhost HTTP only
