@@ -1,6 +1,7 @@
 extends Control
 
 const MockStateProviderScript = preload("res://scripts/mock_state_provider.gd")
+const WorkbenchWorldViewScript = preload("res://scripts/workbench_world_view.gd")
 const WORLD_SIZE = Vector2(460, 340)
 const TICK_SECONDS = 0.6
 const RUNTIME_URL = "http://127.0.0.1:8765/v1/observe"
@@ -10,7 +11,6 @@ const LIFE_RESULT_URL = "http://127.0.0.1:8765/v1/life-result"
 var state_provider = MockStateProviderScript.new()
 var is_running = false
 var selected_agent_id = "npc_a"
-var entity_buttons = {}
 var provider_mode = "mock"
 var runtime_pending = false
 var runtime_decision = {}
@@ -24,6 +24,7 @@ var status_label
 var mode_select
 var movement_select
 var world_panel
+var world_view
 var inspector_text
 var observation_text
 var decision_text
@@ -103,6 +104,11 @@ func _build_ui():
 	world_panel.name = "WorldView"
 	world_panel.custom_minimum_size = WORLD_SIZE
 	left.add_child(world_panel)
+	world_view = WorkbenchWorldViewScript.new()
+	world_view.name = "WorldCanvas"
+	world_view.agent_selected.connect(_on_agent_pressed)
+	world_panel.add_child(world_view)
+	world_view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 	var right = VBoxContainer.new()
 	right.name = "ObservationColumn"
@@ -340,32 +346,7 @@ func _refresh_status():
 		status_label.text = "Paused / %s" % provider_mode
 
 func _refresh_world(state):
-	for child in world_panel.get_children():
-		child.queue_free()
-	entity_buttons.clear()
-
-	for place in state["places"]:
-		_add_entity_button(place, Color(0.55, 0.55, 0.55), false)
-
-	for object_data in state["objects"]:
-		_add_entity_button(object_data, Color(0.38, 0.68, 0.36), false)
-
-	for agent in state["agents"]:
-		_add_entity_button(agent, Color(0.35, 0.55, 0.9), true)
-
-func _add_entity_button(entity, color, selectable):
-	var button = Button.new()
-	button.text = entity["label"]
-	button.custom_minimum_size = Vector2(96, 40)
-	button.position = entity["position"]
-	button.tooltip_text = entity.get("note", "")
-	button.modulate = color
-	world_panel.add_child(button)
-	entity_buttons[entity["id"]] = button
-	if selectable:
-		button.pressed.connect(_on_agent_pressed.bind(entity["id"]))
-		if entity["id"] == selected_agent_id:
-			button.text = "* " + entity["label"]
+	world_view.set_visual_state(state, selected_agent_id, _committed_target_id())
 
 func _refresh_inspector():
 	var agent = state_provider.get_agent(selected_agent_id)
@@ -548,6 +529,21 @@ func _labels_for(items):
 			text += ", "
 		text += item.get("label", item.get("id", "?"))
 	return text
+
+func _committed_target_id():
+	if provider_mode != "runtime" or runtime_pending or runtime_decision.get("agent_id", "") != selected_agent_id:
+		return ""
+	var inspection = runtime_decision.get("inspection", {})
+	for domain in ["safety", "rest"]:
+		var record = inspection.get(domain, {})
+		var phase = record.get("trajectory_phase", "NONE")
+		var target_id = record.get("target_id")
+		if typeof(target_id) == TYPE_STRING and not target_id.is_empty() and phase not in ["NONE", "COMPLETE", "RELEASED"]:
+			return target_id
+	var life = inspection.get("life", {})
+	if life.get("commitment", "none") == "committed":
+		return runtime_decision.get("action", {}).get("target_id", "")
+	return ""
 
 func _build_runtime_packet(agent_id):
 	var observation = state_provider.get_observation(agent_id)

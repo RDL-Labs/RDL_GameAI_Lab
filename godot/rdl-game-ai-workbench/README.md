@@ -80,6 +80,12 @@ record. No automatic unresolved classification or action authority is inferred.
 
 ## Workbench controls
 
+The World View is a debug-only projection. Circles distinguish agents,
+objects, and places; a triangle marks a moving threat; the selected agent shows
+its observation boundary; and an existing committed target is linked by a
+dashed line. These marks do not participate in observation, decisions, or
+World resolution.
+
 - `Run` advances ticks continuously.
 - `Pause` stops ticking.
 - `Step` advances one tick while paused.
@@ -97,6 +103,7 @@ scenes/
   main.tscn
 scripts/
   workbench_main.gd
+  workbench_world_view.gd
   mock_state_provider.gd
 ```
 

@@ -45,6 +45,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Safety: opt-in隔離modeでGodot所有のstatic danger zone、または別fixtureのmoving threatをbounded contextへ投影する。NPC Bはsafe Plazaを固定targetとして `flee`、exposure消失後も継続し、Plaza到達の後続観測で `idle / COMPLETE` に戻る。moving fixtureは位置だけを更新し、predator ontology・負傷・Energy連携はまだ行わない。
 - Safety selection: Godotはsafe/uncertainと有限距離bandの候補記述だけを渡す。Runtimeの独立selectorが `safe > uncertain`、同安全度なら近い候補を一度だけ選び、その後の順位変化はTrajectory targetを変えない。
 - Danger selection: Godotは現在接触中のdanger sourceと `low / medium / high` だけを渡す。Runtimeは支配sourceを有限選択してprovenanceへ残すが、safe target・Energy・負傷には権限を持たない。
+- Workbench visualization: [V1-V3 contract](docs/experiment-contracts/WORKBENCH_visualization_contract.md)でNPC・Object・Threat・Placeを簡易図形化し、選択NPCの観測円、既存committed target線、static danger領域を表示する。World truth・Runtime decision・canonical sidecarには非介入。Inspector V4は目視評価後まで保留。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
