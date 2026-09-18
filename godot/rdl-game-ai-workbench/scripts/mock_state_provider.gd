@@ -56,7 +56,9 @@ const INITIAL_PLACES = [
 		"label": "Grove",
 		"role": "mock place",
 		"position": Vector2(355, 245),
-		"radius": 90.0
+		"radius": 90.0,
+		"rest_capable": true,
+		"rest_safety": "uncertain"
 	}
 ]
 
@@ -191,7 +193,9 @@ func get_observation(agent_id):
 		if _is_visible(agent["position"], place["position"], PERCEPTION_RADIUS + place.get("radius", 0.0)):
 			var visible_place = place.duplicate(true)
 			if rest_actions_enabled and place.get("rest_capable", false):
-				visible_place["within_reach"] = agent["position"].distance_to(place["position"]) <= REST_REACH_DISTANCE
+				var rest_distance = agent["position"].distance_to(place["position"])
+				visible_place["within_reach"] = rest_distance <= REST_REACH_DISTANCE
+				visible_place["rest_distance_band"] = _rest_distance_band(rest_distance)
 			visible_places.append(visible_place)
 
 	var observation = {
@@ -668,6 +672,13 @@ func _base_food_band():
 	if base_food_stock <= 2.0:
 		return "low"
 	return "enough"
+
+func _rest_distance_band(distance):
+	if distance <= REST_REACH_DISTANCE:
+		return "within_reach"
+	if distance <= 180.0:
+		return "near"
+	return "far"
 
 func _find_object_index(object_id):
 	for i in range(objects.size()):

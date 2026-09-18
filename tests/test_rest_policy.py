@@ -6,12 +6,14 @@ from runtime.rest_policy import RestTrajectoryPolicy
 
 
 class RestTrajectoryPolicyTests(unittest.TestCase):
-    def packet(self, observation_id, *, need=0.8, within=False, places=True, interrupts=None):
+    def packet(self, observation_id, *, need=0.8, within=False, places=True,
+               interrupts=None, plaza_safety="safe", plaza_distance=None):
         visible_places = []
         if places:
             visible_places.append({
-                "id": "plaza", "rest_capable": True, "rest_safety": "safe",
+                "id": "plaza", "rest_capable": True, "rest_safety": plaza_safety,
                 "within_reach": within,
+                "rest_distance_band": plaza_distance or ("within_reach" if within else "near"),
             })
         return {
             "observation_id": observation_id,
@@ -51,12 +53,49 @@ class RestTrajectoryPolicyTests(unittest.TestCase):
         self.assertEqual(complete["inspection"]["rest"]["trajectory_phase"], "COMPLETE")
         self.assertEqual(policy.snapshot()["trajectories"], {})
 
+    def test_candidate_rank_change_does_not_reselect_committed_target(self):
+        policy = RestTrajectoryPolicy()
+        packet = self.packet("rest-1")
+        packet["observation"]["visible_places"].insert(0, {
+            "id": "grove", "rest_capable": True, "rest_safety": "uncertain",
+            "within_reach": True, "rest_distance_band": "within_reach",
+        })
+        first = policy.decide(packet)
+        self.assertEqual(first["action"]["target_id"], "plaza")
+
+        changed = self.packet("rest-2", plaza_distance="far")
+        changed["observation"]["visible_places"].insert(0, {
+            "id": "grove", "rest_capable": True, "rest_safety": "safe",
+            "within_reach": True, "rest_distance_band": "within_reach",
+        })
+        continued = policy.decide(changed)
+        self.assertEqual(continued["action"], {"type": "approach", "target_id": "plaza"})
+        self.assertEqual(
+            continued["inspection"]["rest"]["target_selection"]["selected"]["target_id"],
+            "plaza",
+        )
+
     def test_target_disappearance_structurally_releases(self):
         policy = RestTrajectoryPolicy()
         policy.decide(self.packet("rest-1"))
         released = policy.decide(self.packet("rest-2", places=False))
         self.assertEqual(released["inspection"]["rest"]["trajectory_phase"], "RELEASED")
         self.assertEqual(policy.snapshot()["trajectories"], {})
+
+    def test_target_capability_loss_or_unreachable_band_releases(self):
+        for change in ("capability", "reachability"):
+            with self.subTest(change=change):
+                policy = RestTrajectoryPolicy()
+                policy.decide(self.packet("rest-1"))
+                changed = self.packet("rest-2")
+                target = changed["observation"]["visible_places"][0]
+                if change == "capability":
+                    target["rest_capable"] = False
+                else:
+                    target["rest_distance_band"] = "unreachable"
+                released = policy.decide(changed)
+                self.assertEqual(released["inspection"]["rest"]["trajectory_phase"], "RELEASED")
+                self.assertEqual(policy.snapshot()["trajectories"], {})
 
     def test_observation_replay_is_frozen(self):
         policy = RestTrajectoryPolicy()

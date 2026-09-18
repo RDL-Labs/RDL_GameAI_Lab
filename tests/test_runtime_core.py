@@ -16,6 +16,7 @@ class RuntimeCoreTests(unittest.TestCase):
                 "visible_places": [{
                     "id": "plaza", "rest_capable": True,
                     "rest_safety": "safe", "within_reach": within_reach,
+                    "rest_distance_band": "within_reach" if within_reach else "near",
                 }],
                 "body": {
                     "agent_id": "npc_a", "snapshot_id": "body-rest-1",

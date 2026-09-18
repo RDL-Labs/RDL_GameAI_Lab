@@ -15,8 +15,12 @@ func _run():
 		return
 	var first = workbench.runtime_decision
 	var target_id = first.get("action", {}).get("target_id", "")
-	if first.get("inspection", {}).get("rest", {}).get("trajectory_phase", "") != "GO_TO_REST" or target_id.is_empty():
+	if first.get("inspection", {}).get("rest", {}).get("trajectory_phase", "") != "GO_TO_REST" or target_id != "plaza":
 		_fail("Rest Goal/Trajectory did not form: %s" % first)
+		return
+	var selection = first.get("inspection", {}).get("rest", {}).get("target_selection", {})
+	if selection.get("selected", {}).get("safety", "") != "safe" or selection.get("candidates", []).size() != 2:
+		_fail("finite Rest candidate comparison was not preserved: %s" % selection)
 		return
 
 	workbench.state_provider.set_interrupt_candidates([{

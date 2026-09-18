@@ -19,9 +19,11 @@ RestNeed >= 0.5 + visible rest point
 → COMPLETE and release
 ```
 
-The target is selected once when the Goal forms. Later observations do not
-reselect among candidates. If the target is no longer in the bounded visible
-places, the trajectory is structurally `RELEASED`.
+The target is selected once by the independent
+[Rest Target Selection policy](REST_target_selection_contract.md) when the Goal
+forms. Later observations do not reselect among candidates. If the target
+disappears, loses rest capability, or becomes structurally unreachable, the
+trajectory is `RELEASED`.
 
 ## Interrupt boundary
 
@@ -30,8 +32,8 @@ above `0.7` suspends the trajectory with `idle`; clearing the interrupt resumes
 the same target. Threat, Novelty, target switching, safety-based selection, and
 interrupt-specific actions remain deferred.
 
-`rest_safety` is copied into inspection as observed-but-unused provenance. It
-does not rank, reject, or authorize a rest point in this version.
+`rest_safety` and coarse distance now participate only in the finite target
+selection rule. They do not alter a committed trajectory. ρ remains unused.
 
 ## Authority and separation
 

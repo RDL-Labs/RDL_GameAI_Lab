@@ -6,6 +6,7 @@ from typing import Any
 
 from .core import ObservationError, RuntimeDecision, apply_body_constraint, decide_action
 from .expression import with_expression
+from .rest_target_selection import RestTargetSelectionPolicy
 
 
 POLICY_ID = "rest-trajectory-v1"
@@ -23,10 +24,12 @@ class RestTrajectory:
 class RestTrajectoryPolicy:
     """Maintain one Rest target across observations and finite interruption."""
 
-    def __init__(self, capacity: int = 128):
+    def __init__(self, capacity: int = 128, target_selection=None):
         self.capacity = capacity
         self._trajectories: dict[str, RestTrajectory] = {}
         self._decisions: dict[tuple[str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
+        self._target_selection = target_selection or RestTargetSelectionPolicy()
+        self._selection_records: dict[str, dict[str, Any]] = {}
 
     def decide(self, packet: dict[str, Any]) -> dict[str, Any]:
         decide_action(packet)  # Validate the shared bounded packet contract.
@@ -50,16 +53,20 @@ class RestTrajectoryPolicy:
             completed_target_id = trajectory.target_id
             del self._trajectories[agent_id]
             trajectory = None
-        elif trajectory is not None and trajectory.target_id not in visible_places:
+        elif trajectory is not None and _target_is_structurally_unavailable(
+            visible_places.get(trajectory.target_id)
+        ):
             del self._trajectories[agent_id]
             trajectory = None
             structural_release = True
 
         if trajectory is None and not completed and body["rest_need"] >= REST_GOAL_THRESHOLD:
-            target = _first_rest_place(observation["visible_places"])
-            if target is not None:
-                trajectory = RestTrajectory(target_id=target["id"])
+            selection = self._target_selection.select(observation["visible_places"])
+            target = selection.get("selected", {})
+            if target:
+                trajectory = RestTrajectory(target_id=target["target_id"])
                 self._trajectories[agent_id] = trajectory
+                self._selection_records[agent_id] = selection
 
         selected_interrupt = _select_generic_interrupt(observation.get("life_context", {}))
         action_type = "idle"
@@ -104,6 +111,7 @@ class RestTrajectoryPolicy:
             "target_id": trajectory.target_id if trajectory else completed_target_id,
             "commitment": trajectory.commitment if trajectory else "none",
             "selected_interrupt": deepcopy(selected_interrupt),
+            "target_selection": deepcopy(self._selection_records.get(agent_id)),
             "target_safety_observed_not_used": (
                 visible_places.get(trajectory.target_id, {}).get("rest_safety")
                 if trajectory else None
@@ -125,6 +133,7 @@ class RestTrajectoryPolicy:
                 for agent_id, trajectory in self._trajectories.items()
             },
             "decision_count": len(self._decisions),
+            "target_selections": deepcopy(self._selection_records),
         }
 
 
@@ -136,11 +145,12 @@ def _rest_packet(packet):
     return packet["agent_id"], packet["observation_id"], observation
 
 
-def _first_rest_place(places):
-    for place in places:
-        if place.get("rest_capable") is True:
-            return place
-    return None
+def _target_is_structurally_unavailable(place):
+    return (
+        not isinstance(place, dict)
+        or place.get("rest_capable") is not True
+        or place.get("rest_distance_band") == "unreachable"
+    )
 
 
 def _select_generic_interrupt(life_context):

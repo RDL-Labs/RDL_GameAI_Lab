@@ -202,6 +202,10 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
             raise ObservationError(f"visible_places[{index}].rest_capable must be boolean")
         if "within_reach" in place and type(place["within_reach"]) is not bool:
             raise ObservationError(f"visible_places[{index}].within_reach must be boolean")
+        if "rest_distance_band" in place and place["rest_distance_band"] not in {
+            "within_reach", "near", "far", "unreachable"
+        }:
+            raise ObservationError(f"visible_places[{index}].rest_distance_band is unsupported")
     _validate_food_state(observation.get("body"), agent_id)
     _validate_rest_state(observation.get("body"), agent_id)
 

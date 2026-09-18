@@ -20,7 +20,8 @@
 | [ρ observation contract](../experiment-contracts/RHO_observation_resolution_contract.md) | opt-in Food packet sidecar operational | LOW/MID/HIGH有限観測差、NPC別選択、通常packet独立field、exact値非漏洩、world/action/canonical非介入 |
 | [ρ Rest observation contract](../experiment-contracts/RHO_rest_observation_contract.md) | minimal diagnostic projection operational | Rest LOW/MID/HIGH、有限trend、可視休息文脈、RestNeed・sleep行動・consolidation非介入 |
 | [Minimal Rest loop contract](../experiment-contracts/REST_minimal_loop_contract.md) | opt-in isolated loop operational | Godot所有RestNeed、bounded rest point、approach、short rest、回復。Sleep / consolidation未実装 |
-| [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。安全選択・Need arbitration未実装 |
+| [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
+| [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |
 | [FoodNeed M_B Admission計画](RDL_GameAI_FoodNeed_M_B_Admission実装計画.md) | PR 1-3 operational | opt-in acquisition、immutable relation、shadow F/F'/E、default-off loopback bridge。global sidecar接続は未実装 |
 | [会話](RDL_GameAI_簡易会話からプレイヤー介入まで.md) | current design / phase ambiguous | intent・referent・DialogueTurn・語彙。Communication Stepは生活Phaseと別 |
 | [Player](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md) | current draft | 外部語彙・情報入力と有限な自動生活cue。直接操作・Truth権限なし |
