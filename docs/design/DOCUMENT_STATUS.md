@@ -16,8 +16,9 @@
 | [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | completed reference plan v0.3 | 神の像の粗いcueからNPC自身の予測・Goal・Trajectory・経験・自律化へ進むBase–Food参照loop |
 | [Base–Food assisted contract](../experiment-contracts/BASE_FOOD_assisted_loop_contract.md) | reference baseline complete | Phase 1-8、interrupt三系統、Novelty復帰、両端preset比較まで。Evidence固定済み |
 | [Base–Food completion evidence](../experiment-evidence/BASE_FOOD_reference_loop_evidence.md) | current evidence | 実Godot/HTTP 111 tests、Stage 1-4、FoodNeed shadow維持判断、Rest開始境界 |
-| [ρ活用指南](RDL_GameAI_ρ活用指南.md) | current guidance / Food packet sidecar operational | ρをdomain別Observation Adapterとして使う境界、Base–Food回帰、Rest本適用、禁止する近道 |
-| [ρ observation contract](../experiment-contracts/RHO_observation_resolution_contract.md) | opt-in Food packet sidecar operational | LOW/MID/HIGH有限観測差、NPC別選択、通常packet独立field、exact値非漏洩、world/action/canonical非介入 |
+| [ρ活用指南](RDL_GameAI_ρ活用指南.md) | operational reference / further expansion deferred | domain別Observation Adapterの利用基準、禁止する近道、v0.x停止境界 |
+| [ρ v0.x Evidence](../experiment-evidence/RHO_v0_reference_evidence.md) | closed operational reference | Food非介入、Rest横断再利用、候補記述→固定selector→target差、再開条件 |
+| [ρ observation contract](../experiment-contracts/RHO_observation_resolution_contract.md) | operational reference | LOW/MID/HIGH、NPC/domain別選択、packet sidecar、exact値非漏洩、default/canonical非介入 |
 | [ρ Rest observation contract](../experiment-contracts/RHO_rest_observation_contract.md) | minimal diagnostic projection operational | Rest LOW/MID/HIGH、有限trend、可視休息文脈、RestNeed・sleep行動・consolidation非介入 |
 | [Minimal Rest loop contract](../experiment-contracts/REST_minimal_loop_contract.md) | opt-in isolated loop operational | Godot所有RestNeed、bounded rest point、approach、short rest、回復。Sleep / consolidation未実装 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |

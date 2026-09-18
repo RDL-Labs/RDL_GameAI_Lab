@@ -10,12 +10,17 @@ is operational. Its changed world observations may enter the existing diagnostic
 path. FoodNeed is semantically intended as a finite M_B participant, while its
 current canonical runtime admission remains deferred; held-food/world state is
 not copied wholesale into M_B. Food completion does not advance Maturity 4/T1.
-Current game-feature priority is the assisted-to-autonomous
-[Base–Food reference loop](../docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md).
-A God Statue compresses precise Food state into a coarse external cue without action
-authority. The NPC interprets it, predicts locally, completes a persistent trajectory,
-records obey/ignore outcomes, and later gains a cue-independent trigger path. Threat
-and novelty interruption follow afterward. Canonical maturity remains independent.
+The assisted-to-autonomous [Base–Food reference loop](../docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md)
+is complete. Current game-feature work is the isolated Rest line: Godot-owned
+RestNeed, finite target selection, fixed-target Trajectory, generic interruption,
+same-target resume, short-rest recovery, and structural release are operational.
+Food/Rest arbitration, Sleep, and Sleep Consolidation remain deferred. Canonical
+maturity remains independent.
+
+ρ v0.x is a [closed operational reference](../docs/experiment-evidence/RHO_v0_reference_evidence.md):
+Food/Rest profiles, finite projections, packet provenance, cross-domain reuse,
+and the Rest candidate-description causal chain are established. Further ρ
+generalization is deferred until a concrete game feature requires it.
 
 ## Maturity summary
 

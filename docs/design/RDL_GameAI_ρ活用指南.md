@@ -1,7 +1,8 @@
 # RDL GameAI ρ活用指南
 
 **文書種別:** Design Guide  
-**状態:** current guidance / implementation deferred  
+**状態:** operational reference / further expansion deferred
+
 **起点:** `RDL_GameAI_ρ活用設計_v0.1` を現行GameAI Lab境界へ咀嚼  
 **対象:** Base–Food回帰実験、Rest / Sleep以降のbounded observation設計
 
@@ -203,6 +204,16 @@ fixed finite profile
 
 この問いがない場合、単なる情報量増加やparameter追加としてρを導入しない。
 
-## 12. 一文圧縮
+## 12. v0.x停止境界
+
+Food / Restでprofile、LOW/MID/HIGH、packet sidecar、provenance、cross-domain
+再利用、候補記述から固定selectorを経たtarget差まで成立した。確認結果は
+[ρ v0.x Evidence](../experiment-evidence/RHO_v0_reference_evidence.md)を正本とする。
+
+以後、ρは独立した開発対象ではなく、具体的な生活機能が必要とする時に
+利用する横断Observation toolとして扱う。dynamic化、学習、DNA / Neural、
+Threat / Novelty / Space / Timeへの展開は一括してdeferredとする。
+
+## 13. 一文圧縮
 
 > GameAIにおけるρは、Godot Worldの精密状態を直接NPCへ渡すためではなく、有限なBoundary内でどの関係差まで区別可能なbounded observationとして投影するかを制御する横断的なObservation Adapter概念である。
