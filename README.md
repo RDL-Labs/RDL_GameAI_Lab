@@ -55,7 +55,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Rescue Phase 5D: [safe-place delivery contract](docs/experiment-contracts/RESCUE_safe_delivery_contract.md)で、対象保持、固定safe targetへの搬送、World-owned delivery記録、後続観測によるCOMPLETEまで通す。治療・回復は未実装。
 - Rescue Phase 5E: [staged recovery contract](docs/experiment-contracts/RESCUE_staged_recovery_contract.md)で、安全地点滞在中の有限4段階回復をGodot BodyStateが所有する。回復後は旧Safety trajectoryを盲目的に再開せず、現在関係で再評価する。
 - Rescue Phase 5F: [multi-agent reference evidence](docs/experiment-evidence/RESCUE_multi_agent_reference_evidence.md)で、NPC Bの行動不能からNPC Aの発見・一度だけの救助・搬送・段階回復までを同一World/Runtimeで固定する。回復中conditionは再救助候補から分離する。
-- Sleep S1-S2: 同一NPCのaccepted raw Experienceを最大6件で固定し、I1/I2のpure compilerでactor / target / context / action / outcomeの有限Profileへ派生する。Nextは[Sleep / Fast-Deep Experience Loop実装計画](docs/design/RDL_GameAI_Sleep_FastDeep循環実装計画.md)のS3 Deep shadow candidateであり、翌朝Fast retrievalをHuntingより先に実装する。
+- Sleep S1-S2: 同一NPCのaccepted raw Experienceを最大6件で固定し、I1/I2のpure compilerでactor / target / context / action / outcomeの有限Profileへ派生する。[S3 Deep Similarity Shadow契約](docs/experiment-contracts/SLEEP_deep_similarity_shadow_contract.md)でSimilarity Observation、one cluster、one candidateの非昇格境界を先に固定済み。次はその参照実装であり、翌朝Fast retrievalをHuntingより先に進める。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
