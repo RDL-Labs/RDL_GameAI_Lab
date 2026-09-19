@@ -46,6 +46,8 @@ Food
 → Safety / Danger
 → Incapacitation / Injury
 → Rescue / Recovery
+→ Sleep Consolidation / Internal Processing
+→ Fast / Deep Experience Loop
 → Hunting
 ```
 
@@ -75,7 +77,7 @@ Relation Constraints
 
 ## Vertical life features
 
-以下のPhase 1-11はこの文書内の生活機能順だけを表す。横断系は後掲の独立した接続一覧を使い、Phase番号を割り当てない。
+以下のPhase 1-13は実装優先順を表す。原則として横断系は後掲の独立一覧で扱うが、Phase 6-7だけはHunting前に完成させる時間循環として明示的に挿入する。
 
 ---
 
@@ -273,7 +275,37 @@ system warp
 
 ---
 
-## Phase 6 — Hunting
+## Phase 6 — Sleep Consolidation / Internal Processing
+
+詳細な実装順と停止条件は[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。
+
+```text
+finite Sleep window
+→ relation profile
+→ Deep Similarity shadow
+→ one cluster
+→ sourced relation candidate
+```
+
+raw Experience、candidate、canonical `M_B`を分離し、candidateにはまだ行動権限を与えない。
+
+---
+
+## Phase 7 — Fast / Deep Experience Loop
+
+```text
+day 1 Experience
+→ night Deep candidate
+→ day 2 bounded profile
+→ Activity Fast retrieval
+→ Inspector provenance
+```
+
+最初の完了条件は翌朝の検索可能性であり、行動変化ではない。reviewed local influenceは別契約へ送る。
+
+---
+
+## Phase 8 — Hunting
 
 狩りは独立戦闘ゲームではなく生活の延長として実装する。
 
@@ -293,7 +325,7 @@ system warp
 
 ---
 
-## Phase 7 — Materials
+## Phase 9 — Materials
 
 初期素材:
 
@@ -326,7 +358,7 @@ item単位でlocation / holder / history / provenanceを追えるようにする
 
 ---
 
-## Phase 8 — Simple Tools
+## Phase 10 — Simple Tools
 
 候補:
 
@@ -343,7 +375,7 @@ simple hunting tool
 
 ---
 
-## Phase 9 — Crafting
+## Phase 11 — Crafting
 
 初期は既知レシピ固定でよい。
 
@@ -357,7 +389,7 @@ simple hunting tool
 
 ---
 
-## Phase 10 — Barter
+## Phase 12 — Barter
 
 ```text
 Aが欲しい物を示す
@@ -384,7 +416,7 @@ REQUEST / OFFER等のCommunication基盤へ接続する。
 
 ---
 
-## Phase 11 — Glowing Stone / Emergent Value
+## Phase 13 — Glowing Stone / Emergent Value
 
 光る石には初期状態から、
 
@@ -428,7 +460,7 @@ World Time・Experience History・Neural Dynamics・Relation Constraints・Sleep
 | Experience History | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)。現行は有限approach結果のみ | 採食・救助・失敗・会話の記録候補 |
 | Neural Dynamics | [神経設計](RDL_GameAI_神経パラメーター設計図.md)。動的状態は未実装 | 注意・行動・保持の偏り |
 | Relation Constraints | [履歴モデル](RDL_GameAI_感情・履歴・関係拘束モデル.md)。社会的圧縮関係は未実装 | 人・物・場所への関係候補 |
-| Sleep Consolidation | [睡眠設計](RDL_GameAI_睡眠システム設計.md)。未実装 | Restを契機に回復・履歴整理を別々に検証 |
+| Sleep Consolidation | [睡眠設計](RDL_GameAI_睡眠システム設計.md)および[Fast-Deep循環計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)。次の実装対象 | 有限window、Deep shadow candidate、翌朝Fast retrieval |
 | Communication / Vocabulary | [会話設計](RDL_GameAI_簡易会話からプレイヤー介入まで.md)。未実装 | 救助・交換・命名の局所伝播 |
 | Player Intervention | [Player Role](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md)。未実装 | 会話を介した語彙・情報入力のみ |
 

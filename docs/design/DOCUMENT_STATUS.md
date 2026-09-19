@@ -43,6 +43,7 @@
 | [Rescue Safe-Place Delivery contract](../experiment-contracts/RESCUE_safe_delivery_contract.md) | Phase 5D finite delivery slice operational | attachment、carried movement、fixed safe target、delivery provenance、COMPLETEまで。recoveryは未実装 |
 | [Rescue Staged Recovery contract](../experiment-contracts/RESCUE_staged_recovery_contract.md) | Phase 5E finite recovery slice operational | safe-place限定の4段階BodyState更新。旧Safety trajectoryをreleaseし、現在関係を再評価 |
 | [Multi-Agent Rescue reference evidence](../experiment-evidence/RESCUE_multi_agent_reference_evidence.md) | Phase 5F reference vertical operational | B行動不能→A発見→一度だけ救助→搬送→段階回復。recovering conditionは再救助対象外 |
+| [Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md) | next implementation plan v0.1 | Phase 6 Sleep Consolidation、Phase 7翌朝Fast retrieval、Phase 8 Huntingの順序と停止条件 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
 | [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |
 | [ρ Rest Candidate Description contract](../experiment-contracts/RHO_rest_candidate_description_contract.md) | double-opt-in causal experiment operational | ρ→候補記述、固定selector→target、Trajectory固定。LOW/HIGH実Godot比較 |

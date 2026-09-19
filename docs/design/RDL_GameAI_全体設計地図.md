@@ -96,7 +96,7 @@ DNA → neural baseline distributions (μ / σ)
 
 ## 4. C: Game feature implementation
 
-第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recovery → Hunting。Food・Rest・Energy・Safetyの有限slice、Food-Safety、Food-Rest、Continuous Life v0はoperationalである。Phase 5Aのincapacitationから5Fのmulti-agent Rescue evidenceまでoperationalである。次の生活機能境界はPhase 6 Huntingとする。
+第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recoveryまでoperationalである。次は[Sleep / Fast-Deep循環計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)に従い、Sleep Consolidationと翌朝Fast retrievalを先に通す。Huntingはその後のPhase 8とする。
 
 第二生活ラインはMaterials → Tools → Crafting → Barter → Emergent Value。
 
@@ -156,7 +156,7 @@ Playerは暫定的に拠点のしゃべる像。NPC直接操作・状態書換�
 
 実装済みの有限sliceは、reviewed / retained H、approach結果履歴、opt-in retry influence、固定感度、movement_scale、Realtime観測、display-only Response Expression、minimal Food loop、default-off FoodNeed shadow admission。
 
-Base–Food reference loop、Rest / Sleep、Energy、Safety、Food-Safety、Food-Rest、Continuous Life Evidenceはoperationalである。FoodNeed canonical promotionはshadow維持と判断した。Phase 5Aではsevere injury / incapacitationをGodot BodyStateへ有限記録し、Phase 5Bでは別NPCだけがbounded conditionを知る。Phase 5CでRescue targetを固定し、Phase 5Dでは対象保持、固定safe placeへの実搬送、World-owned delivery provenance、後続観測によるCOMPLETEまで通す。Phase 5Eでは有限段階回復と旧Safety trajectory releaseを追加し、Phase 5Fでは二個体を独立更新する一本の救助Evidenceと回復中の再救助防止を固定した。次の生活機能優先はPhase 6 Huntingである。
+Base–Food reference loop、Rest / Sleep、Energy、Safety、Food-Safety、Food-Rest、Continuous Life Evidenceはoperationalである。FoodNeed canonical promotionはshadow維持と判断した。Phase 5Aから5Fでincapacitation、bounded discovery、Rescue、safe delivery、staged recovery、multi-agent Evidenceまで通した。次はPhase 6 Sleep Consolidation、Phase 7 Fast / Deep one-cycle Evidenceを優先し、HuntingはPhase 8へ送る。
 
 ## 8. 共通の不変条件
 
