@@ -320,8 +320,10 @@ def _validate_safety_state(observation: dict[str, Any], agent_id: str) -> None:
         return
     if body.get("agent_id") != agent_id:
         raise ObservationError("safety body owner must match observed agent")
-    if body.get("food_actions_enabled", False) or body.get("rest_actions_enabled", False):
+    if body.get("rest_actions_enabled", False):
         raise ObservationError("Safety actions must be isolated from Food and Rest actions")
+    if body.get("food_actions_enabled", False) and body.get("food_safety_integration_enabled") is not True:
+        raise ObservationError("Safety and Food require the explicit integration coordinator")
     safety = observation.get("safety_context")
     if not isinstance(safety, dict):
         raise ObservationError("observation.safety_context required")

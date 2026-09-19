@@ -123,6 +123,7 @@ var sleep_window_enabled = false
 var active_energy_enabled = false
 var energy_reserve_enabled = false
 var safety_actions_enabled = false
+var food_safety_integration_enabled = false
 var moving_threat_enabled = false
 var mock_wandering_enabled = true
 var base_food_stock = BASE_FOOD_INITIAL
@@ -333,6 +334,8 @@ func get_body_snapshot(agent_id):
 		snapshot["energy_reserve"] = body["energy_reserve"]
 	if safety_actions_enabled:
 		snapshot["safety_actions_enabled"] = true
+	if food_safety_integration_enabled:
+		snapshot["food_safety_integration_enabled"] = true
 	return snapshot
 
 func set_active_energy_enabled(enabled):
@@ -356,6 +359,7 @@ func set_energy_reserve_enabled(enabled):
 	energy_reserve_enabled = bool(enabled)
 
 func set_safety_actions_enabled(enabled):
+	food_safety_integration_enabled = false
 	safety_actions_enabled = bool(enabled)
 	if safety_actions_enabled:
 		food_actions_enabled = false
@@ -373,6 +377,27 @@ func set_safety_actions_enabled(enabled):
 		for index in range(objects.size() - 1, -1, -1):
 			if objects[index].get("id", "") == SAFETY_MOVING_THREAT["id"]:
 				objects.remove_at(index)
+
+func set_food_safety_integration_enabled(enabled):
+	food_safety_integration_enabled = bool(enabled)
+	food_actions_enabled = bool(enabled)
+	safety_actions_enabled = bool(enabled)
+	rest_actions_enabled = false
+	sleep_actions_enabled = false
+	set_danger_fixture_enabled(false)
+
+func set_danger_fixture_enabled(enabled, agent_id = ""):
+	for index in range(places.size() - 1, -1, -1):
+		if places[index].get("id", "") == SAFETY_DANGER_PLACE["id"]:
+			places.remove_at(index)
+	if not enabled:
+		return
+	var danger = SAFETY_DANGER_PLACE.duplicate(true)
+	if not agent_id.is_empty():
+		var agent = get_agent(agent_id)
+		if not agent.is_empty():
+			danger["position"] = agent["position"]
+	places.append(danger)
 
 func set_moving_threat_enabled(enabled):
 	moving_threat_enabled = bool(enabled)

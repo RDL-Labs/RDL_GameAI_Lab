@@ -17,6 +17,7 @@ from runtime.history_policy import HistoryInfluencePolicy
 from runtime.life_policy import BaseFoodLifePolicy
 from runtime.rest_policy import RestTrajectoryPolicy
 from runtime.safety_policy import SafetyTrajectoryPolicy
+from runtime.food_safety_policy import FoodSafetyCoordinator
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
@@ -61,6 +62,34 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_food_safety_coordinator_suspends_escapes_and_resumes(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        coordinator = FoodSafetyCoordinator()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.life_policy = coordinator
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/food_safety_resume_http_check.gd"],
+                    capture_output=True, text=True, timeout=50,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Food-Safety resume check passed", output)
+                self.assertEqual(len(coordinator.snapshot()["food"]["results"]), 1)
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
     def test_selected_inspector_is_separate_from_simulated_agents(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()

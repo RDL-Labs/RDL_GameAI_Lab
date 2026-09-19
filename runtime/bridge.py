@@ -22,6 +22,7 @@ from .life_policy import (
 from .sensitivity import parse_retry_profiles
 from .rest_policy import RestTrajectoryPolicy
 from .safety_policy import SafetyTrajectoryPolicy
+from .food_safety_policy import FoodSafetyCoordinator
 from .v23_food_admission import (
     FoodAdmissionError,
     FoodNeedShadowComparisonSidecar,
@@ -222,6 +223,7 @@ def run(
     rest_trajectory: bool = False,
     rest_rho_candidates: bool = False,
     safety_trajectory: bool = False,
+    food_safety_life: bool = False,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -233,6 +235,8 @@ def run(
         raise ValueError("Rest trajectory is an isolated opt-in policy")
     if safety_trajectory and (base_food_life or history_influence or rest_trajectory):
         raise ValueError("Safety trajectory is an isolated opt-in policy")
+    if food_safety_life and (base_food_life or safety_trajectory or rest_trajectory or history_influence):
+        raise ValueError("Food-Safety life coordinator is an isolated opt-in policy")
     if rest_rho_candidates and not rest_trajectory:
         raise ValueError("rho Rest candidates require the Rest trajectory policy")
     if cue_responses and not base_food_life:
@@ -251,11 +255,12 @@ def run(
         threat_profiles=threat_profiles,
         novelty_responses=novelty_responses,
         life_profiles=life_profiles,
-    ) if base_food_life else None
+    ) if base_food_life else (FoodSafetyCoordinator() if food_safety_life else None)
     server.rest_policy = RestTrajectoryPolicy(
         use_rho_candidates=rest_rho_candidates
     ) if rest_trajectory else None
     server.safety_policy = SafetyTrajectoryPolicy() if safety_trajectory else None
+    server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
     server.food_mb_shadow_lock = RLock()
     print("RDL GameAI Runtime listening on http://%s:%d" % (host, port))
@@ -287,6 +292,8 @@ def main() -> None:
                         help="Describe Rest candidates through the configured rho_rest sidecar")
     parser.add_argument("--safety-trajectory", action="store_true",
                         help="Enable isolated Safety escape trajectory policy")
+    parser.add_argument("--food-safety-life", action="store_true",
+                        help="Enable finite Food-Safety continuous-life coordinator")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -300,6 +307,8 @@ def main() -> None:
             raise ValueError("--rest-trajectory cannot be combined with other action policies")
         if args.safety_trajectory and (args.base_food_life or args.history_influence or args.rest_trajectory):
             raise ValueError("--safety-trajectory cannot be combined with other action policies")
+        if args.food_safety_life and (args.base_food_life or args.safety_trajectory or args.rest_trajectory or args.history_influence):
+            raise ValueError("--food-safety-life cannot be combined with other action policies")
         if args.rest_rho_candidates and not args.rest_trajectory:
             raise ValueError("--rest-rho-candidates requires --rest-trajectory")
         cue_responses = parse_cue_responses(args.base_food_cue_response)
@@ -318,7 +327,8 @@ def main() -> None:
         parser.error(str(exc))
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
         args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles,
-        args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory)
+        args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory,
+        args.food_safety_life)
 
 
 if __name__ == "__main__":
