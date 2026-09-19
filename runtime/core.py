@@ -290,14 +290,20 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
 
     _validate_entities(observation["visible_agents"], "visible_agents")
     for index, agent in enumerate(observation["visible_agents"]):
-        if "condition" in agent and agent["condition"] != "incapacitated":
+        if "condition" in agent and agent["condition"] not in {"incapacitated", "recovering"}:
             raise ObservationError(f"visible_agents[{index}].condition is unsupported")
         if "condition" in agent and agent.get("condition_schema") != "bounded-visible-agent-condition-v1":
             raise ObservationError(f"visible_agents[{index}].condition_schema is unsupported")
         if "condition_schema" in agent and "condition" not in agent:
             raise ObservationError(f"visible_agents[{index}].condition is required with condition_schema")
-        if "condition" in agent and type(agent.get("within_reach")) is not bool:
+        if agent.get("condition") == "incapacitated" and type(agent.get("within_reach")) is not bool:
             raise ObservationError(f"visible_agents[{index}].within_reach must be boolean")
+        if agent.get("condition") == "recovering" and agent.get("recovery_stage") not in {
+            "stabilizing", "mobilizing", "recovering"
+        }:
+            raise ObservationError(
+                f"visible_agents[{index}].recovery_stage is unsupported: {agent.get('recovery_stage')!r}"
+            )
     _validate_entities(observation["visible_objects"], "visible_objects")
     for index, item in enumerate(observation["visible_objects"]):
         if "within_reach" in item and type(item["within_reach"]) is not bool:

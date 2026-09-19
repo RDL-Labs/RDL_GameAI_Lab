@@ -642,7 +642,10 @@ func _runtime_entities(items, origin):
 		if item.has("condition"):
 			entity["condition"] = item.get("condition", "")
 			entity["condition_schema"] = item.get("condition_schema", "")
-			entity["within_reach"] = item.get("within_reach", false)
+			if item.has("within_reach"):
+				entity["within_reach"] = item.get("within_reach", false)
+			if item.has("recovery_stage"):
+				entity["recovery_stage"] = item.get("recovery_stage", "")
 		if item.get("rest_capable", false):
 			entity["rest_capable"] = true
 			entity["rest_safety"] = item.get("rest_safety", "unknown")

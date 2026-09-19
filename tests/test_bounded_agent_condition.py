@@ -26,6 +26,14 @@ class BoundedAgentConditionTests(unittest.TestCase):
         decision = decide_action(self.packet())
         self.assertEqual(decision["action"], {"type": "idle"})
 
+    def test_recovering_condition_is_valid_and_non_actionable(self):
+        packet = self.packet()
+        agent = packet["observation"]["visible_agents"][0]
+        agent["condition"] = "recovering"
+        agent["recovery_stage"] = "stabilizing"
+        del agent["within_reach"]
+        self.assertEqual(decide_action(packet)["action"], {"type": "idle"})
+
     def test_condition_vocabulary_and_provenance_are_finite(self):
         for field, value in (("condition", "severe"), ("condition_schema", "unknown-v2")):
             packet = copy.deepcopy(self.packet())
@@ -36,6 +44,12 @@ class BoundedAgentConditionTests(unittest.TestCase):
         del orphaned["observation"]["visible_agents"][0]["condition"]
         with self.assertRaises(ObservationError):
             decide_action(orphaned)
+        malformed = copy.deepcopy(self.packet())
+        malformed_agent = malformed["observation"]["visible_agents"][0]
+        malformed_agent["condition"] = "recovering"
+        malformed_agent["recovery_stage"] = "recovered"
+        with self.assertRaises(ObservationError):
+            decide_action(malformed)
 
 
 if __name__ == "__main__":

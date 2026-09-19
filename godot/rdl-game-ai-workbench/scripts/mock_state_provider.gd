@@ -312,7 +312,12 @@ func get_observation(agent_id):
 func _build_visible_agent(other):
 	var visible_agent = other.duplicate(true)
 	var body = body_states.get(other.get("id", ""), {})
-	if body.get("incapacitated", false):
+	var recovery_stage = body.get("recovery_stage", "none")
+	if recovery_stage in ["stabilizing", "mobilizing", "recovering"]:
+		visible_agent["condition"] = "recovering"
+		visible_agent["condition_schema"] = "bounded-visible-agent-condition-v1"
+		visible_agent["recovery_stage"] = recovery_stage
+	elif body.get("incapacitated", false):
 		visible_agent["condition"] = "incapacitated"
 		visible_agent["condition_schema"] = "bounded-visible-agent-condition-v1"
 		visible_agent["within_reach"] = false

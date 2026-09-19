@@ -64,6 +64,38 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_multi_agent_rescue_evidence_reaches_recovery_without_duplicate_rescue(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        rescue = RescueTrajectoryPolicy()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.rescue_policy = rescue
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/rescue_multi_agent_evidence_http_check.gd"],
+                    capture_output=True, text=True, timeout=60,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Multi-agent Rescue evidence passed", output)
+                self.assertEqual(rescue.snapshot()["trajectories"], {})
+                self.assertTrue(
+                    all(item["H"] == 0 for item in canonical.assessments.snapshot()["retained_H"])
+                )
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_safe_delivery_progresses_through_staged_world_recovery(self):
         project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
         completed = subprocess.run(
