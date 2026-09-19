@@ -13,6 +13,7 @@
 | [睡眠](RDL_GameAI_睡眠システム設計.md) | minimal life action operational / consolidation design-only | bounded安全場所でのSleep回復は実装済み。横断Consolidationは未実装 |
 | [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md) | current design | 体験の核。schema・Phaseの正本ではない |
 | [生活機能順](RDL_GameAI_実装手順予定.md) | current plan / navigation incomplete | 生活Phaseと横断系、canonical成熟度の分離 |
+| [コード抽象度・道具的関数階層](RDL_GameAI_コード抽象度・道具的関数階層_案.md) | current architecture draft v0.1 | I0 PrimitiveからI6 Adapterまでのコード責務、依存方向、pure function境界。Core Tier・NPC Layer・Feature Phaseとは別軸 |
 | [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | completed reference plan v0.3 | 神の像の粗いcueからNPC自身の予測・Goal・Trajectory・経験・自律化へ進むBase–Food参照loop |
 | [Base–Food assisted contract](../experiment-contracts/BASE_FOOD_assisted_loop_contract.md) | reference baseline complete | Phase 1-8、interrupt三系統、Novelty復帰、両端preset比較まで。Evidence固定済み |
 | [Base–Food completion evidence](../experiment-evidence/BASE_FOOD_reference_loop_evidence.md) | current evidence | 実Godot/HTTP 111 tests、Stage 1-4、FoodNeed shadow維持判断、Rest開始境界 |
@@ -43,7 +44,7 @@
 | [Rescue Safe-Place Delivery contract](../experiment-contracts/RESCUE_safe_delivery_contract.md) | Phase 5D finite delivery slice operational | attachment、carried movement、fixed safe target、delivery provenance、COMPLETEまで。recoveryは未実装 |
 | [Rescue Staged Recovery contract](../experiment-contracts/RESCUE_staged_recovery_contract.md) | Phase 5E finite recovery slice operational | safe-place限定の4段階BodyState更新。旧Safety trajectoryをreleaseし、現在関係を再評価 |
 | [Multi-Agent Rescue reference evidence](../experiment-evidence/RESCUE_multi_agent_reference_evidence.md) | Phase 5F reference vertical operational | B行動不能→A発見→一度だけ救助→搬送→段階回復。recovering conditionは再救助対象外 |
-| [Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md) | active implementation plan v0.1 | S1 finite window完了。次はS2 Profile、以後Deep candidate、翌朝Fast retrieval、Phase 8 Hunting |
+| [Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md) | active implementation plan v0.1 | 関数階層案の最初の適用先。S1 finite window完了。次はI1/I2としてS2 Profile、以後Deep candidate、翌朝Fast retrieval、Phase 8 Hunting |
 | [Finite Sleep Experience Window contract](../experiment-contracts/SLEEP_experience_window_contract.md) | S1 operational reference | 同一NPC・同一sleep cycleのaccepted raw Experienceを最大6件で固定。不足状態とsource追跡を明示。Profile / candidate / canonical authorityは未実装 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
 | [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |

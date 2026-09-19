@@ -4,7 +4,7 @@
 **版:** v0.1  
 **基準HEAD:** `655ca6d`  
 **位置づけ:** Rescue / Recovery完了後、Hunting着手前の時間循環実装  
-**依存:** [睡眠システム設計](RDL_GameAI_睡眠システム設計.md)、[活動時高速類似と内向時間深層比較案](RDL_GameAI_活動時高速類似と内向時間深層比較_案.md)、Experience History
+**依存:** [睡眠システム設計](RDL_GameAI_睡眠システム設計.md)、[活動時高速類似と内向時間深層比較案](RDL_GameAI_活動時高速類似と内向時間深層比較_案.md)、[コード抽象度・道具的関数階層案](RDL_GameAI_コード抽象度・道具的関数階層_案.md)、Experience History
 
 ## 0. 目的
 
@@ -42,6 +42,8 @@ Phase 8  Hunting                                   DEFERRED UNTIL PHASE 7
 ```
 
 Sleepは内部Layerではなく横断更新イベントだが、本計画では実装優先順位を示すためPhase番号を使う。
+
+実装責務はコード階層案に従い、relationの有限検査をI1、ExperienceからProfileへのpureな変換をI2、Fast / Deep SimilarityとSleep window保持をI3、実Sleep行動との接続をI4として分離する。HTTP / Godot / InspectorはI6に留める。
 
 ## 2. 共通境界
 

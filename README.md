@@ -13,8 +13,9 @@
 5. [Current Runtime Contract](docs/experiment-contracts/CURRENT_v23_runtime_contract.md): 現行動作の有限契約
 6. [Base–Food循環完成計画](docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md): 完了した参照生活ループ
 7. [ρ活用指南](docs/design/RDL_GameAI_ρ活用指南.md): 観測解像度をGameAIへ導入する際の判断基準
+8. [コード抽象度・道具的関数階層](docs/design/RDL_GameAI_コード抽象度・道具的関数階層_案.md): I0 PrimitiveからI6 Adapterまでの実装責務と依存方向
 
-生活機能の追加順は[Game Feature Roadmap](docs/design/RDL_GameAI_実装手順予定.md)で管理します。
+生活機能の追加順は[Game Feature Roadmap](docs/design/RDL_GameAI_実装手順予定.md)、コード内の抽象度と依存方向は[道具的関数階層案](docs/design/RDL_GameAI_コード抽象度・道具的関数階層_案.md)で管理します。
 
 ## Four separate axes
 
