@@ -82,6 +82,16 @@ const SAFETY_SHELTER_PLACE = {
 	"rest_safety": "safe"
 }
 
+const FOOD_REST_HUT_PLACE = {
+	"id": "rest_hut",
+	"label": "Rest Hut",
+	"role": "mock place",
+	"position": Vector2(280, 260),
+	"radius": 48.0,
+	"rest_capable": true,
+	"rest_safety": "safe"
+}
+
 const SAFETY_MOVING_THREAT = {
 	"id": "threat_01",
 	"label": "Mock Dangerous Creature",
@@ -134,6 +144,7 @@ var active_energy_enabled = false
 var energy_reserve_enabled = false
 var safety_actions_enabled = false
 var food_safety_integration_enabled = false
+var food_rest_integration_enabled = false
 var moving_threat_enabled = false
 var mock_wandering_enabled = true
 var base_food_stock = BASE_FOOD_INITIAL
@@ -184,6 +195,8 @@ func reset():
 		places.append(SAFETY_DANGER_PLACE.duplicate(true))
 	if food_safety_integration_enabled:
 		places.append(SAFETY_SHELTER_PLACE.duplicate(true))
+	if food_rest_integration_enabled:
+		places.append(FOOD_REST_HUT_PLACE.duplicate(true))
 	events = ["tick 000: workbench reset"]
 	decision_records = [_build_decision_record("npc_a"), _build_decision_record("npc_b")]
 	resolution_records = []
@@ -348,6 +361,8 @@ func get_body_snapshot(agent_id):
 		snapshot["safety_actions_enabled"] = true
 	if food_safety_integration_enabled:
 		snapshot["food_safety_integration_enabled"] = true
+	if food_rest_integration_enabled:
+		snapshot["food_rest_integration_enabled"] = true
 	return snapshot
 
 func set_active_energy_enabled(enabled):
@@ -372,6 +387,7 @@ func set_energy_reserve_enabled(enabled):
 
 func set_safety_actions_enabled(enabled):
 	food_safety_integration_enabled = false
+	food_rest_integration_enabled = false
 	safety_actions_enabled = bool(enabled)
 	if safety_actions_enabled:
 		food_actions_enabled = false
@@ -391,6 +407,7 @@ func set_safety_actions_enabled(enabled):
 				objects.remove_at(index)
 
 func set_food_safety_integration_enabled(enabled):
+	food_rest_integration_enabled = false
 	food_safety_integration_enabled = bool(enabled)
 	food_actions_enabled = bool(enabled)
 	safety_actions_enabled = bool(enabled)
@@ -402,6 +419,21 @@ func set_food_safety_integration_enabled(enabled):
 			places.remove_at(index)
 	if food_safety_integration_enabled:
 		places.append(SAFETY_SHELTER_PLACE.duplicate(true))
+
+func set_food_rest_integration_enabled(enabled):
+	food_safety_integration_enabled = false
+	food_rest_integration_enabled = bool(enabled)
+	food_actions_enabled = bool(enabled)
+	rest_actions_enabled = bool(enabled)
+	safety_actions_enabled = false
+	sleep_actions_enabled = false
+	sleep_window_enabled = false
+	set_danger_fixture_enabled(false)
+	for index in range(places.size() - 1, -1, -1):
+		if places[index].get("id", "") == FOOD_REST_HUT_PLACE["id"]:
+			places.remove_at(index)
+	if food_rest_integration_enabled:
+		places.append(FOOD_REST_HUT_PLACE.duplicate(true))
 
 func set_danger_fixture_enabled(enabled, agent_id = ""):
 	for index in range(places.size() - 1, -1, -1):
@@ -537,6 +569,17 @@ func set_god_statue_cue_enabled(enabled):
 func set_food_actions_enabled(enabled):
 	food_actions_enabled = bool(enabled)
 
+func set_rest_need(agent_id, need):
+	if not body_states.has(agent_id) or typeof(need) not in [TYPE_FLOAT, TYPE_INT]:
+		return false
+	var numeric_need = float(need)
+	if not is_finite(numeric_need) or numeric_need < 0.0 or numeric_need > 1.0:
+		return false
+	var body = body_states[agent_id]
+	body["rest_need"] = numeric_need
+	body["revision"] += 1
+	return true
+
 func set_mock_wandering_enabled(enabled):
 	mock_wandering_enabled = bool(enabled)
 
@@ -556,6 +599,7 @@ func replenish_food_site(observer_agent_id = ""):
 	return true
 
 func set_rest_actions_enabled(enabled):
+	food_rest_integration_enabled = false
 	rest_actions_enabled = bool(enabled)
 	if rest_actions_enabled:
 		food_actions_enabled = false
@@ -563,6 +607,7 @@ func set_rest_actions_enabled(enabled):
 		sleep_window_enabled = false
 
 func set_sleep_actions_enabled(enabled):
+	food_rest_integration_enabled = false
 	sleep_actions_enabled = bool(enabled)
 	rest_actions_enabled = sleep_actions_enabled
 	if sleep_actions_enabled:

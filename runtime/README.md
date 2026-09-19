@@ -10,8 +10,12 @@ See the [Body contract](../docs/experiment-contracts/BODY_movement_contract.md).
 The [opt-in minimal Rest slice](../docs/experiment-contracts/REST_minimal_loop_contract.md)
 accepts bounded `rest_need` and a visible rest-capable place, then emits
 `approach`, `rest`, or `idle`. Godot owns RestNeed, reachability, and recovery.
-Food and Rest action modes cannot be enabled together until a separate priority
-contract exists.
+Food and Rest remain isolated by default. Their first explicit integration is
+enabled with `python -m runtime.bridge --food-rest-life`; the
+[finite coordinator contract](../docs/experiment-contracts/FOOD_REST_continuous_life_contract.md)
+temporarily prefers Rest at the fixed experiment threshold, then re-evaluates
+the retained Food trajectory from the current packet. This is not general Need
+arbitration.
 
 `python -m runtime.bridge --rest-trajectory` enables the isolated
 [Rest Goal / Trajectory policy](../docs/experiment-contracts/REST_trajectory_contract.md).

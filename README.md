@@ -47,6 +47,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Danger selection: Godotは現在接触中のdanger sourceと `low / medium / high` だけを渡す。Runtimeは支配sourceを有限選択してprovenanceへ残すが、safe target・Energy・負傷には権限を持たない。
 - Workbench visualization: [V1-V3 contract](docs/experiment-contracts/WORKBENCH_visualization_contract.md)でNPC・Object・Threat・Placeを簡易図形化し、選択NPCの観測円、既存committed target線、static danger領域を表示する。World truth・Runtime decision・canonical sidecarには非介入。Inspector V4は目視評価後まで保留。
 - Continuous life: Phase A〜Eでresult因果拘束、Safety通常CLI、実三周Food自律、inspector/simulation分離、Food-Safety有限統合まで成立。Phase Fの[長期縦断証拠](docs/experiment-evidence/CONTINUOUS_LIFE_reference_evidence.md)では、別Shelterへの退避を含む成功→通常成功→cueなし自律完走を同一NPC/Runtime/Worldで確認する。Phase Gでは優先Godot縦断をCI固定する。一般Need arbitrationは未実装。
+- Food × Rest: 明示opt-inの[有限Coordinator](docs/experiment-contracts/FOOD_REST_continuous_life_contract.md)で、Food保持中の高RestNeed→Food保留→別Rest Hutでshort rest→現在関係からFood再評価→Plaza帰還/depositを確認する。固定閾値による最初の比較sliceであり、一般Need arbitrationではない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

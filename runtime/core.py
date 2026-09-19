@@ -286,7 +286,10 @@ def _validate_rest_state(body: Any, agent_id: str) -> None:
         raise ObservationError("body rest_actions_enabled must be boolean")
     if not enabled:
         return
-    if body.get("food_actions_enabled", False):
+    integration_enabled = body.get("food_rest_integration_enabled", False)
+    if type(integration_enabled) is not bool:
+        raise ObservationError("body food_rest_integration_enabled must be boolean")
+    if body.get("food_actions_enabled", False) and integration_enabled is not True:
         raise ObservationError("Food and Rest actions cannot both be enabled in the minimal Rest slice")
     if body.get("agent_id") != agent_id:
         raise ObservationError("rest body owner must match observed agent")
