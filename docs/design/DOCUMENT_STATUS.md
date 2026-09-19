@@ -35,6 +35,7 @@
 | [Base-Food Three-Cycle Autonomy contract](../experiment-contracts/BASE_FOOD_three_cycle_autonomy_contract.md) | continuous-life Phase C operational | 同一World/Runtime/NPCで実deposit成功2周、cueなし自律3周。事前success投入なし |
 | [Multi-Agent Simulation Loop contract](../experiment-contracts/MULTI_AGENT_simulation_loop_contract.md) | continuous-life Phase D operational | selected inspectorと実行対象を分離。A/B逐次observe/decide/resolve、生活modeではmock wandering停止 |
 | [Food-Safety Continuous-Life contract](../experiment-contracts/FOOD_SAFETY_continuous_life_contract.md) | continuous-life Phase E operational | Food保持帰還中に危険、Food保留、Safety完了、現関係再検査、resume/deposit。一般Need arbitrationではない |
+| [Continuous Life Reference Evidence](../experiment-evidence/CONTINUOUS_LIFE_reference_evidence.md) | continuous-life Phase F operational | 別Shelter退避を含む成功、通常成功、cueなし自律完走を同一NPC/Runtime/Worldで固定。優先縦断はPhase G CI対象 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
 | [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |
 | [ρ Rest Candidate Description contract](../experiment-contracts/RHO_rest_candidate_description_contract.md) | double-opt-in causal experiment operational | ρ→候補記述、固定selector→target、Trajectory固定。LOW/HIGH実Godot比較 |

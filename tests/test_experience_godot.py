@@ -84,7 +84,12 @@ class GodotExperienceTests(unittest.TestCase):
                 output = completed.stdout + completed.stderr
                 self.assertEqual(completed.returncode, 0, output)
                 self.assertIn("Food-Safety resume check passed", output)
-                self.assertEqual(len(coordinator.snapshot()["food"]["results"]), 1)
+                self.assertIs(server.life_policy, coordinator)
+                self.assertEqual(
+                    len(coordinator.snapshot()["food"]["results"]), 1,
+                    f"{output}\nserver policy={server.life_policy.snapshot()}"
+                    f"\ninteraction history={history.snapshot()}",
+                )
                 print(output.strip())
             finally:
                 server.shutdown()
@@ -146,6 +151,37 @@ class GodotExperienceTests(unittest.TestCase):
                 server.shutdown()
                 thread.join()
                 server.server_close()
+    def test_continuous_life_interrupt_experience_and_autonomy(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        coordinator = FoodSafetyCoordinator()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.life_policy = coordinator
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/continuous_life_evidence_http_check.gd"],
+                    capture_output=True, text=True, timeout=75,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Continuous-life evidence check passed", output)
+                snapshot = coordinator.snapshot()["food"]
+                self.assertEqual(len(snapshot["results"]), 2)
+                self.assertIn("npc_b", snapshot["habit_ready_agents"])
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_safety_vertical_uses_normal_cli_startup(self):
         project_root = Path(__file__).resolve().parents[1]
         flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
@@ -184,6 +220,45 @@ class GodotExperienceTests(unittest.TestCase):
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.communicate(timeout=5)
+    def test_food_safety_vertical_uses_normal_cli_startup(self):
+        project_root = Path(__file__).resolve().parents[1]
+        flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        process = subprocess.Popen(
+            [sys.executable, "-m", "runtime.bridge", "--food-safety-life"],
+            cwd=project_root, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, env=os.environ.copy(), creationflags=flags,
+        )
+        try:
+            deadline = time.monotonic() + 10
+            while True:
+                if process.poll() is not None:
+                    self.fail(f"Food-Safety CLI exited early: {process.stdout.read()}")
+                try:
+                    with urllib.request.urlopen("http://127.0.0.1:8765/health", timeout=0.5) as response:
+                        if response.status == 200:
+                            break
+                except OSError:
+                    if time.monotonic() >= deadline:
+                        self.fail("Food-Safety CLI did not become healthy")
+                    time.sleep(0.1)
+            project = project_root / "godot" / "rdl-game-ai-workbench"
+            completed = subprocess.run(
+                [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                 "--script", "res://tests/food_safety_resume_http_check.gd"],
+                capture_output=True, text=True, timeout=50,
+                env=os.environ.copy(), creationflags=flags,
+            )
+            output = completed.stdout + completed.stderr
+            self.assertEqual(completed.returncode, 0, output)
+            self.assertIn("Food-Safety resume check passed", output)
+        finally:
+            process.terminate()
+            try:
+                process.communicate(timeout=5)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.communicate(timeout=5)
+
     def test_workbench_visualization_is_observational_only(self):
         project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
         completed = subprocess.run(

@@ -46,7 +46,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Safety selection: Godotはsafe/uncertainと有限距離bandの候補記述だけを渡す。Runtimeの独立selectorが `safe > uncertain`、同安全度なら近い候補を一度だけ選び、その後の順位変化はTrajectory targetを変えない。
 - Danger selection: Godotは現在接触中のdanger sourceと `low / medium / high` だけを渡す。Runtimeは支配sourceを有限選択してprovenanceへ残すが、safe target・Energy・負傷には権限を持たない。
 - Workbench visualization: [V1-V3 contract](docs/experiment-contracts/WORKBENCH_visualization_contract.md)でNPC・Object・Threat・Placeを簡易図形化し、選択NPCの観測円、既存committed target線、static danger領域を表示する。World truth・Runtime decision・canonical sidecarには非介入。Inspector V4は目視評価後まで保留。
-- Continuous life: Phase A〜Dでresult因果拘束、Safety通常CLI、実三周Food自律、selected inspectorとA/B simulation分離まで成立。Phase Eでは専用[Food-Safety coordinator](docs/experiment-contracts/FOOD_SAFETY_continuous_life_contract.md)がFood保持帰還中の危険に対し、Food保留→Safety完了→現関係再検査→resume/depositを有限統合する。一般Need arbitrationは未実装。
+- Continuous life: Phase A〜Eでresult因果拘束、Safety通常CLI、実三周Food自律、inspector/simulation分離、Food-Safety有限統合まで成立。Phase Fの[長期縦断証拠](docs/experiment-evidence/CONTINUOUS_LIFE_reference_evidence.md)では、別Shelterへの退避を含む成功→通常成功→cueなし自律完走を同一NPC/Runtime/Worldで確認する。Phase Gでは優先Godot縦断をCI固定する。一般Need arbitrationは未実装。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

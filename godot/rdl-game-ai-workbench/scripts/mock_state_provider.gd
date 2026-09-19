@@ -72,6 +72,16 @@ const SAFETY_DANGER_PLACE = {
 	"danger_level": "high"
 }
 
+const SAFETY_SHELTER_PLACE = {
+	"id": "shelter_east",
+	"label": "East Shelter",
+	"role": "mock place",
+	"position": Vector2(260, 120),
+	"radius": 42.0,
+	"rest_capable": true,
+	"rest_safety": "safe"
+}
+
 const SAFETY_MOVING_THREAT = {
 	"id": "threat_01",
 	"label": "Mock Dangerous Creature",
@@ -172,6 +182,8 @@ func reset():
 		places.append(place.duplicate(true))
 	if safety_actions_enabled and not moving_threat_enabled:
 		places.append(SAFETY_DANGER_PLACE.duplicate(true))
+	if food_safety_integration_enabled:
+		places.append(SAFETY_SHELTER_PLACE.duplicate(true))
 	events = ["tick 000: workbench reset"]
 	decision_records = [_build_decision_record("npc_a"), _build_decision_record("npc_b")]
 	resolution_records = []
@@ -385,6 +397,11 @@ func set_food_safety_integration_enabled(enabled):
 	rest_actions_enabled = false
 	sleep_actions_enabled = false
 	set_danger_fixture_enabled(false)
+	for index in range(places.size() - 1, -1, -1):
+		if places[index].get("id", "") == SAFETY_SHELTER_PLACE["id"]:
+			places.remove_at(index)
+	if food_safety_integration_enabled:
+		places.append(SAFETY_SHELTER_PLACE.duplicate(true))
 
 func set_danger_fixture_enabled(enabled, agent_id = ""):
 	for index in range(places.size() - 1, -1, -1):

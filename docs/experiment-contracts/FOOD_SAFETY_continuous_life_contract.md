@@ -31,9 +31,12 @@ the current bounded packet again. If its retained trajectory and current held
 food/Base/visibility relations remain valid, the coordinator reports `RESUME`.
 If the Food policy structurally releases, it reports `RELEASE`.
 
-The first live evidence activates a Godot-owned danger zone after pickup. The
-same NPC suspends Food, flees to Plaza, rechecks the held-food/Base relation,
-deposits, and admits the ordinary causally bound success result.
+The live evidence activates a Godot-owned danger zone after pickup. The same
+NPC suspends Food and flees to East Shelter, which is distinct from Plaza/Base.
+After Safety completion it rechecks the held-food/Base relation, resumes with
+`approach(plaza)`, travels back, deposits, and admits the ordinary causally
+bound success result. This proves resume is not an artifact of safe target and
+Base sharing one location.
 
 This is one named Food/Safety coordination rule, not a general Need arbitration
 engine. Rest, Energy, injury, H, canonical authority, and rho changes remain
