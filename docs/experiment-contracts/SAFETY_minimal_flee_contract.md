@@ -50,6 +50,15 @@ learning, injury, rescue, and canonical admission remain absent.
 
 ## Evidence
 
+Start the isolated policy through the normal Runtime entrypoint:
+
+```text
+python -m runtime.bridge --safety-trajectory
+```
+
+Combining this flag with Base-Food, Rest, or history-influence action policies
+is rejected until the continuous-life integration contract owns arbitration.
+
 - Runtime tests verify `flee / idle`, display-only `escaping` expression,
   malformed context rejection, and action-mode isolation.
 - `safety_flee_http_check.gd` verifies the live chain: six `flee` actions followed

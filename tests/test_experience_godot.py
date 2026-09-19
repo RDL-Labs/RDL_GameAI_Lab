@@ -3,8 +3,11 @@
 import os
 from pathlib import Path
 import subprocess
+import sys
 import threading
+import time
 import unittest
+import urllib.request
 from http.server import ThreadingHTTPServer
 from unittest.mock import patch
 
@@ -58,6 +61,44 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_safety_vertical_uses_normal_cli_startup(self):
+        project_root = Path(__file__).resolve().parents[1]
+        flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        process = subprocess.Popen(
+            [sys.executable, "-m", "runtime.bridge", "--safety-trajectory"],
+            cwd=project_root, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, env=os.environ.copy(), creationflags=flags,
+        )
+        try:
+            deadline = time.monotonic() + 10
+            while True:
+                if process.poll() is not None:
+                    self.fail(f"Safety CLI exited early: {process.stdout.read()}")
+                try:
+                    with urllib.request.urlopen("http://127.0.0.1:8765/health", timeout=0.5) as response:
+                        if response.status == 200:
+                            break
+                except OSError:
+                    if time.monotonic() >= deadline:
+                        self.fail("Safety CLI did not become healthy")
+                    time.sleep(0.1)
+            project = project_root / "godot" / "rdl-game-ai-workbench"
+            completed = subprocess.run(
+                [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                 "--script", "res://tests/safety_flee_http_check.gd"],
+                capture_output=True, text=True, timeout=40,
+                env=os.environ.copy(), creationflags=flags,
+            )
+            output = completed.stdout + completed.stderr
+            self.assertEqual(completed.returncode, 0, output)
+            self.assertIn("Safety trajectory check passed", output)
+        finally:
+            process.terminate()
+            try:
+                process.communicate(timeout=5)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.communicate(timeout=5)
     def test_workbench_visualization_is_observational_only(self):
         project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
         completed = subprocess.run(

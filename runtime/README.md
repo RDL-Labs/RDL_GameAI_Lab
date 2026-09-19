@@ -19,6 +19,10 @@ It keeps one fixed rest target through generic interruption and releases it on
 observed recovery or target disappearance. Observed safety is not yet used for
 selection.
 
+`python -m runtime.bridge --safety-trajectory` enables the isolated Safety
+escape trajectory through the normal bridge startup path. It cannot be combined
+with Base-Food, Rest, or history-influence action policies in this phase.
+
 Add `--rest-rho-candidates` with `--rest-trajectory` to enable the
 [ρ Rest candidate-description experiment](../docs/experiment-contracts/RHO_rest_candidate_description_contract.md).
 ρ changes only the bounded candidate fields passed to the unchanged selector;

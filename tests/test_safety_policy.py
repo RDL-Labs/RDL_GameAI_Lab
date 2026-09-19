@@ -2,10 +2,20 @@ import copy
 import unittest
 
 from runtime.core import ObservationError
+from runtime import bridge
 from runtime.safety_policy import SafetyTrajectoryPolicy
 
 
 class SafetyTrajectoryPolicyTests(unittest.TestCase):
+    def test_bridge_rejects_safety_combined_with_other_action_policies(self):
+        for kwargs in (
+            {"base_food_life": True, "safety_trajectory": True},
+            {"rest_trajectory": True, "safety_trajectory": True},
+            {"history_influence": True, "safety_trajectory": True},
+        ):
+            with self.subTest(kwargs=kwargs), self.assertRaisesRegex(ValueError, "isolated"):
+                bridge.run(port=0, **kwargs)
+
     def packet(self, observation_id, *, exposed, reached=False, target="plaza"):
         return {
             "observation_id": observation_id, "tick": 1, "agent_id": "npc_b",
