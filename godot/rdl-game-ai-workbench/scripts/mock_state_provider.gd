@@ -494,6 +494,21 @@ func set_god_statue_cue_enabled(enabled):
 func set_food_actions_enabled(enabled):
 	food_actions_enabled = bool(enabled)
 
+func replenish_food_site(observer_agent_id = ""):
+	if not _get_object("food_01").is_empty():
+		return false
+	var replenished_food = INITIAL_OBJECTS[0].duplicate(true)
+	if not observer_agent_id.is_empty():
+		var observer = get_agent(observer_agent_id)
+		if observer.is_empty():
+			return false
+		replenished_food["position"] = observer["position"] + Vector2(100, 40)
+	objects.append(replenished_food)
+	events.append("tick %03d: finite Food Site supply replenished" % tick)
+	if events.size() > 80:
+		events.pop_front()
+	return true
+
 func set_rest_actions_enabled(enabled):
 	rest_actions_enabled = bool(enabled)
 	if rest_actions_enabled:
