@@ -251,7 +251,7 @@ func get_observation(agent_id):
 		if other.get("id", "") == agent_id:
 			continue
 		if _is_visible(agent["position"], other["position"], PERCEPTION_RADIUS):
-			visible_agents.append(other.duplicate(true))
+			visible_agents.append(_build_visible_agent(other))
 
 	var visible_objects = []
 	for object_data in objects:
@@ -294,6 +294,14 @@ func get_observation(agent_id):
 				"domains": domains
 			}
 	return observation
+
+func _build_visible_agent(other):
+	var visible_agent = other.duplicate(true)
+	var body = body_states.get(other.get("id", ""), {})
+	if body.get("incapacitated", false):
+		visible_agent["condition"] = "incapacitated"
+		visible_agent["condition_schema"] = "bounded-visible-agent-condition-v1"
+	return visible_agent
 
 func get_latest_decision(agent_id):
 	for i in range(decision_records.size() - 1, -1, -1):

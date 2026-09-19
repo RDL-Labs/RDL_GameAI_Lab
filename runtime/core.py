@@ -250,6 +250,13 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
             raise ObservationError(f"observation.{key} must be a list")
 
     _validate_entities(observation["visible_agents"], "visible_agents")
+    for index, agent in enumerate(observation["visible_agents"]):
+        if "condition" in agent and agent["condition"] != "incapacitated":
+            raise ObservationError(f"visible_agents[{index}].condition is unsupported")
+        if "condition" in agent and agent.get("condition_schema") != "bounded-visible-agent-condition-v1":
+            raise ObservationError(f"visible_agents[{index}].condition_schema is unsupported")
+        if "condition_schema" in agent and "condition" not in agent:
+            raise ObservationError(f"visible_agents[{index}].condition is required with condition_schema")
     _validate_entities(observation["visible_objects"], "visible_objects")
     for index, item in enumerate(observation["visible_objects"]):
         if "within_reach" in item and type(item["within_reach"]) is not bool:

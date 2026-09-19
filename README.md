@@ -49,6 +49,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Continuous life: Phase A〜Eでresult因果拘束、Safety通常CLI、実三周Food自律、inspector/simulation分離、Food-Safety有限統合まで成立。Phase Fの[長期縦断証拠](docs/experiment-evidence/CONTINUOUS_LIFE_reference_evidence.md)では、別Shelterへの退避を含む成功→通常成功→cueなし自律完走を同一NPC/Runtime/Worldで確認する。Phase Gでは優先Godot縦断をCI固定する。一般Need arbitrationは未実装。
 - Food × Rest: 明示opt-inの[有限Coordinator](docs/experiment-contracts/FOOD_REST_continuous_life_contract.md)で、Food保持中の高RestNeed→Food保留→別Rest Hutでshort rest→現在関係からFood再評価→Plaza帰還/depositを確認する。固定閾値による最初の比較sliceであり、一般Need arbitrationではない。
 - Incapacitation Phase 5A: 専用[Safety failure contract](docs/experiment-contracts/SAFETY_incapacitation_contract.md)で、3回のfixture-controlled failed flee→Godot-owned severe injury / incapacitated→後続Runtime actionのidle拘束を確認する。通常Safetyへは非介入で、Rescue / Recoveryは未実装。
+- Rescue Phase 5B: [bounded discovery contract](docs/experiment-contracts/RESCUE_bounded_discovery_contract.md)で、観測範囲内の別NPCだけがincapacitated conditionを受け取る。global通知、Rescue Goal、搬送、回復は未実装。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
