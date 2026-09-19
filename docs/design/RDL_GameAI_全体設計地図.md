@@ -96,7 +96,7 @@ DNA → neural baseline distributions (μ / σ)
 
 ## 4. C: Game feature implementation
 
-第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recovery → Hunting。Base–Food参照loopは完了し、現在は同じNeed → Goal → Trajectory → world change → experience構造をRest / Sleepへ応用する境界にある。
+第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recovery → Hunting。Food・Rest・Energy・Safetyの有限slice、Food-Safety、Food-Rest、Continuous Life v0はoperationalである。現在はSafety failureからGodot-owned severe injury / incapacitationへ至るPhase 5Aを開始し、次の境界をbounded discovery / Rescueとして残す。
 
 第二生活ラインはMaterials → Tools → Crafting → Barter → Emergent Value。
 
@@ -156,7 +156,7 @@ Playerは暫定的に拠点のしゃべる像。NPC直接操作・状態書換�
 
 実装済みの有限sliceは、reviewed / retained H、approach結果履歴、opt-in retry influence、固定感度、movement_scale、Realtime観測、display-only Response Expression、minimal Food loop、default-off FoodNeed shadow admission。
 
-Base–Food reference loopはassisted-to-autonomous、Threat / Novelty割り込み、extreme tuningまで完了し、Evidenceを固定した。FoodNeed canonical promotionはshadow維持と判断した。次の実装優先はRest / Sleepであり、Food固有意味論をコピーせず参照loopの構造だけを再利用する。
+Base–Food reference loop、Rest / Sleep、Energy、Safety、Food-Safety、Food-Rest、Continuous Life Evidenceはoperationalである。FoodNeed canonical promotionはshadow維持と判断した。Phase 5Aでは専用fixtureによる継続危険と逃走失敗からsevere injury / incapacitationをGodot BodyStateへ有限記録し、Runtimeはbounded self-body snapshotに従ってworld-changing actionをidleへ拘束する。次の実装優先は他NPCによるbounded discoveryであり、全知通知・即時救助・成功扱いのsystem warpは導入しない。
 
 ## 8. 共通の不変条件
 

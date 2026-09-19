@@ -146,6 +146,7 @@ var safety_actions_enabled = false
 var food_safety_integration_enabled = false
 var food_rest_integration_enabled = false
 var moving_threat_enabled = false
+var incapacitation_fixture_enabled = false
 var mock_wandering_enabled = true
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
@@ -174,6 +175,9 @@ func reset():
 			"movement_scale": 1.0,
 			"food_need": 0.8,
 			"rest_need": 0.8,
+			"injury_level": "none",
+			"incapacitated": false,
+			"danger_exposure_steps": 0,
 			"active_energy": ACTIVE_ENERGY_INITIAL,
 			"active_energy_capacity": ACTIVE_ENERGY_INITIAL,
 			"energy_reserve": ENERGY_RESERVE_INITIAL,
@@ -343,6 +347,9 @@ func get_body_snapshot(agent_id):
 		"food_actions_enabled": food_actions_enabled,
 		"food_need": body["food_need"],
 		"held_food_ids": body["held_food_ids"].duplicate(),
+		"injury_level": body["injury_level"],
+		"incapacitated": body["incapacitated"],
+		"danger_exposure_steps": body["danger_exposure_steps"],
 		"revision": body["revision"],
 		"snapshot_id": "body-%s-%d" % [agent_id, body["revision"]]
 	}
@@ -461,6 +468,9 @@ func set_moving_threat_enabled(enabled):
 			objects.append(SAFETY_MOVING_THREAT.duplicate(true))
 		else:
 			places.append(SAFETY_DANGER_PLACE.duplicate(true))
+
+func set_incapacitation_fixture_enabled(enabled):
+	incapacitation_fixture_enabled = bool(enabled)
 
 func get_life_context(agent_id):
 	var agent = get_agent(agent_id)
@@ -890,6 +900,27 @@ func _resolve_flee(decision, target_id):
 	if target.get("rest_safety", "unknown") != "safe":
 		return _record_resolution(agent_id, "flee", target_id, "flee target is not a bounded safe place")
 	var before_position = agents[agent_index]["position"]
+	if incapacitation_fixture_enabled:
+		var body = body_states[agent_id]
+		body["danger_exposure_steps"] += 1
+		if body["danger_exposure_steps"] >= 3:
+			body["injury_level"] = "severe"
+			body["incapacitated"] = true
+			body["movement_scale"] = 0.0
+		body["revision"] += 1
+		var failed_observation = get_observation(agent_id)
+		return _record_resolution(
+			agent_id, "flee", target_id,
+			"bounded flee failed under incapacitation fixture",
+			before_position, before_position,
+			decision.get("inspection", {}).get("observation_id", ""),
+			failed_observation.get("observation_id", ""),
+			{"before_exposed": true, "after_exposed": true,
+				"danger_exposure_steps": body["danger_exposure_steps"],
+				"injury_level": body["injury_level"],
+				"incapacitated": body["incapacitated"],
+				"fixture": "finite-incapacitation-v1"}
+		)
 	var direction = target["position"] - before_position
 	var step_distance = ACTION_STEP_DISTANCE * body_states[agent_id]["movement_scale"]
 	if direction.length() > step_distance:

@@ -68,13 +68,28 @@ def apply_body_constraint(packet, response):
         raise ObservationError("body snapshot_id required")
     if type(body.get("revision")) is not int or body["revision"] < 0:
         raise ObservationError("body revision must be non-negative integer")
+    injury_level = body.get("injury_level", "none")
+    if injury_level not in {"none", "light", "medium", "severe"}:
+        raise ObservationError("body injury_level is unsupported")
+    incapacitated = body.get("incapacitated", False)
+    if type(incapacitated) is not bool:
+        raise ObservationError("body incapacitated must be boolean")
+    if incapacitated and injury_level != "severe":
+        raise ObservationError("incapacitated body requires severe injury")
     response = deepcopy(response)
-    if scale == 0 and response["action"]["type"] == "approach":
+    if incapacitated and response["action"]["type"] in {
+        "approach", "pickup", "eat", "deposit", "rest", "sleep", "flee"
+    }:
+        response["action"] = {"type": "idle"}
+        response["inspection"]["reason"] = "self body snapshot reports incapacitation"
+    elif scale == 0 and response["action"]["type"] == "approach":
         response["action"] = {"type": "idle"}
         response["inspection"]["reason"] = "self body snapshot reports no movement capability"
     response["inspection"]["body"] = {
         "snapshot_id": body["snapshot_id"], "revision": body["revision"],
-        "movement_scale": scale, "authority": "bounded-self-body-report",
+        "movement_scale": scale, "injury_level": injury_level,
+        "incapacitated": incapacitated,
+        "authority": "bounded-self-body-report",
     }
     return response
 

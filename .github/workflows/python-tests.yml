@@ -36,6 +36,7 @@ jobs:
         run: |
           python -m unittest -v \
             tests.test_experience_godot.GodotExperienceTests.test_safety_vertical_uses_normal_cli_startup \
+            tests.test_experience_godot.GodotExperienceTests.test_safety_failure_enters_world_owned_incapacitation \
             tests.test_experience_godot.GodotExperienceTests.test_three_real_food_cycles_enable_autonomy_without_seed_results \
             tests.test_experience_godot.GodotExperienceTests.test_food_safety_vertical_uses_normal_cli_startup \
             tests.test_experience_godot.GodotExperienceTests.test_continuous_life_interrupt_experience_and_autonomy \
