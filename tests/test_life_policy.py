@@ -12,25 +12,26 @@ from runtime.life_policy import (
 
 class BaseFoodLifePolicyTests(unittest.TestCase):
     def packet(self, *, cue="low", observed="low", at_base=True,
-               position="far", held=None, observation_id="life-1", interrupts=None):
+               position="far", held=None, observation_id="life-1", interrupts=None,
+               agent_id="npc_a", cue_id="cue-1"):
         item = {"id": "food_01", "kind": "food", "within_reach": position == "near"}
         return {
             "observation_id": observation_id,
             "tick": 1,
-            "agent_id": "npc_a",
+            "agent_id": agent_id,
             "observation": {
                 "visible_agents": [],
                 "visible_objects": [item],
                 "visible_places": [],
                 "body": {
-                    "agent_id": "npc_a", "snapshot_id": "body-1", "revision": 1,
+                    "agent_id": agent_id, "snapshot_id": "body-1", "revision": 1,
                     "movement_scale": 1.0, "food_actions_enabled": True,
                     "food_need": 0.8, "held_food_ids": list(held or []),
                 },
                 "life_context": {
                     "god_statue_cue": {
                         "source": "system_assessment", "topic": "base_food",
-                        "band": cue, "delivery": "morning", "cue_id": "cue-1",
+                        "band": cue, "delivery": "morning", "cue_id": cue_id,
                     },
                     "observed_base_food_band": observed,
                     "known_base": {"id": "base"},
@@ -39,6 +40,22 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
                 },
             },
         }
+
+    def admitted_success(self, policy, index, agent_id="npc_a"):
+        cue_id = f"cue-{index}"
+        source_id = f"deposit-{index}"
+        policy.decide(self.packet(observation_id=f"start-{index}", agent_id=agent_id, cue_id=cue_id))
+        deposit = policy.decide(self.packet(
+            held=["food_01"], at_base=True, observation_id=source_id,
+            agent_id=agent_id, cue_id=cue_id,
+        ))
+        self.assertEqual(deposit["action"], {"type": "deposit", "target_id": "base"})
+        result = {
+            "result_id": f"result-{index}", "agent_id": agent_id,
+            "source_observation_id": source_id, "cue_id": cue_id,
+            "response": "follow", "outcome": "replenish_success",
+        }
+        return result, policy.record_result(result)
 
     def test_cue_and_observation_form_goal_but_cue_has_no_direct_authority(self):
         policy = BaseFoodLifePolicy()
@@ -85,11 +102,7 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
     def test_two_successes_enable_cue_independent_goal(self):
         policy = BaseFoodLifePolicy()
         for index in range(2):
-            policy.record_result({
-                "result_id": f"result-{index}", "agent_id": "npc_a",
-                "source_observation_id": f"source-{index}", "cue_id": f"cue-{index}",
-                "response": "follow", "outcome": "replenish_success",
-            })
+            self.admitted_success(policy, index)
         packet = self.packet(observation_id="autonomous")
         packet["observation"]["life_context"]["god_statue_cue"] = None
         response = policy.decide(packet)
@@ -99,17 +112,43 @@ class BaseFoodLifePolicyTests(unittest.TestCase):
 
     def test_one_success_is_not_enough_and_replay_is_idempotent(self):
         policy = BaseFoodLifePolicy()
-        result = {
-            "result_id": "result-1", "agent_id": "npc_a",
-            "source_observation_id": "source-1", "cue_id": "cue-1",
-            "response": "follow", "outcome": "replenish_success",
-        }
-        self.assertEqual(policy.record_result(result), policy.record_result(result))
+        result, record = self.admitted_success(policy, 1)
+        policy.decide(self.packet(observation_id="new-active", cue_id="cue-new"))
+        before_replay = policy.snapshot()
+        self.assertEqual(record, policy.record_result(result))
+        self.assertEqual(before_replay, policy.snapshot())
         packet = self.packet(observation_id="autonomous")
         packet["observation"]["life_context"]["god_statue_cue"] = None
         response = policy.decide(packet)
-        self.assertEqual(response["action"], {"type": "idle"})
+        self.assertEqual(response["action"], {"type": "approach", "target_id": "food_01"})
+        self.assertEqual(response["inspection"]["life"]["trajectory_phase"], "GO_TO_SITE")
         self.assertFalse(response["inspection"]["life"]["habit_ready"])
+
+    def test_success_result_must_bind_to_registered_deposit_causality(self):
+        policy = BaseFoodLifePolicy()
+        approach = policy.decide(self.packet(observation_id="approach-source"))
+        self.assertEqual(approach["action"]["type"], "approach")
+        invalid = {
+            "result_id": "bad", "agent_id": "npc_a",
+            "source_observation_id": "missing", "cue_id": "cue-1",
+            "response": "follow", "outcome": "replenish_success",
+        }
+        cases = []
+        cases.append(dict(invalid))
+        wrong_agent = dict(invalid, source_observation_id="approach-source", agent_id="npc_b")
+        cases.append(wrong_agent)
+        wrong_action = dict(invalid, source_observation_id="approach-source")
+        cases.append(wrong_action)
+        for payload in cases:
+            with self.subTest(payload=payload), self.assertRaises(ObservationError):
+                policy.record_result(payload)
+        self.assertEqual(policy.snapshot()["results"], [])
+
+        valid, accepted = self.admitted_success(policy, "valid")
+        self.assertEqual(accepted["source_observation_id"], "deposit-valid")
+        conflict = dict(valid, cue_id="different")
+        with self.assertRaises(ObservationError):
+            policy.record_result(conflict)
 
     def test_generic_interrupt_holds_then_resumes_committed_trajectory(self):
         policy = BaseFoodLifePolicy()

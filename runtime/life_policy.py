@@ -234,8 +234,27 @@ class BaseFoodLifePolicy:
             "authority": "GameAI-local-experience; not-canonical-M_B",
         }
         existing = self._results.get(result["result_id"])
-        if existing is not None and existing != result:
-            raise ObservationError("conflicting life result replay")
+        if existing is not None:
+            if existing != result:
+                raise ObservationError("conflicting life result replay")
+            return deepcopy(existing)
+
+        key = (result["agent_id"], result["source_observation_id"])
+        stored = self._decisions.get(key)
+        if stored is None:
+            raise ObservationError("life result has no registered source decision")
+        packet, decision = stored
+        action = decision.get("action", {})
+        context = packet.get("observation", {}).get("life_context", {})
+        known_base = context.get("known_base", {})
+        life = decision.get("inspection", {}).get("life", {})
+        cue = context.get("god_statue_cue")
+        if action.get("type") != "deposit" or action.get("target_id") != known_base.get("id"):
+            raise ObservationError("life success requires a registered deposit decision to known Base")
+        if life.get("goal") != "replenish_base_food" or life.get("trajectory_phase") != "DEPOSIT":
+            raise ObservationError("life success requires the registered Base-Food deposit trajectory")
+        if not isinstance(cue, dict) or cue.get("cue_id") != result["cue_id"]:
+            raise ObservationError("life result cue provenance does not match the source decision")
         self._results[result["result_id"]] = result
         self.complete_deposit(result["agent_id"])
         return deepcopy(result)

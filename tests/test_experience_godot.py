@@ -17,6 +17,45 @@ from runtime.safety_policy import SafetyTrajectoryPolicy
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
+def admit_bounded_life_success(policy, agent_id, index):
+    cue_id = f"seed-cue-{index}"
+
+    def packet(observation_id, held, at_base):
+        return {
+            "observation_id": observation_id, "tick": index + 1, "agent_id": agent_id,
+            "observation": {
+                "visible_agents": [],
+                "visible_objects": [{"id": "food_01", "kind": "food", "within_reach": False}],
+                "visible_places": [],
+                "body": {
+                    "agent_id": agent_id, "snapshot_id": f"body-{index}", "revision": index,
+                    "movement_scale": 1.0, "food_actions_enabled": True,
+                    "food_need": 0.8, "held_food_ids": held,
+                },
+                "life_context": {
+                    "god_statue_cue": {
+                        "source": "system_assessment", "topic": "base_food", "band": "low",
+                        "delivery": "morning", "cue_id": cue_id,
+                    },
+                    "observed_base_food_band": "low",
+                    "known_base": {"id": "plaza"}, "at_base": at_base,
+                    "interrupt_candidates": [],
+                },
+            },
+        }
+
+    policy.decide(packet(f"seed-start-{index}", [], False))
+    source_id = f"seed-deposit-{index}"
+    decision = policy.decide(packet(source_id, ["food_01"], True))
+    if decision["action"] != {"type": "deposit", "target_id": "plaza"}:
+        raise AssertionError(f"seed decision was not a bounded deposit: {decision}")
+    return policy.record_result({
+        "result_id": f"seed-{index}", "agent_id": agent_id,
+        "source_observation_id": source_id, "cue_id": cue_id,
+        "response": "follow", "outcome": "replenish_success",
+    })
+
+
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
     def test_workbench_visualization_is_observational_only(self):
@@ -413,12 +452,7 @@ class GodotExperienceTests(unittest.TestCase):
         canonical = GameAIFrozenComparisonSidecar()
         life_policy = BaseFoodLifePolicy()
         for index in range(2):
-            life_policy.record_result({
-                "result_id": f"seed-{index}", "agent_id": "npc_b",
-                "source_observation_id": f"seed-observation-{index}",
-                "cue_id": f"seed-cue-{index}", "response": "follow",
-                "outcome": "replenish_success",
-            })
+            admit_bounded_life_success(life_policy, "npc_b", index)
         with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
             server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
             server.history_policy = None

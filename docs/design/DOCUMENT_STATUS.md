@@ -31,6 +31,7 @@
 | [Safety Danger Selection contract](../experiment-contracts/SAFETY_danger_selection_contract.md) | finite dominant-danger selection operational | high/medium/low比較、同severity時ID順。safe target・行動・負傷の権限なし |
 | [Safety Moving Threat contract](../experiment-contracts/SAFETY_moving_threat_contract.md) | opt-in moving fixture operational | Godot所有位置を有限更新し、bounded exposureから同じ固定safe targetへ逃走。predator・追跡予測・負傷ではない |
 | [Workbench Visualization contract](../experiment-contracts/WORKBENCH_visualization_contract.md) | V1-V3 debug projection operational | Entity図形、観測円、固定target線、danger領域、moving threat。表示はWorld・decisionへ非介入、Inspector V4は保留 |
+| [Base-Food Result Causality contract](../experiment-contracts/BASE_FOOD_result_causality_contract.md) | continuous-life Phase A operational | exact replay副作用なし。successを同agentの登録済みBase deposit decision・cue・goalへ拘束 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
 | [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |
 | [ρ Rest Candidate Description contract](../experiment-contracts/RHO_rest_candidate_description_contract.md) | double-opt-in causal experiment operational | ρ→候補記述、固定selector→target、Trajectory固定。LOW/HIGH実Godot比較 |
