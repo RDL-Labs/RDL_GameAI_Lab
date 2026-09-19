@@ -64,7 +64,7 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
-    def test_rescue_goal_commits_and_approaches_without_resolving_recovery(self):
+    def test_rescue_goal_delivers_to_safe_place_without_recovery(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()
         rescue = RescueTrajectoryPolicy()
@@ -85,8 +85,8 @@ class GodotExperienceTests(unittest.TestCase):
                 )
                 output = completed.stdout + completed.stderr
                 self.assertEqual(completed.returncode, 0, output)
-                self.assertIn("Rescue trajectory check passed", output)
-                self.assertEqual(rescue.snapshot()["trajectories"]["npc_a"]["phase"], "READY_TO_RESCUE")
+                self.assertIn("Rescue delivery check passed", output)
+                self.assertEqual(rescue.snapshot()["trajectories"], {})
                 print(output.strip())
             finally:
                 server.shutdown()
@@ -353,7 +353,7 @@ class GodotExperienceTests(unittest.TestCase):
             )
             output = completed.stdout + completed.stderr
             self.assertEqual(completed.returncode, 0, output)
-            self.assertIn("Rescue trajectory check passed", output)
+            self.assertIn("Rescue delivery check passed", output)
         finally:
             process.terminate()
             try:

@@ -96,7 +96,7 @@ DNA → neural baseline distributions (μ / σ)
 
 ## 4. C: Game feature implementation
 
-第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recovery → Hunting。Food・Rest・Energy・Safetyの有限slice、Food-Safety、Food-Rest、Continuous Life v0はoperationalである。Phase 5Aのincapacitation、5Bのbounded discovery、5CのRescue Goal / fixed-target approachまでoperationalである。次の境界はsafe-place deliveryとする。
+第一生活ラインはFood → Rest / Sleep → EnergyReserve / ActiveEnergy → Safety / Danger → Incapacitation / Injury → Rescue / Recovery → Hunting。Food・Rest・Energy・Safetyの有限slice、Food-Safety、Food-Rest、Continuous Life v0はoperationalである。Phase 5Aのincapacitation、5Bのbounded discovery、5CのRescue Goal、5Dのsafe-place deliveryまでoperationalである。次の境界はstaged recoveryとする。
 
 第二生活ラインはMaterials → Tools → Crafting → Barter → Emergent Value。
 
@@ -156,7 +156,7 @@ Playerは暫定的に拠点のしゃべる像。NPC直接操作・状態書換�
 
 実装済みの有限sliceは、reviewed / retained H、approach結果履歴、opt-in retry influence、固定感度、movement_scale、Realtime観測、display-only Response Expression、minimal Food loop、default-off FoodNeed shadow admission。
 
-Base–Food reference loop、Rest / Sleep、Energy、Safety、Food-Safety、Food-Rest、Continuous Life Evidenceはoperationalである。FoodNeed canonical promotionはshadow維持と判断した。Phase 5Aではsevere injury / incapacitationをGodot BodyStateへ有限記録し、Phase 5Bでは観測範囲内の別NPCだけがそのconditionを知る。Phase 5CではRescue targetを一度固定し、実World上で対象へ接近して `READY_TO_RESCUE` で停止する。次の実装優先はsafe-place deliveryであり、回復・成功扱い・旧Safety trajectory再開は導入しない。
+Base–Food reference loop、Rest / Sleep、Energy、Safety、Food-Safety、Food-Rest、Continuous Life Evidenceはoperationalである。FoodNeed canonical promotionはshadow維持と判断した。Phase 5Aではsevere injury / incapacitationをGodot BodyStateへ有限記録し、Phase 5Bでは別NPCだけがbounded conditionを知る。Phase 5CでRescue targetを固定し、Phase 5Dでは対象保持、固定safe placeへの実搬送、World-owned delivery provenance、後続観測によるCOMPLETEまで通す。次の実装優先はstaged recoveryであり、delivery時点の治療・旧Safety trajectory再開は導入しない。
 
 ## 8. 共通の不変条件
 

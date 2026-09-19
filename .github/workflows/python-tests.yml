@@ -38,7 +38,7 @@ jobs:
             tests.test_experience_godot.GodotExperienceTests.test_safety_vertical_uses_normal_cli_startup \
             tests.test_experience_godot.GodotExperienceTests.test_safety_failure_enters_world_owned_incapacitation \
             tests.test_experience_godot.GodotExperienceTests.test_other_agent_discovers_incapacitation_only_inside_bounded_view \
-            tests.test_experience_godot.GodotExperienceTests.test_rescue_goal_commits_and_approaches_without_resolving_recovery \
+            tests.test_experience_godot.GodotExperienceTests.test_rescue_goal_delivers_to_safe_place_without_recovery \
             tests.test_experience_godot.GodotExperienceTests.test_rescue_vertical_uses_normal_cli_startup \
             tests.test_experience_godot.GodotExperienceTests.test_three_real_food_cycles_enable_autonomy_without_seed_results \
             tests.test_experience_godot.GodotExperienceTests.test_food_safety_vertical_uses_normal_cli_startup \

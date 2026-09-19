@@ -20,16 +20,17 @@ Rescue trajectory exists. Later candidate order or a newly visible candidate
 does not replace the committed target. If that target disappears from bounded
 observation, the trajectory is `RELEASED` rather than redirected implicitly.
 
-`READY_TO_RESCUE` emits `idle`. It means only that the rescuer reached the
-incapacitated agent. It does not mean pickup, carrying, treatment, delivery,
-recovery, success, or Experience admission.
+`READY_TO_RESCUE` established only that the rescuer reached the incapacitated
+agent. Phase 5D subsequently added a separately contracted `rescue` attachment
+and delivery path; treatment, recovery, and Experience admission remain outside
+this Phase 5C contract.
 
 ## Authority boundary
 
 ```text
 World owns position and incapacitation
 Runtime owns finite Rescue Goal / commitment / approach decision
-World-changing rescue resolution remains deferred
+World-changing rescue resolution was deferred at the Phase 5C boundary
 ```
 
 The old Safety trajectory of the incapacitated agent is not resumed or cleared
@@ -41,7 +42,7 @@ re-evaluation in a later contract.
 1. Discovery forms one Rescue Goal for a bounded incapacitated agent.
 2. The target remains fixed while still observed.
 3. Godot resolves approach toward the actual agent position.
-4. Arrival produces `READY_TO_RESCUE` and `idle`, not invented rescue success.
+4. Arrival produces `READY_TO_RESCUE`, not invented rescue success.
 5. Target disappearance produces `RELEASED`.
 6. Replay is frozen by agent and observation identity.
 7. Existing canonical sidecar, H, T1, Food, Rest, and Safety authority remain unchanged.

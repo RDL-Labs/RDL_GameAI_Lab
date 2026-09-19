@@ -76,9 +76,27 @@ def apply_body_constraint(packet, response):
         raise ObservationError("body incapacitated must be boolean")
     if incapacitated and injury_level != "severe":
         raise ObservationError("incapacitated body requires severe injury")
+    carried_agent_id = body.get("carried_agent_id", "")
+    if not isinstance(carried_agent_id, str) or carried_agent_id == packet["agent_id"]:
+        raise ObservationError("body carried_agent_id must be empty or another agent ID")
+    last_delivery = body.get("last_rescue_delivery", {})
+    if not isinstance(last_delivery, dict):
+        raise ObservationError("body last_rescue_delivery must be an object")
+    if last_delivery:
+        if (
+            not isinstance(last_delivery.get("agent_id"), str)
+            or not last_delivery["agent_id"]
+            or not isinstance(last_delivery.get("place_id"), str)
+            or not last_delivery["place_id"]
+            or type(last_delivery.get("tick")) is not int
+            or last_delivery["tick"] < 0
+        ):
+            raise ObservationError("body last_rescue_delivery is malformed")
+        if carried_agent_id:
+            raise ObservationError("body cannot carry an agent and report completed delivery")
     response = deepcopy(response)
     if incapacitated and response["action"]["type"] in {
-        "approach", "pickup", "eat", "deposit", "rest", "sleep", "flee"
+        "approach", "pickup", "eat", "deposit", "rest", "sleep", "flee", "rescue", "deliver"
     }:
         response["action"] = {"type": "idle"}
         response["inspection"]["reason"] = "self body snapshot reports incapacitation"
@@ -89,6 +107,7 @@ def apply_body_constraint(packet, response):
         "snapshot_id": body["snapshot_id"], "revision": body["revision"],
         "movement_scale": scale, "injury_level": injury_level,
         "incapacitated": incapacitated,
+        "carried_agent_id": carried_agent_id,
         "authority": "bounded-self-body-report",
     }
     return response
@@ -273,6 +292,12 @@ def _validate_packet(packet: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
             "within_reach", "near", "far", "unreachable"
         }:
             raise ObservationError(f"visible_places[{index}].rest_distance_band is unsupported")
+        if "rescue_within_reach" in place and type(place["rescue_within_reach"]) is not bool:
+            raise ObservationError(f"visible_places[{index}].rescue_within_reach must be boolean")
+        if "rescue_distance_band" in place and place["rescue_distance_band"] not in {
+            "within_reach", "near", "far", "unreachable"
+        }:
+            raise ObservationError(f"visible_places[{index}].rescue_distance_band is unsupported")
     _validate_food_state(observation.get("body"), agent_id)
     _validate_rest_state(observation.get("body"), agent_id)
     _validate_sleep_state(observation.get("body"), agent_id)

@@ -648,5 +648,8 @@ func _runtime_entities(items, origin):
 			entity["rest_safety"] = item.get("rest_safety", "unknown")
 			entity["within_reach"] = item.get("within_reach", false)
 			entity["rest_distance_band"] = item.get("rest_distance_band", "far")
+		if item.has("rescue_within_reach"):
+			entity["rescue_within_reach"] = item.get("rescue_within_reach", false)
+			entity["rescue_distance_band"] = item.get("rescue_distance_band", "far")
 		result.append(entity)
 	return result

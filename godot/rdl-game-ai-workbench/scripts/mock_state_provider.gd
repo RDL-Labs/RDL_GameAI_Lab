@@ -183,6 +183,8 @@ func reset():
 			"active_energy_capacity": ACTIVE_ENERGY_INITIAL,
 			"energy_reserve": ENERGY_RESERVE_INITIAL,
 			"held_food_ids": [],
+			"carried_agent_id": "",
+			"last_rescue_delivery": {},
 			"revision": 0
 		}
 	action_offsets = {}
@@ -269,6 +271,10 @@ func get_observation(agent_id):
 	for place in places:
 		if _is_visible(agent["position"], place["position"], PERCEPTION_RADIUS + place.get("radius", 0.0)):
 			var visible_place = place.duplicate(true)
+			if place.get("rest_safety", "unknown") == "safe":
+				var rescue_distance = agent["position"].distance_to(place["position"])
+				visible_place["rescue_within_reach"] = rescue_distance <= RESCUE_REACH_DISTANCE
+				visible_place["rescue_distance_band"] = _rest_distance_band(rescue_distance)
 			if rest_actions_enabled and place.get("rest_capable", false):
 				var rest_distance = agent["position"].distance_to(place["position"])
 				visible_place["within_reach"] = rest_distance <= REST_REACH_DISTANCE
@@ -332,6 +338,10 @@ func resolve_action(decision):
 		return _resolve_sleep(decision, action.get("target_id", ""))
 	if action_type == "flee":
 		return _resolve_flee(decision, action.get("target_id", ""))
+	if action_type == "rescue":
+		return _resolve_rescue(decision, action.get("target_id", ""))
+	if action_type == "deliver":
+		return _resolve_rescue_delivery(decision, action.get("target_id", ""))
 	return _record_resolution(decision.get("agent_id", ""), action_type, "", "no world change for action")
 
 func get_latest_resolution(agent_id):
@@ -360,6 +370,8 @@ func get_body_snapshot(agent_id):
 		"food_actions_enabled": food_actions_enabled,
 		"food_need": body["food_need"],
 		"held_food_ids": body["held_food_ids"].duplicate(),
+		"carried_agent_id": body["carried_agent_id"],
+		"last_rescue_delivery": body["last_rescue_delivery"].duplicate(true),
 		"injury_level": body["injury_level"],
 		"incapacitated": body["incapacitated"],
 		"danger_exposure_steps": body["danger_exposure_steps"],
@@ -762,6 +774,11 @@ func _resolve_approach(decision, target_id):
 		direction = direction.normalized() * step_distance
 	var after_position = before_position + direction
 	agent["position"] = after_position
+	var carried_agent_id = body_states[agent_id].get("carried_agent_id", "")
+	if not carried_agent_id.is_empty():
+		var carried_index = _find_agent_index(carried_agent_id)
+		if carried_index != -1:
+			agents[carried_index]["position"] = after_position
 	action_offsets[agent_id] = action_offsets.get(agent_id, Vector2.ZERO) + direction
 	var energy_effects = {}
 	if active_energy_enabled and direction.length() > 0.0:
@@ -780,6 +797,60 @@ func _resolve_approach(decision, target_id):
 		before_observation,
 		subsequent_observation.get("observation_id", ""),
 		energy_effects
+	)
+
+func _resolve_rescue(decision, target_id):
+	var rescuer_id = decision.get("agent_id", "")
+	var rescuer_index = _find_agent_index(rescuer_id)
+	var target_index = _find_agent_index(target_id)
+	if rescuer_index == -1 or target_index == -1 or rescuer_id == target_id:
+		return _record_resolution(rescuer_id, "rescue", target_id, "rescuer or target is unavailable")
+	var rescuer_body = body_states[rescuer_id]
+	var target_body = body_states[target_id]
+	if not rescuer_body.get("carried_agent_id", "").is_empty():
+		return _record_resolution(rescuer_id, "rescue", target_id, "rescuer already carries an agent")
+	if not target_body.get("incapacitated", false):
+		return _record_resolution(rescuer_id, "rescue", target_id, "target is not incapacitated")
+	if agents[rescuer_index]["position"].distance_to(agents[target_index]["position"]) > RESCUE_REACH_DISTANCE:
+		return _record_resolution(rescuer_id, "rescue", target_id, "target is outside rescue reach")
+	rescuer_body["carried_agent_id"] = target_id
+	rescuer_body["last_rescue_delivery"] = {}
+	rescuer_body["revision"] += 1
+	agents[target_index]["position"] = agents[rescuer_index]["position"]
+	var subsequent = get_observation(rescuer_id)
+	return _record_resolution(
+		rescuer_id, "rescue", target_id, "incapacitated agent attached to rescuer",
+		null, null, decision.get("inspection", {}).get("observation_id", ""),
+		subsequent.get("observation_id", ""),
+		{"carried_agent_id": target_id, "recovery": "not_run"}
+	)
+
+func _resolve_rescue_delivery(decision, place_id):
+	var rescuer_id = decision.get("agent_id", "")
+	var rescuer_index = _find_agent_index(rescuer_id)
+	var place = _get_place(place_id)
+	if rescuer_index == -1 or place.is_empty() or place.get("rest_safety", "unknown") != "safe":
+		return _record_resolution(rescuer_id, "deliver", place_id, "safe delivery target is unavailable")
+	var rescuer_body = body_states[rescuer_id]
+	var carried_agent_id = rescuer_body.get("carried_agent_id", "")
+	var carried_index = _find_agent_index(carried_agent_id)
+	if carried_agent_id.is_empty() or carried_index == -1:
+		return _record_resolution(rescuer_id, "deliver", place_id, "no incapacitated agent is carried")
+	if agents[rescuer_index]["position"].distance_to(place["position"]) > RESCUE_REACH_DISTANCE:
+		return _record_resolution(rescuer_id, "deliver", place_id, "safe place is outside delivery reach")
+	agents[carried_index]["position"] = place["position"]
+	rescuer_body["carried_agent_id"] = ""
+	rescuer_body["last_rescue_delivery"] = {
+		"agent_id": carried_agent_id, "place_id": place_id, "tick": tick
+	}
+	rescuer_body["revision"] += 1
+	var subsequent = get_observation(rescuer_id)
+	return _record_resolution(
+		rescuer_id, "deliver", place_id, "incapacitated agent delivered to bounded safe place",
+		null, null, decision.get("inspection", {}).get("observation_id", ""),
+		subsequent.get("observation_id", ""),
+		{"delivered_agent_id": carried_agent_id, "safe_place_id": place_id,
+			"incapacitated": body_states[carried_agent_id]["incapacitated"], "recovery": "not_run"}
 	)
 
 func _resolve_pickup(decision, target_id):
