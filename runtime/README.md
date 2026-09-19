@@ -42,6 +42,11 @@ is limited to 128 observations per process and requires a fresh runtime afterwar
 
 The [Experience history API](../docs/experiment-contracts/EXPERIENCE_history_contract.md) accepts `POST /v1/interaction-result` for admitted approach decisions and exposes `GET /v1/experience-snapshot`. Godot reports bounded outcomes automatically in Runtime mode. Storage is read-only with respect to action and canonical semantics.
 
+`SleepExperienceWindowStore` implements the opt-in S1 source boundary described
+by the [finite Sleep Experience window contract](../docs/experiment-contracts/SLEEP_experience_window_contract.md).
+It freezes three to six accepted same-agent Experience references per sleep
+cycle without changing raw history or forming a relation candidate.
+
 Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. Diagnostic H is available per comparison and as retained residuals per exact context/frozen model.
 
 This is the minimal Python-side runtime boundary for the Godot workbench.

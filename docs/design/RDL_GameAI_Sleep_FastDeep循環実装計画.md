@@ -35,7 +35,8 @@ daytime Experience
 
 ```text
 Phase 5  Rescue / Recovery                          COMPLETE
-Phase 6  Sleep Consolidation / Internal Processing NEXT
+Phase 6A finite Sleep window                       COMPLETE
+Phase 6B-6D Sleep Consolidation                    NEXT
 Phase 7  Fast <-> Deep Experience Loop             AFTER PHASE 6
 Phase 8  Hunting                                   DEFERRED UNTIL PHASE 7
 ```
@@ -236,8 +237,8 @@ Hunting開始後は、成功・逃走・反撃・負傷を同じ記憶循環へ�
 
 | PR | 内容 | 停止条件 |
 |---|---|---|
-| S1 | finite Sleep window store | immutable source windowと不足状態 |
-| S2 | Experience -> relation profile compiler | provenance付き有限Profile |
+| S1 | finite Sleep window store | COMPLETE: immutable source windowと不足状態 |
+| S2 | Experience -> relation profile compiler | NEXT: provenance付き有限Profile |
 | S3 | Deep comparator + one cluster/candidate | shadow only、canonical非介入 |
 | S4 | real Sleep consolidation vertical | 昼Experienceから翌朝candidate |
 | F1 | Activity Fast L0/L1 retrieval | Inspector only |
