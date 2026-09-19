@@ -15,6 +15,7 @@ class BoundedAgentConditionTests(unittest.TestCase):
                     "id": "npc_b",
                     "condition": "incapacitated",
                     "condition_schema": "bounded-visible-agent-condition-v1",
+                    "within_reach": False,
                 }],
                 "visible_objects": [],
                 "visible_places": [],

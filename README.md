@@ -50,6 +50,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Food × Rest: 明示opt-inの[有限Coordinator](docs/experiment-contracts/FOOD_REST_continuous_life_contract.md)で、Food保持中の高RestNeed→Food保留→別Rest Hutでshort rest→現在関係からFood再評価→Plaza帰還/depositを確認する。固定閾値による最初の比較sliceであり、一般Need arbitrationではない。
 - Incapacitation Phase 5A: 専用[Safety failure contract](docs/experiment-contracts/SAFETY_incapacitation_contract.md)で、3回のfixture-controlled failed flee→Godot-owned severe injury / incapacitated→後続Runtime actionのidle拘束を確認する。通常Safetyへは非介入で、Rescue / Recoveryは未実装。
 - Rescue Phase 5B: [bounded discovery contract](docs/experiment-contracts/RESCUE_bounded_discovery_contract.md)で、観測範囲内の別NPCだけがincapacitated conditionを受け取る。global通知、Rescue Goal、搬送、回復は未実装。
+- Rescue Phase 5C: [Goal / Trajectory contract](docs/experiment-contracts/RESCUE_goal_trajectory_contract.md)で、bounded discoveryからtargetを一度固定し、対象へ接近して `READY_TO_RESCUE` で停止する。搬送・治療・回復は未実装。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

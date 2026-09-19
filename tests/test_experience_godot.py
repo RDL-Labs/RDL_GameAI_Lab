@@ -19,6 +19,7 @@ from runtime.rest_policy import RestTrajectoryPolicy
 from runtime.safety_policy import SafetyTrajectoryPolicy
 from runtime.food_safety_policy import FoodSafetyCoordinator
 from runtime.food_rest_policy import FoodRestCoordinator
+from runtime.rescue_policy import RescueTrajectoryPolicy
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
@@ -63,6 +64,35 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_rescue_goal_commits_and_approaches_without_resolving_recovery(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        rescue = RescueTrajectoryPolicy()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.rescue_policy = rescue
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/rescue_trajectory_http_check.gd"],
+                    capture_output=True, text=True, timeout=40,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Rescue trajectory check passed", output)
+                self.assertEqual(rescue.snapshot()["trajectories"]["npc_a"]["phase"], "READY_TO_RESCUE")
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_other_agent_discovers_incapacitation_only_inside_bounded_view(self):
         project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
         completed = subprocess.run(
@@ -292,6 +322,46 @@ class GodotExperienceTests(unittest.TestCase):
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.communicate(timeout=5)
+
+    def test_rescue_vertical_uses_normal_cli_startup(self):
+        project_root = Path(__file__).resolve().parents[1]
+        flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        process = subprocess.Popen(
+            [sys.executable, "-m", "runtime.bridge", "--rescue-trajectory"],
+            cwd=project_root, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, env=os.environ.copy(), creationflags=flags,
+        )
+        try:
+            deadline = time.monotonic() + 10
+            while True:
+                if process.poll() is not None:
+                    self.fail(f"Rescue CLI exited early: {process.stdout.read()}")
+                try:
+                    with urllib.request.urlopen("http://127.0.0.1:8765/health", timeout=0.5) as response:
+                        if response.status == 200:
+                            break
+                except OSError:
+                    if time.monotonic() >= deadline:
+                        self.fail("Rescue CLI did not become healthy")
+                    time.sleep(0.1)
+            project = project_root / "godot" / "rdl-game-ai-workbench"
+            completed = subprocess.run(
+                [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                 "--script", "res://tests/rescue_trajectory_http_check.gd"],
+                capture_output=True, text=True, timeout=40,
+                env=os.environ.copy(), creationflags=flags,
+            )
+            output = completed.stdout + completed.stderr
+            self.assertEqual(completed.returncode, 0, output)
+            self.assertIn("Rescue trajectory check passed", output)
+        finally:
+            process.terminate()
+            try:
+                process.communicate(timeout=5)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.communicate(timeout=5)
+
     def test_food_safety_vertical_uses_normal_cli_startup(self):
         project_root = Path(__file__).resolve().parents[1]
         flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0

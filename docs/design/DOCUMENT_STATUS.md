@@ -39,6 +39,7 @@
 | [Food-Rest Continuous-Life contract](../experiment-contracts/FOOD_REST_continuous_life_contract.md) | first finite integration slice operational | Food保持中の高RestNeed、Food保留、別Rest Hutでshort rest、現在packet再評価、Plaza帰還/deposit。一般Need arbitrationではない |
 | [Safety Failure / Incapacitation contract](../experiment-contracts/SAFETY_incapacitation_contract.md) | Phase 5A finite failure slice operational | failed flee 3回、Godot-owned severe injury / incapacitated、bounded body snapshotによるaction拘束。Rescue / Recoveryは未実装 |
 | [Rescue Bounded Discovery contract](../experiment-contracts/RESCUE_bounded_discovery_contract.md) | Phase 5B finite observation slice operational | 範囲内の別NPCへincapacitated conditionだけを投影。Rescue Goal / delivery / recoveryは未実装 |
+| [Rescue Goal / Trajectory contract](../experiment-contracts/RESCUE_goal_trajectory_contract.md) | Phase 5C finite approach slice operational | target固定、approach、READY_TO_RESCUEまで。carry / delivery / recoveryは未実装 |
 | [Rest Goal / Trajectory contract](../experiment-contracts/REST_trajectory_contract.md) | opt-in trajectory operational | 固定target、generic保留、同一target復帰、完了、構造的release。候補比較は独立policy、Need arbitration未実装 |
 | [Rest Target Selection contract](../experiment-contracts/REST_target_selection_contract.md) | finite multi-candidate selection operational | safe優先、同安全度で有限距離band比較、一度だけ選択、ρ・Trajectory責務分離 |
 | [ρ Rest Candidate Description contract](../experiment-contracts/RHO_rest_candidate_description_contract.md) | double-opt-in causal experiment operational | ρ→候補記述、固定selector→target、Trajectory固定。LOW/HIGH実Godot比較 |

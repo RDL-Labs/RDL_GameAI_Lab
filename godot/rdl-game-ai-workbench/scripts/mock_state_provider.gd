@@ -119,6 +119,7 @@ const ENERGY_RESERVE_INITIAL = 0.4
 const ENERGY_RESERVE_SLEEP_RECOVERY = 0.4
 const THREAT_STEP_DISTANCE = 12.0
 const REST_REACH_DISTANCE = 12.0
+const RESCUE_REACH_DISTANCE = 12.0
 const BASE_ID = "plaza"
 const BASE_FOOD_INITIAL = 1.0
 const BASE_FOOD_CAPACITY = 10.0
@@ -251,7 +252,10 @@ func get_observation(agent_id):
 		if other.get("id", "") == agent_id:
 			continue
 		if _is_visible(agent["position"], other["position"], PERCEPTION_RADIUS):
-			visible_agents.append(_build_visible_agent(other))
+			var visible_agent = _build_visible_agent(other)
+			if visible_agent.get("condition", "") == "incapacitated":
+				visible_agent["within_reach"] = agent["position"].distance_to(other["position"]) <= RESCUE_REACH_DISTANCE
+			visible_agents.append(visible_agent)
 
 	var visible_objects = []
 	for object_data in objects:
@@ -301,6 +305,7 @@ func _build_visible_agent(other):
 	if body.get("incapacitated", false):
 		visible_agent["condition"] = "incapacitated"
 		visible_agent["condition_schema"] = "bounded-visible-agent-condition-v1"
+		visible_agent["within_reach"] = false
 	return visible_agent
 
 func get_latest_decision(agent_id):
@@ -1069,7 +1074,10 @@ func _get_target(target_id):
 	var object_data = _get_object(target_id)
 	if not object_data.is_empty():
 		return object_data
-	return _get_place(target_id)
+	var place = _get_place(target_id)
+	if not place.is_empty():
+		return place
+	return get_agent(target_id)
 
 func _base_food_band():
 	if base_food_stock <= 0.0:

@@ -24,6 +24,7 @@ from .rest_policy import RestTrajectoryPolicy
 from .safety_policy import SafetyTrajectoryPolicy
 from .food_safety_policy import FoodSafetyCoordinator
 from .food_rest_policy import FoodRestCoordinator
+from .rescue_policy import RescueTrajectoryPolicy
 from .v23_food_admission import (
     FoodAdmissionError,
     FoodNeedShadowComparisonSidecar,
@@ -42,6 +43,15 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/rescue-snapshot":
+            policy = getattr(self.server, "rescue_policy", None)
+            if policy is None:
+                self._send_json(404, {"error": "rescue_trajectory_disabled"})
+                return
+            with CANONICAL_LOCK:
+                snapshot = policy.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/v1/rest-snapshot":
             policy = getattr(self.server, "rest_policy", None)
             if policy is None:
@@ -132,8 +142,11 @@ class BridgeHandler(BaseHTTPRequestHandler):
                 life_policy = getattr(self.server, "life_policy", None)
                 rest_policy = getattr(self.server, "rest_policy", None)
                 safety_policy = getattr(self.server, "safety_policy", None)
+                rescue_policy = getattr(self.server, "rescue_policy", None)
                 history_policy = getattr(self.server, "history_policy", None)
-                if safety_policy:
+                if rescue_policy:
+                    response = rescue_policy.decide(packet)
+                elif safety_policy:
                     response = safety_policy.decide(packet)
                 elif rest_policy:
                     response = rest_policy.decide(packet)
@@ -226,6 +239,7 @@ def run(
     safety_trajectory: bool = False,
     food_safety_life: bool = False,
     food_rest_life: bool = False,
+    rescue_trajectory: bool = False,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -241,6 +255,8 @@ def run(
         raise ValueError("Food-Safety life coordinator is an isolated opt-in policy")
     if food_rest_life and (base_food_life or safety_trajectory or rest_trajectory or food_safety_life or history_influence):
         raise ValueError("Food-Rest life coordinator is an isolated opt-in policy")
+    if rescue_trajectory and (base_food_life or safety_trajectory or rest_trajectory or food_safety_life or food_rest_life or history_influence):
+        raise ValueError("Rescue trajectory is an isolated opt-in policy")
     if rest_rho_candidates and not rest_trajectory:
         raise ValueError("rho Rest candidates require the Rest trajectory policy")
     if cue_responses and not base_food_life:
@@ -268,6 +284,7 @@ def run(
         use_rho_candidates=rest_rho_candidates
     ) if rest_trajectory else None
     server.safety_policy = SafetyTrajectoryPolicy() if safety_trajectory else None
+    server.rescue_policy = RescueTrajectoryPolicy() if rescue_trajectory else None
     server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_rest_policy = server.life_policy if food_rest_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
@@ -305,6 +322,8 @@ def main() -> None:
                         help="Enable finite Food-Safety continuous-life coordinator")
     parser.add_argument("--food-rest-life", action="store_true",
                         help="Enable finite Food-Rest continuous-life coordinator")
+    parser.add_argument("--rescue-trajectory", action="store_true",
+                        help="Enable finite bounded Rescue approach trajectory")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -322,6 +341,8 @@ def main() -> None:
             raise ValueError("--food-safety-life cannot be combined with other action policies")
         if args.food_rest_life and (args.base_food_life or args.safety_trajectory or args.rest_trajectory or args.food_safety_life or args.history_influence):
             raise ValueError("--food-rest-life cannot be combined with other action policies")
+        if args.rescue_trajectory and (args.base_food_life or args.safety_trajectory or args.rest_trajectory or args.food_safety_life or args.food_rest_life or args.history_influence):
+            raise ValueError("--rescue-trajectory cannot be combined with other action policies")
         if args.rest_rho_candidates and not args.rest_trajectory:
             raise ValueError("--rest-rho-candidates requires --rest-trajectory")
         cue_responses = parse_cue_responses(args.base_food_cue_response)
@@ -341,7 +362,7 @@ def main() -> None:
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
         args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles,
         args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory,
-        args.food_safety_life, args.food_rest_life)
+        args.food_safety_life, args.food_rest_life, args.rescue_trajectory)
 
 
 if __name__ == "__main__":
