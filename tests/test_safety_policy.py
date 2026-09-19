@@ -91,3 +91,42 @@ class SafetyTrajectoryPolicyTests(unittest.TestCase):
         changed["observation"]["safety_context"]["danger_candidates"][0]["danger_id"] = "other"
         with self.assertRaises(ObservationError):
             policy.decide(changed)
+
+    def test_recovery_releases_old_trajectory_and_rechecks_current_relations(self):
+        policy = SafetyTrajectoryPolicy()
+        policy.decide(self.packet("safe-1", exposed=True))
+        recovered = self.packet("safe-2", exposed=False)
+        recovered["observation"]["body"].update({
+            "injury_level": "none", "incapacitated": False,
+            "recovery_stage": "recovered", "recovery_steps": 4,
+            "recovery_place_id": "plaza",
+        })
+        decision = policy.decide(recovered)
+        self.assertEqual(decision["action"], {"type": "idle"})
+        self.assertEqual(
+            decision["inspection"]["safety"]["trajectory_phase"],
+            "RELEASED_AFTER_RECOVERY",
+        )
+        self.assertEqual(policy.snapshot()["trajectories"], {})
+
+    def test_recovery_under_current_danger_forms_a_fresh_trajectory(self):
+        policy = SafetyTrajectoryPolicy()
+        policy.decide(self.packet("safe-1", exposed=True, target="plaza"))
+        recovered = self.packet("safe-2", exposed=True, target="shelter_b")
+        recovered["observation"]["body"].update({
+            "injury_level": "none", "incapacitated": False,
+            "recovery_stage": "recovered", "recovery_steps": 4,
+            "recovery_place_id": "plaza",
+        })
+        decision = policy.decide(recovered)
+        self.assertEqual(decision["action"], {"type": "flee", "target_id": "shelter_b"})
+        continued = self.packet("safe-3", exposed=True, target="shelter_b")
+        continued["observation"]["body"].update({
+            "injury_level": "none", "incapacitated": False,
+            "recovery_stage": "recovered", "recovery_steps": 4,
+            "recovery_place_id": "plaza",
+        })
+        self.assertEqual(
+            policy.decide(continued)["action"],
+            {"type": "flee", "target_id": "shelter_b"},
+        )

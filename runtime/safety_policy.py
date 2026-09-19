@@ -17,6 +17,7 @@ POLICY_ID = "safety-escape-trajectory-v1"
 class SafetyTrajectory:
     target_id: str
     phase: str = "FLEE_TO_SAFE"
+    formed_after_recovery: bool = False
 
 
 class SafetyTrajectoryPolicy:
@@ -50,7 +51,24 @@ class SafetyTrajectoryPolicy:
         candidates = {candidate["target_id"]: candidate for candidate in safety["safe_candidates"]}
         trajectory = self._trajectories.get(agent_id)
         completed_target = None
+        released_after_recovery = False
         if (
+            trajectory is not None
+            and body.get("recovery_stage") == "recovered"
+            and not trajectory.formed_after_recovery
+        ):
+            completed_target = trajectory.target_id
+            del self._trajectories[agent_id]
+            trajectory = None
+            released_after_recovery = True
+            if not safety["exposed"]:
+                phase = "RELEASED_AFTER_RECOVERY"
+                action_type = "idle"
+                target_id = None
+                reason = "old Safety trajectory released; current relations re-evaluated after recovery"
+        if released_after_recovery and not safety["exposed"]:
+            pass
+        elif (
             trajectory is not None
             and safety["safe_reached"]
             and safety["reached_safe_target_id"] == trajectory.target_id
@@ -67,7 +85,10 @@ class SafetyTrajectoryPolicy:
                 selection = self._target_selection.select(safety["safe_candidates"])
                 selected = selection["selected"]
                 if selected:
-                    trajectory = SafetyTrajectory(target_id=selected["target_id"])
+                    trajectory = SafetyTrajectory(
+                        target_id=selected["target_id"],
+                        formed_after_recovery=body.get("recovery_stage") == "recovered",
+                    )
                     self._trajectories[agent_id] = trajectory
                     self._selections[agent_id] = selection
             if trajectory is None:
@@ -113,7 +134,11 @@ class SafetyTrajectoryPolicy:
         return {
             "policy": POLICY_ID,
             "trajectories": {
-                agent_id: {"target_id": trajectory.target_id, "phase": trajectory.phase}
+                agent_id: {
+                    "target_id": trajectory.target_id,
+                    "phase": trajectory.phase,
+                    "formed_after_recovery": trajectory.formed_after_recovery,
+                }
                 for agent_id, trajectory in self._trajectories.items()
             },
             "decision_count": len(self._decisions),

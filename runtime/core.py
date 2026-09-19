@@ -94,6 +94,25 @@ def apply_body_constraint(packet, response):
             raise ObservationError("body last_rescue_delivery is malformed")
         if carried_agent_id:
             raise ObservationError("body cannot carry an agent and report completed delivery")
+    recovery_stage = body.get("recovery_stage", "none")
+    recovery_steps = body.get("recovery_steps", 0)
+    recovery_place_id = body.get("recovery_place_id", "")
+    if recovery_stage not in {"none", "stabilizing", "mobilizing", "recovering", "recovered"}:
+        raise ObservationError("body recovery_stage is unsupported")
+    if type(recovery_steps) is not int or not 0 <= recovery_steps <= 4:
+        raise ObservationError("body recovery_steps must be an integer in [0,4]")
+    if not isinstance(recovery_place_id, str):
+        raise ObservationError("body recovery_place_id must be a string")
+    if recovery_stage != "none" and not recovery_place_id:
+        raise ObservationError("active recovery requires a recovery place")
+    expected_recovery = {
+        "stabilizing": ("severe", True),
+        "mobilizing": ("medium", False),
+        "recovering": ("light", False),
+        "recovered": ("none", False),
+    }
+    if recovery_stage in expected_recovery and (injury_level, incapacitated) != expected_recovery[recovery_stage]:
+        raise ObservationError("body recovery stage conflicts with injury state")
     response = deepcopy(response)
     if incapacitated and response["action"]["type"] in {
         "approach", "pickup", "eat", "deposit", "rest", "sleep", "flee", "rescue", "deliver"
@@ -108,6 +127,7 @@ def apply_body_constraint(packet, response):
         "movement_scale": scale, "injury_level": injury_level,
         "incapacitated": incapacitated,
         "carried_agent_id": carried_agent_id,
+        "recovery_stage": recovery_stage,
         "authority": "bounded-self-body-report",
     }
     return response

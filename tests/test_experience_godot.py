@@ -64,6 +64,20 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_safe_delivery_progresses_through_staged_world_recovery(self):
+        project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+        completed = subprocess.run(
+            [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+             "--script", "res://tests/rescue_recovery_check.gd"],
+            capture_output=True, text=True, timeout=40,
+            env=os.environ.copy(),
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+        )
+        output = completed.stdout + completed.stderr
+        self.assertEqual(completed.returncode, 0, output)
+        self.assertIn("Rescue recovery check passed", output)
+        print(output.strip())
+
     def test_rescue_goal_delivers_to_safe_place_without_recovery(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()

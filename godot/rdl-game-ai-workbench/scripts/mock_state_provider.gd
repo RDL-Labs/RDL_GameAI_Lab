@@ -185,6 +185,9 @@ func reset():
 			"held_food_ids": [],
 			"carried_agent_id": "",
 			"last_rescue_delivery": {},
+			"recovery_stage": "none",
+			"recovery_steps": 0,
+			"recovery_place_id": "",
 			"revision": 0
 		}
 	action_offsets = {}
@@ -214,6 +217,7 @@ func step():
 	_consume_base_food()
 	_update_food_needs()
 	_update_rest_needs()
+	_update_recovery_states()
 	_update_mock_positions()
 	decision_records.append(_build_decision_record("npc_a"))
 	decision_records.append(_build_decision_record("npc_b"))
@@ -372,6 +376,9 @@ func get_body_snapshot(agent_id):
 		"held_food_ids": body["held_food_ids"].duplicate(),
 		"carried_agent_id": body["carried_agent_id"],
 		"last_rescue_delivery": body["last_rescue_delivery"].duplicate(true),
+		"recovery_stage": body["recovery_stage"],
+		"recovery_steps": body["recovery_steps"],
+		"recovery_place_id": body["recovery_place_id"],
 		"injury_level": body["injury_level"],
 		"incapacitated": body["incapacitated"],
 		"danger_exposure_steps": body["danger_exposure_steps"],
@@ -721,6 +728,42 @@ func _update_rest_needs():
 			body["rest_need"] = next_need
 			body["revision"] += 1
 
+func _update_recovery_states():
+	for agent_id in body_states:
+		var body = body_states[agent_id]
+		if body.get("recovery_stage", "none") not in ["stabilizing", "mobilizing", "recovering"]:
+			continue
+		var place = _get_place(body.get("recovery_place_id", ""))
+		var agent = get_agent(agent_id)
+		if place.is_empty() or agent.is_empty() or place.get("rest_safety", "unknown") != "safe":
+			continue
+		if agent["position"].distance_to(place["position"]) > RESCUE_REACH_DISTANCE:
+			continue
+		body["recovery_steps"] += 1
+		match body["recovery_steps"]:
+			1:
+				body["recovery_stage"] = "stabilizing"
+				body["injury_level"] = "severe"
+				body["incapacitated"] = true
+				body["movement_scale"] = 0.0
+			2:
+				body["recovery_stage"] = "mobilizing"
+				body["injury_level"] = "medium"
+				body["incapacitated"] = false
+				body["movement_scale"] = 0.35
+			3:
+				body["recovery_stage"] = "recovering"
+				body["injury_level"] = "light"
+				body["incapacitated"] = false
+				body["movement_scale"] = 0.7
+			_:
+				body["recovery_steps"] = 4
+				body["recovery_stage"] = "recovered"
+				body["injury_level"] = "none"
+				body["incapacitated"] = false
+				body["movement_scale"] = 1.0
+		body["revision"] += 1
+
 func _consume_base_food():
 	if base_food_stock <= 0.0:
 		return
@@ -844,13 +887,19 @@ func _resolve_rescue_delivery(decision, place_id):
 		"agent_id": carried_agent_id, "place_id": place_id, "tick": tick
 	}
 	rescuer_body["revision"] += 1
+	var carried_body = body_states[carried_agent_id]
+	carried_body["recovery_stage"] = "stabilizing"
+	carried_body["recovery_steps"] = 0
+	carried_body["recovery_place_id"] = place_id
+	carried_body["revision"] += 1
 	var subsequent = get_observation(rescuer_id)
 	return _record_resolution(
 		rescuer_id, "deliver", place_id, "incapacitated agent delivered to bounded safe place",
 		null, null, decision.get("inspection", {}).get("observation_id", ""),
 		subsequent.get("observation_id", ""),
 		{"delivered_agent_id": carried_agent_id, "safe_place_id": place_id,
-			"incapacitated": body_states[carried_agent_id]["incapacitated"], "recovery": "not_run"}
+			"incapacitated": body_states[carried_agent_id]["incapacitated"],
+			"recovery_stage": "stabilizing"}
 	)
 
 func _resolve_pickup(decision, target_id):
