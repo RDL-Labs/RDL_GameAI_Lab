@@ -15,6 +15,12 @@ var provider_mode = "mock"
 var runtime_pending = false
 var runtime_decision = {}
 var runtime_resolution = {}
+var simulation_agents_enabled = false
+var simulation_agent_ids = ["npc_a", "npc_b"]
+var simulation_queue = []
+var runtime_request_agent_id = ""
+var runtime_decisions_by_agent = {}
+var runtime_resolutions_by_agent = {}
 var history_pending = false
 var history_status = ""
 var history_request
@@ -223,7 +229,17 @@ func _on_tick_timer_timeout():
 func _on_agent_pressed(agent_id):
 	selected_agent_id = agent_id
 	_refresh_all()
-	_request_runtime_action_if_needed()
+	if not simulation_agents_enabled:
+		_request_runtime_action_if_needed()
+
+func set_simulation_agents_enabled(enabled):
+	_cancel_runtime_requests()
+	simulation_agents_enabled = bool(enabled)
+	simulation_queue.clear()
+	runtime_decisions_by_agent.clear()
+	runtime_resolutions_by_agent.clear()
+	state_provider.set_mock_wandering_enabled(not simulation_agents_enabled)
+	_refresh_all()
 
 func _on_movement_selected(index):
 	_cancel_runtime_requests()
@@ -251,14 +267,33 @@ func _request_runtime_action_if_needed():
 		return
 	if runtime_pending or history_pending:
 		return
+	if simulation_agents_enabled:
+		if simulation_queue.is_empty():
+			simulation_queue = simulation_agent_ids.duplicate()
+		_request_next_simulation_agent()
+		return
+	_request_runtime_action_for(selected_agent_id)
 
-	var packet = _build_runtime_packet(selected_agent_id)
+func _request_next_simulation_agent():
+	if simulation_queue.is_empty():
+		runtime_pending = false
+		_refresh_all()
+		return
+	_request_runtime_action_for(simulation_queue.pop_front())
+
+func _request_runtime_action_for(agent_id):
+
+	var packet = _build_runtime_packet(agent_id)
 	if packet.is_empty():
+		if simulation_agents_enabled:
+			_request_next_simulation_agent()
 		return
 
 	runtime_pending = true
-	runtime_decision = {}
-	runtime_resolution = {}
+	runtime_request_agent_id = agent_id
+	if not simulation_agents_enabled:
+		runtime_decision = {}
+		runtime_resolution = {}
 	_refresh_decision()
 	_refresh_inspector()
 
@@ -295,6 +330,9 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 
 	runtime_decision = parsed
 	runtime_resolution = state_provider.resolve_action(runtime_decision)
+	if simulation_agents_enabled:
+		runtime_decisions_by_agent[runtime_request_agent_id] = runtime_decision.duplicate(true)
+		runtime_resolutions_by_agent[runtime_request_agent_id] = runtime_resolution.duplicate(true)
 	var interaction_result = state_provider.get_interaction_result(runtime_resolution)
 	var life_result = state_provider.get_life_result(runtime_decision, runtime_resolution)
 	history_status = ""
@@ -313,6 +351,8 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 			history_pending = false
 			history_status = "life result failed: %d" % error
 	_refresh_all()
+	if simulation_agents_enabled and not history_pending:
+		_request_next_simulation_agent.call_deferred()
 
 func _on_history_completed(result, response_code, _headers, body):
 	history_pending = false
@@ -322,12 +362,15 @@ func _on_history_completed(result, response_code, _headers, body):
 	else:
 		history_status = "report failed: HTTP %d" % response_code
 	_refresh_decision()
+	if simulation_agents_enabled:
+		_request_next_simulation_agent.call_deferred()
 
 func _cancel_runtime_requests():
 	runtime_request.cancel_request()
 	history_request.cancel_request()
 	history_pending = false
 	history_status = ""
+	simulation_queue.clear()
 
 func _refresh_all():
 	var state = state_provider.get_state()
@@ -363,8 +406,9 @@ func _refresh_inspector():
 	inspector_text.append_text("id: %s\n" % agent["id"])
 	inspector_text.append_text("role: %s\n" % agent["role"])
 	if provider_mode == "runtime":
-		if not runtime_pending and runtime_decision.get("agent_id", "") == selected_agent_id:
-			var expression = runtime_decision.get("inspection", {}).get("expression", {})
+		var displayed_decision = _displayed_runtime_decision()
+		if not displayed_decision.is_empty():
+			var expression = displayed_decision.get("inspection", {}).get("expression", {})
 			inspector_text.append_text("reaction: %s\n" % expression.get("label", "unavailable"))
 			inspector_text.append_text("factors: %s\n" % ", ".join(expression.get("factors", [])))
 		else:
@@ -441,20 +485,21 @@ func _refresh_runtime_decision():
 	decision_text.text = ""
 	decision_text.append_text("mode: runtime bridge\n")
 	decision_text.append_text("endpoint: %s\n" % RUNTIME_URL)
-	if runtime_pending:
+	if runtime_pending and not simulation_agents_enabled:
 		decision_text.append_text("status: waiting for runtime response\n")
 		return
-	if runtime_decision.is_empty():
+	var displayed_decision = _displayed_runtime_decision()
+	if displayed_decision.is_empty():
 		decision_text.append_text("status: no runtime response yet\n")
 		return
-	if runtime_decision.has("error"):
-		decision_text.append_text("error: %s\n" % runtime_decision.get("error", "unknown"))
-		decision_text.append_text("detail: %s\n" % runtime_decision.get("detail", ""))
+	if displayed_decision.has("error"):
+		decision_text.append_text("error: %s\n" % displayed_decision.get("error", "unknown"))
+		decision_text.append_text("detail: %s\n" % displayed_decision.get("detail", ""))
 		return
 
-	var action = runtime_decision.get("action", {})
-	var inspection = runtime_decision.get("inspection", {})
-	decision_text.append_text("agent: %s\n" % runtime_decision.get("agent_id", selected_agent_id))
+	var action = displayed_decision.get("action", {})
+	var inspection = displayed_decision.get("inspection", {})
+	decision_text.append_text("agent: %s\n" % displayed_decision.get("agent_id", selected_agent_id))
 	decision_text.append_text("action: %s\n" % action.get("type", "?"))
 	if action.has("target_id"):
 		decision_text.append_text("target: %s\n" % action["target_id"])
@@ -494,18 +539,19 @@ func _refresh_runtime_decision():
 		decision_text.append_text("reaction: %s\n" % expression.get("label", "?"))
 		decision_text.append_text("profile: %s / body: %s\n" % [expression.get("profile_id", "none"), expression.get("body_snapshot_id", "none")])
 		decision_text.append_text("history sources: %s\n" % ", ".join(expression.get("history_record_ids", [])))
-	if not runtime_resolution.is_empty():
+	var displayed_resolution = runtime_resolutions_by_agent.get(selected_agent_id, {}) if simulation_agents_enabled else runtime_resolution
+	if not displayed_resolution.is_empty():
 		decision_text.append_text("\nWorld Resolution:\n")
-		decision_text.append_text("tick: %d\n" % runtime_resolution.get("tick", -1))
-		decision_text.append_text("action: %s\n" % runtime_resolution.get("action_type", "?"))
-		if runtime_resolution.get("target_id", "") != "":
-			decision_text.append_text("target: %s\n" % runtime_resolution["target_id"])
-		if runtime_resolution.has("before_position") and runtime_resolution.has("after_position"):
-			var before_position = runtime_resolution["before_position"]
-			var after_position = runtime_resolution["after_position"]
+		decision_text.append_text("tick: %d\n" % displayed_resolution.get("tick", -1))
+		decision_text.append_text("action: %s\n" % displayed_resolution.get("action_type", "?"))
+		if displayed_resolution.get("target_id", "") != "":
+			decision_text.append_text("target: %s\n" % displayed_resolution["target_id"])
+		if displayed_resolution.has("before_position") and displayed_resolution.has("after_position"):
+			var before_position = displayed_resolution["before_position"]
+			var after_position = displayed_resolution["after_position"]
 			decision_text.append_text("before: (%.1f, %.1f)\n" % [before_position.x, before_position.y])
 			decision_text.append_text("after: (%.1f, %.1f)\n" % [after_position.x, after_position.y])
-		var effects = runtime_resolution.get("effects", {})
+		var effects = displayed_resolution.get("effects", {})
 		if effects.has("before_food_need"):
 			decision_text.append_text("food need: %.2f -> %.2f\n" % [effects["before_food_need"], effects["after_food_need"]])
 		if effects.has("held_food_ids"):
@@ -515,8 +561,8 @@ func _refresh_runtime_decision():
 				effects["before_base_food_stock"], effects["after_base_food_stock"],
 				effects.get("base_food_band", "?")
 			])
-		decision_text.append_text("next observation: %s\n" % runtime_resolution.get("subsequent_observation_id", "?"))
-		decision_text.append_text("note: %s\n" % runtime_resolution.get("note", "?"))
+		decision_text.append_text("next observation: %s\n" % displayed_resolution.get("subsequent_observation_id", "?"))
+		decision_text.append_text("note: %s\n" % displayed_resolution.get("note", "?"))
 		if history_status != "":
 			decision_text.append_text("History: %s\n" % history_status)
 
@@ -531,9 +577,10 @@ func _labels_for(items):
 	return text
 
 func _committed_target_id():
-	if provider_mode != "runtime" or runtime_pending or runtime_decision.get("agent_id", "") != selected_agent_id:
+	var displayed_decision = _displayed_runtime_decision()
+	if provider_mode != "runtime" or displayed_decision.is_empty():
 		return ""
-	var inspection = runtime_decision.get("inspection", {})
+	var inspection = displayed_decision.get("inspection", {})
 	for domain in ["safety", "rest"]:
 		var record = inspection.get(domain, {})
 		var phase = record.get("trajectory_phase", "NONE")
@@ -542,8 +589,15 @@ func _committed_target_id():
 			return target_id
 	var life = inspection.get("life", {})
 	if life.get("commitment", "none") == "committed":
-		return runtime_decision.get("action", {}).get("target_id", "")
+		return displayed_decision.get("action", {}).get("target_id", "")
 	return ""
+
+func _displayed_runtime_decision():
+	if simulation_agents_enabled:
+		return runtime_decisions_by_agent.get(selected_agent_id, {})
+	if not runtime_pending and runtime_decision.get("agent_id", "") == selected_agent_id:
+		return runtime_decision
+	return {}
 
 func _build_runtime_packet(agent_id):
 	var observation = state_provider.get_observation(agent_id)

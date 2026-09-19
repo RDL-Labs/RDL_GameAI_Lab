@@ -124,6 +124,7 @@ var active_energy_enabled = false
 var energy_reserve_enabled = false
 var safety_actions_enabled = false
 var moving_threat_enabled = false
+var mock_wandering_enabled = true
 var base_food_stock = BASE_FOOD_INITIAL
 var base_food_revision = 0
 var god_statue_cue_enabled = true
@@ -494,6 +495,9 @@ func set_god_statue_cue_enabled(enabled):
 func set_food_actions_enabled(enabled):
 	food_actions_enabled = bool(enabled)
 
+func set_mock_wandering_enabled(enabled):
+	mock_wandering_enabled = bool(enabled)
+
 func replenish_food_site(observer_agent_id = ""):
 	if not _get_object("food_01").is_empty():
 		return false
@@ -563,6 +567,8 @@ func get_life_result(decision, resolution):
 	}
 
 func _update_mock_positions():
+	if not mock_wandering_enabled:
+		return
 	for i in range(agents.size()):
 		var agent = agents[i]
 		var base = INITIAL_AGENTS[i]["position"]
