@@ -25,22 +25,79 @@ function setup() {
 
   const selectElem = document.getElementById('data-source-select');
   const refreshBtn = document.getElementById('btn-refresh');
+  const playBtn = document.getElementById('btn-play');
+  const stepBtn = document.getElementById('btn-step');
+  const resetBtn = document.getElementById('btn-reset');
+
   if (selectElem) {
     selectElem.addEventListener('change', event => {
       window.workbenchAPI.setSourceMode(event.target.value);
       clearSelection();
+      updatePlayButtonUI();
       loadData();
     });
   }
   if (refreshBtn) {
     refreshBtn.addEventListener('click', loadData);
   }
+  if (playBtn) {
+    playBtn.addEventListener('click', togglePlayback);
+  }
+  if (stepBtn) {
+    stepBtn.addEventListener('click', stepPlayback);
+  }
+  if (resetBtn) {
+    resetBtn.addEventListener('click', resetPlayback);
+  }
 
   loadData();
 
+  // Tick simulation loop (100ms when running in mock, 2000ms polling when in live)
   setInterval(() => {
-    if (window.workbenchAPI.sourceMode === 'live') loadData();
-  }, 2000);
+    if (window.workbenchAPI.sourceMode === 'mock') {
+      if (window.workbenchAPI.isRunning) {
+        window.workbenchAPI.stepSimulation();
+        updateStatus();
+      }
+    } else if (window.workbenchAPI.sourceMode === 'live') {
+      loadData();
+    }
+  }, 120);
+}
+
+function togglePlayback() {
+  const isRunning = window.workbenchAPI.toggleRun();
+  updatePlayButtonUI();
+  updateStatus();
+}
+
+function stepPlayback() {
+  window.workbenchAPI.stepSimulation();
+  updateStatus();
+}
+
+function resetPlayback() {
+  window.workbenchAPI.resetSimulation();
+  clearSelection();
+  updatePlayButtonUI();
+  loadData();
+}
+
+function updatePlayButtonUI() {
+  const playBtn = document.getElementById('btn-play');
+  if (!playBtn) return;
+  if (window.workbenchAPI.isRunning) {
+    playBtn.textContent = '⏸ Pause';
+    playBtn.classList.add('active');
+  } else {
+    playBtn.textContent = '▶ Run';
+    playBtn.classList.remove('active');
+  }
+}
+
+function updateStatus() {
+  const statusElem = document.getElementById('connection-status');
+  if (statusElem) statusElem.textContent = window.workbenchAPI.statusText;
 }
 
 function createViews(w, h, scaleRatio) {
@@ -132,16 +189,20 @@ function mousePressed() {
 }
 
 function keyPressed() {
-  // Hotkeys for rapid inspection
+  // Hotkeys for rapid inspection & simulation
   if (key === '1') {
     selectedAgentId = 'npc_a';
     clearSelection();
   } else if (key === '2') {
     selectedAgentId = 'npc_b';
     clearSelection();
-  } else if (key === 'r' || key === 'R' || key === ' ') {
+  } else if (key === ' ') {
+    togglePlayback();
+  } else if (key === 's' || key === 'S') {
+    stepPlayback();
+  } else if (key === 'r' || key === 'R') {
     loadData();
   } else if (key === 'Escape') {
-    clearSelection();
+    resetPlayback();
   }
 }

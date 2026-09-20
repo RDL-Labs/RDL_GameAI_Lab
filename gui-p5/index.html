@@ -22,11 +22,17 @@
         <option value='mock'>Fixture</option>
         <option value='live'>Live Runtime</option>
       </select>
-      <button id='btn-refresh' class='btn' title='Shortcut: R or Space'>Reload</button>
+      <div class='playback-controls'>
+        <button id='btn-play' class='btn btn-playback' title='Shortcut: Space'>▶ Run</button>
+        <button id='btn-step' class='btn btn-playback' title='Shortcut: S'>⏭ Step</button>
+        <button id='btn-reset' class='btn btn-playback' title='Shortcut: Esc'>↺ Reset</button>
+      </div>
+      <button id='btn-refresh' class='btn' title='Shortcut: R'>Reload</button>
       <div class='hotkeys-hint'>
+        <span class='key-chip'>Space</span> Run/Pause
+        <span class='key-chip'>S</span> Step
         <span class='key-chip'>1</span> A
         <span class='key-chip'>2</span> B
-        <span class='key-chip'>Space</span> Reload
       </div>
       <span id='connection-status' class='status-indicator'>Ready</span>
     </div>

@@ -8,10 +8,62 @@ class RDLWorkbenchAPI {
     this.baseUrl = '/runtime';
     this.cachedData = null;
     this.statusText = 'Ready (Fixture)';
+    this.isRunning = false;
+    this.baseFixture = null;
+    this.mockStep = 0;
   }
 
   setSourceMode(mode) {
     this.sourceMode = mode;
+    this.resetSimulation();
+  }
+
+  toggleRun() {
+    this.isRunning = !this.isRunning;
+    return this.isRunning;
+  }
+
+  stepSimulation() {
+    if (!this.cachedData) return;
+    this.mockStep++;
+    this.cachedData.tick = 20 + this.mockStep;
+
+    // Simulate gentle agent dynamics in fixture mode
+    if (this.cachedData.agents) {
+      const a = this.cachedData.agents.npc_a;
+      const b = this.cachedData.agents.npc_b;
+      if (a && a.position) {
+        // Move npc_a slightly toward apple_01 or base
+        const tx = a.held ? 5.0 : 15.0;
+        const ty = a.held ? 5.0 : 10.0;
+        const dx = tx - a.position[0];
+        const dy = ty - a.position[1];
+        const dist = Math.hypot(dx, dy);
+        if (dist > 0.4) {
+          a.position[0] += (dx / dist) * 0.4;
+          a.position[1] += (dy / dist) * 0.4;
+        } else {
+          a.held = a.held ? null : 'apple_01';
+          a.goal = a.held ? 'deposit' : 'approach';
+          a.food_need = Math.max(0.1, a.food_need - 0.05);
+        }
+      }
+      if (b && b.position) {
+        // NPC B resting & slowly waking
+        b.food_need = Math.min(0.9, (b.food_need || 0.2) + 0.005);
+        if (this.mockStep % 15 === 0) {
+          b.state = b.state === 'resting' ? 'waking' : 'resting';
+        }
+      }
+    }
+  }
+
+  resetSimulation() {
+    this.mockStep = 0;
+    this.isRunning = false;
+    if (this.baseFixture) {
+      this.cachedData = JSON.parse(JSON.stringify(this.baseFixture));
+    }
   }
 
   async fetchData() {
@@ -20,19 +72,23 @@ class RDLWorkbenchAPI {
 
   async fetchMock() {
     try {
-      const resp = await fetch('fixtures/snapshot_mock.json', { cache: 'no-store' });
-      if (!resp.ok) throw new Error('fixture HTTP ' + resp.status);
-      const data = await resp.json();
-      data._viewer_meta = {
-        source: 'fixture',
-        endpoint_status: {},
-        world_projection: 'fixture-only',
-        sleep_projection: 'fixture-s1-s2',
-        deep_similarity: 'S3 contract frozen; implementation not represented'
-      };
-      this.cachedData = data;
-      this.statusText = 'Fixture loaded';
-      return data;
+      if (!this.baseFixture) {
+        const resp = await fetch('fixtures/snapshot_mock.json', { cache: 'no-store' });
+        if (!resp.ok) throw new Error('fixture HTTP ' + resp.status);
+        this.baseFixture = await resp.json();
+        this.baseFixture._viewer_meta = {
+          source: 'fixture',
+          endpoint_status: {},
+          world_projection: 'fixture-only',
+          sleep_projection: 'fixture-s1-s2',
+          deep_similarity: 'S3 contract frozen; implementation not represented'
+        };
+      }
+      if (!this.cachedData || this.mockStep === 0) {
+        this.cachedData = JSON.parse(JSON.stringify(this.baseFixture));
+      }
+      this.statusText = this.isRunning ? `Running (Tick ${this.cachedData.tick})` : `Paused (Tick ${this.cachedData.tick})`;
+      return this.cachedData;
     } catch (err) {
       console.error(err);
       this.statusText = 'Fixture error: ' + err.message;
