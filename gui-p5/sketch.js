@@ -52,31 +52,37 @@ function setup() {
 
   loadData();
 
-  // Tick simulation loop (100ms when running in mock, 2000ms polling when in live)
+  // Fixture tick animation loop (120ms, mock only)
   setInterval(() => {
-    if (window.workbenchAPI.sourceMode === 'mock') {
-      if (window.workbenchAPI.isRunning) {
-        window.workbenchAPI.stepSimulation();
-        updateStatus();
-      }
-    } else if (window.workbenchAPI.sourceMode === 'live') {
-      loadData();
+    if (window.workbenchAPI.sourceMode === 'mock' && window.workbenchAPI.isRunning) {
+      window.workbenchAPI.stepSimulation();
+      updateStatus();
     }
   }, 120);
+
+  // Live polling interval (2000ms, live only)
+  setInterval(() => {
+    if (window.workbenchAPI.sourceMode === 'live') {
+      loadData();
+    }
+  }, 2000);
 }
 
 function togglePlayback() {
-  const isRunning = window.workbenchAPI.toggleRun();
+  if (window.workbenchAPI.sourceMode !== 'mock') return;
+  window.workbenchAPI.toggleRun();
   updatePlayButtonUI();
   updateStatus();
 }
 
 function stepPlayback() {
+  if (window.workbenchAPI.sourceMode !== 'mock') return;
   window.workbenchAPI.stepSimulation();
   updateStatus();
 }
 
 function resetPlayback() {
+  if (window.workbenchAPI.sourceMode !== 'mock') return;
   window.workbenchAPI.resetSimulation();
   clearSelection();
   updatePlayButtonUI();
@@ -85,13 +91,34 @@ function resetPlayback() {
 
 function updatePlayButtonUI() {
   const playBtn = document.getElementById('btn-play');
-  if (!playBtn) return;
-  if (window.workbenchAPI.isRunning) {
-    playBtn.textContent = '⏸ Pause';
-    playBtn.classList.add('active');
-  } else {
-    playBtn.textContent = '▶ Run';
-    playBtn.classList.remove('active');
+  const stepBtn = document.getElementById('btn-step');
+  const resetBtn = document.getElementById('btn-reset');
+  const isLive = window.workbenchAPI.sourceMode === 'live';
+
+  if (playBtn) {
+    playBtn.disabled = isLive;
+    if (isLive) {
+      playBtn.textContent = '▶ Run';
+      playBtn.classList.remove('active');
+      playBtn.title = 'Playback disabled in Live mode (Observation only)';
+    } else if (window.workbenchAPI.isRunning) {
+      playBtn.textContent = '⏸ Pause';
+      playBtn.classList.add('active');
+      playBtn.title = 'Shortcut: Space';
+    } else {
+      playBtn.textContent = '▶ Run';
+      playBtn.classList.remove('active');
+      playBtn.title = 'Shortcut: Space';
+    }
+  }
+
+  if (stepBtn) {
+    stepBtn.disabled = isLive;
+    stepBtn.title = isLive ? 'Playback disabled in Live mode' : 'Shortcut: S';
+  }
+  if (resetBtn) {
+    resetBtn.disabled = isLive;
+    resetBtn.title = isLive ? 'Playback disabled in Live mode' : 'Shortcut: Esc';
   }
 }
 

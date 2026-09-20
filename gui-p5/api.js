@@ -19,16 +19,17 @@ class RDLWorkbenchAPI {
   }
 
   toggleRun() {
+    if (this.sourceMode !== 'mock') return false;
     this.isRunning = !this.isRunning;
     return this.isRunning;
   }
 
   stepSimulation() {
-    if (!this.cachedData) return;
+    if (this.sourceMode !== 'mock' || !this.cachedData) return;
     this.mockStep++;
     this.cachedData.tick = 20 + this.mockStep;
 
-    // Simulate gentle agent dynamics in fixture mode
+    // Local toy dynamics restricted exclusively to fixture mode
     if (this.cachedData.agents) {
       const a = this.cachedData.agents.npc_a;
       const b = this.cachedData.agents.npc_b;
@@ -59,6 +60,7 @@ class RDLWorkbenchAPI {
   }
 
   resetSimulation() {
+    if (this.sourceMode !== 'mock') return;
     this.mockStep = 0;
     this.isRunning = false;
     if (this.baseFixture) {

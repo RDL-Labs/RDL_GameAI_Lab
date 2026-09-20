@@ -2,14 +2,19 @@
 
 RDL_GameAI_Lab の状態をブラウザ上で視覚的に観測・検査する I6 Viewer です。Runtime の意思決定や RDL 状態を計算・変更しません。
 
-## Boundary Contract
+## 境界契約 (Boundary Contract)
 
 ```text
-GUI = Viewer Only
-No Decision Authority
-Raw Experience != RelationProfile != CandidateRelation != Canonical M_B
-Missing snapshot != inferred state
+Live Mode:    Pure Read-Only Observation (GET proxy only)
+Fixture Mode: Local Toy Playback (Demonstration dynamics; no canonical authority)
+
+Observed State != GUI Local Generated State
+Raw Experience != Profile != Candidate != Canonical M_B
+No Decision Authority; No Mutation Authority
 ```
+
+- **Live Mode**: ランタイム（`127.0.0.1:8765`）から取得したスナップショットをそのまま射影・描画します。Playback（Run/Step/Reset）は明示的に無効化され、過剰リクエストを防ぐため2秒（2000ms）間隔で静かにポーリングします。
+- **Fixture Mode**: オフラインでUI挙動・画面遷移を検証するためのローカル簡易再生（Toy Playback）です。生成される疑似状態はデモ用であり、RDL正規の知能決定や推論結果ではありません。
 
 Live mode では Runtime が公開していない値を GUI 側で補完しません。特に現行 Runtime bridge は world position、Sleep S1 window、S2 Profile、S3 Deep Similarity を GET endpoint として公開していないため、それらは `NOT EXPOSED` と表示します。
 
