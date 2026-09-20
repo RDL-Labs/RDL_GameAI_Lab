@@ -1,0 +1,402 @@
+{
+  "tick": 20,
+  "agents": {
+    "npc_a": {
+      "id": "npc_a",
+      "position": [
+        12.0,
+        8.0
+      ],
+      "food_need": 0.65,
+      "held": "apple_01",
+      "goal": "approach",
+      "target": "apple_01",
+      "state": "seeking"
+    },
+    "npc_b": {
+      "id": "npc_b",
+      "position": [
+        28.0,
+        18.0
+      ],
+      "food_need": 0.2,
+      "held": null,
+      "goal": "rest",
+      "target": "bed_01",
+      "state": "resting"
+    }
+  },
+  "objects": [
+    {
+      "id": "apple_01",
+      "type": "food",
+      "position": [
+        15.0,
+        10.0
+      ],
+      "status": "held"
+    },
+    {
+      "id": "base_01",
+      "type": "base",
+      "position": [
+        5.0,
+        5.0
+      ],
+      "status": "active"
+    },
+    {
+      "id": "bed_01",
+      "type": "bed",
+      "position": [
+        30.0,
+        20.0
+      ],
+      "status": "occupied"
+    },
+    {
+      "id": "danger_01",
+      "type": "danger",
+      "position": [
+        22.0,
+        12.0
+      ],
+      "radius": 4.0
+    }
+  ],
+  "history_snapshot": {
+    "authority": "read-only-history",
+    "records": [
+      {
+        "agent_id": "npc_a",
+        "source_observation_id": "f1",
+        "tick": 1,
+        "action": {
+          "type": "approach",
+          "target_id": "food_01"
+        },
+        "context": {
+          "purpose": "approach-result-history",
+          "perception_rule": "radius-145"
+        },
+        "decision_tick": 1,
+        "subsequent_observation_id": "f1-after",
+        "outcome": "approach_progress",
+        "record_id": "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+        "provenance": "workbench-reported bounded action result"
+      },
+      {
+        "agent_id": "npc_a",
+        "source_observation_id": "f2",
+        "tick": 1,
+        "action": {
+          "type": "approach",
+          "target_id": "food_01"
+        },
+        "context": {
+          "purpose": "approach-result-history",
+          "perception_rule": "radius-145"
+        },
+        "decision_tick": 1,
+        "subsequent_observation_id": "f2-after",
+        "outcome": "approach_no_progress",
+        "record_id": "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+        "provenance": "workbench-reported bounded action result"
+      },
+      {
+        "agent_id": "npc_a",
+        "source_observation_id": "f3",
+        "tick": 1,
+        "action": {
+          "type": "approach",
+          "target_id": "food_01"
+        },
+        "context": {
+          "purpose": "approach-result-history",
+          "perception_rule": "radius-145"
+        },
+        "decision_tick": 1,
+        "subsequent_observation_id": "f3-after",
+        "outcome": "approach_progress",
+        "record_id": "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135",
+        "provenance": "workbench-reported bounded action result"
+      }
+    ],
+    "relations": [
+      {
+        "agent_id": "npc_a",
+        "target_id": "food_01",
+        "context": {
+          "purpose": "approach-result-history",
+          "perception_rule": "radius-145"
+        },
+        "approach_progress": [
+          "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+          "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+        ],
+        "approach_no_progress": [
+          "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f"
+        ]
+      }
+    ],
+    "capacity": 128,
+    "admitted_decisions": 3,
+    "pending_results": 0,
+    "capacity_rejections": 0,
+    "retention": "process lifetime; no decay or eviction; restart clears history"
+  },
+  "sleep_window": {
+    "window_id": "bd59d6fb8bc35f9ad543fe455779d909075cf7402ba134d10c902bb68732fbfe",
+    "status": "READY",
+    "agent_id": "npc_a",
+    "sleep_cycle": "night-001",
+    "formation_tick": 20,
+    "source_experience_ids": [
+      "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+      "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+      "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+    ],
+    "source_count": 3,
+    "boundary": {
+      "agent_id": "npc_a",
+      "sleep_cycle": "night-001",
+      "formation_tick": 20,
+      "minimum_records": 3,
+      "maximum_records": 6,
+      "selection": "latest accepted same-agent records by tick/decision_tick/record_id"
+    },
+    "policy": "sleep-experience-window-v1",
+    "authority": "GameAI-local-source-window; not-relation-candidate-M_B-or-T1"
+  },
+  "relation_profiles": {
+    "profile_set_id": "145a2177b9b84b0d43b1f24b6d485e720341bad8f543247dc37a86f3f4ccd0b0",
+    "window_id": "bd59d6fb8bc35f9ad543fe455779d909075cf7402ba134d10c902bb68732fbfe",
+    "window_status": "READY",
+    "agent_id": "npc_a",
+    "source_experience_ids": [
+      "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+      "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+      "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+    ],
+    "profiles": [
+      {
+        "profile_id": "256f543fd183e3e1491a9485ff819a90a33d6f54698dc8e5fb9e42e8f0abefeb",
+        "source_experience_id": "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+        "relations": [
+          {
+            "relation_id": "e7a0b373ec52a06b91fdbdaf237fd07d02c315b3dcc9e10f5b7a6a475a38c2e6",
+            "kind": "actor",
+            "subject": "experience:98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+            "predicate": "actor",
+            "object": "npc_a",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f"
+            ]
+          },
+          {
+            "relation_id": "5c266881643cd95e8015d102d993fe371e88932de86144de0da3500f535fb82c",
+            "kind": "target",
+            "subject": "experience:98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+            "predicate": "target",
+            "object": "food_01",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f"
+            ]
+          },
+          {
+            "relation_id": "aecf0114792d05fcbd7ead4755db498ae09e5a1e03ba8196875e9830e21d6009",
+            "kind": "context",
+            "subject": "experience:98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+            "predicate": "approach-result-history",
+            "object": "radius-145",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f"
+            ]
+          },
+          {
+            "relation_id": "24586fbec96f04a9e862ca5602b82fbc18b190b8c1545a960e7acf6b234e70a0",
+            "kind": "action",
+            "subject": "npc_a",
+            "predicate": "performed",
+            "object": "approach",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f"
+            ]
+          },
+          {
+            "relation_id": "23ec5b318c8dcc93269ba2565ba34f5d658fa5a558592022a25e6a54293818e1",
+            "kind": "outcome",
+            "subject": "experience:98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f",
+            "predicate": "reported_outcome",
+            "object": "approach_no_progress",
+            "status": "reported",
+            "polarity": "unresolved",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "98c6af9ba8788ad15ea084b02d9373d5d0cdc84f114b8d1eba16bdf90a82843f"
+            ]
+          }
+        ],
+        "authority": "derived-comparison-profile-only"
+      },
+      {
+        "profile_id": "5e6ea805c72a74eab6ca3d30460ee8032e6a441df49ea44a739cb79cbaaed64e",
+        "source_experience_id": "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+        "relations": [
+          {
+            "relation_id": "d62376438549a4520724e938061f7f2340cdf10370e5b58f60b052cc1dd1bd61",
+            "kind": "actor",
+            "subject": "experience:a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+            "predicate": "actor",
+            "object": "npc_a",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4"
+            ]
+          },
+          {
+            "relation_id": "1a91872e964cdc84c6baa3ebea148ccd51dc02a8df4b775bb41b0ecc37045c0d",
+            "kind": "target",
+            "subject": "experience:a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+            "predicate": "target",
+            "object": "food_01",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4"
+            ]
+          },
+          {
+            "relation_id": "dddd6066b994ca12e946cc4aa8678252c2edf97fabc21c952e16177d3fe30ae8",
+            "kind": "context",
+            "subject": "experience:a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+            "predicate": "approach-result-history",
+            "object": "radius-145",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4"
+            ]
+          },
+          {
+            "relation_id": "b9fa11948b9b8de7611ff2b3ade95a70cbebd95be569fe16a938e4c3579b29fb",
+            "kind": "action",
+            "subject": "npc_a",
+            "predicate": "performed",
+            "object": "approach",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4"
+            ]
+          },
+          {
+            "relation_id": "f2460ef8a199d901fda09d8947b1255116efe397ae3e8ea665c205094cbc426b",
+            "kind": "outcome",
+            "subject": "experience:a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4",
+            "predicate": "reported_outcome",
+            "object": "approach_progress",
+            "status": "reported",
+            "polarity": "supportive",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "a923becbb701b745793134b356303d1a1f6ca880138387e20fc1911acd3fb8b4"
+            ]
+          }
+        ],
+        "authority": "derived-comparison-profile-only"
+      },
+      {
+        "profile_id": "41836d28b0481d1fba7b7838ffd0aaba953458259d9395e5389174c9086ff625",
+        "source_experience_id": "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135",
+        "relations": [
+          {
+            "relation_id": "3e2dac7674f91a55d487cdeb2c62e42971602aa1d40c2618e59656f69a544a75",
+            "kind": "actor",
+            "subject": "experience:ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135",
+            "predicate": "actor",
+            "object": "npc_a",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+            ]
+          },
+          {
+            "relation_id": "986e748f8f4db20650bca1f5bbbe895bc661465d941520470ebd179fb1daf6cc",
+            "kind": "target",
+            "subject": "experience:ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135",
+            "predicate": "target",
+            "object": "food_01",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+            ]
+          },
+          {
+            "relation_id": "cecc09934e89a52804ef627f148232563ea7d081562b19538342971635d58760",
+            "kind": "context",
+            "subject": "experience:ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135",
+            "predicate": "approach-result-history",
+            "object": "radius-145",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+            ]
+          },
+          {
+            "relation_id": "a8a23a94fcd0245c94b05adf5acfbf9db89bde8c59610ab1e0630e9665baafc5",
+            "kind": "action",
+            "subject": "npc_a",
+            "predicate": "performed",
+            "object": "approach",
+            "status": "reported",
+            "polarity": "neutral",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+            ]
+          },
+          {
+            "relation_id": "ad409414808cdb34709ce0f3509fde2a40bafe14240575107df985f0cd0d2410",
+            "kind": "outcome",
+            "subject": "experience:ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135",
+            "predicate": "reported_outcome",
+            "object": "approach_progress",
+            "status": "reported",
+            "polarity": "supportive",
+            "strength": "single_report",
+            "source_experience_ids": [
+              "ce2fafd75114edb246da979b6eae5ed77d1ddc72cd36729f91c74d83dd108135"
+            ]
+          }
+        ],
+        "authority": "derived-comparison-profile-only"
+      }
+    ],
+    "compiler": "experience-relation-profile-v1",
+    "authority": "GameAI-local-derived-profile; not-candidate-commitment-M_B-or-T1"
+  }
+}
