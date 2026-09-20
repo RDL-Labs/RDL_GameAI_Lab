@@ -1,49 +1,52 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang='ja'>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RDL GameAI Lab — p5.js Observation & Inspection Workbench</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- p5.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>RDL GameAI Lab — Observation & Inspection Workbench</title>
+  <link rel='stylesheet' href='style.css'>
+  <script src='https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js'></script>
 </head>
 <body>
-  <header id="header-bar">
-    <div class="logo-area">
-      <span class="badge">RDL I6</span>
-      <h1>GameAI Workbench (Viewer)</h1>
+  <header id='header-bar'>
+    <div class='logo-area'>
+      <span class='badge'>RDL I6</span>
+      <div>
+        <h1>GameAI Workbench</h1>
+        <div class='subtitle'>Observation / provenance / boundary inspection</div>
+      </div>
     </div>
-    <div class="controls-area">
-      <label for="data-source-select">Source:</label>
-      <select id="data-source-select">
-        <option value="mock">Fixture (Mock JSON)</option>
-        <option value="live">Live HTTP (127.0.0.1:8765)</option>
+    <div class='controls-area'>
+      <label for='data-source-select'>Source</label>
+      <select id='data-source-select'>
+        <option value='mock'>Fixture</option>
+        <option value='live'>Live Runtime</option>
       </select>
-      <button id="btn-refresh" class="btn">Reload</button>
-      <span id="connection-status" class="status-indicator">Ready (Mock)</span>
+      <button id='btn-refresh' class='btn'>Reload</button>
+      <span id='connection-status' class='status-indicator'>Ready</span>
     </div>
   </header>
 
-  <main id="workbench-container">
-    <!-- p5.js canvas will be inserted here -->
-    <div id="canvas-wrapper"></div>
+  <main id='workbench-container'>
+    <div id='canvas-wrapper'></div>
   </main>
 
-  <footer id="boundary-banner">
-    <div class="boundary-text">
-      <strong>RDL Boundary Contract:</strong>
-      <code>GUI = Viewer Only</code> |
-      <code>No Decision Authority</code> |
-      <code>Raw Experience != Profile != Candidate != Canonical M_B</code>
+  <footer id='boundary-banner'>
+    <div class='boundary-text'>
+      <strong>Viewer boundary:</strong>
+      <code>read-only</code> ·
+      <code>Experience != Profile != Candidate</code> ·
+      <code>Candidate != Canonical M_B</code> ·
+      <code>No Decision Authority</code>
     </div>
   </footer>
 
-  <script src="api.js"></script>
-  <script src="views/world_view.js"></script>
-  <script src="views/inspector_view.js"></script>
-  <script src="views/memory_view.js"></script>
-  <script src="views/timeline_view.js"></script>
-  <script src="sketch.js"></script>
+  <script src='api.js'></script>
+  <script src='views/world_view.js'></script>
+  <script src='views/inspector_view.js'></script>
+  <script src='views/memory_view.js'></script>
+  <script src='views/lineage_view.js'></script>
+  <script src='views/timeline_view.js'></script>
+  <script src='sketch.js'></script>
 </body>
 </html>

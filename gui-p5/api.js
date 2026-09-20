@@ -1,13 +1,13 @@
 /**
- * api.js - Data ingestion layer for p5 Workbench
- * Contract: Read-only viewer adapter. Does not mutate or calculate RDL states.
+ * api.js - read-only data ingestion for the Workbench.
+ * The viewer never computes RDL state and never sends mutation requests.
  */
 class RDLWorkbenchAPI {
   constructor() {
-    this.sourceMode = 'mock'; // 'mock' or 'live'
-    this.baseUrl = 'http://127.0.0.1:8765';
+    this.sourceMode = 'mock';
+    this.baseUrl = '/runtime';
     this.cachedData = null;
-    this.statusText = 'Ready (Mock)';
+    this.statusText = 'Ready (Fixture)';
   }
 
   setSourceMode(mode) {
@@ -15,61 +15,85 @@ class RDLWorkbenchAPI {
   }
 
   async fetchData() {
-    if (this.sourceMode === 'mock') {
-      return await this.fetchMock();
-    } else {
-      return await this.fetchLive();
-    }
+    return this.sourceMode === 'live' ? this.fetchLive() : this.fetchMock();
   }
 
   async fetchMock() {
     try {
-      const resp = await fetch('fixtures/snapshot_mock.json');
-      if (!resp.ok) throw new Error(`Failed to load mock JSON: ${resp.status}`);
+      const resp = await fetch('fixtures/snapshot_mock.json', { cache: 'no-store' });
+      if (!resp.ok) throw new Error('fixture HTTP ' + resp.status);
       const data = await resp.json();
+      data._viewer_meta = {
+        source: 'fixture',
+        endpoint_status: {},
+        world_projection: 'fixture-only',
+        sleep_projection: 'fixture-s1-s2',
+        deep_similarity: 'S3 contract frozen; implementation not represented'
+      };
       this.cachedData = data;
-      this.statusText = 'Loaded Mock Fixture';
+      this.statusText = 'Fixture loaded';
       return data;
     } catch (err) {
-      console.error('Error fetching mock data:', err);
-      this.statusText = `Mock Load Error: ${err.message}`;
+      console.error(err);
+      this.statusText = 'Fixture error: ' + err.message;
       return null;
     }
   }
 
-  async fetchLive() {
+  async fetchEndpoint(name, path) {
     try {
-      // Gather multi-endpoint snapshots in parallel
-      const [expResp, canResp, resResp] = await Promise.allSettled([
-        fetch(`${this.baseUrl}/v1/experience-snapshot`),
-        fetch(`${this.baseUrl}/v1/canonical-snapshot`),
-        fetch(`${this.baseUrl}/v1/rescue-snapshot`),
-      ]);
-
-      const data = {
-        tick: Date.now(),
-        agents: {
-          npc_a: { id: 'npc_a', position: [12.0, 8.0], food_need: 0.5, held: null, goal: 'idle', target: null, state: 'live' },
-          npc_b: { id: 'npc_b', position: [24.0, 16.0], food_need: 0.2, held: null, goal: 'idle', target: null, state: 'live' }
-        },
-        objects: [
-          { id: 'base_01', type: 'base', position: [5.0, 5.0], status: 'active' }
-        ],
-        history_snapshot: expResp.status === 'fulfilled' && expResp.value.ok ? await expResp.value.json() : null,
-        canonical_snapshot: canResp.status === 'fulfilled' && canResp.value.ok ? await canResp.value.json() : null,
-        rescue_snapshot: resResp.status === 'fulfilled' && resResp.value.ok ? await resResp.value.json() : null,
-        sleep_window: null,
-        relation_profiles: null
-      };
-
-      this.cachedData = data;
-      this.statusText = 'Connected to Live Bridge';
-      return data;
+      const resp = await fetch(this.baseUrl + path, { cache: 'no-store' });
+      let payload = null;
+      try { payload = await resp.json(); } catch (_) { payload = null; }
+      return { name, ok: resp.ok, status: resp.status, payload };
     } catch (err) {
-      console.error('Error fetching live data:', err);
-      this.statusText = 'Bridge Offline (Check 8765)';
-      return null;
+      return { name, ok: false, status: 0, payload: null, error: err.message };
     }
+  }
+
+  async fetchLive() {
+    const specs = [
+      ['health', '/health'],
+      ['experience', '/v1/experience-snapshot'],
+      ['canonical', '/v1/canonical-snapshot'],
+      ['rescue', '/v1/rescue-snapshot'],
+      ['rest', '/v1/rest-snapshot'],
+      ['life', '/v1/life-snapshot'],
+      ['food_mb', '/v1/food-mb-shadow']
+    ];
+    const results = await Promise.all(specs.map(([name, path]) => this.fetchEndpoint(name, path)));
+    const byName = Object.fromEntries(results.map(result => [result.name, result]));
+    const endpointStatus = Object.fromEntries(results.map(result => [
+      result.name,
+      { ok: result.ok, status: result.status, error: result.error || null }
+    ]));
+    const okCount = results.filter(result => result.ok).length;
+
+    const data = {
+      tick: Date.now(),
+      agents: null,
+      objects: null,
+      history_snapshot: byName.experience.ok ? byName.experience.payload : null,
+      canonical_snapshot: byName.canonical.ok ? byName.canonical.payload : null,
+      rescue_snapshot: byName.rescue.ok ? byName.rescue.payload : null,
+      rest_snapshot: byName.rest.ok ? byName.rest.payload : null,
+      life_snapshot: byName.life.ok ? byName.life.payload : null,
+      food_mb_snapshot: byName.food_mb.ok ? byName.food_mb.payload : null,
+      sleep_window: null,
+      relation_profiles: null,
+      deep_similarity: null,
+      _viewer_meta: {
+        source: 'live',
+        endpoint_status: endpointStatus,
+        world_projection: 'not exposed by current Runtime bridge',
+        sleep_projection: 'S1/S2 snapshots not exposed by current Runtime bridge',
+        deep_similarity: 'S3 implementation not exposed'
+      }
+    };
+
+    this.cachedData = data;
+    this.statusText = 'Live read-only: ' + okCount + '/' + results.length + ' GET endpoints';
+    return data;
   }
 }
 
