@@ -14,6 +14,7 @@
 6. [Base–Food循環完成計画](docs/design/RDL_GameAI_Codex_BaseFood循環完成計画.md): 完了した参照生活ループ
 7. [ρ活用指南](docs/design/RDL_GameAI_ρ活用指南.md): 観測解像度をGameAIへ導入する際の判断基準
 8. [コード抽象度・道具的関数階層](docs/design/RDL_GameAI_コード抽象度・道具的関数階層_案.md): I0 PrimitiveからI6 Adapterまでの実装責務と依存方向
+9. [p5.js Observation Workbench](gui-p5/README.md): read-only I6 Viewer。Experience→Sleep Window→Profileのprovenance、Live GET endpoint状態、将来S3の非昇格境界を可視化
 
 生活機能の追加順は[Game Feature Roadmap](docs/design/RDL_GameAI_実装手順予定.md)、コード内の抽象度と依存方向は[道具的関数階層案](docs/design/RDL_GameAI_コード抽象度・道具的関数階層_案.md)で管理します。
 
@@ -86,6 +87,8 @@ semantic fallibility allowed; structural integrity required
 python -m runtime.bridge
 ```
 
+p5.js Viewerは別端末で `python gui-p5/serve.py` を起動し、`http://127.0.0.1:8080` を開きます。GUI側proxyはGETのみをRuntimeへ転送し、状態変更要求は受け付けません。
+
 Assisted Base–Food実験は明示的に有効化します: python -m runtime.bridge --base-food-life
 
 Godot 4.7で [project.godot](godot/rdl-game-ai-workbench/project.godot) を開き、Run Projectを実行します。RuntimeモードでPython bridgeに接続します。MockモードはGodot単体です。
@@ -118,6 +121,7 @@ docs/experiment-evidence/   verification records
 notes/experiment-roadmap.md canonical maturity
 runtime/                   local action runtime and diagnostic sidecar
 godot/                     world and interaction workbench
+gui-p5/                    read-only p5.js observation / provenance viewer
 experiments/                bounded prototypes
 tests/                     acceptance tests
 ```

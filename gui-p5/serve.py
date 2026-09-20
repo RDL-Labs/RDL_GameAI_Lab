@@ -6,6 +6,7 @@ POST/PUT/PATCH/DELETE are intentionally not proxied.
 """
 from __future__ import annotations
 
+import json
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -45,7 +46,7 @@ class WorkbenchHandler(SimpleHTTPRequestHandler):
             status = exc.code
             content_type = exc.headers.get('Content-Type', 'application/json; charset=utf-8')
         except URLError as exc:
-            body = ('{"error":"runtime_unreachable","detail":' + repr(str(exc.reason)).replace("'", '"') + '}').encode('utf-8')
+            body = json.dumps({"error": "runtime_unreachable", "detail": str(exc.reason)}, ensure_ascii=False).encode('utf-8')
             status = 502
             content_type = 'application/json; charset=utf-8'
 
