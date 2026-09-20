@@ -57,7 +57,7 @@ class TimelineView {
       p.textAlign(p.CENTER);
       p.text(`Tick ${rec.tick ?? (i + 1)}`, nx, railY + 18);
       p.fill(136, 153, 172);
-      const actionName = rec.decision?.action?.type || rec.decision?.action || "action";
+      const actionName = rec.action || rec.decision?.action?.type || rec.decision?.action || "action";
       p.text(actionName, nx, railY + 28);
       p.textAlign(p.LEFT);
     }
