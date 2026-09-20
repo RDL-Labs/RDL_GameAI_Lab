@@ -42,7 +42,9 @@ body {
 }
 .btn { background: #2563eb; color: white; border: 0; padding: 5px 12px; border-radius: 4px; cursor: pointer; }
 .btn:hover { background: #1d4ed8; }
-.status-indicator { color: var(--accent-green); min-width: 210px; text-align: right; }
+.hotkeys-hint { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: .72rem; margin: 0 4px; }
+.key-chip { background: #0f172a; border: 1px solid var(--border-color); color: var(--accent-cyan); padding: 1px 5px; border-radius: 3px; font-family: monospace; font-weight: 600; }
+.status-indicator { color: var(--accent-green); min-width: 180px; text-align: right; font-weight: 500; }
 #workbench-container {
   flex: 1; background: #0b0f17; overflow: auto; padding: 12px; display: flex;
   justify-content: center; align-items: flex-start;

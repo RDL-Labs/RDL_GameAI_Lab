@@ -58,7 +58,28 @@ class WorkbenchHandler(SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
 if __name__ == '__main__':
-    server = ThreadingHTTPServer((HOST, PORT), WorkbenchHandler)
-    print(f'RDL p5 Workbench: http://{HOST}:{PORT}')
-    print(f'Read-only proxy: /runtime/* -> {RUNTIME}')
-    server.serve_forever()
+    import argparse
+    import webbrowser
+    import threading
+
+    parser = argparse.ArgumentParser(description='RDL p5 Workbench Server')
+    parser.add_argument('--no-browser', action='store_true', help='Do not open browser automatically')
+    parser.add_argument('--port', type=int, default=PORT, help=f'Port to listen on (default: {PORT})')
+    args = parser.parse_args()
+
+    port = args.port
+    server = ThreadingHTTPServer((HOST, port), WorkbenchHandler)
+    url = f'http://{HOST}:{port}'
+    print('=====================================================')
+    print(f' RDL GameAI Workbench: {url}')
+    print(f' Read-only Runtime Proxy: /runtime/* -> {RUNTIME}')
+    print('=====================================================')
+    print('Press Ctrl+C to stop.')
+
+    if not args.no_browser:
+        threading.Timer(0.8, lambda: webbrowser.open(url)).start()
+
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print('\nWorkbench stopped cleanly.')

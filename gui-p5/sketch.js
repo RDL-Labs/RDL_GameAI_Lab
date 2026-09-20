@@ -9,29 +9,66 @@ let selectedAgentId = 'npc_a';
 let selectedExperienceId = null;
 let selectedProfileId = null;
 
+const BASE_W = 1360;
+const BASE_H = 820;
+
 function setup() {
-  const canvas = createCanvas(1360, 820);
+  const container = document.getElementById('workbench-container');
+  const targetW = Math.min(BASE_W, Math.max(900, (container ? container.clientWidth - 24 : BASE_W)));
+  const scaleRatio = targetW / BASE_W;
+  const targetH = Math.round(BASE_H * scaleRatio);
+
+  const canvas = createCanvas(targetW, targetH);
   canvas.parent('canvas-wrapper');
 
-  worldView = new WorldView(10, 10, 500, 390);
-  inspectorView = new InspectorView(520, 10, 300, 390);
-  memoryView = new MemoryView(830, 10, 520, 390);
-  lineageView = new LineageView(10, 410, 1340, 190);
-  timelineView = new TimelineView(10, 610, 1340, 200);
+  createViews(targetW, targetH, scaleRatio);
 
   const selectElem = document.getElementById('data-source-select');
   const refreshBtn = document.getElementById('btn-refresh');
-  selectElem.addEventListener('change', event => {
-    window.workbenchAPI.setSourceMode(event.target.value);
-    clearSelection();
-    loadData();
-  });
-  refreshBtn.addEventListener('click', loadData);
+  if (selectElem) {
+    selectElem.addEventListener('change', event => {
+      window.workbenchAPI.setSourceMode(event.target.value);
+      clearSelection();
+      loadData();
+    });
+  }
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', loadData);
+  }
+
   loadData();
 
   setInterval(() => {
     if (window.workbenchAPI.sourceMode === 'live') loadData();
   }, 2000);
+}
+
+function createViews(w, h, scaleRatio) {
+  // Proportional layouts based on target width
+  const topH = Math.round(390 * scaleRatio);
+  const midH = Math.round(190 * scaleRatio);
+  const botH = Math.round(200 * scaleRatio);
+
+  const leftW = Math.round(500 * scaleRatio);
+  const midW = Math.round(300 * scaleRatio);
+  const rightW = w - leftW - midW - 30;
+
+  worldView = new WorldView(10, 10, leftW, topH);
+  inspectorView = new InspectorView(leftW + 20, 10, midW, topH);
+  memoryView = new MemoryView(leftW + midW + 30, 10, rightW, topH);
+  lineageView = new LineageView(10, topH + 20, w - 20, midH);
+  timelineView = new TimelineView(10, topH + midH + 30, w - 20, botH);
+}
+
+function windowResized() {
+  const container = document.getElementById('workbench-container');
+  if (!container) return;
+  const targetW = Math.min(BASE_W, Math.max(900, container.clientWidth - 24));
+  const scaleRatio = targetW / BASE_W;
+  const targetH = Math.round(BASE_H * scaleRatio);
+
+  resizeCanvas(targetW, targetH);
+  createViews(targetW, targetH, scaleRatio);
 }
 
 function clearSelection() {
@@ -52,6 +89,20 @@ function draw() {
   memoryView.draw(this, currentData, selectedAgentId, selectedProfileId, selectedExperienceId);
   lineageView.draw(this, currentData, selectedAgentId, selectedExperienceId, selectedProfileId);
   timelineView.draw(this, currentData, selectedAgentId, selectedExperienceId);
+
+  updateCursor();
+}
+
+function updateCursor() {
+  const hoveringAgent = worldView.checkAgentClick(mouseX, mouseY, currentData);
+  const hoveringExp = timelineView.checkExperienceClick(mouseX, mouseY);
+  const hoveringProf = memoryView.checkProfileClick(mouseX, mouseY);
+
+  if (hoveringAgent || hoveringExp || hoveringProf) {
+    cursor(HAND);
+  } else {
+    cursor(ARROW);
+  }
 }
 
 function mousePressed() {
@@ -77,5 +128,20 @@ function mousePressed() {
     const profiles = currentData?.relation_profiles?.profiles || [];
     const profile = profiles.find(item => item.profile_id === profileId);
     selectedExperienceId = profile?.source_experience_id || null;
+  }
+}
+
+function keyPressed() {
+  // Hotkeys for rapid inspection
+  if (key === '1') {
+    selectedAgentId = 'npc_a';
+    clearSelection();
+  } else if (key === '2') {
+    selectedAgentId = 'npc_b';
+    clearSelection();
+  } else if (key === 'r' || key === 'R' || key === ' ') {
+    loadData();
+  } else if (key === 'Escape') {
+    clearSelection();
   }
 }
