@@ -1,6 +1,6 @@
 # Sleep Deep Similarity Shadow Contract
 
-**Status:** S3 contract frozen / implementation pending  
+**Status:** S3 operational reference
 **Version:** v0.1  
 **Code level:** I1 Structural Operation + I2 Reusable Function + I3 DeepSimilarity mechanism  
 **Input:** S1 finite Sleep window and S2 Relation Constraint Profiles
@@ -232,3 +232,22 @@ Persistence and display are later Adapter responsibilities.
 - behavior influence and Commitment;
 - canonical admission or T1 reconstruction;
 - stochastic misassociation.
+
+## 12. Reference implementation
+
+```text
+I1 runtime/structural/similarity.py
+   relation alignment, coverage, difference, conflict, unresolved, score
+
+I2 runtime/functions/deep_similarity.py
+   finite pair observations, one deterministic cluster, one shadow candidate
+
+I3 runtime/mechanisms/deep_similarity.py
+   explicit opt-in, immutable replay, process-local bounded store
+```
+
+The reference fixture uses three admitted approach Experiences. It produces
+three pair observations and a repeated target candidate while preserving an
+`approach_no_progress` outcome as unresolved evidence. It is not connected to
+HTTP, Godot, Runtime decisions, `E`, `H`, `theta_eff`, `M_delta`, canonical
+admission or T1.
