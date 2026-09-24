@@ -21,6 +21,10 @@ class WorkbenchHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(GUI_DIR), **kwargs)
 
+    def end_headers(self):
+        self.send_header('Cache-Control', 'no-store')
+        super().end_headers()
+
     def do_GET(self):
         if self.path.startswith('/runtime/'):
             return self._proxy_runtime_get()
@@ -53,9 +57,12 @@ class WorkbenchHandler(SimpleHTTPRequestHandler):
         self.send_response(status)
         self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', str(len(body)))
-        self.send_header('Cache-Control', 'no-store')
         self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionAbortedError, ConnectionResetError):
+            # A closed browser tab may abandon concurrent read-only polls.
+            return
 
 if __name__ == '__main__':
     import argparse

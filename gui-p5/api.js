@@ -21,6 +21,7 @@ class RDLWorkbenchAPI {
   toggleRun() {
     if (this.sourceMode !== 'mock') return false;
     this.isRunning = !this.isRunning;
+    this.updateFixtureStatus();
     return this.isRunning;
   }
 
@@ -57,6 +58,7 @@ class RDLWorkbenchAPI {
         }
       }
     }
+    this.updateFixtureStatus();
   }
 
   resetSimulation() {
@@ -66,6 +68,13 @@ class RDLWorkbenchAPI {
     if (this.baseFixture) {
       this.cachedData = JSON.parse(JSON.stringify(this.baseFixture));
     }
+    this.updateFixtureStatus();
+  }
+
+  updateFixtureStatus() {
+    if (this.sourceMode !== 'mock') return;
+    const tick = this.cachedData?.tick ?? 20;
+    this.statusText = this.isRunning ? `Running (Tick ${tick})` : `Paused (Tick ${tick})`;
   }
 
   async fetchData() {
@@ -89,7 +98,7 @@ class RDLWorkbenchAPI {
       if (!this.cachedData || this.mockStep === 0) {
         this.cachedData = JSON.parse(JSON.stringify(this.baseFixture));
       }
-      this.statusText = this.isRunning ? `Running (Tick ${this.cachedData.tick})` : `Paused (Tick ${this.cachedData.tick})`;
+      this.updateFixtureStatus();
       return this.cachedData;
     } catch (err) {
       console.error(err);
