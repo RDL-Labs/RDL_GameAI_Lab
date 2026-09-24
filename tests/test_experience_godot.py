@@ -20,6 +20,7 @@ from runtime.safety_policy import SafetyTrajectoryPolicy
 from runtime.food_safety_policy import FoodSafetyCoordinator
 from runtime.food_rest_policy import FoodRestCoordinator
 from runtime.rescue_policy import RescueTrajectoryPolicy
+from runtime.sleep_consolidation import SleepConsolidationCoordinator
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
@@ -64,6 +65,48 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_real_sleep_consolidation_vertical_forms_sourced_shadow_candidate(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        coordinator = SleepConsolidationCoordinator()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(bridge, "CANONICAL_SIDECAR", canonical):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.sleep_consolidation = coordinator
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                completed = subprocess.run(
+                    [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                     "--script", "res://tests/sleep_consolidation_http_check.gd"],
+                    capture_output=True, text=True, timeout=50,
+                    env=os.environ.copy(),
+                    creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                )
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Sleep consolidation HTTP check passed", output)
+                snapshot = coordinator.snapshot()
+                self.assertEqual(len(snapshot["results"]), 1)
+                record = snapshot["results"][0]
+                self.assertEqual(record["status"], "CANDIDATE_FORMED")
+                self.assertEqual(record["window"]["source_count"], 3)
+                self.assertEqual(
+                    record["candidate"]["source_experience_ids"],
+                    record["window"]["source_experience_ids"],
+                )
+                self.assertGreaterEqual(len(history.snapshot()["records"]), 3)
+                self.assertIn(
+                    "not-action-E-H-theta-M_delta-M_B-prime-or-T1",
+                    record["authority"],
+                )
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_multi_agent_rescue_evidence_reaches_recovery_without_duplicate_rescue(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()

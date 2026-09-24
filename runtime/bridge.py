@@ -25,6 +25,7 @@ from .safety_policy import SafetyTrajectoryPolicy
 from .food_safety_policy import FoodSafetyCoordinator
 from .food_rest_policy import FoodRestCoordinator
 from .rescue_policy import RescueTrajectoryPolicy
+from .sleep_consolidation import SleepConsolidationCoordinator
 from .v23_food_admission import (
     FoodAdmissionError,
     FoodNeedShadowComparisonSidecar,
@@ -43,6 +44,15 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/sleep-consolidation-snapshot":
+            coordinator = getattr(self.server, "sleep_consolidation", None)
+            if coordinator is None:
+                self._send_json(404, {"error": "sleep_consolidation_disabled"})
+                return
+            with CANONICAL_LOCK:
+                snapshot = coordinator.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/v1/rescue-snapshot":
             policy = getattr(self.server, "rescue_policy", None)
             if policy is None:
@@ -95,6 +105,20 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self._send_json(404, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        if self.path == "/v1/sleep-result":
+            coordinator = getattr(self.server, "sleep_consolidation", None)
+            if coordinator is None:
+                self._send_json(404, {"error": "sleep_consolidation_disabled"})
+                return
+            try:
+                payload = self._read_json()
+                with CANONICAL_LOCK:
+                    record = coordinator.record_result(payload, EXPERIENCE.snapshot())
+            except (ValueError, ObservationError) as exc:
+                self._send_json(422, {"error": "invalid_sleep_result", "detail": str(exc)})
+                return
+            self._send_json(200, {"accepted": True, "record": record})
+            return
         if self.path == "/v1/life-result":
             policy = getattr(self.server, "life_policy", None)
             if policy is None:
@@ -159,6 +183,11 @@ class BridgeHandler(BaseHTTPRequestHandler):
                     EXPERIENCE.register_decision(packet, response)
                 except HistoryError as exc:
                     self.log_message("history admission rejected: %s", str(exc))
+                sleep_consolidation = getattr(self.server, "sleep_consolidation", None)
+                if sleep_consolidation:
+                    sleep_consolidation.register_decision(
+                        packet, response, EXPERIENCE.snapshot()
+                    )
         except json.JSONDecodeError:
             self._send_json(400, {"error": "invalid_json"})
             return
@@ -240,6 +269,7 @@ def run(
     food_safety_life: bool = False,
     food_rest_life: bool = False,
     rescue_trajectory: bool = False,
+    sleep_consolidation: bool = False,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -285,6 +315,9 @@ def run(
     ) if rest_trajectory else None
     server.safety_policy = SafetyTrajectoryPolicy() if safety_trajectory else None
     server.rescue_policy = RescueTrajectoryPolicy() if rescue_trajectory else None
+    server.sleep_consolidation = (
+        SleepConsolidationCoordinator() if sleep_consolidation else None
+    )
     server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_rest_policy = server.life_policy if food_rest_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
@@ -324,6 +357,8 @@ def main() -> None:
                         help="Enable finite Food-Rest continuous-life coordinator")
     parser.add_argument("--rescue-trajectory", action="store_true",
                         help="Enable finite bounded Rescue approach trajectory")
+    parser.add_argument("--sleep-consolidation", action="store_true",
+                        help="Enable opt-in S4 Sleep consolidation shadow reporting")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -362,7 +397,8 @@ def main() -> None:
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
         args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles,
         args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory,
-        args.food_safety_life, args.food_rest_life, args.rescue_trajectory)
+        args.food_safety_life, args.food_rest_life, args.rescue_trajectory,
+        args.sleep_consolidation)
 
 
 if __name__ == "__main__":

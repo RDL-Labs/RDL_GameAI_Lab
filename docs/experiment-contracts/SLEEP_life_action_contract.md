@@ -2,7 +2,7 @@
 
 **Status:** Opt-in bounded Sleep action operational
 
-**Boundary:** Body recovery action only; no World Time model or Experience Consolidation
+**Boundary:** Body recovery action by default; S4 consolidation is a separate opt-in
 
 ## Finite trigger and action
 
@@ -54,6 +54,6 @@ night cycle, persistence, or learned safe-place relation.
 - `sleep_http_check.gd` verifies the live chain: six world-changing approaches,
   safe-Plaza Sleep, RestNeed `0.86 → 0.00`, and `consolidation=not_run`.
 
-The next Sleep boundary is not Consolidation by default. First decide whether
-the game needs a persistent Sleep Goal/Trajectory or a minimal World Time
-window. Either requires a separate finite contract.
+The separate [S4 contract](SLEEP_consolidation_vertical_contract.md) enables an
+explicit finite consolidation cycle. It does not change this default action
+contract or introduce a World Time model.

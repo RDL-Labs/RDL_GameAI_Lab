@@ -35,6 +35,8 @@ jobs:
           GODOT_BIN: /tmp/godot/Godot_v4.7.2-stable_linux.x86_64
         run: |
           python -m unittest -v \
+            tests.test_experience_godot.GodotExperienceTests.test_real_sleep_consolidation_vertical_forms_sourced_shadow_candidate \
+            tests.test_experience_godot.GodotExperienceTests.test_real_workbench_sleep_is_world_action_without_consolidation \
             tests.test_experience_godot.GodotExperienceTests.test_safety_vertical_uses_normal_cli_startup \
             tests.test_experience_godot.GodotExperienceTests.test_safety_failure_enters_world_owned_incapacitation \
             tests.test_experience_godot.GodotExperienceTests.test_other_agent_discovers_incapacitation_only_inside_bounded_view \

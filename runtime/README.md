@@ -54,6 +54,13 @@ owns opt-in immutable replay. The resulting candidate is a local shadow object;
 it has no decision, `E`, `H`, `theta_eff`, `M_delta`, canonical `M_B`, or T1
 authority.
 
+`python -m runtime.bridge --sleep-consolidation` enables the opt-in
+[S4 vertical](../docs/experiment-contracts/SLEEP_consolidation_vertical_contract.md).
+An explicit Godot cycle freezes the daytime S1 window before Sleep transit,
+then a correlated safe Sleep result runs S2/S3 and exposes the shadow through
+`GET /v1/sleep-consolidation-snapshot`. Default Sleep still performs body
+recovery only and reports `consolidation=not_run`.
+
 Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. Diagnostic H is available per comparison and as retained residuals per exact context/frozen model.
 
 This is the minimal Python-side runtime boundary for the Godot workbench.

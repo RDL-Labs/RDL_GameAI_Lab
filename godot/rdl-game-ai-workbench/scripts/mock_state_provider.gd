@@ -141,6 +141,8 @@ var food_actions_enabled = true
 var rest_actions_enabled = false
 var sleep_actions_enabled = false
 var sleep_window_enabled = false
+var sleep_consolidation_enabled = false
+var sleep_consolidation_cycle_id = ""
 var active_energy_enabled = false
 var energy_reserve_enabled = false
 var safety_actions_enabled = false
@@ -396,6 +398,8 @@ func get_body_snapshot(agent_id):
 	if sleep_actions_enabled:
 		snapshot["sleep_actions_enabled"] = true
 		snapshot["sleep_window"] = sleep_window_enabled
+	if sleep_consolidation_enabled:
+		snapshot["sleep_consolidation_cycle"] = sleep_consolidation_cycle_id
 	if active_energy_enabled:
 		snapshot["active_energy"] = body["active_energy"]
 		snapshot["active_energy_capacity"] = body["active_energy_capacity"]
@@ -663,6 +667,12 @@ func set_sleep_actions_enabled(enabled):
 func set_sleep_window(enabled):
 	sleep_window_enabled = bool(enabled)
 
+func set_sleep_consolidation_enabled(enabled):
+	sleep_consolidation_enabled = bool(enabled)
+	sleep_consolidation_cycle_id = (
+		"sleep-cycle-%06d" % tick if sleep_consolidation_enabled else ""
+	)
+
 func get_interaction_result(resolution):
 	if resolution.get("action_type", "") != "approach":
 		return {}
@@ -698,6 +708,26 @@ func get_life_result(decision, resolution):
 		"cue_id": cue.get("cue_id", ""),
 		"response": life.get("cue_response", ""),
 		"outcome": "replenish_success"
+	}
+
+func get_sleep_result(_decision, resolution):
+	if not sleep_consolidation_enabled:
+		return {}
+	if resolution.get("action_type", "") != "sleep":
+		return {}
+	var effects = resolution.get("effects", {})
+	if effects.get("sleep_kind", "") != "bounded_sleep":
+		return {}
+	var source_observation_id = resolution.get("source_observation_id", "")
+	return {
+		"result_id": "sleep-%s" % source_observation_id,
+		"agent_id": resolution.get("agent_id", ""),
+		"source_observation_id": source_observation_id,
+		"subsequent_observation_id": resolution.get("subsequent_observation_id", ""),
+		"target_id": resolution.get("target_id", ""),
+		"tick": resolution.get("tick", -1),
+		"sleep_cycle": sleep_consolidation_cycle_id,
+		"outcome": "bounded_sleep_completed"
 	}
 
 func _update_mock_positions():
@@ -1022,7 +1052,8 @@ func _resolve_sleep(decision, target_id):
 	energy_effects.merge(_change_energy_reserve(agent_id, ENERGY_RESERVE_SLEEP_RECOVERY))
 	var subsequent_observation = get_observation(agent_id)
 	energy_effects.merge({"before_rest_need": before_need, "after_rest_need": body["rest_need"],
-		"sleep_kind": "bounded_sleep", "consolidation": "not_run"})
+		"sleep_kind": "bounded_sleep",
+		"consolidation": "report_pending" if sleep_consolidation_enabled else "not_run"})
 	return _record_resolution(
 		agent_id, "sleep", target_id, "bounded sleep completed; RestNeed decreased",
 		null, null, source_observation_id, subsequent_observation.get("observation_id", ""),

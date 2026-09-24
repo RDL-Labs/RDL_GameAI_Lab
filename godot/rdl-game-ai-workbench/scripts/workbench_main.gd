@@ -7,6 +7,7 @@ const TICK_SECONDS = 0.6
 const RUNTIME_URL = "http://127.0.0.1:8765/v1/observe"
 const RESULT_URL = "http://127.0.0.1:8765/v1/interaction-result"
 const LIFE_RESULT_URL = "http://127.0.0.1:8765/v1/life-result"
+const SLEEP_RESULT_URL = "http://127.0.0.1:8765/v1/sleep-result"
 
 var state_provider = MockStateProviderScript.new()
 var is_running = false
@@ -335,6 +336,7 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 		runtime_resolutions_by_agent[runtime_request_agent_id] = runtime_resolution.duplicate(true)
 	var interaction_result = state_provider.get_interaction_result(runtime_resolution)
 	var life_result = state_provider.get_life_result(runtime_decision, runtime_resolution)
+	var sleep_result = state_provider.get_sleep_result(runtime_decision, runtime_resolution)
 	history_status = ""
 	if not interaction_result.is_empty():
 		history_pending = true
@@ -350,6 +352,13 @@ func _on_runtime_request_completed(result, response_code, headers, body):
 		if error != OK:
 			history_pending = false
 			history_status = "life result failed: %d" % error
+	elif not sleep_result.is_empty():
+		history_pending = true
+		history_status = "Sleep consolidation pending"
+		var error = history_request.request(SLEEP_RESULT_URL, ["Content-Type: application/json"], HTTPClient.METHOD_POST, JSON.stringify(sleep_result))
+		if error != OK:
+			history_pending = false
+			history_status = "Sleep consolidation failed: %d" % error
 	_refresh_all()
 	if simulation_agents_enabled and not history_pending:
 		_request_next_simulation_agent.call_deferred()
