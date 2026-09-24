@@ -40,7 +40,8 @@ Phase 6B Relation Constraint Profile               COMPLETE
 Phase 6C Deep Similarity Shadow                    COMPLETE
 Phase 6D real Sleep consolidation vertical        COMPLETE
 Phase 7  Fast <-> Deep Experience Loop             AFTER PHASE 6
-Phase 8  Hunting                                   DEFERRED UNTIL PHASE 7
+Phase 8  Core sync / Dynamic M_B                   DEFERRED UNTIL PHASE 7
+Hunting                                            DEFERRED UNTIL CROSS-SURFACE ROADMAP REVIEW
 ```
 
 Sleepは内部Layerではなく横断更新イベントだが、本計画では実装優先順位を示すためPhase番号を使う。
@@ -227,7 +228,7 @@ Deep scoreをTruth confidenceとして利用
 sourceを失った圧縮relationの採用
 ```
 
-## 10. Phase 8 — Hunting再開条件
+## 10. Phase 8 — Core同期への移行条件
 
 1. 有限Sleep windowが固定されている。
 2. Deep comparisonが一つのsourced candidateを形成できる。
@@ -235,7 +236,7 @@ sourceを失った圧縮relationの採用
 4. raw History / candidate / canonical stateが分離されている。
 5. 実Godot/HTTP EvidenceとCIがある。
 
-Hunting開始後は、成功・逃走・反撃・負傷を同じ記憶循環へ入力する。
+条件成立後は横断ロードマップのC1へ進み、Core `3270982`のSILN、`theta_eff`、`H`、`M_delta`をGameAI契約へ翻訳する。HuntingはDynamic M_BとGodot再統合の進捗を確認するまで保留する。
 
 ## 11. 実装単位
 
