@@ -31,8 +31,8 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | S3 | Deep Similarity | Similarity Observationからcluster、shadow CandidateRelation | 観測 | 不要 | 完了 |
 | S4 | Sleep Vertical | 実Sleep完了からS1-S3接続 | 観測 | 統合確認済 | 完了 |
 | F1 | Fast Retrieval | 活動時L0/L1検索、top-k、Inspector出力 | 主観測面 | 後回し | 完了: action非介入で決定論的に再現可能 |
-| F2 | Fast-Deep Cycle | 前夜candidateを翌日のFast検索から再発見 | 主観測面 | 不要 | source chainを一周追跡可能 |
-| C1 | Core同期 | `3270982`のSILN、`theta_eff`、`H`、`M_delta`をGameAI契約へ翻訳 | 表示準備 | 不要 | authority境界固定 |
+| F2 | Fast-Deep Cycle | 前夜candidateを翌日のFast検索から再発見 | 主観測面 | 不要 | 完了: source chainを一周追跡可能 |
+| C1 | Core同期 | `3270982`のSILN、`theta_eff`、`H`、`M_delta`をGameAI契約へ翻訳 | 表示準備 | 不要 | 次: authority境界固定 |
 | C2 | Review Path | `RIB_B/RIB_B' -> F/F' -> E -> explicit review -> H` | 比較表示 | 不要 | H生成経路をcandidate系から分離 |
 | C3 | `theta_eff` | GameAI-localな実効保持境界を有限モデル化 | H/theta表示 | 不要 | `H < theta_eff`と`H >= theta_eff`を判定可能 |
 | C4 | `M_delta` | 破断時だけ再編相へ遷移 | 状態遷移表示 | 不要 | 通常更新と再編を分離 |
@@ -94,8 +94,9 @@ F1/F2は検索とprovenance確認までで停止し、action influenceを解禁�
 ```text
 S1-S4 COMPLETE
 F1 COMPLETE
-F2 NEXT
-C1-C4 PLANNED
+F2 COMPLETE
+C1 NEXT
+C2-C4 PLANNED
 T1-A..C PLANNED
 DMB PLANNED
 G1-G2 DEFERRED

@@ -14,6 +14,7 @@ class LineageView {
     const deep = data?.deep_similarity || null;
     const fastQueries = data?.fast_retrieval_snapshot?.queries || [];
     const latestFast = fastQueries.length ? fastQueries[fastQueries.length - 1] : null;
+    const recoveredSleep = latestFast?.results?.find(item => item.source_type === 'sleep_candidate') || null;
 
     const stages = [
       { title: 'RAW EXPERIENCE', value: records.length + ' records', detail: selectedExperienceId ? 'selected ' + selectedExperienceId.slice(0, 8) + '…' : 'immutable source', state: records.length ? 'ok' : 'missing' },
@@ -21,7 +22,7 @@ class LineageView {
       { title: 'S2 PROFILES', value: profiles.length ? profiles.length + ' profiles' : 'NOT EXPOSED', detail: selectedProfileId ? 'selected ' + selectedProfileId.slice(0, 8) + '…' : 'derived only', state: profiles.length ? 'ok' : 'missing' },
       { title: 'S3 SIMILARITY', value: deep?.similarity_observations ? deep.similarity_observations.length + ' observations' : 'CONTRACT ONLY', detail: 'no inference in viewer', state: deep ? 'ok' : 'pending' },
       { title: 'CLUSTER / CANDIDATE', value: deep?.candidate ? 'shadow candidate' : 'NONE PRESENT', detail: 'not Commitment / Truth', state: deep?.candidate ? 'ok' : 'pending' },
-      { title: 'F1 FAST RETRIEVAL', value: latestFast ? latestFast.status : 'NOT ENABLED', detail: latestFast ? (latestFast.results.length + ' / top-' + latestFast.top_k + ' · read only') : 'no query snapshot', state: latestFast ? 'ok' : 'pending' }
+      { title: 'F1/F2 FAST', value: latestFast ? latestFast.status : 'NOT ENABLED', detail: recoveredSleep ? ('sleep ' + recoveredSleep.source_id.slice(0, 6) + '… · ' + recoveredSleep.source_provenance.source_experience_ids.length + ' sources') : (latestFast ? latestFast.results.length + ' / top-' + latestFast.top_k : 'no query snapshot'), state: latestFast ? 'ok' : 'pending' }
     ];
 
     const startX = this.bounds.x + 24;

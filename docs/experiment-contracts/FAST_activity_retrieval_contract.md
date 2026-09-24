@@ -29,6 +29,9 @@ relation identity or Truth.
 - At most 32 catalog entries: the latest 29 raw Experience Profiles and at
   most three existing Sleep candidates.
 - At most three returned matches.
+- With `top_k >= 2`, retain the best eligible raw source and the best eligible
+  Sleep candidate before filling remaining slots by global rank. Scores are not
+  modified by this source-aware visibility rule.
 - L0 rejects zero-overlap entries before L1.
 - Raw Experience and Sleep candidate sources retain distinct `source_type` and
   provenance.

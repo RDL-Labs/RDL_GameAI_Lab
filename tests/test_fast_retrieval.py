@@ -42,7 +42,7 @@ class FastRetrievalTests(unittest.TestCase):
         self.sources = [{
             "source_type": "raw_experience", "source_id": profile["source_experience_id"],
             "profile": profile,
-        } for name, profile in self.profiles.items() if name in {"a", "b"}] + [{
+        } for name, profile in self.profiles.items() if name != "current"] + [{
             "source_type": "sleep_candidate", "source_id": self.candidate["candidate_id"],
             "candidate": self.candidate,
         }]
@@ -57,6 +57,7 @@ class FastRetrievalTests(unittest.TestCase):
         )
         self.assertTrue(all(item["l0"]["shared_relation_count"] > 0 for item in found["results"]))
         self.assertTrue(all("coverage" in item["l1"] for item in found["results"]))
+        self.assertEqual(found["selection_policy"], "best-per-source-type-then-global-rank-v1")
         self.assertEqual(found, build_fast_retrieval(
             self.profiles["current"], self.sources, query_tick=20
         ))

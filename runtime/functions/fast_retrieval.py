@@ -64,7 +64,7 @@ def build_fast_retrieval(current_profile: dict[str, Any], sources: list[dict[str
         -item["l0"]["jaccard"],
         item["source_type"], item["source_id"],
     ))
-    selected = ranked[:top_k]
+    selected = _source_aware_top_k(ranked, top_k)
     query_id = hashlib.sha256(json.dumps([
         FAST_RETRIEVAL_ID, current_id, query_tick, top_k,
         [(item["source_type"], item["source_id"]) for item in selected],
@@ -78,6 +78,7 @@ def build_fast_retrieval(current_profile: dict[str, Any], sources: list[dict[str
         "catalog_size": len(sources),
         "eligible_count": len(ranked),
         "top_k": top_k,
+        "selection_policy": "best-per-source-type-then-global-rank-v1",
         "results": selected,
         "evaluator": FAST_RETRIEVAL_ID,
         "authority": "GameAI-local-read-only-retrieval; not-candidate-generation-action-E-H-M_B-or-T1",
@@ -159,3 +160,24 @@ def _l1(current: list[dict[str, str]], source: list[dict[str, str]]) -> dict[str
 
 def _key(signature: dict[str, str]) -> str:
     return json.dumps(signature, sort_keys=True, separators=(",", ":"))
+
+
+def _source_aware_top_k(ranked: list[dict[str, Any]], top_k: int) -> list[dict[str, Any]]:
+    if top_k == 1:
+        return ranked[:1]
+    selected = []
+    selected_ids = set()
+    for source_type in ("raw_experience", "sleep_candidate"):
+        match = next((item for item in ranked if item["source_type"] == source_type), None)
+        if match is not None:
+            selected.append(match)
+            selected_ids.add((match["source_type"], match["source_id"]))
+    for item in ranked:
+        key = (item["source_type"], item["source_id"])
+        if len(selected) >= top_k:
+            break
+        if key not in selected_ids:
+            selected.append(item)
+            selected_ids.add(key)
+    rank = {(item["source_type"], item["source_id"]): index for index, item in enumerate(ranked)}
+    return sorted(selected, key=lambda item: rank[(item["source_type"], item["source_id"])])
