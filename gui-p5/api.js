@@ -92,7 +92,8 @@ class RDLWorkbenchAPI {
           endpoint_status: {},
           world_projection: 'fixture-only',
           sleep_projection: 'fixture-s1-s2',
-          deep_similarity: 'S3 contract frozen; implementation not represented'
+          deep_similarity: 'fixture S3 projection only',
+          fast_retrieval: 'F1 not represented in fixture'
         };
       }
       if (!this.cachedData || this.mockStep === 0) {
@@ -126,7 +127,9 @@ class RDLWorkbenchAPI {
       ['rescue', '/v1/rescue-snapshot'],
       ['rest', '/v1/rest-snapshot'],
       ['life', '/v1/life-snapshot'],
-      ['food_mb', '/v1/food-mb-shadow']
+      ['food_mb', '/v1/food-mb-shadow'],
+      ['sleep', '/v1/sleep-consolidation-snapshot'],
+      ['fast', '/v1/fast-retrieval-snapshot']
     ];
     const results = await Promise.all(specs.map(([name, path]) => this.fetchEndpoint(name, path)));
     const byName = Object.fromEntries(results.map(result => [result.name, result]));
@@ -136,6 +139,8 @@ class RDLWorkbenchAPI {
     ]));
     const okCount = results.filter(result => result.ok).length;
 
+    const sleepResults = byName.sleep.ok ? (byName.sleep.payload?.results || []) : [];
+    const latestSleep = sleepResults.length ? sleepResults[sleepResults.length - 1] : null;
     const data = {
       tick: Date.now(),
       agents: null,
@@ -146,15 +151,17 @@ class RDLWorkbenchAPI {
       rest_snapshot: byName.rest.ok ? byName.rest.payload : null,
       life_snapshot: byName.life.ok ? byName.life.payload : null,
       food_mb_snapshot: byName.food_mb.ok ? byName.food_mb.payload : null,
-      sleep_window: null,
-      relation_profiles: null,
-      deep_similarity: null,
+      sleep_window: latestSleep?.window || null,
+      relation_profiles: latestSleep?.relation_profiles || null,
+      deep_similarity: latestSleep?.deep_similarity || null,
+      fast_retrieval_snapshot: byName.fast.ok ? byName.fast.payload : null,
       _viewer_meta: {
         source: 'live',
         endpoint_status: endpointStatus,
         world_projection: 'not exposed by current Runtime bridge',
-        sleep_projection: 'S1/S2 snapshots not exposed by current Runtime bridge',
-        deep_similarity: 'S3 implementation not exposed'
+        sleep_projection: latestSleep ? 'S1-S4 live snapshot' : 'no completed Sleep consolidation',
+        deep_similarity: latestSleep?.deep_similarity ? 'S3 live shadow' : 'not available',
+        fast_retrieval: byName.fast.ok ? 'F1 live read-only snapshot' : 'not enabled'
       }
     };
 

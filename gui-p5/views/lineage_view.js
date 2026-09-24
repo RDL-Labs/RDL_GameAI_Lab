@@ -12,19 +12,22 @@ class LineageView {
     const win = data?.sleep_window;
     const profiles = data?.relation_profiles?.profiles || [];
     const deep = data?.deep_similarity || null;
+    const fastQueries = data?.fast_retrieval_snapshot?.queries || [];
+    const latestFast = fastQueries.length ? fastQueries[fastQueries.length - 1] : null;
 
     const stages = [
       { title: 'RAW EXPERIENCE', value: records.length + ' records', detail: selectedExperienceId ? 'selected ' + selectedExperienceId.slice(0, 8) + '…' : 'immutable source', state: records.length ? 'ok' : 'missing' },
       { title: 'S1 WINDOW', value: win ? win.status : 'NOT EXPOSED', detail: win ? (win.source_count + ' sourced') : 'no viewer snapshot', state: win ? (win.status === 'READY' ? 'ok' : 'warn') : 'missing' },
       { title: 'S2 PROFILES', value: profiles.length ? profiles.length + ' profiles' : 'NOT EXPOSED', detail: selectedProfileId ? 'selected ' + selectedProfileId.slice(0, 8) + '…' : 'derived only', state: profiles.length ? 'ok' : 'missing' },
       { title: 'S3 SIMILARITY', value: deep?.similarity_observations ? deep.similarity_observations.length + ' observations' : 'CONTRACT ONLY', detail: 'no inference in viewer', state: deep ? 'ok' : 'pending' },
-      { title: 'CLUSTER / CANDIDATE', value: deep?.candidate ? 'shadow candidate' : 'NONE PRESENT', detail: 'not Commitment / Truth', state: deep?.candidate ? 'ok' : 'pending' }
+      { title: 'CLUSTER / CANDIDATE', value: deep?.candidate ? 'shadow candidate' : 'NONE PRESENT', detail: 'not Commitment / Truth', state: deep?.candidate ? 'ok' : 'pending' },
+      { title: 'F1 FAST RETRIEVAL', value: latestFast ? latestFast.status : 'NOT ENABLED', detail: latestFast ? (latestFast.results.length + ' / top-' + latestFast.top_k + ' · read only') : 'no query snapshot', state: latestFast ? 'ok' : 'pending' }
     ];
 
     const startX = this.bounds.x + 24;
     const y = this.bounds.y + 50;
     const gap = 16;
-    const boxW = Math.floor((this.bounds.w - 48 - gap * 4) / 5);
+    const boxW = Math.floor((this.bounds.w - 48 - gap * (stages.length - 1)) / stages.length);
     const boxH = 92;
     for (let i = 0; i < stages.length; i++) {
       const stage = stages[i];

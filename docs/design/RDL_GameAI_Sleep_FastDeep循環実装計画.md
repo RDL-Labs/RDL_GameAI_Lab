@@ -39,7 +39,8 @@ Phase 6A finite Sleep window                       COMPLETE
 Phase 6B Relation Constraint Profile               COMPLETE
 Phase 6C Deep Similarity Shadow                    COMPLETE
 Phase 6D real Sleep consolidation vertical        COMPLETE
-Phase 7  Fast <-> Deep Experience Loop             AFTER PHASE 6
+Phase 7A Activity Fast Retrieval                   COMPLETE
+Phase 7B Fast <-> Deep one-cycle Evidence          NEXT
 Phase 8  Core sync / Dynamic M_B                   DEFERRED UNTIL PHASE 7
 Hunting                                            DEFERRED UNTIL CROSS-SURFACE ROADMAP REVIEW
 ```
@@ -246,8 +247,8 @@ sourceを失った圧縮relationの採用
 | S2 | Experience -> relation profile compiler | COMPLETE: provenance付き有限Profile |
 | S3 | Deep comparator + one cluster/candidate | COMPLETE: shadow only、canonical非介入 |
 | S4 | real Sleep consolidation vertical | COMPLETE: fixed daytime windowから実Sleep経由candidate |
-| F1 | Activity Fast L0/L1 retrieval | NEXT: Inspector only |
-| F2 | Fast / Deep one-cycle Evidence | day 2でsource chain回収 |
+| F1 | Activity Fast L0/L1 retrieval | COMPLETE: top-3、source type分離、p5 read-only表示 |
+| F2 | Fast / Deep one-cycle Evidence | NEXT: day 2でsource chain回収 |
 | F3 | reviewed local influence | 別途review後のみ |
 
 各PRで全テストを通し、段階を跨いだ先行実装を行わない。

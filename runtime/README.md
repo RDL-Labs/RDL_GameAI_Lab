@@ -61,6 +61,13 @@ then a correlated safe Sleep result runs S2/S3 and exposes the shadow through
 `GET /v1/sleep-consolidation-snapshot`. Default Sleep still performs body
 recovery only and reports `consolidation=not_run`.
 
+`python -m runtime.bridge --fast-retrieval` enables the opt-in
+[F1 Activity Fast Retrieval](../docs/experiment-contracts/FAST_activity_retrieval_contract.md).
+Each accepted approach result derives a current Profile, performs bounded L0
+signature overlap and L1 comparison against typed raw/Sleep sources, and stores
+at most three matches. `GET /v1/fast-retrieval-snapshot` is read-only; the
+result cannot change an action or form a new candidate.
+
 Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. Diagnostic H is available per comparison and as retained residuals per exact context/frozen model.
 
 This is the minimal Python-side runtime boundary for the Godot workbench.

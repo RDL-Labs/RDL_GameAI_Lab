@@ -28,7 +28,7 @@ def build_relation_profiles(window: dict[str, Any],
             raise ExperienceProfileError("Sleep window source Experience disappeared")
         if record.get("agent_id") != agent_id:
             raise ExperienceProfileError("Sleep window source agent identity changed")
-        profiles.append(_profile_for_record(record))
+        profiles.append(build_experience_profile(record))
 
     all_relations = [relation for profile in profiles for relation in profile["relations"]]
     validate_relation_sources(all_relations, set(source_ids))
@@ -46,7 +46,8 @@ def build_relation_profiles(window: dict[str, Any],
     }
 
 
-def _profile_for_record(record: dict[str, Any]) -> dict[str, Any]:
+def build_experience_profile(record: dict[str, Any]) -> dict[str, Any]:
+    """Build one derived Profile for an already admitted Experience record."""
     source_id = record["record_id"]
     action = record.get("action")
     context = record.get("context")

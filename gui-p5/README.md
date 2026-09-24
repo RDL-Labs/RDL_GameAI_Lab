@@ -16,14 +16,14 @@ No Decision Authority; No Mutation Authority
 - **Live Mode**: ランタイム（`127.0.0.1:8765`）から取得したスナップショットをそのまま射影・描画します。Playback（Run/Step/Reset）は明示的に無効化され、過剰リクエストを防ぐため2秒（2000ms）間隔で静かにポーリングします。
 - **Fixture Mode**: オフラインでUI挙動・画面遷移を検証するためのローカル簡易再生（Toy Playback）です。生成される疑似状態はデモ用であり、RDL正規の知能決定や推論結果ではありません。
 
-Live mode では Runtime が公開していない値を GUI 側で補完しません。特に現行 Runtime bridge は world position、Sleep S1 window、S2 Profile、S3 Deep Similarity を GET endpoint として公開していないため、それらは `NOT EXPOSED` と表示します。
+Live mode では Runtime が公開していない値を GUI 側で補完しません。world positionは引き続き未公開です。`--sleep-consolidation --fast-retrieval`利用時は、Runtimeが公開するS1-S4とF1 snapshotだけを表示します。
 
 ## 起動
 
 Live Runtime と同時に使う場合は同梱の read-only proxy を使います。
 
 ```bash
-python -m runtime.bridge
+python -m runtime.bridge --sleep-consolidation --fast-retrieval
 python gui-p5/serve.py
 ```
 
@@ -36,13 +36,13 @@ Fixtureだけを見る場合も `python gui-p5/serve.py` で起動できます�
 - **World View**: Fixture の有限空間投影。Liveで位置が未公開なら捏造せず未接続表示。
 - **Agent / Source Inspector**: Agent表示に加え、Live GET endpointごとの取得可否を表示。
 - **Sleep Memory**: S1 finite window と S2 Relation Profile。Profileカードを選択すると relation の predicate/object/polarity/strength を表示。
-- **Provenance Lineage**: Raw Experience → S1 Window → S2 Profile → S3 Similarity → Cluster/Candidate を別オブジェクトとして表示。未実装段階は `CONTRACT ONLY` / `NONE PRESENT`。
+- **Provenance Lineage**: Raw Experience → S1 Window → S2 Profile → S3 Similarity → Cluster/Candidate → F1 Fast Retrieval を別オブジェクトとして表示。
 - **Raw Experience Timeline**: Experienceをクリックして、S1/S2へsource chainを追跡。
 
 ## Live GET
 
-Viewer は現行 bridge から `/health`, `/v1/experience-snapshot`, `/v1/canonical-snapshot`, `/v1/rescue-snapshot`, `/v1/rest-snapshot`, `/v1/life-snapshot`, `/v1/food-mb-shadow` を read-only 取得します。無効化されたopt-in policyの404は正常な「未公開/未有効」状態として表示します。
+Viewer は現行 bridgeから既存endpointに加え、`/v1/sleep-consolidation-snapshot`と`/v1/fast-retrieval-snapshot`をread-only取得します。無効化されたopt-in policyの404は正常な「未公開/未有効」状態として表示します。
 
-## S3以降
+## F1以降
 
-`deep_similarity` snapshot が将来提供された場合に Lineage View へ差し込める構造にしてあります。GUI側で Similarity、Cluster、Candidate を生成することはありません。
+GUI側でSimilarity、Cluster、Candidate、Fast queryを生成することはありません。今後のCore同期表示もRuntimeのread-only snapshotだけを射影します。

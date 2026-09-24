@@ -26,6 +26,8 @@ from .food_safety_policy import FoodSafetyCoordinator
 from .food_rest_policy import FoodRestCoordinator
 from .rescue_policy import RescueTrajectoryPolicy
 from .sleep_consolidation import SleepConsolidationCoordinator
+from .functions.experience_profile import build_experience_profile
+from .mechanisms.fast_retrieval import FastRetrievalStore
 from .v23_food_admission import (
     FoodAdmissionError,
     FoodNeedShadowComparisonSidecar,
@@ -44,6 +46,15 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/fast-retrieval-snapshot":
+            store = getattr(self.server, "fast_retrieval", None)
+            if store is None:
+                self._send_json(404, {"error": "fast_retrieval_disabled"})
+                return
+            with CANONICAL_LOCK:
+                snapshot = store.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/v1/sleep-consolidation-snapshot":
             coordinator = getattr(self.server, "sleep_consolidation", None)
             if coordinator is None:
@@ -141,6 +152,16 @@ class BridgeHandler(BaseHTTPRequestHandler):
                 payload = self._read_json()
                 with CANONICAL_LOCK:
                     record = EXPERIENCE.record_result(payload)
+                    fast_retrieval = getattr(self.server, "fast_retrieval", None)
+                    if fast_retrieval:
+                        history = EXPERIENCE.snapshot()
+                        current_profile = build_experience_profile(record)
+                        sources = _fast_sources(
+                            history, getattr(self.server, "sleep_consolidation", None)
+                        )
+                        fast_retrieval.retrieve(
+                            current_profile, sources, query_tick=record["tick"], enabled=True
+                        )
             except (ValueError, ObservationError) as exc:
                 self._send_json(422, {"error": "invalid_interaction_result", "detail": str(exc)})
                 return
@@ -270,6 +291,7 @@ def run(
     food_rest_life: bool = False,
     rescue_trajectory: bool = False,
     sleep_consolidation: bool = False,
+    fast_retrieval: bool = False,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -318,6 +340,7 @@ def run(
     server.sleep_consolidation = (
         SleepConsolidationCoordinator() if sleep_consolidation else None
     )
+    server.fast_retrieval = FastRetrievalStore() if fast_retrieval else None
     server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_rest_policy = server.life_policy if food_rest_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
@@ -359,6 +382,8 @@ def main() -> None:
                         help="Enable finite bounded Rescue approach trajectory")
     parser.add_argument("--sleep-consolidation", action="store_true",
                         help="Enable opt-in S4 Sleep consolidation shadow reporting")
+    parser.add_argument("--fast-retrieval", action="store_true",
+                        help="Enable opt-in F1 Activity Fast retrieval snapshots")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -398,7 +423,26 @@ def main() -> None:
         args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles,
         args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory,
         args.food_safety_life, args.food_rest_life, args.rescue_trajectory,
-        args.sleep_consolidation)
+        args.sleep_consolidation, args.fast_retrieval)
+
+
+def _fast_sources(history_snapshot: dict[str, Any], sleep_consolidation) -> list[dict[str, Any]]:
+    records = history_snapshot["records"][-29:]
+    sources = [{
+        "source_type": "raw_experience",
+        "source_id": record["record_id"],
+        "profile": build_experience_profile(record),
+    } for record in records]
+    if sleep_consolidation is not None:
+        for result in sleep_consolidation.snapshot()["results"][-3:]:
+            candidate = result.get("candidate")
+            if candidate is not None:
+                sources.append({
+                    "source_type": "sleep_candidate",
+                    "source_id": candidate["candidate_id"],
+                    "candidate": candidate,
+                })
+    return sources
 
 
 if __name__ == "__main__":
