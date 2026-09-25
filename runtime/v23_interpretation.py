@@ -17,6 +17,7 @@ from .review_path import build_review_path_snapshot
 from .theta_effective import FiniteThetaEffectiveEvaluator, build_theta_effective_snapshot
 from .m_delta import FiniteMDeltaStateMachine
 from .t1_material_expansion import T1MaterialExpansionStore, T1MaterialExpansionError
+from .t1_material_selection import T1MaterialSelectionLedger
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -273,6 +274,7 @@ class GameAIFrozenComparisonSidecar:
         self.theta_evaluator = theta_evaluator or FiniteThetaEffectiveEvaluator()
         self.m_delta = FiniteMDeltaStateMachine()
         self.t1_materials = T1MaterialExpansionStore()
+        self.t1_selection = T1MaterialSelectionLedger()
 
     def review_assessment(self, payload: Mapping[str, Any]) -> dict[str, Any]:
         """Commit explicit review, then evaluate and apply the C3/C4 boundary once."""
@@ -308,6 +310,14 @@ class GameAIFrozenComparisonSidecar:
         return self.t1_materials.expand(
             m_delta_state=states[0], model=models[path["model_ref"]], review_path=path,
             candidates=candidates, experiences=experiences,
+        )
+
+    def inspect_t1_materials(self, *, bundle_id: str,
+                             payload: Mapping[str, Any]) -> dict[str, Any] | None:
+        """Apply one explicit, complete T1-B review to a frozen T1-A bundle."""
+
+        return self.t1_selection.inspect(
+            self.t1_materials.bundle(bundle_id), dict(payload)
         )
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
@@ -393,7 +403,8 @@ class GameAIFrozenComparisonSidecar:
             "theta_effective": build_theta_effective_snapshot(review_path, self.theta_evaluator),
             "M_delta": self.m_delta.snapshot(),
             "T1_materials": self.t1_materials.snapshot(),
-            "not_implemented": ["time-decay", "T1-selection", "T1-reconstruction",
+            "T1_selection": self.t1_selection.snapshot(),
+            "not_implemented": ["time-decay", "T1-reconstruction",
                                 "authority-cutover"],
             "xi_status": XI_STATUS,
         }

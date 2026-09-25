@@ -67,6 +67,10 @@ class InspectorView {
       const bundles = data?.t1_material_snapshot?.bundles || [];
       const bundle = bundles.length ? bundles[bundles.length - 1] : null;
       row('T1-A bundle', bundle ? bundle.material_count + ' materials' : 'none');
+      const selections = data?.t1_selection_snapshot?.records || [];
+      const selection = selections.length ? selections[selections.length - 1] : null;
+      row('T1-B select', selection ?
+        `R${selection.counts.RETAIN} J${selection.counts.REJECT} D${selection.counts.DEFER}` : 'none');
     } else {
       row('status', 'not available');
     }

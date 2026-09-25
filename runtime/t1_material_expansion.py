@@ -103,6 +103,11 @@ class T1MaterialExpansionStore:
                                 "reconstruction", "M_B_prime", "re_entry", "action_authority"],
         }
 
+    def bundle(self, bundle_id: str) -> dict[str, Any]:
+        if not isinstance(bundle_id, str) or bundle_id not in self._bundles:
+            raise T1MaterialExpansionError("unknown T1 material bundle")
+        return deepcopy(self._bundles[bundle_id][1])
+
 
 def _validate_canonical_sources(state: dict[str, Any], model: dict[str, Any],
                                 path: dict[str, Any]) -> tuple[str, str]:

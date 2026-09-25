@@ -82,7 +82,12 @@ is retained until future explicit T1 resolution.
 T1-A can explicitly freeze an immutable material bundle for an active
 `M_delta`: current frozen `M_B`, the RIB pair, transition-time unresolved
 residual, and bounded same-agent candidates/Experience. Every item remains
-`UNINSPECTED`; T1-B selection and T1-C reconstruction are absent.
+`UNINSPECTED`; T1-A自身はselectionを持たず、T1-C reconstructionも行わない。
+
+T1-B accepts a complete explicit review of one immutable bundle and records
+`RETAIN`, `REJECT`, or `DEFER` with per-material basis/evidence and a revision
+guard. `RETAIN` is not adoption: the bundle and old `M_B` remain unchanged, and
+T1-C reconstruction is still absent.
 Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
 the latest explicit review revision and H. Local Experience, Sleep candidates,
 and Fast retrieval are excluded from this projection.

@@ -151,6 +151,7 @@ class RDLWorkbenchAPI {
       theta_effective_snapshot: byName.canonical.ok ? byName.canonical.payload?.theta_effective : null,
       m_delta_snapshot: byName.canonical.ok ? byName.canonical.payload?.M_delta : null,
       t1_material_snapshot: byName.canonical.ok ? byName.canonical.payload?.T1_materials : null,
+      t1_selection_snapshot: byName.canonical.ok ? byName.canonical.payload?.T1_selection : null,
       rescue_snapshot: byName.rescue.ok ? byName.rescue.payload : null,
       rest_snapshot: byName.rest.ok ? byName.rest.payload : null,
       life_snapshot: byName.life.ok ? byName.life.payload : null,
