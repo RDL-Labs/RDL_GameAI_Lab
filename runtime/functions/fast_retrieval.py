@@ -24,14 +24,16 @@ def build_fast_retrieval(current_profile: dict[str, Any], sources: list[dict[str
         raise FastRetrievalError("query_tick must be a non-negative integer")
     if type(top_k) is not int or not 1 <= top_k <= MAX_TOP_K:
         raise FastRetrievalError("top_k must be between one and three")
-    current_id, current_signatures = _profile_signatures(current_profile)
+    current_id, current_agent_id, current_signatures = _profile_signatures(current_profile)
     if not isinstance(sources, list) or len(sources) > MAX_SOURCES:
         raise FastRetrievalError("Fast source catalog must contain at most 32 entries")
 
     ranked = []
     seen = set()
     for source in sources:
-        source_type, source_id, signatures, provenance = _source_signatures(source)
+        source_type, source_id, source_agent_id, signatures, provenance = _source_signatures(source)
+        if source_agent_id != current_agent_id:
+            raise FastRetrievalError("Fast source belongs to a different agent")
         key = (source_type, source_id)
         if key in seen:
             raise FastRetrievalError("duplicate Fast source identity")
@@ -85,22 +87,25 @@ def build_fast_retrieval(current_profile: dict[str, Any], sources: list[dict[str
     }
 
 
-def _profile_signatures(profile: dict[str, Any]) -> tuple[str, list[dict[str, str]]]:
+def _profile_signatures(profile: dict[str, Any]) -> tuple[str, str, list[dict[str, str]]]:
     if not isinstance(profile, dict):
         raise FastRetrievalError("current Profile must be an object")
     profile_id = profile.get("profile_id")
     source_id = profile.get("source_experience_id")
+    agent_id = profile.get("agent_id")
     relations = profile.get("relations")
     if not isinstance(profile_id, str) or not profile_id:
         raise FastRetrievalError("Profile ID must be non-empty")
     if not isinstance(source_id, str) or not source_id:
         raise FastRetrievalError("Profile source Experience must be non-empty")
+    if not isinstance(agent_id, str) or not agent_id:
+        raise FastRetrievalError("Profile agent_id must be non-empty")
     if not isinstance(relations, list) or not relations:
         raise FastRetrievalError("Profile relations must be a non-empty list")
-    return profile_id, [relation_signature(item) for item in relations]
+    return profile_id, agent_id, [relation_signature(item) for item in relations]
 
 
-def _source_signatures(source: dict[str, Any]) -> tuple[str, str, list, dict]:
+def _source_signatures(source: dict[str, Any]) -> tuple[str, str, str, list, dict]:
     if not isinstance(source, dict):
         raise FastRetrievalError("Fast source must be an object")
     source_type = source.get("source_type")
@@ -111,7 +116,7 @@ def _source_signatures(source: dict[str, Any]) -> tuple[str, str, list, dict]:
         raise FastRetrievalError("Fast source ID must be non-empty")
     if source_type == "raw_experience":
         profile = source.get("profile")
-        _, signatures = _profile_signatures(profile)
+        _, agent_id, signatures = _profile_signatures(profile)
         if profile["source_experience_id"] != source_id:
             raise FastRetrievalError("raw source identity differs from Profile provenance")
         provenance = {"source_experience_ids": [source_id]}
@@ -120,6 +125,9 @@ def _source_signatures(source: dict[str, Any]) -> tuple[str, str, list, dict]:
         if not isinstance(candidate, dict) or candidate.get("candidate_id") != source_id:
             raise FastRetrievalError("sleep candidate identity is incomplete")
         signatures = [relation_signature(candidate.get("common_relation_signature"))]
+        agent_id = candidate.get("agent_id")
+        if not isinstance(agent_id, str) or not agent_id:
+            raise FastRetrievalError("sleep candidate agent_id is incomplete")
         provenance = {
             "candidate_id": source_id,
             "sleep_cycle": candidate.get("sleep_cycle"),
@@ -127,7 +135,8 @@ def _source_signatures(source: dict[str, Any]) -> tuple[str, str, list, dict]:
         }
         if not isinstance(provenance["source_experience_ids"], list) or not provenance["source_experience_ids"]:
             raise FastRetrievalError("sleep candidate provenance is incomplete")
-    return source_type, source_id, signatures, provenance
+    provenance["agent_id"] = agent_id
+    return source_type, source_id, agent_id, signatures, provenance
 
 
 def _shared(left: list[dict[str, str]], right: list[dict[str, str]]) -> list[dict[str, str]]:

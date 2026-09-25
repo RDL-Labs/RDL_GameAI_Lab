@@ -97,6 +97,7 @@ def build_experience_profile(record: dict[str, Any]) -> dict[str, Any]:
     ).hexdigest()
     return {
         "profile_id": profile_id,
+        "agent_id": record["agent_id"],
         "source_experience_id": source_id,
         "relations": relations,
         "authority": "derived-comparison-profile-only",

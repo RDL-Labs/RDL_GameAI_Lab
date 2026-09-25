@@ -61,6 +61,7 @@ def build_deep_similarity_shadow(window: dict[str, Any],
             candidate_id = _stable_id("candidate", cluster_id, selected, source_ids)
             candidate = {
                 "candidate_id": candidate_id,
+                "agent_id": window["agent_id"],
                 "schema_version": DEEP_FUNCTION_ID,
                 "cluster_id": cluster_id,
                 "window_id": window["window_id"],

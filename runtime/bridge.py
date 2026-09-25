@@ -157,7 +157,8 @@ class BridgeHandler(BaseHTTPRequestHandler):
                         history = EXPERIENCE.snapshot()
                         current_profile = build_experience_profile(record)
                         sources = _fast_sources(
-                            history, getattr(self.server, "sleep_consolidation", None)
+                            history, getattr(self.server, "sleep_consolidation", None),
+                            record["agent_id"],
                         )
                         fast_retrieval.retrieve(
                             current_profile, sources, query_tick=record["tick"], enabled=True
@@ -426,8 +427,10 @@ def main() -> None:
         args.sleep_consolidation, args.fast_retrieval)
 
 
-def _fast_sources(history_snapshot: dict[str, Any], sleep_consolidation) -> list[dict[str, Any]]:
-    records = history_snapshot["records"][-29:]
+def _fast_sources(history_snapshot: dict[str, Any], sleep_consolidation,
+                  agent_id: str) -> list[dict[str, Any]]:
+    records = [record for record in history_snapshot["records"]
+               if record.get("agent_id") == agent_id][-29:]
     sources = [{
         "source_type": "raw_experience",
         "source_id": record["record_id"],
@@ -436,7 +439,7 @@ def _fast_sources(history_snapshot: dict[str, Any], sleep_consolidation) -> list
     if sleep_consolidation is not None:
         for result in sleep_consolidation.snapshot()["results"][-3:]:
             candidate = result.get("candidate")
-            if candidate is not None:
+            if candidate is not None and candidate.get("agent_id") == agent_id:
                 sources.append({
                     "source_type": "sleep_candidate",
                     "source_id": candidate["candidate_id"],

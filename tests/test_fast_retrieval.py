@@ -70,6 +70,12 @@ class FastRetrievalTests(unittest.TestCase):
         raw = next(item for item in found["results"] if item["source_type"] == "raw_experience")
         self.assertGreater(raw["l0"]["shared_relation_count"], 0)
 
+    def test_cross_agent_sources_are_rejected(self):
+        foreign = copy.deepcopy(self.sources[0])
+        foreign["profile"]["agent_id"] = "npc_b"
+        with self.assertRaisesRegex(FastRetrievalError, "different agent"):
+            build_fast_retrieval(self.profiles["current"], [foreign], query_tick=20)
+
     def test_retrieval_does_not_change_sources_or_form_candidate_or_action(self):
         current_before = copy.deepcopy(self.profiles["current"])
         sources_before = copy.deepcopy(self.sources)
