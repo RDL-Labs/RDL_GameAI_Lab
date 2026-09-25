@@ -21,6 +21,7 @@ from runtime.food_safety_policy import FoodSafetyCoordinator
 from runtime.food_rest_policy import FoodRestCoordinator
 from runtime.rescue_policy import RescueTrajectoryPolicy
 from runtime.sleep_consolidation import SleepConsolidationCoordinator
+from runtime.long_life_policy import FoodSafetySleepCoordinator
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
@@ -65,6 +66,120 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_long_life_crosses_sleep_dynamic_mb_and_next_day_autonomy(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        sleep = SleepConsolidationCoordinator()
+        life = FoodSafetySleepCoordinator()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(
+            bridge, "CANONICAL_SIDECAR", canonical
+        ):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.life_policy = life
+            server.sleep_consolidation = sleep
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            godot_result = {}
+            godot_thread = None
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+                def run_godot():
+                    godot_result["completed"] = subprocess.run(
+                        [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                         "--script", "res://tests/long_life_dynamic_mb_http_check.gd"],
+                        capture_output=True, text=True, timeout=90,
+                        env=os.environ.copy(),
+                        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                    )
+
+                godot_thread = threading.Thread(target=run_godot)
+                godot_thread.start()
+                deadline = time.monotonic() + 45
+                while not sleep.snapshot()["results"]:
+                    if "completed" in godot_result:
+                        completed = godot_result["completed"]
+                        self.fail(
+                            "long-life Godot exited before Sleep: "
+                            + completed.stdout + completed.stderr
+                        )
+                    if time.monotonic() >= deadline:
+                        self.fail(
+                            "long-life Godot did not produce Sleep consolidation:\n"
+                            f"history={len(history.snapshot()['records'])} "
+                            f"modes={life.snapshot()['mode_records'][-5:]} "
+                            f"food={life.food_safety.food.snapshot()} "
+                            f"sleep={sleep.snapshot()}"
+                        )
+                    time.sleep(0.05)
+
+                candidate = sleep.snapshot()["results"][0]["candidate"]
+                self.assertIsNotNone(candidate)
+                with bridge.CANONICAL_LOCK:
+                    snapshot = canonical.snapshot()
+                    pending = [item for item in snapshot["assessment"]["records"]
+                               if not item["reviewed"] and any(item["E"]["deltas"].values())]
+                    self.assertTrue(pending)
+                    assessment = pending[-1]
+                    dimensions = {
+                        name: ({"status": "unresolved", "residual": abs(delta)}
+                               if delta else {"status": "zero"})
+                        for name, delta in assessment["E"]["deltas"].items()
+                    }
+                    canonical.review_assessment({
+                        "assessment_id": assessment["assessment_id"],
+                        "expected_revision": 0,
+                        "reviewer": "g2-long-life",
+                        "basis": "explicit finite review after day-one embodied life",
+                        "evidence": "day-one Food Safety and Sleep world observations",
+                        "dimensions": dimensions,
+                    })
+                    bundle = canonical.expand_t1_materials(
+                        assessment_id=assessment["assessment_id"],
+                        candidates=[candidate], experiences=history.snapshot()["records"][-32:],
+                    )
+                    dispositions = {
+                        "current_M_B": "RETAIN", "CandidateRelation": "RETAIN",
+                        "Experience": "DEFER", "RIB_B": "RETAIN",
+                        "RIB_B_prime": "RETAIN", "unresolved_residual": "DEFER",
+                    }
+                    canonical.inspect_t1_materials(bundle_id=bundle["bundle_id"], payload={
+                        "expected_revision": 0, "reviewer": "g2-long-life",
+                        "materials": [{
+                            "material_id": item["material_id"],
+                            "disposition": dispositions[item["kind"]],
+                            "basis": "finite G2 material inspection",
+                            "evidence": item["source_id"],
+                        } for item in bundle["materials"]],
+                    })
+                    artifact = canonical.reconstruct_t1(bundle_id=bundle["bundle_id"])
+                    canonical.cutover_reentry(
+                        artifact_id=artifact["artifact_id"],
+                        expected_active_model_ref=artifact["parent_model_ref"],
+                        operator="g2-long-life",
+                        basis="explicit day-boundary finite model activation",
+                        evidence=artifact["artifact_id"],
+                    )
+
+                godot_thread.join(timeout=45)
+                self.assertFalse(godot_thread.is_alive(), "long-life Godot did not finish day two")
+                completed = godot_result["completed"]
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Long-life Dynamic M_B check passed", output)
+                final = canonical.snapshot()
+                self.assertEqual(final["M_delta"]["active_count"], 0)
+                self.assertEqual(final["M_delta"]["states"][-1]["phase"], "REENTERED")
+                self.assertEqual(len(life.food_safety.food.snapshot()["results"]), 2)
+                self.assertIn("npc_b", life.food_safety.food.snapshot()["habit_ready_agents"])
+                self.assertIn("SLEEP", {item["mode"] for item in life.snapshot()["mode_records"]})
+                self.assertIn("FOOD_SAFETY", {item["mode"] for item in life.snapshot()["mode_records"]})
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_dynamic_mb_reintegrates_real_godot_world_observations(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()

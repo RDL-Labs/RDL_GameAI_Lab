@@ -65,7 +65,8 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [Dynamic M_B Inactive Cycle](docs/experiment-contracts/DYNAMIC_MB_inactive_cycle_contract.md)ではExperience/candidate系とcanonical rupture系をT1-Aでのみ明示合流し、inactive `M_B'`まで一本のprovenanceを固定した。ExperienceがHを生成したとは扱わず、DMB-Bへ明示入力する。
 - [Dynamic M_B Cutover / Re-entry](docs/experiment-contracts/DYNAMIC_MB_cutover_reentry_contract.md)ではparentをarchiveし、`M_B'`をactive evaluatorへ切替え、fresh comparison windowで通常相へ戻す。これはgame action authorityではなく、DMB-Cでmulti-agent回帰を確認する。
 - [Dynamic M_B Multi-Agent Regression](docs/experiment-contracts/DYNAMIC_MB_multi_agent_regression_contract.md)では2個体が別candidate・model・archive・`M_delta`・fresh windowで一周することを確認した。local actionはcutover前後で不変。
-- [G1 Godot Dynamic M_B Reintegration](docs/experiment-contracts/G1_Godot_dynamic_mb_reintegration_contract.md)ではGodot所有の身体・空間・実行動から既存DMB経路へ再接続し、cutover後のfresh Godot比較とlocal action不変を固定した。次はG2長期生活統合。
+- [G1 Godot Dynamic M_B Reintegration](docs/experiment-contracts/G1_Godot_dynamic_mb_reintegration_contract.md)ではGodot所有の身体・空間・実行動から既存DMB経路へ再接続し、cutover後のfresh Godot比較とlocal action不変を固定した。
+- [G2-A Long-Life Dynamic M_B](docs/experiment-contracts/G2A_long_life_dynamic_mb_contract.md)では同一Godot Worldでday 1のFood/Safety、実Sleep、明示DMB cutover、day 2のcueなし自律Foodを接続した。次はG2-B複数個体・複数日回帰。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
