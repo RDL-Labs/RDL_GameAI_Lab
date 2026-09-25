@@ -238,6 +238,11 @@ world interaction
 
 現在は `E → explicit finite review → H → retained H → theta_eff比較 → M_Δ entry → T1-A/B/C → evaluator cutover → fresh-window re-entry` まで有限参照実装済み。raw Eの `E-only-not-reviewed` は別レコードのreview状態とは独立である。Experience・fixed Sensitivity・Body・Realtimeは最小operational、Expressionは行動決定後の派生表示。game action authorityは従来のlocal policyが所有し、canonical evaluator cutoverとは分離する。
 
+Dynamic `M_B`の成立条件は、破断後に材料を明示展開・全件選別し、old `M_B`を
+破壊せず別identityの`M_B'`を作り、parent archiveとcutover provenanceを残して
+再入場すること。cutoverはgame action authority移譲ではない。re-entryでは旧
+RIB/F/E比較窓を継続せず、新modelの最初の観測から新しい比較窓を形成する。
+
 ## 10. GameAI固有のSelection / richness
 
 単一スカラー最大化を避ける。

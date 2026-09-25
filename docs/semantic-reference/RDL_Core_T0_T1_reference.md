@@ -253,6 +253,19 @@ GameAI currently selects three visible-entity counts. Configurable `ρ_B` is not
 
 Finite acquisition, frozen diagnostic interpretation, E, explicit residual review, retained H, finite `theta_eff`, explicit `M_delta` entry, T1 material processing, inactive reconstruction, canonical evaluator cutover, and fresh-window re-entry are operational. History, fixed sensitivity, body, derived expression, Sleep candidate formation, and Fast retrieval support separate local behavior/material paths. Game action authority remains local and is not transferred by evaluator cutover. This is not a claim that all T0 operation is implemented.
 
+### Dynamic M_B成立条件
+
+GameAI参照実装でDynamic `M_B`が成立したと言える最小条件は、canonical
+rupture、明示的T1材料展開、全材料の選別、別identityの`M_B'`再構成、parent
+archive、明示cutover、fresh-window re-entryを同一provenance chainで追跡できる
+ことである。Experience/candidateはT1材料になり得るが、E/Hの生成原因とは
+同一視しない。
+
+Canonical evaluator authorityとgame action authorityは別である。`M_B'`の
+activationはF/F'を形成するevaluatorの切替であり、local action policyの決定権を
+自動移譲しない。またre-entryは旧比較窓の再開ではない。pre-cutoverのF/RIBを
+新modelへ持ち越さず、最初のpost-reentry observationから新しいwindowを始める。
+
 ## Responsibility split
 
 ```text

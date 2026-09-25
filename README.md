@@ -63,7 +63,8 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [T1-B Material Selection](docs/experiment-contracts/T1_material_selection_contract.md)ではbundle全材料を根拠・evidence・revision付きで`RETAIN / REJECT / DEFER`へ明示選別する。T1-B単独の`RETAIN`は採用ではなく、T1-Cへの明示入力となる。
 - [T1-C Reconstruction](docs/experiment-contracts/T1_reconstruction_contract.md)ではretained parent/candidateから別identityのinactive `M_B'`を生成する。old `M_B`、active registry、`M_delta`は不変のままDMB-Aへ渡す。
 - [Dynamic M_B Inactive Cycle](docs/experiment-contracts/DYNAMIC_MB_inactive_cycle_contract.md)ではExperience/candidate系とcanonical rupture系をT1-Aでのみ明示合流し、inactive `M_B'`まで一本のprovenanceを固定した。ExperienceがHを生成したとは扱わず、DMB-Bへ明示入力する。
-- [Dynamic M_B Cutover / Re-entry](docs/experiment-contracts/DYNAMIC_MB_cutover_reentry_contract.md)ではparentをarchiveし、`M_B'`をactive evaluatorへ切替え、fresh comparison windowで通常相へ戻す。これはgame action authorityではない。次はG1 Godot再統合。
+- [Dynamic M_B Cutover / Re-entry](docs/experiment-contracts/DYNAMIC_MB_cutover_reentry_contract.md)ではparentをarchiveし、`M_B'`をactive evaluatorへ切替え、fresh comparison windowで通常相へ戻す。これはgame action authorityではなく、DMB-Cでmulti-agent回帰を確認する。
+- [Dynamic M_B Multi-Agent Regression](docs/experiment-contracts/DYNAMIC_MB_multi_agent_regression_contract.md)では2個体が別candidate・model・archive・`M_delta`・fresh windowで一周することを確認した。local actionはcutover前後で不変。次はG1 Godot再統合。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: T1 material selection / reconstruction / re-entry / canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
