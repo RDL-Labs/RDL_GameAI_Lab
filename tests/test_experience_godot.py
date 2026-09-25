@@ -66,6 +66,140 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_multi_agent_long_life_keeps_dynamic_mb_and_life_state_separate(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        sleep = SleepConsolidationCoordinator()
+        life = FoodSafetySleepCoordinator()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(
+            bridge, "CANONICAL_SIDECAR", canonical
+        ):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.life_policy = life
+            server.sleep_consolidation = sleep
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            godot_result = {}
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+
+                def run_godot():
+                    godot_result["completed"] = subprocess.run(
+                        [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                         "--script", "res://tests/multi_agent_long_life_dynamic_mb_http_check.gd"],
+                        capture_output=True, text=True, timeout=120,
+                        env=os.environ.copy(),
+                        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                    )
+
+                godot_thread = threading.Thread(target=run_godot)
+                godot_thread.start()
+                deadline = time.monotonic() + 60
+                while len(sleep.snapshot()["results"]) < 2:
+                    if "completed" in godot_result:
+                        completed = godot_result["completed"]
+                        self.fail(
+                            "multi-agent Godot exited before both Sleeps: "
+                            + completed.stdout + completed.stderr
+                        )
+                    if time.monotonic() >= deadline:
+                        self.fail("multi-agent Godot did not produce two Sleep candidates")
+                    time.sleep(0.05)
+
+                sleep_results = sleep.snapshot()["results"]
+                candidates = {item["agent_id"]: item["candidate"] for item in sleep_results}
+                self.assertEqual(set(candidates), {"npc_a", "npc_b"})
+                self.assertEqual(len({item["candidate_id"] for item in candidates.values()}), 2)
+
+                with bridge.CANONICAL_LOCK:
+                    for agent_id in ("npc_a", "npc_b"):
+                        snapshot = canonical.snapshot()
+                        pending = [item for item in snapshot["assessment"]["records"]
+                                   if item["E"]["agent_id"] == agent_id
+                                   and not item["reviewed"]
+                                   and any(item["E"]["deltas"].values())]
+                        self.assertTrue(pending, agent_id)
+                        assessment = pending[-1]
+                        dimensions = {
+                            name: ({"status": "unresolved", "residual": abs(delta)}
+                                   if delta else {"status": "zero"})
+                            for name, delta in assessment["E"]["deltas"].items()
+                        }
+                        canonical.review_assessment({
+                            "assessment_id": assessment["assessment_id"],
+                            "expected_revision": 0,
+                            "reviewer": "g2b-multi-agent",
+                            "basis": "independent explicit review after embodied life",
+                            "evidence": f"{agent_id} day-one bounded observations",
+                            "dimensions": dimensions,
+                        })
+                        agent_experiences = [
+                            item for item in history.snapshot()["records"]
+                            if item["agent_id"] == agent_id
+                        ][-32:]
+                        bundle = canonical.expand_t1_materials(
+                            assessment_id=assessment["assessment_id"],
+                            candidates=[candidates[agent_id]], experiences=agent_experiences,
+                        )
+                        dispositions = {
+                            "current_M_B": "RETAIN", "CandidateRelation": "RETAIN",
+                            "Experience": "DEFER", "RIB_B": "RETAIN",
+                            "RIB_B_prime": "RETAIN", "unresolved_residual": "DEFER",
+                        }
+                        canonical.inspect_t1_materials(bundle_id=bundle["bundle_id"], payload={
+                            "expected_revision": 0, "reviewer": "g2b-multi-agent",
+                            "materials": [{
+                                "material_id": item["material_id"],
+                                "disposition": dispositions[item["kind"]],
+                                "basis": "finite G2-B material inspection",
+                                "evidence": item["source_id"],
+                            } for item in bundle["materials"]],
+                        })
+                        artifact = canonical.reconstruct_t1(bundle_id=bundle["bundle_id"])
+                        canonical.cutover_reentry(
+                            artifact_id=artifact["artifact_id"],
+                            expected_active_model_ref=artifact["parent_model_ref"],
+                            operator="g2b-multi-agent",
+                            basis="independent finite day-boundary activation",
+                            evidence=artifact["artifact_id"],
+                        )
+
+                godot_thread.join(timeout=60)
+                self.assertFalse(godot_thread.is_alive(), "multi-agent Godot did not finish day two")
+                completed = godot_result["completed"]
+                output = completed.stdout + completed.stderr
+                self.assertEqual(completed.returncode, 0, output)
+                self.assertIn("Multi-agent long-life Dynamic M_B check passed", output)
+
+                final = canonical.snapshot()
+                self.assertEqual(final["M_delta"]["active_count"], 0)
+                self.assertEqual(
+                    {item["phase"] for item in final["M_delta"]["states"]}, {"REENTERED"}
+                )
+                self.assertEqual(len(final["model_archive"]), 2)
+                self.assertEqual({model["agent_id"] for model in final["models"].values()},
+                                 {"npc_a", "npc_b"})
+                for model in final["models"].values():
+                    adopted = model["adopted_relations"]
+                    self.assertEqual(len(adopted), 1)
+                    self.assertEqual(
+                        adopted[0]["source_candidate_id"],
+                        candidates[model["agent_id"]]["candidate_id"],
+                    )
+                food = life.food_safety.food.snapshot()
+                self.assertEqual(set(food["habit_ready_agents"]), {"npc_a", "npc_b"})
+                self.assertEqual(len(food["results"]), 4)
+                self.assertEqual(
+                    {item["agent_id"] for item in history.snapshot()["records"]},
+                    {"npc_a", "npc_b"},
+                )
+                print(output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_long_life_crosses_sleep_dynamic_mb_and_next_day_autonomy(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()
