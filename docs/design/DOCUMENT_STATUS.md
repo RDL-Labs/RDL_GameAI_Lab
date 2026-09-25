@@ -56,6 +56,7 @@
 | [T1 Material Expansion contract](../experiment-contracts/T1_material_expansion_contract.md) | T1-A operational | active M_deltaからcanonical/local材料をUNINSPECTEDで凍結。選別・再構成なし |
 | [T1 Material Selection contract](../experiment-contracts/T1_material_selection_contract.md) | T1-B operational | 全材料をRETAIN/REJECT/DEFERへ明示選別。RETAINは採用ではなく再構成なし |
 | [T1 Reconstruction contract](../experiment-contracts/T1_reconstruction_contract.md) | T1-C operational | retained parent/candidateからinactive M_B'を新規生成。cutover・re-entry・action authorityなし |
+| [Dynamic M_B Inactive Cycle contract](../experiment-contracts/DYNAMIC_MB_inactive_cycle_contract.md) | DMB-A operational evidence | Experience/candidateとcanonical ruptureをT1-Aでのみ合流しinactive M_B'まで追跡 |
 | [Finite Sleep Experience Window contract](../experiment-contracts/SLEEP_experience_window_contract.md) | S1 operational reference | 同一NPC・同一sleep cycleのaccepted raw Experienceを最大6件で固定。不足状態とsource追跡を明示。Profile / candidate / canonical authorityは未実装 |
 | [Sleep Relation Constraint Profile contract](../experiment-contracts/SLEEP_relation_profile_contract.md) | S2 operational reference | I1有限relation構築とI2 pure compiler。actor / target / context / action / outcomeをsource付きで派生し、candidate・canonical authorityへ非介入 |
 | [Sleep Deep Similarity Shadow contract](../experiment-contracts/SLEEP_deep_similarity_shadow_contract.md) | S3 operational reference | I1 alignment、I2 pure Deep function、I3 immutable store。最大6 Profile / 15 pair、one cluster / candidate、coverage・conflict・unresolved非混同、非介入 |

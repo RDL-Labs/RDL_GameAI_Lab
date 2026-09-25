@@ -61,7 +61,8 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - T1-A前の[Multi-Agent / Territory Beast検証](docs/design/RDL_GameAI_C4後_Multi-Agent_Territory_Beast検証計画.md)はR1-R7完了。3/5/10 agentsの分離、Fast cross-agent境界、danger labelを持たないWorld fixture、warning/chase/attack、direct/observer Experience、C1-C4非介入をEvidence化し、本線へ復帰した。
 - [T1-A Material Expansion](docs/experiment-contracts/T1_material_expansion_contract.md)ではactive `M_delta`からcurrent `M_B`、RIB history、unresolved residual、same-agent Candidate/Experienceを不変bundleへ展開し、全材料を`UNINSPECTED`でT1-Bへ渡す。
 - [T1-B Material Selection](docs/experiment-contracts/T1_material_selection_contract.md)ではbundle全材料を根拠・evidence・revision付きで`RETAIN / REJECT / DEFER`へ明示選別する。T1-B単独の`RETAIN`は採用ではなく、T1-Cへの明示入力となる。
-- [T1-C Reconstruction](docs/experiment-contracts/T1_reconstruction_contract.md)ではretained parent/candidateから別identityのinactive `M_B'`を生成する。old `M_B`、active registry、`M_delta`は不変で、次はDynamic M_Bの一周Evidenceとcutover/re-entry境界。
+- [T1-C Reconstruction](docs/experiment-contracts/T1_reconstruction_contract.md)ではretained parent/candidateから別identityのinactive `M_B'`を生成する。old `M_B`、active registry、`M_delta`は不変のままDMB-Aへ渡す。
+- [Dynamic M_B Inactive Cycle](docs/experiment-contracts/DYNAMIC_MB_inactive_cycle_contract.md)ではExperience/candidate系とcanonical rupture系をT1-Aでのみ明示合流し、inactive `M_B'`まで一本のprovenanceを固定した。ExperienceがHを生成したとは扱わない。次はDMB-B cutover / re-entry。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: T1 material selection / reconstruction / re-entry / canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

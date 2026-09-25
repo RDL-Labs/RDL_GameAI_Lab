@@ -93,6 +93,11 @@ T1-C reconstructs a distinct inactive `M_B'` artifact only when the parent
 model and at least one CandidateRelation are explicitly retained. It preserves
 the old model, adopts only retained candidate signatures, and does not perform
 authority cutover or re-entry.
+
+DMB-A fixes one end-to-end inactive cycle: accepted Experience forms a sourced
+Sleep candidate, an independent canonical Review Path enters `M_delta`, and the
+paths join only through explicit T1-A material input before T1-B/T1-C produce an
+inactive `M_B'`. This is not a claim that Experience caused H.
 Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
 the latest explicit review revision and H. Local Experience, Sleep candidates,
 and Fast retrieval are excluded from this projection.
