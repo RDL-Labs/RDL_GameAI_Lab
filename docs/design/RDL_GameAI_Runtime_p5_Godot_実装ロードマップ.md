@@ -37,7 +37,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | C3 | `theta_eff` | GameAI-localな実効保持境界を有限モデル化 | H/theta表示 | 不要 | 完了: provenanceを分離して`H < theta_eff`と`H >= theta_eff`を判定 |
 | C4 | `M_delta` | 破断時だけ再編相へ遷移 | 状態遷移表示 | 不要 | 完了: explicit review時だけ通常状態と再編相への入場を分離 |
 | V-MA | C4後Multi-Agent検証 | 3/5/10 agentsでExperience・Fast・Sleep・C1-C4分離を再検証 | 観測 | 不要 | 完了: cross-agent leakage修正、再現Evidence固定 |
-| V-TB | Territory Beast検証 | relationとして生じるwarning/chase/attackを有限World fixture化 | 観測 | 必要時のみ | 次: C1-C4と危険Experienceを混線させない |
+| V-TB | Territory Beast検証 | relationとして生じるwarning/chase/attackを有限World fixture化 | 観測 | 必要時のみ | R4-R5完了。次は3-5 agents combined evidenceとC1-C4回帰 |
 | T1-A | T1材料展開 | CandidateRelation、履歴、unresolved等を有限材料化 | 材料一覧 | 不要 | V-TB完了後: candidateが自動昇格しない有限材料展開 |
 | T1-B | 検査・選別 | retain / reject / defer | レビュー面 | 不要 | 根拠とprovenanceを保持 |
 | T1-C | Reconstruction | 新しい`M_B'`を構成 | before/after比較 | 不要 | old `M_B`を不変保存し新規生成 |

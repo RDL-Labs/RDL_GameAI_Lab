@@ -58,7 +58,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Rescue Phase 5E: [staged recovery contract](docs/experiment-contracts/RESCUE_staged_recovery_contract.md)で、安全地点滞在中の有限4段階回復をGodot BodyStateが所有する。回復後は旧Safety trajectoryを盲目的に再開せず、現在関係で再評価する。
 - Rescue Phase 5F: [multi-agent reference evidence](docs/experiment-evidence/RESCUE_multi_agent_reference_evidence.md)で、NPC Bの行動不能からNPC Aの発見・一度だけの救助・搬送・段階回復までを同一World/Runtimeで固定する。回復中conditionは再救助候補から分離する。
 - Sleep S1-S4 + Fast F1/F2の記憶循環に加え、C1でCore `3270982`のauthority境界を固定した。C2では[Canonical Review Path](docs/experiment-contracts/CANONICAL_review_path_projection_contract.md)として`RIB_B/F/RIB_B'/F'/E/review/H`を追跡し、C3では[finite theta_eff](docs/experiment-contracts/CANONICAL_theta_effective_contract.md)を独立評価する。C4では[finite M_delta transition](docs/experiment-contracts/CANONICAL_M_delta_transition_contract.md)としてexplicit review時だけ再編相へ入場し、p5へread-only表示する。本線の次段はT1-A。
-- T1-A前の[Multi-Agent / Territory Beast検証](docs/design/RDL_GameAI_C4後_Multi-Agent_Territory_Beast検証計画.md)を開始。R1-R3では3/5/10 agentsでExperience・Sleep・Fast・C1-C4の分離を再検証し、Fast catalogのcross-agent漏れを修正した。次はR4 Territory Beast。
+- T1-A前の[Multi-Agent / Territory Beast検証](docs/design/RDL_GameAI_C4後_Multi-Agent_Territory_Beast検証計画.md)を実施中。R1-R3では3/5/10 agentsの分離を再検証し、Fast catalogのcross-agent漏れを修正した。R4-R5ではdanger labelを持たないTerritory Beast World fixtureとwarning/chase/attack経路を固定した。次はR6 combined evidence。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: T1 material selection / reconstruction / re-entry / canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
