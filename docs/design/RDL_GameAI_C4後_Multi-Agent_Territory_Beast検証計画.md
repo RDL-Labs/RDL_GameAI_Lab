@@ -15,8 +15,8 @@ R2 5-agent fixture
 R3 10-agent fixture
 R4 Territory Beast World model (complete)
 R5 warning / chase / attack finite interaction (complete)
-R6 3-5 agents + Territory Beast evidence
-R7 C1-C4 regression review
+R6 3-5 agents + Territory Beast evidence (complete)
+R7 C1-C4 regression review (complete)
 ```
 
 ownership、shared-resource semantics、navigation/landmark memory、lost-state、
@@ -72,5 +72,4 @@ cross-agent leakage、candidate自動昇格、ExperienceからHへの直接変�
 からM_deltaへの直接遷移、thetaへのBody/Threat暗黙代入、GET mutation、silent
 eviction、個体数だけによる意味論変更があればT1-Aへ進まず修正する。
 
-次はR6 3-5 agents + Territory Beast combined evidence。その後R7を経て
-T1-A material expansionへ戻る。
+R1-R7完了後はT1-A material expansionへ戻る。
