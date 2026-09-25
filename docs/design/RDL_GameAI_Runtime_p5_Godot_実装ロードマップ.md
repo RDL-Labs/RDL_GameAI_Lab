@@ -52,6 +52,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | OGB-6 | Local Bias Sleep Profile | Bias材料を専用Relation Profileへ純粋変換 | 補助 | 不要 | 完了: mixed保持、agent分離、candidate非生成を固定 |
 | OGB-7 | Local Bias Deep Similarity | 同一agentの3〜6 Profileをpairwise比較 | 補助 | 不要 | 完了: match/difference/conflictと有限provenanceを固定 |
 | OGB-8 | Local Bias shadow Candidate | 全Profile共通relationから候補を最大1件形成 | 補助 | 不要 | 完了: mixed非相殺、conflict未解決、T1/M_B/action非昇格を固定 |
+| OGB-9 | Local Bias T1 Projection | mixed candidateをrelation別の独立T1-ready candidateへ投影 | 補助 | 不要 | 完了: 明示T1-A投入、UNINSPECTED、provenance、非自動採用を固定 |
 
 ## 2. 直近の順序
 
@@ -124,6 +125,7 @@ OGB-1..5 COMPLETE
 OGB-6 COMPLETE
 OGB-7 COMPLETE
 OGB-8 COMPLETE
+OGB-9 COMPLETE
 ```
 
 詳細なF1/F2 Acceptanceは[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。
