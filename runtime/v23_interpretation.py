@@ -14,6 +14,7 @@ from types import MappingProxyType
 from typing import Any, Mapping
 from .v23_assessment import FiniteAssessmentLedger
 from .review_path import build_review_path_snapshot
+from .theta_effective import FiniteThetaEffectiveEvaluator, build_theta_effective_snapshot
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -253,7 +254,7 @@ def compare_interpretations(
 class GameAIFrozenComparisonSidecar:
     """Read-only sidecar for acquisition -> frozen M_B -> F/F' -> E."""
 
-    def __init__(self) -> None:
+    def __init__(self, theta_evaluator: FiniteThetaEffectiveEvaluator | None = None) -> None:
         self._models: dict[tuple[Any, ...], FrozenGameAIMB] = {}
         self._previous: dict[tuple[Any, ...], GameAIInterpretation] = {}
         self._previous_sections: dict[tuple[Any, ...], GameAIRIBSection] = {}
@@ -267,6 +268,7 @@ class GameAIFrozenComparisonSidecar:
         self._duplicate_observations = 0
         self._failures: list[dict[str, str]] = []
         self.assessments = FiniteAssessmentLedger()
+        self.theta_evaluator = theta_evaluator or FiniteThetaEffectiveEvaluator()
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
         try:
@@ -322,6 +324,7 @@ class GameAIFrozenComparisonSidecar:
 
     def snapshot(self) -> dict[str, Any]:
         assessment = self.assessments.snapshot()
+        review_path = build_review_path_snapshot(self._comparison_paths, assessment)
         return {
             "authority": "read-only-comparison-sidecar",
             "stage": "RIB_B-frozen-M_B-F-F_prime-E",
@@ -346,7 +349,8 @@ class GameAIFrozenComparisonSidecar:
             },
             "failures": list(self._failures),
             "assessment": assessment,
-            "review_path": build_review_path_snapshot(self._comparison_paths, assessment),
-            "not_implemented": ["time-decay", "theta", "M_delta", "T1", "authority-cutover"],
+            "review_path": review_path,
+            "theta_effective": build_theta_effective_snapshot(review_path, self.theta_evaluator),
+            "not_implemented": ["time-decay", "M_delta", "T1", "authority-cutover"],
             "xi_status": XI_STATUS,
         }

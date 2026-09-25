@@ -72,6 +72,10 @@ Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and 
 
 The same canonical snapshot includes the read-only
 [C2 Review Path projection](../docs/experiment-contracts/CANONICAL_review_path_projection_contract.md).
+
+C3 adds a finite, independently sourced `theta_eff` evaluation and read-only
+`H < theta_eff` / `H >= theta_eff` comparison. A met rupture boundary does not
+enter `M_delta`; that state transition remains C4.
 Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
 the latest explicit review revision and H. Local Experience, Sleep candidates,
 and Fast retrieval are excluded from this projection.
@@ -145,7 +149,7 @@ Current properties:
 - existing action policy unchanged
 - read-only Core v2.3 canonical sidecar attached after accepted decisions
 - canonical path currently reaches `RIB_B -> frozen M_B -> F/F' -> E`
-- explicit diagnostic residual review, per-comparison H, and retained H by finite context/model; no time decay, `M_Δ`, T1 reconstruction, or canonical authority cutover yet
+- explicit diagnostic residual review, per-comparison H, retained H, and finite theta_eff comparison by finite context/model; no time decay, `M_Δ` transition, T1 reconstruction, or canonical authority cutover yet
 
 ## Run
 

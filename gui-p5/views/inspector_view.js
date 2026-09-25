@@ -55,6 +55,11 @@ class InspectorView {
       row('review', latest ? latest.review.status + ' r' + latest.review.revision : 'none');
       row('E dims', latest ? latest.E.nonzero_dimensions.length : 0);
       row('H', latest ? latest.H : 0, latest?.H > 0 ? [248, 113, 113] : [52, 211, 153]);
+      const thetaRows = data?.theta_effective_snapshot?.evaluations || [];
+      const theta = thetaRows.length ? thetaRows[thetaRows.length - 1] : null;
+      row('theta_eff', theta ? theta.theta_eff : 'none');
+      row('C3 boundary', theta ? (theta.comparison || theta.status) : 'none',
+        theta?.comparison === 'rupture_boundary_met' ? [248, 113, 113] : [52, 211, 153]);
     } else {
       row('status', 'not available');
     }

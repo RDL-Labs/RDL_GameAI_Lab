@@ -58,5 +58,5 @@ def build_review_path_snapshot(comparisons: dict[str, dict[str, Any]],
         "count": len(paths),
         "authority": "read-only-canonical-review-path-projection",
         "excluded_sources": ["raw_experience", "sleep_candidate", "fast_retrieval"],
-        "not_implemented": ["theta_eff", "M_delta", "T1", "M_B_prime"],
+        "downstream_separation": ["theta_eff", "M_delta", "T1", "M_B_prime"],
     }
