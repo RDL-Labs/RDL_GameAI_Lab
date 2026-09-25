@@ -14,8 +14,8 @@ reviewed H
 -> H >= theta_eff : rupture_boundary_met
 ```
 
-`rupture_boundary_met` is a diagnostic boundary result. C4, not C3, owns any
-transition into `M_delta`.
+`rupture_boundary_met` is a diagnostic boundary result. C4 consumes it during
+accepted explicit review and owns the separate transition into `M_delta`.
 
 ## Finite evaluator
 

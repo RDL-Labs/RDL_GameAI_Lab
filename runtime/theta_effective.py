@@ -89,5 +89,5 @@ def build_theta_effective_snapshot(review_path_snapshot: dict[str, Any],
         "evaluations": evaluations,
         "count": len(evaluations),
         "authority": "read-only-H-theta-effective-comparison",
-        "not_implemented": ["M_delta_transition", "T1", "M_B_prime", "action_authority"],
+        "downstream_separation": ["M_delta_transition", "T1", "M_B_prime", "action_authority"],
     }

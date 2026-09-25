@@ -171,7 +171,7 @@ class BridgeHandler(BaseHTTPRequestHandler):
             try:
                 payload = self._read_json()
                 with CANONICAL_LOCK:
-                    result = CANONICAL_SIDECAR.assessments.review(payload)
+                    result = CANONICAL_SIDECAR.review_assessment(payload)
             except (ValueError, ObservationError) as exc:
                 self._send_json(422, {"error": "invalid_review", "detail": str(exc)})
                 return

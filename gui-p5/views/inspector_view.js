@@ -60,6 +60,10 @@ class InspectorView {
       row('theta_eff', theta ? theta.theta_eff : 'none');
       row('C3 boundary', theta ? (theta.comparison || theta.status) : 'none',
         theta?.comparison === 'rupture_boundary_met' ? [248, 113, 113] : [52, 211, 153]);
+      const deltaStates = data?.m_delta_snapshot?.states || [];
+      const delta = deltaStates.length ? deltaStates[deltaStates.length - 1] : null;
+      row('C4 phase', delta ? delta.phase : 'not entered',
+        delta?.phase === 'M_delta' ? [248, 113, 113] : [52, 211, 153]);
     } else {
       row('status', 'not available');
     }

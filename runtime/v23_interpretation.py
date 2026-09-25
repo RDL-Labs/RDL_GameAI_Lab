@@ -15,6 +15,7 @@ from typing import Any, Mapping
 from .v23_assessment import FiniteAssessmentLedger
 from .review_path import build_review_path_snapshot
 from .theta_effective import FiniteThetaEffectiveEvaluator, build_theta_effective_snapshot
+from .m_delta import FiniteMDeltaStateMachine
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -269,6 +270,21 @@ class GameAIFrozenComparisonSidecar:
         self._failures: list[dict[str, str]] = []
         self.assessments = FiniteAssessmentLedger()
         self.theta_evaluator = theta_evaluator or FiniteThetaEffectiveEvaluator()
+        self.m_delta = FiniteMDeltaStateMachine()
+
+    def review_assessment(self, payload: Mapping[str, Any]) -> dict[str, Any]:
+        """Commit explicit review, then evaluate and apply the C3/C4 boundary once."""
+
+        reviewed = self.assessments.review(payload)
+        assessment = self.assessments.snapshot()
+        review_path = build_review_path_snapshot(self._comparison_paths, assessment)
+        theta_snapshot = build_theta_effective_snapshot(review_path, self.theta_evaluator)
+        matching = [item for item in theta_snapshot["evaluations"]
+                    if item["assessment_id"] == reviewed["assessment_id"]]
+        if len(matching) != 1:
+            raise InterpretationError("reviewed assessment lost its theta evaluation")
+        self.m_delta.accept(matching[0])
+        return reviewed
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
         try:
@@ -351,6 +367,7 @@ class GameAIFrozenComparisonSidecar:
             "assessment": assessment,
             "review_path": review_path,
             "theta_effective": build_theta_effective_snapshot(review_path, self.theta_evaluator),
-            "not_implemented": ["time-decay", "M_delta", "T1", "authority-cutover"],
+            "M_delta": self.m_delta.snapshot(),
+            "not_implemented": ["time-decay", "T1", "authority-cutover"],
             "xi_status": XI_STATUS,
         }

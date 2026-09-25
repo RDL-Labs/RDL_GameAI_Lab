@@ -31,7 +31,7 @@ class ReviewPathProjectionTests(unittest.TestCase):
             "provenance": None,
         })
         assessment_id = path["assessment_id"]
-        reviewed = sidecar.assessments.review({
+        reviewed = sidecar.review_assessment({
             "assessment_id": assessment_id, "expected_revision": 0,
             "reviewer": "c2-test", "basis": "finite unresolved fixture",
             "evidence": "c2-first-to-later",

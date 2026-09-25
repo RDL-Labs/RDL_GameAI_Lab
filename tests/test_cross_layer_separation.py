@@ -69,7 +69,7 @@ class CrossLayerSeparationTests(unittest.TestCase):
         history_before = history.snapshot()
         decision = HistoryInfluencePolicy(profiles={'npc_a': 'long'}).decide(observed, history)
         record = before['assessment']['records'][0]
-        reviewed = canonical.assessments.review({
+        reviewed = canonical.review_assessment({
             'assessment_id': record['assessment_id'], 'expected_revision': 0,
             'reviewer': 'finite-test', 'basis': 'declared residual fixture',
             'evidence': 'prior->current', 'dimensions': {

@@ -11,7 +11,7 @@ def reviewed_sidecar(evaluator=None, residual=1.0):
     sidecar.capture(packet("theta-first", tick=1, objects=1))
     sidecar.capture(packet("theta-later", tick=2, objects=3))
     assessment = sidecar.snapshot()["assessment"]["records"][0]
-    sidecar.assessments.review({
+    sidecar.review_assessment({
         "assessment_id": assessment["assessment_id"],
         "expected_revision": 0,
         "reviewer": "c3-test",

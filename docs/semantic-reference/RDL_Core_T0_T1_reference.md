@@ -251,7 +251,7 @@ GameAI currently selects three visible-entity counts. Configurable `ρ_B` is not
 
 ## Current GameAI adoption
 
-Finite acquisition, frozen diagnostic interpretation, E, explicit residual review, and retained H are operational. History, fixed sensitivity, body, derived expression, Sleep candidate formation, and Fast retrieval support separate local behavior/material paths. C1 now pins the dynamic-boundary semantics, but `theta_eff`, `M_delta`, T1 reconstruction, and canonical action authority remain unimplemented. This is not a claim that all T0 operation is implemented.
+Finite acquisition, frozen diagnostic interpretation, E, explicit residual review, retained H, finite `theta_eff`, and explicit `M_delta` entry are operational. History, fixed sensitivity, body, derived expression, Sleep candidate formation, and Fast retrieval support separate local behavior/material paths. T1 material processing, reconstruction, re-entry, and canonical action authority remain unimplemented. This is not a claim that all T0 operation is implemented.
 
 ## Responsibility split
 

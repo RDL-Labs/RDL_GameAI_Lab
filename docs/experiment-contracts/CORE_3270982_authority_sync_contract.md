@@ -94,7 +94,7 @@ it.
 |---|---|---|
 | Godot World state | bounded experiment reference and interaction resolver | SILN truth or canonical `M_B` |
 | observation packet | acquisition evidence | `RIB_B` by identity |
-| canonical sidecar | finite `RIB_B`, frozen comparison, `E`, review, `H` diagnostic path | `theta_eff`, `M_delta`, T1 |
+| canonical sidecar | finite `RIB_B`, frozen comparison, `E`, review, `H`, `theta_eff`, and `M_delta` entry path | T1 material processing, reconstruction, re-entry |
 | raw Experience | accepted action-result history | `H`, `M_B`, commitment |
 | Sleep candidate | sourced finite restructuring material | `E`, `H`, active relation |
 | Fast retrieval | read-only rediscovery | review or adoption |

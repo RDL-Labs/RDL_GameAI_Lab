@@ -236,7 +236,7 @@ world interaction
 → later behavior change
 ```
 
-現在は `E → explicit finite review → H → retained H` までdiagnosticとして実装済み。raw Eの `E-only-not-reviewed` は別レコードのreview状態とは独立である。Experience・fixed Sensitivity・Body・Realtimeは最小operational、Expressionは行動決定後の派生表示。θ / M_Δ / T1 / canonical action authorityは未実装。
+現在は `E → explicit finite review → H → retained H → theta_eff比較 → M_Δ entry` まで有限参照実装済み。raw Eの `E-only-not-reviewed` は別レコードのreview状態とは独立である。Experience・fixed Sensitivity・Body・Realtimeは最小operational、Expressionは行動決定後の派生表示。T1 material processing / reconstruction / re-entry / canonical action authorityは未実装。
 
 ## 10. GameAI固有のSelection / richness
 

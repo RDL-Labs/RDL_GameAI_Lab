@@ -49,6 +49,7 @@
 | [Core 3270982 Authority Sync contract](../experiment-contracts/CORE_3270982_authority_sync_contract.md) | C1 semantic synchronization complete | SILN・履歴、xi、dynamic theta_eff、H、M_delta、T1のGameAI authority境界。Runtime権限追加なし |
 | [Canonical Review Path Projection contract](../experiment-contracts/CANONICAL_review_path_projection_contract.md) | C2 operational diagnostic projection | assessment IDごとにRIB_B/F/RIB_B'/F'/E/review/Hを追跡。candidate系を除外し、p5 GET-only表示 |
 | [Canonical Theta Effective contract](../experiment-contracts/CANONICAL_theta_effective_contract.md) | C3 operational diagnostic evaluation | reviewed Hと独立provenanceのtheta_effを比較。M_delta遷移・T1・action authorityなし |
+| [Canonical M_delta Transition contract](../experiment-contracts/CANONICAL_M_delta_transition_contract.md) | C4 operational phase transition | explicit review時だけnormal/M_deltaを遷移。T1・M_B'・re-entry・action authorityなし |
 | [Finite Sleep Experience Window contract](../experiment-contracts/SLEEP_experience_window_contract.md) | S1 operational reference | 同一NPC・同一sleep cycleのaccepted raw Experienceを最大6件で固定。不足状態とsource追跡を明示。Profile / candidate / canonical authorityは未実装 |
 | [Sleep Relation Constraint Profile contract](../experiment-contracts/SLEEP_relation_profile_contract.md) | S2 operational reference | I1有限relation構築とI2 pure compiler。actor / target / context / action / outcomeをsource付きで派生し、candidate・canonical authorityへ非介入 |
 | [Sleep Deep Similarity Shadow contract](../experiment-contracts/SLEEP_deep_similarity_shadow_contract.md) | S3 operational reference | I1 alignment、I2 pure Deep function、I3 immutable store。最大6 Profile / 15 pair、one cluster / candidate、coverage・conflict・unresolved非混同、非介入 |
@@ -102,7 +103,7 @@ DNA・動的神経状態・睡眠・会話・生活機能の詳細は設計候�
 
 - Layer計画の改訂履歴にある旧Layer名は名称変更の記録として保持する。
 - 既存Sensitivity契約の旧Layer名とExperience契約の「Next 2」は過去の有限sliceの参照表記として残す。今回は契約の再承認・内容変更を行わず、現行配置と成熟度は設計地図・canonical roadmapで示す。
-- 動的神経モデル、睡眠整理、会話、DNA、θ / M_Δ / T1は未実装。これは文書の同期漏れではなく、実装境界として明記したもの。
+- 動的神経モデル、会話、DNA、T1 material processing / reconstruction / re-entryは未実装。Sleep S1-S4、finite theta_eff、M_Δ entryは参照実装済み。
 
 ## 検証
 

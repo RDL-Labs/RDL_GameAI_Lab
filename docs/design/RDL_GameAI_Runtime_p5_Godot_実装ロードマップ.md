@@ -35,8 +35,8 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | C1 | Core同期 | `3270982`のSILN、`theta_eff`、`H`、`M_delta`をGameAI契約へ翻訳 | 表示準備 | 不要 | 完了: authority境界固定 |
 | C2 | Review Path | `RIB_B/RIB_B' -> F/F' -> E -> explicit review -> H` | 比較表示 | 不要 | 完了: H生成経路をcandidate系から分離 |
 | C3 | `theta_eff` | GameAI-localな実効保持境界を有限モデル化 | H/theta表示 | 不要 | 完了: provenanceを分離して`H < theta_eff`と`H >= theta_eff`を判定 |
-| C4 | `M_delta` | 破断時だけ再編相へ遷移 | 状態遷移表示 | 不要 | 次: 通常状態と再編相への入場を分離 |
-| T1-A | T1材料展開 | CandidateRelation、履歴、unresolved等を有限材料化 | 材料一覧 | 不要 | candidateが自動昇格しない |
+| C4 | `M_delta` | 破断時だけ再編相へ遷移 | 状態遷移表示 | 不要 | 完了: explicit review時だけ通常状態と再編相への入場を分離 |
+| T1-A | T1材料展開 | CandidateRelation、履歴、unresolved等を有限材料化 | 材料一覧 | 不要 | 次: candidateが自動昇格しない有限材料展開 |
 | T1-B | 検査・選別 | retain / reject / defer | レビュー面 | 不要 | 根拠とprovenanceを保持 |
 | T1-C | Reconstruction | 新しい`M_B'`を構成 | before/after比較 | 不要 | old `M_B`を不変保存し新規生成 |
 | DMB | Dynamic `M_B` | Experienceから破断、T1、`M_B'`までの有限実験 | 主観測面 | 後回し | 一周のEvidenceを保持 |

@@ -75,7 +75,9 @@ The same canonical snapshot includes the read-only
 
 C3 adds a finite, independently sourced `theta_eff` evaluation and read-only
 `H < theta_eff` / `H >= theta_eff` comparison. A met rupture boundary does not
-enter `M_delta`; that state transition remains C4.
+enter `M_delta` by itself. C4 performs that finite transition only while an
+explicit review is accepted; GET snapshots remain read-only. Active `M_delta`
+is retained until future explicit T1 resolution.
 Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
 the latest explicit review revision and H. Local Experience, Sleep candidates,
 and Fast retrieval are excluded from this projection.
@@ -149,7 +151,7 @@ Current properties:
 - existing action policy unchanged
 - read-only Core v2.3 canonical sidecar attached after accepted decisions
 - canonical path currently reaches `RIB_B -> frozen M_B -> F/F' -> E`
-- explicit diagnostic residual review, per-comparison H, retained H, and finite theta_eff comparison by finite context/model; no time decay, `M_Δ` transition, T1 reconstruction, or canonical authority cutover yet
+- explicit diagnostic residual review, per-comparison H, retained H, finite theta_eff comparison, and explicit normal/M_Δ phase transition by finite context/model; no time decay, T1 material processing/reconstruction, re-entry, or canonical authority cutover yet
 
 ## Run
 
