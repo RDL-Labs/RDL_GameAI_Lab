@@ -10,6 +10,7 @@
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
 | [神経](RDL_GameAI_神経パラメーター設計図.md) | current design / status unclear | 操作的ラベル・DNA μ/σ・動的状態・派生感度。design-only |
+| [Neural Individuality / Exploration Future Roadmap](RDL_GameAI_Neural_Individuality_Exploration_Future_Roadmap.md) | NERV-0 future roadmap / contract only | 少数の神経感度差から個体差・探索性を創発させる将来順序。NERV-1..9はDEFERRED / POST-NEURAL、現行runtime非変更 |
 | [睡眠](RDL_GameAI_睡眠システム設計.md) | minimal life action + S4 shadow operational | bounded安全場所でのSleep回復と、明示cycleによるS1-S3 shadow consolidation縦断を実装。行動・canonical権限なし |
 | [Concept](RDL_GameAI_かわいい生き物が必死に生きる_コンセプト.md) | current design | 体験の核。schema・Phaseの正本ではない |
 | [生活機能順](RDL_GameAI_実装手順予定.md) | current plan / navigation incomplete | 生活Phaseと横断系、canonical成熟度の分離 |
