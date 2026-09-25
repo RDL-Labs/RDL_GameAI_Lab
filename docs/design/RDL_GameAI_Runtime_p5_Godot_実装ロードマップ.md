@@ -48,6 +48,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | G2-A | 長期生活・単一個体 | Food / Safety / Sleepとdynamic `M_B`を同一Worldで接続 | 補助 | 主統合面 | 完了: day 1生活、Sleep、cutover、day 2 cueなし自律を固定 |
 | G2-B | 長期生活・複数個体 | 独立した複数日の生活とdynamic `M_B`を接続 | 補助 | 主統合面 | 完了: A/Bのcandidate/model/archive/M_delta/habit非混線を固定 |
 | RTF-1..4 | Risky Tasty Food参照 | ordinary/tasty Food、source付き神像statement、Territory consequence、Experience provenance | 補助 | World配置 | 完了: action/canonical非介入の有限縦断を固定 |
+| OGB-1..5 | Outcome Gradient / Local Bias | relation別gradient、bias形成、mixed保持、agent分離、Sleep材料投影 | 補助 | 不要 | 完了: finite provenanceとcanonical/action非介入を固定 |
 
 ## 2. 直近の順序
 
@@ -116,6 +117,7 @@ G1 COMPLETE
 G2-A COMPLETE
 G2-B COMPLETE
 RTF-1..4 COMPLETE
+OGB-1..5 COMPLETE
 ```
 
 詳細なF1/F2 Acceptanceは[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。
