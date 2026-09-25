@@ -85,9 +85,14 @@ class T1ReconstructionStore:
             "capacity": self.capacity,
             "capacity_rejections": self.capacity_rejections,
             "authority": "read-only-T1-reconstruction-artifacts",
-            "not_implemented": ["authority_cutover", "re_entry", "active_model_replacement",
-                                "action_authority"],
+            "downstream_separation": ["authority_cutover", "re_entry",
+                                      "active_model_replacement", "action_authority"],
         }
+
+    def artifact(self, artifact_id: str) -> dict[str, Any]:
+        if not isinstance(artifact_id, str) or artifact_id not in self._artifacts:
+            raise T1ReconstructionError("unknown reconstruction artifact")
+        return deepcopy(self._artifacts[artifact_id][1])
 
 
 def _validate_inputs(bundle: dict[str, Any], selection: dict[str, Any]) -> tuple[dict, list, list]:

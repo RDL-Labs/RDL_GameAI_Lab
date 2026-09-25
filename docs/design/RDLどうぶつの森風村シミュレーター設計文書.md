@@ -60,7 +60,7 @@ unresolved only
 H
 ```
 
-現在のGameAI Lab runtimeは **E / explicit finite review / H / retained H / finite theta_eff / M_Δ entry** と、最小のlocal History・Sensitivity・Body・Expressionまで。村ゲームの心理的感情や長期学習が実装されたという意味ではない。T1 material processing / reconstruction / re-entryは未実装。
+現在のGameAI Lab runtimeは **E / explicit finite review / H / retained H / finite theta_eff / M_Δ entry / T1-A-C / canonical evaluator re-entry** と、最小のlocal History・Sensitivity・Body・Expressionまで。村ゲームの心理的感情や長期学習が実装されたという意味ではなく、game action authorityはlocal policyのままである。
 
 ## 4. 村生活の主要システム
 

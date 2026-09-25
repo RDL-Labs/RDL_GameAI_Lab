@@ -87,6 +87,28 @@ class FiniteMDeltaStateMachine:
             "capacity_rejections": self.capacity_rejections,
             "retention": "M_delta remains active until future explicit T1 resolution",
             "authority": "finite-canonical-phase-transition",
-            "not_implemented": ["T1_material_expansion", "selection", "reconstruction",
-                                "M_B_prime", "re_entry", "action_authority"],
+            "downstream_separation": ["T1_material_expansion", "selection", "reconstruction",
+                                      "M_B_prime", "re_entry", "action_authority"],
         }
+
+    def resolve_reentry(self, *, parent_model_ref: str, new_model_ref: str,
+                        artifact_id: str, cutover_id: str) -> dict[str, Any]:
+        current = self._states.get(parent_model_ref)
+        if current is None or current.get("phase") != "M_delta":
+            raise MDeltaTransitionError("re-entry requires active parent M_delta")
+        if not all(isinstance(value, str) and value for value in
+                   (new_model_ref, artifact_id, cutover_id)):
+            raise MDeltaTransitionError("re-entry provenance must be complete")
+        updated = deepcopy(current)
+        updated.update({
+            "phase": "REENTERED",
+            "resolution": {
+                "new_model_ref": new_model_ref,
+                "artifact_id": artifact_id,
+                "cutover_id": cutover_id,
+                "rule": "explicit inactive artifact activation after T1-C",
+            },
+            "authority": "resolved-M_delta-reentry-record; not-action-authority",
+        })
+        self._states[parent_model_ref] = updated
+        return deepcopy(updated)

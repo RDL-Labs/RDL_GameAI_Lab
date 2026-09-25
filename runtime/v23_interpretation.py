@@ -7,6 +7,7 @@ supports explicit residual review; neither path has action authority.
 
 from __future__ import annotations
 
+from copy import deepcopy
 from dataclasses import dataclass, field
 import hashlib
 import math
@@ -19,6 +20,7 @@ from .m_delta import FiniteMDeltaStateMachine
 from .t1_material_expansion import T1MaterialExpansionStore, T1MaterialExpansionError
 from .t1_material_selection import T1MaterialSelectionLedger
 from .t1_reconstruction import T1ReconstructionStore
+from .model_cutover import ModelCutoverLedger, ModelCutoverError
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -69,6 +71,7 @@ class FrozenGameAIMB:
     coefficients: Mapping[str, float]
     biases: Mapping[str, float]
     provenance: Mapping[str, str] = field(default_factory=dict)
+    adopted_relations: tuple[Mapping[str, Any], ...] = field(default_factory=tuple)
     xi_status: str = XI_STATUS
 
     def __post_init__(self) -> None:
@@ -87,6 +90,7 @@ class FrozenGameAIMB:
             _freeze_numeric_mapping("biases", self.biases, self.boundary.dimensions),
         )
         object.__setattr__(self, "provenance", MappingProxyType(dict(self.provenance)))
+        object.__setattr__(self, "adopted_relations", tuple(deepcopy(list(self.adopted_relations))))
 
     @property
     def context_key(self) -> tuple[Any, ...]:
@@ -139,6 +143,7 @@ class FrozenGameAIMB:
             "coefficients": dict(self.coefficients),
             "biases": dict(self.biases),
             "provenance": dict(self.provenance),
+            "adopted_relations": deepcopy(list(self.adopted_relations)),
             "xi_status": self.xi_status,
             "authority": "diagnostic-only",
         }
@@ -277,6 +282,8 @@ class GameAIFrozenComparisonSidecar:
         self.t1_materials = T1MaterialExpansionStore()
         self.t1_selection = T1MaterialSelectionLedger()
         self.t1_reconstruction = T1ReconstructionStore()
+        self.cutovers = ModelCutoverLedger()
+        self._model_archive: dict[str, dict[str, Any]] = {}
 
     def review_assessment(self, payload: Mapping[str, Any]) -> dict[str, Any]:
         """Commit explicit review, then evaluate and apply the C3/C4 boundary once."""
@@ -329,6 +336,75 @@ class GameAIFrozenComparisonSidecar:
             bundle=self.t1_materials.bundle(bundle_id),
             selection=self.t1_selection.record(bundle_id),
         )
+
+    def cutover_reentry(self, *, artifact_id: str, expected_active_model_ref: str,
+                        operator: str, basis: str, evidence: str) -> dict[str, Any] | None:
+        """Explicitly activate one reconstructed model and start a fresh window."""
+
+        artifact = self.t1_reconstruction.artifact(artifact_id)
+        existing = self.cutovers.record_for_artifact(artifact_id)
+        if existing is not None:
+            replay = self.cutovers.admit(
+                artifact=artifact, parent_model_ref=artifact["parent_model_ref"],
+                transition_id=existing["transition_id"],
+                expected_active_model_ref=expected_active_model_ref,
+                operator=operator, basis=basis, evidence=evidence,
+            )
+            return replay
+        matching = [(key, model) for key, model in self._models.items()
+                    if model.model_ref == artifact["parent_model_ref"]]
+        if len(matching) != 1:
+            raise ModelCutoverError("artifact parent is not the unique active model")
+        key, parent = matching[0]
+        if expected_active_model_ref != parent.model_ref:
+            raise ModelCutoverError("expected active model does not match registry")
+        states = [state for state in self.m_delta.snapshot()["states"]
+                  if state["model_ref"] == parent.model_ref and state["phase"] == "M_delta"]
+        if len(states) != 1:
+            raise ModelCutoverError("artifact parent has no active M_delta")
+        transition_id = states[0]["transition"]["transition_id"]
+        boundary_data = artifact["boundary"]
+        boundary = GameAIBoundary(
+            boundary_id=boundary_data["boundary_id"],
+            purpose=boundary_data["purpose"],
+            dimensions=tuple(boundary_data["dimensions"]),
+            conditions=boundary_data["conditions"],
+        )
+        activated = FrozenGameAIMB(
+            agent_id=artifact["agent_id"], model_ref=artifact["model_ref"],
+            boundary=boundary, coefficients=artifact["coefficients"],
+            biases=artifact["biases"],
+            provenance={
+                "scope": "finite reconstructed evaluator",
+                "parent_model_ref": parent.model_ref,
+                "artifact_id": artifact_id,
+            },
+            adopted_relations=tuple(artifact["adopted_relations"]),
+            xi_status=artifact["xi_status"],
+        )
+        if activated.context_key != key:
+            raise ModelCutoverError("reconstructed model changed the active context key")
+        record = self.cutovers.admit(
+            artifact=artifact, parent_model_ref=parent.model_ref,
+            transition_id=transition_id,
+            expected_active_model_ref=expected_active_model_ref,
+            operator=operator, basis=basis, evidence=evidence,
+        )
+        if record is None:
+            return None
+        if self._models[key].model_ref == activated.model_ref:
+            return record
+        self._model_archive[parent.model_ref] = parent.to_json()
+        self._models[key] = activated
+        self._previous.pop(key, None)
+        self._previous_sections.pop(key, None)
+        self._latest_interpretations.pop(activated.agent_id, None)
+        self._latest_mismatches.pop(activated.agent_id, None)
+        self.m_delta.resolve_reentry(
+            parent_model_ref=parent.model_ref, new_model_ref=activated.model_ref,
+            artifact_id=artifact_id, cutover_id=record["cutover_id"],
+        )
+        return record
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
         try:
@@ -415,6 +491,8 @@ class GameAIFrozenComparisonSidecar:
             "T1_materials": self.t1_materials.snapshot(),
             "T1_selection": self.t1_selection.snapshot(),
             "T1_reconstruction": self.t1_reconstruction.snapshot(),
-            "not_implemented": ["time-decay", "authority-cutover", "re-entry"],
+            "model_cutover": self.cutovers.snapshot(),
+            "model_archive": deepcopy(self._model_archive),
+            "not_implemented": ["time-decay", "game-action-authority"],
             "xi_status": XI_STATUS,
         }

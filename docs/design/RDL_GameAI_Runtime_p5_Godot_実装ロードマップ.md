@@ -42,8 +42,8 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | T1-B | 検査・選別 | retain / reject / defer | レビュー面 | 不要 | 完了: 全材料を根拠・evidence・revision付きで明示選別 |
 | T1-C | Reconstruction | 新しい`M_B'`を構成 | before/after比較 | 不要 | 完了: old `M_B`を不変保存しinactive artifactを新規生成 |
 | DMB-A | Dynamic `M_B` inactive cycle | Experience/candidate系とcanonical rupture系をT1-Aで合流し`M_B'`まで追跡 | 主観測面 | 不要 | 完了: causal分離付き一周Evidenceを固定 |
-| DMB-B | Cutover / Re-entry | inactive `M_B'`のauthority切替と通常相への復帰 | before/after比較 | 後回し | 次: activationとre-entryを別契約化 |
-| G1 | Godot再統合 | 身体・空間・実行動から同じ経路を確認 | 補助 | 再開 | Runtime参照結果との差異なし |
+| DMB-B | Cutover / Re-entry | inactive `M_B'`のauthority切替と通常相への復帰 | before/after比較 | 不要 | 完了: parent archive、新model activation、fresh window、REENTEREDを固定 |
+| G1 | Godot再統合 | 身体・空間・実行動から同じ経路を確認 | 補助 | 再開 | 次: Runtime参照結果との差異なし |
 | G2 | 長期生活 | Food / Rest / Safety / Rescue / Sleepとdynamic `M_B`を接続 | 補助 | 主統合面 | 複数日・複数個体で境界を維持 |
 
 ## 2. 直近の順序
@@ -107,8 +107,9 @@ T1-A COMPLETE
 T1-B COMPLETE
 T1-C COMPLETE
 DMB-A COMPLETE
-DMB-B NEXT
-G1-G2 DEFERRED
+DMB-B COMPLETE
+G1 NEXT
+G2 DEFERRED
 ```
 
 詳細なF1/F2 Acceptanceは[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。

@@ -498,7 +498,7 @@ different finite history
 
 ## 13. canonical接続
 
-現在はE / explicit review / H / retained H / finite theta_eff / M_Δ entryまでoperational。固定retry・Body・History・派生表示とは別経路であり、T1 material processing / reconstruction / re-entry / canonical action authorityは未実装。
+現在はE / explicit review / H / retained H / finite theta_eff / M_Δ entry / T1 material processing / inactive reconstruction / canonical evaluator re-entryまでoperational。固定retry・Body・History・派生表示とは別経路であり、game action authorityは従来のlocal policyから移していない。
 
 canonical比較へ接続する場合、同じF/F'比較では同一の凍結M_Bを使用する。
 

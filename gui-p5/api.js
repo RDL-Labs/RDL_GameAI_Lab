@@ -153,6 +153,7 @@ class RDLWorkbenchAPI {
       t1_material_snapshot: byName.canonical.ok ? byName.canonical.payload?.T1_materials : null,
       t1_selection_snapshot: byName.canonical.ok ? byName.canonical.payload?.T1_selection : null,
       t1_reconstruction_snapshot: byName.canonical.ok ? byName.canonical.payload?.T1_reconstruction : null,
+      model_cutover_snapshot: byName.canonical.ok ? byName.canonical.payload?.model_cutover : null,
       rescue_snapshot: byName.rescue.ok ? byName.rescue.payload : null,
       rest_snapshot: byName.rest.ok ? byName.rest.payload : null,
       life_snapshot: byName.life.ok ? byName.life.payload : null,

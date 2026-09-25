@@ -43,7 +43,7 @@ class MDeltaTransitionTests(unittest.TestCase):
         self.assertEqual(state["phase"], "M_delta")
         self.assertEqual(state["transition"]["transition_rule"], "H >= theta_eff")
         self.assertEqual(snapshot["active_count"], 1)
-        self.assertIn("T1_material_expansion", snapshot["not_implemented"])
+        self.assertIn("T1_material_expansion", snapshot["downstream_separation"])
         self.assertIn("not-T1", state["authority"])
 
     def test_get_style_snapshots_do_not_create_or_change_transition(self):

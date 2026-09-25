@@ -66,7 +66,7 @@ class T1ReconstructionTests(unittest.TestCase):
         snapshot = sidecar.snapshot()
         self.assertEqual(snapshot["T1_reconstruction"]["count"], 1)
         self.assertEqual(snapshot["M_delta"]["active_count"], 1)
-        self.assertIn("re_entry", snapshot["T1_reconstruction"]["not_implemented"])
+        self.assertIn("re_entry", snapshot["T1_reconstruction"]["downstream_separation"])
         self.assertNotIn(first["model_ref"], snapshot["models"])
 
 

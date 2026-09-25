@@ -75,6 +75,10 @@ class InspectorView {
       const artifact = artifacts.length ? artifacts[artifacts.length - 1] : null;
       row('T1-C M_B prime', artifact ? artifact.status : 'none',
         artifact ? [192, 132, 252] : [136, 153, 172]);
+      const cutovers = data?.model_cutover_snapshot?.records || [];
+      const cutover = cutovers.length ? cutovers[cutovers.length - 1] : null;
+      row('DMB-B cutover', cutover ? cutover.status : 'none',
+        cutover ? [52, 211, 153] : [136, 153, 172]);
     } else {
       row('status', 'not available');
     }

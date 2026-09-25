@@ -98,6 +98,11 @@ DMB-A fixes one end-to-end inactive cycle: accepted Experience forms a sourced
 Sleep candidate, an independent canonical Review Path enters `M_delta`, and the
 paths join only through explicit T1-A material input before T1-B/T1-C produce an
 inactive `M_B'`. This is not a claim that Experience caused H.
+
+DMB-B explicitly cuts the canonical evaluator registry over to one reconstructed
+model, archives the parent, resolves its `M_delta` as `REENTERED`, and starts a
+fresh comparison window. This evaluator authority is still not game action
+authority.
 Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
 the latest explicit review revision and H. Local Experience, Sleep candidates,
 and Fast retrieval are excluded from this projection.

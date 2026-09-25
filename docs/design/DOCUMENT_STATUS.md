@@ -57,6 +57,7 @@
 | [T1 Material Selection contract](../experiment-contracts/T1_material_selection_contract.md) | T1-B operational | 全材料をRETAIN/REJECT/DEFERへ明示選別。RETAINは採用ではなく再構成なし |
 | [T1 Reconstruction contract](../experiment-contracts/T1_reconstruction_contract.md) | T1-C operational | retained parent/candidateからinactive M_B'を新規生成。cutover・re-entry・action authorityなし |
 | [Dynamic M_B Inactive Cycle contract](../experiment-contracts/DYNAMIC_MB_inactive_cycle_contract.md) | DMB-A operational evidence | Experience/candidateとcanonical ruptureをT1-Aでのみ合流しinactive M_B'まで追跡 |
+| [Dynamic M_B Cutover / Re-entry contract](../experiment-contracts/DYNAMIC_MB_cutover_reentry_contract.md) | DMB-B operational | parent archive、M_B' activation、fresh comparison window、M_delta REENTERED。game action authorityなし |
 | [Finite Sleep Experience Window contract](../experiment-contracts/SLEEP_experience_window_contract.md) | S1 operational reference | 同一NPC・同一sleep cycleのaccepted raw Experienceを最大6件で固定。不足状態とsource追跡を明示。Profile / candidate / canonical authorityは未実装 |
 | [Sleep Relation Constraint Profile contract](../experiment-contracts/SLEEP_relation_profile_contract.md) | S2 operational reference | I1有限relation構築とI2 pure compiler。actor / target / context / action / outcomeをsource付きで派生し、candidate・canonical authorityへ非介入 |
 | [Sleep Deep Similarity Shadow contract](../experiment-contracts/SLEEP_deep_similarity_shadow_contract.md) | S3 operational reference | I1 alignment、I2 pure Deep function、I3 immutable store。最大6 Profile / 15 pair、one cluster / candidate、coverage・conflict・unresolved非混同、非介入 |
@@ -110,7 +111,7 @@ DNA・動的神経状態・睡眠・会話・生活機能の詳細は設計候�
 
 - Layer計画の改訂履歴にある旧Layer名は名称変更の記録として保持する。
 - 既存Sensitivity契約の旧Layer名とExperience契約の「Next 2」は過去の有限sliceの参照表記として残す。今回は契約の再承認・内容変更を行わず、現行配置と成熟度は設計地図・canonical roadmapで示す。
-- 動的神経モデル、会話、DNA、T1 material processing / reconstruction / re-entryは未実装。Sleep S1-S4、finite theta_eff、M_Δ entryは参照実装済み。
+- 動的神経モデル、会話、DNA、canonical game action authorityは未実装。Sleep S1-S4、finite theta_eff、M_Δ、T1-A-C、canonical evaluator cutover / re-entryは参照実装済み。
 
 ## 検証
 
