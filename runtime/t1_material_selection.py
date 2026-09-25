@@ -101,6 +101,11 @@ class T1MaterialSelectionLedger:
                                 "action_authority"],
         }
 
+    def record(self, bundle_id: str) -> dict[str, Any]:
+        if not isinstance(bundle_id, str) or bundle_id not in self._records:
+            raise T1MaterialSelectionError("unknown T1 selection record")
+        return deepcopy(self._records[bundle_id])
+
 
 def _validate_bundle(bundle: dict[str, Any]) -> tuple[str, list[dict[str, Any]]]:
     if not isinstance(bundle, dict) or bundle.get("status") != "EXPANDED_FOR_INSPECTION":

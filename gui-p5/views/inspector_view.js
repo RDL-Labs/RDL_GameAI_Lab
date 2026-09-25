@@ -71,6 +71,10 @@ class InspectorView {
       const selection = selections.length ? selections[selections.length - 1] : null;
       row('T1-B select', selection ?
         `R${selection.counts.RETAIN} J${selection.counts.REJECT} D${selection.counts.DEFER}` : 'none');
+      const artifacts = data?.t1_reconstruction_snapshot?.artifacts || [];
+      const artifact = artifacts.length ? artifacts[artifacts.length - 1] : null;
+      row('T1-C M_B prime', artifact ? artifact.status : 'none',
+        artifact ? [192, 132, 252] : [136, 153, 172]);
     } else {
       row('status', 'not available');
     }

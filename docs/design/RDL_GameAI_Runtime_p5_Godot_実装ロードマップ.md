@@ -40,8 +40,8 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | V-TB | Territory Beast検証 | relationとして生じるwarning/chase/attackを有限World fixture化 | 観測 | 不要 | R4-R7完了: 3/5 agents combined ExperienceとC1-C4回帰を固定 |
 | T1-A | T1材料展開 | CandidateRelation、履歴、unresolved等を有限材料化 | 材料一覧 | 不要 | 完了: active M_deltaから全材料をUNINSPECTEDで凍結 |
 | T1-B | 検査・選別 | retain / reject / defer | レビュー面 | 不要 | 完了: 全材料を根拠・evidence・revision付きで明示選別 |
-| T1-C | Reconstruction | 新しい`M_B'`を構成 | before/after比較 | 不要 | 次: old `M_B`を不変保存し新規生成 |
-| DMB | Dynamic `M_B` | Experienceから破断、T1、`M_B'`までの有限実験 | 主観測面 | 後回し | 一周のEvidenceを保持 |
+| T1-C | Reconstruction | 新しい`M_B'`を構成 | before/after比較 | 不要 | 完了: old `M_B`を不変保存しinactive artifactを新規生成 |
+| DMB | Dynamic `M_B` | Experienceから破断、T1、`M_B'`までの有限実験 | 主観測面 | 後回し | 次: cutover/re-entry前に一周のEvidenceを固定 |
 | G1 | Godot再統合 | 身体・空間・実行動から同じ経路を確認 | 補助 | 再開 | Runtime参照結果との差異なし |
 | G2 | 長期生活 | Food / Rest / Safety / Rescue / Sleepとdynamic `M_B`を接続 | 補助 | 主統合面 | 複数日・複数個体で境界を維持 |
 
@@ -104,8 +104,8 @@ C4 COMPLETE
 V-MA / V-TB COMPLETE
 T1-A COMPLETE
 T1-B COMPLETE
-T1-C PLANNED
-DMB PLANNED
+T1-C COMPLETE
+DMB NEXT
 G1-G2 DEFERRED
 ```
 

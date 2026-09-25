@@ -60,7 +60,8 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Sleep S1-S4 + Fast F1/F2の記憶循環に加え、C1でCore `3270982`のauthority境界を固定した。C2では[Canonical Review Path](docs/experiment-contracts/CANONICAL_review_path_projection_contract.md)として`RIB_B/F/RIB_B'/F'/E/review/H`を追跡し、C3では[finite theta_eff](docs/experiment-contracts/CANONICAL_theta_effective_contract.md)を独立評価する。C4では[finite M_delta transition](docs/experiment-contracts/CANONICAL_M_delta_transition_contract.md)としてexplicit review時だけ再編相へ入場し、p5へread-only表示する。本線の次段はT1-A。
 - T1-A前の[Multi-Agent / Territory Beast検証](docs/design/RDL_GameAI_C4後_Multi-Agent_Territory_Beast検証計画.md)はR1-R7完了。3/5/10 agentsの分離、Fast cross-agent境界、danger labelを持たないWorld fixture、warning/chase/attack、direct/observer Experience、C1-C4非介入をEvidence化し、本線へ復帰した。
 - [T1-A Material Expansion](docs/experiment-contracts/T1_material_expansion_contract.md)ではactive `M_delta`からcurrent `M_B`、RIB history、unresolved residual、same-agent Candidate/Experienceを不変bundleへ展開し、全材料を`UNINSPECTED`でT1-Bへ渡す。
-- [T1-B Material Selection](docs/experiment-contracts/T1_material_selection_contract.md)ではbundle全材料を根拠・evidence・revision付きで`RETAIN / REJECT / DEFER`へ明示選別する。`RETAIN`はまだ採用ではなく、次はT1-C reconstruction。
+- [T1-B Material Selection](docs/experiment-contracts/T1_material_selection_contract.md)ではbundle全材料を根拠・evidence・revision付きで`RETAIN / REJECT / DEFER`へ明示選別する。T1-B単独の`RETAIN`は採用ではなく、T1-Cへの明示入力となる。
+- [T1-C Reconstruction](docs/experiment-contracts/T1_reconstruction_contract.md)ではretained parent/candidateから別identityのinactive `M_B'`を生成する。old `M_B`、active registry、`M_delta`は不変で、次はDynamic M_Bの一周Evidenceとcutover/re-entry境界。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: T1 material selection / reconstruction / re-entry / canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

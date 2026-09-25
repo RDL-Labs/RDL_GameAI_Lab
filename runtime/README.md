@@ -87,7 +87,12 @@ residual, and bounded same-agent candidates/Experience. Every item remains
 T1-B accepts a complete explicit review of one immutable bundle and records
 `RETAIN`, `REJECT`, or `DEFER` with per-material basis/evidence and a revision
 guard. `RETAIN` is not adoption: the bundle and old `M_B` remain unchanged, and
-T1-C reconstruction is still absent.
+only the later T1-C step may construct a separate artifact.
+
+T1-C reconstructs a distinct inactive `M_B'` artifact only when the parent
+model and at least one CandidateRelation are explicitly retained. It preserves
+the old model, adopts only retained candidate signatures, and does not perform
+authority cutover or re-entry.
 Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
 the latest explicit review revision and H. Local Experience, Sleep candidates,
 and Fast retrieval are excluded from this projection.

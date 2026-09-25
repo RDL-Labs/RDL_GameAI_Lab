@@ -18,6 +18,7 @@ from .theta_effective import FiniteThetaEffectiveEvaluator, build_theta_effectiv
 from .m_delta import FiniteMDeltaStateMachine
 from .t1_material_expansion import T1MaterialExpansionStore, T1MaterialExpansionError
 from .t1_material_selection import T1MaterialSelectionLedger
+from .t1_reconstruction import T1ReconstructionStore
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -275,6 +276,7 @@ class GameAIFrozenComparisonSidecar:
         self.m_delta = FiniteMDeltaStateMachine()
         self.t1_materials = T1MaterialExpansionStore()
         self.t1_selection = T1MaterialSelectionLedger()
+        self.t1_reconstruction = T1ReconstructionStore()
 
     def review_assessment(self, payload: Mapping[str, Any]) -> dict[str, Any]:
         """Commit explicit review, then evaluate and apply the C3/C4 boundary once."""
@@ -318,6 +320,14 @@ class GameAIFrozenComparisonSidecar:
 
         return self.t1_selection.inspect(
             self.t1_materials.bundle(bundle_id), dict(payload)
+        )
+
+    def reconstruct_t1(self, *, bundle_id: str) -> dict[str, Any] | None:
+        """Construct an inactive M_B prime artifact from the latest T1-B revision."""
+
+        return self.t1_reconstruction.reconstruct(
+            bundle=self.t1_materials.bundle(bundle_id),
+            selection=self.t1_selection.record(bundle_id),
         )
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
@@ -404,7 +414,7 @@ class GameAIFrozenComparisonSidecar:
             "M_delta": self.m_delta.snapshot(),
             "T1_materials": self.t1_materials.snapshot(),
             "T1_selection": self.t1_selection.snapshot(),
-            "not_implemented": ["time-decay", "T1-reconstruction",
-                                "authority-cutover"],
+            "T1_reconstruction": self.t1_reconstruction.snapshot(),
+            "not_implemented": ["time-decay", "authority-cutover", "re-entry"],
             "xi_status": XI_STATUS,
         }
