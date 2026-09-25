@@ -49,6 +49,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | G2-B | 長期生活・複数個体 | 独立した複数日の生活とdynamic `M_B`を接続 | 補助 | 主統合面 | 完了: A/Bのcandidate/model/archive/M_delta/habit非混線を固定 |
 | RTF-1..4 | Risky Tasty Food参照 | ordinary/tasty Food、source付き神像statement、Territory consequence、Experience provenance | 補助 | World配置 | 完了: action/canonical非介入の有限縦断を固定 |
 | OGB-1..5 | Outcome Gradient / Local Bias | relation別gradient、bias形成、mixed保持、agent分離、Sleep材料投影 | 補助 | 不要 | 完了: finite provenanceとcanonical/action非介入を固定 |
+| OGB-6 | Local Bias Sleep Profile | Bias材料を専用Relation Profileへ純粋変換 | 補助 | 不要 | 完了: mixed保持、agent分離、candidate非生成を固定 |
 
 ## 2. 直近の順序
 
@@ -118,6 +119,7 @@ G2-A COMPLETE
 G2-B COMPLETE
 RTF-1..4 COMPLETE
 OGB-1..5 COMPLETE
+OGB-6 COMPLETE
 ```
 
 詳細なF1/F2 Acceptanceは[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。
