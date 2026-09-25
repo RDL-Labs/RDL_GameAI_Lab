@@ -78,6 +78,11 @@ C3 adds a finite, independently sourced `theta_eff` evaluation and read-only
 enter `M_delta` by itself. C4 performs that finite transition only while an
 explicit review is accepted; GET snapshots remain read-only. Active `M_delta`
 is retained until future explicit T1 resolution.
+
+T1-A can explicitly freeze an immutable material bundle for an active
+`M_delta`: current frozen `M_B`, the RIB pair, transition-time unresolved
+residual, and bounded same-agent candidates/Experience. Every item remains
+`UNINSPECTED`; T1-B selection and T1-C reconstruction are absent.
 Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
 the latest explicit review revision and H. Local Experience, Sleep candidates,
 and Fast retrieval are excluded from this projection.

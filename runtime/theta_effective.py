@@ -73,6 +73,7 @@ class FiniteThetaEffectiveEvaluator:
         result.update(
             status="evaluated",
             H=float(h_value),
+            H_vec=deepcopy(review_path.get("H_vec", {})),
             comparison="maintain" if h_value < theta_eff else "rupture_boundary_met",
         )
         return result

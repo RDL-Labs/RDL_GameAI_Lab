@@ -64,6 +64,9 @@ class InspectorView {
       const delta = deltaStates.length ? deltaStates[deltaStates.length - 1] : null;
       row('C4 phase', delta ? delta.phase : 'not entered',
         delta?.phase === 'M_delta' ? [248, 113, 113] : [52, 211, 153]);
+      const bundles = data?.t1_material_snapshot?.bundles || [];
+      const bundle = bundles.length ? bundles[bundles.length - 1] : null;
+      row('T1-A bundle', bundle ? bundle.material_count + ' materials' : 'none');
     } else {
       row('status', 'not available');
     }

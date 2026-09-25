@@ -38,8 +38,8 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | C4 | `M_delta` | 破断時だけ再編相へ遷移 | 状態遷移表示 | 不要 | 完了: explicit review時だけ通常状態と再編相への入場を分離 |
 | V-MA | C4後Multi-Agent検証 | 3/5/10 agentsでExperience・Fast・Sleep・C1-C4分離を再検証 | 観測 | 不要 | 完了: cross-agent leakage修正、再現Evidence固定 |
 | V-TB | Territory Beast検証 | relationとして生じるwarning/chase/attackを有限World fixture化 | 観測 | 不要 | R4-R7完了: 3/5 agents combined ExperienceとC1-C4回帰を固定 |
-| T1-A | T1材料展開 | CandidateRelation、履歴、unresolved等を有限材料化 | 材料一覧 | 不要 | 次: candidateが自動昇格しない有限材料展開 |
-| T1-B | 検査・選別 | retain / reject / defer | レビュー面 | 不要 | 根拠とprovenanceを保持 |
+| T1-A | T1材料展開 | CandidateRelation、履歴、unresolved等を有限材料化 | 材料一覧 | 不要 | 完了: active M_deltaから全材料をUNINSPECTEDで凍結 |
+| T1-B | 検査・選別 | retain / reject / defer | レビュー面 | 不要 | 次: 根拠とprovenanceを保持した明示選別 |
 | T1-C | Reconstruction | 新しい`M_B'`を構成 | before/after比較 | 不要 | old `M_B`を不変保存し新規生成 |
 | DMB | Dynamic `M_B` | Experienceから破断、T1、`M_B'`までの有限実験 | 主観測面 | 後回し | 一周のEvidenceを保持 |
 | G1 | Godot再統合 | 身体・空間・実行動から同じ経路を確認 | 補助 | 再開 | Runtime参照結果との差異なし |
@@ -99,9 +99,11 @@ F1 COMPLETE
 F2 COMPLETE
 C1 COMPLETE
 C2 COMPLETE
-C3 NEXT
-C4 PLANNED
-T1-A..C PLANNED
+C3 COMPLETE
+C4 COMPLETE
+V-MA / V-TB COMPLETE
+T1-A COMPLETE
+T1-B..C PLANNED
 DMB PLANNED
 G1-G2 DEFERRED
 ```

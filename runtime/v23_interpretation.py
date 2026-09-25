@@ -16,6 +16,7 @@ from .v23_assessment import FiniteAssessmentLedger
 from .review_path import build_review_path_snapshot
 from .theta_effective import FiniteThetaEffectiveEvaluator, build_theta_effective_snapshot
 from .m_delta import FiniteMDeltaStateMachine
+from .t1_material_expansion import T1MaterialExpansionStore, T1MaterialExpansionError
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -271,6 +272,7 @@ class GameAIFrozenComparisonSidecar:
         self.assessments = FiniteAssessmentLedger()
         self.theta_evaluator = theta_evaluator or FiniteThetaEffectiveEvaluator()
         self.m_delta = FiniteMDeltaStateMachine()
+        self.t1_materials = T1MaterialExpansionStore()
 
     def review_assessment(self, payload: Mapping[str, Any]) -> dict[str, Any]:
         """Commit explicit review, then evaluate and apply the C3/C4 boundary once."""
@@ -285,6 +287,28 @@ class GameAIFrozenComparisonSidecar:
             raise InterpretationError("reviewed assessment lost its theta evaluation")
         self.m_delta.accept(matching[0])
         return reviewed
+
+    def expand_t1_materials(self, *, assessment_id: str,
+                            candidates: list[dict[str, Any]] | None = None,
+                            experiences: list[dict[str, Any]] | None = None) -> dict[str, Any] | None:
+        """Explicitly freeze T1-A inputs for one active M_delta entry."""
+
+        assessment = self.assessments.snapshot()
+        review_path = build_review_path_snapshot(self._comparison_paths, assessment)
+        paths = [path for path in review_path["paths"]
+                 if path["assessment_id"] == assessment_id]
+        if len(paths) != 1:
+            raise T1MaterialExpansionError("unknown or ambiguous assessment_id")
+        path = paths[0]
+        states = [state for state in self.m_delta.snapshot()["states"]
+                  if state["model_ref"] == path["model_ref"]]
+        if len(states) != 1:
+            raise T1MaterialExpansionError("assessment has no finite phase state")
+        models = {model.model_ref: model.to_json() for model in self._models.values()}
+        return self.t1_materials.expand(
+            m_delta_state=states[0], model=models[path["model_ref"]], review_path=path,
+            candidates=candidates, experiences=experiences,
+        )
 
     def capture(self, packet: Mapping[str, Any]) -> GameAIMismatch | None:
         try:
@@ -368,6 +392,8 @@ class GameAIFrozenComparisonSidecar:
             "review_path": review_path,
             "theta_effective": build_theta_effective_snapshot(review_path, self.theta_evaluator),
             "M_delta": self.m_delta.snapshot(),
-            "not_implemented": ["time-decay", "T1", "authority-cutover"],
+            "T1_materials": self.t1_materials.snapshot(),
+            "not_implemented": ["time-decay", "T1-selection", "T1-reconstruction",
+                                "authority-cutover"],
             "xi_status": XI_STATUS,
         }

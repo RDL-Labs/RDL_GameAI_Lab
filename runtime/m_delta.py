@@ -48,6 +48,7 @@ class FiniteMDeltaStateMachine:
             "latest_assessment_id": assessment_id,
             "latest_review_revision": evaluation["review_revision"],
             "H": evaluation["H"],
+            "H_vec": deepcopy(evaluation.get("H_vec", {})),
             "theta_eff": evaluation["theta_eff"],
             "comparison": comparison,
         }
