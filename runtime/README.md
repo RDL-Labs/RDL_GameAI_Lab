@@ -70,6 +70,12 @@ result cannot change an action or form a new candidate.
 
 Finite assessment is available at `POST /v1/assessment-review`; inspect IDs and revisions through `GET /v1/canonical-snapshot`. See [the current contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md#finite-assessment-api) for request format, provenance, residual bounds, and retention. Diagnostic H is available per comparison and as retained residuals per exact context/frozen model.
 
+The same canonical snapshot includes the read-only
+[C2 Review Path projection](../docs/experiment-contracts/CANONICAL_review_path_projection_contract.md).
+Each admitted assessment retains its exact `RIB_B/F/RIB_B'/F'/E` pair and joins
+the latest explicit review revision and H. Local Experience, Sleep candidates,
+and Fast retrieval are excluded from this projection.
+
 This is the minimal Python-side runtime boundary for the Godot workbench.
 
 The assisted Base-Food experiment is opt-in with

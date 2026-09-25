@@ -13,6 +13,7 @@ import math
 from types import MappingProxyType
 from typing import Any, Mapping
 from .v23_assessment import FiniteAssessmentLedger
+from .review_path import build_review_path_snapshot
 
 from .v23_acquisition import (
     AcquisitionError,
@@ -255,10 +256,12 @@ class GameAIFrozenComparisonSidecar:
     def __init__(self) -> None:
         self._models: dict[tuple[Any, ...], FrozenGameAIMB] = {}
         self._previous: dict[tuple[Any, ...], GameAIInterpretation] = {}
+        self._previous_sections: dict[tuple[Any, ...], GameAIRIBSection] = {}
         self._seen_observations: dict[tuple[Any, ...], set[str]] = {}
         self._latest_sections: dict[str, GameAIRIBSection] = {}
         self._latest_interpretations: dict[str, GameAIInterpretation] = {}
         self._latest_mismatches: dict[str, GameAIMismatch] = {}
+        self._comparison_paths: dict[str, dict[str, Any]] = {}
         self._captures = 0
         self._comparisons = 0
         self._duplicate_observations = 0
@@ -290,6 +293,7 @@ class GameAIFrozenComparisonSidecar:
             return None
 
         previous = self._previous.get(key)
+        previous_section = self._previous_sections.get(key)
         if previous is not None and interpretation.tick < previous.tick:
             self._failures.append({"observation_id": interpretation.source_observation_id,
                                    "error": "observation tick precedes comparison window"})
@@ -298,16 +302,26 @@ class GameAIFrozenComparisonSidecar:
         self._latest_sections[section.agent_id] = section
         self._latest_interpretations[section.agent_id] = interpretation
         self._previous[key] = interpretation
+        self._previous_sections[key] = section
         if previous is None:
             return None
 
         mismatch = compare_interpretations(previous, interpretation)
         self._latest_mismatches[section.agent_id] = mismatch
         self._comparisons += 1
-        self.assessments.register(mismatch)
+        assessment_id = self.assessments.register(mismatch)
+        if assessment_id is not None:
+            self._comparison_paths.setdefault(assessment_id, {
+                "RIB_B": previous_section.to_json(),
+                "F": previous.to_json(),
+                "RIB_B_prime": section.to_json(),
+                "F_prime": interpretation.to_json(),
+                "E": mismatch.to_json(),
+            })
         return mismatch
 
     def snapshot(self) -> dict[str, Any]:
+        assessment = self.assessments.snapshot()
         return {
             "authority": "read-only-comparison-sidecar",
             "stage": "RIB_B-frozen-M_B-F-F_prime-E",
@@ -331,7 +345,8 @@ class GameAIFrozenComparisonSidecar:
                 for agent_id, mismatch in sorted(self._latest_mismatches.items())
             },
             "failures": list(self._failures),
-            "assessment": self.assessments.snapshot(),
+            "assessment": assessment,
+            "review_path": build_review_path_snapshot(self._comparison_paths, assessment),
             "not_implemented": ["time-decay", "theta", "M_delta", "T1", "authority-cutover"],
             "xi_status": XI_STATUS,
         }

@@ -36,7 +36,7 @@ class InspectorView {
     const endpoints = data?._viewer_meta?.endpoint_status || {};
     const names = Object.keys(endpoints);
     if (names.length) {
-      for (const name of names.slice(0, 7)) {
+      for (const name of names.slice(0, 5)) {
         const state = endpoints[name];
         row(name, state.ok ? 'GET ' + state.status : 'unavailable ' + state.status, state.ok ? [52, 211, 153] : [136, 153, 172]);
       }
@@ -49,8 +49,12 @@ class InspectorView {
     p.text('CANONICAL SIDECAR', this.bounds.x + 16, cy); cy += 18;
     const can = data?.canonical_snapshot;
     if (can) {
-      row('retained H', can.total_retained_h ?? 0, [192, 132, 252]);
-      row('pending E', can.pending_reviews?.length ?? 0);
+      const paths = data?.review_path_snapshot?.paths || [];
+      const latest = paths.length ? paths[paths.length - 1] : null;
+      row('C2 paths', paths.length, [192, 132, 252]);
+      row('review', latest ? latest.review.status + ' r' + latest.review.revision : 'none');
+      row('E dims', latest ? latest.E.nonzero_dimensions.length : 0);
+      row('H', latest ? latest.H : 0, latest?.H > 0 ? [248, 113, 113] : [52, 211, 153]);
     } else {
       row('status', 'not available');
     }

@@ -57,7 +57,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Rescue Phase 5D: [safe-place delivery contract](docs/experiment-contracts/RESCUE_safe_delivery_contract.md)で、対象保持、固定safe targetへの搬送、World-owned delivery記録、後続観測によるCOMPLETEまで通す。治療・回復は未実装。
 - Rescue Phase 5E: [staged recovery contract](docs/experiment-contracts/RESCUE_staged_recovery_contract.md)で、安全地点滞在中の有限4段階回復をGodot BodyStateが所有する。回復後は旧Safety trajectoryを盲目的に再開せず、現在関係で再評価する。
 - Rescue Phase 5F: [multi-agent reference evidence](docs/experiment-evidence/RESCUE_multi_agent_reference_evidence.md)で、NPC Bの行動不能からNPC Aの発見・一度だけの救助・搬送・段階回復までを同一World/Runtimeで固定する。回復中conditionは再救助候補から分離する。
-- Sleep S1-S4 + Fast F1/F2: day 1のaccepted Experienceから実Sleepでone shadow CandidateRelationを形成し、day 2のFast検索で同candidateと全source chainを再発見できる。C1では[Core 3270982同期契約](docs/experiment-contracts/CORE_3270982_authority_sync_contract.md)を固定し、dynamic `theta_eff`を関係配置から必要時に評価する境界として整理した。次はC2 Review Path分離。
+- Sleep S1-S4 + Fast F1/F2の記憶循環に加え、C1でCore `3270982`のauthority境界を固定した。C2では[Canonical Review Path](docs/experiment-contracts/CANONICAL_review_path_projection_contract.md)として`RIB_B/F/RIB_B'/F'/E/review/H`をassessment単位で追跡し、candidate系から分離してp5へread-only表示する。次はC3 `theta_eff`有限モデル。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
