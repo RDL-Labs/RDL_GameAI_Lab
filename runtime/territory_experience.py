@@ -69,6 +69,7 @@ class TerritoryExperienceStore:
                 "beast_response": event["beast_response"],
                 "proximity": event["proximity"],
                 "outcome": event["outcome"],
+                "context": deepcopy(event.get("interaction_context")),
             },
             "world_consequence": (deepcopy(event["world_consequence"])
                                   if perspective == "direct_participant" else None),
@@ -112,3 +113,9 @@ def _validate_event(event: dict[str, Any]) -> None:
         raise TerritoryExperienceError("event tick must be a non-negative integer")
     if any(field in event for field in ("danger", "beast_is_dangerous", "threat_score")):
         raise TerritoryExperienceError("interpretive danger labels are not admissible facts")
+    context = event.get("interaction_context")
+    if context is not None:
+        if not isinstance(context, dict):
+            raise TerritoryExperienceError("interaction_context must be an object")
+        if any(field in context for field in ("danger", "dangerous", "threat_score")):
+            raise TerritoryExperienceError("interaction context cannot inject danger meaning")

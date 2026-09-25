@@ -103,6 +103,37 @@ const SAFETY_MOVING_THREAT = {
 	"danger_level": "high"
 }
 
+const RISKY_TASTY_FOODS = [
+	{
+		"id": "ordinary_food", "label": "Ordinary Food", "role": "mock object",
+		"kind": "food", "position": Vector2(155, 245),
+		"desirability_fixture": "NORMAL"
+	},
+	{
+		"id": "tasty_food", "label": "Red Tasty Food", "role": "mock object",
+		"kind": "food", "position": Vector2(355, 245),
+		"desirability_fixture": "HIGH", "territory_id": "north_grove"
+	},
+	{
+		"id": "beast_1", "label": "Territory Beast", "role": "mock creature",
+		"kind": "creature", "position": Vector2(355, 245), "territory_id": "north_grove"
+	}
+]
+
+const RISKY_TASTY_TERRITORY = {
+	"id": "north_grove", "label": "North Grove", "role": "mock territory",
+	"position": Vector2(355, 245), "radius": 70.0, "territory_capable": true
+}
+
+const GOD_STATUE_TASTY_STATEMENT = {
+	"statement_id": "god-statue-tasty-food-v1",
+	"schema": "external-value-statement-v1",
+	"source_type": "external_statement", "source_id": "god_statue",
+	"subject_id": "tasty_food", "predicate": "tasty",
+	"polarity": "positive", "value_band": "HIGH",
+	"authority": "source-attributed-information; not-World-Truth-M_B-H-or-action"
+}
+
 const PERCEPTION_RADIUS = 145.0
 const ACTION_STEP_DISTANCE = 36.0
 const PICKUP_DISTANCE = 8.0
@@ -158,6 +189,7 @@ var interrupt_candidates = []
 var observation_resolution_profile = ObservationResolutionProfileScript.new()
 var observation_resolution_enabled = false
 var mock_rest_contexts = {}
+var risky_tasty_food_fixture_enabled = false
 
 func reset():
 	tick = 0
@@ -196,13 +228,15 @@ func reset():
 	for agent in agents:
 		action_offsets[agent["id"]] = Vector2.ZERO
 	objects = []
-	for object_data in INITIAL_OBJECTS:
+	for object_data in (RISKY_TASTY_FOODS if risky_tasty_food_fixture_enabled else INITIAL_OBJECTS):
 		objects.append(object_data.duplicate(true))
 	if safety_actions_enabled and moving_threat_enabled:
 		objects.append(SAFETY_MOVING_THREAT.duplicate(true))
 	places = []
 	for place in INITIAL_PLACES:
 		places.append(place.duplicate(true))
+	if risky_tasty_food_fixture_enabled:
+		places.append(RISKY_TASTY_TERRITORY.duplicate(true))
 	if safety_actions_enabled and not moving_threat_enabled:
 		places.append(SAFETY_DANGER_PLACE.duplicate(true))
 	if food_safety_integration_enabled:
@@ -529,7 +563,7 @@ func get_life_context(agent_id):
 			"cue_id": "god-food-%03d" % base_food_revision,
 			"assessment_revision": base_food_revision
 		}
-	return {
+	var context = {
 		"god_statue_cue": cue,
 		"observed_base_food_band": band,
 		"known_base": {
@@ -542,6 +576,13 @@ func get_life_context(agent_id):
 		"at_base": agent["position"].distance_to(base["position"]) <= BASE_REACH_DISTANCE,
 		"interrupt_candidates": interrupt_candidates.duplicate(true)
 	}
+	if risky_tasty_food_fixture_enabled:
+		context["external_statements"] = [GOD_STATUE_TASTY_STATEMENT.duplicate(true)]
+	return context
+
+func set_risky_tasty_food_fixture_enabled(enabled):
+	risky_tasty_food_fixture_enabled = bool(enabled)
+	reset()
 
 func set_interrupt_candidates(candidates):
 	interrupt_candidates = candidates.duplicate(true)

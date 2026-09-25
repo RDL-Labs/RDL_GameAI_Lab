@@ -66,6 +66,20 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_risky_tasty_food_world_projection_has_no_action_or_danger_authority(self):
+        project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+        completed = subprocess.run(
+            [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+             "--script", "res://tests/risky_tasty_food_world_check.gd"],
+            capture_output=True, text=True, timeout=40,
+            env=os.environ.copy(),
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+        )
+        output = completed.stdout + completed.stderr
+        self.assertEqual(completed.returncode, 0, output)
+        self.assertIn("Risky Tasty Food World check passed", output)
+        print(output.strip())
+
     def test_multi_agent_long_life_keeps_dynamic_mb_and_life_state_separate(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()

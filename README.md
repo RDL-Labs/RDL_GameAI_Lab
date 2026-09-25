@@ -68,6 +68,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [G1 Godot Dynamic M_B Reintegration](docs/experiment-contracts/G1_Godot_dynamic_mb_reintegration_contract.md)ではGodot所有の身体・空間・実行動から既存DMB経路へ再接続し、cutover後のfresh Godot比較とlocal action不変を固定した。
 - [G2-A Long-Life Dynamic M_B](docs/experiment-contracts/G2A_long_life_dynamic_mb_contract.md)では同一Godot Worldでday 1のFood/Safety、実Sleep、明示DMB cutover、day 2のcueなし自律Foodを接続した。
 - [G2-B Multi-Agent Long-Life](docs/experiment-contracts/G2B_multi_agent_long_life_contract.md)では同一World/Runtime内のNPC A/Bが別candidate・model・archive・`M_delta`・habitを保ち、それぞれ翌日のcueなし自律Foodを完走した。実行は決定論的な直列fixtureである。
+- [Risky Tasty Food Reference](docs/experiment-contracts/RISKY_TASTY_FOOD_reference_contract.md)ではordinary/tasty Food、物理的Territory関係、source付きGod Statue statement、既存warning/chase/attack/injury、Food関係付きExperienceを同一参照fixtureへ置いた。statement・Experience・Dynamic `M_B`にaction authorityはない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

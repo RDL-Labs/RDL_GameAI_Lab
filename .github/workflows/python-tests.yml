@@ -39,6 +39,7 @@ jobs:
             tests.test_experience_godot.GodotExperienceTests.test_dynamic_mb_reintegrates_real_godot_world_observations \
             tests.test_experience_godot.GodotExperienceTests.test_long_life_crosses_sleep_dynamic_mb_and_next_day_autonomy \
             tests.test_experience_godot.GodotExperienceTests.test_multi_agent_long_life_keeps_dynamic_mb_and_life_state_separate \
+            tests.test_experience_godot.GodotExperienceTests.test_risky_tasty_food_world_projection_has_no_action_or_danger_authority \
             tests.test_experience_godot.GodotExperienceTests.test_real_workbench_sleep_is_world_action_without_consolidation \
             tests.test_experience_godot.GodotExperienceTests.test_safety_vertical_uses_normal_cli_startup \
             tests.test_experience_godot.GodotExperienceTests.test_safety_failure_enters_world_owned_incapacitation \
