@@ -65,6 +65,116 @@ def admit_bounded_life_success(policy, agent_id, index):
 
 @unittest.skipUnless(os.environ.get("GODOT_BIN"), "set GODOT_BIN for real Godot HTTP check")
 class GodotExperienceTests(unittest.TestCase):
+    def test_dynamic_mb_reintegrates_real_godot_world_observations(self):
+        history = InteractionHistory()
+        canonical = GameAIFrozenComparisonSidecar()
+        coordinator = SleepConsolidationCoordinator()
+        with patch.object(bridge, "EXPERIENCE", history), patch.object(
+            bridge, "CANONICAL_SIDECAR", canonical
+        ):
+            server = ThreadingHTTPServer(("127.0.0.1", 8765), bridge.BridgeHandler)
+            server.history_policy = None
+            server.sleep_consolidation = coordinator
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            try:
+                project = Path(__file__).resolve().parents[1] / "godot" / "rdl-game-ai-workbench"
+
+                def run_godot(script, **environment):
+                    completed = subprocess.run(
+                        [os.environ["GODOT_BIN"], "--headless", "--path", str(project),
+                         "--script", script],
+                        capture_output=True, text=True, timeout=60,
+                        env={**os.environ, **environment},
+                        creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+                    )
+                    output = completed.stdout + completed.stderr
+                    self.assertEqual(completed.returncode, 0, output)
+                    return output
+
+                sleep_output = run_godot("res://tests/sleep_consolidation_http_check.gd")
+                candidate = coordinator.snapshot()["results"][0]["candidate"]
+                self.assertIsNotNone(candidate)
+
+                before_output = run_godot(
+                    "res://tests/dynamic_mb_reintegration_http_check.gd",
+                    RDL_TEST_DMB_PHASE="before",
+                )
+                before = canonical.snapshot()
+                pending = [item for item in before["assessment"]["records"]
+                           if not item["reviewed"] and any(item["E"]["deltas"].values())]
+                self.assertTrue(pending)
+                assessment = pending[-1]
+                dimensions = {}
+                for name, delta in assessment["E"]["deltas"].items():
+                    dimensions[name] = ({"status": "unresolved", "residual": abs(delta)}
+                                        if delta else {"status": "zero"})
+                canonical.review_assessment({
+                    "assessment_id": assessment["assessment_id"],
+                    "expected_revision": 0,
+                    "reviewer": "g1-godot-reintegration",
+                    "basis": "explicit review of the bounded Godot world change",
+                    "evidence": "npc_b accepted approach changed spatial visibility",
+                    "dimensions": dimensions,
+                })
+                self.assertEqual(canonical.snapshot()["M_delta"]["active_count"], 1)
+
+                bundle = canonical.expand_t1_materials(
+                    assessment_id=assessment["assessment_id"],
+                    candidates=[candidate], experiences=history.snapshot()["records"],
+                )
+                dispositions = {
+                    "current_M_B": "RETAIN", "CandidateRelation": "RETAIN",
+                    "Experience": "DEFER", "RIB_B": "RETAIN",
+                    "RIB_B_prime": "RETAIN", "unresolved_residual": "DEFER",
+                }
+                canonical.inspect_t1_materials(bundle_id=bundle["bundle_id"], payload={
+                    "expected_revision": 0,
+                    "reviewer": "g1-godot-reintegration",
+                    "materials": [{
+                        "material_id": item["material_id"],
+                        "disposition": dispositions[item["kind"]],
+                        "basis": "finite G1 material inspection",
+                        "evidence": item["source_id"],
+                    } for item in bundle["materials"]],
+                })
+                artifact = canonical.reconstruct_t1(bundle_id=bundle["bundle_id"])
+                canonical.cutover_reentry(
+                    artifact_id=artifact["artifact_id"],
+                    expected_active_model_ref=artifact["parent_model_ref"],
+                    operator="g1-godot-reintegration",
+                    basis="activate the explicitly inspected finite reconstruction",
+                    evidence=artifact["artifact_id"],
+                )
+                cutover = canonical.snapshot()
+                self.assertEqual(cutover["M_delta"]["active_count"], 0)
+                self.assertEqual(cutover["M_delta"]["states"][-1]["phase"], "REENTERED")
+
+                comparisons_before_reentry = cutover["comparisons"]
+                after_output = run_godot(
+                    "res://tests/dynamic_mb_reintegration_http_check.gd",
+                    RDL_TEST_DMB_PHASE="after",
+                )
+                after = canonical.snapshot()
+                self.assertEqual(after["comparisons"], comparisons_before_reentry + 1)
+                latest = after["latest_E"]["npc_b"]
+                self.assertEqual(latest["model_ref"], artifact["model_ref"])
+                self.assertEqual(
+                    after["models"][artifact["model_ref"]]["adopted_relations"][0]
+                    ["source_candidate_id"],
+                    candidate["candidate_id"],
+                )
+                self.assertEqual(len(after["model_archive"]), 1)
+                self.assertIn("actions=approach/approach", before_output)
+                self.assertIn("actions=approach/approach", after_output)
+                print(sleep_output.strip())
+                print(before_output.strip())
+                print(after_output.strip())
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
     def test_real_sleep_consolidation_vertical_forms_sourced_shadow_candidate(self):
         history = InteractionHistory()
         canonical = GameAIFrozenComparisonSidecar()

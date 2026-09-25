@@ -44,7 +44,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | DMB-A | Dynamic `M_B` inactive cycle | Experience/candidate系とcanonical rupture系をT1-Aで合流し`M_B'`まで追跡 | 主観測面 | 不要 | 完了: causal分離付き一周Evidenceを固定 |
 | DMB-B | Cutover / Re-entry | inactive `M_B'`のauthority切替と通常相への復帰 | before/after比較 | 不要 | 完了: parent archive、新model activation、fresh window、REENTEREDを固定 |
 | DMB-C | Multi-Agent regression | 2個体が独立にDMB cycleとre-entryを完了 | 比較表示 | 不要 | 完了: candidate/model/archive/M_delta/window非混線 |
-| G1 | Godot再統合 | 身体・空間・実行動から同じ経路を確認 | 補助 | 再開 | 次: Runtime参照結果との差異なし |
+| G1 | Godot再統合 | 身体・空間・実行動から同じ経路を確認 | 補助 | 再開 | 完了: Godot実観測からDMB cutoverとfresh re-entryを固定、local action不変 |
 | G2 | 長期生活 | Food / Rest / Safety / Rescue / Sleepとdynamic `M_B`を接続 | 補助 | 主統合面 | 複数日・複数個体で境界を維持 |
 
 ## 2. 直近の順序
@@ -110,7 +110,7 @@ T1-C COMPLETE
 DMB-A COMPLETE
 DMB-B COMPLETE
 DMB-C COMPLETE
-G1 NEXT
+G1 COMPLETE
 G2 DEFERRED
 ```
 
