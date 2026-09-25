@@ -3,7 +3,7 @@
 This document is the current operational contract for `RDL_GameAI_Lab`.
 It replaces the older phase-specific contracts as the active reference.
 
-Core reference: BASE v2.3 / SPEC v2.4 at `9c60c5b`; see the
+Core reference: BASE v2.3 / SPEC v2.4 and dynamic-theta explanation at `3270982`; see the
 [semantic reference](../semantic-reference/RDL_Core_T0_T1_reference.md).
 The filename is retained for compatibility. Local behavior/display is covered by
 the [cross-layer separation contract](CROSS_LAYER_separation_contract.md).

@@ -1,6 +1,6 @@
 # Experiment Roadmap
 
-This roadmap starts from the current runtime state, synchronized to Core `9c60c5b` (BASE v2.3 / SPEC v2.4). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
+This roadmap starts from the current runtime state, semantically synchronized to Core `3270982` (BASE v2.3 / SPEC v2.4 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
 
 Role: axis A in the [overall map](../docs/design/RDL_GameAI_全体設計地図.md), tracking canonical operational maturity and separation of adjacent local influences. It depends on the [runtime contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md) and [evidence](../docs/experiment-evidence/CURRENT_v23_runtime_evidence.md).
 It does not own game-feature phases; those belong to the [life-feature roadmap](../docs/design/RDL_GameAI_実装手順予定.md). Canonical maturity != game feature phase.

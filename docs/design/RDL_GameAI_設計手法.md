@@ -1,6 +1,6 @@
 # RDL_GameAI 設計手法
 
-*CURRENT — Core 9c60c5b / BASE v2.3 / SPEC v2.4 / RIB_B準拠*
+*CURRENT — Core 3270982 / BASE v2.3 / SPEC v2.4 / dynamic theta explanation / RIB_B準拠*
 
 **責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)を横断する設計・有限検証の規律。
 **依存・非責務:** 意味論はCore reference、実装成熟度は[canonical roadmap](../../notes/experiment-roadmap.md)。Layerの細部・生活Phase・神経サブタイプの正本はそれぞれの責務文書に置く。

@@ -15,9 +15,9 @@ Canonical source:
 Reference state checked for this lab:
 
 - BASE: formal v2.3; SPEC: formal v2.4 (Standard Model resolution `ρ_B`)
-- Core synchronization commit: `9c60c5b61922a2dc15195d257ce5475fc636ffac`
-- checked: 2026-09-17 against committed sources and remote main SHA
-- [Pinned source tree](https://github.com/Aporapeiron/RDL_Core/tree/9c60c5b61922a2dc15195d257ce5475fc636ffac)
+- Core synchronization commit: `327098256a29e3f82f2a8649a6ec0202fd68a6c4`
+- checked: 2026-09-25 against committed local sources
+- [Pinned source tree](https://github.com/Aporapeiron/RDL_Core/tree/327098256a29e3f82f2a8649a6ec0202fd68a6c4)
 
 Versions belong to individual documents, not uniformly to all T0/T1. Existing `v23_*` code and contract filenames remain compatibility names.
 
@@ -151,6 +151,33 @@ H >= theta -> M_delta
 
 `H` is not a direct update vector for `M_B'`. Once in `M_delta`, T1 owns the formation path.
 
+### theta_eff is an optional relationally evaluated boundary
+
+Core explanation `03_Explanation/06_動的θと関係配置.md` does not replace the
+T0 definition of `theta` and does not add a new Primitive. It permits an
+effective boundary when current relation conditions materially matter.
+
+```text
+theta_eff(t)
+  = finite boundary evaluation under declared
+    M_B / B / RIB and interaction conditions /
+    support and constraint relations / history provenance
+```
+
+`H` and `theta_eff` can move independently. A fixed `H` can cross a falling
+boundary, and added support can raise the boundary without resolving `H`.
+GameAI must therefore retain separate values, revisions, inputs, and provenance.
+
+```text
+theta_eff != BodyState
+theta_eff != SensitivityProfile
+theta_eff != candidate score
+H >= theta_eff != M_B' produced
+```
+
+The comparison only selects maintenance/local update versus entry to `M_delta`.
+T1 still owns inspection, selection, and reconstruction.
+
 ---
 
 ## T1 reference method (not implemented in GameAI)
@@ -224,7 +251,7 @@ GameAI currently selects three visible-entity counts. Configurable `ρ_B` is not
 
 ## Current GameAI adoption
 
-Finite acquisition, frozen diagnostic interpretation, E, explicit residual review, and retained H are operational. History, fixed sensitivity, body, and derived expression support a separate local behavior/display path. θ, M_Δ, T1 reconstruction, and canonical action authority remain unimplemented. This is not a claim that all T0 operation is implemented.
+Finite acquisition, frozen diagnostic interpretation, E, explicit residual review, and retained H are operational. History, fixed sensitivity, body, derived expression, Sleep candidate formation, and Fast retrieval support separate local behavior/material paths. C1 now pins the dynamic-boundary semantics, but `theta_eff`, `M_delta`, T1 reconstruction, and canonical action authority remain unimplemented. This is not a claim that all T0 operation is implemented.
 
 ## Responsibility split
 

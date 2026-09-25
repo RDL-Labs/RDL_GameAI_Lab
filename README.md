@@ -37,7 +37,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Canonical diagnostics: bounded observation → finite B → RIB_B → frozen M_B → F/F' → E → explicit finite residual review → H / retained H。
 - GameAI-local behavior: 有限なapproach結果履歴、任意のhistory retry policy、固定1/3/5 tick profile、Godot所有のmovement_scale、現在観測。
 - First game feature: [minimal Food loop](docs/experiment-contracts/FOOD_minimal_loop_contract.md)。FoodNeed → approach → pickup → eat → world消費 / Need低下。
-- Current direction: Restの固定target・interrupt復帰に加え、[最小Sleep生活行動](docs/experiment-contracts/SLEEP_life_action_contract.md)としてRestNeed + 明示window + safe place → sleep → 回復を実縦断した。World TimeとSleep Consolidationは未実装。神の像にaction authorityは与えない。
+- Current direction: Restの固定target・interrupt復帰に加え、RestNeed + 明示window + safe place → sleep → 回復を実縦断した。Sleep Consolidationは明示cycleのS4 shadowとして実装済みで、World Timeとaction authorityは未実装。
 - Operational assisted slice: 粗いcueからBase–Foodを完遂し、follow / ignore結果を分離する。deposit成功を有限経験として保持し、2成功後のみcueなしのlearned relationから同じ一周を自律起動できる。generic保留・再開、Threat profile差、Novelty三応答と復帰、両端の調整用extreme profile比較まで実装済み。
 - Reference status: [Base–Food completion evidence](docs/experiment-evidence/BASE_FOOD_reference_loop_evidence.md)と[ρ v0.x evidence](docs/experiment-evidence/RHO_v0_reference_evidence.md)を固定。FoodNeed canonical promotionはshadow維持、ρ追加展開はdeferred。
 - Observation resolution: [ρ contract](docs/experiment-contracts/RHO_observation_resolution_contract.md)でFood / RestのLOW / MID / HIGH、版付きprofile、packet sidecar、provenanceを実装。default actionとcanonical pathは非介入。Restの二重opt-in実験のみ候補記述へ接続済み。
@@ -57,7 +57,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Rescue Phase 5D: [safe-place delivery contract](docs/experiment-contracts/RESCUE_safe_delivery_contract.md)で、対象保持、固定safe targetへの搬送、World-owned delivery記録、後続観測によるCOMPLETEまで通す。治療・回復は未実装。
 - Rescue Phase 5E: [staged recovery contract](docs/experiment-contracts/RESCUE_staged_recovery_contract.md)で、安全地点滞在中の有限4段階回復をGodot BodyStateが所有する。回復後は旧Safety trajectoryを盲目的に再開せず、現在関係で再評価する。
 - Rescue Phase 5F: [multi-agent reference evidence](docs/experiment-evidence/RESCUE_multi_agent_reference_evidence.md)で、NPC Bの行動不能からNPC Aの発見・一度だけの救助・搬送・段階回復までを同一World/Runtimeで固定する。回復中conditionは再救助候補から分離する。
-- Sleep S1-S4 + Fast F1/F2: day 1のaccepted Experienceから実Sleepでone shadow CandidateRelationを形成し、day 2のFast検索で同candidateと全source chainを再発見できる。raw ExperienceとSleep candidateは分離され、action、`E / H / theta_eff / M_delta / M_B' / T1`には非介入。次はCore `3270982`同期契約。
+- Sleep S1-S4 + Fast F1/F2: day 1のaccepted Experienceから実Sleepでone shadow CandidateRelationを形成し、day 2のFast検索で同candidateと全source chainを再発見できる。C1では[Core 3270982同期契約](docs/experiment-contracts/CORE_3270982_authority_sync_contract.md)を固定し、dynamic `theta_eff`を関係配置から必要時に評価する境界として整理した。次はC2 Review Path分離。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: θ / M_Δ / T1 reconstruction / canonical action authority、DNA・動的神経値・Sleep Consolidation・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
@@ -67,7 +67,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 
 ## Semantic boundaries
 
-意味論の基準は[Core reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)の同期点 `9c60c5b`（BASE v2.3 / SPEC v2.4）。Demos・Enterprise・Humanは素材・仮説の参照元、General ModulesのLayeringは整理補助です。
+意味論の基準は[Core reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)の同期点 `3270982`（BASE v2.3 / SPEC v2.4 + dynamic theta explanation）。Demos・Enterprise・Humanは素材・仮説の参照元、General ModulesのLayeringは整理補助です。
 
 ```text
 Engine state != observation != RIB_B != M_B

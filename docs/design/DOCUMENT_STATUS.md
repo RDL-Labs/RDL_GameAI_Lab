@@ -1,6 +1,6 @@
 # Design Document Status
 
-確認日: 2026-09-17。基準: upstream `19ce133` と前回の未commit文書同期・層間分離検証。
+確認日: 2026-09-25。基準: GameAI `a7a53e7`、Core `3270982`、C1 authority同期。
 これは棚卸し記録であり、実装成熟度の正本は[canonical roadmap](../../notes/experiment-roadmap.md)。
 
 | 文書 | 整理前の分類 | 今回の扱い / 責務 |
@@ -44,8 +44,9 @@
 | [Rescue Safe-Place Delivery contract](../experiment-contracts/RESCUE_safe_delivery_contract.md) | Phase 5D finite delivery slice operational | attachment、carried movement、fixed safe target、delivery provenance、COMPLETEまで。recoveryは未実装 |
 | [Rescue Staged Recovery contract](../experiment-contracts/RESCUE_staged_recovery_contract.md) | Phase 5E finite recovery slice operational | safe-place限定の4段階BodyState更新。旧Safety trajectoryをreleaseし、現在関係を再評価 |
 | [Multi-Agent Rescue reference evidence](../experiment-evidence/RESCUE_multi_agent_reference_evidence.md) | Phase 5F reference vertical operational | B行動不能→A発見→一度だけ救助→搬送→段階回復。recovering conditionは再救助対象外 |
-| [Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md) | completed foundation plan v0.1 | S1-S4、F1、F2完了。day 1 ExperienceからSleep candidate、day 2再発見まで成立。次はCore同期 |
+| [Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md) | completed foundation plan v0.1 | S1-S4、F1、F2完了。day 1 ExperienceからSleep candidate、day 2再発見まで成立。C1同期済み、次はC2 |
 | [Runtime / p5 / Godot実装ロードマップ](RDL_GameAI_Runtime_p5_Godot_実装ロードマップ.md) | active cross-surface roadmap v0.1 | Runtimeを意味論、p5をread-only観測、Godotを統合試験へ固定。F1/F2、Core同期、T1、Dynamic M_B、Godot再統合の順序と停止条件 |
+| [Core 3270982 Authority Sync contract](../experiment-contracts/CORE_3270982_authority_sync_contract.md) | C1 semantic synchronization complete | SILN・履歴、xi、dynamic theta_eff、H、M_delta、T1のGameAI authority境界。Runtime権限追加なし |
 | [Finite Sleep Experience Window contract](../experiment-contracts/SLEEP_experience_window_contract.md) | S1 operational reference | 同一NPC・同一sleep cycleのaccepted raw Experienceを最大6件で固定。不足状態とsource追跡を明示。Profile / candidate / canonical authorityは未実装 |
 | [Sleep Relation Constraint Profile contract](../experiment-contracts/SLEEP_relation_profile_contract.md) | S2 operational reference | I1有限relation構築とI2 pure compiler。actor / target / context / action / outcomeをsource付きで派生し、candidate・canonical authorityへ非介入 |
 | [Sleep Deep Similarity Shadow contract](../experiment-contracts/SLEEP_deep_similarity_shadow_contract.md) | S3 operational reference | I1 alignment、I2 pure Deep function、I3 immutable store。最大6 Profile / 15 pair、one cluster / candidate、coverage・conflict・unresolved非混同、非介入 |
