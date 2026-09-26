@@ -2,6 +2,9 @@
 
 ## 0. Status
 
+次工程: [NERV-4A有限Candidate契約](../experiment-contracts/NERV_4A_neural_candidate_contract.md)を設計済み・未実装。
+3〜6経験の共通関係と神経出典を扱うPython再生に限定。T1・長期保持・行動差は未接続。
+
 現在地: [NERV-3明示接続契約](../experiment-contracts/NERV_3_neural_bias_admission_contract.md)を実装し18試験PASS。
 [Evidence](../experiment-evidence/NERV_3_neural_bias_admission_evidence.md)の神経由来Bias保存・Sleep入力profileで固定。Candidate以降は保留。
 
