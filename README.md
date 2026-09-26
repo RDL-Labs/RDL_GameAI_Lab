@@ -16,7 +16,7 @@
 8. [コード抽象度・道具的関数階層](docs/design/RDL_GameAI_コード抽象度・道具的関数階層_案.md): I0 PrimitiveからI6 Adapterまでの実装責務と依存方向
 9. [p5.js Observation Workbench](gui-p5/README.md): read-only I6 Viewer。Experience→Sleep Window→Profile→CandidateのprovenanceとLive GET endpoint状態を可視化
 10. [Runtime / p5 / Godot実装ロードマップ](docs/design/RDL_GameAI_Runtime_p5_Godot_実装ロードマップ.md): F1からDynamic M_B、Godot再統合までの実行面・authority・停止条件
-11. [Luanti Integration Roadmap](docs/design/RDL_GameAI_Luanti_Integration_World_Backend_Transition_Roadmap.md): L0-L2 bridge、Luanti主統合面への移行、Godot regression fixture化
+11. [Luanti Integration Roadmap](docs/design/RDL_GameAI_Luanti_Integration_World_Backend_Transition_Roadmap.md): L0-L4 bridge、Luanti主統合面への移行、Godot regression fixture化
 
 生活機能の追加順は[Game Feature Roadmap](docs/design/RDL_GameAI_実装手順予定.md)、コード内の抽象度と依存方向は[道具的関数階層案](docs/design/RDL_GameAI_コード抽象度・道具的関数階層_案.md)で管理します。
 
@@ -76,6 +76,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [Local Bias T1 Candidate Projection](docs/experiment-contracts/LOCAL_BIAS_t1_projection_contract.md)ではmixed shadow candidateをrelation別の独立CandidateRelationへ投影する。T1-Aへの投入はactive M_delta下の明示操作だけで、全材料はUNINSPECTEDから始まり、自動選別・採用・action化しない。
 - [Luanti L0-L2 Bridge](docs/experiment-contracts/LUANTI_L0_L2_bridge_contract.md)ではLuanti 5.17の単一NPC Worldから有限観測を既存Runtimeへ送り、`approach`と`pickup`をLuantiが解決して次の観測を返す実HTTP往復を固定した。Luantiを今後の主World統合面、Godotをdeterministic regression fixtureとして扱う。
 - [Luanti L3 Ordinary Food](docs/experiment-contracts/LUANTI_L3_ordinary_food_contract.md)では既存BaseFoodLifePolicyをLuanti Worldへ接続し、低在庫cue→Food取得→Base帰還→deposit→因果拘束されたresult admissionを実HTTPで完走した。exact stockはLuanti内に留める。
+- [Luanti L4 Risky Tasty Food](docs/experiment-contracts/LUANTI_L4_risky_tasty_food_contract.md)ではsource付きGod Statue statement、tasty Food、territory relation、beastを観測し、既存policyのapproachに対するLuanti-owned warning→chase→attack→medium injury→forced retreatを実HTTPで固定した。danger beliefや学習はまだ導入しない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

@@ -6,6 +6,7 @@ end
 local runtime_url = core.settings:get("rdl_runtime_url") or "http://127.0.0.1:8765/v1/observe"
 local life_result_url = core.settings:get("rdl_life_result_url") or "http://127.0.0.1:8765/v1/life-result"
 local interval = tonumber(core.settings:get("rdl_bridge_interval")) or 0.25
+local fixture_mode = core.settings:get("rdl_fixture_mode") or "ordinary_food"
 local max_visible = 16
 local observation_radius = 12
 local reach_distance = 1.25
@@ -17,6 +18,8 @@ local state = {
     revision = 0,
     held_food_ids = {},
     base_food_stock = 0,
+    injury_level = "none",
+    territory_steps = 0,
     recent_events = {},
     fixture_ready = false,
 }
@@ -64,6 +67,20 @@ core.register_entity("rdl_bridge:food", {
     end,
 })
 
+core.register_entity("rdl_bridge:beast", {
+    initial_properties = {
+        visual = "sprite",
+        textures = {"unknown_object.png"},
+        physical = false,
+        pointable = false,
+        static_save = false,
+    },
+    on_activate = function(self, staticdata)
+        self.rdl_id = staticdata ~= "" and staticdata or "beast_1"
+        self.rdl_kind = "beast"
+    end,
+})
+
 core.register_entity("rdl_bridge:base", {
     initial_properties = {
         visual = "sprite",
@@ -96,18 +113,27 @@ local function ensure_fixture()
     if not npc then
         npc = core.add_entity({x = 0, y = 1, z = 0}, "rdl_bridge:npc", "npc_a")
     end
+    local food_id = fixture_mode == "risky_tasty" and "tasty_food" or "ordinary_food_1"
+    local food_position = fixture_mode == "risky_tasty" and {x = 8, y = 1, z = 0} or {x = 4, y = 1, z = 0}
     local food = find_entity("rdl_bridge:food")
     if not food and #state.held_food_ids == 0 then
-        food = core.add_entity({x = 4, y = 1, z = 0}, "rdl_bridge:food", "ordinary_food_1")
+        food = core.add_entity(food_position, "rdl_bridge:food", food_id)
     end
     local base = find_entity("rdl_bridge:base")
     if not base then
         base = core.add_entity({x = 0, y = 1, z = 0}, "rdl_bridge:base", "base")
     end
-    if npc and food and base then
+    local beast = true
+    if fixture_mode == "risky_tasty" then
+        beast = find_entity("rdl_bridge:beast")
+        if not beast then
+            beast = core.add_entity({x = 8, y = 1, z = 0}, "rdl_bridge:beast", "beast_1")
+        end
+    end
+    if npc and food and base and beast then
         state.fixture_ready = true
-        push_event("fixture_ready", {agent_id = "npc_a", object_id = "ordinary_food_1"})
-        core.log("action", "[rdl_bridge] L0 fixture ready")
+        push_event("fixture_ready", {agent_id = "npc_a", object_id = food_id})
+        core.log("action", "[rdl_bridge] fixture ready mode=" .. fixture_mode)
     end
 end
 
@@ -140,7 +166,25 @@ local function build_observation()
                 distance_band = distance <= reach_distance and "within_reach" or "visible",
                 within_reach = distance <= reach_distance,
                 motion = "stationary",
+                desirability_fixture = entity.rdl_id == "tasty_food" and "HIGH" or "NORMAL",
+                territory_id = entity.rdl_id == "tasty_food" and "north_grove" or nil,
             })
+        end
+    end
+    if fixture_mode == "risky_tasty" then
+        local beast, beast_entity = find_entity("rdl_bridge:beast")
+        if beast and beast_entity and #visible_objects < max_visible then
+            local position = beast:get_pos()
+            local distance = vector.distance(npc_pos, position)
+            if distance <= observation_radius then
+                table.insert(visible_objects, {
+                    id = beast_entity.rdl_id,
+                    kind = beast_entity.rdl_kind,
+                    relative_position = vector_packet(vector.subtract(position, npc_pos)),
+                    distance = rounded(distance),
+                    motion = "stationary",
+                })
+            end
         end
     end
     table.sort(visible_objects, function(left, right) return left.id < right.id end)
@@ -180,9 +224,25 @@ local function build_observation()
             visible_agents = {},
             visible_objects = visible_objects,
             visible_places = visible_places,
-            visible_regions = {},
+            visible_regions = fixture_mode == "risky_tasty" and {{
+                id = "north_grove",
+                relation = "contains",
+                object_id = "tasty_food",
+                distance_band = "visible",
+            }} or {},
             inventory = {held_food_ids = table.copy(state.held_food_ids)},
             recent_events = table.copy(state.recent_events),
+            external_statements = fixture_mode == "risky_tasty" and {{
+                statement_id = "god-statue-tasty-food-v1",
+                schema = "external-value-statement-v1",
+                source_type = "external_statement",
+                source_id = "god_statue",
+                subject_id = "tasty_food",
+                predicate = "tasty",
+                polarity = "positive",
+                value_band = "HIGH",
+                authority = "source-attributed-information; not-World-Truth-M_B-H-or-action",
+            }} or {},
             life_context = {
                 god_statue_cue = cue,
                 observed_base_food_band = stock_band,
@@ -195,7 +255,7 @@ local function build_observation()
                 snapshot_id = string.format("luanti-body-%06d", state.tick),
                 revision = state.revision,
                 movement_scale = 1.0,
-                injury_level = "none",
+                injury_level = state.injury_level,
                 incapacitated = false,
                 carried_agent_id = "",
                 last_rescue_delivery = {},
@@ -213,6 +273,54 @@ local function build_observation()
             authority = "finite-world-observation-only",
         },
     }
+end
+
+local function resolve_territory(npc, target_id)
+    if fixture_mode ~= "risky_tasty" or target_id ~= "tasty_food" then
+        return
+    end
+    local beast = find_entity("rdl_bridge:beast")
+    if not beast then
+        return
+    end
+    local distance = vector.distance(npc:get_pos(), beast:get_pos())
+    if distance > 5 then
+        state.territory_steps = 0
+        return
+    end
+    state.territory_steps = state.territory_steps + 1
+    local event_type = "territory_entered"
+    local response = "warning"
+    local outcome = "warning_observed"
+    if state.territory_steps >= 2 and distance <= 2 then
+        event_type = "close_intrusion_persisted"
+        response = "attack"
+        outcome = "injured"
+        state.injury_level = "medium"
+        npc:set_pos({x = 0, y = 1, z = 0})
+        state.revision = state.revision + 1
+    elseif state.territory_steps >= 2 then
+        event_type = "intrusion_continued"
+        response = "chase"
+        outcome = "chased"
+    end
+    push_event("territory_fact", {
+        event_id = string.format("luanti-territory-%06d", state.tick),
+        schema = "territory-beast-fact-event-v1",
+        agent_id = "npc_a",
+        beast_id = "beast_1",
+        territory_id = "north_grove",
+        event_type = event_type,
+        beast_response = response,
+        proximity = distance <= 2 and "close" or "within_territory",
+        outcome = outcome,
+        injury_level = response == "attack" and "medium" or "none",
+        forced_retreat = response == "attack",
+    })
+    core.log("action", "[rdl_bridge] territory_response=" .. response .. " tick=" .. state.tick)
+    if response == "attack" then
+        core.log("action", "[RDL_LUANTI_L4_EVIDENCE] warning_chase_attack injury=medium forced_retreat=true tick=" .. state.tick)
+    end
 end
 
 local function target_object(target_id)
@@ -300,6 +408,7 @@ local function resolve_action(response)
             state.revision = state.revision + 1
         end
         push_event("approach_resolved", {target_id = target_id, distance_before = rounded(distance)})
+        resolve_territory(npc, target_id)
     elseif action_type == "pickup" then
         local target = target_object(target_id)
         if not target or vector.distance(npc:get_pos(), target:get_pos()) > reach_distance then
@@ -349,7 +458,7 @@ local function exchange()
     -- arrays, so preserve their JSON type when the bounded set is empty.
     for _, field in ipairs({
         "visible_agents", "visible_objects", "visible_places", "visible_regions",
-        "recent_events", "held_food_ids", "interrupt_candidates",
+        "recent_events", "held_food_ids", "interrupt_candidates", "external_statements",
     }) do
         body = body:gsub('(\"' .. field .. '\"%s*:%s*)null', '%1[]')
     end
