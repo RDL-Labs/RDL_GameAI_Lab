@@ -10,6 +10,7 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
                  base_pos = {x = 0, y = 1, z = 3}},
     }
     local state = {tick = 0, elapsed = 0, ready = false, evidence_logged = false}
+    local sensory_probe_complete = false
     local visibility_markers = {
         {id = "boundary_agent", position = {x = 13.25, y = 1, z = -3}},
         {id = "outside_agent", position = {x = 13.5, y = 1, z = -3}},
@@ -57,7 +58,7 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
     end
 
     local function ensure_fixture()
-        if sensory then sensory:ensure_world() end
+        if sensory then sensory:initialize_world() end
         local all_ready = true
         for agent_id, config in pairs(agents) do
             if not find_by_id("rdl_bridge:npc", agent_id) then
@@ -82,6 +83,11 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
         if not state.ready and all_ready then
             state.ready = true
             core.log("action", "[RDL_LUANTI_MULTI] fixture_ready agents=2")
+        end
+        if sensory and all_ready and not sensory_probe_complete then
+            local npcs = {npc_a = find_by_id("rdl_bridge:npc", "npc_a"),
+                          npc_b = find_by_id("rdl_bridge:npc", "npc_b")}
+            sensory_probe_complete = sensory:verify_world_changes(npcs)
         end
     end
 
@@ -196,7 +202,9 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
                 authority = "finite-world-observation-only",
             },
         }
-        if sensory then
+        local delay_probe = sensory and agent_id == "npc_b" and
+            (state.tick == 1 or state.tick == 2)
+        if sensory and not delay_probe then
             sensory:attach(packet, agent_id, npc,
                 #visible_agents + #visible_objects + #visible_places, state.tick)
         end
@@ -328,6 +336,6 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
         exchange("npc_a", agents.npc_a)
         exchange("npc_b", agents.npc_b)
         state.tick = state.tick + 1
-        if sensory then sensory:advance() end
+        if sensory then sensory:advance(state.tick) end
     end)
 end

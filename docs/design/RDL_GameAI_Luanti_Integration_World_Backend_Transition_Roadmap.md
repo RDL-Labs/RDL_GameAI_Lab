@@ -176,4 +176,7 @@ OBS-6では同一Luanti World/RuntimeでRW2生活とA/B別local/distant/audition
 両個体のpickup/deposit/result、実feature/detection、独立取得時刻、拒否0、sensory無効RW2互換を固定した。
 遠景と聴覚は単独fixtureと生活統合の双方から同じsensor kernelを利用する。ここでいう互換は
 有限生活Acceptanceの完了を指し、全action列の同一性までは主張しない。
+OBS-6CではWorld初期配置を一度だけにし、音響voxel伝達も共通化した。聴覚windowの確定を
+HTTP配送から分離し、agent別64frameの有限pending queueを介して配送見送り時も取得時刻を保持する。
+壁・対象消失・2tick配送見送りを実Luanti回帰へ含めた。
 OBS系列はここで停止し、感覚間照合、行動接続、一般的な長期保持を同時に導入しない。

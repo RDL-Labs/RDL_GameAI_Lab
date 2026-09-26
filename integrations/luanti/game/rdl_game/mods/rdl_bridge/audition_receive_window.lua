@@ -2,6 +2,8 @@ return function(http, runtime_url, profiles)
     local WINDOW_US, BUFFER_LIMIT = 250000, 32
     local receiver = dofile(core.get_modpath("rdl_bridge") ..
         "/audition_window_sensor.lua").new(WINDOW_US, BUFFER_LIMIT, 8)
+    local transmission_sensor = dofile(core.get_modpath("rdl_bridge") ..
+        "/audition_transmission.lua")
     local agents = {
         npc_a = {position = {x = 0, y = 1, z = 0}, yaw = 0, pose_revision = "before-turn",
                  profile = profiles.npc_a, buffer = {}, frames = {}, incomplete = {},
@@ -31,28 +33,7 @@ return function(http, runtime_url, profiles)
     end
 
     local function transmission(observer, source)
-        local delta = vector.subtract(source, observer)
-        local distance = vector.length(delta)
-        local direction = vector.normalize(delta)
-        local source_node = vector.round(source)
-        local factor, previous_node_key = 1, nil
-        for index = 1, math.min(128, math.ceil(distance / 0.5)) do
-            local position = vector.round(vector.add(observer, vector.multiply(direction, index * 0.5)))
-            if position.x == source_node.x and position.y == source_node.y and
-                    position.z == source_node.z then return factor end
-            local key = string.format("%d:%d:%d", position.x, position.y, position.z)
-            if key ~= previous_node_key then
-                local node = core.get_node_or_nil(position)
-                if not node or node.name == "ignore" then return nil end
-                if node.name == "rdl_bridge:opaque_wall" then
-                    factor = factor * 0.5
-                elseif node.name ~= "air" and node.name ~= "rdl_bridge:observation_space" then
-                    return nil
-                end
-                previous_node_key = key
-            end
-        end
-        return nil
+        return transmission_sensor.factor(observer, source)
     end
 
     local function buffered_count(agent, start_us)

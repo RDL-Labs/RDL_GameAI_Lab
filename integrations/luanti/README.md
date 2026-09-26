@@ -187,3 +187,8 @@ regression. Standalone and integrated runs share the distant-vision and
 audition-window kernels. The result establishes finite life compatibility, not
 exact action-sequence equality. SensorFrames remain read-only inputs to the
 isolated store.
+
+OBS-6C closes audition windows independently of HTTP exchange and stages up to
+64 closed frames per agent for later delivery. It also shares voxel sound
+transmission, initializes fixture geometry once, and checks wall occlusion,
+target disappearance, wall attenuation, and a two-tick delivery delay.

@@ -126,6 +126,20 @@ try {
             if ($distantFeatures.Count -lt 1) { throw "No distant feature was sampled for $agentId" }
             if ($auditionDetections.Count -lt 1) { throw "No action sound was received for $agentId" }
         }
+        $bFrames = @($sensory.frames | Where-Object { $_.agent_id -eq "npc_b" })
+        $delayedWindow = @($bFrames | Where-Object {
+            $_.channel -eq "audition" -and $_.sampled_world_tick -eq 1 -and
+            $_.capture_window.start_us -eq 0 -and $_.capture_window.end_us -eq 250000
+        })
+        $bLocalAtOne = @($bFrames | Where-Object {
+            $_.channel -eq "vision_local" -and $_.sampled_world_tick -eq 1
+        })
+        if ($delayedWindow.Count -ne 1 -or $bLocalAtOne.Count -ne 0) {
+            throw "Skipped sensory delivery did not preserve the original audition window"
+        }
+        if (-not ($lines -match "RDL_LUANTI_OBS6C.*world_probe=PASS")) {
+            throw "OBS-6C World-change probe did not pass"
+        }
         $latestA = $sensory.latest_by_agent.npc_a
         $latestB = $sensory.latest_by_agent.npc_b
         if (-not $latestA.vision_local -or -not $latestA.vision_distant -or -not $latestA.audition -or `

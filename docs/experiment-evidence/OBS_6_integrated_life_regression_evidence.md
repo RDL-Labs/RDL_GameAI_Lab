@@ -41,6 +41,21 @@ The integrated run and standalone fixtures now call the same reusable kernels:
 - `audition_window_sensor.lua` owns event-time receipt data, cross-window
   splitting, per-window buffering, idempotent close, late rejection, mixing,
   and the eight-detection limit.
+- `audition_transmission.lua` applies the same voxel coverage and wall
+  attenuation before both standalone and integrated reception.
+
+OBS-6C additionally forced `npc_b` to skip sensory attachment for two ticks.
+The later delivery retained exactly one audition frame sampled at tick 1 with
+capture window `[0, 250000)`, while no local-vision frame existed for that
+skipped delivery tick. The in-World probe also recorded:
+
+```text
+world_probe=PASS visible=1 hidden=0 absent=0 wall_preserved=true sound=1.0/0.5
+```
+
+This verifies one-time fixture initialization, integrated wall occlusion,
+target disappearance, shared wall attenuation, and delayed delivery without
+capture-time replacement.
 
 Regression after integration:
 

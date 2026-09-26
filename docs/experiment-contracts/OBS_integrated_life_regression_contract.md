@@ -25,11 +25,18 @@ before the existing Food policy, Experience, and canonical consumers run.
 Approach resolution records a finite action sound for the other agent; it does
 not create a sound meaning, danger label, or action response.
 
+Audition windows close on every World tick independently of HTTP exchange.
+Closed frames wait in an agent-owned delivery queue and retain their original
+capture window and sampled tick when a delivery is skipped. The fixture queue
+is bounded to 64 frames per agent; it is transport staging, not memory.
+
 Local vision follows the selected profile radius. Distant vision reads the
 finite target node from the World and applies the shared range, field-of-view,
 voxel-coverage, occlusion, and output-limit rules. Audition records the
 receiver's event-time pose and uses the shared half-open window, split,
-idempotent-close, buffer-limit, and detection-limit rules. An unclosed initial
+idempotent-close, buffer-limit, detection-limit, and voxel-transmission rules.
+World corridors and fixture targets are initialized once; later wall placement
+or target removal is not silently reset. An unclosed initial
 audition window is not projected as a future capture. Local samples occur every
 World tick, distant samples every four ticks, and audition closes one interval
 per delivery. Their times remain independent.
@@ -55,4 +62,7 @@ influence remain outside OBS-6.
    to any SensorFrame.
 9. Sensory-enabled and sensory-disabled RW2 both complete the same finite life
    acceptance. Exact action-sequence equality is not claimed by this fixture.
+10. A skipped delivery retains the closed audition window with its original
+    time, while a wall, target removal, and wall transmission remain observable
+    after fixture initialization.
 

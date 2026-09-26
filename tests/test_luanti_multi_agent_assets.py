@@ -17,6 +17,7 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("life_sensory.lua", installer)
         self.assertIn("distant_sensor.lua", installer)
         self.assertIn("audition_window_sensor.lua", installer)
+        self.assertIn("audition_transmission.lua", installer)
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "multi_agent_food.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
@@ -33,6 +34,8 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
                          "distant_sensor.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "audition_window_sensor.lua").is_file())
+        self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                         "audition_transmission.lua").is_file())
 
     def test_obs6_fixture_combines_life_and_isolated_sensor_frames(self):
         source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
@@ -49,6 +52,10 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn('"audition"', sensory)
         self.assertIn('dofile(modpath .. "/distant_sensor.lua")', sensory)
         self.assertIn('dofile(modpath .. "/audition_window_sensor.lua")', sensory)
+        self.assertIn('dofile(modpath .. "/audition_transmission.lua")', sensory)
+        self.assertIn("self.pending[agent_id]", sensory)
+        self.assertIn("function state:advance(tick)", sensory)
+        self.assertIn("if self.world_initialized then return end", sensory)
         self.assertNotIn('color_band = agent_id ==', sensory)
         self.assertNotIn('self.time_us - window_us, self.time_us', sensory)
         self.assertIn("--sensory-observation", (LUANTI / "scripts" /
@@ -131,13 +138,16 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("close_window", source)
         self.assertIn('dofile(core.get_modpath("rdl_bridge") ..', source)
         self.assertIn('"/audition_window_sensor.lua")', source)
+        self.assertIn('"/audition_transmission.lua")', source)
         shared = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                   "audition_window_sensor.lua").read_text(encoding="utf-8")
         self.assertIn("count >= self.buffer_limit", shared)
         self.assertIn("agent.closed[start]", shared)
         self.assertIn("qualifying > self.detection_limit", shared)
         self.assertIn("agent.pose_revision", source)
-        self.assertIn("factor = factor * 0.5", source)
+        transmission = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                        "audition_transmission.lua").read_text(encoding="utf-8")
+        self.assertIn("factor = factor * 0.5", transmission)
         self.assertIn("cross_window_split=true", script)
         self.assertIn("duplicate_close_idempotent=true", script)
         self.assertIn('"source_id"', script)
