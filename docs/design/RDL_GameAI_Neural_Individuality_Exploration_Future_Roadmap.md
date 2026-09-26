@@ -2,6 +2,10 @@
 
 ## 0. Status
 
+次工程: [NERV-4D許容度契約](../experiment-contracts/NERV_4D_selection_tolerance_contract.md)を設計済み・未実装。
+同じ検査結果に固定SelectionProfileの許容不一致率0/1・1/3を適用する。
+4C許容0とDEFER境界を維持し、感情・身体/履歴による動的条件・再構成は含めない。
+
 現在地: [NERV-4C選別契約](../experiment-contracts/NERV_4C_neural_T1_selection_contract.md)を実装し15試験PASS。
 [Evidence](../experiment-evidence/NERV_4C_neural_T1_selection_evidence.md)の有限選別記録まで固定。
 Food acquisitionの対応次元と未使用経験による有限再現検査を定める。現行個数モデルへの対応は補わずDEFER。
