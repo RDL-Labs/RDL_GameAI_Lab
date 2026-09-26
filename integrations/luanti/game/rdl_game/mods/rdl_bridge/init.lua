@@ -9,6 +9,7 @@ local territory_result_url = core.settings:get("rdl_territory_result_url") or "h
 local interval = tonumber(core.settings:get("rdl_bridge_interval")) or 0.25
 local fixture_mode = core.settings:get("rdl_fixture_mode") or "ordinary_food"
 local outcome_learning_enabled = core.settings:get_bool("rdl_outcome_learning", false)
+local outcome_cycle_limit = tonumber(core.settings:get("rdl_outcome_cycle_limit")) or 1
 local max_visible = 16
 local observation_radius = 12
 local reach_distance = 1.25
@@ -22,7 +23,9 @@ local state = {
     base_food_stock = 0,
     injury_level = "none",
     territory_steps = 0,
-    territory_result_reported = false,
+    territory_result_in_flight = false,
+    territory_result_count = 0,
+    tasty_food_hidden_once = false,
     recent_events = {},
     fixture_ready = false,
 }
@@ -110,6 +113,24 @@ end
 
 local function ensure_fixture()
     if state.fixture_ready then
+        local npc = find_entity("rdl_bridge:npc")
+        if not npc then
+            core.add_entity({x = 0, y = 1, z = 0}, "rdl_bridge:npc", "npc_a")
+            push_event("fixture_npc_restored", {agent_id = "npc_a"})
+        end
+        local food = find_entity("rdl_bridge:food")
+        if not food and #state.held_food_ids == 0 and not state.tasty_food_hidden_once then
+            local food_id = fixture_mode == "risky_tasty" and "tasty_food" or "ordinary_food_1"
+            local position = fixture_mode == "risky_tasty" and {x = 8, y = 1, z = 0} or {x = 4, y = 1, z = 0}
+            core.add_entity(position, "rdl_bridge:food", food_id)
+            push_event("fixture_food_restored", {object_id = food_id})
+        end
+        if not find_entity("rdl_bridge:base") then
+            core.add_entity({x = 0, y = 1, z = 0}, "rdl_bridge:base", "base")
+        end
+        if fixture_mode == "risky_tasty" and not find_entity("rdl_bridge:beast") then
+            core.add_entity({x = 8, y = 1, z = 0}, "rdl_bridge:beast", "beast_1")
+        end
         return
     end
     local npc = find_entity("rdl_bridge:npc")
@@ -158,7 +179,8 @@ local function build_observation()
     local visible_objects = {}
     for _, object in ipairs(core.get_objects_inside_radius(npc_pos, observation_radius)) do
         local entity = object:get_luaentity()
-        if entity and entity.name == "rdl_bridge:food" and #visible_objects < max_visible then
+        if entity and entity.name == "rdl_bridge:food" and #visible_objects < max_visible
+                and not (state.tasty_food_hidden_once and entity.rdl_id == "tasty_food") then
             local position = object:get_pos()
             local distance = vector.distance(npc_pos, position)
             table.insert(visible_objects, {
@@ -278,8 +300,10 @@ local function build_observation()
     }
 end
 
+local exchange
+
 local function report_territory_result(event)
-    if state.territory_result_reported then
+    if state.territory_result_in_flight or state.territory_result_count >= outcome_cycle_limit then
         return
     end
     local payload = {
@@ -296,7 +320,7 @@ local function report_territory_result(event)
         core.log("error", "[rdl_bridge] territory result serialization failed: " .. tostring(error_message))
         return
     end
-    state.territory_result_reported = true
+    state.territory_result_in_flight = true
     http.fetch({
         url = territory_result_url,
         method = "POST",
@@ -305,13 +329,19 @@ local function report_territory_result(event)
         data = body,
     }, function(result)
         if not result.succeeded or result.code ~= 200 then
-            state.territory_result_reported = false
+            state.territory_result_in_flight = false
             core.log("error", "[rdl_bridge] territory result response " .. tostring(result.code))
             return
         end
+        state.territory_result_in_flight = false
+        state.territory_result_count = state.territory_result_count + 1
         local response = core.parse_json(result.data)
         local bias_count = response and response.biases and #response.biases or 0
         core.log("action", "[RDL_LUANTI_L5_EVIDENCE] experience_gradient_bias accepted=true biases=" .. bias_count)
+        core.log("action", "[rdl_bridge] outcome_cycle=" .. state.territory_result_count)
+        if state.territory_result_count < outcome_cycle_limit then
+            core.after(interval, exchange)
+        end
     end)
 end
 
@@ -373,6 +403,9 @@ local function resolve_territory(npc, target_id)
     if response == "attack" then
         core.log("action", "[RDL_LUANTI_L4_EVIDENCE] warning_chase_attack injury=medium forced_retreat=true tick=" .. state.tick)
         if outcome_learning_enabled then
+            if state.territory_result_count + 1 < outcome_cycle_limit then
+                state.tasty_food_hidden_once = true
+            end
             report_territory_result(event)
         end
     end
@@ -493,15 +526,21 @@ local function resolve_action(response)
     else
         push_event("action_rejected", {action = action_type, reason = "unsupported_L0_L2_action"})
     end
+    if state.tasty_food_hidden_once and action_type == "idle" then
+        state.tasty_food_hidden_once = false
+        state.territory_steps = 0
+        push_event("fixture_food_visible_again", {object_id = "tasty_food"})
+    end
 end
 
-local function exchange()
+exchange = function()
     if state.in_flight then
         return
     end
     ensure_fixture()
     local packet = build_observation()
     if not packet then
+        core.log("error", "[rdl_bridge] observation unavailable tick=" .. state.tick)
         return
     end
     local body, error_message = core.write_json(packet)
@@ -539,6 +578,7 @@ local function exchange()
 end
 
 core.register_on_mods_loaded(function()
+    core.forceload_block({x = 0, y = 0, z = 0}, true)
     core.after(0, ensure_fixture)
 end)
 

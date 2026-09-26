@@ -58,6 +58,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | L3 | Luanti Ordinary Food | 既存BaseFoodLifePolicyでFood取得・Base帰還・deposit・result admission | 補助 | regression fixture | 完了: exact stock非漏洩、Luanti実HTTP縦断を固定 |
 | L4 | Luanti Risky Tasty Food | source付き発話、territory、beast、World-owned warning/chase/attack・injury | 補助 | regression fixture | 完了: danger belief非導入の実HTTP consequence縦断を固定 |
 | L5 | Luanti Outcome Learning | World consequenceを既存Experience・Outcome Gradient・Local Biasへ明示admit | 補助 | regression fixture | 完了: relation-local bias形成、action/canonical非介入 |
+| L6 | Luanti Sleep / Deep Candidate | 3実outcomeを既存Profile・Deep Similarityへ通しshadow Candidate形成 | 補助 | regression fixture | 完了: support-3、全provenance、T1/M_B/action非昇格 |
 
 ## 2. 直近の順序
 
@@ -132,7 +133,7 @@ OGB-7 COMPLETE
 OGB-8 COMPLETE
 OGB-9 COMPLETE
 NERV-0 CONTRACT ONLY / NERV-1..9 DEFERRED
-LUANTI L0-L5 COMPLETE / L6 NEXT
+LUANTI L0-L6 COMPLETE / L7 NEXT
 ```
 
 詳細なF1/F2 Acceptanceは[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。

@@ -78,6 +78,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [Luanti L3 Ordinary Food](docs/experiment-contracts/LUANTI_L3_ordinary_food_contract.md)では既存BaseFoodLifePolicyをLuanti Worldへ接続し、低在庫cue→Food取得→Base帰還→deposit→因果拘束されたresult admissionを実HTTPで完走した。exact stockはLuanti内に留める。
 - [Luanti L4 Risky Tasty Food](docs/experiment-contracts/LUANTI_L4_risky_tasty_food_contract.md)ではsource付きGod Statue statement、tasty Food、territory relation、beastを観測し、既存policyのapproachに対するLuanti-owned warning→chase→attack→medium injury→forced retreatを実HTTPで固定した。danger beliefや学習はまだ導入しない。
 - [Luanti L5 Outcome Learning](docs/experiment-contracts/LUANTI_L5_outcome_learning_contract.md)では実Luanti attack factを明示admitし、既存Territory Experience→Outcome Gradient→Local Biasへ接続した。acquisition・return・injuryのrelation-local biasを形成するが、action・canonical authorityへは接続しない。
+- [Luanti L6 Sleep / Deep Candidate](docs/experiment-contracts/LUANTI_L6_sleep_deep_candidate_contract.md)では同一個体の3つの実Luanti outcomeを既存Local Bias Profile・Deep Similarityへ通し、support 3のshadow CandidateRelationを形成した。Sleepは明示起動で、T1・M_B・actionへ自動昇格しない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

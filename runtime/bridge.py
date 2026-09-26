@@ -140,6 +140,20 @@ class BridgeHandler(BaseHTTPRequestHandler):
                 return
             self._send_json(200, result)
             return
+        if self.path == "/v1/luanti-bias-sleep":
+            coordinator = getattr(self.server, "luanti_outcome", None)
+            if coordinator is None:
+                self._send_json(404, {"error": "luanti_outcome_learning_disabled"})
+                return
+            try:
+                payload = self._read_json()
+                with CANONICAL_LOCK:
+                    result = coordinator.consolidate(payload)
+            except (ValueError, ObservationError, LuantiOutcomeError) as exc:
+                self._send_json(422, {"error": "invalid_luanti_bias_sleep", "detail": str(exc)})
+                return
+            self._send_json(200, {"accepted": True, "result": result})
+            return
         if self.path == "/v1/sleep-result":
             coordinator = getattr(self.server, "sleep_consolidation", None)
             if coordinator is None:

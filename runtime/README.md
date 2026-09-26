@@ -324,3 +324,8 @@ is admitted at `POST /v1/luanti-territory-result` and inspected through
 `GET /v1/luanti-outcome-snapshot`. This reuses the existing Territory Experience,
 Outcome Gradient, and Local Bias stores; it does not alter action authority or
 the canonical sidecar.
+
+Luanti L6 keeps the same opt-in coordinator and adds explicit
+`POST /v1/luanti-bias-sleep`. It compiles the retained same-agent Local Biases
+through the existing Sleep Profile and Deep Similarity functions. The resulting
+CandidateRelation remains shadow material and has no T1, M_B, or action authority.

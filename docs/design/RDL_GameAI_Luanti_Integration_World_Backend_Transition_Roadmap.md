@@ -11,7 +11,8 @@ L2 Action Bridge         COMPLETE
 L3 Ordinary Food          COMPLETE
 L4 Risky Tasty Food       COMPLETE
 L5 Outcome Learning       COMPLETE
-L6+                       PLANNED
+L6 Sleep / Deep Candidate COMPLETE
+L7+                       PLANNED
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -94,7 +95,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L3 | ordinary Foodのobserve→approach→pickup→return→deposit | COMPLETE |
 | L4 | tasty Food、God Statue statement、territory relation、beast、warning/chase/attack、damage | COMPLETE |
 | L5 | Luanti consequence→Experience→Outcome Gradient→Local Bias | COMPLETE |
-| L6 | Luanti Experience→Sleep Profile→Deep Similarity→Candidate | PLANNED |
+| L6 | Luanti Experience→Sleep Profile→Deep Similarity→Candidate | COMPLETE |
 | L7 | Candidate→T1-A/B/C→M_B'→cutover→REENTERED | PLANNED |
 | L8 | NPC A/BのExperience・Bias・Candidate・M_B分離 | PLANNED |
 | L9 | Luanti長期life traceのp5 read-only表示 | PLANNED |
@@ -141,6 +142,6 @@ explorationも対象外とする。
 
 ## 10. 次の停止境界
 
-L5でLuanti consequenceからagent-owned Experience、Outcome Gradient、Local
-Biasまでを固定した。次はL6で同じ材料をSleep Profile、Deep Similarity、shadow
-Candidateへ接続する。
+L6で3つのLuanti outcomeをSleep Profile、Deep Similarity、shadow Candidateへ
+接続した。次はL7でCandidateをactive M_delta下のT1-A/B/Cへ明示投入し、inactive
+M_B'、cutover、fresh re-entryまでをLuanti provenance付きで検証する。

@@ -86,3 +86,13 @@ This enables the explicit Luanti outcome adapter and verifies the real attack
 fact through the existing Territory Experience, Outcome Gradient, and Local Bias
 stores. It forms three relation-local negative biases without changing action or
 canonical authority.
+
+## Verify L6 Sleep / Deep Candidate
+
+```powershell
+& .\integrations\luanti\scripts\test-l6.ps1 -LuantiRoot D:\luanti
+```
+
+This runs three distinct attack outcome cycles in one World and Runtime, then
+explicitly invokes the existing Local Bias Profile and Deep Similarity path. It
+forms one support-3 shadow CandidateRelation without T1, M_B, or action promotion.
