@@ -9,6 +9,7 @@
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
+| [NERV-4B Neural T1 Boundary contract](../experiment-contracts/NERV_4B_neural_T1_boundary_contract.md) | design-only / acceptance not run | raw/neural根拠を分離したrelation別検査材料と明示T1-A受付。UNINSPECTEDで停止、選別・再構成は保留 |
 | [NERV-4A Neural Candidate contract](../experiment-contracts/NERV_4A_neural_candidate_contract.md) | pure finite candidate operational | 16試験PASS。3〜6経験の共通関係・抑制/zero診断・神経出典付きCandidate。[Evidence](../experiment-evidence/NERV_4A_neural_candidate_evidence.md)。T1・行動接続は保留 |
 | [NERV-3 Neural Bias Admission contract](../experiment-contracts/NERV_3_neural_bias_admission_contract.md) | opt-in admission / Sleep input operational | 18試験PASS、atomic受付・冪等再送・専用Bias保存。[Evidence](../experiment-evidence/NERV_3_neural_bias_admission_evidence.md)。NERV-3自体はCandidate・T1・行動へ自動接続しない |
 | [NERV-1/2 Neural Gradient contract](../experiment-contracts/NERV_1_2_neural_gradient_projection_contract.md) | pure replay / shadow preview operational | 二軸の有限作用表・15試験PASS。[Evidence](../experiment-evidence/NERV_1_2_neural_gradient_projection_evidence.md)。予測誤差・本番Bias・行動接続は未実装 |

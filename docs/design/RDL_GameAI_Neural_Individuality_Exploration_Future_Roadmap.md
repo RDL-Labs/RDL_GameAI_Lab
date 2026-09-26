@@ -2,6 +2,10 @@
 
 ## 0. Status
 
+次工程: [NERV-4B境界契約](../experiment-contracts/NERV_4B_neural_T1_boundary_contract.md)を設計済み・未実装。
+rawとneuralを同一経験由来の根拠として保持し、relation別材料と明示T1-A受付を定める。
+初版の停止点はUNINSPECTED。T1-Bの自動選別、再構成、M_B更新・行動差は含めない。
+
 現在地: [NERV-4A有限Candidate契約](../experiment-contracts/NERV_4A_neural_candidate_contract.md)を実装し16試験PASS。
 [Evidence](../experiment-evidence/NERV_4A_neural_candidate_evidence.md)の局所Candidateまで固定。
 3〜6経験の共通関係と神経出典を扱うPython再生に限定。T1・長期保持・行動差は未接続。
