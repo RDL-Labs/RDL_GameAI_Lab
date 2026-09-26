@@ -7,7 +7,8 @@ function M.new(profiles, interval)
     local window_us = math.floor(interval * 1000000 + 0.5)
     local audition = dofile(modpath .. "/audition_window_sensor.lua").new(window_us, 32, 8)
     local state = {time_us = 0, sequences = {}, audition = audition,
-                   pending = {npc_a = {}, npc_b = {}}, world_initialized = false}
+                   pending = {npc_a = {}, npc_b = {}}, in_flight = {},
+                   world_initialized = false}
     local distant_targets = {
         npc_a = {{position = {x = 0, y = 1, z = 17},
                   node_name = "rdl_bridge:distant_red", color_band = "muted_red"}},
@@ -110,6 +111,15 @@ function M.new(profiles, interval)
         }
     end
 
+    local function enqueue(agent_id, value)
+        if #state.pending[agent_id] >= 64 then
+            core.log("error", "[RDL_LUANTI_OBS6] sensory pending queue full agent=" .. agent_id)
+            return false
+        end
+        table.insert(state.pending[agent_id], value)
+        return true
+    end
+
     function state:record_action_sound(source_agent_id, npcs, tick)
         local source = npcs[source_agent_id]
         if not source then return end
@@ -140,8 +150,7 @@ function M.new(profiles, interval)
 
     function state:attach(packet, agent_id, npc, visible_count, tick)
         local profile = profiles[agent_id]
-        local frames = {}
-        table.insert(frames, frame(agent_id, "vision_local", "eye", profile, tick,
+        enqueue(agent_id, frame(agent_id, "vision_local", "eye", profile, tick,
             {kind = "instant", start_us = self.time_us, end_us = self.time_us},
             {visible_count = visible_count}, string.format("%s:eye-pose:%d", agent_id, tick)))
 
@@ -151,16 +160,20 @@ function M.new(profiles, interval)
             core.log("action", string.format(
                 "[RDL_LUANTI_OBS6] distant agent=%s tick=%d features=%d partial=%s yaw=%.3f",
                 agent_id, tick, #features, tostring(partial), npc:get_yaw() or 0))
-            table.insert(frames, frame(agent_id, "vision_distant", "eye", profile, tick,
+            enqueue(agent_id, frame(agent_id, "vision_distant", "eye", profile, tick,
                 {kind = "instant", start_us = self.time_us, end_us = self.time_us},
                 {features = features}, string.format("%s:eye-pose:%d", agent_id, tick),
                 partial and "PARTIAL" or "COMPLETE_WITHIN_PLAN", limited))
         end
 
-        for _, pending_frame in ipairs(self.pending[agent_id]) do
-            table.insert(frames, pending_frame)
+        local frames = {}
+        for index = 1, math.min(4, #self.pending[agent_id]) do
+            table.insert(frames, self.pending[agent_id][index])
         end
-        self.pending[agent_id] = {}
+        self.in_flight[agent_id] = {}
+        for _, pending_frame in ipairs(frames) do
+            table.insert(self.in_flight[agent_id], pending_frame.frame_id)
+        end
 
         packet.observation.sensory_extension = {
             schema_version = "rdl-sensory-extension-v1", run_id = "fixture-run-1",
@@ -168,6 +181,32 @@ function M.new(profiles, interval)
             delivery_observation_id = packet.observation_id,
             delivery_world_tick = tick, delivery_time_us = self.time_us, frames = frames,
         }
+        core.log("action", string.format(
+            "[RDL_LUANTI_OBS6D] delivery agent=%s frames=%d pending=%d",
+            agent_id, #frames, #self.pending[agent_id]))
+    end
+
+    function state:ack(agent_id, receipt)
+        local ids = self.in_flight[agent_id]
+        self.in_flight[agent_id] = nil
+        if not ids or not receipt or receipt.accepted ~= true then
+            core.log("warning", "[RDL_LUANTI_OBS6D] sensory receipt rejected; retained agent=" .. agent_id)
+            return false
+        end
+        local accepted, retained = {}, {}
+        for _, frame_id in ipairs(ids) do accepted[frame_id] = true end
+        for _, pending_frame in ipairs(self.pending[agent_id]) do
+            if not accepted[pending_frame.frame_id] then table.insert(retained, pending_frame) end
+        end
+        self.pending[agent_id] = retained
+        core.log("action", string.format(
+            "[RDL_LUANTI_OBS6D] ack agent=%s removed=%d pending=%d new_frames=%s",
+            agent_id, #ids, #retained, tostring(receipt.new_frames)))
+        return true
+    end
+
+    function state:release(agent_id)
+        self.in_flight[agent_id] = nil
     end
 
     function state:advance(tick)
@@ -179,11 +218,7 @@ function M.new(profiles, interval)
                 {kind = "interval", start_us = start_us, end_us = self.time_us},
                 {detections = closed.detections}, string.format("%s:ear-window:%d", agent_id, tick),
                 closed.incomplete and "PARTIAL" or "COMPLETE_WITHIN_PLAN", closed.incomplete)
-            if #self.pending[agent_id] < 64 then
-                table.insert(self.pending[agent_id], pending_frame)
-            else
-                core.log("error", "[RDL_LUANTI_OBS6] audition pending queue full agent=" .. agent_id)
-            end
+            enqueue(agent_id, pending_frame)
         end
     end
 

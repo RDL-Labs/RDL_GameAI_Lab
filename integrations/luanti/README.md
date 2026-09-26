@@ -192,3 +192,9 @@ OBS-6C closes audition windows independently of HTTP exchange and stages up to
 64 closed frames per agent for later delivery. It also shares voxel sound
 transmission, initializes fixture geometry once, and checks wall occlusion,
 target disappearance, wall attenuation, and a two-tick delivery delay.
+
+OBS-6D queues all sensory frames, sends no more than four oldest frames per
+observation, and removes in-flight frames only after an explicit accepted
+Runtime sensory receipt. Its harness covers a four-tick backlog, an isolated
+extension rejection, and a simulated pre-send transport failure followed by
+successful retry.

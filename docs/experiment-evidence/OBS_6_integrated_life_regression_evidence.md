@@ -9,7 +9,7 @@
 Observed on 2026-09-26:
 
 ```text
-OBS6 SENSORY: agents=2 channels=3 rejections=0 life_compatible=true
+OBS6 SENSORY: agents=2 channels=3 rejection_recovered=1 transport_retry=1 life_compatible=true
 OBS6 LIFE PASS: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:2,B:1
 ```
 
@@ -56,6 +56,16 @@ world_probe=PASS visible=1 hidden=0 absent=0 wall_preserved=true sound=1.0/0.5
 This verifies one-time fixture initialization, integrated wall occlusion,
 target disappearance, shared wall attenuation, and delayed delivery without
 capture-time replacement.
+
+OBS-6D extends the delay to four ticks. Every emitted batch is checked as at
+most four frames; `npc_b` resumes with a four-frame batch while additional
+frames remain queued. The Runtime now returns a `sensory_receipt` beside the
+unchanged action response. One deliberately mismatched delivery tick produces
+an isolated sensory rejection while the action path continues; the same queued
+frames are accepted on a later observation. A separate pre-send transport
+failure releases in-flight state without removing its queued frames. The final
+snapshot contains both agents and all three channels, with one expected and
+recovered rejection rather than an unexplained zero-rejection claim.
 
 Regression after integration:
 

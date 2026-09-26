@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from copy import deepcopy
 from threading import RLock
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
@@ -282,6 +283,9 @@ class BridgeHandler(BaseHTTPRequestHandler):
             self._send_json(422, {"error": "invalid_observation", "detail": str(exc)})
             return
 
+        if _sensory_receipt is not None:
+            response = deepcopy(response)
+            response["sensory_receipt"] = _sensory_receipt
         self._send_json(200, response)
 
     def _handle_food_mb_shadow(self) -> None:

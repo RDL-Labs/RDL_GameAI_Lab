@@ -11,6 +11,8 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
     }
     local state = {tick = 0, elapsed = 0, ready = false, evidence_logged = false}
     local sensory_probe_complete = false
+    local sensory_rejection_probe_sent = false
+    local sensory_transport_probe_sent = false
     local visibility_markers = {
         {id = "boundary_agent", position = {x = 13.25, y = 1, z = -3}},
         {id = "outside_agent", position = {x = 13.5, y = 1, z = -3}},
@@ -203,10 +205,15 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
             },
         }
         local delay_probe = sensory and agent_id == "npc_b" and
-            (state.tick == 1 or state.tick == 2)
+            state.tick >= 1 and state.tick <= 4
         if sensory and not delay_probe then
             sensory:attach(packet, agent_id, npc,
                 #visible_agents + #visible_objects + #visible_places, state.tick)
+            if agent_id == "npc_a" and state.tick == 1 and
+                    not sensory_rejection_probe_sent then
+                packet.observation.sensory_extension.delivery_world_tick = state.tick + 1
+                sensory_rejection_probe_sent = true
+            end
         end
         return packet
     end
@@ -308,6 +315,13 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
             body = body:gsub('("' .. field .. '"%s*:%s*)null', '%1[]')
         end
         body = body:gsub('("last_rescue_delivery"%s*:%s*)null', '%1{}')
+        if sensory and agent_id == "npc_a" and state.tick == 2 and
+                not sensory_transport_probe_sent then
+            sensory_transport_probe_sent = true
+            sensory:release(agent_id)
+            core.log("action", "[RDL_LUANTI_OBS6D] simulated transport failure; retained agent=npc_a")
+            return
+        end
         config.in_flight = true
         http.fetch({
             url = runtime_url, method = "POST", timeout = 3,
@@ -315,11 +329,14 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
         }, function(result)
             config.in_flight = false
             if not result.succeeded or result.code ~= 200 then
+                if sensory then sensory:release(agent_id) end
                 core.log("error", "[rdl_bridge] multi Runtime response " ..
                     tostring(result.code) .. " agent=" .. agent_id .. ": " .. tostring(result.data))
                 return
             end
-            resolve_action(agent_id, config, core.parse_json(result.data))
+            local response = core.parse_json(result.data)
+            if sensory then sensory:ack(agent_id, response and response.sensory_receipt) end
+            resolve_action(agent_id, config, response)
         end)
     end
 

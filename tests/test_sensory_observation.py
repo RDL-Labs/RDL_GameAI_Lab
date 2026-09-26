@@ -284,7 +284,14 @@ class SensoryObservationTests(unittest.TestCase):
                 request = Request(base + "/v1/observe", json.dumps(observed).encode(),
                                   {"Content-Type": "application/json"})
                 with urlopen(request, timeout=3) as response:
-                    self.assertEqual(json.load(response), decide_action(packet()))
+                    result = json.load(response)
+                    receipt = result.pop("sensory_receipt")
+                    self.assertEqual(result, decide_action(packet()))
+                    self.assertEqual(receipt, {
+                        "accepted": True,
+                        "delivery_observation_id": observed["observation_id"],
+                        "new_frames": 1,
+                    })
                 with urlopen(base + "/v1/sensory-observation-snapshot", timeout=3) as response:
                     snapshot = json.load(response)
                 self.assertEqual(snapshot["count"], 1)
@@ -324,8 +331,12 @@ class SensoryObservationTests(unittest.TestCase):
                     request = Request(base + "/v1/observe", json.dumps(observed).encode(),
                                       {"Content-Type": "application/json"})
                     with self.subTest(index=index), urlopen(request, timeout=3) as response:
-                        self.assertEqual(json.load(response), decide_action(
+                        result = json.load(response)
+                        receipt = result.pop("sensory_receipt")
+                        self.assertEqual(result, decide_action(
                             packet(f"obs-invalid-{index}", tick=index + 1)))
+                        self.assertFalse(receipt["accepted"])
+                        self.assertEqual(receipt["error"], "invalid_sensory_extension")
                 self.assertEqual(store.snapshot()["rejection_count"], 4)
                 self.assertEqual(store.snapshot()["count"], 0)
                 self.assertEqual(bridge.CANONICAL_SIDECAR.snapshot()["captures"], 4)

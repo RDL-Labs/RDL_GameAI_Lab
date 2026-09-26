@@ -179,4 +179,7 @@ OBS-6では同一Luanti World/RuntimeでRW2生活とA/B別local/distant/audition
 OBS-6CではWorld初期配置を一度だけにし、音響voxel伝達も共通化した。聴覚windowの確定を
 HTTP配送から分離し、agent別64frameの有限pending queueを介して配送見送り時も取得時刻を保持する。
 壁・対象消失・2tick配送見送りを実Luanti回帰へ含めた。
+OBS-6Dではlocal/distant/auditionを同じ有限queueへ置き、1配送を古い順4frame以下に制限した。
+Runtimeの明示sensory receiptがacceptedの場合だけ除去し、拡張拒否・送信前失敗では保持して後続観測へ再配送する。
+4tick見送り、遠景周期との重なり、拒否回復、transport retryを実Luanti回帰へ含めた。
 OBS系列はここで停止し、感覚間照合、行動接続、一般的な長期保持を同時に導入しない。

@@ -103,9 +103,12 @@ try {
     }
     if ($SensoryObservation) {
         $sensory = Invoke-RestMethod -Uri "http://127.0.0.1:8765/v1/sensory-observation-snapshot" -TimeoutSec 3
-        if ($sensory.rejection_count -ne 0) {
+        if ($sensory.rejection_count -ne 1) {
             $details = @($sensory.rejections | ForEach-Object { $_.detail }) -join "; "
-            throw "Integrated sensory frames were rejected: $details"
+            throw "Expected one recoverable OBS-6D sensory rejection, got $($sensory.rejection_count): $details"
+        }
+        if ($sensory.rejections[0].detail -notmatch "delivery tick") {
+            throw "OBS-6D rejection probe did not exercise delivery-tick isolation"
         }
         foreach ($agentId in @("npc_a", "npc_b")) {
             $agentFrames = @($sensory.frames | Where-Object { $_.agent_id -eq $agentId })
@@ -140,6 +143,23 @@ try {
         if (-not ($lines -match "RDL_LUANTI_OBS6C.*world_probe=PASS")) {
             throw "OBS-6C World-change probe did not pass"
         }
+        $deliveryLines = @($lines | Where-Object { $_ -match "RDL_LUANTI_OBS6D.*delivery" })
+        if ($deliveryLines.Count -lt 1) { throw "No OBS-6D delivery batches were logged" }
+        foreach ($line in $deliveryLines) {
+            if ($line -match "frames=(\d+)" -and [int]$Matches[1] -gt 4) {
+                throw "OBS-6D exceeded the four-frame delivery limit: $line"
+            }
+        }
+        if (-not ($deliveryLines -match "agent=npc_b frames=4 pending=[5-9]")) {
+            throw "Four-tick delayed sensory backlog was not split into a bounded batch"
+        }
+        if (-not ($lines -match "RDL_LUANTI_OBS6D.*ack agent=npc_b")) {
+            throw "OBS-6D did not receive an explicit sensory acknowledgement for npc_b"
+        }
+        if (-not ($lines -match "RDL_LUANTI_OBS6D.*receipt rejected; retained agent=npc_a") -or
+                -not ($lines -match "RDL_LUANTI_OBS6D.*simulated transport failure; retained agent=npc_a")) {
+            throw "OBS-6D rejection or transport-failure retention probe did not run"
+        }
         $latestA = $sensory.latest_by_agent.npc_a
         $latestB = $sensory.latest_by_agent.npc_b
         if (-not $latestA.vision_local -or -not $latestA.vision_distant -or -not $latestA.audition -or `
@@ -157,7 +177,7 @@ try {
                 throw "Local and periodic distant sample schedules were not independently retained"
             }
         }
-        Write-Output "OBS6 SENSORY: agents=2 channels=3 rejections=0 life_compatible=true"
+        Write-Output "OBS6 SENSORY: agents=2 channels=3 rejection_recovered=1 transport_retry=1 life_compatible=true"
     }
     Write-Output "${ResultLabel}: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:$aVisible,B:$bVisible"
 } finally {
