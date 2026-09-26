@@ -2,6 +2,7 @@
 let worldView;
 let inspectorView;
 let memoryView;
+let sensoryView;
 let lineageView;
 let timelineView;
 let currentData = null;
@@ -140,6 +141,7 @@ function createViews(w, h, scaleRatio) {
   worldView = new WorldView(10, 10, leftW, topH);
   inspectorView = new InspectorView(leftW + 20, 10, midW, topH);
   memoryView = new MemoryView(leftW + midW + 30, 10, rightW, topH);
+  sensoryView = new SensoryView(leftW + midW + 30, 10, rightW, topH);
   lineageView = new LineageView(10, topH + 20, w - 20, midH);
   timelineView = new TimelineView(10, topH + midH + 30, w - 20, botH);
 }
@@ -170,7 +172,11 @@ function draw() {
   background(15, 20, 28);
   worldView.draw(this, currentData, selectedAgentId);
   inspectorView.draw(this, currentData, selectedAgentId);
-  memoryView.draw(this, currentData, selectedAgentId, selectedProfileId, selectedExperienceId);
+  if (currentData?.sensory_observation_snapshot) {
+    sensoryView.draw(this, currentData, selectedAgentId);
+  } else {
+    memoryView.draw(this, currentData, selectedAgentId, selectedProfileId, selectedExperienceId);
+  }
   lineageView.draw(this, currentData, selectedAgentId, selectedExperienceId, selectedProfileId);
   timelineView.draw(this, currentData, selectedAgentId, selectedExperienceId);
 

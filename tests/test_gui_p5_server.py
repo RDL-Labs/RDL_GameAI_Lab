@@ -85,6 +85,21 @@ class WorkbenchServerTests(unittest.TestCase):
         self.assertIn("modelRefs.has(item.model_ref)", inspector)
         self.assertNotIn("paths[paths.length - 1]", inspector)
 
+    def test_obs5_sensory_view_is_get_only_and_agent_scoped(self):
+        api = (SERVER.GUI_DIR / "api.js").read_text(encoding="utf-8")
+        sketch = (SERVER.GUI_DIR / "sketch.js").read_text(encoding="utf-8")
+        view = (SERVER.GUI_DIR / "views" / "sensory_view.js").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("['sensory', '/v1/sensory-observation-snapshot']", api)
+        self.assertIn("sensory_observation_snapshot", api)
+        self.assertIn("latest_by_agent?.[selectedAgentId]", view)
+        self.assertIn("channels are not time-synchronized", view)
+        self.assertIn("OUTPUT LIMITED", view)
+        self.assertIn("capture_window", view)
+        self.assertIn("sensoryView.draw(this, currentData, selectedAgentId)", sketch)
+        self.assertNotIn("/v1/observe", api)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -130,7 +130,8 @@ class RDLWorkbenchAPI {
       ['food_mb', '/v1/food-mb-shadow'],
       ['sleep', '/v1/sleep-consolidation-snapshot'],
       ['fast', '/v1/fast-retrieval-snapshot'],
-      ['luanti_outcome', '/v1/luanti-outcome-snapshot']
+      ['luanti_outcome', '/v1/luanti-outcome-snapshot'],
+      ['sensory', '/v1/sensory-observation-snapshot']
     ];
     const results = await Promise.all(specs.map(([name, path]) => this.fetchEndpoint(name, path)));
     const byName = Object.fromEntries(results.map(result => [result.name, result]));
@@ -164,6 +165,7 @@ class RDLWorkbenchAPI {
       deep_similarity: latestSleep?.deep_similarity || null,
       fast_retrieval_snapshot: byName.fast.ok ? byName.fast.payload : null,
       luanti_outcome_snapshot: byName.luanti_outcome.ok ? byName.luanti_outcome.payload : null,
+      sensory_observation_snapshot: byName.sensory.ok ? byName.sensory.payload : null,
       _viewer_meta: {
         source: 'live',
         endpoint_status: endpointStatus,
@@ -171,7 +173,8 @@ class RDLWorkbenchAPI {
         sleep_projection: latestSleep ? 'S1-S4 live snapshot' : 'no completed Sleep consolidation',
         deep_similarity: latestSleep?.deep_similarity ? 'S3 live shadow' : 'not available',
         fast_retrieval: byName.fast.ok ? 'F1 live read-only snapshot' : 'not enabled',
-        luanti_trace: byName.luanti_outcome.ok ? 'L9 live read-only provenance' : 'not enabled'
+        luanti_trace: byName.luanti_outcome.ok ? 'L9 live read-only provenance' : 'not enabled',
+        sensory_observation: byName.sensory.ok ? 'OBS-5 live read-only frames' : 'not enabled'
       }
     };
 
