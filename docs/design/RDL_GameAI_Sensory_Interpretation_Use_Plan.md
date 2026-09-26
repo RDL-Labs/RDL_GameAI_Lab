@@ -1,6 +1,6 @@
 # 感覚観測の解釈・利用への接続計画
 
-状態: OBS-7Aの純粋診断、OBS-7Bの有限候補生成、OBS-8の専用再取得Probeを実装 / 2026-09-26。
+状態: OBS-7Aの純粋診断、OBS-7Bの有限候補生成、OBS-8/8Bの専用Probeと継続World調停を実装 / 2026-09-26。
 OBS-7Bは[隣接窓の聴覚パターン候補の契約](../experiment-contracts/OBS_7B_auditory_pattern_candidates_contract.md)と[7B Evidence](../experiment-evidence/OBS_7B_auditory_pattern_candidates_evidence.md)へ実装・検証結果を記録。
 OBS-8は[同一視覚チャンネル内の再取得契約](../experiment-contracts/OBS_8_visual_reacquisition_contract.md)の専用fixtureと純粋評価を実装。
 [8 Evidence](../experiment-evidence/OBS_8_visual_reacquisition_evidence.md)に検証範囲を記録。
@@ -34,7 +34,7 @@ RW2互換は有限生活Acceptanceの完了を指し、全行動列一致では�
 | OBS-8 | 同一視覚チャンネル内の再取得 | 専用fixture・評価を実装。実測姿勢対応、1回の水平回転と通常周期取得。7Bを起動条件にしない |
 | canonical接続 | 有限断面と解釈モデルの選択 | 別契約。7A/7Bの結果をそのままF・E・HやCandidateRelationへ昇格しない |
 
-OBS-8の専用fixtureで一度区切る。生活中の自動起動・聴覚連携・canonicalへの機能拡張は行わない。
+OBS-8Bの明示起動・生活優先fixtureで一度区切る。生活中の自動起動・聴覚連携・canonicalへの機能拡張は行わない。
 
 ## 3. 現在使える情報と不足
 
@@ -141,8 +141,9 @@ OBS-8初版の実装条件は上記契約を参照。元観測の鮮度2秒、�
 
 ## 8. 継続Worldへ進む次の契約
 
-[OBS-8B契約案](../experiment-contracts/OBS_8B_continuous_world_probe_contract.md)を追加した。
+[OBS-8B実装契約](../experiment-contracts/OBS_8B_continuous_world_probe_contract.md)を追加した。
 現行8初版の有限Probeは固定し、通信待ちでも進む時計、生活intent優先の実行権限、
-通常視覚枠の唯一の所有者、失効応答と配送ackの分離を次に検証する。
+通常視覚枠の唯一の所有者、失効応答と配送ackの分離を専用fixtureで実装・検証した。
 明示起動とfixture-distant-enabledを維持し、7B起動・自律注意・全感覚RW2統合は追加しない。
-現在は設計のみ。8Bの実装・テスト・実Luanti試験は未実施。
+8Bは実Luanti 6ケースでA/Bの生活完了まで確認済み。[Evidence](../experiment-evidence/OBS_8B_continuous_world_probe_evidence.md)を参照。
+この明示起動の調停で区切り、自律注意・全感覚生活統合・canonical接続は保留する。

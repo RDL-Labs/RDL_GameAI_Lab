@@ -130,13 +130,13 @@ core.register_node("rdl_bridge:observation_space", {
     sunlight_propagates = true,
 })
 
-if fixture_mode == "multi_agent_food" then
+if fixture_mode == "multi_agent_food" or fixture_mode == "continuous_probe" then
     local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
     local profile_assignments = sensor_profiles.load(core.settings, {"npc_a", "npc_b"})
     local start_multi_agent = dofile(core.get_modpath("rdl_bridge") .. "/multi_agent_food.lua")
     start_multi_agent(http, runtime_url, life_result_url, interval, profile_assignments,
         core.settings:get_bool("rdl_sensor_profile_probe", false),
-        core.settings:get_bool("rdl_obs6_sensory", false))
+        core.settings:get_bool("rdl_obs6_sensory", false), fixture_mode == "continuous_probe")
     return
 end
 

@@ -1,9 +1,10 @@
-# OBS-8B 継続WorldでのProbe実行権限 — 契約案
+# OBS-8B 継続WorldでのProbe実行権限 — 実装契約
 
-状態: DESIGN ONLY / DRAFT v0.1 / 2026-09-26。
-基準: `6f8dde9366b91095151c8c7cbfe3fe3909724209`。
-未実装・未検証。[OBS-8](OBS_8_visual_reacquisition_contract.md)初版はそのまま固定する。
-次に作るのは自律的な注意ではなく、進み続けるWorldでの明示Probeと生活処理の調停である。
+状態: OPERATIONAL / obs8b-v1 / 2026-09-26。
+実装開始基準: `b5f3cd28d55eb11368bc98b306e38df242de94b9`。
+専用fixture・調停器・実取得時刻評価を実装。[Evidence](../experiment-evidence/OBS_8B_continuous_world_probe_evidence.md)に実行範囲を記録。
+[OBS-8](OBS_8_visual_reacquisition_contract.md)初版はそのまま固定する。
+対象は、進み続けるWorldでの明示Probeと生活処理の調停である。自律的な注意は含まない。
 
 ## 1. 問い・範囲・既存実装との差
 
@@ -107,7 +108,7 @@ HTTPは最大3秒、run終了後の実時間drainは最大5秒とし、超過は
 capacity・busy・失効を「候補なし」「再観測なし」へ変換しない。
 永続台帳や再起動越しのexactly-onceは作らず、旧run要求は拒否する。
 
-## 7. 受入試験計画（未実施）
+## 7. 受入試験と停止境界
 
 | 条件 | 必須の証拠 |
 | --- | --- |
@@ -127,3 +128,22 @@ capacity・busy・失効を「候補なし」「再観測なし」へ変換し�
 遅延・消失はcallback受渡しの故障注入から始める。実ネットワーク切断とは呼ばない。
 実Luantiの時計・身体・生活action・取得・実Runtime受理と、合成境界試験をEvidenceで分ける。
 実装はこの調停までで停止し、自律起動、7B接続、意味判断、移動Probe、canonical接続は追加しない。
+
+## 8. 実装APIと実行範囲
+
+- `probe_arbiter.lua`: 個体別generation、明示idle、生活intent、操作台帳への仲介、pending予約、通常枠、配送別ID集合、単一mailbox。
+- `continuous_visual_controller.lua`: 元8の純粋planを共有し、実取得時刻で回転・指定枠を検査する8B専用制御。
+- `continuous_probe_fixture.lua`: opt-inのWorld scheduler。既存multi_agent_foodのpacket生成・action解決・結果報告を利用する。
+- `runtime.continuous_visual_probe.evaluate`: obs8b-v1の入口。共通評価内部を使い、旧8の公開入口と厳密tick境界条件は維持する。
+
+callbackにはWorld身体操作を置かない。既存のlife-result callbackは結果受付フラグの更新のみを行い、
+その間は新しい配送・Probe起動を許可しない。操作・配送は公開HTTP endpointを増やさずfixture内で調停する。
+応答はagent IDとinspection.observation_idも照合する。受付確認はさらにdelivery IDを照合する。
+一度authorizedを取得するとその結果の実行権限を消費し、同じ結果で二度身体作用を起こせない。
+終了済み操作を再要求しても、現在の容量やidle状態で過去の理由を書き換えない。
+配送台帳は最大32件/個体、調停traceは最大256件/個体。無制限に履歴を伸ばさない。
+
+6ケースは独立した新runで各6秒を実行する。終了閾値を跨いだglobalstepで身体作用を止めるため、
+終了記録のsim_usは6秒を少し超えるが、その時点で新規回転・生活action・通常取得は行わない。
+大きなdtimeはfixtureで650000µsを時計に加える注入として検査する。過去の通常枠を明示的にmissedと記録する。
+容量境界や終了結果の再要求はLua検査とfixture終了処理で確認し、すべてをネットワーク障害と呼ばない。

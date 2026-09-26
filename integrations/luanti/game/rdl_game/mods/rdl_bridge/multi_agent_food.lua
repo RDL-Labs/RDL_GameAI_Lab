@@ -1,5 +1,5 @@
 return function(http, runtime_url, life_result_url, interval, profile_assignments,
-                sensor_profile_probe, obs6_sensory)
+                sensor_profile_probe, obs6_sensory, continuous_probe)
     local reach_distance = 1.25
     local agents = {
         npc_a = {start = {x = 0, y = 1, z = -3}, food_id = "food_a",
@@ -359,6 +359,13 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
         core.forceload_block({x = 0, y = 0, z = 0}, true)
         core.after(0, ensure_fixture)
     end)
+
+    if continuous_probe then
+        dofile(core.get_modpath("rdl_bridge") .. "/continuous_probe_fixture.lua")(
+            http, runtime_url, profile_assignments, state, agents,
+            ensure_fixture, find_by_id, build_observation, resolve_action)
+        return
+    end
 
     core.register_globalstep(function(dtime)
         state.elapsed = state.elapsed + dtime

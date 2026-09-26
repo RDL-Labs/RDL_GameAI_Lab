@@ -53,9 +53,13 @@ def _known_interval(value):
 
 
 def evaluate(snapshot, request, evidence):
+    return _evaluate(snapshot, request, evidence, RULE_VERSION)
+
+
+def _evaluate(snapshot, request, evidence, rule_version):
     required = {"operation_id", "run_id", "world_epoch", "agent_id", "purpose", "rule_version",
                 "source_frame_id", "feature_id", "color_band"}
-    if set(request) != required or request["purpose"] != PURPOSE or request["rule_version"] != RULE_VERSION:
+    if set(request) != required or request["purpose"] != PURPOSE or request["rule_version"] != rule_version:
         raise ProbeInputError("invalid_request")
     if any(snapshot[k] != request[k] for k in ("run_id", "world_epoch")):
         raise ProbeInputError("context_mismatch")
@@ -66,7 +70,7 @@ def evaluate(snapshot, request, evidence):
     if len(features) != 1 or features[0]["color_band"] != request["color_band"]:
         raise ProbeInputError("invalid_feature")
     feature = features[0]
-    result = {"purpose": PURPOSE, "rule_version": RULE_VERSION, "request": deepcopy(request),
+    result = {"purpose": PURPOSE, "rule_version": rule_version, "request": deepcopy(request),
               "evidence": deepcopy(evidence), "source_frame": deepcopy(source), "new_frame": None,
               "operation_status": evidence["operation_status"], "acquisition_status": "not_acquired",
               "comparison_reasons": [], "acquisition_reasons": [], "matches": None,
@@ -103,7 +107,8 @@ def evaluate(snapshot, request, evidence):
         missing.append("time_or_expiry")
     if (evidence["sample_tick"] != target["sampled_world_tick"] or evidence["sample_tick"] % 4 or
             evidence["sample_tick"] != (finish // 1000000 + 1) * 4 or
-            dst_time != evidence["sample_tick"] * 250000 or evidence["samples"] != 1):
+            (dst_time != evidence["sample_tick"] * 250000 if rule_version == RULE_VERSION else
+             dst_time // 250000 != evidence["sample_tick"]) or evidence["samples"] != 1):
         missing.append("invalid_acquisition_slot")
     nums = [p.get(k) for k in ("source_to_start_deg", "start_to_target_deg", "error_deg", "translation", "tilt_deg")]
     valid_numbers = all(type(x) in (int, float) and isfinite(x) for x in nums)
