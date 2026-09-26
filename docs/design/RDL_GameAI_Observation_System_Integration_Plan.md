@@ -3,9 +3,10 @@
 ## 観測基盤v1の終了条件（2026-09-26）
 
 OBS-8Bまでの個別・限定統合試験を基準に、最後の十分条件を
-[OBS-9統合受入契約案](../experiment-contracts/OBS_9_observation_v1_completion_contract.md)へ固定した。
-同一の継続WorldでA/Bの全感覚生活と限定Probeを併走し、10項目の受入が全件PASSしたら
-観測基盤v1 COMPLETEとして止める。現在はOBS-9未実施、v1未完了。
+[OBS-9統合受入契約](../experiment-contracts/OBS_9_observation_v1_completion_contract.md)へ固定した。
+同一の継続WorldでA/Bの全感覚生活と限定Probeを併走し、10項目の受入が全件PASSした。
+**観測基盤v1 COMPLETEとしてここで止める。** 実Luanti8run・864frameと限定は
+[OBS-9 Evidence](../experiment-evidence/OBS_9_observation_v1_completion_evidence.md)を参照。
 以下の過去計画や将来の能力拡張を、v1の追加完了条件として扱わない。
 
 
@@ -25,9 +26,10 @@ OBS-8Bまでの個別・限定統合試験を基準に、最後の十分条件�
 ## 現在の区切り（2026-09-26）
 
 OBS-0〜6Eは`23d4d2ad`で短いRW2生活試験用の観測基盤として一区切りとする。
-以降の初回指示・工程表は導入時の計画履歴であり、実装成熟度はOBS-6の契約・Evidenceを参照する。
+以降の初回指示・工程表は導入時の計画履歴。現行成熟度はOBS-9の契約・Evidenceを参照する。
 次は[感覚観測の解釈・利用への接続計画](RDL_GameAI_Sensory_Interpretation_Use_Plan.md)に従い、
-OBS-7Aの純粋な比較適格性診断・replayまで実装した。OBS-7Bの候補生成とOBS-8は保留のままとする。
+OBS-7A/7Bの診断・候補、OBS-8/8Bの有限Probe、OBS-9の全感覚生活統合まで完了した。
+次は神経・解釈・Goal・Trajectoryの検証へ戻る。追加観測能力は別用途の契約とする。
 
 ## 0. Codexへの着手指示
 

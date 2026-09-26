@@ -37,10 +37,12 @@ def _frame(snapshot, fid, request):
     return frame
 
 
-def _conditions(frame):
+def _conditions(frame, profiles=("fixture-distant-enabled",)):
+    if frame["profile_id"] not in profiles:
+        return False
     return (frame["channel"], frame["sensor_id"], frame["profile_id"], frame["profile_revision"],
             frame["sensor_model_revision"], frame["clock_id"]) == (
-                "vision_distant", "eye", "fixture-distant-enabled", 1, "sampled-surface-v0.2", "world-sim-v1")
+                "vision_distant", "eye", frame["profile_id"], 1, "sampled-surface-v0.2", "world-sim-v1")
 
 
 def _complete(frame):
@@ -56,7 +58,7 @@ def evaluate(snapshot, request, evidence):
     return _evaluate(snapshot, request, evidence, RULE_VERSION)
 
 
-def _evaluate(snapshot, request, evidence, rule_version):
+def _evaluate(snapshot, request, evidence, rule_version, profiles=("fixture-distant-enabled",)):
     required = {"operation_id", "run_id", "world_epoch", "agent_id", "purpose", "rule_version",
                 "source_frame_id", "feature_id", "color_band"}
     if set(request) != required or request["purpose"] != PURPOSE or request["rule_version"] != rule_version:
@@ -88,7 +90,7 @@ def _evaluate(snapshot, request, evidence, rule_version):
     missing, incomplete = [], []
     if not _complete(target):
         incomplete.append("incomplete_frame")
-    if not _complete(source) or not _conditions(source) or not _conditions(target):
+    if not _complete(source) or not _conditions(source, profiles) or not _conditions(target, profiles) or (source["profile_id"], source["profile_revision"]) != (target["profile_id"], target["profile_revision"]):
         missing.append("unsupported_conditions")
     if feature["color_band"] == "unknown" or not all(_known_interval(feature[k]) for k in ("azimuth_interval_deg", "elevation_interval_deg")):
         missing.append("unknown_source_feature")

@@ -1,8 +1,9 @@
-# OBS-9 観測基盤v1の完了条件 — 統合受入契約案
+# OBS-9 観測基盤v1の完了条件 — 統合受入契約
 
-状態: DESIGN ONLY / NOT IMPLEMENTED / 2026-09-26。
+状態: IMPLEMENTED / PASS / 観測基盤v1 COMPLETE / 2026-09-26。
 基準: `0c9cb9b1f1b7936d2f24646c7fc13e2ac52787fc`（OBS-8B）。
-**観測基盤v1は未完了。OBS-9の統合受入が全件PASSするまでCOMPLETEを宣言しない。**
+**OBS-9のV1-01〜10は全件PASS。観測基盤v1をここで固定する。**
+実機8run・864frameと検証の限定は[Evidence](../experiment-evidence/OBS_9_observation_v1_completion_evidence.md)を参照。
 ここでいう必要十分は、有限なGameAI後段研究のための工学的な受入条件であり、
 一般環境の完全観測や、任意の解釈・学習課題への十分性の数学的証明ではない。
 
@@ -68,7 +69,7 @@ HTTP timeoutは3秒、run終了後のdrainは最大5秒。終了後に新規身�
 
 ## 4. 固定する10項目
 
-全項目の現在の状態は**未実施**。将来のEvidenceには項目ID・assertion・run/取得記録・結果を対応づける。
+全項目の現在の状態は**PASS**。Evidenceに項目ID・assertion・run/取得記録・結果を対応づけた。
 
 | ID | 受入条件 | 必須証拠 |
 | --- | --- | --- |
@@ -116,3 +117,10 @@ V1-09は取得・比較・操作・配送の各軸も保持する。観測が完
 自律注意、対象追跡はv1の必要条件から除外する。用途が具体化したときに追加する観測能力である。
 canonical接続やM_B更新もOBS-9で追加しない。
 見える対象を増やすことより、何が取得できず、なぜ判断できないかを区別できることを優先する。
+
+## 7. 実装入口と完了記録
+
+専用Luanti mode `observation_v1`、`test-observation-v1.ps1`、純粋評価`runtime.observation_v1.evaluate`。
+8runの全snapshotは`tests/fixtures/obs9_luanti_replay.json`。全体407件実行（361 PASS / 46 intentional skips）。
+通常の取得・身体作用は6秒未満で止め、最後の聴覚窓は6秒までの受信済みbufferだけを閉じる。
+取得不足の空窓をCOMPLETEへ補完しない。実行結果と合成試験の区別はEvidenceへ固定する。

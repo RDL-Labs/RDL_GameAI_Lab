@@ -17,13 +17,17 @@ L8 Multi-Agent Separation COMPLETE
 L9 p5 Read-Only Trace     COMPLETE
 RW1 Multi-Agent World     COMPLETE
 RW2 Multi-Agent Food Life COMPLETE
-OBS-0..4B Observation Base / Distant / Audition Windows COMPLETE
-OBS-5..6 Display / Integration PLANNED
+OBS-0..6E Acquisition / Display / Delivery COMPLETE
+OBS-7A..8B Comparison / Candidates / Probe COMPLETE
+OBS-9 Observation v1 Integrated Acceptance COMPLETE
 L10                       DEFERRED
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
 primary rich World integration surfaceとして育てる。
+
+観測基盤v1は[OBS-9 Evidence](../experiment-evidence/OBS_9_observation_v1_completion_evidence.md)の
+実Luanti8run・864frameで固定した。観測能力の追加を止め、神経・解釈・Goal・Trajectoryの検証へ戻る。
 
 ## 1. 移行位置
 
@@ -115,6 +119,9 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | OBS-4C | window跨ぎ分割、close冪等、late拒否、検出上限の欠落記録 | COMPLETE |
 | OBS-5 | p5個体別・感覚別read-only表示、独立取得時刻、欠落状態 | COMPLETE |
 | OBS-6 | RW2生活＋近景＋遠景＋聴覚の統合回帰 | COMPLETE |
+| OBS-7A/7B | 比較適格性・隣接聴覚窓の有限候補 | COMPLETE |
+| OBS-8/8B | 有限視覚Probe・継続Worldの生活優先調停 | COMPLETE |
+| OBS-9 | 全感覚生活＋Probeの10条件、観測基盤v1固定 | COMPLETE |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
 ## 6. Repository Boundary

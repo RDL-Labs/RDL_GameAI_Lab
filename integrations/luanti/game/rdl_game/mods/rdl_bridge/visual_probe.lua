@@ -2,7 +2,7 @@
 local M = {}
 local function wrap(x) return (x + 180) % 360 - 180 end
 M.wrap = wrap
-function M.plan(frame, feature, request, body)
+function M.plan_for_profiles(frame, feature, request, body, allowed_profiles)
     local reasons = {}
     local function need(ok, why) if not ok then reasons[#reasons + 1] = why end end
     need(body.now_us >= frame.capture_window.start_us and body.now_us - frame.capture_window.start_us <= 2000000, "stale_source")
@@ -10,7 +10,7 @@ function M.plan(frame, feature, request, body)
     need(body.mapping_valid and body.source_pose == frame.observer_frame_ref and body.mapping_expires_us >= body.now_us, "pose_mapping_unavailable")
     need(body.translation <= 0.000001 and body.tilt_deg <= 0.01, "body_changed")
     need(body.profile_id == frame.profile_id and body.profile_revision == frame.profile_revision, "profile_changed")
-    need(frame.profile_id == "fixture-distant-enabled" and frame.profile_revision == 1 and frame.sensor_id == "eye" and frame.channel == "vision_distant" and frame.sensor_model_revision == "sampled-surface-v0.2", "unsupported_conditions")
+    need(allowed_profiles[frame.profile_id] and frame.profile_revision == 1 and frame.sensor_id == "eye" and frame.channel == "vision_distant" and frame.sensor_model_revision == "sampled-surface-v0.2", "unsupported_conditions")
     need(frame.status == "SAMPLED" and frame.coverage == "COMPLETE_WITHIN_PLAN" and not frame.output_limited and frame.capture_window.kind == "instant", "source_incomplete")
     need(body.clock_id == frame.clock_id, "clock_mismatch")
     need(type(feature.azimuth_interval_deg) == "table" and type(feature.elevation_interval_deg) == "table" and feature.color_band ~= "unknown", "unknown_feature")
@@ -22,6 +22,9 @@ function M.plan(frame, feature, request, body)
     return {command_deg = command, started_us = body.now_us, deadline_us = body.now_us + 1500000,
             source_us = frame.capture_window.start_us, source_to_start_deg = body.source_to_start_deg,
             start_pose = body.pose_ref, source_pose = frame.observer_frame_ref}, {}
+end
+function M.plan(frame, feature, request, body)
+    return M.plan_for_profiles(frame, feature, request, body, {["fixture-distant-enabled"]=true})
 end
 function M.new(run_id, epoch, agent)
     local ledger, count, active = {}, 0, nil

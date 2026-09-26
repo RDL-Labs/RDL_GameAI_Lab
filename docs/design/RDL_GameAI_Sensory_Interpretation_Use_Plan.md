@@ -1,6 +1,7 @@
 # 感覚観測の解釈・利用への接続計画
 
-状態: OBS-7Aの純粋診断、OBS-7Bの有限候補生成、OBS-8/8Bの専用Probeと継続World調停を実装 / 2026-09-26。
+状態: OBS-9全感覚生活統合までPASS、観測基盤v1 COMPLETE / 2026-09-26。
+[OBS-9 Evidence](../experiment-evidence/OBS_9_observation_v1_completion_evidence.md)を現行の完了基準とする。
 OBS-7Bは[隣接窓の聴覚パターン候補の契約](../experiment-contracts/OBS_7B_auditory_pattern_candidates_contract.md)と[7B Evidence](../experiment-evidence/OBS_7B_auditory_pattern_candidates_evidence.md)へ実装・検証結果を記録。
 OBS-8は[同一視覚チャンネル内の再取得契約](../experiment-contracts/OBS_8_visual_reacquisition_contract.md)の専用fixtureと純粋評価を実装。
 [8 Evidence](../experiment-evidence/OBS_8_visual_reacquisition_evidence.md)に検証範囲を記録。
@@ -32,9 +33,10 @@ RW2互換は有限生活Acceptanceの完了を指し、全行動列一致では�
 | OBS-7A | 比較適格性の診断 | 実装・検証済み。時刻・姿勢・profile・coverage・出典を検査し、比較不能の理由を保持 |
 | OBS-7B | 隣接窓の聴覚パターン候補 | 実装・検証済み。専用実Luanti fixtureで四状態を再生。比較不能と候補数を区別 |
 | OBS-8 | 同一視覚チャンネル内の再取得 | 専用fixture・評価を実装。実測姿勢対応、1回の水平回転と通常周期取得。7Bを起動条件にしない |
+| OBS-9 | 全感覚生活＋Probeの統合受入 | 10条件PASS、観測基盤v1 COMPLETEとして固定 |
 | canonical接続 | 有限断面と解釈モデルの選択 | 別契約。7A/7Bの結果をそのままF・E・HやCandidateRelationへ昇格しない |
 
-OBS-8Bの明示起動・生活優先fixtureで一度区切る。生活中の自動起動・聴覚連携・canonicalへの機能拡張は行わない。
+OBS-9の明示起動・全感覚生活統合で観測基盤v1を区切る。生活中の自動起動・聴覚連携・canonicalへの機能拡張は行わない。
 
 ## 3. 現在使える情報と不足
 
@@ -146,12 +148,12 @@ OBS-8初版の実装条件は上記契約を参照。元観測の鮮度2秒、�
 通常視覚枠の唯一の所有者、失効応答と配送ackの分離を専用fixtureで実装・検証した。
 明示起動とfixture-distant-enabledを維持し、7B起動・自律注意・全感覚RW2統合は追加しない。
 8Bは実Luanti 6ケースでA/Bの生活完了まで確認済み。[Evidence](../experiment-evidence/OBS_8B_continuous_world_probe_evidence.md)を参照。
-この明示起動の調停で区切り、自律注意・全感覚生活統合・canonical接続は保留する。
+8B単体の範囲はここで固定した。全感覚生活統合は後続OBS-9で完了、自律注意・canonical接続は保留する。
 
 ## 9. 観測基盤v1の必要十分条件と終了地点
 
-[OBS-9統合受入契約案](../experiment-contracts/OBS_9_observation_v1_completion_contract.md)をv1完了判定の入口とする。
+[OBS-9統合受入契約](../experiment-contracts/OBS_9_observation_v1_completion_contract.md)をv1完了判定の入口とする。
 全感覚生活＋限定Probe＋A/B＋継続World＋配送障害回復を同じ環境で検証し、固定した10項目が
-全件通れば観測基盤v1 COMPLETEとして止める。現時点はOBS-8Bまで実装済み、OBS-9は未実施。
+全件PASSしたため観測基盤v1 COMPLETEとして止める。実Luanti8run・864frameで検証済み。
 必要十分は後段研究に対する有限な受入条件であり、一般的な認識の完成ではない。
 完了後は神経・解釈・Goal・Trajectoryへ戻り、追加感覚器や自律注意を完了条件へ後付けしない。

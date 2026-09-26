@@ -3,12 +3,16 @@ local M = {}
 local function wrap(x) return (x + 180) % 360 - 180 end
 M.wrap = wrap
 M.plan = dofile(core.get_modpath("rdl_bridge") .. "/visual_probe.lua").plan
-function M.new(run_id, epoch, agent)
+function M.new(run_id, epoch, agent, rule)
+    rule = rule or "obs8b-v1"
+    assert(rule == "obs8b-v1" or rule == "obs9-v1", "unsupported_rule")
+    local allowed_profiles = rule == "obs9-v1" and {["fixture-life-sensory"]=true,["fixture-life-sensory-compact"]=true} or {["fixture-distant-enabled"]=true}
+    local planner = dofile(core.get_modpath("rdl_bridge") .. "/visual_probe.lua").plan_for_profiles
     local ledger, count, active = {}, 0, nil
     local controller = {}
     function controller.start(request, frame, body)
         assert(request.run_id == run_id and request.world_epoch == epoch and request.agent_id == agent, "context_mismatch")
-        assert(request.purpose == "visual_reacquisition_after_yaw" and request.rule_version == "obs8b-v1", "invalid_question")
+        assert(request.purpose == "visual_reacquisition_after_yaw" and request.rule_version == rule, "invalid_question")
         assert(type(request.operation_id) == "string" and #request.operation_id > 0 and #request.operation_id <= 128, "invalid_operation_id")
         assert(request.source_frame_id == frame.frame_id and frame.agent_id == agent, "invalid_reference")
         local feature
@@ -29,7 +33,8 @@ function M.new(run_id, epoch, agent)
         local entry = {request = table.copy(request), operation_status = "not_executed", reasons = {}, rotations = 0, samples = 0}
         ledger[request.operation_id] = entry
         if active then entry.reasons = {"operation_busy"}; return entry, false end
-        entry.plan, entry.reasons = M.plan(frame, feature, request, body)
+        entry.profile_id = frame.profile_id
+        entry.plan, entry.reasons = planner(frame, feature, request, body, allowed_profiles)
         if not entry.plan then return entry, false end
         entry.operation_status = "validated"; active = entry
         return entry, true
@@ -44,7 +49,7 @@ function M.new(run_id, epoch, agent)
         if body.life_busy then controller.abort(entry, "life_priority"); return false end
         if not body.mapping_valid or body.mapping_expires_us < body.now_us then controller.abort(entry, "pose_mapping_unavailable"); return false end
         if body.translation > 0.000001 or body.tilt_deg > 0.01 then controller.abort(entry, "body_changed"); return false end
-        if body.profile_id ~= "fixture-distant-enabled" or body.profile_revision ~= 1 then controller.abort(entry, "profile_changed"); return false end
+        if body.profile_id ~= entry.profile_id or body.profile_revision ~= 1 then controller.abort(entry, "profile_changed"); return false end
         if entry.operation_status == "validated" and math.abs(M.wrap(body.source_to_start_deg - p.source_to_start_deg)) > 0.01 then controller.abort(entry, "pose_changed"); return false end
         if entry.operation_status == "rotated" and (type(body.measured_right_deg) ~= "number" or math.abs(body.measured_right_deg - entry.actual_deg) > 0.01) then controller.abort(entry, "pose_changed"); return false end
         if body.clock_id ~= "world-sim-v1" then controller.abort(entry, "clock_mismatch"); return false end

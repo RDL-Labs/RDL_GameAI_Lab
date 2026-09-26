@@ -1,6 +1,8 @@
 -- One arbiter per agent. Callbacks only submit a single bounded mailbox item.
 local M = {}
-function M.new(run, epoch, agent, controller)
+function M.new(run, epoch, agent, controller, pending_limit)
+    pending_limit=pending_limit or 8
+    assert(pending_limit==8 or pending_limit==64,"unsupported_pending_limit")
     local s = {generation=0, idle=false, intent=false, pending={}, reserved=0, transfers={}, transfer_count=0,
                mailbox=nil, in_flight=nil, active=nil, stopped=false, last_slot=-1, log={}, admitted={}, operation_ids={}}
     local function log(kind, fields)
@@ -26,7 +28,7 @@ function M.new(run, epoch, agent, controller)
         s.reconcile()
         local blocked = s.stopped or not s.idle or s.intent or s.result_waiting or s.in_flight~=nil or s.mailbox~=nil
         local copied=table.copy(body);copied.life_busy=blocked
-        local full=#s.pending+s.reserved>=8
+        local full=#s.pending+s.reserved>=pending_limit
         if full then copied.life_busy=true end
         assert(s.admitted[frame.frame_id],"source_not_admitted")
         local known=s.operation_ids[request.operation_id]
@@ -43,7 +45,7 @@ function M.new(run, epoch, agent, controller)
     end
     function s.enqueue(frame, reserved)
         if reserved then assert(s.reserved==1);s.reserved=0 end
-        if #s.pending+s.reserved>=8 then log("drop",{frame_id=frame.frame_id,tick=frame.sampled_world_tick});return false end
+        if #s.pending+s.reserved>=pending_limit then log("drop",{frame_id=frame.frame_id,tick=frame.sampled_world_tick});return false end
         s.pending[#s.pending+1]=frame;return true
     end
     function s.slot(tick)
@@ -54,10 +56,17 @@ function M.new(run, epoch, agent, controller)
         if s.in_flight or s.mailbox then return nil end
         assert(not s.transfers[id] and s.transfer_count<32,"transfer_capacity")
         local t={id=id,run_id=run,world_epoch=epoch,agent_id=agent,generation=s.generation,
-                 sent_us=now,frames={},ids={},life=life,consumed=false}
-        for i=1,math.min(4,#s.pending) do t.frames[i]=s.pending[i];t.ids[s.pending[i].frame_id]=true end
+                 sent_us=now,frames={},ids={},frame_order={},life=life,consumed=false}
+        for _,f in ipairs(s.pending) do
+            if #t.frames<4 and (not s.retry_ids or s.retry_ids[f.frame_id]) then t.frames[#t.frames+1]=f;t.ids[f.frame_id]=true;t.frame_order[#t.frame_order+1]=f.frame_id end
+        end
         s.transfers[id]=t;s.transfer_count=s.transfer_count+1;s.in_flight=id
         return t
+    end
+    function s.lose_response(id)
+        assert(s.in_flight==id,"loss_not_in_flight")
+        assert(next(s.transfers[id].ids),"empty_loss_batch")
+        s.retry_ids=table.copy(s.transfers[id].ids)
     end
     function s.submit(id, response, received_us, release_us)
         assert(s.transfers[id],"unknown_delivery")
@@ -73,18 +82,24 @@ function M.new(run, epoch, agent, controller)
         local matches=response and response.agent_id==agent and response.inspection and response.inspection.observation_id==t.id
         local receipt=matches and response.sensory_receipt
         local removed={}
+        local before={};for _,f in ipairs(s.pending) do before[#before+1]=f.frame_id end
         if receipt and receipt.accepted and receipt.delivery_observation_id==t.id then
             local keep={}
             for _,f in ipairs(s.pending) do
                 if t.ids[f.frame_id] then removed[#removed+1]=f.frame_id else keep[#keep+1]=f end
             end
             s.pending=keep
+            if s.retry_ids then
+                for id in pairs(t.ids) do s.retry_ids[id]=nil end
+                if not next(s.retry_ids) then s.retry_ids=nil end
+            end
             for _,f in ipairs(t.frames) do s.admitted[f.frame_id]=f end
         end
         local valid=not not matches and t.life and not t.consumed and not s.stopped and t.generation==s.generation and s.intent
         t.consumed=true
         log("consume",{delivery_id=t.id,sent_us=t.sent_us,received_us=m.received_us,consumed_us=now,
-             request_generation=t.generation,action_eligible=valid,removed=removed,new_frames=receipt and receipt.new_frames})
+             request_generation=t.generation,action_eligible=valid,removed=removed,new_frames=receipt and receipt.new_frames,
+             accepted=receipt and receipt.accepted,pending_before=before,frame_ids=t.ids,frame_order=t.frame_order})
         return {response=response,eligible=valid,transfer=t}
     end
     function s.authorized(result)
