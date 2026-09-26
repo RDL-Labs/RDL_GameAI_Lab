@@ -2,14 +2,14 @@
 
 ## 0. Status
 
-次工程: [NERV-3明示接続契約](../experiment-contracts/NERV_3_neural_bias_admission_contract.md)を設計済み。
-未実装・受入未実施。神経由来Biasの保存とSleep入力profileまでとし、Candidate以降は保留。
+現在地: [NERV-3明示接続契約](../experiment-contracts/NERV_3_neural_bias_admission_contract.md)を実装し18試験PASS。
+[Evidence](../experiment-evidence/NERV_3_neural_bias_admission_evidence.md)の神経由来Bias保存・Sleep入力profileで固定。Candidate以降は保留。
 
 2026-09-26更新: Observation v1 COMPLETE（`8616fe7e`）後、
 [NERV-1/2有限再生契約](../experiment-contracts/NERV_1_2_neural_gradient_projection_contract.md)の有限再生を実装・検証した。
 **NERV-1/2とshadow Bias previewは15試験PASS。**
 [Evidence](../experiment-evidence/NERV_1_2_neural_gradient_projection_evidence.md)の範囲で固定する。 固定parameter、純粋なperceived projection、
-検査専用Bias previewに限定する。NERV-3以降の本番接続・自律行動・探索・DNAは保留。
+検査専用Bias previewに限定する。NERV-3のPython opt-in保存まで実装。既定HTTP経路への接続、自律行動・探索・DNAは保留。
 以下の全面保留・順序は導入時の計画履歴。この限定契約は実装済みだが、
 M_B-informed behaviorの検証完了や神経系全体の保留解除を意味しない。
 

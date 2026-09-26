@@ -1,6 +1,7 @@
 # NERV-3 知覚勾配からLocal Biasへの明示接続契約
 
-状態: DESIGN ONLY / 未実装・受入未実施 / 2026-09-26。
+状態: IMPLEMENTED / N3-01〜10 PASS / 2026-09-26。
+実行結果と合成試験の限定は[Evidence](../experiment-evidence/NERV_3_neural_bias_admission_evidence.md)を参照。
 基準: `b7c3eeed`（NERV-1/2）。Observation v1は`8616fe7e`で固定。
 [前段のEvidence](../experiment-evidence/NERV_1_2_neural_gradient_projection_evidence.md)を前提にする。
 
@@ -24,7 +25,7 @@ Sleepの類似度、支持回数によるCandidate生成、T1、M_B更新、Goal
 ## 2. 既定経路と固定設定
 
 現行`LuantiOutcomeCoordinator()`のraw→既存LocalBiasStore→既存Sleep経路は既定のまま。
-新入口案は`NeuralOutcomeCoordinator(run_id, parameters)`。継承で旧T1権限を引き継がず、
+新入口は`NeuralOutcomeCoordinator(run_id, parameters)`。継承で旧T1権限を引き継がず、
 必要な既存Experience/raw形成器とNERV-2を明示的に組み合わせる。
 run ID、最大16個体のparameterを構築時に検証・固定する。未割当個体は拒否し、rawへのfallbackをしない。
 同一instance内のmode切替・parameter変更・動的profile更新は初版で許可しない。
@@ -35,7 +36,7 @@ NERV-1/2のpreview自体を保存入力には使わず、coordinator所有の受
 
 ## 3. 保存schemaと出典
 
-専用schema案:
+専用schema:
 
 - 知覚勾配: `nerv-perceived-gradient-v1`（NERV-2の値・規則を維持）。
 - 保存Bias: `nerv-local-bias-v1`。preview schemaとも旧raw Bias schemaとも異なる。
@@ -52,7 +53,7 @@ raw gradientは神経値で上書きしない。知覚勾配の値をraw schema�
 
 ## 4. 一回受付とatomicな更新
 
-`record(payload)`は既存と同じ有限event/outcome_factsを受ける案。
+`record(payload)`は既存と同じ有限event/outcome_factsを受ける。
 受付identityは(run_id, agent_id, event_id)。同一identity・同一payload・同一固定設定の再送は同じ結果を返す。
 再送でExperience/raw/projection/Biasの件数、強度、Sleep入力数を増やさない。
 同一identityの内容変更は明示拒否。過去のpayload fingerprintと結果を有限台帳に保持する。
@@ -68,7 +69,7 @@ staging中の既存形成器による変更も公開storeへ漏らさない。�
 
 ## 5. Sleepへ渡す範囲
 
-入口案`build_sleep_profile(agent_id)`は保存済みneural Biasだけを読む純粋な専用compiler。
+入口`build_sleep_profile(agent_id)`は保存済みneural Biasだけを読む純粋な専用compiler。
 1呼出し最大32Bias。上限超過は拒否し、暗黙の先頭32件・最新32件を選ばない。
 別個体・別run・旧raw schema・preview schemaの混入を拒否する。
 同じExperienceを単位として関係profileを形成し、全relationへprojectionとparameterの出典を保持する。
@@ -81,7 +82,7 @@ raw由来の既存Sleep、Deep Similarity、T1が新schemaを受け入れるよ�
 
 ## 6. 受入条件
 
-全件未実施。最初は既存Python fixtureから受理した有限eventで検証し、実World個体差とは区別する。
+全件PASS。今回は既存Python fixtureから受理した有限eventで検証し、実World個体差とは区別する。
 
 | ID | 必須検査 |
 | --- | --- |
@@ -106,3 +107,13 @@ NERV-1/2、Outcome/Bias、Luanti学習、OBS系列の保存記録回帰を含む
 Candidate形成・支持閾値・T1への昇格には神経出典をどう扱うかの別契約が必要。
 予測誤差・F/E/H・theta_effへの同一視、一般人格・探索性・行動差の主張をしない。
 Observation v1の完了条件へ追加要件を戻さない。
+
+## 8. 実装時に固定した詳細
+
+入口は`runtime/neural_outcome.py`。構築時の`capacities`は既定以下の縮小だけを許可する。
+公開設定はread-only。stagingとstate参照の一回置換をprocess内ロックで保護する。
+`record`のpayloadはevent/outcome_factsの2field。runはcoordinator所有のscopeであり、World run認証ではない。
+`sleep_materials(agent_id)`は保存済み材料のコピー、`build_sleep_profile(agent_id)`は専用compilerの結果を返す。
+全zeroは`no_nonzero_relations`として全抑制と区別する。全抑制と全zeroの受入は合成試験。
+profileは保存Biasから明示呼出し時に生成し、追加の永続storeへ保存しない。
+18テストPASS、全体440件（394 PASS / 46 intentional skips）。実機・HTTP接続は対象外。
