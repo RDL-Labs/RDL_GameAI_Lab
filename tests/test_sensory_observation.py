@@ -47,7 +47,38 @@ def extension(observed, frame_id="frame-1", profile_id="fixture-sensor-default")
     }
 
 
+def distant_extension(observed):
+    payload = extension(observed, profile_id="fixture-distant-enabled")
+    frame = payload["frames"][0]
+    frame["channel"] = "vision_distant"
+    frame["sensor_model_revision"] = "sampled-surface-v0.2"
+    frame["payload"] = {"features": [{
+        "feature_id": "f0", "azimuth_interval_deg": [10, 15],
+        "elevation_interval_deg": [-5, 0], "angular_width_band": "unknown",
+        "angular_height_band": "unknown", "color_band": "muted_red",
+    }]}
+    return payload
+
+
 class SensoryObservationTests(unittest.TestCase):
+    def test_distant_payload_accepts_only_coarse_local_features(self):
+        observed = packet()
+        store = SensoryObservationStore(assignments={
+            "npc_a": ("fixture-distant-enabled", 1)
+        })
+        payload = distant_extension(observed)
+        self.assertEqual(store.admit(observed, payload)["new_frames"], 1)
+        stored = store.snapshot()["frames"][0]
+        self.assertNotIn("target_id", stored["payload"]["features"][0])
+        for field in ("world_position", "distance", "target_id"):
+            invalid = copy.deepcopy(payload)
+            invalid["frames"][0]["frame_id"] = "bad-" + field
+            invalid["frames"][0]["payload"]["features"][0][field] = "leak"
+            with self.subTest(field=field), self.assertRaises(ObservationError):
+                SensoryObservationStore(assignments={
+                    "npc_a": ("fixture-distant-enabled", 1)
+                }).admit(observed, invalid)
+
     def test_split_removes_extension_from_legacy_consumers(self):
         observed = packet()
         observed["observation"]["sensory_extension"] = extension(observed)

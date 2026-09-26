@@ -16,6 +16,7 @@ COVERAGE = {"COMPLETE_WITHIN_PLAN", "PARTIAL", "UNAVAILABLE"}
 PROFILE_REGISTRY = {
     ("fixture-sensor-default", 1),
     ("fixture-local-compact", 1),
+    ("fixture-distant-enabled", 1),
 }
 
 
@@ -184,8 +185,8 @@ def _validate_frame(frame, extension, assignment):
         raise ObservationError("sensory frame agent does not match delivery agent")
     if frame["channel"] not in CHANNELS:
         raise ObservationError("unsupported sensory channel")
-    if frame["channel"] != "vision_local":
-        raise ObservationError("sensory channel is planned but not enabled in OBS-1")
+    if frame["channel"] == "audition":
+        raise ObservationError("audition is planned but not enabled before OBS-4")
     profile = (frame["profile_id"], frame["profile_revision"])
     if profile not in PROFILE_REGISTRY or profile != assignment:
         raise ObservationError("sensory frame profile is not assigned to agent")
@@ -208,9 +209,12 @@ def _validate_frame(frame, extension, assignment):
         raise ObservationError("unsupported sensory status or coverage")
     if not isinstance(frame["output_limited"], bool) or not isinstance(frame["payload"], dict):
         raise ObservationError("invalid sensory output metadata")
-    if set(frame["payload"]) != {"visible_count"}:
-        raise ObservationError("vision_local payload fields do not match OBS-1 allowlist")
-    _integer(frame["payload"]["visible_count"], "sensory visible_count", minimum=0)
+    if frame["channel"] == "vision_local":
+        if set(frame["payload"]) != {"visible_count"}:
+            raise ObservationError("vision_local payload fields do not match allowlist")
+        _integer(frame["payload"]["visible_count"], "sensory visible_count", minimum=0)
+    else:
+        _validate_distant_payload(frame["payload"])
     result = deepcopy(frame)
     result["run_id"] = extension["run_id"]
     result["world_epoch"] = extension["world_epoch"]
@@ -220,6 +224,34 @@ def _validate_frame(frame, extension, assignment):
 def _nonempty(value, name):
     if not isinstance(value, str) or not value or len(value) > 128:
         raise ObservationError(f"{name} must be a bounded non-empty string")
+
+
+def _validate_distant_payload(payload):
+    if set(payload) != {"features"} or not isinstance(payload["features"], list):
+        raise ObservationError("vision_distant payload fields do not match allowlist")
+    if len(payload["features"]) > 4:
+        raise ObservationError("vision_distant feature limit exceeded")
+    required = {
+        "feature_id", "azimuth_interval_deg", "elevation_interval_deg",
+        "angular_width_band", "angular_height_band", "color_band",
+    }
+    for index, feature in enumerate(payload["features"]):
+        if not isinstance(feature, dict) or set(feature) != required:
+            raise ObservationError(f"vision_distant feature {index} fields are invalid")
+        _nonempty(feature["feature_id"], "vision_distant feature_id")
+        for field in ("azimuth_interval_deg", "elevation_interval_deg"):
+            interval = feature[field]
+            if (not isinstance(interval, list) or len(interval) != 2 or
+                    any(type(value) not in (int, float) or not isfinite(value)
+                        for value in interval) or interval[0] > interval[1] or
+                    interval[0] < -180 or interval[1] > 180):
+                raise ObservationError(f"vision_distant {field} is invalid")
+        if feature["angular_width_band"] not in {"unknown", "small", "medium", "large"}:
+            raise ObservationError("vision_distant angular_width_band is invalid")
+        if feature["angular_height_band"] not in {"unknown", "small", "medium", "large"}:
+            raise ObservationError("vision_distant angular_height_band is invalid")
+        if feature["color_band"] not in {"dark_gray", "muted_red", "unknown"}:
+            raise ObservationError("vision_distant color_band is invalid")
 
 
 def _integer(value, name, minimum):

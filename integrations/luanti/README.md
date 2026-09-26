@@ -139,3 +139,15 @@ social meaning, Sleep, learning, or M_B-informed behavior.
 The first command keeps the RW2 life loop active while A uses local radius 12
 and B uses radius 8 against an equal-distance probe. The second verifies that
 an unknown profile fails explicitly at Luanti startup.
+
+## Verify OBS-3 Distant Observation
+
+```powershell
+& .\integrations\luanti\scripts\test-distant-observation.ps1 -LuantiRoot D:\luanti
+```
+
+This runs the opt-in `fixture-distant-enabled` profile in a finite voxel
+corridor. It verifies observer-local coarse direction and color, opaque-node
+occlusion, an empty sample after a 180-degree turn, and the absence of exact
+distance, World coordinates, source IDs, and fixture names in stored frames.
+It does not connect distant vision to recognition or action selection.

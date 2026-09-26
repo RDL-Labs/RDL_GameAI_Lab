@@ -11,10 +11,13 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         installer = (LUANTI / "scripts" / "install-game.ps1").read_text(encoding="utf-8")
         self.assertIn("multi_agent_food.lua", installer)
         self.assertIn("sensor_profiles.lua", installer)
+        self.assertIn("distant_observation.lua", installer)
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "multi_agent_food.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "sensor_profiles.lua").is_file())
+        self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                         "distant_observation.lua").is_file())
 
     def test_fixture_has_explicit_mode_and_two_agent_evidence(self):
         config = (LUANTI / "config" / "luanti-multi-agent.conf").read_text(encoding="utf-8")
@@ -64,6 +67,19 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         )
         self.assertIn("rdl_sensor_profile_npc_a = unknown-profile", invalid_config)
         self.assertIn("unknown RDL sensor profile for npc_a: unknown-profile", invalid_script)
+
+    def test_distant_fixture_has_finite_geometry_and_evidence_harness(self):
+        source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                  "distant_observation.lua").read_text(encoding="utf-8")
+        script = (LUANTI / "scripts" / "test-distant-observation.ps1").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("range_min_exclusive", source)
+        self.assertIn("horizontal_fov_deg", source)
+        self.assertIn("core.get_node_or_nil", source)
+        self.assertIn("#features < 4", source)
+        self.assertIn("occluded_hidden=true", script)
+        self.assertIn('"world_position"', script)
 
 
 if __name__ == "__main__":

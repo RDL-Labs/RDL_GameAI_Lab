@@ -84,7 +84,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [Luanti L9 p5 Read-Only Trace](docs/experiment-contracts/LUANTI_L9_p5_read_only_trace_contract.md)では選択agentのExperience→Bias→Sleep→Candidate→T1→active modelを既存GET snapshotから表示する。欠落段階や未公開World位置をGUI側で補完せず、mutation/action authorityを追加しない。
 - [Luanti RW1 Multi-Agent World](docs/experiment-contracts/LUANTI_RW1_multi_agent_world_contract.md)では実Luanti同一World内のA/Bが別packetで相互をbounded観測し、それぞれ専用Foodへapproach/pickupする縦断を固定した。一般social AIや複数個体learningはまだ導入しない。
 - [Luanti RW2 Multi-Agent Food Life](docs/experiment-contracts/LUANTI_RW2_multi_agent_food_life_contract.md)では専用Food/Baseを保ったまま、A/Bが同一World・Runtimeで独立にpickup、return、deposit、causal result admissionまで一周する。
-- [Observation System Integration Plan](docs/design/RDL_GameAI_Observation_System_Integration_Plan.md)のOBS-0〜2では、sensor extensionを既存consumerから隔離する有限storeと個体別近景profileを実装した。既定radius 12はRW2互換、radius 12/8の実Luanti差分を固定し、遠景・聴覚・行動接続は未実装のまま停止する。
+- [Observation System Integration Plan](docs/design/RDL_GameAI_Observation_System_Integration_Plan.md)のOBS-0〜3では、sensor extensionを既存consumerから隔離する有限store、個体別近景profile、observer-local方向区間と粗い見え方だけを返す有限遠景を実装した。実Luantiでvoxel遮蔽と向き変更を固定し、聴覚・感覚融合・行動接続は未実装のまま保つ。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

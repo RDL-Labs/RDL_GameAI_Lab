@@ -101,12 +101,41 @@ core.register_entity("rdl_bridge:base", {
     end,
 })
 
+core.register_node("rdl_bridge:distant_dark", {
+    description = "RDL Distant Dark Fixture",
+    tiles = {"unknown_node.png"},
+    walkable = true,
+    pointable = false,
+})
+
+core.register_node("rdl_bridge:distant_red", {
+    description = "RDL Distant Red Fixture",
+    tiles = {"unknown_object.png"},
+    walkable = true,
+    pointable = false,
+})
+
+core.register_node("rdl_bridge:opaque_wall", {
+    description = "RDL Opaque Wall Fixture",
+    tiles = {"unknown_node.png"},
+    walkable = true,
+    pointable = false,
+})
+
 if fixture_mode == "multi_agent_food" then
     local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
     local profile_assignments = sensor_profiles.load(core.settings, {"npc_a", "npc_b"})
     local start_multi_agent = dofile(core.get_modpath("rdl_bridge") .. "/multi_agent_food.lua")
     start_multi_agent(http, runtime_url, life_result_url, interval, profile_assignments,
         core.settings:get_bool("rdl_sensor_profile_probe", false))
+    return
+end
+
+if fixture_mode == "distant_observation" then
+    local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
+    local profile_assignments = sensor_profiles.load(core.settings, {"npc_a"})
+    local start_distant = dofile(core.get_modpath("rdl_bridge") .. "/distant_observation.lua")
+    start_distant(http, runtime_url, interval, profile_assignments.npc_a)
     return
 end
 

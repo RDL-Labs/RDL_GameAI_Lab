@@ -362,6 +362,7 @@ def run(
     sensory_observation: bool = False,
     sensory_run_id: str = "fixture-run-1",
     sensory_world_epoch: int = 1,
+    sensory_profiles=None,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -413,7 +414,8 @@ def run(
     server.fast_retrieval = FastRetrievalStore() if fast_retrieval else None
     server.luanti_outcome = LuantiOutcomeCoordinator() if luanti_outcome_learning else None
     server.sensory_observation = SensoryObservationStore(
-        run_id=sensory_run_id, world_epoch=sensory_world_epoch
+        run_id=sensory_run_id, world_epoch=sensory_world_epoch,
+        assignments=sensory_profiles,
     ) if sensory_observation else None
     server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_rest_policy = server.life_policy if food_rest_life else None
@@ -466,6 +468,8 @@ def main() -> None:
                         help="Registered run identity for sensory frame admission")
     parser.add_argument("--sensory-world-epoch", default=1, type=int,
                         help="Registered positive World epoch for sensory frame admission")
+    parser.add_argument("--sensory-profile", action="append", default=[], metavar="AGENT=PROFILE",
+                        help="Registered sensory profile assignment; requires --sensory-observation")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -501,6 +505,9 @@ def main() -> None:
             raise ValueError("--base-food-extreme-profile requires --base-food-life")
         if args.sensory_world_epoch < 1:
             raise ValueError("--sensory-world-epoch must be positive")
+        sensory_profiles = _parse_sensory_profiles(args.sensory_profile)
+        if sensory_profiles and not args.sensory_observation:
+            raise ValueError("--sensory-profile requires --sensory-observation")
     except ValueError as exc:
         parser.error(str(exc))
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
@@ -508,7 +515,21 @@ def main() -> None:
         args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory,
         args.food_safety_life, args.food_rest_life, args.rescue_trajectory,
         args.sleep_consolidation, args.fast_retrieval, args.luanti_outcome_learning,
-        args.sensory_observation, args.sensory_run_id, args.sensory_world_epoch)
+        args.sensory_observation, args.sensory_run_id, args.sensory_world_epoch,
+        sensory_profiles or None)
+
+
+def _parse_sensory_profiles(values):
+    known = {"fixture-sensor-default", "fixture-local-compact", "fixture-distant-enabled"}
+    result = {}
+    for item in values:
+        if "=" not in item:
+            raise ValueError("sensory profile must use AGENT=PROFILE")
+        agent_id, profile_id = item.split("=", 1)
+        if not agent_id or profile_id not in known:
+            raise ValueError("invalid sensory profile assignment")
+        result[agent_id] = (profile_id, 1)
+    return result
 
 
 def _fast_sources(history_snapshot: dict[str, Any], sleep_consolidation,

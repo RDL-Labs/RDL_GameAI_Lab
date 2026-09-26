@@ -11,6 +11,16 @@ local profiles = {
         profile_revision = 1,
         vision_local = {enabled = true, mode = "legacy_radius_v1", radius = 8},
     },
+    ["fixture-distant-enabled"] = {
+        profile_id = "fixture-distant-enabled",
+        profile_revision = 1,
+        vision_local = {enabled = true, mode = "legacy_radius_v1", radius = 12},
+        vision_distant = {
+            enabled = true, mode = "sampled_surface_v0", range_min_exclusive = 12,
+            range_max_inclusive = 64, horizontal_fov_deg = 90,
+            vertical_fov_deg = 60, angle_bin_deg = 5, sample_every_world_ticks = 4,
+        },
+    },
 }
 
 function M.load(settings, agent_ids)
@@ -28,6 +38,9 @@ function M.load(settings, agent_ids)
         end
         assignments[agent_id] = table.copy(profile)
         assignments[agent_id].vision_local = table.copy(profile.vision_local)
+        if profile.vision_distant then
+            assignments[agent_id].vision_distant = table.copy(profile.vision_distant)
+        end
     end
     return assignments
 end
