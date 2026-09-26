@@ -96,3 +96,15 @@ canonical authority.
 This runs three distinct attack outcome cycles in one World and Runtime, then
 explicitly invokes the existing Local Bias Profile and Deep Similarity path. It
 forms one support-3 shadow CandidateRelation without T1, M_B, or action promotion.
+
+## Verify L7 Dynamic M_B Cycle
+
+```powershell
+& .\integrations\luanti\scripts\test-l7.ps1 -LuantiRoot D:\luanti
+```
+
+This keeps the L6 candidate path separate from an independently reviewed
+canonical rupture, then explicitly joins them at T1-A. It verifies T1 selection,
+an inactive reconstructed `M_B'`, explicit cutover, parent archive, and a fresh
+`REENTERED` comparison window. The new model is diagnostic authority only; it
+does not become Goal, Trajectory, or action authority.

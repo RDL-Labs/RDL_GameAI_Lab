@@ -329,3 +329,10 @@ Luanti L6 keeps the same opt-in coordinator and adds explicit
 `POST /v1/luanti-bias-sleep`. It compiles the retained same-agent Local Biases
 through the existing Sleep Profile and Deep Similarity functions. The resulting
 CandidateRelation remains shadow material and has no T1, M_B, or action authority.
+
+Luanti L7 adds explicit `POST /v1/luanti-t1-cutover`. The request must provide
+review provenance and explicit candidate/Experience dispositions. It projects
+the latest L6 candidate into relation-specific T1 materials, reuses the existing
+T1-A/B/C and cutover services, and returns the complete inactive-artifact and
+cutover record. It requires an independently active canonical `M_delta`; the
+candidate cannot create rupture or action authority.

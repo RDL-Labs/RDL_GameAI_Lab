@@ -154,6 +154,20 @@ class BridgeHandler(BaseHTTPRequestHandler):
                 return
             self._send_json(200, {"accepted": True, "result": result})
             return
+        if self.path == "/v1/luanti-t1-cutover":
+            coordinator = getattr(self.server, "luanti_outcome", None)
+            if coordinator is None:
+                self._send_json(404, {"error": "luanti_outcome_learning_disabled"})
+                return
+            try:
+                payload = self._read_json()
+                with CANONICAL_LOCK:
+                    result = coordinator.t1_cutover(CANONICAL_SIDECAR, payload)
+            except (ValueError, ObservationError, LuantiOutcomeError) as exc:
+                self._send_json(422, {"error": "invalid_luanti_t1_cutover", "detail": str(exc)})
+                return
+            self._send_json(200, {"accepted": True, "result": result})
+            return
         if self.path == "/v1/sleep-result":
             coordinator = getattr(self.server, "sleep_consolidation", None)
             if coordinator is None:

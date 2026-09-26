@@ -8,6 +8,10 @@ from .functions.local_bias_deep_similarity import (
     build_local_bias_deep_shadow,
 )
 from .functions.local_bias_profile import LocalBiasProfileError, build_local_bias_profiles
+from .functions.local_bias_t1_projection import (
+    LocalBiasT1ProjectionError,
+    project_local_bias_candidate,
+)
 from .outcome_bias import LocalBiasStore, OutcomeBiasError, OutcomeGradientStore
 from .territory_experience import TerritoryExperienceError, TerritoryExperienceStore
 
@@ -71,6 +75,76 @@ class LuantiOutcomeCoordinator:
             raise LuantiOutcomeError("Sleep result replay changed frozen provenance")
         self._sleep_results[result["deep_similarity_id"]] = deepcopy(result)
         return deepcopy(result)
+
+    def t1_cutover(self, canonical, payload: dict[str, Any]) -> dict[str, Any]:
+        """Explicitly inspect and activate the latest Sleep candidate under active M_delta."""
+        if not isinstance(payload, dict):
+            raise LuantiOutcomeError("payload must be an object")
+        assessment_id = payload.get("assessment_id")
+        reviewer = payload.get("reviewer")
+        basis = payload.get("basis")
+        evidence = payload.get("evidence")
+        for field, value in (("assessment_id", assessment_id), ("reviewer", reviewer),
+                             ("basis", basis), ("evidence", evidence)):
+            if not isinstance(value, str) or not value:
+                raise LuantiOutcomeError(f"{field} must be non-empty")
+        if payload.get("candidate_disposition") != "RETAIN":
+            raise LuantiOutcomeError("L7 requires explicit CandidateRelation RETAIN")
+        if payload.get("experience_disposition") != "DEFER":
+            raise LuantiOutcomeError("L7 requires explicit Experience DEFER")
+        if not self._sleep_results:
+            raise LuantiOutcomeError("L7 requires an existing Sleep result")
+        sleep_result = list(self._sleep_results.values())[-1]
+        candidate = sleep_result.get("candidate")
+        if not isinstance(candidate, dict):
+            raise LuantiOutcomeError("latest Sleep result has no candidate")
+        try:
+            projected = project_local_bias_candidate(candidate)
+            experiences = self.experiences.snapshot()["records"]
+            bundle = canonical.expand_t1_materials(
+                assessment_id=assessment_id,
+                candidates=projected,
+                experiences=experiences,
+            )
+            dispositions = {
+                "current_M_B": "RETAIN",
+                "CandidateRelation": "RETAIN",
+                "Experience": "DEFER",
+                "RIB_B": "RETAIN",
+                "RIB_B_prime": "RETAIN",
+                "unresolved_residual": "DEFER",
+            }
+            selection = canonical.inspect_t1_materials(
+                bundle_id=bundle["bundle_id"],
+                payload={
+                    "expected_revision": 0,
+                    "reviewer": reviewer,
+                    "materials": [{
+                        "material_id": item["material_id"],
+                        "disposition": dispositions[item["kind"]],
+                        "basis": f"{basis}: {item['kind']}",
+                        "evidence": evidence,
+                    } for item in bundle["materials"]],
+                },
+            )
+            artifact = canonical.reconstruct_t1(bundle_id=bundle["bundle_id"])
+            cutover = canonical.cutover_reentry(
+                artifact_id=artifact["artifact_id"],
+                expected_active_model_ref=artifact["parent_model_ref"],
+                operator=reviewer,
+                basis=basis,
+                evidence=evidence,
+            )
+        except (ValueError, LocalBiasT1ProjectionError) as exc:
+            raise LuantiOutcomeError(str(exc)) from exc
+        return {
+            "projected_candidates": deepcopy(projected),
+            "bundle": bundle,
+            "selection": selection,
+            "artifact": artifact,
+            "cutover": cutover,
+            "authority": "explicit-L7-cycle-record; not-game-action-authority",
+        }
 
     def snapshot(self) -> dict[str, Any]:
         return {

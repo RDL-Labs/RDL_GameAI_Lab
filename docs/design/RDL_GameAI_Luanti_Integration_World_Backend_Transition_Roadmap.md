@@ -12,7 +12,8 @@ L3 Ordinary Food          COMPLETE
 L4 Risky Tasty Food       COMPLETE
 L5 Outcome Learning       COMPLETE
 L6 Sleep / Deep Candidate COMPLETE
-L7+                       PLANNED
+L7 Dynamic M_B Cycle      COMPLETE
+L8+                       PLANNED
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -96,7 +97,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L4 | tasty Food、God Statue statement、territory relation、beast、warning/chase/attack、damage | COMPLETE |
 | L5 | Luanti consequence→Experience→Outcome Gradient→Local Bias | COMPLETE |
 | L6 | Luanti Experience→Sleep Profile→Deep Similarity→Candidate | COMPLETE |
-| L7 | Candidate→T1-A/B/C→M_B'→cutover→REENTERED | PLANNED |
+| L7 | Candidate→T1-A/B/C→M_B'→cutover→REENTERED | COMPLETE |
 | L8 | NPC A/BのExperience・Bias・Candidate・M_B分離 | PLANNED |
 | L9 | Luanti長期life traceのp5 read-only表示 | PLANNED |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
@@ -142,6 +143,7 @@ explorationも対象外とする。
 
 ## 10. 次の停止境界
 
-L6で3つのLuanti outcomeをSleep Profile、Deep Similarity、shadow Candidateへ
-接続した。次はL7でCandidateをactive M_delta下のT1-A/B/Cへ明示投入し、inactive
-M_B'、cutover、fresh re-entryまでをLuanti provenance付きで検証する。
+L7でLuanti由来Candidateと独立canonical ruptureをT1-Aで明示合流し、relation別
+候補、T1-B選別、inactive M_B'、cutover、fresh re-entryまでを実World provenance
+付きで固定した。次はL8でNPC A/Bが同時に生活した場合のExperience、Bias、
+Candidate、model、archive、M_delta、fresh windowの完全分離を検証する。
