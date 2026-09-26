@@ -19,6 +19,10 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("rdl_fixture_mode = multi_agent_food", config)
         self.assertIn("pickup agent=npc_a target=food_a", script)
         self.assertIn("pickup agent=npc_b target=food_b", script)
+        self.assertIn("deposit agent=npc_a base=base_a accepted=true", script)
+        self.assertIn("deposit agent=npc_b base=base_b accepted=true", script)
+        self.assertIn('"--base-food-life"', script)
+        self.assertIn("/v1/life-snapshot", script)
         self.assertIn("latest_sections.npc_a", script)
         self.assertIn("latest_sections.npc_b", script)
         self.assertIn("radius_counts=A:$aVisible,B:$bVisible", script)
@@ -30,6 +34,15 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertGreaterEqual(source.count("if distance <= observation_radius then"), 2)
         self.assertIn('id = "boundary_agent"', source)
         self.assertIn('id = "outside_agent"', source)
+
+    def test_fixture_keeps_food_life_state_per_agent(self):
+        source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                  "multi_agent_food.lua").read_text(encoding="utf-8")
+        self.assertIn('base_id = "base_a"', source)
+        self.assertIn('base_id = "base_b"', source)
+        self.assertIn("config.base_food_stock", source)
+        self.assertIn("config.result_accepted", source)
+        self.assertIn("life_result_url", source)
 
 
 if __name__ == "__main__":

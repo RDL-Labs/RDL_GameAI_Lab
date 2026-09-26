@@ -63,6 +63,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | L8 | Luanti Multi-Agent Separation | agent/Sleep/candidate/assessmentを明示参照しA/BのT1・model・archiveを分離 | 補助 | regression fixture | 完了: 同一coordinator/sidecarでcross-agent leakageなし。実World同時生活は別途 |
 | L9 | Luanti p5 Read-Only Trace | Experience→Bias→Sleep→Candidate→T1→modelをagent別に既存snapshotから射影 | 主観測面 | regression fixture | 完了: GET-only、欠落非補完、A/B切替、action非介入 |
 | RW1 | Luanti Multi-Agent World | 同一実WorldのA/Bが独立packet・相互bounded visibility・別target actionを実行 | 補助 | regression fixture | 完了: A→food_a、B→food_b、canonical latest section両方保持 |
+| RW2 | Luanti Multi-Agent Food Life | 専用Food/BaseでA/Bがpickup→return→deposit→causal resultを独立完了 | 補助 | regression fixture | 完了: agent/source/cueを混線せずlife result 2件を受付 |
 
 ## 2. 直近の順序
 
@@ -137,7 +138,7 @@ OGB-7 COMPLETE
 OGB-8 COMPLETE
 OGB-9 COMPLETE
 NERV-0 CONTRACT ONLY / NERV-1..9 DEFERRED
-LUANTI L0-L9 + RW1 COMPLETE / L10 DEFERRED
+LUANTI L0-L9 + RW1-RW2 COMPLETE / L10 DEFERRED
 ```
 
 詳細なF1/F2 Acceptanceは[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。

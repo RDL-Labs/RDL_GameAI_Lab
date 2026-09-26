@@ -117,13 +117,14 @@ candidate, Experience, model, archive, and `M_delta` state. This is an adapter
 separation result; concurrent autonomous A/B movement in one Luanti World is not
 claimed yet.
 
-## Verify RW1 Multi-Agent World
+## Verify RW2 Multi-Agent Food Life
 
 ```powershell
 & .\integrations\luanti\scripts\test-multi-agent.ps1 -LuantiRoot D:\luanti
 ```
 
 This starts two NPC bodies in one real Luanti World. A and B send independent
-bounded observations to one Runtime, observe one another, and approach/pick up
-their own Food targets. The fixture reuses existing action policy and adds no
-social meaning, learning, or M_B-informed behavior.
+bounded observations to one Runtime, observe one another, and complete their
+own Food pickup, return, deposit, and causal result admission cycles. The
+fixture uses dedicated Food/Base pairs and adds no resource competition,
+social meaning, Sleep, learning, or M_B-informed behavior.

@@ -103,7 +103,7 @@ core.register_entity("rdl_bridge:base", {
 
 if fixture_mode == "multi_agent_food" then
     local start_multi_agent = dofile(core.get_modpath("rdl_bridge") .. "/multi_agent_food.lua")
-    start_multi_agent(http, runtime_url, interval)
+    start_multi_agent(http, runtime_url, life_result_url, interval)
     return
 end
 

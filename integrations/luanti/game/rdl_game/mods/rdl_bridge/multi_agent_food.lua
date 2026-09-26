@@ -1,22 +1,28 @@
-return function(http, runtime_url, interval)
+return function(http, runtime_url, life_result_url, interval)
     local reach_distance = 1.25
     local observation_radius = 12
     local agents = {
         npc_a = {start = {x = 0, y = 1, z = -3}, food_id = "food_a",
-                 food_pos = {x = 4, y = 1, z = -3}},
+                 food_pos = {x = 4, y = 1, z = -3}, base_id = "base_a",
+                 base_pos = {x = 0, y = 1, z = -3}},
         npc_b = {start = {x = 0, y = 1, z = 3}, food_id = "food_b",
-                 food_pos = {x = 4, y = 1, z = 3}},
+                 food_pos = {x = 4, y = 1, z = 3}, base_id = "base_b",
+                 base_pos = {x = 0, y = 1, z = 3}},
     }
     local state = {tick = 0, elapsed = 0, ready = false, evidence_logged = false}
     local visibility_markers = {
-        {id = "boundary_agent", position = {x = 14.75, y = 1, z = -3}},
-        {id = "outside_agent", position = {x = 15.0, y = 1, z = -3}},
+        {id = "boundary_agent", position = {x = 13.25, y = 1, z = -3}},
+        {id = "outside_agent", position = {x = 13.5, y = 1, z = -3}},
     }
     for _, config in pairs(agents) do
         config.in_flight = false
         config.revision = 0
         config.held_food_ids = {}
         config.picked_up = false
+        config.base_food_stock = 0
+        config.deposited = false
+        config.result_in_flight = false
+        config.result_accepted = false
     end
 
     local function rounded(value)
@@ -46,6 +52,10 @@ return function(http, runtime_url, interval)
             end
             if not config.picked_up and not find_by_id("rdl_bridge:food", config.food_id) then
                 core.add_entity(config.food_pos, "rdl_bridge:food", config.food_id)
+                all_ready = false
+            end
+            if not find_by_id("rdl_bridge:base", config.base_id) then
+                core.add_entity(config.base_pos, "rdl_bridge:base", config.base_id)
                 all_ready = false
             end
         end
@@ -107,18 +117,53 @@ return function(http, runtime_url, interval)
                 })
             end
         end
+        local visible_places = {}
+        local base = find_by_id("rdl_bridge:base", config.base_id)
+        local at_base = false
+        if base then
+            local delta = vector.subtract(base:get_pos(), npc_pos)
+            local distance = vector.length(delta)
+            at_base = distance <= reach_distance
+            if distance <= observation_radius then
+                table.insert(visible_places, {
+                    id = config.base_id,
+                    kind = "base",
+                    relative_position = vector_packet(delta),
+                    distance = rounded(distance),
+                    within_reach = at_base,
+                })
+            end
+        end
+        local stock_band = config.base_food_stock > 0 and "enough" or "low"
+        local cue = nil
+        if stock_band == "low" then
+            cue = {
+                cue_id = "luanti-multi-base-food-low-" .. agent_id,
+                source = "system_assessment",
+                topic = "base_food",
+                band = "low",
+                delivery = "morning",
+            }
+        end
         return {
             schema_version = "rdl-luanti-observation-v1",
             observation_id = string.format("luanti-multi-%06d-%s", state.tick, agent_id),
             tick = state.tick,
             agent_id = agent_id,
             observation = {
-                perception_rule = "multi-agent finite fixture; assigned food only; radius <= 12",
+                perception_rule = "multi-agent finite life fixture; assigned Food/Base only; radius <= 12",
                 visible_agents = visible_agents,
                 visible_objects = visible_objects,
-                visible_places = {}, visible_regions = {}, recent_events = {},
+                visible_places = visible_places, visible_regions = {}, recent_events = {},
                 inventory = {held_food_ids = table.copy(config.held_food_ids)},
                 external_statements = {},
+                life_context = {
+                    god_statue_cue = cue,
+                    observed_base_food_band = stock_band,
+                    known_base = {id = config.base_id},
+                    at_base = at_base,
+                    interrupt_candidates = {},
+                },
                 body = {
                     agent_id = agent_id,
                     snapshot_id = string.format("luanti-multi-body-%06d-%s", state.tick, agent_id),
@@ -132,20 +177,57 @@ return function(http, runtime_url, interval)
                 },
             },
             adapter = {
-                backend = "luanti", version = "rdl-luanti-multi-agent-adapter-v1",
+                backend = "luanti", version = "rdl-luanti-multi-agent-life-adapter-v1",
                 authority = "finite-world-observation-only",
             },
         }
+    end
+
+    local function report_life_result(agent_id, config, response)
+        if config.result_in_flight or config.result_accepted then return end
+        local inspection = response.inspection or {}
+        local life = inspection.life or {}
+        local cue = life.cue or {}
+        local payload = {
+            result_id = string.format("luanti-multi-deposit-%06d-%s", state.tick, agent_id),
+            agent_id = agent_id,
+            source_observation_id = inspection.observation_id,
+            cue_id = cue.cue_id,
+            response = "follow",
+            outcome = "replenish_success",
+        }
+        config.result_in_flight = true
+        http.fetch({
+            url = life_result_url, method = "POST", timeout = 3,
+            extra_headers = {"Content-Type: application/json"},
+            data = core.write_json(payload),
+        }, function(result)
+            config.result_in_flight = false
+            if result.succeeded and result.code == 200 then
+                config.result_accepted = true
+                core.log("action", "[RDL_LUANTI_MULTI_LIFE_EVIDENCE] deposit agent=" .. agent_id ..
+                    " base=" .. config.base_id .. " accepted=true")
+                if not state.evidence_logged and agents.npc_a.result_accepted and agents.npc_b.result_accepted then
+                    state.evidence_logged = true
+                    core.log("action", "[RDL_LUANTI_MULTI_LIFE_EVIDENCE] complete agents=2 results=2")
+                end
+            else
+                core.log("error", "[rdl_bridge] multi life result rejected " ..
+                    tostring(result.code) .. " agent=" .. agent_id .. ": " .. tostring(result.data))
+            end
+        end)
     end
 
     local function resolve_action(agent_id, config, response)
         local npc = find_by_id("rdl_bridge:npc", agent_id)
         local action = response and response.action
         if not npc or type(action) ~= "table" then return end
-        if action.type == "approach" and action.target_id == config.food_id then
-            local food = find_by_id("rdl_bridge:food", config.food_id)
-            if not food then return end
-            local delta = vector.subtract(food:get_pos(), npc:get_pos())
+        if action.type == "approach" and
+                (action.target_id == config.food_id or action.target_id == config.base_id) then
+            local entity_name = action.target_id == config.food_id and "rdl_bridge:food" or "rdl_bridge:base"
+            local target = find_by_id(entity_name, action.target_id)
+            if not target then return end
+            local delta = vector.subtract(target:get_pos(), npc:get_pos())
             local distance = vector.length(delta)
             if distance > reach_distance then
                 local step = math.min(1.0, distance - reach_distance)
@@ -153,7 +235,7 @@ return function(http, runtime_url, interval)
                 config.revision = config.revision + 1
             end
             core.log("action", "[RDL_LUANTI_MULTI] approach agent=" .. agent_id ..
-                " target=" .. config.food_id)
+                " target=" .. action.target_id)
         elseif action.type == "pickup" and action.target_id == config.food_id then
             local food = find_by_id("rdl_bridge:food", config.food_id)
             if food and vector.distance(npc:get_pos(), food:get_pos()) <= reach_distance then
@@ -164,10 +246,16 @@ return function(http, runtime_url, interval)
                 core.log("action", "[RDL_LUANTI_MULTI_EVIDENCE] pickup agent=" .. agent_id ..
                     " target=" .. config.food_id)
             end
-        end
-        if not state.evidence_logged and agents.npc_a.picked_up and agents.npc_b.picked_up then
-            state.evidence_logged = true
-            core.log("action", "[RDL_LUANTI_MULTI_EVIDENCE] complete agents=2 independent_pickups=true")
+        elseif action.type == "deposit" and action.target_id == config.base_id then
+            local base = find_by_id("rdl_bridge:base", config.base_id)
+            if base and #config.held_food_ids > 0 and
+                    vector.distance(npc:get_pos(), base:get_pos()) <= reach_distance then
+                config.held_food_ids = {}
+                config.base_food_stock = config.base_food_stock + 1
+                config.deposited = true
+                config.revision = config.revision + 1
+                report_life_result(agent_id, config, response)
+            end
         end
     end
 
@@ -179,7 +267,7 @@ return function(http, runtime_url, interval)
         if not body then return end
         for _, field in ipairs({"visible_agents", "visible_objects", "visible_places",
                                 "visible_regions", "recent_events", "held_food_ids",
-                                "external_statements"}) do
+                                "external_statements", "interrupt_candidates"}) do
             body = body:gsub('("' .. field .. '"%s*:%s*)null', '%1[]')
         end
         body = body:gsub('("last_rescue_delivery"%s*:%s*)null', '%1{}')

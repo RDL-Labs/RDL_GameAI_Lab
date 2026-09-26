@@ -25,7 +25,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $worldPath "world.mt"))) {
 $runtime = $null
 $luanti = $null
 try {
-    $runtime = Start-Process -FilePath "python" -ArgumentList "-m", "runtime.bridge" `
+    $runtime = Start-Process -FilePath "python" -ArgumentList "-m", "runtime.bridge", "--base-food-life" `
         -WorkingDirectory $repoRoot -RedirectStandardOutput $runtimeOut `
         -RedirectStandardError $runtimeErr -WindowStyle Hidden -PassThru
     $deadline = [DateTime]::UtcNow.AddSeconds(5)
@@ -52,14 +52,28 @@ try {
         Start-Sleep -Milliseconds 250
         if (Test-Path -LiteralPath $luantiLog) {
             $complete = Select-String -LiteralPath $luantiLog `
-                -Pattern "RDL_LUANTI_MULTI_EVIDENCE.*complete agents=2" | Select-Object -Last 1
+                -Pattern "RDL_LUANTI_MULTI_LIFE_EVIDENCE.*complete agents=2 results=2" | Select-Object -Last 1
         }
     } while (-not $complete -and -not $luanti.HasExited -and [DateTime]::UtcNow -lt $deadline)
-    if (-not $complete) { throw "Multi-agent Luanti evidence was not produced" }
+    if (-not $complete) { throw "Multi-agent Luanti life evidence was not produced" }
 
     $lines = Get-Content -LiteralPath $luantiLog
     foreach ($expected in @("pickup agent=npc_a target=food_a", "pickup agent=npc_b target=food_b")) {
         if (-not ($lines -match [regex]::Escape($expected))) { throw "Missing evidence: $expected" }
+    }
+    foreach ($expected in @("deposit agent=npc_a base=base_a accepted=true", "deposit agent=npc_b base=base_b accepted=true")) {
+        if (-not ($lines -match [regex]::Escape($expected))) { throw "Missing evidence: $expected" }
+    }
+    $life = Invoke-RestMethod -Uri "http://127.0.0.1:8765/v1/life-snapshot" -TimeoutSec 3
+    $results = @($life.results)
+    if ($results.Count -ne 2) { throw "Expected exactly two life results, got $($results.Count)" }
+    $resultAgents = @($results | ForEach-Object { $_.agent_id } | Sort-Object -Unique)
+    if (($resultAgents -join ",") -ne "npc_a,npc_b") {
+        throw "Life results were not separated by agent: $($resultAgents -join ',')"
+    }
+    foreach ($field in @("result_id", "source_observation_id", "cue_id")) {
+        $unique = @($results | ForEach-Object { $_.$field } | Sort-Object -Unique)
+        if ($unique.Count -ne 2) { throw "Life result $field values must be distinct per agent" }
     }
     $snapshot = Invoke-RestMethod -Uri "http://127.0.0.1:8765/v1/canonical-snapshot" -TimeoutSec 3
     if (-not $snapshot.latest_sections.npc_a -or -not $snapshot.latest_sections.npc_b) {
@@ -73,7 +87,7 @@ try {
     if ($bVisible -ne 1) {
         throw "npc_b must see only inside npc_a at the final position: $bVisible"
     }
-    Write-Output "MULTI PASS: agents=2 independent_pickups=true canonical_agents=2 radius_counts=A:$aVisible,B:$bVisible"
+    Write-Output "MULTI LIFE PASS: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:$aVisible,B:$bVisible"
 } finally {
     if ($luanti -and -not $luanti.HasExited) { Stop-Process -Id $luanti.Id -Force; $luanti.WaitForExit() }
     if ($runtime -and -not $runtime.HasExited) { Stop-Process -Id $runtime.Id -Force; $runtime.WaitForExit() }
