@@ -1,5 +1,14 @@
 # RDL_GameAI — 観測システム整備・導入計画
 
+## 観測基盤v1の終了条件（2026-09-26）
+
+OBS-8Bまでの個別・限定統合試験を基準に、最後の十分条件を
+[OBS-9統合受入契約案](../experiment-contracts/OBS_9_observation_v1_completion_contract.md)へ固定した。
+同一の継続WorldでA/Bの全感覚生活と限定Probeを併走し、10項目の受入が全件PASSしたら
+観測基盤v1 COMPLETEとして止める。現在はOBS-9未実施、v1未完了。
+以下の過去計画や将来の能力拡張を、v1の追加完了条件として扱わない。
+
+
 **各系設計 / IMPLEMENTATION PLAN / DRAFT v0.2**  
 **作成日：2026-09-26**  
 **対象：RDL-Labs/RDL_GameAI_Lab**  

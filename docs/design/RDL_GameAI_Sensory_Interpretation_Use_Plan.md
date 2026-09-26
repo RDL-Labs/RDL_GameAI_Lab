@@ -147,3 +147,11 @@ OBS-8初版の実装条件は上記契約を参照。元観測の鮮度2秒、�
 明示起動とfixture-distant-enabledを維持し、7B起動・自律注意・全感覚RW2統合は追加しない。
 8Bは実Luanti 6ケースでA/Bの生活完了まで確認済み。[Evidence](../experiment-evidence/OBS_8B_continuous_world_probe_evidence.md)を参照。
 この明示起動の調停で区切り、自律注意・全感覚生活統合・canonical接続は保留する。
+
+## 9. 観測基盤v1の必要十分条件と終了地点
+
+[OBS-9統合受入契約案](../experiment-contracts/OBS_9_observation_v1_completion_contract.md)をv1完了判定の入口とする。
+全感覚生活＋限定Probe＋A/B＋継続World＋配送障害回復を同じ環境で検証し、固定した10項目が
+全件通れば観測基盤v1 COMPLETEとして止める。現時点はOBS-8Bまで実装済み、OBS-9は未実施。
+必要十分は後段研究に対する有限な受入条件であり、一般的な認識の完成ではない。
+完了後は神経・解釈・Goal・Trajectoryへ戻り、追加感覚器や自律注意を完了条件へ後付けしない。
