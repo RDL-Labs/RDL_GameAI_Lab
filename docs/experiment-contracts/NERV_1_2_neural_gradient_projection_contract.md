@@ -1,8 +1,9 @@
 # NERV-1/2 神経感度・知覚勾配の有限再生契約
 
-状態: DESIGN ONLY / 未実装・受入未実施 / 2026-09-26。
+状態: IMPLEMENTED / N12-01〜10 PASS / 2026-09-26。
+実行範囲と限定は[Evidence](../experiment-evidence/NERV_1_2_neural_gradient_projection_evidence.md)を参照。
 基準: Observation v1 COMPLETE `8616fe7ea43c6b987c1f61b36b3c9ef9e946e83f`。
-本契約はGameAI-localの初回検証案。神経生理学的モデルやcanonical解釈の実装ではない。
+本契約はGameAI-localの初回検証契約。神経生理学的モデルやcanonical解釈の実装ではない。
 
 ## 1. 問いと停止境界
 
@@ -38,7 +39,7 @@ magnitude 0/1/2/3（ZERO/WEAK/MEDIUM/STRONG）を持つ。
 
 ## 3. 固定parameterと作用表
 
-parameter案: `agent_id / parameter_id / revision / error_sensitivity / reward_threshold`。
+parameter: `agent_id / parameter_id / revision / error_sensitivity / reward_threshold`。
 前3項は所有と再現のmetadata。作用する軸は後2項だけ。
 revisionは初版1、IDは空でない128文字以内、真偽値・float・NaN・未知fieldは拒否。
 error_sensitivityは整数1/2/3、reward_thresholdは整数0/1/2/3。
@@ -50,7 +51,7 @@ fixture開始時に固定し、同じ個体へ途中で別parameterを上書き�
 | 2 | 2 |
 | 3（高） | 1 |
 
-各関係を独立に評価する。規則版案は`nerv-perceived-gradient-v1`。
+各関係を独立に評価する。規則版は`nerv-perceived-gradient-v1`。
 
 1. raw magnitude=0は0のまま。理由`raw_zero`。欠落値を0に補完しない。
 2. 正負を問わず、raw magnitudeが感度表の最小値未満なら抑制。理由`sensitivity_filtered`。
@@ -65,7 +66,7 @@ fixture開始時に固定し、同じ個体へ途中で別parameterを上書き�
 
 ## 4. 入力・出力・出典
 
-入口案: `project_perceived_gradient(raw_snapshot, request, parameter)`。
+入口: `project_perceived_gradient(raw_snapshot, request, parameter)`。
 requestは同run内で明示したagent_idとsource_gradient_id、規則版を持つ。
 raw_snapshotは既存storeから取り出した有限な受理済み記録を使用。World完全情報を問い合わせない。
 未知/重複ID、他個体の参照、parameter所有不一致、不正bandとmagnitudeの対応、欠落/重複関係は明示拒否。
@@ -84,7 +85,7 @@ agent/Experience/event IDは各自固有、outcome factsと4関係値は同一�
 
 ## 5. Shadow Bias preview
 
-入口案: `preview_neural_bias(perceived)`。perceived専用schemaを明示検査する純粋関数。
+入口: `preview_neural_bias(perceived)`。perceived専用schemaを明示検査する純粋関数。
 非zero関係ごとにdirection・strength・magnitudeを写し、source_projection_idとraw参照を残す。
 通常のLocalBiasと異なるschemaを使い、既存LocalBiasStoreやSleepへの入力に偽装しない。
 空のpreviewは「反応条件を通過する関係がない」であり、raw記録の欠落や安全判定ではない。
@@ -106,7 +107,7 @@ light injury（magnitude=1）は高感度で残り、報酬閾値には左右さ
 HIGH報酬（3）は四隅全てに残る。ゼロは全てゼロ。同じ出力になる場合も正常結果として残す。
 現行raw生成器はreward_value=1を生成しないため、閾値境界1の全数検査は合成入力試験と明記する。
 
-| ID | 受入条件（全て未実施） |
+| ID | 受入条件（全てPASS） |
 | --- | --- |
 | N12-01 | 既存storeで形成したrawを読み、入力・Experience・raw snapshotを変更しない |
 | N12-02 | parameter所有・型・版・範囲、不正参照・重複関係・未知schemaを拒否 |
@@ -130,3 +131,12 @@ perceived gradientはcanonical Eではない。error_sensitivityはρ・Hでは�
 この段階からCandidateRelation、M_B更新、Goal選択へ自動昇格させない。
 全受入が通ったらNERV-1/2とshadow previewで停止し、NERV-3の接続先・一回更新・保持・Sleepへの受渡しを別途定める。
 観測基盤v1の完了条件は変更しない。
+
+## 8. 実装時に固定した入力形式
+
+`runtime/neural_gradient.py`が入口。raw store自体にはrun IDがないため、
+raw_snapshotは`{"run_id": ..., "gradients": store.snapshot()}`という試験側のenvelopeとする。
+requestは`run_id / agent_id / source_gradient_id / rule_version`の4field。
+runnerはparameters配列と`{"parameter_id": ..., "request": ...}`のqueries配列を受ける。
+各replay内で1agentに1parameterだけを許可。対照parameterは独立再生として比較する。
+15テストPASS、全体422件（376 PASS / 46 intentional skips）。本番接続は未実施。

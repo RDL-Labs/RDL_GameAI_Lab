@@ -8,7 +8,7 @@
 **依存:** [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md)の所有・更新境界、[睡眠設計](RDL_GameAI_睡眠システム設計.md)の横断更新。
 **非責務・状態:** 実在生物学の断定、canonical M_Bの定義・更新権限ではない。全サブタイプ・DNA・動的神経状態はdesign-only。既存の固定retry profileは神経値由来ではない。
 
-最初の検証範囲は[NERV-1/2有限再生契約](../experiment-contracts/NERV_1_2_neural_gradient_projection_contract.md)で定める（設計のみ・未実装）。
+最初の検証範囲は[NERV-1/2有限再生契約](../experiment-contracts/NERV_1_2_neural_gradient_projection_contract.md)で定める（純粋再生・shadow previewを実装、15試験PASS）。
 固定二軸は本設計図の受容体サブタイプを実装したものではなく、有限な作用条件の検証用である。
 
 ## 0. 一文定義
