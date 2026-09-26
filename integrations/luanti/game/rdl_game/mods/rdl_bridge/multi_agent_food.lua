@@ -1,5 +1,6 @@
 return function(http, runtime_url, interval)
     local reach_distance = 1.25
+    local observation_radius = 12
     local agents = {
         npc_a = {start = {x = 0, y = 1, z = -3}, food_id = "food_a",
                  food_pos = {x = 4, y = 1, z = -3}},
@@ -7,6 +8,10 @@ return function(http, runtime_url, interval)
                  food_pos = {x = 4, y = 1, z = 3}},
     }
     local state = {tick = 0, elapsed = 0, ready = false, evidence_logged = false}
+    local visibility_markers = {
+        {id = "boundary_agent", position = {x = 14.75, y = 1, z = -3}},
+        {id = "outside_agent", position = {x = 15.0, y = 1, z = -3}},
+    }
     for _, config in pairs(agents) do
         config.in_flight = false
         config.revision = 0
@@ -44,6 +49,12 @@ return function(http, runtime_url, interval)
                 all_ready = false
             end
         end
+        for _, marker in ipairs(visibility_markers) do
+            if not find_by_id("rdl_bridge:npc", marker.id) then
+                core.add_entity(marker.position, "rdl_bridge:npc", marker.id)
+                all_ready = false
+            end
+        end
         if not state.ready and all_ready then
             state.ready = true
             core.log("action", "[RDL_LUANTI_MULTI] fixture_ready agents=2")
@@ -55,34 +66,46 @@ return function(http, runtime_url, interval)
         if not npc then return nil end
         local npc_pos = npc:get_pos()
         local visible_agents = {}
+        local function append_visible_agent(other_id, other)
+            local delta = vector.subtract(other:get_pos(), npc_pos)
+            local distance = vector.length(delta)
+            if distance <= observation_radius then
+                table.insert(visible_agents, {
+                    id = other_id,
+                    relative_position = vector_packet(delta),
+                    distance = rounded(distance),
+                    within_reach = distance <= reach_distance,
+                })
+            end
+        end
         for other_id, _ in pairs(agents) do
             if other_id ~= agent_id then
                 local other = find_by_id("rdl_bridge:npc", other_id)
                 if other then
-                    local delta = vector.subtract(other:get_pos(), npc_pos)
-                    table.insert(visible_agents, {
-                        id = other_id,
-                        relative_position = vector_packet(delta),
-                        distance = rounded(vector.length(delta)),
-                        within_reach = vector.length(delta) <= reach_distance,
-                    })
+                    append_visible_agent(other_id, other)
                 end
             end
+        end
+        for _, marker in ipairs(visibility_markers) do
+            local object = find_by_id("rdl_bridge:npc", marker.id)
+            if object then append_visible_agent(marker.id, object) end
         end
         local visible_objects = {}
         local food = find_by_id("rdl_bridge:food", config.food_id)
         if food then
             local delta = vector.subtract(food:get_pos(), npc_pos)
             local distance = vector.length(delta)
-            table.insert(visible_objects, {
-                id = config.food_id,
-                kind = "food",
-                relative_position = vector_packet(delta),
-                distance = rounded(distance),
-                distance_band = distance <= reach_distance and "within_reach" or "visible",
-                within_reach = distance <= reach_distance,
-                motion = "stationary",
-            })
+            if distance <= observation_radius then
+                table.insert(visible_objects, {
+                    id = config.food_id,
+                    kind = "food",
+                    relative_position = vector_packet(delta),
+                    distance = rounded(distance),
+                    distance_band = distance <= reach_distance and "within_reach" or "visible",
+                    within_reach = distance <= reach_distance,
+                    motion = "stationary",
+                })
+            end
         end
         return {
             schema_version = "rdl-luanti-observation-v1",

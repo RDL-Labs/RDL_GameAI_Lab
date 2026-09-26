@@ -33,6 +33,10 @@ The agents share only World time and spatial existence. Each bounded packet
 contains the other NPC in `visible_agents`, but exposes only the observer's
 assigned Food object in v1.
 
+World lookup and observation admission are separate. Entity lookup may use the
+finite fixture search area, but an entity is added to `visible_agents` or
+`visible_objects` only when its observer-relative distance is `<= 12`.
+
 ## Authority Boundary
 
 RW1 reuses the existing Runtime Food decision. It adds no learning, arbitration,
@@ -54,3 +58,6 @@ independent action resolution != general scheduler
 6. Neither agent's in-flight or inventory state blocks or mutates the other.
 7. The canonical snapshot retains latest sections for both agents.
 8. Existing L0-L3 and L7 real-Luanti regressions remain valid.
+9. An entity inside radius 12 is visible.
+10. An entity exactly at radius 12 is visible.
+11. An entity beyond radius 12 is excluded.

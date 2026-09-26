@@ -21,6 +21,15 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("pickup agent=npc_b target=food_b", script)
         self.assertIn("latest_sections.npc_a", script)
         self.assertIn("latest_sections.npc_b", script)
+        self.assertIn("radius_counts=A:$aVisible,B:$bVisible", script)
+
+    def test_packet_admission_checks_observer_relative_radius(self):
+        source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                  "multi_agent_food.lua").read_text(encoding="utf-8")
+        self.assertIn("local observation_radius = 12", source)
+        self.assertGreaterEqual(source.count("if distance <= observation_radius then"), 2)
+        self.assertIn('id = "boundary_agent"', source)
+        self.assertIn('id = "outside_agent"', source)
 
 
 if __name__ == "__main__":

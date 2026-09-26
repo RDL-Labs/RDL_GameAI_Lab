@@ -65,7 +65,15 @@ try {
     if (-not $snapshot.latest_sections.npc_a -or -not $snapshot.latest_sections.npc_b) {
         throw "Canonical snapshot did not retain both agent sections"
     }
-    Write-Output "MULTI PASS: agents=2 independent_pickups=true canonical_agents=2"
+    $aVisible = [int]$snapshot.latest_sections.npc_a.values.visible_agents_count
+    $bVisible = [int]$snapshot.latest_sections.npc_b.values.visible_agents_count
+    if ($aVisible -ne 2) {
+        throw "npc_a must see inside npc_b and boundary_agent, but not outside_agent: $aVisible"
+    }
+    if ($bVisible -ne 1) {
+        throw "npc_b must see only inside npc_a at the final position: $bVisible"
+    }
+    Write-Output "MULTI PASS: agents=2 independent_pickups=true canonical_agents=2 radius_counts=A:$aVisible,B:$bVisible"
 } finally {
     if ($luanti -and -not $luanti.HasExited) { Stop-Process -Id $luanti.Id -Force; $luanti.WaitForExit() }
     if ($runtime -and -not $runtime.HasExited) { Stop-Process -Id $runtime.Id -Force; $runtime.WaitForExit() }

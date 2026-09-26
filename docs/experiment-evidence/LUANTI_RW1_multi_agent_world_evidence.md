@@ -15,7 +15,7 @@ python -m unittest discover -s tests
 Luanti 5.17.0 and one Runtime produced:
 
 ```text
-MULTI PASS: agents=2 independent_pickups=true canonical_agents=2
+MULTI PASS: agents=2 independent_pickups=true canonical_agents=2 radius_counts=A:2,B:1
 ```
 
 The World log contained both independent resolutions:
@@ -29,3 +29,8 @@ complete agents=2 independent_pickups=true
 The Runtime canonical snapshot retained `latest_sections.npc_a` and
 `latest_sections.npc_b`. Existing single-agent L0-L2, L3, and L7 real-Luanti
 verticals passed after the fixture-mode branch was added.
+
+At the final pickup position, `npc_a` observed the inside `npc_b` and the marker
+exactly 12 units away, while excluding the marker 12.25 units away. `npc_b`
+observed only the inside `npc_a`; both markers were outside its radius. The
+canonical finite counts therefore fixed boundary inclusion and outside exclusion.
