@@ -1,6 +1,7 @@
 # NERV-4B 神経由来CandidateとT1検査材料の境界契約
 
-状態: **DESIGN ONLY / 未実装・受入未実施** / 2026-09-26。
+状態: **IMPLEMENTED / N4B-01〜10 PASS** / 2026-09-26。
+[受入Evidence](../experiment-evidence/NERV_4B_neural_T1_boundary_evidence.md)。
 基準: `714df257`。[NERV-4A Evidence](../experiment-evidence/NERV_4A_neural_candidate_evidence.md)。
 
 ## 1. 問いと停止点
@@ -28,7 +29,7 @@ RDL_Coreのローカルcommit `327098256a29e3f82f2a8649a6ec0202fd68a6c4`を参�
 - `T1MaterialSelectionLedger.inspect`は全材料への明示dispositionとbasis/evidenceを要求する。神経由来の根拠を自動評価する検査器ではない。
 
 従って「任意の入口から新Candidateが物理的に入らない」とは主張しない。
-現在は正式な神経由来受付が未定義。NERV-4Bでは下記の専用入口のみを正式経路とし、汎用Python APIをセキュリティ境界とは扱わない。
+基準commitでは正式な神経由来受付が未定義だった。NERV-4Bでは下記の専用入口のみを正式経路とし、汎用Python APIをセキュリティ境界とは扱わない。
 既存raw経路の許可schemaや既定動作を変更しない。
 
 ## 3. 二種類の根拠の身分
@@ -45,12 +46,12 @@ raw_zeroも経験の不存在ではない。神経条件で消えた関係をraw
 
 ## 4. 純粋な準備入口
 
-入口案: `prepare_neural_t1_materials(materials, candidate_request)`。
+入口: `prepare_neural_t1_materials(materials, candidate_request)`。
 任意のCandidate辞書を信用する入口は作らない。
 `build_neural_candidate`を再実行し、前段compilerによる全材料検査を含めて結果を再構成する。
 選択外材料も不正なら拒否。前段の入力拒否と正常な候補なしを混ぜない。
 
-出力schema案: `nerv-t1-preparation-v1`。
+出力schema: `nerv-t1-preparation-v1`。
 
 - `candidate_formed`なら共通relationごとに最大4件の子材料を作り、`ready_for_inspection`を返す。
 - 他の3状態なら`no_inspection_materials`、子材料0件。元のstatus・理由・全診断を保持する。
@@ -66,13 +67,15 @@ IDは規則版・元結果全内容・relationから決定する。入力順序�
 
 ## 5. T1-Aへの明示受付
 
-別の明示入口案: `expand_neural_t1_materials(materials, candidate_request, binding, m_delta_state, model, review_path, store)`。
+別の明示入口: `expand_neural_t1_materials(materials, candidate_request, binding, m_delta_state, model, review_path, store)`。
 この入口も準備関数を内部実行し、呼出し側が改変したprepared辞書をそのまま受け入れない。
 
 bindingにはrun_id/agent_id、transition_id/model_ref/assessment_id、purpose、boundary_ref、criteria_refを必須とする。
 初版purposeは`inspect_neural_common_relations`固定。boundary_refとcriteria_refは次段で検査条件を追跡する参照であり、文字列の存在だけで適合性が証明されたとはしない。
 run/agentは神経材料と一致、残りのcanonical参照は指定した現行状態・model・review_pathと一致させる。
 canonical側にrun情報がない場合も暗黙推測せず、呼出し側の明示run bindingとして出典を残す。
+呼出し側は現在のcanonical snapshotを渡す責務を持つ。本入口が検査するのは渡された参照同士の整合性であり、
+外部の最新状態・偽造snapshotの真正性を認証しない。boundary_ref/criteria_refの意味的適合性も未検査である。
 
 active M_deltaと凍結したcanonical参照を既存T1-A経路で検査し、同じ個体の子材料だけを渡す。
 元Candidate集合全体を一つのrelationとして渡さない。
@@ -102,7 +105,7 @@ RETAINも採用・M_B更新そのものではない。parameter差からT1採用
 
 ## 7. 実装時の受入条件
 
-**全件未実施。** Python固定再生と既存T1 fixtureで検証する。
+**全件PASS。** Python固定再生と既存T1 fixtureで検証した。専用12テスト、全体468件実行＝422 PASS＋46 intentional skip。
 
 | ID | 必須検査 |
 | --- | --- |
@@ -117,4 +120,12 @@ RETAINも採用・M_B更新そのものではない。parameter差からT1採用
 | N4B-09 | 親診断と全出典を凍結bundleから追跡可能。候補なしを空Candidateとして展開しない |
 | N4B-10 | 準備で全store不変、明示展開でT1-Aのみ変化。既存行動・canonicalモデル・旧Sleep不変、全体回帰PASS |
 
-未実装の現段階では実行結果やPASSを主張しない。Luanti/HTTP、自律起動、長期保持、神経由来の再構成はこの受入の対象外。
+Luanti/HTTPは今回再実行していない。自律起動、長期保持、神経由来の再構成はこの受入の対象外。
+
+## 8. 実装配置
+
+`runtime/neural_t1.py`に2入口を追加。既存T1-Aのcanonical検査とstoreを再利用する。
+明示受付結果は`expanded_for_inspection / no_inspection_materials / capacity_rejected`。入力不正・競合は例外。
+容量超過時は既存storeの拒否counterのみ増加し、bundle集合は変更されない。
+親の全診断を最大4個の子payloadへコピーして凍結する。新しい診断storeや自動hookは作らない。
+process内の明示的な逐次呼出しを対象とし、並行transaction・永続化・restartをまたぐ受付保証は追加しない。

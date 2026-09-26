@@ -2,13 +2,14 @@
 
 ## 0. Status
 
-次工程: [NERV-4B境界契約](../experiment-contracts/NERV_4B_neural_T1_boundary_contract.md)を設計済み・未実装。
+現在地: [NERV-4B境界契約](../experiment-contracts/NERV_4B_neural_T1_boundary_contract.md)を実装し12試験PASS。
+[Evidence](../experiment-evidence/NERV_4B_neural_T1_boundary_evidence.md)の明示T1-A受付まで固定。
 rawとneuralを同一経験由来の根拠として保持し、relation別材料と明示T1-A受付を定める。
 初版の停止点はUNINSPECTED。T1-Bの自動選別、再構成、M_B更新・行動差は含めない。
 
-現在地: [NERV-4A有限Candidate契約](../experiment-contracts/NERV_4A_neural_candidate_contract.md)を実装し16試験PASS。
+前段: [NERV-4A有限Candidate契約](../experiment-contracts/NERV_4A_neural_candidate_contract.md)を実装し16試験PASS。
 [Evidence](../experiment-evidence/NERV_4A_neural_candidate_evidence.md)の局所Candidateまで固定。
-3〜6経験の共通関係と神経出典を扱うPython再生に限定。T1・長期保持・行動差は未接続。
+3〜6経験の共通関係と神経出典を扱うPython再生に限定。NERV-4A自体はT1を呼ばない。NERV-4Bの明示受付を別入口とし、長期保持・行動差は未接続。
 
 前段: [NERV-3明示接続契約](../experiment-contracts/NERV_3_neural_bias_admission_contract.md)を実装し18試験PASS。
 [Evidence](../experiment-evidence/NERV_3_neural_bias_admission_evidence.md)の神経由来Bias保存・Sleep入力profileで固定。NERV-4Aは別の純粋関数として明示呼出しする。
