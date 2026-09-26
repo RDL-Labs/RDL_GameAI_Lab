@@ -24,4 +24,7 @@ Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\audition_window_s
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\audition_transmission.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\auditory_candidates_fixture.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\visual_probe.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\visual_probe_fixture.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\visual_probe_checks.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 Write-Output "Installed rdl_game into $targetGame"

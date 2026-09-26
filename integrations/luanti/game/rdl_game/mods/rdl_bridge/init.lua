@@ -156,6 +156,12 @@ if fixture_mode == "audition_observation" then
     return
 end
 
+if fixture_mode == "visual_probe" then
+    local profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua").load(core.settings, {"npc_a"})
+    dofile(core.get_modpath("rdl_bridge") .. "/visual_probe_fixture.lua")(http, runtime_url, profiles.npc_a)
+    return
+end
+
 if fixture_mode == "auditory_candidates" then
     local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
     local profile_assignments = sensor_profiles.load(core.settings, {"npc_a"})

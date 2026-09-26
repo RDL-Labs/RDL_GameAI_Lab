@@ -1,13 +1,14 @@
-# OBS-8 同一視覚チャンネル内の再取得 — 契約案
+# OBS-8 同一視覚チャンネル内の再取得 — 実装契約
 
-状態: DESIGN ONLY / DRAFT v0.1 / 2026-09-26。
-基準: GameAI `e22c575db2e4edd558336c33fae73d47433120ef`。
-未実装・未検証。以下の数値は実装前に固定する専用fixtureの値で、身体一般の能力値ではない。
+状態: OPERATIONAL / obs8-v1 / 2026-09-26。
+実装開始基準: GameAI `1c2d3e14ba3870b349d12dbd8787307eb23b0e18`。
+専用fixtureと純粋評価を実装。以下の数値は契約案で固定したfixture値で、身体一般の能力値ではない。
+実行結果と検証範囲は[Evidence](../experiment-evidence/OBS_8_visual_reacquisition_evidence.md)を参照。
 OBS-6E・7A・7Bを変更せず、別目的として実装する。
 
 ## 1. 問いと権限
 
-目的は`visual_reacquisition_after_yaw`、規則案は`obs8-v1`。
+目的は`visual_reacquisition_after_yaw`、規則版は`obs8-v1`。
 「一度取得した遠景特徴について、水平回転後の対応角域に、指定した粗い外観条件を
 満たす特徴が新しい記録でも観測されるか」を問う。
 試験側が受理済み元frame ID・frame内feature ID・操作ID・問いを明示する。
@@ -113,9 +114,9 @@ frame配送の再送と操作の再送を別に検査する。frameの重複保�
 台帳は専用runのメモリ内に限定し、永続的exactly-onceは主張しない。
 再起動後は旧runの操作を拒否するため、fixture開始時に新run/epochを必ず割り当てる。
 
-## 7. 実装単位と受入試験（すべて未実施）
+## 7. 実装単位と受入試験
 
-最初に純粋な起動条件・回転計画・再取得評価を実装する。身体adapterと有限台帳は
+純粋な起動条件・回転計画・再取得評価を実装した。身体adapterと有限台帳は
 専用Luanti fixture内に置き、既存共有distant_sensorを呼ぶ。新しい汎用HTTP行動endpoint、
 RW2自動hook、GUI、聴覚連携を追加しない。Runtimeでは既存の受理経路を使う。
 
@@ -137,3 +138,31 @@ RW2自動hook、GUI、聴覚連携を追加しない。Runtimeでは既存の受
 Evidenceでは純粋関数試験、身体操作、実Runtime受理、実Luanti取得、replayを区別する。
 実回転結果が指令と一致しない負例を必ず含める。初版はこの一周で停止し、
 聴覚候補からの問い生成、移動、追跡、意味判断、canonical接続は次の別契約とする。
+
+## 8. 実装APIと検証の分類
+
+`visual_probe.lua`の`plan(frame, feature, request, body)`は純粋な回転計画。
+`new(run_id, epoch, agent)`が最大16件の台帳を作り、`start / rotate / sample / guard`が
+各副作用前の状態遷移を管理する。`start`へのframeは専用fixtureが実Runtimeのaccepted応答を
+確認したものに限る。このLua APIは未受理frameを受け付ける公開endpointではない。
+身体adapterの入力も信頼する取得機構の出力であり、一般クライアントからの姿勢申告ではない。
+計画後の姿勢変化、実測欠測、次回取得枠の逸失でも中断する。
+
+Pythonの`runtime.visual_reacquisition.evaluate(snapshot, request, evidence)`は受理済みsnapshotと
+身体証拠を受け取る純粋関数。source/new frame参照を解決し、取得・比較・操作の各軸を返す。
+未受理targetや不正参照は`ProbeInputError`。入力・結果は独立したコピーで、永続storeはない。
+requestはoperation_id / run_id / world_epoch / agent_id / purpose / rule_version /
+source_frame_id / feature_id / color_bandのみ。対象World座標や対象IDは入力に含まれない。
+Luaの台帳はsampledで取得を終了し、HTTP受理とPython評価はfixture harnessが続ける。
+不実行・中断では評価はnull。取得不完了・比較不能ではmatchesもnullとする。
+
+左右・消失・遮蔽・複数・overflow・実回転不一致・失効・優先処理等は実Luantiで確認する。
+not_comparableの評価、期限の厳密境界、欠測、取得不完了との併存は固定記録の合成変更と
+Lua純粋検査で確認する。全行を実World故障として実行したとは主張しない。
+fixtureのsim時計はHTTP往復中に進めない。ネットワーク待ち時間は実時間harness timeoutで
+分離する。長期運転・非同期World内の期限保証を検証したものではない。
+
+応答消失は一度目の操作完了を呼出し側へ返さず再要求し、同時に感覚配送を新observation IDで
+再送するfixture内注入。実ネットワーク切断ではない。回転・sampleの重複が起きないことと、
+Runtimeのnew_frames=0を別々に確認する。再起動の確認は旧run要求の拒否であり、
+プロセスcrashを跨ぐ永続exactly-onceを提供しない。

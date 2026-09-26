@@ -1,0 +1,1672 @@
+{
+  "provenance": {
+    "baseline": "1c2d3e14ba3870b349d12dbd8787307eb23b0e18",
+    "capture_date": "2026-09-26",
+    "snapshot_file": "obs8-20260926-110536-033.snapshot.json",
+    "evidence_file": "obs8-20260926-110536-033.evidence.json",
+    "kind": "real-luanti-admitted-snapshot-and-body-evidence",
+    "command": "integrations/luanti/scripts/test-visual-probe.ps1"
+  },
+  "snapshot": {
+    "assignments": {
+      "npc_a": {
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1
+      }
+    },
+    "authority": "read-only-sensory-observation; not-Experience-canonical-or-action",
+    "capacity_per_agent_channel": 64,
+    "count": 23,
+    "frames": [
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 0,
+          "kind": "instant",
+          "start_us": 0
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:1",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:1",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 1,
+        "sampled_world_tick": 0,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 1000000,
+          "kind": "instant",
+          "start_us": 1000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:2",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:2",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -5,
+                0
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 2,
+        "sampled_world_tick": 4,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 2000000,
+          "kind": "instant",
+          "start_us": 2000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:3",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:3",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -35,
+                -30
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 3,
+        "sampled_world_tick": 8,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 3000000,
+          "kind": "instant",
+          "start_us": 3000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:4",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:4",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                0,
+                5
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 4,
+        "sampled_world_tick": 12,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 4000000,
+          "kind": "instant",
+          "start_us": 4000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:5",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:5",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 5,
+        "sampled_world_tick": 16,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 5000000,
+          "kind": "instant",
+          "start_us": 5000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:6",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:6",
+        "output_limited": false,
+        "payload": {
+          "features": []
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 6,
+        "sampled_world_tick": 20,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 6000000,
+          "kind": "instant",
+          "start_us": 6000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:7",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:7",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 7,
+        "sampled_world_tick": 24,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 7000000,
+          "kind": "instant",
+          "start_us": 7000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:8",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:8",
+        "output_limited": false,
+        "payload": {
+          "features": []
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 8,
+        "sampled_world_tick": 28,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 8000000,
+          "kind": "instant",
+          "start_us": 8000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:9",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:9",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 9,
+        "sampled_world_tick": 32,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 9000000,
+          "kind": "instant",
+          "start_us": 9000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:10",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:10",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -5,
+                0
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            },
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                0,
+                5
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f1"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 10,
+        "sampled_world_tick": 36,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 10000000,
+          "kind": "instant",
+          "start_us": 10000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:11",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:11",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 11,
+        "sampled_world_tick": 40,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 11000000,
+          "kind": "instant",
+          "start_us": 11000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "PARTIAL",
+        "frame_id": "obs8-20260926-110536-033:eye:12",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:12",
+        "output_limited": true,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -5,
+                0
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            },
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -30,
+                -25
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f1"
+            },
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -20,
+                -15
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f2"
+            },
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -15,
+                -10
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f3"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 12,
+        "sampled_world_tick": 44,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 12000000,
+          "kind": "instant",
+          "start_us": 12000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:13",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:13",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 13,
+        "sampled_world_tick": 48,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 13000000,
+          "kind": "instant",
+          "start_us": 13000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:14",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:14",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 14,
+        "sampled_world_tick": 52,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 14000000,
+          "kind": "instant",
+          "start_us": 14000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:15",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:15",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 15,
+        "sampled_world_tick": 56,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 15000000,
+          "kind": "instant",
+          "start_us": 15000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:16",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:16",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 16,
+        "sampled_world_tick": 60,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 16000000,
+          "kind": "instant",
+          "start_us": 16000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:17",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:17",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 17,
+        "sampled_world_tick": 64,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 17000000,
+          "kind": "instant",
+          "start_us": 17000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:18",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:18",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 18,
+        "sampled_world_tick": 68,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 18000000,
+          "kind": "instant",
+          "start_us": 18000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:19",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:19",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 19,
+        "sampled_world_tick": 72,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 19000000,
+          "kind": "instant",
+          "start_us": 19000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:20",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:20",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                30,
+                35
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 20,
+        "sampled_world_tick": 76,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 20000000,
+          "kind": "instant",
+          "start_us": 20000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "PARTIAL",
+        "frame_id": "obs8-20260926-110536-033:eye:21",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:21",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -5,
+                0
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 21,
+        "sampled_world_tick": 80,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 21000000,
+          "kind": "instant",
+          "start_us": 21000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:22",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:22",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                -35,
+                -30
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 22,
+        "sampled_world_tick": 84,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 22000000,
+          "kind": "instant",
+          "start_us": 22000000
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs8-20260926-110536-033:eye:23",
+        "observer_frame_ref": "obs8-20260926-110536-033:pose:23",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                0,
+                5
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-distant-enabled",
+        "profile_revision": 1,
+        "run_id": "obs8-20260926-110536-033",
+        "sample_seq": 23,
+        "sampled_world_tick": 88,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      }
+    ],
+    "latest_by_agent": {
+      "npc_a": {
+        "vision_distant": {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 22000000,
+            "kind": "instant",
+            "start_us": 22000000
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "obs8-20260926-110536-033:eye:23",
+          "observer_frame_ref": "obs8-20260926-110536-033:pose:23",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-distant-enabled",
+          "profile_revision": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_seq": 23,
+          "sampled_world_tick": 88,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        }
+      }
+    },
+    "rejection_count": 0,
+    "rejections": [],
+    "run_id": "obs8-20260926-110536-033",
+    "schema_version": "rdl-sensory-extension-v1",
+    "world_epoch": 1
+  },
+  "body_evidence": {
+    "controller_checks": 51,
+    "ledger_checks": true,
+    "records": [
+      {
+        "case": "right",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "delivery_new_frames": [
+            1,
+            0
+          ],
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:2",
+          "operation_id": "obs8-20260926-110536-033:op:1",
+          "operation_response_lost": true,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:1:measured",
+            "expires_us": 2000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:1",
+            "source_to_start_deg": 0,
+            "source_us": 0,
+            "start_ref": "obs8-20260926-110536-033:op:1:start",
+            "start_to_target_deg": 32.50000033521246,
+            "start_us": 250000,
+            "target_ref": "obs8-20260926-110536-033:pose:2",
+            "target_us": 1000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 4,
+          "samples": 1,
+          "started_us": 250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:1",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:1",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "left",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": -32.5,
+          "final_right_yaw_deg": -32.50000033521246,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:4",
+          "operation_id": "obs8-20260926-110536-033:op:2",
+          "operation_response_lost": false,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:2:measured",
+            "expires_us": 4000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:3",
+            "source_to_start_deg": 0,
+            "source_us": 2000000,
+            "start_ref": "obs8-20260926-110536-033:op:2:start",
+            "start_to_target_deg": -32.50000033521246,
+            "start_us": 2250000,
+            "target_ref": "obs8-20260926-110536-033:pose:4",
+            "target_us": 3000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 2250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 12,
+          "samples": 1,
+          "started_us": 2250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:2",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:3",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "removed",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:6",
+          "operation_id": "obs8-20260926-110536-033:op:3",
+          "operation_response_lost": false,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:3:measured",
+            "expires_us": 6000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:5",
+            "source_to_start_deg": 0,
+            "source_us": 4000000,
+            "start_ref": "obs8-20260926-110536-033:op:3:start",
+            "start_to_target_deg": 32.50000033521246,
+            "start_us": 4250000,
+            "target_ref": "obs8-20260926-110536-033:pose:6",
+            "target_us": 5000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 4250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 20,
+          "samples": 1,
+          "started_us": 4250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:3",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:5",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "occluded",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:8",
+          "operation_id": "obs8-20260926-110536-033:op:4",
+          "operation_response_lost": false,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:4:measured",
+            "expires_us": 8000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:7",
+            "source_to_start_deg": 0,
+            "source_us": 6000000,
+            "start_ref": "obs8-20260926-110536-033:op:4:start",
+            "start_to_target_deg": 32.50000033521246,
+            "start_us": 6250000,
+            "target_ref": "obs8-20260926-110536-033:pose:8",
+            "target_us": 7000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 6250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 28,
+          "samples": 1,
+          "started_us": 6250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:4",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:7",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "multiple",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:10",
+          "operation_id": "obs8-20260926-110536-033:op:5",
+          "operation_response_lost": false,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:5:measured",
+            "expires_us": 10000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:9",
+            "source_to_start_deg": 0,
+            "source_us": 8000000,
+            "start_ref": "obs8-20260926-110536-033:op:5:start",
+            "start_to_target_deg": 32.50000033521246,
+            "start_us": 8250000,
+            "target_ref": "obs8-20260926-110536-033:pose:10",
+            "target_us": 9000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 8250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 36,
+          "samples": 1,
+          "started_us": 8250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:5",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:9",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "overflow",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:12",
+          "operation_id": "obs8-20260926-110536-033:op:6",
+          "operation_response_lost": false,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:6:measured",
+            "expires_us": 12000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:11",
+            "source_to_start_deg": 0,
+            "source_us": 10000000,
+            "start_ref": "obs8-20260926-110536-033:op:6:start",
+            "start_to_target_deg": 32.50000033521246,
+            "start_us": 10250000,
+            "target_ref": "obs8-20260926-110536-033:pose:12",
+            "target_us": 11000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 10250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 44,
+          "samples": 1,
+          "started_us": 10250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:6",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:11",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "rotation_mismatch",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 30.50000141792225,
+          "final_translation": 0,
+          "operation_id": "obs8-20260926-110536-033:op:7",
+          "operation_response_lost": false,
+          "operation_status": "aborted",
+          "reasons": [
+            "rotation_unconfirmed"
+          ],
+          "rotation_completed_us": 12250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "samples": 0,
+          "started_us": 12250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:7",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:13",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "expired",
+        "evidence": {
+          "agent_id": "npc_a",
+          "final_right_yaw_deg": 0,
+          "final_translation": 0,
+          "operation_id": "obs8-20260926-110536-033:op:8",
+          "operation_response_lost": false,
+          "operation_status": "not_executed",
+          "reasons": [
+            "stale_source",
+            "pose_mapping_unavailable"
+          ],
+          "rotations": 0,
+          "run_id": "obs8-20260926-110536-033",
+          "samples": 0,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:8",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:14",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "life_busy",
+        "evidence": {
+          "agent_id": "npc_a",
+          "final_right_yaw_deg": 0,
+          "final_translation": 0,
+          "operation_id": "obs8-20260926-110536-033:op:9",
+          "operation_response_lost": false,
+          "operation_status": "not_executed",
+          "reasons": [
+            "life_busy"
+          ],
+          "rotations": 0,
+          "run_id": "obs8-20260926-110536-033",
+          "samples": 0,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:9",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:15",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "moved",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0.10000000149011612,
+          "operation_id": "obs8-20260926-110536-033:op:10",
+          "operation_response_lost": false,
+          "operation_status": "aborted",
+          "reasons": [
+            "body_changed"
+          ],
+          "rotation_completed_us": 15250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "samples": 0,
+          "started_us": 15250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:10",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:16",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "profile_changed",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "operation_id": "obs8-20260926-110536-033:op:11",
+          "operation_response_lost": false,
+          "operation_status": "aborted",
+          "reasons": [
+            "profile_changed"
+          ],
+          "rotation_completed_us": 16250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "samples": 0,
+          "started_us": 16250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:11",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:17",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "pose_expired",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "operation_id": "obs8-20260926-110536-033:op:12",
+          "operation_response_lost": false,
+          "operation_status": "aborted",
+          "reasons": [
+            "pose_mapping_unavailable"
+          ],
+          "rotation_completed_us": 17250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "samples": 0,
+          "started_us": 17250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:12",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:18",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "priority",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "operation_id": "obs8-20260926-110536-033:op:13",
+          "operation_response_lost": false,
+          "operation_status": "aborted",
+          "reasons": [
+            "life_priority"
+          ],
+          "rotation_completed_us": 18250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "samples": 0,
+          "started_us": 18250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:13",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:19",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "unloaded",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": 32.5,
+          "final_right_yaw_deg": 32.50000033521246,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:21",
+          "operation_id": "obs8-20260926-110536-033:op:14",
+          "operation_response_lost": false,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:14:measured",
+            "expires_us": 21000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:20",
+            "source_to_start_deg": 0,
+            "source_us": 19000000,
+            "start_ref": "obs8-20260926-110536-033:op:14:start",
+            "start_to_target_deg": 32.50000033521246,
+            "start_us": 19250000,
+            "target_ref": "obs8-20260926-110536-033:pose:21",
+            "target_us": 20000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 19250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 80,
+          "samples": 1,
+          "started_us": 19250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:14",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:20",
+          "world_epoch": 1
+        }
+      },
+      {
+        "case": "wrap",
+        "evidence": {
+          "agent_id": "npc_a",
+          "command_deg": -22.500015658832723,
+          "final_right_yaw_deg": -22.499995503477663,
+          "final_translation": 0,
+          "new_frame_id": "obs8-20260926-110536-033:eye:23",
+          "operation_id": "obs8-20260926-110536-033:op:15",
+          "operation_response_lost": false,
+          "operation_status": "sampled",
+          "pose": {
+            "clock_id": "world-sim-v1",
+            "error_deg": 0.001,
+            "evidence_id": "obs8-20260926-110536-033:op:15:measured",
+            "expires_us": 23000000,
+            "issuer": "luanti-body-yaw-v1",
+            "source_ref": "obs8-20260926-110536-033:pose:22",
+            "source_to_start_deg": -9.999984341167277,
+            "source_us": 21000000,
+            "start_ref": "obs8-20260926-110536-033:op:15:start",
+            "start_to_target_deg": -22.499995503477663,
+            "start_us": 21250000,
+            "target_ref": "obs8-20260926-110536-033:pose:23",
+            "target_us": 22000000,
+            "tilt_deg": 0,
+            "translation": 0,
+            "valid": true
+          },
+          "reasons": null,
+          "rotation_completed_us": 21250000,
+          "rotations": 1,
+          "run_id": "obs8-20260926-110536-033",
+          "sample_tick": 88,
+          "samples": 1,
+          "started_us": 21250000,
+          "world_epoch": 1
+        },
+        "request": {
+          "agent_id": "npc_a",
+          "color_band": "muted_red",
+          "feature_id": "f0",
+          "operation_id": "obs8-20260926-110536-033:op:15",
+          "purpose": "visual_reacquisition_after_yaw",
+          "rule_version": "obs8-v1",
+          "run_id": "obs8-20260926-110536-033",
+          "source_frame_id": "obs8-20260926-110536-033:eye:22",
+          "world_epoch": 1
+        }
+      }
+    ],
+    "run_id": "obs8-20260926-110536-033"
+  }
+}

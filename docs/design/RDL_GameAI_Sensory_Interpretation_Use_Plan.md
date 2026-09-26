@@ -1,8 +1,9 @@
 # 感覚観測の解釈・利用への接続計画
 
-状態: OBS-7Aの純粋診断、OBS-7Bの有限候補生成・実Luanti replayを実装 / 2026-09-26。
+状態: OBS-7Aの純粋診断、OBS-7Bの有限候補生成、OBS-8の専用再取得Probeを実装 / 2026-09-26。
 OBS-7Bは[隣接窓の聴覚パターン候補の契約](../experiment-contracts/OBS_7B_auditory_pattern_candidates_contract.md)と[7B Evidence](../experiment-evidence/OBS_7B_auditory_pattern_candidates_evidence.md)へ実装・検証結果を記録。
-OBS-8は[同一視覚チャンネル内の再取得契約案](../experiment-contracts/OBS_8_visual_reacquisition_contract.md)を作成。未実装・未検証。
+OBS-8は[同一視覚チャンネル内の再取得契約](../experiment-contracts/OBS_8_visual_reacquisition_contract.md)の専用fixtureと純粋評価を実装。
+[8 Evidence](../experiment-evidence/OBS_8_visual_reacquisition_evidence.md)に検証範囲を記録。
 [実装契約](../experiment-contracts/OBS_7A_comparison_eligibility_contract.md)と
 [Evidence](../experiment-evidence/OBS_7A_comparison_eligibility_evidence.md)に7Aの到達点を記録する。
 以下の提案・予定表現は設計時の記録。7Aの確定した目的・許可表・理由コードは契約を参照。
@@ -30,10 +31,10 @@ RW2互換は有限生活Acceptanceの完了を指し、全行動列一致では�
 | --- | --- | --- |
 | OBS-7A | 比較適格性の診断 | 実装・検証済み。時刻・姿勢・profile・coverage・出典を検査し、比較不能の理由を保持 |
 | OBS-7B | 隣接窓の聴覚パターン候補 | 実装・検証済み。専用実Luanti fixtureで四状態を再生。比較不能と候補数を区別 |
-| OBS-8 | 同一視覚チャンネル内の再取得 | 契約案あり・未実装。明示した問い、実測姿勢対応、1回の水平回転と通常周期取得。7Bを起動条件にしない |
+| OBS-8 | 同一視覚チャンネル内の再取得 | 専用fixture・評価を実装。実測姿勢対応、1回の水平回転と通常周期取得。7Bを起動条件にしない |
 | canonical接続 | 有限断面と解釈モデルの選択 | 別契約。7A/7Bの結果をそのままF・E・HやCandidateRelationへ昇格しない |
 
-OBS-7Bの完了で一度区切る。OBS-8・行動・canonicalへの自動的な機能拡張は行わない。
+OBS-8の専用fixtureで一度区切る。生活中の自動起動・聴覚連携・canonicalへの機能拡張は行わない。
 
 ## 3. 現在使える情報と不足
 
@@ -131,9 +132,9 @@ F/F'の比較適格性を先に定義する。欠落・候補数・方向差を�
 
 OBS-7Aの純粋診断とOBS-7Bの純粋候補生成・専用fixture・replayを実装した。
 7Bは単一候補・複数候補・候補なし・比較不能を区別し、実データでも確認済み。
-次段階は別契約から始める。現在は新しいHTTP endpoint、GUI、行動hook、
-姿勢変換、支持数、追跡ID、canonical接続を追加しない。
+OBS-8では身体の実測相対yawによる限定変換を追加した。新しいHTTP endpoint、GUI、
+RW2行動hook、支持数、追跡ID、canonical接続は追加しない。
 
-OBS-8初版の設計は上記契約案を参照。元観測の鮮度2秒、操作期限1.5秒、
+OBS-8初版の実装条件は上記契約を参照。元観測の鮮度2秒、操作期限1.5秒、
 最大45度・1回の水平回転、次の通常取得枠1回をfixture値として固定する。
-実装や実Luantiの成功はまだ主張しない。
+専用Luantiで検証済み。一般環境やRW2生活中の自律Probeは未実装。
