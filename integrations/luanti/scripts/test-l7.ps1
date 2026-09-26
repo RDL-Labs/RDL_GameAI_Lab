@@ -93,6 +93,9 @@ try {
 
     $t1Body = @{
         assessment_id = $assessment.assessment_id
+        agent_id = "npc_a"
+        deep_similarity_id = $sleep.result.deep_similarity_id
+        candidate_id = $sleep.result.candidate.candidate_id
         reviewer = "luanti-l7-evidence"
         basis = "explicit finite Luanti candidate inspection and activation"
         evidence = "three real Luanti attack outcome sources"

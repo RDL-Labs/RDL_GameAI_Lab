@@ -336,3 +336,8 @@ the latest L6 candidate into relation-specific T1 materials, reuses the existing
 T1-A/B/C and cutover services, and returns the complete inactive-artifact and
 cutover record. It requires an independently active canonical `M_delta`; the
 candidate cannot create rupture or action authority.
+
+Luanti L8 makes that endpoint explicitly agent-scoped. `agent_id`,
+`deep_similarity_id`, `candidate_id`, and `assessment_id` are mandatory and
+must identify one consistent cycle. T1 receives only same-agent Experiences
+listed by the selected candidate, never the complete process-wide store.

@@ -43,8 +43,8 @@ CandidateRelation != M_delta
 
 ## Explicit Selection Boundary
 
-`POST /v1/luanti-t1-cutover` requires reviewer, basis, evidence, and explicit
-dispositions. L7 v1 accepts only:
+`POST /v1/luanti-t1-cutover` requires agent, Sleep-result, candidate, assessment,
+reviewer, basis, evidence, and explicit dispositions. L7 v1 accepts only:
 
 ```text
 CandidateRelation -> RETAIN

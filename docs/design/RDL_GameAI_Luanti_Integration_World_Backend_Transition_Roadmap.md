@@ -13,7 +13,8 @@ L4 Risky Tasty Food       COMPLETE
 L5 Outcome Learning       COMPLETE
 L6 Sleep / Deep Candidate COMPLETE
 L7 Dynamic M_B Cycle      COMPLETE
-L8+                       PLANNED
+L8 Multi-Agent Separation COMPLETE
+L9+                       PLANNED
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -98,7 +99,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L5 | Luanti consequence→Experience→Outcome Gradient→Local Bias | COMPLETE |
 | L6 | Luanti Experience→Sleep Profile→Deep Similarity→Candidate | COMPLETE |
 | L7 | Candidate→T1-A/B/C→M_B'→cutover→REENTERED | COMPLETE |
-| L8 | NPC A/BのExperience・Bias・Candidate・M_B分離 | PLANNED |
+| L8 | NPC A/BのExperience・Bias・Candidate・M_B分離 | COMPLETE |
 | L9 | Luanti長期life traceのp5 read-only表示 | PLANNED |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
@@ -143,7 +144,7 @@ explorationも対象外とする。
 
 ## 10. 次の停止境界
 
-L7でLuanti由来Candidateと独立canonical ruptureをT1-Aで明示合流し、relation別
-候補、T1-B選別、inactive M_B'、cutover、fresh re-entryまでを実World provenance
-付きで固定した。次はL8でNPC A/Bが同時に生活した場合のExperience、Bias、
-Candidate、model、archive、M_delta、fresh windowの完全分離を検証する。
+L8でagent、Sleep結果、candidate、assessmentの明示参照を必須化し、A/Bの
+Experience、Bias、Candidate、model、archive、M_delta、fresh windowをRuntime /
+adapter境界で分離した。次はL9でLuanti由来life traceをp5へread-only表示する。
+実Luanti World内の複数自律entity同時生活は、別のrich-World統合検証として残す。

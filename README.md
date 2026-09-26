@@ -80,6 +80,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [Luanti L5 Outcome Learning](docs/experiment-contracts/LUANTI_L5_outcome_learning_contract.md)では実Luanti attack factを明示admitし、既存Territory Experience→Outcome Gradient→Local Biasへ接続した。acquisition・return・injuryのrelation-local biasを形成するが、action・canonical authorityへは接続しない。
 - [Luanti L6 Sleep / Deep Candidate](docs/experiment-contracts/LUANTI_L6_sleep_deep_candidate_contract.md)では同一個体の3つの実Luanti outcomeを既存Local Bias Profile・Deep Similarityへ通し、support 3のshadow CandidateRelationを形成した。Sleepは明示起動で、T1・M_B・actionへ自動昇格しない。
 - [Luanti L7 Dynamic M_B Cycle](docs/experiment-contracts/LUANTI_L7_dynamic_mb_cycle_contract.md)ではLuanti由来候補と独立canonical ruptureをT1-Aで明示合流し、relation別候補の選別、inactive `M_B'`、cutover、parent archive、fresh `REENTERED`までを固定した。cutoverはgame action authorityを変更しない。
+- [Luanti L8 Multi-Agent Separation](docs/experiment-contracts/LUANTI_L8_multi_agent_separation_contract.md)ではagent・Sleep結果・candidate・assessmentを明示参照し、A/BのExperience・候補・model・archive・`M_delta`をRuntime/adapter境界で分離した。実Luanti World内の複数entity同時生活はまだ主張しない。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - Deferred: canonical action authority、DNA・動的神経値・World Time・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

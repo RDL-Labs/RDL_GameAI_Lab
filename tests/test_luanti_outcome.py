@@ -6,13 +6,13 @@ from runtime.theta_effective import FiniteThetaEffectiveEvaluator
 from runtime.v23_interpretation import GameAIFrozenComparisonSidecar
 
 
-def attack_payload(index=0):
+def attack_payload(index=0, agent_id="npc_a"):
     return {
         "event": {
             "event_id": f"luanti-territory-{index:06d}",
             "schema": "territory-beast-fact-event-v1",
             "tick": 5 + index,
-            "agent_id": "npc_a",
+            "agent_id": agent_id,
             "beast_id": "beast_1",
             "territory_id": "north_grove",
             "event_type": "close_intrusion_persisted",
@@ -41,11 +41,11 @@ def attack_payload(index=0):
     }
 
 
-def canonical_packet(observation_id, tick, objects):
+def canonical_packet(observation_id, tick, objects, agent_id="npc_a"):
     return {
         "observation_id": observation_id,
         "tick": tick,
-        "agent_id": "npc_a",
+        "agent_id": agent_id,
         "observation": {
             "perception_rule": "finite Luanti L7 fixture",
             "visible_agents": [],
@@ -124,7 +124,7 @@ class LuantiOutcomeTests(unittest.TestCase):
         coordinator = LuantiOutcomeCoordinator()
         for index in range(3):
             coordinator.record(attack_payload(index))
-        coordinator.consolidate({
+        sleep = coordinator.consolidate({
             "agent_id": "npc_a", "sleep_cycle": "luanti-night-l7", "formation_tick": 40,
         })
         canonical = GameAIFrozenComparisonSidecar(
@@ -147,6 +147,9 @@ class LuantiOutcomeTests(unittest.TestCase):
         self.assertEqual(before["M_delta"]["active_count"], 1)
         result = coordinator.t1_cutover(canonical, {
             "assessment_id": assessment["assessment_id"],
+            "agent_id": "npc_a",
+            "deep_similarity_id": sleep["deep_similarity_id"],
+            "candidate_id": sleep["candidate"]["candidate_id"],
             "reviewer": "luanti-l7-test",
             "basis": "explicit finite Luanti candidate inspection",
             "evidence": "three Luanti attack outcomes",
@@ -172,9 +175,98 @@ class LuantiOutcomeTests(unittest.TestCase):
         coordinator = LuantiOutcomeCoordinator()
         with self.assertRaisesRegex(LuantiOutcomeError, "explicit CandidateRelation RETAIN"):
             coordinator.t1_cutover(object(), {
-                "assessment_id": "assessment", "reviewer": "reviewer",
+                "assessment_id": "assessment", "agent_id": "npc_a",
+                "deep_similarity_id": "sleep", "candidate_id": "candidate",
+                "reviewer": "reviewer",
                 "basis": "basis", "evidence": "evidence",
                 "candidate_disposition": "DEFER", "experience_disposition": "DEFER",
+            })
+
+    def test_two_agents_select_only_their_candidate_and_experiences(self):
+        coordinator = LuantiOutcomeCoordinator()
+        sleeps = {}
+        for agent_index, agent_id in enumerate(("npc_a", "npc_b")):
+            for cycle in range(3):
+                coordinator.record(attack_payload(agent_index * 10 + cycle, agent_id))
+            sleeps[agent_id] = coordinator.consolidate({
+                "agent_id": agent_id,
+                "sleep_cycle": f"luanti-night-{agent_id}",
+                "formation_tick": 40 + agent_index,
+            })
+
+        canonical = GameAIFrozenComparisonSidecar(
+            theta_evaluator=FiniteThetaEffectiveEvaluator(1.0)
+        )
+        assessments = {}
+        for index, agent_id in enumerate(("npc_a", "npc_b")):
+            canonical.capture(canonical_packet(
+                f"l8-{agent_id}-first", 50 + index * 2, 1, agent_id
+            ))
+            canonical.capture(canonical_packet(
+                f"l8-{agent_id}-later", 51 + index * 2, 3, agent_id
+            ))
+        for record in canonical.snapshot()["assessment"]["records"]:
+            assessments[record["E"]["agent_id"]] = record["assessment_id"]
+
+        results = {}
+        for agent_id in ("npc_a", "npc_b"):
+            canonical.review_assessment({
+                "assessment_id": assessments[agent_id], "expected_revision": 0,
+                "reviewer": "luanti-l8-test", "basis": "independent agent rupture",
+                "evidence": agent_id,
+                "dimensions": {
+                    "visible_agents_count": {"status": "zero"},
+                    "visible_objects_count": {"status": "unresolved", "residual": 1.0},
+                    "visible_places_count": {"status": "zero"},
+                },
+            })
+            sleep = sleeps[agent_id]
+            results[agent_id] = coordinator.t1_cutover(canonical, {
+                "assessment_id": assessments[agent_id], "agent_id": agent_id,
+                "deep_similarity_id": sleep["deep_similarity_id"],
+                "candidate_id": sleep["candidate"]["candidate_id"],
+                "reviewer": "luanti-l8-test", "basis": "same-agent selection",
+                "evidence": agent_id, "candidate_disposition": "RETAIN",
+                "experience_disposition": "DEFER",
+            })
+
+        snapshot = canonical.snapshot()
+        self.assertEqual(snapshot["M_delta"]["active_count"], 0)
+        self.assertEqual({item["phase"] for item in snapshot["M_delta"]["states"]},
+                         {"REENTERED"})
+        self.assertEqual({item["agent_id"] for item in results.values()},
+                         {"npc_a", "npc_b"})
+        for agent_id, result in results.items():
+            bundle_experiences = [item for item in result["bundle"]["materials"]
+                                  if item["kind"] == "Experience"]
+            self.assertEqual(len(bundle_experiences), 3)
+            self.assertTrue(all(item["payload"]["agent_id"] == agent_id
+                                for item in bundle_experiences))
+            self.assertTrue(all(item["agent_id"] == agent_id
+                                for item in result["projected_candidates"]))
+            active = snapshot["models"][result["artifact"]["model_ref"]]
+            self.assertEqual(active["agent_id"], agent_id)
+            self.assertTrue(all(
+                relation["source_candidate_id"] in {
+                    item["candidate_id"] for item in result["projected_candidates"]
+                }
+                for relation in active["adopted_relations"]
+            ))
+
+    def test_l8_rejects_cross_agent_sleep_selection(self):
+        coordinator = LuantiOutcomeCoordinator()
+        for cycle in range(3):
+            coordinator.record(attack_payload(cycle, "npc_a"))
+        sleep = coordinator.consolidate({
+            "agent_id": "npc_a", "sleep_cycle": "night-a", "formation_tick": 20,
+        })
+        with self.assertRaisesRegex(LuantiOutcomeError, "different agent"):
+            coordinator.t1_cutover(object(), {
+                "assessment_id": "assessment", "agent_id": "npc_b",
+                "deep_similarity_id": sleep["deep_similarity_id"],
+                "candidate_id": sleep["candidate"]["candidate_id"],
+                "reviewer": "reviewer", "basis": "basis", "evidence": "evidence",
+                "candidate_disposition": "RETAIN", "experience_disposition": "DEFER",
             })
 
 

@@ -77,14 +77,19 @@ class LuantiOutcomeCoordinator:
         return deepcopy(result)
 
     def t1_cutover(self, canonical, payload: dict[str, Any]) -> dict[str, Any]:
-        """Explicitly inspect and activate the latest Sleep candidate under active M_delta."""
+        """Explicitly inspect and activate one agent-owned Sleep candidate."""
         if not isinstance(payload, dict):
             raise LuantiOutcomeError("payload must be an object")
         assessment_id = payload.get("assessment_id")
+        agent_id = payload.get("agent_id")
+        deep_similarity_id = payload.get("deep_similarity_id")
+        candidate_id = payload.get("candidate_id")
         reviewer = payload.get("reviewer")
         basis = payload.get("basis")
         evidence = payload.get("evidence")
-        for field, value in (("assessment_id", assessment_id), ("reviewer", reviewer),
+        for field, value in (("assessment_id", assessment_id), ("agent_id", agent_id),
+                             ("deep_similarity_id", deep_similarity_id),
+                             ("candidate_id", candidate_id), ("reviewer", reviewer),
                              ("basis", basis), ("evidence", evidence)):
             if not isinstance(value, str) or not value:
                 raise LuantiOutcomeError(f"{field} must be non-empty")
@@ -92,15 +97,27 @@ class LuantiOutcomeCoordinator:
             raise LuantiOutcomeError("L7 requires explicit CandidateRelation RETAIN")
         if payload.get("experience_disposition") != "DEFER":
             raise LuantiOutcomeError("L7 requires explicit Experience DEFER")
-        if not self._sleep_results:
-            raise LuantiOutcomeError("L7 requires an existing Sleep result")
-        sleep_result = list(self._sleep_results.values())[-1]
+        sleep_result = self._sleep_results.get(deep_similarity_id)
+        if sleep_result is None:
+            raise LuantiOutcomeError("unknown deep_similarity_id")
+        if sleep_result.get("agent_id") != agent_id:
+            raise LuantiOutcomeError("Sleep result belongs to a different agent")
         candidate = sleep_result.get("candidate")
         if not isinstance(candidate, dict):
-            raise LuantiOutcomeError("latest Sleep result has no candidate")
+            raise LuantiOutcomeError("selected Sleep result has no candidate")
+        if candidate.get("candidate_id") != candidate_id:
+            raise LuantiOutcomeError("candidate_id does not match selected Sleep result")
+        if candidate.get("agent_id") != agent_id:
+            raise LuantiOutcomeError("candidate belongs to a different agent")
         try:
             projected = project_local_bias_candidate(candidate)
-            experiences = self.experiences.snapshot()["records"]
+            source_ids = set(candidate["source_experience_ids"])
+            experiences = [
+                record for record in self.experiences.snapshot()["records"]
+                if record.get("agent_id") == agent_id and record.get("record_id") in source_ids
+            ]
+            if {record["record_id"] for record in experiences} != source_ids:
+                raise LuantiOutcomeError("candidate Experience provenance is incomplete")
             bundle = canonical.expand_t1_materials(
                 assessment_id=assessment_id,
                 candidates=projected,
@@ -138,12 +155,15 @@ class LuantiOutcomeCoordinator:
         except (ValueError, LocalBiasT1ProjectionError) as exc:
             raise LuantiOutcomeError(str(exc)) from exc
         return {
+            "agent_id": agent_id,
+            "deep_similarity_id": deep_similarity_id,
+            "candidate_id": candidate_id,
             "projected_candidates": deepcopy(projected),
             "bundle": bundle,
             "selection": selection,
             "artifact": artifact,
             "cutover": cutover,
-            "authority": "explicit-L7-cycle-record; not-game-action-authority",
+            "authority": "explicit-agent-scoped-L7-cycle-record; not-game-action-authority",
         }
 
     def snapshot(self) -> dict[str, Any]:

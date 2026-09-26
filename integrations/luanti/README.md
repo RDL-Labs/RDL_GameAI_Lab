@@ -108,3 +108,11 @@ canonical rupture, then explicitly joins them at T1-A. It verifies T1 selection,
 an inactive reconstructed `M_B'`, explicit cutover, parent archive, and a fresh
 `REENTERED` comparison window. The new model is diagnostic authority only; it
 does not become Goal, Trajectory, or action authority.
+
+## L8 Multi-Agent Runtime Boundary
+
+L8 requires explicit agent, Sleep-result, candidate, and assessment identities
+for every T1/cutover request. The Runtime reference verifies independent A/B
+candidate, Experience, model, archive, and `M_delta` state. This is an adapter
+separation result; concurrent autonomous A/B movement in one Luanti World is not
+claimed yet.
