@@ -2,6 +2,14 @@
 
 ## 0. Status
 
+2026-09-26更新: Observation v1 COMPLETE（`8616fe7e`）後、
+[NERV-1/2有限再生契約](../experiment-contracts/NERV_1_2_neural_gradient_projection_contract.md)を次工程として設計した。
+**契約のみ。神経系のruntime実装・受入は未実施。** 固定parameter、純粋なperceived projection、
+検査専用Bias previewに限定する。NERV-3以降の本番接続・自律行動・探索・DNAは保留。
+以下の全面保留・順序は導入時の計画履歴。この限定契約の設計着手は許可されたが、
+M_B-informed behaviorの検証完了や神経系全体の保留解除を意味しない。
+
+
 **FUTURE ROADMAP / DO NOT IMPLEMENT YET**
 
 本稿は、RDL_GameAIにおける将来の神経系・個体差・探索性の実装計画を固定するための文書である。現在の優先実装ではない。
