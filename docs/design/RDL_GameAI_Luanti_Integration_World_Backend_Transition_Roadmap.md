@@ -186,5 +186,7 @@ OBS-6EではRuntime受理後の成功応答をLuanti callbackで破棄し、同�
 new_frames=0で受理、ack後だけpendingから除去する実機回帰を固定した。
 `23d4d2ad`を短いRW2生活試験用の観測基盤の区切りとする。
 次は[解釈・利用側の設計](RDL_GameAI_Sensory_Interpretation_Use_Plan.md)へ戻り、
-比較適格性をOBS-7Aの最小候補とする。7A以降はdesign-onlyであり、
+OBS-7Aの純粋な比較適格性診断と固定replayまでを実装した。
+[OBS-7A Evidence](../experiment-evidence/OBS_7A_comparison_eligibility_evidence.md)で
+合成正例と実Luanti由来の比較不能を区別する。7B/8は保留であり、
 感覚間照合・行動接続・一般的な長期保持を実装済みとは扱わない。

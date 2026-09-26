@@ -1,6 +1,9 @@
 # 感覚観測の解釈・利用への接続計画
 
-状態: DESIGN ONLY / 2026-09-26。次の実装候補はOBS-7A。
+状態: OBS-7Aの純粋診断・replayを実装 / 2026-09-26。OBS-7B/8は保留。
+[実装契約](../experiment-contracts/OBS_7A_comparison_eligibility_contract.md)と
+[Evidence](../experiment-evidence/OBS_7A_comparison_eligibility_evidence.md)を現在の到達点とする。
+以下の提案・予定表現は設計時の記録。7Aの確定した目的・許可表・理由コードは契約を参照。
 基準: `23d4d2ad21a4b2d1ea662875d38572c8b4428bd4`。
 本稿はGameAI-localの設計であり、実装・検証済み機能やCore定義を追加しない。
 
@@ -126,4 +129,4 @@ F/F'の比較適格性を先に定義する。欠落・候補数・方向差を�
 
 OBS-7Aの実装契約で比較目的・許可条件表・理由コードを固定し、純粋診断とreplay試験を実装する。
 Runtimeの行動経路やセンサー生成は変更せず、正例と比較不能の双方をEvidenceに残す。
-この計画では7A以降は未実装・未検証。OBS-6Eの実測結果のみを完了の根拠とする。
+OBS-7Aの実装・検証結果は上記契約とEvidenceへ分離した。7B以降は未実装・未検証として止める。

@@ -1,0 +1,111 @@
+{
+  "provenance": {
+    "kind": "real-luanti-admitted-snapshot-projection",
+    "baseline": "f06c10847379f92545025f40dbac870456aee1bc",
+    "capture_date": "2026-09-26",
+    "source_endpoint": "GET /v1/sensory-observation-snapshot",
+    "selection": "first stored npc_a distant feature and audition detection; frames unmodified",
+    "source_frame_count": 36
+  },
+  "snapshot": {
+    "schema_version": "rdl-sensory-extension-v1",
+    "run_id": "fixture-run-1",
+    "world_epoch": 1,
+    "assignments": {
+      "npc_a": {
+        "profile_id": "fixture-life-sensory",
+        "profile_revision": 1
+      },
+      "npc_b": {
+        "profile_id": "fixture-life-sensory-compact",
+        "profile_revision": 1
+      }
+    },
+    "frames": [
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 0,
+          "kind": "instant",
+          "start_us": 0
+        },
+        "channel": "vision_distant",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "fixture-run-1:1:npc_a:eye:vision_distant:1",
+        "observer_frame_ref": "npc_a:eye-pose:0",
+        "output_limited": false,
+        "payload": {
+          "features": [
+            {
+              "angular_height_band": "unknown",
+              "angular_width_band": "unknown",
+              "azimuth_interval_deg": [
+                0,
+                5
+              ],
+              "color_band": "muted_red",
+              "elevation_interval_deg": [
+                -5,
+                0
+              ],
+              "feature_id": "f0"
+            }
+          ]
+        },
+        "profile_id": "fixture-life-sensory",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 1,
+        "sampled_world_tick": 0,
+        "sensor_id": "eye",
+        "sensor_model_revision": "sampled-surface-v0.2",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 500000,
+          "kind": "interval",
+          "start_us": 250000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "fixture-run-1:1:npc_a:ears:audition:2",
+        "observer_frame_ref": "npc_a:ear-window:2",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                -120,
+                -90
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "npc_a:ear-pose:1",
+              "received_interval_us": [
+                250000,
+                260000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-life-sensory",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 2,
+        "sampled_world_tick": 2,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      }
+    ]
+  }
+}
