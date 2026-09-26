@@ -173,7 +173,7 @@ agent別bufferへ受信し、半開window、音源消失、回転、境界event�
 overlap比で分割し、duplicate closeの冪等化、closed windowへのlate event拒否、8件検出上限時のPARTIAL記録を固定した。
 OBS-5ではp5へagent/channel別の独立取得時刻、姿勢参照、coverage、output limitをGET-only表示した。
 OBS-6では同一Luanti World/RuntimeでRW2生活とA/B別local/distant/auditionを併走し、
-両個体のpickup/deposit/result、実feature/detection、独立取得時刻、拒否0、sensory無効RW2互換を固定した。
+両個体のpickup/deposit/result、実feature/detection、独立取得時刻、意図的拒否1件からの回復、sensory無効RW2互換を固定した。
 遠景と聴覚は単独fixtureと生活統合の双方から同じsensor kernelを利用する。ここでいう互換は
 有限生活Acceptanceの完了を指し、全action列の同一性までは主張しない。
 OBS-6CではWorld初期配置を一度だけにし、音響voxel伝達も共通化した。聴覚windowの確定を
@@ -182,4 +182,9 @@ HTTP配送から分離し、agent別64frameの有限pending queueを介して配
 OBS-6Dではlocal/distant/auditionを同じ有限queueへ置き、1配送を古い順4frame以下に制限した。
 Runtimeの明示sensory receiptがacceptedの場合だけ除去し、拡張拒否・送信前失敗では保持して後続観測へ再配送する。
 4tick見送り、遠景周期との重なり、拒否回復、transport retryを実Luanti回帰へ含めた。
-OBS系列はここで停止し、感覚間照合、行動接続、一般的な長期保持を同時に導入しない。
+OBS-6EではRuntime受理後の成功応答をLuanti callbackで破棄し、同じ4frameの再送を
+new_frames=0で受理、ack後だけpendingから除去する実機回帰を固定した。
+`23d4d2ad`を短いRW2生活試験用の観測基盤の区切りとする。
+次は[解釈・利用側の設計](RDL_GameAI_Sensory_Interpretation_Use_Plan.md)へ戻り、
+比較適格性をOBS-7Aの最小候補とする。7A以降はdesign-onlyであり、
+感覚間照合・行動接続・一般的な長期保持を実装済みとは扱わない。
