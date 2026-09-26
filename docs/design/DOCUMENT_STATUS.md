@@ -49,6 +49,7 @@
 | [Runtime / p5 / Godot実装ロードマップ](RDL_GameAI_Runtime_p5_Godot_実装ロードマップ.md) | active cross-surface roadmap v0.1 | Runtimeを意味論、p5をread-only観測、Godotを統合試験へ固定。F1/F2、Core同期、T1、Dynamic M_B、Godot再統合の順序と停止条件 |
 | [Luanti Integration Roadmap](RDL_GameAI_Luanti_Integration_World_Backend_Transition_Roadmap.md) | active infrastructure roadmap | L0-L2完了。Luantiを主World統合面、Godotをregression fixtureとして保持。L3 Ordinary Foodが次 |
 | [Luanti L0-L2 Bridge contract](../experiment-contracts/LUANTI_L0_L2_bridge_contract.md) | L0-L2 operational reference | Luanti 5.17実機でfinite observation→既存Runtime→approach/pickup→World consequence→next observationを固定 |
+| [Luanti L3 Ordinary Food contract](../experiment-contracts/LUANTI_L3_ordinary_food_contract.md) | L3 operational reference | 既存BaseFoodLifePolicyでLuanti approach→pickup→Base帰還→deposit→causal result admissionを固定。exact stock非漏洩 |
 | [Core 3270982 Authority Sync contract](../experiment-contracts/CORE_3270982_authority_sync_contract.md) | C1 semantic synchronization complete | SILN・履歴、xi、dynamic theta_eff、H、M_delta、T1のGameAI authority境界。Runtime権限追加なし |
 | [Canonical Review Path Projection contract](../experiment-contracts/CANONICAL_review_path_projection_contract.md) | C2 operational diagnostic projection | assessment IDごとにRIB_B/F/RIB_B'/F'/E/review/Hを追跡。candidate系を除外し、p5 GET-only表示 |
 | [Canonical Theta Effective contract](../experiment-contracts/CANONICAL_theta_effective_contract.md) | C3 operational diagnostic evaluation | reviewed Hと独立provenanceのtheta_effを比較。M_delta遷移・T1・action authorityなし |

@@ -53,3 +53,13 @@ visible ordinary_food
 
 The adapter exposes only the configured finite radius and bounded lists. Luanti
 entity references, map state, and hidden objects remain inside the World.
+
+## Verify L3 Ordinary Food
+
+```powershell
+& .\integrations\luanti\scripts\test-l3.ps1 -LuantiRoot D:\luanti
+```
+
+This starts the Runtime with `--base-food-life` and verifies the existing
+Goal/Trajectory policy against real Luanti movement, pickup, return, deposit,
+and causal `/v1/life-result` admission.

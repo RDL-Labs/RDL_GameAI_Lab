@@ -55,6 +55,7 @@ GodotはS4までの実World縦断を証明済みである。F1からDynamic M_B�
 | OGB-9 | Local Bias T1 Projection | mixed candidateをrelation別の独立T1-ready candidateへ投影 | 補助 | 不要 | 完了: 明示T1-A投入、UNINSPECTED、provenance、非自動採用を固定 |
 | NERV-0 | Neural Individuality / Exploration | future contract only。個体差・探索性を少数の神経感度差から創発 | 未着手 | 不要 | DEFERRED / POST-NEURAL: 現行learning loopとM_B-informed behavior後に再評価 |
 | L0-L2 | Luanti World Backend | reproducible boot、finite observation、finite action resolution、next observation | 補助 | regression fixtureへ移行 | 完了: Luanti 5.17実HTTPでapproach→pickupを固定 |
+| L3 | Luanti Ordinary Food | 既存BaseFoodLifePolicyでFood取得・Base帰還・deposit・result admission | 補助 | regression fixture | 完了: exact stock非漏洩、Luanti実HTTP縦断を固定 |
 
 ## 2. 直近の順序
 
@@ -129,7 +130,7 @@ OGB-7 COMPLETE
 OGB-8 COMPLETE
 OGB-9 COMPLETE
 NERV-0 CONTRACT ONLY / NERV-1..9 DEFERRED
-LUANTI L0-L2 COMPLETE / L3 NEXT
+LUANTI L0-L3 COMPLETE / L4 NEXT
 ```
 
 詳細なF1/F2 Acceptanceは[Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md)を正本とする。

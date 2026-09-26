@@ -8,7 +8,8 @@
 L0 Environment Boot      COMPLETE
 L1 Observation Bridge    COMPLETE
 L2 Action Bridge         COMPLETE
-L3+                      PLANNED
+L3 Ordinary Food          COMPLETE
+L4+                       PLANNED
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -88,7 +89,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L0 | repository-owned game/mod、local World、config、launch/test scripts | COMPLETE |
 | L1 | self body、inventory、finite vision、recent eventsの観測bridge | COMPLETE |
 | L2 | finite action request、Luanti resolution、next observation | COMPLETE |
-| L3 | ordinary Foodのobserve→approach→pickup→return→deposit | PLANNED |
+| L3 | ordinary Foodのobserve→approach→pickup→return→deposit | COMPLETE |
 | L4 | tasty Food、God Statue statement、risk region、beast、damage | PLANNED |
 | L5 | Luanti consequence→Experience→Outcome Gradient→Local Bias | PLANNED |
 | L6 | Luanti Experience→Sleep Profile→Deep Similarity→Candidate | PLANNED |
@@ -138,5 +139,5 @@ explorationも対象外とする。
 
 ## 10. 次の停止境界
 
-L0-L2の実往復Evidenceを固定した後に停止する。次はL3 Ordinary Food Vertical
+L3の実往復Evidenceを固定した後に停止する。次はL4 Risky Tasty Food Vertical
 を独立契約として開始する。

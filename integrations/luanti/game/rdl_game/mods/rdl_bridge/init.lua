@@ -4,6 +4,7 @@ if not http then
 end
 
 local runtime_url = core.settings:get("rdl_runtime_url") or "http://127.0.0.1:8765/v1/observe"
+local life_result_url = core.settings:get("rdl_life_result_url") or "http://127.0.0.1:8765/v1/life-result"
 local interval = tonumber(core.settings:get("rdl_bridge_interval")) or 0.25
 local max_visible = 16
 local observation_radius = 12
@@ -15,6 +16,7 @@ local state = {
     in_flight = false,
     revision = 0,
     held_food_ids = {},
+    base_food_stock = 0,
     recent_events = {},
     fixture_ready = false,
 }
@@ -62,6 +64,20 @@ core.register_entity("rdl_bridge:food", {
     end,
 })
 
+core.register_entity("rdl_bridge:base", {
+    initial_properties = {
+        visual = "sprite",
+        textures = {"unknown_node.png"},
+        physical = false,
+        pointable = false,
+        static_save = false,
+    },
+    on_activate = function(self, staticdata)
+        self.rdl_id = staticdata ~= "" and staticdata or "base"
+        self.rdl_kind = "base"
+    end,
+})
+
 local function find_entity(name)
     for _, object in ipairs(core.get_objects_inside_radius({x = 0, y = 1, z = 0}, 64)) do
         local entity = object:get_luaentity()
@@ -84,7 +100,11 @@ local function ensure_fixture()
     if not food and #state.held_food_ids == 0 then
         food = core.add_entity({x = 4, y = 1, z = 0}, "rdl_bridge:food", "ordinary_food_1")
     end
-    if npc and food then
+    local base = find_entity("rdl_bridge:base")
+    if not base then
+        base = core.add_entity({x = 0, y = 1, z = 0}, "rdl_bridge:base", "base")
+    end
+    if npc and food and base then
         state.fixture_ready = true
         push_event("fixture_ready", {agent_id = "npc_a", object_id = "ordinary_food_1"})
         core.log("action", "[rdl_bridge] L0 fixture ready")
@@ -105,6 +125,7 @@ local function build_observation()
         return nil
     end
     local npc_pos = npc:get_pos()
+    local base, base_entity = find_entity("rdl_bridge:base")
     local visible_objects = {}
     for _, object in ipairs(core.get_objects_inside_radius(npc_pos, observation_radius)) do
         local entity = object:get_luaentity()
@@ -123,6 +144,32 @@ local function build_observation()
         end
     end
     table.sort(visible_objects, function(left, right) return left.id < right.id end)
+    local visible_places = {}
+    local at_base = false
+    if base and base_entity then
+        local base_distance = vector.distance(npc_pos, base:get_pos())
+        at_base = base_distance <= reach_distance
+        if base_distance <= observation_radius then
+            table.insert(visible_places, {
+                id = base_entity.rdl_id,
+                kind = base_entity.rdl_kind,
+                relative_position = vector_packet(vector.subtract(base:get_pos(), npc_pos)),
+                distance = rounded(base_distance),
+                within_reach = at_base,
+            })
+        end
+    end
+    local stock_band = state.base_food_stock > 0 and "enough" or "low"
+    local cue = nil
+    if stock_band == "low" then
+        cue = {
+            cue_id = "luanti-morning-base-food-low-1",
+            source = "system_assessment",
+            topic = "base_food",
+            band = "low",
+            delivery = "morning",
+        }
+    end
     return {
         schema_version = "rdl-luanti-observation-v1",
         observation_id = string.format("luanti-%06d-npc_a", state.tick),
@@ -132,10 +179,17 @@ local function build_observation()
             perception_rule = "structured radius <= 12; visible entities <= 16",
             visible_agents = {},
             visible_objects = visible_objects,
-            visible_places = {},
+            visible_places = visible_places,
             visible_regions = {},
             inventory = {held_food_ids = table.copy(state.held_food_ids)},
             recent_events = table.copy(state.recent_events),
+            life_context = {
+                god_statue_cue = cue,
+                observed_base_food_band = stock_band,
+                known_base = {id = "base"},
+                at_base = at_base,
+                interrupt_candidates = {},
+            },
             body = {
                 agent_id = "npc_a",
                 snapshot_id = string.format("luanti-body-%06d", state.tick),
@@ -162,11 +216,41 @@ local function build_observation()
 end
 
 local function target_object(target_id)
-    local object, entity = find_entity("rdl_bridge:food")
-    if entity and entity.rdl_id == target_id then
-        return object, entity
+    for _, name in ipairs({"rdl_bridge:food", "rdl_bridge:base"}) do
+        local object, entity = find_entity(name)
+        if entity and entity.rdl_id == target_id then
+            return object, entity
+        end
     end
     return nil, nil
+end
+
+local function report_life_result(response)
+    local inspection = response.inspection or {}
+    local life = inspection.life or {}
+    local cue = life.cue or {}
+    local payload = {
+        result_id = string.format("luanti-deposit-%06d-npc_a", state.tick),
+        agent_id = "npc_a",
+        source_observation_id = inspection.observation_id,
+        cue_id = cue.cue_id,
+        response = "follow",
+        outcome = "replenish_success",
+    }
+    local body = core.write_json(payload)
+    http.fetch({
+        url = life_result_url,
+        method = "POST",
+        timeout = 3,
+        extra_headers = {"Content-Type: application/json"},
+        data = body,
+    }, function(result)
+        if result.succeeded and result.code == 200 then
+            core.log("action", "[RDL_LUANTI_L3_EVIDENCE] deposit_accepted base=base tick=" .. state.tick)
+        else
+            core.log("error", "[rdl_bridge] life result rejected " .. tostring(result.code) .. ": " .. tostring(result.data))
+        end
+    end)
 end
 
 local function resolve_action(response)
@@ -227,6 +311,21 @@ local function resolve_action(response)
         state.revision = state.revision + 1
         push_event("pickup_succeeded", {target_id = target_id})
         core.log("action", "[RDL_LUANTI_EVIDENCE] pickup_succeeded target=" .. target_id .. " tick=" .. state.tick)
+    elseif action_type == "deposit" then
+        local target = target_object(target_id)
+        if not target or target_id ~= "base" or vector.distance(npc:get_pos(), target:get_pos()) > reach_distance then
+            push_event("deposit_failed", {target_id = target_id, reason = "too_far_or_missing"})
+            return
+        end
+        if #state.held_food_ids == 0 then
+            push_event("deposit_failed", {target_id = target_id, reason = "inventory_empty"})
+            return
+        end
+        local deposited_id = table.remove(state.held_food_ids, 1)
+        state.base_food_stock = state.base_food_stock + 1
+        state.revision = state.revision + 1
+        push_event("deposit_succeeded", {target_id = target_id, object_id = deposited_id})
+        report_life_result(response)
     else
         push_event("action_rejected", {action = action_type, reason = "unsupported_L0_L2_action"})
     end
@@ -246,11 +345,11 @@ local function exchange()
         core.log("error", "[rdl_bridge] observation serialization failed: " .. tostring(error_message))
         return
     end
-    -- Luanti encodes an empty Lua table as an object. These schema fields are
-    -- always arrays, so preserve their JSON type when the bounded set is empty.
+    -- Luanti encodes an empty Lua table as null. These schema fields are always
+    -- arrays, so preserve their JSON type when the bounded set is empty.
     for _, field in ipairs({
         "visible_agents", "visible_objects", "visible_places", "visible_regions",
-        "recent_events", "held_food_ids",
+        "recent_events", "held_food_ids", "interrupt_candidates",
     }) do
         body = body:gsub('(\"' .. field .. '\"%s*:%s*)null', '%1[]')
     end
