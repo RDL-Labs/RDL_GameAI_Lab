@@ -1,6 +1,5 @@
-return function(http, runtime_url, life_result_url, interval)
+return function(http, runtime_url, life_result_url, interval, profile_assignments, sensor_profile_probe)
     local reach_distance = 1.25
-    local observation_radius = 12
     local agents = {
         npc_a = {start = {x = 0, y = 1, z = -3}, food_id = "food_a",
                  food_pos = {x = 4, y = 1, z = -3}, base_id = "base_a",
@@ -14,6 +13,11 @@ return function(http, runtime_url, life_result_url, interval)
         {id = "boundary_agent", position = {x = 13.25, y = 1, z = -3}},
         {id = "outside_agent", position = {x = 13.5, y = 1, z = -3}},
     }
+    if sensor_profile_probe then
+        table.insert(visibility_markers, {
+            id = "profile_probe_agent", position = {x = 10.7894, y = 1, z = 0},
+        })
+    end
     for _, config in pairs(agents) do
         config.in_flight = false
         config.revision = 0
@@ -23,6 +27,9 @@ return function(http, runtime_url, life_result_url, interval)
         config.deposited = false
         config.result_in_flight = false
         config.result_accepted = false
+    end
+    for agent_id, config in pairs(agents) do
+        config.sensor_profile = profile_assignments[agent_id]
     end
 
     local function rounded(value)
@@ -75,6 +82,7 @@ return function(http, runtime_url, life_result_url, interval)
         local npc = find_by_id("rdl_bridge:npc", agent_id)
         if not npc then return nil end
         local npc_pos = npc:get_pos()
+        local observation_radius = config.sensor_profile.vision_local.radius
         local visible_agents = {}
         local function append_visible_agent(other_id, other)
             local delta = vector.subtract(other:get_pos(), npc_pos)

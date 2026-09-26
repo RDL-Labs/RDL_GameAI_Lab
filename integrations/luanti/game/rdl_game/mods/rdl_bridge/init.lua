@@ -102,8 +102,11 @@ core.register_entity("rdl_bridge:base", {
 })
 
 if fixture_mode == "multi_agent_food" then
+    local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
+    local profile_assignments = sensor_profiles.load(core.settings, {"npc_a", "npc_b"})
     local start_multi_agent = dofile(core.get_modpath("rdl_bridge") .. "/multi_agent_food.lua")
-    start_multi_agent(http, runtime_url, life_result_url, interval)
+    start_multi_agent(http, runtime_url, life_result_url, interval, profile_assignments,
+        core.settings:get_bool("rdl_sensor_profile_probe", false))
     return
 end
 

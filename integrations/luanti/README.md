@@ -128,3 +128,14 @@ bounded observations to one Runtime, observe one another, and complete their
 own Food pickup, return, deposit, and causal result admission cycles. The
 fixture uses dedicated Food/Base pairs and adds no resource competition,
 social meaning, Sleep, learning, or M_B-informed behavior.
+
+## Verify OBS-2 Local Sensor Profiles
+
+```powershell
+& .\integrations\luanti\scripts\test-local-sensor-profiles.ps1 -LuantiRoot D:\luanti
+& .\integrations\luanti\scripts\test-invalid-sensor-profile.ps1 -LuantiRoot D:\luanti
+```
+
+The first command keeps the RW2 life loop active while A uses local radius 12
+and B uses radius 8 against an equal-distance probe. The second verifies that
+an unknown profile fails explicitly at Luanti startup.

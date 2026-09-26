@@ -10,8 +10,11 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
     def test_installer_packages_multi_agent_module(self):
         installer = (LUANTI / "scripts" / "install-game.ps1").read_text(encoding="utf-8")
         self.assertIn("multi_agent_food.lua", installer)
+        self.assertIn("sensor_profiles.lua", installer)
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "multi_agent_food.lua").is_file())
+        self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                         "sensor_profiles.lua").is_file())
 
     def test_fixture_has_explicit_mode_and_two_agent_evidence(self):
         config = (LUANTI / "config" / "luanti-multi-agent.conf").read_text(encoding="utf-8")
@@ -30,7 +33,7 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
     def test_packet_admission_checks_observer_relative_radius(self):
         source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                   "multi_agent_food.lua").read_text(encoding="utf-8")
-        self.assertIn("local observation_radius = 12", source)
+        self.assertIn("config.sensor_profile.vision_local.radius", source)
         self.assertGreaterEqual(source.count("if distance <= observation_radius then"), 2)
         self.assertIn('id = "boundary_agent"', source)
         self.assertIn('id = "outside_agent"', source)
@@ -43,6 +46,24 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("config.base_food_stock", source)
         self.assertIn("config.result_accepted", source)
         self.assertIn("life_result_url", source)
+
+    def test_local_vision_uses_validated_agent_profile(self):
+        profile_source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                          "sensor_profiles.lua").read_text(encoding="utf-8")
+        fixture_source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                          "multi_agent_food.lua").read_text(encoding="utf-8")
+        self.assertIn('radius = 12', profile_source)
+        self.assertIn('radius = 8', profile_source)
+        self.assertIn('error("unknown RDL sensor profile', profile_source)
+        self.assertIn("config.sensor_profile.vision_local.radius", fixture_source)
+        invalid_config = (LUANTI / "config" / "luanti-invalid-sensor-profile.conf").read_text(
+            encoding="utf-8"
+        )
+        invalid_script = (LUANTI / "scripts" / "test-invalid-sensor-profile.ps1").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("rdl_sensor_profile_npc_a = unknown-profile", invalid_config)
+        self.assertIn("unknown RDL sensor profile for npc_a: unknown-profile", invalid_script)
 
 
 if __name__ == "__main__":

@@ -29,6 +29,7 @@ from .sleep_consolidation import SleepConsolidationCoordinator
 from .functions.experience_profile import build_experience_profile
 from .mechanisms.fast_retrieval import FastRetrievalStore
 from .luanti_outcome import LuantiOutcomeCoordinator, LuantiOutcomeError
+from .sensory_observation import SensoryObservationStore, split_sensory_extension
 from .v23_food_admission import (
     FoodAdmissionError,
     FoodNeedShadowComparisonSidecar,
@@ -47,6 +48,15 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/sensory-observation-snapshot":
+            store = getattr(self.server, "sensory_observation", None)
+            if store is None:
+                self._send_json(404, {"error": "sensory_observation_disabled"})
+                return
+            with CANONICAL_LOCK:
+                snapshot = store.snapshot()
+            self._send_json(200, snapshot)
+            return
         if self.path == "/v1/luanti-outcome-snapshot":
             coordinator = getattr(self.server, "luanti_outcome", None)
             if coordinator is None:
@@ -237,6 +247,9 @@ class BridgeHandler(BaseHTTPRequestHandler):
         try:
             packet = self._read_json()
             with CANONICAL_LOCK:
+                packet, _sensory_receipt = split_sensory_extension(
+                    packet, getattr(self.server, "sensory_observation", None)
+                )
                 life_policy = getattr(self.server, "life_policy", None)
                 rest_policy = getattr(self.server, "rest_policy", None)
                 safety_policy = getattr(self.server, "safety_policy", None)
@@ -346,6 +359,7 @@ def run(
     sleep_consolidation: bool = False,
     fast_retrieval: bool = False,
     luanti_outcome_learning: bool = False,
+    sensory_observation: bool = False,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -396,6 +410,7 @@ def run(
     )
     server.fast_retrieval = FastRetrievalStore() if fast_retrieval else None
     server.luanti_outcome = LuantiOutcomeCoordinator() if luanti_outcome_learning else None
+    server.sensory_observation = SensoryObservationStore() if sensory_observation else None
     server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_rest_policy = server.life_policy if food_rest_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
@@ -441,6 +456,8 @@ def main() -> None:
                         help="Enable opt-in F1 Activity Fast retrieval snapshots")
     parser.add_argument("--luanti-outcome-learning", action="store_true",
                         help="Enable explicit Luanti consequence to Experience/Gradient/Bias admission")
+    parser.add_argument("--sensory-observation", action="store_true",
+                        help="Enable isolated finite sensory frame validation and snapshots")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -480,7 +497,8 @@ def main() -> None:
         args.base_food_life, cue_responses, threat_profiles, novelty_responses, life_profiles,
         args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory,
         args.food_safety_life, args.food_rest_life, args.rescue_trajectory,
-        args.sleep_consolidation, args.fast_retrieval, args.luanti_outcome_learning)
+        args.sleep_consolidation, args.fast_retrieval, args.luanti_outcome_learning,
+        args.sensory_observation)
 
 
 def _fast_sources(history_snapshot: dict[str, Any], sleep_consolidation,

@@ -17,7 +17,7 @@ L8 Multi-Agent Separation COMPLETE
 L9 p5 Read-Only Trace     COMPLETE
 RW1 Multi-Agent World     COMPLETE
 RW2 Multi-Agent Food Life COMPLETE
-OBS-0..2 Observation Base PLANNED
+OBS-0..2 Observation Base COMPLETE
 OBS-3..6 Extended Senses  PLANNED
 L10                       DEFERRED
 ```
@@ -108,7 +108,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L9 | Luanti長期life traceのp5 read-only表示 | COMPLETE |
 | RW1 | 実Luanti同一World内のNPC A/B独立観測・移動・pickup | COMPLETE |
 | RW2 | 専用Food/BaseによるA/B独立pickup→return→deposit→result | COMPLETE |
-| OBS-0..2 | 個体別SensorProfile、共通frame隔離、既存近景の設定化 | PLANNED |
+| OBS-0..2 | 個体別SensorProfile、共通frame隔離、既存近景の設定化 | COMPLETE |
 | OBS-3..6 | 遠景、最小聴覚、p5表示、統合回帰 | PLANNED |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
@@ -160,6 +160,6 @@ Food/Baseを保ち、両個体がpickup、return、deposit、causal result admis
 一般social AI、Sleep/learning統合を意味しない。
 
 次の実装系列は[Observation System Integration Plan](RDL_GameAI_Observation_System_Integration_Plan.md)
-に従う。初回はOBS-0〜2だけを実装し、既定profileでRW2を維持しつつ、異なる
-近景radiusで個体別観測差が生じるところで停止する。遠景、聴覚、p5表示は別作業、
-感覚間照合と行動接続はさらに後続とする。
+に従う。OBS-0〜2では既定profileでRW2を維持し、異なる近景radiusによる個体別
+観測差までを実装して停止した。次は独立作業のOBS-3遠景であり、聴覚、p5表示、
+感覚間照合、行動接続を同時に導入しない。

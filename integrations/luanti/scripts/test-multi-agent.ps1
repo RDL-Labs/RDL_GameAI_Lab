@@ -1,6 +1,10 @@
 param(
     [string]$LuantiRoot = "D:\luanti",
-    [int]$TimeoutSeconds = 25
+    [int]$TimeoutSeconds = 25,
+    [string]$ConfigPath = "",
+    [int]$ExpectedAVisible = 2,
+    [int]$ExpectedBVisible = 1,
+    [string]$ResultLabel = "MULTI LIFE PASS"
 )
 
 $ErrorActionPreference = "Stop"
@@ -14,6 +18,7 @@ $runtimeErr = Join-Path $outputPath "runtime-multi-$runId.stderr.log"
 $luantiOut = Join-Path $outputPath "luanti-multi-$runId.stdout.log"
 $luantiErr = Join-Path $outputPath "luanti-multi-$runId.stderr.log"
 $luantiLog = Join-Path $outputPath "luanti-multi-$runId.log"
+if (-not $ConfigPath) { $ConfigPath = Join-Path $integrationRoot "config\luanti-multi-agent.conf" }
 
 New-Item -ItemType Directory -Force -Path $outputPath,$worldPath | Out-Null
 & (Join-Path $PSScriptRoot "install-game.ps1") -LuantiRoot $LuantiRoot
@@ -38,7 +43,7 @@ try {
 
     $luantiArgs = @(
         "--server", "--gameid", "rdl_game", "--world", $worldPath,
-        "--config", (Join-Path $integrationRoot "config\luanti-multi-agent.conf"),
+        "--config", $ConfigPath,
         "--logfile", $luantiLog, "--color", "never"
     )
     $luanti = Start-Process -FilePath (Join-Path $LuantiRoot "bin\luanti.exe") `
@@ -81,13 +86,13 @@ try {
     }
     $aVisible = [int]$snapshot.latest_sections.npc_a.values.visible_agents_count
     $bVisible = [int]$snapshot.latest_sections.npc_b.values.visible_agents_count
-    if ($aVisible -ne 2) {
-        throw "npc_a must see inside npc_b and boundary_agent, but not outside_agent: $aVisible"
+    if ($aVisible -ne $ExpectedAVisible) {
+        throw "npc_a visible-agent count mismatch: expected $ExpectedAVisible, got $aVisible"
     }
-    if ($bVisible -ne 1) {
-        throw "npc_b must see only inside npc_a at the final position: $bVisible"
+    if ($bVisible -ne $ExpectedBVisible) {
+        throw "npc_b visible-agent count mismatch: expected $ExpectedBVisible, got $bVisible"
     }
-    Write-Output "MULTI LIFE PASS: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:$aVisible,B:$bVisible"
+    Write-Output "${ResultLabel}: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:$aVisible,B:$bVisible"
 } finally {
     if ($luanti -and -not $luanti.HasExited) { Stop-Process -Id $luanti.Id -Force; $luanti.WaitForExit() }
     if ($runtime -and -not $runtime.HasExited) { Stop-Process -Id $runtime.Id -Force; $runtime.WaitForExit() }
