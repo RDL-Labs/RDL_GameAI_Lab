@@ -21,7 +21,8 @@ OBS3 PASS: frames=2 visible_first=1 visible_after_turn=0 occluded_hidden=true
 ```
 
 The first accepted frame contained only the unoccluded `muted_red` coarse
-feature. A dark fixed object behind an opaque wall was not emitted. The fixture
+feature. A dark fixed object at `z=13` behind an opaque wall immediately before
+it at `z=12` was not emitted. The fixture
 then turned the same observer by 180 degrees; the second accepted frame had no
 features. The stored frames contained none of `world_position`, `distance`,
 `target_id`, or fixture object names, and the Runtime rejection count remained
@@ -29,12 +30,16 @@ zero.
 
 The singlenode fixture explicitly constructs only the finite voxel corridor
 needed by this test. Ray traversal treats unavailable voxels as incomplete and
-does not emit such a sample as evidence.
+does not emit such a sample as evidence. OBS-3 records that attempt only in the
+Luanti diagnostic log and retries it; a Runtime `PARTIAL` frame is not yet
+claimed.
 
 ## Automated Checks
 
 - full Python suite: `322` tests passed, `46` intentionally skipped
 - strict Runtime schema accepts only coarse observer-local feature fields
+- unhashable enum-shaped inputs are normalized to extension rejection while the
+  valid legacy HTTP decision continues
 - exact coordinates, distance, and target IDs are rejected
 - Luanti package/config/harness assets are tracked
 - the channel remains opt-in under `fixture-distant-enabled`
@@ -45,4 +50,6 @@ changed by the new channel.
 
 OBS-3 establishes distant observation only. It does not establish recognition,
 belief, salience, goal formation, trajectory selection, or action change.
+Angular size remains unknown, and A/B pose differences or concurrent RW2 life
+with distant vision have not been validated by this dedicated fixture.
 

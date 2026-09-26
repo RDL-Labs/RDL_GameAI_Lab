@@ -244,8 +244,6 @@ class SensoryObservationTests(unittest.TestCase):
                 server.server_close()
 
     def test_http_invalid_extension_keeps_legacy_path_running(self):
-        observed = packet("obs-invalid")
-        observed["observation"]["sensory_extension"] = {"untrusted": True}
         store = SensoryObservationStore()
         with patch.object(bridge, "EXPERIENCE", InteractionHistory()), patch.object(
             bridge, "CANONICAL_SIDECAR", GameAIFrozenComparisonSidecar()
@@ -256,12 +254,29 @@ class SensoryObservationTests(unittest.TestCase):
             thread.start()
             base = f"http://127.0.0.1:{server.server_port}"
             try:
-                request = Request(base + "/v1/observe", json.dumps(observed).encode(),
-                                  {"Content-Type": "application/json"})
-                with urlopen(request, timeout=3) as response:
-                    self.assertEqual(json.load(response), decide_action(packet("obs-invalid")))
-                self.assertEqual(store.snapshot()["rejection_count"], 1)
-                self.assertEqual(bridge.CANONICAL_SIDECAR.snapshot()["captures"], 1)
+                invalid_extensions = [{"untrusted": True}]
+                for field, value in (("channel", []), ("status", {})):
+                    invalid = extension(packet())
+                    invalid["frames"][0][field] = value
+                    invalid_extensions.append(invalid)
+                invalid = distant_extension(packet())
+                invalid["frames"][0]["profile_id"] = "fixture-sensor-default"
+                invalid["frames"][0]["payload"]["features"][0]["color_band"] = []
+                invalid_extensions.append(invalid)
+
+                for index, invalid_extension in enumerate(invalid_extensions):
+                    observed = packet(f"obs-invalid-{index}", tick=index + 1)
+                    invalid_extension["delivery_observation_id"] = observed["observation_id"]
+                    invalid_extension["delivery_world_tick"] = observed["tick"]
+                    observed["observation"]["sensory_extension"] = invalid_extension
+                    request = Request(base + "/v1/observe", json.dumps(observed).encode(),
+                                      {"Content-Type": "application/json"})
+                    with self.subTest(index=index), urlopen(request, timeout=3) as response:
+                        self.assertEqual(json.load(response), decide_action(
+                            packet(f"obs-invalid-{index}", tick=index + 1)))
+                self.assertEqual(store.snapshot()["rejection_count"], 4)
+                self.assertEqual(store.snapshot()["count"], 0)
+                self.assertEqual(bridge.CANONICAL_SIDECAR.snapshot()["captures"], 4)
             finally:
                 server.shutdown()
                 thread.join()

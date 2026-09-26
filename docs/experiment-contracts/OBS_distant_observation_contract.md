@@ -28,12 +28,17 @@ coordinates, source object IDs, names, and persistent identity are forbidden.
 Range and field-of-view checks use the observer's current local frame. Fixed
 opaque World nodes block a candidate. An unavailable or `ignore` voxel makes
 the sample incomplete; it is never treated as transparent. The reference
-fixture retries an incomplete sample rather than recording absence as fact.
+fixture logs and retries an incomplete sample rather than recording absence as
+fact. OBS-3 does not yet persist that incomplete attempt as a Runtime frame.
 
 The fixture is deliberately narrow: one visible muted-red fixed object, one
-dark fixed object hidden by an opaque wall, and a later observer turn. It is
+dark fixed object hidden by an opaque wall immediately before its target voxel,
+and a later observer turn. It is
 not general vision, image recognition, object identity, memory fusion, route
 selection, or action authority.
+
+Angular width and height remain `unknown` in this reference. Per-agent A/B
+pose differences and concurrent RW2 life plus distant vision are not claimed.
 
 ## Acceptance
 

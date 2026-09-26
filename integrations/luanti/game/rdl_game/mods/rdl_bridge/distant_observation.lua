@@ -21,10 +21,16 @@ return function(http, runtime_url, interval, profile)
         local delta = vector.subtract(target, eye)
         local distance = vector.length(delta)
         local direction = vector.normalize(delta)
-        local steps = math.min(128, math.floor((distance - 1.25) / 0.5))
+        local target_node = vector.round(target)
+        local steps = math.min(128, math.ceil(distance / 0.5))
         for index = 1, steps do
-            local point = vector.add(eye, vector.multiply(direction, index * 0.5))
-            local node = core.get_node_or_nil(vector.round(point))
+            local node_position = vector.round(
+                vector.add(eye, vector.multiply(direction, index * 0.5)))
+            if node_position.x == target_node.x and node_position.y == target_node.y and
+                    node_position.z == target_node.z then
+                return false
+            end
+            local node = core.get_node_or_nil(node_position)
             if not node or node.name == "ignore" then return nil end
             if node.name ~= "air" then return true end
         end
@@ -129,7 +135,7 @@ return function(http, runtime_url, interval, profile)
         local forward = core.yaw_to_dir(0)
         local right = {x = forward.z, y = 0, z = -forward.x}
         local dark = vector.round(vector.add({x = 0, y = 1, z = 0}, vector.multiply(forward, 13)))
-        local wall = vector.round(vector.add({x = 0, y = 1, z = 0}, vector.multiply(forward, 7)))
+        local wall = vector.round(vector.add({x = 0, y = 1, z = 0}, vector.multiply(forward, 12)))
         local red = vector.round(vector.add(
             vector.add({x = 0, y = 1, z = 0}, vector.multiply(forward, 13)),
             vector.multiply(right, 3)))

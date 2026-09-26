@@ -149,6 +149,8 @@ def _validate_extension(packet, extension, assignments, expected_run_id, expecte
     if extension["schema_version"] != SCHEMA_VERSION:
         raise ObservationError("unsupported sensory extension schema")
     agent_id = packet.get("agent_id")
+    _nonempty(agent_id, "sensory packet agent_id")
+    _nonempty(extension["agent_id"], "sensory extension agent_id")
     if extension["agent_id"] != agent_id or agent_id not in assignments:
         raise ObservationError("sensory extension agent/profile assignment mismatch")
     if extension["delivery_observation_id"] != packet.get("observation_id"):
@@ -183,10 +185,11 @@ def _validate_frame(frame, extension, assignment):
         _nonempty(frame[name], f"sensory {name}")
     if frame["agent_id"] != extension["agent_id"]:
         raise ObservationError("sensory frame agent does not match delivery agent")
-    if frame["channel"] not in CHANNELS:
-        raise ObservationError("unsupported sensory channel")
+    _enum(frame["channel"], CHANNELS, "sensory channel")
     if frame["channel"] == "audition":
         raise ObservationError("audition is planned but not enabled before OBS-4")
+    _nonempty(frame["profile_id"], "sensory profile_id")
+    _integer(frame["profile_revision"], "sensory profile_revision", minimum=1)
     profile = (frame["profile_id"], frame["profile_revision"])
     if profile not in PROFILE_REGISTRY or profile != assignment:
         raise ObservationError("sensory frame profile is not assigned to agent")
@@ -197,16 +200,15 @@ def _validate_frame(frame, extension, assignment):
     window = frame["capture_window"]
     if not isinstance(window, dict) or set(window) != {"kind", "start_us", "end_us"}:
         raise ObservationError("invalid sensory capture window")
-    if window["kind"] not in {"instant", "interval"}:
-        raise ObservationError("unsupported sensory capture window kind")
+    _enum(window["kind"], {"instant", "interval"}, "sensory capture window kind")
     _integer(window["start_us"], "sensory start_us", minimum=0)
     _integer(window["end_us"], "sensory end_us", minimum=0)
     if window["start_us"] > window["end_us"] or window["end_us"] > extension["delivery_time_us"]:
         raise ObservationError("invalid sensory capture time ordering")
     if window["kind"] == "instant" and window["start_us"] != window["end_us"]:
         raise ObservationError("instant sensory capture must have zero duration")
-    if frame["status"] not in STATUSES or frame["coverage"] not in COVERAGE:
-        raise ObservationError("unsupported sensory status or coverage")
+    _enum(frame["status"], STATUSES, "sensory status")
+    _enum(frame["coverage"], COVERAGE, "sensory coverage")
     if not isinstance(frame["output_limited"], bool) or not isinstance(frame["payload"], dict):
         raise ObservationError("invalid sensory output metadata")
     if frame["channel"] == "vision_local":
@@ -224,6 +226,11 @@ def _validate_frame(frame, extension, assignment):
 def _nonempty(value, name):
     if not isinstance(value, str) or not value or len(value) > 128:
         raise ObservationError(f"{name} must be a bounded non-empty string")
+
+
+def _enum(value, allowed, name):
+    if not isinstance(value, str) or value not in allowed:
+        raise ObservationError(f"unsupported {name}")
 
 
 def _validate_distant_payload(payload):
@@ -246,12 +253,13 @@ def _validate_distant_payload(payload):
                         for value in interval) or interval[0] > interval[1] or
                     interval[0] < -180 or interval[1] > 180):
                 raise ObservationError(f"vision_distant {field} is invalid")
-        if feature["angular_width_band"] not in {"unknown", "small", "medium", "large"}:
-            raise ObservationError("vision_distant angular_width_band is invalid")
-        if feature["angular_height_band"] not in {"unknown", "small", "medium", "large"}:
-            raise ObservationError("vision_distant angular_height_band is invalid")
-        if feature["color_band"] not in {"dark_gray", "muted_red", "unknown"}:
-            raise ObservationError("vision_distant color_band is invalid")
+        size_bands = {"unknown", "small", "medium", "large"}
+        _enum(feature["angular_width_band"], size_bands,
+              "vision_distant angular_width_band")
+        _enum(feature["angular_height_band"], size_bands,
+              "vision_distant angular_height_band")
+        _enum(feature["color_band"], {"dark_gray", "muted_red", "unknown"},
+              "vision_distant color_band")
 
 
 def _integer(value, name, minimum):
