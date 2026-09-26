@@ -15,6 +15,7 @@ L6 Sleep / Deep Candidate COMPLETE
 L7 Dynamic M_B Cycle      COMPLETE
 L8 Multi-Agent Separation COMPLETE
 L9 p5 Read-Only Trace     COMPLETE
+RW1 Multi-Agent World     COMPLETE
 L10                       DEFERRED
 ```
 
@@ -102,6 +103,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L7 | Candidate→T1-A/B/C→M_B'→cutover→REENTERED | COMPLETE |
 | L8 | NPC A/BのExperience・Bias・Candidate・M_B分離 | COMPLETE |
 | L9 | Luanti長期life traceのp5 read-only表示 | COMPLETE |
+| RW1 | 実Luanti同一World内のNPC A/B独立観測・移動・pickup | COMPLETE |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
 ## 6. Repository Boundary
@@ -145,7 +147,7 @@ explorationも対象外とする。
 
 ## 10. 次の停止境界
 
-L9でLuanti由来のExperience、Bias、Sleep、Candidate、T1、active modelを
-選択agent単位でp5へread-only表示した。欠落段階と未公開World位置は補完しない。
-次のL10 `M_B`-informed behaviorは保留を維持する。実Luanti World内の複数自律
-entity同時生活も、別のrich-World統合検証として残す。
+L9でLuanti由来の内部状態をagent単位でp5へread-only表示した。RW1では実Luanti
+同一WorldにA/Bを置き、別packet、相互のbounded visibility、別Foodへのapproach /
+pickup、canonical latest section分離を固定した。次のL10 `M_B`-informed behavior
+は保留を維持する。RW1は一般social AI、生活統合、複数個体learningを意味しない。

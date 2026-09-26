@@ -101,6 +101,12 @@ core.register_entity("rdl_bridge:base", {
     end,
 })
 
+if fixture_mode == "multi_agent_food" then
+    local start_multi_agent = dofile(core.get_modpath("rdl_bridge") .. "/multi_agent_food.lua")
+    start_multi_agent(http, runtime_url, interval)
+    return
+end
+
 local function find_entity(name)
     for _, object in ipairs(core.get_objects_inside_radius({x = 0, y = 1, z = 0}, 64)) do
         local entity = object:get_luaentity()

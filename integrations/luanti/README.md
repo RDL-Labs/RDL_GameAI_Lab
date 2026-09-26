@@ -116,3 +116,14 @@ for every T1/cutover request. The Runtime reference verifies independent A/B
 candidate, Experience, model, archive, and `M_delta` state. This is an adapter
 separation result; concurrent autonomous A/B movement in one Luanti World is not
 claimed yet.
+
+## Verify RW1 Multi-Agent World
+
+```powershell
+& .\integrations\luanti\scripts\test-multi-agent.ps1 -LuantiRoot D:\luanti
+```
+
+This starts two NPC bodies in one real Luanti World. A and B send independent
+bounded observations to one Runtime, observe one another, and approach/pick up
+their own Food targets. The fixture reuses existing action policy and adds no
+social meaning, learning, or M_B-informed behavior.
