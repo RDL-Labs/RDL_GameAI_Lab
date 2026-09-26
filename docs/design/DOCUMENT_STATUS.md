@@ -9,6 +9,7 @@
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
+| [NERV-3 Neural Bias Admission contract](../experiment-contracts/NERV_3_neural_bias_admission_contract.md) | design-only / acceptance not run | 明示opt-in、atomic受付・冪等再送、専用Bias保存とSleep入力profile。Candidate・T1・行動は保留 |
 | [NERV-1/2 Neural Gradient contract](../experiment-contracts/NERV_1_2_neural_gradient_projection_contract.md) | pure replay / shadow preview operational | 二軸の有限作用表・15試験PASS。[Evidence](../experiment-evidence/NERV_1_2_neural_gradient_projection_evidence.md)。予測誤差・本番Bias・行動接続は未実装 |
 | [神経](RDL_GameAI_神経パラメーター設計図.md) | current design / status unclear | 操作的ラベル・DNA μ/σ・動的状態・派生感度。design-only |
 | [Neural Individuality / Exploration Future Roadmap](RDL_GameAI_Neural_Individuality_Exploration_Future_Roadmap.md) | NERV-0 future roadmap / contract only | 少数の神経感度差から個体差・探索性を創発させる将来順序。NERV-1/2の純粋再生・shadow previewを検証済み。NERV-3..9は保留、本番学習経路は非変更 |

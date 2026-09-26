@@ -2,6 +2,9 @@
 
 ## 0. Status
 
+次工程: [NERV-3明示接続契約](../experiment-contracts/NERV_3_neural_bias_admission_contract.md)を設計済み。
+未実装・受入未実施。神経由来Biasの保存とSleep入力profileまでとし、Candidate以降は保留。
+
 2026-09-26更新: Observation v1 COMPLETE（`8616fe7e`）後、
 [NERV-1/2有限再生契約](../experiment-contracts/NERV_1_2_neural_gradient_projection_contract.md)の有限再生を実装・検証した。
 **NERV-1/2とshadow Bias previewは15試験PASS。**
