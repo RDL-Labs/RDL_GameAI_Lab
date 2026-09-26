@@ -5,8 +5,10 @@ end
 
 local runtime_url = core.settings:get("rdl_runtime_url") or "http://127.0.0.1:8765/v1/observe"
 local life_result_url = core.settings:get("rdl_life_result_url") or "http://127.0.0.1:8765/v1/life-result"
+local territory_result_url = core.settings:get("rdl_territory_result_url") or "http://127.0.0.1:8765/v1/luanti-territory-result"
 local interval = tonumber(core.settings:get("rdl_bridge_interval")) or 0.25
 local fixture_mode = core.settings:get("rdl_fixture_mode") or "ordinary_food"
+local outcome_learning_enabled = core.settings:get_bool("rdl_outcome_learning", false)
 local max_visible = 16
 local observation_radius = 12
 local reach_distance = 1.25
@@ -20,6 +22,7 @@ local state = {
     base_food_stock = 0,
     injury_level = "none",
     territory_steps = 0,
+    territory_result_reported = false,
     recent_events = {},
     fixture_ready = false,
 }
@@ -275,6 +278,43 @@ local function build_observation()
     }
 end
 
+local function report_territory_result(event)
+    if state.territory_result_reported then
+        return
+    end
+    local payload = {
+        event = event,
+        outcome_facts = {
+            food_acquired = false,
+            returned_to_base = false,
+            injury_level = "medium",
+            reward_value = "ZERO",
+        },
+    }
+    local body, error_message = core.write_json(payload)
+    if not body then
+        core.log("error", "[rdl_bridge] territory result serialization failed: " .. tostring(error_message))
+        return
+    end
+    state.territory_result_reported = true
+    http.fetch({
+        url = territory_result_url,
+        method = "POST",
+        timeout = 3,
+        extra_headers = {"Content-Type: application/json"},
+        data = body,
+    }, function(result)
+        if not result.succeeded or result.code ~= 200 then
+            state.territory_result_reported = false
+            core.log("error", "[rdl_bridge] territory result response " .. tostring(result.code))
+            return
+        end
+        local response = core.parse_json(result.data)
+        local bias_count = response and response.biases and #response.biases or 0
+        core.log("action", "[RDL_LUANTI_L5_EVIDENCE] experience_gradient_bias accepted=true biases=" .. bias_count)
+    end)
+end
+
 local function resolve_territory(npc, target_id)
     if fixture_mode ~= "risky_tasty" or target_id ~= "tasty_food" then
         return
@@ -304,9 +344,10 @@ local function resolve_territory(npc, target_id)
         response = "chase"
         outcome = "chased"
     end
-    push_event("territory_fact", {
+    local event = {
         event_id = string.format("luanti-territory-%06d", state.tick),
         schema = "territory-beast-fact-event-v1",
+        tick = state.tick,
         agent_id = "npc_a",
         beast_id = "beast_1",
         territory_id = "north_grove",
@@ -314,12 +355,26 @@ local function resolve_territory(npc, target_id)
         beast_response = response,
         proximity = distance <= 2 and "close" or "within_territory",
         outcome = outcome,
-        injury_level = response == "attack" and "medium" or "none",
-        forced_retreat = response == "attack",
-    })
+        world_consequence = response == "attack" and {
+            injury_level = "medium",
+            forced_retreat = true,
+            incapacitated = false,
+        } or nil,
+        interaction_context = {
+            action = "approach",
+            food_id = "tasty_food",
+            food_desirability_fixture = "HIGH",
+            territory_id = "north_grove",
+        },
+        authority = "World-interaction-fact; not-danger-belief-Experience-H-theta-M_delta-or-action",
+    }
+    push_event("territory_fact", event)
     core.log("action", "[rdl_bridge] territory_response=" .. response .. " tick=" .. state.tick)
     if response == "attack" then
         core.log("action", "[RDL_LUANTI_L4_EVIDENCE] warning_chase_attack injury=medium forced_retreat=true tick=" .. state.tick)
+        if outcome_learning_enabled then
+            report_territory_result(event)
+        end
     end
 end
 

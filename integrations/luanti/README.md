@@ -75,3 +75,14 @@ It verifies a sourced God Statue statement, visible tasty Food and beast,
 finite territory relations, and Luanti-owned `warning -> chase -> attack`
 resolution ending in medium injury and forced retreat. L4 does not admit an
 Experience or create a Local Bias.
+
+## Verify L5 Outcome Learning
+
+```powershell
+& .\integrations\luanti\scripts\test-l5.ps1 -LuantiRoot D:\luanti
+```
+
+This enables the explicit Luanti outcome adapter and verifies the real attack
+fact through the existing Territory Experience, Outcome Gradient, and Local Bias
+stores. It forms three relation-local negative biases without changing action or
+canonical authority.

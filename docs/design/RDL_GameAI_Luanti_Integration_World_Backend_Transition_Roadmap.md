@@ -10,7 +10,8 @@ L1 Observation Bridge    COMPLETE
 L2 Action Bridge         COMPLETE
 L3 Ordinary Food          COMPLETE
 L4 Risky Tasty Food       COMPLETE
-L5+                       PLANNED
+L5 Outcome Learning       COMPLETE
+L6+                       PLANNED
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -92,7 +93,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L2 | finite action request、Luanti resolution、next observation | COMPLETE |
 | L3 | ordinary Foodのobserve→approach→pickup→return→deposit | COMPLETE |
 | L4 | tasty Food、God Statue statement、territory relation、beast、warning/chase/attack、damage | COMPLETE |
-| L5 | Luanti consequence→Experience→Outcome Gradient→Local Bias | PLANNED |
+| L5 | Luanti consequence→Experience→Outcome Gradient→Local Bias | COMPLETE |
 | L6 | Luanti Experience→Sleep Profile→Deep Similarity→Candidate | PLANNED |
 | L7 | Candidate→T1-A/B/C→M_B'→cutover→REENTERED | PLANNED |
 | L8 | NPC A/BのExperience・Bias・Candidate・M_B分離 | PLANNED |
@@ -140,5 +141,6 @@ explorationも対象外とする。
 
 ## 10. 次の停止境界
 
-L4のWorld consequence Evidenceを固定した。次はL5でLuanti consequenceを
-agent-owned Experienceへ明示変換し、既存Outcome Gradient / Local Biasへ接続する。
+L5でLuanti consequenceからagent-owned Experience、Outcome Gradient、Local
+Biasまでを固定した。次はL6で同じ材料をSleep Profile、Deep Similarity、shadow
+Candidateへ接続する。

@@ -319,3 +319,8 @@ canonical authority cutover
 ```
 
 Finite assessment requires explicit reviewer, basis, and evidence. Nonzero E alone is insufficient for H. Snapshot `assessment.retained_H` sums the latest reviewed residuals per dimension within each exact context/model, then takes local L2. Re-review replaces a contribution; explicit resolution removes it. There is no time decay, signed cancellation, cross-context total, or restart persistence. The contract specifies retention limits and repeated-event accounting.
+Luanti L5 can opt into `--luanti-outcome-learning`. A physical Territory attack
+is admitted at `POST /v1/luanti-territory-result` and inspected through
+`GET /v1/luanti-outcome-snapshot`. This reuses the existing Territory Experience,
+Outcome Gradient, and Local Bias stores; it does not alter action authority or
+the canonical sidecar.
