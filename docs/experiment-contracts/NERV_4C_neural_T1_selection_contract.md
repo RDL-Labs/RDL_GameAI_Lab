@@ -1,6 +1,7 @@
 # NERV-4C 神経由来relationの有限検査・選別契約
 
-状態: **DESIGN ONLY / 未実装・受入未実施** / 2026-09-27。
+状態: **IMPLEMENTED / N4C-01〜10 PASS** / 2026-09-27。
+[受入Evidence](../experiment-evidence/NERV_4C_neural_T1_selection_evidence.md)。
 基準: `f9849fe4`。[前段Evidence](../experiment-evidence/NERV_4B_neural_T1_boundary_evidence.md)。
 
 ## 1. 用途と停止点
@@ -38,7 +39,7 @@ RETAIN/REJECTの正例には、この意味を明示した専用Pythonモデルf
 
 ## 4. 形成用と検査用の経験を分離する
 
-入力案は、凍結済みNERV-4B bundle、NERV-3材料、元candidate_request、
+入力は、凍結済みNERV-4B bundle、NERV-3材料、元candidate_request、
 明示した検査Experience ID、対象モデル、対応記述、reviewer/expected_revision。
 NERV-4Bの準備を再実行し、bundle内の親結果・子材料・bindingと照合する。
 任意のCandidateや「検査済み」と書いた辞書を信用しない。
@@ -71,6 +72,11 @@ raw/neural対応を検査するためにWorldへ問い合わせない。
 | 全検査経験が同じ対応条件で比較可能、Candidateの方向・強度と全件一致 | RETAIN / recurrence_within_declared_scope |
 | 全検査経験が比較可能で、少なくとも1件で方向または強度が不一致 | REJECT / recurrence_counterexample |
 
+現行取得adapterはbool取得結果から必ず非zeroの強度3を出し、全許可神経parameterでその取得relationが残る。
+したがってこのrelationのraw zero/神経抑制は、現行の正当な入力では生じない。
+合成zero等がoutcome_factsと食い違う場合は規則不整合として入力拒否し、DEFERへ紛れ込ませない。
+初版の比較不能正例は文脈差・対応不足・検査経験不足で検証する。
+
 一件不一致があっても別の検査経験が比較不能なら全体DEFERとし、不一致自体は診断へ残す。
 完全に検査できた集合に対する許容不一致数0の規則であり、少数の一致による多数決ではない。
 複数理由を保持する。検査結果には比較完了フラグ、各組の結果、形成支持数と検査件数を別々に記録する。
@@ -79,11 +85,11 @@ REJECTでも履歴・Bias・Candidateは削除せず、RETAINでも対象の一�
 
 ## 6. 純粋評価と明示記録
 
-純粋入口案: `evaluate_neural_t1_selection(...)`。
+純粋入口: `evaluate_neural_t1_selection(...)`。
 出力schemaは`nerv-t1-selection-evaluation-v1`。全入力出典、対応記述、規則版、診断、relation別dispositionを返す。
 同じ内容の順序入替で結果IDを変えず、入力やstoreを変更しない。
 
-明示記録入口案: `record_neural_t1_selection(...)`。
+明示記録入口: `record_neural_t1_selection(...)`。
 内部で再評価し、既存`T1MaterialSelectionLedger.inspect`の全材料レビューへ変換する。
 bundleのcanonical4材料は、この局所Food検査では評価対象外として全件DEFER、basisに`canonical_material_out_of_scope`を記録する。
 勝手にRETAINにせず、かといってレビューから欠落させない。
@@ -105,7 +111,7 @@ canonical材料をDEFERにすること自体を、将来にわたる再構成禁
 
 ## 8. 実装時の受入条件
 
-**全件未実施。**
+**全件PASS。** 専用15テスト、全体483件実行＝437 PASS＋46 intentional skip。
 
 | ID | 必須検査 |
 | --- | --- |
@@ -122,3 +128,12 @@ canonical材料をDEFERにすること自体を、将来にわたる再構成禁
 
 Python fixtureによる有限選別を対象とする。実Luanti/HTTP・自律注意・行動差・長期運転は対象外。
 この受入が通っても、実NPCモデルへの神経relation採用や神経系全体の完成とはしない。
+
+## 9. 実装配置と限定
+
+`runtime/neural_selection.py`に評価と明示記録を追加。
+凍結bundleを一時T1-A storeで再構築して全内容を照合し、既存の渡されたstoreは変更しない。
+記録入口は評価結果辞書を直接受付せず毎回再評価する。証拠JSONは各材料のevidenceへ保存する。
+同一run/固定parameterは前段compiler、取得規則は本検査で追加検証する。
+専用モデルfixtureは既存modelのコピーにFood次元と係数を明示宣言した合成入力。
+Food作用断面の取得・canonical解釈の実行を検証したものではない。

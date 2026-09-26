@@ -2,11 +2,12 @@
 
 ## 0. Status
 
-次工程: [NERV-4C選別契約](../experiment-contracts/NERV_4C_neural_T1_selection_contract.md)を設計済み・未実装。
+現在地: [NERV-4C選別契約](../experiment-contracts/NERV_4C_neural_T1_selection_contract.md)を実装し15試験PASS。
+[Evidence](../experiment-evidence/NERV_4C_neural_T1_selection_evidence.md)の有限選別記録まで固定。
 Food acquisitionの対応次元と未使用経験による有限再現検査を定める。現行個数モデルへの対応は補わずDEFER。
-実装時はT1-B選別記録までとし、再構成・M_B更新・行動差は保留する。
+T1-B選別記録までとし、再構成・M_B更新・行動差は保留する。
 
-現在地: [NERV-4B境界契約](../experiment-contracts/NERV_4B_neural_T1_boundary_contract.md)を実装し12試験PASS。
+前段: [NERV-4B境界契約](../experiment-contracts/NERV_4B_neural_T1_boundary_contract.md)を実装し12試験PASS。
 [Evidence](../experiment-evidence/NERV_4B_neural_T1_boundary_evidence.md)の明示T1-A受付まで固定。
 rawとneuralを同一経験由来の根拠として保持し、relation別材料と明示T1-A受付を定める。
 初版の停止点はUNINSPECTED。T1-Bの自動選別、再構成、M_B更新・行動差は含めない。
