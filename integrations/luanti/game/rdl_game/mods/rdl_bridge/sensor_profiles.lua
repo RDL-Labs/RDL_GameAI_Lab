@@ -41,6 +41,34 @@ local profiles = {
             direction_bin_deg = 30, window_us = 250000,
         },
     },
+    ["fixture-life-sensory"] = {
+        profile_id = "fixture-life-sensory", profile_revision = 1,
+        vision_local = {enabled = true, mode = "legacy_radius_v1", radius = 12},
+        vision_distant = {
+            enabled = true, mode = "sampled_surface_v0", range_min_exclusive = 12,
+            range_max_inclusive = 64, horizontal_fov_deg = 90,
+            vertical_fov_deg = 60, angle_bin_deg = 5, sample_every_world_ticks = 4,
+        },
+        audition = {
+            enabled = true, mode = "direct_band_energy_v0", gain = 1,
+            detection_threshold = 0.05, noise_floor = 0.01, noise_ratio = 2,
+            direction_bin_deg = 30, window_us = 250000,
+        },
+    },
+    ["fixture-life-sensory-compact"] = {
+        profile_id = "fixture-life-sensory-compact", profile_revision = 1,
+        vision_local = {enabled = true, mode = "legacy_radius_v1", radius = 12},
+        vision_distant = {
+            enabled = true, mode = "sampled_surface_v0", range_min_exclusive = 12,
+            range_max_inclusive = 64, horizontal_fov_deg = 90,
+            vertical_fov_deg = 60, angle_bin_deg = 5, sample_every_world_ticks = 4,
+        },
+        audition = {
+            enabled = true, mode = "direct_band_energy_v0", gain = 0.25,
+            detection_threshold = 0.05, noise_floor = 0.01, noise_ratio = 2,
+            direction_bin_deg = 30, window_us = 250000,
+        },
+    },
 }
 
 function M.load(settings, agent_ids)

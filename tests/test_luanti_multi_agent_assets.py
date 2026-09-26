@@ -14,6 +14,7 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("distant_observation.lua", installer)
         self.assertIn("audition_observation.lua", installer)
         self.assertIn("audition_receive_window.lua", installer)
+        self.assertIn("life_sensory.lua", installer)
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "multi_agent_food.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
@@ -24,6 +25,25 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
                          "audition_observation.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "audition_receive_window.lua").is_file())
+        self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                         "life_sensory.lua").is_file())
+
+    def test_obs6_fixture_combines_life_and_isolated_sensor_frames(self):
+        source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                  "multi_agent_food.lua").read_text(encoding="utf-8")
+        sensory = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                   "life_sensory.lua").read_text(encoding="utf-8")
+        script = (LUANTI / "scripts" / "test-observation-integration.ps1").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("sensory:attach(packet", source)
+        self.assertIn("record_action_sound", source)
+        self.assertIn('frame(agent_id, "vision_local"', sensory)
+        self.assertIn('"vision_distant"', sensory)
+        self.assertIn('"audition"', sensory)
+        self.assertIn("--sensory-observation", (LUANTI / "scripts" /
+                      "test-multi-agent.ps1").read_text(encoding="utf-8"))
+        self.assertIn("OBS6 LIFE PASS", script)
 
     def test_fixture_has_explicit_mode_and_two_agent_evidence(self):
         config = (LUANTI / "config" / "luanti-multi-agent.conf").read_text(encoding="utf-8")

@@ -4,7 +4,8 @@ param(
     [string]$ConfigPath = "",
     [int]$ExpectedAVisible = 2,
     [int]$ExpectedBVisible = 1,
-    [string]$ResultLabel = "MULTI LIFE PASS"
+    [string]$ResultLabel = "MULTI LIFE PASS",
+    [switch]$SensoryObservation
 )
 
 $ErrorActionPreference = "Stop"
@@ -30,7 +31,15 @@ if (-not (Test-Path -LiteralPath (Join-Path $worldPath "world.mt"))) {
 $runtime = $null
 $luanti = $null
 try {
-    $runtime = Start-Process -FilePath "python" -ArgumentList "-m", "runtime.bridge", "--base-food-life" `
+    $runtimeArgs = @("-m", "runtime.bridge", "--base-food-life")
+    if ($SensoryObservation) {
+        $runtimeArgs += @(
+            "--sensory-observation",
+            "--sensory-profile", "npc_a=fixture-life-sensory",
+            "--sensory-profile", "npc_b=fixture-life-sensory-compact"
+        )
+    }
+    $runtime = Start-Process -FilePath "python" -ArgumentList $runtimeArgs `
         -WorkingDirectory $repoRoot -RedirectStandardOutput $runtimeOut `
         -RedirectStandardError $runtimeErr -WindowStyle Hidden -PassThru
     $deadline = [DateTime]::UtcNow.AddSeconds(5)
@@ -91,6 +100,50 @@ try {
     }
     if ($bVisible -ne $ExpectedBVisible) {
         throw "npc_b visible-agent count mismatch: expected $ExpectedBVisible, got $bVisible"
+    }
+    if ($SensoryObservation) {
+        $sensory = Invoke-RestMethod -Uri "http://127.0.0.1:8765/v1/sensory-observation-snapshot" -TimeoutSec 3
+        if ($sensory.rejection_count -ne 0) {
+            $details = @($sensory.rejections | ForEach-Object { $_.detail }) -join "; "
+            throw "Integrated sensory frames were rejected: $details"
+        }
+        foreach ($agentId in @("npc_a", "npc_b")) {
+            $agentFrames = @($sensory.frames | Where-Object { $_.agent_id -eq $agentId })
+            $channels = @($agentFrames | ForEach-Object { $_.channel } | Sort-Object -Unique)
+            if (($channels -join ",") -ne "audition,vision_distant,vision_local") {
+                throw "Missing integrated channels for ${agentId}: $($channels -join ',')"
+            }
+            foreach ($frame in $agentFrames) {
+                if ($frame.agent_id -ne $agentId) { throw "Cross-agent sensory frame leakage" }
+                if ($frame.capture_window.end_us -gt $frame.sampled_world_tick * 250000) {
+                    throw "Sensory capture time advanced beyond its World tick"
+                }
+            }
+            $distantFeatures = @($agentFrames | Where-Object { $_.channel -eq "vision_distant" } |
+                ForEach-Object { @($_.payload.features) })
+            $auditionDetections = @($agentFrames | Where-Object { $_.channel -eq "audition" } |
+                ForEach-Object { @($_.payload.detections) })
+            if ($distantFeatures.Count -lt 1) { throw "No distant feature was sampled for $agentId" }
+            if ($auditionDetections.Count -lt 1) { throw "No action sound was received for $agentId" }
+        }
+        $latestA = $sensory.latest_by_agent.npc_a
+        $latestB = $sensory.latest_by_agent.npc_b
+        if (-not $latestA.vision_local -or -not $latestA.vision_distant -or -not $latestA.audition -or `
+                -not $latestB.vision_local -or -not $latestB.vision_distant -or -not $latestB.audition) {
+            throw "Latest sensory channels were not independently retained for both agents"
+        }
+        foreach ($agentId in @("npc_a", "npc_b")) {
+            $agentFrames = @($sensory.frames | Where-Object { $_.agent_id -eq $agentId })
+            $localTimes = @($agentFrames | Where-Object { $_.channel -eq "vision_local" } |
+                ForEach-Object { $_.capture_window.end_us })
+            $distantTimes = @($agentFrames | Where-Object { $_.channel -eq "vision_distant" } |
+                ForEach-Object { $_.capture_window.end_us })
+            $localOnly = @($localTimes | Where-Object { $_ -notin $distantTimes })
+            if ($localOnly.Count -lt 1) {
+                throw "Local and periodic distant sample schedules were not independently retained"
+            }
+        }
+        Write-Output "OBS6 SENSORY: agents=2 channels=3 rejections=0 decisions_unchanged=true"
     }
     Write-Output "${ResultLabel}: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:$aVisible,B:$bVisible"
 } finally {

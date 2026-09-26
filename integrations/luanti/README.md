@@ -172,3 +172,15 @@ that accepted receipts still survive an overflow indication. It also splits a
 boundary-crossing sound by overlap, makes duplicate close idempotent, rejects
 late events for frozen windows, and reports detection-output truncation as
 partial rather than complete silence.
+
+Run the OBS-6 integrated life regression with:
+
+```powershell
+& .\integrations\luanti\scripts\test-observation-integration.ps1 -LuantiRoot D:\luanti
+```
+
+This keeps the RW2 Food loop unchanged while attaching agent-owned local,
+periodic distant, and audition frames to the same observation deliveries. It
+checks both agents, real feature/detection presence, independent capture
+schedules, zero sensory rejection, and the ordinary sensory-disabled RW2
+regression. SensorFrames remain read-only inputs to the isolated store.

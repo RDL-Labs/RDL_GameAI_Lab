@@ -114,7 +114,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | OBS-4B | emit時受信、agent別buffer、半開window close、姿勢保持、遅延配送 | COMPLETE |
 | OBS-4C | window跨ぎ分割、close冪等、late拒否、検出上限の欠落記録 | COMPLETE |
 | OBS-5 | p5個体別・感覚別read-only表示、独立取得時刻、欠落状態 | COMPLETE |
-| OBS-6 | RW2生活＋近景＋遠景＋聴覚の統合回帰 | PLANNED |
+| OBS-6 | RW2生活＋近景＋遠景＋聴覚の統合回帰 | COMPLETE |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
 ## 6. Repository Boundary
@@ -172,5 +172,6 @@ Food/Baseを保ち、両個体がpickup、return、deposit、causal result admis
 agent別bufferへ受信し、半開window、音源消失、回転、境界event、遅延配送を一周した。OBS-4Cではwindow跨ぎ音を
 overlap比で分割し、duplicate closeの冪等化、closed windowへのlate event拒否、8件検出上限時のPARTIAL記録を固定した。
 OBS-5ではp5へagent/channel別の独立取得時刻、姿勢参照、coverage、output limitをGET-only表示した。
-次はOBS-6統合回帰であり、
-感覚間照合、行動接続を同時に導入しない。
+OBS-6では同一Luanti World/RuntimeでRW2生活とA/B別local/distant/auditionを併走し、
+両個体のpickup/deposit/result、実feature/detection、独立取得時刻、拒否0、sensory無効RW2互換を固定した。
+OBS系列はここで停止し、感覚間照合、行動接続、一般的な長期保持を同時に導入しない。

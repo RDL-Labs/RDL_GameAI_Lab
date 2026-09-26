@@ -1,4 +1,5 @@
-return function(http, runtime_url, life_result_url, interval, profile_assignments, sensor_profile_probe)
+return function(http, runtime_url, life_result_url, interval, profile_assignments,
+                sensor_profile_probe, obs6_sensory)
     local reach_distance = 1.25
     local agents = {
         npc_a = {start = {x = 0, y = 1, z = -3}, food_id = "food_a",
@@ -30,6 +31,11 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
     end
     for agent_id, config in pairs(agents) do
         config.sensor_profile = profile_assignments[agent_id]
+    end
+    local sensory = nil
+    if obs6_sensory then
+        sensory = dofile(core.get_modpath("rdl_bridge") .. "/life_sensory.lua").new(
+            profile_assignments, interval)
     end
 
     local function rounded(value)
@@ -153,7 +159,7 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
                 delivery = "morning",
             }
         end
-        return {
+        local packet = {
             schema_version = "rdl-luanti-observation-v1",
             observation_id = string.format("luanti-multi-%06d-%s", state.tick, agent_id),
             tick = state.tick,
@@ -189,6 +195,11 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
                 authority = "finite-world-observation-only",
             },
         }
+        if sensory then
+            sensory:attach(packet, agent_id, npc,
+                #visible_agents + #visible_objects + #visible_places, state.tick)
+        end
+        return packet
     end
 
     local function report_life_result(agent_id, config, response)
@@ -237,6 +248,7 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
             if not target then return end
             local delta = vector.subtract(target:get_pos(), npc:get_pos())
             local distance = vector.length(delta)
+            npc:set_yaw(core.dir_to_yaw(vector.normalize(delta)))
             if distance > reach_distance then
                 local step = math.min(1.0, distance - reach_distance)
                 npc:set_pos(vector.add(npc:get_pos(), vector.multiply(vector.normalize(delta), step)))
@@ -244,6 +256,13 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
             end
             core.log("action", "[RDL_LUANTI_MULTI] approach agent=" .. agent_id ..
                 " target=" .. action.target_id)
+            if sensory then
+                local npcs = {
+                    npc_a = find_by_id("rdl_bridge:npc", "npc_a"),
+                    npc_b = find_by_id("rdl_bridge:npc", "npc_b"),
+                }
+                sensory:record_action_sound(agent_id, npcs, state.tick)
+            end
         elseif action.type == "pickup" and action.target_id == config.food_id then
             local food = find_by_id("rdl_bridge:food", config.food_id)
             if food and vector.distance(npc:get_pos(), food:get_pos()) <= reach_distance then
@@ -275,7 +294,8 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
         if not body then return end
         for _, field in ipairs({"visible_agents", "visible_objects", "visible_places",
                                 "visible_regions", "recent_events", "held_food_ids",
-                                "external_statements", "interrupt_candidates"}) do
+                                "external_statements", "interrupt_candidates",
+                                "features", "detections"}) do
             body = body:gsub('("' .. field .. '"%s*:%s*)null', '%1[]')
         end
         body = body:gsub('("last_rescue_delivery"%s*:%s*)null', '%1{}')
@@ -307,5 +327,6 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
         exchange("npc_a", agents.npc_a)
         exchange("npc_b", agents.npc_b)
         state.tick = state.tick + 1
+        if sensory then sensory:advance() end
     end)
 end

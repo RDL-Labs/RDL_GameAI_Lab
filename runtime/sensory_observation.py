@@ -19,6 +19,8 @@ PROFILE_REGISTRY = {
     ("fixture-distant-enabled", 1),
     ("fixture-audition-enabled", 1),
     ("fixture-audition-compact", 1),
+    ("fixture-life-sensory", 1),
+    ("fixture-life-sensory-compact", 1),
 }
 
 

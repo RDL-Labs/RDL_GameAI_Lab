@@ -523,6 +523,7 @@ def _parse_sensory_profiles(values):
     known = {
         "fixture-sensor-default", "fixture-local-compact", "fixture-distant-enabled",
         "fixture-audition-enabled", "fixture-audition-compact",
+        "fixture-life-sensory", "fixture-life-sensory-compact",
     }
     result = {}
     for item in values:
