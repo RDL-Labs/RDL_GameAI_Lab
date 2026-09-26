@@ -360,6 +360,8 @@ def run(
     fast_retrieval: bool = False,
     luanti_outcome_learning: bool = False,
     sensory_observation: bool = False,
+    sensory_run_id: str = "fixture-run-1",
+    sensory_world_epoch: int = 1,
 ) -> None:
     if retry_profiles and not history_influence:
         raise ValueError("retry profiles require history influence")
@@ -410,7 +412,9 @@ def run(
     )
     server.fast_retrieval = FastRetrievalStore() if fast_retrieval else None
     server.luanti_outcome = LuantiOutcomeCoordinator() if luanti_outcome_learning else None
-    server.sensory_observation = SensoryObservationStore() if sensory_observation else None
+    server.sensory_observation = SensoryObservationStore(
+        run_id=sensory_run_id, world_epoch=sensory_world_epoch
+    ) if sensory_observation else None
     server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_rest_policy = server.life_policy if food_rest_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
@@ -458,6 +462,10 @@ def main() -> None:
                         help="Enable explicit Luanti consequence to Experience/Gradient/Bias admission")
     parser.add_argument("--sensory-observation", action="store_true",
                         help="Enable isolated finite sensory frame validation and snapshots")
+    parser.add_argument("--sensory-run-id", default="fixture-run-1",
+                        help="Registered run identity for sensory frame admission")
+    parser.add_argument("--sensory-world-epoch", default=1, type=int,
+                        help="Registered positive World epoch for sensory frame admission")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -491,6 +499,8 @@ def main() -> None:
         life_profiles = parse_life_profiles(args.base_food_extreme_profile)
         if life_profiles and not args.base_food_life:
             raise ValueError("--base-food-extreme-profile requires --base-food-life")
+        if args.sensory_world_epoch < 1:
+            raise ValueError("--sensory-world-epoch must be positive")
     except ValueError as exc:
         parser.error(str(exc))
     run(args.host, args.port, args.history_influence, profiles, args.food_mb_shadow,
@@ -498,7 +508,7 @@ def main() -> None:
         args.rest_trajectory, args.rest_rho_candidates, args.safety_trajectory,
         args.food_safety_life, args.food_rest_life, args.rescue_trajectory,
         args.sleep_consolidation, args.fast_retrieval, args.luanti_outcome_learning,
-        args.sensory_observation)
+        args.sensory_observation, args.sensory_run_id, args.sensory_world_epoch)
 
 
 def _fast_sources(history_snapshot: dict[str, Any], sleep_consolidation,

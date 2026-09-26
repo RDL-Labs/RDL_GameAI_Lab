@@ -39,7 +39,7 @@ def extension(observed, frame_id="frame-1", profile_id="fixture-sensor-default")
         "output_limited": False, "payload": {"visible_count": 0},
     }
     return {
-        "schema_version": "rdl-sensory-extension-v1", "run_id": "run-1",
+        "schema_version": "rdl-sensory-extension-v1", "run_id": "fixture-run-1",
         "world_epoch": 1, "agent_id": observed["agent_id"],
         "delivery_observation_id": observed["observation_id"],
         "delivery_world_tick": observed["tick"], "delivery_time_us": 250000,
@@ -64,6 +64,17 @@ class SensoryObservationTests(unittest.TestCase):
         legacy, receipt = split_sensory_extension(observed, None)
         self.assertNotIn("sensory_extension", legacy["observation"])
         self.assertIsNone(receipt)
+
+    def test_invalid_extension_is_diagnosed_without_stopping_legacy_decision(self):
+        for invalid in ({"untrusted": True}, ["not-an-object"]):
+            observed = packet()
+            observed["observation"]["sensory_extension"] = invalid
+            store = SensoryObservationStore()
+            legacy, receipt = split_sensory_extension(observed, store)
+            self.assertFalse(receipt["accepted"])
+            self.assertEqual(decide_action(legacy), decide_action(packet()))
+            self.assertEqual(store.snapshot()["count"], 0)
+            self.assertEqual(store.snapshot()["rejection_count"], 1)
 
     def test_replay_is_idempotent_and_conflict_is_atomic(self):
         observed = packet()
@@ -105,6 +116,43 @@ class SensoryObservationTests(unittest.TestCase):
             with self.subTest(payload=payload), self.assertRaises(ObservationError):
                 store.admit(observed, payload)
             self.assertEqual(store.snapshot()["count"], 0)
+
+    def test_run_epoch_and_latest_order_cannot_cross_or_roll_back(self):
+        observed = packet()
+        store = SensoryObservationStore(run_id="fixture-run-1", world_epoch=1)
+        first = extension(observed)
+        first["frames"][0]["sample_seq"] = 10
+        store.admit(observed, first)
+        before = store.snapshot()
+
+        wrong_run = extension(packet("obs-2", tick=2), frame_id="frame-run")
+        wrong_run["run_id"] = "other-run"
+        wrong_run["delivery_time_us"] = 500000
+        wrong_run["frames"][0]["sampled_world_tick"] = 2
+        wrong_run["frames"][0]["capture_window"] = {
+            "kind": "instant", "start_us": 500000, "end_us": 500000,
+        }
+        wrong_epoch = copy.deepcopy(wrong_run)
+        wrong_epoch["run_id"] = "fixture-run-1"
+        wrong_epoch["world_epoch"] = 2
+        old_sequence = copy.deepcopy(wrong_run)
+        old_sequence["run_id"] = "fixture-run-1"
+        old_sequence["frames"][0]["sample_seq"] = 9
+        old_time = copy.deepcopy(old_sequence)
+        old_time["frames"][0]["sample_seq"] = 11
+        old_time["delivery_time_us"] = 250000
+        old_time["frames"][0]["capture_window"] = {
+            "kind": "instant", "start_us": 249999, "end_us": 249999,
+        }
+        for payload in (wrong_run, wrong_epoch, old_sequence, old_time):
+            with self.subTest(payload=payload), self.assertRaises(ObservationError):
+                store.admit(packet("obs-2", tick=2), payload)
+            self.assertEqual(store.snapshot(), before)
+
+        latest = store.snapshot()["latest_by_agent"]["npc_a"]["vision_local"]
+        self.assertEqual(latest["sample_seq"], 10)
+        self.assertEqual(latest["run_id"], "fixture-run-1")
+        self.assertEqual(latest["world_epoch"], 1)
 
     def test_capacity_rejection_does_not_partially_store(self):
         observed = packet()
@@ -159,6 +207,30 @@ class SensoryObservationTests(unittest.TestCase):
                 self.assertEqual(snapshot["count"], 1)
                 self.assertEqual(snapshot["latest_by_agent"]["npc_a"]["vision_local"]["frame_id"],
                                  "frame-1")
+            finally:
+                server.shutdown()
+                thread.join()
+                server.server_close()
+
+    def test_http_invalid_extension_keeps_legacy_path_running(self):
+        observed = packet("obs-invalid")
+        observed["observation"]["sensory_extension"] = {"untrusted": True}
+        store = SensoryObservationStore()
+        with patch.object(bridge, "EXPERIENCE", InteractionHistory()), patch.object(
+            bridge, "CANONICAL_SIDECAR", GameAIFrozenComparisonSidecar()
+        ):
+            server = ThreadingHTTPServer(("127.0.0.1", 0), bridge.BridgeHandler)
+            server.sensory_observation = store
+            thread = threading.Thread(target=server.serve_forever)
+            thread.start()
+            base = f"http://127.0.0.1:{server.server_port}"
+            try:
+                request = Request(base + "/v1/observe", json.dumps(observed).encode(),
+                                  {"Content-Type": "application/json"})
+                with urlopen(request, timeout=3) as response:
+                    self.assertEqual(json.load(response), decide_action(packet("obs-invalid")))
+                self.assertEqual(store.snapshot()["rejection_count"], 1)
+                self.assertEqual(bridge.CANONICAL_SIDECAR.snapshot()["captures"], 1)
             finally:
                 server.shutdown()
                 thread.join()

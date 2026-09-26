@@ -32,10 +32,16 @@ decisions, strict identity/profile/time/allowlist validation, idempotent replay,
 conflicting replay, atomic capacity rejection, agent/channel snapshots, and the
 read-only GET endpoint.
 
+The reception-boundary regression additionally fixes three conditions before
+OBS-3: an invalid extension is diagnosed while the valid legacy decision and
+canonical capture continue; foreign run/world epoch is rejected against the
+startup context; and a new frame with regressing sequence or capture time is
+rejected without changing `latest_by_agent`.
+
 The invalid-profile fixture verifies that Luanti startup rejects an unregistered
 assignment instead of silently falling back to radius 12.
 
-The repository suite passed with 317 tests and 46 intentional skips. Existing
+The repository suite passed with 320 tests and 46 intentional skips. Existing
 real-Luanti L0-L2, L3, and L7 verticals passed after the observation boundary
 and local profile registry were added.
 
