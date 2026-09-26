@@ -60,7 +60,59 @@ def distant_extension(observed):
     return payload
 
 
+def audition_extension(observed, profile_id="fixture-audition-enabled"):
+    payload = extension(observed, profile_id=profile_id)
+    frame = payload["frames"][0]
+    frame["channel"] = "audition"
+    frame["sensor_id"] = "ears"
+    frame["sensor_model_revision"] = "direct_band_energy_v0"
+    frame["capture_window"] = {"kind": "interval", "start_us": 200000, "end_us": 250000}
+    frame["payload"] = {"detections": [{
+        "detection_id": "d0", "received_interval_us": [210000, 220000],
+        "observer_frame_ref": "npc_a:ear-pose:1",
+        "azimuth_interval_deg": [-15, 15], "elevation_band": "level",
+        "received_strength_band": "weak", "dominant_band": "mid",
+        "temporal_form": "brief",
+    }]}
+    return payload
+
+
 class SensoryObservationTests(unittest.TestCase):
+    def test_audition_payload_is_finite_coarse_and_supports_unavailable(self):
+        observed = packet()
+        store = SensoryObservationStore(assignments={
+            "npc_a": ("fixture-audition-enabled", 1)
+        })
+        payload = audition_extension(observed)
+        self.assertEqual(store.admit(observed, payload)["new_frames"], 1)
+        detection = store.snapshot()["frames"][0]["payload"]["detections"][0]
+        for forbidden in ("source_id", "world_position", "distance", "meaning"):
+            self.assertNotIn(forbidden, detection)
+
+        unavailable = audition_extension(packet("obs-2", tick=2))
+        frame = unavailable["frames"][0]
+        frame["frame_id"] = "audition-unavailable"
+        frame["sample_seq"] = 2
+        frame["sampled_world_tick"] = 2
+        frame["status"] = "UNAVAILABLE"
+        frame["coverage"] = "UNAVAILABLE"
+        frame["payload"] = {"detections": []}
+        unavailable["delivery_observation_id"] = "obs-2"
+        unavailable["delivery_world_tick"] = 2
+        unavailable["delivery_time_us"] = 500000
+        frame["capture_window"] = {"kind": "interval", "start_us": 250000, "end_us": 500000}
+        self.assertEqual(store.admit(packet("obs-2", tick=2), unavailable)["new_frames"], 1)
+
+    def test_audition_rejects_source_leaks_and_invalid_detection_types(self):
+        observed = packet()
+        for field, value in (("source_id", "sound-1"), ("dominant_band", [])):
+            invalid = audition_extension(observed)
+            invalid["frames"][0]["payload"]["detections"][0][field] = value
+            with self.subTest(field=field), self.assertRaises(ObservationError):
+                SensoryObservationStore(assignments={
+                    "npc_a": ("fixture-audition-enabled", 1)
+                }).admit(observed, invalid)
+
     def test_distant_payload_accepts_only_coarse_local_features(self):
         observed = packet()
         store = SensoryObservationStore(assignments={

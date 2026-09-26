@@ -122,6 +122,14 @@ core.register_node("rdl_bridge:opaque_wall", {
     pointable = false,
 })
 
+core.register_node("rdl_bridge:observation_space", {
+    description = "RDL Loaded Observation Space Fixture",
+    drawtype = "airlike",
+    walkable = false,
+    pointable = false,
+    sunlight_propagates = true,
+})
+
 if fixture_mode == "multi_agent_food" then
     local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
     local profile_assignments = sensor_profiles.load(core.settings, {"npc_a", "npc_b"})
@@ -136,6 +144,14 @@ if fixture_mode == "distant_observation" then
     local profile_assignments = sensor_profiles.load(core.settings, {"npc_a"})
     local start_distant = dofile(core.get_modpath("rdl_bridge") .. "/distant_observation.lua")
     start_distant(http, runtime_url, interval, profile_assignments.npc_a)
+    return
+end
+
+if fixture_mode == "audition_observation" then
+    local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
+    local profile_assignments = sensor_profiles.load(core.settings, {"npc_a", "npc_b"})
+    local start_audition = dofile(core.get_modpath("rdl_bridge") .. "/audition_observation.lua")
+    start_audition(http, runtime_url, profile_assignments)
     return
 end
 

@@ -17,6 +17,8 @@ PROFILE_REGISTRY = {
     ("fixture-sensor-default", 1),
     ("fixture-local-compact", 1),
     ("fixture-distant-enabled", 1),
+    ("fixture-audition-enabled", 1),
+    ("fixture-audition-compact", 1),
 }
 
 
@@ -186,8 +188,6 @@ def _validate_frame(frame, extension, assignment):
     if frame["agent_id"] != extension["agent_id"]:
         raise ObservationError("sensory frame agent does not match delivery agent")
     _enum(frame["channel"], CHANNELS, "sensory channel")
-    if frame["channel"] == "audition":
-        raise ObservationError("audition is planned but not enabled before OBS-4")
     _nonempty(frame["profile_id"], "sensory profile_id")
     _integer(frame["profile_revision"], "sensory profile_revision", minimum=1)
     profile = (frame["profile_id"], frame["profile_revision"])
@@ -215,8 +215,13 @@ def _validate_frame(frame, extension, assignment):
         if set(frame["payload"]) != {"visible_count"}:
             raise ObservationError("vision_local payload fields do not match allowlist")
         _integer(frame["payload"]["visible_count"], "sensory visible_count", minimum=0)
-    else:
+    elif frame["channel"] == "vision_distant":
         _validate_distant_payload(frame["payload"])
+    else:
+        _validate_audition_payload(frame["payload"], window)
+    if frame["status"] == "UNAVAILABLE" and (
+            frame["coverage"] != "UNAVAILABLE" or any(frame["payload"].values())):
+        raise ObservationError("unavailable sensory frame must have unavailable empty payload")
     result = deepcopy(frame)
     result["run_id"] = extension["run_id"]
     result["world_epoch"] = extension["world_epoch"]
@@ -260,6 +265,46 @@ def _validate_distant_payload(payload):
               "vision_distant angular_height_band")
         _enum(feature["color_band"], {"dark_gray", "muted_red", "unknown"},
               "vision_distant color_band")
+
+
+def _validate_audition_payload(payload, capture_window):
+    if set(payload) != {"detections"} or not isinstance(payload["detections"], list):
+        raise ObservationError("audition payload fields do not match allowlist")
+    if len(payload["detections"]) > 8:
+        raise ObservationError("audition detection limit exceeded")
+    required = {
+        "detection_id", "received_interval_us", "observer_frame_ref",
+        "azimuth_interval_deg", "elevation_band", "received_strength_band",
+        "dominant_band", "temporal_form",
+    }
+    for index, detection in enumerate(payload["detections"]):
+        if not isinstance(detection, dict) or set(detection) != required:
+            raise ObservationError(f"audition detection {index} fields are invalid")
+        _nonempty(detection["detection_id"], "audition detection_id")
+        _nonempty(detection["observer_frame_ref"], "audition observer_frame_ref")
+        received = detection["received_interval_us"]
+        if not isinstance(received, list) or len(received) != 2:
+            raise ObservationError("audition received interval is invalid")
+        _integer(received[0], "audition received start_us", minimum=0)
+        _integer(received[1], "audition received end_us", minimum=0)
+        if (received[0] > received[1] or received[0] < capture_window["start_us"] or
+                received[1] > capture_window["end_us"]):
+            raise ObservationError("audition received interval is outside capture window")
+        direction = detection["azimuth_interval_deg"]
+        if direction != "unknown":
+            if (not isinstance(direction, list) or len(direction) != 2 or
+                    any(type(value) not in (int, float) or not isfinite(value)
+                        for value in direction) or direction[0] > direction[1] or
+                    direction[0] < -180 or direction[1] > 180):
+                raise ObservationError("audition azimuth interval is invalid")
+        _enum(detection["elevation_band"], {"below", "level", "above", "unknown"},
+              "audition elevation_band")
+        _enum(detection["received_strength_band"], {"weak", "medium", "strong"},
+              "audition received_strength_band")
+        _enum(detection["dominant_band"], {"low", "mid", "high", "mixed", "unknown"},
+              "audition dominant_band")
+        _enum(detection["temporal_form"], {"brief", "sustained", "unknown"},
+              "audition temporal_form")
 
 
 def _integer(value, name, minimum):

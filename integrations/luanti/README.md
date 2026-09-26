@@ -151,3 +151,15 @@ corridor. It verifies observer-local coarse direction and color, opaque-node
 occlusion, an empty sample after a 180-degree turn, and the absence of exact
 distance, World coordinates, source IDs, and fixture names in stored frames.
 It does not connect distant vision to recognition or action selection.
+
+## Verify OBS-4 Audition Observation
+
+```powershell
+& .\integrations\luanti\scripts\test-audition-observation.ps1 -LuantiRoot D:\luanti
+```
+
+This emits two brief same-cell fixture events behind one wall voxel. The
+normal-gain profile receives one mixed weak/mid detection, while the compact
+profile remains below threshold. A separate 33-event probe records receiver
+buffer overflow as an empty partial/output-limited frame rather than silence.
+No source identity, exact position, or semantic sound name is published.

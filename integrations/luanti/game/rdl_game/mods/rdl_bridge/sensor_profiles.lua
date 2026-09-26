@@ -21,6 +21,26 @@ local profiles = {
             vertical_fov_deg = 60, angle_bin_deg = 5, sample_every_world_ticks = 4,
         },
     },
+    ["fixture-audition-enabled"] = {
+        profile_id = "fixture-audition-enabled",
+        profile_revision = 1,
+        vision_local = {enabled = true, mode = "legacy_radius_v1", radius = 12},
+        audition = {
+            enabled = true, mode = "direct_band_energy_v0", gain = 1,
+            detection_threshold = 0.05, noise_floor = 0.01, noise_ratio = 2,
+            direction_bin_deg = 30, window_us = 250000,
+        },
+    },
+    ["fixture-audition-compact"] = {
+        profile_id = "fixture-audition-compact",
+        profile_revision = 1,
+        vision_local = {enabled = true, mode = "legacy_radius_v1", radius = 12},
+        audition = {
+            enabled = true, mode = "direct_band_energy_v0", gain = 0.25,
+            detection_threshold = 0.05, noise_floor = 0.01, noise_ratio = 2,
+            direction_bin_deg = 30, window_us = 250000,
+        },
+    },
 }
 
 function M.load(settings, agent_ids)
@@ -40,6 +60,9 @@ function M.load(settings, agent_ids)
         assignments[agent_id].vision_local = table.copy(profile.vision_local)
         if profile.vision_distant then
             assignments[agent_id].vision_distant = table.copy(profile.vision_distant)
+        end
+        if profile.audition then
+            assignments[agent_id].audition = table.copy(profile.audition)
         end
     end
     return assignments

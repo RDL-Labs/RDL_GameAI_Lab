@@ -520,7 +520,10 @@ def main() -> None:
 
 
 def _parse_sensory_profiles(values):
-    known = {"fixture-sensor-default", "fixture-local-compact", "fixture-distant-enabled"}
+    known = {
+        "fixture-sensor-default", "fixture-local-compact", "fixture-distant-enabled",
+        "fixture-audition-enabled", "fixture-audition-compact",
+    }
     result = {}
     for item in values:
         if "=" not in item:

@@ -17,8 +17,8 @@ L8 Multi-Agent Separation COMPLETE
 L9 p5 Read-Only Trace     COMPLETE
 RW1 Multi-Agent World     COMPLETE
 RW2 Multi-Agent Food Life COMPLETE
-OBS-0..3 Observation Base / Distant Vision COMPLETE
-OBS-4..6 Audition / Display / Integration PLANNED
+OBS-0..4 Observation Base / Distant / Audition COMPLETE
+OBS-5..6 Display / Integration PLANNED
 L10                       DEFERRED
 ```
 
@@ -110,7 +110,8 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | RW2 | 専用Food/BaseによるA/B独立pickup→return→deposit→result | COMPLETE |
 | OBS-0..2 | 個体別SensorProfile、共通frame隔離、既存近景の設定化 | COMPLETE |
 | OBS-3 | observer-local方向区間、粗い見え方、実voxel遮蔽による有限遠景 | COMPLETE |
-| OBS-4..6 | 最小聴覚、p5表示、統合回帰 | PLANNED |
+| OBS-4 | 短音window、同一cell混合、壁減衰、個体gain差、overflow記録 | COMPLETE |
+| OBS-5..6 | p5表示、統合回帰 | PLANNED |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
 ## 6. Repository Boundary
@@ -163,5 +164,6 @@ Food/Baseを保ち、両個体がpickup、return、deposit、causal result admis
 次の実装系列は[Observation System Integration Plan](RDL_GameAI_Observation_System_Integration_Plan.md)
 に従う。OBS-0〜2では既定profileでRW2を維持し、異なる近景radiusによる個体別
 観測差までを実装した。OBS-3では方向区間と粗い色だけを出す有限遠景、実voxel遮蔽、
-向き変更、exact distance / World座標 / source ID非漏洩を実Luantiで固定した。次はOBS-4最小聴覚であり、p5表示、
+向き変更、exact distance / World座標 / source ID非漏洩を実Luantiで固定した。OBS-4では短音window、
+同一cell混合、壁減衰、個体gain差、overflowのPARTIAL記録を固定した。次はOBS-5〜6のp5表示と統合回帰であり、
 感覚間照合、行動接続を同時に導入しない。

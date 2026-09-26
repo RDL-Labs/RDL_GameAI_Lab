@@ -12,12 +12,15 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("multi_agent_food.lua", installer)
         self.assertIn("sensor_profiles.lua", installer)
         self.assertIn("distant_observation.lua", installer)
+        self.assertIn("audition_observation.lua", installer)
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "multi_agent_food.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "sensor_profiles.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "distant_observation.lua").is_file())
+        self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                         "audition_observation.lua").is_file())
 
     def test_fixture_has_explicit_mode_and_two_agent_evidence(self):
         config = (LUANTI / "config" / "luanti-multi-agent.conf").read_text(encoding="utf-8")
@@ -80,6 +83,19 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("#features < 4", source)
         self.assertIn("occluded_hidden=true", script)
         self.assertIn('"world_position"', script)
+
+    def test_audition_fixture_mixes_before_threshold_without_source_leaks(self):
+        source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                  "audition_observation.lua").read_text(encoding="utf-8")
+        script = (LUANTI / "scripts" / "test-audition-observation.ps1").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("direct_band_energy_v0", source)
+        self.assertIn("local world_events", source)
+        self.assertIn("emitted_mid = emitted_mid + event.band_energy.mid", source)
+        self.assertIn("factor = factor * 0.5", source)
+        self.assertIn("mixed_sources=2", script)
+        self.assertIn('"source_id"', script)
 
 
 if __name__ == "__main__":
