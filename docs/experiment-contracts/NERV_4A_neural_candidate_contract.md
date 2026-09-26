@@ -1,6 +1,7 @@
 # NERV-4A 神経由来profileの有限比較・Candidate契約
 
-状態: DESIGN ONLY / 未実装・受入未実施 / 2026-09-26。
+状態: IMPLEMENTED / N4A-01〜10 PASS / 2026-09-26。
+[受入Evidence](../experiment-evidence/NERV_4A_neural_candidate_evidence.md)。
 基準: `f78731a6`（NERV-3）。[前段Evidence](../experiment-evidence/NERV_3_neural_bias_admission_evidence.md)。
 NERV-4の「個体差」へ向けたPython再生の初回断面であり、実Worldの自律的な経験差・長期保持を完成扱いにしない。
 
@@ -24,13 +25,13 @@ NERV-3の既定動作、raw Bias/旧Sleep、既存Deep Similarity・T1は変更�
 
 ## 2. 入口と信頼境界
 
-入口案: `build_neural_candidate(materials, request)`。
+入口: `runtime.neural_candidate.build_neural_candidate(materials, request)`。
 materialsは`NeuralOutcomeCoordinator.sleep_materials(agent_id)`のコピー。
 任意のprofile辞書をそのまま信用せず、`compile_neural_sleep_profile`で完全性と出典を検査してから選択する。
 未選択の不正材料も見逃さない。外部の真正性を認証する署名ではなく、受理済み材料の整合性検査である。
 
 requestはrun_id、agent_id、parameter_id、parameter_revision、rule_version、
-明示的なsource_experience_ids、sleep_cycle、formation_tickを持つ案。
+明示的なsource_experience_ids、sleep_cycle、formation_tickを持つ。
 規則版は`nerv-common-relations-v1`。IDは空でない128文字以内、revision=1、
 formation_tickは非負の整数（bool不可）。run/個体/parameter全内容は材料と一致させる。
 生成時tickは呼出しmetadataであり、これだけで時間的因果や経過時間を推定しない。
@@ -90,7 +91,7 @@ context_signatureはraw出典から取り、正規化したJSON構造の完全�
 入力拒否をこの4状態に混ぜない。抑制/zeroを含めて各関係の状態を調べ終えた場合はcomparison_complete=true。
 no_candidateは無学習・安全・失敗の判定ではない。全抑制やraw zeroの内訳は診断に残す。
 
-Candidate schema案は`nerv-relation-candidate-v1`。旧Candidate schemaに偽装しない。
+Candidate schemaは`nerv-relation-candidate-v1`。旧Candidate schemaに偽装しない。
 run/agent/parameter全内容、規則版、sleep_cycle、formation_tick、選択Experience ID、
 raw/projection/profile/Bias/event参照、共通signature、関係別support Experience IDを保持する。
 存在しないprofile/Bias IDを補完しない。支持数は各関係について異なるExperience数（3〜6）。
@@ -101,9 +102,13 @@ IDは規則・選択元の全内容・parameter・出力条件から決定し、
 入力・保存材料・出力間のmutable aliasを禁止する。
 出力のauthorityは局所的Candidate記録に限定し、canonical CandidateRelationやT1材料へ自動昇格しない。
 
+実装では`selected_projections`に選択元の全projectionを保持し、`pair_results`に組ごとの理由、
+`relation_results`にsignature別支持群と未支持理由を残す。Candidateの`common_relations`は全指定経験で一致した関係のみ。
+Candidateの`source_bias_ids`は共通関係の根拠を指す。除外された関係も診断と元projectionで追跡できる。
+
 ## 6. 受入条件
 
-全件未実施。Pythonの既存event形成→NERV-3受付→材料compiler→本比較器という経路を通す。
+全件PASS。Pythonの既存event形成→NERV-3受付→材料compiler→本比較器という経路を通す。
 
 | ID | 必須検査 |
 | --- | --- |
