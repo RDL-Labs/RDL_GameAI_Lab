@@ -1,12 +1,13 @@
-# OBS-7B 隣接窓の聴覚パターン候補 — 契約案
+# OBS-7B 隣接窓の聴覚パターン候補 — 実装契約
 
-状態: DESIGN ONLY / DRAFT v0.1 / 2026-09-26。
-実装基準: `73caf0330a58d6e56b8640451804c25817825a5b`（OBS-7A）。
-この文書は未実装・未検証。候補生成の完了や実Luanti正例の取得を主張しない。
+状態: OPERATIONAL / obs7b-v1 / 2026-09-26。
+実装開始基準: `92ee294d5bddf8f630fed2335b760c682308dd73`。
+純粋関数・実Luanti専用fixture・受理済み記録のreplayを検証済み。
+[Evidence](../experiment-evidence/OBS_7B_auditory_pattern_candidates_evidence.md)に実行範囲を記録する。
 
 ## 1. 目的と問い
 
-提案する目的名は `adjacent_window_auditory_pattern_candidates`、規則版は `obs7b-v1`。
+目的名は `adjacent_window_auditory_pattern_candidates`、規則版は `obs7b-v1`。
 問いは「同じ個体・聴覚基準で取得した隣接窓の中に、窓境界へ接する粗い音パターンの
 対応候補があるか」。一つの基準検出に対し、明示した次窓の全検出を有限に検査する。
 
@@ -31,14 +32,15 @@
 ## 3. OBS-7Aとの関係
 
 [7A](OBS_7A_comparison_eligibility_contract.md)は取得時間の重なりを要求する。
-本案は隣接した半開窓の境界で終わる／始まる記録を扱う別目的である。
+本契約は隣接した半開窓の境界で終わる／始まる記録を扱う別目的である。
 同じ組が7Aで`no_temporal_overlap`になっても、それを失敗として救済しない。
 7Aのpurpose、許可表、理由、テストは変更せず、新しい目的の契約と試験を分ける。
 7Aの判定結果から理由を削って7Bの適格性に流用する方法は採らない。
 
 ## 4. 入力・有限予算・寿命
 
-純粋関数の提案I/Oは `find_candidates(snapshot, request)`。
+純粋関数は `runtime.auditory_candidates.find_candidates(snapshot, request)`。
+snapshotはSensoryObservationStoreの受理済み出力を信頼する。未受理データのschema検証入口ではない。
 受理済みsnapshot、run_id、world_epoch、agent_id、purpose、rule_versionを明示する。
 requestのqueriesにはsourceのframe_id/detection_idとtarget_frame_idを指定する。
 暗黙latest・任意の全履歴探索・外部World検索はない。
@@ -57,7 +59,7 @@ frame/detectionのIDは不透明な参照で、文字列から時刻・音源・
 次の窓、別profile、別poseへ引き継ぐには新しいqueryが必要で、自動的な追跡IDを発行しない。
 同じframeの再配送は新しい候補の証拠を増やさない。
 
-## 5. 初版の適格条件案
+## 5. 初版の適格条件
 
 | 項目 | 条件 |
 | --- | --- |
@@ -77,7 +79,7 @@ pose参照の意味はproducerが保証する取得基準に依存し、同じti
 frameが完全取得でも空のtarget payloadは有効な探索対象とする。要素間pose比較は発生せず、
 この場合の候補なしは「その記録内に検出がない」に限定する。
 
-## 6. 候補述語案
+## 6. 候補述語
 
 適格な組に対し、次のすべてを満たす場合だけリンク候補を返す。
 
@@ -90,8 +92,8 @@ frameが完全取得でも空のtarget payloadは有効な探索対象とする�
 [150,180]と[-180,-150]の中心距離は30度なので候補になる。向かい合うbinは候補にならない。
 同じbinだけでなく隣接binを含めるため、一つのsourceに複数のtarget cellが残りうる。
 
-30度は既存profileの一bin分を許容するGameAI-localの探索規則案であり、物理的精度や
-移動速度を推定した値ではない。実装時に規則版へ固定し、候補を出すために実測後に緩めない。
+30度は既存profileの一bin分を許容するGameAI-localの探索規則であり、物理的精度や
+移動速度を推定した値ではない。規則版へ固定し、候補を出すために実測後に緩めない。
 received_strength_bandはwindow分割・混合で変化するため一致条件に使わず、出典には残す。
 temporal_formは現行kernelがbrief固定なので識別根拠に使わない。
 
@@ -101,7 +103,7 @@ azimuth_outside_neighborhoodの不適合理由を記録する。これらを入�
 
 ## 7. 結果の区別
 
-| status案 | 条件と意味 |
+| status | 条件と意味 |
 | --- | --- |
 | not_comparable | frame条件不成立、または対象検出に比較不能が一つ以上ある。候補数を確定しない |
 | no_candidate | 対象窓の全検出を検査でき、適合0件。世界に音源が存在しないという意味ではない |
@@ -110,24 +112,34 @@ azimuth_outside_neighborhoodの不適合理由を記録する。これらを入�
 
 一件が適合していても、別の対象検出の姿勢が不明ならsingle_candidateと呼ばない。
 not_comparableでも既に判定できた組の結果はpair_resultsに残せるが、完全な候補集合として返さない。
-frame自体がPARTIALなら候補生成せず、入力参照と理由のみ返す。
+frame自体がPARTIALなら候補生成せず、入力参照・取得条件・理由を返す。
 
 出力にpurpose・rule_version・探索対象frame・source検出・全対象検出の判定・取得条件・
 候補リンク・診断理由・探索完了の有無を保持する。全結果は入力から切り離したコピーとする。
-理由コードの候補: unsupported_profile/model/channel/sensor、clock_mismatch、
+比較不能の理由コード: unsupported_profile/model/channel/sensor、clock_mismatch、
 non_adjacent_windows、unsupported_window、unavailable、incomplete_coverage、output_limited、
 pose_mapping_unavailable、unknown_direction、unsupported_direction_bin、unknown_band、
 unknown_elevation、empty_received_interval。
-最終APIとエラーコードは実装時に本案へ同期し、曖昧な汎用error一つへ畳まない。
+入力拒否は`CandidateInputError.code`で識別する。
+`invalid_request / unsupported_purpose / unsupported_rule / invalid_agent / invalid_snapshot /
+context_mismatch / unknown_agent / invalid_queries / budget_exceeded / duplicate_snapshot_frame /
+invalid_query / invalid_reference / self_query / unknown_frame / cross_agent_reference /
+reverse_time / unknown_detection / ambiguous_detection`。
 
-## 8. 実Luanti正例の取得計画
+requestのキーは`run_id, world_epoch, agent_id, purpose, rule_version, queries`のみ。
+queryは`{"source":{"frame_id":"...","detection_id":"..."},"target_frame_id":"..."}`。
+不完全な探索では`search_complete=false, candidates=null`、完全なら`true`と全候補の配列を返す。
+`conditions`には両frameのコピーを保持する。frame条件不成立時は`pair_results=[]`。
 
-既存`audition_window_sensor.lua`と`audition_transmission.lua`を呼ぶ独立した有限fixtureを追加する。
-OBS-4CやRW2の既存条件・期待値は変更しない。別の世界/設定で以下を実行する。
+## 8. 実Luanti正例の取得
+
+既存`audition_window_sensor.lua`と`audition_transmission.lua`を呼ぶ独立した有限fixtureを使用する。
+OBS-4CやRW2の既存条件・期待値は変更しない。別の世界/設定で以下を実行した。
 
 1. Aのprofileをfixture-audition-enabled、耳の位置とyawを固定する。
 2. 開けた経路で245000µs開始・10000µs長のmid-band eventを発生させる。
-   例として距離4・energy=0.8なら既存減衰と半分割後のmidは0.2となり、閾値0.05を超える設計。
+   距離4・energy=0.8のeventに、同時刻・距離3の別eventを同じ方向cellへ混合する。
+   距離4だけでも半分割後のmidは0.2となり閾値0.05を超える。混合後も音源分離はしない。
    実際に両側で検出され、coverageが完全であることをharnessで確認する。
 3. 姿勢を変えず、[0,250000)と[250000,500000)を一度ずつcloseする。
 4. 実Runtimeで受理し、検出区間[245000,250000)と[250000,255000)、同じ取得姿勢・bin・bandを確認する。
@@ -138,7 +150,7 @@ eventのWorld位置や生成側IDはharnessの期待値だけに使い、比較�
 「fixtureで同じeventを分割した」という実験者の知識を、NPCの同一音源判定へ転用しない。
 専用fixtureの成功はRW2に候補機能を統合した証拠ではない。
 
-## 9. 受入試験計画と停止境界
+## 9. 受入試験と停止境界
 
 | 試験 | 期待 |
 | --- | --- |
@@ -158,10 +170,10 @@ eventのWorld位置や生成側IDはharnessの期待値だけに使い、比較�
 
 ## 10. CoreとPhysics Labの参照位置
 
-CoreのT1は候補展開・検査・選別・再構成を分ける。本案はGameAIの局所的な候補リンク規則であり、
+CoreのT1は候補展開・検査・選別・再構成を分ける。本契約はGameAIの局所的な候補リンク規則であり、
 T1全体の実装でも、F/F'比較によるE/H生成でもない。比較不能をξの数値へ変換しない。
 Physics Labのモデル有用性の見方に従い、本規則を「どの目的・条件・予算で使えるか」で評価する。
 物理解釈の仮説をCoreの定義や音響法則として追加しない。
 
 参照版: RDL_Core `3270982`、RDL_Physics_Lab `cab5d86`。
-本案の成果は次の実装範囲と正例条件を明示したことであり、7B機能の完成ではない。
+本契約の到達点は有限な記録リンク候補の生成と検証。意味理解・音源同定・行動利用は対象外。

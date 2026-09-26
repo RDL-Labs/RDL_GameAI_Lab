@@ -1,0 +1,455 @@
+{
+  "provenance": {
+    "kind": "real-luanti-admitted-snapshot",
+    "baseline": "92ee294d5bddf8f630fed2335b760c682308dd73",
+    "capture_date": "2026-09-26",
+    "command": "integrations/luanti/scripts/test-auditory-candidates.ps1 -LuantiRoot D:\\luanti",
+    "source_file": "obs7b-20260926-100656-912.snapshot.json",
+    "selection": "complete eight-frame snapshot, unmodified",
+    "single_case": "two World positions mixed into one directional cell; no source identity exported"
+  },
+  "snapshot": {
+    "assignments": {
+      "npc_a": {
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1
+      },
+      "npc_b": {
+        "profile_id": "fixture-audition-compact",
+        "profile_revision": 1
+      }
+    },
+    "authority": "read-only-sensory-observation; not-Experience-canonical-or-action",
+    "capacity_per_agent_channel": 64,
+    "count": 8,
+    "frames": [
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 250000,
+          "kind": "interval",
+          "start_us": 0
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:1",
+        "observer_frame_ref": "obs7b:window:1",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                0,
+                30
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                245000,
+                250000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 1,
+        "sampled_world_tick": 1,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 500000,
+          "kind": "interval",
+          "start_us": 250000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:2",
+        "observer_frame_ref": "obs7b:window:2",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                0,
+                30
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                250000,
+                255000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 2,
+        "sampled_world_tick": 2,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 750000,
+          "kind": "interval",
+          "start_us": 500000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:3",
+        "observer_frame_ref": "obs7b:window:3",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                0,
+                30
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                745000,
+                750000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 3,
+        "sampled_world_tick": 3,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 1000000,
+          "kind": "interval",
+          "start_us": 750000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:4",
+        "observer_frame_ref": "obs7b:window:4",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                -30,
+                0
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                750000,
+                755000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            },
+            {
+              "azimuth_interval_deg": [
+                0,
+                30
+              ],
+              "detection_id": "d1",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                750000,
+                755000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 4,
+        "sampled_world_tick": 4,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 1250000,
+          "kind": "interval",
+          "start_us": 1000000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:5",
+        "observer_frame_ref": "obs7b:window:5",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                0,
+                30
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                1245000,
+                1250000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 5,
+        "sampled_world_tick": 5,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 1500000,
+          "kind": "interval",
+          "start_us": 1250000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:6",
+        "observer_frame_ref": "obs7b:window:6",
+        "output_limited": false,
+        "payload": {
+          "detections": []
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 6,
+        "sampled_world_tick": 6,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 1750000,
+          "kind": "interval",
+          "start_us": 1500000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:7",
+        "observer_frame_ref": "obs7b:window:7",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                0,
+                30
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                1745000,
+                1750000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 7,
+        "sampled_world_tick": 7,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      },
+      {
+        "agent_id": "npc_a",
+        "capture_window": {
+          "end_us": 2000000,
+          "kind": "interval",
+          "start_us": 1750000
+        },
+        "channel": "audition",
+        "clock_id": "world-sim-v1",
+        "coverage": "COMPLETE_WITHIN_PLAN",
+        "frame_id": "obs7b:audition:8",
+        "observer_frame_ref": "obs7b:window:8",
+        "output_limited": false,
+        "payload": {
+          "detections": [
+            {
+              "azimuth_interval_deg": [
+                -180,
+                -150
+              ],
+              "detection_id": "d0",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:turned-ear-pose",
+              "received_interval_us": [
+                1750000,
+                1755000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            },
+            {
+              "azimuth_interval_deg": [
+                0,
+                30
+              ],
+              "detection_id": "d1",
+              "dominant_band": "mid",
+              "elevation_band": "level",
+              "observer_frame_ref": "obs7b:fixed-ear-pose",
+              "received_interval_us": [
+                1750000,
+                1755000
+              ],
+              "received_strength_band": "medium",
+              "temporal_form": "brief"
+            }
+          ]
+        },
+        "profile_id": "fixture-audition-enabled",
+        "profile_revision": 1,
+        "run_id": "fixture-run-1",
+        "sample_seq": 8,
+        "sampled_world_tick": 8,
+        "sensor_id": "ears",
+        "sensor_model_revision": "direct_band_energy_v0",
+        "status": "SAMPLED",
+        "world_epoch": 1
+      }
+    ],
+    "latest_by_agent": {
+      "npc_a": {
+        "audition": {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2000000,
+            "kind": "interval",
+            "start_us": 1750000
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "obs7b:audition:8",
+          "observer_frame_ref": "obs7b:window:8",
+          "output_limited": false,
+          "payload": {
+            "detections": [
+              {
+                "azimuth_interval_deg": [
+                  -180,
+                  -150
+                ],
+                "detection_id": "d0",
+                "dominant_band": "mid",
+                "elevation_band": "level",
+                "observer_frame_ref": "obs7b:turned-ear-pose",
+                "received_interval_us": [
+                  1750000,
+                  1755000
+                ],
+                "received_strength_band": "medium",
+                "temporal_form": "brief"
+              },
+              {
+                "azimuth_interval_deg": [
+                  0,
+                  30
+                ],
+                "detection_id": "d1",
+                "dominant_band": "mid",
+                "elevation_band": "level",
+                "observer_frame_ref": "obs7b:fixed-ear-pose",
+                "received_interval_us": [
+                  1750000,
+                  1755000
+                ],
+                "received_strength_band": "medium",
+                "temporal_form": "brief"
+              }
+            ]
+          },
+          "profile_id": "fixture-audition-enabled",
+          "profile_revision": 1,
+          "run_id": "fixture-run-1",
+          "sample_seq": 8,
+          "sampled_world_tick": 8,
+          "sensor_id": "ears",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        }
+      }
+    },
+    "rejection_count": 0,
+    "rejections": [],
+    "run_id": "fixture-run-1",
+    "schema_version": "rdl-sensory-extension-v1",
+    "world_epoch": 1
+  }
+}

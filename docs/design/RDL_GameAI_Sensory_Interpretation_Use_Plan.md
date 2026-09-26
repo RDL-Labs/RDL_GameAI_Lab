@@ -1,10 +1,10 @@
 # 感覚観測の解釈・利用への接続計画
 
-状態: OBS-7Aの純粋診断・replayを実装 / 2026-09-26。
-OBS-7Bは[隣接窓の聴覚パターン候補の契約案](../experiment-contracts/OBS_7B_auditory_pattern_candidates_contract.md)を作成。
-7Bは未実装・未検証、OBS-8は保留。
+状態: OBS-7Aの純粋診断、OBS-7Bの有限候補生成・実Luanti replayを実装 / 2026-09-26。
+OBS-7Bは[隣接窓の聴覚パターン候補の契約](../experiment-contracts/OBS_7B_auditory_pattern_candidates_contract.md)と[7B Evidence](../experiment-evidence/OBS_7B_auditory_pattern_candidates_evidence.md)へ実装・検証結果を記録。
+OBS-8は保留。
 [実装契約](../experiment-contracts/OBS_7A_comparison_eligibility_contract.md)と
-[Evidence](../experiment-evidence/OBS_7A_comparison_eligibility_evidence.md)を現在の到達点とする。
+[Evidence](../experiment-evidence/OBS_7A_comparison_eligibility_evidence.md)に7Aの到達点を記録する。
 以下の提案・予定表現は設計時の記録。7Aの確定した目的・許可表・理由コードは契約を参照。
 基準: `23d4d2ad21a4b2d1ea662875d38572c8b4428bd4`。
 本稿はGameAI-localの設計であり、実装・検証済み機能やCore定義を追加しない。
@@ -28,12 +28,12 @@ RW2互換は有限生活Acceptanceの完了を指し、全行動列一致では�
 
 | 段階 | 作るもの | 状態・終了条件 |
 | --- | --- | --- |
-| OBS-7A | 比較適格性の診断 | 次の実装候補。時刻・姿勢・profile・coverage・出典を検査し、比較不能の理由を保持 |
-| OBS-7B | 隣接窓の聴覚パターン候補 | 契約案あり・未実装。同一取得姿勢の専用fixtureで実データ正例を取得し、比較不能と候補数を区別 |
+| OBS-7A | 比較適格性の診断 | 実装・検証済み。時刻・姿勢・profile・coverage・出典を検査し、比較不能の理由を保持 |
+| OBS-7B | 隣接窓の聴覚パターン候補 | 実装・検証済み。専用実Luanti fixtureで四状態を再生。比較不能と候補数を区別 |
 | OBS-8 | 追加取得のための限定的な視線利用 | 保留。別の行動契約と実World回帰が必要 |
 | canonical接続 | 有限断面と解釈モデルの選択 | 別契約。7A/7Bの結果をそのままF・E・HやCandidateRelationへ昇格しない |
 
-OBS-7Aの完了時に一度区切る。7B/8への自動的な機能拡張は行わない。
+OBS-7Bの完了で一度区切る。OBS-8・行動・canonicalへの自動的な機能拡張は行わない。
 
 ## 3. 現在使える情報と不足
 
@@ -127,8 +127,9 @@ canonicalへつなぐ場合はPurpose / B / Section_Bと入力断面、固定し
 F/F'の比較適格性を先に定義する。欠落・候補数・方向差を直接EやHへ入れない。
 [Core参照](../semantic-reference/RDL_Core_T0_T1_reference.md)の既存境界を維持する。
 
-## 7. 次の具体的作業
+## 7. 現在の停止境界
 
-OBS-7Aの実装契約で比較目的・許可条件表・理由コードを固定し、純粋診断とreplay試験を実装する。
-Runtimeの行動経路やセンサー生成は変更せず、正例と比較不能の双方をEvidenceに残す。
-OBS-7Aの実装・検証結果は上記契約とEvidenceへ分離した。7B以降は未実装・未検証として止める。
+OBS-7Aの純粋診断とOBS-7Bの純粋候補生成・専用fixture・replayを実装した。
+7Bは単一候補・複数候補・候補なし・比較不能を区別し、実データでも確認済み。
+次段階は別契約から始める。現在は新しいHTTP endpoint、GUI、行動hook、
+姿勢変換、支持数、追跡ID、canonical接続を追加しない。
