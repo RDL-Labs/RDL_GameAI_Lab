@@ -72,6 +72,11 @@ try {
             $aDetections[0].dominant_band -ne "mid") {
         throw "A must receive the wall-attenuated weak/mid detection"
     }
+    if ($aDetections[0].observer_frame_ref -ne "npc_a:ear-pose:before-turn" -or `
+            $aDetections[0].received_interval_us[0] -ne 100000 -or `
+            $aDetections[0].received_interval_us[1] -ne 120000) {
+        throw "First window must preserve emit-time pose and receive interval"
+    }
     if ($bDetections.Count -ne 0) { throw "Compact-gain B must remain below threshold" }
     if ($a.coverage -ne "COMPLETE_WITHIN_PLAN" -or $b.coverage -ne "COMPLETE_WITHIN_PLAN") {
         throw "Audition fixture must complete its finite path checks"
@@ -79,17 +84,26 @@ try {
     $overflowFrames = @($frames | Where-Object { $_.sample_seq -eq 2 })
     if ($overflowFrames.Count -ne 2) { throw "Expected one overflow frame per agent" }
     foreach ($frame in $overflowFrames) {
-        if ($frame.coverage -ne "PARTIAL" -or -not $frame.output_limited -or `
-                @($frame.payload.detections).Count -ne 0) {
+        if ($frame.coverage -ne "PARTIAL" -or -not $frame.output_limited) {
             throw "Overflow must be recorded as partial/output-limited, not silence"
         }
+    }
+    $aOverflow = $overflowFrames | Where-Object { $_.agent_id -eq "npc_a" }
+    $bOverflow = $overflowFrames | Where-Object { $_.agent_id -eq "npc_b" }
+    if (@($aOverflow.payload.detections).Count -ne 1 -or `
+            @($bOverflow.payload.detections).Count -ne 0) {
+        throw "Accepted overflow-window receipts must still be processed per profile"
+    }
+    if ($aOverflow.payload.detections[0].received_interval_us[0] -ne 250000 -or `
+            $aOverflow.payload.detections[0].observer_frame_ref -ne "npc_a:ear-pose:after-turn") {
+        throw "Boundary event must occur once in the second window using emit-time pose"
     }
     $serialized = $frames | ConvertTo-Json -Depth 12
     foreach ($forbidden in @("source_id", "world_position", "distance", "footstep", "beast")) {
         if ($serialized -match [regex]::Escape($forbidden)) { throw "Forbidden sound detail leaked: $forbidden" }
     }
     if ($snapshot.rejection_count -ne 0) { throw "Runtime rejected a valid audition frame" }
-    Write-Output "OBS4 PASS: frames=4 A_detections=1 B_detections=0 mixed_sources=2 wall_attenuated=true overflow_partial=true"
+    Write-Output "OBS4B PASS: frames=4 first_window_mixed=2 boundary_once=true pose_preserved=true delayed=true overflow_partial=true"
 } finally {
     if ($luanti -and -not $luanti.HasExited) { Stop-Process -Id $luanti.Id -Force; $luanti.WaitForExit() }
     if ($runtime -and -not $runtime.HasExited) { Stop-Process -Id $runtime.Id -Force; $runtime.WaitForExit() }

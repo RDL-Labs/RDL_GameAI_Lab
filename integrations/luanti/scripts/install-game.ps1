@@ -17,4 +17,5 @@ Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\multi_agent_food.
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\sensor_profiles.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\distant_observation.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\audition_observation.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\audition_receive_window.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 Write-Output "Installed rdl_game into $targetGame"

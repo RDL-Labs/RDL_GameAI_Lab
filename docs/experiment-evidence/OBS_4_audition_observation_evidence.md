@@ -2,11 +2,14 @@
 
 ## Real Luanti Vertical
 
-Command:
+Historical command at commit `3edffee0`:
 
 ```powershell
 ./integrations/luanti/scripts/test-audition-observation.ps1 -LuantiRoot D:\luanti
 ```
+
+The current script advances this fixture to the OBS-4B receive-window evidence;
+the fixed OBS-4 module remains in the repository as the earlier reference.
 
 Observed on 2026-09-26:
 

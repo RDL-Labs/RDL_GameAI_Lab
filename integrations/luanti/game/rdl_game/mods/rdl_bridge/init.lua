@@ -155,6 +155,14 @@ if fixture_mode == "audition_observation" then
     return
 end
 
+if fixture_mode == "audition_receive_window" then
+    local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
+    local profile_assignments = sensor_profiles.load(core.settings, {"npc_a", "npc_b"})
+    local start_window = dofile(core.get_modpath("rdl_bridge") .. "/audition_receive_window.lua")
+    start_window(http, runtime_url, profile_assignments)
+    return
+end
+
 local function find_entity(name)
     for _, object in ipairs(core.get_objects_inside_radius({x = 0, y = 1, z = 0}, 64)) do
         local entity = object:get_luaentity()
