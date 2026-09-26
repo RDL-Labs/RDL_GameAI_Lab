@@ -55,3 +55,5 @@ remain absent in Live Mode.
 5. Fixture Mode and its playback controls remain unchanged.
 6. Live Mode keeps playback controls disabled.
 7. No mutating Luanti endpoint is referenced by the p5 ingestion code.
+8. Inspector review, H, theta, M_delta, T1, and cutover records are filtered to the selected agent.
+9. A missing selected-agent canonical stage never falls back to another agent's latest record.

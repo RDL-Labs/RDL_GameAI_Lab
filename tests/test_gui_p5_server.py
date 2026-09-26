@@ -76,6 +76,15 @@ class WorkbenchServerTests(unittest.TestCase):
         self.assertNotIn("/v1/luanti-t1-cutover", api)
         self.assertNotIn("fetch(this.baseUrl", api.split("async fetchEndpoint", 1)[0])
 
+    def test_l9_canonical_inspector_is_agent_scoped(self):
+        inspector = (SERVER.GUI_DIR / "views" / "inspector_view.js").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("item.agent_id === selectedAgentId", inspector)
+        self.assertIn("assessmentIds.has(item.assessment_id)", inspector)
+        self.assertIn("modelRefs.has(item.model_ref)", inspector)
+        self.assertNotIn("paths[paths.length - 1]", inspector)
+
 
 if __name__ == "__main__":
     unittest.main()

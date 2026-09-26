@@ -18,6 +18,8 @@ No Decision Authority; No Mutation Authority
 
 Live mode では Runtime が公開していない値を GUI 側で補完しません。world positionは引き続き未公開です。`--sleep-consolidation --fast-retrieval`利用時は、Runtimeが公開するS1-S4とF1 snapshotを表示します。`--luanti-outcome-learning`利用時は、選択agentのExperience、Local Bias、Sleep、Candidateとcanonical側のT1/model provenanceをGET-onlyで表示します。
 
+Inspectorのcanonical欄も選択agentで絞ります。review pathからassessmentを、active/archive modelからmodel refを対応付け、`H`、`theta_eff`、`M_delta`、T1、cutoverを同じ個体の記録だけで表示します。他個体の最新記録へのfallbackは行いません。
+
 ## 起動
 
 Live Runtime と同時に使う場合は同梱の read-only proxy を使います。

@@ -31,3 +31,11 @@ active M_B NOT PRESENT
 Pressing `1` and `2` changed the displayed agent and source IDs independently.
 The absent T1 and model stages remained absent. Live playback controls stayed
 disabled and the World panel reported that spatial state was not exposed.
+
+## Agent-Scoped Canonical Regression
+
+A second visual pass advanced both A and B through explicit review, T1,
+reconstruction, cutover, and `REENTERED`. Switching `1` / `2` changed the
+Inspector heading, selected review/H, T1 bundle, active model, archive count,
+and Luanti source IDs together. The two active model IDs and source IDs were
+distinct. No Inspector field read the process-wide last record as a fallback.
