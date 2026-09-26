@@ -24,9 +24,15 @@ Reset controls remained disabled. No viewer mutation endpoint was added.
 Automated verification:
 
 - JavaScript syntax checks: `api.js`, `sketch.js`, `sensory_view.js` PASS
-- targeted p5/server and sensory tests: 19 PASS
+- targeted p5/server and sensory tests execute the actual display formatter for
+  Runtime-schema instant and interval windows
 - agent-scoping, independent-time, output-limit, and GET-only source assertions
   are included in `tests/test_gui_p5_server.py`
+
+The formatter regression fixes and verifies `instant.start_us`; an instant
+window `{start_us: 250000, end_us: 250000}` renders as `250000 us`, while an
+interval `{start_us: 500000, end_us: 750000}` renders as
+`[500000, 750000) us`.
 
 This is display evidence only. RW2 life plus distant vision plus audition in one
 World run remains OBS-6.

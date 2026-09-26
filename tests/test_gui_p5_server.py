@@ -1,5 +1,7 @@
 import importlib.util
+import json
 from pathlib import Path
+import subprocess
 import unittest
 from unittest.mock import MagicMock
 
@@ -99,6 +101,24 @@ class WorkbenchServerTests(unittest.TestCase):
         self.assertIn("capture_window", view)
         self.assertIn("sensoryView.draw(this, currentData, selectedAgentId)", sketch)
         self.assertNotIn("/v1/observe", api)
+
+    def test_obs5_capture_labels_use_runtime_window_schema(self):
+        view_path = SERVER.GUI_DIR / "views" / "sensory_view.js"
+        script = (
+            f"const View=require({json.dumps(str(view_path))});"
+            "const view=new View(0,0,1,1);"
+            "console.log(JSON.stringify(["
+            "view.captureLabel({kind:'instant',start_us:250000,end_us:250000}),"
+            "view.captureLabel({kind:'interval',start_us:500000,end_us:750000})"
+            "]));"
+        )
+        result = subprocess.run(
+            ["node", "-e", script], check=True, capture_output=True, text=True
+        )
+        self.assertEqual(
+            json.loads(result.stdout),
+            ["250000 us", "[500000, 750000) us"],
+        )
 
 
 if __name__ == "__main__":

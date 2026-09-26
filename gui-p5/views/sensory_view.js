@@ -59,7 +59,7 @@ class SensoryView {
 
   captureLabel(window) {
     if (window.kind === 'interval') return `[${window.start_us}, ${window.end_us}) us`;
-    if (window.kind === 'instant') return `${window.at_us} us`;
+    if (window.kind === 'instant') return `${window.start_us} us`;
     return 'unavailable';
   }
 
@@ -79,3 +79,5 @@ class SensoryView {
     return Array.isArray(interval) ? `[${interval[0]}, ${interval[1]}) deg` : 'direction unavailable';
   }
 }
+
+if (typeof module !== 'undefined') module.exports = SensoryView;
