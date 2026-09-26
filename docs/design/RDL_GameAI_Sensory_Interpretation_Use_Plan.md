@@ -138,3 +138,11 @@ RW2行動hook、支持数、追跡ID、canonical接続は追加しない。
 OBS-8初版の実装条件は上記契約を参照。元観測の鮮度2秒、操作期限1.5秒、
 最大45度・1回の水平回転、次の通常取得枠1回をfixture値として固定する。
 専用Luantiで検証済み。一般環境やRW2生活中の自律Probeは未実装。
+
+## 8. 継続Worldへ進む次の契約
+
+[OBS-8B契約案](../experiment-contracts/OBS_8B_continuous_world_probe_contract.md)を追加した。
+現行8初版の有限Probeは固定し、通信待ちでも進む時計、生活intent優先の実行権限、
+通常視覚枠の唯一の所有者、失効応答と配送ackの分離を次に検証する。
+明示起動とfixture-distant-enabledを維持し、7B起動・自律注意・全感覚RW2統合は追加しない。
+現在は設計のみ。8Bの実装・テスト・実Luanti試験は未実施。
