@@ -8,7 +8,7 @@ function M.new(profiles, interval)
     local audition = dofile(modpath .. "/audition_window_sensor.lua").new(window_us, 32, 8)
     local state = {time_us = 0, sequences = {}, audition = audition,
                    pending = {npc_a = {}, npc_b = {}}, in_flight = {},
-                   world_initialized = false}
+                   retry_ids = {}, world_initialized = false}
     local distant_targets = {
         npc_a = {{position = {x = 0, y = 1, z = 17},
                   node_name = "rdl_bridge:distant_red", color_band = "muted_red"}},
@@ -167,8 +167,12 @@ function M.new(profiles, interval)
         end
 
         local frames = {}
-        for index = 1, math.min(4, #self.pending[agent_id]) do
-            table.insert(frames, self.pending[agent_id][index])
+        local retry = self.retry_ids[agent_id]
+        for _, queued in ipairs(self.pending[agent_id]) do
+            if not retry or retry[queued.frame_id] then
+                table.insert(frames, queued)
+                if #frames == 4 then break end
+            end
         end
         self.in_flight[agent_id] = {}
         for _, pending_frame in ipairs(frames) do
@@ -199,10 +203,31 @@ function M.new(profiles, interval)
             if not accepted[pending_frame.frame_id] then table.insert(retained, pending_frame) end
         end
         self.pending[agent_id] = retained
+        self.retry_ids[agent_id] = nil
         core.log("action", string.format(
             "[RDL_LUANTI_OBS6D] ack agent=%s removed=%d pending=%d new_frames=%s",
             agent_id, #ids, #retained, tostring(receipt.new_frames)))
         return true
+    end
+
+    -- Fixture-only response loss: preserve the exact accepted batch for retry.
+    function state:lose_response(agent_id)
+        local retry = {}
+        for _, id in ipairs(self.in_flight[agent_id] or {}) do retry[id] = true end
+        self.retry_ids[agent_id] = retry
+        self:release(agent_id)
+    end
+
+    function state:probe(agent_id, phase, frames, receipt)
+        local ids, pending = {}, {}
+        for _, value in ipairs(frames) do table.insert(ids, value.frame_id) end
+        for _, value in ipairs(self.pending[agent_id]) do table.insert(pending, value.frame_id) end
+        core.log("action", "[RDL_LUANTI_OBS6E] " .. core.write_json({
+            phase = phase, agent_id = agent_id, ids = ids, pending = pending,
+            accepted = receipt and receipt.accepted,
+            new_frames = receipt and receipt.new_frames,
+            in_flight = self.in_flight[agent_id] ~= nil,
+        }))
     end
 
     function state:release(agent_id)

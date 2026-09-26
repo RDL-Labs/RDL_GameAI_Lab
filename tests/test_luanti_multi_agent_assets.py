@@ -54,7 +54,7 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn('dofile(modpath .. "/audition_window_sensor.lua")', sensory)
         self.assertIn('dofile(modpath .. "/audition_transmission.lua")', sensory)
         self.assertIn("self.pending[agent_id]", sensory)
-        self.assertIn("math.min(4, #self.pending[agent_id])", sensory)
+        self.assertIn("if #frames == 4 then break end", sensory)
         self.assertIn("function state:ack(agent_id, receipt)", sensory)
         self.assertIn("receipt.accepted ~= true", sensory)
         self.assertIn("function state:advance(tick)", sensory)

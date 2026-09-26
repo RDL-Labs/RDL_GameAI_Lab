@@ -13,6 +13,7 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
     local sensory_probe_complete = false
     local sensory_rejection_probe_sent = false
     local sensory_transport_probe_sent = false
+    local sensory_response_loss_sent = false
     local visibility_markers = {
         {id = "boundary_agent", position = {x = 13.25, y = 1, z = -3}},
         {id = "outside_agent", position = {x = 13.5, y = 1, z = -3}},
@@ -306,6 +307,7 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
         if config.in_flight then return end
         local packet = build_observation(agent_id, config)
         if not packet then return end
+        local retrying = sensory and sensory.retry_ids[agent_id] ~= nil
         local body = core.write_json(packet)
         if not body then return end
         for _, field in ipairs({"visible_agents", "visible_objects", "visible_places",
@@ -335,7 +337,20 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
                 return
             end
             local response = core.parse_json(result.data)
-            if sensory then sensory:ack(agent_id, response and response.sensory_receipt) end
+            local receipt = response and response.sensory_receipt
+            local extension = packet.observation.sensory_extension
+            if sensory and agent_id == "npc_a" and not sensory_response_loss_sent and
+                    receipt and receipt.accepted == true and receipt.new_frames > 0 and
+                    extension.delivery_world_tick >= 3 then
+                sensory_response_loss_sent = true
+                -- Discard the whole response before ack or action resolution.
+                sensory:lose_response(agent_id)
+                sensory:probe(agent_id, "response_lost", extension.frames, receipt)
+                return
+            end
+            if retrying then sensory:probe(agent_id, "before_ack", extension.frames, receipt) end
+            if sensory then sensory:ack(agent_id, receipt) end
+            if retrying then sensory:probe(agent_id, "after_ack", extension.frames, receipt) end
             resolve_action(agent_id, config, response)
         end)
     end

@@ -160,6 +160,38 @@ try {
                 -not ($lines -match "RDL_LUANTI_OBS6D.*simulated transport failure; retained agent=npc_a")) {
             throw "OBS-6D rejection or transport-failure retention probe did not run"
         }
+        $probe = @($lines | Where-Object { $_ -match 'RDL_LUANTI_OBS6E' } |
+            ForEach-Object { ($_ -replace '^.*\[RDL_LUANTI_OBS6E\] ', '') | ConvertFrom-Json })
+        if ($probe.Count -ne 3 -or ($probe.phase -join ',') -ne 'response_lost,before_ack,after_ack') {
+            throw "OBS-6E response loss / retry / ack sequence missing"
+        }
+        $lost, $before, $after = $probe
+        $ids = @($lost.ids)
+        if ($ids.Count -lt 1 -or $ids.Count -gt 4 -or -not $lost.accepted -or
+                $lost.new_frames -ne $ids.Count -or $lost.in_flight) {
+            throw "OBS-6E did not discard a newly accepted response and release in-flight state"
+        }
+        foreach ($event in $probe) {
+            if ($event.agent_id -ne 'npc_a' -or ($event.ids -join ',') -ne ($ids -join ',')) {
+                throw "OBS-6E retry changed frame IDs or agent"
+            }
+        }
+        if (-not $before.accepted -or $before.new_frames -ne 0 -or -not $before.in_flight -or
+                -not $after.accepted -or $after.new_frames -ne 0 -or $after.in_flight) {
+            throw "OBS-6E duplicate retry was not acknowledged with new_frames=0"
+        }
+        foreach ($id in $ids) {
+            if ($id -notin $lost.pending -or $id -notin $before.pending -or $id -in $after.pending) {
+                throw "OBS-6E pending frame was removed before ack or retained after ack: $id"
+            }
+            if (@($sensory.frames | Where-Object { $_.frame_id -eq $id }).Count -ne 1) {
+                throw "OBS-6E accepted frame was missing or stored twice: $id"
+            }
+        }
+        $expectedPending = @($before.pending | Where-Object { $_ -notin $ids })
+        if (($after.pending -join ',') -ne ($expectedPending -join ',')) {
+            throw "OBS-6E ack removed unrelated pending frames"
+        }
         $latestA = $sensory.latest_by_agent.npc_a
         $latestB = $sensory.latest_by_agent.npc_b
         if (-not $latestA.vision_local -or -not $latestA.vision_distant -or -not $latestA.audition -or `
@@ -177,7 +209,7 @@ try {
                 throw "Local and periodic distant sample schedules were not independently retained"
             }
         }
-        Write-Output "OBS6 SENSORY: agents=2 channels=3 rejection_recovered=1 transport_retry=1 life_compatible=true"
+        Write-Output "OBS6 SENSORY: agents=2 channels=3 rejection_recovered=1 transport_retry=1 response_loss_retry=1 duplicate_new_frames=0 ack_only_removal=true life_compatible=true"
     }
     Write-Output "${ResultLabel}: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:$aVisible,B:$bVisible"
 } finally {

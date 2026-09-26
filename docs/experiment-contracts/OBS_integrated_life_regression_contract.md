@@ -60,8 +60,8 @@ influence remain outside OBS-6.
 4. Each agent has at least one distant feature and one heard action sound.
 5. Local and periodic distant schedules retain at least one distinct capture
    time; the viewer must not imply synchronization.
-6. Sensor admission rejection count remains zero and capture time never exceeds
-   its sampled World tick boundary.
+6. Exactly one injected delivery-tick rejection is recovered; capture time
+   never exceeds its sampled World tick boundary.
 7. The same RW2 test passes with sensory integration disabled.
 8. No Experience, canonical, Goal, Trajectory, or action authority is granted
    to any SensorFrame.
@@ -74,3 +74,9 @@ influence remain outside OBS-6.
     extension, and a pre-send transport failure retain and later admit the
     affected frames without duplicate sensory storage.
 
+12. OBS-6E discards a successful Runtime response in the real Luanti callback
+    before acknowledgement or action resolution. A later observation retries
+    exactly the same frame IDs with accepted=true and new_frames=0. Those IDs
+    remain pending through response loss and until ack, then are removed once;
+    unrelated queued frames remain and Runtime stores each retried ID once.
+    This is callback-level fault injection, not a network-proxy disconnection.

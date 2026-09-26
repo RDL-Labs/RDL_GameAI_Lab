@@ -9,7 +9,7 @@
 Observed on 2026-09-26:
 
 ```text
-OBS6 SENSORY: agents=2 channels=3 rejection_recovered=1 transport_retry=1 life_compatible=true
+OBS6 SENSORY: agents=2 channels=3 rejection_recovered=1 transport_retry=1 response_loss_retry=1 duplicate_new_frames=0 ack_only_removal=true life_compatible=true
 OBS6 LIFE PASS: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:2,B:1
 ```
 
@@ -17,8 +17,9 @@ The same World run produced separate `vision_local`, `vision_distant`, and
 `audition` histories for both agents. Each agent retained at least one finite
 distant feature and one action-sound detection. Local every-tick samples and
 distant four-tick samples included nonmatching capture times. Every stored
-frame matched its delivery agent, no frame was rejected, and no capture end
-advanced beyond its sampled World tick boundary.
+frame matched its delivery agent. One intentionally mismatched delivery tick
+was rejected and recovered; no capture end advanced beyond its sampled World
+tick boundary.
 
 The ordinary sensory-disabled RW2 harness was rerun afterward:
 
@@ -67,9 +68,36 @@ failure releases in-flight state without removing its queued frames. The final
 snapshot contains both agents and all three channels, with one expected and
 recovered rejection rather than an unexplained zero-rejection claim.
 
-Regression after integration:
+OBS-6E ran on 2026-09-26 with real Luanti and Runtime. After the OBS-6D
+rejection and pre-send failure, the Luanti HTTP callback observed an accepted
+receipt for four new frames, then discarded the entire response before ack or
+action resolution. This is callback-level response-loss injection, not a real
+network disconnection. The next observation selected exactly the lost batch,
+leaving newly sampled frames queued separately.
 
-- full Python suite: `328` tests passed, `46` intentionally skipped
+Run log: `integrations/luanti/output/luanti-multi-20260926-085946-721.log`
+(local generated artifact). All four IDs share `fixture-run-1:1:npc_a:`:
+
+- `ears:audition:1`
+- `eye:vision_local:2`
+- `ears:audition:2`
+- `eye:vision_local:3`
+
+| Probe phase | accepted | new_frames | pending count | lost IDs still pending | in-flight |
+| --- | --- | --- | --- | --- | --- |
+| response_lost | true | 4 | 7 | all four | false |
+| before_ack | true | 0 | 10 | all four | true |
+| after_ack | true | 0 | 6 | none | false |
+
+The harness compares the ordered IDs across all three phases, checks each ID
+occurs exactly once in the Runtime snapshot, and verifies that ack removes only
+those IDs while preserving every unrelated pending frame. Both agents still
+complete the finite Food life acceptance; the lost action response is not
+replayed.
+
+Regression after OBS-6E:
+
+- full Python suite: `328` tests run successfully (`282` passed, `46` intentionally skipped)
 - real Luanti OBS-3 distant observation: PASS
 - real Luanti OBS-4C audition window boundaries: PASS
 
