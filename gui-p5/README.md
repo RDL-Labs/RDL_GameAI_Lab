@@ -16,7 +16,7 @@ No Decision Authority; No Mutation Authority
 - **Live Mode**: ランタイム（`127.0.0.1:8765`）から取得したスナップショットをそのまま射影・描画します。Playback（Run/Step/Reset）は明示的に無効化され、過剰リクエストを防ぐため2秒（2000ms）間隔で静かにポーリングします。
 - **Fixture Mode**: オフラインでUI挙動・画面遷移を検証するためのローカル簡易再生（Toy Playback）です。生成される疑似状態はデモ用であり、RDL正規の知能決定や推論結果ではありません。
 
-Live mode では Runtime が公開していない値を GUI 側で補完しません。world positionは引き続き未公開です。`--sleep-consolidation --fast-retrieval`利用時は、Runtimeが公開するS1-S4とF1 snapshotだけを表示します。
+Live mode では Runtime が公開していない値を GUI 側で補完しません。world positionは引き続き未公開です。`--sleep-consolidation --fast-retrieval`利用時は、Runtimeが公開するS1-S4とF1 snapshotを表示します。`--luanti-outcome-learning`利用時は、選択agentのExperience、Local Bias、Sleep、Candidateとcanonical側のT1/model provenanceをGET-onlyで表示します。
 
 ## 起動
 
@@ -41,7 +41,7 @@ Fixtureだけを見る場合も `python gui-p5/serve.py` で起動できます�
 
 ## Live GET
 
-Viewer は現行 bridgeから既存endpointに加え、`/v1/sleep-consolidation-snapshot`と`/v1/fast-retrieval-snapshot`をread-only取得します。無効化されたopt-in policyの404は正常な「未公開/未有効」状態として表示します。
+Viewer は現行 bridgeから既存endpointに加え、`/v1/sleep-consolidation-snapshot`、`/v1/fast-retrieval-snapshot`、`/v1/luanti-outcome-snapshot`をread-only取得します。無効化されたopt-in policyの404は正常な「未公開/未有効」状態として表示します。
 
 ## F1以降
 

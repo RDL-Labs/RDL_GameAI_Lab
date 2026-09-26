@@ -23,9 +23,21 @@ class InspectorView {
       const need = Number(agent.food_need ?? 0);
       row('FoodNeed', Math.round(need * 100) + '%');
     } else {
-      p.fill(100); p.textSize(10);
-      p.text('No agent projection available in this source.', this.bounds.x + 16, cy);
-      cy += 28;
+      const luanti = data?.luanti_outcome_snapshot;
+      const traceExperiences = (luanti?.experiences?.records || [])
+        .filter(item => item.agent_id === selectedAgentId);
+      const traceSleeps = (luanti?.sleep_results || [])
+        .filter(item => item.agent_id === selectedAgentId);
+      if (luanti) {
+        row('Trace agent', selectedAgentId, [56, 189, 248]);
+        row('Experiences', traceExperiences.length, [52, 211, 153]);
+        row('Sleep results', traceSleeps.length, [192, 132, 252]);
+        row('World view', 'not exposed');
+      } else {
+        p.fill(100); p.textSize(10);
+        p.text('No agent projection available in this source.', this.bounds.x + 16, cy);
+        cy += 28;
+      }
     }
 
     p.stroke(43, 56, 78); p.line(this.bounds.x + 16, cy, this.bounds.x + this.bounds.w - 16, cy);

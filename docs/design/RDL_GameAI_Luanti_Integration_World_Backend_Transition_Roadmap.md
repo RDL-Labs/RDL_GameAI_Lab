@@ -14,7 +14,8 @@ L5 Outcome Learning       COMPLETE
 L6 Sleep / Deep Candidate COMPLETE
 L7 Dynamic M_B Cycle      COMPLETE
 L8 Multi-Agent Separation COMPLETE
-L9+                       PLANNED
+L9 p5 Read-Only Trace     COMPLETE
+L10                       DEFERRED
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -100,7 +101,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L6 | Luanti Experience→Sleep Profile→Deep Similarity→Candidate | COMPLETE |
 | L7 | Candidate→T1-A/B/C→M_B'→cutover→REENTERED | COMPLETE |
 | L8 | NPC A/BのExperience・Bias・Candidate・M_B分離 | COMPLETE |
-| L9 | Luanti長期life traceのp5 read-only表示 | PLANNED |
+| L9 | Luanti長期life traceのp5 read-only表示 | COMPLETE |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
 ## 6. Repository Boundary
@@ -144,7 +145,7 @@ explorationも対象外とする。
 
 ## 10. 次の停止境界
 
-L8でagent、Sleep結果、candidate、assessmentの明示参照を必須化し、A/Bの
-Experience、Bias、Candidate、model、archive、M_delta、fresh windowをRuntime /
-adapter境界で分離した。次はL9でLuanti由来life traceをp5へread-only表示する。
-実Luanti World内の複数自律entity同時生活は、別のrich-World統合検証として残す。
+L9でLuanti由来のExperience、Bias、Sleep、Candidate、T1、active modelを
+選択agent単位でp5へread-only表示した。欠落段階と未公開World位置は補完しない。
+次のL10 `M_B`-informed behaviorは保留を維持する。実Luanti World内の複数自律
+entity同時生活も、別のrich-World統合検証として残す。

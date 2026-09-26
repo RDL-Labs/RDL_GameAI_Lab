@@ -67,6 +67,15 @@ class WorkbenchServerTests(unittest.TestCase):
 
         handler.wfile.write.assert_called_once_with(b'{"ok": true}')
 
+    def test_l9_luanti_trace_uses_get_only_snapshot(self):
+        api = (SERVER.GUI_DIR / "api.js").read_text(encoding="utf-8")
+        lineage = (SERVER.GUI_DIR / "views" / "lineage_view.js").read_text(encoding="utf-8")
+        self.assertIn("['luanti_outcome', '/v1/luanti-outcome-snapshot']", api)
+        self.assertIn("luanti_outcome_snapshot", api)
+        self.assertIn("LUANTI LIFE TRACE", lineage)
+        self.assertNotIn("/v1/luanti-t1-cutover", api)
+        self.assertNotIn("fetch(this.baseUrl", api.split("async fetchEndpoint", 1)[0])
+
 
 if __name__ == "__main__":
     unittest.main()
