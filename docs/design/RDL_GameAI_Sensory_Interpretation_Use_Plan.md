@@ -1,6 +1,8 @@
 # 感覚観測の解釈・利用への接続計画
 
-状態: OBS-7Aの純粋診断・replayを実装 / 2026-09-26。OBS-7B/8は保留。
+状態: OBS-7Aの純粋診断・replayを実装 / 2026-09-26。
+OBS-7Bは[隣接窓の聴覚パターン候補の契約案](../experiment-contracts/OBS_7B_auditory_pattern_candidates_contract.md)を作成。
+7Bは未実装・未検証、OBS-8は保留。
 [実装契約](../experiment-contracts/OBS_7A_comparison_eligibility_contract.md)と
 [Evidence](../experiment-evidence/OBS_7A_comparison_eligibility_evidence.md)を現在の到達点とする。
 以下の提案・予定表現は設計時の記録。7Aの確定した目的・許可表・理由コードは契約を参照。
@@ -27,7 +29,7 @@ RW2互換は有限生活Acceptanceの完了を指し、全行動列一致では�
 | 段階 | 作るもの | 状態・終了条件 |
 | --- | --- | --- |
 | OBS-7A | 比較適格性の診断 | 次の実装候補。時刻・姿勢・profile・coverage・出典を検査し、比較不能の理由を保持 |
-| OBS-7B | 有限な対応候補 | 保留。7Aの境界と正例の取得条件を固定してから、複数候補・不明・不一致を保持 |
+| OBS-7B | 隣接窓の聴覚パターン候補 | 契約案あり・未実装。同一取得姿勢の専用fixtureで実データ正例を取得し、比較不能と候補数を区別 |
 | OBS-8 | 追加取得のための限定的な視線利用 | 保留。別の行動契約と実World回帰が必要 |
 | canonical接続 | 有限断面と解釈モデルの選択 | 別契約。7A/7Bの結果をそのままF・E・HやCandidateRelationへ昇格しない |
 
