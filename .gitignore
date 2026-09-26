@@ -18,3 +18,7 @@ Thumbs.db
 # Experiment outputs
 outputs/
 *.log
+
+# Luanti local runtime data
+integrations/luanti/worlds/
+integrations/luanti/output/

@@ -1,0 +1,46 @@
+{
+  "schema_version": "rdl-luanti-observation-v1",
+  "observation_id": "luanti-000000-npc_a",
+  "tick": 0,
+  "agent_id": "npc_a",
+  "observation": {
+    "perception_rule": "structured radius <= 12; visible entities <= 16",
+    "visible_agents": [],
+    "visible_objects": [
+      {
+        "id": "ordinary_food_1",
+        "kind": "food",
+        "relative_position": {"x": 4.0, "y": 0.0, "z": 0.0},
+        "distance": 4.0,
+        "distance_band": "visible",
+        "within_reach": false,
+        "motion": "stationary"
+      }
+    ],
+    "visible_places": [],
+    "visible_regions": [],
+    "inventory": {"held_food_ids": []},
+    "recent_events": [],
+    "body": {
+      "agent_id": "npc_a",
+      "snapshot_id": "luanti-body-000000",
+      "revision": 0,
+      "movement_scale": 1.0,
+      "injury_level": "none",
+      "incapacitated": false,
+      "carried_agent_id": "",
+      "last_rescue_delivery": {},
+      "recovery_stage": "none",
+      "recovery_steps": 0,
+      "recovery_place_id": "",
+      "food_actions_enabled": true,
+      "food_need": 0.8,
+      "held_food_ids": []
+    }
+  },
+  "adapter": {
+    "backend": "luanti",
+    "version": "rdl-luanti-adapter-v1",
+    "authority": "finite-world-observation-only"
+  }
+}
