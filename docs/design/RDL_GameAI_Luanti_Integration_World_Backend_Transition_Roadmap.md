@@ -112,6 +112,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | OBS-3 | observer-local方向区間、粗い見え方、実voxel遮蔽による有限遠景 | COMPLETE |
 | OBS-4 | 短音window、同一cell混合、壁減衰、個体gain差、overflow記録 | COMPLETE |
 | OBS-4B | emit時受信、agent別buffer、半開window close、姿勢保持、遅延配送 | COMPLETE |
+| OBS-4C | window跨ぎ分割、close冪等、late拒否、検出上限の欠落記録 | COMPLETE |
 | OBS-5..6 | p5表示、統合回帰 | PLANNED |
 | L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
 
@@ -167,5 +168,7 @@ Food/Baseを保ち、両個体がpickup、return、deposit、causal result admis
 観測差までを実装した。OBS-3では方向区間と粗い色だけを出す有限遠景、実voxel遮蔽、
 向き変更、exact distance / World座標 / source ID非漏洩を実Luantiで固定した。OBS-4では短音window、
 同一cell混合、壁減衰、個体gain差、overflowのPARTIAL記録を固定した。OBS-4Bではemit時の姿勢で
-agent別bufferへ受信し、半開window、音源消失、回転、境界event、遅延配送を一周した。次はOBS-5〜6のp5表示と統合回帰であり、
+agent別bufferへ受信し、半開window、音源消失、回転、境界event、遅延配送を一周した。OBS-4Cではwindow跨ぎ音を
+overlap比で分割し、duplicate closeの冪等化、closed windowへのlate event拒否、8件検出上限時のPARTIAL記録を固定した。
+次はOBS-5〜6のp5表示と統合回帰であり、
 感覚間照合、行動接続を同時に導入しない。

@@ -96,10 +96,13 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("direct_band_energy_v0", source)
         self.assertIn("emit_world_sound", source)
         self.assertIn("close_window", source)
-        self.assertIn("#agent.buffer >= BUFFER_LIMIT", source)
+        self.assertIn("buffered_count(agent, start_window_us) >= BUFFER_LIMIT", source)
+        self.assertIn("agent.closed_windows[start_window_us]", source)
+        self.assertIn("qualifying_count > 8", source)
         self.assertIn("agent.pose_revision", source)
         self.assertIn("factor = factor * 0.5", source)
-        self.assertIn("boundary_once=true", script)
+        self.assertIn("cross_window_split=true", script)
+        self.assertIn("duplicate_close_idempotent=true", script)
         self.assertIn('"source_id"', script)
 
 

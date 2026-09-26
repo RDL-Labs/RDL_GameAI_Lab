@@ -164,8 +164,11 @@ profile remains below threshold. A separate 33-event probe records receiver
 buffer overflow as an empty partial/output-limited frame rather than silence.
 No source identity, exact position, or semantic sound name is published.
 
-The current harness uses the OBS-4B `audition_receive_window` mode. Sound is
+The current harness uses the OBS-4B/4C `audition_receive_window` mode. Sound is
 received at emit time into agent-owned finite buffers, windows close as
 half-open intervals, and frozen frames are delivered later. The test removes
 the source, rotates the agents, exercises an exact window boundary, and checks
-that accepted receipts still survive an overflow indication.
+that accepted receipts still survive an overflow indication. It also splits a
+boundary-crossing sound by overlap, makes duplicate close idempotent, rejects
+late events for frozen windows, and reports detection-output truncation as
+partial rather than complete silence.

@@ -62,7 +62,7 @@ try {
 
     $snapshot = Invoke-RestMethod -Uri "http://127.0.0.1:8765/v1/sensory-observation-snapshot" -TimeoutSec 3
     $frames = @($snapshot.frames | Where-Object { $_.channel -eq "audition" })
-    if ($frames.Count -ne 4) { throw "Expected four audition frames, got $($frames.Count)" }
+    if ($frames.Count -ne 6) { throw "Expected six audition frames, got $($frames.Count)" }
     $a = $frames | Where-Object { $_.agent_id -eq "npc_a" -and $_.sample_seq -eq 1 }
     $b = $frames | Where-Object { $_.agent_id -eq "npc_b" -and $_.sample_seq -eq 1 }
     $aDetections = @($a.payload.detections)
@@ -74,8 +74,8 @@ try {
     }
     if ($aDetections[0].observer_frame_ref -ne "npc_a:ear-pose:before-turn" -or `
             $aDetections[0].received_interval_us[0] -ne 100000 -or `
-            $aDetections[0].received_interval_us[1] -ne 120000) {
-        throw "First window must preserve emit-time pose and receive interval"
+            $aDetections[0].received_interval_us[1] -ne 250000) {
+        throw "First window must preserve emit-time pose and clip the crossing sound at its boundary"
     }
     if ($bDetections.Count -ne 0) { throw "Compact-gain B must remain below threshold" }
     if ($a.coverage -ne "COMPLETE_WITHIN_PLAN" -or $b.coverage -ne "COMPLETE_WITHIN_PLAN") {
@@ -98,12 +98,30 @@ try {
             $aOverflow.payload.detections[0].observer_frame_ref -ne "npc_a:ear-pose:after-turn") {
         throw "Boundary event must occur once in the second window using emit-time pose"
     }
+    if ($aOverflow.payload.detections[0].received_interval_us[1] -lt 255000) {
+        throw "The second half of the crossing sound must appear in the second window"
+    }
+    $limitedA = $frames | Where-Object { $_.agent_id -eq "npc_a" -and $_.sample_seq -eq 3 }
+    $limitedB = $frames | Where-Object { $_.agent_id -eq "npc_b" -and $_.sample_seq -eq 3 }
+    if (@($limitedA.payload.detections).Count -ne 8 -or `
+            $limitedA.coverage -ne "PARTIAL" -or -not $limitedA.output_limited) {
+        throw "Nine qualifying cells must yield eight A detections plus explicit missingness"
+    }
+    if (@($limitedB.payload.detections).Count -ne 0 -or `
+            $limitedB.coverage -ne "COMPLETE_WITHIN_PLAN" -or $limitedB.output_limited) {
+        throw "B must not report an output limit when its nine cells remain below threshold"
+    }
+    $boundaryLog = Select-String -LiteralPath $luantiLog -Pattern `
+        "RDL_LUANTI_OBS4C.*late_rejections=A:1,B:1 closed_frames=A:3,B:3" | Select-Object -Last 1
+    if (-not $boundaryLog) {
+        throw "Duplicate close or late-event boundary evidence was not produced"
+    }
     $serialized = $frames | ConvertTo-Json -Depth 12
     foreach ($forbidden in @("source_id", "world_position", "distance", "footstep", "beast")) {
         if ($serialized -match [regex]::Escape($forbidden)) { throw "Forbidden sound detail leaked: $forbidden" }
     }
     if ($snapshot.rejection_count -ne 0) { throw "Runtime rejected a valid audition frame" }
-    Write-Output "OBS4B PASS: frames=4 first_window_mixed=2 boundary_once=true pose_preserved=true delayed=true overflow_partial=true"
+    Write-Output "OBS4C PASS: frames=6 cross_window_split=true duplicate_close_idempotent=true late_rejected=true detection_limit_partial=true"
 } finally {
     if ($luanti -and -not $luanti.HasExited) { Stop-Process -Id $luanti.Id -Force; $luanti.WaitForExit() }
     if ($runtime -and -not $runtime.HasExited) { Stop-Process -Id $runtime.Id -Force; $runtime.WaitForExit() }
