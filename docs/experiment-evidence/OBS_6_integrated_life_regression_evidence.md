@@ -9,7 +9,7 @@
 Observed on 2026-09-26:
 
 ```text
-OBS6 SENSORY: agents=2 channels=3 rejections=0 decisions_unchanged=true
+OBS6 SENSORY: agents=2 channels=3 rejections=0 life_compatible=true
 OBS6 LIFE PASS: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:2,B:1
 ```
 
@@ -26,10 +26,21 @@ The ordinary sensory-disabled RW2 harness was rerun afterward:
 MULTI LIFE PASS: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:2,B:1
 ```
 
-Therefore the integrated SensorFrames did not change the existing finite Food
-decisions or accepted results. This evidence does not establish sensory fusion,
+Therefore the integrated SensorFrames preserved completion of the existing
+finite Food acceptance and accepted results. The harness does not compare full
+action sequences, so it does not establish exact decision equality. This
+evidence does not establish sensory fusion,
 meaning attribution, sound-driven orientation, long-running retention, or
 sensor-informed action.
+
+The integrated run and standalone fixtures now call the same reusable kernels:
+
+- `distant_sensor.lua` verifies World-node identity, observer-relative field of
+  view, voxel coverage, occlusion through the target boundary, and the four-
+  feature limit.
+- `audition_window_sensor.lua` owns event-time receipt data, cross-window
+  splitting, per-window buffering, idempotent close, late rejection, mixing,
+  and the eight-detection limit.
 
 Regression after integration:
 

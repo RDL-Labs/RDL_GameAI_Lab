@@ -15,6 +15,8 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("audition_observation.lua", installer)
         self.assertIn("audition_receive_window.lua", installer)
         self.assertIn("life_sensory.lua", installer)
+        self.assertIn("distant_sensor.lua", installer)
+        self.assertIn("audition_window_sensor.lua", installer)
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "multi_agent_food.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
@@ -27,6 +29,10 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
                          "audition_receive_window.lua").is_file())
         self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                          "life_sensory.lua").is_file())
+        self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                         "distant_sensor.lua").is_file())
+        self.assertTrue((LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                         "audition_window_sensor.lua").is_file())
 
     def test_obs6_fixture_combines_life_and_isolated_sensor_frames(self):
         source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
@@ -41,6 +47,10 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn('frame(agent_id, "vision_local"', sensory)
         self.assertIn('"vision_distant"', sensory)
         self.assertIn('"audition"', sensory)
+        self.assertIn('dofile(modpath .. "/distant_sensor.lua")', sensory)
+        self.assertIn('dofile(modpath .. "/audition_window_sensor.lua")', sensory)
+        self.assertNotIn('color_band = agent_id ==', sensory)
+        self.assertNotIn('self.time_us - window_us, self.time_us', sensory)
         self.assertIn("--sensory-observation", (LUANTI / "scripts" /
                       "test-multi-agent.ps1").read_text(encoding="utf-8"))
         self.assertIn("OBS6 LIFE PASS", script)
@@ -97,13 +107,16 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
     def test_distant_fixture_has_finite_geometry_and_evidence_harness(self):
         source = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
                   "distant_observation.lua").read_text(encoding="utf-8")
+        shared = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                  "distant_sensor.lua").read_text(encoding="utf-8")
         script = (LUANTI / "scripts" / "test-distant-observation.ps1").read_text(
             encoding="utf-8"
         )
-        self.assertIn("range_min_exclusive", source)
-        self.assertIn("horizontal_fov_deg", source)
-        self.assertIn("core.get_node_or_nil", source)
-        self.assertIn("#features < 4", source)
+        self.assertIn("range_min_exclusive", shared)
+        self.assertIn("horizontal_fov_deg", shared)
+        self.assertIn("core.get_node_or_nil", shared)
+        self.assertIn("#features < 4", shared)
+        self.assertIn('dofile(core.get_modpath("rdl_bridge") .. "/distant_sensor.lua")', source)
         self.assertIn("occluded_hidden=true", script)
         self.assertIn('"world_position"', script)
 
@@ -116,9 +129,13 @@ class LuantiMultiAgentAssetTests(unittest.TestCase):
         self.assertIn("direct_band_energy_v0", source)
         self.assertIn("emit_world_sound", source)
         self.assertIn("close_window", source)
-        self.assertIn("buffered_count(agent, start_window_us) >= BUFFER_LIMIT", source)
-        self.assertIn("agent.closed_windows[start_window_us]", source)
-        self.assertIn("qualifying_count > 8", source)
+        self.assertIn('dofile(core.get_modpath("rdl_bridge") ..', source)
+        self.assertIn('"/audition_window_sensor.lua")', source)
+        shared = (LUANTI / "game" / "rdl_game" / "mods" / "rdl_bridge" /
+                  "audition_window_sensor.lua").read_text(encoding="utf-8")
+        self.assertIn("count >= self.buffer_limit", shared)
+        self.assertIn("agent.closed[start]", shared)
+        self.assertIn("qualifying > self.detection_limit", shared)
         self.assertIn("agent.pose_revision", source)
         self.assertIn("factor = factor * 0.5", source)
         self.assertIn("cross_window_split=true", script)

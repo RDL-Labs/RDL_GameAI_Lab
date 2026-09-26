@@ -2,7 +2,9 @@
 
 ## Status
 
-Operational finite integration regression for RW2 life plus isolated sensing.
+Operational finite integration regression for RW2 life plus isolated sensing,
+using the same distant-vision and audition-window kernels as the standalone
+OBS-3 and OBS-4C fixtures.
 
 ## Vertical
 
@@ -23,9 +25,12 @@ before the existing Food policy, Experience, and canonical consumers run.
 Approach resolution records a finite action sound for the other agent; it does
 not create a sound meaning, danger label, or action response.
 
-Local vision follows the selected profile radius. Distant vision uses a finite
-per-agent fixture target and the observer's current position/yaw. Audition uses
-the receiver's event-time pose and profile gain. Local samples occur every
+Local vision follows the selected profile radius. Distant vision reads the
+finite target node from the World and applies the shared range, field-of-view,
+voxel-coverage, occlusion, and output-limit rules. Audition records the
+receiver's event-time pose and uses the shared half-open window, split,
+idempotent-close, buffer-limit, and detection-limit rules. An unclosed initial
+audition window is not projected as a future capture. Local samples occur every
 World tick, distant samples every four ticks, and audition closes one interval
 per delivery. Their times remain independent.
 
@@ -48,4 +53,6 @@ influence remain outside OBS-6.
 7. The same RW2 test passes with sensory integration disabled.
 8. No Experience, canonical, Goal, Trajectory, or action authority is granted
    to any SensorFrame.
+9. Sensory-enabled and sensory-disabled RW2 both complete the same finite life
+   acceptance. Exact action-sequence equality is not claimed by this fixture.
 

@@ -1,17 +1,45 @@
 local M = {}
 
 function M.new(profiles, interval)
+    local modpath = core.get_modpath("rdl_bridge")
+    local distant_sensor = dofile(modpath .. "/distant_sensor.lua")
     local window_us = math.floor(interval * 1000000 + 0.5)
-    local state = {time_us = 0, sequences = {}, receipts = {npc_a = {}, npc_b = {}}}
+    local audition = dofile(modpath .. "/audition_window_sensor.lua").new(window_us, 32, 8)
+    local state = {time_us = 0, sequences = {}, audition = audition}
     local distant_targets = {
-        npc_a = {x = 20, y = 1, z = -3},
-        npc_b = {x = 20, y = 1, z = 3},
+        npc_a = {{position = {x = 0, y = 1, z = 17},
+                  node_name = "rdl_bridge:distant_red", color_band = "muted_red"}},
+        npc_b = {{position = {x = 1, y = 1, z = 23},
+                  node_name = "rdl_bridge:distant_dark", color_band = "dark_gray"}},
     }
 
     local function next_sequence(agent_id, channel)
         local key = agent_id .. ":" .. channel
         state.sequences[key] = (state.sequences[key] or 0) + 1
         return state.sequences[key]
+    end
+
+    function state:ensure_world()
+        local vm = VoxelManip()
+        local min_edge, max_edge = vm:read_from_map(
+            {x = 0, y = 1, z = -3}, {x = 1, y = 2, z = 23})
+        local area = VoxelArea:new({MinEdge = min_edge, MaxEdge = max_edge})
+        local data = vm:get_data()
+        local open_id = core.get_content_id("rdl_bridge:observation_space")
+        for x = 0, 1 do
+            for y = 1, 2 do
+                for z = -3, 23 do data[area:index(x, y, z)] = open_id end
+            end
+        end
+        for _, targets in pairs(distant_targets) do
+            for _, target in ipairs(targets) do
+                data[area:index(target.position.x, target.position.y, target.position.z)] =
+                    core.get_content_id(target.node_name)
+            end
+        end
+        vm:set_data(data)
+        vm:write_to_map()
+        vm:update_map()
     end
 
     local function interval_band(value, width)
@@ -48,13 +76,19 @@ function M.new(profiles, interval)
         if not source then return end
         for receiver_id, receiver in pairs(npcs) do
             if receiver_id ~= source_agent_id then
-                local profile = profiles[receiver_id]
                 local distance = vector.distance(receiver:get_pos(), source:get_pos())
-                local received = (1 / (1 + (distance / 4) ^ 2)) * profile.audition.gain
-                table.insert(self.receipts[receiver_id], {
-                    tick = tick, strength = received,
-                    angle = local_angle(receiver, source:get_pos()),
-                    pose_ref = string.format("%s:ear-pose:%d", receiver_id, tick),
+                local attenuation = 1 / (1 + (distance / 4) ^ 2)
+                local angle = local_angle(receiver, source:get_pos())
+                local angle_interval = interval_band(
+                    angle, profiles[receiver_id].audition.direction_bin_deg)
+                local pose_ref = string.format("%s:ear-pose:%d", receiver_id, tick)
+                self.audition:emit(receiver_id, {
+                    occurred_us = self.time_us, duration_us = 10000,
+                    observer_frame_ref = pose_ref,
+                    cell_key = string.format("%d:%d:%s",
+                        angle_interval[1], angle_interval[2], pose_ref),
+                    azimuth_interval_deg = angle_interval,
+                    low = 0, mid = attenuation, high = 0,
                 })
             end
         end
@@ -68,42 +102,25 @@ function M.new(profiles, interval)
             {visible_count = visible_count}, string.format("%s:eye-pose:%d", agent_id, tick)))
 
         if tick % profile.vision_distant.sample_every_world_ticks == 0 then
-            local angle = local_angle(npc, distant_targets[agent_id])
-            local features = {}
-            local distance = vector.distance(npc:get_pos(), distant_targets[agent_id])
-            if distance > profile.vision_distant.range_min_exclusive and
-                    distance <= profile.vision_distant.range_max_inclusive and
-                    math.abs(angle) <= profile.vision_distant.horizontal_fov_deg / 2 then
-                table.insert(features, {
-                    feature_id = "f0",
-                    azimuth_interval_deg = interval_band(angle, profile.vision_distant.angle_bin_deg),
-                    elevation_interval_deg = {0, profile.vision_distant.angle_bin_deg},
-                    angular_width_band = "unknown", angular_height_band = "unknown",
-                    color_band = agent_id == "npc_a" and "muted_red" or "dark_gray",
-                })
-            end
+            local features, partial, limited = distant_sensor.sample(
+                npc, profile.vision_distant, distant_targets[agent_id])
+            core.log("action", string.format(
+                "[RDL_LUANTI_OBS6] distant agent=%s tick=%d features=%d partial=%s yaw=%.3f",
+                agent_id, tick, #features, tostring(partial), npc:get_yaw() or 0))
             table.insert(frames, frame(agent_id, "vision_distant", "eye", profile, tick,
                 {kind = "instant", start_us = self.time_us, end_us = self.time_us},
-                {features = features}, string.format("%s:eye-pose:%d", agent_id, tick)))
+                {features = features}, string.format("%s:eye-pose:%d", agent_id, tick),
+                partial and "PARTIAL" or "COMPLETE_WITHIN_PLAN", limited))
         end
 
-        local detections = {}
-        for _, receipt in ipairs(self.receipts[agent_id]) do
-            if receipt.strength >= profile.audition.detection_threshold then
-                table.insert(detections, {
-                    detection_id = "d" .. tostring(#detections),
-                    received_interval_us = {self.time_us - window_us, self.time_us},
-                    observer_frame_ref = receipt.pose_ref,
-                    azimuth_interval_deg = interval_band(receipt.angle, profile.audition.direction_bin_deg),
-                    elevation_band = "level", received_strength_band = receipt.strength < 0.2 and "weak" or "medium",
-                    dominant_band = "mid", temporal_form = "brief",
-                })
-            end
+        if self.time_us >= window_us then
+            local start_us = self.time_us - window_us
+            local closed = self.audition:close(agent_id, start_us, profile.audition)
+            table.insert(frames, frame(agent_id, "audition", "ears", profile, tick,
+                {kind = "interval", start_us = start_us, end_us = self.time_us},
+                {detections = closed.detections}, string.format("%s:ear-window:%d", agent_id, tick),
+                closed.incomplete and "PARTIAL" or "COMPLETE_WITHIN_PLAN", closed.incomplete))
         end
-        self.receipts[agent_id] = {}
-        table.insert(frames, frame(agent_id, "audition", "ears", profile, tick,
-            {kind = "interval", start_us = math.max(0, self.time_us - window_us), end_us = self.time_us},
-            {detections = detections}, string.format("%s:ear-window:%d", agent_id, tick)))
 
         packet.observation.sensory_extension = {
             schema_version = "rdl-sensory-extension-v1", run_id = "fixture-run-1",

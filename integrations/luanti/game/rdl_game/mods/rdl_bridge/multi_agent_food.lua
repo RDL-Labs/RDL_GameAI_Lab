@@ -57,6 +57,7 @@ return function(http, runtime_url, life_result_url, interval, profile_assignment
     end
 
     local function ensure_fixture()
+        if sensory then sensory:ensure_world() end
         local all_ready = true
         for agent_id, config in pairs(agents) do
             if not find_by_id("rdl_bridge:npc", agent_id) then

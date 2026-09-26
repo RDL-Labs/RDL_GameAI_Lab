@@ -174,4 +174,6 @@ overlap比で分割し、duplicate closeの冪等化、closed windowへのlate e
 OBS-5ではp5へagent/channel別の独立取得時刻、姿勢参照、coverage、output limitをGET-only表示した。
 OBS-6では同一Luanti World/RuntimeでRW2生活とA/B別local/distant/auditionを併走し、
 両個体のpickup/deposit/result、実feature/detection、独立取得時刻、拒否0、sensory無効RW2互換を固定した。
+遠景と聴覚は単独fixtureと生活統合の双方から同じsensor kernelを利用する。ここでいう互換は
+有限生活Acceptanceの完了を指し、全action列の同一性までは主張しない。
 OBS系列はここで停止し、感覚間照合、行動接続、一般的な長期保持を同時に導入しない。

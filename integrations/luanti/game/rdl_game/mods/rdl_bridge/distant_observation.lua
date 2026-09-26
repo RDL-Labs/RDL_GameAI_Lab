@@ -1,4 +1,5 @@
 return function(http, runtime_url, interval, profile)
+    local distant_sensor = dofile(core.get_modpath("rdl_bridge") .. "/distant_sensor.lua")
     local state = {tick = 0, elapsed = 0, in_flight = false, sample_seq = 0, sim_time_us = 0}
     local candidates = {}
 
@@ -38,36 +39,7 @@ return function(http, runtime_url, interval, profile)
     end
 
     local function sample(npc)
-        local distant = profile.vision_distant
-        local eye = vector.add(npc:get_pos(), {x = 0, y = 0.5, z = 0})
-        local forward, right, up = observer_basis(npc)
-        local features = {}
-        local partial = false
-        for _, candidate in ipairs(candidates) do
-            local delta = vector.subtract(candidate.position, eye)
-            local distance = vector.length(delta)
-            local horizontal = math.sqrt(vector.dot(delta, forward) ^ 2 + vector.dot(delta, right) ^ 2)
-            local azimuth = math.deg(math.atan2(vector.dot(delta, right), vector.dot(delta, forward)))
-            local elevation = math.deg(math.atan2(vector.dot(delta, up), horizontal))
-            if distance > distant.range_min_exclusive and distance <= distant.range_max_inclusive and
-                    math.abs(azimuth) <= distant.horizontal_fov_deg / 2 and
-                    math.abs(elevation) <= distant.vertical_fov_deg / 2 then
-                local occluded = blocked(eye, candidate.position)
-                if occluded == nil then
-                    partial = true
-                elseif not occluded and #features < 4 then
-                    table.insert(features, {
-                        feature_id = "f" .. tostring(#features),
-                        azimuth_interval_deg = quantized_interval(azimuth, distant.angle_bin_deg),
-                        elevation_interval_deg = quantized_interval(elevation, distant.angle_bin_deg),
-                        angular_width_band = "unknown",
-                        angular_height_band = "unknown",
-                        color_band = candidate.color_band,
-                    })
-                end
-            end
-        end
-        return features, partial
+        return distant_sensor.sample(npc, profile.vision_distant, candidates)
     end
 
     local function build_packet(npc)
@@ -143,8 +115,8 @@ return function(http, runtime_url, interval, profile)
         core.set_node(wall, {name = "rdl_bridge:opaque_wall"})
         core.set_node(red, {name = "rdl_bridge:distant_red"})
         candidates = {
-            {position = dark, color_band = "dark_gray"},
-            {position = red, color_band = "muted_red"},
+            {position = dark, node_name = "rdl_bridge:distant_dark", color_band = "dark_gray"},
+            {position = red, node_name = "rdl_bridge:distant_red", color_band = "muted_red"},
         }
     end
 

@@ -183,4 +183,7 @@ This keeps the RW2 Food loop unchanged while attaching agent-owned local,
 periodic distant, and audition frames to the same observation deliveries. It
 checks both agents, real feature/detection presence, independent capture
 schedules, zero sensory rejection, and the ordinary sensory-disabled RW2
-regression. SensorFrames remain read-only inputs to the isolated store.
+regression. Standalone and integrated runs share the distant-vision and
+audition-window kernels. The result establishes finite life compatibility, not
+exact action-sequence equality. SensorFrames remain read-only inputs to the
+isolated store.

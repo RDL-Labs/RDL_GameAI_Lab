@@ -1,5 +1,7 @@
 return function(http, runtime_url, profiles)
     local WINDOW_US, BUFFER_LIMIT = 250000, 32
+    local receiver = dofile(core.get_modpath("rdl_bridge") ..
+        "/audition_window_sensor.lua").new(WINDOW_US, BUFFER_LIMIT, 8)
     local agents = {
         npc_a = {position = {x = 0, y = 1, z = 0}, yaw = 0, pose_revision = "before-turn",
                  profile = profiles.npc_a, buffer = {}, frames = {}, incomplete = {},
@@ -92,14 +94,24 @@ return function(http, runtime_url, profiles)
 
     local function emit_world_sound(event)
         assert(event.duration_us > 0, "sound duration must be positive")
-        local event_end_us = event.occurred_us + event.duration_us
         for agent_id, agent in pairs(agents) do
-            local cursor = event.occurred_us
-            while cursor < event_end_us do
-                local overlap_end = math.min(event_end_us, window_start(cursor) + WINDOW_US)
-                buffer_overlap(agent_id, agent, event, cursor, overlap_end,
-                    (overlap_end - cursor) / event.duration_us)
-                cursor = overlap_end
+            local path_factor = transmission(agent.position, event.position)
+            if not path_factor then receiver:mark_incomplete(agent_id, event.occurred_us)
+            else
+                local distance = vector.distance(agent.position, event.position)
+                local attenuation = 1 / (1 + (distance / 4) ^ 2)
+                local angle_interval = quantized_interval(
+                    local_azimuth(agent, event.position), agent.profile.audition.direction_bin_deg)
+                local pose_ref = agent_id .. ":ear-pose:" .. agent.pose_revision
+                receiver:emit(agent_id, {
+                    occurred_us = event.occurred_us, duration_us = event.duration_us,
+                    observer_frame_ref = pose_ref,
+                    cell_key = string.format("%d:%d:%s", angle_interval[1], angle_interval[2], pose_ref),
+                    azimuth_interval_deg = angle_interval,
+                    low = event.band_energy.low * attenuation * path_factor,
+                    mid = event.band_energy.mid * attenuation * path_factor,
+                    high = event.band_energy.high * attenuation * path_factor,
+                })
             end
         end
     end
@@ -121,59 +133,10 @@ return function(http, runtime_url, profiles)
     end
 
     local function close_window(agent_id, start_us)
-        local agent, cells, retained = agents[agent_id], {}, {}
+        local agent = agents[agent_id]
         if agent.closed_windows[start_us] then return agent.closed_windows[start_us] end
-        for _, receipt in ipairs(agent.buffer) do
-            if receipt.window_start_us == start_us then
-                local cell = cells[receipt.cell_key]
-                if not cell then
-                    cell = {
-                        received_start_us = receipt.received_start_us,
-                        received_end_us = receipt.received_end_us,
-                        observer_frame_ref = receipt.observer_frame_ref,
-                        azimuth_interval_deg = receipt.azimuth_interval_deg,
-                        low = 0, mid = 0, high = 0,
-                    }
-                    cells[receipt.cell_key] = cell
-                end
-                cell.received_start_us = math.min(cell.received_start_us, receipt.received_start_us)
-                cell.received_end_us = math.max(cell.received_end_us, receipt.received_end_us)
-                cell.low, cell.mid, cell.high = cell.low + receipt.low,
-                    cell.mid + receipt.mid, cell.high + receipt.high
-            else
-                table.insert(retained, receipt)
-            end
-        end
-        agent.buffer = retained
-
-        local detections, keys, qualifying_count = {}, {}, 0
-        for key in pairs(cells) do table.insert(keys, key) end
-        table.sort(keys)
-        for _, key in ipairs(keys) do
-            local cell = cells[key]
-            local low = math.min(1, cell.low * agent.profile.audition.gain)
-            local mid = math.min(1, cell.mid * agent.profile.audition.gain)
-            local high = math.min(1, cell.high * agent.profile.audition.gain)
-            local maximum = math.max(low, mid, high)
-            local threshold = math.max(agent.profile.audition.detection_threshold,
-                agent.profile.audition.noise_floor * agent.profile.audition.noise_ratio)
-            if maximum >= threshold then
-                qualifying_count = qualifying_count + 1
-                if #detections < 8 then
-                    table.insert(detections, {
-                        detection_id = "d" .. tostring(#detections),
-                        received_interval_us = {cell.received_start_us, cell.received_end_us},
-                        observer_frame_ref = cell.observer_frame_ref,
-                        azimuth_interval_deg = cell.azimuth_interval_deg,
-                        elevation_band = "level", received_strength_band = strength_band(maximum),
-                        dominant_band = dominant_band(low, mid, high), temporal_form = "brief",
-                    })
-                end
-            end
-        end
-
-        local incomplete = agent.incomplete[start_us] == true or qualifying_count > 8
-        agent.incomplete[start_us] = nil
+        local closed = receiver:close(agent_id, start_us, agent.profile.audition)
+        agent.late_rejections = closed.late_rejections
         local sequence = #agent.frames + 1
         local frame = {
             frame_id = string.format("fixture-run-1:1:%s:ears:audition:%d", agent_id, sequence),
@@ -184,8 +147,8 @@ return function(http, runtime_url, profiles)
             capture_window = {kind = "interval", start_us = start_us, end_us = start_us + WINDOW_US},
             sampled_world_tick = sequence,
             observer_frame_ref = agent_id .. ":ear-window:" .. tostring(sequence),
-            status = "SAMPLED", coverage = incomplete and "PARTIAL" or "COMPLETE_WITHIN_PLAN",
-            output_limited = incomplete, payload = {detections = detections},
+            status = "SAMPLED", coverage = closed.incomplete and "PARTIAL" or "COMPLETE_WITHIN_PLAN",
+            output_limited = closed.incomplete, payload = {detections = closed.detections},
         }
         table.insert(agent.frames, frame)
         agent.closed_windows[start_us] = frame
@@ -299,7 +262,7 @@ return function(http, runtime_url, profiles)
         core.after(0.60, function()
             core.log("action", string.format(
                 "[RDL_LUANTI_OBS4C] late_rejections=A:%d,B:%d closed_frames=A:%d,B:%d",
-                agents.npc_a.late_rejections, agents.npc_b.late_rejections,
+                receiver:late_rejections("npc_a"), receiver:late_rejections("npc_b"),
                 #agents.npc_a.frames, #agents.npc_b.frames))
             send({"npc_a", "npc_b"}, 1)
         end)

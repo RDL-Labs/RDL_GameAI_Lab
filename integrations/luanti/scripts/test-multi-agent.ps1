@@ -143,7 +143,7 @@ try {
                 throw "Local and periodic distant sample schedules were not independently retained"
             }
         }
-        Write-Output "OBS6 SENSORY: agents=2 channels=3 rejections=0 decisions_unchanged=true"
+        Write-Output "OBS6 SENSORY: agents=2 channels=3 rejections=0 life_compatible=true"
     }
     Write-Output "${ResultLabel}: agents=2 pickups=2 deposits=2 results=2 radius_counts=A:$aVisible,B:$bVisible"
 } finally {
