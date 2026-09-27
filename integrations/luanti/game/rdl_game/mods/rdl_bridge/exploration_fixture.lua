@@ -6,13 +6,15 @@ return function(http,runtime_url)
     local distant=dofile(root .. "/distant_sensor.lua")
     local run=assert(core.settings:get("rdl_learning_run_id"))
     local scenario=core.settings:get("rdl_exploration_scenario") or "straight"
+    local natural=(scenario=="natural_meadow" or scenario=="natural_woodland") and dofile(root .. "/exploration_natural.lua") or nil
+    if natural then natural.register() end
     local profile={range_min_exclusive=12,range_max_inclusive=64,horizontal_fov_deg=90,vertical_fov_deg=60,angle_bin_deg=5}
     local prefix=runtime_url:gsub("/v1/observe$","") .. "/v1/exploration/"
     for _,spec in ipairs({{"gray","#777777"},{"blue","#4477cc"},{"rock_gray","#484848"},{"rock_red","#985950"}}) do
         core.register_node("rdl_bridge:exploration_" .. spec[1],{description="L13 " .. spec[1],
             tiles={"rdl_l13_" .. spec[1] .. ".png"},walkable=true,pointable=false})
     end
-    local config={schema="l13a-exploration-v1",run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
+    local config={schema=natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1",run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
     local evidence={run_id=run,scenario=scenario,config=config,observations={},actions={},deliveries={},guards={},mountains={}}
     local sim,stage,last_slot=0,"setup",-1
     local npc,food,ctl,body_revision,last_position,last_yaw,ending
@@ -50,6 +52,12 @@ return function(http,runtime_url)
             return "not_found"
         end
         local pos=npc:get_pos();local dir=core.yaw_to_dir(npc:get_yaw())
+        if natural then
+            local destination,audit=natural.destination(pos,dir,core.get_node_or_nil)
+            evidence.terrain_moves[#evidence.terrain_moves+1]={operation_id=c.operation_id,before=vector.new(pos),audit=audit}
+            if not destination then return "blocked" end
+            npc:set_pos(destination);return "moved"
+        end
         for i=1,4 do
             local p=vector.add(pos,vector.multiply(dir,i/4))
             if math.abs(p.x)>32.00001 or math.abs(p.z)>32.00001 then return "blocked" end
@@ -76,29 +84,33 @@ return function(http,runtime_url)
         assert(slot<64,"acquisition budget");assert(slot==last_slot+1,"missed acquisition slot")
         last_slot=slot
         local b=body()
-        local g=ground.sample(b.position,b.yaw,function(pos)
+        local g=(natural or ground).sample(b.position,b.yaw,function(pos)
             if scenario=="partial" then return nil end -- explicit acquisition fault, not an empty scene
             return core.get_node_or_nil(pos)
         end)
-        local visible={}
+        local visible={};local food_coverage="complete";local visibility
         if food and food:get_pos() then
             local delta=vector.subtract(food:get_pos(),b.position);local distance=vector.length(delta)
-            if distance<=12 then
+            local seen=true
+            if natural and distance<=12 then seen,food_coverage=natural.visibility(vector.add(b.position,{x=0,y=.5,z=0}),food:get_pos(),core.get_node_or_nil) end
+            if natural then visibility={distance=distance,in_range=distance<=12,line_of_sight=distance<=12 and seen,coverage=food_coverage} end
+            if distance<=12 and seen then
                 local f=core.yaw_to_dir(b.yaw);local r={x=f.z,y=0,z=-f.x}
                 visible[1]={ref=food:get_luaentity().rdl_id,distance=distance,forward=vector.dot(delta,f),right=vector.dot(delta,r)}
+                if natural then visible[1].up=delta.y end
                 evidence.first_food_us=evidence.first_food_us or sim
             end
         end
         local features,partial,limited=distant.sample(npc,profile,targets)
         local p=context({clock_id="world-sim-v1",observation_id=run .. ":obs:" .. slot,
             capture_us=sim,sample_seq=slot,pose_ref=b.pose_ref,body_revision=b.revision,ground=g,
-            food={coverage="complete",visible=visible},distant={frame_id=run .. ":distant:" .. slot,
+            food={coverage=food_coverage,visible=visible},distant={frame_id=run .. ":distant:" .. slot,
                 agent_id="npc_a",sensor_id="eye",channel="vision_distant",profile_id="fixture-distant-enabled",profile_revision=1,
                 sensor_model_revision="sampled-surface-v0.2",sample_seq=slot,clock_id="world-sim-v1",
                 capture_window={kind="instant",start_us=sim,end_us=sim},sampled_world_tick=slot,observer_frame_ref=b.pose_ref,
                 status="SAMPLED",coverage=partial and "PARTIAL" or "COMPLETE_WITHIN_PLAN",output_limited=limited,
                 payload={features=features}}})
-        evidence.observations[#evidence.observations+1]={packet=table.copy(p),body=b,daytime=core.get_timeofday()}
+        evidence.observations[#evidence.observations+1]={packet=table.copy(p),body=b,daytime=core.get_timeofday(),food_visibility=visibility}
         enqueue("observe",p)
         if scenario=="blocked" and slot==2 then
             local pos=vector.round(vector.add(b.position,core.yaw_to_dir(b.yaw)))
@@ -118,6 +130,9 @@ return function(http,runtime_url)
     end
     core.register_on_mods_loaded(function() core.after(0,function()
         local ok,err=pcall(function()
+            if natural then
+                evidence.terrain=natural.build(scenario);evidence.terrain_moves={}
+            else
             -- Fill loaded air once; surface sampling must not silently read ignore nodes.
             local lo,hi={x=-56,y=0,z=-56},{x=56,y=14,z=56}
             local vm=VoxelManip();local emin,emax=vm:read_from_map(lo,hi)
@@ -125,6 +140,7 @@ return function(http,runtime_url)
             local air,gray=core.get_content_id("air"),core.get_content_id("rdl_bridge:exploration_gray")
             for z=lo.z,hi.z do for y=lo.y,hi.y do for x=lo.x,hi.x do data[area:index(x,y,z)]=y==0 and gray or air end end end
             vm:set_data(data);vm:write_to_map();vm:update_map()
+            end
             for x=-32,32,16 do for z=-32,32,16 do core.forceload_block({x=x,y=1,z=z},true) end end
             local rotated=scenario=="rotated"
             local left=scenario=="left"
@@ -134,10 +150,13 @@ return function(http,runtime_url)
                 x,z=transform(x,z)
                 if scenario~="no_strip" then core.set_node({x=x,y=0,z=z},{name="rdl_bridge:exploration_blue"}) end
             end
+            if not natural then
             for z=0,(bend and 13 or 26) do tile(0,z);tile(left and -1 or 1,z) end
             if bend then for x=0,24 do for z=12,13 do tile(left and -x or x,z) end end end
+            end
             local fx,fz=transform(bend and (left and -24 or 24) or 0,bend and 12 or 26)
-            evidence.food_initial={x=fx,y=1,z=fz}
+            if natural then fx,fz=18,18 end
+            evidence.food_initial={x=fx,y=natural and natural.height(fx,fz)+1 or 1,z=fz}
             if scenario~="no_food" then food=assert(core.add_entity(evidence.food_initial,"rdl_bridge:food",run .. ":food")) end
             for i,m in ipairs({{x=-22,z=42,h=8,r=6,color="gray"},{x=42,z=24,h=6,r=5,color="red"},{x=-38,z=-34,h=10,r=7,color="gray"}}) do
                 local node="rdl_bridge:exploration_rock_" .. m.color
@@ -158,9 +177,10 @@ return function(http,runtime_url)
             npc:set_yaw(rotated and math.pi/2 or 0)
             if food then food:set_properties({textures={"rdl_l13_food.png"}}) end
             body_revision=0;last_position=vector.new(npc:get_pos());last_yaw=npc:get_yaw()
-            ctl=controller.new(run,{body=body,execute=execute})
+            ctl=controller.new(run,{body=body,execute=execute,natural=natural~=nil})
             evidence.initial_body=body()
             evidence.lua_checks=dofile(root .. "/exploration_checks.lua")(controller,ground)
+            if natural then evidence.natural_checks=dofile(root .. "/exploration_natural_checks.lua")(natural,controller) end
             enqueue("configure",config);stage="configuring"
         end)
         if not ok then save(tostring(err)) end

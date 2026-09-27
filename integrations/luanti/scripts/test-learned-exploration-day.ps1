@@ -1,6 +1,6 @@
 param(
     [string]$LuantiRoot = "D:\luanti",
-    [ValidateSet("straight","right","left","rotated","no_strip","no_food","partial","blocked","faults")]
+    [ValidateSet("straight","right","left","rotated","no_strip","no_food","partial","blocked","faults","natural_meadow","natural_woodland")]
     [string]$Scenario = "straight",
     [Parameter(Mandatory=$true)][string]$RunId
 )

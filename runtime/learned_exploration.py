@@ -71,6 +71,8 @@ def interpret(model, section):
 
 
 class LearnedExplorationDay(FiniteExploration):
+    allow_natural = True
+
     def __init__(self, run_id, series_id, day, seed, model=None, probe=None):
         super().__init__(run_id)
         self.series_id, self.day, self.seed = series_id, day, seed
@@ -106,6 +108,7 @@ class LearnedExplorationDay(FiniteExploration):
                 result = self.results.get("op:"+previous["observation_id"]) if previous else None
                 body_ok = not index or (result is not None
                     and result["status"] == trace[index-1]["result_status"]
+                    and abs(result.get("up", 0) - trace[index-1].get("result_up", 0)) < .001
                     and result["after_pose_ref"] == p["pose_ref"] and result["after_revision"] == p["body_revision"]
                     and result["executed_us"] < p["capture_us"])
                 if observation_key(p) != expected or not body_ok:
@@ -172,6 +175,8 @@ def make_candidate(state, episode, series_id):
         trace.append(dict(observed=observation_key(p), action=[c["kind"], c["amount"]],
             result_status=r["status"], source_observation=p["observation_id"], source_operation=c["operation_id"],
             source_capture_us=p["capture_us"], source_pose=p["pose_ref"]))
+        if "up" in r:
+            trace[-1]["result_up"] = r["up"]
     relation = dict(kind=RELATION, series_id=series_id, purpose=PURPOSE, trace=trace,
         terminal_observed=observation_key(observations[found]), terminal_source=observations[found]["observation_id"],
         formation_episode=episode, formation_run=state["config"]["run_id"], predicts_food=True,
@@ -299,6 +304,8 @@ class LearnedExplorationSeries:
             require(self.pending is not None and self.summary()["status"] == "running", "no_active_day")
             require({k:request[k] for k in ("episode_id", "run_id")} == self.pending["request"], "day_binding")
             state = self.loop.snapshot()
+            require(not self.days or (state["config"] is not None and
+                    state["config"]["schema"] == self.days[0]["state"]["config"]["schema"]), "acquisition_contract_changed")
             require(digest(state) == request["state_digest"], "state_digest")
             require(state["ending"] and state["ending"]["reason"] in ("acquired", "time_limit"), "unfinished_or_mechanism_error")
             require(bool(state["observations"]) and not next(iter(state["observations"].values()))["food"]["visible"], "initial_food_known_or_missing")

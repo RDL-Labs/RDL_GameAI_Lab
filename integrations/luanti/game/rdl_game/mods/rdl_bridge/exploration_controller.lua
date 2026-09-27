@@ -34,7 +34,8 @@ function M.new(run,adapter)
         elseif now>=c.expires_us then status="expired"
         elseif before.revision~=c.body_revision or before.pose_ref~=c.pose_ref then status="stale"
         else
-            assert(self.distance+(c.kind=="move" and 1 or 0)<=64 and self.rotation+(c.kind=="turn" and 90 or 0)<=5760)
+            local step=adapter.natural and math.sqrt(2) or 1
+            assert(self.distance+(c.kind=="move" and step or 0)<=64*step+.00001 and self.rotation+(c.kind=="turn" and 90 or 0)<=5760)
             status=adapter.execute(c)
         end
         local after=adapter.body()
@@ -49,6 +50,7 @@ function M.new(run,adapter)
             executed_us=now,before_pose_ref=before.pose_ref,after_pose_ref=after.pose_ref,before_revision=before.revision,
             after_revision=after.revision,status=status,forward=vector.dot(delta,forward),right=vector.dot(delta,right),
             yaw=yaw,acquired=status=="picked_up"}
+        if adapter.natural then entry.result.up=delta.y end
         return table.copy(entry.result),true
     end
     return self

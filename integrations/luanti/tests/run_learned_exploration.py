@@ -60,14 +60,14 @@ def run_series(scenario, mode, seed, max_days, luanti_root):
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--scenario", default="straight", choices=("straight","right","left","rotated","no_strip","no_food","partial","blocked","faults"))
+    p.add_argument("--scenario", default="straight", choices=("straight","right","left","rotated","no_strip","no_food","partial","blocked","faults","natural_meadow","natural_woodland"))
     p.add_argument("--modes", nargs="+", choices=("record","inspect","adopt"), default=["record","inspect","adopt"])
     p.add_argument("--seed", type=int, default=20260927)
     p.add_argument("--max-days", type=int, default=30)
     p.add_argument("--luanti-root", default=r"D:\luanti")
     p.add_argument("--output", type=Path, required=True)
     args=p.parse_args(); OUTPUT.mkdir(parents=True,exist_ok=True)
-    sources=["runtime/exploration.py","runtime/learned_exploration.py","runtime/learned_exploration_http.py","runtime/v23_interpretation.py",
+    sources=["runtime/exploration_series.py","runtime/exploration.py","runtime/learned_exploration.py","runtime/learned_exploration_http.py","runtime/v23_interpretation.py",
         "integrations/luanti/scripts/test-learned-exploration-day.ps1",
         "integrations/luanti/tests/check_exploration.py","integrations/luanti/tests/check_learned_exploration.py",
         "integrations/luanti/tests/run_learned_exploration.py"]

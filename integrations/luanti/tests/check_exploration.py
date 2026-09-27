@@ -4,11 +4,12 @@ from math import dist, isclose
 from pathlib import Path
 import sys
 
-from runtime.exploration import FiniteExploration, LIMIT_US
+from runtime.exploration import FiniteExploration, LIMIT_US, NATURAL_SCHEMA
 
 
 def check(data, *, replay_loop=None, fixed_policy=True):
     w=data["world"];s=data["runtime"]["exploration"]
+    natural = s["config"]["schema"] == NATURAL_SCHEMA
     assert not w.get("failure"),w.get("failure")
     assert w["lua_checks"]==24,w["lua_checks"]
     assert data["runtime"]["canonical"]==data["initial"]["canonical"]
@@ -26,7 +27,8 @@ def check(data, *, replay_loop=None, fixed_policy=True):
     assert not observations[0]["packet"]["food"]["visible"],"Food initially known"
     assert len({o["packet"]["sample_seq"] for o in observations})==len(observations)
     assert all(abs(o["daytime"]-.5)<.001 for o in observations)
-    assert any(o["packet"]["distant"]["payload"]["features"] for o in observations),"no real distant mountain observation"
+    if not natural:
+        assert any(o["packet"]["distant"]["payload"]["features"] for o in observations),"no real distant mountain observation"
     assert len(w["mountains"])==3
     assert all(m["node_name"]==m["readback"] for m in w["mountains"])
     assert w["guards"]["duplicate_operation"]
@@ -36,7 +38,9 @@ def check(data, *, replay_loop=None, fixed_policy=True):
         r=a["result"];c=a["command"];before=a["before"];after=a["after"]
         dp=dist([before["position"][k] for k in "xyz"],[after["position"][k] for k in "xyz"])
         distance+=dp;rotation+=abs(r["yaw"])
-        assert dp<=1.00001 and abs(r["yaw"])<=90.01
+        assert dp<=(2**.5 if natural else 1)+.00001 and abs(r["yaw"])<=90.01
+        if natural:
+            assert isclose(r["up"], after["position"]["y"]-before["position"]["y"], abs_tol=1e-5)
         assert abs(after["position"]["x"])<=32.00001 and abs(after["position"]["z"])<=32.00001
         assert r["before_revision"]==before["revision"] and r["after_revision"]==after["revision"]
         if r["status"] in ("expired","stale","stopped","blocked","waited","not_found"):
@@ -48,7 +52,7 @@ def check(data, *, replay_loop=None, fixed_policy=True):
             source=s["observations"][c["source_id"]]
             assert source["food"]["visible"][0]["ref"]==c["target_ref"]
             assert dist([before["position"][k] for k in "xyz"],[w["food_initial"][k] for k in "xyz"])<=1.25
-    assert isclose(distance,w["controller"]["distance"],abs_tol=1e-5) and distance<=64.00001
+    assert isclose(distance,w["controller"]["distance"],abs_tol=1e-5) and distance<=64*(2**.5 if natural else 1)+.00001
     assert isclose(rotation,w["controller"]["rotation"],abs_tol=1e-5) and rotation<=5760.01
     assert effects==w["controller"]["effects"]
     acquired=s["ending"]["reason"]=="acquired"
@@ -74,6 +78,9 @@ def check(data, *, replay_loop=None, fixed_policy=True):
         assert any(delayed["arrived_us"]<o["packet"]["capture_us"]<delayed["received_us"] for o in observations)
         assert any(a["result"]["status"]=="expired" for a in actions)
         assert any(json.loads(d["response_wire"]).get("new_frames")==0 for d in w["deliveries"])
+    if natural:
+        from .check_natural_exploration import check_natural_day
+        check_natural_day(data)
     return dict(scenario=w["scenario"],observations=len(observations),result=s["ending"]["reason"],
                 distance=round(distance,3),actions=len(actions),first_food_us=w.get("first_food_us"),acquired_us=w.get("acquired_us"))
 

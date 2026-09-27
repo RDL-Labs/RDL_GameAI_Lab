@@ -27,13 +27,17 @@ class LearnedExplorationHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         name = self.path.removeprefix("/v1/exploration/")
-        if not self.path.startswith("/v1/exploration/") or name not in ("configure", "observe", "result", "finish"):
-            return self.send(404, dict(error="unknown_endpoint"))
+        known = self.path.startswith("/v1/exploration/") and name in ("configure", "observe", "result", "finish")
         try:
             size = int(self.headers.get("Content-Length", "0"))
-            if not 0 < size <= 262144:
+            if not 0 <= size <= 262144 or (known and size == 0):
                 return self.send(413, dict(error="payload_budget"))
-            value = json.loads(self.rfile.read(size))
+            # Drain bounded bodies before 404. Closing with unread bytes can reset
+            # the connection on Windows before the client receives the response.
+            raw = self.rfile.read(size)
+            if not known:
+                return self.send(404, dict(error="unknown_endpoint"))
+            value = json.loads(raw)
             s = self.server.series
             with s.lock:
                 response = getattr(s.loop, name)(value)

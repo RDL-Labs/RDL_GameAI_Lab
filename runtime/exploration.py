@@ -6,6 +6,7 @@ from threading import RLock
 from .sensory_observation import SensoryObservationStore, SCHEMA_VERSION
 
 SCHEMA = "l13a-exploration-v1"
+NATURAL_SCHEMA = "l13t-natural-exploration-v1"
 GROUND = "l13a-ground-nine-v1"
 SLOT_US = 250_000
 LIMIT_US = 16_000_000
@@ -59,6 +60,11 @@ def choose(packet, previous=None):
 
 
 class FiniteExploration:
+    allow_natural = False
+
+    def natural(self):
+        return self.config is not None and self.config["schema"] == NATURAL_SCHEMA
+
     def __init__(self, run_id):
         ref(run_id)
         self.run_id = run_id
@@ -78,7 +84,8 @@ class FiniteExploration:
         with self.lock:
             fields(value, "schema run_id world_epoch agent_id clock_id")
             self.context(value)
-            require(value["schema"] == SCHEMA and value["clock_id"] == "world-sim-v1", "configuration")
+            require(value["schema"] in ((SCHEMA, NATURAL_SCHEMA) if self.allow_natural else (SCHEMA,))
+                    and value["clock_id"] == "world-sim-v1", "configuration")
             require(self.config is None or self.config == value, "configuration_conflict")
             self.config = deepcopy(value)
             return {"accepted": True, "config": deepcopy(value)}
@@ -95,14 +102,16 @@ class FiniteExploration:
         integer(p["body_revision"], 0, CAPACITY)
         g = p["ground"]
         fields(g, "model profile coverage cells")
-        require(g["model"] == GROUND and g["profile"] == "l13a-ground-fixed-v1", "ground_profile")
+        require((g["model"], g["profile"]) == (("l13t-local-surface-rays-v1", "l13t-natural-fixed-v1")
+                if self.natural() else (GROUND, "l13a-ground-fixed-v1")), "ground_profile")
         require(g["coverage"] in ("complete", "partial"), "ground_coverage")
         require(isinstance(g["cells"], list) and len(g["cells"]) == 9, "ground_budget")
         for cell, key in zip(g["cells"], CELLS):
             fields(cell, "cell_id color status")
             require(cell["cell_id"] == key, "ground_cell_order")
             require(cell["status"] in ("sampled", "unloaded", "occluded", "no_surface"), "ground_status")
-            require(cell["color"] in ("blue", "gray", "unknown"), "ground_color")
+            require(cell["color"] in (("green", "brown", "gray", "blue", "unknown")
+                    if self.natural() else ("blue", "gray", "unknown")), "ground_color")
             require((cell["color"] == "unknown") == (cell["status"] != "sampled"), "ground_missing")
         require((g["coverage"] == "complete") == all(c["status"] == "sampled" for c in g["cells"]), "ground_completeness")
         food = p["food"]
@@ -110,12 +119,13 @@ class FiniteExploration:
         require(food["coverage"] in ("complete", "partial"), "food_coverage")
         require(isinstance(food["visible"], list) and len(food["visible"]) <= 1, "food_budget")
         for item in food["visible"]:
-            fields(item, "ref distance forward right")
+            fields(item, "ref distance forward right up" if self.natural() else "ref distance forward right")
             ref(item["ref"])
             number(item["distance"], 0, 12)
             for k in ("forward", "right"):
                 number(item[k], -12, 12)
-            require(abs(hypot(item["forward"], item["right"]) - item["distance"]) < 0.001, "food_geometry")
+            if self.natural(): number(item["up"], -12, 12)
+            require(abs(hypot(item["forward"], item["right"], item.get("up", 0)) - item["distance"]) < 0.001, "food_geometry")
         d = p["distant"]
         require(isinstance(d, dict), "distant_frame")
         require(d.get("channel") == "vision_distant" and d.get("sensor_id") == "eye"
@@ -168,7 +178,7 @@ class FiniteExploration:
     def result(self, value):
         with self.lock:
             require(self.config is not None, "not_configured")
-            fields(value, "run_id world_epoch agent_id operation_id source_id executed_us before_pose_ref after_pose_ref before_revision after_revision status forward right yaw acquired")
+            fields(value, "run_id world_epoch agent_id operation_id source_id executed_us before_pose_ref after_pose_ref before_revision after_revision status forward right yaw acquired" + (" up" if self.natural() else ""))
             self.context(value)
             ident = value["operation_id"]
             ref(ident)
@@ -187,6 +197,10 @@ class FiniteExploration:
                 number(value[k], lo, hi)
             require(type(value["acquired"]) is bool, "acquired")
             status = value["status"]
+            if self.natural():
+                number(value["up"], -1.001, 1.001)
+                require(abs(value["up"] - round(value["up"])) < .001, "vertical_step")
+                require(status == "moved" or abs(value["up"]) < .001, "vertical_effect")
             allowed = {"move": {"moved", "blocked"}, "turn": {"turned"},
                        "pickup": {"picked_up", "not_found"}, "wait": {"waited"}}
             require(status in allowed[command["kind"]] | {"expired", "stale", "stopped"}, "result_status")

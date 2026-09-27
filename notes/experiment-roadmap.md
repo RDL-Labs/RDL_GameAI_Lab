@@ -129,6 +129,11 @@ bounded unfinished result, not proof of absence. Memory/reset controls and fixed
 history model-adoption controls remain separate. L13R retains records but the
 current fixed policy does not consume them. Route matching and learned selection
 remain the L13B/C boundary; repetition alone does not implement learning.
+The [L13T natural-terrain slice](../docs/experiment-contracts/LUANTI_L13T_natural_exploration_contract.md)
+extends the same learning path to rolling grassland and woodland, with measured vertical steps and node occlusion.
+Its [Evidence](../docs/experiment-evidence/LUANTI_L13T_natural_exploration_evidence.md) keeps terrain truth out of agent inputs and retains the three-discovery / 30-day boundary.
+This is bounded terrain adaptation, not general navigation or learned obstacle avoidance.
+
 The [L13S Sleep connection](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)
 now has a dedicated episodic adapter: one discovery day forms a tentative
 observed route, one later held-out day explicitly Probes it, then retained material

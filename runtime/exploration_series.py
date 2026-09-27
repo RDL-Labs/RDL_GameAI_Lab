@@ -5,6 +5,7 @@ World geometry belongs to the experiment harness, never to retained material.
 """
 from copy import deepcopy
 from hashlib import sha256
+from math import hypot
 import json
 from threading import RLock
 
@@ -54,12 +55,12 @@ def day_metrics(state):
     prefix = [r for r in results if limit is not None and r["executed_us"] <= limit]
     return dict(
         observations=len(observations), permits=len(state["commands"]),
-        distance=sum(abs(r["forward"]) for r in results),
+        distance=sum(hypot(r["forward"], r["right"], r["up"]) if "up" in r else abs(r["forward"]) for r in results),
         rotation=sum(abs(r["yaw"]) for r in results),
         exploration_us=min(state["ending"]["ended_us"], LIMIT_US),
         first_food_us=limit, first_food_source=found["observation_id"] if found else None,
         acquired=acquired is not None, acquired_us=acquired["executed_us"] if acquired else None,
-        distance_to_discovery=sum(abs(r["forward"]) for r in prefix) if found else None,
+        distance_to_discovery=sum(hypot(r["forward"], r["right"], r["up"]) if "up" in r else abs(r["forward"]) for r in prefix) if found else None,
         permits_to_discovery=len(prefix) if found else None,
         incomplete_observations=sum(p["ground"]["coverage"] != "complete"
                                     or p["food"]["coverage"] != "complete" for p in observations),
