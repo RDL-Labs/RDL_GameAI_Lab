@@ -104,7 +104,10 @@ route correspondences. Inducing useful cues and transition predictions requires
 L13C inspection and model adoption. Compare terrain layouts with the same explorer
 and retain unsuccessful runs, uncertain or mistaken route matches, and termination
 reasons. A positive discovery control is required, but success in every run is not.
-Body-driven collapse needs a separate Luanti contract; a test timeout is not collapse.
+The first slice fixes daylight and sensory conditions while World elapsed time
+continues; unfinished runs end at the time budget (or an earlier explicit resource
+limit). Nighttime visibility and body-driven collapse are deferred to separate
+contracts. A test timeout is not collapse.
 These additions remain design-only.
 
 ## Existing roadmap basis
