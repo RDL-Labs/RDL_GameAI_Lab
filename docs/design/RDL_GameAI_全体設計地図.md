@@ -32,6 +32,7 @@ ConceptとPlayer Roleは、この4軸を使って何を体験させ、どこか�
 | B | [Layer別設計計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | 所有・更新・保持・snapshot・reviewed influence・比較受入 |
 | B / D | [神経パラメーター設計図](RDL_GameAI_神経パラメーター設計図.md) | 操作的神経ラベル・DNA基準・動的状態・派生感度 |
 | B / D | [感情・履歴・関係拘束](RDL_GameAI_感情・履歴・関係拘束モデル.md) | 履歴種別・派生表現。Hを感情にしない |
+| B / D | [自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md) | 人・物・場所・共同体に共通する条件付き関係、所有・親密さ・文脈依存の記録案と比較実験。design-only |
 | C | [Game Feature Roadmap](RDL_GameAI_実装手順予定.md) | 生活機能の縦実装順と横断系の接続点 |
 | C | [Base–Food循環完成計画](RDL_GameAI_Codex_BaseFood循環完成計画.md) | 完了した最初のBase–Resource参照実装 |
 | D | [睡眠システム](RDL_GameAI_睡眠システム設計.md) | 回復・選別・圧縮・関連付け。睡眠自体はLayerでもT1でもない |
@@ -151,6 +152,10 @@ Playerは暫定的に拠点のしゃべる像。NPC直接操作・状態書換�
 ### 関係・個体差
 
 関係対象はPerson / Object / Place / Space / Concept / Community。OXTは関係salience・保持等を偏らせる設計候補で、好感度やBそのものではない。正負・矛盾した関係を一つのfriendship scoreへ潰さない。
+
+[自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md)では、保持関係・現在の適用・距離や重みの
+要約表現を分ける。所有・親密さ・集団への帰属を、その具体的な関係から検査する将来設計とし、
+個体の内部状態やWorldの所属情報を観測なしに取得する権限を与えない。
 
 ## 7. 現在地と次の判断
 

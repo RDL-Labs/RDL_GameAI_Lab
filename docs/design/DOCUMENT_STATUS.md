@@ -9,6 +9,7 @@
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
+| [自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md) | design-only / DRAFT v0.1 | 人・道具・場所・共同体を条件付きの関係拘束として扱う。保持・現在適用・要約を分離し、所有・親密さ・文脈依存の記録案と有限比較を定義。実装・受入は未実施 |
 | [Luanti L10B multi-agent learning](../experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md) | finite A/B M_B-informed action operational | 同じ継続Worldで個体別学習・切替・身体権限を分離。3run・72 Episode、逆対応と片方だけの採用対照。[Evidence](../experiment-evidence/LUANTI_L10B_multi_agent_learning_evidence.md)。共有資源・社会学習は保留 |
 | [Luanti L10 sensory learning action](../experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md) | finite M_B-informed action operational | 実感覚frame→経験→独立検査→T1→M_B予測→実Food試行／保留。3run・36Episodeの対照。[Evidence](../experiment-evidence/LUANTI_L10_sensory_learning_action_evidence.md)。単一個体、明示review・切替、OBS-9常設統合は保留 |
 | [SOC-4 Contextual Carry Prediction contract](../experiment-contracts/SOC_4_contextual_carry_prediction_contract.md) | finite two-condition prediction operational | 形成4・検査4・予測確認4の実Godot Episode。身体区分×足場からcarry成立/不成立を作用前予測。18試験PASS。[Evidence](../experiment-evidence/SOC_4_contextual_carry_prediction_evidence.md)。原因同定・予測による行動変更・NERV/T1は未接続 |

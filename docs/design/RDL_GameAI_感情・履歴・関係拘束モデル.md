@@ -6,6 +6,10 @@
 **依存:** [神経設計](RDL_GameAI_神経パラメーター設計図.md)、[睡眠設計](RDL_GameAI_睡眠システム設計.md)、[Core reference](../semantic-reference/RDL_Core_T0_T1_reference.md)。
 **非責務・状態:** Hの再定義や神経サブタイプ定義はしない。心理的AffectExpression / ActionBias / DialogueToneは候補であり、現行display-only Response Expressionと同一ではない。
 
+2026-09-27追記: 所有・親密さ・共同体・道具への関与を共通に記述する設計と、文脈依存の適用・
+記録案・比較実験は[自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md)へ分離した。
+同文書はdesign-only。L10Bで成立した個体別の有限学習と、社会関係の意味論を区別する。
+
 ## 0. 位置づけ
 
 ゲームAIの「感情らしさ」を固定的な感情メーターではなく、**有限な相互作用履歴・現在の解釈・個体差・関係拘束・未解決不整合のprovenanceから立ち上がる表層現象**として扱う。
@@ -102,7 +106,9 @@ M_B + current RIB_B
 → derived AffectExpression
 ```
 
-`AffectExpression != M_B by identity` かつ `AffectExpression != H` を維持する。現行runtimeでは履歴由来relationのcanonical admissionはまだ行わない。
+`AffectExpression != M_B by identity` かつ `AffectExpression != H` を維持する。
+履歴由来relationの明示canonical admissionは[L10/L10B](../experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md)の
+有限感覚学習で実装済み。本書の心理的感情・社会関係の候補は、その受付対象へまだ接続していない。
 
 同じ対象へ複数方向の履歴が共存してよい。
 
