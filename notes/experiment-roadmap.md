@@ -116,14 +116,19 @@ Food; no-strip/no-food/incomplete/blocked controls end at the time limit.
 [Evidence](../docs/experiment-evidence/LUANTI_L13A_finite_exploration_evidence.md) separates fixed following
 from learning. Mountains are recorded, not used to infer location. Route memory
 and M_B adoption remain the L13B/C design boundary.
-The next design adds up to 30 daylight exploration Episodes, stopping new Episodes
+The [L13R series contract](../docs/experiment-contracts/LUANTI_L13R_repeated_exploration_contract.md)
+has finite acceptance complete: four series / 62 real Luanti runs / 3,918 acquisition packets.
+Colored-strip controls discover Food on day one; no-strip memory/reset controls both end undiscovered at day 30.
+[Evidence](../docs/experiment-evidence/LUANTI_L13R_repeated_exploration_evidence.md).
+The series allows up to 30 daylight exploration Episodes, stopping new Episodes
 at the first actual local Food discovery. Each day resets the body and action
 authority at the same base with the same terrain and a 16-second budget; retained
 agent observations and measured outcomes are the intended cross-day material.
 Pickup is recorded separately from discovery. Thirty days without discovery is a
 bounded unfinished result, not proof of absence. Memory/reset controls and fixed-
-history model-adoption controls remain separate. This series is design-only;
-repeating the current fixed policy alone does not implement learning.
+history model-adoption controls remain separate. L13R retains records but the
+current fixed policy does not consume them. Route matching and learned selection
+remain the L13B/C boundary; repetition alone does not implement learning.
 
 ## Existing roadmap basis
 

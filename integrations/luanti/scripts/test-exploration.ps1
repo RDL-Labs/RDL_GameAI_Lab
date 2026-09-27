@@ -2,13 +2,15 @@ param(
     [string]$LuantiRoot = "D:\luanti",
     [ValidateSet("straight","right","left","rotated","no_strip","no_food","partial","blocked","faults")]
     [string]$Scenario = "straight",
-    [switch]$Matrix
+    [switch]$Matrix,
+    [string]$RunId = ""
 )
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
 $integrationRoot = Split-Path -Parent $PSScriptRoot
 $outputPath = Join-Path $integrationRoot "output"
 if ($Matrix) {
+    if ($RunId) { throw "RunId is only valid for a single run" }
     $paths = @()
     foreach ($case in @("straight","right","left","rotated","no_strip","no_food","partial","blocked","faults")) {
         $result = & $PSCommandPath -LuantiRoot $LuantiRoot -Scenario $case
@@ -20,8 +22,10 @@ if ($Matrix) {
     Write-Output "L13A MATRIX: $manifest"
     return
 }
-$runId = "l13a-" + [DateTime]::UtcNow.ToString("yyyyMMdd-HHmmss-fff")
+if ($RunId -and $RunId -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "Invalid RunId" }
+$runId = if ($RunId) { $RunId } else { "l13a-" + [DateTime]::UtcNow.ToString("yyyyMMdd-HHmmss-fff") }
 $worldPath = Join-Path $integrationRoot "worlds\$runId"
+if (Test-Path -LiteralPath $worldPath) { throw "World already exists: $worldPath" }
 New-Item -ItemType Directory -Force -Path $outputPath,$worldPath | Out-Null
 & (Join-Path $PSScriptRoot "install-game.ps1") -LuantiRoot $LuantiRoot
 Copy-Item -LiteralPath (Join-Path $integrationRoot "world-template\world.mt") -Destination (Join-Path $worldPath "world.mt")
@@ -53,7 +57,7 @@ try {
         try { $health = Invoke-RestMethod "http://127.0.0.1:8765/health" -TimeoutSec 1 } catch { $health = $null }
     } while (-not $health.ok -and [DateTime]::UtcNow -lt $deadline)
     if (-not $health.ok -or $runtime.HasExited) { throw "L13A Runtime did not start" }
-    $initial = Invoke-RestMethod "http://127.0.0.1:8765/v1/exploration-snapshot"
+    $initial = Invoke-RestMethod "http://127.0.0.1:8765/v1/exploration-snapshot" -TimeoutSec 5
     if ($initial.exploration.schema -ne "l13a-exploration-v1" -or $initial.exploration.config) { throw "Unexpected Runtime instance" }
     $luanti = Start-Process -FilePath (Join-Path $LuantiRoot "bin\luanti.exe") -ArgumentList `
         "--server","--gameid","rdl_game","--world",$worldPath,"--config",$config,"--logfile",(Join-Path $outputPath "$runId.log"),"--color","never" `
@@ -69,7 +73,7 @@ try {
         throw "L13A did not complete"
     }
     $world = Get-Content -LiteralPath (Join-Path $worldPath "l13a-evidence.json") -Raw | ConvertFrom-Json
-    $state = Invoke-RestMethod "http://127.0.0.1:8765/v1/exploration-snapshot"
+    $state = Invoke-RestMethod "http://127.0.0.1:8765/v1/exploration-snapshot" -TimeoutSec 5
     $snapshot = Join-Path $outputPath "$runId.snapshot.json"
     @{world=$world; runtime=$state; initial=$initial} | ConvertTo-Json -Depth 90 | Set-Content -LiteralPath $snapshot -Encoding utf8
     Push-Location $repoRoot

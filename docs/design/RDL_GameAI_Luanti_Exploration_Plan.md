@@ -1,6 +1,6 @@
 # Luanti L13 — 未知の餌場の探索・再訪・M_Bによる探索選択
 
-**状態: L13A IMPLEMENTED / FINITE ACCEPTANCE COMPLETE、L13B/C DESIGN ONLY。2026-09-27。**
+**状態: L13A・L13R FINITE ACCEPTANCE COMPLETE、L13B/C DESIGN ONLY。2026-09-27。**
 初版の[実装契約](../experiment-contracts/LUANTI_L13A_finite_exploration_contract.md)と
 [Evidence](../experiment-evidence/LUANTI_L13A_finite_exploration_evidence.md)を正本とする。
 基準: GameAI `df2d23d` ＋ L13A実装working tree。以下にはv0.6までの設計案と後続候補を残す。
@@ -272,12 +272,15 @@ L13Aの迷い・未達の検証は、この身体接続の完成を待つ条件�
 後のバランス調整は値と規則の版を分け、同じ地形集合で結果を比較する。
 学習対照では身体条件も固定し、消耗量や成功率を直接Core E/H/θへ置き換えない。
 
-### 6.1 発見まで最大30日の探索系列（後続計画・未実装）
+### 6.1 発見まで最大30日の探索系列
+
+系列制御と本人記録の保持／リセットは[L13R契約](../experiment-contracts/LUANTI_L13R_repeated_exploration_contract.md)として有限受入完了。4系列・62実Luanti run・3,918取得の[Evidence](../experiment-evidence/LUANTI_L13R_repeated_exploration_evidence.md)を参照。
+現行の固定選択器は履歴を参照しない。以下のM_Bによる選択変化はL13Cの後続計画であり、L13Rの完了条件には含めない。
 
 **同じ地形で、Foodを発見するまで最大30回の独立探索Episodeを続ける。**
 ここで「日」は昼間固定の探索Episodeを指し、夜間・睡眠・身体回復を実装した意味ではない。
 3回で学習差が現れることを要求せず、未発見のまま終わった日もすべて保存する。
-L13Aの単発run契約・既存Evidenceは変更せず、L13B/Cの後続契約で系列制御を追加する。
+L13Aの単発run契約・既存Evidenceは変更せず、系列制御をL13R、経路照合・学習をL13B/Cとして分ける。
 
 系列の停止目標は、本人の新しい局所観測にFoodが実際に現れる初回発見とする。
 予測や過去記録、実験者だけが持つ配置情報では発見扱いにしない。
