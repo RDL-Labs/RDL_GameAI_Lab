@@ -203,3 +203,10 @@ carry直前の参加不能は作用を停止し、未実行をcarry失敗とし�
 署名や取得真正性の保証は追加していない。元の作用記録と現在参加条件の報告はfixture adapterの責務である。
 [RDL参照](../semantic-reference/RDL_Core_T0_T1_reference.md)に沿い、局所選別結果と身体実行権限を分ける。
 固定選別基準による有限行動差で停止し、一般的な性格形成・自律援助要請・神経由来の条件更新は別工程とする。
+
+## 次工程（SOC-4実装・受入済み）
+
+[SOC-4](SOC_4_contextual_carry_prediction_contract.md)では固定Selection差を変更せず、
+身体条件と局所足場の組合せを経験から検査し、別Episodeの単独carry開始を作用前予測する。
+[Evidence](../experiment-evidence/SOC_4_contextual_carry_prediction_evidence.md)。
+形成・検査・予測確認を分離し、予測はまだ本SOC-3の選択や身体実行へ接続しない。

@@ -1,0 +1,5752 @@
+{
+  "provenance": {
+    "kind": "12 real Godot solo carry trials with existing Rescue HTTP; forecast receipts precede action",
+    "base_commit": "39fc2098",
+    "acquired_at": "2026-09-27",
+    "command": "GODOT_BIN set; PYTHONPATH=tests; python -m unittest test_contextual_carry.ContextualCarryTests.test_real_formation_validation_and_prediction_before_action -v",
+    "boundary": "Four formation, four independent validation, four prospective repetitions of known cells; fixture-only binary contact cues and toy carrying mechanics. No autonomous action selection or causal identification."
+  },
+  "protocol": {
+    "schema": "soc4-contextual-carry-v1",
+    "purpose": "predict_solo_carry_establishment",
+    "experiment_id": "soc4-two-conditions",
+    "agent_id": "npc_a",
+    "target_id": "npc_b",
+    "context_ref": "soc4-fixed-pickup-v1",
+    "formation": [
+      {
+        "episode_id": "formation-0",
+        "run_id": "soc4-formation-0"
+      },
+      {
+        "episode_id": "formation-1",
+        "run_id": "soc4-formation-1"
+      },
+      {
+        "episode_id": "formation-2",
+        "run_id": "soc4-formation-2"
+      },
+      {
+        "episode_id": "formation-3",
+        "run_id": "soc4-formation-3"
+      }
+    ],
+    "validation": [
+      {
+        "episode_id": "validation-0",
+        "run_id": "soc4-validation-0"
+      },
+      {
+        "episode_id": "validation-1",
+        "run_id": "soc4-validation-1"
+      },
+      {
+        "episode_id": "validation-2",
+        "run_id": "soc4-validation-2"
+      },
+      {
+        "episode_id": "validation-3",
+        "run_id": "soc4-validation-3"
+      }
+    ],
+    "forecast": [
+      {
+        "episode_id": "forecast-0",
+        "run_id": "soc4-forecast-0"
+      },
+      {
+        "episode_id": "forecast-1",
+        "run_id": "soc4-forecast-1"
+      },
+      {
+        "episode_id": "forecast-2",
+        "run_id": "soc4-forecast-2"
+      },
+      {
+        "episode_id": "forecast-3",
+        "run_id": "soc4-forecast-3"
+      }
+    ]
+  },
+  "formation": {
+    "episodes": [
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-0",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-0",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-0:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-formation-0",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-1",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-1",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-1:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-formation-1",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-2",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-2",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-2:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-formation-2",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-3",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-3",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-3:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_not_established",
+          "run_id": "soc4-formation-3",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": false,
+            "target_moved": false
+          }
+        },
+        "termination": "carry_observed"
+      }
+    ],
+    "missing_episode_ids": []
+  },
+  "validation": {
+    "episodes": [
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-0",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-0",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-0:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-validation-0",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-1",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-1",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-1:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-validation-1",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-2",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-2",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-2:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-validation-2",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-3",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-3",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-3:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_not_established",
+          "run_id": "soc4-validation-3",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": false,
+            "target_moved": false
+          }
+        },
+        "termination": "carry_observed"
+      }
+    ],
+    "missing_episode_ids": []
+  },
+  "worlds": [
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 1.0,
+            "recovery_stage": "none",
+            "revision": 0.0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-0",
+            "factors": [],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 3,
+        "resistance": 2,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-0",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-0",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-0:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-formation-0",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 1.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 1.0,
+            "recovery_stage": "none",
+            "revision": 0.0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-0",
+            "factors": [],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 3,
+        "resistance": 3,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-1",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-1",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-1:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-formation-1",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 1.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 0.5,
+            "recovery_stage": "none",
+            "revision": 1.0,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-1",
+            "factors": [
+              "movement-limited"
+            ],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 2,
+        "resistance": 2,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-2",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-2",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-2:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-formation-2",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.5,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 1,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 0.5,
+            "recovery_stage": "none",
+            "revision": 1.0,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-1",
+            "factors": [
+              "movement-limited"
+            ],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 2,
+        "resistance": 3,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-formation-3",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "formation-3",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-formation-3:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_not_established",
+          "run_id": "soc4-formation-3",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": false,
+            "target_moved": false
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.5,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 1,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": false,
+          "target_after": [
+            260.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": false
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 1.0,
+            "recovery_stage": "none",
+            "revision": 0.0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-0",
+            "factors": [],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 3,
+        "resistance": 2,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-0",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-0",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-0:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-validation-0",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 1.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 1.0,
+            "recovery_stage": "none",
+            "revision": 0.0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-0",
+            "factors": [],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 3,
+        "resistance": 3,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-1",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-1",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-1:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-validation-1",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 1.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 0.5,
+            "recovery_stage": "none",
+            "revision": 1.0,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-1",
+            "factors": [
+              "movement-limited"
+            ],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 2,
+        "resistance": 2,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-2",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-2",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-2:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-validation-2",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.5,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 1,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 0.5,
+            "recovery_stage": "none",
+            "revision": 1.0,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-1",
+            "factors": [
+              "movement-limited"
+            ],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 2,
+        "resistance": 3,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-validation-3",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "validation-3",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-validation-3:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_not_established",
+          "run_id": "soc4-validation-3",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": false,
+            "target_moved": false
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.5,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 1,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {},
+      "prediction_request": null,
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": false,
+          "target_after": [
+            260.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": false
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 1.0,
+            "recovery_stage": "none",
+            "revision": 0.0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-0",
+            "factors": [],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 3,
+        "resistance": 2,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-0",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-0",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-forecast-0:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-forecast-0",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 1.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {
+        "alternatives": [
+          {
+            "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+            "outcome": "established"
+          }
+        ],
+        "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-0",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0.0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-0",
+        "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+        "prediction": "likely_established",
+        "prediction_id": "97e98e4f5c226573eb22fec3ac3ae9d0e599966b359a025972965c9dfee014ed",
+        "reasons": [],
+        "request_id": "soc4-forecast-0:forecast"
+      },
+      "prediction_request": {
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-0",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-0",
+        "request_id": "soc4-forecast-0:forecast"
+      },
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 1.0,
+            "recovery_stage": "none",
+            "revision": 0.0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-0",
+            "factors": [],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 3,
+        "resistance": 3,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-1",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-1",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-forecast-1:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-forecast-1",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 1.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 0,
+            "snapshot_id": "body-npc_a-0"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {
+        "alternatives": [
+          {
+            "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+            "outcome": "established"
+          }
+        ],
+        "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-1",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0.0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-1",
+        "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+        "prediction": "likely_established",
+        "prediction_id": "e06a62383389b6ec5ec82620dcb10eae56d3b7d3421460538f4c597d87eef221",
+        "reasons": [],
+        "request_id": "soc4-forecast-1:forecast"
+      },
+      "prediction_request": {
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-0",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "full",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-1",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-1",
+        "request_id": "soc4-forecast-1:forecast"
+      },
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 0.5,
+            "recovery_stage": "none",
+            "revision": 1.0,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-1",
+            "factors": [
+              "movement-limited"
+            ],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 2,
+        "resistance": 2,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-2",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-2",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-forecast-2:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_established",
+          "run_id": "soc4-forecast-2",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": true,
+            "target_moved": true
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.5,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 1,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {
+        "alternatives": [
+          {
+            "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+            "outcome": "established"
+          }
+        ],
+        "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-2",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0.0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-2",
+        "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+        "prediction": "likely_established",
+        "prediction_id": "eeadf9741bce2849f9243046199baa4ac23af2161064d5ed538be47761ba478b",
+        "reasons": [],
+        "request_id": "soc4-forecast-2:forecast"
+      },
+      "prediction_request": {
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "firm",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-2",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-2",
+        "request_id": "soc4-forecast-2:forecast"
+      },
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": true,
+          "target_after": [
+            270.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": true
+        }
+      ]
+    },
+    {
+      "decision": {
+        "action": {
+          "target_id": "npc_b",
+          "type": "rescue"
+        },
+        "agent_id": "npc_a",
+        "inspection": {
+          "body": {
+            "authority": "bounded-self-body-report",
+            "carried_agent_id": "",
+            "incapacitated": false,
+            "injury_level": "none",
+            "movement_scale": 0.5,
+            "recovery_stage": "none",
+            "revision": 1.0,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "expression": {
+            "authority": "derived-display-only",
+            "body_snapshot_id": "body-npc_a-1",
+            "factors": [
+              "movement-limited"
+            ],
+            "history_record_ids": [],
+            "label": "observing",
+            "observation_id": "obs-000000-009-npc_a",
+            "profile_id": null,
+            "rule": "response-expression-v1"
+          },
+          "observation_id": "obs-000000-009-npc_a",
+          "reason": "attach reached incapacitated agent for bounded safe-place delivery",
+          "rescue": {
+            "authority": "GameAI-local-Rescue-policy; not-World-truth-recovery-M_B-or-H",
+            "candidate_ids": [
+              "npc_b"
+            ],
+            "commitment": "committed",
+            "goal": "deliver_incapacitated_agent_to_safe_place",
+            "policy": "rescue-safe-delivery-trajectory-v1",
+            "safe_target_id": null,
+            "target_id": "npc_b",
+            "trajectory_phase": "READY_TO_RESCUE"
+          },
+          "runtime": "rdl-gameai-minimal-runtime"
+        }
+      },
+      "experimenter_only": {
+        "carry_capabilities": {
+          "npc_a": 3,
+          "npc_c": 1
+        },
+        "effective_capacity": 2,
+        "resistance": 3,
+        "target_load": 2
+      },
+      "material": {
+        "conditions_stable": true,
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-3",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-3",
+        "event": {
+          "action": "rescue",
+          "agent_id": "npc_a",
+          "attempt_condition": "solo",
+          "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+          "body_consequence": {
+            "actor_incapacitated": false,
+            "target_incapacitated": true,
+            "target_recovery_stage": "none"
+          },
+          "event_id": "soc4-forecast-3:event:0",
+          "participants": [
+            "npc_a"
+          ],
+          "result": "carry_not_established",
+          "run_id": "soc4-forecast-3",
+          "schema": "soc0-rescue-experience-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "subsequent_observation_id": "obs-000000-011-npc_a",
+          "target_id": "npc_b",
+          "tick": 0,
+          "world_consequence": {
+            "carry_established": false,
+            "target_moved": false
+          }
+        },
+        "termination": "carry_observed"
+      },
+      "packet": {
+        "agent_id": "npc_a",
+        "observation": {
+          "body": {
+            "agent_id": "npc_a",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 0,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": false,
+            "injury_level": "none",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.5,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 1,
+            "snapshot_id": "body-npc_a-1"
+          },
+          "life_context": {
+            "at_base": false,
+            "god_statue_cue": {
+              "assessment_revision": 0,
+              "band": "critical",
+              "cue_id": "god-food-000",
+              "delivery": "morning",
+              "source": "system_assessment",
+              "topic": "base_food"
+            },
+            "interrupt_candidates": [],
+            "known_base": {
+              "id": "plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ]
+            },
+            "observed_base_food_band": "critical"
+          },
+          "visible_agents": [
+            {
+              "condition": "incapacitated",
+              "condition_schema": "bounded-visible-agent-condition-v1",
+              "id": "npc_b",
+              "label": "NPC B",
+              "relative_position": [
+                -10.0,
+                0.0
+              ],
+              "role": "mock agent",
+              "within_reach": true
+            }
+          ],
+          "visible_objects": [
+            {
+              "id": "food_01",
+              "kind": "food",
+              "label": "Mock Food",
+              "relative_position": [
+                -80.0,
+                80.0
+              ],
+              "role": "mock object",
+              "within_reach": false
+            }
+          ],
+          "visible_places": [
+            {
+              "id": "plaza",
+              "label": "Plaza",
+              "relative_position": [
+                -180.0,
+                -100.0
+              ],
+              "rescue_distance_band": "far",
+              "rescue_within_reach": false,
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "safe",
+              "role": "mock place",
+              "within_reach": false
+            },
+            {
+              "id": "z_grove",
+              "label": "Grove",
+              "relative_position": [
+                85.0,
+                65.0
+              ],
+              "rest_capable": true,
+              "rest_distance_band": "far",
+              "rest_safety": "uncertain",
+              "role": "mock place",
+              "within_reach": false
+            }
+          ]
+        },
+        "observation_id": "obs-000000-009-npc_a",
+        "tick": 0
+      },
+      "prediction": {
+        "alternatives": [
+          {
+            "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+            "outcome": "not_established"
+          }
+        ],
+        "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-3",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0.0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-3",
+        "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+        "prediction": "likely_not_established",
+        "prediction_id": "5871aa757b5b3370a6d6a79d4268fc7e924f266222ad67854b668a9b12b8dd44",
+        "reasons": [],
+        "request_id": "soc4-forecast-3:forecast"
+      },
+      "prediction_request": {
+        "context": {
+          "actor_ready": true,
+          "agent_id": "npc_a",
+          "body_ref": "body-npc_a-1",
+          "context_ref": "soc4-fixed-pickup-v1",
+          "coverage": "complete",
+          "footing_band": "loose",
+          "footing_ref": "contact:obs-000000-009-npc_a",
+          "movement_band": "limited",
+          "profile": "soc4-local-contact-cues-v1",
+          "run_id": "soc4-forecast-3",
+          "schema": "soc4-pre-carry-context-v1",
+          "source_observation_id": "obs-000000-009-npc_a",
+          "target_id": "npc_b",
+          "target_ready": true,
+          "tick": 0,
+          "within_reach": true
+        },
+        "episode_id": "forecast-3",
+        "request_id": "soc4-forecast-3:forecast"
+      },
+      "verification_authority": "experimenter-prescribed-solo-trial; not-prediction-driven-action",
+      "world_checks": [
+        {
+          "active": [
+            "npc_a"
+          ],
+          "attempt": 1,
+          "established": false,
+          "target_after": [
+            260.0,
+            180.0
+          ],
+          "target_before": [
+            260.0,
+            180.0
+          ],
+          "target_moved": false
+        }
+      ]
+    }
+  ],
+  "snapshot": {
+    "model": {
+      "schema": "soc4-contextual-carry-v1",
+      "protocol": {
+        "schema": "soc4-contextual-carry-v1",
+        "purpose": "predict_solo_carry_establishment",
+        "experiment_id": "soc4-two-conditions",
+        "agent_id": "npc_a",
+        "target_id": "npc_b",
+        "context_ref": "soc4-fixed-pickup-v1",
+        "formation": [
+          {
+            "episode_id": "formation-0",
+            "run_id": "soc4-formation-0"
+          },
+          {
+            "episode_id": "formation-1",
+            "run_id": "soc4-formation-1"
+          },
+          {
+            "episode_id": "formation-2",
+            "run_id": "soc4-formation-2"
+          },
+          {
+            "episode_id": "formation-3",
+            "run_id": "soc4-formation-3"
+          }
+        ],
+        "validation": [
+          {
+            "episode_id": "validation-0",
+            "run_id": "soc4-validation-0"
+          },
+          {
+            "episode_id": "validation-1",
+            "run_id": "soc4-validation-1"
+          },
+          {
+            "episode_id": "validation-2",
+            "run_id": "soc4-validation-2"
+          },
+          {
+            "episode_id": "validation-3",
+            "run_id": "soc4-validation-3"
+          }
+        ],
+        "forecast": [
+          {
+            "episode_id": "forecast-0",
+            "run_id": "soc4-forecast-0"
+          },
+          {
+            "episode_id": "forecast-1",
+            "run_id": "soc4-forecast-1"
+          },
+          {
+            "episode_id": "forecast-2",
+            "run_id": "soc4-forecast-2"
+          },
+          {
+            "episode_id": "forecast-3",
+            "run_id": "soc4-forecast-3"
+          }
+        ]
+      },
+      "formation": [
+        {
+          "episode_id": "formation-0",
+          "run_id": "soc4-formation-0",
+          "comparable": true,
+          "observed": "established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-0",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "firm",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "full",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-formation-0",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "formation-0",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-formation-0:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_established",
+              "run_id": "soc4-formation-0",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            "termination": "carry_observed"
+          }
+        },
+        {
+          "episode_id": "formation-1",
+          "run_id": "soc4-formation-1",
+          "comparable": true,
+          "observed": "established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-0",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "loose",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "full",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-formation-1",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "formation-1",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-formation-1:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_established",
+              "run_id": "soc4-formation-1",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            "termination": "carry_observed"
+          }
+        },
+        {
+          "episode_id": "formation-2",
+          "run_id": "soc4-formation-2",
+          "comparable": true,
+          "observed": "established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-1",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "firm",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "limited",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-formation-2",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "formation-2",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-formation-2:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_established",
+              "run_id": "soc4-formation-2",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            "termination": "carry_observed"
+          }
+        },
+        {
+          "episode_id": "formation-3",
+          "run_id": "soc4-formation-3",
+          "comparable": true,
+          "observed": "not_established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-1",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "loose",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "limited",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-formation-3",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "formation-3",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-formation-3:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_not_established",
+              "run_id": "soc4-formation-3",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            },
+            "termination": "carry_observed"
+          }
+        }
+      ],
+      "validation": [
+        {
+          "episode_id": "validation-0",
+          "run_id": "soc4-validation-0",
+          "comparable": true,
+          "observed": "established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-0",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "firm",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "full",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-validation-0",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "validation-0",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-validation-0:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_established",
+              "run_id": "soc4-validation-0",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            "termination": "carry_observed"
+          }
+        },
+        {
+          "episode_id": "validation-1",
+          "run_id": "soc4-validation-1",
+          "comparable": true,
+          "observed": "established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-0",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "loose",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "full",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-validation-1",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "validation-1",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-validation-1:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_established",
+              "run_id": "soc4-validation-1",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            "termination": "carry_observed"
+          }
+        },
+        {
+          "episode_id": "validation-2",
+          "run_id": "soc4-validation-2",
+          "comparable": true,
+          "observed": "established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-1",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "firm",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "limited",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-validation-2",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "validation-2",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-validation-2:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_established",
+              "run_id": "soc4-validation-2",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            "termination": "carry_observed"
+          }
+        },
+        {
+          "episode_id": "validation-3",
+          "run_id": "soc4-validation-3",
+          "comparable": true,
+          "observed": "not_established",
+          "reasons": [],
+          "source": {
+            "conditions_stable": true,
+            "context": {
+              "actor_ready": true,
+              "agent_id": "npc_a",
+              "body_ref": "body-npc_a-1",
+              "context_ref": "soc4-fixed-pickup-v1",
+              "coverage": "complete",
+              "footing_band": "loose",
+              "footing_ref": "contact:obs-000000-009-npc_a",
+              "movement_band": "limited",
+              "profile": "soc4-local-contact-cues-v1",
+              "run_id": "soc4-validation-3",
+              "schema": "soc4-pre-carry-context-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "target_id": "npc_b",
+              "target_ready": true,
+              "tick": 0,
+              "within_reach": true
+            },
+            "episode_id": "validation-3",
+            "event": {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc4-validation-3:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_not_established",
+              "run_id": "soc4-validation-3",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-009-npc_a",
+              "subsequent_observation_id": "obs-000000-011-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            },
+            "termination": "carry_observed"
+          }
+        }
+      ],
+      "formation_reasons": [],
+      "validation_reasons": [],
+      "hypotheses": [
+        {
+          "hypothesis_id": "796d32c9bbd84db72c00caba2ea5884395b2aa987dd61e1ad9376ec9e828b416",
+          "predicate": {
+            "op": "constant",
+            "value": false
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-3"
+          ],
+          "validation_conflicts": [
+            "validation-3"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "0f2624989374dbae7ec5d3fbc45aded5608abdde199567e7824ebe07b96b2b66",
+          "predicate": {
+            "op": "constant",
+            "value": true
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-0",
+            "formation-1",
+            "formation-2"
+          ],
+          "validation_conflicts": [
+            "validation-0",
+            "validation-1",
+            "validation-2"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "b2215cc13fe709c80e15f95d16f11bc10ca18d922ad43ff5d5d2bd55deae0500",
+          "predicate": {
+            "op": "literal",
+            "axis": "movement_band",
+            "value": "full"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-0",
+            "formation-1",
+            "formation-3"
+          ],
+          "validation_conflicts": [
+            "validation-0",
+            "validation-1",
+            "validation-3"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "7ccd51acd3cf776cea67b7bc923b874fa670a00d16850fa65ddd232020bc707b",
+          "predicate": {
+            "op": "literal",
+            "axis": "movement_band",
+            "value": "limited"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-2"
+          ],
+          "validation_conflicts": [
+            "validation-2"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "af0df04890f8981dda0886c164a4475d4966edae33faae1dcdb0a279d35babbd",
+          "predicate": {
+            "op": "literal",
+            "axis": "footing_band",
+            "value": "firm"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-0",
+            "formation-2",
+            "formation-3"
+          ],
+          "validation_conflicts": [
+            "validation-0",
+            "validation-2",
+            "validation-3"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "996e0b4d4b1ec040cc010a8fb6d353470a5fe7e218f2ec62014589688bf4aa70",
+          "predicate": {
+            "op": "literal",
+            "axis": "footing_band",
+            "value": "loose"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-1"
+          ],
+          "validation_conflicts": [
+            "validation-1"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "ed8c459474c016dadc50a7e158ea8119d6b136107be404a6ce86cd461f859139",
+          "predicate": {
+            "op": "and",
+            "movement_band": "full",
+            "footing_band": "firm"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-0",
+            "formation-3"
+          ],
+          "validation_conflicts": [
+            "validation-0",
+            "validation-3"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "4f6b4d13abde465c5974fbb07bb027e52b0c73c79f3002964cdd8b4837c48466",
+          "predicate": {
+            "op": "and",
+            "movement_band": "full",
+            "footing_band": "loose"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-1",
+            "formation-3"
+          ],
+          "validation_conflicts": [
+            "validation-1",
+            "validation-3"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "597673f73a2ce7790effe40755c558be66e61b9303de816b5a9ee35734a88892",
+          "predicate": {
+            "op": "and",
+            "movement_band": "limited",
+            "footing_band": "firm"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-2",
+            "formation-3"
+          ],
+          "validation_conflicts": [
+            "validation-2",
+            "validation-3"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+          "predicate": {
+            "op": "and",
+            "movement_band": "limited",
+            "footing_band": "loose"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [],
+          "validation_conflicts": [],
+          "formation_compatible": true,
+          "disposition": "RETAIN",
+          "reasons": [
+            "independent_recurrence"
+          ]
+        },
+        {
+          "hypothesis_id": "208e7224a4c2fd75de44761f52c4cb805c5978dfab969d194a24276c7c3450db",
+          "predicate": {
+            "op": "or",
+            "movement_band": "full",
+            "footing_band": "firm"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "established",
+              "observed": "not_established",
+              "match": false,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-0",
+            "formation-1",
+            "formation-2",
+            "formation-3"
+          ],
+          "validation_conflicts": [
+            "validation-0",
+            "validation-1",
+            "validation-2",
+            "validation-3"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "c7eb4d566f075a3b03c0167d6156d47d6d1ea70d5eb990c05bb2ed16e1fa7ce7",
+          "predicate": {
+            "op": "or",
+            "movement_band": "full",
+            "footing_band": "loose"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-0",
+            "formation-1"
+          ],
+          "validation_conflicts": [
+            "validation-0",
+            "validation-1"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "93a418cff8f662c330ce75365d321545f1e190321c7a64d5257c0de8c6282bfd",
+          "predicate": {
+            "op": "or",
+            "movement_band": "limited",
+            "footing_band": "firm"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-0",
+            "formation-2"
+          ],
+          "validation_conflicts": [
+            "validation-0",
+            "validation-2"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        },
+        {
+          "hypothesis_id": "95b1764c5a17b9aa820e1842f122222d04eb625a6c230a7f7cc0d61ad1d510c6",
+          "predicate": {
+            "op": "or",
+            "movement_band": "limited",
+            "footing_band": "loose"
+          },
+          "formation_checks": [
+            {
+              "episode_id": "formation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "formation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "validation_checks": [
+            {
+              "episode_id": "validation-0",
+              "expected": "established",
+              "observed": "established",
+              "match": true,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-1",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-2",
+              "expected": "not_established",
+              "observed": "established",
+              "match": false,
+              "reasons": []
+            },
+            {
+              "episode_id": "validation-3",
+              "expected": "not_established",
+              "observed": "not_established",
+              "match": true,
+              "reasons": []
+            }
+          ],
+          "formation_conflicts": [
+            "formation-1",
+            "formation-2"
+          ],
+          "validation_conflicts": [
+            "validation-1",
+            "validation-2"
+          ],
+          "formation_compatible": false,
+          "disposition": "REJECT",
+          "reasons": [
+            "formation_counterexample"
+          ]
+        }
+      ],
+      "formation_count": 4,
+      "validation_count": 4,
+      "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+      "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3"
+    },
+    "predictions": {
+      "soc4-forecast-0:forecast": {
+        "request": {
+          "request_id": "soc4-forecast-0:forecast",
+          "episode_id": "forecast-0",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-0",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "firm",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "full",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-0",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          }
+        },
+        "result": {
+          "request_id": "soc4-forecast-0:forecast",
+          "episode_id": "forecast-0",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-0",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "firm",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "full",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-0",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "prediction": "likely_established",
+          "reasons": [],
+          "alternatives": [
+            {
+              "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+              "outcome": "established"
+            }
+          ],
+          "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+          "prediction_id": "97e98e4f5c226573eb22fec3ac3ae9d0e599966b359a025972965c9dfee014ed"
+        }
+      },
+      "soc4-forecast-1:forecast": {
+        "request": {
+          "request_id": "soc4-forecast-1:forecast",
+          "episode_id": "forecast-1",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-0",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "loose",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "full",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-1",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          }
+        },
+        "result": {
+          "request_id": "soc4-forecast-1:forecast",
+          "episode_id": "forecast-1",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-0",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "loose",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "full",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-1",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "prediction": "likely_established",
+          "reasons": [],
+          "alternatives": [
+            {
+              "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+              "outcome": "established"
+            }
+          ],
+          "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+          "prediction_id": "e06a62383389b6ec5ec82620dcb10eae56d3b7d3421460538f4c597d87eef221"
+        }
+      },
+      "soc4-forecast-2:forecast": {
+        "request": {
+          "request_id": "soc4-forecast-2:forecast",
+          "episode_id": "forecast-2",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-1",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "firm",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "limited",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-2",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          }
+        },
+        "result": {
+          "request_id": "soc4-forecast-2:forecast",
+          "episode_id": "forecast-2",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-1",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "firm",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "limited",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-2",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "prediction": "likely_established",
+          "reasons": [],
+          "alternatives": [
+            {
+              "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+              "outcome": "established"
+            }
+          ],
+          "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+          "prediction_id": "eeadf9741bce2849f9243046199baa4ac23af2161064d5ed538be47761ba478b"
+        }
+      },
+      "soc4-forecast-3:forecast": {
+        "request": {
+          "request_id": "soc4-forecast-3:forecast",
+          "episode_id": "forecast-3",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-1",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "loose",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "limited",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-3",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          }
+        },
+        "result": {
+          "request_id": "soc4-forecast-3:forecast",
+          "episode_id": "forecast-3",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-1",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "loose",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "limited",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-3",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "prediction": "likely_not_established",
+          "reasons": [],
+          "alternatives": [
+            {
+              "hypothesis_id": "9cfc9bcca85a15815f47f3b35074b81a643284465df2cb0869239c96e9f4d367",
+              "outcome": "not_established"
+            }
+          ],
+          "authority": "finite-local-prediction-only; not-cause-action-NERV-canonical-model-or-E",
+          "prediction_id": "5871aa757b5b3370a6d6a79d4268fc7e924f266222ad67854b668a9b12b8dd44"
+        }
+      }
+    },
+    "outcomes": {
+      "soc4-forecast-0:forecast": {
+        "material": {
+          "conditions_stable": true,
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-0",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "firm",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "full",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-0",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "episode_id": "forecast-0",
+          "event": {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc4-forecast-0:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_established",
+            "run_id": "soc4-forecast-0",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "subsequent_observation_id": "obs-000000-011-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          "termination": "carry_observed"
+        },
+        "result": {
+          "prediction_id": "97e98e4f5c226573eb22fec3ac3ae9d0e599966b359a025972965c9dfee014ed",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "observation": {
+            "episode_id": "forecast-0",
+            "run_id": "soc4-forecast-0",
+            "comparable": true,
+            "observed": "established",
+            "reasons": [],
+            "source": {
+              "conditions_stable": true,
+              "context": {
+                "actor_ready": true,
+                "agent_id": "npc_a",
+                "body_ref": "body-npc_a-0",
+                "context_ref": "soc4-fixed-pickup-v1",
+                "coverage": "complete",
+                "footing_band": "firm",
+                "footing_ref": "contact:obs-000000-009-npc_a",
+                "movement_band": "full",
+                "profile": "soc4-local-contact-cues-v1",
+                "run_id": "soc4-forecast-0",
+                "schema": "soc4-pre-carry-context-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "target_id": "npc_b",
+                "target_ready": true,
+                "tick": 0,
+                "within_reach": true
+              },
+              "episode_id": "forecast-0",
+              "event": {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc4-forecast-0:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_established",
+                "run_id": "soc4-forecast-0",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "subsequent_observation_id": "obs-000000-011-npc_a",
+                "target_id": "npc_b",
+                "tick": 0,
+                "world_consequence": {
+                  "carry_established": true,
+                  "target_moved": true
+                }
+              },
+              "termination": "carry_observed"
+            }
+          },
+          "match": true,
+          "interpretation": "local-prediction-check; not-canonical-E-or-model-update"
+        }
+      },
+      "soc4-forecast-1:forecast": {
+        "material": {
+          "conditions_stable": true,
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-0",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "loose",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "full",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-1",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "episode_id": "forecast-1",
+          "event": {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc4-forecast-1:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_established",
+            "run_id": "soc4-forecast-1",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "subsequent_observation_id": "obs-000000-011-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          "termination": "carry_observed"
+        },
+        "result": {
+          "prediction_id": "e06a62383389b6ec5ec82620dcb10eae56d3b7d3421460538f4c597d87eef221",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "observation": {
+            "episode_id": "forecast-1",
+            "run_id": "soc4-forecast-1",
+            "comparable": true,
+            "observed": "established",
+            "reasons": [],
+            "source": {
+              "conditions_stable": true,
+              "context": {
+                "actor_ready": true,
+                "agent_id": "npc_a",
+                "body_ref": "body-npc_a-0",
+                "context_ref": "soc4-fixed-pickup-v1",
+                "coverage": "complete",
+                "footing_band": "loose",
+                "footing_ref": "contact:obs-000000-009-npc_a",
+                "movement_band": "full",
+                "profile": "soc4-local-contact-cues-v1",
+                "run_id": "soc4-forecast-1",
+                "schema": "soc4-pre-carry-context-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "target_id": "npc_b",
+                "target_ready": true,
+                "tick": 0,
+                "within_reach": true
+              },
+              "episode_id": "forecast-1",
+              "event": {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc4-forecast-1:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_established",
+                "run_id": "soc4-forecast-1",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "subsequent_observation_id": "obs-000000-011-npc_a",
+                "target_id": "npc_b",
+                "tick": 0,
+                "world_consequence": {
+                  "carry_established": true,
+                  "target_moved": true
+                }
+              },
+              "termination": "carry_observed"
+            }
+          },
+          "match": true,
+          "interpretation": "local-prediction-check; not-canonical-E-or-model-update"
+        }
+      },
+      "soc4-forecast-2:forecast": {
+        "material": {
+          "conditions_stable": true,
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-1",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "firm",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "limited",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-2",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "episode_id": "forecast-2",
+          "event": {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc4-forecast-2:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_established",
+            "run_id": "soc4-forecast-2",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "subsequent_observation_id": "obs-000000-011-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          "termination": "carry_observed"
+        },
+        "result": {
+          "prediction_id": "eeadf9741bce2849f9243046199baa4ac23af2161064d5ed538be47761ba478b",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "observation": {
+            "episode_id": "forecast-2",
+            "run_id": "soc4-forecast-2",
+            "comparable": true,
+            "observed": "established",
+            "reasons": [],
+            "source": {
+              "conditions_stable": true,
+              "context": {
+                "actor_ready": true,
+                "agent_id": "npc_a",
+                "body_ref": "body-npc_a-1",
+                "context_ref": "soc4-fixed-pickup-v1",
+                "coverage": "complete",
+                "footing_band": "firm",
+                "footing_ref": "contact:obs-000000-009-npc_a",
+                "movement_band": "limited",
+                "profile": "soc4-local-contact-cues-v1",
+                "run_id": "soc4-forecast-2",
+                "schema": "soc4-pre-carry-context-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "target_id": "npc_b",
+                "target_ready": true,
+                "tick": 0,
+                "within_reach": true
+              },
+              "episode_id": "forecast-2",
+              "event": {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc4-forecast-2:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_established",
+                "run_id": "soc4-forecast-2",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "subsequent_observation_id": "obs-000000-011-npc_a",
+                "target_id": "npc_b",
+                "tick": 0,
+                "world_consequence": {
+                  "carry_established": true,
+                  "target_moved": true
+                }
+              },
+              "termination": "carry_observed"
+            }
+          },
+          "match": true,
+          "interpretation": "local-prediction-check; not-canonical-E-or-model-update"
+        }
+      },
+      "soc4-forecast-3:forecast": {
+        "material": {
+          "conditions_stable": true,
+          "context": {
+            "actor_ready": true,
+            "agent_id": "npc_a",
+            "body_ref": "body-npc_a-1",
+            "context_ref": "soc4-fixed-pickup-v1",
+            "coverage": "complete",
+            "footing_band": "loose",
+            "footing_ref": "contact:obs-000000-009-npc_a",
+            "movement_band": "limited",
+            "profile": "soc4-local-contact-cues-v1",
+            "run_id": "soc4-forecast-3",
+            "schema": "soc4-pre-carry-context-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "target_id": "npc_b",
+            "target_ready": true,
+            "tick": 0,
+            "within_reach": true
+          },
+          "episode_id": "forecast-3",
+          "event": {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc4-forecast-3:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_not_established",
+            "run_id": "soc4-forecast-3",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-009-npc_a",
+            "subsequent_observation_id": "obs-000000-011-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          },
+          "termination": "carry_observed"
+        },
+        "result": {
+          "prediction_id": "5871aa757b5b3370a6d6a79d4268fc7e924f266222ad67854b668a9b12b8dd44",
+          "model_id": "0ebfa8fbfab289e0e437d422bbce5df9e893fd859d19daac66e05092d54fb5a3",
+          "observation": {
+            "episode_id": "forecast-3",
+            "run_id": "soc4-forecast-3",
+            "comparable": true,
+            "observed": "not_established",
+            "reasons": [],
+            "source": {
+              "conditions_stable": true,
+              "context": {
+                "actor_ready": true,
+                "agent_id": "npc_a",
+                "body_ref": "body-npc_a-1",
+                "context_ref": "soc4-fixed-pickup-v1",
+                "coverage": "complete",
+                "footing_band": "loose",
+                "footing_ref": "contact:obs-000000-009-npc_a",
+                "movement_band": "limited",
+                "profile": "soc4-local-contact-cues-v1",
+                "run_id": "soc4-forecast-3",
+                "schema": "soc4-pre-carry-context-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "target_id": "npc_b",
+                "target_ready": true,
+                "tick": 0,
+                "within_reach": true
+              },
+              "episode_id": "forecast-3",
+              "event": {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc4-forecast-3:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_not_established",
+                "run_id": "soc4-forecast-3",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-009-npc_a",
+                "subsequent_observation_id": "obs-000000-011-npc_a",
+                "target_id": "npc_b",
+                "tick": 0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              },
+              "termination": "carry_observed"
+            }
+          },
+          "match": true,
+          "interpretation": "local-prediction-check; not-canonical-E-or-model-update"
+        }
+      }
+    }
+  }
+}
