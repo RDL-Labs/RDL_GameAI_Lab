@@ -206,3 +206,9 @@ protocol/profileは公開APIで差替え不可だが、Python内部属性への�
 実機の作用結果はGodotから出力後、Python harnessが明示的にSOC-0 storeへ受理する。
 既存HTTPは通常の観測・行動・InteractionHistoryに使用し、SOC-2受付endpointは追加しない。
 失敗runではharnessが処理を終了する。既存Rescue policyが自律的に失敗を選別・中断した証拠にはしない。
+
+## 次工程（SOC-3設計のみ）
+
+[SOC-3契約案](SOC_3_selection_guided_rescue_contract.md)で、固定選別結果を新しい1 Episodeの
+joint候補の使用可否へ渡す境界を定義した。SOC-2の純粋評価・反例保持・集計は変更しない。
+RETAINを身体実行命令にせず、現在条件と共通順位付けを通す。SOC-3の実装・受入は未実施。
