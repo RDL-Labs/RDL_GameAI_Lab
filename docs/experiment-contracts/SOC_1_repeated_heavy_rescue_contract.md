@@ -72,6 +72,7 @@ DEFER・incomplete・両条件失敗の分岐はPython局所試験であり、6�
 固定許容条件による選別差を調べる。SOC-1の履歴保持比較と既存selectorはそのまま固定する。
 SOC-2は専用実Godot記録の再生と局所選別まで実装・受入済み。次Episode行動やNERV/T1への接続は含まない。
 
-[SOC-3契約案](SOC_3_selection_guided_rescue_contract.md)では、SOC-1の順位付けを共用しつつ、
+[SOC-3契約](SOC_3_selection_guided_rescue_contract.md)では、SOC-1の順位付けを共用しつつ、
 過去3件の検査材料と新しい1 Episodeを専用adapterで分ける。既存の3 Episode上限やarchiveへは介入しない。
-次Episodeの行動接続は設計のみで、受入未実施。
+SOC-3の次Episode行動接続は実装・受入済み。順位付けだけを純粋関数として共用し、SOC-1の旧結果・上限は維持した。
+[SOC-3 Evidence](../experiment-evidence/SOC_3_selection_guided_rescue_evidence.md)。

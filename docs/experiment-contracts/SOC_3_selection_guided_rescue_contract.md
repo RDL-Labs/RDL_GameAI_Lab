@@ -1,7 +1,8 @@
 # SOC-3 選別結果を次の救助Episodeの条件選択へ接続する
 
-状態: **DESIGN ONLY / 未実装・受入未実施** / 2026-09-27。
-基準: `13554374`。[SOC-1](SOC_1_repeated_heavy_rescue_contract.md)、
+状態: **IMPLEMENTED / 有限な次Episode行動接続・受入PASS** / 2026-09-27。
+設計基準: `13554374`。実装開始点: `7224d45`。
+[実装・検証Evidence](../experiment-evidence/SOC_3_selection_guided_rescue_evidence.md)。[SOC-1](SOC_1_repeated_heavy_rescue_contract.md)、
 [SOC-2契約](SOC_2_rescue_selection_tolerance_contract.md)と
 [検証済みEvidence](../experiment-evidence/SOC_2_rescue_selection_tolerance_evidence.md)。
 
@@ -34,7 +35,7 @@ SOC-1の`RepeatedRescueSelector`は自身の選択履歴を持つ最大3 Episode
 その内部archiveへSOC-2材料を注入したり、容量を4へ拡張したりしない。
 SOC-3専用adapterが、読み取り専用の過去3 Episodeと、現在の新しい1 Episodeを分けて所有する。
 
-入口案: `SelectionGuidedRescueEpisode(source_protocol, source_materials, source_request, profile, binding)`。
+入口: `runtime.selection_guided_rescue.SelectionGuidedRescueEpisode(source_protocol, source_materials, source_request, profile, binding)`。
 構築時に既存`RescueSelectionEvaluator`を呼び、全入力と評価結果をコピーして固定する。
 外部から持ち込まれたevaluation辞書やdispositionだけを信用する入口は作らない。
 SOC-2の不正入力拒否・DEFER・反例保持をそのまま維持する。
@@ -68,7 +69,7 @@ soloには今回のjoint選別を流用せず、両profileで共通の「未試�
 候補語彙はsolo、joint、deferの3つ。deferは常に残す。
 
 選択要求にはchoice_id、固定binding全内容、現在のsource_observation_id、context_ref、
-現在のevents、available_conditionsを明示する。bindingは構築時の全内容と一致しなければ拒否する。
+現在のevents、execution_refs、available_conditionsを明示する。bindingは構築時の全内容と一致しなければ拒否する。
 available_conditionsは重複なしの有限リストで、defer必須。
 fixture adapterが現在のA/Bの条件とCの参加可能性を確認し、solo/jointの実行可能性だけを渡す。
 荷重・能力・必要人数・正解条件・World座標は渡さない。
@@ -114,6 +115,8 @@ carry成立後は条件を再選択せず、既存Rescueがdeliveryまで進む�
 現runのSOC-0作用記録を再検証し、選んだ条件・参加者・source observationとの対応を確認する。
 選択時observationと実作用時observationはapproachを挟むため同一とは限らない。
 adapterの監査ログでchoice → 実行したactionのsource → 結果eventを結ぶ。
+各eventと同じ順でexecution_refsを一件ずつ渡す。参照はchoice_id、event_id、source_observation_id、actionの4 fieldで、
+eventの内容と実際に選んだchoiceへ一致を要求する。carryとdeliveryは同じchoiceへ結ぶ。
 同一run/actor/source_observationの作用は一つだけとし、event IDだけを変えた再計上も拒否する。
 
 未選択条件の試行、過去run/event流用、prefix変更・省略、時刻逆行、同じ試行の別名計上、
@@ -174,21 +177,29 @@ actions_to_delivery（未達ならnull）、終端理由、B変位、Recoveryを
 deferred側の行動数が少ないことを、救助効率向上とは扱わない。
 全成功・全反例・過去DEFER・現在文脈不足・別ID・再送などはPython局所試験として実機3 runと区別する。
 
-## 8. 受入条件（全件未実施）
+## 8. 受入条件（全件PASS）
 
-| ID | 必須検査 |
-| --- | --- |
-| S3-01 | 同一の過去3 EpisodeをSOC-2で再評価。profile以外の根拠一致、反例と元集計を維持 |
-| S3-02 | 同じ新World条件の主比較2 runでsolo失敗→deferred / joint→completedの実行差 |
-| S3-03 | 実C不在対照でRETAINを強制実行にしない。現在不可・今回失敗・選別理由を分離 |
-| S3-04 | 全成功なら両profile同じ候補、全反例なら両方除外。過去DEFERはREJECTに変換しない |
-| S3-05 | 共通順位付け、soloの共通探索許可、RETAINからの直結やprofile名/番号分岐なし |
-| S3-06 | 厳格側でjoint非復活。未実行joint/未完了/deferを失敗票にしない。目標未達を保持 |
-| S3-07 | 過去3/現在1の独立予算、source因果参照、改変・混線・未選択試行・容量拒否、部分更新なし |
-| S3-08 | choice完全再送と内容競合、古いchoiceの非適用、終端固定、実action再送の非重複 |
-| S3-09 | 今回結果の過去評価への非混入、入力/出力独立、SOC-1旧choiceとSOC-2旧評価の互換 |
-| S3-10 | SOC-0/1/2・既存Rescue回帰、全体テスト、NERV/T1非接続、実機/合成別のEvidence |
+| ID | 必須検査 | 結果 |
+| --- | --- | --- |
+| S3-01 | 同一の過去3 EpisodeをSOC-2で再評価。profile以外の根拠一致、反例と元集計を維持 | PASS |
+| S3-02 | 同じ新World条件の主比較2 runでsolo失敗→deferred / joint→completedの実行差 | PASS |
+| S3-03 | 実C不在対照でRETAINを強制実行にしない。現在不可・今回失敗・選別理由を分離 | PASS |
+| S3-04 | 全成功なら両profile同じ候補、全反例なら両方除外。過去DEFERはREJECTに変換しない | PASS |
+| S3-05 | 共通順位付け、soloの共通探索許可、RETAINからの直結やprofile名/番号分岐なし | PASS |
+| S3-06 | 厳格側でjoint非復活。未実行joint/未完了/deferを失敗票にしない。目標未達を保持 | PASS |
+| S3-07 | 過去3/現在1の独立予算、source因果参照、改変・混線・未選択試行・容量拒否、部分更新なし | PASS |
+| S3-08 | choice完全再送と内容競合、古いchoiceの非適用、終端固定、実action再送の非重複 | PASS |
+| S3-09 | 今回結果の過去評価への非混入、入力/出力独立、SOC-1旧choiceとSOC-2旧評価の互換 | PASS |
+| S3-10 | SOC-0/1/2・既存Rescue回帰、全体テスト、NERV/T1非接続、実機/合成別のEvidence | PASS |
 
-今回は契約のみ。実装・受入結果や新しいPASS件数は主張しない。
+実装は専用の`SelectionGuidedRescueEpisode`、`selection_guided_rescue_fixture.gd`と試験handlerに限定する。
+共通順位付けを`rescue_condition_rank.py`へ抽出し、SOC-1の旧結果・上限は維持した。
+Godot adapterは期待中のchoice request・binding・連番を検査し、一つのchoiceによるcarry作用は一回だけ消費する。
+carry直前の参加不能は作用を停止し、未実行をcarry失敗として記録しない。
+
+専用21試験PASS（保存実記録再生・実Godot 3 runを含む）。SOC-0/1/2と既存Rescueを含む62試験PASS。
+全体541件実行 = 491 PASS + 50 intentional skip。
+実GodotのHTTP Episodeと、選択を注入したGodot局所guard、Python合成条件をEvidenceで分けて記録する。
+署名や取得真正性の保証は追加していない。元の作用記録と現在参加条件の報告はfixture adapterの責務である。
 [RDL参照](../semantic-reference/RDL_Core_T0_T1_reference.md)に沿い、局所選別結果と身体実行権限を分ける。
 固定選別基準による有限行動差で停止し、一般的な性格形成・自律援助要請・神経由来の条件更新は別工程とする。

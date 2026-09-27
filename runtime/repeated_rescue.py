@@ -4,9 +4,9 @@ import hashlib
 import json
 
 from .rescue_experience import RescueExperienceStore
+from .rescue_condition_rank import CONDITIONS, rank_rescue_conditions
 
 RULE = "soc1-rescue-condition-choice-v1"
-CONDITIONS = ("solo", "joint")
 
 
 class RepeatedRescueError(ValueError):
@@ -110,9 +110,7 @@ class RepeatedRescueSelector:
                          "failed_this_episode": failed_now, "success_evidence": successes, "failure_evidence": failures,
                          "success_episode_count": len({r["episode_id"] for r in successes}),
                          "failure_episode_count": len({r["episode_id"] for r in failures})})
-        eligible = [r for r in rows if r["available"] and not r["failed_this_episode"]]
-        # Completed delivery first, then fewer failed episodes, then fixed solo-first tie break.
-        eligible.sort(key=lambda r: (-r["success_episode_count"], r["failure_episode_count"], CONDITIONS.index(r["condition"])))
+        eligible = rank_rescue_conditions(rows)
         selected = eligible[0]["condition"] if eligible else "defer"
         result = {"schema": RULE, "episode_id": current["episode_id"], "world_run_id": current["world_run_id"],
                   "agent_id": self._agent, "target_id": self._target, "retain_previous": self._retain,
