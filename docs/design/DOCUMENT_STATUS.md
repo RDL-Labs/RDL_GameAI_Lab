@@ -9,7 +9,8 @@
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
-| [自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md) | design-only / DRAFT v0.2 | 所有・親密さ・文脈依存に加え、境界反応と生得的構成／現在状態／学習関係を分離。個体差から種差への構想は保留し、本線をL10B後の有限相互作用へ戻す。実装・受入は未実施 |
+| [自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md) | design-only / DRAFT v0.3 | 現在評価からの境界防衛と、任意の予測・学習を分離。身体から他対象へ防衛範囲が広がる仮説を整理し、固定関係による最小機構はL11契約へ。広い所有・共同体・生物特性の構想は保留 |
+| [Luanti L11 boundary defense](../experiment-contracts/LUANTI_L11_boundary_defense_contract.md) | implementation plan / DESIGN ONLY | 固定2関係×2反応profile×3使用間隔×A/B役割交換の主比較24runを予定。専用近景使用通知・局所負荷・警告閾値・一回実行を契約化。実装・実機受入・関係学習は未実施 |
 | [Luanti L10C shared Food learning](../experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md) | finite shared-resource learning operational | 実Luanti5run・60共有Episode・360frameで取得競合と本人のM_B学習を接続。相手の保留による結果変化、片方採用canaryの反例を確認。[Evidence](../experiment-evidence/LUANTI_L10C_shared_food_learning_evidence.md)。他者理解・社会関係・自律再学習は保留 |
 | [Luanti L10B multi-agent learning](../experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md) | finite A/B M_B-informed action operational | 同じ継続Worldで個体別学習・切替・身体権限を分離。3run・72 Episode、逆対応と片方だけの採用対照。[Evidence](../experiment-evidence/LUANTI_L10B_multi_agent_learning_evidence.md)。共有資源・社会学習は保留 |
 | [Luanti L10 sensory learning action](../experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md) | finite M_B-informed action operational | 実感覚frame→経験→独立検査→T1→M_B予測→実Food試行／保留。3run・36Episodeの対照。[Evidence](../experiment-evidence/LUANTI_L10_sensory_learning_action_evidence.md)。単一個体、明示review・切替、OBS-9常設統合は保留 |

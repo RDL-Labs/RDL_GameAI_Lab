@@ -44,6 +44,25 @@ must not supply the prediction. Learning to identify or reason about another
 agent is outside this color-conditioned slice. DNA, dynamic neural state,
 psychological emotion, social ownership, and community systems remain deferred.
 
+## Post-L10C boundary-defense reaction
+
+The next finite implementation target is [L11](../docs/experiment-contracts/LUANTI_L11_boundary_defense_contract.md),
+currently **DESIGN ONLY**. Hold the resource-use action, local appraisal increment,
+and recovery rate fixed; vary a scoped beneficiary relation, baseline warning
+threshold, and repetition interval. Repeat the twelve conditions with A/B roles
+swapped: 24 planned runs, not completed acceptance.
+
+Existing local SensorFrames contain counts, not actor-attributed use. L11 therefore
+specifies an explicitly instrumented, radius-bounded use notice for its fixture;
+it does not claim general visual action recognition. Runtime emits one bounded
+warning permit and Luanti executes it once. Neither the local load nor warning
+threshold is canonical E/H/theta. Relation formation remains the subsequent boundary:
+fixed settings prove a mechanism, not learned attachment or ownership.
+
+Core `86a0d4f3` (SPEC v2.5) now names E **difference**. L11 uses that terminology
+without changing the implemented canonical comparison/review path or declaring a
+repository-wide semantic resynchronization.
+
 ## Existing roadmap basis
 
 This roadmap starts from the current runtime state, semantically synchronized to Core `3270982` (BASE v2.3 / SPEC v2.4 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
