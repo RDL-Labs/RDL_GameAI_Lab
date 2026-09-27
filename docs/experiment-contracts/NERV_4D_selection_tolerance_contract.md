@@ -132,3 +132,10 @@ T1-C/cutoverを自動呼出ししない。神経保存state、旧Sleep、canonic
 | N4D-10 | 4C許容0の既存結果不変、旧Sleep・Action・canonical回帰PASS |
 
 実装後も主張は「固定選別条件による有限判断差」まで。感情・性格・自律学習・行動差の完成ではない。
+
+## SOC実験との関係
+
+[SOC-2契約](SOC_2_rescue_selection_tolerance_contract.md)は同じ検査/許容判断の分離を、
+共同搬送の有限記録で調べる別の設計案。Food acquisitionを前提とする本契約へSOC記録を流用しない。
+SOC-2の局所選別はcanonical T1-Bではなく、NERV-4Dの実装・受入を兼ねない。
+両方とも固定条件の比較であり、神経・身体・履歴から条件を動的に生成する層は未接続。

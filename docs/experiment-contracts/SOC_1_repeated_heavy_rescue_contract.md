@@ -65,3 +65,9 @@ World初期条件・現在の利用可能候補・参加実行はharnessの責�
 保持なしの監査archiveを選択へ使わないことを検査したが、完全な記憶消去やプライバシー機構ではない。
 専用13テスト、実Godot 6 Episode、SOC-0/既存Rescue回帰をPASS。
 DEFER・incomplete・両条件失敗の分岐はPython局所試験であり、6実Episodeは全件完了ケース。
+
+## 次工程（設計のみ）
+
+[SOC-2契約](SOC_2_rescue_selection_tolerance_contract.md)は、同じ経験集合を保持したまま
+固定許容条件による選別差を調べる。SOC-1の履歴保持比較と既存selectorはそのまま固定する。
+SOC-2の実装・受入は未実施で、次Episode行動やNERV/T1への接続も含まない。
