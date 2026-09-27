@@ -3,8 +3,8 @@
 # SOC-0 社会依存の最小縦断実験
 ## 単独失敗から協働成立へ
 
-状態: IMPLEMENTATION PLAN / DRAFT v0.1  
-対象: `RDL-Labs/RDL_GameAI_Lab`  
+状態: IMPLEMENTATION PLAN / DRAFT v0.1
+対象: `RDL-Labs/RDL_GameAI_Lab`
 基準: Observation v1 COMPLETE、NERV-1/2・3・4A・4B・4Cまでの現行実装を維持する。
 
 ---
