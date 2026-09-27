@@ -120,7 +120,7 @@ The [L13R series contract](../docs/experiment-contracts/LUANTI_L13R_repeated_exp
 has finite acceptance complete: four series / 62 real Luanti runs / 3,918 acquisition packets.
 Colored-strip controls discover Food on day one; no-strip memory/reset controls both end undiscovered at day 30.
 [Evidence](../docs/experiment-evidence/LUANTI_L13R_repeated_exploration_evidence.md).
-The series allows up to 30 daylight exploration Episodes, stopping new Episodes
+The historical L13R series allows up to 30 daylight exploration Episodes, stopping new Episodes
 at the first actual local Food discovery. Each day resets the body and action
 authority at the same base with the same terrain and a 16-second budget; retained
 agent observations and measured outcomes are the intended cross-day material.
@@ -143,7 +143,16 @@ logged sampling without hidden destination or learned-value priors; randomness
 alone is not learning. The next implementation must connect typed exploration
 Experience, Sleep, independent inspection and adopted M_B to actual selection,
 with the same candidate/draw conditions across adoption controls. Body execution
-constraints remain explicit. This is a design change, not a runtime policy change.
+constraints remain explicit. The new series stops after actual Food discovery in
+three distinct Episodes, or after 30 days, with at most one discovery per day.
+First and second discovery days still feed day-boundary Sleep and later exploration.
+Repeated frames or receipts add no discoveries; pickup remains separate. Report
+all three discovery milestones and preserve counts of zero, one or two at budget
+expiry. Three discoveries can precede adoption under the proposed three-plus-three
+independent-day evidence rule; such a series does not demonstrate learned action.
+Reconcile the evidence design before implementation without bypassing independent
+inspection or extending the three-discovery stop. Existing L13R code and evidence
+retain their first-discovery stop. These are design changes, not runtime changes.
 
 ## Existing roadmap basis
 
