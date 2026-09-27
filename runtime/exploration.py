@@ -8,6 +8,7 @@ from .sensory_observation import SensoryObservationStore, SCHEMA_VERSION
 SCHEMA = "l13a-exploration-v1"
 NATURAL_SCHEMA = "l13t-natural-exploration-v1"
 LANDMARK_SCHEMA = "l13u-landmark-exploration-v1"
+NEIGHBORHOOD_SCHEMA = "l13v-neighborhood-exploration-v1"
 GROUND = "l13a-ground-nine-v1"
 SLOT_US = 250_000
 LIMIT_US = 16_000_000
@@ -63,12 +64,13 @@ def choose(packet, previous=None):
 class FiniteExploration:
     allow_natural = False
     allow_landmarks = False
+    allow_neighborhood = False
 
     def landmarks(self):
-        return self.config is not None and self.config["schema"] == LANDMARK_SCHEMA
+        return self.config is not None and self.config["schema"] in (LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA)
 
     def natural(self):
-        return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA)
+        return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA)
 
     def __init__(self, run_id):
         ref(run_id)
@@ -89,7 +91,9 @@ class FiniteExploration:
         with self.lock:
             fields(value, "schema run_id world_epoch agent_id clock_id")
             self.context(value)
-            schemas = (SCHEMA,) + ((NATURAL_SCHEMA,) if self.allow_natural else ()) + ((LANDMARK_SCHEMA,) if self.allow_landmarks else ())
+            schemas = ((SCHEMA,) + ((NATURAL_SCHEMA,) if self.allow_natural else ()) +
+                       ((LANDMARK_SCHEMA,) if self.allow_landmarks else ()) +
+                       ((NEIGHBORHOOD_SCHEMA,) if self.allow_neighborhood else ()))
             require(value["schema"] in schemas
                     and value["clock_id"] == "world-sim-v1", "configuration")
             require(self.config is None or self.config == value, "configuration_conflict")

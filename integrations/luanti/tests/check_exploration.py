@@ -4,12 +4,12 @@ from math import dist, isclose
 from pathlib import Path
 import sys
 
-from runtime.exploration import FiniteExploration, LIMIT_US, NATURAL_SCHEMA, LANDMARK_SCHEMA
+from runtime.exploration import FiniteExploration, LIMIT_US, NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA
 
 
 def check(data, *, replay_loop=None, fixed_policy=True):
     w=data["world"];s=data["runtime"]["exploration"]
-    natural = s["config"]["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA)
+    natural = s["config"]["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA)
     assert not w.get("failure"),w.get("failure")
     assert w["lua_checks"]==24,w["lua_checks"]
     assert data["runtime"]["canonical"]==data["initial"]["canonical"]
@@ -84,6 +84,9 @@ def check(data, *, replay_loop=None, fixed_policy=True):
     if s["config"]["schema"] == LANDMARK_SCHEMA:
         from .check_landmark_exploration import check_landmark_day
         check_landmark_day(data)
+    if s["config"]["schema"] == NEIGHBORHOOD_SCHEMA:
+        from .check_neighborhood_exploration import check_neighborhood_day
+        check_neighborhood_day(data)
     return dict(scenario=w["scenario"],observations=len(observations),result=s["ending"]["reason"],
                 distance=round(distance,3),actions=len(actions),first_food_us=w.get("first_food_us"),acquired_us=w.get("acquired_us"))
 

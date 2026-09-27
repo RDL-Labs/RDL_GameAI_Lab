@@ -8,7 +8,8 @@ return function(http,runtime_url)
     local scenario=core.settings:get("rdl_exploration_scenario") or "straight"
     local natural=(scenario=="natural_meadow" or scenario=="natural_woodland") and dofile(root .. "/exploration_natural.lua") or nil
     if natural then natural.register() end
-    local landmarks=core.settings:get_bool("rdl_exploration_landmarks",false) and dofile(root .. "/exploration_landmarks.lua") or nil
+    local neighborhood=core.settings:get_bool("rdl_exploration_neighborhood",false)
+    local landmarks=(neighborhood or core.settings:get_bool("rdl_exploration_landmarks",false)) and dofile(root .. "/exploration_landmarks.lua") or nil
     assert(not landmarks or natural,"landmark mode requires natural terrain")
     local profile={range_min_exclusive=12,range_max_inclusive=64,horizontal_fov_deg=90,vertical_fov_deg=60,angle_bin_deg=5}
     local prefix=runtime_url:gsub("/v1/observe$","") .. "/v1/exploration/"
@@ -16,7 +17,7 @@ return function(http,runtime_url)
         core.register_node("rdl_bridge:exploration_" .. spec[1],{description="L13 " .. spec[1],
             tiles={"rdl_l13_" .. spec[1] .. ".png"},walkable=true,pointable=false})
     end
-    local config={schema=landmarks and "l13u-landmark-exploration-v1" or (natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1"),run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
+    local config={schema=neighborhood and "l13v-neighborhood-exploration-v1" or (landmarks and "l13u-landmark-exploration-v1" or (natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1")),run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
     local evidence={run_id=run,scenario=scenario,config=config,observations={},actions={},deliveries={},guards={},mountains={}}
     local sim,stage,last_slot=0,"setup",-1
     local npc,food,ctl,body_revision,last_position,last_yaw,ending

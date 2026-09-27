@@ -3,7 +3,8 @@ param(
     [ValidateSet("straight","right","left","rotated","no_strip","no_food","partial","blocked","faults","natural_meadow","natural_woodland")]
     [string]$Scenario = "straight",
     [Parameter(Mandatory=$true)][string]$RunId,
-    [switch]$Landmarks
+    [switch]$Landmarks,
+    [switch]$Neighborhood
 )
 $ErrorActionPreference = "Stop"
 if ($RunId -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "Invalid RunId" }
@@ -24,6 +25,7 @@ rdl_fixture_mode = finite_exploration
 rdl_learning_run_id = $RunId
 rdl_exploration_scenario = $Scenario
 rdl_exploration_landmarks = $($Landmarks.IsPresent.ToString().ToLowerInvariant())
+rdl_exploration_neighborhood = $($Neighborhood.IsPresent.ToString().ToLowerInvariant())
 time_speed = 0
 port = 30001
 max_users = 1

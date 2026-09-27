@@ -129,6 +129,17 @@ bounded unfinished result, not proof of absence. Memory/reset controls and fixed
 history model-adoption controls remain separate. L13R retains records but the
 current fixed policy does not consume them. Route matching and learned selection
 remain the L13B/C boundary; repetition alone does not implement learning.
+The [L13V neighborhood slice](../docs/experiment-contracts/LUANTI_L13V_neighborhood_exploration_contract.md)
+adds a supplied two-excursion survey at an acquired near feature. Only a completed,
+fully observed survey can form a no-discovery relation; blocked, missing and unfinished
+trials remain separate. A held-out day inspects the relation before T1 reconstruction
+and M_B activation. The learned relation can skip that same finite survey under matching
+acquisition conditions. [Evidence](../docs/experiment-evidence/LUANTI_L13V_neighborhood_exploration_evidence.md)
+separates ordinary 30-day discovery outcomes from a same-history, explicit-reentry
+cutover comparison. This is not general place absence, autonomous homing or continual
+learning of every failed search. Actual patch-count Difference opens the explicit T1
+review; no-discovery is independently inspected evidence, never fabricated Core E.
+
 The [L13U observed-subgoal slice](../docs/experiment-contracts/LUANTI_L13U_landmark_exploration_contract.md)
 selects a currently observed coarse surface patch, keeps it through measured movement and reobservation,
 and records lost, ambiguous, near and blocked outcomes separately. Its bounded heading servo is supplied

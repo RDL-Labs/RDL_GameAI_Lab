@@ -54,6 +54,7 @@ def terminate(state, outcome):
 
 class LandmarkExplorationDay(LearnedExplorationDay):
     allow_landmarks = True
+    configuration_schema = LANDMARK_SCHEMA
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -61,7 +62,7 @@ class LandmarkExplorationDay(LearnedExplorationDay):
         self.tape, self.draws = [["wait", 0] for _ in range(CAPACITY)], []
 
     def configure(self, value):
-        require(isinstance(value, dict) and value.get("schema") == LANDMARK_SCHEMA, "landmark_configuration_required")
+        require(isinstance(value, dict) and value.get("schema") == self.configuration_schema, "landmark_configuration_required")
         return super().configure(value)
 
     def _subgoal(self, p):
@@ -137,7 +138,7 @@ class LandmarkExplorationDay(LearnedExplorationDay):
 
     def snapshot(self):
         state = super().snapshot()
-        state.update(schema=LANDMARK_SCHEMA, authority="observed-subgoal-or-explicit-validation-Probe-or-active-M_B")
+        state.update(schema=self.configuration_schema, authority="observed-subgoal-or-explicit-validation-Probe-or-active-M_B")
         return state
 
 

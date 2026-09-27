@@ -252,6 +252,24 @@ def canonical_state(series_id, days, candidate, inspection, activate):
 
 class LearnedExplorationSeries:
     day_type = LearnedExplorationDay
+    @staticmethod
+    def candidate_builder(*args):
+        return make_candidate(*args)
+
+    @staticmethod
+    def candidate_inspector(*args):
+        return inspect_day(*args)
+
+    @staticmethod
+    def canonical_builder(*args):
+        return canonical_state(*args)
+
+    def sleep_status(self, state, candidate):
+        return "record_only" if self.config["mode"] == "record" else ("inspected" if state["probe"] else
+                ("tentative_route" if candidate else "no_eligible_discovery_route"))
+
+    def next_day_model(self):
+        return self.canonical.model_for_agent("npc_a") if self.days else None
 
     def __init__(self, series_id, mode="adopt", seed=20260927, max_days=30):
         ref(series_id); require(mode in ("record", "inspect", "adopt"), "mode")
@@ -297,7 +315,7 @@ class LearnedExplorationSeries:
             day = len(self.days)+1
             seed = int(digest([self.config["seed"], day, "neutral-sampler-v1"])[:8], 16)
             probe = self.candidate if self.candidate and self.inspection is None else None
-            model = self.canonical.model_for_agent("npc_a") if self.days else None
+            model = self.next_day_model()
             self.loop = self.day_type(request["run_id"], self.config["series_id"], day, seed, model, probe)
             self.pending = dict(request=deepcopy(request), day=day, seed=seed,
                 probe_candidate=probe["candidate_id"] if probe else None, model_ref=model.model_ref if model else None,
@@ -326,19 +344,18 @@ class LearnedExplorationSeries:
             candidate, inspection = deepcopy(self.candidate), deepcopy(self.inspection)
             if self.config["mode"] != "record":
                 if state["probe"]:
-                    inspection = inspect_day(candidate, state, request["episode_id"])
+                    inspection = self.candidate_inspector(candidate, state, request["episode_id"])
                 elif candidate is None:
-                    candidate = make_candidate(state, request["episode_id"], self.config["series_id"])
+                    candidate = self.candidate_builder(state, request["episode_id"], self.config["series_id"])
             sleep = dict(schema="l13s-episodic-sleep-v1", cycle=len(self.days)+1,
-                status="record_only" if self.config["mode"] == "record" else ("inspected" if state["probe"] else
-                    ("tentative_route" if candidate else "no_eligible_discovery_route")),
+                status=self.sleep_status(state, candidate),
                 formation_support=1 if candidate else 0, validation_count=1 if inspection else 0,
                 candidate_id=candidate["candidate_id"] if candidate else None, inspection=inspection)
             receipt = dict(accepted=True, experience=experience, sleep=sleep, metrics=day_metrics(state))
             day = dict(episode_id=request["episode_id"], run_id=request["run_id"], close_request=deepcopy(request),
                 start=deepcopy(self.pending), state=state, experience=experience, metrics=receipt["metrics"], receipt=receipt)
             staged_days = self.days+[day]
-            canonical, learning = canonical_state(self.config["series_id"], staged_days, candidate, inspection, self.config["mode"] == "adopt")
+            canonical, learning = self.canonical_builder(self.config["series_id"], staged_days, candidate, inspection, self.config["mode"] == "adopt")
             # Atomic publication. The old day remains pending if any staging or T1 step fails.
             self.days, self.candidate, self.inspection = staged_days, candidate, inspection
             self.canonical, self.learning, self.pending = canonical, learning, None

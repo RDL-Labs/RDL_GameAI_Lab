@@ -9,7 +9,7 @@ def round_node(value):
     return integral - int(value-integral <= -.5) if value < 0 else integral + int(value-integral >= .5)
 
 
-def check_landmark_day(data):
+def check_landmark_day(data, *, subgoal_only=True):
     w, s = data["world"], data["runtime"]["exploration"]
     assert w["landmark_checks"] == 10
     assert s["draws"] == [] and all(x == ["wait", 0] for x in s["tape"])
@@ -55,11 +55,11 @@ def check_landmark_day(data):
             selected[goal["goal_id"]] = goal
         if state["goal"]:
             assert state["goal"]["operations"] <= 12
-        if decision["action"][0] == "move":
+        if subgoal_only and decision["action"][0] == "move":
             assert decision["reason"] in ("landmark_active", "active_M_B", "validation_probe")
             if decision["reason"] == "landmark_active":
                 f = state["goal"]["current_feature"]
                 assert f in p["landmarks"]["features"] and abs(sum(f["azimuth"])/2) <= 7.5
-        if state["outcome"] in ("lost", "ambiguous", "blocked", "acquisition_incomplete", "near_feature_observed"):
+        if subgoal_only and state["outcome"] in ("lost", "ambiguous", "blocked", "acquisition_incomplete", "near_feature_observed"):
             assert decision["action"] == ["wait", 0]
     return len(selected)
