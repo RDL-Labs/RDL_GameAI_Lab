@@ -3,7 +3,7 @@
 **文書種別:** Cross-Surface Implementation Roadmap  
 **版:** v0.1  
 **基準HEAD:** `ae4a44e`  
-**Core同期対象:** `RDL_Core@3270982`  
+**現在のCore参照:** `RDL_Core@86a0d4f3`（BASE v2.3.1 / SPEC v2.5、名称同期。C1の旧pinは当時の記録）
 
 ## 0. 実行面の責務
 

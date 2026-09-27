@@ -99,7 +99,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 
 ## Semantic boundaries
 
-意味論の基準は[Core reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)の同期点 `3270982`（BASE v2.3 / SPEC v2.4 + dynamic theta explanation）。Demos・Enterprise・Humanは素材・仮説の参照元、General ModulesのLayeringは整理補助です。
+意味論の基準は[Core reference](docs/semantic-reference/RDL_Core_T0_T1_reference.md)の同期点 `86a0d4f3`（BASE v2.3.1 / SPEC v2.5、E＝差。比較条件とT1権限を維持）。Demos・Enterprise・Humanは素材・仮説の参照元、General ModulesのLayeringは整理補助です。
 
 ```text
 Engine state != observation != RIB_B != M_B

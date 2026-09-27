@@ -6,8 +6,8 @@
 
 **基準:** GameAI `2727ebb7`（[L10C](LUANTI_L10C_shared_food_learning_contract.md)受入完了）。
 Eの呼称はCore [`86a0d4f3`](https://github.com/Aporapeiron/RDL_Core/tree/86a0d4f3b83c0d08cd8bd6eba0b1ea70a637bd33)
-のSPEC v2.5「差」に合わせる。既存GameAIの[semantic reference](../semantic-reference/RDL_Core_T0_T1_reference.md)
-を自動更新したり、canonicalの計算・schemaを変更したりする計画ではない。
+のSPEC v2.5「差」に合わせた。L11自体は参照pin・canonicalの計算・schemaを変更しない。
+L11完了後、[semantic reference](../semantic-reference/RDL_Core_T0_T1_reference.md)は独立した名称・参照同期として同Core版へ更新した。
 
 関連: [自己との関係拘束モデル](../design/RDL_GameAI_自己との関係拘束モデル.md)、
 [既存Territory Beast](TERRITORY_BEAST_world_contract.md)。

@@ -3,7 +3,7 @@
 This document is the current operational contract for `RDL_GameAI_Lab`.
 It replaces the older phase-specific contracts as the active reference.
 
-Core reference: BASE v2.3 / SPEC v2.4 and dynamic-theta explanation at `3270982`; see the
+Core reference: BASE v2.3.1 / SPEC v2.5 and dynamic-theta explanation at `86a0d4f3`; see the
 [semantic reference](../semantic-reference/RDL_Core_T0_T1_reference.md).
 The filename is retained for compatibility. Local behavior/display is covered by
 the [cross-layer separation contract](CROSS_LAYER_separation_contract.md).
@@ -35,6 +35,11 @@ RIB_B(t+Δ)
   -> explicit finite residual review
   -> H / retained H per exact context and frozen model
 ```
+
+E is named **Difference (差)**. The existing frozen comparison and explicit residual
+review remain unchanged. Difference alone is not negative evaluation, discomfort,
+or an action trigger; missing coverage / incomparable sections are not zero E.
+`v23_*` and `GameAIMismatch` remain compatibility names.
 
 ## Required separations
 

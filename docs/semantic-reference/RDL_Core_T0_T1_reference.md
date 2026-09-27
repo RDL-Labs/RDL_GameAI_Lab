@@ -14,16 +14,47 @@ Canonical source:
 
 Reference state checked for this lab:
 
-- BASE: formal v2.3; SPEC: formal v2.4 (Standard Model resolution `ρ_B`)
-- Core synchronization commit: `327098256a29e3f82f2a8649a6ec0202fd68a6c4`
-- checked: 2026-09-25 against committed local sources
-- [Pinned source tree](https://github.com/Aporapeiron/RDL_Core/tree/327098256a29e3f82f2a8649a6ec0202fd68a6c4)
+- BASE: formal v2.3.1; SPEC: formal v2.5 (neutral Difference `E`; `ρ_B` retained)
+- Core synchronization commit: `86a0d4f3b83c0d08cd8bd6eba0b1ea70a637bd33`
+- checked: 2026-09-27 against committed local sources
+- [Pinned source tree](https://github.com/Aporapeiron/RDL_Core/tree/86a0d4f3b83c0d08cd8bd6eba0b1ea70a637bd33)
 
 Versions belong to individual documents, not uniformly to all T0/T1. Existing `v23_*` code and contract filenames remain compatibility names.
 
 If canonical references change, GameAI semantics must be rechecked rather than silently assuming compatibility.
 
 ---
+
+## Synchronization audit: 3270982 -> 86a0d4f3
+
+The 12-file Core change was reviewed against the committed local sources. It
+renames E and clarifies its evaluation-neutral meaning; BASE B1-B5, SPEC C1-C11,
+the standard equations, and T1 procedure/authority remain in force.
+
+| Source at the new pin | Document version / effect |
+| --- | --- |
+| BASE | 2.3.1; conflict, detected difference, and residual-triggered reorganization remain distinct |
+| SPEC | 2.5; section 2.1 declares Difference, frozen F/F' comparison and its limits |
+| T1 overview / inspection-selection | 2.1.1; terminology synchronized, authority unchanged |
+| T1 expansion / reconstruction | 1.1.1; terminology synchronized, procedure unchanged |
+| TD shared vocabulary | 1.1; old Mismatch / Discrepancy names recorded as legacy |
+| Dynamic-theta explanation | 0.1.1; retention boundary, not an individual action trigger |
+
+Implementation review covered `compare_interpretations` (same agent/model/context,
+distinct observation, same dimensions), `FiniteAssessmentLedger` (nonzero E starts
+pending; only explicitly unresolved residual contributes to H), and the separate
+T1 expansion/selection/reconstruction/cutover path. L11's local load, warning
+threshold and permit stay outside those meanings. No equations, serializers,
+HTTP payloads, evaluator authority or action rules are changed by this sync.
+
+`GameAIMismatch`, `mismatch` identifiers and `v23_*` files remain compatibility
+names for existing APIs/records. They do not assign negative value to E. Earlier
+contracts and Evidence keep the Core commit they actually used; the current pin
+is this document's Status, not a retrospective rewrite of their provenance.
+
+Validation: existing full Python suite, 629 executed = 578 PASS + 51 intentional
+skips. This is a reference/documentation synchronization; Luanti/Godot were not
+rerun for this change, and no new feature acceptance is claimed.
 
 ## T0 invariants used by GameAI
 
@@ -105,7 +136,15 @@ The comparison boundary must remain frozen until `E` is obtained. Learning or re
 
 ### E is not world-truth error and is not automatically H
 
-`E` is the discrepancy between the two interpretations formed under the same pre-update `M_B`.
+The common name of `E` is **差 (Difference)**. It compares the prediction contained in
+`F` with the corresponding later interpretation `F'`, formed under the same
+pre-update `M_B`. Purpose / question / finite B / times / dimensions and comparison
+conditions remain explicit. The name itself does not imply error, harm,
+unpleasantness, loss, or a requirement to eliminate the difference.
+
+Missing observations, unavailable comparison, direct discomfort, and every change
+in the World are not automatically E. Interpretation/prediction describes a finite
+structure's correspondence; biological consciousness is not a Core prerequisite.
 
 ```text
 static structural conflict != E
@@ -113,7 +152,7 @@ engine truth - agent state != canonical E by definition
 nonzero E != unresolved by definition
 ```
 
-GameAI requires a finite assessment of whether a discrepancy is absorbed, explained, ordinary temporal change, boundary/coverage change, unresolved, or still pending before operationally routing anything into H.
+GameAI requires a finite assessment of whether a difference is absorbed, explained, ordinary temporal change, boundary/coverage change, unresolved, or still pending before operationally routing anything into H.
 
 ### H is unresolved remainder, not emotion
 
@@ -243,7 +282,7 @@ A fresh re-entry must observe new `RIB_B'` sections and revalidate the reconstru
 
 ---
 
-## Operational resolution in SPEC v2.4
+## Operational resolution introduced in SPEC v2.4, retained in v2.5
 
 The Standard Model may declare relation-distinction granularity as `ρ_B` in `Section_B(... resolution = ρ_B, ...)`. Core Requirements are unchanged. Finer resolution does not guarantee larger E/H or eliminate ξ.
 
@@ -321,7 +360,7 @@ Enterprise-local Human Attention, structural conflict, coverage metrics, and com
 When a new GameAI feature is proposed, check in this order:
 
 ```text
-1. Does it violate pinned T0 BASE / SPEC (currently v2.3 / v2.4)?
+1. Does it violate pinned T0 BASE / SPEC (currently v2.3.1 / v2.5)?
 2. Is raw observation being confused with RIB_B?
 3. Does T1 already provide the formation / selection / reconstruction role?
 4. Is the proposed mechanism only a tool or implementation detail?

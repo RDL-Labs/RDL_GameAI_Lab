@@ -61,13 +61,14 @@ warning permit and Luanti executes it once. Neither the local load nor warning
 threshold is canonical E/H/theta. Relation formation remains the subsequent boundary:
 fixed settings prove a mechanism, not learned attachment or ownership.
 
-Core `86a0d4f3` (SPEC v2.5) now names E **difference**. L11 uses that terminology
-without changing the implemented canonical comparison/review path or declaring a
-repository-wide semantic resynchronization.
+Core `86a0d4f3` (SPEC v2.5) names E **difference**. After L11, the current
+[semantic reference](../docs/semantic-reference/RDL_Core_T0_T1_reference.md) was
+explicitly synchronized to that pin. Frozen comparison, residual review, T1
+procedure and action authority remain unchanged; L11 itself did not change them.
 
 ## Existing roadmap basis
 
-This roadmap starts from the current runtime state, semantically synchronized to Core `3270982` (BASE v2.3 / SPEC v2.4 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
+This roadmap starts from the current runtime state, semantically synchronized to Core `86a0d4f3` (BASE v2.3.1 / SPEC v2.5 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
 
 Role: axis A in the [overall map](../docs/design/RDL_GameAI_全体設計地図.md), tracking canonical operational maturity and separation of adjacent local influences. It depends on the [runtime contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md) and [evidence](../docs/experiment-evidence/CURRENT_v23_runtime_evidence.md).
 It does not own game-feature phases; those belong to the [life-feature roadmap](../docs/design/RDL_GameAI_実装手順予定.md). Canonical maturity != game feature phase.
@@ -291,7 +292,7 @@ admission experiment. Its [implementation plan](../docs/design/RDL_GameAI_FoodNe
 forms a finite `food_need → visible_food_salience` relation and freezes it per
 comparison window. This is not T1 reconstruction or canonical action authority.
 
-Entry prerequisite: cross-layer separation acceptance and an explicit finite θ / M_Δ experiment contract. Do not promote local layer state into M_B by identity. SPEC v2.4 resolution and the current T1 Probe signature are recorded in the [semantic reference](../docs/semantic-reference/RDL_Core_T0_T1_reference.md); configurable ρ_B is not implemented.
+Entry prerequisite: cross-layer separation acceptance and an explicit finite θ / M_Δ experiment contract. Do not promote local layer state into M_B by identity. Resolution introduced in SPEC v2.4 and retained in v2.5, and the current T1 Probe signature are recorded in the [semantic reference](../docs/semantic-reference/RDL_Core_T0_T1_reference.md); configurable ρ_B is not implemented.
 
 ```text
 H >= θ

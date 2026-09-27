@@ -2,6 +2,8 @@
 
 確認日: 2026-09-25。基準: GameAI `a7a53e7`、Core `3270982`、C1 authority同期。
 これは棚卸し記録であり、実装成熟度の正本は[canonical roadmap](../../notes/experiment-roadmap.md)。
+現在の意味参照は2026-09-27にCore `86a0d4f3`（BASE v2.3.1 / SPEC v2.5）へ同期。
+[同期記録](../semantic-reference/RDL_Core_T0_T1_reference.md#synchronization-audit-3270982---86a0d4f3)を参照。上の棚卸し基準・過去のC1記録は保持する。
 
 | 文書 | 整理前の分類 | 今回の扱い / 責務 |
 |---|---|---|
