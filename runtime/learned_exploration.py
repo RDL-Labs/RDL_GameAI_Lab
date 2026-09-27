@@ -228,7 +228,11 @@ def canonical_state(series_id, days, candidate, inspection, activate):
         paths = [p for p in sidecar.snapshot()["review_path"]["paths"] if p["F_prime"]["source_observation_id"] == source]
         require(len(paths) == 1, "review_source_unavailable")
         a = paths[0]
-        require(a["E"]["deltas"]["visible_objects_count"] == 1, "review_not_actual_discovery")
+        # L13W can first observe several Food records. Keep the actual count;
+        # neither binarize E nor count those records as independent Experiences.
+        formation = next(d for d in days if source in d["state"]["observations"])
+        food_count = len(formation["state"]["observations"][source]["food"]["visible"])
+        require(food_count > 0 and a["E"]["deltas"]["visible_objects_count"] == food_count, "review_not_actual_discovery")
         review = sidecar.review_assessment(dict(assessment_id=a["assessment_id"], expected_revision=0,
             reviewer="l13s-explicit-inspector", basis="review actual observed Food-count difference; not reward or automatic H",
             evidence=source, dimensions={k:dict(status="unresolved", residual=abs(v)) if v else dict(status="zero") for k,v in a["E"]["deltas"].items()}))

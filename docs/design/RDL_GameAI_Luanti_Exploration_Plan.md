@@ -5,6 +5,7 @@
 自然地形への展開は[L13T契約](../experiment-contracts/LUANTI_L13T_natural_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13T_natural_exploration_evidence.md)。道なしの草地／木立を同じ探索・学習機構で比較し、有限な段差と遮蔽を扱う。地形図・正解経路は個体へ渡さない。
 観測特徴を小目標として使う有限制御は[L13U契約](../experiment-contracts/LUANTI_L13U_landmark_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13U_landmark_exploration_evidence.md)。身体相対の面特徴を選び、再観測で保持/見失い/曖昧さを検査する。初期の視覚運動制御と、経験から得るFood関係を分ける。
 目印周辺の有限探索と未発見の学習は[L13V契約](../experiment-contracts/LUANTI_L13V_neighborhood_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13V_neighborhood_exploration_evidence.md)。二方向の短い往復を完了した未発見だけを独立検査し、M_Bへ採用する。粗い取得条件に対応する再探索の省略であり、全地域の不在・訪問済み地図・一般帰還ではない。
+Foodを固定5地点へ増やす条件は[L13W契約](../experiment-contracts/LUANTI_L13W_multi_food_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13W_multi_food_exploration_evidence.md)。地形・取得範囲・L13Vの探索と学習を維持し、発見機会の変化を調べる。地形とFoodの生態的な法則性や水中取得は追加しない。
 初版の[実装契約](../experiment-contracts/LUANTI_L13A_finite_exploration_contract.md)と
 [Evidence](../experiment-evidence/LUANTI_L13A_finite_exploration_evidence.md)を正本とする。
 基準: GameAI `df2d23d` ＋ L13A実装working tree。以下にはv0.6までの設計案と後続候補を残す。

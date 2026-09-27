@@ -129,6 +129,13 @@ bounded unfinished result, not proof of absence. Memory/reset controls and fixed
 history model-adoption controls remain separate. L13R retains records but the
 current fixed policy does not consume them. Route matching and learned selection
 remain the L13B/C boundary; repetition alone does not implement learning.
+The [L13W resource-count experiment](../docs/experiment-contracts/LUANTI_L13W_multi_food_exploration_contract.md)
+keeps the L13V terrain, sensor range, exploration and learner, increasing Food from
+one to five fixed sites. It adds bounded enumeration and target-specific pickup;
+multiple visible items do not become multiple Experience votes or discovery days.
+The [Evidence](../docs/experiment-evidence/LUANTI_L13W_multi_food_exploration_evidence.md)
+separates increased encounter opportunity from model learning and actual acquisition.
+
 The [L13V neighborhood slice](../docs/experiment-contracts/LUANTI_L13V_neighborhood_exploration_contract.md)
 adds a supplied two-excursion survey at an acquired near feature. Only a completed,
 fully observed survey can form a no-discovery relation; blocked, missing and unfinished

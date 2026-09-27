@@ -18,8 +18,10 @@ def deliveries(data):
 
 def reset_signature(data):
     w = data["world"]
-    return dict(scenario=w["scenario"], body={k: v for k, v in w["initial_body"].items() if k != "pose_ref"},
-                food=w["food_initial"], mountains=w["mountains"], terrain=w.get("terrain"))
+    result = dict(scenario=w["scenario"], body={k: v for k, v in w["initial_body"].items() if k != "pose_ref"},
+                  food=w["food_initial"], mountains=w["mountains"], terrain=w.get("terrain"))
+    if "foods_initial" in w: result["foods"] = [f["position"] for f in w["foods_initial"]]
+    return result
 
 
 def check_series(artifact, check_world=True):

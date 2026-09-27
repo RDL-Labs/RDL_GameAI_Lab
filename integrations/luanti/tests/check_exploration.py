@@ -4,12 +4,12 @@ from math import dist, isclose
 from pathlib import Path
 import sys
 
-from runtime.exploration import FiniteExploration, LIMIT_US, NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA
+from runtime.exploration import FiniteExploration, LIMIT_US, NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA
 
 
 def check(data, *, replay_loop=None, fixed_policy=True):
     w=data["world"];s=data["runtime"]["exploration"]
-    natural = s["config"]["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA)
+    natural = s["config"]["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA)
     assert not w.get("failure"),w.get("failure")
     assert w["lua_checks"]==24,w["lua_checks"]
     assert data["runtime"]["canonical"]==data["initial"]["canonical"]
@@ -51,7 +51,9 @@ def check(data, *, replay_loop=None, fixed_policy=True):
         if r["acquired"]:
             source=s["observations"][c["source_id"]]
             assert source["food"]["visible"][0]["ref"]==c["target_ref"]
-            assert dist([before["position"][k] for k in "xyz"],[w["food_initial"][k] for k in "xyz"])<=1.25
+            target = (next(f["position"] for f in w["foods_initial"] if f["ref"]==c["target_ref"])
+                      if "foods_initial" in w else w["food_initial"])
+            assert dist([before["position"][k] for k in "xyz"],[target[k] for k in "xyz"])<=1.25
     assert isclose(distance,w["controller"]["distance"],abs_tol=1e-5) and distance<=64*(2**.5 if natural else 1)+.00001
     assert isclose(rotation,w["controller"]["rotation"],abs_tol=1e-5) and rotation<=5760.01
     assert effects==w["controller"]["effects"]
@@ -84,7 +86,7 @@ def check(data, *, replay_loop=None, fixed_policy=True):
     if s["config"]["schema"] == LANDMARK_SCHEMA:
         from .check_landmark_exploration import check_landmark_day
         check_landmark_day(data)
-    if s["config"]["schema"] == NEIGHBORHOOD_SCHEMA:
+    if s["config"]["schema"] in (NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA):
         from .check_neighborhood_exploration import check_neighborhood_day
         check_neighborhood_day(data)
     return dict(scenario=w["scenario"],observations=len(observations),result=s["ending"]["reason"],

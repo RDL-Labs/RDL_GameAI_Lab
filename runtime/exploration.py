@@ -9,6 +9,7 @@ SCHEMA = "l13a-exploration-v1"
 NATURAL_SCHEMA = "l13t-natural-exploration-v1"
 LANDMARK_SCHEMA = "l13u-landmark-exploration-v1"
 NEIGHBORHOOD_SCHEMA = "l13v-neighborhood-exploration-v1"
+MULTIFOOD_SCHEMA = "l13w-multi-food-exploration-v1"
 GROUND = "l13a-ground-nine-v1"
 SLOT_US = 250_000
 LIMIT_US = 16_000_000
@@ -65,12 +66,13 @@ class FiniteExploration:
     allow_natural = False
     allow_landmarks = False
     allow_neighborhood = False
+    allow_multifood = False
 
     def landmarks(self):
-        return self.config is not None and self.config["schema"] in (LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA)
+        return self.config is not None and self.config["schema"] in (LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA)
 
     def natural(self):
-        return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA)
+        return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA)
 
     def __init__(self, run_id):
         ref(run_id)
@@ -93,7 +95,8 @@ class FiniteExploration:
             self.context(value)
             schemas = ((SCHEMA,) + ((NATURAL_SCHEMA,) if self.allow_natural else ()) +
                        ((LANDMARK_SCHEMA,) if self.allow_landmarks else ()) +
-                       ((NEIGHBORHOOD_SCHEMA,) if self.allow_neighborhood else ()))
+                       ((NEIGHBORHOOD_SCHEMA,) if self.allow_neighborhood else ()) +
+                       ((MULTIFOOD_SCHEMA,) if self.allow_multifood else ()))
             require(value["schema"] in schemas
                     and value["clock_id"] == "world-sim-v1", "configuration")
             require(self.config is None or self.config == value, "configuration_conflict")
@@ -127,7 +130,8 @@ class FiniteExploration:
         food = p["food"]
         fields(food, "coverage visible")
         require(food["coverage"] in ("complete", "partial"), "food_coverage")
-        require(isinstance(food["visible"], list) and len(food["visible"]) <= 1, "food_budget")
+        limit = 5 if self.config["schema"] == MULTIFOOD_SCHEMA else 1
+        require(isinstance(food["visible"], list) and len(food["visible"]) <= limit, "food_budget")
         for item in food["visible"]:
             fields(item, "ref distance forward right up" if self.natural() else "ref distance forward right")
             ref(item["ref"])
@@ -136,6 +140,9 @@ class FiniteExploration:
                 number(item[k], -12, 12)
             if self.natural(): number(item["up"], -12, 12)
             require(abs(hypot(item["forward"], item["right"], item.get("up", 0)) - item["distance"]) < 0.001, "food_geometry")
+        if self.config["schema"] == MULTIFOOD_SCHEMA:
+            require(len({i["ref"] for i in food["visible"]}) == len(food["visible"]), "duplicate_food_ref")
+            require(food["visible"] == sorted(food["visible"], key=lambda i: (i["distance"], i["ref"])), "food_order")
         d = p["distant"]
         require(isinstance(d, dict), "distant_frame")
         require(d.get("channel") == "vision_distant" and d.get("sensor_id") == "eye"

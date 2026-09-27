@@ -16,11 +16,12 @@ from .run_exploration_series import write, ROOT, OUTPUT
 from .check_learned_exploration import check_series, check_matrix
 
 
-def run_series(scenario, mode, seed, max_days, luanti_root, *, landmarks=False, neighborhood=False):
+def run_series(scenario, mode, seed, max_days, luanti_root, *, landmarks=False, neighborhood=False, multifood=False):
     from runtime.landmark_exploration import LandmarkExplorationSeries
     from runtime.neighborhood_exploration import NeighborhoodExplorationSeries
-    series_type = NeighborhoodExplorationSeries if neighborhood else (LandmarkExplorationSeries if landmarks else LearnedExplorationSeries)
-    s = series_type(("l13v-" if neighborhood else ("l13u-" if landmarks else "l13s-"))+uuid4().hex[:16], mode, seed, max_days)
+    from runtime.multifood_exploration import MultiFoodExplorationSeries
+    series_type = MultiFoodExplorationSeries if multifood else (NeighborhoodExplorationSeries if neighborhood else (LandmarkExplorationSeries if landmarks else LearnedExplorationSeries))
+    s = series_type(("l13w-" if multifood else ("l13v-" if neighborhood else ("l13u-" if landmarks else "l13s-")))+uuid4().hex[:16], mode, seed, max_days)
     path = OUTPUT/(s.config["series_id"]+".series.json.gz")
     a = dict(schema="l13s-real-series-v1", config=s.config, scenario=scenario, days=[], state=s.snapshot())
     shell = shutil.which("pwsh") or shutil.which("powershell")
@@ -37,7 +38,7 @@ def run_series(scenario, mode, seed, max_days, luanti_root, *, landmarks=False, 
                 with log.open("wb") as stream:
                     result = subprocess.run([shell,"-NoProfile","-ExecutionPolicy","Bypass","-File",
                         str(ROOT/"integrations/luanti/scripts/test-learned-exploration-day.ps1"),
-                        "-Scenario",scenario,"-RunId",run,"-LuantiRoot",luanti_root]+(["-Neighborhood"] if neighborhood else (["-Landmarks"] if landmarks else [])),
+                        "-Scenario",scenario,"-RunId",run,"-LuantiRoot",luanti_root]+(["-MultiFood"] if multifood else (["-Neighborhood"] if neighborhood else (["-Landmarks"] if landmarks else []))),
                         cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=75)
                 if result.returncode:
                     raise RuntimeError(f"Luanti failed: {log}")

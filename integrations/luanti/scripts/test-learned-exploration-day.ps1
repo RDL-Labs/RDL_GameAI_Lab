@@ -4,7 +4,8 @@ param(
     [string]$Scenario = "straight",
     [Parameter(Mandatory=$true)][string]$RunId,
     [switch]$Landmarks,
-    [switch]$Neighborhood
+    [switch]$Neighborhood,
+    [switch]$MultiFood
 )
 $ErrorActionPreference = "Stop"
 if ($RunId -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "Invalid RunId" }
@@ -26,6 +27,7 @@ rdl_learning_run_id = $RunId
 rdl_exploration_scenario = $Scenario
 rdl_exploration_landmarks = $($Landmarks.IsPresent.ToString().ToLowerInvariant())
 rdl_exploration_neighborhood = $($Neighborhood.IsPresent.ToString().ToLowerInvariant())
+rdl_exploration_multi_food = $($MultiFood.IsPresent.ToString().ToLowerInvariant())
 time_speed = 0
 port = 30001
 max_users = 1

@@ -8,7 +8,9 @@ return function(http,runtime_url)
     local scenario=core.settings:get("rdl_exploration_scenario") or "straight"
     local natural=(scenario=="natural_meadow" or scenario=="natural_woodland") and dofile(root .. "/exploration_natural.lua") or nil
     if natural then natural.register() end
-    local neighborhood=core.settings:get_bool("rdl_exploration_neighborhood",false)
+    local multifood=core.settings:get_bool("rdl_exploration_multi_food",false)
+    local food_set=multifood and dofile(root .. "/exploration_food_set.lua") or nil
+    local neighborhood=multifood or core.settings:get_bool("rdl_exploration_neighborhood",false)
     local landmarks=(neighborhood or core.settings:get_bool("rdl_exploration_landmarks",false)) and dofile(root .. "/exploration_landmarks.lua") or nil
     assert(not landmarks or natural,"landmark mode requires natural terrain")
     local profile={range_min_exclusive=12,range_max_inclusive=64,horizontal_fov_deg=90,vertical_fov_deg=60,angle_bin_deg=5}
@@ -17,10 +19,11 @@ return function(http,runtime_url)
         core.register_node("rdl_bridge:exploration_" .. spec[1],{description="L13 " .. spec[1],
             tiles={"rdl_l13_" .. spec[1] .. ".png"},walkable=true,pointable=false})
     end
-    local config={schema=neighborhood and "l13v-neighborhood-exploration-v1" or (landmarks and "l13u-landmark-exploration-v1" or (natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1")),run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
+    local config={schema=multifood and "l13w-multi-food-exploration-v1" or (neighborhood and "l13v-neighborhood-exploration-v1" or (landmarks and "l13u-landmark-exploration-v1" or (natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1"))),run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
     local evidence={run_id=run,scenario=scenario,config=config,observations={},actions={},deliveries={},guards={},mountains={}}
     local sim,stage,last_slot=0,"setup",-1
     local npc,food,ctl,body_revision,last_position,last_yaw,ending
+    local foods={}
     local queue,busy,mailbox={},nil,nil
     local targets={}
     local function encode(x)
@@ -46,6 +49,14 @@ return function(http,runtime_url)
         if c.kind=="wait" then return "waited" end
         if c.kind=="turn" then npc:set_yaw(npc:get_yaw()-math.rad(c.amount));return "turned" end
         if c.kind=="pickup" then
+            if multifood then
+                if food_set.pickup(foods,c.target_ref,npc:get_pos()) then
+                    body_revision=body_revision+1;evidence.pickups=(evidence.pickups or 0)+1
+                    evidence.picked_food_ref=c.target_ref
+                    return "picked_up"
+                end
+                return "not_found"
+            end
             if food and food:get_pos() and food:get_luaentity().rdl_id==c.target_ref
                     and vector.distance(npc:get_pos(),food:get_pos())<=1.25 then
                 food:remove();assert(food:get_pos()==nil);food=nil
@@ -103,6 +114,12 @@ return function(http,runtime_url)
                 if natural then visible[1].up=delta.y end
                 evidence.first_food_us=evidence.first_food_us or sim
             end
+        end
+        if multifood then
+            visible,food_coverage,visibility=food_set.sample(foods,b.position,b.yaw,function(eye,target)
+                return natural.visibility(eye,target,core.get_node_or_nil)
+            end)
+            if #visible>0 then evidence.first_food_us=evidence.first_food_us or sim end
         end
         local features,partial,limited=distant.sample(npc,profile,targets)
         local p=context({clock_id="world-sim-v1",observation_id=run .. ":obs:" .. slot,
@@ -162,7 +179,19 @@ return function(http,runtime_url)
             local fx,fz=transform(bend and (left and -24 or 24) or 0,bend and 12 or 26)
             if natural then fx,fz=18,18 end
             evidence.food_initial={x=fx,y=natural and natural.height(fx,fz)+1 or 1,z=fz}
-            if scenario~="no_food" then food=assert(core.add_entity(evidence.food_initial,"rdl_bridge:food",run .. ":food")) end
+            if multifood then
+                evidence.foods_initial={}
+                -- Predeclared experimenter sites, not a terrain/feature-to-Food rule.
+                for i,p in ipairs({{18,18},{-18,-17},{-20,7},{7,-20},{20,-6}}) do
+                    local pos={x=p[1],y=natural.height(p[1],p[2])+1,z=p[2]}
+                    assert(vector.length(pos)>12,"Food must initially be out of range")
+                    assert(core.get_node(pos).name=="air","Food site obstructed")
+                    local ref=run .. ":food:" .. i
+                    foods[i]=assert(core.add_entity(pos,"rdl_bridge:food",ref))
+                    foods[i]:set_properties({textures={"rdl_l13_food.png"}})
+                    evidence.foods_initial[i]={ref=ref,position=pos}
+                end
+            elseif scenario~="no_food" then food=assert(core.add_entity(evidence.food_initial,"rdl_bridge:food",run .. ":food")) end
             for i,m in ipairs({{x=-22,z=42,h=8,r=6,color="gray"},{x=42,z=24,h=6,r=5,color="red"},{x=-38,z=-34,h=10,r=7,color="gray"}}) do
                 local node="rdl_bridge:exploration_rock_" .. m.color
                 for y=1,m.h do
@@ -187,6 +216,7 @@ return function(http,runtime_url)
             evidence.lua_checks=dofile(root .. "/exploration_checks.lua")(controller,ground)
             if natural then evidence.natural_checks=dofile(root .. "/exploration_natural_checks.lua")(natural,controller) end
             if landmarks then evidence.landmark_checks=dofile(root .. "/exploration_landmark_checks.lua")(landmarks,controller) end
+            if multifood then evidence.food_set_checks=dofile(root .. "/exploration_food_set_checks.lua")(food_set) end
             enqueue("configure",config);stage="configuring"
         end)
         if not ok then save(tostring(err)) end

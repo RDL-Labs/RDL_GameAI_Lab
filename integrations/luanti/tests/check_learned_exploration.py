@@ -10,9 +10,11 @@ def check_series(a, world=True):
     c = a["config"]
     from runtime.landmark_exploration import LandmarkExplorationSeries
     from runtime.neighborhood_exploration import NeighborhoodExplorationSeries
-    from runtime.exploration import LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA
-    series_type = (NeighborhoodExplorationSeries if c["schema"] == NEIGHBORHOOD_SCHEMA else
-                   (LandmarkExplorationSeries if c["schema"] == LANDMARK_SCHEMA else LearnedExplorationSeries))
+    from runtime.multifood_exploration import MultiFoodExplorationSeries
+    from runtime.exploration import LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA
+    series_type = (MultiFoodExplorationSeries if c["schema"] == MULTIFOOD_SCHEMA else
+                  (NeighborhoodExplorationSeries if c["schema"] == NEIGHBORHOOD_SCHEMA else
+                   (LandmarkExplorationSeries if c["schema"] == LANDMARK_SCHEMA else LearnedExplorationSeries)))
     s = series_type(c["series_id"], c["mode"], c["seed"], c["max_days"])
     signature = None
     for d in a["days"]:

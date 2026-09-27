@@ -30,6 +30,10 @@ def check_natural_day(data):
         p, b, v = o["packet"], o["body"], o.get("food_visibility")
         assert p["ground"]["model"] == "l13t-local-surface-rays-v1"
         if v:
+            if "foods_initial" in w:
+                from .check_multifood_exploration import check_food_observation
+                check_food_observation(w, o)
+                continue
             distance = dist([b["position"][k] for k in "xyz"], [w["food_initial"][k] for k in "xyz"])
             assert isclose(distance, v["distance"], abs_tol=1e-5)
             assert v["in_range"] == (distance <= 12)
