@@ -44,9 +44,10 @@ foreach ($module in @("resource_use_trial.lua", "resource_use_checks.lua", "reso
     Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\$module") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 }
 
-foreach ($module in @("exploration_fixture.lua", "exploration_ground.lua", "exploration_controller.lua", "exploration_checks.lua", "exploration_natural.lua", "exploration_natural_checks.lua", "exploration_landmarks.lua", "exploration_landmark_checks.lua", "exploration_food_set.lua", "exploration_food_set_checks.lua")) {
+foreach ($module in @("exploration_fixture.lua", "exploration_ground.lua", "exploration_controller.lua", "exploration_checks.lua", "exploration_natural.lua", "exploration_natural_checks.lua", "exploration_landmarks.lua", "exploration_landmark_checks.lua", "exploration_food_set.lua", "exploration_food_set_checks.lua", "resource_patches.lua", "resource_patches_checks.lua")) {
     Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\$module") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 }
 $textureTarget = Join-Path $targetGame "mods\rdl_bridge\textures"
 New-Item -ItemType Directory -Force -Path $textureTarget | Out-Null
 Get-ChildItem -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\textures") -Filter "rdl_l13_*.png" | Copy-Item -Destination $textureTarget -Force
+Get-ChildItem -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\textures") -Filter "rdl_l14_*.png" | Copy-Item -Destination $textureTarget -Force

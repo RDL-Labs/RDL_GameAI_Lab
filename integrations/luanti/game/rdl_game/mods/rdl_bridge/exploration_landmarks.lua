@@ -2,6 +2,7 @@
 local M={}
 local colors={grass="green",dirt="brown",stone="gray",trunk="brown",leaves="green",water="blue",
     rock_gray="gray",rock_red="red"}
+function M.register_surface(name,color) assert(color=="brown" or color=="gray");colors[name]=color end
 function M.sample(position,yaw,read)
     local eye=vector.add(position,{x=0,y=.5,z=0})
     local frame={model="l13u-horizontal-surface-fan-v1",profile="l13u-landmark-fixed-v1",

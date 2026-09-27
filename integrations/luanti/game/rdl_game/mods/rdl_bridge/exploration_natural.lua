@@ -8,6 +8,7 @@ local cells={{"center",0,0},{"front1",1,0},{"front2",2,0},{"right1",0,1},{"right
 local function kind(node) return node and node.name:sub(#prefix+1) end
 local function round(x) return math.floor(x+.5) end
 local function air(node) return node and node.name=="air" end
+function M.register_surface(name,color) assert(color=="brown" or color=="gray");colors[name]=color end
 function M.height(x,z)
     -- One level shallow pool, below the surrounding rolling surface.
     if (x+15)^2+(z-12)^2<=25 then return -1 end

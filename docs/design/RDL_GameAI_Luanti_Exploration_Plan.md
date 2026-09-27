@@ -6,7 +6,7 @@
 観測特徴を小目標として使う有限制御は[L13U契約](../experiment-contracts/LUANTI_L13U_landmark_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13U_landmark_exploration_evidence.md)。身体相対の面特徴を選び、再観測で保持/見失い/曖昧さを検査する。初期の視覚運動制御と、経験から得るFood関係を分ける。
 目印周辺の有限探索と未発見の学習は[L13V契約](../experiment-contracts/LUANTI_L13V_neighborhood_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13V_neighborhood_exploration_evidence.md)。二方向の短い往復を完了した未発見だけを独立検査し、M_Bへ採用する。粗い取得条件に対応する再探索の省略であり、全地域の不在・訪問済み地図・一般帰還ではない。
 Foodを固定5地点へ増やす条件は[L13W契約](../experiment-contracts/LUANTI_L13W_multi_food_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13W_multi_food_exploration_evidence.md)。地形・取得範囲・L13Vの探索と学習を維持し、発見機会の変化を調べる。地形とFoodの生態的な法則性や水中取得は追加しない。
-次工程は[有限資源群の長期学習計画](RDL_GameAI_Luanti_Resource_Patch_Learning_Plan.md)（DESIGN ONLY）。神の像は実の見本と用途だけを示し、木や場所は教えない。一地点2回の成功採集で枯渇するWorldを期間間で保持し、最大30期間で再探索と未訪問の木への特徴一般化を検査する。以下の既存L13S〜Wの毎日リセット・3回発見終了・一候補制限を変更済みとはしない。
+次工程は[有限資源群の長期学習計画](RDL_GameAI_Luanti_Resource_Patch_Learning_Plan.md)。前提となる[L14A](../experiment-contracts/LUANTI_L14A_continuous_resource_contract.md)は、神の像による実の見本・用途教示、一地点2回の採集、30期間の身体・在庫継続と再探索を実装する。[Evidence](../experiment-evidence/LUANTI_L14A_continuous_resource_evidence.md)。木の特徴の帰納・Sleep/T1/M_B反復更新・未訪問場所への適用はDESIGN ONLY。既存L13S〜Wの毎日リセット・3回発見終了・一候補制限は変更しない。
 初版の[実装契約](../experiment-contracts/LUANTI_L13A_finite_exploration_contract.md)と
 [Evidence](../experiment-evidence/LUANTI_L13A_finite_exploration_evidence.md)を正本とする。
 基準: GameAI `df2d23d` ＋ L13A実装working tree。以下にはv0.6までの設計案と後続候補を残す。

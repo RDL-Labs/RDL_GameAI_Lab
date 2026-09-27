@@ -6,13 +6,21 @@ return function(http,runtime_url)
     local distant=dofile(root .. "/distant_sensor.lua")
     local run=assert(core.settings:get("rdl_learning_run_id"))
     local scenario=core.settings:get("rdl_exploration_scenario") or "straight"
+    local resources=core.settings:get_bool("rdl_exploration_resources",false)
+    local periods=resources and assert(tonumber(core.settings:get("rdl_resource_periods"))) or 1
+    assert(periods>=1 and periods<=30 and periods%1==0,"period budget")
+    local capacity,limit=64*periods,16000000*periods
+    local faults=scenario=="faults" or (resources and core.settings:get_bool("rdl_resource_faults",false))
+    local control=resources and core.settings:get_bool("rdl_resource_control",false)
     local natural=(scenario=="natural_meadow" or scenario=="natural_woodland") and dofile(root .. "/exploration_natural.lua") or nil
     if natural then natural.register() end
     local multifood=core.settings:get_bool("rdl_exploration_multi_food",false)
     local food_set=multifood and dofile(root .. "/exploration_food_set.lua") or nil
-    local neighborhood=multifood or core.settings:get_bool("rdl_exploration_neighborhood",false)
+    local neighborhood=resources or multifood or core.settings:get_bool("rdl_exploration_neighborhood",false)
     local landmarks=(neighborhood or core.settings:get_bool("rdl_exploration_landmarks",false)) and dofile(root .. "/exploration_landmarks.lua") or nil
     assert(not landmarks or natural,"landmark mode requires natural terrain")
+    local resource=resources and dofile(root .. "/resource_patches.lua") or nil
+    if resource then resource.register(natural,landmarks) end
     local profile={range_min_exclusive=12,range_max_inclusive=64,horizontal_fov_deg=90,vertical_fov_deg=60,angle_bin_deg=5}
     local prefix=runtime_url:gsub("/v1/observe$","") .. "/v1/exploration/"
     for _,spec in ipairs({{"gray","#777777"},{"blue","#4477cc"},{"rock_gray","#484848"},{"rock_red","#985950"}}) do
@@ -20,10 +28,13 @@ return function(http,runtime_url)
             tiles={"rdl_l13_" .. spec[1] .. ".png"},walkable=true,pointable=false})
     end
     local config={schema=multifood and "l13w-multi-food-exploration-v1" or (neighborhood and "l13v-neighborhood-exploration-v1" or (landmarks and "l13u-landmark-exploration-v1" or (natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1"))),run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
+    if resource then config.schema="l14a-continuous-resource-exploration-v1" end
     local evidence={run_id=run,scenario=scenario,config=config,observations={},actions={},deliveries={},guards={},mountains={}}
     local sim,stage,last_slot=0,"setup",-1
     local npc,food,ctl,body_revision,last_position,last_yaw,ending
     local foods={}
+    local patches,inventory={},{}
+    if resource then evidence.periods={};evidence.period_count=periods;evidence.control=control;evidence.faults=faults end
     local queue,busy,mailbox={},nil,nil
     local targets={}
     local function encode(x)
@@ -49,6 +60,15 @@ return function(http,runtime_url)
         if c.kind=="wait" then return "waited" end
         if c.kind=="turn" then npc:set_yaw(npc:get_yaw()-math.rad(c.amount));return "turned" end
         if c.kind=="pickup" then
+            if resource then
+                if resource.pickup(patches,c.target_ref,npc:get_pos()) then
+                    body_revision=body_revision+1;evidence.pickups=(evidence.pickups or 0)+1
+                    inventory[#inventory+1]={operation_id=c.operation_id,target_ref=c.target_ref,acquired_us=sim}
+                    assert(#inventory<=32,"inventory capacity")
+                    return "picked_up"
+                end
+                return "not_found"
+            end
             if multifood then
                 if food_set.pickup(foods,c.target_ref,npc:get_pos()) then
                     body_revision=body_revision+1;evidence.pickups=(evidence.pickups or 0)+1
@@ -90,14 +110,19 @@ return function(http,runtime_url)
         evidence.controller={count=ctl and ctl.count or 0,effects=ctl and ctl.effects or 0,
             distance=ctl and ctl.distance or 0,rotation=ctl and ctl.rotation or 0}
         evidence.final_body=npc and body() or nil
+        if resource then evidence.final_stock=resource.audit(patches);evidence.inventory=inventory end
         core.safe_file_write(core.get_worldpath() .. "/l13a-evidence.json",encode(evidence));stage="done"
     end
     local function sample()
         local slot=math.floor(sim/250000)
         if slot==last_slot then return end
-        assert(slot<64,"acquisition budget");assert(slot==last_slot+1,"missed acquisition slot")
+        assert(slot<capacity,"acquisition budget");assert(slot==last_slot+1,"missed acquisition slot")
         last_slot=slot
         local b=body()
+        if resource and slot%64==0 then
+            evidence.periods[#evidence.periods+1]={period=math.floor(slot/64),capture_us=sim,body=table.copy(b),
+                stock=resource.audit(patches),inventory_count=#inventory}
+        end
         local g=(natural or ground).sample(b.position,b.yaw,function(pos)
             if scenario=="partial" then return nil end -- explicit acquisition fault, not an empty scene
             return core.get_node_or_nil(pos)
@@ -117,6 +142,12 @@ return function(http,runtime_url)
         end
         if multifood then
             visible,food_coverage,visibility=food_set.sample(foods,b.position,b.yaw,function(eye,target)
+                return natural.visibility(eye,target,core.get_node_or_nil)
+            end)
+            if #visible>0 then evidence.first_food_us=evidence.first_food_us or sim end
+        end
+        if resource then
+            visible,food_coverage,visibility=resource.sample(patches,b.position,b.yaw,function(eye,target)
                 return natural.visibility(eye,target,core.get_node_or_nil)
             end)
             if #visible>0 then evidence.first_food_us=evidence.first_food_us or sim end
@@ -146,7 +177,7 @@ return function(http,runtime_url)
         http.fetch({url=prefix .. job.kind,method="POST",extra_headers={"Content-Type: application/json"},
             data=encode(job.payload),timeout=2},function(r)
                 mailbox={job=job,ok=r.succeeded and r.code==200,wire=r.data,
-                    release_us=sim+((scenario=="faults" and job.kind=="observe" and job.payload.sample_seq==3) and 750000 or 0),
+                    release_us=sim+((faults and job.kind=="observe" and job.payload.sample_seq==(resources and 63 or 3)) and 750000 or 0),
                     arrived_us=sim}
             end)
     end
@@ -163,7 +194,18 @@ return function(http,runtime_url)
             for z=lo.z,hi.z do for y=lo.y,hi.y do for x=lo.x,hi.x do data[area:index(x,y,z)]=y==0 and gray or air end end end
             vm:set_data(data);vm:write_to_map();vm:update_map()
             end
-            for x=-32,32,16 do for z=-32,32,16 do core.forceload_block({x=x,y=1,z=z},true) end end
+            if resources then
+                -- Hold the entire finite terrain, including negative elevations.
+                -- The default 16-block quota is insufficient for a long headless run.
+                evidence.forceloaded={}
+                for x=-64,48,16 do for y=-16,16,16 do for z=-64,48,16 do
+                    local pos={x=x,y=y,z=z}
+                    assert(core.forceload_block(pos,true),"resource terrain forceload budget")
+                    evidence.forceloaded[#evidence.forceloaded+1]=pos
+                end end end
+            else
+                for x=-32,32,16 do for z=-32,32,16 do core.forceload_block({x=x,y=1,z=z},true) end end
+            end
             local rotated=scenario=="rotated"
             local left=scenario=="left"
             local bend=scenario~="straight"
@@ -179,7 +221,10 @@ return function(http,runtime_url)
             local fx,fz=transform(bend and (left and -24 or 24) or 0,bend and 12 or 26)
             if natural then fx,fz=18,18 end
             evidence.food_initial={x=fx,y=natural and natural.height(fx,fz)+1 or 1,z=fz}
-            if multifood then
+            if resource then
+                patches,evidence.resource_trees=resource.build(run,natural,control)
+                evidence.stock_initial=resource.audit(patches)
+            elseif multifood then
                 evidence.foods_initial={}
                 -- Predeclared experimenter sites, not a terrain/feature-to-Food rule.
                 for i,p in ipairs({{18,18},{-18,-17},{-20,7},{7,-20},{20,-6}}) do
@@ -211,12 +256,16 @@ return function(http,runtime_url)
             npc:set_yaw(rotated and math.pi/2 or 0)
             if food then food:set_properties({textures={"rdl_l13_food.png"}}) end
             body_revision=0;last_position=vector.new(npc:get_pos());last_yaw=npc:get_yaw()
-            ctl=controller.new(run,{body=body,execute=execute,natural=natural~=nil,landmarks=landmarks~=nil})
+            if resource then config.teaching,evidence.teaching_audit=resource.teach(run,natural,npc) end
+            ctl=controller.new(run,{body=body,execute=execute,natural=natural~=nil,landmarks=landmarks~=nil,
+                resources=resources,capacity=capacity,limit_us=limit,period_us=resources and 16000000 or nil,
+                taught_appearance=resources and config.teaching.appearance or nil})
             evidence.initial_body=body()
             evidence.lua_checks=dofile(root .. "/exploration_checks.lua")(controller,ground)
             if natural then evidence.natural_checks=dofile(root .. "/exploration_natural_checks.lua")(natural,controller) end
             if landmarks then evidence.landmark_checks=dofile(root .. "/exploration_landmark_checks.lua")(landmarks,controller) end
             if multifood then evidence.food_set_checks=dofile(root .. "/exploration_food_set_checks.lua")(food_set) end
+            if resource then evidence.resource_checks=dofile(root .. "/resource_patches_checks.lua")(resource) end
             enqueue("configure",config);stage="configuring"
         end)
         if not ok then save(tostring(err)) end
@@ -225,8 +274,8 @@ return function(http,runtime_url)
         if stage=="setup" or stage=="done" then return end
         sim=sim+math.floor(dt*1000000+.5)
         local ok,err=pcall(function()
-            assert(sim<=25000000,"drain deadline")
-            if stage=="running" and sim>=16000000 then stop("time_limit") end
+            assert(sim<=limit+9000000,"drain deadline")
+            if stage=="running" and sim>=limit then stop("time_limit") end
             if mailbox and sim>=mailbox.release_us then
                 local reply=mailbox;mailbox=nil;busy=nil
                 assert(reply.ok,"HTTP failed: " .. tostring(reply.wire))
@@ -235,10 +284,12 @@ return function(http,runtime_url)
                     sent_us=job.sent_us,arrived_us=reply.arrived_us,received_us=sim}
                 if job.kind=="configure" then stage="running"
                 elseif job.kind=="observe" then
-                    if scenario=="faults" and job.payload.sample_seq==0 and not evidence.lost_response then
+                    local lose=job.payload.sample_seq==0
+                    if resources then lose=response.command.kind=="pickup" end
+                    if faults and lose and not evidence.lost_response then
                         evidence.lost_response=true;enqueue("observe",job.payload,true)
                     else
-                        if scenario=="faults" and job.payload.sample_seq==0 then
+                        if faults and response.new_frames==0 then
                             assert(response.new_frames==0);evidence.loss_recovered=true
                         end
                         local before=body();local result,new=ctl:consume(response.command,job.payload,sim)
@@ -248,9 +299,9 @@ return function(http,runtime_url)
                             local effects=ctl.effects;local same,again=ctl:consume(response.command,job.payload,sim)
                             assert(not again and ctl.effects==effects);evidence.guards.duplicate_operation=true
                             if not evidence.old_reply then evidence.old_reply={command=table.copy(response.command),packet=table.copy(job.payload)} end
-                            if result.acquired then evidence.acquired_us=sim;stop("acquired") end
+                            if result.acquired then evidence.acquired_us=sim;if not resource then stop("acquired") end end
                         end
-                        if scenario=="faults" and job.payload.sample_seq==4 then
+                        if faults and job.payload.sample_seq==(resources and 65 or 4) then
                             local old=evidence.old_reply;local effects=ctl.effects
                             local _,again=ctl:consume(old.command,old.packet,sim)
                             assert(not again and ctl.effects==effects);evidence.guards.old_callback=true

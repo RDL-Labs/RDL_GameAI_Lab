@@ -9,24 +9,31 @@ local function equal(a,b)
 end
 local function wrap(x) return (x+180)%360-180 end
 function M.new(run,adapter)
+    local capacity=adapter.capacity or 64
+    local limit=adapter.limit_us or 16000000
     local self={entries={},count=0,effects=0,distance=0,rotation=0,stopped=false}
     function self:consume(c,p,now)
         assert(c.run_id==run and c.world_epoch==1 and c.agent_id=="npc_a","context")
         assert(p.run_id==run and p.world_epoch==1 and p.agent_id=="npc_a" and p.clock_id=="world-sim-v1","packet context")
         assert(c.source_id==p.observation_id and c.operation_id=="op:" .. p.observation_id,"source")
         assert(c.capture_us==p.capture_us and c.pose_ref==p.pose_ref and c.body_revision==p.body_revision,"body binding")
-        assert(c.expires_us==math.min(p.capture_us+500000,16000000),"expiry binding")
+        local expiry=math.min(p.capture_us+500000,limit)
+        if adapter.period_us then expiry=math.min(expiry,(math.floor(p.capture_us/adapter.period_us)+1)*adapter.period_us) end
+        assert(c.expires_us==expiry,"expiry binding")
         assert(now>=p.capture_us,"time reversal")
         local turn_ok=math.abs(c.amount)==90 or (adapter.landmarks and c.amount~=0 and math.abs(c.amount)<=90 and c.amount%5==0)
         assert((c.kind=="move" and c.amount==1) or (c.kind=="turn" and turn_ok)
             or ((c.kind=="pickup" or c.kind=="wait") and c.amount==0),"action")
         if c.kind=="pickup" then
-            assert(p.food.coverage=="complete" and #p.food.visible==1 and p.food.visible[1].ref==c.target_ref
-                and p.food.visible[1].distance<=1.25,"unobserved pickup")
+            local target
+            for _,item in ipairs(p.food.visible) do if item.ref==c.target_ref then target=item end end
+            assert(p.food.coverage=="complete" and target and target.distance<=1.25
+                and (adapter.resources or #p.food.visible==1),"unobserved pickup")
+            if adapter.resources then assert(target.appearance==adapter.taught_appearance,"untaught material") end
         else assert(c.target_ref=="","unobserved target") end
         local old=self.entries[c.operation_id]
         if old then assert(equal(old.command,c),"operation conflict");return old.result,false end
-        assert(self.count<64,"operation budget")
+        assert(self.count<capacity,"operation budget")
         local entry={command=table.copy(c)}
         self.entries[c.operation_id]=entry;self.count=self.count+1 -- before effects/reentrant calls
         local before=adapter.body()
@@ -36,7 +43,7 @@ function M.new(run,adapter)
         elseif before.revision~=c.body_revision or before.pose_ref~=c.pose_ref then status="stale"
         else
             local step=adapter.natural and math.sqrt(2) or 1
-            assert(self.distance+(c.kind=="move" and step or 0)<=64*step+.00001 and self.rotation+(c.kind=="turn" and math.abs(c.amount) or 0)<=5760)
+            assert(self.distance+(c.kind=="move" and step or 0)<=capacity*step+.00001 and self.rotation+(c.kind=="turn" and math.abs(c.amount) or 0)<=capacity*90)
             status=adapter.execute(c)
         end
         local after=adapter.body()

@@ -5,7 +5,11 @@ param(
     [Parameter(Mandatory=$true)][string]$RunId,
     [switch]$Landmarks,
     [switch]$Neighborhood,
-    [switch]$MultiFood
+    [switch]$MultiFood,
+    [switch]$Resources,
+    [ValidateRange(1,30)][int]$ResourcePeriods = 30,
+    [switch]$ResourceControl,
+    [switch]$ResourceFaults
 )
 $ErrorActionPreference = "Stop"
 if ($RunId -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "Invalid RunId" }
@@ -28,6 +32,10 @@ rdl_exploration_scenario = $Scenario
 rdl_exploration_landmarks = $($Landmarks.IsPresent.ToString().ToLowerInvariant())
 rdl_exploration_neighborhood = $($Neighborhood.IsPresent.ToString().ToLowerInvariant())
 rdl_exploration_multi_food = $($MultiFood.IsPresent.ToString().ToLowerInvariant())
+rdl_exploration_resources = $($Resources.IsPresent.ToString().ToLowerInvariant())
+rdl_resource_periods = $ResourcePeriods
+rdl_resource_control = $($ResourceControl.IsPresent.ToString().ToLowerInvariant())
+rdl_resource_faults = $($ResourceFaults.IsPresent.ToString().ToLowerInvariant())
 time_speed = 0
 port = 30001
 max_users = 1
@@ -35,8 +43,11 @@ default_game = rdl_game
 mg_name = singlenode
 dedicated_server_step = 0.02
 "@ | Set-Content -LiteralPath $config -Encoding utf8
+if ($Resources) { Add-Content -LiteralPath $config -Value "max_forceloaded_blocks = 256" -Encoding utf8 }
 $health = Invoke-RestMethod "http://127.0.0.1:8765/health" -TimeoutSec 2
-if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne "l13s-learned-exploration-v1") { throw "Unexpected learned Runtime" }
+$expectedSchema = if ($Resources) { "l14a-continuous-resource-exploration-v1" } else { "l13s-learned-exploration-v1" }
+if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }
+if ($Resources -and $health.periods -ne $ResourcePeriods) { throw "Resource period mismatch" }
 $luanti = $null
 try {
     $initial = Invoke-RestMethod "http://127.0.0.1:8765/v1/exploration-snapshot" -TimeoutSec 5
@@ -44,7 +55,7 @@ try {
         "--server","--gameid","rdl_game","--world",$worldPath,"--config",$config,"--logfile",(Join-Path $outputPath "$RunId.log"),"--color","never" `
         -WorkingDirectory $LuantiRoot -RedirectStandardOutput (Join-Path $outputPath "$RunId.world.out.log") `
         -RedirectStandardError (Join-Path $outputPath "$RunId.world.err.log") -WindowStyle Hidden -PassThru
-    $deadline = [DateTime]::UtcNow.AddSeconds(50)
+    $deadline = [DateTime]::UtcNow.AddSeconds($(if ($Resources) { $ResourcePeriods*16+35 } else { 50 }))
     do {
         Start-Sleep -Milliseconds 100
         $complete = Test-Path -LiteralPath (Join-Path $worldPath "l13a-evidence.json")

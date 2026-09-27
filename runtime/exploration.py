@@ -10,6 +10,7 @@ NATURAL_SCHEMA = "l13t-natural-exploration-v1"
 LANDMARK_SCHEMA = "l13u-landmark-exploration-v1"
 NEIGHBORHOOD_SCHEMA = "l13v-neighborhood-exploration-v1"
 MULTIFOOD_SCHEMA = "l13w-multi-food-exploration-v1"
+RESOURCE_SCHEMA = "l14a-continuous-resource-exploration-v1"
 GROUND = "l13a-ground-nine-v1"
 SLOT_US = 250_000
 LIMIT_US = 16_000_000
@@ -67,12 +68,19 @@ class FiniteExploration:
     allow_landmarks = False
     allow_neighborhood = False
     allow_multifood = False
+    allow_resources = False
+    capacity = CAPACITY
+    limit_us = LIMIT_US
+    deadline_us = 25_000_000
+
+    def expiry(self, capture_us):
+        return min(capture_us + 500_000, self.limit_us)
 
     def landmarks(self):
-        return self.config is not None and self.config["schema"] in (LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA)
+        return self.config is not None and self.config["schema"] in (LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA, RESOURCE_SCHEMA)
 
     def natural(self):
-        return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA)
+        return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA, RESOURCE_SCHEMA)
 
     def __init__(self, run_id):
         ref(run_id)
@@ -82,7 +90,7 @@ class FiniteExploration:
         self.commands = {}
         self.results = {}
         self.ending = None
-        self.store = SensoryObservationStore(CAPACITY, {"npc_a": ("fixture-distant-enabled", 1)}, run_id)
+        self.store = SensoryObservationStore(self.capacity, {"npc_a": ("fixture-distant-enabled", 1)}, run_id)
         self.lock = RLock()
 
     def context(self, value):
@@ -96,7 +104,8 @@ class FiniteExploration:
             schemas = ((SCHEMA,) + ((NATURAL_SCHEMA,) if self.allow_natural else ()) +
                        ((LANDMARK_SCHEMA,) if self.allow_landmarks else ()) +
                        ((NEIGHBORHOOD_SCHEMA,) if self.allow_neighborhood else ()) +
-                       ((MULTIFOOD_SCHEMA,) if self.allow_multifood else ()))
+                       ((MULTIFOOD_SCHEMA,) if self.allow_multifood else ()) +
+                       ((RESOURCE_SCHEMA,) if self.allow_resources else ()))
             require(value["schema"] in schemas
                     and value["clock_id"] == "world-sim-v1", "configuration")
             require(self.config is None or self.config == value, "configuration_conflict")
@@ -109,10 +118,10 @@ class FiniteExploration:
         require(p["clock_id"] == self.config["clock_id"], "clock")
         for k in ("observation_id", "pose_ref"):
             ref(p[k])
-        integer(p["capture_us"], 0, LIMIT_US - 1)
-        integer(p["sample_seq"], 0, CAPACITY - 1)
+        integer(p["capture_us"], 0, self.limit_us - 1)
+        integer(p["sample_seq"], 0, self.capacity - 1)
         require(p["sample_seq"] == p["capture_us"] // SLOT_US, "acquisition_slot")
-        integer(p["body_revision"], 0, CAPACITY)
+        integer(p["body_revision"], 0, self.capacity)
         g = p["ground"]
         fields(g, "model profile coverage cells")
         require((g["model"], g["profile"]) == (("l13t-local-surface-rays-v1", "l13t-natural-fixed-v1")
@@ -130,17 +139,20 @@ class FiniteExploration:
         food = p["food"]
         fields(food, "coverage visible")
         require(food["coverage"] in ("complete", "partial"), "food_coverage")
-        limit = 5 if self.config["schema"] == MULTIFOOD_SCHEMA else 1
+        limit = 5 if self.config["schema"] in (MULTIFOOD_SCHEMA, RESOURCE_SCHEMA) else 1
         require(isinstance(food["visible"], list) and len(food["visible"]) <= limit, "food_budget")
         for item in food["visible"]:
-            fields(item, "ref distance forward right up" if self.natural() else "ref distance forward right")
+            fields(item, ("ref distance forward right up" if self.natural() else "ref distance forward right") +
+                   (" appearance" if self.config["schema"] == RESOURCE_SCHEMA else ""))
+            if self.config["schema"] == RESOURCE_SCHEMA:
+                require(item["appearance"] in ("brown_capped_ovoid", "gray_round"), "material_appearance")
             ref(item["ref"])
             number(item["distance"], 0, 12)
             for k in ("forward", "right"):
                 number(item[k], -12, 12)
             if self.natural(): number(item["up"], -12, 12)
             require(abs(hypot(item["forward"], item["right"], item.get("up", 0)) - item["distance"]) < 0.001, "food_geometry")
-        if self.config["schema"] == MULTIFOOD_SCHEMA:
+        if self.config["schema"] in (MULTIFOOD_SCHEMA, RESOURCE_SCHEMA):
             require(len({i["ref"] for i in food["visible"]}) == len(food["visible"]), "duplicate_food_ref")
             require(food["visible"] == sorted(food["visible"], key=lambda i: (i["distance"], i["ref"])), "food_order")
         d = p["distant"]
@@ -168,7 +180,7 @@ class FiniteExploration:
                 require(existing == p, "observation_conflict")
                 return self._receipt(ident, 0)
             require(self.ending is None, "run_closed")
-            require(len(self.observations) < CAPACITY, "observation_capacity")
+            require(len(self.observations) < self.capacity, "observation_capacity")
             if self.observations:
                 last = next(reversed(self.observations.values()))
                 require(p["capture_us"] > last["capture_us"] and p["sample_seq"] > last["sample_seq"], "observation_order")
@@ -176,7 +188,7 @@ class FiniteExploration:
             kind, amount, target, reason = self.select(p, previous)
             command = {k: p[k] for k in ("run_id", "world_epoch", "agent_id", "pose_ref", "body_revision", "capture_us")}
             command.update(operation_id="op:" + ident, source_id=ident,
-                           expires_us=min(p["capture_us"] + 500_000, LIMIT_US),
+                           expires_us=self.expiry(p["capture_us"]),
                            kind=kind, amount=amount, target_ref=target, reason=reason)
             ref(command["operation_id"])
             # Validate/admit on a copy; no partial publication of ground or distant data.
@@ -208,9 +220,9 @@ class FiniteExploration:
             require(self.ending is None, "run_closed")
             command = self.commands.get(value["source_id"])
             require(command is not None and command["operation_id"] == ident, "unknown_operation")
-            integer(value["executed_us"], command["capture_us"], 25_000_000)
+            integer(value["executed_us"], command["capture_us"], self.deadline_us)
             for k in ("before_revision", "after_revision"):
-                integer(value[k], 0, CAPACITY)
+                integer(value[k], 0, self.capacity)
             for k in ("before_pose_ref", "after_pose_ref"):
                 ref(value[k])
             for k, lo, hi in (("forward", -1.001, 1.001), ("right", -0.001, 0.001), ("yaw", -90.01, 90.01)):
@@ -234,14 +246,14 @@ class FiniteExploration:
             if status == "stale":
                 require(value["before_revision"] != command["body_revision"] or value["before_pose_ref"] != command["pose_ref"], "not_stale")
             if status == "stopped":
-                require(value["executed_us"] >= LIMIT_US or any(r["acquired"] for r in self.results.values()), "not_stopped")
+                require(value["executed_us"] >= self.limit_us or (not self.allow_resources and any(r["acquired"] for r in self.results.values())), "not_stopped")
             changed = status in ("moved", "turned", "picked_up")
             require(value["after_revision"] == value["before_revision"] + int(changed), "revision_change")
             require((value["before_pose_ref"] != value["after_pose_ref"]) == changed, "pose_change")
             require(value["acquired"] == (status == "picked_up"), "acquisition_result")
             require(abs(value["forward"] - (1 if status == "moved" else 0)) < 0.001
                     and abs(value["yaw"] - (command["amount"] if status == "turned" else 0)) < 0.01, "measured_effect")
-            require(not value["acquired"] or not any(r["acquired"] for r in self.results.values()), "duplicate_pickup")
+            require(self.allow_resources or not value["acquired"] or not any(r["acquired"] for r in self.results.values()), "duplicate_pickup")
             self.results[ident] = deepcopy(value)
             return {"accepted": True, "new_result": True}
 
@@ -250,14 +262,14 @@ class FiniteExploration:
             require(self.config is not None, "not_configured")
             fields(value, "run_id world_epoch agent_id ended_us reason")
             self.context(value)
-            integer(value["ended_us"], 0, 25_000_000)
+            integer(value["ended_us"], 0, self.deadline_us)
             require(value["reason"] in ("acquired", "time_limit", "pending_capacity", "operation_budget"), "end_reason")
             require(self.ending is None or self.ending == value, "finish_conflict")
             require(len(self.results) == len(self.commands), "unreported_operations")
             acquired = any(r["acquired"] for r in self.results.values())
-            require((value["reason"] == "acquired") == acquired, "end_acquisition")
+            require(value["reason"] != "acquired" if self.allow_resources else (value["reason"] == "acquired") == acquired, "end_acquisition")
             if value["reason"] == "time_limit":
-                require(value["ended_us"] >= LIMIT_US, "early_timeout")
+                require(value["ended_us"] >= self.limit_us, "early_timeout")
             require(all(r["executed_us"] <= value["ended_us"] or r["status"] in ("expired", "stale", "stopped")
                         for r in self.results.values()), "effect_after_end")
             self.ending = deepcopy(value)
