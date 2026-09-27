@@ -95,7 +95,7 @@ class BoundaryDefense:
             self._state = {**self._state, "config": deepcopy(config)}
             return {"configured": True, "run_id": self.run_id}
 
-    def _sources(self, record, config):
+    def _sources(self, record, config, *, require_relation=True):
         """Validate the finite instrumented evidence, never query World truth."""
         keys(record, "notice before effect after")
         n = record["notice"]
@@ -109,7 +109,7 @@ class BoundaryDefense:
         reasons = []
         if n["unit_ref"] not in config["registration"]["unit_refs"]:
             reasons.append("reference_unregistered")
-        if config["relation"] is None:
+        if require_relation and config["relation"] is None:
             reasons.append("relation_unconfigured")
         if n["coverage"] != "complete":
             reasons.append("acquisition_incomplete")
@@ -207,20 +207,25 @@ class BoundaryDefense:
 
     def result(self, request):
         with self.lock:
-            keys(request, "permit status started_us ended_us readback cleared")
-            s = self._state
-            require(s["permit"] is not None and same(request["permit"], s["permit"]), "result_binding")
-            p = s["permit"]
-            require(integer(request["started_us"]) and integer(request["ended_us"]), "invalid_result_time")
-            if request["status"] == "displayed":
-                require(p["capture_us"] <= request["started_us"] <= p["expires_us"] and
-                        request["ended_us"] >= request["started_us"] + p["duration_us"] and
-                        request["readback"] == "WARNING" and request["cleared"] == "", "display_evidence")
-            else:
-                require(request["status"] == "action_expired" and request["started_us"] > p["expires_us"] and
-                        request["ended_us"] == request["started_us"] and request["readback"] == "" and request["cleared"] == "", "expiry_evidence")
-            key = p["operation_id"]
-            old = s["results"].get(key)
-            require(old is None or same(old, request), "result_conflict")
-            self._state = {**s, "results": {**s["results"], key: deepcopy(request)}}
-            return {"operation_id": key, "new_result": old is None}
+            response = validate_display_receipt(request, self._state["permit"], self._state["results"])
+            self._state = {**self._state, "results": {**self._state["results"], response["operation_id"]: deepcopy(request)}}
+            return response
+
+
+def validate_display_receipt(request, permit, results):
+    """Pure, shared L11/L12 display receipt checks."""
+    keys(request, "permit status started_us ended_us readback cleared")
+    require(permit is not None and same(request["permit"], permit), "result_binding")
+    p = permit
+    require(integer(request["started_us"]) and integer(request["ended_us"]), "invalid_result_time")
+    if request["status"] == "displayed":
+        require(p["capture_us"] <= request["started_us"] <= p["expires_us"] and
+                request["ended_us"] >= request["started_us"] + p["duration_us"] and
+                request["readback"] == "WARNING" and request["cleared"] == "", "display_evidence")
+    else:
+        require(request["status"] == "action_expired" and request["started_us"] > p["expires_us"] and
+                request["ended_us"] == request["started_us"] and request["readback"] == "" and request["cleared"] == "", "expiry_evidence")
+    key = p["operation_id"]
+    old = results.get(key)
+    require(old is None or same(old, request), "result_conflict")
+    return {"operation_id": key, "new_result": old is None}

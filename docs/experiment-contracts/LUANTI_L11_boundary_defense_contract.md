@@ -217,8 +217,8 @@ HTTPは`--boundary-defense --sensory-run-id RUN`で明示起動する。
 
 ## 9. その次に学習へ戻す条件
 
-次工程は[L12契約案](LUANTI_L12_learned_resource_use_relation_contract.md)で具体化した（DESIGN ONLY）。
-本人の次回取得を予測する関係から警告を調整する計画であり、以下のL11停止境界を維持する。
+次工程は[L12契約](LUANTI_L12_learned_resource_use_relation_contract.md)で具体化・実装した（有限受入完了）。
+本人の次回取得を予測する用途付き関係を使う。以下のL11停止境界と固定関係機構は維持する。
 
 L11で固定関係による反応差を確認した後、本人の独立した利用・干渉・相手との相互作用のExperienceから、
 どの関係を形成・検査・採用するかを別契約で定める。形成用と未使用検査用を分け、同event再送で支持を増やさない。

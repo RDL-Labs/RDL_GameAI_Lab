@@ -130,6 +130,11 @@ class FrozenGameAIMB:
             ),
         )
 
+    def interpret_resource_use(self, section: Mapping[str, Any]) -> dict[str, Any]:
+        """L12 purpose-scoped interpretation by this frozen model only."""
+        from .resource_use_learning import interpret
+        return interpret(self, section)
+
     def interpret_sensory_food(self, section: Mapping[str, Any]) -> dict[str, Any]:
         """L10 explicit auxiliary boundary; legacy count interpretation is unchanged.
 

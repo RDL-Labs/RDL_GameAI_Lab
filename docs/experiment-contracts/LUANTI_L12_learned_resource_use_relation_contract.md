@@ -1,7 +1,7 @@
 # Luanti L12 — 本人の経験から採用した利用関係による警告差
 
-**状態: IMPLEMENTATION PLAN / DESIGN ONLY / DRAFT v0.1、2026-09-27。**
-実装・専用テスト・実Luanti受入は未実施。以下の表と件数は受入仕様であり実測結果ではない。
+**状態: IMPLEMENTED / FINITE ACCEPTANCE COMPLETE / v1、2026-09-27。**
+実装・検査の記録は[L12 Evidence](../experiment-evidence/LUANTI_L12_learned_resource_use_relation_evidence.md)を参照。
 基準はGameAI `ab82590d`（L11）＋`5ea508b`（Core参照同期）。
 意味基準は[semantic reference](../semantic-reference/RDL_Core_T0_T1_reference.md)のCore `86a0d4f3`、
 BASE v2.3.1 / SPEC v2.5、T1展開・検査選別・再構成。
@@ -89,7 +89,7 @@ World台帳の絶対位置、相手の手持ち全量、返却予定、scenario�
 
 ## 4. Purpose / B / 適用条件
 
-予定する専用の型と目的:
+専用の型と目的:
 
 - Purpose: `predict-own-pickup-after-peer-use`。
 - context: `l12-return-or-hold-apparatus-v1`。
@@ -141,7 +141,7 @@ Experienceの成否・候補支持数・警告回数・L11 loadをHへ加えな�
 
 ## 6. 学習した予測と警告consumerの分離
 
-`FrozenGameAIMB`に用途限定の`interpret_resource_use(section)`を追加する案とする。
+`FrozenGameAIMB`に用途限定の`interpret_resource_use(section)`を追加する。
 学習器が外部の別テーブルから既知結果を引いてM_B出力を名乗る方式にはしない。
 active M_Bの採用済みtyped relationだけを使い、旧色relation・NERV/SOCのCandidateへ実行権限を付けない。
 
@@ -174,7 +174,7 @@ L11の設定凍結を緩めず、L12専用opt-in adapterで純粋な評価step�
 ## 7. 同じ現在利用での対照と再入
 
 以下6scenarioをA=observer/B=actorとB=observer/A=actorで行う。
-**予定は12独立run×7Episode=84Episode。主runは各7回の相手pickupと7回の本人試行。**
+**受入規模は12独立run×7Episode=84Episode。主runは各7回の相手pickupと7回の本人試行。**
 
 | scenario | 形成3件 | 未使用検査3件 | 採用 | 現在利用の予測 | 単発WARNING期待 |
 | --- | --- | --- | --- | --- | --- |
@@ -223,13 +223,15 @@ unknown側は`not_comparable / E=null`、不完全な結果も数値0にしな�
 - 35秒のrun期限や指定作用枠を逸失した主runは未完了として落とす。quiet結果へ集計しない。
   永続化・任意のネットワーク故障・再起動保証は追加しない。
 
-## 9. 実装単位と予定受入
+## 9. 実装単位と受入
 
-予定ファイル（未作成）:
+実装ファイル:
 
 - `runtime/resource_use_learning.py`: 本人資料の受付、断面取得、形成・独立検査、T1 binding、反応consumer。
 - `FrozenGameAIMB.interpret_resource_use`: typed relationの有限解釈。count解釈・L10色境界は維持。
-- L12専用Luanti fixture/controllerと起動・検査script。通常modeと同時起動しない。
+- `resource_use_fixture.lua` / `resource_use_trial.lua` / `resource_use_checks.lua`、`test-resource-use-learning.ps1`。通常modeと同時起動しない。
+- `check_resource_use_learning.py` / `capture_resource_use_learning_replay.py`、`tests/fixtures/luanti_l12_replay.json`。
+- `/v1/resource-use/{configure,observe,record,review,learn,begin,result}`とread-only snapshot。
 - Python/Lua局所試験、無改変の受理済み要求・結果の再生JSON、実機Evidence。
 
 受入項目:
@@ -246,7 +248,7 @@ unknown側は`not_comparable / E=null`、不完全な結果も数値0にしな�
 10. 全体Python、L11全26run、L10C全5scenario、OBS-9 faultsの実機回帰。
     共通M_B解釈・cutoverを変更するためL10全3対照とL10B全3scenarioも実行。
 
-ここではPASSを付けない。受入後に限り実装状態・Evidence・件数を更新する。
+受入10項目は有限な契約範囲でPASS。専用26試験、実Luanti12run・84Episode、全体655件=604 PASS＋51 skip。詳細と既存回帰はEvidenceに記録する。断面には実取得µs、姿勢、各入力coverage、元packet/event ID、選択次元を残す。
 
 ## 10. 停止境界
 

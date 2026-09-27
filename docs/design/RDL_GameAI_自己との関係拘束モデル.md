@@ -318,8 +318,9 @@ SILNとしては、問い・有限境界・取得条件のもとで、どの関�
 
 **広い生物特性・所有・共同体の構想は保留する。** Observation v1やL10Cの完了条件へ後付けしない。
 [L11の固定関係による有限機構試験](../experiment-contracts/LUANTI_L11_boundary_defense_contract.md)は実装・有限受入が完了した。
-[L12の関係学習計画](../experiment-contracts/LUANTI_L12_learned_resource_use_relation_contract.md)で、本人の次回取得という用途に限定した
-Experience→独立検査→T1/M_B採用→警告差を定めた。まだ設計のみで、親密さ・所有の認識へ一般化しない。
+[L12の用途付き関係学習](../experiment-contracts/LUANTI_L12_learned_resource_use_relation_contract.md)で、本人の次回取得という用途に限定した
+Experience→独立検査→T1/M_B採用→警告差を実装した（有限受入完了）。
+[L12 Evidence](../experiment-evidence/LUANTI_L12_learned_resource_use_relation_evidence.md)。親密さ・所有の認識へ一般化しない。
 
 ## 12. 参照元と今回の停止点
 

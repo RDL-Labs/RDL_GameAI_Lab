@@ -49,6 +49,12 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/resource-use-snapshot":
+            loop = getattr(self.server, "resource_use", None)
+            with CANONICAL_LOCK:
+                result = {"learning": loop.snapshot(), "canonical": CANONICAL_SIDECAR.snapshot()} if loop else {"error": "resource_use_disabled"}
+            self._send_json(200 if loop else 404, result)
+            return
         if self.path == "/v1/boundary-defense-snapshot":
             reaction = getattr(self.server, "boundary_defense", None)
             self._send_json(200 if reaction else 404, reaction.snapshot() if reaction else {"error": "boundary_defense_disabled"})
@@ -150,6 +156,21 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self._send_json(404, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        if self.path in tuple("/v1/resource-use/" + method for method in
+                              ("configure", "observe", "record", "review", "learn", "begin", "result")):
+            loop = getattr(self.server, "resource_use", None)
+            if loop is None:
+                self._send_json(404, {"error": "resource_use_disabled"})
+                return
+            try:
+                payload = self._read_json()
+                with CANONICAL_LOCK:
+                    result = getattr(loop, self.path.rsplit("/", 1)[1])(payload)
+            except (ValueError, KeyError, TypeError) as exc:
+                self._send_json(422, {"error": "invalid_resource_use", "detail": str(exc)})
+                return
+            self._send_json(200, result)
+            return
         if self.path in ("/v1/boundary-defense/configure", "/v1/boundary-defense/observe", "/v1/boundary-defense/result"):
             reaction = getattr(self.server, "boundary_defense", None)
             if reaction is None:
@@ -412,13 +433,16 @@ def run(
     luanti_learning_multi_agent: bool = False,
     luanti_learning_shared_food: bool = False,
     boundary_defense: bool = False,
+    resource_use_learning: bool = False,
 ) -> None:
-    if boundary_defense and (host not in ("127.0.0.1", "localhost", "::1") or any((
+    if boundary_defense and resource_use_learning:
+        raise ValueError("L11 and L12 are isolated modes")
+    if (boundary_defense or resource_use_learning) and (host not in ("127.0.0.1", "localhost", "::1") or any((
             history_influence, food_mb_shadow, base_food_life, rest_trajectory, safety_trajectory,
             food_safety_life, food_rest_life, rescue_trajectory, sleep_consolidation, fast_retrieval,
             luanti_outcome_learning, sensory_observation, luanti_learning_loop,
             luanti_learning_multi_agent, luanti_learning_shared_food))):
-        raise ValueError("L11 requires an isolated loopback mode")
+        raise ValueError("L11/L12 requires an isolated loopback mode")
     if luanti_learning_shared_food and (not luanti_learning_loop or luanti_learning_multi_agent):
         raise ValueError("L10C requires the learning loop and excludes the L10B mode")
     if luanti_learning_multi_agent and not luanti_learning_loop:
@@ -455,6 +479,8 @@ def run(
     server = ThreadingHTTPServer((host, port), BridgeHandler)
     from .boundary_defense import BoundaryDefense
     server.boundary_defense = BoundaryDefense(sensory_run_id) if boundary_defense else None
+    from .resource_use_learning import ResourceUseLearning
+    server.resource_use = ResourceUseLearning(sensory_run_id, CANONICAL_SIDECAR) if resource_use_learning else None
     server.history_policy = policy
     server.life_policy = BaseFoodLifePolicy(
         cue_responses=cue_responses,
@@ -543,6 +569,7 @@ def main() -> None:
                         help="Registered positive World epoch for sensory frame admission")
     parser.add_argument("--sensory-profile", action="append", default=[], metavar="AGENT=PROFILE",
                         help="Registered sensory profile assignment; requires --sensory-observation")
+    parser.add_argument("--resource-use-learning", action="store_true", help="Isolated L12 learned resource-use fixture")
     parser.add_argument("--boundary-defense", action="store_true", help="Isolated L11 finite fixture reaction")
     args = parser.parse_args()
     try:
@@ -591,7 +618,7 @@ def main() -> None:
         args.sleep_consolidation, args.fast_retrieval, args.luanti_outcome_learning,
         args.sensory_observation, args.sensory_run_id, args.sensory_world_epoch,
         sensory_profiles or None, args.luanti_learning_loop, args.luanti_learning_multi_agent,
-        args.luanti_learning_shared_food, args.boundary_defense)
+        args.luanti_learning_shared_food, args.boundary_defense, args.resource_use_learning)
 
 
 def _parse_sensory_profiles(values):
