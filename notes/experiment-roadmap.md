@@ -101,7 +101,11 @@ body-action authority still require a separate L13A implementation contract.
 L13B pairs new landmark observations with measured body history; frame-local
 feature IDs do not identify persistent landmarks, and lookalikes may leave multiple
 route correspondences. Inducing useful cues and transition predictions requires
-L13C inspection and model adoption. These additions remain design-only.
+L13C inspection and model adoption. Compare terrain layouts with the same explorer
+and retain unsuccessful runs, uncertain or mistaken route matches, and termination
+reasons. A positive discovery control is required, but success in every run is not.
+Body-driven collapse needs a separate Luanti contract; a test timeout is not collapse.
+These additions remain design-only.
 
 ## Existing roadmap basis
 
