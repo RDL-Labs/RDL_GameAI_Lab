@@ -130,6 +130,11 @@ core.register_node("rdl_bridge:observation_space", {
     sunlight_propagates = true,
 })
 
+if fixture_mode == "multi_resource_exploration" then
+    dofile(core.get_modpath("rdl_bridge") .. "/multi_resource_fixture.lua")(http, runtime_url)
+    return
+end
+
 if fixture_mode == "finite_exploration" then
     dofile(core.get_modpath("rdl_bridge") .. "/exploration_fixture.lua")(http, runtime_url)
     return

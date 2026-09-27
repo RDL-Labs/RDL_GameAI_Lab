@@ -9,12 +9,13 @@ local function equal(a,b)
 end
 local function wrap(x) return (x+180)%360-180 end
 function M.new(run,adapter)
+    local agent=adapter.agent_id or "npc_a"
     local capacity=adapter.capacity or 64
     local limit=adapter.limit_us or 16000000
     local self={entries={},count=0,effects=0,distance=0,rotation=0,stopped=false}
     function self:consume(c,p,now)
-        assert(c.run_id==run and c.world_epoch==1 and c.agent_id=="npc_a","context")
-        assert(p.run_id==run and p.world_epoch==1 and p.agent_id=="npc_a" and p.clock_id=="world-sim-v1","packet context")
+        assert(c.run_id==run and c.world_epoch==1 and c.agent_id==agent,"context")
+        assert(p.run_id==run and p.world_epoch==1 and p.agent_id==agent and p.clock_id=="world-sim-v1","packet context")
         assert(c.source_id==p.observation_id and c.operation_id=="op:" .. p.observation_id,"source")
         assert(c.capture_us==p.capture_us and c.pose_ref==p.pose_ref and c.body_revision==p.body_revision,"body binding")
         local expiry=math.min(p.capture_us+500000,limit)
@@ -54,7 +55,7 @@ function M.new(run,adapter)
         local distance=vector.length(delta)
         self.distance=self.distance+distance;self.rotation=self.rotation+math.abs(yaw)
         if status=="moved" or status=="turned" or status=="picked_up" then self.effects=self.effects+1 end
-        entry.result={run_id=run,world_epoch=1,agent_id="npc_a",operation_id=c.operation_id,source_id=c.source_id,
+        entry.result={run_id=run,world_epoch=1,agent_id=agent,operation_id=c.operation_id,source_id=c.source_id,
             executed_us=now,before_pose_ref=before.pose_ref,after_pose_ref=after.pose_ref,before_revision=before.revision,
             after_revision=after.revision,status=status,forward=vector.dot(delta,forward),right=vector.dot(delta,right),
             yaw=yaw,acquired=status=="picked_up"}

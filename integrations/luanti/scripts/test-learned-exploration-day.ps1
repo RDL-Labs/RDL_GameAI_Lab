@@ -9,9 +9,12 @@ param(
     [switch]$Resources,
     [ValidateRange(1,30)][int]$ResourcePeriods = 30,
     [switch]$ResourceControl,
-    [switch]$ResourceFaults
+    [switch]$ResourceFaults,
+    [switch]$MultiResources,
+    [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
 )
 $ErrorActionPreference = "Stop"
+if ($MultiResources) { $Resources = [switch]::new($true) }
 if ($RunId -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "Invalid RunId" }
 $integrationRoot = Split-Path -Parent $PSScriptRoot
 $outputPath = Join-Path $integrationRoot "output"
@@ -26,7 +29,7 @@ server_announce = false
 creative_mode = true
 secure.http_mods = rdl_bridge
 rdl_runtime_url = http://127.0.0.1:8765/v1/observe
-rdl_fixture_mode = finite_exploration
+rdl_fixture_mode = $(if ($MultiResources) { "multi_resource_exploration" } else { "finite_exploration" })
 rdl_learning_run_id = $RunId
 rdl_exploration_scenario = $Scenario
 rdl_exploration_landmarks = $($Landmarks.IsPresent.ToString().ToLowerInvariant())
@@ -36,6 +39,7 @@ rdl_exploration_resources = $($Resources.IsPresent.ToString().ToLowerInvariant()
 rdl_resource_periods = $ResourcePeriods
 rdl_resource_control = $($ResourceControl.IsPresent.ToString().ToLowerInvariant())
 rdl_resource_faults = $($ResourceFaults.IsPresent.ToString().ToLowerInvariant())
+rdl_resource_assignment = $ResourceAssignment
 time_speed = 0
 port = 30001
 max_users = 1
@@ -46,6 +50,7 @@ dedicated_server_step = 0.02
 if ($Resources) { Add-Content -LiteralPath $config -Value "max_forceloaded_blocks = 256" -Encoding utf8 }
 $health = Invoke-RestMethod "http://127.0.0.1:8765/health" -TimeoutSec 2
 $expectedSchema = if ($Resources) { "l14a-continuous-resource-exploration-v1" } else { "l13s-learned-exploration-v1" }
+if ($MultiResources) { $expectedSchema = "l14b-multi-resource-predictability-v1" }
 if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }
 if ($Resources -and $health.periods -ne $ResourcePeriods) { throw "Resource period mismatch" }
 $luanti = $null
@@ -58,10 +63,11 @@ try {
     $deadline = [DateTime]::UtcNow.AddSeconds($(if ($Resources) { $ResourcePeriods*16+35 } else { 50 }))
     do {
         Start-Sleep -Milliseconds 100
-        $complete = Test-Path -LiteralPath (Join-Path $worldPath "l13a-evidence.json")
+        $evidenceFile = if ($MultiResources) { "l14b-evidence.json" } else { "l13a-evidence.json" }
+        $complete = Test-Path -LiteralPath (Join-Path $worldPath $evidenceFile)
     } while (-not $complete -and -not $luanti.HasExited -and [DateTime]::UtcNow -lt $deadline)
     if (-not $complete) { throw "L13S World did not complete" }
-    $world = Get-Content -LiteralPath (Join-Path $worldPath "l13a-evidence.json") -Raw | ConvertFrom-Json
+    $world = Get-Content -LiteralPath (Join-Path $worldPath $evidenceFile) -Raw | ConvertFrom-Json
     $state = Invoke-RestMethod "http://127.0.0.1:8765/v1/exploration-snapshot" -TimeoutSec 5
     $snapshot = Join-Path $outputPath "$RunId.snapshot.json"
     @{world=$world; runtime=$state; initial=$initial} | ConvertTo-Json -Depth 90 | Set-Content -LiteralPath $snapshot -Encoding utf8

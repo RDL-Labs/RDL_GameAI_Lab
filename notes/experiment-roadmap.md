@@ -139,6 +139,14 @@ Compare later yield/search cost with adoption-disabled and fixed-history control
 L14A supplies bounded acquisition and a continuous World/body/inventory baseline; every decision still has `model_ref=null`.
 [Evidence](../docs/experiment-evidence/LUANTI_L14A_continuous_resource_evidence.md) separates finite harvesting and reexploration
 from the pending feature induction, recurring Sleep/T1/M_B updates and adoption controls, which remain **DESIGN ONLY**.
+The separate [L14B experiment](../docs/experiment-contracts/LUANTI_L14B_multi_resource_contract.md)
+uses three agents and eight shared patches with twelve units each. Each agent can admit one finite harvest-persistence
+relation through three formation and two unused validation operations, explicit T1 and M_B cutover.
+Confirmed predictions can create a local variation demand according to a fixed individual profile, even while harvesting succeeds.
+Prediction Difference remains zero when confirmed; stimulation demand is not Core E/H/theta. Unknown and incomplete acquisition
+do not count as predictability. Counterexamples invalidate use without deleting the model history.
+[Evidence](../docs/experiment-evidence/LUANTI_L14B_multi_resource_evidence.md) separates shared-stock competition from
+same-history profile comparisons. This is not recurring learning, general boredom, tree-distribution learning or group survival.
 The independent L13W path still resets each day, stops after three discovery days and permits only one candidate/inspection/adoption.
 
 The [L13W resource-count experiment](../docs/experiment-contracts/LUANTI_L13W_multi_food_exploration_contract.md)

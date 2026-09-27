@@ -140,6 +140,11 @@ class FrozenGameAIMB:
         from .neighborhood_exploration import interpret
         return interpret(self, section)
 
+    def interpret_harvest_pattern(self, section: Mapping[str, Any]) -> dict[str, Any]:
+        """L14B explicit auxiliary boundary; never enables an action by itself."""
+        from .harvest_predictability import interpret
+        return interpret(self, section)
+
     def interpret_resource_use(self, section: Mapping[str, Any]) -> dict[str, Any]:
         """L12 purpose-scoped interpretation by this frozen model only."""
         from .resource_use_learning import interpret

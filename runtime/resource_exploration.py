@@ -19,13 +19,14 @@ TEACHING_PREDICATE = "food_after_known_processing"
 
 class ResourceExploration(FiniteExploration):
     allow_resources = True
+    inventory_capacity = 32
 
-    def __init__(self, run_id, periods=30, seed=20260928):
+    def __init__(self, run_id, periods=30, seed=20260928, agent_id="npc_a"):
         integer(periods, 1, 30); integer(seed, 0, 2**32-1)
         self.periods, self.seed = periods, seed
         self.capacity, self.limit_us = periods*64, periods*PERIOD_US
         self.deadline_us = self.limit_us+9_000_000
-        super().__init__(run_id)
+        super().__init__(run_id, agent_id)
         self.teaching = None
         self.decisions = {}
 
@@ -59,7 +60,7 @@ class ResourceExploration(FiniteExploration):
         action, target, reason = ["wait", 0], "", "acquisition_incomplete"
         body_ok = previous is None or (result is not None and result["after_pose_ref"] == p["pose_ref"]
             and result["after_revision"] == p["body_revision"] and result["executed_us"] < p["capture_us"])
-        if sum(r["acquired"] for r in self.results.values()) >= 32:
+        if sum(r["acquired"] for r in self.results.values()) >= self.inventory_capacity:
             reason = "inventory_capacity"
         elif not body_ok:
             reason = "body_correspondence_unavailable"
@@ -133,7 +134,7 @@ class ResourceExploration(FiniteExploration):
             # Unknown results must not create inventory. Base validation checks
             # all bindings/effects before publication; old receipts stay valid.
             if value.get("operation_id") not in self.results and value.get("acquired") is True:
-                require(sum(r["acquired"] for r in self.results.values()) < 32, "inventory_capacity")
+                require(sum(r["acquired"] for r in self.results.values()) < self.inventory_capacity, "inventory_capacity")
             return super().result(value)
 
     def snapshot(self):

@@ -11,7 +11,9 @@ function M.register(natural,landmarks)
         natural.register_surface(name,color);landmarks.register_surface(name,color)
     end
 end
-function M.build(run,natural,control)
+function M.build(run,natural,control,quantity)
+    quantity=quantity or 2
+    assert(quantity>=1 and quantity<=12 and quantity%1==0,"stock budget")
     local patches,trees={},{}
     local positions=control and {{0,3},{5,3}} or sites
     local function tree(x,z,color)
@@ -29,7 +31,7 @@ function M.build(run,natural,control)
         local ref=run .. ":material:" .. i
         local obj=assert(core.add_entity(pos,"rdl_bridge:food",ref))
         obj:set_properties({textures={M.texture},visual_size={x=.65,y=.65}})
-        patches[i]={object=obj,ref=ref,initial=2,remaining=2,position=vector.new(pos)}
+        patches[i]={object=obj,ref=ref,initial=quantity,remaining=quantity,position=vector.new(pos)}
         tree(p[1],p[2]+1,i<=6 and "brown" or "gray")
     end
     if not control then
@@ -81,11 +83,11 @@ function M.pickup(patches,ref,position)
     end
     return false
 end
-function M.teach(run,natural,npc)
-    local pos=vector.add(npc:get_pos(),{x=0,y=0,z=2})
+function M.teach(run,natural,npc,statue_position,sample_position)
+    local pos=sample_position or vector.add(npc:get_pos(),{x=0,y=0,z=2})
     local sample=assert(core.add_entity(pos,"rdl_bridge:food",run .. ":statue-sample"))
     sample:set_properties({textures={M.texture},visual_size={x=.65,y=.65}})
-    local statue=vector.add(npc:get_pos(),{x=-2,y=0,z=2})
+    local statue=statue_position or vector.add(npc:get_pos(),{x=-2,y=0,z=2})
     core.set_node(vector.round(statue),{name=prefix .. "patch_gray"})
     local seen,coverage=natural.visibility(vector.add(npc:get_pos(),{x=0,y=.5,z=0}),pos,core.get_node_or_nil)
     assert(seen and coverage=="complete","sample not observed")

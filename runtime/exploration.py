@@ -82,19 +82,21 @@ class FiniteExploration:
     def natural(self):
         return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA, NEIGHBORHOOD_SCHEMA, MULTIFOOD_SCHEMA, RESOURCE_SCHEMA)
 
-    def __init__(self, run_id):
+    def __init__(self, run_id, agent_id="npc_a"):
         ref(run_id)
+        ref(agent_id)
         self.run_id = run_id
+        self.agent_id = agent_id
         self.config = None
         self.observations = {}
         self.commands = {}
         self.results = {}
         self.ending = None
-        self.store = SensoryObservationStore(self.capacity, {"npc_a": ("fixture-distant-enabled", 1)}, run_id)
+        self.store = SensoryObservationStore(self.capacity, {agent_id: ("fixture-distant-enabled", 1)}, run_id)
         self.lock = RLock()
 
     def context(self, value):
-        require(value["run_id"] == self.run_id and value["agent_id"] == "npc_a"
+        require(value["run_id"] == self.run_id and value["agent_id"] == self.agent_id
                 and type(value["world_epoch"]) is int and value["world_epoch"] == 1, "context")
 
     def configure(self, value):
@@ -194,9 +196,9 @@ class FiniteExploration:
             # Validate/admit on a copy; no partial publication of ground or distant data.
             staged = deepcopy(self.store)
             ext = dict(schema_version=SCHEMA_VERSION, run_id=self.run_id, world_epoch=1,
-                       agent_id="npc_a", delivery_observation_id=ident,
+                       agent_id=self.agent_id, delivery_observation_id=ident,
                        delivery_world_tick=p["sample_seq"], delivery_time_us=p["capture_us"], frames=[p["distant"]])
-            receipt = staged.admit(dict(agent_id="npc_a", observation_id=ident, tick=p["sample_seq"]), ext)
+            receipt = staged.admit(dict(agent_id=self.agent_id, observation_id=ident, tick=p["sample_seq"]), ext)
             require(receipt["new_frames"] == 1, "distant_frame_reused_for_new_observation")
             self.store = staged
             self.observations[ident] = deepcopy(p)

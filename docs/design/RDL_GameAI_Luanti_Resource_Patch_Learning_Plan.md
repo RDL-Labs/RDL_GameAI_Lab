@@ -8,6 +8,11 @@
 現行L14Aの制御は`model_ref=null`であり、木の特徴の帰納・Sleep/T1/M_B反復更新・採用対照は未接続。
 以下の長期学習の必要条件を、L14Aだけで達成済みとしない。
 
+2026-09-28の[L14B](../experiment-contracts/LUANTI_L14B_multi_resource_contract.md)は、ユーザー指定により
+3個体・8地点各12単位へ別の試験を追加する。採取と観測affordanceの継続を各自の操作経験から検査・M_B採用し、
+予測可能性への固定感度差を有限探索へ接続する。下記の単独・2単位という初期計画はL14Aの履歴として保持し、
+L14Bの量・個体数は別契約を正とする。樹種と資源の関係、独立地点での再現、反復再学習は引き続き未実装。
+
 基準はGameAI `b7499983`、[L13W契約](../experiment-contracts/LUANTI_L13W_multi_food_exploration_contract.md)と
 [Evidence](../experiment-evidence/LUANTI_L13W_multi_food_exploration_evidence.md)。
 本書は[探索本線](RDL_GameAI_Luanti_Exploration_Plan.md#learned-exploration-mainline)の次工程案。
