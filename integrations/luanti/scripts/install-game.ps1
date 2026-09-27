@@ -35,3 +35,4 @@ Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\observation_v1_fi
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\observation_v1_sampler.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\observation_v1_checks.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 Write-Output "Installed rdl_game into $targetGame"
+Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\sensory_learning_fixture.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force

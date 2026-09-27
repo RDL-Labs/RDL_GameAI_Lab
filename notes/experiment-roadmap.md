@@ -1,5 +1,13 @@
 # Experiment Roadmap
 
+Current integration checkpoint (2026-09-27): explicit assessment / theta / M_delta,
+T1-A/B/C and model cutover / fresh re-entry are operational. Luanti
+[L10](../docs/experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md)
+adds an opt-in consumer of learned M_B sensory predictions for a bounded Food
+attempt/defer decision. General autonomous review and Goal/Trajectory generation
+remain open. Older feature-stage paragraphs below retain planning history;
+individual contracts and Evidence define the implemented scope.
+
 This roadmap starts from the current runtime state, semantically synchronized to Core `3270982` (BASE v2.3 / SPEC v2.4 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
 
 Role: axis A in the [overall map](../docs/design/RDL_GameAI_全体設計地図.md), tracking canonical operational maturity and separation of adjacent local influences. It depends on the [runtime contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md) and [evidence](../docs/experiment-evidence/CURRENT_v23_runtime_evidence.md).
@@ -50,11 +58,11 @@ Numbers below identify review areas, not one canonical computation chain. Local 
 
 | Area | Implemented slice | Remaining boundary |
 |---|---|---|
-| 1. Finite assessment / H | Explicit review, residual H and retained H by exact frozen context | Automatic classification, decay, restart durability; θ not implemented |
+| 1. Finite assessment / H | Explicit review, residual H, finite theta_eff and M_delta entry | Automatic classification, decay, restart durability |
 | 2. Experience influence (local) | Bounded approach history and opt-in retry policy | Social relations, compressed constraints, sleep/dialogue history |
 | 3. Local profile / Body / Expression | Fixed 1/3/5 tick retry, movement_scale, sourced display projection | Dynamic Neural Dynamics, neural-derived sensitivity, psychological affect |
-| 4. M_Δ / T1 | Not implemented | Trigger, finite Probe / selection / reconstruction contract |
-| 5. Authority / fresh re-entry | Not implemented | Reviewed M_B' activation in finite context |
+| 4. M_Δ / T1 | Explicit T1-A/B/C and finite reconstruction | Autonomous review and broader learned relation semantics |
+| 5. Authority / fresh re-entry | Explicit evaluator cutover; L10 opt-in sensory Food consumer | General M_B-informed Goal/Trajectory; continuous A/B integration |
 | 6. Long-run richness | No acceptance established | Long-run controlled observation and provenance |
 
 Existing cross-layer separation tests cover bounded combinations only; they do not establish dynamic neural or sleep systems.
@@ -217,7 +225,7 @@ Acceptance:
 - vary sensitivity, body, or current context one at a time before testing combined effects; record unchanged outcomes as well as changed behavior;
 - assign body values such as fatigue to one owner and expose sourced snapshots to current context.
 
-## Maturity 4: M_Δ / T1 reconstruction (unimplemented)
+## Maturity 4: M_Δ / T1 reconstruction (explicit finite reference implemented)
 
 Before T1 work, FoodNeed may be evaluated through a separate default-off shadow
 admission experiment. Its [implementation plan](../docs/design/RDL_GameAI_FoodNeed_M_B_Admission実装計画.md)
@@ -248,7 +256,7 @@ Layering note:
 - GameAI-local Experience / Sensitivity / Body / Context may provide finite conditions or provenance to a reconstruction experiment;
 - they do not become canonical `M_B` fields merely because they are arranged in a Layer Profile.
 
-## Maturity 5: Finite-context authority / fresh re-entry (unimplemented)
+## Maturity 5: Finite-context authority / fresh re-entry (explicit cutover implemented)
 
 Goal:
 - activate reconstructed `M_B'` only inside the finite context supported by evidence.

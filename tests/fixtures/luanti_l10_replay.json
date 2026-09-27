@@ -1,0 +1,4828 @@
+{
+  "schema": "l10-luanti-replay-v1",
+  "baseline_commit": "7f7ed83",
+  "source": "real Luanti capture; frames and factual results unchanged; canonical review rebuilt on replay",
+  "runs": [
+    {
+      "run_id": "l10-20260927-032003-843",
+      "activate": true,
+      "reverse": false,
+      "source_file": "l10-20260927-032003-843.snapshot.json",
+      "source_sha256": "ab1259d4f3d279900819048ea9685985280b4f23253f41622916d98a2fb4fe73",
+      "frames": [
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 270430,
+            "kind": "interval",
+            "start_us": 20430
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:1",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:1",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 995993,
+            "kind": "interval",
+            "start_us": 745993
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:2",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:2",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 2,
+          "sampled_world_tick": 3,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2173586,
+            "kind": "interval",
+            "start_us": 1923586
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:3",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:3",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2898327,
+            "kind": "interval",
+            "start_us": 2648327
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:4",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:4",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 4,
+          "sampled_world_tick": 11,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4074168,
+            "kind": "interval",
+            "start_us": 3824168
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:5",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:5",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4798616,
+            "kind": "interval",
+            "start_us": 4548616
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:6",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:6",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 6,
+          "sampled_world_tick": 19,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5976585,
+            "kind": "interval",
+            "start_us": 5726585
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:7",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:7",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 6700673,
+            "kind": "interval",
+            "start_us": 6450673
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:8",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:8",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 8,
+          "sampled_world_tick": 26,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8151529,
+            "kind": "interval",
+            "start_us": 7901529
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:9",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:9",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8694370,
+            "kind": "interval",
+            "start_us": 8444370
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:10",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:10",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 10,
+          "sampled_world_tick": 34,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9871067,
+            "kind": "interval",
+            "start_us": 9621067
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:11",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:11",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 11,
+          "sampled_world_tick": 39,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10413538,
+            "kind": "interval",
+            "start_us": 10163538
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:audition:12",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:12",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 12,
+          "sampled_world_tick": 41,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 270430,
+            "kind": "instant",
+            "start_us": 270430
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:1",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:1",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 995993,
+            "kind": "instant",
+            "start_us": 995993
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:2",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:2",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 2,
+          "sampled_world_tick": 3,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2173586,
+            "kind": "instant",
+            "start_us": 2173586
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:3",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:3",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2898327,
+            "kind": "instant",
+            "start_us": 2898327
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:4",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:4",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 4,
+          "sampled_world_tick": 11,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4074168,
+            "kind": "instant",
+            "start_us": 4074168
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:5",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:5",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4798616,
+            "kind": "instant",
+            "start_us": 4798616
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:6",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:6",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 6,
+          "sampled_world_tick": 19,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5976585,
+            "kind": "instant",
+            "start_us": 5976585
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:7",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:7",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 6700673,
+            "kind": "instant",
+            "start_us": 6700673
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:8",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:8",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 8,
+          "sampled_world_tick": 26,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8151529,
+            "kind": "instant",
+            "start_us": 8151529
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:9",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:9",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8694370,
+            "kind": "instant",
+            "start_us": 8694370
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:10",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:10",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 10,
+          "sampled_world_tick": 34,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9871067,
+            "kind": "instant",
+            "start_us": 9871067
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:11",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:11",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 11,
+          "sampled_world_tick": 39,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10413538,
+            "kind": "instant",
+            "start_us": 10413538
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_distant:12",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:12",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 12,
+          "sampled_world_tick": 41,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 270430,
+            "kind": "instant",
+            "start_us": 270430
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:1",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:1",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 995993,
+            "kind": "instant",
+            "start_us": 995993
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:2",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:2",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 2,
+          "sampled_world_tick": 3,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2173586,
+            "kind": "instant",
+            "start_us": 2173586
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:3",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:3",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2898327,
+            "kind": "instant",
+            "start_us": 2898327
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:4",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:4",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 4,
+          "sampled_world_tick": 11,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4074168,
+            "kind": "instant",
+            "start_us": 4074168
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:5",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:5",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4798616,
+            "kind": "instant",
+            "start_us": 4798616
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:6",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:6",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 6,
+          "sampled_world_tick": 19,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5976585,
+            "kind": "instant",
+            "start_us": 5976585
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:7",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:7",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 6700673,
+            "kind": "instant",
+            "start_us": 6700673
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:8",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:8",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 8,
+          "sampled_world_tick": 26,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8151529,
+            "kind": "instant",
+            "start_us": 8151529
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:9",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:9",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8694370,
+            "kind": "instant",
+            "start_us": 8694370
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:10",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:10",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 10,
+          "sampled_world_tick": 34,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9871067,
+            "kind": "instant",
+            "start_us": 9871067
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:11",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:11",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 11,
+          "sampled_world_tick": 39,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10413538,
+            "kind": "instant",
+            "start_us": 10413538
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032003-843:vision_local:12",
+          "observer_frame_ref": "l10-20260927-032003-843:pose:12",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032003-843",
+          "sample_seq": 12,
+          "sampled_world_tick": 41,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        }
+      ],
+      "trials": [
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:1",
+            "frame_id": "l10-20260927-032003-843:vision_distant:1",
+            "now_us": 360941,
+            "operation_id": "l10-20260927-032003-843:operation:1",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 724000,
+            "event_id": "l10-20260927-032003-843:event:1",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032003-843:operation:1"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:2",
+            "frame_id": "l10-20260927-032003-843:vision_distant:2",
+            "now_us": 1086189,
+            "operation_id": "l10-20260927-032003-843:operation:2",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 1901998,
+            "event_id": "l10-20260927-032003-843:event:2",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032003-843:operation:2"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:3",
+            "frame_id": "l10-20260927-032003-843:vision_distant:3",
+            "now_us": 2264054,
+            "operation_id": "l10-20260927-032003-843:operation:3",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 2626904,
+            "event_id": "l10-20260927-032003-843:event:3",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032003-843:operation:3"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:4",
+            "frame_id": "l10-20260927-032003-843:vision_distant:4",
+            "now_us": 2988567,
+            "operation_id": "l10-20260927-032003-843:operation:4",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 3803009,
+            "event_id": "l10-20260927-032003-843:event:4",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032003-843:operation:4"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:5",
+            "frame_id": "l10-20260927-032003-843:vision_distant:5",
+            "now_us": 4164977,
+            "operation_id": "l10-20260927-032003-843:operation:5",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 4527399,
+            "event_id": "l10-20260927-032003-843:event:5",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032003-843:operation:5"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:6",
+            "frame_id": "l10-20260927-032003-843:vision_distant:6",
+            "now_us": 4890522,
+            "operation_id": "l10-20260927-032003-843:operation:6",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 5706112,
+            "event_id": "l10-20260927-032003-843:event:6",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032003-843:operation:6"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:7",
+            "frame_id": "l10-20260927-032003-843:vision_distant:7",
+            "now_us": 6067106,
+            "operation_id": "l10-20260927-032003-843:operation:7",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 6428594,
+            "event_id": "l10-20260927-032003-843:event:7",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032003-843:operation:7"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:8",
+            "frame_id": "l10-20260927-032003-843:vision_distant:8",
+            "now_us": 6792095,
+            "operation_id": "l10-20260927-032003-843:operation:8",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 7607217,
+            "event_id": "l10-20260927-032003-843:event:8",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032003-843:operation:8"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:9",
+            "frame_id": "l10-20260927-032003-843:vision_distant:9",
+            "now_us": 8242685,
+            "operation_id": "l10-20260927-032003-843:operation:9",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": false,
+            "completed_us": 8422989,
+            "event_id": "l10-20260927-032003-843:event:9",
+            "food_acquired": null,
+            "operation_id": "l10-20260927-032003-843:operation:9"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 0,
+            "attempted": false,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "defer",
+          "expected_prediction": "known"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:10",
+            "frame_id": "l10-20260927-032003-843:vision_distant:10",
+            "now_us": 8785238,
+            "operation_id": "l10-20260927-032003-843:operation:10",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 9599510,
+            "event_id": "l10-20260927-032003-843:event:10",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032003-843:operation:10"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "known"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:11",
+            "frame_id": "l10-20260927-032003-843:vision_distant:11",
+            "now_us": 9961321,
+            "operation_id": "l10-20260927-032003-843:operation:11",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": false,
+            "completed_us": 10143036,
+            "event_id": "l10-20260927-032003-843:event:11",
+            "food_acquired": null,
+            "operation_id": "l10-20260927-032003-843:operation:11"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 0,
+            "attempted": false,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "defer",
+          "expected_prediction": "known"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032003-843:episode:12",
+            "frame_id": "l10-20260927-032003-843:vision_distant:12",
+            "now_us": 10503955,
+            "operation_id": "l10-20260927-032003-843:operation:12",
+            "run_id": "l10-20260927-032003-843",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 10866623,
+            "event_id": "l10-20260927-032003-843:event:12",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032003-843:operation:12"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "known"
+        }
+      ]
+    },
+    {
+      "run_id": "l10-20260927-032015-538",
+      "activate": false,
+      "reverse": false,
+      "source_file": "l10-20260927-032015-538.snapshot.json",
+      "source_sha256": "f1c052ed7ea87a308c14e694e97acf474eef9ef5d85486970d6e88f698ba0c31",
+      "frames": [
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 272618,
+            "kind": "interval",
+            "start_us": 22618
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:1",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:1",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 995997,
+            "kind": "interval",
+            "start_us": 745997
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:2",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:2",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 2,
+          "sampled_world_tick": 3,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2173325,
+            "kind": "interval",
+            "start_us": 1923325
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:3",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:3",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2900227,
+            "kind": "interval",
+            "start_us": 2650227
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:4",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:4",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 4,
+          "sampled_world_tick": 11,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4080417,
+            "kind": "interval",
+            "start_us": 3830417
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:5",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:5",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4806722,
+            "kind": "interval",
+            "start_us": 4556722
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:6",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:6",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 6,
+          "sampled_world_tick": 19,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5985339,
+            "kind": "interval",
+            "start_us": 5735339
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:7",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:7",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 6710071,
+            "kind": "interval",
+            "start_us": 6460071
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:8",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:8",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 8,
+          "sampled_world_tick": 26,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8157487,
+            "kind": "interval",
+            "start_us": 7907487
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:9",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:9",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8881464,
+            "kind": "interval",
+            "start_us": 8631464
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:10",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:10",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 10,
+          "sampled_world_tick": 35,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10061129,
+            "kind": "interval",
+            "start_us": 9811129
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:11",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:11",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 11,
+          "sampled_world_tick": 40,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 11238248,
+            "kind": "interval",
+            "start_us": 10988248
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:audition:12",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:12",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 12,
+          "sampled_world_tick": 44,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 272618,
+            "kind": "instant",
+            "start_us": 272618
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:1",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:1",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 995997,
+            "kind": "instant",
+            "start_us": 995997
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:2",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:2",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 2,
+          "sampled_world_tick": 3,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2173325,
+            "kind": "instant",
+            "start_us": 2173325
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:3",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:3",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2900227,
+            "kind": "instant",
+            "start_us": 2900227
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:4",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:4",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 4,
+          "sampled_world_tick": 11,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4080417,
+            "kind": "instant",
+            "start_us": 4080417
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:5",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:5",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4806722,
+            "kind": "instant",
+            "start_us": 4806722
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:6",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:6",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 6,
+          "sampled_world_tick": 19,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5985339,
+            "kind": "instant",
+            "start_us": 5985339
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:7",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:7",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 6710071,
+            "kind": "instant",
+            "start_us": 6710071
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:8",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:8",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 8,
+          "sampled_world_tick": 26,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8157487,
+            "kind": "instant",
+            "start_us": 8157487
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:9",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:9",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8881464,
+            "kind": "instant",
+            "start_us": 8881464
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:10",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:10",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 10,
+          "sampled_world_tick": 35,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10061129,
+            "kind": "instant",
+            "start_us": 10061129
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:11",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:11",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 11,
+          "sampled_world_tick": 40,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 11238248,
+            "kind": "instant",
+            "start_us": 11238248
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_distant:12",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:12",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 12,
+          "sampled_world_tick": 44,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 272618,
+            "kind": "instant",
+            "start_us": 272618
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:1",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:1",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 995997,
+            "kind": "instant",
+            "start_us": 995997
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:2",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:2",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 2,
+          "sampled_world_tick": 3,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2173325,
+            "kind": "instant",
+            "start_us": 2173325
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:3",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:3",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2900227,
+            "kind": "instant",
+            "start_us": 2900227
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:4",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:4",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 4,
+          "sampled_world_tick": 11,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4080417,
+            "kind": "instant",
+            "start_us": 4080417
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:5",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:5",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4806722,
+            "kind": "instant",
+            "start_us": 4806722
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:6",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:6",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 6,
+          "sampled_world_tick": 19,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5985339,
+            "kind": "instant",
+            "start_us": 5985339
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:7",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:7",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 6710071,
+            "kind": "instant",
+            "start_us": 6710071
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:8",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:8",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 8,
+          "sampled_world_tick": 26,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8157487,
+            "kind": "instant",
+            "start_us": 8157487
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:9",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:9",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8881464,
+            "kind": "instant",
+            "start_us": 8881464
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:10",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:10",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 10,
+          "sampled_world_tick": 35,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10061129,
+            "kind": "instant",
+            "start_us": 10061129
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:11",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:11",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 11,
+          "sampled_world_tick": 40,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 11238248,
+            "kind": "instant",
+            "start_us": 11238248
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032015-538:vision_local:12",
+          "observer_frame_ref": "l10-20260927-032015-538:pose:12",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032015-538",
+          "sample_seq": 12,
+          "sampled_world_tick": 44,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        }
+      ],
+      "trials": [
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:1",
+            "frame_id": "l10-20260927-032015-538:vision_distant:1",
+            "now_us": 363463,
+            "operation_id": "l10-20260927-032015-538:operation:1",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 724626,
+            "event_id": "l10-20260927-032015-538:event:1",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032015-538:operation:1"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:2",
+            "frame_id": "l10-20260927-032015-538:vision_distant:2",
+            "now_us": 1086897,
+            "operation_id": "l10-20260927-032015-538:operation:2",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 1901853,
+            "event_id": "l10-20260927-032015-538:event:2",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032015-538:operation:2"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:3",
+            "frame_id": "l10-20260927-032015-538:vision_distant:3",
+            "now_us": 2265064,
+            "operation_id": "l10-20260927-032015-538:operation:3",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 2626756,
+            "event_id": "l10-20260927-032015-538:event:3",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032015-538:operation:3"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:4",
+            "frame_id": "l10-20260927-032015-538:vision_distant:4",
+            "now_us": 2990820,
+            "operation_id": "l10-20260927-032015-538:operation:4",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 3806533,
+            "event_id": "l10-20260927-032015-538:event:4",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032015-538:operation:4"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:5",
+            "frame_id": "l10-20260927-032015-538:vision_distant:5",
+            "now_us": 4171648,
+            "operation_id": "l10-20260927-032015-538:operation:5",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 4534567,
+            "event_id": "l10-20260927-032015-538:event:5",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032015-538:operation:5"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:6",
+            "frame_id": "l10-20260927-032015-538:vision_distant:6",
+            "now_us": 4898181,
+            "operation_id": "l10-20260927-032015-538:operation:6",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 5713252,
+            "event_id": "l10-20260927-032015-538:event:6",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032015-538:operation:6"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:7",
+            "frame_id": "l10-20260927-032015-538:vision_distant:7",
+            "now_us": 6075929,
+            "operation_id": "l10-20260927-032015-538:operation:7",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 6438547,
+            "event_id": "l10-20260927-032015-538:event:7",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032015-538:operation:7"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:8",
+            "frame_id": "l10-20260927-032015-538:vision_distant:8",
+            "now_us": 6800927,
+            "operation_id": "l10-20260927-032015-538:operation:8",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 7613779,
+            "event_id": "l10-20260927-032015-538:event:8",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032015-538:operation:8"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:9",
+            "frame_id": "l10-20260927-032015-538:vision_distant:9",
+            "now_us": 8248274,
+            "operation_id": "l10-20260927-032015-538:operation:9",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 8610769,
+            "event_id": "l10-20260927-032015-538:event:9",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032015-538:operation:9"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:10",
+            "frame_id": "l10-20260927-032015-538:vision_distant:10",
+            "now_us": 8972456,
+            "operation_id": "l10-20260927-032015-538:operation:10",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 9789377,
+            "event_id": "l10-20260927-032015-538:event:10",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032015-538:operation:10"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:11",
+            "frame_id": "l10-20260927-032015-538:vision_distant:11",
+            "now_us": 10153086,
+            "operation_id": "l10-20260927-032015-538:operation:11",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 10967323,
+            "event_id": "l10-20260927-032015-538:event:11",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032015-538:operation:11"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032015-538:episode:12",
+            "frame_id": "l10-20260927-032015-538:vision_distant:12",
+            "now_us": 11328288,
+            "operation_id": "l10-20260927-032015-538:operation:12",
+            "run_id": "l10-20260927-032015-538",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 11690228,
+            "event_id": "l10-20260927-032015-538:event:12",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032015-538:operation:12"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        }
+      ]
+    },
+    {
+      "run_id": "l10-20260927-032028-542",
+      "activate": true,
+      "reverse": true,
+      "source_file": "l10-20260927-032028-542.snapshot.json",
+      "source_sha256": "b1f35124b15a612011e7edb826e0f66b59b5b75b709113ce4ee6655a4f15918d",
+      "frames": [
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 271567,
+            "kind": "interval",
+            "start_us": 21567
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:1",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:1",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 1450352,
+            "kind": "interval",
+            "start_us": 1200352
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:2",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:2",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 2,
+          "sampled_world_tick": 5,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2175238,
+            "kind": "interval",
+            "start_us": 1925238
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:3",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:3",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 3349927,
+            "kind": "interval",
+            "start_us": 3099927
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:4",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:4",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 4,
+          "sampled_world_tick": 13,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4074131,
+            "kind": "interval",
+            "start_us": 3824131
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:5",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:5",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5250365,
+            "kind": "interval",
+            "start_us": 5000365
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:6",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:6",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 6,
+          "sampled_world_tick": 21,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5973416,
+            "kind": "interval",
+            "start_us": 5723416
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:7",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:7",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 7152428,
+            "kind": "interval",
+            "start_us": 6902428
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:8",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:8",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 8,
+          "sampled_world_tick": 28,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8147357,
+            "kind": "interval",
+            "start_us": 7897357
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:9",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:9",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9323634,
+            "kind": "interval",
+            "start_us": 9073634
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:10",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:10",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 10,
+          "sampled_world_tick": 37,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9867368,
+            "kind": "interval",
+            "start_us": 9617368
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:11",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:11",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 11,
+          "sampled_world_tick": 39,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10590965,
+            "kind": "interval",
+            "start_us": 10340965
+          },
+          "channel": "audition",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:audition:12",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:12",
+          "output_limited": false,
+          "payload": {
+            "detections": []
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 12,
+          "sampled_world_tick": 42,
+          "sensor_id": "ear",
+          "sensor_model_revision": "direct_band_energy_v0",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 271567,
+            "kind": "instant",
+            "start_us": 271567
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:1",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:1",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 1450352,
+            "kind": "instant",
+            "start_us": 1450352
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:2",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:2",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 2,
+          "sampled_world_tick": 5,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2175238,
+            "kind": "instant",
+            "start_us": 2175238
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:3",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:3",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 3349927,
+            "kind": "instant",
+            "start_us": 3349927
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:4",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:4",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 4,
+          "sampled_world_tick": 13,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4074131,
+            "kind": "instant",
+            "start_us": 4074131
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:5",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:5",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5250365,
+            "kind": "instant",
+            "start_us": 5250365
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:6",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:6",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 6,
+          "sampled_world_tick": 21,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5973416,
+            "kind": "instant",
+            "start_us": 5973416
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:7",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:7",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 7152428,
+            "kind": "instant",
+            "start_us": 7152428
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:8",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:8",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 8,
+          "sampled_world_tick": 28,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8147357,
+            "kind": "instant",
+            "start_us": 8147357
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:9",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:9",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9323634,
+            "kind": "instant",
+            "start_us": 9323634
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:10",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:10",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 10,
+          "sampled_world_tick": 37,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9867368,
+            "kind": "instant",
+            "start_us": 9867368
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:11",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:11",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "muted_red",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 11,
+          "sampled_world_tick": 39,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10590965,
+            "kind": "instant",
+            "start_us": 10590965
+          },
+          "channel": "vision_distant",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_distant:12",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:12",
+          "output_limited": false,
+          "payload": {
+            "features": [
+              {
+                "angular_height_band": "unknown",
+                "angular_width_band": "unknown",
+                "azimuth_interval_deg": [
+                  0,
+                  5
+                ],
+                "color_band": "dark_gray",
+                "elevation_interval_deg": [
+                  -5,
+                  0
+                ],
+                "feature_id": "f0"
+              }
+            ]
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 12,
+          "sampled_world_tick": 42,
+          "sensor_id": "eye",
+          "sensor_model_revision": "sampled-surface-v0.2",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 271567,
+            "kind": "instant",
+            "start_us": 271567
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:1",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:1",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 1,
+          "sampled_world_tick": 1,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 1450352,
+            "kind": "instant",
+            "start_us": 1450352
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:2",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:2",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 2,
+          "sampled_world_tick": 5,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 2175238,
+            "kind": "instant",
+            "start_us": 2175238
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:3",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:3",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 3,
+          "sampled_world_tick": 8,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 3349927,
+            "kind": "instant",
+            "start_us": 3349927
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:4",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:4",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 4,
+          "sampled_world_tick": 13,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 4074131,
+            "kind": "instant",
+            "start_us": 4074131
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:5",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:5",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 5,
+          "sampled_world_tick": 16,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5250365,
+            "kind": "instant",
+            "start_us": 5250365
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:6",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:6",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 6,
+          "sampled_world_tick": 21,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 5973416,
+            "kind": "instant",
+            "start_us": 5973416
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:7",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:7",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 7,
+          "sampled_world_tick": 23,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 7152428,
+            "kind": "instant",
+            "start_us": 7152428
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:8",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:8",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 8,
+          "sampled_world_tick": 28,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 8147357,
+            "kind": "instant",
+            "start_us": 8147357
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:9",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:9",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 9,
+          "sampled_world_tick": 32,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9323634,
+            "kind": "instant",
+            "start_us": 9323634
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:10",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:10",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 10,
+          "sampled_world_tick": 37,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 9867368,
+            "kind": "instant",
+            "start_us": 9867368
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:11",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:11",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 11,
+          "sampled_world_tick": 39,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        },
+        {
+          "agent_id": "npc_a",
+          "capture_window": {
+            "end_us": 10590965,
+            "kind": "instant",
+            "start_us": 10590965
+          },
+          "channel": "vision_local",
+          "clock_id": "world-sim-v1",
+          "coverage": "COMPLETE_WITHIN_PLAN",
+          "frame_id": "l10-20260927-032028-542:vision_local:12",
+          "observer_frame_ref": "l10-20260927-032028-542:pose:12",
+          "output_limited": false,
+          "payload": {
+            "visible_count": 1
+          },
+          "profile_id": "fixture-life-sensory",
+          "profile_revision": 1,
+          "run_id": "l10-20260927-032028-542",
+          "sample_seq": 12,
+          "sampled_world_tick": 42,
+          "sensor_id": "eye",
+          "sensor_model_revision": "legacy_radius_v1",
+          "status": "SAMPLED",
+          "world_epoch": 1
+        }
+      ],
+      "trials": [
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:1",
+            "frame_id": "l10-20260927-032028-542:vision_distant:1",
+            "now_us": 362963,
+            "operation_id": "l10-20260927-032028-542:operation:1",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 1177992,
+            "event_id": "l10-20260927-032028-542:event:1",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032028-542:operation:1"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:2",
+            "frame_id": "l10-20260927-032028-542:vision_distant:2",
+            "now_us": 1540362,
+            "operation_id": "l10-20260927-032028-542:operation:2",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 1902516,
+            "event_id": "l10-20260927-032028-542:event:2",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032028-542:operation:2"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:3",
+            "frame_id": "l10-20260927-032028-542:vision_distant:3",
+            "now_us": 2266059,
+            "operation_id": "l10-20260927-032028-542:operation:3",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 3078917,
+            "event_id": "l10-20260927-032028-542:event:3",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032028-542:operation:3"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:4",
+            "frame_id": "l10-20260927-032028-542:vision_distant:4",
+            "now_us": 3441506,
+            "operation_id": "l10-20260927-032028-542:operation:4",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 3802797,
+            "event_id": "l10-20260927-032028-542:event:4",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032028-542:operation:4"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:5",
+            "frame_id": "l10-20260927-032028-542:vision_distant:5",
+            "now_us": 4164309,
+            "operation_id": "l10-20260927-032028-542:operation:5",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 4978612,
+            "event_id": "l10-20260927-032028-542:event:5",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032028-542:operation:5"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:6",
+            "frame_id": "l10-20260927-032028-542:vision_distant:6",
+            "now_us": 5340812,
+            "operation_id": "l10-20260927-032028-542:operation:6",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 5701850,
+            "event_id": "l10-20260927-032028-542:event:6",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032028-542:operation:6"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:7",
+            "frame_id": "l10-20260927-032028-542:vision_distant:7",
+            "now_us": 6063768,
+            "operation_id": "l10-20260927-032028-542:operation:7",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 6879726,
+            "event_id": "l10-20260927-032028-542:event:7",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032028-542:operation:7"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:8",
+            "frame_id": "l10-20260927-032028-542:vision_distant:8",
+            "now_us": 7242716,
+            "operation_id": "l10-20260927-032028-542:operation:8",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 7604127,
+            "event_id": "l10-20260927-032028-542:event:8",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032028-542:operation:8"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "unknown"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:9",
+            "frame_id": "l10-20260927-032028-542:vision_distant:9",
+            "now_us": 8238304,
+            "operation_id": "l10-20260927-032028-542:operation:9",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 9053033,
+            "event_id": "l10-20260927-032028-542:event:9",
+            "food_acquired": true,
+            "operation_id": "l10-20260927-032028-542:operation:9"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 7,
+            "attempted": true,
+            "deposited": true,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 1
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "known"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:10",
+            "frame_id": "l10-20260927-032028-542:vision_distant:10",
+            "now_us": 9414078,
+            "operation_id": "l10-20260927-032028-542:operation:10",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": false,
+            "completed_us": 9594728,
+            "event_id": "l10-20260927-032028-542:event:10",
+            "food_acquired": null,
+            "operation_id": "l10-20260927-032028-542:operation:10"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 0,
+            "attempted": false,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "defer",
+          "expected_prediction": "known"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:11",
+            "frame_id": "l10-20260927-032028-542:vision_distant:11",
+            "now_us": 9957444,
+            "operation_id": "l10-20260927-032028-542:operation:11",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": true,
+            "completed_us": 10319509,
+            "event_id": "l10-20260927-032028-542:event:11",
+            "food_acquired": false,
+            "operation_id": "l10-20260927-032028-542:operation:11"
+          },
+          "world": {
+            "color_band": "muted_red",
+            "hidden_blocked": true,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 1,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 2,
+            "attempted": true,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "attempt_food",
+          "expected_prediction": "known"
+        },
+        {
+          "request": {
+            "agent_id": "npc_a",
+            "episode_id": "l10-20260927-032028-542:episode:12",
+            "frame_id": "l10-20260927-032028-542:vision_distant:12",
+            "now_us": 10681767,
+            "operation_id": "l10-20260927-032028-542:operation:12",
+            "run_id": "l10-20260927-032028-542",
+            "world_epoch": 1
+          },
+          "result": {
+            "attempted": false,
+            "completed_us": 10862335,
+            "event_id": "l10-20260927-032028-542:event:12",
+            "food_acquired": null,
+            "operation_id": "l10-20260927-032028-542:operation:12"
+          },
+          "world": {
+            "color_band": "dark_gray",
+            "hidden_blocked": false,
+            "start": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "finish": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "actions": 0,
+            "attempted": false,
+            "deposited": false,
+            "authority_consumptions": 1,
+            "base_stock_before": 0,
+            "base_stock_after": 0
+          },
+          "expected_action": "defer",
+          "expected_prediction": "known"
+        }
+      ]
+    }
+  ]
+}

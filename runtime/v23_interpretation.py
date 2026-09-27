@@ -130,6 +130,15 @@ class FrozenGameAIMB:
             ),
         )
 
+    def interpret_sensory_food(self, section: Mapping[str, Any]) -> dict[str, Any]:
+        """L10 explicit auxiliary boundary; legacy count interpretation is unchanged.
+
+        Only typed, boundary-matching adopted relations execute here. Model
+        activation alone never calls this method or grants action authority.
+        """
+        from .sensory_food_learning import interpret
+        return interpret(self, section)
+
     def to_json(self) -> dict[str, Any]:
         return {
             "agent_id": self.agent_id,
@@ -145,7 +154,9 @@ class FrozenGameAIMB:
             "provenance": dict(self.provenance),
             "adopted_relations": deepcopy(list(self.adopted_relations)),
             "xi_status": self.xi_status,
-            "authority": "diagnostic-only",
+            "authority": ("frozen-evaluator; explicit-L10-consumer-required-for-action"
+                          if any(r["relation"].get("kind") == "sensory-food-table-v1"
+                                 for r in self.adopted_relations) else "diagnostic-only"),
         }
 
 
@@ -284,6 +295,17 @@ class GameAIFrozenComparisonSidecar:
         self.t1_reconstruction = T1ReconstructionStore()
         self.cutovers = ModelCutoverLedger()
         self._model_archive: dict[str, dict[str, Any]] = {}
+
+    def model_for_agent(self, agent_id: str) -> FrozenGameAIMB:
+        """Return a detached frozen evaluator only when its context is unambiguous."""
+        models = [model for model in self._models.values() if model.agent_id == agent_id]
+        if len(models) != 1:
+            raise InterpretationError("agent must have one unambiguous active model")
+        model = models[0]
+        return FrozenGameAIMB(
+            agent_id=model.agent_id, model_ref=model.model_ref, boundary=model.boundary,
+            coefficients=model.coefficients, biases=model.biases, provenance=model.provenance,
+            adopted_relations=model.adopted_relations, xi_status=model.xi_status)
 
     def review_assessment(self, payload: Mapping[str, Any]) -> dict[str, Any]:
         """Commit explicit review, then evaluate and apply the C3/C4 boundary once."""

@@ -180,7 +180,7 @@ T1 still owns inspection, selection, and reconstruction.
 
 ---
 
-## T1 reference method (not implemented in GameAI)
+## T1 reference method (finite explicit GameAI implementations exist)
 
 When `M_delta` is entered, current `M_B` becomes the finite self-side subject (`SILN_SELF`) for inspection and reconstruction.
 
@@ -267,6 +267,13 @@ activationはF/F'を形成するevaluatorの切替であり、local action polic
 新modelへ持ち越さず、最初のpost-reentry observationから新しいwindowを始める。
 
 ## Responsibility split
+
+L10 adds a separately declared sensory-food interpretation boundary to the frozen
+GameAI evaluator. Typed relations retained through T1 are executable only under
+their recorded Purpose / conditions. An explicit local consumer uses those
+predictions for a bounded action choice. This does not grant action authority to
+all model activations or legacy relations, and does not merge sensory comparison
+results into the existing count-boundary H ledger.
 
 ```text
 T0

@@ -130,6 +130,12 @@ core.register_node("rdl_bridge:observation_space", {
     sunlight_propagates = true,
 })
 
+if fixture_mode == "sensory_learning" then
+    local profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua").load(core.settings, {"npc_a"})
+    dofile(core.get_modpath("rdl_bridge") .. "/sensory_learning_fixture.lua")(http, runtime_url, profiles.npc_a)
+    return
+end
+
 if fixture_mode == "multi_agent_food" or fixture_mode == "continuous_probe" or fixture_mode == "observation_v1" then
     local sensor_profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua")
     local profile_assignments = sensor_profiles.load(core.settings, {"npc_a", "npc_b"})

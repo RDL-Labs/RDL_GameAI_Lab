@@ -20,7 +20,7 @@ RW2 Multi-Agent Food Life COMPLETE
 OBS-0..6E Acquisition / Display / Delivery COMPLETE
 OBS-7A..8B Comparison / Candidates / Probe COMPLETE
 OBS-9 Observation v1 Integrated Acceptance COMPLETE
-L10                       DEFERRED
+L10 Finite sensory M_B-informed Food choice COMPLETE (explicit fixture)
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -28,6 +28,11 @@ primary rich World integration surfaceとして育てる。
 
 観測基盤v1は[OBS-9 Evidence](../experiment-evidence/OBS_9_observation_v1_completion_evidence.md)の
 実Luanti8run・864frameで固定した。観測能力の追加を止め、神経・解釈・Goal・Trajectoryの検証へ戻る。
+
+[L10](../experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md)で、学習した有限relationを
+M_Bの予測へ実行可能な形で採用し、次EpisodeのFood試行／保留へ接続した。
+既存count解釈と補助感覚境界は分離し、reconstructionと行動権限の明示境界を維持する。
+一般Goal/Trajectory生成とOBS-9のA/B常設統合は未実装。
 
 ## 1. 移行位置
 
@@ -122,7 +127,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | OBS-7A/7B | 比較適格性・隣接聴覚窓の有限候補 | COMPLETE |
 | OBS-8/8B | 有限視覚Probe・継続Worldの生活優先調停 | COMPLETE |
 | OBS-9 | 全感覚生活＋Probeの10条件、観測基盤v1固定 | COMPLETE |
-| L10 | M_B-informed Goal / Trajectory / Action | DEFERRED |
+| L10 | 学習したM_Bによる有限Food試行／保留 | COMPLETE / 専用fixture。一般Goal/Trajectoryは保留 |
 
 ## 6. Repository Boundary
 
@@ -168,7 +173,7 @@ explorationも対象外とする。
 L9でLuanti由来の内部状態をagent単位でp5へread-only表示した。RW1では実Luanti
 同一WorldにA/Bを置き、別packetとbounded visibilityを固定した。RW2では専用の
 Food/Baseを保ち、両個体がpickup、return、deposit、causal result admissionまで
-独立に完了する。次のL10 `M_B`-informed behaviorは保留を維持する。RW2は共有資源、
+独立に完了する。L10は後に専用の有限Food選択として実装した。RW2自体は共有資源、
 一般social AI、Sleep/learning統合を意味しない。
 
 次の実装系列は[Observation System Integration Plan](RDL_GameAI_Observation_System_Integration_Plan.md)
