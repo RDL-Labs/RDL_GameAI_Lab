@@ -1,0 +1,3396 @@
+{
+  "provenance": {
+    "baseline_commit": "fb874fd",
+    "source": "six independent Godot 4.7.2 headless Worlds + live bounded choice and existing Rescue HTTP",
+    "date": "2026-09-27",
+    "scope": "captured World and selector records, unchanged"
+  },
+  "experiment": {
+    "retained": [
+      {
+        "actions": [
+          "approach",
+          "approach",
+          "approach",
+          "rescue",
+          "rescue",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "deliver",
+          "idle"
+        ],
+        "choices": [
+          {
+            "accessible_episode_ids": [
+              "alpha"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "c46c8bd0cb510beafedefdca4a015962909b9571d72cc417dc83bb6c32e5cc89",
+            "episode_id": "alpha",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": true,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "solo",
+            "source_events": [],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-retained-alpha"
+          },
+          {
+            "accessible_episode_ids": [
+              "alpha"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": true,
+                "failure_episode_count": 1.0,
+                "failure_evidence": [
+                  {
+                    "episode_id": "alpha",
+                    "event_id": "soc1-retained-alpha:event:0",
+                    "world_run_id": "soc1-retained-alpha"
+                  }
+                ],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "69a900c6fdd7b5467a98be35a0187429c07b567f512f51b18a086144c7128e5b",
+            "episode_id": "alpha",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": true,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "joint",
+            "source_events": [
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-retained-alpha:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_not_established",
+                "run_id": "soc1-retained-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-020-npc_a",
+                "subsequent_observation_id": "obs-000000-022-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              }
+            ],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-retained-alpha"
+          }
+        ],
+        "experiences": [
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-retained-alpha:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_not_established",
+            "run_id": "soc1-retained-alpha",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-020-npc_a",
+            "subsequent_observation_id": "obs-000000-022-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          },
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-retained-alpha:event:1",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "carry_established",
+            "run_id": "soc1-retained-alpha",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-025-npc_a",
+            "subsequent_observation_id": "obs-000000-027-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          {
+            "action": "deliver",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "stabilizing"
+            },
+            "event_id": "soc1-retained-alpha:event:2",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "delivered",
+            "run_id": "soc1-retained-alpha",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-047-npc_a",
+            "subsequent_observation_id": "obs-000000-049-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          }
+        ],
+        "initial": {
+          "b_body": {
+            "agent_id": "npc_b",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 3,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": true,
+            "injury_level": "severe",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 3,
+            "snapshot_id": "body-npc_b-3"
+          },
+          "carry_attempts": 0,
+          "experiences": 0,
+          "positions": [
+            {
+              "id": "npc_a",
+              "position": [
+                380.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_b",
+              "position": [
+                260.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_c",
+              "position": [
+                260.0,
+                180.0
+              ]
+            }
+          ]
+        },
+        "metrics": {
+          "action_count": 13,
+          "actions_to_delivery": 12,
+          "condition_switches": 1,
+          "first_condition": "solo",
+          "joint_attempts": 1,
+          "solo_attempts": 1,
+          "solo_retries": 0,
+          "status": "completed"
+        },
+        "recovery_stages": [
+          "stabilizing",
+          "mobilizing",
+          "recovering",
+          "recovered"
+        ],
+        "schema": "soc1-godot-episode-v1",
+        "world_checks": [
+          {
+            "active": [
+              "npc_a"
+            ],
+            "attempt": 1,
+            "established": false,
+            "target_after": [
+              260.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": false
+          },
+          {
+            "active": [
+              "npc_a",
+              "npc_c"
+            ],
+            "attempt": 2,
+            "established": true,
+            "target_after": [
+              272.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": true
+          }
+        ],
+        "world_run_id": "soc1-retained-alpha"
+      },
+      {
+        "actions": [
+          "approach",
+          "approach",
+          "approach",
+          "rescue",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "deliver",
+          "idle"
+        ],
+        "choices": [
+          {
+            "accessible_episode_ids": [
+              "alpha",
+              "beta"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": false,
+                "failure_episode_count": 1.0,
+                "failure_evidence": [
+                  {
+                    "episode_id": "alpha",
+                    "event_id": "soc1-retained-alpha:event:0",
+                    "world_run_id": "soc1-retained-alpha"
+                  }
+                ],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 1.0,
+                "success_evidence": [
+                  {
+                    "episode_id": "alpha",
+                    "event_id": "soc1-retained-alpha:event:2",
+                    "world_run_id": "soc1-retained-alpha"
+                  }
+                ]
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "d47143091480570bfc8be861f7bd26b35fdf288db581469e035c6c3c2416cf9f",
+            "episode_id": "beta",
+            "reason": "recorded_delivery_priority",
+            "retain_previous": true,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "joint",
+            "source_events": [
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-retained-alpha:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_not_established",
+                "run_id": "soc1-retained-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-020-npc_a",
+                "subsequent_observation_id": "obs-000000-022-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              },
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "joint",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-retained-alpha:event:1",
+                "participants": [
+                  "npc_a",
+                  "npc_c"
+                ],
+                "result": "carry_established",
+                "run_id": "soc1-retained-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-025-npc_a",
+                "subsequent_observation_id": "obs-000000-027-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": true,
+                  "target_moved": true
+                }
+              },
+              {
+                "action": "deliver",
+                "agent_id": "npc_a",
+                "attempt_condition": "joint",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "stabilizing"
+                },
+                "event_id": "soc1-retained-alpha:event:2",
+                "participants": [
+                  "npc_a",
+                  "npc_c"
+                ],
+                "result": "delivered",
+                "run_id": "soc1-retained-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-047-npc_a",
+                "subsequent_observation_id": "obs-000000-049-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              }
+            ],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-retained-beta"
+          }
+        ],
+        "experiences": [
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-retained-beta:event:0",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "carry_established",
+            "run_id": "soc1-retained-beta",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-020-npc_a",
+            "subsequent_observation_id": "obs-000000-022-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          {
+            "action": "deliver",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "stabilizing"
+            },
+            "event_id": "soc1-retained-beta:event:1",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "delivered",
+            "run_id": "soc1-retained-beta",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-042-npc_a",
+            "subsequent_observation_id": "obs-000000-044-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          }
+        ],
+        "initial": {
+          "b_body": {
+            "agent_id": "npc_b",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 3,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": true,
+            "injury_level": "severe",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 3,
+            "snapshot_id": "body-npc_b-3"
+          },
+          "carry_attempts": 0,
+          "experiences": 0,
+          "positions": [
+            {
+              "id": "npc_a",
+              "position": [
+                380.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_b",
+              "position": [
+                260.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_c",
+              "position": [
+                260.0,
+                180.0
+              ]
+            }
+          ]
+        },
+        "metrics": {
+          "action_count": 12,
+          "actions_to_delivery": 11,
+          "condition_switches": 0,
+          "first_condition": "joint",
+          "joint_attempts": 1,
+          "solo_attempts": 0,
+          "solo_retries": 0,
+          "status": "completed"
+        },
+        "recovery_stages": [
+          "stabilizing",
+          "mobilizing",
+          "recovering",
+          "recovered"
+        ],
+        "schema": "soc1-godot-episode-v1",
+        "world_checks": [
+          {
+            "active": [
+              "npc_a",
+              "npc_c"
+            ],
+            "attempt": 1,
+            "established": true,
+            "target_after": [
+              272.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": true
+          }
+        ],
+        "world_run_id": "soc1-retained-beta"
+      },
+      {
+        "actions": [
+          "approach",
+          "approach",
+          "approach",
+          "rescue",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "deliver",
+          "idle"
+        ],
+        "choices": [
+          {
+            "accessible_episode_ids": [
+              "alpha",
+              "beta",
+              "gamma"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": false,
+                "failure_episode_count": 1.0,
+                "failure_evidence": [
+                  {
+                    "episode_id": "alpha",
+                    "event_id": "soc1-retained-alpha:event:0",
+                    "world_run_id": "soc1-retained-alpha"
+                  }
+                ],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 2.0,
+                "success_evidence": [
+                  {
+                    "episode_id": "alpha",
+                    "event_id": "soc1-retained-alpha:event:2",
+                    "world_run_id": "soc1-retained-alpha"
+                  },
+                  {
+                    "episode_id": "beta",
+                    "event_id": "soc1-retained-beta:event:1",
+                    "world_run_id": "soc1-retained-beta"
+                  }
+                ]
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "866ae60474d65d8dd60214d0ab85dc6aaa40a8c673df4fbd3224bc0f7b19fd42",
+            "episode_id": "gamma",
+            "reason": "recorded_delivery_priority",
+            "retain_previous": true,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "joint",
+            "source_events": [
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-retained-alpha:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_not_established",
+                "run_id": "soc1-retained-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-020-npc_a",
+                "subsequent_observation_id": "obs-000000-022-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              },
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "joint",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-retained-alpha:event:1",
+                "participants": [
+                  "npc_a",
+                  "npc_c"
+                ],
+                "result": "carry_established",
+                "run_id": "soc1-retained-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-025-npc_a",
+                "subsequent_observation_id": "obs-000000-027-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": true,
+                  "target_moved": true
+                }
+              },
+              {
+                "action": "deliver",
+                "agent_id": "npc_a",
+                "attempt_condition": "joint",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "stabilizing"
+                },
+                "event_id": "soc1-retained-alpha:event:2",
+                "participants": [
+                  "npc_a",
+                  "npc_c"
+                ],
+                "result": "delivered",
+                "run_id": "soc1-retained-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-047-npc_a",
+                "subsequent_observation_id": "obs-000000-049-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              },
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "joint",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-retained-beta:event:0",
+                "participants": [
+                  "npc_a",
+                  "npc_c"
+                ],
+                "result": "carry_established",
+                "run_id": "soc1-retained-beta",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-020-npc_a",
+                "subsequent_observation_id": "obs-000000-022-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": true,
+                  "target_moved": true
+                }
+              },
+              {
+                "action": "deliver",
+                "agent_id": "npc_a",
+                "attempt_condition": "joint",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "stabilizing"
+                },
+                "event_id": "soc1-retained-beta:event:1",
+                "participants": [
+                  "npc_a",
+                  "npc_c"
+                ],
+                "result": "delivered",
+                "run_id": "soc1-retained-beta",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-042-npc_a",
+                "subsequent_observation_id": "obs-000000-044-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              }
+            ],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-retained-gamma"
+          }
+        ],
+        "experiences": [
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-retained-gamma:event:0",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "carry_established",
+            "run_id": "soc1-retained-gamma",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-020-npc_a",
+            "subsequent_observation_id": "obs-000000-022-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          {
+            "action": "deliver",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "stabilizing"
+            },
+            "event_id": "soc1-retained-gamma:event:1",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "delivered",
+            "run_id": "soc1-retained-gamma",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-042-npc_a",
+            "subsequent_observation_id": "obs-000000-044-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          }
+        ],
+        "initial": {
+          "b_body": {
+            "agent_id": "npc_b",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 3,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": true,
+            "injury_level": "severe",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 3,
+            "snapshot_id": "body-npc_b-3"
+          },
+          "carry_attempts": 0,
+          "experiences": 0,
+          "positions": [
+            {
+              "id": "npc_a",
+              "position": [
+                380.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_b",
+              "position": [
+                260.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_c",
+              "position": [
+                260.0,
+                180.0
+              ]
+            }
+          ]
+        },
+        "metrics": {
+          "action_count": 12,
+          "actions_to_delivery": 11,
+          "condition_switches": 0,
+          "first_condition": "joint",
+          "joint_attempts": 1,
+          "solo_attempts": 0,
+          "solo_retries": 0,
+          "status": "completed"
+        },
+        "recovery_stages": [
+          "stabilizing",
+          "mobilizing",
+          "recovering",
+          "recovered"
+        ],
+        "schema": "soc1-godot-episode-v1",
+        "world_checks": [
+          {
+            "active": [
+              "npc_a",
+              "npc_c"
+            ],
+            "attempt": 1,
+            "established": true,
+            "target_after": [
+              272.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": true
+          }
+        ],
+        "world_run_id": "soc1-retained-gamma"
+      }
+    ],
+    "retained_selector": {
+      "rule_version": "soc1-rescue-condition-choice-v1",
+      "agent_id": "npc_a",
+      "target_id": "npc_b",
+      "retain_previous": true,
+      "episodes": [
+        {
+          "episode_id": "alpha",
+          "world_run_id": "soc1-retained-alpha",
+          "events": [
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-retained-alpha:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_not_established",
+              "run_id": "soc1-retained-alpha",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-020-npc_a",
+              "subsequent_observation_id": "obs-000000-022-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            },
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-retained-alpha:event:1",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "carry_established",
+              "run_id": "soc1-retained-alpha",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-025-npc_a",
+              "subsequent_observation_id": "obs-000000-027-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            {
+              "action": "deliver",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "stabilizing"
+              },
+              "event_id": "soc1-retained-alpha:event:2",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "delivered",
+              "run_id": "soc1-retained-alpha",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-047-npc_a",
+              "subsequent_observation_id": "obs-000000-049-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            }
+          ],
+          "choices": [
+            {
+              "request": {
+                "choice_id": "obs-000000-009-npc_a",
+                "events": [],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "alpha",
+                "world_run_id": "soc1-retained-alpha",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": true,
+                "accessible_episode_ids": [
+                  "alpha"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "solo",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "c46c8bd0cb510beafedefdca4a015962909b9571d72cc417dc83bb6c32e5cc89"
+              }
+            },
+            {
+              "request": {
+                "choice_id": "obs-000000-024-npc_a",
+                "events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-retained-alpha:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "alpha",
+                "world_run_id": "soc1-retained-alpha",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": true,
+                "accessible_episode_ids": [
+                  "alpha"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": true,
+                    "success_evidence": [],
+                    "failure_evidence": [
+                      {
+                        "episode_id": "alpha",
+                        "world_run_id": "soc1-retained-alpha",
+                        "event_id": "soc1-retained-alpha:event:0"
+                      }
+                    ],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 1
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "joint",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-retained-alpha:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "69a900c6fdd7b5467a98be35a0187429c07b567f512f51b18a086144c7128e5b"
+              }
+            }
+          ],
+          "status": "completed"
+        },
+        {
+          "episode_id": "beta",
+          "world_run_id": "soc1-retained-beta",
+          "events": [
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-retained-beta:event:0",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "carry_established",
+              "run_id": "soc1-retained-beta",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-020-npc_a",
+              "subsequent_observation_id": "obs-000000-022-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            {
+              "action": "deliver",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "stabilizing"
+              },
+              "event_id": "soc1-retained-beta:event:1",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "delivered",
+              "run_id": "soc1-retained-beta",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-042-npc_a",
+              "subsequent_observation_id": "obs-000000-044-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            }
+          ],
+          "choices": [
+            {
+              "request": {
+                "choice_id": "obs-000000-009-npc_a",
+                "events": [],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "beta",
+                "world_run_id": "soc1-retained-beta",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": true,
+                "accessible_episode_ids": [
+                  "alpha",
+                  "beta"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [
+                      {
+                        "episode_id": "alpha",
+                        "world_run_id": "soc1-retained-alpha",
+                        "event_id": "soc1-retained-alpha:event:0"
+                      }
+                    ],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 1
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [
+                      {
+                        "episode_id": "alpha",
+                        "world_run_id": "soc1-retained-alpha",
+                        "event_id": "soc1-retained-alpha:event:2"
+                      }
+                    ],
+                    "failure_evidence": [],
+                    "success_episode_count": 1,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "joint",
+                "reason": "recorded_delivery_priority",
+                "source_events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-retained-alpha:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  },
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "joint",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-retained-alpha:event:1",
+                    "participants": [
+                      "npc_a",
+                      "npc_c"
+                    ],
+                    "result": "carry_established",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-025-npc_a",
+                    "subsequent_observation_id": "obs-000000-027-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": true,
+                      "target_moved": true
+                    }
+                  },
+                  {
+                    "action": "deliver",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "joint",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "stabilizing"
+                    },
+                    "event_id": "soc1-retained-alpha:event:2",
+                    "participants": [
+                      "npc_a",
+                      "npc_c"
+                    ],
+                    "result": "delivered",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-047-npc_a",
+                    "subsequent_observation_id": "obs-000000-049-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "d47143091480570bfc8be861f7bd26b35fdf288db581469e035c6c3c2416cf9f"
+              }
+            }
+          ],
+          "status": "completed"
+        },
+        {
+          "episode_id": "gamma",
+          "world_run_id": "soc1-retained-gamma",
+          "events": [
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-retained-gamma:event:0",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "carry_established",
+              "run_id": "soc1-retained-gamma",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-020-npc_a",
+              "subsequent_observation_id": "obs-000000-022-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            {
+              "action": "deliver",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "stabilizing"
+              },
+              "event_id": "soc1-retained-gamma:event:1",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "delivered",
+              "run_id": "soc1-retained-gamma",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-042-npc_a",
+              "subsequent_observation_id": "obs-000000-044-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            }
+          ],
+          "choices": [
+            {
+              "request": {
+                "choice_id": "obs-000000-009-npc_a",
+                "events": [],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "gamma",
+                "world_run_id": "soc1-retained-gamma",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": true,
+                "accessible_episode_ids": [
+                  "alpha",
+                  "beta",
+                  "gamma"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [
+                      {
+                        "episode_id": "alpha",
+                        "world_run_id": "soc1-retained-alpha",
+                        "event_id": "soc1-retained-alpha:event:0"
+                      }
+                    ],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 1
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [
+                      {
+                        "episode_id": "alpha",
+                        "world_run_id": "soc1-retained-alpha",
+                        "event_id": "soc1-retained-alpha:event:2"
+                      },
+                      {
+                        "episode_id": "beta",
+                        "world_run_id": "soc1-retained-beta",
+                        "event_id": "soc1-retained-beta:event:1"
+                      }
+                    ],
+                    "failure_evidence": [],
+                    "success_episode_count": 2,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "joint",
+                "reason": "recorded_delivery_priority",
+                "source_events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-retained-alpha:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  },
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "joint",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-retained-alpha:event:1",
+                    "participants": [
+                      "npc_a",
+                      "npc_c"
+                    ],
+                    "result": "carry_established",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-025-npc_a",
+                    "subsequent_observation_id": "obs-000000-027-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": true,
+                      "target_moved": true
+                    }
+                  },
+                  {
+                    "action": "deliver",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "joint",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "stabilizing"
+                    },
+                    "event_id": "soc1-retained-alpha:event:2",
+                    "participants": [
+                      "npc_a",
+                      "npc_c"
+                    ],
+                    "result": "delivered",
+                    "run_id": "soc1-retained-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-047-npc_a",
+                    "subsequent_observation_id": "obs-000000-049-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  },
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "joint",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-retained-beta:event:0",
+                    "participants": [
+                      "npc_a",
+                      "npc_c"
+                    ],
+                    "result": "carry_established",
+                    "run_id": "soc1-retained-beta",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": true,
+                      "target_moved": true
+                    }
+                  },
+                  {
+                    "action": "deliver",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "joint",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "stabilizing"
+                    },
+                    "event_id": "soc1-retained-beta:event:1",
+                    "participants": [
+                      "npc_a",
+                      "npc_c"
+                    ],
+                    "result": "delivered",
+                    "run_id": "soc1-retained-beta",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-042-npc_a",
+                    "subsequent_observation_id": "obs-000000-044-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "866ae60474d65d8dd60214d0ab85dc6aaa40a8c673df4fbd3224bc0f7b19fd42"
+              }
+            }
+          ],
+          "status": "completed"
+        }
+      ],
+      "current": null,
+      "retention": "three process-local episodes; audit archives are not all accessible for choice"
+    },
+    "reset": [
+      {
+        "actions": [
+          "approach",
+          "approach",
+          "approach",
+          "rescue",
+          "rescue",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "deliver",
+          "idle"
+        ],
+        "choices": [
+          {
+            "accessible_episode_ids": [
+              "alpha"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "cb0373f88d9858fd725c8636f1556b5cb1822c63ae4622a9b440b80a5e1c390a",
+            "episode_id": "alpha",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": false,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "solo",
+            "source_events": [],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-reset-alpha"
+          },
+          {
+            "accessible_episode_ids": [
+              "alpha"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": true,
+                "failure_episode_count": 1.0,
+                "failure_evidence": [
+                  {
+                    "episode_id": "alpha",
+                    "event_id": "soc1-reset-alpha:event:0",
+                    "world_run_id": "soc1-reset-alpha"
+                  }
+                ],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "c0604eb418f87f245b36e72646065b7e18783b942c9fedd7c622d8c144b34014",
+            "episode_id": "alpha",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": false,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "joint",
+            "source_events": [
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-reset-alpha:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_not_established",
+                "run_id": "soc1-reset-alpha",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-020-npc_a",
+                "subsequent_observation_id": "obs-000000-022-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              }
+            ],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-reset-alpha"
+          }
+        ],
+        "experiences": [
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-reset-alpha:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_not_established",
+            "run_id": "soc1-reset-alpha",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-020-npc_a",
+            "subsequent_observation_id": "obs-000000-022-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          },
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-reset-alpha:event:1",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "carry_established",
+            "run_id": "soc1-reset-alpha",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-025-npc_a",
+            "subsequent_observation_id": "obs-000000-027-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          {
+            "action": "deliver",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "stabilizing"
+            },
+            "event_id": "soc1-reset-alpha:event:2",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "delivered",
+            "run_id": "soc1-reset-alpha",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-047-npc_a",
+            "subsequent_observation_id": "obs-000000-049-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          }
+        ],
+        "initial": {
+          "b_body": {
+            "agent_id": "npc_b",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 3,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": true,
+            "injury_level": "severe",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 3,
+            "snapshot_id": "body-npc_b-3"
+          },
+          "carry_attempts": 0,
+          "experiences": 0,
+          "positions": [
+            {
+              "id": "npc_a",
+              "position": [
+                380.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_b",
+              "position": [
+                260.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_c",
+              "position": [
+                260.0,
+                180.0
+              ]
+            }
+          ]
+        },
+        "metrics": {
+          "action_count": 13,
+          "actions_to_delivery": 12,
+          "condition_switches": 1,
+          "first_condition": "solo",
+          "joint_attempts": 1,
+          "solo_attempts": 1,
+          "solo_retries": 0,
+          "status": "completed"
+        },
+        "recovery_stages": [
+          "stabilizing",
+          "mobilizing",
+          "recovering",
+          "recovered"
+        ],
+        "schema": "soc1-godot-episode-v1",
+        "world_checks": [
+          {
+            "active": [
+              "npc_a"
+            ],
+            "attempt": 1,
+            "established": false,
+            "target_after": [
+              260.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": false
+          },
+          {
+            "active": [
+              "npc_a",
+              "npc_c"
+            ],
+            "attempt": 2,
+            "established": true,
+            "target_after": [
+              272.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": true
+          }
+        ],
+        "world_run_id": "soc1-reset-alpha"
+      },
+      {
+        "actions": [
+          "approach",
+          "approach",
+          "approach",
+          "rescue",
+          "rescue",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "deliver",
+          "idle"
+        ],
+        "choices": [
+          {
+            "accessible_episode_ids": [
+              "beta"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "12b5c5c80d0c9b9b8d129a679c17cfa023ff3935db2df3fc50eeaa3b6cc31f06",
+            "episode_id": "beta",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": false,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "solo",
+            "source_events": [],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-reset-beta"
+          },
+          {
+            "accessible_episode_ids": [
+              "beta"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": true,
+                "failure_episode_count": 1.0,
+                "failure_evidence": [
+                  {
+                    "episode_id": "beta",
+                    "event_id": "soc1-reset-beta:event:0",
+                    "world_run_id": "soc1-reset-beta"
+                  }
+                ],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "6503dccc8f7f7d3e866a50c12b0c44b478e163d8f0c85ecea4561c31212f25da",
+            "episode_id": "beta",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": false,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "joint",
+            "source_events": [
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-reset-beta:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_not_established",
+                "run_id": "soc1-reset-beta",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-020-npc_a",
+                "subsequent_observation_id": "obs-000000-022-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              }
+            ],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-reset-beta"
+          }
+        ],
+        "experiences": [
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-reset-beta:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_not_established",
+            "run_id": "soc1-reset-beta",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-020-npc_a",
+            "subsequent_observation_id": "obs-000000-022-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          },
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-reset-beta:event:1",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "carry_established",
+            "run_id": "soc1-reset-beta",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-025-npc_a",
+            "subsequent_observation_id": "obs-000000-027-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          {
+            "action": "deliver",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "stabilizing"
+            },
+            "event_id": "soc1-reset-beta:event:2",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "delivered",
+            "run_id": "soc1-reset-beta",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-047-npc_a",
+            "subsequent_observation_id": "obs-000000-049-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          }
+        ],
+        "initial": {
+          "b_body": {
+            "agent_id": "npc_b",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 3,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": true,
+            "injury_level": "severe",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 3,
+            "snapshot_id": "body-npc_b-3"
+          },
+          "carry_attempts": 0,
+          "experiences": 0,
+          "positions": [
+            {
+              "id": "npc_a",
+              "position": [
+                380.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_b",
+              "position": [
+                260.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_c",
+              "position": [
+                260.0,
+                180.0
+              ]
+            }
+          ]
+        },
+        "metrics": {
+          "action_count": 13,
+          "actions_to_delivery": 12,
+          "condition_switches": 1,
+          "first_condition": "solo",
+          "joint_attempts": 1,
+          "solo_attempts": 1,
+          "solo_retries": 0,
+          "status": "completed"
+        },
+        "recovery_stages": [
+          "stabilizing",
+          "mobilizing",
+          "recovering",
+          "recovered"
+        ],
+        "schema": "soc1-godot-episode-v1",
+        "world_checks": [
+          {
+            "active": [
+              "npc_a"
+            ],
+            "attempt": 1,
+            "established": false,
+            "target_after": [
+              260.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": false
+          },
+          {
+            "active": [
+              "npc_a",
+              "npc_c"
+            ],
+            "attempt": 2,
+            "established": true,
+            "target_after": [
+              272.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": true
+          }
+        ],
+        "world_run_id": "soc1-reset-beta"
+      },
+      {
+        "actions": [
+          "approach",
+          "approach",
+          "approach",
+          "rescue",
+          "rescue",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "approach",
+          "deliver",
+          "idle"
+        ],
+        "choices": [
+          {
+            "accessible_episode_ids": [
+              "gamma"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "684a4af2bc5e146b2f5558410a6a102c404e348bf62b3c38131b5b9d1573f4ca",
+            "episode_id": "gamma",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": false,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "solo",
+            "source_events": [],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-reset-gamma"
+          },
+          {
+            "accessible_episode_ids": [
+              "gamma"
+            ],
+            "agent_id": "npc_a",
+            "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+            "candidates": [
+              {
+                "available": true,
+                "condition": "solo",
+                "failed_this_episode": true,
+                "failure_episode_count": 1.0,
+                "failure_evidence": [
+                  {
+                    "episode_id": "gamma",
+                    "event_id": "soc1-reset-gamma:event:0",
+                    "world_run_id": "soc1-reset-gamma"
+                  }
+                ],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "joint",
+                "failed_this_episode": false,
+                "failure_episode_count": 0.0,
+                "failure_evidence": [],
+                "success_episode_count": 0.0,
+                "success_evidence": []
+              },
+              {
+                "available": true,
+                "condition": "defer"
+              }
+            ],
+            "choice_id": "691bcb2b1269d8c06b6add293aa2e067e9af3157a9f78fb9a3edb79b61fa6fb4",
+            "episode_id": "gamma",
+            "reason": "untried_condition_then_fixed_tie_break",
+            "retain_previous": false,
+            "schema": "soc1-rescue-condition-choice-v1",
+            "selected": "joint",
+            "source_events": [
+              {
+                "action": "rescue",
+                "agent_id": "npc_a",
+                "attempt_condition": "solo",
+                "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                "body_consequence": {
+                  "actor_incapacitated": false,
+                  "target_incapacitated": true,
+                  "target_recovery_stage": "none"
+                },
+                "event_id": "soc1-reset-gamma:event:0",
+                "participants": [
+                  "npc_a"
+                ],
+                "result": "carry_not_established",
+                "run_id": "soc1-reset-gamma",
+                "schema": "soc0-rescue-experience-v1",
+                "source_observation_id": "obs-000000-020-npc_a",
+                "subsequent_observation_id": "obs-000000-022-npc_a",
+                "target_id": "npc_b",
+                "tick": 0.0,
+                "world_consequence": {
+                  "carry_established": false,
+                  "target_moved": false
+                }
+              }
+            ],
+            "target_id": "npc_b",
+            "world_run_id": "soc1-reset-gamma"
+          }
+        ],
+        "experiences": [
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "solo",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-reset-gamma:event:0",
+            "participants": [
+              "npc_a"
+            ],
+            "result": "carry_not_established",
+            "run_id": "soc1-reset-gamma",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-020-npc_a",
+            "subsequent_observation_id": "obs-000000-022-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          },
+          {
+            "action": "rescue",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "none"
+            },
+            "event_id": "soc1-reset-gamma:event:1",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "carry_established",
+            "run_id": "soc1-reset-gamma",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-025-npc_a",
+            "subsequent_observation_id": "obs-000000-027-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": true,
+              "target_moved": true
+            }
+          },
+          {
+            "action": "deliver",
+            "agent_id": "npc_a",
+            "attempt_condition": "joint",
+            "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+            "body_consequence": {
+              "actor_incapacitated": false,
+              "target_incapacitated": true,
+              "target_recovery_stage": "stabilizing"
+            },
+            "event_id": "soc1-reset-gamma:event:2",
+            "participants": [
+              "npc_a",
+              "npc_c"
+            ],
+            "result": "delivered",
+            "run_id": "soc1-reset-gamma",
+            "schema": "soc0-rescue-experience-v1",
+            "source_observation_id": "obs-000000-047-npc_a",
+            "subsequent_observation_id": "obs-000000-049-npc_a",
+            "target_id": "npc_b",
+            "tick": 0,
+            "world_consequence": {
+              "carry_established": false,
+              "target_moved": false
+            }
+          }
+        ],
+        "initial": {
+          "b_body": {
+            "agent_id": "npc_b",
+            "carried_agent_id": "",
+            "danger_exposure_steps": 3,
+            "food_actions_enabled": false,
+            "food_need": 0.8,
+            "held_food_ids": [],
+            "incapacitated": true,
+            "injury_level": "severe",
+            "last_rescue_delivery": {},
+            "movement_scale": 0.0,
+            "recovery_place_id": "",
+            "recovery_stage": "none",
+            "recovery_steps": 0,
+            "revision": 3,
+            "snapshot_id": "body-npc_b-3"
+          },
+          "carry_attempts": 0,
+          "experiences": 0,
+          "positions": [
+            {
+              "id": "npc_a",
+              "position": [
+                380.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_b",
+              "position": [
+                260.0,
+                180.0
+              ]
+            },
+            {
+              "id": "npc_c",
+              "position": [
+                260.0,
+                180.0
+              ]
+            }
+          ]
+        },
+        "metrics": {
+          "action_count": 13,
+          "actions_to_delivery": 12,
+          "condition_switches": 1,
+          "first_condition": "solo",
+          "joint_attempts": 1,
+          "solo_attempts": 1,
+          "solo_retries": 0,
+          "status": "completed"
+        },
+        "recovery_stages": [
+          "stabilizing",
+          "mobilizing",
+          "recovering",
+          "recovered"
+        ],
+        "schema": "soc1-godot-episode-v1",
+        "world_checks": [
+          {
+            "active": [
+              "npc_a"
+            ],
+            "attempt": 1,
+            "established": false,
+            "target_after": [
+              260.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": false
+          },
+          {
+            "active": [
+              "npc_a",
+              "npc_c"
+            ],
+            "attempt": 2,
+            "established": true,
+            "target_after": [
+              272.0,
+              180.0
+            ],
+            "target_before": [
+              260.0,
+              180.0
+            ],
+            "target_moved": true
+          }
+        ],
+        "world_run_id": "soc1-reset-gamma"
+      }
+    ],
+    "reset_selector": {
+      "rule_version": "soc1-rescue-condition-choice-v1",
+      "agent_id": "npc_a",
+      "target_id": "npc_b",
+      "retain_previous": false,
+      "episodes": [
+        {
+          "episode_id": "alpha",
+          "world_run_id": "soc1-reset-alpha",
+          "events": [
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-reset-alpha:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_not_established",
+              "run_id": "soc1-reset-alpha",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-020-npc_a",
+              "subsequent_observation_id": "obs-000000-022-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            },
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-reset-alpha:event:1",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "carry_established",
+              "run_id": "soc1-reset-alpha",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-025-npc_a",
+              "subsequent_observation_id": "obs-000000-027-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            {
+              "action": "deliver",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "stabilizing"
+              },
+              "event_id": "soc1-reset-alpha:event:2",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "delivered",
+              "run_id": "soc1-reset-alpha",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-047-npc_a",
+              "subsequent_observation_id": "obs-000000-049-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            }
+          ],
+          "choices": [
+            {
+              "request": {
+                "choice_id": "obs-000000-009-npc_a",
+                "events": [],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "alpha",
+                "world_run_id": "soc1-reset-alpha",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": false,
+                "accessible_episode_ids": [
+                  "alpha"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "solo",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "cb0373f88d9858fd725c8636f1556b5cb1822c63ae4622a9b440b80a5e1c390a"
+              }
+            },
+            {
+              "request": {
+                "choice_id": "obs-000000-024-npc_a",
+                "events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-reset-alpha:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-reset-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "alpha",
+                "world_run_id": "soc1-reset-alpha",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": false,
+                "accessible_episode_ids": [
+                  "alpha"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": true,
+                    "success_evidence": [],
+                    "failure_evidence": [
+                      {
+                        "episode_id": "alpha",
+                        "world_run_id": "soc1-reset-alpha",
+                        "event_id": "soc1-reset-alpha:event:0"
+                      }
+                    ],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 1
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "joint",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-reset-alpha:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-reset-alpha",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "c0604eb418f87f245b36e72646065b7e18783b942c9fedd7c622d8c144b34014"
+              }
+            }
+          ],
+          "status": "completed"
+        },
+        {
+          "episode_id": "beta",
+          "world_run_id": "soc1-reset-beta",
+          "events": [
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-reset-beta:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_not_established",
+              "run_id": "soc1-reset-beta",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-020-npc_a",
+              "subsequent_observation_id": "obs-000000-022-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            },
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-reset-beta:event:1",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "carry_established",
+              "run_id": "soc1-reset-beta",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-025-npc_a",
+              "subsequent_observation_id": "obs-000000-027-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            {
+              "action": "deliver",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "stabilizing"
+              },
+              "event_id": "soc1-reset-beta:event:2",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "delivered",
+              "run_id": "soc1-reset-beta",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-047-npc_a",
+              "subsequent_observation_id": "obs-000000-049-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            }
+          ],
+          "choices": [
+            {
+              "request": {
+                "choice_id": "obs-000000-009-npc_a",
+                "events": [],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "beta",
+                "world_run_id": "soc1-reset-beta",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": false,
+                "accessible_episode_ids": [
+                  "beta"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "solo",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "12b5c5c80d0c9b9b8d129a679c17cfa023ff3935db2df3fc50eeaa3b6cc31f06"
+              }
+            },
+            {
+              "request": {
+                "choice_id": "obs-000000-024-npc_a",
+                "events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-reset-beta:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-reset-beta",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "beta",
+                "world_run_id": "soc1-reset-beta",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": false,
+                "accessible_episode_ids": [
+                  "beta"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": true,
+                    "success_evidence": [],
+                    "failure_evidence": [
+                      {
+                        "episode_id": "beta",
+                        "world_run_id": "soc1-reset-beta",
+                        "event_id": "soc1-reset-beta:event:0"
+                      }
+                    ],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 1
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "joint",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-reset-beta:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-reset-beta",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "6503dccc8f7f7d3e866a50c12b0c44b478e163d8f0c85ecea4561c31212f25da"
+              }
+            }
+          ],
+          "status": "completed"
+        },
+        {
+          "episode_id": "gamma",
+          "world_run_id": "soc1-reset-gamma",
+          "events": [
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "solo",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-reset-gamma:event:0",
+              "participants": [
+                "npc_a"
+              ],
+              "result": "carry_not_established",
+              "run_id": "soc1-reset-gamma",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-020-npc_a",
+              "subsequent_observation_id": "obs-000000-022-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            },
+            {
+              "action": "rescue",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "none"
+              },
+              "event_id": "soc1-reset-gamma:event:1",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "carry_established",
+              "run_id": "soc1-reset-gamma",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-025-npc_a",
+              "subsequent_observation_id": "obs-000000-027-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": true,
+                "target_moved": true
+              }
+            },
+            {
+              "action": "deliver",
+              "agent_id": "npc_a",
+              "attempt_condition": "joint",
+              "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+              "body_consequence": {
+                "actor_incapacitated": false,
+                "target_incapacitated": true,
+                "target_recovery_stage": "stabilizing"
+              },
+              "event_id": "soc1-reset-gamma:event:2",
+              "participants": [
+                "npc_a",
+                "npc_c"
+              ],
+              "result": "delivered",
+              "run_id": "soc1-reset-gamma",
+              "schema": "soc0-rescue-experience-v1",
+              "source_observation_id": "obs-000000-047-npc_a",
+              "subsequent_observation_id": "obs-000000-049-npc_a",
+              "target_id": "npc_b",
+              "tick": 0,
+              "world_consequence": {
+                "carry_established": false,
+                "target_moved": false
+              }
+            }
+          ],
+          "choices": [
+            {
+              "request": {
+                "choice_id": "obs-000000-009-npc_a",
+                "events": [],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "gamma",
+                "world_run_id": "soc1-reset-gamma",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": false,
+                "accessible_episode_ids": [
+                  "gamma"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "solo",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "684a4af2bc5e146b2f5558410a6a102c404e348bf62b3c38131b5b9d1573f4ca"
+              }
+            },
+            {
+              "request": {
+                "choice_id": "obs-000000-024-npc_a",
+                "events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-reset-gamma:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-reset-gamma",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "available_conditions": [
+                  "defer",
+                  "joint",
+                  "solo"
+                ]
+              },
+              "result": {
+                "schema": "soc1-rescue-condition-choice-v1",
+                "episode_id": "gamma",
+                "world_run_id": "soc1-reset-gamma",
+                "agent_id": "npc_a",
+                "target_id": "npc_b",
+                "retain_previous": false,
+                "accessible_episode_ids": [
+                  "gamma"
+                ],
+                "candidates": [
+                  {
+                    "condition": "solo",
+                    "available": true,
+                    "failed_this_episode": true,
+                    "success_evidence": [],
+                    "failure_evidence": [
+                      {
+                        "episode_id": "gamma",
+                        "world_run_id": "soc1-reset-gamma",
+                        "event_id": "soc1-reset-gamma:event:0"
+                      }
+                    ],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 1
+                  },
+                  {
+                    "condition": "joint",
+                    "available": true,
+                    "failed_this_episode": false,
+                    "success_evidence": [],
+                    "failure_evidence": [],
+                    "success_episode_count": 0,
+                    "failure_episode_count": 0
+                  },
+                  {
+                    "condition": "defer",
+                    "available": true
+                  }
+                ],
+                "selected": "joint",
+                "reason": "untried_condition_then_fixed_tie_break",
+                "source_events": [
+                  {
+                    "action": "rescue",
+                    "agent_id": "npc_a",
+                    "attempt_condition": "solo",
+                    "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+                    "body_consequence": {
+                      "actor_incapacitated": false,
+                      "target_incapacitated": true,
+                      "target_recovery_stage": "none"
+                    },
+                    "event_id": "soc1-reset-gamma:event:0",
+                    "participants": [
+                      "npc_a"
+                    ],
+                    "result": "carry_not_established",
+                    "run_id": "soc1-reset-gamma",
+                    "schema": "soc0-rescue-experience-v1",
+                    "source_observation_id": "obs-000000-020-npc_a",
+                    "subsequent_observation_id": "obs-000000-022-npc_a",
+                    "target_id": "npc_b",
+                    "tick": 0,
+                    "world_consequence": {
+                      "carry_established": false,
+                      "target_moved": false
+                    }
+                  }
+                ],
+                "authority": "fixture-condition-choice-only; not-help-request-social-relation-NERV-or-T1",
+                "choice_id": "691bcb2b1269d8c06b6add293aa2e067e9af3157a9f78fb9a3edb79b61fa6fb4"
+              }
+            }
+          ],
+          "status": "completed"
+        }
+      ],
+      "current": null,
+      "retention": "three process-local episodes; audit archives are not all accessible for choice"
+    }
+  }
+}
