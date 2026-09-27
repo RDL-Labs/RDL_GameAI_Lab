@@ -136,6 +136,6 @@ T1-C/cutoverを自動呼出ししない。神経保存state、旧Sleep、canonic
 ## SOC実験との関係
 
 [SOC-2契約](SOC_2_rescue_selection_tolerance_contract.md)は同じ検査/許容判断の分離を、
-共同搬送の有限記録で調べる別の設計案。Food acquisitionを前提とする本契約へSOC記録を流用しない。
-SOC-2の局所選別はcanonical T1-Bではなく、NERV-4Dの実装・受入を兼ねない。
+共同搬送の有限記録で調べる別実験として実装・受入済み。Food acquisitionを前提とする本契約へSOC記録を流用しない。
+SOC-2の局所選別はcanonical T1-Bではなく、NERV-4Dの実装・受入を兼ねない。本契約はDESIGN ONLYを維持する。
 両方とも固定条件の比較であり、神経・身体・履歴から条件を動的に生成する層は未接続。

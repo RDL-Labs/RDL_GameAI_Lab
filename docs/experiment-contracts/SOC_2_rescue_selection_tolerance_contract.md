@@ -1,7 +1,8 @@
 # SOC-2 同じ救助経験に対する固定選別条件の比較
 
-状態: **DESIGN ONLY / 未実装・受入未実施** / 2026-09-27。
-基準: `e78e680c`。[SOC-1契約](SOC_1_repeated_heavy_rescue_contract.md)と
+状態: **IMPLEMENTED / 固定許容条件の有限比較PASS** / 2026-09-27。
+実装開始点: `66d0eb9`。[SOC-2 Evidence](../experiment-evidence/SOC_2_rescue_selection_tolerance_evidence.md)。
+SOC-1基準: `e78e680c`。[SOC-1契約](SOC_1_repeated_heavy_rescue_contract.md)と
 [実装済みのEvidence](../experiment-evidence/SOC_1_repeated_heavy_rescue_evidence.md)。
 
 ## 1. 問いと停止点
@@ -49,7 +50,7 @@ EpisodeごとにWorld、身体、Rescue Runtime、通常履歴、canonical sidec
 
 ## 4. 入力・受付・欠落
 
-入口案は `RescueSelectionEvaluator(protocol, profile).evaluate(materials, request)`。
+入口は `runtime.rescue_selection.RescueSelectionEvaluator(protocol, profile).evaluate(materials, request)`。
 構築時にexperiment ID、A/B/C、問い・規則版・context_ref・3件対応表を含むprotocolと、
 固定profileの全内容をコピーして保持する。評価時にprotocolを変更する口は設けない。
 評価は純粋再生とし、Experience store・SOC-1 selector・既存Runtime stateへ書き込まない。
@@ -129,7 +130,7 @@ profile差替えや返却値の変更が既存instanceへ影響する入口は�
 
 ## 7. 出力と非介入
 
-出力案は `soc2-rescue-selection-evaluation-v1`。
+出力は `soc2-rescue-selection-evaluation-v1`。
 問い・規則版・experiment・固定A/B/C・context_ref・profile全内容・全3件の出典とEpisode検査結果、
 comparison_complete、判定用k/n、p/q、disposition、理由を保持する。
 source recordsは両条件で同一。許容0の `baseline_disposition` も再計算し、許容1/3で上書きしない。
@@ -141,7 +142,7 @@ Episode内の作用順を並べ替えて壊れた列を修復してはならな�
 新しい支持数store、選択履歴ledger、永続化、自動呼出しhookは追加しない。
 入力・返却値は独立し、評価失敗でも元storeや既存stateを部分変更しない。
 
-## 8. 実Godot記録の取得計画
+## 8. 実Godot記録の取得条件
 
 既存SOC-0のGodot providerとRescue Runtimeを再利用し、joint試行を明示する専用harnessを作る。
 SOC-1 selectorを無理に通して初手jointへ誘導せず、今回の候補が試験側指定であることを明記する。
@@ -163,7 +164,7 @@ SOC-0/1の保存済み成功を失敗に書き換えて、実World反例とす�
 その他の失敗数境界・欠落・改変条件は合成試験として区別する。
 SOC-1の全成功記録だけから、この許容度によるdisposition差を実証したとは記載しない。
 
-## 9. 受入条件（全件未実施）
+## 9. 受入条件（S2-01〜10 PASS）
 
 | ID | 必須検査 |
 | --- | --- |
@@ -178,6 +179,30 @@ SOC-1の全成功記録だけから、この許容度によるdisposition差を�
 | S2-09 | 入力snapshot・SOC-1・既存Action/history/canonicalの非介入。NERV/T1非呼出し |
 | S2-10 | SOC-0/1・既存Rescue回帰、全体テスト。実機/再生/合成を分けてEvidenceへ記録 |
 
-本更新は契約のみ。テスト件数やPASSを新規に主張しない。
-実装後の停止点も「同じ有限経験への固定選別条件差」まで。
+専用20テスト、実Godot独立3 runと保存記録の再生をPASS。
+受入の内訳、実機/合成の区別、回帰結果はEvidenceを正本とする。
+停止点は「同じ有限経験への固定選別条件差」まで。
 神経・身体・履歴が条件を変える機構、援助要請、他者評価、社会relation、次回行動、T1接続は別工程とする。
+
+## 10. 実装された形式と信頼境界
+
+- protocol: `soc2-rescue-protocol-v1`。schema、experiment_id、agent_id、target_id、helper_id、
+  purpose、rule、context_ref、episodes（episode_id / world_run_idの3件対応表）。
+- request: experiment_id、purpose、episode_ids（全3件）。
+- materials: episodes（envelope / snapshot）、missing_episode_ids。二集合は対応表を過不足なく分割する。
+- event_refsは受付snapshotのrecord_idを参照し、その順序がEpisode内の作用順となる。
+  snapshotのrecord配列順は意味を持たない。出力sourceではevent_refs順へ整列するがeventの値は変えない。
+- 判定用k/nのfieldはfailure_count / validation_count。profile分数とbaseline_dispositionも別に保存する。
+
+Episode検査はstatusとobserved_outcomeを分ける。参加条件不足・partial等でstatusがunresolvedでも、
+記録自体のcarry失敗はobserved_outcomeとsourceに残す。これをjointの失敗票にはしない。
+actorが行動不能ならactor_unavailable、rescue結果で対象の行動不能を確認できなければ
+`target_not_incapacitated`としてDEFERにする。関係のすり替えや不正な作用列は先に入力拒否する。
+
+受付再検証は一時的なSOC-0 storeで行う。record_idは従来のrun/event identity由来であり、
+署名やpayloadの真正性保証ではない。入力を外部の原本と認証照合する機構は追加していない。
+protocol/profileは公開APIで差替え不可だが、Python内部属性への直接改変を防ぐセキュリティ境界ではない。
+
+実機の作用結果はGodotから出力後、Python harnessが明示的にSOC-0 storeへ受理する。
+既存HTTPは通常の観測・行動・InteractionHistoryに使用し、SOC-2受付endpointは追加しない。
+失敗runではharnessが処理を終了する。既存Rescue policyが自律的に失敗を選別・中断した証拠にはしない。

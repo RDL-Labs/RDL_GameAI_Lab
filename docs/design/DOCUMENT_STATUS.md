@@ -9,7 +9,7 @@
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
-| [SOC-2 Rescue Selection Tolerance contract](../experiment-contracts/SOC_2_rescue_selection_tolerance_contract.md) | design-only / acceptance not run | 同じ3 Episodeを固定許容0/1・1/3で再生。実共同失敗と未試行・不完了を分け、反例を保持。局所選別まで、行動/NERV/T1未接続 |
+| [SOC-2 Rescue Selection Tolerance contract](../experiment-contracts/SOC_2_rescue_selection_tolerance_contract.md) | finite offline selection operational | 実Godot共同成功2件・失敗1件を固定許容0/1・1/3で再生しREJECT/RETAINの差。20試験PASS。[Evidence](../experiment-evidence/SOC_2_rescue_selection_tolerance_evidence.md)。行動/NERV/T1未接続 |
 | [SOC-1 Repeated Heavy Rescue contract](../experiment-contracts/SOC_1_repeated_heavy_rescue_contract.md) | three-episode retention control operational | 保持あり/なし各3実Godot Episode、初手と試行数の差。[Evidence](../experiment-evidence/SOC_1_repeated_heavy_rescue_evidence.md)。固定選択規則、援助要請・社会relation/T1は未接続 |
 | [SOC-0 Heavy Rescue contract](../experiment-contracts/SOC_0_heavy_rescue_contract.md) | opt-in Godot World / bounded Experience operational | 単独実失敗→能力合成による共同搬送→既存Recovery。[Evidence](../experiment-evidence/SOC_0_heavy_rescue_evidence.md)。社会学習・援助要請は未接続 |
 | [NERV-4D Selection Tolerance contract](../experiment-contracts/NERV_4D_selection_tolerance_contract.md) | design-only / acceptance not run | 固定個体条件0/1・1/3による許容不一致率。基準検査と反例を維持し、比較不能はDEFER |
