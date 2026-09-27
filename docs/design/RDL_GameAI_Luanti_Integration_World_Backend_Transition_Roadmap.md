@@ -68,7 +68,9 @@ L13Aの地表色取得・固定追従・相対移動は[実装契約](../experim
 [L13R](../experiment-contracts/LUANTI_L13R_repeated_exploration_contract.md)は最大30日の系列制御と
 記録保持／リセットを4系列・62実Luanti runで検査した。道ありは初日発見、道なしは両条件とも30日未発見。
 [Evidence](../experiment-evidence/LUANTI_L13R_repeated_exploration_evidence.md)。現行の固定規則は保持した記録を行動へ使わない。
-L13B/Cの経路照合・M_B学習、夜間視界と行き倒れの身体接続は後続。
+次の[探索本線](RDL_GameAI_Luanti_Exploration_Plan.md#learned-exploration-mainline)では色追従・固定右折を与えず、
+探索Experience→Sleep→独立検査→T1/M_B→実選択を接続する。L13A/Rは回帰参照として保持する。
+この学習接続は未実装。夜間視界と行き倒れの身体接続も後続。
 
 ## 1. 移行位置
 

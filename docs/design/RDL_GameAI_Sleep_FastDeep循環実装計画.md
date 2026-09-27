@@ -12,6 +12,8 @@
 L13Rの最大30日探索に日末Sleepを挟む案は、[探索計画5.1](RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)へ追加した（L13S、DESIGN ONLY）。
 既存の接近Experience／Local Bias用profileは探索記録のadapterではない。
 探索Experienceと比較条件を別途定義し、有限Sleep候補→後続Episodeでの独立検査→T1/M_B採用→翌日選択を分ける。
+新しい探索本線は設計者の色追従・固定右折を使わず、学習前の有限試行とM_Bによる選択を分離する。
+[本線方針](RDL_GameAI_Luanti_Exploration_Plan.md#learned-exploration-mainline)に従い、Sleep候補だけで止めず実選択まで接続する。
 この追記で探索学習や身体Sleepを実装済みへ変更しない。
 
 ## 0. 目的

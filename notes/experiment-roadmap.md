@@ -136,6 +136,14 @@ three-day formation set and three later held-out days precede explicit T1/M_B
 adoption and next-day use. Sleep completion alone grants no action authority.
 Body Sleep, safe-bed return, nighttime and recovery remain separate from this
 explicit day-boundary consolidation. Existing L13R results include none of it.
+The [next mainline](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md#learned-exploration-mainline)
+excludes hand-authored color following, fixed turn priorities and day-index route
+scripts. L13A/R remain regression references. Unknown candidates get bounded,
+logged sampling without hidden destination or learned-value priors; randomness
+alone is not learning. The next implementation must connect typed exploration
+Experience, Sleep, independent inspection and adopted M_B to actual selection,
+with the same candidate/draw conditions across adoption controls. Body execution
+constraints remain explicit. This is a design change, not a runtime policy change.
 
 ## Existing roadmap basis
 
