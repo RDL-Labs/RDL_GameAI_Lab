@@ -37,3 +37,6 @@ Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\observation_v1_ch
 Write-Output "Installed rdl_game into $targetGame"
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\sensory_learning_fixture.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\multi_sensory_learning_fixture.lua") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+foreach ($module in @("shared_food_trial.lua", "shared_food_trial_checks.lua", "shared_food_learning_fixture.lua")) {
+    Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\$module") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+}

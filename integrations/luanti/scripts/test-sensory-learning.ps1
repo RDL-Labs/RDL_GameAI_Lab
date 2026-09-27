@@ -3,9 +3,11 @@ param(
     [bool]$Activate = $true,
     [bool]$Reverse = $false,
     [ValidateSet("", "opposite", "a_only", "b_only")][string]$MultiScenario = "",
+    [ValidateSet("", "both_active", "neither_active", "a_only", "b_only", "reversed_cues")][string]$SharedScenario = "",
     [int]$TimeoutSeconds = 60
 )
 $ErrorActionPreference = "Stop"
+if ($MultiScenario -and $SharedScenario) { throw "Select either L10B or L10C" }
 $repoRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
 $integrationRoot = Split-Path -Parent $PSScriptRoot
 $outputPath = Join-Path $integrationRoot "output"
@@ -20,11 +22,19 @@ if ($MultiScenario) {
     $checker = "integrations.luanti.tests.check_multi_sensory_learning"
 }
 $worldPath = Join-Path $integrationRoot "worlds\$runId"
+if ($SharedScenario) {
+    $runId = $runId.Replace("l10-", "l10c-$SharedScenario-")
+    $mode = "sensory_learning_shared"
+    $evidenceFile = "l10c-evidence.json"
+    $checker = "integrations.luanti.tests.check_shared_food_learning"
+    $worldPath = Join-Path $integrationRoot "worlds\$runId"
+}
 New-Item -ItemType Directory -Force -Path $outputPath,$worldPath | Out-Null
 & (Join-Path $PSScriptRoot "install-game.ps1") -LuantiRoot $LuantiRoot
 Copy-Item -LiteralPath (Join-Path $integrationRoot "world-template\world.mt") -Destination (Join-Path $worldPath "world.mt")
 $config = Join-Path $outputPath "$runId.conf"
 $log = Join-Path $outputPath "$runId.log"
+$stepSetting = if ($SharedScenario) { "dedicated_server_step = 0.02" } else { "" }
 @"
 server_announce = false
 creative_mode = true
@@ -34,6 +44,7 @@ rdl_fixture_mode = $mode
 rdl_sensor_profile_npc_a = fixture-life-sensory
 rdl_sensor_profile_npc_b = fixture-life-sensory-compact
 rdl_learning_multi_scenario = $MultiScenario
+rdl_learning_shared_scenario = $SharedScenario
 rdl_learning_run_id = $runId
 rdl_learning_activate = $($Activate.ToString().ToLowerInvariant())
 rdl_learning_reverse = $($Reverse.ToString().ToLowerInvariant())
@@ -41,6 +52,7 @@ port = 30001
 max_users = 1
 default_game = rdl_game
 mg_name = singlenode
+$stepSetting
 "@ | Set-Content -LiteralPath $config -Encoding utf8
 $runtime = $null
 $luanti = $null
@@ -48,6 +60,7 @@ try {
     $runtimeArgs = @("-m","runtime.bridge","--sensory-observation","--luanti-learning-loop",
         "--sensory-profile","npc_a=fixture-life-sensory","--sensory-run-id",$runId)
     if ($MultiScenario) { $runtimeArgs += @("--luanti-learning-multi-agent","--sensory-profile","npc_b=fixture-life-sensory-compact") }
+    if ($SharedScenario) { $runtimeArgs += @("--luanti-learning-shared-food","--sensory-profile","npc_b=fixture-life-sensory-compact") }
     $runtime = Start-Process -FilePath "python" -ArgumentList $runtimeArgs `
         -WorkingDirectory $repoRoot -RedirectStandardOutput (Join-Path $outputPath "$runId.runtime.out.log") `
         -RedirectStandardError (Join-Path $outputPath "$runId.runtime.err.log") -WindowStyle Hidden -PassThru

@@ -10,7 +10,12 @@ experience and single-agent activation controls. General autonomous review and G
 remain open. Older feature-stage paragraphs below retain planning history;
 individual contracts and Evidence define the implemented scope.
 
-## Post-L10B focus (design only)
+[L10C](../docs/experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md)
+adds actual shared-Food consumption, five model-activation/cue controls, and
+per-agent learned decisions that change the peer's outcome. The learner still
+uses coarse color conditions, not inferred intentions or ownership.
+
+## Post-L10B shared-resource learning
 
 Decision on 2026-09-27: retain the
 [self-relation / biological-trait notes](../docs/design/RDL_GameAI_自己との関係拘束モデル.md)
@@ -18,7 +23,7 @@ as deferred design, and return to learned M_B predictions affecting behavior in
 Luanti. L10B proves independent learning in separate feeding lanes; it does not
 yet prove learning from interference between agents.
 
-The next proposed finite experiment uses A/B and one shared Food resource to ask
+The implemented finite experiment uses A/B and one shared Food resource to ask
 whether another agent's real action changes the learner's own outcome, and whether
 the learner can form and independently inspect a bounded relation from its own
 observations and Experience, adopt it into M_B, and change a subsequent choice.
@@ -28,12 +33,13 @@ automatically the learner's Experience. Co-occurrence alone does not establish a
 cause, and the presence of another agent is not automatically evidence of hostility.
 
 The [L10C shared-Food contract](../docs/experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md)
-now fixes the first slice: existing coarse visual cues, one real shared Food,
+fixes the first slice: existing coarse visual cues, one real shared Food,
 World-side start slots independent of HTTP order, separate formation and validation,
 and five activation/role/cue controls. A unilateral-adoption canary checks a failed
 prediction; with both agents adopting, the peer's defer can leave Food available
-despite reversed start slots. This is DESIGN ONLY; implementation and acceptance
-are not run. Hidden resource state, ownership labels, and the other agent's M_B
+despite reversed start slots. Five real Luanti runs and recorded replay are
+documented in the [Evidence](../docs/experiment-evidence/LUANTI_L10C_shared_food_learning_evidence.md).
+Hidden resource state, ownership labels, and the other agent's M_B
 must not supply the prediction. Learning to identify or reason about another
 agent is outside this color-conditioned slice. DNA, dynamic neural state,
 psychological emotion, social ownership, and community systems remain deferred.
@@ -94,7 +100,7 @@ Numbers below identify review areas, not one canonical computation chain. Local 
 | 2. Experience influence (local) | Bounded approach history and opt-in retry policy | Social relations, compressed constraints, sleep/dialogue history |
 | 3. Local profile / Body / Expression | Fixed 1/3/5 tick retry, movement_scale, sourced display projection | Dynamic Neural Dynamics, neural-derived sensitivity, psychological affect |
 | 4. M_Δ / T1 | Explicit T1-A/B/C and finite reconstruction | Autonomous review and broader learned relation semantics |
-| 5. Authority / fresh re-entry | Explicit evaluator cutover; L10/L10B sensory Food consumers, per-agent A/B ownership | General M_B-informed Goal/Trajectory; OBS-9 periodic sensing/Probe integration; shared resources |
+| 5. Authority / fresh re-entry | Explicit evaluator cutover; L10/L10B sensory Food consumers, L10C bounded shared-Food interference | General M_B-informed Goal/Trajectory; OBS-9 periodic sensing/Probe integration; social reasoning |
 | 6. Long-run richness | No acceptance established | Long-run controlled observation and provenance |
 
 Existing cross-layer separation tests cover bounded combinations only; they do not establish dynamic neural or sleep systems.

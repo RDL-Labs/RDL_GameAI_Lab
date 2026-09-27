@@ -14,6 +14,8 @@ from .v23_interpretation import GameAIInterpretation, compare_interpretations
 PURPOSE = "predict-bounded-food-attempt-from-distant-color"
 RELATION = "sensory-food-table-v1"
 CONTEXT = "l10-fixed-food-apparatus-v1"
+SHARED_CONTEXT = "l10c-shared-food-apparatus-v1"
+CONTEXTS = (CONTEXT, SHARED_CONTEXT)
 MAX_OPERATIONS = 16
 
 
@@ -27,8 +29,10 @@ def text_id(value, name):
     return value
 
 
-def acquire(snapshot, request):
+def acquire(snapshot, request, *, context=CONTEXT):
     """Select one complete frontal coarse feature, never a World lookup."""
+    if context not in CONTEXTS:
+        raise ValueError("unsupported apparatus context")
     if type(request["world_epoch"]) is not int or request["run_id"] != snapshot["run_id"] or request["world_epoch"] != snapshot["world_epoch"]:
         raise ValueError("run/epoch mismatch")
     frame = next((f for f in snapshot["frames"] if f["frame_id"] == request["frame_id"]), None)
@@ -56,7 +60,7 @@ def acquire(snapshot, request):
     elif features[0]["color_band"] == "unknown":
         reasons.append("appearance_unknown")
     return {
-        "purpose": PURPOSE, "context": CONTEXT, "run_id": request["run_id"],
+        "purpose": PURPOSE, "context": context, "run_id": request["run_id"],
         "world_epoch": request["world_epoch"], "agent_id": request["agent_id"],
         "section_id": identity("l10-section:", [frame["frame_id"], PURPOSE]),
         "frame_id": frame["frame_id"], "capture_window": deepcopy(frame["capture_window"]),
@@ -77,7 +81,7 @@ def relation_context(section):
 
 def interpret(model, section):
     """Executable, purpose-scoped part of a frozen M_B, including unknown."""
-    if section["agent_id"] != model.agent_id or section["purpose"] != PURPOSE or section["context"] != CONTEXT:
+    if section["agent_id"] != model.agent_id or section["purpose"] != PURPOSE or section["context"] not in CONTEXTS:
         raise ValueError("sensory interpretation boundary mismatch")
     result = {"model_ref": model.model_ref, "section_id": section["section_id"],
               "tick": section["sampled_world_tick"],
@@ -122,7 +126,10 @@ def comparison(before, after):
 class SensoryFoodLearning:
     """One bounded agent episode ledger; HTTP caller serializes mutations."""
 
-    def __init__(self, sensory, canonical, *, agent_id=None):
+    def __init__(self, sensory, canonical, *, agent_id=None, context=CONTEXT):
+        if context not in CONTEXTS:
+            raise ValueError("unsupported apparatus context")
+        self._context = context
         self.sensory = sensory
         self.canonical = canonical
         self.agent_id = agent_id
@@ -150,7 +157,7 @@ class SensoryFoodLearning:
             raise ValueError("episode already has a decision")
         if any(o["request"]["frame_id"] == request["frame_id"] for o in self._operations.values()):
             raise ValueError("source frame already used by a trial")
-        section = acquire(self.sensory.snapshot(), request)
+        section = acquire(self.sensory.snapshot(), request, context=self._context)
         model = self.canonical.model_for_agent(request["agent_id"])
         prediction = model.interpret_sensory_food(section)
         if section["reasons"]:
@@ -328,8 +335,8 @@ class MultiAgentSensoryFoodLearning:
     prevents accidental callback crossover; it is not network authentication.
     """
 
-    def __init__(self, sensory, canonical):
-        self._agents = {agent: SensoryFoodLearning(sensory, canonical, agent_id=agent)
+    def __init__(self, sensory, canonical, *, context=CONTEXT):
+        self._agents = {agent: SensoryFoodLearning(sensory, canonical, agent_id=agent, context=context)
                         for agent in ("npc_a", "npc_b")}
 
     def _route(self, request):
@@ -351,3 +358,13 @@ class MultiAgentSensoryFoodLearning:
         return {"schema": "luanti-sensory-learning-l10b-v1", "purpose": PURPOSE,
                 "capacity_per_agent": MAX_OPERATIONS, "capacity_total": 2 * MAX_OPERATIONS,
                 "by_agent": {agent: loop.snapshot() for agent, loop in self._agents.items()}}
+
+
+class SharedFoodLearning(MultiAgentSensoryFoodLearning):
+    """L10C: apparatus chosen at startup, never by a decision request or cue."""
+
+    def __init__(self, sensory, canonical):
+        super().__init__(sensory, canonical, context=SHARED_CONTEXT)
+
+    def snapshot(self):
+        return dict(super().snapshot(), schema="luanti-sensory-learning-l10c-v1", context=SHARED_CONTEXT)

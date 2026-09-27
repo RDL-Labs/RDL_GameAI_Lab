@@ -88,7 +88,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - [Luanti L10 sensory learning action](docs/experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md)は、受理済み遠景条件と実取得結果からrelationを形成・独立検査し、既存T1で採用したM_Bの予測を有限Food試行／保留へ接続する。明示opt-inの専用fixtureであり、OBS-9のA/B生活調停への常設統合や自律reviewではない。[Evidence](docs/experiment-evidence/LUANTI_L10_sensory_learning_action_evidence.md)。
 - [Luanti L10B multi-agent learning](docs/experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md)は、同じ継続WorldのA/Bで経験・M_B・身体権限を分離する。逆の経験による行動差、片方だけのモデル採用、応答待ち中の他方の進行を実機3run・72 Episodeで検証。[Evidence](docs/experiment-evidence/LUANTI_L10B_multi_agent_learning_evidence.md)。共有資源や社会学習は保留。
-- [Luanti L10C shared Food learning](docs/experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md)は、共有Foodの実取得競合と、本人のM_Bによる選択が相手の結果にも作用する有限実験の契約。既存の色条件による学習を使い、他者理解や所有の学習とは区別する。**design-only、実装・受入は未実施**。
+- [Luanti L10C shared Food learning](docs/experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md)は、共有Foodの実取得競合と、本人のM_Bによる選択が相手の結果にも作用する有限実験。実Luanti5run・60共有Episodeで検証。[Evidence](docs/experiment-evidence/LUANTI_L10C_shared_food_learning_evidence.md)。色条件による本人の学習であり、他者理解・所有・自律再学習は未接続。
 - [自己との関係拘束モデル](docs/design/RDL_GameAI_自己との関係拘束モデル.md)は、人・道具・場所・共同体に共通する関係を、保持・文脈別の適用・距離や重みの要約に分ける将来設計。所有・親密さ・所属の記録案と比較実験を整理した。**design-only、実装・受入は未実施**。
 - Deferred: 一般的なcanonical行動権限、DNA・動的神経値・会話、栄養・一般在庫・飢餓等の広い生活機能。
 

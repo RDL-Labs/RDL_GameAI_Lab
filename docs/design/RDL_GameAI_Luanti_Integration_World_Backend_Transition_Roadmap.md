@@ -22,6 +22,7 @@ OBS-7A..8B Comparison / Candidates / Probe COMPLETE
 OBS-9 Observation v1 Integrated Acceptance COMPLETE
 L10 Finite sensory M_B-informed Food choice COMPLETE (explicit fixture)
 L10B Multi-Agent sensory M_B learning/action COMPLETE (separate apparatus, shared World)
+L10C Shared-Food sensory M_B learning/action COMPLETE (bounded interference)
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -37,7 +38,11 @@ M_Bの予測へ実行可能な形で採用し、次EpisodeのFood試行／保留
 
 [L10B](../experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md)で、この有限学習loopを
 同じWorldのA/Bへ展開した。逆の経験から逆の選択が生じ、片方だけの採用対照でも他方へ混線しない。
-各個体の採食区画・資源は独立しており、共有資源競合・社会学習は次の別課題。
+L10Bの採食区画・資源は独立している。
+
+[L10C](../experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md)では1件のFoodを共有し、
+実取得競合と、学習した本人の選択が相手の結果へ作用することを5runで確認した。
+色条件による本人の結果学習までであり、他者理解・社会関係・自律再学習は保留。
 
 ## 1. 移行位置
 
@@ -134,6 +139,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | OBS-9 | 全感覚生活＋Probeの10条件、観測基盤v1固定 | COMPLETE |
 | L10 | 学習したM_Bによる有限Food試行／保留 | COMPLETE / 専用fixture。一般Goal/Trajectoryは保留 |
 | L10B | A/Bの個体別学習・M_B・身体権限 | COMPLETE / 同じ継続World。共有資源・社会学習は保留 |
+| L10C | 共有Foodの実取得競合とM_Bによる試行／保留 | COMPLETE / 5run・60共有Episode。他者理解・社会関係は保留 |
 
 ## 6. Repository Boundary
 

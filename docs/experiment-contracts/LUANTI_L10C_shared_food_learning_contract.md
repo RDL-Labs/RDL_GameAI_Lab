@@ -1,9 +1,9 @@
 # Luanti L10C — 共有Foodでの相互干渉とM_B学習
 
-**状態:** DESIGN ONLY / IMPLEMENTATION PLAN v0.1、2026-09-27。
-**実装・実Luanti受入は未実施。** 以下の件数と結果は予定・期待値であり、Evidenceではない。
+**状態:** IMPLEMENTED / ACCEPTANCE COMPLETE、2026-09-27。
+実World結果・検証範囲は[Evidence](../experiment-evidence/LUANTI_L10C_shared_food_learning_evidence.md)。
 基準: `0a852632`。既存の[L10](LUANTI_L10_sensory_learning_action_contract.md)と
-[L10B](LUANTI_L10B_multi_agent_learning_contract.md)を再利用し、共有資源用の適用境界を追加する計画。
+[L10B](LUANTI_L10B_multi_agent_learning_contract.md)を再利用し、共有資源用の適用境界を分離する。
 
 ## 1. 問いと今回の範囲
 
@@ -22,7 +22,7 @@
 ## 2. 共有Worldと試行の単位
 
 - 固定A/B、Food entityは**全体で1件**、Baseは個体別に1件ずつ。通路の壁は置かない。
-- 装置のWorld座標案はA/Base Aが`(-4,1,0)`、B/Base Bが`(4,1,0)`、Foodが`(0,1,0)`。
+- 装置のWorld座標はA/Base Aが`(-4,1,0)`、B/Base Bが`(4,1,0)`、Foodが`(0,1,0)`。
   共通の色markerを`(0,1,14)`に置き、取得時だけ両個体をmarkerへ向ける。
   座標はWorldの実行・Evidenceにのみ使い、色からの予測要求へ含めない。
 - Aは`fixture-life-sensory`、Bは`fixture-life-sensory-compact`、いずれもrevision 1。
@@ -83,9 +83,9 @@ purposeは `predict-bounded-food-attempt-from-distant-color`、装置contextだ�
 既存の `l10-fixed-food-apparatus-v1` relationを共有資源へ暗黙適用しない。
 run/epoch/agent/profile/model/clock/contextの一致を形成・解釈・結果比較で照合する。
 
-HTTPの独立opt-in案は `--luanti-learning-shared-food --luanti-learning-loop --sensory-observation`。
-旧単一個体／L10B modeとの同時指定は拒否する。既存の学習入口とA/B分離を再利用し、schemaの受理範囲を
-全利用者へ黙示拡大しない。具体的なCLI追加と起動検証は実装時の作業であり、現時点では利用できない。
+HTTPの明示opt-inは `--luanti-learning-shared-food --luanti-learning-loop --sensory-observation`。
+L10Bの `--luanti-learning-multi-agent` との同時指定は拒否する。共有flagなしの単一個体／L10B modeは
+従来contextを使う。既存の学習入口とA/B分離を再利用し、要求payloadへcontext選択権を追加しない。
 
 ## 5. 帰納・検査・採用
 
@@ -111,9 +111,9 @@ reviewは引き続きharnessが明示する独立canonical count比較を使い�
 Episode 11〜12の結果は追加Experienceとして記録できても、今回2回目の再構成は行わない。
 採用済み関係は相手の行動条件を完全には表しておらず、環境条件や相手のpolicyが変わると予測が破れる余地を残す。
 
-## 6. 実Luantiの受入比較案
+## 6. 実Luantiの受入比較
 
-**5独立run × 12 shared Episode = 60 shared Episode、A/Bの120操作、開始時360 SensorFrame**を予定する。
+**5独立run × 12 shared Episode = 60 shared Episode、A/Bの120操作、開始時360 SensorFrame**で検査する。
 shared Episodeと個体別操作を混ぜて経験数を水増ししない。各個体の形成は6経験、検査は2経験。
 
 | run | A採用 | B採用 | 形成時の色と先行者の対応 |
@@ -138,7 +138,7 @@ canaryは単一個体L10と違い、**開始順序を反転すれば必ず実結
 | 片方だけ採用、採用側が取得を予測 | 両方試行し、未採用側が先行取得。採用側の実非取得を同じM_Bで比較し差-1 |
 | 片方だけ採用、採用側が非取得を予測 | 採用側は保留。相手は取得。保留側が試せば成功したという反実仮想をExperienceにしない |
 
-正常終了時の予定集計（各cellは本人の試行数 / deposit数）:
+受入時の集計（各cellは本人の試行数 / deposit数。実記録はEvidence参照）:
 
 | run | A | B |
 | --- | --- | --- |
@@ -170,7 +170,7 @@ World Evidenceには配置、marker、予定／実開始時刻、step、確保�
 
 ## 8. 受入項目と停止境界
 
-以下は**すべて未実施**。各項目の実行証拠をEvidenceへ記載してから完了とする。
+以下を受入項目とする。実World、Python再生、代替adapterによるLua局所試験の範囲はEvidenceで区別する。
 
 1. 同一Foodの実entityを巡る取得で片方の消費が他方の実試行結果へ影響し、二重取得・二重depositがない。
 2. 色・agent名・Episode番号・開始順序の正解をaction規則へ埋め込まず、受理frameと本人のM_Bで予測する。
@@ -183,7 +183,7 @@ World Evidenceには配置、marker、予定／実開始時刻、step、確保�
 9. L10用relationを誤適用せず、形成材料へのcontext混在、他run/agent/frame/assessment、内容改変、17決定目、2再構成目を拒否する。
 10. 固定再生、必要なPython試験、全体テストに加え、既存L10・L10B・OBS-9 faults実機回帰を通す。
 
-実装箇所の候補は、既存learningの装置context分離、共有World controller、起動mode、検査・再生script。
+実装は既存learningの装置context分離、共有World controller、起動mode、検査・再生scriptからなる。
 観測器の追加や既存Observation v1の完了条件の変更は行わない。
 本契約の到達点は**実相互干渉のあるWorldで、本人の経験から採用したM_Bが次の選択を変え、
 その選択が相手の結果にも作用すること**。社会的な他者理解、所有、援助要請、動的神経、DNA、

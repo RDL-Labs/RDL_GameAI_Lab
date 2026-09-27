@@ -295,7 +295,7 @@ SILNとしては、問い・有限境界・取得条件のもとで、どの関�
 生得条件・現在状態・経験履歴を分けて変え、入力、採用関係、予測、実行結果の対応を残す。
 
 **この構想の実装は保留する。** Observation v1やL10Bの完了条件へ後付けせず、既存の学習経路を使う
-[本線の次の有限実験](../../notes/experiment-roadmap.md#post-l10b-focus-design-only)へ戻る。
+[本線の有限実験](../../notes/experiment-roadmap.md#post-l10b-shared-resource-learning)へ戻る。
 
 ## 12. 参照元と今回の停止点
 
