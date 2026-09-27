@@ -9,6 +9,7 @@
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
+| [SOC-0 Heavy Rescue contract](../experiment-contracts/SOC_0_heavy_rescue_contract.md) | opt-in Godot World / bounded Experience operational | 単独実失敗→能力合成による共同搬送→既存Recovery。[Evidence](../experiment-evidence/SOC_0_heavy_rescue_evidence.md)。社会学習・援助要請は未接続 |
 | [NERV-4D Selection Tolerance contract](../experiment-contracts/NERV_4D_selection_tolerance_contract.md) | design-only / acceptance not run | 固定個体条件0/1・1/3による許容不一致率。基準検査と反例を維持し、比較不能はDEFER |
 | [NERV-4C Neural T1 Selection contract](../experiment-contracts/NERV_4C_neural_T1_selection_contract.md) | explicit finite selection operational | 15試験PASS。Food acquisitionの未使用経験検査とretain/reject/defer。[Evidence](../experiment-evidence/NERV_4C_neural_T1_selection_evidence.md)。T1-B記録で停止、実モデル対応・再構成は保留 |
 | [NERV-4B Neural T1 Boundary contract](../experiment-contracts/NERV_4B_neural_T1_boundary_contract.md) | explicit T1-A intake operational | 12試験PASS。raw/neural根拠のrelation別材料と明示受付。[Evidence](../experiment-evidence/NERV_4B_neural_T1_boundary_evidence.md)。UNINSPECTEDで停止、選別・再構成は保留 |

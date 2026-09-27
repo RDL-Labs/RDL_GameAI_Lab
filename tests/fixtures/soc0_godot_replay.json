@@ -1,0 +1,297 @@
+{
+  "provenance": {
+    "source": "Godot 4.7.2 headless World + existing Rescue HTTP policy",
+    "baseline_commit": "ac8853a",
+    "date": "2026-09-27",
+    "scope": "raw fixture export; no synthetic editing of captured records"
+  },
+  "world": {
+    "actions": [
+      "approach",
+      "approach",
+      "approach",
+      "rescue",
+      "rescue",
+      "approach",
+      "approach",
+      "approach",
+      "approach",
+      "approach",
+      "approach",
+      "deliver",
+      "idle"
+    ],
+    "controls": [
+      {
+        "attached": true,
+        "attempt_count": 1,
+        "scenario": "strong_solo"
+      },
+      {
+        "attached": false,
+        "attempt_count": 2,
+        "scenario": "two_insufficient"
+      },
+      {
+        "attached": false,
+        "attempt_count": 2,
+        "scenario": "duplicate"
+      },
+      {
+        "attached": false,
+        "attempt_count": 2,
+        "scenario": "distant"
+      },
+      {
+        "attached": false,
+        "attempt_count": 2,
+        "scenario": "incapacitated"
+      },
+      {
+        "attached": true,
+        "attempt_count": 1,
+        "scenario": "withdrawn"
+      }
+    ],
+    "experiences": [
+      {
+        "action": "rescue",
+        "agent_id": "npc_a",
+        "attempt_condition": "solo",
+        "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+        "body_consequence": {
+          "actor_incapacitated": false,
+          "target_incapacitated": true,
+          "target_recovery_stage": "none"
+        },
+        "event_id": "soc0-real-world:event:0",
+        "participants": [
+          "npc_a"
+        ],
+        "result": "carry_not_established",
+        "run_id": "soc0-real-world",
+        "schema": "soc0-rescue-experience-v1",
+        "source_observation_id": "obs-000000-019-npc_a",
+        "subsequent_observation_id": "obs-000000-021-npc_a",
+        "target_id": "npc_b",
+        "tick": 0,
+        "world_consequence": {
+          "carry_established": false,
+          "target_moved": false
+        }
+      },
+      {
+        "action": "rescue",
+        "agent_id": "npc_a",
+        "attempt_condition": "joint",
+        "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+        "body_consequence": {
+          "actor_incapacitated": false,
+          "target_incapacitated": true,
+          "target_recovery_stage": "none"
+        },
+        "event_id": "soc0-real-world:event:1",
+        "participants": [
+          "npc_a",
+          "npc_c"
+        ],
+        "result": "carry_established",
+        "run_id": "soc0-real-world",
+        "schema": "soc0-rescue-experience-v1",
+        "source_observation_id": "obs-000000-023-npc_a",
+        "subsequent_observation_id": "obs-000000-025-npc_a",
+        "target_id": "npc_b",
+        "tick": 0,
+        "world_consequence": {
+          "carry_established": true,
+          "target_moved": true
+        }
+      },
+      {
+        "action": "deliver",
+        "agent_id": "npc_a",
+        "attempt_condition": "joint",
+        "authority": "bounded-rescue-experience-only; not-social-relation-NERV-T1-or-action",
+        "body_consequence": {
+          "actor_incapacitated": false,
+          "target_incapacitated": true,
+          "target_recovery_stage": "stabilizing"
+        },
+        "event_id": "soc0-real-world:event:2",
+        "participants": [
+          "npc_a",
+          "npc_c"
+        ],
+        "result": "delivered",
+        "run_id": "soc0-real-world",
+        "schema": "soc0-rescue-experience-v1",
+        "source_observation_id": "obs-000000-045-npc_a",
+        "subsequent_observation_id": "obs-000000-047-npc_a",
+        "target_id": "npc_b",
+        "tick": 0,
+        "world_consequence": {
+          "carry_established": false,
+          "target_moved": false
+        }
+      }
+    ],
+    "observations": [
+      {
+        "agent_id": "npc_a",
+        "observation_id": "obs-000004-059-npc_a",
+        "perception_rule": "distance <= 145.0 from agent position",
+        "tick": 4,
+        "visible_agents": [
+          {
+            "id": "npc_b",
+            "label": "NPC B",
+            "mood": "calm",
+            "note": "Mock state only. No RDL semantics are evaluated here.",
+            "position": "(90.0, 80.0)",
+            "role": "mock agent"
+          },
+          {
+            "id": "npc_c",
+            "label": "NPC C",
+            "mood": "curious",
+            "note": "Mock state only. No RDL semantics are evaluated here.",
+            "position": "(78.0, 80.0)",
+            "role": "mock agent"
+          }
+        ],
+        "visible_objects": [],
+        "visible_places": [
+          {
+            "id": "plaza",
+            "label": "Plaza",
+            "position": "(90.0, 80.0)",
+            "radius": 95.0,
+            "rescue_distance_band": "within_reach",
+            "rescue_within_reach": true,
+            "rest_capable": true,
+            "rest_safety": "safe",
+            "role": "mock place"
+          }
+        ]
+      },
+      {
+        "agent_id": "npc_b",
+        "observation_id": "obs-000004-060-npc_b",
+        "perception_rule": "distance <= 145.0 from agent position",
+        "tick": 4,
+        "visible_agents": [
+          {
+            "id": "npc_a",
+            "label": "NPC A",
+            "mood": "curious",
+            "note": "Mock state only. No RDL semantics are evaluated here.",
+            "position": "(90.0, 80.0)",
+            "role": "mock agent"
+          },
+          {
+            "id": "npc_c",
+            "label": "NPC C",
+            "mood": "curious",
+            "note": "Mock state only. No RDL semantics are evaluated here.",
+            "position": "(78.0, 80.0)",
+            "role": "mock agent"
+          }
+        ],
+        "visible_objects": [],
+        "visible_places": [
+          {
+            "id": "plaza",
+            "label": "Plaza",
+            "position": "(90.0, 80.0)",
+            "radius": 95.0,
+            "rescue_distance_band": "within_reach",
+            "rescue_within_reach": true,
+            "rest_capable": true,
+            "rest_safety": "safe",
+            "role": "mock place"
+          }
+        ]
+      },
+      {
+        "agent_id": "npc_c",
+        "observation_id": "obs-000004-061-npc_c",
+        "perception_rule": "distance <= 145.0 from agent position",
+        "tick": 4,
+        "visible_agents": [
+          {
+            "id": "npc_a",
+            "label": "NPC A",
+            "mood": "curious",
+            "note": "Mock state only. No RDL semantics are evaluated here.",
+            "position": "(90.0, 80.0)",
+            "role": "mock agent"
+          },
+          {
+            "id": "npc_b",
+            "label": "NPC B",
+            "mood": "calm",
+            "note": "Mock state only. No RDL semantics are evaluated here.",
+            "position": "(90.0, 80.0)",
+            "role": "mock agent"
+          }
+        ],
+        "visible_objects": [],
+        "visible_places": [
+          {
+            "id": "plaza",
+            "label": "Plaza",
+            "position": "(90.0, 80.0)",
+            "radius": 95.0,
+            "rescue_distance_band": "within_reach",
+            "rescue_within_reach": true,
+            "rest_capable": true,
+            "rest_safety": "safe",
+            "role": "mock place"
+          }
+        ]
+      }
+    ],
+    "recovery_stages": [
+      "stabilizing",
+      "mobilizing",
+      "recovering",
+      "recovered"
+    ],
+    "schema": "soc0-godot-evidence-v1",
+    "world_checks": [
+      {
+        "active": [
+          "npc_a"
+        ],
+        "attempt": 1,
+        "established": false,
+        "target_after": [
+          260.0,
+          180.0
+        ],
+        "target_before": [
+          260.0,
+          180.0
+        ],
+        "target_moved": false
+      },
+      {
+        "active": [
+          "npc_a",
+          "npc_c"
+        ],
+        "attempt": 2,
+        "established": true,
+        "target_after": [
+          272.0,
+          180.0
+        ],
+        "target_before": [
+          260.0,
+          180.0
+        ],
+        "target_moved": true
+      }
+    ]
+  }
+}
