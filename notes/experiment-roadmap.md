@@ -129,6 +129,15 @@ bounded unfinished result, not proof of absence. Memory/reset controls and fixed
 history model-adoption controls remain separate. L13R retains records but the
 current fixed policy does not consume them. Route matching and learned selection
 remain the L13B/C boundary; repetition alone does not implement learning.
+The next [finite resource-patch learning plan](../docs/design/RDL_GameAI_Luanti_Resource_Patch_Learning_Plan.md)
+is **DESIGN ONLY; acceptance not run**. A sourced statue demonstration identifies the edible material, not its trees or locations.
+Each resource patch supplies at most two actual pickups; World stock and body state persist across up to 30 bounded periods.
+The agent is not told to leave after two pickups. Replanning follows its current observations and outcomes, while learned
+feature relations require independent inspection and T1/M_B adoption before guiding search at unvisited trees.
+Compare later yield/search cost with adoption-disabled and fixed-history controls, retaining depletion and non-discovery costs.
+This needs new bounded acquisition, recurring learning and continuous-series contracts: L13W still resets each day,
+stops after three discovery days and permits only one candidate/inspection/adoption. No new runtime behavior is implemented here.
+
 The [L13W resource-count experiment](../docs/experiment-contracts/LUANTI_L13W_multi_food_exploration_contract.md)
 keeps the L13V terrain, sensor range, exploration and learner, increasing Food from
 one to five fixed sites. It adds bounded enumeration and target-specific pickup;
