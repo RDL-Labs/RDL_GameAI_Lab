@@ -107,7 +107,11 @@ reasons. A positive discovery control is required, but success in every run is n
 The first slice fixes daylight and sensory conditions while World elapsed time
 continues; unfinished runs end at the time budget (or an earlier explicit resource
 limit). Nighttime visibility and body-driven collapse are deferred to separate
-contracts. A test timeout is not collapse.
+contracts. A test timeout is not collapse. The first layout proposes a colored
+tile strip on flat, equally traversable ground: straight, then one bend. A bounded
+near-ground color observation contract is still needed; current local count frames
+do not supply it. Compare the same layout without the strip. A supplied following
+rule is not a learned relation; M_B adoption remains the separate L13C boundary.
 These additions remain design-only.
 
 ## Existing roadmap basis
