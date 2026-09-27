@@ -58,7 +58,7 @@ L10Bの採食区画・資源は独立している。
 実行記録は[L12 Evidence](../experiment-evidence/LUANTI_L12_learned_resource_use_relation_evidence.md)を参照。
 
 [L13探索計画](RDL_GameAI_Luanti_Exploration_Plan.md)で、未知の餌場を発見する有限移動、
-出典付き経路での再訪、M_B採用による探索先の選択差を次工程として分けた。
+複数目印の配置・遷移と身体証拠による再訪、M_B採用による探索先の選択差を次工程として分けた。
 初版は単独個体。現在の実装到達点はL12のままで、L13の実装・受入は未実施。
 
 ## 1. 移行位置

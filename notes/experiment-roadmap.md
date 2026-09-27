@@ -91,13 +91,17 @@ GameAI consumer rule; it is not itself learned, and it is not Core theta. See th
 
 The [L13 exploration plan](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md)
 is **DESIGN ONLY**. Remove the supplied Food destination in stages: finite relative
-movement and actual discovery, evidence-backed route retention and revisit, then
+movement and actual discovery, routes through observed landmark configurations and transitions, then
 independently inspected M_B predictions influencing search selection. Begin with
 one agent and a given Food Goal. No general map, autonomous Goal generation or
 exploration-personality scalar is implied. Retaining a location record alone does
 not constitute an M_B update; the learning control holds history, current input,
 and candidate/selection rules fixed and varies model adoption only. Bounds and
 body-action authority still require a separate L13A implementation contract.
+L13B pairs new landmark observations with measured body history; frame-local
+feature IDs do not identify persistent landmarks, and lookalikes may leave multiple
+route correspondences. Inducing useful cues and transition predictions requires
+L13C inspection and model adoption. These additions remain design-only.
 
 ## Existing roadmap basis
 
