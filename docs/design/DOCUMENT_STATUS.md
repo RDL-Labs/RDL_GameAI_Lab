@@ -10,6 +10,7 @@
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
 | [自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md) | design-only / DRAFT v0.2 | 所有・親密さ・文脈依存に加え、境界反応と生得的構成／現在状態／学習関係を分離。個体差から種差への構想は保留し、本線をL10B後の有限相互作用へ戻す。実装・受入は未実施 |
+| [Luanti L10C shared Food learning](../experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md) | design-only / implementation plan v0.1 | 共有Foodの実取得競合、既存色条件からの本人の学習、通信順と身体開始順の分離。5runの対照と相手の保留が結果を変えるcanaryを計画。実装・受入は未実施 |
 | [Luanti L10B multi-agent learning](../experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md) | finite A/B M_B-informed action operational | 同じ継続Worldで個体別学習・切替・身体権限を分離。3run・72 Episode、逆対応と片方だけの採用対照。[Evidence](../experiment-evidence/LUANTI_L10B_multi_agent_learning_evidence.md)。共有資源・社会学習は保留 |
 | [Luanti L10 sensory learning action](../experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md) | finite M_B-informed action operational | 実感覚frame→経験→独立検査→T1→M_B予測→実Food試行／保留。3run・36Episodeの対照。[Evidence](../experiment-evidence/LUANTI_L10_sensory_learning_action_evidence.md)。単一個体、明示review・切替、OBS-9常設統合は保留 |
 | [SOC-4 Contextual Carry Prediction contract](../experiment-contracts/SOC_4_contextual_carry_prediction_contract.md) | finite two-condition prediction operational | 形成4・検査4・予測確認4の実Godot Episode。身体区分×足場からcarry成立/不成立を作用前予測。18試験PASS。[Evidence](../experiment-evidence/SOC_4_contextual_carry_prediction_evidence.md)。原因同定・予測による行動変更・NERV/T1は未接続 |

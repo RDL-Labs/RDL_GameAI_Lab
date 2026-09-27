@@ -27,12 +27,16 @@ unobserved, attempted failure, and success distinct; another agent's result is n
 automatically the learner's Experience. Co-occurrence alone does not establish a
 cause, and the presence of another agent is not automatically evidence of hostility.
 
-Before implementation, fix the observable comparison conditions, reference sources,
-World execution order, formation/validation split, operation budgets, and acceptance
-controls in a separate contract. Hidden resource state, ownership labels, and the
-other agent's M_B must not supply the prediction. This is a next-slice proposal,
-not a completed contract or test result. DNA, dynamic neural state, psychological
-emotion, social ownership, and community systems remain outside this slice.
+The [L10C shared-Food contract](../docs/experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md)
+now fixes the first slice: existing coarse visual cues, one real shared Food,
+World-side start slots independent of HTTP order, separate formation and validation,
+and five activation/role/cue controls. A unilateral-adoption canary checks a failed
+prediction; with both agents adopting, the peer's defer can leave Food available
+despite reversed start slots. This is DESIGN ONLY; implementation and acceptance
+are not run. Hidden resource state, ownership labels, and the other agent's M_B
+must not supply the prediction. Learning to identify or reason about another
+agent is outside this color-conditioned slice. DNA, dynamic neural state,
+psychological emotion, social ownership, and community systems remain deferred.
 
 ## Existing roadmap basis
 
