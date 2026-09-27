@@ -392,7 +392,10 @@ def run(
     sensory_world_epoch: int = 1,
     sensory_profiles=None,
     luanti_learning_loop: bool = False,
+    luanti_learning_multi_agent: bool = False,
 ) -> None:
+    if luanti_learning_multi_agent and not luanti_learning_loop:
+        raise ValueError("L10B requires the explicit Luanti learning loop")
     if luanti_learning_loop and (not sensory_observation or host not in ("127.0.0.1", "localhost", "::1")):
         raise ValueError("Luanti learning loop requires sensory observation and loopback host")
     if retry_profiles and not history_influence:
@@ -448,8 +451,9 @@ def run(
         run_id=sensory_run_id, world_epoch=sensory_world_epoch,
         assignments=sensory_profiles,
     ) if sensory_observation else None
-    from .sensory_food_learning import SensoryFoodLearning
-    server.luanti_learning = SensoryFoodLearning(server.sensory_observation, CANONICAL_SIDECAR) if luanti_learning_loop else None
+    from .sensory_food_learning import SensoryFoodLearning, MultiAgentSensoryFoodLearning
+    learning_class = MultiAgentSensoryFoodLearning if luanti_learning_multi_agent else SensoryFoodLearning
+    server.luanti_learning = learning_class(server.sensory_observation, CANONICAL_SIDECAR) if luanti_learning_loop else None
     server.food_safety_policy = server.life_policy if food_safety_life else None
     server.food_rest_policy = server.life_policy if food_rest_life else None
     server.food_mb_shadow = FoodNeedShadowComparisonSidecar() if food_mb_shadow else None
@@ -499,6 +503,8 @@ def main() -> None:
                         help="Enable isolated finite sensory frame validation and snapshots")
     parser.add_argument("--luanti-learning-loop", action="store_true",
                         help="Enable explicit L10 learned M_B sensory Food decisions")
+    parser.add_argument("--luanti-learning-multi-agent", action="store_true",
+                        help="L10B: isolate fixed A/B learning ledgers and bind result receipts")
     parser.add_argument("--sensory-run-id", default="fixture-run-1",
                         help="Registered run identity for sensory frame admission")
     parser.add_argument("--sensory-world-epoch", default=1, type=int,
@@ -551,7 +557,7 @@ def main() -> None:
         args.food_safety_life, args.food_rest_life, args.rescue_trajectory,
         args.sleep_consolidation, args.fast_retrieval, args.luanti_outcome_learning,
         args.sensory_observation, args.sensory_run_id, args.sensory_world_epoch,
-        sensory_profiles or None, args.luanti_learning_loop)
+        sensory_profiles or None, args.luanti_learning_loop, args.luanti_learning_multi_agent)
 
 
 def _parse_sensory_profiles(values):

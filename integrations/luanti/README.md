@@ -11,6 +11,22 @@ Luanti World
 -> next finite observation
 ```
 
+## Multi-agent learned action (L10B)
+
+The latest finite learning experiment is [L10B](../../docs/experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md):
+two agents use their own learned M_B relations for Food attempt/defer decisions in
+one continuing World. Separate apparatus lanes keep this ownership experiment
+distinct from resource competition or social learning.
+
+```powershell
+& .\integrations\luanti\scripts\test-sensory-learning.ps1 -MultiScenario opposite
+& .\integrations\luanti\scripts\test-sensory-learning.ps1 -MultiScenario a_only
+& .\integrations\luanti\scripts\test-sensory-learning.ps1 -MultiScenario b_only
+```
+
+Omit `-MultiScenario` for the original single-agent L10 regression.
+See [actual World results](../../docs/experiment-evidence/LUANTI_L10B_multi_agent_learning_evidence.md).
+
 ## Requirements
 
 - Luanti 5.17 or newer. The local default is `D:\luanti`.

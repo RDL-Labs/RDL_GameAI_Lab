@@ -9,6 +9,7 @@
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
+| [Luanti L10B multi-agent learning](../experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md) | finite A/B M_B-informed action operational | 同じ継続Worldで個体別学習・切替・身体権限を分離。3run・72 Episode、逆対応と片方だけの採用対照。[Evidence](../experiment-evidence/LUANTI_L10B_multi_agent_learning_evidence.md)。共有資源・社会学習は保留 |
 | [Luanti L10 sensory learning action](../experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md) | finite M_B-informed action operational | 実感覚frame→経験→独立検査→T1→M_B予測→実Food試行／保留。3run・36Episodeの対照。[Evidence](../experiment-evidence/LUANTI_L10_sensory_learning_action_evidence.md)。単一個体、明示review・切替、OBS-9常設統合は保留 |
 | [SOC-4 Contextual Carry Prediction contract](../experiment-contracts/SOC_4_contextual_carry_prediction_contract.md) | finite two-condition prediction operational | 形成4・検査4・予測確認4の実Godot Episode。身体区分×足場からcarry成立/不成立を作用前予測。18試験PASS。[Evidence](../experiment-evidence/SOC_4_contextual_carry_prediction_evidence.md)。原因同定・予測による行動変更・NERV/T1は未接続 |
 | [SOC-3 Selection-Guided Rescue contract](../experiment-contracts/SOC_3_selection_guided_rescue_contract.md) | finite selection-guided action operational | 同じ過去3件から厳格側solo失敗→deferred、許容側joint→delivery、C参加不能対照を実Godotで確認。21試験PASS。[Evidence](../experiment-evidence/SOC_3_selection_guided_rescue_evidence.md)。目標未達を保持、NERV/T1未接続 |
@@ -59,7 +60,7 @@
 | [Multi-Agent Rescue reference evidence](../experiment-evidence/RESCUE_multi_agent_reference_evidence.md) | Phase 5F reference vertical operational | B行動不能→A発見→一度だけ救助→搬送→段階回復。recovering conditionは再救助対象外 |
 | [Sleep / Fast-Deep Experience Loop実装計画](RDL_GameAI_Sleep_FastDeep循環実装計画.md) | completed foundation plan v0.1 | S1-S4、F1、F2完了。day 1 ExperienceからSleep candidate、day 2再発見まで成立。C1同期済み、次はC2 |
 | [Runtime / p5 / Godot実装ロードマップ](RDL_GameAI_Runtime_p5_Godot_実装ロードマップ.md) | active cross-surface roadmap v0.1 | Runtimeを意味論、p5をread-only観測、Godotを統合試験へ固定。F1/F2、Core同期、T1、Dynamic M_B、Godot再統合の順序と停止条件 |
-| [Luanti Integration Roadmap](RDL_GameAI_Luanti_Integration_World_Backend_Transition_Roadmap.md) | active infrastructure roadmap | L0-L9とRW1-RW2完了。Luantiを主World統合面、Godotをregression fixtureとして保持。L10 M_B-informed behaviorは保留 |
+| [Luanti Integration Roadmap](RDL_GameAI_Luanti_Integration_World_Backend_Transition_Roadmap.md) | active infrastructure roadmap | L0-L9、RW1-RW2、観測v1完了。Luantiを主World統合面として保持。L10/L10Bで有限M_B-informed Food行動を単独・A/Bで実装。一般Goal/Trajectoryは保留 |
 | [Observation System Integration Plan](RDL_GameAI_Observation_System_Integration_Plan.md) | implemented OBS reference roadmap v0.2 | OBS-0〜6完了。個体別profile、隔離store、近景、有限遠景、最小聴覚、動的受信窓、p5表示、RW2統合回帰まで固定。感覚融合・行動接続・嗅覚は保留 |
 | [OBS Common Boundary contract](../experiment-contracts/OBS_common_boundary_contract.md) | OBS-0/1 operational reference | extensionをRuntime入口でlegacy packetから分離。不正extension時もlegacy処理を継続し、run/epoch照合・sequence/time逆行拒否・有限store・GET-only snapshotへ隔離。既存意味論・action権限なし |
 | [OBS Local Profile Compatibility contract](../experiment-contracts/OBS_local_profile_compatibility_contract.md) | OBS-2 operational reference | 既定radius 12でRW2互換、同距離10をradius 12/8で個体別観測差。reach・行動則・canonical権限は不変 |

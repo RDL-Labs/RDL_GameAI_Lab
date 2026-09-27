@@ -122,9 +122,10 @@ def comparison(before, after):
 class SensoryFoodLearning:
     """One bounded agent episode ledger; HTTP caller serializes mutations."""
 
-    def __init__(self, sensory, canonical):
+    def __init__(self, sensory, canonical, *, agent_id=None):
         self.sensory = sensory
         self.canonical = canonical
+        self.agent_id = agent_id
         self._operations = {}
         self._results = {}
         self._models = {}
@@ -136,6 +137,7 @@ class SensoryFoodLearning:
             raise ValueError("decision requires exactly the declared finite input fields")
         for key in required - {"now_us", "world_epoch"}:
             text_id(request[key], key)
+        self._check_agent(request)
         op = request["operation_id"]
         if op in self._operations:
             old = self._operations[op]
@@ -165,17 +167,25 @@ class SensoryFoodLearning:
                     "action": action, "basis": basis,
                     "expires_us": section["capture_window"]["end_us"] + 1000000,
                     "authority": "one bounded Food attempt or defer; no repeated action authority"}
+        if self.agent_id is not None:
+            decision["decision_id"] = identity("l10b-decision:", [request, decision])
         self._operations[op] = {"request": deepcopy(request), "section": section, "decision": decision}
         self._models[op] = model
         return deepcopy(decision)
 
     def record(self, request):
-        if set(request) != {"operation_id", "event_id", "completed_us", "attempted", "food_acquired"}:
+        required = {"operation_id", "event_id", "completed_us", "attempted", "food_acquired"}
+        if self.agent_id is not None:
+            required |= {"agent_id", "decision_id"}
+        if set(request) != required:
             raise ValueError("result requires exactly the declared factual fields")
+        self._check_agent(request)
         op = request["operation_id"]
         text_id(request["event_id"], "event_id")
         if op not in self._operations:
             raise ValueError("unknown operation")
+        if self.agent_id is not None and request["decision_id"] != self._operations[op]["decision"]["decision_id"]:
+            raise ValueError("foreign or changed decision identity")
         if op in self._results:
             if self._results[op]["result"] != request:
                 raise ValueError("result replay conflict")
@@ -192,13 +202,14 @@ class SensoryFoodLearning:
         if type(request["completed_us"]) is not int or not start <= request["completed_us"] <= start + 5000000:
             raise ValueError("result time outside operation boundary")
         section = deepcopy(operation["section"])
+        scope = [self.agent_id] if self.agent_id is not None else []
         section.update(phase="after", outcome=request["food_acquired"],
-                       section_id=identity("l10-result-section:", [op, request["event_id"]]),
+                       section_id=identity("l10-result-section:", scope + [op, request["event_id"]]),
                        sampled_world_tick=request["completed_us"] // 250000)
         model = self._models[op]  # never reinterpret this outcome under a later active model
         after = model.interpret_sensory_food(section) if expected else None
         experience = None if not expected else {
-            "record_id": identity("l10-experience:", [operation["request"]["run_id"], request["event_id"]]),
+            "record_id": identity("l10-experience:", scope + [operation["request"]["run_id"], request["event_id"]]),
             "agent_id": operation["request"]["agent_id"], "episode_id": operation["request"]["episode_id"],
             "event_id": request["event_id"], "operation_id": op,
             "section": deepcopy(operation["section"]), "food_acquired": request["food_acquired"],
@@ -214,6 +225,7 @@ class SensoryFoodLearning:
     def learn(self, request):
         if set(request) != {"learning_id", "agent_id", "formation_operations", "validation_operations", "assessment_id", "activate"}:
             raise ValueError("learning requires explicit sources, review and activation choice")
+        self._check_agent(request)
         learning_id = text_id(request["learning_id"], "learning_id")
         if learning_id in self._learning:
             old = self._learning[learning_id]
@@ -303,3 +315,39 @@ class SensoryFoodLearning:
         return {"schema": "luanti-sensory-learning-l10-v1", "operations": deepcopy(self._operations),
                 "results": deepcopy(self._results), "learning": deepcopy(self._learning),
                 "capacity": MAX_OPERATIONS, "purpose": PURPOSE}
+
+    def _check_agent(self, request):
+        if self.agent_id is not None and request.get("agent_id") != self.agent_id:
+            raise ValueError("foreign agent")
+
+
+class MultiAgentSensoryFoodLearning:
+    """L10B: fixed A/B ownership; separate budgets and receipts, shared World store.
+
+    The bridge serializes calls with its canonical lock. Agent/decision binding
+    prevents accidental callback crossover; it is not network authentication.
+    """
+
+    def __init__(self, sensory, canonical):
+        self._agents = {agent: SensoryFoodLearning(sensory, canonical, agent_id=agent)
+                        for agent in ("npc_a", "npc_b")}
+
+    def _route(self, request):
+        agent = request.get("agent_id")
+        if not isinstance(agent, str) or agent not in self._agents:
+            raise ValueError("unknown learning agent")
+        return self._agents[agent]
+
+    def decide(self, request):
+        return self._route(request).decide(request)
+
+    def record(self, request):
+        return self._route(request).record(request)
+
+    def learn(self, request):
+        return self._route(request).learn(request)
+
+    def snapshot(self):
+        return {"schema": "luanti-sensory-learning-l10b-v1", "purpose": PURPOSE,
+                "capacity_per_agent": MAX_OPERATIONS, "capacity_total": 2 * MAX_OPERATIONS,
+                "by_agent": {agent: loop.snapshot() for agent, loop in self._agents.items()}}

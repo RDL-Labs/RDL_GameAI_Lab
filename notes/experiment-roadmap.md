@@ -4,7 +4,9 @@ Current integration checkpoint (2026-09-27): explicit assessment / theta / M_del
 T1-A/B/C and model cutover / fresh re-entry are operational. Luanti
 [L10](../docs/experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md)
 adds an opt-in consumer of learned M_B sensory predictions for a bounded Food
-attempt/defer decision. General autonomous review and Goal/Trajectory generation
+attempt/defer decision. [L10B](../docs/experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md)
+extends it to independent A/B learners in one continuing World, with opposite
+experience and single-agent activation controls. General autonomous review and Goal/Trajectory generation
 remain open. Older feature-stage paragraphs below retain planning history;
 individual contracts and Evidence define the implemented scope.
 
@@ -62,7 +64,7 @@ Numbers below identify review areas, not one canonical computation chain. Local 
 | 2. Experience influence (local) | Bounded approach history and opt-in retry policy | Social relations, compressed constraints, sleep/dialogue history |
 | 3. Local profile / Body / Expression | Fixed 1/3/5 tick retry, movement_scale, sourced display projection | Dynamic Neural Dynamics, neural-derived sensitivity, psychological affect |
 | 4. M_Δ / T1 | Explicit T1-A/B/C and finite reconstruction | Autonomous review and broader learned relation semantics |
-| 5. Authority / fresh re-entry | Explicit evaluator cutover; L10 opt-in sensory Food consumer | General M_B-informed Goal/Trajectory; continuous A/B integration |
+| 5. Authority / fresh re-entry | Explicit evaluator cutover; L10/L10B sensory Food consumers, per-agent A/B ownership | General M_B-informed Goal/Trajectory; OBS-9 periodic sensing/Probe integration; shared resources |
 | 6. Long-run richness | No acceptance established | Long-run controlled observation and provenance |
 
 Existing cross-layer separation tests cover bounded combinations only; they do not establish dynamic neural or sleep systems.

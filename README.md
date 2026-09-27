@@ -87,6 +87,7 @@ canonical maturity != game feature phase。Layer ProfileはCore ontologyでもM_
 - [Observation System Integration Plan](docs/design/RDL_GameAI_Observation_System_Integration_Plan.md)のOBS-0〜4Bでは、隔離store、個体別近景、有限遠景、最小聴覚と動的受信窓を実装した。聴覚はemit時の位置・姿勢でagent別bufferへ保持し、半開window、遅延配送、overflow欠落を扱う。音源同定・感覚融合・行動接続は未実装のまま保つ。
 - Display: action・body・history由来のResponse Expression。心理的感情推定や行動権限ではありません。
 - [Luanti L10 sensory learning action](docs/experiment-contracts/LUANTI_L10_sensory_learning_action_contract.md)は、受理済み遠景条件と実取得結果からrelationを形成・独立検査し、既存T1で採用したM_Bの予測を有限Food試行／保留へ接続する。明示opt-inの専用fixtureであり、OBS-9のA/B生活調停への常設統合や自律reviewではない。[Evidence](docs/experiment-evidence/LUANTI_L10_sensory_learning_action_evidence.md)。
+- [Luanti L10B multi-agent learning](docs/experiment-contracts/LUANTI_L10B_multi_agent_learning_contract.md)は、同じ継続WorldのA/Bで経験・M_B・身体権限を分離する。逆の経験による行動差、片方だけのモデル採用、応答待ち中の他方の進行を実機3run・72 Episodeで検証。[Evidence](docs/experiment-evidence/LUANTI_L10B_multi_agent_learning_evidence.md)。共有資源や社会学習は保留。
 - Deferred: 一般的なcanonical行動権限、DNA・動的神経値・会話、栄養・一般在庫・飢餓等の広い生活機能。
 
 固定retry profileは神経値から導出したものではありません。設計上の「DNA μ/σ → dynamic neural state → derived sensitivity」と現行実装を区別します。

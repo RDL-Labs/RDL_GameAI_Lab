@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 
 
-def check(data):
+def check(data, *, shared_canonical=False):
     world, learning, sensory, canonical = [data[k] for k in ("world", "learning", "sensory", "canonical")]
     episodes = world["episodes"]
     assert len(episodes) == 12
@@ -54,9 +54,10 @@ def check(data):
     for c in learned["candidates"]:
         signature = c["common_relation_signature"]
         assert not set(signature["formation_experiences"]) & set(signature["validation_experiences"])
-    assert canonical["model_cutover"]["count"] == int(world["activate"])
-    assert len(canonical["model_archive"]) == int(world["activate"])
-    assert canonical["M_delta"]["active_count"] == int(not world["activate"])
+    if not shared_canonical:
+        assert canonical["model_cutover"]["count"] == int(world["activate"])
+        assert len(canonical["model_archive"]) == int(world["activate"])
+        assert canonical["M_delta"]["active_count"] == int(not world["activate"])
     return {"activate": world["activate"], "reverse": world["reverse"], "episodes": 12,
             "frames": 36, "evaluation_actions": [e["decision"]["action"] for e in episodes[8:]],
             "attempts": sum(e["attempted"] for e in episodes),
