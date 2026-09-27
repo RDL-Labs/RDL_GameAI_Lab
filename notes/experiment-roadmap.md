@@ -87,6 +87,18 @@ baseline reaction separate from unavailable input. The +8 allowance is a declare
 GameAI consumer rule; it is not itself learned, and it is not Core theta. See the
 [L12 evidence](../docs/experiment-evidence/LUANTI_L12_learned_resource_use_relation_evidence.md) for measured results and regression scope.
 
+## Post-L12 finite exploration
+
+The [L13 exploration plan](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md)
+is **DESIGN ONLY**. Remove the supplied Food destination in stages: finite relative
+movement and actual discovery, evidence-backed route retention and revisit, then
+independently inspected M_B predictions influencing search selection. Begin with
+one agent and a given Food Goal. No general map, autonomous Goal generation or
+exploration-personality scalar is implied. Retaining a location record alone does
+not constitute an M_B update; the learning control holds history, current input,
+and candidate/selection rules fixed and varies model adoption only. Bounds and
+body-action authority still require a separate L13A implementation contract.
+
 ## Existing roadmap basis
 
 This roadmap starts from the current runtime state, semantically synchronized to Core `86a0d4f3` (BASE v2.3.1 / SPEC v2.5 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.

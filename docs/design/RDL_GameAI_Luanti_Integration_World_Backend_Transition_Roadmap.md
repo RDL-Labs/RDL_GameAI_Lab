@@ -25,6 +25,7 @@ L10B Multi-Agent sensory M_B learning/action COMPLETE (separate apparatus, share
 L10C Shared-Food sensory M_B learning/action COMPLETE (bounded interference)
 L11 Fixed-relation boundary-defense reaction COMPLETE (instrumented finite fixture)
 L12 Learned resource-use relation / warning COMPLETE (finite explicit T1/M_B fixture)
+L13 Exploration / revisit / M_B-guided search DESIGN ONLY (staged plan)
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -55,6 +56,10 @@ L10Bの採食区画・資源は独立している。
 相手の使用後に本人の次の取得が成立するかを3形成＋3未使用検査から学び、T1/M_Bへ採用した予測を
 局所警告へ使う。positive/negative、inactive、反例、不足を区別する。
 実行記録は[L12 Evidence](../experiment-evidence/LUANTI_L12_learned_resource_use_relation_evidence.md)を参照。
+
+[L13探索計画](RDL_GameAI_Luanti_Exploration_Plan.md)で、未知の餌場を発見する有限移動、
+出典付き経路での再訪、M_B採用による探索先の選択差を次工程として分けた。
+初版は単独個体。現在の実装到達点はL12のままで、L13の実装・受入は未実施。
 
 ## 1. 移行位置
 

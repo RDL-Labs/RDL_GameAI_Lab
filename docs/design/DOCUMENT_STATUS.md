@@ -12,6 +12,7 @@
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
 | [感情・履歴](RDL_GameAI_感情・履歴・関係拘束モデル.md) | partially stale | 派生感度・表現・履歴種別の分離 |
 | [自己との関係拘束モデル](RDL_GameAI_自己との関係拘束モデル.md) | design-only / DRAFT v0.3 | 現在評価からの境界防衛と、任意の予測・学習を分離。身体から他対象へ防衛範囲が広がる仮説を整理し、固定関係による最小機構はL11契約へ。広い所有・共同体・生物特性の構想は保留 |
+| [Luanti L13 exploration plan](RDL_GameAI_Luanti_Exploration_Plan.md) | design-only / DRAFT v0.1 | 未知餌場の有限探索→出典付き再訪→独立検査・M_B採用による探索選択を分離。初版は単独個体。数値・身体操作契約は未固定、実装・受入未実施 |
 | [Luanti L12 learned resource-use relation](../experiment-contracts/LUANTI_L12_learned_resource_use_relation_contract.md) | finite learned relation operational | 本人の独立Experience3形成＋3検査→T1/M_B採用→用途付き予測→固定警告consumer。[Evidence](../experiment-evidence/LUANTI_L12_learned_resource_use_relation_evidence.md)。取得／非取得、inactive・反例・不足を区別。広い親密さ・所有の学習は未接続 |
 | [Luanti L11 boundary defense](../experiment-contracts/LUANTI_L11_boundary_defense_contract.md) | finite fixed-relation reaction operational | 主比較24run・56 pickup、同席／範囲外対照2run。局所負荷・関係による閾値差・一回警告表示を実Luantiで確認。[Evidence](../experiment-evidence/LUANTI_L11_boundary_defense_evidence.md)。専用計測adapter、関係学習・Core E/H/θは未接続 |
 | [Luanti L10C shared Food learning](../experiment-contracts/LUANTI_L10C_shared_food_learning_contract.md) | finite shared-resource learning operational | 実Luanti5run・60共有Episode・360frameで取得競合と本人のM_B学習を接続。相手の保留による結果変化、片方採用canaryの反例を確認。[Evidence](../experiment-evidence/LUANTI_L10C_shared_food_learning_evidence.md)。他者理解・社会関係・自律再学習は保留 |
