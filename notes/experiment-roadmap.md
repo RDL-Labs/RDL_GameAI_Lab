@@ -10,6 +10,32 @@ experience and single-agent activation controls. General autonomous review and G
 remain open. Older feature-stage paragraphs below retain planning history;
 individual contracts and Evidence define the implemented scope.
 
+## Post-L10B focus (design only)
+
+Decision on 2026-09-27: retain the
+[self-relation / biological-trait notes](../docs/design/RDL_GameAI_自己との関係拘束モデル.md)
+as deferred design, and return to learned M_B predictions affecting behavior in
+Luanti. L10B proves independent learning in separate feeding lanes; it does not
+yet prove learning from interference between agents.
+
+The next proposed finite experiment uses A/B and one shared Food resource to ask
+whether another agent's real action changes the learner's own outcome, and whether
+the learner can form and independently inspect a bounded relation from its own
+observations and Experience, adopt it into M_B, and change a subsequent choice.
+Swap A/B roles and compare active versus inactive model adoption. Keep unattempted,
+unobserved, attempted failure, and success distinct; another agent's result is not
+automatically the learner's Experience. Co-occurrence alone does not establish a
+cause, and the presence of another agent is not automatically evidence of hostility.
+
+Before implementation, fix the observable comparison conditions, reference sources,
+World execution order, formation/validation split, operation budgets, and acceptance
+controls in a separate contract. Hidden resource state, ownership labels, and the
+other agent's M_B must not supply the prediction. This is a next-slice proposal,
+not a completed contract or test result. DNA, dynamic neural state, psychological
+emotion, social ownership, and community systems remain outside this slice.
+
+## Existing roadmap basis
+
 This roadmap starts from the current runtime state, semantically synchronized to Core `3270982` (BASE v2.3 / SPEC v2.4 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.
 
 Role: axis A in the [overall map](../docs/design/RDL_GameAI_全体設計地図.md), tracking canonical operational maturity and separation of adjacent local influences. It depends on the [runtime contract](../docs/experiment-contracts/CURRENT_v23_runtime_contract.md) and [evidence](../docs/experiment-evidence/CURRENT_v23_runtime_evidence.md).
