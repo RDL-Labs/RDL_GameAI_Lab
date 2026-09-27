@@ -129,11 +129,12 @@ bounded unfinished result, not proof of absence. Memory/reset controls and fixed
 history model-adoption controls remain separate. L13R retains records but the
 current fixed policy does not consume them. Route matching and learned selection
 remain the L13B/C boundary; repetition alone does not implement learning.
-The next [L13S Sleep connection proposal](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)
-is design-only: accepted exploration-day records need a typed Experience/profile
-adapter before bounded Sleep comparison. One day is one source vote; a proposed
-three-day formation set and three later held-out days precede explicit T1/M_B
-adoption and next-day use. Sleep completion alone grants no action authority.
+The [L13S Sleep connection](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)
+now has a dedicated episodic adapter: one discovery day forms a tentative
+observed route, one later held-out day explicitly Probes it, then retained material
+passes T1/M_B and can affect later search. The earlier three-plus-three proposal
+is not used for this bounded episodic scope. No existing Sleep/NERV threshold
+is relaxed. Validation-Probe authority is separate from adopted-model use.
 Body Sleep, safe-bed return, nighttime and recovery remain separate from this
 explicit day-boundary consolidation. Existing L13R results include none of it.
 The [next mainline](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md#learned-exploration-mainline)
@@ -148,11 +149,12 @@ three distinct Episodes, or after 30 days, with at most one discovery per day.
 First and second discovery days still feed day-boundary Sleep and later exploration.
 Repeated frames or receipts add no discoveries; pickup remains separate. Report
 all three discovery milestones and preserve counts of zero, one or two at budget
-expiry. Three discoveries can precede adoption under the proposed three-plus-three
-independent-day evidence rule; such a series does not demonstrate learned action.
-Reconcile the evidence design before implementation without bypassing independent
-inspection or extending the three-discovery stop. Existing L13R code and evidence
-retain their first-discovery stop. These are design changes, not runtime changes.
+expiry. If eligible evidence or held-out validation is missing, discovery alone does not
+demonstrate learned action. The [L13S contract](../docs/experiment-contracts/LUANTI_L13S_learned_exploration_contract.md)
+and [Evidence](../docs/experiment-evidence/LUANTI_L13S_learned_exploration_evidence.md)
+track implementation and real-World results. Existing L13R code and evidence
+retain their first-discovery stop. Physical Sleep, general road value, route
+compression, autonomous review and repeated model updates remain outside L13S.
 
 ## Existing roadmap basis
 

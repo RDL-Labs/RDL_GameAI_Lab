@@ -125,6 +125,9 @@ class FiniteExploration:
                 and d.get("observer_frame_ref") == p["pose_ref"]
                 and d.get("capture_window") == {"kind": "instant", "start_us": p["capture_us"], "end_us": p["capture_us"]}, "distant_binding")
 
+    def select(self, packet, previous):
+        return choose(packet, previous)
+
     def observe(self, p):
         with self.lock:
             require(self.config is not None, "not_configured")
@@ -140,7 +143,7 @@ class FiniteExploration:
                 last = next(reversed(self.observations.values()))
                 require(p["capture_us"] > last["capture_us"] and p["sample_seq"] > last["sample_seq"], "observation_order")
             previous = next(reversed(self.results.values())) if self.results else None
-            kind, amount, target, reason = choose(p, previous)
+            kind, amount, target, reason = self.select(p, previous)
             command = {k: p[k] for k in ("run_id", "world_epoch", "agent_id", "pose_ref", "body_revision", "capture_us")}
             command.update(operation_id="op:" + ident, source_id=ident,
                            expires_us=min(p["capture_us"] + 500_000, LIMIT_US),

@@ -130,6 +130,11 @@ class FrozenGameAIMB:
             ),
         )
 
+    def interpret_exploration(self, section: Mapping[str, Any]) -> dict[str, Any]:
+        """L13S: an explicitly inspected episodic route, never a World map."""
+        from .learned_exploration import interpret
+        return interpret(self, section)
+
     def interpret_resource_use(self, section: Mapping[str, Any]) -> dict[str, Any]:
         """L12 purpose-scoped interpretation by this frozen model only."""
         from .resource_use_learning import interpret

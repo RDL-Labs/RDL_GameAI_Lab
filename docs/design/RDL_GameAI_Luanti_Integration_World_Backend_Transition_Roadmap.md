@@ -27,7 +27,8 @@ L11 Fixed-relation boundary-defense reaction COMPLETE (instrumented finite fixtu
 L12 Learned resource-use relation / warning COMPLETE (finite explicit T1/M_B fixture)
 L13A Finite exploration OPERATIONAL (9 World runs; fixed rule)
 L13R Repeated exploration / record retention OPERATIONAL (62 World runs; history not consumed by policy)
-L13B/C Route memory / M_B-guided search DESIGN ONLY
+L13S Episodic route / Sleep / held-out Probe / T1-M_B selection IMPLEMENTED
+L13B/C General landmark-route learning DESIGN ONLY
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -72,7 +73,9 @@ L13Aの地表色取得・固定追従・相対移動は[実装契約](../experim
 探索Experience→Sleep→独立検査→T1/M_B→実選択を接続する。L13A/Rは回帰参照として保持する。
 新系列は初回・2回目の発見後も続け、別Episodeで3回発見または最大30日で停止する。
 発見数とM_B採用・学習効果は別に検査する。旧L13Rの初回発見終了は回帰記録として維持する。
-この学習接続と新しい停止条件は未実装。夜間視界と行き倒れの身体接続も後続。
+この有限接続と停止条件は[L13S契約](../experiment-contracts/LUANTI_L13S_learned_exploration_contract.md)として実装。
+1形成日＋1検査日のepisodic用途に限定し、[Evidence](../experiment-evidence/LUANTI_L13S_learned_exploration_evidence.md)で検査Probeと採用後の実行を分ける。
+一般的な目印抽出・経路圧縮、夜間視界と行き倒れの身体接続は後続。
 
 ## 1. 移行位置
 

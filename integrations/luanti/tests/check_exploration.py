@@ -7,13 +7,14 @@ import sys
 from runtime.exploration import FiniteExploration, LIMIT_US
 
 
-def check(data):
+def check(data, *, replay_loop=None, fixed_policy=True):
     w=data["world"];s=data["runtime"]["exploration"]
     assert not w.get("failure"),w.get("failure")
     assert w["lua_checks"]==24,w["lua_checks"]
     assert data["runtime"]["canonical"]==data["initial"]["canonical"]
     assert data["runtime"]["history"]==data["initial"]["history"]
-    loop=FiniteExploration(w["run_id"])
+    assert fixed_policy or replay_loop is not None, "learned replay requires frozen series context"
+    loop=replay_loop or FiniteExploration(w["run_id"])
     for d in w["deliveries"]:
         actual=getattr(loop,d["kind"])(d["request"])
         assert actual==json.loads(d["response_wire"]),(d["kind"],actual)
@@ -53,7 +54,7 @@ def check(data):
     acquired=s["ending"]["reason"]=="acquired"
     assert sum(r["acquired"] for r in s["results"].values())==int(acquired)==w.get("pickups",0)
     positive=w["scenario"] in ("straight","right","left","rotated","faults")
-    assert acquired==positive,(w["scenario"],s["ending"])
+    if fixed_policy: assert acquired==positive,(w["scenario"],s["ending"])
     if acquired:
         assert w["first_food_us"]<=w["acquired_us"]<LIMIT_US
     else:
@@ -62,10 +63,10 @@ def check(data):
     if w["scenario"]=="no_strip":
         assert not any(c["color"]=="blue" for o in observations for c in o["packet"]["ground"]["cells"])
     if w["scenario"]=="no_food":assert all(not o["packet"]["food"]["visible"] for o in observations)
-    if w["scenario"]=="partial":
+    if w["scenario"]=="partial" and fixed_policy:
         assert all(o["packet"]["ground"]["coverage"]=="partial" for o in observations)
         assert distance==rotation==0
-    if w["scenario"]=="blocked":assert any(a["result"]["status"]=="blocked" for a in actions)
+    if w["scenario"]=="blocked" and fixed_policy:assert any(a["result"]["status"]=="blocked" for a in actions)
     if w["scenario"]=="faults":
         assert w["lost_response"] and w["loss_recovered"] and w["guards"]["old_callback"]
         delayed=[d for d in w["deliveries"] if d["kind"]=="observe" and d["request"]["sample_seq"]==3][0]

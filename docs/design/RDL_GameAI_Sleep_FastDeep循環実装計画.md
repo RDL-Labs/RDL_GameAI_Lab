@@ -9,14 +9,15 @@
 ## 現行探索への接続（2026-09-27追記）
 
 以下の工程表は初期Sleep導入時の履歴。現在の到達点は[canonical roadmap](../../notes/experiment-roadmap.md)を参照。
-L13Rの最大30日探索に日末Sleepを挟む案は、[探索計画5.1](RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)へ追加した（L13S、DESIGN ONLY）。
+日末Sleepの探索接続は[探索計画5.1](RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)と[L13S契約](../experiment-contracts/LUANTI_L13S_learned_exploration_contract.md)で有限実装。
 既存の接近Experience／Local Bias用profileは探索記録のadapterではない。
 探索Experienceと比較条件を別途定義し、有限Sleep候補→後続Episodeでの独立検査→T1/M_B採用→翌日選択を分ける。
 新しい探索本線は設計者の色追従・固定右折を使わず、学習前の有限試行とM_Bによる選択を分離する。
 [本線方針](RDL_GameAI_Luanti_Exploration_Plan.md#learned-exploration-mainline)に従い、Sleep候補だけで止めず実選択まで接続する。
 新しい系列は別Episodeで3回発見または最大30日で停止し、初回・2回目の発見日も日末Sleepへ渡す。
-形成3日＋独立検査3日案では採用前に終了し得るため、発見回数を学習成立の代わりにしない。
-この追記で探索学習・新しい停止条件・身体Sleepを実装済みへ変更しない。
+L13Sは旧3＋3日案を採らず、1形成日＋別の1検査日で経験経路を限定的に検査する。
+既存S1/S2の件数・schemaは変更しない。検査目的のProbeとM_B採用後の選択も区別する。
+探索の実行結果は[L13S Evidence](../experiment-evidence/LUANTI_L13S_learned_exploration_evidence.md)を参照。身体Sleep・一般的な経路理解は未実装。
 
 ## 0. 目的
 
