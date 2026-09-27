@@ -40,3 +40,6 @@ Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\multi_sensory_lea
 foreach ($module in @("shared_food_trial.lua", "shared_food_trial_checks.lua", "shared_food_learning_fixture.lua")) {
     Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\$module") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 }
+foreach ($module in @("boundary_defense_trial.lua", "boundary_defense_checks.lua", "boundary_defense_fixture.lua")) {
+    Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\$module") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+}

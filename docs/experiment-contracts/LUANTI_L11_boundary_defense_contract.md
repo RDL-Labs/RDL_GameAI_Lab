@@ -1,7 +1,8 @@
 # Luanti L11 — 関係条件と反復間隔による有限な境界防衛反応
 
-**状態:** IMPLEMENTATION PLAN / DESIGN ONLY / DRAFT v0.1、2026-09-27。
-実装・Python受入・実Luanti受入・Evidence取得は未実施。以下の数値と結果表は試験仕様であり、実測結果ではない。
+**状態:** IMPLEMENTED / ACCEPTANCE PASS / v1、2026-09-27。
+実Luantiの主比較24run・56 pickup、同席・範囲外の対照2runを実施した。
+以下は固定契約であり、実測結果・再現手順・検証範囲は[Evidence](../experiment-evidence/LUANTI_L11_boundary_defense_evidence.md)に記録する。
 
 **基準:** GameAI `2727ebb7`（[L10C](LUANTI_L10C_shared_food_learning_contract.md)受入完了）。
 Eの呼称はCore [`86a0d4f3`](https://github.com/Aporapeiron/RDL_Core/tree/86a0d4f3b83c0d08cd8bd6eba0b1ea70a637bd33)
@@ -122,7 +123,7 @@ World step分割やHTTP順に依存する丸めを入れない。更新時刻は
 将来、予測した使用条件と後続解釈を比較してEを扱う場合は、同じ更新前M_Bと比較条件を別途固定する。
 現行の不快系の反応、Eの検出、保持限界による再編は別々に観測できるものとしておく。
 
-## 6. 予定する実Luanti比較
+## 6. 実Luanti比較の固定条件
 
 共通の開始時点T以降、下記の予定枠をWorldで実行する。T前に設定・参照登録を完了し、
 以後の使用スケジュールをHTTPの成否や警告で動かさない。各予定時点から250000µs未満の枠内で
@@ -147,7 +148,7 @@ World step分割やHTTP順に依存する丸めを入れない。更新時刻は
 | inclusion=1 | lower | 11 | — | 3 | — |
 | inclusion=1 | higher | 17 | — | — | — |
 
-**2関係×2profile×3入力列×2役割配置=24独立run、計56回の実使用**を予定する。
+**2関係×2profile×3入力列×2役割配置=24独立run、計56回の実使用**を受入対象とし、実行済み。
 包含された相手でもlower/denseでは閾値へ達し、親しい相手を無条件免除しないことを確認する。
 数値は機構を見分けるfixture設定であり、動物の反応量や生物学的閾値の推定値ではない。
 
@@ -179,7 +180,7 @@ World内部座標や予定する期待結果を、再生評価器の補助辞書
 
 ## 8. 実装単位と受入項目
 
-予定ファイル・入口（未作成）:
+実装ファイル・入口:
 
 - `runtime/boundary_defense.py`: 型・参照検査、純粋な評価step、有限store、警告許可。
 - `runtime/bridge.py`: 明示opt-in modeと隔離snapshot/通知/結果入口。既存学習modeと同時起動しない。
@@ -187,7 +188,7 @@ World内部座標や予定する期待結果を、再生評価器の補助辞書
   継続時計、有限警告実行、World Evidence。既存shared Food制御の一回性設計を再利用する。
 - 専用起動・検査script、Python/Lua局所試験、実取得通知の無改変再生fixture。
 
-受入時には次をすべて確認し、Python・代替adapterのLua・実Luanti・記録再生の範囲をEvidenceで区別する。
+以下を受入項目として固定する。全項目の確認範囲をEvidenceで区別し、Python・代替adapterのLuaを実World試験と混同しない。
 
 1. 24runで予定した関係/profile/間隔/役割の対照を取り、56回の実取得と個別通知を対応づける。
 2. 同じ作用列で評価増分・減衰が一致し、関係差は閾値だけに作用する。
@@ -204,7 +205,15 @@ World内部座標や予定する期待結果を、再生評価器の補助辞書
 10. 全体Python試験とL10Cの5scenario実機回帰、OBS-9 faults実機回帰を通す。
     共有した既存モジュールを変更する場合は、その変更に対応するL10/L10B等の回帰も追加する。
 
-この契約作成時点では、上記受入項目にPASSを付けない。Evidenceと再生データは実行後に作成する。
+上記10項目は有限契約内でPASS。Python23試験、Lua36アサーション、実Luanti26run、
+未改変の通知・HTTP応答・World記録の再生を保存した。全体629件=578 PASS＋51 intentional skip。
+警告はentityのnametagを`WARNING`へ設定し、250000µs後以降の最初のWorld stepで消去する。
+表示開始・消去ともObjectRefのproperty readbackを検査する。クライアント画面の描画や相手の理解は受入対象外。
+
+HTTPは`--boundary-defense --sensory-run-id RUN`で明示起動する。
+`/v1/boundary-defense/configure`・`observe`・`result`と`/v1/boundary-defense-snapshot`を隔離し、
+既存学習modeとの併用を拒否する。noticeの不足を`unavailable`として保存する場合も順序と容量を消費するが、
+負荷の解消時刻は最後の有効な評価から計算する。`unavailable`で時間経過を消さない。
 
 ## 9. その次に学習へ戻す条件
 

@@ -23,7 +23,7 @@ OBS-9 Observation v1 Integrated Acceptance COMPLETE
 L10 Finite sensory M_B-informed Food choice COMPLETE (explicit fixture)
 L10B Multi-Agent sensory M_B learning/action COMPLETE (separate apparatus, shared World)
 L10C Shared-Food sensory M_B learning/action COMPLETE (bounded interference)
-L11 Fixed-relation boundary-defense reaction DESIGN ONLY (next finite experiment)
+L11 Fixed-relation boundary-defense reaction COMPLETE (instrumented finite fixture)
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -45,8 +45,9 @@ L10Bの採食区画・資源は独立している。
 実取得競合と、学習した本人の選択が相手の結果へ作用することを5runで確認した。
 色条件による本人の結果学習までであり、他者理解・社会関係・自律再学習は保留。
 
-[L11](../experiment-contracts/LUANTI_L11_boundary_defense_contract.md)は次の実装計画。固定した相手との関係、
-反応profile、使用間隔を分け、同じ餌場利用に対する警告差を検査する。主比較24runは予定であり未実施。
+[L11](../experiment-contracts/LUANTI_L11_boundary_defense_contract.md)で、固定関係・反応profile・使用間隔による
+警告差を、主比較24run・56 pickupと同席／範囲外2runで確認した。
+[Evidence](../experiment-evidence/LUANTI_L11_boundary_defense_evidence.md)。専用adapterによる近景内使用の計測であり、
 関係の学習と、E/H/θ・自律再編への接続は別工程とする。
 
 ## 1. 移行位置
@@ -145,7 +146,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L10 | 学習したM_Bによる有限Food試行／保留 | COMPLETE / 専用fixture。一般Goal/Trajectoryは保留 |
 | L10B | A/Bの個体別学習・M_B・身体権限 | COMPLETE / 同じ継続World。共有資源・社会学習は保留 |
 | L10C | 共有Foodの実取得競合とM_Bによる試行／保留 | COMPLETE / 5run・60共有Episode。他者理解・社会関係は保留 |
-| L11 | 固定関係・反復間隔による局所防衛評価と警告 | DESIGN ONLY / 実装・受入未実施。関係学習は次工程 |
+| L11 | 固定関係・反復間隔による局所防衛評価と警告 | COMPLETE / 主比較24run＋対照2run、Python23試験。関係学習は次工程 |
 
 ## 6. Repository Boundary
 

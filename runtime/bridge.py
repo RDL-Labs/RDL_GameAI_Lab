@@ -49,6 +49,10 @@ class BridgeHandler(BaseHTTPRequestHandler):
     server_version = "RDLGameAIRuntime/0.3"
 
     def do_GET(self) -> None:
+        if self.path == "/v1/boundary-defense-snapshot":
+            reaction = getattr(self.server, "boundary_defense", None)
+            self._send_json(200 if reaction else 404, reaction.snapshot() if reaction else {"error": "boundary_defense_disabled"})
+            return
         if self.path == "/v1/luanti-learning-snapshot":
             loop = getattr(self.server, "luanti_learning", None)
             if loop is None:
@@ -146,6 +150,19 @@ class BridgeHandler(BaseHTTPRequestHandler):
         self._send_json(404, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        if self.path in ("/v1/boundary-defense/configure", "/v1/boundary-defense/observe", "/v1/boundary-defense/result"):
+            reaction = getattr(self.server, "boundary_defense", None)
+            if reaction is None:
+                self._send_json(404, {"error": "boundary_defense_disabled"})
+                return
+            try:
+                payload = self._read_json()
+                result = getattr(reaction, self.path.rsplit("/", 1)[1])(payload)
+            except (ValueError, KeyError, TypeError) as exc:
+                self._send_json(422, {"error": "invalid_boundary_defense", "detail": str(exc)})
+                return
+            self._send_json(200, result)
+            return
         if self.path in ("/v1/luanti-learning/decide", "/v1/luanti-learning/result", "/v1/luanti-learning/learn"):
             loop = getattr(self.server, "luanti_learning", None)
             if loop is None:
@@ -394,7 +411,14 @@ def run(
     luanti_learning_loop: bool = False,
     luanti_learning_multi_agent: bool = False,
     luanti_learning_shared_food: bool = False,
+    boundary_defense: bool = False,
 ) -> None:
+    if boundary_defense and (host not in ("127.0.0.1", "localhost", "::1") or any((
+            history_influence, food_mb_shadow, base_food_life, rest_trajectory, safety_trajectory,
+            food_safety_life, food_rest_life, rescue_trajectory, sleep_consolidation, fast_retrieval,
+            luanti_outcome_learning, sensory_observation, luanti_learning_loop,
+            luanti_learning_multi_agent, luanti_learning_shared_food))):
+        raise ValueError("L11 requires an isolated loopback mode")
     if luanti_learning_shared_food and (not luanti_learning_loop or luanti_learning_multi_agent):
         raise ValueError("L10C requires the learning loop and excludes the L10B mode")
     if luanti_learning_multi_agent and not luanti_learning_loop:
@@ -429,6 +453,8 @@ def run(
         raise ValueError("Base-Food extreme profiles require the life policy")
     policy = HistoryInfluencePolicy(profiles=retry_profiles) if history_influence else None
     server = ThreadingHTTPServer((host, port), BridgeHandler)
+    from .boundary_defense import BoundaryDefense
+    server.boundary_defense = BoundaryDefense(sensory_run_id) if boundary_defense else None
     server.history_policy = policy
     server.life_policy = BaseFoodLifePolicy(
         cue_responses=cue_responses,
@@ -517,6 +543,7 @@ def main() -> None:
                         help="Registered positive World epoch for sensory frame admission")
     parser.add_argument("--sensory-profile", action="append", default=[], metavar="AGENT=PROFILE",
                         help="Registered sensory profile assignment; requires --sensory-observation")
+    parser.add_argument("--boundary-defense", action="store_true", help="Isolated L11 finite fixture reaction")
     args = parser.parse_args()
     try:
         profiles = parse_retry_profiles(args.retry_profile)
@@ -564,7 +591,7 @@ def main() -> None:
         args.sleep_consolidation, args.fast_retrieval, args.luanti_outcome_learning,
         args.sensory_observation, args.sensory_run_id, args.sensory_world_epoch,
         sensory_profiles or None, args.luanti_learning_loop, args.luanti_learning_multi_agent,
-        args.luanti_learning_shared_food)
+        args.luanti_learning_shared_food, args.boundary_defense)
 
 
 def _parse_sensory_profiles(values):

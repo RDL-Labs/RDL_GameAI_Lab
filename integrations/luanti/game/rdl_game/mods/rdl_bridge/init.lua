@@ -130,6 +130,12 @@ core.register_node("rdl_bridge:observation_space", {
     sunlight_propagates = true,
 })
 
+if fixture_mode == "boundary_defense" then
+    local profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua").load(core.settings, {"npc_a", "npc_b"})
+    dofile(core.get_modpath("rdl_bridge") .. "/boundary_defense_fixture.lua")(http, runtime_url, profiles)
+    return
+end
+
 if fixture_mode == "sensory_learning_shared" then
     local profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua").load(core.settings, {"npc_a", "npc_b"})
     dofile(core.get_modpath("rdl_bridge") .. "/shared_food_learning_fixture.lua")(http, runtime_url, profiles)

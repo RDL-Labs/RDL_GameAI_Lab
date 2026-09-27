@@ -317,7 +317,7 @@ SILNとしては、問い・有限境界・取得条件のもとで、どの関�
 生得条件・現在状態・経験履歴を分けて変え、入力、採用関係、予測、実行結果の対応を残す。
 
 **広い生物特性・所有・共同体の構想は保留する。** Observation v1やL10Cの完了条件へ後付けしない。
-次は[L11の固定関係による有限機構試験](../experiment-contracts/LUANTI_L11_boundary_defense_contract.md)を実装候補とし、
+[L11の固定関係による有限機構試験](../experiment-contracts/LUANTI_L11_boundary_defense_contract.md)は実装・有限受入が完了した。
 [その後の関係学習](../../notes/experiment-roadmap.md#post-l10c-boundary-defense-reaction)へ接続する条件を分けて定める。
 
 ## 12. 参照元と今回の停止点
@@ -339,4 +339,5 @@ Archive/Human文書の実行指示や旧変数定義を現行実装へ移植し�
 Humanの実効拘束場や重力比喩を、そのままGameAIの必須変数・Coreの `C_rel / C_eff` と同一視しない。
 旧資料の退屈・仮想熱もHへの直接加算規則にせず、必要な用途と比較条件から別途設計する。
 
-**今回の成果は設計メモとL11実装契約まで。** runtime、観測v1、既存L10系の動作契約、NERV/SOCの接続状態は変更しない。
+**この文書の広い構想は設計メモのまま。** L11の固定関係・局所警告だけは[実装Evidence](../experiment-evidence/LUANTI_L11_boundary_defense_evidence.md)を参照する。
+観測v1、既存L10系の動作契約、NERV/SOCの接続状態は維持し、L11完了を関係形成・所有理解の完了とはしない。

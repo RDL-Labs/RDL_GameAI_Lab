@@ -46,11 +46,13 @@ psychological emotion, social ownership, and community systems remain deferred.
 
 ## Post-L10C boundary-defense reaction
 
-The next finite implementation target is [L11](../docs/experiment-contracts/LUANTI_L11_boundary_defense_contract.md),
-currently **DESIGN ONLY**. Hold the resource-use action, local appraisal increment,
-and recovery rate fixed; vary a scoped beneficiary relation, baseline warning
-threshold, and repetition interval. Repeat the twelve conditions with A/B roles
-swapped: 24 planned runs, not completed acceptance.
+[L11](../docs/experiment-contracts/LUANTI_L11_boundary_defense_contract.md) is now
+**IMPLEMENTED / finite acceptance PASS**. Resource-use action, local appraisal
+increment, and recovery rate stay fixed; the scoped beneficiary relation, baseline
+warning threshold, and repetition interval vary. The twelve conditions repeat
+with A/B roles swapped: 24 real Luanti runs, 56 pickups, ten warning displays,
+plus two separate presence/out-of-range controls. See the
+[Evidence](../docs/experiment-evidence/LUANTI_L11_boundary_defense_evidence.md).
 
 Existing local SensorFrames contain counts, not actor-attributed use. L11 therefore
 specifies an explicitly instrumented, radius-bounded use notice for its fixture;
