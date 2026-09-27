@@ -6,6 +6,14 @@
 **位置づけ:** Rescue / Recovery完了後、Hunting着手前の時間循環実装  
 **依存:** [睡眠システム設計](RDL_GameAI_睡眠システム設計.md)、[活動時高速類似と内向時間深層比較案](RDL_GameAI_活動時高速類似と内向時間深層比較_案.md)、[コード抽象度・道具的関数階層案](RDL_GameAI_コード抽象度・道具的関数階層_案.md)、Experience History
 
+## 現行探索への接続（2026-09-27追記）
+
+以下の工程表は初期Sleep導入時の履歴。現在の到達点は[canonical roadmap](../../notes/experiment-roadmap.md)を参照。
+L13Rの最大30日探索に日末Sleepを挟む案は、[探索計画5.1](RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)へ追加した（L13S、DESIGN ONLY）。
+既存の接近Experience／Local Bias用profileは探索記録のadapterではない。
+探索Experienceと比較条件を別途定義し、有限Sleep候補→後続Episodeでの独立検査→T1/M_B採用→翌日選択を分ける。
+この追記で探索学習や身体Sleepを実装済みへ変更しない。
+
 ## 0. 目的
 
 既存の生活縦断は次まで成立している。

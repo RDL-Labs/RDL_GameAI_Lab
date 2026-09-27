@@ -129,6 +129,13 @@ bounded unfinished result, not proof of absence. Memory/reset controls and fixed
 history model-adoption controls remain separate. L13R retains records but the
 current fixed policy does not consume them. Route matching and learned selection
 remain the L13B/C boundary; repetition alone does not implement learning.
+The next [L13S Sleep connection proposal](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md#exploration-sleep-cycle)
+is design-only: accepted exploration-day records need a typed Experience/profile
+adapter before bounded Sleep comparison. One day is one source vote; a proposed
+three-day formation set and three later held-out days precede explicit T1/M_B
+adoption and next-day use. Sleep completion alone grants no action authority.
+Body Sleep, safe-bed return, nighttime and recovery remain separate from this
+explicit day-boundary consolidation. Existing L13R results include none of it.
 
 ## Existing roadmap basis
 
