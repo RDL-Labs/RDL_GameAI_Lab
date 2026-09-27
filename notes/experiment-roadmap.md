@@ -66,6 +66,27 @@ Core `86a0d4f3` (SPEC v2.5) names E **difference**. After L11, the current
 explicitly synchronized to that pin. Frozen comparison, residual review, T1
 procedure and action authority remain unchanged; L11 itself did not change them.
 
+## Post-L11 learned resource-use relation
+
+The [L12 contract](../docs/experiment-contracts/LUANTI_L12_learned_resource_use_relation_contract.md)
+is **DESIGN ONLY**. Learn the observer's own next pickup outcome after a registered
+peer uses a particular site. Three formation Episodes and three distinct held-out
+Episodes constrain one typed relation, then explicit T1 and M_B cutover make it
+available to a fixed warning consumer. The learned object is a scoped outcome
+correspondence, not friendship, ownership, or an inclusion bit assigned by counters.
+
+The planned apparatus makes the peer return or hold the same physical Food unit.
+The next observer attempt supplies direct Experience; scenario labels and future
+return schedules stay out of the learner. Six controls repeated with swapped
+observer/actor roles give 12 planned runs and 84 Episodes. The last Episode uses
+the same current return schedule in every control, including a counterexample to
+an adopted nonacquisition prediction. No second learning cycle is planned.
+
+Keep negative prediction RETAIN separate from candidate REJECT, and unknown
+baseline reaction separate from unavailable input. The +8 allowance is a declared
+GameAI consumer rule; it is not itself learned, and it is not Core theta. Tests,
+World runs, replay evidence and L12 implementation remain outstanding.
+
 ## Existing roadmap basis
 
 This roadmap starts from the current runtime state, semantically synchronized to Core `86a0d4f3` (BASE v2.3.1 / SPEC v2.5 plus the dynamic-theta explanation). Superseded phase-by-phase P1/P2/P3 history is kept in Git history.

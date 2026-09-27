@@ -24,6 +24,7 @@ L10 Finite sensory M_B-informed Food choice COMPLETE (explicit fixture)
 L10B Multi-Agent sensory M_B learning/action COMPLETE (separate apparatus, shared World)
 L10C Shared-Food sensory M_B learning/action COMPLETE (bounded interference)
 L11 Fixed-relation boundary-defense reaction COMPLETE (instrumented finite fixture)
+L12 Learned resource-use relation / warning DESIGN ONLY (explicit T1/M_B plan)
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -49,6 +50,11 @@ L10Bの採食区画・資源は独立している。
 警告差を、主比較24run・56 pickupと同席／範囲外2runで確認した。
 [Evidence](../experiment-evidence/LUANTI_L11_boundary_defense_evidence.md)。専用adapterによる近景内使用の計測であり、
 関係の学習と、E/H/θ・自律再編への接続は別工程とする。
+
+[L12](../experiment-contracts/LUANTI_L12_learned_resource_use_relation_contract.md)は設計のみ。
+相手の使用後に本人の次の取得が成立するかを3形成＋3未使用検査から学び、T1/M_Bへ採用した予測を
+局所警告へ使う計画。固定関係の直接書換えではなく、positive/negative、inactive、反例、不足を区別する。
+12run・84Episodeは予定であり、現在の実装到達点はL11のまま。
 
 ## 1. 移行位置
 
@@ -147,6 +153,7 @@ hostile flagやnode IDをNPCのdanger beliefやconceptとして直接渡さな�
 | L10B | A/Bの個体別学習・M_B・身体権限 | COMPLETE / 同じ継続World。共有資源・社会学習は保留 |
 | L10C | 共有Foodの実取得競合とM_Bによる試行／保留 | COMPLETE / 5run・60共有Episode。他者理解・社会関係は保留 |
 | L11 | 固定関係・反復間隔による局所防衛評価と警告 | COMPLETE / 主比較24run＋対照2run、Python23試験。関係学習は次工程 |
+| L12 | 本人経験からの用途付きrelation採用と警告差 | DESIGN ONLY / 3形成＋3検査、12run予定。実装・受入未実施 |
 
 ## 6. Repository Boundary
 
