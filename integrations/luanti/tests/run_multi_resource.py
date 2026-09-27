@@ -15,15 +15,15 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928):
     run_id="l14b-"+uuid4().hex[:16]
-    loop=MultiResourceExploration(run_id, periods, assignment=assignment)
+    loop=MultiResourceExploration(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
     worker=Thread(target=server.serve_forever,daemon=True);worker.start()
     log=OUTPUT/(run_id+".launch.log")
     try:
-        print(f"L14B START {scenario} periods={periods} assignment={assignment} control={control} run={run_id}",flush=True)
+        print(f"L14B START {scenario} periods={periods} assignment={assignment} seed={seed} control={control} run={run_id}",flush=True)
         command=[shutil.which("pwsh") or shutil.which("powershell"),"-NoProfile","-ExecutionPolicy","Bypass","-File",
             str(ROOT/"integrations/luanti/scripts/test-learned-exploration-day.ps1"),"-Scenario",scenario,
             "-RunId",run_id,"-LuantiRoot",luanti_root,"-MultiResources","-ResourcePeriods",str(periods),
