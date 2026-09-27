@@ -1,0 +1,233 @@
+"""L13A: finite observation-driven exploration, without learning/model authority."""
+from copy import deepcopy
+from math import atan2, degrees, hypot, isfinite
+from threading import RLock
+
+from .sensory_observation import SensoryObservationStore, SCHEMA_VERSION
+
+SCHEMA = "l13a-exploration-v1"
+GROUND = "l13a-ground-nine-v1"
+SLOT_US = 250_000
+LIMIT_US = 16_000_000
+CAPACITY = 64
+CELLS = ("center", "front1", "front2", "right1", "right2",
+         "left1", "left2", "back1", "back2")
+
+
+def require(ok, reason):
+    if not ok:
+        raise ValueError(reason)
+
+
+def fields(value, names):
+    require(isinstance(value, dict) and set(value) == set(names.split()), "fields")
+
+
+def integer(value, low=0, high=10**12):
+    require(type(value) is int and low <= value <= high, "integer")
+
+
+def number(value, low, high):
+    require(type(value) in (int, float) and isfinite(value) and low <= value <= high, "number")
+
+
+def ref(value):
+    require(isinstance(value, str) and 0 < len(value) <= 128, "reference")
+
+
+def choose(packet, previous=None):
+    """Designer-supplied rule. Only bounded, current observations are consulted."""
+    food = packet["food"]["visible"]
+    if packet["food"]["coverage"] == "complete" and food:
+        item = food[0]
+        if item["distance"] <= 1.25:
+            return "pickup", 0, item["ref"], "observed_food_in_reach"
+        angle = degrees(atan2(item["right"], item["forward"]))
+        if abs(angle) > 45:
+            return "turn", 90 if angle > 0 else -90, "", "observed_food_direction"
+        return "move", 1, "", "observed_food_direction"
+    if packet["ground"]["coverage"] != "complete" or packet["food"]["coverage"] != "complete":
+        return "wait", 0, "", "acquisition_incomplete"
+    if previous and previous["status"] == "blocked":
+        return "turn", 90, "", "previous_move_blocked"
+    colors = {c["cell_id"]: c["color"] for c in packet["ground"]["cells"]}
+    for cell, kind, amount in (("front1", "move", 1), ("right1", "turn", 90),
+                               ("left1", "turn", -90), ("back1", "turn", 90)):
+        if colors[cell] == "blue":
+            return kind, amount, "", "fixed_color_continuation"
+    return "move", 1, "", "unmarked_forward_trial"
+
+
+class FiniteExploration:
+    def __init__(self, run_id):
+        ref(run_id)
+        self.run_id = run_id
+        self.config = None
+        self.observations = {}
+        self.commands = {}
+        self.results = {}
+        self.ending = None
+        self.store = SensoryObservationStore(CAPACITY, {"npc_a": ("fixture-distant-enabled", 1)}, run_id)
+        self.lock = RLock()
+
+    def context(self, value):
+        require(value["run_id"] == self.run_id and value["agent_id"] == "npc_a"
+                and type(value["world_epoch"]) is int and value["world_epoch"] == 1, "context")
+
+    def configure(self, value):
+        with self.lock:
+            fields(value, "schema run_id world_epoch agent_id clock_id")
+            self.context(value)
+            require(value["schema"] == SCHEMA and value["clock_id"] == "world-sim-v1", "configuration")
+            require(self.config is None or self.config == value, "configuration_conflict")
+            self.config = deepcopy(value)
+            return {"accepted": True, "config": deepcopy(value)}
+
+    def _packet(self, p):
+        fields(p, "run_id world_epoch agent_id clock_id observation_id capture_us sample_seq pose_ref body_revision ground food distant")
+        self.context(p)
+        require(p["clock_id"] == self.config["clock_id"], "clock")
+        for k in ("observation_id", "pose_ref"):
+            ref(p[k])
+        integer(p["capture_us"], 0, LIMIT_US - 1)
+        integer(p["sample_seq"], 0, CAPACITY - 1)
+        require(p["sample_seq"] == p["capture_us"] // SLOT_US, "acquisition_slot")
+        integer(p["body_revision"], 0, CAPACITY)
+        g = p["ground"]
+        fields(g, "model profile coverage cells")
+        require(g["model"] == GROUND and g["profile"] == "l13a-ground-fixed-v1", "ground_profile")
+        require(g["coverage"] in ("complete", "partial"), "ground_coverage")
+        require(isinstance(g["cells"], list) and len(g["cells"]) == 9, "ground_budget")
+        for cell, key in zip(g["cells"], CELLS):
+            fields(cell, "cell_id color status")
+            require(cell["cell_id"] == key, "ground_cell_order")
+            require(cell["status"] in ("sampled", "unloaded", "occluded", "no_surface"), "ground_status")
+            require(cell["color"] in ("blue", "gray", "unknown"), "ground_color")
+            require((cell["color"] == "unknown") == (cell["status"] != "sampled"), "ground_missing")
+        require((g["coverage"] == "complete") == all(c["status"] == "sampled" for c in g["cells"]), "ground_completeness")
+        food = p["food"]
+        fields(food, "coverage visible")
+        require(food["coverage"] in ("complete", "partial"), "food_coverage")
+        require(isinstance(food["visible"], list) and len(food["visible"]) <= 1, "food_budget")
+        for item in food["visible"]:
+            fields(item, "ref distance forward right")
+            ref(item["ref"])
+            number(item["distance"], 0, 12)
+            for k in ("forward", "right"):
+                number(item[k], -12, 12)
+            require(abs(hypot(item["forward"], item["right"]) - item["distance"]) < 0.001, "food_geometry")
+        d = p["distant"]
+        require(isinstance(d, dict), "distant_frame")
+        require(d.get("channel") == "vision_distant" and d.get("sensor_id") == "eye"
+                and d.get("sensor_model_revision") == "sampled-surface-v0.2", "distant_model")
+        require(d.get("clock_id") == p["clock_id"] and d.get("sample_seq") == p["sample_seq"]
+                and d.get("sampled_world_tick") == p["sample_seq"]
+                and d.get("observer_frame_ref") == p["pose_ref"]
+                and d.get("capture_window") == {"kind": "instant", "start_us": p["capture_us"], "end_us": p["capture_us"]}, "distant_binding")
+
+    def observe(self, p):
+        with self.lock:
+            require(self.config is not None, "not_configured")
+            self._packet(p)
+            ident = p["observation_id"]
+            existing = self.observations.get(ident)
+            if existing is not None:
+                require(existing == p, "observation_conflict")
+                return self._receipt(ident, 0)
+            require(self.ending is None, "run_closed")
+            require(len(self.observations) < CAPACITY, "observation_capacity")
+            if self.observations:
+                last = next(reversed(self.observations.values()))
+                require(p["capture_us"] > last["capture_us"] and p["sample_seq"] > last["sample_seq"], "observation_order")
+            previous = next(reversed(self.results.values())) if self.results else None
+            kind, amount, target, reason = choose(p, previous)
+            command = {k: p[k] for k in ("run_id", "world_epoch", "agent_id", "pose_ref", "body_revision", "capture_us")}
+            command.update(operation_id="op:" + ident, source_id=ident,
+                           expires_us=min(p["capture_us"] + 500_000, LIMIT_US),
+                           kind=kind, amount=amount, target_ref=target, reason=reason)
+            ref(command["operation_id"])
+            # Validate/admit on a copy; no partial publication of ground or distant data.
+            staged = deepcopy(self.store)
+            ext = dict(schema_version=SCHEMA_VERSION, run_id=self.run_id, world_epoch=1,
+                       agent_id="npc_a", delivery_observation_id=ident,
+                       delivery_world_tick=p["sample_seq"], delivery_time_us=p["capture_us"], frames=[p["distant"]])
+            receipt = staged.admit(dict(agent_id="npc_a", observation_id=ident, tick=p["sample_seq"]), ext)
+            require(receipt["new_frames"] == 1, "distant_frame_reused_for_new_observation")
+            self.store = staged
+            self.observations[ident] = deepcopy(p)
+            self.commands[ident] = command
+            return self._receipt(ident, 1)
+
+    def _receipt(self, ident, count):
+        return {"accepted": True, "observation_id": ident, "new_observations": count,
+                "new_frames": count, "command": deepcopy(self.commands[ident])}
+
+    def result(self, value):
+        with self.lock:
+            require(self.config is not None, "not_configured")
+            fields(value, "run_id world_epoch agent_id operation_id source_id executed_us before_pose_ref after_pose_ref before_revision after_revision status forward right yaw acquired")
+            self.context(value)
+            ident = value["operation_id"]
+            ref(ident)
+            if ident in self.results:
+                require(self.results[ident] == value, "result_conflict")
+                return {"accepted": True, "new_result": False}
+            require(self.ending is None, "run_closed")
+            command = self.commands.get(value["source_id"])
+            require(command is not None and command["operation_id"] == ident, "unknown_operation")
+            integer(value["executed_us"], command["capture_us"], 25_000_000)
+            for k in ("before_revision", "after_revision"):
+                integer(value[k], 0, CAPACITY)
+            for k in ("before_pose_ref", "after_pose_ref"):
+                ref(value[k])
+            for k, lo, hi in (("forward", -1.001, 1.001), ("right", -0.001, 0.001), ("yaw", -90.01, 90.01)):
+                number(value[k], lo, hi)
+            require(type(value["acquired"]) is bool, "acquired")
+            status = value["status"]
+            allowed = {"move": {"moved", "blocked"}, "turn": {"turned"},
+                       "pickup": {"picked_up", "not_found"}, "wait": {"waited"}}
+            require(status in allowed[command["kind"]] | {"expired", "stale", "stopped"}, "result_status")
+            active = status not in ("expired", "stale", "stopped")
+            if active:
+                require(value["executed_us"] < command["expires_us"]
+                        and value["before_revision"] == command["body_revision"]
+                        and value["before_pose_ref"] == command["pose_ref"], "execution_binding")
+            if status == "expired":
+                require(value["executed_us"] >= command["expires_us"], "not_expired")
+            if status == "stale":
+                require(value["before_revision"] != command["body_revision"] or value["before_pose_ref"] != command["pose_ref"], "not_stale")
+            if status == "stopped":
+                require(value["executed_us"] >= LIMIT_US or any(r["acquired"] for r in self.results.values()), "not_stopped")
+            changed = status in ("moved", "turned", "picked_up")
+            require(value["after_revision"] == value["before_revision"] + int(changed), "revision_change")
+            require((value["before_pose_ref"] != value["after_pose_ref"]) == changed, "pose_change")
+            require(value["acquired"] == (status == "picked_up"), "acquisition_result")
+            require(abs(value["forward"] - (1 if status == "moved" else 0)) < 0.001
+                    and abs(value["yaw"] - (command["amount"] if status == "turned" else 0)) < 0.01, "measured_effect")
+            require(not value["acquired"] or not any(r["acquired"] for r in self.results.values()), "duplicate_pickup")
+            self.results[ident] = deepcopy(value)
+            return {"accepted": True, "new_result": True}
+
+    def finish(self, value):
+        with self.lock:
+            require(self.config is not None, "not_configured")
+            fields(value, "run_id world_epoch agent_id ended_us reason")
+            self.context(value)
+            integer(value["ended_us"], 0, 25_000_000)
+            require(value["reason"] in ("acquired", "time_limit", "pending_capacity", "operation_budget"), "end_reason")
+            require(self.ending is None or self.ending == value, "finish_conflict")
+            require(len(self.results) == len(self.commands), "unreported_operations")
+            acquired = any(r["acquired"] for r in self.results.values())
+            require((value["reason"] == "acquired") == acquired, "end_acquisition")
+            if value["reason"] == "time_limit":
+                require(value["ended_us"] >= LIMIT_US, "early_timeout")
+            require(all(r["executed_us"] <= value["ended_us"] or r["status"] in ("expired", "stale", "stopped")
+                        for r in self.results.values()), "effect_after_end")
+            self.ending = deepcopy(value)
+            return {"accepted": True, "ending": deepcopy(value)}
+
+    def snapshot(self):
+        with self.lock:
+            return deepcopy(dict(schema=SCHEMA, authority="fixed-exploration; no-Experience-T1-or-M_B-update",
+                                 config=self.config, observations=self.observations, commands=self.commands,
+                                 results=self.results, ending=self.ending, sensory=self.store.snapshot()))

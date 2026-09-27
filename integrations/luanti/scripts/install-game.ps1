@@ -43,3 +43,10 @@ foreach ($module in @("shared_food_trial.lua", "shared_food_trial_checks.lua", "
 foreach ($module in @("resource_use_trial.lua", "resource_use_checks.lua", "resource_use_fixture.lua", "boundary_defense_trial.lua", "boundary_defense_checks.lua", "boundary_defense_fixture.lua")) {
     Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\$module") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
 }
+
+foreach ($module in @("exploration_fixture.lua", "exploration_ground.lua", "exploration_controller.lua", "exploration_checks.lua")) {
+    Copy-Item -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\$module") -Destination (Join-Path $targetGame "mods\rdl_bridge") -Force
+}
+$textureTarget = Join-Path $targetGame "mods\rdl_bridge\textures"
+New-Item -ItemType Directory -Force -Path $textureTarget | Out-Null
+Get-ChildItem -LiteralPath (Join-Path $sourceGame "mods\rdl_bridge\textures") -Filter "rdl_l13_*.png" | Copy-Item -Destination $textureTarget -Force

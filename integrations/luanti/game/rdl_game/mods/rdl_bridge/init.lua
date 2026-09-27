@@ -130,6 +130,11 @@ core.register_node("rdl_bridge:observation_space", {
     sunlight_propagates = true,
 })
 
+if fixture_mode == "finite_exploration" then
+    dofile(core.get_modpath("rdl_bridge") .. "/exploration_fixture.lua")(http, runtime_url)
+    return
+end
+
 if fixture_mode == "resource_use_learning" then
     local profiles = dofile(core.get_modpath("rdl_bridge") .. "/sensor_profiles.lua").load(core.settings, {"npc_a", "npc_b"})
     dofile(core.get_modpath("rdl_bridge") .. "/resource_use_fixture.lua")(http, runtime_url, profiles)

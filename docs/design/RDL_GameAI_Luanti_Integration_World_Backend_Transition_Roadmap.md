@@ -25,7 +25,8 @@ L10B Multi-Agent sensory M_B learning/action COMPLETE (separate apparatus, share
 L10C Shared-Food sensory M_B learning/action COMPLETE (bounded interference)
 L11 Fixed-relation boundary-defense reaction COMPLETE (instrumented finite fixture)
 L12 Learned resource-use relation / warning COMPLETE (finite explicit T1/M_B fixture)
-L13 Exploration / revisit / M_B-guided search DESIGN ONLY (staged plan)
+L13A Finite exploration OPERATIONAL (9 World runs; fixed rule)
+L13B/C Route memory / M_B-guided search DESIGN ONLY
 ```
 
 Godotはdeterministic reference / regression fixtureとして保持する。Luantiを
@@ -61,8 +62,9 @@ L10Bの採食区画・資源は独立している。
 複数目印の配置・遷移と身体証拠による再訪、M_B採用による探索先の選択差を次工程として分けた。
 初版は単独個体。迷い・未達も地形別の観測対象とし、全runの成功は要求しない。
 初版は昼間の視界条件を固定し、平坦地の色違いタイル帯から始め、未達は時間上限で区切る。
-地表色の有限取得は追加契約候補。固定追従とM_Bによる学習を分け、夜間視界と行き倒れの身体接続は後続。
-現在の実装到達点はL12のままで、L13の実装・受入は未実施。
+L13Aの地表色取得・固定追従・相対移動は[実装契約](../experiment-contracts/LUANTI_L13A_finite_exploration_contract.md)で固定し、
+9実Luanti run・441取得記録で検査した。[Evidence](../experiment-evidence/LUANTI_L13A_finite_exploration_evidence.md)。
+L13B/Cの経路記憶・M_B学習、夜間視界と行き倒れの身体接続は後続。
 
 ## 1. 移行位置
 

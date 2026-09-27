@@ -90,14 +90,14 @@ GameAI consumer rule; it is not itself learned, and it is not Core theta. See th
 ## Post-L12 finite exploration
 
 The [L13 exploration plan](../docs/design/RDL_GameAI_Luanti_Exploration_Plan.md)
-is **DESIGN ONLY**. Remove the supplied Food destination in stages: finite relative
+has **L13A finite acceptance complete; L13B/C design-only**. Remove the supplied Food destination in stages: finite relative
 movement and actual discovery, routes through observed landmark configurations and transitions, then
 independently inspected M_B predictions influencing search selection. Begin with
 one agent and a given Food Goal. No general map, autonomous Goal generation or
 exploration-personality scalar is implied. Retaining a location record alone does
 not constitute an M_B update; the learning control holds history, current input,
 and candidate/selection rules fixed and varies model adoption only. Bounds and
-body-action authority still require a separate L13A implementation contract.
+body-action authority are fixed in the [L13A contract](../docs/experiment-contracts/LUANTI_L13A_finite_exploration_contract.md).
 L13B pairs new landmark observations with measured body history; frame-local
 feature IDs do not identify persistent landmarks, and lookalikes may leave multiple
 route correspondences. Inducing useful cues and transition predictions requires
@@ -108,11 +108,14 @@ The first slice fixes daylight and sensory conditions while World elapsed time
 continues; unfinished runs end at the time budget (or an earlier explicit resource
 limit). Nighttime visibility and body-driven collapse are deferred to separate
 contracts. A test timeout is not collapse. The first layout proposes a colored
-tile strip on flat, equally traversable ground: straight, then one bend. A bounded
-near-ground color observation contract is still needed; current local count frames
-do not supply it. Compare the same layout without the strip. A supplied following
-rule is not a learned relation; M_B adoption remains the separate L13C boundary.
-These additions remain design-only.
+tile strip on flat, equally traversable ground, with three distant mountains.
+L13A now captures nine local ground samples separately from legacy count frames,
+uses the shared distant sensor, and issues bounded relative actions. Nine real
+Luanti runs accepted 441 acquisition packets: straight/bent/rotated strips reach
+Food; no-strip/no-food/incomplete/blocked controls end at the time limit.
+[Evidence](../docs/experiment-evidence/LUANTI_L13A_finite_exploration_evidence.md) separates fixed following
+from learning. Mountains are recorded, not used to infer location. Route memory
+and M_B adoption remain the L13B/C design boundary.
 
 ## Existing roadmap basis
 
