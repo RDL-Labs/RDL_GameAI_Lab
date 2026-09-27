@@ -17,7 +17,8 @@ function M.new(run,adapter)
         assert(c.capture_us==p.capture_us and c.pose_ref==p.pose_ref and c.body_revision==p.body_revision,"body binding")
         assert(c.expires_us==math.min(p.capture_us+500000,16000000),"expiry binding")
         assert(now>=p.capture_us,"time reversal")
-        assert((c.kind=="move" and c.amount==1) or (c.kind=="turn" and math.abs(c.amount)==90)
+        local turn_ok=math.abs(c.amount)==90 or (adapter.landmarks and c.amount~=0 and math.abs(c.amount)<=90 and c.amount%5==0)
+        assert((c.kind=="move" and c.amount==1) or (c.kind=="turn" and turn_ok)
             or ((c.kind=="pickup" or c.kind=="wait") and c.amount==0),"action")
         if c.kind=="pickup" then
             assert(p.food.coverage=="complete" and #p.food.visible==1 and p.food.visible[1].ref==c.target_ref
@@ -35,7 +36,7 @@ function M.new(run,adapter)
         elseif before.revision~=c.body_revision or before.pose_ref~=c.pose_ref then status="stale"
         else
             local step=adapter.natural and math.sqrt(2) or 1
-            assert(self.distance+(c.kind=="move" and step or 0)<=64*step+.00001 and self.rotation+(c.kind=="turn" and 90 or 0)<=5760)
+            assert(self.distance+(c.kind=="move" and step or 0)<=64*step+.00001 and self.rotation+(c.kind=="turn" and math.abs(c.amount) or 0)<=5760)
             status=adapter.execute(c)
         end
         local after=adapter.body()

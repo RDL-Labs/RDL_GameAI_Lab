@@ -8,13 +8,15 @@ return function(http,runtime_url)
     local scenario=core.settings:get("rdl_exploration_scenario") or "straight"
     local natural=(scenario=="natural_meadow" or scenario=="natural_woodland") and dofile(root .. "/exploration_natural.lua") or nil
     if natural then natural.register() end
+    local landmarks=core.settings:get_bool("rdl_exploration_landmarks",false) and dofile(root .. "/exploration_landmarks.lua") or nil
+    assert(not landmarks or natural,"landmark mode requires natural terrain")
     local profile={range_min_exclusive=12,range_max_inclusive=64,horizontal_fov_deg=90,vertical_fov_deg=60,angle_bin_deg=5}
     local prefix=runtime_url:gsub("/v1/observe$","") .. "/v1/exploration/"
     for _,spec in ipairs({{"gray","#777777"},{"blue","#4477cc"},{"rock_gray","#484848"},{"rock_red","#985950"}}) do
         core.register_node("rdl_bridge:exploration_" .. spec[1],{description="L13 " .. spec[1],
             tiles={"rdl_l13_" .. spec[1] .. ".png"},walkable=true,pointable=false})
     end
-    local config={schema=natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1",run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
+    local config={schema=landmarks and "l13u-landmark-exploration-v1" or (natural and "l13t-natural-exploration-v1" or "l13a-exploration-v1"),run_id=run,world_epoch=1,agent_id="npc_a",clock_id="world-sim-v1"}
     local evidence={run_id=run,scenario=scenario,config=config,observations={},actions={},deliveries={},guards={},mountains={}}
     local sim,stage,last_slot=0,"setup",-1
     local npc,food,ctl,body_revision,last_position,last_yaw,ending
@@ -110,7 +112,9 @@ return function(http,runtime_url)
                 capture_window={kind="instant",start_us=sim,end_us=sim},sampled_world_tick=slot,observer_frame_ref=b.pose_ref,
                 status="SAMPLED",coverage=partial and "PARTIAL" or "COMPLETE_WITHIN_PLAN",output_limited=limited,
                 payload={features=features}}})
-        evidence.observations[#evidence.observations+1]={packet=table.copy(p),body=b,daytime=core.get_timeofday(),food_visibility=visibility}
+        local landmark_audit
+        if landmarks then p.landmarks,landmark_audit=landmarks.sample(b.position,b.yaw,core.get_node_or_nil) end
+        evidence.observations[#evidence.observations+1]={packet=table.copy(p),body=b,daytime=core.get_timeofday(),food_visibility=visibility,landmark_rays=landmark_audit}
         enqueue("observe",p)
         if scenario=="blocked" and slot==2 then
             local pos=vector.round(vector.add(b.position,core.yaw_to_dir(b.yaw)))
@@ -177,10 +181,11 @@ return function(http,runtime_url)
             npc:set_yaw(rotated and math.pi/2 or 0)
             if food then food:set_properties({textures={"rdl_l13_food.png"}}) end
             body_revision=0;last_position=vector.new(npc:get_pos());last_yaw=npc:get_yaw()
-            ctl=controller.new(run,{body=body,execute=execute,natural=natural~=nil})
+            ctl=controller.new(run,{body=body,execute=execute,natural=natural~=nil,landmarks=landmarks~=nil})
             evidence.initial_body=body()
             evidence.lua_checks=dofile(root .. "/exploration_checks.lua")(controller,ground)
             if natural then evidence.natural_checks=dofile(root .. "/exploration_natural_checks.lua")(natural,controller) end
+            if landmarks then evidence.landmark_checks=dofile(root .. "/exploration_landmark_checks.lua")(landmarks,controller) end
             enqueue("configure",config);stage="configuring"
         end)
         if not ok then save(tostring(err)) end

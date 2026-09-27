@@ -23,12 +23,20 @@ def observation_key(p):
     if (p["ground"]["coverage"] != "complete" or p["food"]["coverage"] != "complete"
             or d["coverage"] != "COMPLETE_WITHIN_PLAN" or d["status"] != "SAMPLED" or d["output_limited"]):
         return None
-    return dict(ground=deepcopy(p["ground"]),
+    key = dict(ground=deepcopy(p["ground"]),
                 distant_conditions={k: deepcopy(d[k]) for k in
                     ("profile_id", "profile_revision", "sensor_model_revision", "clock_id", "channel", "sensor_id")},
                 features=sorted([{k: deepcopy(f[k]) for k in
                     ("color_band", "azimuth_interval_deg", "elevation_interval_deg")} for f in d["payload"]["features"]],
                     key=lambda f: (f["color_band"], f["azimuth_interval_deg"], f["elevation_interval_deg"])))
+    if "landmarks" in p:
+        frame = p["landmarks"]
+        if frame["coverage"] != "complete" or frame["output_limited"]:
+            return None
+        key["landmarks"] = {k: deepcopy(frame[k]) for k in ("model", "profile")}
+        key["landmarks"]["features"] = [{k: deepcopy(f[k]) for k in ("color", "azimuth", "range_band")}
+                                       for f in frame["features"]]
+    return key
 
 
 def projection(p, series_id, day):
@@ -243,6 +251,8 @@ def canonical_state(series_id, days, candidate, inspection, activate):
 
 
 class LearnedExplorationSeries:
+    day_type = LearnedExplorationDay
+
     def __init__(self, series_id, mode="adopt", seed=20260927, max_days=30):
         ref(series_id); require(mode in ("record", "inspect", "adopt"), "mode")
         integer(seed, 0, 2**32-1); integer(max_days, 1, 30)
@@ -288,7 +298,7 @@ class LearnedExplorationSeries:
             seed = int(digest([self.config["seed"], day, "neutral-sampler-v1"])[:8], 16)
             probe = self.candidate if self.candidate and self.inspection is None else None
             model = self.canonical.model_for_agent("npc_a") if self.days else None
-            self.loop = LearnedExplorationDay(request["run_id"], self.config["series_id"], day, seed, model, probe)
+            self.loop = self.day_type(request["run_id"], self.config["series_id"], day, seed, model, probe)
             self.pending = dict(request=deepcopy(request), day=day, seed=seed,
                 probe_candidate=probe["candidate_id"] if probe else None, model_ref=model.model_ref if model else None,
                 history_refs=[d["experience"]["record_id"] for d in self.days])

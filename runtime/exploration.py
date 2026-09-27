@@ -7,6 +7,7 @@ from .sensory_observation import SensoryObservationStore, SCHEMA_VERSION
 
 SCHEMA = "l13a-exploration-v1"
 NATURAL_SCHEMA = "l13t-natural-exploration-v1"
+LANDMARK_SCHEMA = "l13u-landmark-exploration-v1"
 GROUND = "l13a-ground-nine-v1"
 SLOT_US = 250_000
 LIMIT_US = 16_000_000
@@ -61,9 +62,13 @@ def choose(packet, previous=None):
 
 class FiniteExploration:
     allow_natural = False
+    allow_landmarks = False
+
+    def landmarks(self):
+        return self.config is not None and self.config["schema"] == LANDMARK_SCHEMA
 
     def natural(self):
-        return self.config is not None and self.config["schema"] == NATURAL_SCHEMA
+        return self.config is not None and self.config["schema"] in (NATURAL_SCHEMA, LANDMARK_SCHEMA)
 
     def __init__(self, run_id):
         ref(run_id)
@@ -84,14 +89,15 @@ class FiniteExploration:
         with self.lock:
             fields(value, "schema run_id world_epoch agent_id clock_id")
             self.context(value)
-            require(value["schema"] in ((SCHEMA, NATURAL_SCHEMA) if self.allow_natural else (SCHEMA,))
+            schemas = (SCHEMA,) + ((NATURAL_SCHEMA,) if self.allow_natural else ()) + ((LANDMARK_SCHEMA,) if self.allow_landmarks else ())
+            require(value["schema"] in schemas
                     and value["clock_id"] == "world-sim-v1", "configuration")
             require(self.config is None or self.config == value, "configuration_conflict")
             self.config = deepcopy(value)
             return {"accepted": True, "config": deepcopy(value)}
 
     def _packet(self, p):
-        fields(p, "run_id world_epoch agent_id clock_id observation_id capture_us sample_seq pose_ref body_revision ground food distant")
+        fields(p, "run_id world_epoch agent_id clock_id observation_id capture_us sample_seq pose_ref body_revision ground food distant" + (" landmarks" if self.landmarks() else ""))
         self.context(p)
         require(p["clock_id"] == self.config["clock_id"], "clock")
         for k in ("observation_id", "pose_ref"):
@@ -134,6 +140,9 @@ class FiniteExploration:
                 and d.get("sampled_world_tick") == p["sample_seq"]
                 and d.get("observer_frame_ref") == p["pose_ref"]
                 and d.get("capture_window") == {"kind": "instant", "start_us": p["capture_us"], "end_us": p["capture_us"]}, "distant_binding")
+        if self.landmarks():
+            from .landmark_exploration import validate_landmarks
+            validate_landmarks(p["landmarks"])
 
     def select(self, packet, previous):
         return choose(packet, previous)

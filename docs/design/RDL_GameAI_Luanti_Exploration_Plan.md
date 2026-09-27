@@ -3,6 +3,7 @@
 **状態: L13A/Rは固定規則の回帰基準。L13Sは有限な経験経路・日末Sleep・独立Probe・T1/M_B・次回選択を実装。一般化したL13B/Cは後続。2026-09-27。**
 現行の限定は[L13S契約](../experiment-contracts/LUANTI_L13S_learned_exploration_contract.md)と[Evidence](../experiment-evidence/LUANTI_L13S_learned_exploration_evidence.md)を参照。
 自然地形への展開は[L13T契約](../experiment-contracts/LUANTI_L13T_natural_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13T_natural_exploration_evidence.md)。道なしの草地／木立を同じ探索・学習機構で比較し、有限な段差と遮蔽を扱う。地形図・正解経路は個体へ渡さない。
+観測特徴を小目標として使う有限制御は[L13U契約](../experiment-contracts/LUANTI_L13U_landmark_exploration_contract.md)・[Evidence](../experiment-evidence/LUANTI_L13U_landmark_exploration_evidence.md)。身体相対の面特徴を選び、再観測で保持/見失い/曖昧さを検査する。初期の視覚運動制御と、経験から得るFood関係を分ける。
 初版の[実装契約](../experiment-contracts/LUANTI_L13A_finite_exploration_contract.md)と
 [Evidence](../experiment-evidence/LUANTI_L13A_finite_exploration_evidence.md)を正本とする。
 基準: GameAI `df2d23d` ＋ L13A実装working tree。以下にはv0.6までの設計案と後続候補を残す。

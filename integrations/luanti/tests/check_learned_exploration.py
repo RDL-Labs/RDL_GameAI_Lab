@@ -8,7 +8,10 @@ from .check_exploration_series import reset_signature, read_artifact
 
 def check_series(a, world=True):
     c = a["config"]
-    s = LearnedExplorationSeries(c["series_id"], c["mode"], c["seed"], c["max_days"])
+    from runtime.landmark_exploration import LandmarkExplorationSeries
+    from runtime.exploration import LANDMARK_SCHEMA
+    series_type = LandmarkExplorationSeries if c["schema"] == LANDMARK_SCHEMA else LearnedExplorationSeries
+    s = series_type(c["series_id"], c["mode"], c["seed"], c["max_days"])
     signature = None
     for d in a["days"]:
         data = d["data"]

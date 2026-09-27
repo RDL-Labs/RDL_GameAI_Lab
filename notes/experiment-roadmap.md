@@ -129,6 +129,13 @@ bounded unfinished result, not proof of absence. Memory/reset controls and fixed
 history model-adoption controls remain separate. L13R retains records but the
 current fixed policy does not consume them. Route matching and learned selection
 remain the L13B/C boundary; repetition alone does not implement learning.
+The [L13U observed-subgoal slice](../docs/experiment-contracts/LUANTI_L13U_landmark_exploration_contract.md)
+selects a currently observed coarse surface patch, keeps it through measured movement and reobservation,
+and records lost, ambiguous, near and blocked outcomes separately. Its bounded heading servo is supplied
+initial control; Food associations still require episodic Sleep, independent inspection and T1/M_B.
+[Evidence](../docs/experiment-evidence/LUANTI_L13U_landmark_exploration_evidence.md) separates control acceptance
+from actual discovery/adoption results. It adds neither object identity nor general obstacle avoidance.
+
 The [L13T natural-terrain slice](../docs/experiment-contracts/LUANTI_L13T_natural_exploration_contract.md)
 extends the same learning path to rolling grassland and woodland, with measured vertical steps and node occlusion.
 Its [Evidence](../docs/experiment-evidence/LUANTI_L13T_natural_exploration_evidence.md) keeps terrain truth out of agent inputs and retains the three-discovery / 30-day boundary.

@@ -27,6 +27,7 @@ L11 Fixed-relation boundary-defense reaction COMPLETE (instrumented finite fixtu
 L12 Learned resource-use relation / warning COMPLETE (finite explicit T1/M_B fixture)
 L13A Finite exploration OPERATIONAL (9 World runs; fixed rule)
 L13R Repeated exploration / record retention OPERATIONAL (62 World runs; history not consumed by policy)
+L13U Observed surface subgoals / reobservation / finite visual servo IMPLEMENTED
 L13T Natural terrain / bounded steps / occlusion / L13S learning IMPLEMENTED
 L13S Episodic route / Sleep / held-out Probe / T1-M_B selection IMPLEMENTED
 L13B/C General landmark-route learning DESIGN ONLY
