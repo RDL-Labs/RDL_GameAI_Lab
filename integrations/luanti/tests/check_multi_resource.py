@@ -43,11 +43,13 @@ def first_difference(actual, expected, path='$'):
             difference = first_difference(actual[key], expected[key], path+'/'+str(key))
             if difference:
                 return difference
+        return None
     if isinstance(actual, list) and isinstance(expected, list) and len(actual) == len(expected):
         for index, (a, e) in enumerate(zip(actual, expected)):
             difference = first_difference(a, e, path+'/'+str(index))
             if difference:
                 return difference
+        return None
     return f'{path}: actual={repr(actual)[:180]} expected={repr(expected)[:180]}'
 
 

@@ -10,6 +10,15 @@ class ReplayPortabilityTests(unittest.TestCase):
         self.assertIsNone(first_difference(2.380139954330329,2.3801399543303297,path))
         self.assertIsNotNone(first_difference(2.380139,2.38014,path))
 
+    def test_nested_containers_accept_only_allowed_leaf_differences(self):
+        def tree(value):
+            return {'agents':{'npc_c':{'decisions':{'obs':{
+                'rest':{'recurrence':{'local_motion':{'forward':value}}}}}}}
+        self.assertIsNone(first_difference(tree(2.380139954330329),tree(2.3801399543303297)))
+        self.assertIsNotNone(first_difference(tree(2.38),tree(2.39)))
+        p='$/agents/npc_a/decisions/obs/movement_terrain/directional_samples'
+        self.assertIsNone(first_difference([{'total':1.}],[{'total':math.nextafter(1.,2.)}],p))
+
     def test_terrain_numeric_roundoff_is_allowed(self):
         path='$/agents/npc_a/decisions/obs/movement_terrain/directional_samples/0/source_contributions/obstacles/0/value'
         self.assertIsNone(first_difference(1.,math.nextafter(1.,2.),path))
