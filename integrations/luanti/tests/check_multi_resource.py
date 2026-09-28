@@ -7,6 +7,23 @@ from runtime.multi_resource_exploration import MultiResourceExploration, AGENTS
 from .check_resource_exploration import check_rays, xyz
 
 
+def first_difference(actual, expected, path='$'):
+    """Keep strict replay equality, but locate the first differing leaf."""
+    if actual == expected:
+        return None
+    if isinstance(actual, dict) and isinstance(expected, dict) and actual.keys() == expected.keys():
+        for key in actual:
+            difference = first_difference(actual[key], expected[key], path+'/'+str(key))
+            if difference:
+                return difference
+    if isinstance(actual, list) and isinstance(expected, list) and len(actual) == len(expected):
+        for index, (a, e) in enumerate(zip(actual, expected)):
+            difference = first_difference(a, e, path+'/'+str(index))
+            if difference:
+                return difference
+    return f'{path}: actual={repr(actual)[:180]} expected={repr(expected)[:180]}'
+
+
 def check(data, loop_type=MultiResourceExploration):
     w,s=data["world"],data["runtime"]["exploration"]
     assert not w.get("failure"),w.get("failure")
@@ -14,7 +31,8 @@ def check(data, loop_type=MultiResourceExploration):
     loop=loop_type(w["run_id"],s["periods"],s["seed"],s["assignment"])
     for d in w["deliveries"]:
         assert getattr(loop,d["kind"])(d["request"])==json.loads(d["response_wire"])
-    assert loop.snapshot()==s,"wire replay differs"
+    difference=first_difference(loop.snapshot(),s)
+    assert difference is None, "wire replay differs: "+str(difference)
     assert set(s["agents"])==set(AGENTS)==set(w["agents"])
     stock={p["ref"]:12 for p in w["stock_initial"]}
     assert len(stock)==(2 if w["control"] else 8)
