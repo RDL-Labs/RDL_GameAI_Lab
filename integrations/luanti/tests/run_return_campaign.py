@@ -30,17 +30,18 @@ def main():
     parser.add_argument("--periods",type=int,default=30);parser.add_argument("--speed",type=float,default=1.5)
     parser.add_argument("--model-field",choices=("off","disabled","enabled"),default="off")
     parser.add_argument("--harvest-state",action="store_true")
+    parser.add_argument("--agents",type=int,choices=(3,6),default=3)
     args=parser.parse_args()
     run_id="l15campaign-"+uuid4().hex[:12]
-    loop=ReturnCampaign(run_id,args.periods,mb_field_mode=args.model_field,harvest_state=args.harvest_state)
+    loop=ReturnCampaign(run_id,args.periods,mb_field_mode=args.model_field,harvest_state=args.harvest_state,agent_count=args.agents)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
     worker=Thread(target=server.serve_forever,daemon=True);worker.start()
     report=dict(schema="l15a-return-campaign-evidence-v1",run_id=run_id,
-        predeclared=dict(days=args.periods,stop_after_returns=3,scope="A/B/C aggregate; one batch per agent/night",
+        predeclared=dict(days=args.periods,stop_after_returns=args.agents,agent_count=args.agents,scope="population aggregate; one batch per agent/night",
             harvest_state=args.harvest_state,model_field_mode=args.model_field,simulation_speed=args.speed,scenario="natural_meadow",assignment="steady"),runs=[],
         baseline_commit=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip())
-    sources=["runtime/current_harvest_state.py","integrations/luanti/scripts/test-learned-exploration-day.ps1","runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
+    sources=["runtime/current_harvest_state.py","runtime/multi_resource_exploration.py","integrations/luanti/scripts/test-learned-exploration-day.ps1","runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
         "runtime/model_movement_field.py","runtime/terrain_resource_exploration.py","runtime/terrain_steering.py",
         "integrations/luanti/game/rdl_game/mods/rdl_bridge/multi_resource_fixture.lua"]
     report["source_sha256"]={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in sources}
@@ -51,7 +52,7 @@ def main():
             str(ROOT/"integrations/luanti/scripts/test-learned-exploration-day.ps1"),"-RunId",run_id,
             "-Scenario","natural_meadow","-MultiResources","-MovementTerrain","-MovementSteering","-DayCycle",
             "-ReturnCampaign","-RawWorldOnly","-ResourcePeriods",str(args.periods),"-ResourceAssignment","steady",
-            "-SimulationSpeed",str(args.speed),"-ModelFieldMode",args.model_field]
+            "-AgentCount",str(args.agents),"-SimulationSpeed",str(args.speed),"-ModelFieldMode",args.model_field]
         log=OUTPUT/(run_id+".launch.log")
         with log.open("wb") as stream:
             result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=args.periods*64+600)

@@ -14,6 +14,8 @@ return function(http,runtime_url)
     local reversal_review=core.settings:get("rdl_reversal_review_mode") or "off"
     local day_cycle=core.settings:get_bool("rdl_day_cycle",false)
     local return_campaign=core.settings:get_bool("rdl_return_campaign",false)
+    local agent_count=tonumber(core.settings:get("rdl_campaign_agent_count") or "3")
+    assert(agent_count==3 or (agent_count==6 and return_campaign),"invalid population")
     local model_field_mode=core.settings:get("rdl_model_field_mode") or "off"
     assert(model_field_mode=="off" or (return_campaign and (model_field_mode=="disabled" or model_field_mode=="enabled")),"invalid model field")
     assert(not return_campaign or day_cycle,"campaign needs days")
@@ -40,6 +42,7 @@ return function(http,runtime_url)
     local run=assert(core.settings:get("rdl_learning_run_id"))
     local periods=assert(tonumber(core.settings:get("rdl_resource_periods")))
     local assignment=core.settings:get("rdl_resource_assignment") or "mixed"
+    assert(agent_count==3 or assignment=="steady","six-agent steady profile")
     local scenario=core.settings:get("rdl_exploration_scenario") or "natural_woodland"
     local control=core.settings:get_bool("rdl_resource_control",false)
     local faults=core.settings:get_bool("rdl_resource_faults",false)
@@ -67,7 +70,7 @@ return function(http,runtime_url)
     local stop_requested,stop_started=false,nil
     local evidence={run_id=run,scenario=scenario,assignment=assignment,period_count=periods,
         control=control,faults=faults,agents={},deliveries={},stock_events={},periods={},guards={}}
-    if return_campaign then evidence.return_campaign={target=3,events=return_events} end
+    if return_campaign then evidence.return_campaign={target=agent_count,events=return_events} end
     if task_seconds~=0 then evidence.task_seconds=task_seconds end
     evidence.timing={requested_speed=speed,max_step_us=0}
     evidence.obstacle_probe={mode=obstacle_probe,events={}}
@@ -95,7 +98,7 @@ return function(http,runtime_url)
     end
     local function context(a,x) x.run_id=run;x.world_epoch=1;x.agent_id=a.id;return x end
     local function make_agent(index,id,trait)
-        local x=({0,-2,2})[index]
+        local x=({0,-2,2,-4,4,6})[index]
         local a={id=id,trait=trait,queue={},inventory={},revision=0,configured=false,done=false}
         a.e={agent_id=id,profile=trait,observations={},actions={},terrain_moves={}}
         evidence.agents[id]=a.e
@@ -160,6 +163,7 @@ return function(http,runtime_url)
         if day_cycle then a.config.schema="l15a-landmark-day-cycle-v1" end
         if return_campaign then a.config.schema="l15a-landmark-return-campaign-v1" end
         if model_field_mode~="off" then a.config.mb_field_mode=model_field_mode end
+        if agent_count~=3 then a.config.agent_count=agent_count end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=period_us,
@@ -298,7 +302,7 @@ return function(http,runtime_url)
                         for _,op in ipairs(fresh) do returned[op]=true end
                         return_events[#return_events+1]={agent_id=a.id,day=day+1,checked_us=sim,
                             night_operation=last.command.operation_id,position=vector.new(pos),pickup_operations=fresh}
-                        if #return_events==3 then stop_requested=true;stop_started=sim;return end
+                        if #return_events==agent_count then stop_requested=true;stop_started=sim;return end
                     end
                 end
             end
@@ -342,7 +346,8 @@ return function(http,runtime_url)
             core.set_timeofday(.5)
             local traits=assignment=="swapped" and {"restless","curious","steady"} or
                 (assignment=="steady" and {"steady","steady","steady"} or {"steady","curious","restless"})
-            for i,id in ipairs({"npc_a","npc_b","npc_c"}) do agents[i]=make_agent(i,id,traits[i]) end
+            local ids={"npc_a","npc_b","npc_c","npc_d","npc_e","npc_f"}
+            for i=1,agent_count do agents[i]=make_agent(i,ids[i],traits[(i-1)%3+1]) end
             stage="configuring"
         end)
         if not ok then save(tostring(err)) end
@@ -359,9 +364,11 @@ return function(http,runtime_url)
                 for _,a in ipairs(agents) do a.ctl.stopped=true;a.ending=context(a,{ended_us=sim,reason="time_limit"}) end
             end
             -- Rotate simultaneous execution order; fixed A-first never decides all races.
-            local first=math.floor(sim/250000)%3
-            for j=1,3 do receive(agents[(first+j-1)%3+1]) end
-            if stage=="configuring" and agents[1].configured and agents[2].configured and agents[3].configured then stage="running" end
+            local first=math.floor(sim/250000)%agent_count
+            for j=1,agent_count do receive(agents[(first+j-1)%agent_count+1]) end
+            local configured=true
+            for _,a in ipairs(agents) do configured=configured and a.configured end
+            if stage=="configuring" and configured then stage="running" end
             if stage=="running" then
                 audit_returns()
                 if stop_requested then stage="draining" end
@@ -387,7 +394,9 @@ return function(http,runtime_url)
                 end
                 send(a)
             end
-            if agents[1].done and agents[2].done and agents[3].done then save() end
+            local done=true
+            for _,a in ipairs(agents) do done=done and a.done end
+            if done then save() end
         end)
         if not ok then save(tostring(err)) end
     end)

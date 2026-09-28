@@ -26,6 +26,7 @@ def admission_fork(store):
 class CampaignAgent(DayCycleAgent):
     allow_return_target=True
     harvest_state=False
+    allowed_agent_ids=tuple("npc_"+c for c in "abcdef")
 
     def _decision(self, packet):
         decision=super()._decision(packet)
@@ -47,9 +48,13 @@ class ReturnCampaign(SteeredResourceExploration):
     schema=SCHEMA
     agent_type=CampaignAgent
 
-    def __init__(self,run_id,periods=30,seed=20260928,assignment="steady", mb_field_mode="off", harvest_state=False):
+    def __init__(self,run_id,periods=30,seed=20260928,assignment="steady", mb_field_mode="off", harvest_state=False, agent_count=3):
         require(type(periods) is int and 1<=periods<=30,"campaign_day_budget")
         require(mb_field_mode in ("off","disabled","enabled"),"model_field_mode")
+        require(type(agent_count) is int and agent_count in (3,6),"campaign_agent_count")
+        require(agent_count==3 or assignment=="steady","six_agent_steady_assignment")
+        self.agent_count=agent_count
+        self.agent_ids=CampaignAgent.allowed_agent_ids[:agent_count]
         super().__init__(run_id,periods,seed,assignment)
         require(type(harvest_state) is bool,"harvest_state_mode")
         self.harvest_state=harvest_state
@@ -60,6 +65,8 @@ class ReturnCampaign(SteeredResourceExploration):
 
     def dispatch(self,name,value):
         if name=="configure":
+            require(value.get("agent_count",3)==self.agent_count,"campaign_population_binding")
+            value={k:v for k,v in value.items() if k!="agent_count"}
             require(value.get("mb_field_mode","off")==self.mb_field_mode,"model_field_configuration")
             value={k:v for k,v in value.items() if k!="mb_field_mode"}
         return super().dispatch(name,value)
@@ -68,4 +75,5 @@ class ReturnCampaign(SteeredResourceExploration):
         s=super().snapshot();s["period_us"]=DAY_US
         if self.mb_field_mode!="off": s["mb_field_mode"]=self.mb_field_mode
         if self.harvest_state: s["harvest_state"]=True
+        if self.agent_count!=3: s["agent_count"]=self.agent_count
         return s

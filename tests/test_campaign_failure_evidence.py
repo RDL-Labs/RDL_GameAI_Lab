@@ -14,7 +14,7 @@ class FailureEvidenceTests(TestCase):
     def test_world_failure_preserves_live_runtime_and_returns_failure(self):
         with TemporaryDirectory() as folder:
             root=Path(folder);output=root/"output";artifact=root/"failed.json.xz"
-            files=["runtime/current_harvest_state.py","integrations/luanti/scripts/test-learned-exploration-day.ps1",
+            files=["runtime/current_harvest_state.py","runtime/multi_resource_exploration.py","integrations/luanti/scripts/test-learned-exploration-day.ps1",
                 "runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
                 "runtime/model_movement_field.py","runtime/terrain_resource_exploration.py","runtime/terrain_steering.py",
                 "integrations/luanti/game/rdl_game/mods/rdl_bridge/multi_resource_fixture.lua"]

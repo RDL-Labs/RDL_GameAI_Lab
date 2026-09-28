@@ -1,5 +1,7 @@
 # Design Document Status
 
+2026-09-29: [6個体campaign](../experiment-evidence/LUANTI_L15A_six_agent_world_evidence.md) — 6個体／6便目標をopt-in実装。49関連テストPASS。実走行36単位・2便、16日目に中断。3個体既定経路を保持。
+
 2026-09-29: [現在採取状態の実走行](../experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md) — 16日目に観測枠逸失で中断、完走未達。11,844観測・36採取・2便。全応答／保存Runtimeの再生一致。
 
 2026-09-28: [現在の採取状態](../experiment-contracts/LUANTI_L15A_current_harvest_state.md) — opt-in状態記録。観測範囲内の不在・不明・到達範囲を区別し、過去の成功を保持。旧複合M_Bの失効解除はしない。

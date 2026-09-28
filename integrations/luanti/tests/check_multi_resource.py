@@ -68,7 +68,7 @@ def check(data, loop_type=MultiResourceExploration, completion=None):
         assert getattr(loop,d["kind"])(d["request"])==json.loads(d["response_wire"])
     difference=first_difference(loop.snapshot(),s)
     assert difference is None, "wire replay differs: "+str(difference)
-    assert set(s["agents"])==set(AGENTS)==set(w["agents"])
+    assert set(s["agents"])==set(loop.agents)==set(w["agents"])
     stock={p["ref"]:12 for p in w["stock_initial"]}
     assert len(stock)==(2 if w["control"] else 8)
     initial={p["ref"]:p for p in w["stock_initial"]}
@@ -87,7 +87,7 @@ def check(data, loop_type=MultiResourceExploration, completion=None):
     assert len(events)==len(w["stock_events"] or [])
     summaries={}
     all_operations=set()
-    for agent in AGENTS:
+    for agent in loop.agents:
         a,t=w["agents"][agent],s["agents"][agent]
         assert len(a["observations"])==len(a["actions"])==len(t["observations"])==len(t["results"])==expected_slots
         assert a["max_pending"]<=8 and t["ending"]["reason"]==end_reason

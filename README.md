@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [6個体の連続探索](docs/experiment-evidence/LUANTI_L15A_six_agent_world_evidence.md)：B/C/Eが各12単位、B/Eが帰還。16日目に観測枠逸失で中断、正常完走は未達。
+
 - [現在採取状態の実走行](docs/experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md)：16日目に観測枠逸失で中断。36単位・2便。不在と過去成功の併存を実機で確認。
 
 - [現在の採取状態](docs/experiment-contracts/LUANTI_L15A_current_harvest_state.md)：現在の「ない／不明」を成功経験から分離。採取関係モデルの再構成は別工程。

@@ -14,9 +14,10 @@ AGENTS = ("npc_a", "npc_b", "npc_c")
 
 class PredictableResourceAgent(ResourceExploration):
     inventory_capacity = 96
+    allowed_agent_ids = AGENTS
 
     def __init__(self, run_id, agent_id, profile, periods=30, seed=20260928):
-        require(agent_id in AGENTS and profile in PROFILES, "agent_profile")
+        require(agent_id in self.allowed_agent_ids and profile in PROFILES, "agent_profile")
         super().__init__(run_id, periods, seed, agent_id)
         self.profile = profile
         self.model = None
@@ -129,6 +130,7 @@ class PredictableResourceAgent(ResourceExploration):
 class MultiResourceExploration:
     schema = SCHEMA
     agent_type = PredictableResourceAgent
+    agent_ids = AGENTS
 
     def __init__(self, run_id, periods=30, seed=20260928, assignment="mixed"):
         require(assignment in ("mixed", "swapped", "steady"), "assignment")
@@ -136,7 +138,7 @@ class MultiResourceExploration:
             ("restless", "curious", "steady") if assignment == "swapped" else ("steady",)*3)
         self.run_id, self.periods, self.seed, self.assignment = run_id, periods, seed, assignment
         self.lock = RLock()
-        self.agents = {a:self.agent_type(run_id, a, t, periods, seed) for a,t in zip(AGENTS, profiles)}
+        self.agents = {a:self.agent_type(run_id, a, t, periods, seed) for a,t in zip(self.agent_ids, (profiles*(len(self.agent_ids)//3)))}
 
     def dispatch(self, name, value):
         with self.lock:

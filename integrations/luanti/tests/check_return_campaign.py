@@ -23,7 +23,7 @@ def trips(world):
             counted.update(fresh)
             out.append(dict(agent_id=aid,day=day+1,checked_us=now,night_operation=action["command"]["operation_id"],
                             position=pos,pickup_operations=fresh))
-            if len(out)==3: break
+            if len(out)==world.get("return_campaign",{}).get("target",3): break
     return out
 
 
@@ -31,16 +31,17 @@ def check(data, *, require_clean_transport=True):
     w,s=data["world"],data["runtime"]["exploration"]
     actual=w["return_campaign"]["events"] or []
     expected=trips(w)
-    assert w["return_campaign"]["target"]==3 and actual==expected
+    target=s.get("agent_count",3)
+    assert w["return_campaign"]["target"]==target and actual==expected
     n=len(w["agents"]["npc_a"]["observations"])
-    reason="return_target_reached" if len(actual)==3 else "time_limit"
+    reason="return_target_reached" if len(actual)==target else "time_limit"
     if reason=="time_limit": assert n==s["periods"]*256
     else:
         assert all(o["packet"]["capture_us"]<=actual[-1]["checked_us"] for a in w["agents"].values() for o in a["observations"])
     replay_type=ReturnCampaign
-    if s.get("mb_field_mode") or s.get("harvest_state"):
+    if s.get("mb_field_mode") or s.get("harvest_state") or s.get("agent_count"):
         class ConfiguredCampaign(ReturnCampaign):
-            def __init__(self,*args): super().__init__(*args,mb_field_mode=s.get("mb_field_mode","off"),harvest_state=s.get("harvest_state",False))
+            def __init__(self,*args): super().__init__(*args,mb_field_mode=s.get("mb_field_mode","off"),harvest_state=s.get("harvest_state",False),agent_count=s.get("agent_count",3))
         replay_type=ConfiguredCampaign
     summary=day_check(data,replay_type,dict(slots=n,reason=reason), require_clean_transport=require_clean_transport)
     faults={k:sum(a["result"]["status"]==k for agent in w["agents"].values() for a in agent["actions"]) for k in ("expired","stale","stopped")}

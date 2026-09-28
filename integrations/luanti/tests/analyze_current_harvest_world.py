@@ -15,7 +15,7 @@ def analyze(path, replay=False):
     assert run['summary'] is not None
     if replay:
         from runtime.landmark_return_campaign import ReturnCampaign
-        loop=ReturnCampaign(w['run_id'],s['periods'],mb_field_mode=s['mb_field_mode'],harvest_state=True)
+        loop=ReturnCampaign(w['run_id'],s['periods'],mb_field_mode=s['mb_field_mode'],harvest_state=True,agent_count=s.get("agent_count",3))
         for entry in w['deliveries']:
             assert getattr(loop,entry['kind'])(entry['request'])==json.loads(entry['response_wire'])
         assert loop.snapshot()==s
