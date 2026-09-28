@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [現在の採取状態](docs/experiment-contracts/LUANTI_L15A_current_harvest_state.md)：現在の「ない／不明」を成功経験から分離。採取関係モデルの再構成は別工程。
+
 - [30日M_B接続比較](docs/experiment-evidence/LUANTI_L15A_model_field_30d_evidence.md)：両条件24単位・2便。実M_B採用後に資源枯渇で失効、場への適用0件。通信受入は未達。
 
 

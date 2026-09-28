@@ -3,6 +3,7 @@ from copy import copy, deepcopy
 from .landmark_day_cycle import DayCycleAgent, DAY_US
 from .terrain_steering import SteeredResourceExploration
 from .exploration import require
+from .current_harvest_state import assess
 
 SCHEMA="l15a-landmark-return-campaign-v1"
 
@@ -24,6 +25,7 @@ def admission_fork(store):
 
 class CampaignAgent(DayCycleAgent):
     allow_return_target=True
+    harvest_state=False
 
     def _decision(self, packet):
         decision=super()._decision(packet)
@@ -33,6 +35,8 @@ class CampaignAgent(DayCycleAgent):
             decision["mb_field"]=dict(mode=self.mb_field_mode, field=trace,
                 gate=decision["terrain_gate"], final_action=list(decision["action"]),
                 final_reason=decision["reason"])
+        if self.harvest_state:
+            decision["current_harvest"]=assess(packet,self.teaching["appearance"],self._prospective[0]["records"])
         return decision
 
     def _stage_sensory_store(self):
@@ -43,12 +47,16 @@ class ReturnCampaign(SteeredResourceExploration):
     schema=SCHEMA
     agent_type=CampaignAgent
 
-    def __init__(self,run_id,periods=30,seed=20260928,assignment="steady", mb_field_mode="off"):
+    def __init__(self,run_id,periods=30,seed=20260928,assignment="steady", mb_field_mode="off", harvest_state=False):
         require(type(periods) is int and 1<=periods<=30,"campaign_day_budget")
         require(mb_field_mode in ("off","disabled","enabled"),"model_field_mode")
         super().__init__(run_id,periods,seed,assignment)
+        require(type(harvest_state) is bool,"harvest_state_mode")
+        self.harvest_state=harvest_state
         self.mb_field_mode=mb_field_mode
-        for agent in self.agents.values(): agent.mb_field_mode=mb_field_mode
+        for agent in self.agents.values():
+            agent.mb_field_mode=mb_field_mode
+            agent.harvest_state=harvest_state
 
     def dispatch(self,name,value):
         if name=="configure":
@@ -59,4 +67,5 @@ class ReturnCampaign(SteeredResourceExploration):
     def snapshot(self):
         s=super().snapshot();s["period_us"]=DAY_US
         if self.mb_field_mode!="off": s["mb_field_mode"]=self.mb_field_mode
+        if self.harvest_state: s["harvest_state"]=True
         return s

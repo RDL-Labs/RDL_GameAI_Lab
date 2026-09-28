@@ -1,0 +1,90 @@
+{
+  "schema": "l15a-current-harvest-replay-v1",
+  "source": "tests\\fixtures\\luanti_l15a_model_field_30d_enabled.json.xz",
+  "source_sha256": "57702e6a69c08eddc496f168f88ef0a3d5468a18a18680a7c66fb92908d0c419",
+  "implementation_sha256": {
+    "runtime\\current_harvest_state.py": "c8233314cd85c93022b22c898c21d6e8c4a0f57b4122d5bd3abfa5b94f9ef54d",
+    "runtime\\landmark_return_campaign.py": "d7bc37fe3c2b81221044ae833932878ac9b2f4d22692af05e00e1f57bad479fe"
+  },
+  "validation": "all saved HTTP responses and prior decisions unchanged; learning and models unchanged",
+  "limitation": "offline replay of actual World records; no new Luanti execution; original timing failures remain",
+  "responses": 46086,
+  "agents": {
+    "npc_a": {
+      "states": {
+        "none_observed": 3379,
+        "visible_out_of_reach": 4279,
+        "reachable_observed": 22
+      },
+      "first_absence_after_success": [],
+      "historical_successes": 0,
+      "model_invalidated": false
+    },
+    "npc_b": {
+      "states": {
+        "none_observed": 5966,
+        "visible_out_of_reach": 1698,
+        "reachable_observed": 16
+      },
+      "first_absence_after_success": [
+        {
+          "schema": "l15a-current-harvest-state-v1",
+          "source": {
+            "run_id": "l15campaign-c892690b5f91",
+            "agent_id": "npc_b",
+            "observation_id": "l15campaign-c892690b5f91:npc_b:obs:2105",
+            "capture_us": 526265628,
+            "pose_ref": "l15campaign-c892690b5f91:npc_b:pose:674"
+          },
+          "scope": "current Food acquisition only; no persistent place identity",
+          "appearance": "brown_capped_ovoid",
+          "coverage": "complete",
+          "status": "none_observed",
+          "visible_refs": [],
+          "reachable_refs": [],
+          "historical_success": {
+            "count": 12,
+            "last_operation": "op:l15campaign-c892690b5f91:npc_b:obs:2104",
+            "authority": "episodic acquisition evidence; not a new adopted relation"
+          },
+          "absence_authority": "current observation only; not permanent depletion or regrowth prediction"
+        }
+      ],
+      "historical_successes": 12,
+      "model_invalidated": true
+    },
+    "npc_c": {
+      "states": {
+        "none_observed": 6597,
+        "visible_out_of_reach": 1071,
+        "reachable_observed": 12
+      },
+      "first_absence_after_success": [
+        {
+          "schema": "l15a-current-harvest-state-v1",
+          "source": {
+            "run_id": "l15campaign-c892690b5f91",
+            "agent_id": "npc_c",
+            "observation_id": "l15campaign-c892690b5f91:npc_c:obs:1390",
+            "capture_us": 347519855,
+            "pose_ref": "l15campaign-c892690b5f91:npc_c:pose:330"
+          },
+          "scope": "current Food acquisition only; no persistent place identity",
+          "appearance": "brown_capped_ovoid",
+          "coverage": "complete",
+          "status": "none_observed",
+          "visible_refs": [],
+          "reachable_refs": [],
+          "historical_success": {
+            "count": 12,
+            "last_operation": "op:l15campaign-c892690b5f91:npc_c:obs:1389",
+            "authority": "episodic acquisition evidence; not a new adopted relation"
+          },
+          "absence_authority": "current observation only; not permanent depletion or regrowth prediction"
+        }
+      ],
+      "historical_successes": 12,
+      "model_invalidated": true
+    }
+  }
+}

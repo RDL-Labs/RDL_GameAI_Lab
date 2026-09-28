@@ -38,9 +38,9 @@ def check(data, *, require_clean_transport=True):
     else:
         assert all(o["packet"]["capture_us"]<=actual[-1]["checked_us"] for a in w["agents"].values() for o in a["observations"])
     replay_type=ReturnCampaign
-    if s.get("mb_field_mode"):
+    if s.get("mb_field_mode") or s.get("harvest_state"):
         class ConfiguredCampaign(ReturnCampaign):
-            def __init__(self,*args): super().__init__(*args,mb_field_mode=s["mb_field_mode"])
+            def __init__(self,*args): super().__init__(*args,mb_field_mode=s.get("mb_field_mode","off"),harvest_state=s.get("harvest_state",False))
         replay_type=ConfiguredCampaign
     summary=day_check(data,replay_type,dict(slots=n,reason=reason), require_clean_transport=require_clean_transport)
     faults={k:sum(a["result"]["status"]==k for agent in w["agents"].values() for a in agent["actions"]) for k in ("expired","stale","stopped")}
