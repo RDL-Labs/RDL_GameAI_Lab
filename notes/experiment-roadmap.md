@@ -165,6 +165,9 @@ The [v0.7 plan and discussion additions](../docs/design/RDL_GameAI_Luanti_Subjec
 remain **DESIGN ONLY**: obstacle-triggered stopping and new observations, interest-driven detours, and an earlier objective being
 deprioritized or absent from current selection. Objective non-reference is separate from memory loss; return to food seeking is not
 guaranteed, and timeout/no harvest are valid observations. No fixed thinking delay, sensor/decision cadence change, or new M_B authority is implemented.
+Sections 11.10–11.13 add design hypotheses for recurrent stagnation and a shared repetition response with different decay rates.
+Productive repetition and low-progress cycles retain separate evidence; reaction decay does not erase experience or turn a matched prediction
+into nonzero Core E. Existing L14B's zero-sensitivity steady profile remains unchanged. Escape, re-entry, and opportunity loss are untested comparison candidates.
 General avoidance and later M_B/body/profile weighting remain **DESIGN ONLY**. [Connection evidence](../docs/experiment-evidence/LUANTI_L15A_exploration_connection_evidence.md).
 [The v0.2 extension plan](../docs/design/RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.2.md) reserves separately sourced body-condition, unknown-value, social, learned-prediction and broad-value contributions.
 These are design reservations, not implemented fields or observed zero values; the existing three-component calculator remains unchanged.
