@@ -7,7 +7,7 @@
 
 | 文書 | 整理前の分類 | 今回の扱い / 責務 |
 |---|---|---|
-| [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | PLAN / DESIGN ONLY、基準e07fb157 | 短期履歴の診断→反復残存/減衰shadow→停止・新規観測・再評価を直近の一区切りにする。個体差、最小合成、連続身体運動、長期比較、M_B探索への復帰を分ける。受入は未実施 |
+| [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | offline診断実施 / shadow以降DESIGN ONLY | [9run診断](../experiment-evidence/LUANTI_L15A_history_diagnostic_evidence.md)でv2の歩行復帰7窓は予定往復、目的条件付き認定は0。[shadow契約](../experiment-contracts/LUANTI_L15A_repetition_shadow_contract.md)は作成済み・未実装。停止/再評価への接続前に追加検証が必要 |
 | [全体設計地図](RDL_GameAI_全体設計地図.md) | partially stale / duplicate details | 4軸と正本リンク。詳細は各責務文書へ委譲 |
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
