@@ -41,7 +41,7 @@ def view_key(p):
     return key
 
 
-def diagnose_window(records):
+def diagnose_window(records, *, purpose_scoped=True):
     """At most nine acquired views, linked by eight already received results."""
     if not 1<=len(records)<=WINDOW_OPERATIONS+1:
         raise ValueError("history_budget")
@@ -99,13 +99,18 @@ def diagnose_window(records):
     same=keys[0]==keys[-1]
     returned=net<=RETURN_DISTANCE and abs(yaw)<=RETURN_YAW
     acquired=sum(r["acquired"] for r in results)
-    if acquired:status="acquisition_progress"
+    if acquired and purpose_scoped:status="acquisition_progress"
     elif returned and same and path>=2:status="movement_return_candidate"
     elif returned and same and reversals and path<.001:status="stationary_reversal_candidate"
     elif path<.001:status="stationary_other"
     else:status="translated_or_view_changed"
     out.update(status=status,same_coarse_view=same,local_motion=dict(right=x,forward=z,up=up,
         net_distance=net,path_distance=path,yaw=yaw,consecutive_reversals=reversals,acquisitions=acquired))
+    if not purpose_scoped:
+        # No normal/abnormal, purpose, reward or planned-survey admission gate.
+        out["purpose_gate"]="not_used"
+        out["repetition_eligible"]=status in ("stationary_reversal_candidate","movement_return_candidate")
+        return out
     decisions=[r.get("decision") for r in records]
     reasons=[r["command"]["reason"] for r in records[:-1]]
     approaches=[d.get("approach") if d else None for d in decisions]
@@ -126,7 +131,7 @@ def diagnose_window(records):
     return out
 
 
-def analyze(data):
+def analyze(data, diagnostic=diagnose_window):
     state=data["runtime"]["exploration"]
     types={t.schema:t for t in (TerrainResourceExploration,SteeredResourceExploration,TieBreakResourceExploration)}
     loop=types[state["schema"]](state["run_id"],state["periods"],state["seed"],state["assignment"])
@@ -144,7 +149,7 @@ def analyze(data):
         assert getattr(loop,name)(p)==json.loads(delivery["response_wire"])
         if fresh:
             records[-1]["decision"]=agent.decisions[p["observation_id"]]
-            windows[p["agent_id"]].append(diagnose_window(records))
+            windows[p["agent_id"]].append(diagnostic(records))
     assert loop.snapshot()==state,"diagnostic replay changed the accepted state"
     # Independent observer comparison after every agent diagnostic is frozen.
     for aid,rows in windows.items():

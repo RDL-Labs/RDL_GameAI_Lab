@@ -20,13 +20,14 @@ uses coarse color conditions, not inferred intentions or ownership.
 Current near-term priority (2026-09-28, baseline `e07fb157`): follow the
 [movement next-steps plan](../docs/design/RDL_GameAI_Movement_Next_Steps.md).
 The [offline history diagnostic](../docs/experiment-evidence/LUANTI_L15A_history_diagnostic_evidence.md) now replays nine saved runs:
-all seven v2 walk-return windows are planned neighborhood surveys, not admitted repetition evidence.
-The [purpose-scoped shadow contract](../docs/experiment-contracts/LUANTI_L15A_repetition_shadow_contract.md) is specified but unimplemented.
-Next verify finite repetition/decay without action effects; before active stopping, obtain non-intentional recurrence evidence
-and normal-survey controls on the same v2 steering baseline.
-Decay individuality, justified minimal composition, continuous body motion, and multi-seed long runs are separate follow-ups.
+all seven v2 walk-return windows are planned neighborhood surveys. The former purpose veto is superseded:
+the implemented [shadow contract](../docs/experiment-contracts/LUANTI_L15A_repetition_shadow_contract.md) admits them too.
+[Three decay profiles on nine archived runs](../docs/experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)
+show request differences, but v2 alone stays below threshold in all profiles. No normal/abnormal observer gate is used.
+Next define request consumption, stopping/resumption budgets and priority arbitration before closed-loop action comparison.
+Justified minimal composition, continuous body motion, and multi-seed long runs remain separate follow-ups.
 Return to inspected M_B-informed exploration after that finite movement checkpoint; visual smoothness is not an unlimited prerequisite.
-Only the offline diagnostic is implemented; no new Runtime action mechanism or live-World acceptance is claimed.
+Offline diagnostic and shadow are implemented; no new Runtime action mechanism or fresh live-World acceptance is claimed.
 
 ## Post-L10B shared-resource learning
 
