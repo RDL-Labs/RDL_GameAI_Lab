@@ -1,0 +1,3712 @@
+{
+  "schema": "l15a-phase1-synthetic-examples-v1",
+  "provenance": {
+    "kind": "synthetic; no Luanti acquisition or World execution",
+    "baseline_commit": "52b09d5c",
+    "calculator_sha256": "f107b183af98cae54beddff1c9ad478d8488aec04930308a706431ddfcc6647c"
+  },
+  "cases": [
+    {
+      "name": "single_food",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "item",
+              "forward": 5.0,
+              "right": 0.0
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": []
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "item",
+                "forward": 5.0,
+                "right": 0.0
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": []
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 0.0,
+            "total": -2.3003268288024055,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 0.0,
+            "total": -2.549753576949592,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.666666666666667,
+            "obstacle": 0.0,
+            "total": -2.666666666666667,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.0,
+                  "raw": -2.666666666666667,
+                  "normalized": -2.666666666666667
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 0.0,
+            "total": -2.549753576949592,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 0.0,
+            "total": -2.3003268288024055,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": -2.666666666666667,
+        "minimum_directions": [
+          0
+        ]
+      }
+    },
+    {
+      "name": "left_food",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "item",
+              "forward": 5.0,
+              "right": -4
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": []
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "item",
+                "forward": 5.0,
+                "right": -4
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": []
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.0563493683848995,
+            "obstacle": 0.0,
+            "total": -2.0563493683848995,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.830951894845301,
+                  "raw": -2.0563493683848995,
+                  "normalized": -2.0563493683848995
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.1965441218888744,
+            "obstacle": 0.0,
+            "total": -2.1965441218888744,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.410367634333377,
+                  "raw": -2.1965441218888744,
+                  "normalized": -2.1965441218888744
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.114381916835873,
+            "obstacle": 0.0,
+            "total": -2.114381916835873,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.656854249492381,
+                  "raw": -2.114381916835873,
+                  "normalized": -2.114381916835873
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -1.8764341718696382,
+            "obstacle": 0.0,
+            "total": -1.8764341718696382,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 6.370697484391085,
+                  "raw": -1.8764341718696382,
+                  "normalized": -1.8764341718696382
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -1.6429773960448415,
+            "obstacle": 0.0,
+            "total": -1.6429773960448415,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 7.0710678118654755,
+                  "raw": -1.6429773960448415,
+                  "normalized": -1.6429773960448415
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": -2.1965441218888744,
+        "minimum_directions": [
+          -45
+        ]
+      }
+    },
+    {
+      "name": "right_food",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "item",
+              "forward": 5.0,
+              "right": 4
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": []
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "item",
+                "forward": 5.0,
+                "right": 4
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": []
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -1.6429773960448415,
+            "obstacle": 0.0,
+            "total": -1.6429773960448415,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 7.0710678118654755,
+                  "raw": -1.6429773960448415,
+                  "normalized": -1.6429773960448415
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -1.8764341718696382,
+            "obstacle": 0.0,
+            "total": -1.8764341718696382,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 6.370697484391085,
+                  "raw": -1.8764341718696382,
+                  "normalized": -1.8764341718696382
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.114381916835873,
+            "obstacle": 0.0,
+            "total": -2.114381916835873,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.656854249492381,
+                  "raw": -2.114381916835873,
+                  "normalized": -2.114381916835873
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.1965441218888744,
+            "obstacle": 0.0,
+            "total": -2.1965441218888744,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.410367634333377,
+                  "raw": -2.1965441218888744,
+                  "normalized": -2.1965441218888744
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.0563493683848995,
+            "obstacle": 0.0,
+            "total": -2.0563493683848995,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.830951894845301,
+                  "raw": -2.0563493683848995,
+                  "normalized": -2.0563493683848995
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": -2.1965441218888744,
+        "minimum_directions": [
+          45
+        ]
+      }
+    },
+    {
+      "name": "two_food",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "left",
+              "forward": 4,
+              "right": -4
+            },
+            {
+              "ref": "right",
+              "forward": 4,
+              "right": 4
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": []
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "left",
+                "forward": 4,
+                "right": -4
+              },
+              {
+                "ref": "right",
+                "forward": 4,
+                "right": 4
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": []
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.099479293761192,
+            "obstacle": 0.0,
+            "total": -2.099479293761192,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "left",
+                  "distance": 5.0,
+                  "raw": -2.333333333333333,
+                  "normalized": -1.1666666666666665
+                },
+                {
+                  "ref": "right",
+                  "distance": 6.4031242374328485,
+                  "raw": -1.8656252541890503,
+                  "normalized": -0.9328126270945252
+                }
+              ],
+              "food_denominator": 2,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.2664305173282653,
+            "obstacle": 0.0,
+            "total": -2.2664305173282653,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "left",
+                  "distance": 4.656854249492381,
+                  "raw": -2.4477152501692068,
+                  "normalized": -1.2238576250846034
+                },
+                {
+                  "ref": "right",
+                  "distance": 5.744562646538029,
+                  "raw": -2.085145784487324,
+                  "normalized": -1.042572892243662
+                }
+              ],
+              "food_denominator": 2,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.333333333333333,
+            "obstacle": 0.0,
+            "total": -2.333333333333333,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "left",
+                  "distance": 5.0,
+                  "raw": -2.333333333333333,
+                  "normalized": -1.1666666666666665
+                },
+                {
+                  "ref": "right",
+                  "distance": 5.0,
+                  "raw": -2.333333333333333,
+                  "normalized": -1.1666666666666665
+                }
+              ],
+              "food_denominator": 2,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.2664305173282653,
+            "obstacle": 0.0,
+            "total": -2.2664305173282653,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "left",
+                  "distance": 5.744562646538029,
+                  "raw": -2.085145784487324,
+                  "normalized": -1.042572892243662
+                },
+                {
+                  "ref": "right",
+                  "distance": 4.656854249492381,
+                  "raw": -2.4477152501692068,
+                  "normalized": -1.2238576250846034
+                }
+              ],
+              "food_denominator": 2,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.099479293761192,
+            "obstacle": 0.0,
+            "total": -2.099479293761192,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "left",
+                  "distance": 6.4031242374328485,
+                  "raw": -1.8656252541890503,
+                  "normalized": -0.9328126270945252
+                },
+                {
+                  "ref": "right",
+                  "distance": 5.0,
+                  "raw": -2.333333333333333,
+                  "normalized": -1.1666666666666665
+                }
+              ],
+              "food_denominator": 2,
+              "obstacles": [],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": -2.333333333333333,
+        "minimum_directions": [
+          0
+        ]
+      }
+    },
+    {
+      "name": "far_obstacle",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": []
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "rock",
+              "forward": 7,
+              "right": 0
+            }
+          ]
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": []
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "rock",
+                "forward": 7,
+                "right": 0
+              }
+            ]
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 0.0,
+            "total": 0.0,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 7.0,
+                  "value": 0.0
+                }
+              ],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 0.0,
+            "total": 0.0,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 6.332495958418634,
+                  "value": 0.0
+                }
+              ],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 0.0,
+            "total": 0.0,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 6.0,
+                  "value": 0.0
+                }
+              ],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 0.0,
+            "total": 0.0,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 6.332495958418634,
+                  "value": 0.0
+                }
+              ],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 0.0,
+            "total": 0.0,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 7.0,
+                  "value": 0.0
+                }
+              ],
+              "obstacle_sum": 0.0,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": 0.0,
+        "minimum_directions": [
+          -90,
+          -45,
+          0,
+          45,
+          90
+        ]
+      }
+    },
+    {
+      "name": "near_obstacle",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": []
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "rock",
+              "forward": 2,
+              "right": 0
+            }
+          ]
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": []
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "rock",
+                "forward": 2,
+                "right": 0
+              }
+            ]
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 2.666666666666667,
+            "total": 2.666666666666667,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.0,
+                  "value": 2.666666666666667
+                }
+              ],
+              "obstacle_sum": 2.666666666666667,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 3.4146772961264995,
+            "total": 3.4146772961264995,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.4736257582079006,
+                  "value": 3.4146772961264995
+                }
+              ],
+              "obstacle_sum": 3.4146772961264995,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 4.166666666666667,
+            "total": 4.166666666666667,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.0,
+                  "value": 4.166666666666667
+                }
+              ],
+              "obstacle_sum": 4.166666666666667,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 3.4146772961264995,
+            "total": 3.4146772961264995,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.4736257582079006,
+                  "value": 3.4146772961264995
+                }
+              ],
+              "obstacle_sum": 3.4146772961264995,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": 0.0,
+            "obstacle": 2.666666666666667,
+            "total": 2.666666666666667,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.0,
+                  "value": 2.666666666666667
+                }
+              ],
+              "obstacle_sum": 2.666666666666667,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": 2.666666666666667,
+        "minimum_directions": [
+          -90,
+          90
+        ]
+      }
+    },
+    {
+      "name": "food_front_obstacle",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "item",
+              "forward": 5.0,
+              "right": 0.0
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "rock",
+              "forward": 2,
+              "right": 0
+            }
+          ]
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "item",
+                "forward": 5.0,
+                "right": 0.0
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "rock",
+                "forward": 2,
+                "right": 0
+              }
+            ]
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 2.666666666666667,
+            "total": 0.3663398378642615,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.0,
+                  "value": 2.666666666666667
+                }
+              ],
+              "obstacle_sum": 2.666666666666667,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 3.4146772961264995,
+            "total": 0.8649237191769075,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.4736257582079006,
+                  "value": 3.4146772961264995
+                }
+              ],
+              "obstacle_sum": 3.4146772961264995,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.666666666666667,
+            "obstacle": 4.166666666666667,
+            "total": 1.5,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.0,
+                  "raw": -2.666666666666667,
+                  "normalized": -2.666666666666667
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.0,
+                  "value": 4.166666666666667
+                }
+              ],
+              "obstacle_sum": 4.166666666666667,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 3.4146772961264995,
+            "total": 0.8649237191769075,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.4736257582079006,
+                  "value": 3.4146772961264995
+                }
+              ],
+              "obstacle_sum": 3.4146772961264995,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 2.666666666666667,
+            "total": 0.3663398378642615,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.0,
+                  "value": 2.666666666666667
+                }
+              ],
+              "obstacle_sum": 2.666666666666667,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": 0.3663398378642615,
+        "minimum_directions": [
+          -90,
+          90
+        ]
+      }
+    },
+    {
+      "name": "food_left_obstacle",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "item",
+              "forward": 5.0,
+              "right": 0.0
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "rock",
+              "forward": 2,
+              "right": -1
+            }
+          ]
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "item",
+                "forward": 5.0,
+                "right": 0.0
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "rock",
+                "forward": 2,
+                "right": -1
+              }
+            ]
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 2.666666666666667,
+            "total": 0.3663398378642615,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.0,
+                  "value": 2.666666666666667
+                }
+              ],
+              "obstacle_sum": 2.666666666666667,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 3.6415846265287177,
+            "total": 1.0918310495791257,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.3256542961423672,
+                  "value": 3.6415846265287177
+                }
+              ],
+              "obstacle_sum": 3.6415846265287177,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.666666666666667,
+            "obstacle": 3.5049062085871427,
+            "total": 0.8382395419204758,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.0,
+                  "raw": -2.666666666666667,
+                  "normalized": -2.666666666666667
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.4142135623730951,
+                  "value": 3.5049062085871427
+                }
+              ],
+              "obstacle_sum": 3.5049062085871427,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 2.5073593128807152,
+            "total": -0.04239426406887681,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.1213203435596424,
+                  "value": 2.5073593128807152
+                }
+              ],
+              "obstacle_sum": 2.5073593128807152,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 2.3611973783337543,
+            "total": 0.06087054953134885,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.23606797749979,
+                  "value": 2.3611973783337543
+                }
+              ],
+              "obstacle_sum": 2.3611973783337543,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": -0.04239426406887681,
+        "minimum_directions": [
+          45
+        ]
+      }
+    },
+    {
+      "name": "food_right_obstacle",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "item",
+              "forward": 5.0,
+              "right": 0.0
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "rock",
+              "forward": 2,
+              "right": 1
+            }
+          ]
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "item",
+                "forward": 5.0,
+                "right": 0.0
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "rock",
+                "forward": 2,
+                "right": 1
+              }
+            ]
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "complete",
+        "reasons": [],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 2.3611973783337543,
+            "total": 0.06087054953134885,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.23606797749979,
+                  "value": 2.3611973783337543
+                }
+              ],
+              "obstacle_sum": 2.3611973783337543,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 2.5073593128807152,
+            "total": -0.04239426406887681,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.1213203435596424,
+                  "value": 2.5073593128807152
+                }
+              ],
+              "obstacle_sum": 2.5073593128807152,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.666666666666667,
+            "obstacle": 3.5049062085871427,
+            "total": 0.8382395419204758,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.0,
+                  "raw": -2.666666666666667,
+                  "normalized": -2.666666666666667
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.4142135623730951,
+                  "value": 3.5049062085871427
+                }
+              ],
+              "obstacle_sum": 3.5049062085871427,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.549753576949592,
+            "obstacle": 3.6415846265287177,
+            "total": 1.0918310495791257,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 4.350739269151223,
+                  "raw": -2.549753576949592,
+                  "normalized": -2.549753576949592
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 1.3256542961423672,
+                  "value": 3.6415846265287177
+                }
+              ],
+              "obstacle_sum": 3.6415846265287177,
+              "obstacle_cap": 12.0
+            }
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "scored",
+            "reasons": [],
+            "physical": 0.0,
+            "food": -2.3003268288024055,
+            "obstacle": 2.666666666666667,
+            "total": 0.3663398378642615,
+            "source_contributions": {
+              "ground": {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              "food": [
+                {
+                  "ref": "item",
+                  "distance": 5.0990195135927845,
+                  "raw": -2.3003268288024055,
+                  "normalized": -2.3003268288024055
+                }
+              ],
+              "food_denominator": 1,
+              "obstacles": [
+                {
+                  "ref": "rock",
+                  "clearance": 2.0,
+                  "value": 2.666666666666667
+                }
+              ],
+              "obstacle_sum": 2.666666666666667,
+              "obstacle_cap": 12.0
+            }
+          }
+        ],
+        "minimum_height": -0.04239426406887681,
+        "minimum_directions": [
+          -45
+        ]
+      }
+    },
+    {
+      "name": "partial_food",
+      "observation": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "food": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:food"
+          },
+          "coverage": "partial",
+          "output_limited": false,
+          "items": [
+            {
+              "ref": "item",
+              "forward": 5.0,
+              "right": 0.0
+            }
+          ]
+        },
+        "obstacles": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:obstacles"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "items": []
+        },
+        "ground": {
+          "source": {
+            "run_id": "run",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "observation_id": "obs",
+            "clock_id": "sim",
+            "capture_us": 250000,
+            "pose_ref": "pose",
+            "body_revision": 4,
+            "frame_id": "frame:ground"
+          },
+          "coverage": "complete",
+          "output_limited": false,
+          "samples": [
+            {
+              "direction_deg": -90,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": -45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 0,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 45,
+              "status": "sampled",
+              "height_delta": 0.0
+            },
+            {
+              "direction_deg": 90,
+              "status": "sampled",
+              "height_delta": 0.0
+            }
+          ]
+        }
+      },
+      "result": {
+        "schema": "l15a-subjective-movement-terrain-v1",
+        "profile": "l15a-finite-directional-v1",
+        "rule_version": "l15a-phase1-v1",
+        "context": {
+          "run_id": "run",
+          "world_epoch": 1,
+          "agent_id": "npc_a",
+          "observation_id": "obs",
+          "clock_id": "sim",
+          "capture_us": 250000,
+          "pose_ref": "pose",
+          "body_revision": 4
+        },
+        "evidence": {
+          "food": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:food"
+            },
+            "coverage": "partial",
+            "output_limited": false,
+            "items": [
+              {
+                "ref": "item",
+                "forward": 5.0,
+                "right": 0.0
+              }
+            ]
+          },
+          "obstacles": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:obstacles"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "items": []
+          },
+          "ground": {
+            "source": {
+              "run_id": "run",
+              "world_epoch": 1,
+              "agent_id": "npc_a",
+              "observation_id": "obs",
+              "clock_id": "sim",
+              "capture_us": 250000,
+              "pose_ref": "pose",
+              "body_revision": 4,
+              "frame_id": "frame:ground"
+            },
+            "coverage": "complete",
+            "output_limited": false,
+            "samples": [
+              {
+                "direction_deg": -90,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": -45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 0,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 45,
+                "status": "sampled",
+                "height_delta": 0.0
+              },
+              {
+                "direction_deg": 90,
+                "status": "sampled",
+                "height_delta": 0.0
+              }
+            ]
+          }
+        },
+        "status": "acquisition_incomplete",
+        "reasons": [
+          "food_partial"
+        ],
+        "directional_samples": [
+          {
+            "direction_deg": -90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": -1.0
+            },
+            "status": "not_evaluated",
+            "reasons": [
+              "food_partial"
+            ],
+            "physical": null,
+            "food": null,
+            "obstacle": null,
+            "total": null,
+            "source_contributions": null
+          },
+          {
+            "direction_deg": -45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": -0.7071067811865476
+            },
+            "status": "not_evaluated",
+            "reasons": [
+              "food_partial"
+            ],
+            "physical": null,
+            "food": null,
+            "obstacle": null,
+            "total": null,
+            "source_contributions": null
+          },
+          {
+            "direction_deg": 0,
+            "sample_point": {
+              "forward": 1.0,
+              "right": 0.0
+            },
+            "status": "not_evaluated",
+            "reasons": [
+              "food_partial"
+            ],
+            "physical": null,
+            "food": null,
+            "obstacle": null,
+            "total": null,
+            "source_contributions": null
+          },
+          {
+            "direction_deg": 45,
+            "sample_point": {
+              "forward": 0.7071067811865476,
+              "right": 0.7071067811865476
+            },
+            "status": "not_evaluated",
+            "reasons": [
+              "food_partial"
+            ],
+            "physical": null,
+            "food": null,
+            "obstacle": null,
+            "total": null,
+            "source_contributions": null
+          },
+          {
+            "direction_deg": 90,
+            "sample_point": {
+              "forward": 0.0,
+              "right": 1.0
+            },
+            "status": "not_evaluated",
+            "reasons": [
+              "food_partial"
+            ],
+            "physical": null,
+            "food": null,
+            "obstacle": null,
+            "total": null,
+            "source_contributions": null
+          }
+        ],
+        "minimum_height": null,
+        "minimum_directions": null
+      }
+    }
+  ]
+}

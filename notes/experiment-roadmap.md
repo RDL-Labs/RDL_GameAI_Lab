@@ -147,6 +147,11 @@ Prediction Difference remains zero when confirmed; stimulation demand is not Cor
 do not count as predictability. Counterexamples invalidate use without deleting the model history.
 [Evidence](../docs/experiment-evidence/LUANTI_L14B_multi_resource_evidence.md) separates shared-stock competition from
 same-history profile comparisons. This is not recurring learning, general boredom, tree-distribution learning or group survival.
+[L15A Phase 1](../docs/experiment-contracts/LUANTI_L15A_subjective_movement_terrain_contract.md) adds an explicitly called pure calculator over current, bounded body-relative observations.
+Five directional heights compose normalized visible-Food attraction, bounded point-obstacle near-field costs and observed ground costs.
+Incomplete acquisition remains nonnumeric and symmetric minima remain tied. It creates no action, World adapter, history or canonical update.
+[Evidence](../docs/experiment-evidence/LUANTI_L15A_subjective_movement_terrain_evidence.md) uses synthetic inputs and existing replay regressions;
+World approach/avoidance and later M_B/body/profile coupling remain **DESIGN ONLY**, pending a separate Phase 1 review.
 The independent L13W path still resets each day, stops after three discovery days and permits only one candidate/inspection/adoption.
 
 The [L13W resource-count experiment](../docs/experiment-contracts/LUANTI_L13W_multi_food_exploration_contract.md)
