@@ -13,6 +13,7 @@ param(
     [switch]$MultiResources,
     [switch]$DayCycle,
     [switch]$ReturnCampaign,
+    [ValidateSet("off","disabled","enabled")][string]$ModelFieldMode = "off",
     [switch]$RawWorldOnly,
     [ValidateSet("off","disabled","enabled")][string]$ReversalReviewMode = "off",
     [ValidateSet(0,16,32,64)][int]$TaskSeconds = 0,
@@ -28,6 +29,7 @@ param(
     [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
 )
 $ErrorActionPreference = "Stop"
+if ($ModelFieldMode -ne "off" -and -not $ReturnCampaign) { throw "Model field requires campaign" }
 if ($ReturnCampaign -and -not $DayCycle) { throw "ReturnCampaign requires DayCycle" }
 if ($DayCycle -and (-not $MultiResources -or -not $MovementSteering -or ($ResourcePeriods -gt 3 -and -not $ReturnCampaign) -or $TaskSeconds -ne 0 -or $RestMode -ne "off")) { throw "Invalid day cycle" }
 if ($ReversalReviewMode -ne "off" -and $TaskSeconds -eq 0) { throw "Review requires task deadline" }
@@ -81,6 +83,7 @@ rdl_reactivation_mode = $ReactivationMode
 rdl_obstacle_probe = $ObstacleProbe
 rdl_reassessment_mode = $ReassessmentMode
 rdl_day_cycle = $($DayCycle.IsPresent.ToString().ToLowerInvariant())
+rdl_model_field_mode = $ModelFieldMode
 rdl_return_campaign = $($ReturnCampaign.IsPresent.ToString().ToLowerInvariant())
 rdl_task_seconds = $TaskSeconds
 rdl_reversal_review_mode = $ReversalReviewMode

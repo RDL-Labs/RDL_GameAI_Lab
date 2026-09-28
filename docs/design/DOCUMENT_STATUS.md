@@ -9,6 +9,7 @@
 
 | 文書 | 整理前の分類 | 今回の扱い / 責務 |
 |---|---|---|
+| [M_B movement field](../experiment-contracts/LUANTI_L15A_model_movement_field_contract.md) | FINITE OPT-IN IMPLEMENTED | 既存harvest M_Bの出典付き接近寄与。steering前に合成。Sleep/失敗relationの新規採用は未接続 |
 | [Runtime接続棚卸し](RDL_GameAI_Runtime_Integration_Audit_20260928.md) | 2026-09-28静的監査 | 実行経路、Sleep各系統、状態所有、現行30日版の未接続資産。統合提案は未実装 |
 | [探索・帰還・夜間休止](RDL_GameAI_Exploration_Return_Sleep_Plan.md) | 有限初版を別契約で実装 | 塔の観測外観・最大4見回し・連続3日・本人記録整理。[契約](../experiment-contracts/LUANTI_L15A_landmark_day_cycle_contract.md) / [Evidence](../experiment-evidence/LUANTI_L15A_landmark_day_cycle_evidence.md)。canonical Sleep/T1・複数目印経路は未接続 |
 | [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | offline診断・3条件shadow・有限休憩接続済み | [9run shadow](../experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)の後、下記の実休憩比較へ進んだ。次は休憩前後の選択差・機会損失を分析 |

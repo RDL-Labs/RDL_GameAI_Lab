@@ -37,7 +37,12 @@ def check(data, *, require_clean_transport=True):
     if reason=="time_limit": assert n==s["periods"]*256
     else:
         assert all(o["packet"]["capture_us"]<=actual[-1]["checked_us"] for a in w["agents"].values() for o in a["observations"])
-    summary=day_check(data,ReturnCampaign,dict(slots=n,reason=reason), require_clean_transport=require_clean_transport)
+    replay_type=ReturnCampaign
+    if s.get("mb_field_mode"):
+        class ConfiguredCampaign(ReturnCampaign):
+            def __init__(self,*args): super().__init__(*args,mb_field_mode=s["mb_field_mode"])
+        replay_type=ConfiguredCampaign
+    summary=day_check(data,replay_type,dict(slots=n,reason=reason), require_clean_transport=require_clean_transport)
     faults={k:sum(a["result"]["status"]==k for agent in w["agents"].values() for a in agent["actions"]) for k in ("expired","stale","stopped")}
     summary.update(strict_acceptance=not any(faults.values()),transport_faults=faults)
     summary.update(end_reason=reason,completed_days=n//256,observed_days=(n+255)//256,

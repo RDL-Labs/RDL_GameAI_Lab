@@ -53,7 +53,7 @@ class SteeredResourceAgent(TerrainResourceAgent):
             # must not automatically undo a chosen step when only its frontal
             # Food projection disappears. Recheck current geometry, with no
             # invented Food in that frontal projection.
-            t = calculate_terrain(terrain_input(p, self.teaching["appearance"], d["blocked_targets"]))
+            t = self._calculate_current_terrain(terrain_input(p, self.teaching["appearance"], d["blocked_targets"]), p)
             meta["current_recheck"] = t
         if t is not None and t["status"] != "complete":
             if not frontal:

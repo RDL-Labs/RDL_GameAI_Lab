@@ -55,6 +55,15 @@ class TerrainResourceAgent(PredictableResourceAgent):
         # cross-body extensions cannot be silently bypassed to publish a packet.
         calculate_terrain(terrain_input(p, self.teaching["appearance"]))
 
+    def _calculate_current_terrain(self, observed, packet):
+        terrain = calculate_terrain(observed)
+        mode = getattr(self, "mb_field_mode", "off")
+        if mode != "off":
+            from .model_movement_field import project
+            learning, model = self._prospective
+            return project(terrain, packet, model, learning, mode)
+        return terrain
+
     def _decision(self, p):
         decision = super()._decision(p)
         decision["movement_terrain"] = None
@@ -67,7 +76,7 @@ class TerrainResourceAgent(PredictableResourceAgent):
             # using that sourced observation, then obtain new frontal rays.
             decision["terrain_gate"] = "no_front_food; existing_orientation"
             return decision
-        terrain = calculate_terrain(observed)
+        terrain = self._calculate_current_terrain(observed, p)
         action, reason = terrain_action(terrain)
         decision.update(action=action, target="", reason="observed_material_terrain_"+reason,
                         movement_terrain=terrain, terrain_gate="visible_food_locomotion")

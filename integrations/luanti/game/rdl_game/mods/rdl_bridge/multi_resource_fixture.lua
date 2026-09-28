@@ -14,6 +14,8 @@ return function(http,runtime_url)
     local reversal_review=core.settings:get("rdl_reversal_review_mode") or "off"
     local day_cycle=core.settings:get_bool("rdl_day_cycle",false)
     local return_campaign=core.settings:get_bool("rdl_return_campaign",false)
+    local model_field_mode=core.settings:get("rdl_model_field_mode") or "off"
+    assert(model_field_mode=="off" or (return_campaign and (model_field_mode=="disabled" or model_field_mode=="enabled")),"invalid model field")
     assert(not return_campaign or day_cycle,"campaign needs days")
     local skyline=day_cycle and dofile(root .. "/elevated_landmarks.lua") or nil
     if day_cycle then
@@ -157,6 +159,7 @@ return function(http,runtime_url)
         end
         if day_cycle then a.config.schema="l15a-landmark-day-cycle-v1" end
         if return_campaign then a.config.schema="l15a-landmark-return-campaign-v1" end
+        if model_field_mode~="off" then a.config.mb_field_mode=model_field_mode end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=period_us,

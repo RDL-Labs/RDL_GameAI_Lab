@@ -113,3 +113,11 @@ FiniteExploration
 - 休憩・再活性化・目的再評価は一段ずつ接続。lateral/tie/社会/NERVを同時投入しない。
 
 今回の棚卸しではruntime/schema/係数を変更しない。全体を一度に作り直す提案でもない。
+
+
+## Subsequent bounded connection
+
+[Adopted model movement field](../experiment-contracts/LUANTI_L15A_model_movement_field_contract.md)
+adds an opt-in hook to the current campaign's terrain calculation before steering. It
+reuses existing harvest admission. The audit above remains the `2bf7c1b` baseline:
+Sleep, night-to-learning, failure admission and full mechanism composition remain open.

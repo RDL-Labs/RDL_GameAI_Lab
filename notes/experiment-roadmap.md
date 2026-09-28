@@ -1,6 +1,8 @@
 # Experiment Roadmap
 
 
+2026-09-28: [M_B movement field](../docs/experiment-contracts/LUANTI_L15A_model_movement_field_contract.md) — explicit adopted-harvest approach appraisal in the current continuous campaign; distant harvest prediction remains unknown, original steering and priority gates remain active.
+
 2026-09-28: [30-day return campaign](../docs/experiment-evidence/LUANTI_L15A_return_campaign_evidence.md): physical run complete, 1/3 trips (B, 12 units, day 9); clean timing acceptance FAILED (86 expired / 5 stale).
 Current integration checkpoint (2026-09-27): explicit assessment / theta / M_delta,
 T1-A/B/C and model cutover / fresh re-entry are operational. Luanti

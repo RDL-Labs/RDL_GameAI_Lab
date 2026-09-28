@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+
+- [採用済みM_Bから移動場への有限寄与](docs/experiment-contracts/LUANTI_L15A_model_movement_field_contract.md)：連続探索のopt-in。既存の採取関係を確認へ向かう寄与として利用。
 **強さだけでなく、履歴から理解できる個体差や意外性を持つGameAIを実験する。**
 
 目指す体験は、かわいい生き物が小さな世界で食べ、休み、失敗し、助け合い、回復しながら暮らす生活シミュレーション。現在動くものは、そのための有限な実験Workbenchであり、完成した生活ゲームではありません。
