@@ -7,8 +7,8 @@ from runtime.subjective_movement_terrain import calculate_terrain
 from .check_multi_resource import check as check_multi
 
 
-def check(data):
-    summary=check_multi(data, TerrainResourceExploration)
+def check(data, loop_type=TerrainResourceExploration):
+    summary=check_multi(data, loop_type)
     world,state=data["world"],data["runtime"]["exploration"]
     assert world["surface_checks"]>=19
     for agent,a in state["agents"].items():
@@ -35,10 +35,16 @@ def check(data):
                 assert isclose(item["right"],cos(b["yaw"])*dx+sin(b["yaw"])*dz,abs_tol=1e-5)
             d=a["decisions"][p["observation_id"]]
             if d["movement_terrain"] is not None:
-                calculated=calculate_terrain(terrain_input(p,a["teaching"]["appearance"],d["blocked_targets"]))
+                excluded=d["steering"]["input_blocked_targets"] if "steering" in d else d["blocked_targets"]
+                calculated=calculate_terrain(terrain_input(p,a["teaching"]["appearance"],excluded))
                 assert d["movement_terrain"]==calculated
                 action,reason=terrain_action(calculated)
-                assert d["action"]==action and d["reason"]=="observed_material_terrain_"+reason
+                if "steering" in d:
+                    assert d["steering"]["baseline_action"]==action
+                    assert d["steering"]["baseline_reason"]=="observed_material_terrain_"+reason
+                    reason=d["reason"].removeprefix("observed_material_terrain_")
+                else:
+                    assert d["action"]==action and d["reason"]=="observed_material_terrain_"+reason
                 counts[reason]+=1
                 effects[a["results"]["op:"+p["observation_id"]]["status"]]+=1
         summary["agents"][agent]["terrain_decisions"]=dict(counts)

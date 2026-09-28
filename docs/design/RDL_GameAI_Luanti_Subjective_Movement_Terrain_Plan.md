@@ -22,6 +22,8 @@
 
 後続の[探索接続契約](../experiment-contracts/LUANTI_L15A_exploration_connection_contract.md)で、Foodへの接近に限って既存L14Bへ接続した。
 [接続Evidence](../experiment-evidence/LUANTI_L15A_exploration_connection_evidence.md)は接続の成立と旋回振動・効率の課題を分けている。
+後続の[旋回制御v2](../experiment-contracts/LUANTI_L15A_steering_contract.md)では小差保持と実旋回後の一歩を有限に追加し、
+[実World比較](../experiment-evidence/LUANTI_L15A_steering_evidence.md)でその場の逆旋回を抑制した。採取効率・連続曲線運動は未達。
 以下の全Phaseを完了したという意味ではない。
 
 ## 0. 目的

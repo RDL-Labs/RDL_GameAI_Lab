@@ -12,10 +12,12 @@ param(
     [switch]$ResourceFaults,
     [switch]$MultiResources,
     [switch]$MovementTerrain,
+    [switch]$MovementSteering,
     [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
 )
 $ErrorActionPreference = "Stop"
 if ($MultiResources) { $Resources = [switch]::new($true) }
+if ($MovementSteering) { $MovementTerrain = [switch]::new($true) }
 if ($MovementTerrain -and -not $MultiResources) { throw "MovementTerrain requires MultiResources" }
 if ($RunId -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "Invalid RunId" }
 $integrationRoot = Split-Path -Parent $PSScriptRoot
@@ -43,6 +45,7 @@ rdl_resource_control = $($ResourceControl.IsPresent.ToString().ToLowerInvariant(
 rdl_resource_faults = $($ResourceFaults.IsPresent.ToString().ToLowerInvariant())
 rdl_resource_assignment = $ResourceAssignment
 rdl_movement_terrain = $($MovementTerrain.IsPresent.ToString().ToLowerInvariant())
+rdl_movement_steering = $($MovementSteering.IsPresent.ToString().ToLowerInvariant())
 time_speed = 0
 port = 30001
 max_users = 1
@@ -55,6 +58,7 @@ $health = Invoke-RestMethod "http://127.0.0.1:8765/health" -TimeoutSec 2
 $expectedSchema = if ($Resources) { "l14a-continuous-resource-exploration-v1" } else { "l13s-learned-exploration-v1" }
 if ($MultiResources) { $expectedSchema = "l14b-multi-resource-predictability-v1" }
 if ($MovementTerrain) { $expectedSchema = "l15a-terrain-resource-exploration-v1" }
+if ($MovementSteering) { $expectedSchema = "l15a-terrain-resource-steering-v2" }
 if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }
 if ($Resources -and $health.periods -ne $ResourcePeriods) { throw "Resource period mismatch" }
 $luanti = $null

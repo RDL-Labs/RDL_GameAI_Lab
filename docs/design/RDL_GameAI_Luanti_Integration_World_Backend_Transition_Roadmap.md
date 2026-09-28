@@ -30,7 +30,8 @@ L13R Repeated exploration / record retention OPERATIONAL (62 World runs; history
 L14A Continuous finite resource / specimen teaching / depleted-patch reexploration IMPLEMENTED (no feature learning)
 L14B Three-agent shared resources / adopted harvest prediction / local variation demand COMPLETE (finite fixture)
 L15A Phase 1 Subjective movement terrain PURE CALCULATOR IMPLEMENTED
-L15A Visible-Food terrain / L14B exploration connection OPT-IN IMPLEMENTED (short World runs; turn oscillation remains)
+L15A Visible-Food terrain / L14B exploration connection OPT-IN IMPLEMENTED (v1 baseline retains turn oscillation)
+L15A v2 Finite heading persistence / confirmed-turn step OPT-IN IMPLEMENTED (reversals reduced; harvesting efficiency not improved)
 L14 recurring feature induction / independent-site inspection / T1-M_B adoption DESIGN ONLY
 L13W Five-resource exploration / same L13V learner / bounded multi-Food acquisition IMPLEMENTED
 L13V Finite neighborhood survey / inspected no-discovery M_B / repeat-skip IMPLEMENTED

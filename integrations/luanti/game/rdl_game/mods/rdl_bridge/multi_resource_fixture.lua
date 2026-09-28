@@ -7,6 +7,8 @@ return function(http,runtime_url)
     local distant=dofile(root .. "/distant_sensor.lua")
     local controller=dofile(root .. "/exploration_controller.lua")
     local terrain_enabled=core.settings:get_bool("rdl_movement_terrain",false)
+    local steering_enabled=core.settings:get_bool("rdl_movement_steering",false)
+    assert(not steering_enabled or terrain_enabled,"steering requires terrain")
     local surface=terrain_enabled and dofile(root .. "/movement_surface.lua") or nil
     local run=assert(core.settings:get("rdl_learning_run_id"))
     local periods=assert(tonumber(core.settings:get("rdl_resource_periods")))
@@ -92,6 +94,7 @@ return function(http,runtime_url)
         a.config=context(a,{schema="l14b-multi-resource-predictability-v1",clock_id="world-sim-v1",
             teaching=teaching,selection_profile=trait})
         if terrain_enabled then a.config.schema="l15a-terrain-resource-exploration-v1" end
+        if steering_enabled then a.config.schema="l15a-terrain-resource-steering-v2" end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=16000000,taught_appearance=teaching.appearance})
@@ -130,7 +133,14 @@ return function(http,runtime_url)
             sent_us=job.sent_us,arrived_us=reply.arrived_us,received_us=sim}
         if job.kind=="configure" then a.configured=true
         elseif job.kind=="observe" then
-            if faults and a.id=="npc_a" and response.command.kind=="pickup" and not evidence.guards.lost_response then
+            local loss_target=a.id=="npc_a" and response.command.kind=="pickup"
+            if steering_enabled then
+                loss_target=response.command.kind=="turn" and
+                    string.sub(response.command.reason,1,18)=="observed_material_"
+            end
+            if faults and loss_target and not evidence.guards.lost_response then
+                if steering_enabled then evidence.guards.lost_turn={agent_id=a.id,
+                    operation_id=response.command.operation_id,source_id=job.payload.observation_id} end
                 evidence.guards.lost_response=true;enqueue(a,"observe",job.payload,true)
             else
                 if response.new_frames==0 then evidence.guards.loss_recovered=true end
