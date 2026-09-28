@@ -15,7 +15,9 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off"):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off"):
+    if obstacle_probe not in ("off","persistent","removed") or (obstacle_probe!="off" and reactivation=="off"):
+        raise ValueError("obstacle probe requires reactivation mode")
     if reactivation!="off" and (reactivation not in ("disabled","enabled") or rest=="off"):
         raise ValueError("reactivation requires rest")
     if rest != "off":
@@ -60,6 +62,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if terrain:command.append("-MovementTerrain")
         if steering:command.append("-MovementSteering")
         if rest != "off":command += ["-RestMode",rest]
+        if obstacle_probe!="off":command += ["-ObstacleProbe",obstacle_probe]
         if reactivation!="off":command += ["-ReactivationMode",reactivation]
         if lateral != "off":command += ["-LateralAssignment",lateral]
         if tie_break != "off":command += ["-TieBreakMode",tie_break]

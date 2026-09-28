@@ -113,3 +113,12 @@ World監査とAgent入力を分け、未試行・失敗・取得不足・比較�
 [実機3run](../experiment-evidence/LUANTI_L15A_rest_reactivation_evidence.md)で内部参照→再開検査のphase切替を確認した。
 本人の記録・M_Bを適用条件内でのみ使い、実Worldの方向寄与・選択差は0件だった。
 次は適用可能な記録の成立条件を検討する。[研究対応](RDL_GameAI_Cognitive_Mode_Research_Map.md)は別の仮説として保持する。
+
+## 障害接触後の再開比較（2026-09-28）
+
+[実機4比較](../experiment-evidence/LUANTI_L15A_rest_obstacle_evidence.md)では、同じ姿勢での実blockedを休憩後に参照できた。
+障害除去では目印fanが変わり、現在観測によって記録適用を棄却した。
+一方、両条件とも既存のlandmark_goal_budgetでwaitとなり、潜在costを行動へ投影しなかった。
+記憶適用可能・地形寄与・行動変更の三段階を別々に評価する。
+次候補は、使い切った目標を保留し、別の観測済み目印や有限追加観測を再検討する権限契約。
+目的予算の無制限リセット、強制的な脱出方向、未観測の通行可能性の付与は避ける。現時点では設計候補であり未実装。

@@ -9,8 +9,11 @@ return function(http,runtime_url)
     local terrain_enabled=core.settings:get_bool("rdl_movement_terrain",false)
     local steering_enabled=core.settings:get_bool("rdl_movement_steering",false)
     local rest_mode=core.settings:get("rdl_rest_mode") or "off"
+    local obstacle_probe=core.settings:get("rdl_obstacle_probe") or "off"
+    local probe_nodes=nil
     local reactivation_mode=core.settings:get("rdl_reactivation_mode") or "off"
     assert(reactivation_mode=="off" or rest_mode~="off","reactivation requires rest")
+    assert(obstacle_probe=="off" or ((obstacle_probe=="persistent" or obstacle_probe=="removed") and reactivation_mode~="off"),"invalid obstacle probe")
     assert(rest_mode=="off" or steering_enabled,"rest requires steering")
     assert(not steering_enabled or terrain_enabled,"steering requires terrain")
     local lateral_assignment=core.settings:get("rdl_lateral_assignment") or "off"
@@ -39,6 +42,7 @@ return function(http,runtime_url)
     local agents,patches,targets={},{},{}
     local evidence={run_id=run,scenario=scenario,assignment=assignment,period_count=periods,
         control=control,faults=faults,agents={},deliveries={},stock_events={},periods={},guards={}}
+    evidence.obstacle_probe={mode=obstacle_probe,events={}}
     if surface then evidence.surface_checks=dofile(root .. "/movement_surface_checks.lua")(surface) end
     local function encode(x)
         return (core.write_json(x):gsub('"visible":null','"visible":[]'):gsub('"features":null','"features":[]')
@@ -129,6 +133,46 @@ return function(http,runtime_url)
     end
     local function sample(a,slot)
         local b=a.body()
+        -- Fixed finite experiment schedule, never sent to the agent.
+        -- A head-height beam blocks the body while lower surface rays may miss it.
+        if a.id=="npc_a" and obstacle_probe~="off" then
+            if slot==23 then
+                probe_nodes={}
+                local dir=core.yaw_to_dir(b.yaw)
+                local seen={}
+                for i=1,4 do
+                    local pos=vector.round(vector.add(b.position,vector.multiply(dir,i/4)))
+                    pos.y=math.floor(b.position.y+.5)+1
+                    local key=core.pos_to_string(pos)
+                    if not seen[key] then
+                        seen[key]=true
+                        local old=core.get_node(pos)
+                        assert(old.name=="air","probe needs clear headroom")
+                        probe_nodes[#probe_nodes+1]={position=pos,previous=old}
+                        core.set_node(pos,{name="rdl_bridge:exploration_rock_gray"})
+                    end
+                end
+                evidence.obstacle_probe.events[#evidence.obstacle_probe.events+1]={kind="insert",slot=slot,
+                    capture_us=sim,nodes=table.copy(probe_nodes),body=table.copy(b)}
+            elseif slot==27 and obstacle_probe=="removed" then
+                assert(probe_nodes)
+                for _,n in ipairs(probe_nodes) do
+                    core.set_node(n.position,n.previous)
+                    assert(core.get_node(n.position).name==n.previous.name,"probe removal readback")
+                end
+                evidence.obstacle_probe.events[#evidence.obstacle_probe.events+1]={kind="remove",slot=slot,capture_us=sim}
+            end
+        end
+        if a.id=="npc_a" and obstacle_probe~="off" and slot==28 then
+            local destination,audit=natural.destination(b.position,core.yaw_to_dir(b.yaw),core.get_node_or_nil)
+            local nodes={}
+            for _,n in ipairs(probe_nodes) do
+                nodes[#nodes+1]={position=table.copy(n.position),name=core.get_node(n.position).name}
+            end
+            -- Experimenter-only audit, not an agent observation or prediction.
+            evidence.obstacle_probe.review={slot=slot,body=table.copy(b),nodes=nodes,
+                traversable=destination~=nil,audit=audit}
+        end
         local visible,coverage,visibility=resource.sample(patches,b.position,b.yaw,function(eye,target)
             return natural.visibility(eye,target,core.get_node_or_nil)
         end)

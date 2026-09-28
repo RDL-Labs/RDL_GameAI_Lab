@@ -578,3 +578,12 @@ Complete_B(NPC Layer Profile) = true
 and
 ξ(B) != 0
 ```
+
+
+### L15A rest/contact follow-up — 2026-09-28
+
+[Four actual World comparisons](../docs/experiment-evidence/LUANTI_L15A_rest_obstacle_evidence.md)
+connect measured blocked contact to rest-time retrieval. The persistent obstacle leaves an applicable
+record; removal changes the acquired landmark context and invalidates it. The existing exhausted-goal
+wait remains authoritative: zero terrain applications and zero action differences. Runtime rules are
+unchanged. Goal reassessment after budget exhaustion is a separate, unimplemented next contract.

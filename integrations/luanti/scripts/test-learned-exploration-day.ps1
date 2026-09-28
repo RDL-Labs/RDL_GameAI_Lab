@@ -14,6 +14,7 @@ param(
     [switch]$MovementTerrain,
     [switch]$MovementSteering,
     [ValidateSet("off","disabled","fatigue","repetition","combined")][string]$RestMode = "off",
+    [ValidateSet("off","persistent","removed")][string]$ObstacleProbe = "off",
     [ValidateSet("off","disabled","enabled")][string]$ReactivationMode = "off",
     [ValidateSet("off","disabled","frozen")][string]$TieBreakMode = "off",
     [ValidateSet("off","neutral","mixed","swapped","left","right")][string]$LateralAssignment = "off",
@@ -23,6 +24,7 @@ $ErrorActionPreference = "Stop"
 if ($MultiResources) { $Resources = [switch]::new($true) }
 if ($MovementSteering) { $MovementTerrain = [switch]::new($true) }
 if ($RestMode -ne "off" -and (-not $MovementSteering -or $TieBreakMode -ne "off" -or $LateralAssignment -ne "off")) { throw "Rest requires isolated steering" }
+if ($ObstacleProbe -ne "off" -and (-not $MultiResources -or $ReactivationMode -eq "off")) { throw "Obstacle probe requires multi-agent reactivation" }
 if ($ReactivationMode -ne "off" -and $RestMode -eq "off") { throw "Reactivation requires rest" }
 if ($TieBreakMode -ne "off") {
     if ($MovementSteering -or $LateralAssignment -ne "off") { throw "Tie break only mode" }
@@ -62,6 +64,7 @@ rdl_movement_terrain = $($MovementTerrain.IsPresent.ToString().ToLowerInvariant(
 rdl_movement_steering = $($MovementSteering.IsPresent.ToString().ToLowerInvariant())
 rdl_rest_mode = $RestMode
 rdl_reactivation_mode = $ReactivationMode
+rdl_obstacle_probe = $ObstacleProbe
 rdl_lateral_assignment = $LateralAssignment
 rdl_tie_break_mode = $TieBreakMode
 time_speed = 0

@@ -9,6 +9,7 @@
 |---|---|---|
 | [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | offline診断・3条件shadow・有限休憩接続済み | [9run shadow](../experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)の後、下記の実休憩比較へ進んだ。次は休憩前後の選択差・機会損失を分析 |
 | [有限休憩](../experiment-contracts/LUANTI_L15A_movement_rest_contract.md) | FINITE REAL WORLD ACCEPTANCE COMPLETE | [実Luanti5run](../experiment-evidence/LUANTI_L15A_movement_rest_evidence.md)で疲労/反復からwait・観測・回復・再開へ接続。旧shadowの実停止未接続境界を更新。主比較で採取改善は未確認 |
+| [Rest/contact comparison](../experiment-contracts/LUANTI_L15A_rest_obstacle_contract.md) | FINITE WORLD COMPARISON COMPLETE | [4 actual runs](../experiment-evidence/LUANTI_L15A_rest_obstacle_evidence.md): applicable contact record / changed-context veto; zero terrain applications or action differences |
 | [休憩中の再活性化](../experiment-contracts/LUANTI_L15A_rest_reactivation_contract.md) | FINITE WORLD MODE ACCEPTANCE COMPLETE | [実機3run](../experiment-evidence/LUANTI_L15A_rest_reactivation_evidence.md)で身体と情報処理phaseを分離。実Worldの地形寄与・行動差0件。合成試験のみ寄与正例 |
 | [モード研究接続](RDL_GameAI_Cognitive_Mode_Research_Map.md) | RESEARCH HYPOTHESIS / DESIGN ONLY | DMN・制御ネットワーク等の一次研究を参照。コードphaseとの神経科学的同一性は未検証 |
 | [全体設計地図](RDL_GameAI_全体設計地図.md) | partially stale / duplicate details | 4軸と正本リンク。詳細は各責務文書へ委譲 |
