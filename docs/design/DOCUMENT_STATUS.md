@@ -1,5 +1,7 @@
 # Design Document Status
 
+2026-09-28: [M_B接続30日比較](../experiment-evidence/LUANTI_L15A_model_field_30d_evidence.md) — 両条件30日・24単位・2便。B/Cで採用後失効、場の適用0件。strict timing acceptance未達。中断1件と同条件再実行を保存。
+
 
 2026-09-28: [30日帰還実験](../experiment-evidence/LUANTI_L15A_return_campaign_evidence.md) — 30日完了、Bの12単位1便。3便未達。1.5倍速でexpired 86 / stale 5のためclean timing acceptanceは不合格。
 確認日: 2026-09-25。基準: GameAI `a7a53e7`、Core `3270982`、C1 authority同期。

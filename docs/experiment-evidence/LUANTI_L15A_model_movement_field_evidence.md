@@ -61,6 +61,12 @@ tested checkout. The two runs demonstrate integration and absence handling, **no
 World model-attributable movement or harvesting improvement**. The next positive test
 needs actual admitted experience; no model or success was injected into these Worlds.
 
+## Subsequent 30-day experiment
+
+See [30-day comparison](LUANTI_L15A_model_field_30d_evidence.md) for the longer
+World experiment, including the interrupted attempt and timing acceptance limits.
+The three-day results above remain the original smoke comparison.
+
 ## Reproduction
 
 ```powershell

@@ -120,7 +120,10 @@ try {
         "--server","--gameid","rdl_game","--world",$worldPath,"--config",$config,"--logfile",(Join-Path $outputPath "$RunId.log"),"--color","never" `
         -WorkingDirectory $LuantiRoot -RedirectStandardOutput (Join-Path $outputPath "$RunId.world.out.log") `
         -RedirectStandardError (Join-Path $outputPath "$RunId.world.err.log") -WindowStyle Hidden -PassThru
-    $deadline = [DateTime]::UtcNow.AddSeconds($(if ($Resources) { $ResourcePeriods*$(if ($DayCycle) { 64 } elseif ($TaskSeconds) { $TaskSeconds } else { 16 })+35 } else { 50 }))
+    # Long campaign JSON export occurs after the simulated task ends.
+    # Give export its own wall-time margin without extending any agent budget.
+    $exportMargin = if ($ReturnCampaign) { 300 } else { 35 }
+    $deadline = [DateTime]::UtcNow.AddSeconds($(if ($Resources) { $ResourcePeriods*$(if ($DayCycle) { 64 } elseif ($TaskSeconds) { $TaskSeconds } else { 16 })+$exportMargin } else { 50 }))
     do {
         Start-Sleep -Milliseconds 100
         $evidenceFile = if ($MultiResources) { "l14b-evidence.json" } else { "l13a-evidence.json" }

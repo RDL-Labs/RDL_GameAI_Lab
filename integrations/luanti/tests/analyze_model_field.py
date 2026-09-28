@@ -10,7 +10,19 @@ from pathlib import Path
 def analyze(report):
     summaries=[]
     for run in report["runs"]:
-        data=run["data"];world=data["world"];state=data["runtime"]["exploration"]
+        data=run["data"];world=data["world"]
+        if world.get("failure") or data.get("runtime") is None:
+            summaries.append(dict(run_id=world["run_id"],mode=report["predeclared"]["model_field_mode"],
+                status="aborted",acceptance=False,failure=world.get("failure"),
+                finished_us=world.get("finished_us"),state_basis="World only; Runtime metrics not inferred",
+                pickups=len(world.get("stock_events") or []),
+                returns=len(world.get("return_campaign",{}).get("events") or []),
+                agents={aid:dict(observations=len(a["observations"]),actions=len(a["actions"]),
+                    last_capture_us=a["observations"][-1]["packet"]["capture_us"] if a["observations"] else None,
+                    action_statuses=dict(Counter(x["result"]["status"] for x in a["actions"])))
+                    for aid,a in world["agents"].items()}))
+            continue
+        state=data["runtime"]["exploration"]
         agents={}
         for aid,a in state["agents"].items():
             status=Counter();gates=Counter();applied=0;min_changes=0

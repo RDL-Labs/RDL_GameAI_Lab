@@ -39,7 +39,7 @@ def main():
         predeclared=dict(days=args.periods,stop_after_returns=3,scope="A/B/C aggregate; one batch per agent/night",
             model_field_mode=args.model_field,simulation_speed=args.speed,scenario="natural_meadow",assignment="steady"),runs=[],
         baseline_commit=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip())
-    sources=["runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
+    sources=["integrations/luanti/scripts/test-learned-exploration-day.ps1","runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
         "runtime/model_movement_field.py","runtime/terrain_resource_exploration.py","runtime/terrain_steering.py",
         "integrations/luanti/game/rdl_game/mods/rdl_bridge/multi_resource_fixture.lua"]
     report["source_sha256"]={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in sources}
@@ -57,11 +57,13 @@ def main():
         if result.returncode: raise RuntimeError(f"World failed: {log}")
         path=ROOT/"integrations/luanti/worlds"/run_id/"l14b-evidence.json"
         world=json.loads(path.read_text(encoding="utf-8"))
-        assert not world.get("failure"),world.get("failure")
-        print("World complete; collecting final Runtime and replaying",flush=True)
+        print("World ended; collecting final Runtime before audit",flush=True)
         data=dict(world=world,runtime=dict(exploration=loop.snapshot(),history={}))
         # Save before checking so an audit failure never discards the actual run.
-        report["runs"].append(dict(data=data,summary=None));write(args.output,report)
+        failure=world.get("failure")
+        aborted=dict(status="aborted",strict_acceptance=False,failure=failure,finished_us=world.get("finished_us")) if failure else None
+        report["runs"].append(dict(data=data,summary=aborted));write(args.output,report)
+        if failure: raise RuntimeError("World failed; partial World/Runtime preserved: "+str(failure))
         summary=check(data,require_clean_transport=False);report["runs"][0]["summary"]=summary;write(args.output,report)
         compact={k:v for k,v in summary.items() if k not in ("days","agents")}
         print(("CAMPAIGN PASS " if summary["strict_acceptance"] else "CAMPAIGN TIMING ACCEPTANCE FAILED ")+json.dumps(compact),flush=True)

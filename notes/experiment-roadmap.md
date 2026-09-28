@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+2026-09-28: [30-day M_B field comparison](../docs/experiment-evidence/LUANTI_L15A_model_field_30d_evidence.md) — both modes completed: 24 units, two batches, two admitted then invalidated models, zero field applications. Strict timing acceptance failed; initial interrupted attempt retained.
+
 
 2026-09-28: [M_B movement field](../docs/experiment-contracts/LUANTI_L15A_model_movement_field_contract.md) — explicit adopted-harvest approach appraisal in the current continuous campaign; distant harvest prediction remains unknown, original steering and priority gates remain active.
 

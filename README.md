@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [30日M_B接続比較](docs/experiment-evidence/LUANTI_L15A_model_field_30d_evidence.md)：両条件24単位・2便。実M_B採用後に資源枯渇で失効、場への適用0件。通信受入は未達。
+
 
 - [採用済みM_Bから移動場への有限寄与](docs/experiment-contracts/LUANTI_L15A_model_movement_field_contract.md)：連続探索のopt-in。既存の採取関係を確認へ向かう寄与として利用。
 **強さだけでなく、履歴から理解できる個体差や意外性を持つGameAIを実験する。**
