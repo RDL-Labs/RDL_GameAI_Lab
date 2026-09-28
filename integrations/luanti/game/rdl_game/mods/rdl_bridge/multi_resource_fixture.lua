@@ -11,6 +11,7 @@ return function(http,runtime_url)
     local rest_mode=core.settings:get("rdl_rest_mode") or "off"
     local reassessment_mode=core.settings:get("rdl_reassessment_mode") or "off"
     local obstacle_probe=core.settings:get("rdl_obstacle_probe") or "off"
+    local reversal_review=core.settings:get("rdl_reversal_review_mode") or "off"
     local probe_nodes=nil
     local reactivation_mode=core.settings:get("rdl_reactivation_mode") or "off"
     assert(reactivation_mode=="off" or rest_mode~="off","reactivation requires rest")
@@ -37,6 +38,7 @@ return function(http,runtime_url)
     local wall_start=core.get_us_time()
     local task_seconds=tonumber(core.settings:get("rdl_task_seconds") or "0")
     assert(task_seconds==0 or ((task_seconds==16 or task_seconds==32 or task_seconds==64) and periods==1 and reassessment_mode~="off"),"invalid task deadline")
+    assert(reversal_review=="off" or ((reversal_review=="disabled" or reversal_review=="enabled") and task_seconds~=0),"invalid reversal review")
     local period_us=(task_seconds==0 and 16 or task_seconds)*1000000
     local slots_per_period=period_us/250000
     local capacity,limit=periods*slots_per_period,periods*period_us
@@ -143,6 +145,7 @@ return function(http,runtime_url)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=period_us,taught_appearance=teaching.appearance})
         if task_seconds~=0 then a.config.schema="l15a-task-deadline-v1";a.config.task_seconds=task_seconds end
+        if reversal_review~="off" then a.config.schema="l15a-reversal-review-v1";a.config.reversal_review_mode=reversal_review end
         a.e.initial_body=a.body();enqueue(a,"configure",a.config)
         return a
     end

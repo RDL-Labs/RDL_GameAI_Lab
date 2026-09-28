@@ -18,6 +18,13 @@ MAX_TURNS_WITHOUT_MOVE = 2
 
 class SteeredResourceAgent(TerrainResourceAgent):
     def _decision(self, p):
+        d = self._steering_decision(p)
+        if getattr(self, 'reversal_review_mode', None) is not None:
+            from .reversal_review import review
+            return review(self, p, d)
+        return d
+
+    def _steering_decision(self, p):
         d = super()._decision(p)
         t = d["movement_terrain"]
         meta = dict(rule=RULE, baseline_action=list(d["action"]), baseline_reason=d["reason"],
@@ -83,6 +90,8 @@ class SteeredResourceAgent(TerrainResourceAgent):
                 # Postpone only the active approach, not every observed Food.
                 # Other resources remain eligible, including later pickup.
                 refs = [d["approach"]["ref"]] if d["approach"] is not None else []
+                if getattr(self, 'reversal_review_mode', None) is not None:
+                    meta['stopped_approach'] = deepcopy(d['approach'])
                 require(len(d["blocked_targets"]) + len(refs) <= 32, "approach_capacity")
                 d["blocked_targets"] += refs
                 d["approach"] = None

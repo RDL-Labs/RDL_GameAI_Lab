@@ -15,7 +15,9 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off", simulation_speed=1, task_seconds=None):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off", simulation_speed=1, task_seconds=None, reversal_review="off"):
+    if reversal_review not in ("off","disabled","enabled") or (reversal_review != "off" and task_seconds is None):
+        raise ValueError("review requires explicit task deadline")
     if task_seconds is not None and (task_seconds not in (16,32,64) or periods != 1 or reassessment == "off"):
         raise ValueError("task deadline requires one reassessment task")
     if not 1 <= simulation_speed <= 16:
@@ -58,6 +60,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
     if task_seconds is not None:
         from runtime.exploration_deadline import deadline_loop
         loop_type=deadline_loop(task_seconds)
+    if reversal_review != "off":
+        from runtime.reversal_review_loop import review_loop
+        loop_type=review_loop(task_seconds)
     loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
@@ -70,6 +75,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
             "-RunId",run_id,"-LuantiRoot",luanti_root,"-MultiResources","-ResourcePeriods",str(periods),
             "-ResourceAssignment",assignment,"-SimulationSpeed",str(simulation_speed)]
         if task_seconds is not None:command += ["-TaskSeconds",str(task_seconds)]
+        if reversal_review != "off":command += ["-ReversalReviewMode",reversal_review]
         if control:command.append("-ResourceControl")
         if faults:command.append("-ResourceFaults")
         if terrain:command.append("-MovementTerrain")

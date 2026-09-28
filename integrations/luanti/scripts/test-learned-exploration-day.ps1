@@ -11,6 +11,7 @@ param(
     [switch]$ResourceControl,
     [switch]$ResourceFaults,
     [switch]$MultiResources,
+    [ValidateSet("off","disabled","enabled")][string]$ReversalReviewMode = "off",
     [ValidateSet(0,16,32,64)][int]$TaskSeconds = 0,
     [ValidateRange(1,16)][double]$SimulationSpeed = 1,
     [switch]$MovementTerrain,
@@ -24,6 +25,7 @@ param(
     [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
 )
 $ErrorActionPreference = "Stop"
+if ($ReversalReviewMode -ne "off" -and $TaskSeconds -eq 0) { throw "Review requires task deadline" }
 if ($TaskSeconds -ne 0 -and (-not $MultiResources -or $ResourcePeriods -ne 1 -or $ReassessmentMode -eq "off")) { throw "Single reassessment task required" }
 if ($SimulationSpeed -ne 1 -and -not $MultiResources) { throw "Speed experiment requires MultiResources" }
 if ($MultiResources) { $Resources = [switch]::new($true) }
@@ -74,6 +76,7 @@ rdl_reactivation_mode = $ReactivationMode
 rdl_obstacle_probe = $ObstacleProbe
 rdl_reassessment_mode = $ReassessmentMode
 rdl_task_seconds = $TaskSeconds
+rdl_reversal_review_mode = $ReversalReviewMode
 rdl_lateral_assignment = $LateralAssignment
 rdl_tie_break_mode = $TieBreakMode
 time_speed = 0
@@ -93,6 +96,7 @@ if ($RestMode -ne "off") { $expectedSchema = "l15a-movement-rest-v1" }
 if ($ReactivationMode -ne "off") { $expectedSchema = "l15a-rest-reactivation-v1" }
 if ($ReassessmentMode -ne "off") { $expectedSchema = "l15a-goal-reassessment-v1" }
 if ($TaskSeconds -ne 0) { $expectedSchema = "l15a-task-deadline-v1" }
+if ($ReversalReviewMode -ne "off") { $expectedSchema = "l15a-reversal-review-v1" }
 if ($LateralAssignment -ne "off") { $expectedSchema = "l15a-terrain-lateral-bias-v1" }
 if ($TieBreakMode -ne "off") { $expectedSchema = "l15a-terrain-tie-break-v1" }
 if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }
