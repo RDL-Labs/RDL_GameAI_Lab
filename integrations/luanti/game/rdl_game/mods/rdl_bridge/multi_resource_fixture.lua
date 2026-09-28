@@ -9,6 +9,8 @@ return function(http,runtime_url)
     local terrain_enabled=core.settings:get_bool("rdl_movement_terrain",false)
     local steering_enabled=core.settings:get_bool("rdl_movement_steering",false)
     local rest_mode=core.settings:get("rdl_rest_mode") or "off"
+    local reactivation_mode=core.settings:get("rdl_reactivation_mode") or "off"
+    assert(reactivation_mode=="off" or rest_mode~="off","reactivation requires rest")
     assert(rest_mode=="off" or steering_enabled,"rest requires steering")
     assert(not steering_enabled or terrain_enabled,"steering requires terrain")
     local lateral_assignment=core.settings:get("rdl_lateral_assignment") or "off"
@@ -106,6 +108,9 @@ return function(http,runtime_url)
         if steering_enabled then a.config.schema="l15a-terrain-resource-steering-v2" end
         if rest_mode~="off" then
             a.config.schema="l15a-movement-rest-v1";a.config.rest_mode=rest_mode
+        end
+        if reactivation_mode~="off" then
+            a.config.schema="l15a-rest-reactivation-v1";a.config.reactivation_mode=reactivation_mode
         end
         if lateral_assignment~="off" then
             a.config.schema="l15a-terrain-lateral-bias-v1"

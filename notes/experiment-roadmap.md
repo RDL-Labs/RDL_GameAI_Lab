@@ -32,6 +32,13 @@ Justified minimal composition, continuous body motion, and multi-seed long runs 
 Return to inspected M_B-informed exploration after that finite movement checkpoint; visual smoothness is not an unlimited prerequisite.
 Finite opt-in Runtime rest and fresh live-World acceptance now extend the earlier offline-only checkpoint.
 
+The [rest reactivation contract](../docs/experiment-contracts/LUANTI_L15A_rest_reactivation_contract.md)
+now separates body rest from external observation, internal retrieval and resume review.
+[Three World runs](../docs/experiment-evidence/LUANTI_L15A_rest_reactivation_evidence.md) pass mode/replay acceptance,
+but have zero applicable directional contributions and zero reactivation-driven action changes.
+Synthetic tests cover temporary episodic cost and existing adopted-M_B scope; neither is generalized into route knowledge.
+[DMN/control-network research mapping](../docs/design/RDL_GameAI_Cognitive_Mode_Research_Map.md) remains a hypothesis, not biological validation.
+
 ## Post-L10B shared-resource learning
 
 Decision on 2026-09-27: retain the

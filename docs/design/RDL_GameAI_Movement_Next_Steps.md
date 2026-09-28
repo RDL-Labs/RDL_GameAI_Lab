@@ -108,3 +108,8 @@ World監査とAgent入力を分け、未試行・失敗・取得不足・比較�
 予定往復にも反応してよい。実行後の脱出・再突入・有用な探索中断の損失を全て評価する。
 次は保存された休憩前後を分析し、追加観測で選択が変わる条件と、同じ選択へ戻る条件を分けてから追加実験を決める。
 実停止が成立したことを探索改善へ読み替えない。
+
+後続の[有限関係再活性化](../experiment-contracts/LUANTI_L15A_rest_reactivation_contract.md)を実装し、
+[実機3run](../experiment-evidence/LUANTI_L15A_rest_reactivation_evidence.md)で内部参照→再開検査のphase切替を確認した。
+本人の記録・M_Bを適用条件内でのみ使い、実Worldの方向寄与・選択差は0件だった。
+次は適用可能な記録の成立条件を検討する。[研究対応](RDL_GameAI_Cognitive_Mode_Research_Map.md)は別の仮説として保持する。

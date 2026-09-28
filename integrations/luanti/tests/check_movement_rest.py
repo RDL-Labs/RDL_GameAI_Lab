@@ -4,8 +4,8 @@ from runtime.movement_rest import RestResourceExploration
 from .check_terrain_resource import check as check_terrain
 
 
-def check(data):
-    summary=check_terrain(data,RestResourceExploration)
+def check(data, loop_type=RestResourceExploration):
+    summary=check_terrain(data,loop_type)
     for aid,a in data["runtime"]["exploration"]["agents"].items():
         world=data["world"]["agents"][aid]
         actions={r["command"]["source_id"]:r for r in world["actions"]}
