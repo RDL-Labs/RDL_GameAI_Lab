@@ -157,6 +157,10 @@ The subsequent [v2 steering mode](../docs/experiment-contracts/LUANTI_L15A_steer
 a current-geometry recheck after measured rotation, and bounded turn-cycle exit. Four fresh grassland/woodland runs reduce consecutive
 opposite turns and increase measured Food-approach steps; harvesting efficiency and continuous motion remain unachieved.
 [Steering evidence](../docs/experiment-evidence/LUANTI_L15A_steering_evidence.md) also preserves the earlier unsuccessful drafts.
+The separate [lateral-bias-only experiment](../docs/experiment-contracts/LUANTI_L15A_lateral_bias_contract.md), based on connection v1,
+adds a fixed per-agent contribution only to near-tied mirrored minima. The primary six runs show no effect; two subsequent diagnostic runs
+demonstrate one measured choice/endpoint divergence, without oscillation or harvesting improvement.
+[Bias evidence](../docs/experiment-evidence/LUANTI_L15A_lateral_bias_evidence.md) keeps the two phases distinct. Combining bias with v2 steering remains unimplemented.
 General avoidance and later M_B/body/profile weighting remain **DESIGN ONLY**. [Connection evidence](../docs/experiment-evidence/LUANTI_L15A_exploration_connection_evidence.md).
 [The v0.2 extension plan](../docs/design/RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.2.md) reserves separately sourced body-condition, unknown-value, social, learned-prediction and broad-value contributions.
 These are design reservations, not implemented fields or observed zero values; the existing three-component calculator remains unchanged.

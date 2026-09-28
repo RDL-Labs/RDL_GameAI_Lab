@@ -9,6 +9,10 @@ return function(http,runtime_url)
     local terrain_enabled=core.settings:get_bool("rdl_movement_terrain",false)
     local steering_enabled=core.settings:get_bool("rdl_movement_steering",false)
     assert(not steering_enabled or terrain_enabled,"steering requires terrain")
+    local lateral_assignment=core.settings:get("rdl_lateral_assignment") or "off"
+    local lateral_profiles={neutral={"neutral","neutral","neutral"},mixed={"left","neutral","right"},
+        swapped={"right","neutral","left"},left={"left","left","left"},right={"right","right","right"}}
+    assert(lateral_assignment=="off" or (lateral_profiles[lateral_assignment] and terrain_enabled and not steering_enabled),"lateral bias only mode")
     local surface=terrain_enabled and dofile(root .. "/movement_surface.lua") or nil
     local run=assert(core.settings:get("rdl_learning_run_id"))
     local periods=assert(tonumber(core.settings:get("rdl_resource_periods")))
@@ -95,6 +99,11 @@ return function(http,runtime_url)
             teaching=teaching,selection_profile=trait})
         if terrain_enabled then a.config.schema="l15a-terrain-resource-exploration-v1" end
         if steering_enabled then a.config.schema="l15a-terrain-resource-steering-v2" end
+        if lateral_assignment~="off" then
+            a.config.schema="l15a-terrain-lateral-bias-v1"
+            local index=id=="npc_a" and 1 or (id=="npc_b" and 2 or 3)
+            a.config.lateral_bias=lateral_profiles[lateral_assignment][index]
+        end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=16000000,taught_appearance=teaching.appearance})

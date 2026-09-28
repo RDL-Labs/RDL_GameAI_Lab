@@ -24,6 +24,9 @@
 [接続Evidence](../experiment-evidence/LUANTI_L15A_exploration_connection_evidence.md)は接続の成立と旋回振動・効率の課題を分けている。
 後続の[旋回制御v2](../experiment-contracts/LUANTI_L15A_steering_contract.md)では小差保持と実旋回後の一歩を有限に追加し、
 [実World比較](../experiment-evidence/LUANTI_L15A_steering_evidence.md)でその場の逆旋回を抑制した。採取効率・連続曲線運動は未達。
+[拡張計画v0.3](RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.3.md)の左右傾向は、
+[bias単独契約](../experiment-contracts/LUANTI_L15A_lateral_bias_contract.md)として方向保持と分離した。
+主比較6runは差なし、追加2runで選択と終点が分岐したが、振動・採取の改善は確認されていない。
 以下の全Phaseを完了したという意味ではない。
 
 ## 0. 目的

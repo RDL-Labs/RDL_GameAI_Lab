@@ -15,7 +15,9 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off"):
+    if lateral not in ("off","neutral","mixed","swapped","left","right") or (lateral != "off" and steering):
+        raise ValueError("lateral bias only mode")
     run_id="l14b-"+uuid4().hex[:16]
     if terrain:
         from runtime.terrain_resource_exploration import TerrainResourceExploration
@@ -23,6 +25,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
     if steering:
         from runtime.terrain_steering import SteeredResourceExploration
         loop_type=SteeredResourceExploration
+    if lateral != "off":
+        from runtime.terrain_lateral_bias import LateralResourceExploration
+        loop_type=LateralResourceExploration
     loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
@@ -38,12 +43,15 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if faults:command.append("-ResourceFaults")
         if terrain:command.append("-MovementTerrain")
         if steering:command.append("-MovementSteering")
+        if lateral != "off":command += ["-LateralAssignment",lateral]
         with log.open("wb") as stream:
             result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=periods*16+80)
         if result.returncode:raise RuntimeError(f"World failed: {log}")
         path=OUTPUT/(run_id+".snapshot.json");raw=path.read_bytes();data=json.loads(raw.decode("utf-8-sig"))
         assert data["runtime"]["exploration"]==loop.snapshot()
-        if steering:
+        if lateral != "off":
+            from .check_terrain_lateral import check
+        elif steering:
             from .check_terrain_steering import check
         elif terrain:
             from .check_terrain_resource import check

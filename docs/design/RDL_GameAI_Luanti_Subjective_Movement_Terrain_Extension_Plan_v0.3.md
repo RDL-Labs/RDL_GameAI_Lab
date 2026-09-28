@@ -1,51 +1,26 @@
-# 図付き・主観的移動地形システム拡張計画書 v0.2
+# 図付き・主観的移動地形システム拡張計画書 v0.3
 
-**状態:** IMPLEMENTATION PLAN / DESIGN DRAFT
-**対象:** `RDL-Labs/RDL_GameAI_Lab`
-**基準:** L13 / L14 系の有限観測・探索・資源取得・個体別状態分離を前提とする
-**RDL上の位置:** GameAI-local な実装表現。T0 Core primitive の追加ではない。
+**状態:** IMPLEMENTATION PLAN / DESIGN DRAFT\
+**対象:** `RDL-Labs/RDL_GameAI_Lab`\
+**基準:** L13 / L14 系の有限観測・探索・資源取得・個体別状態分離を前提とする\
+**RDL上の位置:** GameAI-local な実装表現。T0 Core primitive の追加ではない。\
 **目的:** 観測から身体移動までの間に「主観的移動地形」を導入し、接近・回避・複数要因の競合を一つの有限な行動生成層として扱う。
-
-後続の[v0.3](RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.3.md)に、固定左右バイアスと短期方向維持を分離する実験計画を追加した。
-本書は追加当時の設計履歴として保持する。
 
 ---
 
-後続の[現行探索への接続](../experiment-contracts/LUANTI_L15A_exploration_connection_contract.md)は別契約で実装した。
-以下の追加時点の記録と区別し、身体状態・未知・社会関係等の予約要因は引き続きDESIGN ONLYとする。
-
 ## リポジトリへの追加時点（2026-09-28）
 
-本書はユーザー提供の拡張計画v0.2。身体条件・未知・社会relation・学習済み予測・広域価値の扱いを、
-[元のL15A計画](RDL_GameAI_Luanti_Subjective_Movement_Terrain_Plan.md)に追加する **DESIGN ONLY** 文書である。
+本書はユーザー提供v0.3を保存した計画文書。追加の中心は18Aの個体固有左右バイアスである。
+本文中の「まずPhase 1」「まだWorldへ接続しない」は導入時の指示履歴とし、現在の実装を巻き戻さない。
+Phase 1と探索接続v1は実装済み。短期方向維持の独立実験は `f63d6a7` で先行して完了した。
+今回の追加は、その短期状態を混ぜず、探索接続v1を基準に **lateral bias only** を検査する。
+式・有限幅・適用条件・実機結果の正本は[左右バイアス契約](../experiment-contracts/LUANTI_L15A_lateral_bias_contract.md)と
+[Evidence](../experiment-evidence/LUANTI_L15A_lateral_bias_evidence.md)。左右バイアス単独の実装・実機受入は完了。
+body condition / unknown / social / learned prediction / broad value と、bias＋hysteresisの合成はDESIGN ONLY。
 
-既存Phase 1は `f090410` で実装・受入済み。式・入力・欠測・上限は
-[Phase 1契約](../experiment-contracts/LUANTI_L15A_subjective_movement_terrain_contract.md)、検証済み範囲は
-[Evidence](../experiment-evidence/LUANTI_L15A_subjective_movement_terrain_evidence.md)を正とする。
-今回の文書追加ではコード・schema・係数・行動権限を変更しない。
-
-| 範囲 | 現在の状態 |
-| --- | --- |
-| physical / food / obstacle | 5方向の純粋計算を実装済み。合成入力と既存replayで検証 |
-| body_condition / unknown / social / learned_prediction / broad_value | 設計上の予約。入力・出力フィールドもまだ追加しない |
-| 局所慣性・選択・実Worldの接近/回避・再送時の身体権限 | Phase 2以降の設計。現行出力は同点の最低方向を全件残す診断のみ |
-| L15B〜L15E | 後続候補名。実装・受入済みとは扱わない |
-
-現在のtotalは、実装済み3成分が完全取得された場合の限定合成値であり、将来要因まで含んだ総評価ではない。
-予約要因の欠落は「未実装」であって、観測済みの0でも非適用の判定でもない。
-将来schemaを拡張するときに、未実装・未取得・非適用と、根拠を伴う実測/計算済み0を区別する。
-情報不足そのものを探索誘引へ変換せず、未知への価値評価を導入する際は別の出典・許可条件を定める。
-
-以下の一般式にあるWorldの地形・actual_slope等は、RuntimeがWorld真値を直接読めるという意味ではない。
-将来のphysical/body contributionにも、本人が取得した地形・身体情報と許可された能力profileを用いる。
-追加の意欲・価値寄与によって、実行不能な身体操作や観測不足を実行可能へ変更しない。
-L13Sの経路モデルとL14Bの採取モデルは別modeであり、本書の列挙を統合済み経路とは読まない。
-
-図は既存のユーザー提供画像を参照する構想図。連続曲線や実身体回避を検証した記録ではない。
-19節の受入条件・20節のEvidence・21節の成立主張はWorld接続後の目標も含み、現時点のPASS宣言ではない。
-末尾の実装指示は提供文書の指示として保存する。Phase 1は完了しており、今回Phase 2へは進まない。
-
-本文の取り込みでは画像リンク、節番号、残存していたv0.1表記をv0.2へ整えた。
+提供元: `主観的移動地形システム拡張計画書_v0.3.md`。
+原ファイルSHA-256: `570dd9cfea210c007b37b579d3d9103aa0e7e7467a31020fdc106f91172062db`。
+図の相対参照と下位節番号を既存リポジトリへ合わせ、この現状注記を追加した。
 
 ---
 
@@ -93,7 +68,7 @@ L13Sの経路モデルとL14Bの採取モデルは別modeであり、本書の�
 
 という最小構造を示す。
 
-対象自身が「こちらへ移動せよ」という命令を出すわけではない。
+対象自身が「こちらへ移動せよ」という命令を出すわけではない。\
 対象が現在の主観的移動地形を変形させ、その結果として移動が生じる。
 
 ---
@@ -151,7 +126,7 @@ v0.2 の実装ではすべてを入れず、まず **Food + 物理地形 + 障�
 World の実衝突判定
 ```
 
-World 側は最終的な身体作用の成否を従来どおり決定する。
+World 側は最終的な身体作用の成否を従来どおり決定する。\
 Runtime 側では、現在観測できた障害物に対してのみ局所的な高地を作る。
 
 これにより、
@@ -172,7 +147,7 @@ Food への誘引
 
 ## 4. 実装対象 v0.2
 
-v0.2 では以下だけを実装する。
+v0.1 では以下だけを実装する。
 
 ### A. Food 誘引
 
@@ -914,7 +889,7 @@ C: 無関心 -> ほぼ変形なし
           身体移動
 ```
 
-これは v0.2 の実装対象外。
+これは v0.1 の実装対象外。
 
 ---
 
@@ -975,7 +950,7 @@ C: 無関心 -> ほぼ変形なし
 
 広域価値場は、特定座標への単純な引力ではなく、**局所地形生成規則そのものへ持続的な偏りを与える**可能性を持つ。
 
-これも v0.2 の実装対象外。
+これも v0.1 の実装対象外。
 
 ---
 
@@ -1143,7 +1118,252 @@ hunger / fatigue / injury などで同じ World の地形が個体状態に応�
 
 ---
 
-# Codex への実装指示（提供時。Phase 1完了済み）
+
+## 18A. 個体固有の左右バイアスと旋回安定化
+
+### 18A.1 背景
+
+L15A の現行探索接続では、同じ位置で左右の旋回が反転する局所振動が実測されている。
+
+概念的には、
+
+```text
+左側がわずかに低い
+↓
+左旋回
+↓
+身体相対の視界・ray配置が変化
+↓
+今度は右側がわずかに低くなる
+↓
+右旋回
+↓
+再び観測が変化
+```
+
+という循環が起こりうる。
+
+これは、身体相対観測を毎回更新すること自体が誤りなのではない。
+**旋回によって主観的移動地形が再形成されるため、左右がほぼ拮抗する局面で短期的に選択が反転しやすい**ことが問題である。
+
+---
+
+### 18A.2 個体固有の lateral bias
+
+各個体に、弱い左右方向バイアスを持たせる案を後続実験として追加する。
+
+例:
+
+```text
+agent A:
+    lateral_bias = slightly_left
+
+agent B:
+    lateral_bias = slightly_right
+
+agent C:
+    lateral_bias = neutral
+```
+
+この値は「左へ行け」「右へ行け」という直接行動命令ではない。
+
+**左右がほぼ同等のときにだけ、主観的移動地形へ微小な傾きを与える個体側 contribution**として扱う。
+
+概念例:
+
+```text
+left_total  = observed_terrain_left  + lateral_bias_left
+right_total = observed_terrain_right + lateral_bias_right
+```
+
+左右差が十分大きい場合は、観測地形が個体バイアスを上書きする。
+
+したがって、
+
+```text
+強い Food 差
+強い obstacle 差
+明確な physical cost 差
+```
+
+がある局面で lateral bias が主因になってはならない。
+
+---
+
+### 18A.3 探索域への作用
+
+lateral bias は単なる旋回安定化だけでなく、長期的な探索域の分岐源になりうる。
+
+同じ初期 World・同じ Food 配置でも、
+
+```text
+A -> 左から回り込む
+B -> 右から回り込む
+```
+
+という微小差が生じると、
+
+```text
+異なる視界
+↓
+異なる対象の観測
+↓
+異なる移動
+↓
+異なる Experience
+↓
+異なる relation / M_B 候補
+```
+
+へ増幅される可能性がある。
+
+したがって lateral bias は、
+
+> **探索領域を個体ごとに少しずつずらす、弱い対称性破り**
+
+として扱う。
+
+---
+
+### 18A.4 短期方向維持（turn hysteresis）との分離
+
+lateral bias と短期方向維持は別機構とする。
+
+#### lateral bias
+- 個体固有
+- 比較的持続的
+- 左右対称局面でどちらへ崩れやすいかを決める
+
+#### turn hysteresis
+- 短期状態
+- 一度選んだ旋回方向を少し維持する
+- 直後の微小な逆転で反対旋回しないようにする
+
+概念:
+
+```text
+current terrain
++
+individual lateral bias
++
+short-term turn hysteresis
+↓
+local movement choice
+```
+
+両者を同時に導入すると因果を分離できないため、別段階で検査する。
+
+---
+
+### 18A.5 推奨する実装順序
+
+#### Experiment A — lateral bias only
+
+まず左右バイアスだけを追加する。
+
+固定条件:
+
+- 同じ World
+- 同じ観測
+- 同じ Food / obstacle 配置
+- 同じ身体条件
+- 同じ terrain coefficients
+
+変えるもの:
+
+- `lateral_bias`
+
+候補:
+
+```text
+left-biased
+neutral
+right-biased
+```
+
+左右対称入力でのみ選択差が出ることを確認する。
+
+#### Experiment B — hysteresis only
+
+次に lateral bias を neutral に固定し、短期方向維持だけを追加する。
+
+確認:
+
+- `left -> right -> left` のような連続反転が減るか
+- 強い地形差が出たときは方向転換できるか
+
+#### Experiment C — composition
+
+最後に両者を合成する。
+
+```text
+observed terrain
++ lateral bias
++ turn hysteresis
+```
+
+を contribution 別に保存する。
+
+---
+
+### 18A.6 evidence に追加する項目
+
+各 decision について、少なくとも以下を別記録する。
+
+```text
+observed_terrain_total
+lateral_bias_contribution
+turn_hysteresis_contribution
+final_total
+
+previous_turn_direction
+selected_direction
+selected_action
+next_observation_id
+```
+
+`lateral_bias` と `turn_hysteresis` を total に潰して保存しない。
+
+---
+
+### 18A.7 受入条件
+
+最低限:
+
+1. 左右対称地形で left-biased / right-biased 個体が反対方向を選びうる。
+2. neutral 個体では既存同点処理を維持する。
+3. 強い Food / obstacle / physical 差があるとき、lateral bias がその差を上書きしない。
+4. object ID や配列順で左右結果が変わらない。
+5. lateral bias 導入後、探索域の差を実World軌跡として保存する。
+6. lateral bias だけで旋回振動が減るかを測定する。改善を前提にしない。
+7. hysteresis 導入時は、逆向き連続turn対の数を既存L15A接続基準と比較する。
+8. hysteresis が強すぎて必要な方向転換を妨げない。
+9. lateral bias は personality label そのものと同一視しない。
+10. Core E/H/θ/M_delta へ自動変換しない。
+
+---
+
+### 18A.8 停止境界
+
+この段階で主張してよいのは、
+
+> 弱い個体固有左右バイアスおよび短期方向維持が、左右対称性・探索域・旋回振動へどのように作用するかを有限条件で観測できる
+
+ところまで。
+
+以下はまだ主張しない。
+
+- 人間一般の左右選好を再現した
+- 個性全体を実装した
+- lateral bias が生得的である
+- lateral bias が学習で形成された
+- 旋回振動を一般に解決した
+- 探索効率が改善した
+- 社会 relation / fatigue / unknown value と統合済みである
+
+---
+
+# Codex への実装指示（導入時の履歴。Phase 1完了済み）
 
 **まず Phase 1 だけを実装すること。**
 
@@ -1202,3 +1422,21 @@ Phase 1 完了時に停止し、以下を報告すること。
 まずは物理移動で有限に成立させる。
 
 社会 relation、概念、価値制度へ同じ構造が拡張可能であるかは、その後の独立した検査対象とする。
+
+
+## Codex 次作業候補 — lateral bias experiment
+
+既存L15Aの地形式・World sensor・L14B接続を壊さず、まず **lateral bias only** の専用実験を追加する。
+
+1. 個体ごとに `left / neutral / right` の弱い固定biasを与えられる。
+2. biasは観測terrainとは別contributionとして保存する。
+3. 左右がほぼ同等のときだけ作用する有限幅を定義する。
+4. 強いFood / obstacle / physical差を上書きしない。
+5. 左右対称fixtureで mirror test を行う。
+6. 既存L15Aの逆向き連続turn対を比較指標として保存する。
+7. 探索軌跡・到達地点・turn/move/wait・pickupを個体別に比較する。
+8. まず hysteresis は入れない。
+9. lateral bias のみの効果を確認して停止する。
+10. その後、別変更として turn hysteresis を検討する。
+
+この変更で body condition / unknown value / social relation / active M_B / broad value field は実装しない。
