@@ -27,6 +27,9 @@
 [拡張計画v0.3](RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.3.md)の左右傾向は、
 [bias単独契約](../experiment-contracts/LUANTI_L15A_lateral_bias_contract.md)として方向保持と分離した。
 主比較6runは差なし、追加2runで選択と終点が分岐したが、振動・採取の改善は確認されていない。
+[拡張計画v0.7](RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.7.md)では、拮抗・欠測の分離に加え、
+障害時の停止と追加観測、興味による寄り道、元の目的を保持して後回しにする場合と現在の選択から外れる場合を整理した。
+これらはDESIGN ONLY。目的への強制復帰や固定待ち時間は追加せず、未採取・時間切れも後続の観察対象とする。
 以下の全Phaseを完了したという意味ではない。
 
 ## 0. 目的

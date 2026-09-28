@@ -1,5 +1,8 @@
 # 図付き・主観的移動地形システム拡張計画書 v0.3
 
+後続の[v0.7・対話追記](RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.7.md)に、拮抗の扱いと停止・再観測・興味による寄り道・目的の非参照を整理した。
+本書と左右バイアス単独の実装・Evidenceは履歴として保持し、後続設計の実装済み扱いへ広げない。
+
 **状態:** IMPLEMENTATION PLAN / DESIGN DRAFT\
 **対象:** `RDL-Labs/RDL_GameAI_Lab`\
 **基準:** L13 / L14 系の有限観測・探索・資源取得・個体別状態分離を前提とする\

@@ -161,6 +161,10 @@ The separate [lateral-bias-only experiment](../docs/experiment-contracts/LUANTI_
 adds a fixed per-agent contribution only to near-tied mirrored minima. The primary six runs show no effect; two subsequent diagnostic runs
 demonstrate one measured choice/endpoint divergence, without oscillation or harvesting improvement.
 [Bias evidence](../docs/experiment-evidence/LUANTI_L15A_lateral_bias_evidence.md) keeps the two phases distinct. Combining bias with v2 steering remains unimplemented.
+The [v0.7 plan and discussion additions](../docs/design/RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.7.md)
+remain **DESIGN ONLY**: obstacle-triggered stopping and new observations, interest-driven detours, and an earlier objective being
+deprioritized or absent from current selection. Objective non-reference is separate from memory loss; return to food seeking is not
+guaranteed, and timeout/no harvest are valid observations. No fixed thinking delay, sensor/decision cadence change, or new M_B authority is implemented.
 General avoidance and later M_B/body/profile weighting remain **DESIGN ONLY**. [Connection evidence](../docs/experiment-evidence/LUANTI_L15A_exploration_connection_evidence.md).
 [The v0.2 extension plan](../docs/design/RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.2.md) reserves separately sourced body-condition, unknown-value, social, learned-prediction and broad-value contributions.
 These are design reservations, not implemented fields or observed zero values; the existing three-component calculator remains unchanged.
