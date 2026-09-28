@@ -1,12 +1,12 @@
 # RDL_GameAI — 簡易会話からプレイヤー介入まで
 
 **文書種別:** Communication / Player Intervention Design  
-**版:** v0.1  
+**版:** v0.2  
 **位置づけ:** RDL_GameAI_Lab / GameAI-local design
 
 **責務:** [全体設計地図](RDL_GameAI_全体設計地図.md)のD軸。intent・Expression・referent・DialogueTurn・lexicon・NPC語彙伝播。
 **依存:** [Player Role](RDL_GameAI_暫定プレイヤー役割_しゃべる神の像.md)、[履歴モデル](RDL_GameAI_感情・履歴・関係拘束モデル.md)、[睡眠設計](RDL_GameAI_睡眠システム設計.md)。
-**非責務・状態:** Playerの能力付与やcanonical形成の正本ではない。Communicationはdesign-onlyで、現行のdisplay-only Response Expressionは通信基盤ではない。
+**非責務・状態:** Playerの能力付与やcanonical形成の正本ではない。Communicationはdesign-onlyで、現行のdisplay-only Response Expressionは通信基盤ではない。[SOC-5](../experiment-contracts/SOC_5_failure_response_candidate_expansion_contract.md) は失敗後に `seek_agent` を有限候補として展開できるが、これはCommunicationの実行、helper選択、CALL / HELPの送信を意味しない。
 
 ## 0. 目的
 
@@ -360,6 +360,53 @@ DialogueTurn / naming experience
 ```
 
 誤伝達や誤接続も許容する。
+
+---
+
+## 13.1 SOC系からCommunicationへの接続境界
+
+SOC-5では、実際の単独搬送失敗の後に、
+
+```text
+retry
+reposition
+known_tool
+seek_agent
+wait
+abandon
+```
+
+を有限候補として展開できる。
+
+ただし、
+
+```text
+seek_agent
+!= CALL
+!= HELP
+!= 相手が参加する
+```
+
+である。`seek_agent` は、**他個体を次の問題解決経路として検討可能な候補へ載せる**ところまでを表す。
+
+救助系からCommunicationへ接続する次の縦断は、概略として次を分離して実装する。
+
+```text
+actual failure
+→ SOC-5 candidate expansion
+→ seek_agent が選択される
+→ helper candidate を有限に選ぶ
+→ CALL(listener)
+→ HELP(target / purpose)
+→ 必要なら POINT(target)
+→ listener が自身の有限構造で解釈
+→ 参加 / 拒否 / 未解釈
+→ World上で共同再試行
+```
+
+失敗から直接 `HELP` を自動発火させない。過去に共同成功があっても、特定個体の援助意思・能力・信頼を現在のTruthとしてコピーしない。
+
+Communication Step番号はCommunication内部の能力分解であり、全体実装の必須順序ではない。したがって救助縦断の専用opt-in契約で `CALL / HELP / POINT` を先に検査してもよいが、それによって一般会話基盤や `GREET / ACK` の完成を主張しない。
 
 ---
 
