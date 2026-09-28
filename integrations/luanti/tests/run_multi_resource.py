@@ -15,7 +15,9 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off"):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off", simulation_speed=1):
+    if not 1 <= simulation_speed <= 16:
+        raise ValueError("simulation speed out of range")
     if reassessment not in ("off","disabled","enabled") or (reassessment!="off" and reactivation=="off"):
         raise ValueError("reassessment requires reactivation")
     if obstacle_probe not in ("off","persistent","removed") or (obstacle_probe!="off" and reactivation=="off"):
@@ -61,7 +63,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         command=[shutil.which("pwsh") or shutil.which("powershell"),"-NoProfile","-ExecutionPolicy","Bypass","-File",
             str(ROOT/"integrations/luanti/scripts/test-learned-exploration-day.ps1"),"-Scenario",scenario,
             "-RunId",run_id,"-LuantiRoot",luanti_root,"-MultiResources","-ResourcePeriods",str(periods),
-            "-ResourceAssignment",assignment]
+            "-ResourceAssignment",assignment,"-SimulationSpeed",str(simulation_speed)]
         if control:command.append("-ResourceControl")
         if faults:command.append("-ResourceFaults")
         if terrain:command.append("-MovementTerrain")

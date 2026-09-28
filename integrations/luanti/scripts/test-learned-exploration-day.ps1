@@ -11,6 +11,7 @@ param(
     [switch]$ResourceControl,
     [switch]$ResourceFaults,
     [switch]$MultiResources,
+    [ValidateRange(1,16)][double]$SimulationSpeed = 1,
     [switch]$MovementTerrain,
     [switch]$MovementSteering,
     [ValidateSet("off","disabled","fatigue","repetition","combined")][string]$RestMode = "off",
@@ -22,6 +23,7 @@ param(
     [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
 )
 $ErrorActionPreference = "Stop"
+if ($SimulationSpeed -ne 1 -and -not $MultiResources) { throw "Speed experiment requires MultiResources" }
 if ($MultiResources) { $Resources = [switch]::new($true) }
 if ($MovementSteering) { $MovementTerrain = [switch]::new($true) }
 if ($RestMode -ne "off" -and (-not $MovementSteering -or $TieBreakMode -ne "off" -or $LateralAssignment -ne "off")) { throw "Rest requires isolated steering" }
@@ -59,6 +61,7 @@ rdl_exploration_neighborhood = $($Neighborhood.IsPresent.ToString().ToLowerInvar
 rdl_exploration_multi_food = $($MultiFood.IsPresent.ToString().ToLowerInvariant())
 rdl_exploration_resources = $($Resources.IsPresent.ToString().ToLowerInvariant())
 rdl_resource_periods = $ResourcePeriods
+rdl_simulation_speed = $($SimulationSpeed.ToString([Globalization.CultureInfo]::InvariantCulture))
 rdl_resource_control = $($ResourceControl.IsPresent.ToString().ToLowerInvariant())
 rdl_resource_faults = $($ResourceFaults.IsPresent.ToString().ToLowerInvariant())
 rdl_resource_assignment = $ResourceAssignment
@@ -75,7 +78,7 @@ port = 30001
 max_users = 1
 default_game = rdl_game
 mg_name = singlenode
-dedicated_server_step = 0.02
+dedicated_server_step = $((0.02/$SimulationSpeed).ToString([Globalization.CultureInfo]::InvariantCulture))
 "@ | Set-Content -LiteralPath $config -Encoding utf8
 if ($Resources) { Add-Content -LiteralPath $config -Value "max_forceloaded_blocks = 256" -Encoding utf8 }
 $health = Invoke-RestMethod "http://127.0.0.1:8765/health" -TimeoutSec 2

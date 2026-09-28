@@ -32,6 +32,9 @@ return function(http,runtime_url)
     local control=core.settings:get_bool("rdl_resource_control",false)
     local faults=core.settings:get_bool("rdl_resource_faults",false)
     assert(periods>=1 and periods<=30 and periods%1==0)
+    local speed=tonumber(core.settings:get("rdl_simulation_speed") or "1")
+    assert(speed and speed>=1 and speed<=16,"invalid simulation speed")
+    local wall_start=core.get_us_time()
     local capacity,limit=periods*64,periods*16000000
     local prefix=runtime_url:gsub("/v1/observe$","") .. "/v1/exploration/"
     local profile={range_min_exclusive=12,range_max_inclusive=64,horizontal_fov_deg=90,vertical_fov_deg=60,angle_bin_deg=5}
@@ -43,6 +46,7 @@ return function(http,runtime_url)
     local agents,patches,targets={},{},{}
     local evidence={run_id=run,scenario=scenario,assignment=assignment,period_count=periods,
         control=control,faults=faults,agents={},deliveries={},stock_events={},periods={},guards={}}
+    evidence.timing={requested_speed=speed,max_step_us=0}
     evidence.obstacle_probe={mode=obstacle_probe,events={}}
     if surface then evidence.surface_checks=dofile(root .. "/movement_surface_checks.lua")(surface) end
     local function encode(x)
@@ -51,6 +55,7 @@ return function(http,runtime_url)
     end
     local function save(failure)
         evidence.failure=failure;evidence.finished_us=sim
+        evidence.timing.wall_elapsed_us=core.get_us_time()-wall_start
         local ok,stock=pcall(resource.audit,patches)
         if ok then evidence.final_stock=stock else evidence.stock_audit_failure=tostring(stock) end
         for _,a in ipairs(agents) do
@@ -281,7 +286,9 @@ return function(http,runtime_url)
     end) end)
     core.register_globalstep(function(dt)
         if stage=="setup" or stage=="done" then return end
-        sim=sim+math.floor(dt*1000000+.5)
+        local step=math.floor(dt*speed*1000000+.5)
+        evidence.timing.max_step_us=math.max(evidence.timing.max_step_us,step)
+        sim=sim+step
         local ok,err=pcall(function()
             assert(sim<=limit+9000000,"drain deadline")
             if stage=="running" and sim>=limit then
