@@ -12,8 +12,8 @@ class ReplayPortabilityTests(unittest.TestCase):
 
     def test_nested_containers_accept_only_allowed_leaf_differences(self):
         def tree(value):
-            return {'agents':{'npc_c':{'decisions':{'obs':{
-                'rest':{'recurrence':{'local_motion':{'forward':value}}}}}}}
+            decision=dict(rest=dict(recurrence=dict(local_motion=dict(forward=value))))
+            return dict(agents=dict(npc_c=dict(decisions=dict(obs=decision))))
         self.assertIsNone(first_difference(tree(2.380139954330329),tree(2.3801399543303297)))
         self.assertIsNotNone(first_difference(tree(2.38),tree(2.39)))
         p='$/agents/npc_a/decisions/obs/movement_terrain/directional_samples'
