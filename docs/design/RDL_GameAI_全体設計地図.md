@@ -2,6 +2,8 @@
 
 *MASTER DESIGN MAP: canonical成熟度・NPC内部Layer・ゲーム機能・横断システムを分離して接続する。*
 
+2026-09-28: [実行経路と未接続資産の棚卸し](RDL_GameAI_Runtime_Integration_Audit_20260928.md)。現在の30日探索は全機能統合版ではない。
+
 ## 0. 文書の役割
 
 この文書は設計体系の入口。4軸の配置、文書責務、接続関係を管理する。神経パラメーター、生活Phase、会話intent、canonical契約の詳細は各正本へ委ねる。
@@ -50,10 +52,12 @@ bounded observation → Purpose / finite B → RIB_B
 → same frozen pre-update M_B → F / F' → E
 → explicit finite review → unresolved H / retained H
 
-unimplemented:
-θ / M_Δ → Probe → Expansion → Inspection
-→ Selection → Reconstruction → M_B'
-→ finite-context authority / fresh re-entry
+finite explicit paths also implemented (see roadmap for each contract):
+θ / M_Δ → material expansion → inspection / selection
+→ reconstruction → M_B' → guarded cutover / re-entry
+
+not implied:
+automatic integration of all learning, Probe, Sleep and action paths
 ```
 
 GameAI-local stateを増やしただけではcanonical authorityは増えない。Hは感情ではなく、reviewされた未解決残差。local action policyはcanonical diagnostic M_Bとは別経路である。詳細の成熟度は上表のroadmapを参照する。
