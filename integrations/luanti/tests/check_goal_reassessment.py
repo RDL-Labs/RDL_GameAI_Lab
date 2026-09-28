@@ -3,8 +3,8 @@ from runtime.goal_reassessment import ReassessingExploration
 from .check_rest_reactivation import check as base_check
 
 
-def check(data):
-    summary=base_check(data,ReassessingExploration)
+def check(data,loop_type=ReassessingExploration):
+    summary=base_check(data,loop_type)
     for aid,a in data['runtime']['exploration']['agents'].items():
         counts={};selected=0;triggered=0
         for oid,d in a['decisions'].items():

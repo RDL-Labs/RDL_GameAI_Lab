@@ -8,7 +8,6 @@ from math import sqrt
 from .exploration import fields, require
 from .terrain_steering import SteeredResourceAgent, SteeredResourceExploration
 from .movement_recurrence import diagnose_window
-from .resource_exploration import PERIOD_US
 
 SCHEMA = "l15a-movement-rest-v1"
 MODES = ("disabled", "fatigue", "repetition", "combined")
@@ -59,7 +58,7 @@ class RestResourceAgent(SteeredResourceAgent):
         records = [dict(observation=o, command=self.commands[o["observation_id"]],
                         result=self.results.get("op:"+o["observation_id"])) for o in history]
         records.append(dict(observation=p, command=None, result=None))
-        recurrence = diagnose_window(records, purpose_scoped=False)
+        recurrence = diagnose_window(records, purpose_scoped=False, period_us=self.period_us)
         prev = history[-1] if history else None
         result = self.results.get("op:"+prev["observation_id"]) if prev else None
         linked = (result is not None and result["after_pose_ref"]==p["pose_ref"]
@@ -82,7 +81,7 @@ class RestResourceAgent(SteeredResourceAgent):
                 and s["starts"]<MAX_RESTS_PER_PERIOD and d["action"][0] in ("move","turn")):
             s["starts"]+=1
             s["active"]=dict(source=p["observation_id"], reasons=reasons, decisions=0,
-                until_us=min(p["capture_us"]+REST_US,(d["period"]+1)*PERIOD_US))
+                until_us=min(p["capture_us"]+REST_US,(d["period"]+1)*self.period_us))
             if "repetition" in reasons:s["residual"]-=2  # consume one request, not the historical evidence
             transition="started"
         if s["active"]:

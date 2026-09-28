@@ -26,8 +26,10 @@ def view_key(p):
     return key
 
 
-def diagnose_window(records, *, purpose_scoped=True):
+def diagnose_window(records, *, purpose_scoped=True, period_us=PERIOD_US):
     """At most nine acquired views, linked by eight already received results."""
+    if type(period_us) is not int or period_us not in (16_000_000,32_000_000,64_000_000):
+        raise ValueError("history_period")
     if not 1<=len(records)<=WINDOW_OPERATIONS+1:
         raise ValueError("history_budget")
     views=[r["observation"] for r in records]
@@ -44,7 +46,7 @@ def diagnose_window(records, *, purpose_scoped=True):
         return out
     reasons=[]
     if end["capture_us"]-views[0]["capture_us"]>WINDOW_US:reasons.append("history_expired")
-    if views[0]["capture_us"]//PERIOD_US!=end["capture_us"]//PERIOD_US:reasons.append("period_boundary")
+    if views[0]["capture_us"]//period_us!=end["capture_us"]//period_us:reasons.append("period_boundary")
     keys=[view_key(p) for p in views]
     if any(k is None for k in keys):reasons.append("acquisition_incomplete")
     results=[]

@@ -18,20 +18,21 @@ TEACHING_PREDICATE = "food_after_known_processing"
 
 
 class ResourceExploration(FiniteExploration):
+    period_us = PERIOD_US
     allow_resources = True
     inventory_capacity = 32
 
     def __init__(self, run_id, periods=30, seed=20260928, agent_id="npc_a"):
         integer(periods, 1, 30); integer(seed, 0, 2**32-1)
         self.periods, self.seed = periods, seed
-        self.capacity, self.limit_us = periods*64, periods*PERIOD_US
+        self.capacity, self.limit_us = periods*(self.period_us//250_000), periods*self.period_us
         self.deadline_us = self.limit_us+9_000_000
         super().__init__(run_id, agent_id)
         self.teaching = None
         self.decisions = {}
 
     def expiry(self, capture_us):
-        return min(super().expiry(capture_us), (capture_us//PERIOD_US+1)*PERIOD_US)
+        return min(super().expiry(capture_us), (capture_us//self.period_us+1)*self.period_us)
 
     def configure(self, value):
         with self.lock:
@@ -48,7 +49,7 @@ class ResourceExploration(FiniteExploration):
             return dict(response, teaching=deepcopy(t))
 
     def _decision(self, p):
-        period = p["capture_us"]//PERIOD_US
+        period = p["capture_us"]//self.period_us
         last = next(reversed(self.decisions.values())) if self.decisions else None
         same = last is not None and last["period"] == period
         landmark = deepcopy(last["landmark"]) if same else initial_state()

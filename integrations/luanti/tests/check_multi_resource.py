@@ -56,6 +56,7 @@ def first_difference(actual, expected, path='$'):
 def check(data, loop_type=MultiResourceExploration):
     w,s=data["world"],data["runtime"]["exploration"]
     assert not w.get("failure"),w.get("failure")
+    period_us=s.get("period_us",16_000_000)
     assert s["schema"] == loop_type.schema
     loop=loop_type(w["run_id"],s["periods"],s["seed"],s["assignment"])
     for d in w["deliveries"]:
@@ -68,7 +69,7 @@ def check(data, loop_type=MultiResourceExploration):
     initial={p["ref"]:p for p in w["stock_initial"]}
     assert all(p["initial"]==p["remaining"]==12 and p["present"] for p in initial.values())
     assert len(w["forceloaded"])==192 and len(w["periods"])==s["periods"]
-    assert w["finished_us"]<=s["periods"]*16_000_000+9_000_000
+    assert w["finished_us"]<=s["periods"]*period_us+9_000_000
     history=[dict(stock)]
     for e in w["stock_events"] or []:
         assert {p["ref"]:p["remaining"] for p in e["before"]}==stock
@@ -83,9 +84,9 @@ def check(data, loop_type=MultiResourceExploration):
     all_operations=set()
     for agent in AGENTS:
         a,t=w["agents"][agent],s["agents"][agent]
-        assert len(a["observations"])==len(a["actions"])==len(t["observations"])==len(t["results"])==s["periods"]*64
+        assert len(a["observations"])==len(a["actions"])==len(t["observations"])==len(t["results"])==s["periods"]*(period_us//250000)
         assert a["max_pending"]<=8 and t["ending"]["reason"]=="time_limit"
-        assert t["sensory"]["count"]==s["periods"]*64
+        assert t["sensory"]["count"]==s["periods"]*(period_us//250000)
         assert not (all_operations & set(t["results"]));all_operations.update(t["results"])
         last=a["initial_body"];inventory=[];distance=0
         for action in a["actions"]:
@@ -97,7 +98,7 @@ def check(data, loop_type=MultiResourceExploration):
             assert step<=2**.5+.00001 and abs(r["yaw"])<=90.01
             assert r["before_revision"]==action["before"]["revision"] and r["after_revision"]==last["revision"]
             if r["status"] in ("picked_up","moved","turned"):
-                assert r["executed_us"]<c["expires_us"]<=(c["capture_us"]//16_000_000+1)*16_000_000
+                assert r["executed_us"]<c["expires_us"]<=(c["capture_us"]//period_us+1)*period_us
             else:assert step==0 and r["yaw"]==0 and not r["acquired"]
             if r["acquired"]:
                 assert events[c["operation_id"]]["agent_id"]==agent

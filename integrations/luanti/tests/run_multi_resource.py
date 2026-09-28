@@ -15,7 +15,9 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off", simulation_speed=1):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off", simulation_speed=1, task_seconds=None):
+    if task_seconds is not None and (task_seconds not in (16,32,64) or periods != 1 or reassessment == "off"):
+        raise ValueError("task deadline requires one reassessment task")
     if not 1 <= simulation_speed <= 16:
         raise ValueError("simulation speed out of range")
     if reassessment not in ("off","disabled","enabled") or (reassessment!="off" and reactivation=="off"):
@@ -53,6 +55,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
     if reassessment!="off":
         from runtime.goal_reassessment import ReassessingExploration
         loop_type=ReassessingExploration
+    if task_seconds is not None:
+        from runtime.exploration_deadline import deadline_loop
+        loop_type=deadline_loop(task_seconds)
     loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
@@ -64,6 +69,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
             str(ROOT/"integrations/luanti/scripts/test-learned-exploration-day.ps1"),"-Scenario",scenario,
             "-RunId",run_id,"-LuantiRoot",luanti_root,"-MultiResources","-ResourcePeriods",str(periods),
             "-ResourceAssignment",assignment,"-SimulationSpeed",str(simulation_speed)]
+        if task_seconds is not None:command += ["-TaskSeconds",str(task_seconds)]
         if control:command.append("-ResourceControl")
         if faults:command.append("-ResourceFaults")
         if terrain:command.append("-MovementTerrain")
@@ -75,7 +81,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if lateral != "off":command += ["-LateralAssignment",lateral]
         if tie_break != "off":command += ["-TieBreakMode",tie_break]
         with log.open("wb") as stream:
-            result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=periods*16+80)
+            result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=periods*(task_seconds or 16)+80)
         if result.returncode:raise RuntimeError(f"World failed: {log}")
         path=OUTPUT/(run_id+".snapshot.json");raw=path.read_bytes();data=json.loads(raw.decode("utf-8-sig"))
         assert data["runtime"]["exploration"]==loop.snapshot()
@@ -95,7 +101,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
             from .check_terrain_resource import check
         else:
             from .check_multi_resource import check
-        summary=check(data)
+        summary=check(data,loop_type) if task_seconds is not None else check(data)
         print("L14B PASS "+json.dumps(summary),flush=True)
         return dict(data=data,summary=summary,source=dict(file=path.name,sha256=hashlib.sha256(raw).hexdigest()))
     finally:

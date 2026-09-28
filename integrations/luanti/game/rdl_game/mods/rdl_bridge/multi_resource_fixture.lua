@@ -35,7 +35,11 @@ return function(http,runtime_url)
     local speed=tonumber(core.settings:get("rdl_simulation_speed") or "1")
     assert(speed and speed>=1 and speed<=16,"invalid simulation speed")
     local wall_start=core.get_us_time()
-    local capacity,limit=periods*64,periods*16000000
+    local task_seconds=tonumber(core.settings:get("rdl_task_seconds") or "0")
+    assert(task_seconds==0 or ((task_seconds==16 or task_seconds==32 or task_seconds==64) and periods==1 and reassessment_mode~="off"),"invalid task deadline")
+    local period_us=(task_seconds==0 and 16 or task_seconds)*1000000
+    local slots_per_period=period_us/250000
+    local capacity,limit=periods*slots_per_period,periods*period_us
     local prefix=runtime_url:gsub("/v1/observe$","") .. "/v1/exploration/"
     local profile={range_min_exclusive=12,range_max_inclusive=64,horizontal_fov_deg=90,vertical_fov_deg=60,angle_bin_deg=5}
     for _,spec in ipairs({{"rock_gray","gray"},{"rock_red","red"}}) do
@@ -46,6 +50,7 @@ return function(http,runtime_url)
     local agents,patches,targets={},{},{}
     local evidence={run_id=run,scenario=scenario,assignment=assignment,period_count=periods,
         control=control,faults=faults,agents={},deliveries={},stock_events={},periods={},guards={}}
+    if task_seconds~=0 then evidence.task_seconds=task_seconds end
     evidence.timing={requested_speed=speed,max_step_us=0}
     evidence.obstacle_probe={mode=obstacle_probe,events={}}
     if surface then evidence.surface_checks=dofile(root .. "/movement_surface_checks.lua")(surface) end
@@ -136,7 +141,8 @@ return function(http,runtime_url)
         end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
-            capacity=capacity,limit_us=limit,period_us=16000000,taught_appearance=teaching.appearance})
+            capacity=capacity,limit_us=limit,period_us=period_us,taught_appearance=teaching.appearance})
+        if task_seconds~=0 then a.config.schema="l15a-task-deadline-v1";a.config.task_seconds=task_seconds end
         a.e.initial_body=a.body();enqueue(a,"configure",a.config)
         return a
     end
@@ -303,7 +309,7 @@ return function(http,runtime_url)
                 local slot=math.floor(sim/250000)
                 if slot~=last_slot then
                     assert(slot==last_slot+1 and slot<capacity,"missed acquisition slot");last_slot=slot
-                    if slot%64==0 then evidence.periods[#evidence.periods+1]={period=math.floor(slot/64),capture_us=sim,
+                    if slot%slots_per_period==0 then evidence.periods[#evidence.periods+1]={period=math.floor(slot/slots_per_period),capture_us=sim,
                         stock=resource.audit(patches),stock_event_count=#evidence.stock_events} end
                     for _,a in ipairs(agents) do sample(a,slot) end
                 end
