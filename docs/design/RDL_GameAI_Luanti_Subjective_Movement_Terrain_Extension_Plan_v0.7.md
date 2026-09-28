@@ -21,6 +21,9 @@
 文書更新 `09dc011` 後の対話を11.10〜11.13へ追加した。渦状の停滞、退屈との共通性、反復反応の残存・減衰差を扱う。
 `122e4f4` を基準とする次の変更では、Change 2のξ_tieだけを有限実装した。
 独立した[契約](../experiment-contracts/LUANTI_L15A_tie_break_contract.md)・[Evidence](../experiment-evidence/LUANTI_L15A_tie_break_evidence.md)を実装範囲の正本とする。
+その後の優先順は[移動の次工程](RDL_GameAI_Movement_Next_Steps.md)で整理する。
+まず本人の短期履歴による診断、反復残存/減衰shadow、停止・新規観測・再評価を別々に検証する。
+下記の三者合成や興味・目的変更を一括で実装する順序にはしない。
 
 | 範囲 | 照合時点の状態 |
 | --- | --- |

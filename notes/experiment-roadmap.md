@@ -15,6 +15,16 @@ adds actual shared-Food consumption, five model-activation/cue controls, and
 per-agent learned decisions that change the peer's outcome. The learner still
 uses coarse color conditions, not inferred intentions or ownership.
 
+## Near-term movement work
+
+Current near-term priority (2026-09-28, baseline `e07fb157`): follow the
+[movement next-steps plan](../docs/design/RDL_GameAI_Movement_Next_Steps.md).
+Diagnose existing traces using agent-available evidence, then specify finite repetition/decay in shadow,
+then compare stopped/reobserved/reassessed movement against the same v2 steering baseline.
+Decay individuality, justified minimal composition, continuous body motion, and multi-seed long runs are separate follow-ups.
+Return to inspected M_B-informed exploration after that finite movement checkpoint; visual smoothness is not an unlimited prerequisite.
+This is a documentation plan, not a new implementation or acceptance result.
+
 ## Post-L10B shared-resource learning
 
 Decision on 2026-09-27: retain the

@@ -7,6 +7,7 @@
 
 | 文書 | 整理前の分類 | 今回の扱い / 責務 |
 |---|---|---|
+| [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | PLAN / DESIGN ONLY、基準e07fb157 | 短期履歴の診断→反復残存/減衰shadow→停止・新規観測・再評価を直近の一区切りにする。個体差、最小合成、連続身体運動、長期比較、M_B探索への復帰を分ける。受入は未実施 |
 | [全体設計地図](RDL_GameAI_全体設計地図.md) | partially stale / duplicate details | 4軸と正本リンク。詳細は各責務文書へ委譲 |
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |
