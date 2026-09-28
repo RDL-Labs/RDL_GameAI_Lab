@@ -147,5 +147,7 @@ Bは延長直後に逆旋回停止で対象を除外し、残りは目標予算�
 次候補は、見回し等で取得条件を有限に変える契約。静止再検討の回数追加で代用しない。
 
 ユーザーの次の希望は、[探索→帰還→睡眠→翌日](RDL_GameAI_Exploration_Return_Sleep_Plan.md)を数日通すこと。
-帰還・身体休止・記録整理・学習採用を分離して設計する。現時点ではDESIGN ONLYであり、
-現在のL15Aが既に帰還や既存Sleepへ接続されたことを意味しない。
+[塔を使う有限初版](../experiment-contracts/LUANTI_L15A_landmark_day_cycle_contract.md)で、
+同一Worldの帰還試行・夜間休止・最大16件の本人記録整理・翌日を接続する。
+[Evidence](../experiment-evidence/LUANTI_L15A_landmark_day_cycle_evidence.md)は帰還再認とWorld到着を区別する。
+canonical Sleep/T1への夜間接続、複数目印の経路学習、睡眠による改善は未成立。

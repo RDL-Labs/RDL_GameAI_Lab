@@ -15,6 +15,8 @@ def computed_float_path(path):
     if len(parts)<7 or parts[1]!='agents' or parts[3]!='decisions':
         return False
     tail=parts[5:]
+    if tail==['day_cycle','fatigue']:
+        return True  # derived effort diagnostic; never affects this phase controller
     if tail[:3]==['rest','recurrence','local_motion']:
         return True
     if tail[0] not in ('movement_terrain','steering','lateral','tie_break'):

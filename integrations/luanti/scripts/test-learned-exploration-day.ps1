@@ -11,6 +11,7 @@ param(
     [switch]$ResourceControl,
     [switch]$ResourceFaults,
     [switch]$MultiResources,
+    [switch]$DayCycle,
     [ValidateSet("off","disabled","enabled")][string]$ReversalReviewMode = "off",
     [ValidateSet(0,16,32,64)][int]$TaskSeconds = 0,
     [ValidateRange(1,16)][double]$SimulationSpeed = 1,
@@ -25,6 +26,7 @@ param(
     [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
 )
 $ErrorActionPreference = "Stop"
+if ($DayCycle -and (-not $MultiResources -or -not $MovementSteering -or $ResourcePeriods -gt 3 -or $TaskSeconds -ne 0 -or $RestMode -ne "off")) { throw "Invalid day cycle" }
 if ($ReversalReviewMode -ne "off" -and $TaskSeconds -eq 0) { throw "Review requires task deadline" }
 if ($TaskSeconds -ne 0 -and (-not $MultiResources -or $ResourcePeriods -ne 1 -or $ReassessmentMode -eq "off")) { throw "Single reassessment task required" }
 if ($SimulationSpeed -ne 1 -and -not $MultiResources) { throw "Speed experiment requires MultiResources" }
@@ -75,6 +77,7 @@ rdl_rest_mode = $RestMode
 rdl_reactivation_mode = $ReactivationMode
 rdl_obstacle_probe = $ObstacleProbe
 rdl_reassessment_mode = $ReassessmentMode
+rdl_day_cycle = $($DayCycle.IsPresent.ToString().ToLowerInvariant())
 rdl_task_seconds = $TaskSeconds
 rdl_reversal_review_mode = $ReversalReviewMode
 rdl_lateral_assignment = $LateralAssignment
@@ -99,6 +102,7 @@ if ($TaskSeconds -ne 0) { $expectedSchema = "l15a-task-deadline-v1" }
 if ($ReversalReviewMode -ne "off") { $expectedSchema = "l15a-reversal-review-v1" }
 if ($LateralAssignment -ne "off") { $expectedSchema = "l15a-terrain-lateral-bias-v1" }
 if ($TieBreakMode -ne "off") { $expectedSchema = "l15a-terrain-tie-break-v1" }
+if ($DayCycle) { $expectedSchema = "l15a-landmark-day-cycle-v1" }
 if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }
 if ($Resources -and $health.periods -ne $ResourcePeriods) { throw "Resource period mismatch" }
 $luanti = $null
@@ -108,7 +112,7 @@ try {
         "--server","--gameid","rdl_game","--world",$worldPath,"--config",$config,"--logfile",(Join-Path $outputPath "$RunId.log"),"--color","never" `
         -WorkingDirectory $LuantiRoot -RedirectStandardOutput (Join-Path $outputPath "$RunId.world.out.log") `
         -RedirectStandardError (Join-Path $outputPath "$RunId.world.err.log") -WindowStyle Hidden -PassThru
-    $deadline = [DateTime]::UtcNow.AddSeconds($(if ($Resources) { $ResourcePeriods*$(if ($TaskSeconds) { $TaskSeconds } else { 16 })+35 } else { 50 }))
+    $deadline = [DateTime]::UtcNow.AddSeconds($(if ($Resources) { $ResourcePeriods*$(if ($DayCycle) { 64 } elseif ($TaskSeconds) { $TaskSeconds } else { 16 })+35 } else { 50 }))
     do {
         Start-Sleep -Milliseconds 100
         $evidenceFile = if ($MultiResources) { "l14b-evidence.json" } else { "l13a-evidence.json" }

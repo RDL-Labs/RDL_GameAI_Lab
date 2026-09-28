@@ -1,8 +1,10 @@
 # L15A後続 — 探索・帰還・睡眠を数日通す初版
 
-状態: DESIGN ONLY / 帰還は目印基準に固定。基準 `d539f86`。
-現在の32秒探索は、帰還・身体としてのSleep・翌日への連続運転には未接続。
-この文書は実行済みEvidenceではない。
+状態: 有限初版を別契約で実装。計画の基準 `d539f86` は履歴として保持。
+[実装契約](../experiment-contracts/LUANTI_L15A_landmark_day_cycle_contract.md)は、
+塔の粗い外観による帰還試行・夜間身体休止・本人記録整理・翌日の連続運転を扱う。
+[実機Evidence](../experiment-evidence/LUANTI_L15A_landmark_day_cycle_evidence.md)を結果の正本とする。
+複数目印の連鎖経路、canonical Sleep/T1への夜間接続は未実装。以下は広い設計案も含む。
 
 ## 問い
 

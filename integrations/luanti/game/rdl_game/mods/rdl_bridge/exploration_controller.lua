@@ -20,6 +20,12 @@ function M.new(run,adapter)
         assert(c.capture_us==p.capture_us and c.pose_ref==p.pose_ref and c.body_revision==p.body_revision,"body binding")
         local expiry=math.min(p.capture_us+500000,limit)
         if adapter.period_us then expiry=math.min(expiry,(math.floor(p.capture_us/adapter.period_us)+1)*adapter.period_us) end
+        if adapter.cycle_boundaries then
+            local start=math.floor(p.capture_us/adapter.period_us)*adapter.period_us
+            for _,boundary in ipairs(adapter.cycle_boundaries) do
+                if start+boundary>p.capture_us then expiry=math.min(expiry,start+boundary);break end
+            end
+        end
         assert(c.expires_us==expiry,"expiry binding")
         assert(now>=p.capture_us,"time reversal")
         local turn_ok=math.abs(c.amount)==90 or (adapter.landmarks and c.amount~=0 and math.abs(c.amount)<=90 and c.amount%5==0)

@@ -15,7 +15,7 @@ def xyz(v): return [v[k] for k in "xyz"]
 
 def check_rays(o):
     colors=dict(grass="green",dirt="brown",stone="gray",trunk="brown",leaves="green",water="blue",
-                rock_gray="gray",rock_red="red",patch_brown="brown",patch_gray="gray")
+                rock_gray="gray",rock_red="red",patch_brown="brown",patch_gray="gray",tower="gray")
     fs,previous,partial=[], -2, False
     assert len(o["landmark_rays"])==13
     b=o["body"]

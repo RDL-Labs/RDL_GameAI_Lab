@@ -7,6 +7,7 @@
 
 | 文書 | 整理前の分類 | 今回の扱い / 責務 |
 |---|---|---|
+| [探索・帰還・夜間休止](RDL_GameAI_Exploration_Return_Sleep_Plan.md) | 有限初版を別契約で実装 | 塔の観測外観・最大4見回し・連続3日・本人記録整理。[契約](../experiment-contracts/LUANTI_L15A_landmark_day_cycle_contract.md) / [Evidence](../experiment-evidence/LUANTI_L15A_landmark_day_cycle_evidence.md)。canonical Sleep/T1・複数目印経路は未接続 |
 | [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | offline診断・3条件shadow・有限休憩接続済み | [9run shadow](../experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)の後、下記の実休憩比較へ進んだ。次は休憩前後の選択差・機会損失を分析 |
 | [有限休憩](../experiment-contracts/LUANTI_L15A_movement_rest_contract.md) | FINITE REAL WORLD ACCEPTANCE COMPLETE | [実Luanti5run](../experiment-evidence/LUANTI_L15A_movement_rest_evidence.md)で疲労/反復からwait・観測・回復・再開へ接続。旧shadowの実停止未接続境界を更新。主比較で採取改善は未確認 |
 | [Goal reassessment](../experiment-contracts/LUANTI_L15A_goal_reassessment_contract.md) | FINITE WORLD ACCEPTANCE COMPLETE | [8 runs](../experiment-evidence/LUANTI_L15A_goal_reassessment_evidence.md), six additional selections with actual body actions; no memory-attributable choice difference or harvest improvement |

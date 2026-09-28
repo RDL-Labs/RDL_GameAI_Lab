@@ -20,8 +20,10 @@ function M.register()
             tiles={"rdl_l13_gray.png^[colorize:" .. color .. ":180"},walkable=true,pointable=false})
     end
 end
-function M.build(scenario)
-    local lo,hi={x=-56,y=-6,z=-56},{x=56,y=18,z=56}
+function M.build(scenario,sky_height)
+    sky_height=sky_height or 18
+    assert(sky_height==18 or sky_height==31,"finite sky bound")
+    local lo,hi={x=-56,y=-6,z=-56},{x=56,y=sky_height,z=56}
     local vm=VoxelManip();local emin,emax=vm:read_from_map(lo,hi)
     local area=VoxelArea:new({MinEdge=emin,MaxEdge=emax});local data=vm:get_data()
     local ids={air=core.get_content_id("air")}
@@ -32,7 +34,7 @@ function M.build(scenario)
         local pond=(x+15)^2+(z-12)^2<=25
         if pond then counts.water_columns=counts.water_columns+1 end
         local bare=(math.sin(x/6)+math.cos(z/8))>1.2
-        for y=-6,18 do
+        for y=-6,sky_height do
             local name=y>h and "air" or (y<h and "dirt" or (pond and "water" or (bare and "dirt" or "grass")))
             data[area:index(x,y,z)]=ids[name]
         end
@@ -64,7 +66,7 @@ function M.build(scenario)
     -- Actual node readback, retained only in experimenter evidence.
     local read=VoxelManip();local rmin,rmax=read:read_from_map(lo,hi)
     local ra=VoxelArea:new({MinEdge=rmin,MaxEdge=rmax});local rd=read:get_data();local names={};local rows={}
-    for z=-56,56 do for y=-6,18 do for x=-56,56 do
+    for z=-56,56 do for y=-6,sky_height do for x=-56,56 do
         local id=rd[ra:index(x,y,z)];names[id]=names[id] or core.get_name_from_content_id(id)
         rows[#rows+1]=names[id]
     end end end

@@ -12,6 +12,13 @@ return function(http,runtime_url)
     local reassessment_mode=core.settings:get("rdl_reassessment_mode") or "off"
     local obstacle_probe=core.settings:get("rdl_obstacle_probe") or "off"
     local reversal_review=core.settings:get("rdl_reversal_review_mode") or "off"
+    local day_cycle=core.settings:get_bool("rdl_day_cycle",false)
+    local skyline=day_cycle and dofile(root .. "/elevated_landmarks.lua") or nil
+    if day_cycle then
+        core.register_node("rdl_bridge:exploration_tower",{description="Ochre stone tower",
+            tiles={"rdl_l13_gray.png^[colorize:#d9a329:210"},walkable=true,pointable=false})
+        natural.register_surface("tower","gray");landmarks.register_surface("tower","gray")
+    end
     local probe_nodes=nil
     local reactivation_mode=core.settings:get("rdl_reactivation_mode") or "off"
     assert(reactivation_mode=="off" or rest_mode~="off","reactivation requires rest")
@@ -39,7 +46,9 @@ return function(http,runtime_url)
     local task_seconds=tonumber(core.settings:get("rdl_task_seconds") or "0")
     assert(task_seconds==0 or ((task_seconds==16 or task_seconds==32 or task_seconds==64) and periods==1 and reassessment_mode~="off"),"invalid task deadline")
     assert(reversal_review=="off" or ((reversal_review=="disabled" or reversal_review=="enabled") and task_seconds~=0),"invalid reversal review")
-    local period_us=(task_seconds==0 and 16 or task_seconds)*1000000
+    assert(not day_cycle or (periods<=3 and steering_enabled and rest_mode=="off" and reassessment_mode=="off" and task_seconds==0
+        and lateral_assignment=="off" and tie_break_mode=="off" and reversal_review=="off"),"isolated day cycle")
+    local period_us=(day_cycle and 64 or (task_seconds==0 and 16 or task_seconds))*1000000
     local slots_per_period=period_us/250000
     local capacity,limit=periods*slots_per_period,periods*period_us
     local prefix=runtime_url:gsub("/v1/observe$","") .. "/v1/exploration/"
@@ -141,9 +150,11 @@ return function(http,runtime_url)
             a.config.schema="l15a-terrain-tie-break-v1"
             a.config.tie_break_mode=tie_break_mode
         end
+        if day_cycle then a.config.schema="l15a-landmark-day-cycle-v1" end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
-            capacity=capacity,limit_us=limit,period_us=period_us,taught_appearance=teaching.appearance})
+            capacity=capacity,limit_us=limit,period_us=period_us,
+            cycle_boundaries=day_cycle and {1000000,32000000,56000000,64000000} or nil,taught_appearance=teaching.appearance})
         if task_seconds~=0 then a.config.schema="l15a-task-deadline-v1";a.config.task_seconds=task_seconds end
         if reversal_review~="off" then a.config.schema="l15a-reversal-review-v1";a.config.reversal_review_mode=reversal_review end
         a.e.initial_body=a.body();enqueue(a,"configure",a.config)
@@ -205,10 +216,13 @@ return function(http,runtime_url)
                 capture_window={kind="instant",start_us=sim,end_us=sim},status="SAMPLED",
                 coverage=partial and "PARTIAL" or "COMPLETE_WITHIN_PLAN",output_limited=limited,payload={features=features}}})
         local rays;p.landmarks,rays=landmarks.sample(b.position,b.yaw,core.get_node_or_nil)
+        local skyline_audit
+        if skyline then p.skyline,skyline_audit=skyline.sample(b.position,b.yaw,core.get_node_or_nil,
+            {agent_id=a.id,observation_id=p.observation_id,capture_us=sim,pose_ref=b.pose_ref}) end
         local surface_audit
         if surface then p.movement_surface,surface_audit=surface.sample(p,b.position,b.yaw,core.get_node_or_nil) end
         a.e.observations[#a.e.observations+1]={packet=table.copy(p),body=b,daytime=core.get_timeofday(),
-            food_visibility=visibility,landmark_rays=rays,movement_surface_audit=surface_audit,
+            food_visibility=visibility,landmark_rays=rays,movement_surface_audit=surface_audit,skyline_rays=skyline_audit,
             stock_event_count=#evidence.stock_events}
         enqueue(a,"observe",p)
     end
@@ -268,7 +282,7 @@ return function(http,runtime_url)
     end
     core.register_on_mods_loaded(function() core.after(0,function()
         local ok,err=pcall(function()
-            evidence.terrain=natural.build(scenario);evidence.forceloaded={}
+            evidence.terrain=natural.build(scenario,day_cycle and 31 or nil);evidence.forceloaded={}
             for x=-64,48,16 do for y=-16,16,16 do for z=-64,48,16 do
                 local pos={x=x,y=y,z=z};assert(core.forceload_block(pos,true),"forceload budget")
                 evidence.forceloaded[#evidence.forceloaded+1]=pos
@@ -284,6 +298,13 @@ return function(http,runtime_url)
                 if i==2 then surface={x=m.x-radius,y=4,z=m.z} end
                 if i==3 then surface={x=m.x+radius,y=4,z=m.z} end
                 targets[i]={position=surface,node_name=name,color_band=m.color=="red" and "muted_red" or "dark_gray"}
+            end
+            if day_cycle then
+                local h=natural.height(0,6)
+                for x=-1,1 do for z=5,7 do for y=natural.height(x,z)+1,h+12 do
+                    core.set_node({x=x,y=y,z=z},{name="rdl_bridge:exploration_tower"})
+                end end end
+                evidence.home_tower={position={x=0,y=h,z=6},height=12,radius=1}
             end
             core.set_timeofday(.5)
             local traits=assignment=="swapped" and {"restless","curious","steady"} or

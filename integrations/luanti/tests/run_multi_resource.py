@@ -15,7 +15,7 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off", simulation_speed=1, task_seconds=None, reversal_review="off"):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off", simulation_speed=1, task_seconds=None, reversal_review="off", day_cycle=False):
     if reversal_review not in ("off","disabled","enabled") or (reversal_review != "off" and task_seconds is None):
         raise ValueError("review requires explicit task deadline")
     if task_seconds is not None and (task_seconds not in (16,32,64) or periods != 1 or reassessment == "off"):
@@ -35,6 +35,8 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         raise ValueError("tie break only mode")
     if lateral not in ("off","neutral","mixed","swapped","left","right") or (lateral != "off" and steering):
         raise ValueError("lateral bias only mode")
+    if day_cycle and (periods > 3 or not steering or rest != "off" or reactivation != "off" or reassessment != "off" or task_seconds is not None or lateral != "off" or tie_break != "off"):
+        raise ValueError("isolated day cycle")
     run_id="l14b-"+uuid4().hex[:16]
     if terrain:
         from runtime.terrain_resource_exploration import TerrainResourceExploration
@@ -63,6 +65,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
     if reversal_review != "off":
         from runtime.reversal_review_loop import review_loop
         loop_type=review_loop(task_seconds)
+    if day_cycle:
+        from runtime.landmark_day_cycle import DayCycleExploration
+        loop_type=DayCycleExploration
     loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
@@ -76,6 +81,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
             "-ResourceAssignment",assignment,"-SimulationSpeed",str(simulation_speed)]
         if task_seconds is not None:command += ["-TaskSeconds",str(task_seconds)]
         if reversal_review != "off":command += ["-ReversalReviewMode",reversal_review]
+        if day_cycle:command.append("-DayCycle")
         if control:command.append("-ResourceControl")
         if faults:command.append("-ResourceFaults")
         if terrain:command.append("-MovementTerrain")
@@ -87,11 +93,13 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if lateral != "off":command += ["-LateralAssignment",lateral]
         if tie_break != "off":command += ["-TieBreakMode",tie_break]
         with log.open("wb") as stream:
-            result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=periods*(task_seconds or 16)+80)
+            result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=periods*(64 if day_cycle else (task_seconds or 16))+80)
         if result.returncode:raise RuntimeError(f"World failed: {log}")
         path=OUTPUT/(run_id+".snapshot.json");raw=path.read_bytes();data=json.loads(raw.decode("utf-8-sig"))
         assert data["runtime"]["exploration"]==loop.snapshot()
-        if reassessment!="off":
+        if day_cycle:
+            from .check_landmark_day_cycle import check
+        elif reassessment!="off":
             from .check_goal_reassessment import check
         elif reactivation!="off":
             from .check_rest_reactivation import check

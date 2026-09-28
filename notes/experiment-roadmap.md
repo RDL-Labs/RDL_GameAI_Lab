@@ -15,6 +15,15 @@ adds actual shared-Food consumption, five model-activation/cue controls, and
 per-agent learned decisions that change the peer's outcome. The learner still
 uses coarse color conditions, not inferred intentions or ownership.
 
+## Continuous landmark-return days
+
+The [finite day-cycle contract](../docs/experiment-contracts/LUANTI_L15A_landmark_day_cycle_contract.md)
+adds three continuous 64-second days with actual skyline rays, appearance-based homing attempts,
+night waits and sourced local record review. No teleport or reverse command tape is used.
+[Evidence](../docs/experiment-evidence/LUANTI_L15A_landmark_day_cycle_evidence.md) separates home-like recognition
+from World arrival. Canonical Sleep/T1 intake and learned multi-landmark routing remain unconnected.
+The dedicated path reuses steering v2 and harvest learning, not every later optional movement mode.
+
 ## Near-term movement work
 
 Current near-term priority (2026-09-28, baseline `e07fb157`): follow the
