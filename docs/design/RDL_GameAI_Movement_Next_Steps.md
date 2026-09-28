@@ -125,4 +125,8 @@ World監査とAgent入力を分け、未試行・失敗・取得不足・比較�
 この候補の有限初版を[目標再評価契約](../experiment-contracts/LUANTI_L15A_goal_reassessment_contract.md)として実装した。
 実機8runで最大1回の追加検討、別目標選択6件、実旋回・移動を確認した。
 内部参照の有無による指令差と採取改善は未成立。[Evidence](../experiment-evidence/LUANTI_L15A_goal_reassessment_evidence.md)。
-一般的な目標再編や新M_Bは未実装。次は再評価後の本人記録と停止理由を確認する。
+一般的な目標再編や新M_Bは未実装。
+[再評価後の分析](../experiment-evidence/LUANTI_L15A_goal_followup_evidence.md)で、
+実blocked、目印対応ambiguous、食料優先への切替、予算終了、期間末の接近未達を分離した。
+次はこの経過を出典付きの有限経験として残す契約を定める。
+一括した「失敗」や資源・経路の恒久的な負例にせず、別経験での検査と採用は後段に置く。

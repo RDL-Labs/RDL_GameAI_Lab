@@ -1,0 +1,5271 @@
+{
+  "schema": "l15a-goal-followup-audit-v1",
+  "authority": "offline diagnostic only",
+  "runs": [
+    {
+      "index": 0,
+      "agents": {
+        "npc_a": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    },
+    {
+      "index": 1,
+      "agents": {
+        "npc_a": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    },
+    {
+      "index": 2,
+      "agents": {
+        "npc_a": {
+          "reviews": [
+            {
+              "status": "no_candidate",
+              "source": "l14b-f07d28d9bf6e4b53:npc_a:obs:28",
+              "rows": [
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:28",
+                  "capture_us": 7011539,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:29",
+                  "capture_us": 7256021,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:30",
+                  "capture_us": 7500619,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:31",
+                  "capture_us": 7766802,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:32",
+                  "capture_us": 8011582,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:33",
+                  "capture_us": 8255499,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:34",
+                  "capture_us": 8500799,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:35",
+                  "capture_us": 8769620,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:36",
+                  "capture_us": 9011247,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:37",
+                  "capture_us": 9252581,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:38",
+                  "capture_us": 9519235,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:39",
+                  "capture_us": 9764091,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:40",
+                  "capture_us": 10008088,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:41",
+                  "capture_us": 10250264,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:42",
+                  "capture_us": 10516386,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:43",
+                  "capture_us": 10757711,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:44",
+                  "capture_us": 11002264,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:45",
+                  "capture_us": 11268882,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:46",
+                  "capture_us": 11513280,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:47",
+                  "capture_us": 11757157,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:48",
+                  "capture_us": 12002034,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:49",
+                  "capture_us": 12268139,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:50",
+                  "capture_us": 12512999,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:51",
+                  "capture_us": 12757365,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:52",
+                  "capture_us": 13001874,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:53",
+                  "capture_us": 13251193,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:54",
+                  "capture_us": 13529190,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:55",
+                  "capture_us": 13765269,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:56",
+                  "capture_us": 14009778,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:57",
+                  "capture_us": 14254119,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:58",
+                  "capture_us": 14520381,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:59",
+                  "capture_us": 14765094,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:60",
+                  "capture_us": 15009481,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:61",
+                  "capture_us": 15253937,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:62",
+                  "capture_us": 15520485,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_a:obs:63",
+                  "capture_us": 15764807,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                }
+              ],
+              "result_counts": {
+                "waited": 36
+              },
+              "reason_counts": {
+                "landmark_goal_budget": 36
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [
+            {
+              "status": "selected",
+              "source": "l14b-f07d28d9bf6e4b53:npc_b:obs:29",
+              "rows": [
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:29",
+                  "capture_us": 7256021,
+                  "reason": "goal_reassessment_selected",
+                  "action": [
+                    "turn",
+                    -15
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:30",
+                  "capture_us": 7500619,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:31",
+                  "capture_us": 7766802,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:32",
+                  "capture_us": 8011582,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:33",
+                  "capture_us": 8255499,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:34",
+                  "capture_us": 8500799,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:35",
+                  "capture_us": 8769620,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-f07d28d9bf6e4b53:material:6",
+                    "operations": 0,
+                    "teaching_ref": "l14b-f07d28d9bf6e4b53:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:36",
+                  "capture_us": 9011247,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "blocked",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-f07d28d9bf6e4b53:material:6",
+                    "operations": 1,
+                    "teaching_ref": "l14b-f07d28d9bf6e4b53:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:37",
+                  "capture_us": 9252581,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:38",
+                  "capture_us": 9519235,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:39",
+                  "capture_us": 9764091,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:40",
+                  "capture_us": 10008088,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:41",
+                  "capture_us": 10250264,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:42",
+                  "capture_us": 10516386,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:43",
+                  "capture_us": 10757711,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:44",
+                  "capture_us": 11002264,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:45",
+                  "capture_us": 11268882,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:46",
+                  "capture_us": 11513280,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:47",
+                  "capture_us": 11757157,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:48",
+                  "capture_us": 12002034,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:49",
+                  "capture_us": 12268139,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:50",
+                  "capture_us": 12512999,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:51",
+                  "capture_us": 12757365,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:52",
+                  "capture_us": 13001874,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:53",
+                  "capture_us": 13251193,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:54",
+                  "capture_us": 13529190,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:55",
+                  "capture_us": 13765269,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:56",
+                  "capture_us": 14009778,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:57",
+                  "capture_us": 14254119,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:58",
+                  "capture_us": 14520381,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:59",
+                  "capture_us": 14765094,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:60",
+                  "capture_us": 15009481,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:61",
+                  "capture_us": 15253937,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:62",
+                  "capture_us": 15520485,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-f07d28d9bf6e4b53:npc_b:obs:63",
+                  "capture_us": 15764807,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-f07d28d9bf6e4b53:material:6"
+                  ]
+                }
+              ],
+              "result_counts": {
+                "turned": 2,
+                "moved": 5,
+                "blocked": 1,
+                "waited": 27
+              },
+              "reason_counts": {
+                "goal_reassessment_selected": 1,
+                "landmark_active": 5,
+                "observed_material_terrain_turn_minimum": 1,
+                "observed_material_terrain_heading_held": 1,
+                "landmark_goal_budget": 27
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    },
+    {
+      "index": 3,
+      "agents": {
+        "npc_a": {
+          "reviews": [
+            {
+              "status": "no_candidate",
+              "source": "l14b-4d281fcafff641c8:npc_a:obs:28",
+              "rows": [
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:28",
+                  "capture_us": 7020540,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:29",
+                  "capture_us": 7264810,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:30",
+                  "capture_us": 7511455,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:31",
+                  "capture_us": 7755724,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:32",
+                  "capture_us": 8006397,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:33",
+                  "capture_us": 8269359,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:34",
+                  "capture_us": 8511658,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:35",
+                  "capture_us": 8755946,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:36",
+                  "capture_us": 9017072,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:37",
+                  "capture_us": 9271447,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:38",
+                  "capture_us": 9508914,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:39",
+                  "capture_us": 9758912,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:40",
+                  "capture_us": 10016605,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:41",
+                  "capture_us": 10255900,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:42",
+                  "capture_us": 10500448,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:43",
+                  "capture_us": 10766783,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:44",
+                  "capture_us": 11008626,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:45",
+                  "capture_us": 11257892,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:46",
+                  "capture_us": 11508521,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:47",
+                  "capture_us": 11771238,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:48",
+                  "capture_us": 12001408,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:49",
+                  "capture_us": 12260325,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:50",
+                  "capture_us": 12502629,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:51",
+                  "capture_us": 12769221,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:52",
+                  "capture_us": 13013731,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:53",
+                  "capture_us": 13252503,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:54",
+                  "capture_us": 13526957,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:55",
+                  "capture_us": 13771194,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:56",
+                  "capture_us": 14013314,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:57",
+                  "capture_us": 14280964,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:58",
+                  "capture_us": 14521616,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:59",
+                  "capture_us": 14750107,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:60",
+                  "capture_us": 15021091,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:61",
+                  "capture_us": 15280544,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:62",
+                  "capture_us": 15515462,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_a:obs:63",
+                  "capture_us": 15754233,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                }
+              ],
+              "result_counts": {
+                "waited": 36
+              },
+              "reason_counts": {
+                "landmark_goal_budget": 36
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [
+            {
+              "status": "selected",
+              "source": "l14b-4d281fcafff641c8:npc_b:obs:29",
+              "rows": [
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:29",
+                  "capture_us": 7264810,
+                  "reason": "goal_reassessment_selected",
+                  "action": [
+                    "turn",
+                    -15
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:30",
+                  "capture_us": 7511455,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:31",
+                  "capture_us": 7755724,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:32",
+                  "capture_us": 8006397,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:33",
+                  "capture_us": 8269359,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:34",
+                  "capture_us": 8511658,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:35",
+                  "capture_us": 8755946,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-4d281fcafff641c8:material:6",
+                    "operations": 0,
+                    "teaching_ref": "l14b-4d281fcafff641c8:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:36",
+                  "capture_us": 9017072,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "blocked",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-4d281fcafff641c8:material:6",
+                    "operations": 1,
+                    "teaching_ref": "l14b-4d281fcafff641c8:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:37",
+                  "capture_us": 9271447,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:38",
+                  "capture_us": 9508914,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:39",
+                  "capture_us": 9758912,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:40",
+                  "capture_us": 10016605,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:41",
+                  "capture_us": 10255900,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:42",
+                  "capture_us": 10500448,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:43",
+                  "capture_us": 10766783,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:44",
+                  "capture_us": 11008626,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:45",
+                  "capture_us": 11257892,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:46",
+                  "capture_us": 11508521,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:47",
+                  "capture_us": 11771238,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:48",
+                  "capture_us": 12001408,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:49",
+                  "capture_us": 12260325,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:50",
+                  "capture_us": 12502629,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:51",
+                  "capture_us": 12769221,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:52",
+                  "capture_us": 13013731,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:53",
+                  "capture_us": 13252503,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:54",
+                  "capture_us": 13526957,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:55",
+                  "capture_us": 13771194,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:56",
+                  "capture_us": 14013314,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:57",
+                  "capture_us": 14280964,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:58",
+                  "capture_us": 14521616,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:59",
+                  "capture_us": 14750107,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:60",
+                  "capture_us": 15021091,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:61",
+                  "capture_us": 15280544,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:62",
+                  "capture_us": 15515462,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-4d281fcafff641c8:npc_b:obs:63",
+                  "capture_us": 15754233,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-4d281fcafff641c8:material:6"
+                  ]
+                }
+              ],
+              "result_counts": {
+                "turned": 2,
+                "moved": 5,
+                "blocked": 1,
+                "waited": 27
+              },
+              "reason_counts": {
+                "goal_reassessment_selected": 1,
+                "landmark_active": 5,
+                "observed_material_terrain_turn_minimum": 1,
+                "observed_material_terrain_heading_held": 1,
+                "landmark_goal_budget": 27
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    },
+    {
+      "index": 4,
+      "agents": {
+        "npc_a": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    },
+    {
+      "index": 5,
+      "agents": {
+        "npc_a": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    },
+    {
+      "index": 6,
+      "agents": {
+        "npc_a": {
+          "reviews": [
+            {
+              "status": "selected",
+              "source": "l14b-57bd724b67264fc2:npc_a:obs:28",
+              "rows": [
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:28",
+                  "capture_us": 7003190,
+                  "reason": "goal_reassessment_selected",
+                  "action": [
+                    "turn",
+                    45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:29",
+                  "capture_us": 7254544,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:30",
+                  "capture_us": 7517911,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:31",
+                  "capture_us": 7759500,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:32",
+                  "capture_us": 8001942,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:33",
+                  "capture_us": 8258245,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:34",
+                  "capture_us": 8501938,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:35",
+                  "capture_us": 8754748,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:36",
+                  "capture_us": 9001695,
+                  "reason": "landmark_ambiguous",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "ambiguous",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:37",
+                  "capture_us": 9253563,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:38",
+                  "capture_us": 9506746,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:39",
+                  "capture_us": 9760815,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:40",
+                  "capture_us": 10018040,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:41",
+                  "capture_us": 10279155,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:42",
+                  "capture_us": 10522708,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:43",
+                  "capture_us": 10761266,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:44",
+                  "capture_us": 11014417,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:45",
+                  "capture_us": 11252610,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:46",
+                  "capture_us": 11505347,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:47",
+                  "capture_us": 11769514,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:48",
+                  "capture_us": 12014267,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:49",
+                  "capture_us": 12258513,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:50",
+                  "capture_us": 12503253,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:51",
+                  "capture_us": 12766433,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:52",
+                  "capture_us": 13002401,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:53",
+                  "capture_us": 13263615,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:54",
+                  "capture_us": 13505157,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:55",
+                  "capture_us": 13752222,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:56",
+                  "capture_us": 14030346,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:57",
+                  "capture_us": 14258332,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:58",
+                  "capture_us": 14518800,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:59",
+                  "capture_us": 14758137,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:60",
+                  "capture_us": 15004878,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:61",
+                  "capture_us": 15270058,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:62",
+                  "capture_us": 15505017,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_a:obs:63",
+                  "capture_us": 15762906,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-57bd724b67264fc2:material:6"
+                  ]
+                }
+              ],
+              "result_counts": {
+                "turned": 1,
+                "moved": 7,
+                "waited": 28
+              },
+              "reason_counts": {
+                "goal_reassessment_selected": 1,
+                "landmark_active": 7,
+                "landmark_ambiguous": 1,
+                "landmark_goal_budget": 27
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [
+            {
+              "status": "selected",
+              "source": "l14b-57bd724b67264fc2:npc_b:obs:29",
+              "rows": [
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:29",
+                  "capture_us": 7254544,
+                  "reason": "goal_reassessment_selected",
+                  "action": [
+                    "turn",
+                    -15
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:30",
+                  "capture_us": 7517911,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:31",
+                  "capture_us": 7759500,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:32",
+                  "capture_us": 8001942,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:33",
+                  "capture_us": 8258245,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:34",
+                  "capture_us": 8501938,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:35",
+                  "capture_us": 8754748,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 0,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:36",
+                  "capture_us": 9001695,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 1,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:37",
+                  "capture_us": 9253563,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:38",
+                  "capture_us": 9506746,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:39",
+                  "capture_us": 9760815,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:40",
+                  "capture_us": 10018040,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:41",
+                  "capture_us": 10279155,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:42",
+                  "capture_us": 10522708,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 3,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:43",
+                  "capture_us": 10761266,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 4,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:44",
+                  "capture_us": 11014417,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 5,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:45",
+                  "capture_us": 11252610,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 6,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:46",
+                  "capture_us": 11505347,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 7,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:47",
+                  "capture_us": 11769514,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 8,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:48",
+                  "capture_us": 12014267,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 9,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:49",
+                  "capture_us": 12258513,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:50",
+                  "capture_us": 12503253,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:51",
+                  "capture_us": 12766433,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:52",
+                  "capture_us": 13002401,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:53",
+                  "capture_us": 13263615,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:54",
+                  "capture_us": 13505157,
+                  "reason": "observed_material_terrain_confirmed_turn_step",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 11,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:55",
+                  "capture_us": 13752222,
+                  "reason": "observed_material_heading",
+                  "action": [
+                    "turn",
+                    90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 12,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:56",
+                  "capture_us": 14030346,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 13,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:57",
+                  "capture_us": 14258332,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 14,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:58",
+                  "capture_us": 14518800,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 15,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:59",
+                  "capture_us": 14758137,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 16,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:60",
+                  "capture_us": 15004878,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 17,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:61",
+                  "capture_us": 15270058,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 18,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:62",
+                  "capture_us": 15505017,
+                  "reason": "observed_material_terrain_confirmed_turn_step",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 19,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-57bd724b67264fc2:npc_b:obs:63",
+                  "capture_us": 15762906,
+                  "reason": "observed_material_heading",
+                  "action": [
+                    "turn",
+                    90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-57bd724b67264fc2:material:6",
+                    "operations": 20,
+                    "teaching_ref": "l14b-57bd724b67264fc2:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                }
+              ],
+              "result_counts": {
+                "turned": 8,
+                "moved": 19,
+                "waited": 8
+              },
+              "reason_counts": {
+                "goal_reassessment_selected": 1,
+                "landmark_active": 5,
+                "observed_material_terrain_turn_minimum": 5,
+                "observed_material_terrain_heading_held": 12,
+                "finite_rest": 8,
+                "observed_material_terrain_confirmed_turn_step": 2,
+                "observed_material_heading": 2
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    },
+    {
+      "index": 7,
+      "agents": {
+        "npc_a": {
+          "reviews": [
+            {
+              "status": "selected",
+              "source": "l14b-25456736b0c9461a:npc_a:obs:28",
+              "rows": [
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:28",
+                  "capture_us": 7013277,
+                  "reason": "goal_reassessment_selected",
+                  "action": [
+                    "turn",
+                    45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:29",
+                  "capture_us": 7259565,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:30",
+                  "capture_us": 7507874,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:31",
+                  "capture_us": 7754689,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:32",
+                  "capture_us": 8001426,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:33",
+                  "capture_us": 8265604,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:34",
+                  "capture_us": 8511194,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:35",
+                  "capture_us": 8756594,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:36",
+                  "capture_us": 9006087,
+                  "reason": "landmark_ambiguous",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "ambiguous",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:37",
+                  "capture_us": 9252444,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:38",
+                  "capture_us": 9517711,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:39",
+                  "capture_us": 9763711,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:40",
+                  "capture_us": 10009975,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:41",
+                  "capture_us": 10256515,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:42",
+                  "capture_us": 10501042,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:43",
+                  "capture_us": 10766968,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:44",
+                  "capture_us": 11015010,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:45",
+                  "capture_us": 11260620,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:46",
+                  "capture_us": 11507030,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:47",
+                  "capture_us": 11754338,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:48",
+                  "capture_us": 12001177,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:49",
+                  "capture_us": 12270020,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:50",
+                  "capture_us": 12517682,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:51",
+                  "capture_us": 12763081,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:52",
+                  "capture_us": 13009561,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:53",
+                  "capture_us": 13257612,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:54",
+                  "capture_us": 13504241,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:55",
+                  "capture_us": 13755050,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:56",
+                  "capture_us": 14017148,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:57",
+                  "capture_us": 14265854,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:58",
+                  "capture_us": 14520428,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:59",
+                  "capture_us": 14786706,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:60",
+                  "capture_us": 15007633,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:61",
+                  "capture_us": 15261432,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:62",
+                  "capture_us": 15525346,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_a:obs:63",
+                  "capture_us": 15752191,
+                  "reason": "landmark_goal_budget",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "goal_budget",
+                  "approach": null,
+                  "blocked_targets": [
+                    "l14b-25456736b0c9461a:material:6"
+                  ]
+                }
+              ],
+              "result_counts": {
+                "turned": 1,
+                "moved": 7,
+                "waited": 28
+              },
+              "reason_counts": {
+                "goal_reassessment_selected": 1,
+                "landmark_active": 7,
+                "landmark_ambiguous": 1,
+                "landmark_goal_budget": 27
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_b": {
+          "reviews": [
+            {
+              "status": "selected",
+              "source": "l14b-25456736b0c9461a:npc_b:obs:29",
+              "rows": [
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:29",
+                  "capture_us": 7259565,
+                  "reason": "goal_reassessment_selected",
+                  "action": [
+                    "turn",
+                    -15
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:30",
+                  "capture_us": 7507874,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:31",
+                  "capture_us": 7754689,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:32",
+                  "capture_us": 8001426,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:33",
+                  "capture_us": 8265604,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:34",
+                  "capture_us": 8511194,
+                  "reason": "landmark_active",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 0,
+                  "landmark_outcome": null,
+                  "approach": null,
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:35",
+                  "capture_us": 8756594,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 0,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:36",
+                  "capture_us": 9006087,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 1,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:37",
+                  "capture_us": 9252444,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:38",
+                  "capture_us": 9517711,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:39",
+                  "capture_us": 9763711,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:40",
+                  "capture_us": 10009975,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:41",
+                  "capture_us": 10256515,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 2,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:42",
+                  "capture_us": 10501042,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 3,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:43",
+                  "capture_us": 10766968,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 4,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:44",
+                  "capture_us": 11015010,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 5,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:45",
+                  "capture_us": 11260620,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 6,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:46",
+                  "capture_us": 11507030,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 7,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:47",
+                  "capture_us": 11754338,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 8,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:48",
+                  "capture_us": 12001177,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 9,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:49",
+                  "capture_us": 12270020,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:50",
+                  "capture_us": 12517682,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:51",
+                  "capture_us": 12763081,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:52",
+                  "capture_us": 13009561,
+                  "reason": "finite_rest",
+                  "action": [
+                    "wait",
+                    0
+                  ],
+                  "result": "waited",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:53",
+                  "capture_us": 13257612,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 10,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:54",
+                  "capture_us": 13504241,
+                  "reason": "observed_material_terrain_confirmed_turn_step",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 11,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:55",
+                  "capture_us": 13755050,
+                  "reason": "observed_material_heading",
+                  "action": [
+                    "turn",
+                    90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 12,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:56",
+                  "capture_us": 14017148,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 13,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:57",
+                  "capture_us": 14265854,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 14,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:58",
+                  "capture_us": 14520428,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 15,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:59",
+                  "capture_us": 14786706,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    45
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 16,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:60",
+                  "capture_us": 15007633,
+                  "reason": "observed_material_terrain_heading_held",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 17,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:61",
+                  "capture_us": 15261432,
+                  "reason": "observed_material_terrain_turn_minimum",
+                  "action": [
+                    "turn",
+                    -90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 18,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:62",
+                  "capture_us": 15525346,
+                  "reason": "observed_material_terrain_confirmed_turn_step",
+                  "action": [
+                    "move",
+                    1
+                  ],
+                  "result": "moved",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 19,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                },
+                {
+                  "observation_id": "l14b-25456736b0c9461a:npc_b:obs:63",
+                  "capture_us": 15752191,
+                  "reason": "observed_material_heading",
+                  "action": [
+                    "turn",
+                    90
+                  ],
+                  "result": "turned",
+                  "acquired": false,
+                  "food_visible": 1,
+                  "landmark_outcome": "observed_material_priority",
+                  "approach": {
+                    "ref": "l14b-25456736b0c9461a:material:6",
+                    "operations": 20,
+                    "teaching_ref": "l14b-25456736b0c9461a:npc_b:teaching"
+                  },
+                  "blocked_targets": []
+                }
+              ],
+              "result_counts": {
+                "turned": 8,
+                "moved": 19,
+                "waited": 8
+              },
+              "reason_counts": {
+                "goal_reassessment_selected": 1,
+                "landmark_active": 5,
+                "observed_material_terrain_turn_minimum": 5,
+                "observed_material_terrain_heading_held": 12,
+                "finite_rest": 8,
+                "observed_material_terrain_confirmed_turn_step": 2,
+                "observed_material_heading": 2
+              },
+              "acquired_count": 0
+            }
+          ],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        },
+        "npc_c": {
+          "reviews": [],
+          "observations": 64,
+          "acquired_count": 0,
+          "learning_records": 0,
+          "active_model": null
+        }
+      }
+    }
+  ],
+  "source_sha256": "66ac2e0c72a0396c1a393946f5bfd1f683f705f73e6fd9d412e0f9dd2ac4ac33"
+}
