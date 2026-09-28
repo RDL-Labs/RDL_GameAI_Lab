@@ -586,4 +586,15 @@ and
 connect measured blocked contact to rest-time retrieval. The persistent obstacle leaves an applicable
 record; removal changes the acquired landmark context and invalidates it. The existing exhausted-goal
 wait remains authoritative: zero terrain applications and zero action differences. Runtime rules are
-unchanged. Goal reassessment after budget exhaustion is a separate, unimplemented next contract.
+unchanged. Goal reassessment after budget exhaustion was a separate next contract at that checkpoint; the finite implementation below now follows it.
+
+
+### L15A finite goal reassessment — 2026-09-28
+
+[Contract](../docs/experiment-contracts/LUANTI_L15A_goal_reassessment_contract.md): preserve the
+legacy eight-goal count and permit one extra review per agent/period on rest resumption. Current
+observed candidates only, conservative held-color exclusion, unique minimum or defer. No new M_B.
+[Eight actual runs](../docs/experiment-evidence/LUANTI_L15A_goal_reassessment_evidence.md) separate
+review authority from internal retrieval. Six selections lead to actual turns and movement, while
+all runs have zero harvest and same-wire memory ablation preserves commands. General goal rebuilding,
+learned route value and exploration improvement remain unimplemented or unestablished.

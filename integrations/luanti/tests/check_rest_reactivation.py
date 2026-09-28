@@ -4,8 +4,8 @@ from runtime.rest_reactivation import ReactivatingExploration
 from .check_movement_rest import check as check_rest
 
 
-def check(data):
-    summary=check_rest(data,ReactivatingExploration)
+def check(data,loop_type=ReactivatingExploration):
+    summary=check_rest(data,loop_type)
     for aid,a in data["runtime"]["exploration"]["agents"].items():
         phases=Counter();models=Counter();retrievals=reviews=applied=changes=0;records=0
         for oid,d in a["decisions"].items():

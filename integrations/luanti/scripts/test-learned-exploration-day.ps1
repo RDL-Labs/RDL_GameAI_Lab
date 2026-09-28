@@ -14,6 +14,7 @@ param(
     [switch]$MovementTerrain,
     [switch]$MovementSteering,
     [ValidateSet("off","disabled","fatigue","repetition","combined")][string]$RestMode = "off",
+    [ValidateSet("off","disabled","enabled")][string]$ReassessmentMode = "off",
     [ValidateSet("off","persistent","removed")][string]$ObstacleProbe = "off",
     [ValidateSet("off","disabled","enabled")][string]$ReactivationMode = "off",
     [ValidateSet("off","disabled","frozen")][string]$TieBreakMode = "off",
@@ -24,6 +25,7 @@ $ErrorActionPreference = "Stop"
 if ($MultiResources) { $Resources = [switch]::new($true) }
 if ($MovementSteering) { $MovementTerrain = [switch]::new($true) }
 if ($RestMode -ne "off" -and (-not $MovementSteering -or $TieBreakMode -ne "off" -or $LateralAssignment -ne "off")) { throw "Rest requires isolated steering" }
+if ($ReassessmentMode -ne "off" -and $ReactivationMode -eq "off") { throw "Reassessment requires reactivation" }
 if ($ObstacleProbe -ne "off" -and (-not $MultiResources -or $ReactivationMode -eq "off")) { throw "Obstacle probe requires multi-agent reactivation" }
 if ($ReactivationMode -ne "off" -and $RestMode -eq "off") { throw "Reactivation requires rest" }
 if ($TieBreakMode -ne "off") {
@@ -65,6 +67,7 @@ rdl_movement_steering = $($MovementSteering.IsPresent.ToString().ToLowerInvarian
 rdl_rest_mode = $RestMode
 rdl_reactivation_mode = $ReactivationMode
 rdl_obstacle_probe = $ObstacleProbe
+rdl_reassessment_mode = $ReassessmentMode
 rdl_lateral_assignment = $LateralAssignment
 rdl_tie_break_mode = $TieBreakMode
 time_speed = 0
@@ -82,6 +85,7 @@ if ($MovementTerrain) { $expectedSchema = "l15a-terrain-resource-exploration-v1"
 if ($MovementSteering) { $expectedSchema = "l15a-terrain-resource-steering-v2" }
 if ($RestMode -ne "off") { $expectedSchema = "l15a-movement-rest-v1" }
 if ($ReactivationMode -ne "off") { $expectedSchema = "l15a-rest-reactivation-v1" }
+if ($ReassessmentMode -ne "off") { $expectedSchema = "l15a-goal-reassessment-v1" }
 if ($LateralAssignment -ne "off") { $expectedSchema = "l15a-terrain-lateral-bias-v1" }
 if ($TieBreakMode -ne "off") { $expectedSchema = "l15a-terrain-tie-break-v1" }
 if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }

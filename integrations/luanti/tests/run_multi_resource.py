@@ -15,7 +15,9 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off"):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off", reactivation="off", obstacle_probe="off", reassessment="off"):
+    if reassessment not in ("off","disabled","enabled") or (reassessment!="off" and reactivation=="off"):
+        raise ValueError("reassessment requires reactivation")
     if obstacle_probe not in ("off","persistent","removed") or (obstacle_probe!="off" and reactivation=="off"):
         raise ValueError("obstacle probe requires reactivation mode")
     if reactivation!="off" and (reactivation not in ("disabled","enabled") or rest=="off"):
@@ -46,6 +48,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
     if reactivation!="off":
         from runtime.rest_reactivation import ReactivatingExploration
         loop_type=ReactivatingExploration
+    if reassessment!="off":
+        from runtime.goal_reassessment import ReassessingExploration
+        loop_type=ReassessingExploration
     loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
@@ -62,6 +67,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if terrain:command.append("-MovementTerrain")
         if steering:command.append("-MovementSteering")
         if rest != "off":command += ["-RestMode",rest]
+        if reassessment!="off":command += ["-ReassessmentMode",reassessment]
         if obstacle_probe!="off":command += ["-ObstacleProbe",obstacle_probe]
         if reactivation!="off":command += ["-ReactivationMode",reactivation]
         if lateral != "off":command += ["-LateralAssignment",lateral]
@@ -71,7 +77,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if result.returncode:raise RuntimeError(f"World failed: {log}")
         path=OUTPUT/(run_id+".snapshot.json");raw=path.read_bytes();data=json.loads(raw.decode("utf-8-sig"))
         assert data["runtime"]["exploration"]==loop.snapshot()
-        if reactivation!="off":
+        if reassessment!="off":
+            from .check_goal_reassessment import check
+        elif reactivation!="off":
             from .check_rest_reactivation import check
         elif rest != "off":
             from .check_movement_rest import check

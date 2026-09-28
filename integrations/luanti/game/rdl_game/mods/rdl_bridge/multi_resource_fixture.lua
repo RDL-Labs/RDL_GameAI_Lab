@@ -9,6 +9,7 @@ return function(http,runtime_url)
     local terrain_enabled=core.settings:get_bool("rdl_movement_terrain",false)
     local steering_enabled=core.settings:get_bool("rdl_movement_steering",false)
     local rest_mode=core.settings:get("rdl_rest_mode") or "off"
+    local reassessment_mode=core.settings:get("rdl_reassessment_mode") or "off"
     local obstacle_probe=core.settings:get("rdl_obstacle_probe") or "off"
     local probe_nodes=nil
     local reactivation_mode=core.settings:get("rdl_reactivation_mode") or "off"
@@ -115,6 +116,9 @@ return function(http,runtime_url)
         end
         if reactivation_mode~="off" then
             a.config.schema="l15a-rest-reactivation-v1";a.config.reactivation_mode=reactivation_mode
+        end
+        if reassessment_mode~="off" then
+            a.config.schema="l15a-goal-reassessment-v1";a.config.reassessment_mode=reassessment_mode
         end
         if lateral_assignment~="off" then
             a.config.schema="l15a-terrain-lateral-bias-v1"
