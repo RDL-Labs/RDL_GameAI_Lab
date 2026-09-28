@@ -4,6 +4,7 @@ import json
 import unittest
 from runtime.landmark_return_campaign import ReturnCampaign,admission_fork
 from integrations.luanti.tests.check_return_campaign import trips
+from integrations.luanti.tests.check_multi_resource import first_difference
 
 
 def action(day,agent="npc_a",x=0,seq=0):
@@ -29,7 +30,10 @@ class CampaignTests(unittest.TestCase):
             if entry["kind"]=="configure":p["schema"]=loop.schema
             self.assertEqual(getattr(loop,entry["kind"])(p),json.loads(entry["response_wire"]))
         s=loop.snapshot();s["schema"]=data["runtime"]["exploration"]["schema"]
-        self.assertEqual(s,data["runtime"]["exploration"])
+        # Derived terrain diagnostics may differ by platform rounding; raw
+        # observations, commands and discrete choices still compare exactly.
+        difference=first_difference(s,data["runtime"]["exploration"])
+        self.assertIsNone(difference,difference)
         store=loop.agents["npc_a"].store
         fork=admission_fork(store);before=store.snapshot()
         fork.record_rejection({"agent_id":"npc_a","observation_id":"bad"},ValueError("bad"))
