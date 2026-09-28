@@ -8,6 +8,8 @@ return function(http,runtime_url)
     local controller=dofile(root .. "/exploration_controller.lua")
     local terrain_enabled=core.settings:get_bool("rdl_movement_terrain",false)
     local steering_enabled=core.settings:get_bool("rdl_movement_steering",false)
+    local rest_mode=core.settings:get("rdl_rest_mode") or "off"
+    assert(rest_mode=="off" or steering_enabled,"rest requires steering")
     assert(not steering_enabled or terrain_enabled,"steering requires terrain")
     local lateral_assignment=core.settings:get("rdl_lateral_assignment") or "off"
     local tie_break_mode=core.settings:get("rdl_tie_break_mode") or "off"
@@ -102,6 +104,9 @@ return function(http,runtime_url)
             teaching=teaching,selection_profile=trait})
         if terrain_enabled then a.config.schema="l15a-terrain-resource-exploration-v1" end
         if steering_enabled then a.config.schema="l15a-terrain-resource-steering-v2" end
+        if rest_mode~="off" then
+            a.config.schema="l15a-movement-rest-v1";a.config.rest_mode=rest_mode
+        end
         if lateral_assignment~="off" then
             a.config.schema="l15a-terrain-lateral-bias-v1"
             local index=id=="npc_a" and 1 or (id=="npc_b" and 2 or 3)

@@ -2,6 +2,7 @@
 
 状態: FINITE OFFLINE SHADOW IMPLEMENTED / REPLAY ACCEPTED。2026-09-28、基準 `1879b2f`。
 schema `l15a-repetition-shadow-v1`。停止・再評価の実行権限は未接続。
+後続の実行権限は別の[有限休憩契約](LUANTI_L15A_movement_rest_contract.md)で実装した。本shadow自体の非介入境界は維持。
 [Evidence](../experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)。
 
 ## 問いと変更理由

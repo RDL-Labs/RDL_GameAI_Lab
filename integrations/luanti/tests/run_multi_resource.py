@@ -15,7 +15,10 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off"):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off", rest="off"):
+    if rest != "off":
+        if rest not in ("disabled","fatigue","repetition","combined") or not steering or lateral!="off" or tie_break!="off":
+            raise ValueError("rest requires isolated steering")
     if tie_break not in ("off", "disabled", "frozen") or (tie_break != "off" and (steering or lateral != "off")):
         raise ValueError("tie break only mode")
     if lateral not in ("off","neutral","mixed","swapped","left","right") or (lateral != "off" and steering):
@@ -33,6 +36,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
     if tie_break != "off":
         from runtime.terrain_tie_break import TieBreakResourceExploration
         loop_type=TieBreakResourceExploration
+    if rest != "off":
+        from runtime.movement_rest import RestResourceExploration
+        loop_type=RestResourceExploration
     loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
@@ -48,6 +54,7 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if faults:command.append("-ResourceFaults")
         if terrain:command.append("-MovementTerrain")
         if steering:command.append("-MovementSteering")
+        if rest != "off":command += ["-RestMode",rest]
         if lateral != "off":command += ["-LateralAssignment",lateral]
         if tie_break != "off":command += ["-TieBreakMode",tie_break]
         with log.open("wb") as stream:
@@ -55,7 +62,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if result.returncode:raise RuntimeError(f"World failed: {log}")
         path=OUTPUT/(run_id+".snapshot.json");raw=path.read_bytes();data=json.loads(raw.decode("utf-8-sig"))
         assert data["runtime"]["exploration"]==loop.snapshot()
-        if tie_break != "off":
+        if rest != "off":
+            from .check_movement_rest import check
+        elif tie_break != "off":
             from .check_terrain_tie_break import check
         elif lateral != "off":
             from .check_terrain_lateral import check

@@ -7,7 +7,8 @@
 
 | 文書 | 整理前の分類 | 今回の扱い / 責務 |
 |---|---|---|
-| [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | offline診断・3条件shadow実施 / 実停止はDESIGN ONLY | [9run shadow](../experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)は予定往復も加算し、減衰による要求差を確認。v2の7窓も加算、ただし閾値未到達。[契約](../experiment-contracts/LUANTI_L15A_repetition_shadow_contract.md)から次は停止/再開調停へ |
+| [移動の次工程](RDL_GameAI_Movement_Next_Steps.md) | offline診断・3条件shadow・有限休憩接続済み | [9run shadow](../experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)の後、下記の実休憩比較へ進んだ。次は休憩前後の選択差・機会損失を分析 |
+| [有限休憩](../experiment-contracts/LUANTI_L15A_movement_rest_contract.md) | FINITE REAL WORLD ACCEPTANCE COMPLETE | [実Luanti5run](../experiment-evidence/LUANTI_L15A_movement_rest_evidence.md)で疲労/反復からwait・観測・回復・再開へ接続。旧shadowの実停止未接続境界を更新。主比較で採取改善は未確認 |
 | [全体設計地図](RDL_GameAI_全体設計地図.md) | partially stale / duplicate details | 4軸と正本リンク。詳細は各責務文書へ委譲 |
 | [Profile](RDL_GameAI_NPC_レイヤリング_Profile.md) | partially stale | 名称・目的・時間スケールをNeural Dynamicsへ同期 |
 | [Layer計画](RDL_GameAI_NPC_レイヤー別設計計画.md) | partially stale / duplicate details | 所有・更新・保持・比較。上流v0.3とローカル成熟度修正を統合 |

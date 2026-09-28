@@ -13,6 +13,7 @@ param(
     [switch]$MultiResources,
     [switch]$MovementTerrain,
     [switch]$MovementSteering,
+    [ValidateSet("off","disabled","fatigue","repetition","combined")][string]$RestMode = "off",
     [ValidateSet("off","disabled","frozen")][string]$TieBreakMode = "off",
     [ValidateSet("off","neutral","mixed","swapped","left","right")][string]$LateralAssignment = "off",
     [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
@@ -20,6 +21,7 @@ param(
 $ErrorActionPreference = "Stop"
 if ($MultiResources) { $Resources = [switch]::new($true) }
 if ($MovementSteering) { $MovementTerrain = [switch]::new($true) }
+if ($RestMode -ne "off" -and (-not $MovementSteering -or $TieBreakMode -ne "off" -or $LateralAssignment -ne "off")) { throw "Rest requires isolated steering" }
 if ($TieBreakMode -ne "off") {
     if ($MovementSteering -or $LateralAssignment -ne "off") { throw "Tie break only mode" }
     $MovementTerrain = [switch]::new($true)
@@ -56,6 +58,7 @@ rdl_resource_faults = $($ResourceFaults.IsPresent.ToString().ToLowerInvariant())
 rdl_resource_assignment = $ResourceAssignment
 rdl_movement_terrain = $($MovementTerrain.IsPresent.ToString().ToLowerInvariant())
 rdl_movement_steering = $($MovementSteering.IsPresent.ToString().ToLowerInvariant())
+rdl_rest_mode = $RestMode
 rdl_lateral_assignment = $LateralAssignment
 rdl_tie_break_mode = $TieBreakMode
 time_speed = 0
@@ -71,6 +74,7 @@ $expectedSchema = if ($Resources) { "l14a-continuous-resource-exploration-v1" } 
 if ($MultiResources) { $expectedSchema = "l14b-multi-resource-predictability-v1" }
 if ($MovementTerrain) { $expectedSchema = "l15a-terrain-resource-exploration-v1" }
 if ($MovementSteering) { $expectedSchema = "l15a-terrain-resource-steering-v2" }
+if ($RestMode -ne "off") { $expectedSchema = "l15a-movement-rest-v1" }
 if ($LateralAssignment -ne "off") { $expectedSchema = "l15a-terrain-lateral-bias-v1" }
 if ($TieBreakMode -ne "off") { $expectedSchema = "l15a-terrain-tie-break-v1" }
 if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }

@@ -24,10 +24,13 @@ all seven v2 walk-return windows are planned neighborhood surveys. The former pu
 the implemented [shadow contract](../docs/experiment-contracts/LUANTI_L15A_repetition_shadow_contract.md) admits them too.
 [Three decay profiles on nine archived runs](../docs/experiment-evidence/LUANTI_L15A_repetition_shadow_evidence.md)
 show request differences, but v2 alone stays below threshold in all profiles. No normal/abnormal observer gate is used.
-Next define request consumption, stopping/resumption budgets and priority arbitration before closed-loop action comparison.
+The subsequent [finite rest contract](../docs/experiment-contracts/LUANTI_L15A_movement_rest_contract.md) is now implemented:
+[four fresh World arms plus a separate fault run](../docs/experiment-evidence/LUANTI_L15A_movement_rest_evidence.md)
+verify measured-effort fatigue, recurrence request consumption, bounded waits, continued acquisition and resumption.
+All main arms harvested zero; successful rest is not evidence of improved exploration. Sleep/metabolic fatigue remain outside scope.
 Justified minimal composition, continuous body motion, and multi-seed long runs remain separate follow-ups.
 Return to inspected M_B-informed exploration after that finite movement checkpoint; visual smoothness is not an unlimited prerequisite.
-Offline diagnostic and shadow are implemented; no new Runtime action mechanism or fresh live-World acceptance is claimed.
+Finite opt-in Runtime rest and fresh live-World acceptance now extend the earlier offline-only checkpoint.
 
 ## Post-L10B shared-resource learning
 
