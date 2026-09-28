@@ -6,8 +6,8 @@ from .check_multi_resource import check as base_check
 from .check_resource_exploration import round_node
 
 
-def check(data):
-    summary=base_check(data,DayCycleExploration)
+def check(data, loop_type=DayCycleExploration, completion=None, *, require_clean_transport=True):
+    summary=base_check(data,loop_type,completion)
     w,s=data["world"],data["runtime"]["exploration"]
     home=w["home_tower"]["position"]
     reports={}
@@ -42,10 +42,12 @@ def check(data):
             if memory is None: memory=state["home_memory"]
             assert state["home_memory"]==memory
         actions=world["actions"]
-        for day in range(s["periods"]):
+        for day in range((len(actions)+255)//256):
             subset=[x for x in actions if x["command"]["capture_us"]//DAY_US==day]
             night=[x for x in subset if phase(x["command"]["capture_us"])=="night"]
-            assert len(night)==32 and all(x["command"]["kind"]=="wait" and x["result"]["status"]=="waited" for x in night)
+            assert len(night)==min(32,len(actions)-day*256-224) and len(night)>0 and all(x["command"]["kind"]=="wait" for x in night)
+            assert all(x["result"]["status"] in ("waited","expired","stale") for x in night)
+            if require_clean_transport: assert all(x["result"]["status"]=="waited" for x in night)
             assert all(x["before"]["position"]==night[0]["before"]["position"]==x["after"]["position"] for x in night)
             d=a["decisions"][night[0]["command"]["source_id"]]["day_cycle"]
             assert len(d["nights"])==day+1 and len(d["nights"][-1]["records"])<=16
@@ -58,14 +60,16 @@ def check(data):
             return_actions=[x for x in subset if phase(x["command"]["capture_us"])=="return"]
             return_counts=Counter(x["result"]["status"] for x in return_actions)
             counts=Counter(x["result"]["status"] for x in subset)
-            assert not any(counts[k] for k in ("expired","stale","stopped"))
+            if require_clean_transport: assert not any(counts[k] for k in ("expired","stale","stopped"))
             days.append(dict(day=day+1,return_outcome=d["return_state"]["outcome"],
                 world_home_distance=round(error,3),within_home_region=error<=10,
                 pickups=counts["picked_up"],moved=counts["moved"],blocked=counts["blocked"],
                 return_moves=return_counts["moved"],return_turns=return_counts["turned"],
-                night_waits=len(night),night_records=len(d["nights"][-1]["records"]),
+                night_waits=sum(x["result"]["status"]=="waited" for x in night),night_records=len(d["nights"][-1]["records"]),
                 night_start_fatigue=round(d["fatigue"],6),
                 night_end_fatigue=round(a["decisions"][night[-1]["command"]["source_id"]]["day_cycle"]["fatigue"],6)))
+            if not require_clean_transport:
+                days[-1]["transport_faults"]={k:counts[k] for k in ("expired","stale","stopped")}
         reports[aid]=dict(home_memory=memory and memory["color"],days=days)
     summary["days"]=reports
     return summary

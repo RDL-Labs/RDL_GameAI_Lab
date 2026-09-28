@@ -13,6 +13,8 @@ return function(http,runtime_url)
     local obstacle_probe=core.settings:get("rdl_obstacle_probe") or "off"
     local reversal_review=core.settings:get("rdl_reversal_review_mode") or "off"
     local day_cycle=core.settings:get_bool("rdl_day_cycle",false)
+    local return_campaign=core.settings:get_bool("rdl_return_campaign",false)
+    assert(not return_campaign or day_cycle,"campaign needs days")
     local skyline=day_cycle and dofile(root .. "/elevated_landmarks.lua") or nil
     if day_cycle then
         core.register_node("rdl_bridge:exploration_tower",{description="Ochre stone tower",
@@ -46,7 +48,7 @@ return function(http,runtime_url)
     local task_seconds=tonumber(core.settings:get("rdl_task_seconds") or "0")
     assert(task_seconds==0 or ((task_seconds==16 or task_seconds==32 or task_seconds==64) and periods==1 and reassessment_mode~="off"),"invalid task deadline")
     assert(reversal_review=="off" or ((reversal_review=="disabled" or reversal_review=="enabled") and task_seconds~=0),"invalid reversal review")
-    assert(not day_cycle or (periods<=3 and steering_enabled and rest_mode=="off" and reassessment_mode=="off" and task_seconds==0
+    assert(not day_cycle or (periods<=(return_campaign and 30 or 3) and steering_enabled and rest_mode=="off" and reassessment_mode=="off" and task_seconds==0
         and lateral_assignment=="off" and tie_break_mode=="off" and reversal_review=="off"),"isolated day cycle")
     local period_us=(day_cycle and 64 or (task_seconds==0 and 16 or task_seconds))*1000000
     local slots_per_period=period_us/250000
@@ -59,8 +61,11 @@ return function(http,runtime_url)
     end
     local sim,stage,last_slot=0,"setup",-1
     local agents,patches,targets={},{},{}
+    local return_events,returned,checked_nights={},{},{}
+    local stop_requested,stop_started=false,nil
     local evidence={run_id=run,scenario=scenario,assignment=assignment,period_count=periods,
         control=control,faults=faults,agents={},deliveries={},stock_events={},periods={},guards={}}
+    if return_campaign then evidence.return_campaign={target=3,events=return_events} end
     if task_seconds~=0 then evidence.task_seconds=task_seconds end
     evidence.timing={requested_speed=speed,max_step_us=0}
     evidence.obstacle_probe={mode=obstacle_probe,events={}}
@@ -151,6 +156,7 @@ return function(http,runtime_url)
             a.config.tie_break_mode=tie_break_mode
         end
         if day_cycle then a.config.schema="l15a-landmark-day-cycle-v1" end
+        if return_campaign then a.config.schema="l15a-landmark-return-campaign-v1" end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=period_us,
@@ -271,6 +277,30 @@ return function(http,runtime_url)
             end
         elseif job.kind=="finish" then a.done=true end
     end
+    local function audit_returns()
+        if not return_campaign or stop_requested then return end
+        for _,a in ipairs(agents) do
+            local last=a.e.actions[#a.e.actions]
+            if last and last.command.capture_us%period_us>=56000000 and last.result.status=="waited" then
+                local day=math.floor(last.command.capture_us/period_us)
+                local key=a.id .. ":" .. day
+                if not checked_nights[key] then
+                    checked_nights[key]=true
+                    local pos=last.after.position
+                    local fresh={}
+                    for _,item in ipairs(a.inventory) do
+                        if not returned[item.operation_id] then fresh[#fresh+1]=item.operation_id end
+                    end
+                    if pos.x^2+(pos.z-6)^2<=100 and #fresh>0 then
+                        for _,op in ipairs(fresh) do returned[op]=true end
+                        return_events[#return_events+1]={agent_id=a.id,day=day+1,checked_us=sim,
+                            night_operation=last.command.operation_id,position=vector.new(pos),pickup_operations=fresh}
+                        if #return_events==3 then stop_requested=true;stop_started=sim;return end
+                    end
+                end
+            end
+        end
+    end
     local function send(a)
         if a.busy or #a.queue==0 then return end
         local job=table.remove(a.queue,1);a.busy=job;job.sent_us=sim
@@ -320,7 +350,7 @@ return function(http,runtime_url)
         evidence.timing.max_step_us=math.max(evidence.timing.max_step_us,step)
         sim=sim+step
         local ok,err=pcall(function()
-            assert(sim<=limit+9000000,"drain deadline")
+            assert(sim<=limit+9000000 and (not stop_started or sim<=stop_started+9000000),"drain deadline")
             if stage=="running" and sim>=limit then
                 stage="draining"
                 for _,a in ipairs(agents) do a.ctl.stopped=true;a.ending=context(a,{ended_us=sim,reason="time_limit"}) end
@@ -330,16 +360,26 @@ return function(http,runtime_url)
             for j=1,3 do receive(agents[(first+j-1)%3+1]) end
             if stage=="configuring" and agents[1].configured and agents[2].configured and agents[3].configured then stage="running" end
             if stage=="running" then
+                audit_returns()
+                if stop_requested then stage="draining" end
+            end
+            if stage=="running" then
                 local slot=math.floor(sim/250000)
                 if slot~=last_slot then
                     assert(slot==last_slot+1 and slot<capacity,"missed acquisition slot");last_slot=slot
                     if slot%slots_per_period==0 then evidence.periods[#evidence.periods+1]={period=math.floor(slot/slots_per_period),capture_us=sim,
                         stock=resource.audit(patches),stock_event_count=#evidence.stock_events} end
                     for _,a in ipairs(agents) do sample(a,slot) end
+                    if return_campaign and slot%slots_per_period==0 then
+                        local status={day=math.floor(slot/slots_per_period)+1,capture_us=sim,returns=#return_events,agents={}}
+                        for _,a in ipairs(agents) do status.agents[a.id]={inventory=#a.inventory,body=a.body()} end
+                        core.safe_file_write(core.get_worldpath() .. "/campaign-progress.json",encode(status))
+                    end
                 end
             end
             for _,a in ipairs(agents) do
                 if stage=="draining" and not a.finishing and not a.busy and #a.queue==0 then
+                    if stop_requested then a.ending=context(a,{ended_us=sim,reason="return_target_reached"}) end
                     enqueue(a,"finish",a.ending);a.finishing=true
                 end
                 send(a)

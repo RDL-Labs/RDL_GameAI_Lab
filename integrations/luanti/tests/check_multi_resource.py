@@ -55,10 +55,13 @@ def first_difference(actual, expected, path='$'):
     return f'{path}: actual={repr(actual)[:180]} expected={repr(expected)[:180]}'
 
 
-def check(data, loop_type=MultiResourceExploration):
+def check(data, loop_type=MultiResourceExploration, completion=None):
     w,s=data["world"],data["runtime"]["exploration"]
     assert not w.get("failure"),w.get("failure")
     period_us=s.get("period_us",16_000_000)
+    expected_slots=completion["slots"] if completion else s["periods"]*(period_us//250000)
+    end_reason=completion["reason"] if completion else "time_limit"
+    assert 0<expected_slots<=s["periods"]*(period_us//250000)
     assert s["schema"] == loop_type.schema
     loop=loop_type(w["run_id"],s["periods"],s["seed"],s["assignment"])
     for d in w["deliveries"]:
@@ -70,7 +73,7 @@ def check(data, loop_type=MultiResourceExploration):
     assert len(stock)==(2 if w["control"] else 8)
     initial={p["ref"]:p for p in w["stock_initial"]}
     assert all(p["initial"]==p["remaining"]==12 and p["present"] for p in initial.values())
-    assert len(w["forceloaded"])==192 and len(w["periods"])==s["periods"]
+    assert len(w["forceloaded"])==192 and len(w["periods"])==(expected_slots+(period_us//250000)-1)//(period_us//250000)
     assert w["finished_us"]<=s["periods"]*period_us+9_000_000
     history=[dict(stock)]
     for e in w["stock_events"] or []:
@@ -86,9 +89,9 @@ def check(data, loop_type=MultiResourceExploration):
     all_operations=set()
     for agent in AGENTS:
         a,t=w["agents"][agent],s["agents"][agent]
-        assert len(a["observations"])==len(a["actions"])==len(t["observations"])==len(t["results"])==s["periods"]*(period_us//250000)
-        assert a["max_pending"]<=8 and t["ending"]["reason"]=="time_limit"
-        assert t["sensory"]["count"]==s["periods"]*(period_us//250000)
+        assert len(a["observations"])==len(a["actions"])==len(t["observations"])==len(t["results"])==expected_slots
+        assert a["max_pending"]<=8 and t["ending"]["reason"]==end_reason
+        assert t["sensory"]["count"]==expected_slots
         assert not (all_operations & set(t["results"]));all_operations.update(t["results"])
         last=a["initial_body"];inventory=[];distance=0
         for action in a["actions"]:

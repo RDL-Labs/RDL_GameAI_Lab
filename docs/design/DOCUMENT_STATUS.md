@@ -1,5 +1,7 @@
 # Design Document Status
 
+
+2026-09-28: [30日帰還実験](../experiment-evidence/LUANTI_L15A_return_campaign_evidence.md) — 30日完了、Bの12単位1便。3便未達。1.5倍速でexpired 86 / stale 5のためclean timing acceptanceは不合格。
 確認日: 2026-09-25。基準: GameAI `a7a53e7`、Core `3270982`、C1 authority同期。
 これは棚卸し記録であり、実装成熟度の正本は[canonical roadmap](../../notes/experiment-roadmap.md)。
 現在の意味参照は2026-09-27にCore `86a0d4f3`（BASE v2.3.1 / SPEC v2.5）へ同期。

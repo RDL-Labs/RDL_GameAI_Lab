@@ -169,6 +169,9 @@ class FiniteExploration:
             from .landmark_exploration import validate_landmarks
             validate_landmarks(p["landmarks"])
 
+    def _stage_sensory_store(self):
+        return deepcopy(self.store)
+
     def select(self, packet, previous):
         return choose(packet, previous)
 
@@ -194,7 +197,7 @@ class FiniteExploration:
                            kind=kind, amount=amount, target_ref=target, reason=reason)
             ref(command["operation_id"])
             # Validate/admit on a copy; no partial publication of ground or distant data.
-            staged = deepcopy(self.store)
+            staged = self._stage_sensory_store()
             ext = dict(schema_version=SCHEMA_VERSION, run_id=self.run_id, world_epoch=1,
                        agent_id=self.agent_id, delivery_observation_id=ident,
                        delivery_world_tick=p["sample_seq"], delivery_time_us=p["capture_us"], frames=[p["distant"]])
@@ -265,7 +268,7 @@ class FiniteExploration:
             fields(value, "run_id world_epoch agent_id ended_us reason")
             self.context(value)
             integer(value["ended_us"], 0, self.deadline_us)
-            require(value["reason"] in ("acquired", "time_limit", "pending_capacity", "operation_budget"), "end_reason")
+            require(value["reason"] in ("acquired", "time_limit", "pending_capacity", "operation_budget") + (("return_target_reached",) if getattr(self,"allow_return_target",False) else ()), "end_reason")
             require(self.ending is None or self.ending == value, "finish_conflict")
             require(len(self.results) == len(self.commands), "unreported_operations")
             acquired = any(r["acquired"] for r in self.results.values())
