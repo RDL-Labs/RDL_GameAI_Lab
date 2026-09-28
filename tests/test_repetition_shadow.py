@@ -116,7 +116,8 @@ class RepetitionShadowTests(unittest.TestCase):
         for name in ("luanti_l15a_steering_replay.json.gz","luanti_l15a_tie_break_replay.json.gz"):
             data=json.loads(gzip.decompress((root/name).read_bytes()))
             actual.extend(replay(r["data"]) for r in data["runs"])
-        self.assertEqual(actual,report["runs"])
+        from integrations.luanti.tests.check_multi_resource import first_difference
+        self.assertIsNone(first_difference(actual,report["runs"],'$history'))
         v2=[r for r in actual if r["runtime_schema"]=="l15a-terrain-resource-steering-v2"]
         rows=[w for r in v2 for ws in r["windows"].values() for w in ws]
         self.assertEqual(sum(w["shadow"]["admitted"] for w in rows),7)

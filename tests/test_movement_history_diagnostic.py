@@ -100,7 +100,8 @@ class MovementHistoryTests(unittest.TestCase):
         for name in ("luanti_l15a_steering_replay.json.gz","luanti_l15a_tie_break_replay.json.gz"):
             matrix=json.loads(gzip.decompress((root/name).read_bytes()))
             results.extend(analyze(r["data"]) for r in matrix["runs"])
-        self.assertEqual(results,report["runs"])
+        from integrations.luanti.tests.check_multi_resource import first_difference
+        self.assertIsNone(first_difference(results,report["runs"],'$history'))
         steering=[r for r in results if r["runtime_schema"]=="l15a-terrain-resource-steering-v2"]
         returns=[w for r in steering for rows in r["windows"].values() for w in rows if w["status"]=="movement_return_candidate"]
         self.assertEqual(len(returns),7)

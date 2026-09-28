@@ -7,6 +7,7 @@ from runtime.terrain_tie_break import TieBreakResourceExploration, calculate_tie
 from runtime.terrain_resource_exploration import terrain_input
 from .check_terrain_resource import check as check_terrain
 from .check_terrain_steering import movement_metrics
+from .check_multi_resource import first_difference
 
 
 def dwell_metrics(agent, end_us):
@@ -50,7 +51,9 @@ def check(data):
             if v is None:continue
             calculated=calculate_tie_break(terrain_input(a["observations"][source],a["teaching"]["appearance"],d["blocked_targets"]),
                 a["tie_break_mode"],state["seed"],max(meta["episode_seq"],1))
-            assert all(v[k]==value for k,value in calculated.items())
+            difference=first_difference({k:v[k] for k in calculated},calculated,
+                f'$/agents/{aid}/decisions/{source}/tie_break/evaluation')
+            assert difference is None, difference
             assert v["observed_terrain"]==d["movement_terrain"] and v["selected_action"]==d["action"]
             counts["evaluations"]+=1
             counts["eligible"]+=bool(v["eligible_directions"])

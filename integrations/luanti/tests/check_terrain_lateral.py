@@ -6,6 +6,7 @@ from runtime.terrain_lateral_bias import LateralResourceExploration, calculate_l
 from runtime.terrain_resource_exploration import terrain_input
 from .check_terrain_resource import check as check_terrain
 from .check_terrain_steering import movement_metrics
+from .check_multi_resource import first_difference
 
 
 def decision_links(data):
@@ -28,7 +29,9 @@ def check(data):
             if v is None:continue
             obs=terrain_input(a["observations"][source],a["teaching"]["appearance"],d["blocked_targets"])
             calculated=calculate_lateral(obs,a["lateral_bias"])
-            assert all(v[k]==value for k,value in calculated.items())
+            difference=first_difference({k:v[k] for k in calculated},calculated,
+                f'$/agents/{aid}/decisions/{source}/lateral')
+            assert difference is None, difference
             assert v["observed_terrain"]==d["movement_terrain"]
             assert v["selected_action"]==d["action"] and v["turn_hysteresis"]=="disabled"
             assert v["parameter_source"]==dict(run_id=data["world"]["run_id"],agent_id=aid,kind="fixed_run_configuration")

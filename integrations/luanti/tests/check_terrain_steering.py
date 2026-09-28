@@ -6,6 +6,7 @@ from runtime.terrain_steering import SteeredResourceExploration
 from runtime.terrain_resource_exploration import terrain_input
 from runtime.subjective_movement_terrain import calculate_terrain
 from .check_terrain_resource import check as check_terrain
+from .check_multi_resource import first_difference
 
 
 def movement_metrics(data):
@@ -49,8 +50,11 @@ def check(data):
             meta=d["steering"]
             if meta["current_recheck"] is not None:
                 assert d["movement_terrain"] is None
-                assert meta["current_recheck"]==calculate_terrain(terrain_input(
+                calculated=calculate_terrain(terrain_input(
                     a["observations"][source],a["teaching"]["appearance"],meta["input_blocked_targets"]))
+                difference=first_difference(meta["current_recheck"],calculated,
+                    f'$/agents/agent/decisions/{source}/steering/current_recheck')
+                assert difference is None, difference
             if d["reason"].endswith("confirmed_turn_step"):
                 assert all(meta["step_recheck"]["checks"].values()) and meta["previous_operation"]
                 assert a["results"][meta["previous_operation"]]["status"]=="turned"

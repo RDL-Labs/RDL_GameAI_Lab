@@ -1,15 +1,42 @@
 """L14B wire replay, shared stock conservation and agent-specific authority."""
 from collections import Counter
 import json
-from math import dist, isclose, sin, cos
+from math import dist, isclose, sin, cos, isfinite
 
 from runtime.multi_resource_exploration import MultiResourceExploration, AGENTS
 from .check_resource_exploration import check_rays, xyz
 
 
+def computed_float_path(path):
+    """Only derived diagnostics, never acquired evidence or control decisions."""
+    parts=path.split('/')
+    if parts[0]=='$history':
+        return 'local_motion' in parts
+    if len(parts)<7 or parts[1]!='agents' or parts[3]!='decisions':
+        return False
+    tail=parts[5:]
+    if tail[:3]==['rest','recurrence','local_motion']:
+        return True
+    if tail[0] not in ('movement_terrain','steering','lateral','tie_break'):
+        return False
+    if any(k in tail for k in ('evidence','context','ground')):
+        return False
+    return tail[-1] in ('forward_gap','minimum_height','total','physical','food','obstacle',
+                        'distance','clearance','value','normalized','raw','obstacle_sum',
+                        'observed_terrain_total','final_total')
+
+
 def first_difference(actual, expected, path='$'):
-    """Keep strict replay equality, but locate the first differing leaf."""
+    """Exact data/commands; 1e-12 roundoff allowance for computed float diagnostics.
+
+    Windows and Linux libm may differ in the last bit of trig/power results.
+    Discrete outcomes, thresholds, minima directions and all source inputs stay exact.
+    """
     if actual == expected:
+        return None
+    if (type(actual) is float and type(expected) is float and computed_float_path(path)
+            and isfinite(actual) and isfinite(expected)
+            and isclose(actual,expected,rel_tol=1e-12,abs_tol=1e-12)):
         return None
     if isinstance(actual, dict) and isinstance(expected, dict) and actual.keys() == expected.keys():
         for key in actual:

@@ -4,7 +4,7 @@ from math import cos, sin, isclose
 
 from runtime.terrain_resource_exploration import TerrainResourceExploration, terrain_input, terrain_action
 from runtime.subjective_movement_terrain import calculate_terrain
-from .check_multi_resource import check as check_multi
+from .check_multi_resource import check as check_multi, first_difference
 
 
 def check(data, loop_type=TerrainResourceExploration):
@@ -37,7 +37,9 @@ def check(data, loop_type=TerrainResourceExploration):
             if d["movement_terrain"] is not None:
                 excluded=d["steering"]["input_blocked_targets"] if "steering" in d else d["blocked_targets"]
                 calculated=calculate_terrain(terrain_input(p,a["teaching"]["appearance"],excluded))
-                assert d["movement_terrain"]==calculated
+                difference=first_difference(d["movement_terrain"],calculated,
+                    f'$/agents/{agent}/decisions/{p["observation_id"]}/movement_terrain')
+                assert difference is None, difference
                 action,reason=terrain_action(calculated)
                 if d.get("tie_break") is not None:
                     evaluation=d["tie_break"]["evaluation"]
