@@ -64,7 +64,8 @@ python -m integrations.luanti.tests.replay_current_harvest tests/fixtures/luanti
 python -m integrations.luanti.tests.run_return_campaign --periods 30 --speed 1 --model-field enabled --harvest-state --output integrations/luanti/output/current-harvest-world.json.xz
 ```
 
-The second command is a future live-run entry, not a claim it was executed here.
+The initial validation above was replay only. A subsequent 2026-09-29 live run
+was interrupted on day sixteen; see [actual World evidence](../experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md).
 
 ## Actual-record replay result
 

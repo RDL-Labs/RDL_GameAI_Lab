@@ -1,0 +1,151 @@
+{
+  "schema": "l15a-current-harvest-world-audit-v1",
+  "run_id": "l15campaign-c8e93feb4b73",
+  "source": "tests\\fixtures\\luanti_l15a_current_harvest_world.json.xz",
+  "source_sha256": "eeba06d0fcce3ec0a7eeada02cf2f10ed07743e60b0d44edbd914684eeb0ba87",
+  "replay_verified": true,
+  "world_failure": "...ames\\rdl_game\\mods\\rdl_bridge/multi_resource_fixture.lua:372: missed acquisition slot",
+  "timing": {
+    "max_step_us": 7719774,
+    "requested_speed": 1,
+    "wall_elapsed_us": 995178574
+  },
+  "pickups": 36,
+  "returns": 2,
+  "responses": 23691,
+  "observations": 11844,
+  "transport_faults": {},
+  "source_matches": {
+    "runtime/current_harvest_state.py": true,
+    "integrations/luanti/scripts/test-learned-exploration-day.ps1": true,
+    "runtime/landmark_return_campaign.py": true,
+    "runtime/landmark_day_cycle.py": true,
+    "runtime/exploration.py": true,
+    "runtime/model_movement_field.py": true,
+    "runtime/terrain_resource_exploration.py": true,
+    "runtime/terrain_steering.py": true,
+    "integrations/luanti/game/rdl_game/mods/rdl_bridge/multi_resource_fixture.lua": true
+  },
+  "predeclared": {
+    "days": 30,
+    "stop_after_returns": 3,
+    "scope": "A/B/C aggregate; one batch per agent/night",
+    "harvest_state": true,
+    "model_field_mode": "enabled",
+    "simulation_speed": 1.0,
+    "scenario": "natural_meadow",
+    "assignment": "steady"
+  },
+  "summary": {
+    "status": "aborted",
+    "strict_acceptance": false,
+    "failure": "...ames\\rdl_game\\mods\\rdl_bridge/multi_resource_fixture.lua:372: missed acquisition slot",
+    "finished_us": 994588833
+  },
+  "validation": "each state recomputed from its observation and earlier own records; no absent-state pickup command",
+  "agents": {
+    "npc_a": {
+      "observations": 3948,
+      "states": {
+        "none_observed": 2457,
+        "visible_out_of_reach": 1482,
+        "reachable_observed": 9
+      },
+      "historical_successes": 0,
+      "adopted_model": false,
+      "invalidated": false,
+      "first_absence_after_success": null,
+      "field_applications": 0,
+      "pickups_by_day": {}
+    },
+    "npc_b": {
+      "observations": 3948,
+      "states": {
+        "none_observed": 2451,
+        "visible_out_of_reach": 1481,
+        "reachable_observed": 16
+      },
+      "historical_successes": 12,
+      "adopted_model": true,
+      "invalidated": true,
+      "first_absence_after_success": {
+        "state": {
+          "schema": "l15a-current-harvest-state-v1",
+          "source": {
+            "run_id": "l15campaign-c8e93feb4b73",
+            "agent_id": "npc_b",
+            "observation_id": "l15campaign-c8e93feb4b73:npc_b:obs:2105",
+            "capture_us": 526267570,
+            "pose_ref": "l15campaign-c8e93feb4b73:npc_b:pose:674"
+          },
+          "scope": "current Food acquisition only; no persistent place identity",
+          "appearance": "brown_capped_ovoid",
+          "coverage": "complete",
+          "status": "none_observed",
+          "visible_refs": [],
+          "reachable_refs": [],
+          "historical_success": {
+            "count": 12,
+            "last_operation": "op:l15campaign-c8e93feb4b73:npc_b:obs:2104",
+            "authority": "episodic acquisition evidence; not a new adopted relation"
+          },
+          "absence_authority": "current observation only; not permanent depletion or regrowth prediction"
+        },
+        "action": [
+          "turn",
+          -45
+        ],
+        "reason": "landmark_active"
+      },
+      "field_applications": 0,
+      "pickups_by_day": {
+        "9": 12
+      }
+    },
+    "npc_c": {
+      "observations": 3948,
+      "states": {
+        "none_observed": 2374,
+        "visible_out_of_reach": 1374,
+        "reachable_observed": 200
+      },
+      "historical_successes": 24,
+      "adopted_model": true,
+      "invalidated": true,
+      "first_absence_after_success": {
+        "state": {
+          "schema": "l15a-current-harvest-state-v1",
+          "source": {
+            "run_id": "l15campaign-c8e93feb4b73",
+            "agent_id": "npc_c",
+            "observation_id": "l15campaign-c8e93feb4b73:npc_c:obs:1390",
+            "capture_us": 347503450,
+            "pose_ref": "l15campaign-c8e93feb4b73:npc_c:pose:330"
+          },
+          "scope": "current Food acquisition only; no persistent place identity",
+          "appearance": "brown_capped_ovoid",
+          "coverage": "complete",
+          "status": "none_observed",
+          "visible_refs": [],
+          "reachable_refs": [],
+          "historical_success": {
+            "count": 12,
+            "last_operation": "op:l15campaign-c8e93feb4b73:npc_c:obs:1389",
+            "authority": "episodic acquisition evidence; not a new adopted relation"
+          },
+          "absence_authority": "current observation only; not permanent depletion or regrowth prediction"
+        },
+        "action": [
+          "wait",
+          0
+        ],
+        "reason": "landmark_goal_budget"
+      },
+      "field_applications": 0,
+      "pickups_by_day": {
+        "6": 12,
+        "15": 12
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+2026-09-29: [Current harvest actual run](../docs/experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md) — interrupted on day 16 by missed acquisition slot; 36 units / two returns. Current absence and retained success verified in the actual recorded prefix; not complete acceptance.
+
 2026-09-28: [Current harvest state](../docs/experiment-contracts/LUANTI_L15A_current_harvest_state.md) — finite availability separated from historical acquisition facts. No new movement authority or adopted-model reconstruction.
 
 2026-09-28: [30-day M_B field comparison](../docs/experiment-evidence/LUANTI_L15A_model_field_30d_evidence.md) — both modes completed: 24 units, two batches, two admitted then invalidated models, zero field applications. Strict timing acceptance failed; initial interrupted attempt retained.

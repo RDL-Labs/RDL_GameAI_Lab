@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [現在採取状態の実走行](docs/experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md)：16日目に観測枠逸失で中断。36単位・2便。不在と過去成功の併存を実機で確認。
+
 - [現在の採取状態](docs/experiment-contracts/LUANTI_L15A_current_harvest_state.md)：現在の「ない／不明」を成功経験から分離。採取関係モデルの再構成は別工程。
 
 - [30日M_B接続比較](docs/experiment-evidence/LUANTI_L15A_model_field_30d_evidence.md)：両条件24単位・2便。実M_B採用後に資源枯渇で失効、場への適用0件。通信受入は未達。

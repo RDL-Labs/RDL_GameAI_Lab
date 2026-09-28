@@ -1,5 +1,7 @@
 # Design Document Status
 
+2026-09-29: [現在採取状態の実走行](../experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md) — 16日目に観測枠逸失で中断、完走未達。11,844観測・36採取・2便。全応答／保存Runtimeの再生一致。
+
 2026-09-28: [現在の採取状態](../experiment-contracts/LUANTI_L15A_current_harvest_state.md) — opt-in状態記録。観測範囲内の不在・不明・到達範囲を区別し、過去の成功を保持。旧複合M_Bの失効解除はしない。
 
 2026-09-28: [M_B接続30日比較](../experiment-evidence/LUANTI_L15A_model_field_30d_evidence.md) — 両条件30日・24単位・2便。B/Cで採用後失効、場の適用0件。strict timing acceptance未達。中断1件と同条件再実行を保存。
