@@ -10,6 +10,9 @@ return function(http,runtime_url)
     local steering_enabled=core.settings:get_bool("rdl_movement_steering",false)
     assert(not steering_enabled or terrain_enabled,"steering requires terrain")
     local lateral_assignment=core.settings:get("rdl_lateral_assignment") or "off"
+    local tie_break_mode=core.settings:get("rdl_tie_break_mode") or "off"
+    assert(tie_break_mode=="off" or ((tie_break_mode=="disabled" or tie_break_mode=="frozen") and
+        terrain_enabled and not steering_enabled and lateral_assignment=="off"),"tie break only mode")
     local lateral_profiles={neutral={"neutral","neutral","neutral"},mixed={"left","neutral","right"},
         swapped={"right","neutral","left"},left={"left","left","left"},right={"right","right","right"}}
     assert(lateral_assignment=="off" or (lateral_profiles[lateral_assignment] and terrain_enabled and not steering_enabled),"lateral bias only mode")
@@ -104,6 +107,10 @@ return function(http,runtime_url)
             local index=id=="npc_a" and 1 or (id=="npc_b" and 2 or 3)
             a.config.lateral_bias=lateral_profiles[lateral_assignment][index]
         end
+        if tie_break_mode~="off" then
+            a.config.schema="l15a-terrain-tie-break-v1"
+            a.config.tie_break_mode=tie_break_mode
+        end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=16000000,taught_appearance=teaching.appearance})
@@ -147,7 +154,10 @@ return function(http,runtime_url)
                 loss_target=response.command.kind=="turn" and
                     string.sub(response.command.reason,1,18)=="observed_material_"
             end
+            if tie_break_mode=="frozen" then loss_target=response.command.reason=="observed_material_tie_break" end
             if faults and loss_target and not evidence.guards.lost_response then
+                if tie_break_mode=="frozen" then evidence.guards.lost_tie={agent_id=a.id,
+                    operation_id=response.command.operation_id,source_id=job.payload.observation_id} end
                 if steering_enabled then evidence.guards.lost_turn={agent_id=a.id,
                     operation_id=response.command.operation_id,source_id=job.payload.observation_id} end
                 evidence.guards.lost_response=true;enqueue(a,"observe",job.payload,true)

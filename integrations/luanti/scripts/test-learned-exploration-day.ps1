@@ -13,12 +13,17 @@ param(
     [switch]$MultiResources,
     [switch]$MovementTerrain,
     [switch]$MovementSteering,
+    [ValidateSet("off","disabled","frozen")][string]$TieBreakMode = "off",
     [ValidateSet("off","neutral","mixed","swapped","left","right")][string]$LateralAssignment = "off",
     [ValidateSet("mixed","swapped","steady")][string]$ResourceAssignment = "mixed"
 )
 $ErrorActionPreference = "Stop"
 if ($MultiResources) { $Resources = [switch]::new($true) }
 if ($MovementSteering) { $MovementTerrain = [switch]::new($true) }
+if ($TieBreakMode -ne "off") {
+    if ($MovementSteering -or $LateralAssignment -ne "off") { throw "Tie break only mode" }
+    $MovementTerrain = [switch]::new($true)
+}
 if ($LateralAssignment -ne "off") {
     if ($MovementSteering) { throw "Lateral bias only cannot enable MovementSteering" }
     $MovementTerrain = [switch]::new($true)
@@ -52,6 +57,7 @@ rdl_resource_assignment = $ResourceAssignment
 rdl_movement_terrain = $($MovementTerrain.IsPresent.ToString().ToLowerInvariant())
 rdl_movement_steering = $($MovementSteering.IsPresent.ToString().ToLowerInvariant())
 rdl_lateral_assignment = $LateralAssignment
+rdl_tie_break_mode = $TieBreakMode
 time_speed = 0
 port = 30001
 max_users = 1
@@ -66,6 +72,7 @@ if ($MultiResources) { $expectedSchema = "l14b-multi-resource-predictability-v1"
 if ($MovementTerrain) { $expectedSchema = "l15a-terrain-resource-exploration-v1" }
 if ($MovementSteering) { $expectedSchema = "l15a-terrain-resource-steering-v2" }
 if ($LateralAssignment -ne "off") { $expectedSchema = "l15a-terrain-lateral-bias-v1" }
+if ($TieBreakMode -ne "off") { $expectedSchema = "l15a-terrain-tie-break-v1" }
 if (-not $health.ok -or $health.run_id -ne $RunId -or $health.schema -ne $expectedSchema) { throw "Unexpected exploration Runtime" }
 if ($Resources -and $health.periods -ne $ResourcePeriods) { throw "Resource period mismatch" }
 $luanti = $null

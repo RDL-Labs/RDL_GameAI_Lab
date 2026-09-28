@@ -15,7 +15,9 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off"):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False, steering=False, lateral="off", tie_break="off"):
+    if tie_break not in ("off", "disabled", "frozen") or (tie_break != "off" and (steering or lateral != "off")):
+        raise ValueError("tie break only mode")
     if lateral not in ("off","neutral","mixed","swapped","left","right") or (lateral != "off" and steering):
         raise ValueError("lateral bias only mode")
     run_id="l14b-"+uuid4().hex[:16]
@@ -28,6 +30,9 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
     if lateral != "off":
         from runtime.terrain_lateral_bias import LateralResourceExploration
         loop_type=LateralResourceExploration
+    if tie_break != "off":
+        from runtime.terrain_tie_break import TieBreakResourceExploration
+        loop_type=TieBreakResourceExploration
     loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
@@ -44,12 +49,15 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
         if terrain:command.append("-MovementTerrain")
         if steering:command.append("-MovementSteering")
         if lateral != "off":command += ["-LateralAssignment",lateral]
+        if tie_break != "off":command += ["-TieBreakMode",tie_break]
         with log.open("wb") as stream:
             result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=periods*16+80)
         if result.returncode:raise RuntimeError(f"World failed: {log}")
         path=OUTPUT/(run_id+".snapshot.json");raw=path.read_bytes();data=json.loads(raw.decode("utf-8-sig"))
         assert data["runtime"]["exploration"]==loop.snapshot()
-        if lateral != "off":
+        if tie_break != "off":
+            from .check_terrain_tie_break import check
+        elif lateral != "off":
             from .check_terrain_lateral import check
         elif steering:
             from .check_terrain_steering import check

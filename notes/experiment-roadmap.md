@@ -161,8 +161,13 @@ The separate [lateral-bias-only experiment](../docs/experiment-contracts/LUANTI_
 adds a fixed per-agent contribution only to near-tied mirrored minima. The primary six runs show no effect; two subsequent diagnostic runs
 demonstrate one measured choice/endpoint divergence, without oscillation or harvesting improvement.
 [Bias evidence](../docs/experiment-evidence/LUANTI_L15A_lateral_bias_evidence.md) keeps the two phases distinct. Combining bias with v2 steering remains unimplemented.
+The independent [tie-break-only mode](../docs/experiment-contracts/LUANTI_L15A_tie_break_contract.md) adds reproducible bounded
+perturbations to fully scored near minima, held for at most three accepted decisions / 750ms. Five fresh Luanti runs and exact
+wire replays verify finite authority and response-loss recovery. The primary comparison shows no choice, oscillation or harvest
+improvement; forest observations contain no eligible ties. [Evidence](../docs/experiment-evidence/LUANTI_L15A_tie_break_evidence.md)
+separates synthetic symmetry/holding tests, observed unchanged choices, and the distinct fault-injection run.
 The [v0.7 plan and discussion additions](../docs/design/RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.7.md)
-remain **DESIGN ONLY**: obstacle-triggered stopping and new observations, interest-driven detours, and an earlier objective being
+retain **DESIGN ONLY** extensions beyond the finite tie-break contract: obstacle-triggered stopping and new observations, interest-driven detours, and an earlier objective being
 deprioritized or absent from current selection. Objective non-reference is separate from memory loss; return to food seeking is not
 guaranteed, and timeout/no harvest are valid observations. No fixed thinking delay, sensor/decision cadence change, or new M_B authority is implemented.
 Sections 11.10–11.13 add design hypotheses for recurrent stagnation and a shared repetition response with different decay rates.

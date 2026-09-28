@@ -39,7 +39,12 @@ def check(data, loop_type=TerrainResourceExploration):
                 calculated=calculate_terrain(terrain_input(p,a["teaching"]["appearance"],excluded))
                 assert d["movement_terrain"]==calculated
                 action,reason=terrain_action(calculated)
-                if d.get("lateral") is not None:
+                if d.get("tie_break") is not None:
+                    evaluation=d["tie_break"]["evaluation"]
+                    assert evaluation["baseline_action"]==action
+                    assert evaluation["baseline_reason"]=="observed_material_terrain_"+reason
+                    reason=d["reason"].removeprefix("observed_material_")
+                elif d.get("lateral") is not None:
                     assert d["lateral"]["baseline_action"]==action
                     assert d["lateral"]["baseline_reason"]=="observed_material_terrain_"+reason
                     reason=d["reason"].removeprefix("observed_material_")

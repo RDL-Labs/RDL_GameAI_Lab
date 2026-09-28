@@ -19,17 +19,21 @@
 本書はユーザー提供v0.7を取り込み、対話で整理した「停止・再観測・興味による寄り道・目的の非参照」を11.5〜11.9へ追記した設計文書。
 リポジトリ照合基準は `main@20ed7d2`。提供文書の `8fa5920` 以降の実装を巻き戻さない。
 文書更新 `09dc011` 後の対話を11.10〜11.13へ追加した。渦状の停滞、退屈との共通性、反復反応の残存・減衰差を扱う。
+`122e4f4` を基準とする次の変更では、Change 2のξ_tieだけを有限実装した。
+独立した[契約](../experiment-contracts/LUANTI_L15A_tie_break_contract.md)・[Evidence](../experiment-evidence/LUANTI_L15A_tie_break_evidence.md)を実装範囲の正本とする。
 
 | 範囲 | 照合時点の状態 |
 | --- | --- |
 | 有限5方向の地形計算・探索接続v1 | 実装・有限な受入完了 |
 | 短期方向維持・実旋回後の一歩・旋回打切り | `f63d6a7` の独立mode。[契約](../experiment-contracts/LUANTI_L15A_steering_contract.md)・[Evidence](../experiment-evidence/LUANTI_L15A_steering_evidence.md)。一般的な自然歩行の完成ではない |
 | 固定左右バイアス単独 | `20ed7d2` で実装。[契約](../experiment-contracts/LUANTI_L15A_lateral_bias_contract.md)・[Evidence](../experiment-evidence/LUANTI_L15A_lateral_bias_evidence.md)。方向維持との合成は未実装 |
-| tie-break perturbation、拮抗診断の追加、三者の合成 | DESIGN ONLY |
+| tie-break perturbation単独 | 有効な近同点のみ、最大3判断・750ms。実Luanti5runの有限受入完了。主比較で移動改善なし |
+| conflict_magnitude等の追加診断、三者の合成 | DESIGN ONLY |
 | 11.5〜11.9の停止・関心・目的の扱い、身体状態・未知・社会・M_Bの地形投影・集団観測 | DESIGN ONLY |
 | 11.10〜11.13の反復反応・減衰差・渦からの切替 | DESIGN ONLY。既存L14Bの感度0や連続確認の規則は変更しない |
 
-今回の変更は文書のみ。コード・schema・係数・観測周期・判断周期・身体操作・既存の目的優先順位は変更しない。
+`09dc011` / `122e4f4` の対話追記は文書のみだった。後続のξ_tieは別modeとして選択へ作用するが、
+観測・判断周期、身体controller、既存の目的優先順位は変えない。
 「考える時間」は対話で設計を検討する時間を指す。NPCに固定の待ち時間を追加する合意ではない。
 後半のPhase・次作業指示は後続候補として保持し、今回一括実装する指示とは扱わない。
 停止条件、興味の形成、目的の保持・再参照、数値予算や期限は、後続の実装契約で固定する。
