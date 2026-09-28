@@ -7,10 +7,11 @@ from runtime.multi_resource_exploration import MultiResourceExploration, AGENTS
 from .check_resource_exploration import check_rays, xyz
 
 
-def check(data):
+def check(data, loop_type=MultiResourceExploration):
     w,s=data["world"],data["runtime"]["exploration"]
     assert not w.get("failure"),w.get("failure")
-    loop=MultiResourceExploration(w["run_id"],s["periods"],s["seed"],s["assignment"])
+    assert s["schema"] == loop_type.schema
+    loop=loop_type(w["run_id"],s["periods"],s["seed"],s["assignment"])
     for d in w["deliveries"]:
         assert getattr(loop,d["kind"])(d["request"])==json.loads(d["response_wire"])
     assert loop.snapshot()==s,"wire replay differs"

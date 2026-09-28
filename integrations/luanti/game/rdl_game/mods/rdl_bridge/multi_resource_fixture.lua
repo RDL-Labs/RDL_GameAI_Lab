@@ -6,6 +6,8 @@ return function(http,runtime_url)
     local resource=dofile(root .. "/resource_patches.lua");resource.register(natural,landmarks)
     local distant=dofile(root .. "/distant_sensor.lua")
     local controller=dofile(root .. "/exploration_controller.lua")
+    local terrain_enabled=core.settings:get_bool("rdl_movement_terrain",false)
+    local surface=terrain_enabled and dofile(root .. "/movement_surface.lua") or nil
     local run=assert(core.settings:get("rdl_learning_run_id"))
     local periods=assert(tonumber(core.settings:get("rdl_resource_periods")))
     local assignment=core.settings:get("rdl_resource_assignment") or "mixed"
@@ -24,8 +26,10 @@ return function(http,runtime_url)
     local agents,patches,targets={},{},{}
     local evidence={run_id=run,scenario=scenario,assignment=assignment,period_count=periods,
         control=control,faults=faults,agents={},deliveries={},stock_events={},periods={},guards={}}
+    if surface then evidence.surface_checks=dofile(root .. "/movement_surface_checks.lua")(surface) end
     local function encode(x)
-        return (core.write_json(x):gsub('"visible":null','"visible":[]'):gsub('"features":null','"features":[]'))
+        return (core.write_json(x):gsub('"visible":null','"visible":[]'):gsub('"features":null','"features":[]')
+            :gsub('"items":null','"items":[]'):gsub('"__l15a_missing_height__"','null'))
     end
     local function save(failure)
         evidence.failure=failure;evidence.finished_us=sim
@@ -87,6 +91,7 @@ return function(http,runtime_url)
             {x=-4,y=natural.height(-4,-2)+1,z=-2},{x=x,y=natural.height(x,2)+1,z=2})
         a.config=context(a,{schema="l14b-multi-resource-predictability-v1",clock_id="world-sim-v1",
             teaching=teaching,selection_profile=trait})
+        if terrain_enabled then a.config.schema="l15a-terrain-resource-exploration-v1" end
         a.e.config=table.copy(a.config)
         a.ctl=controller.new(run,{agent_id=id,body=a.body,execute=execute,natural=true,landmarks=true,resources=true,
             capacity=capacity,limit_us=limit,period_us=16000000,taught_appearance=teaching.appearance})
@@ -109,8 +114,11 @@ return function(http,runtime_url)
                 capture_window={kind="instant",start_us=sim,end_us=sim},status="SAMPLED",
                 coverage=partial and "PARTIAL" or "COMPLETE_WITHIN_PLAN",output_limited=limited,payload={features=features}}})
         local rays;p.landmarks,rays=landmarks.sample(b.position,b.yaw,core.get_node_or_nil)
+        local surface_audit
+        if surface then p.movement_surface,surface_audit=surface.sample(p,b.position,b.yaw,core.get_node_or_nil) end
         a.e.observations[#a.e.observations+1]={packet=table.copy(p),body=b,daytime=core.get_timeofday(),
-            food_visibility=visibility,landmark_rays=rays,stock_event_count=#evidence.stock_events}
+            food_visibility=visibility,landmark_rays=rays,movement_surface_audit=surface_audit,
+            stock_event_count=#evidence.stock_events}
         enqueue(a,"observe",p)
     end
     local function receive(a)

@@ -151,7 +151,9 @@ same-history profile comparisons. This is not recurring learning, general boredo
 Five directional heights compose normalized visible-Food attraction, bounded point-obstacle near-field costs and observed ground costs.
 Incomplete acquisition remains nonnumeric and symmetric minima remain tied. It creates no action, World adapter, history or canonical update.
 [Evidence](../docs/experiment-evidence/LUANTI_L15A_subjective_movement_terrain_evidence.md) uses synthetic inputs and existing replay regressions;
-World approach/avoidance and later M_B/body/profile coupling remain **DESIGN ONLY**, pending a separate Phase 1 review.
+[The opt-in exploration connection](../docs/experiment-contracts/LUANTI_L15A_exploration_connection_contract.md) now routes visible-Food locomotion through this calculator into the existing L14B command/controller.
+Three short Luanti runs preserve sensor/body provenance, replay authority and harvesting/learning; turn oscillation remains and efficiency improvement is not established.
+General avoidance and later M_B/body/profile weighting remain **DESIGN ONLY**. [Connection evidence](../docs/experiment-evidence/LUANTI_L15A_exploration_connection_evidence.md).
 [The v0.2 extension plan](../docs/design/RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.2.md) reserves separately sourced body-condition, unknown-value, social, learned-prediction and broad-value contributions.
 These are design reservations, not implemented fields or observed zero values; the existing three-component calculator remains unchanged.
 The independent L13W path still resets each day, stops after three discovery days and permits only one candidate/inspection/adoption.

@@ -8,6 +8,9 @@
 
 ---
 
+後続の[現行探索への接続](../experiment-contracts/LUANTI_L15A_exploration_connection_contract.md)は別契約で実装した。
+以下の追加時点の記録と区別し、身体状態・未知・社会関係等の予約要因は引き続きDESIGN ONLYとする。
+
 ## リポジトリへの追加時点（2026-09-28）
 
 本書はユーザー提供の拡張計画v0.2。身体条件・未知・社会relation・学習済み予測・広域価値の扱いを、

@@ -127,13 +127,16 @@ class PredictableResourceAgent(ResourceExploration):
 
 
 class MultiResourceExploration:
+    schema = SCHEMA
+    agent_type = PredictableResourceAgent
+
     def __init__(self, run_id, periods=30, seed=20260928, assignment="mixed"):
         require(assignment in ("mixed", "swapped", "steady"), "assignment")
         profiles = ("steady", "curious", "restless") if assignment == "mixed" else (
             ("restless", "curious", "steady") if assignment == "swapped" else ("steady",)*3)
         self.run_id, self.periods, self.seed, self.assignment = run_id, periods, seed, assignment
         self.lock = RLock()
-        self.agents = {a:PredictableResourceAgent(run_id, a, t, periods, seed) for a,t in zip(AGENTS, profiles)}
+        self.agents = {a:self.agent_type(run_id, a, t, periods, seed) for a,t in zip(AGENTS, profiles)}
 
     def dispatch(self, name, value):
         with self.lock:
@@ -150,7 +153,7 @@ class MultiResourceExploration:
                         and frame["frame_id"].startswith(prefix), "cross_agent_frame")
             if name == "configure":
                 fields(value, "schema run_id world_epoch agent_id clock_id teaching selection_profile")
-                require(value["schema"] == SCHEMA and value["selection_profile"] == a.profile, "configuration")
+                require(value["schema"] == self.schema and value["selection_profile"] == a.profile, "configuration")
                 v = {k:deepcopy(v) for k,v in value.items() if k != "selection_profile"}
                 v["schema"] = RESOURCE_SCHEMA
                 return a.configure(v)
@@ -163,5 +166,5 @@ class MultiResourceExploration:
 
     def snapshot(self):
         with self.lock:
-            return dict(schema=SCHEMA, run_id=self.run_id, periods=self.periods, seed=self.seed,
+            return dict(schema=self.schema, run_id=self.run_id, periods=self.periods, seed=self.seed,
                 assignment=self.assignment, agents={a:v.snapshot() for a,v in self.agents.items()})

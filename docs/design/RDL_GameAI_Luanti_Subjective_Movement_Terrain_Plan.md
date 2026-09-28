@@ -1,6 +1,6 @@
 # L15A案 — 主観的移動地形システム 実装計画
 
-**状態:** Phase 1 IMPLEMENTED / ACCEPTANCE COMPLETE、Phase 2〜5 DESIGN ONLY
+**状態:** Phase 1 ACCEPTANCE COMPLETE、現行探索への有限接続IMPLEMENTED、一般的な回避・後続拡張はDESIGN ONLY
 **提案時基準:** `RDL-Labs/RDL_GameAI_Lab@faf1fc42`
 **Phase 1実装基準:** `52b09d5c`（L14B探索seed比較後）
 **依存:** L13U/L13V/L13S、L14A/L14B の有限観測・相対身体操作・個体別権限
@@ -19,6 +19,10 @@
 [拡張計画v0.2](RDL_GameAI_Luanti_Subjective_Movement_Terrain_Extension_Plan_v0.2.md)を追加した。
 身体条件・未知・社会relation・学習済み予測・広域価値を、出典別の寄与として扱う後続設計をまとめる。
 現行Phase 1の3成分と停止点は維持し、予約要因のフィールドや0値を実装済み出力へ追加しない。
+
+後続の[探索接続契約](../experiment-contracts/LUANTI_L15A_exploration_connection_contract.md)で、Foodへの接近に限って既存L14Bへ接続した。
+[接続Evidence](../experiment-evidence/LUANTI_L15A_exploration_connection_evidence.md)は接続の成立と旋回振動・効率の課題を分けている。
+以下の全Phaseを完了したという意味ではない。
 
 ## 0. 目的
 

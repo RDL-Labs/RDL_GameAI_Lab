@@ -15,9 +15,12 @@ from runtime.multi_resource_http import MultiResourceHandler
 from .run_exploration_series import ROOT, OUTPUT, write
 
 
-def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928):
+def run(scenario, periods, assignment, luanti_root, control=False, faults=False, seed=20260928, terrain=False):
     run_id="l14b-"+uuid4().hex[:16]
-    loop=MultiResourceExploration(run_id, periods, seed=seed, assignment=assignment)
+    if terrain:
+        from runtime.terrain_resource_exploration import TerrainResourceExploration
+    loop_type=TerrainResourceExploration if terrain else MultiResourceExploration
+    loop=loop_type(run_id, periods, seed=seed, assignment=assignment)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     server.series=SimpleNamespace(loop=loop,lock=RLock())
     worker=Thread(target=server.serve_forever,daemon=True);worker.start()
@@ -30,12 +33,16 @@ def run(scenario, periods, assignment, luanti_root, control=False, faults=False,
             "-ResourceAssignment",assignment]
         if control:command.append("-ResourceControl")
         if faults:command.append("-ResourceFaults")
+        if terrain:command.append("-MovementTerrain")
         with log.open("wb") as stream:
             result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=periods*16+80)
         if result.returncode:raise RuntimeError(f"World failed: {log}")
         path=OUTPUT/(run_id+".snapshot.json");raw=path.read_bytes();data=json.loads(raw.decode("utf-8-sig"))
         assert data["runtime"]["exploration"]==loop.snapshot()
-        from .check_multi_resource import check
+        if terrain:
+            from .check_terrain_resource import check
+        else:
+            from .check_multi_resource import check
         summary=check(data)
         print("L14B PASS "+json.dumps(summary),flush=True)
         return dict(data=data,summary=summary,source=dict(file=path.name,sha256=hashlib.sha256(raw).hexdigest()))

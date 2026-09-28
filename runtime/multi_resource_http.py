@@ -8,7 +8,7 @@ class MultiResourceHandler(LearnedExplorationHandler):
         s = self.server.series
         with s.lock:
             if self.path == "/health":
-                return self.send(200, dict(ok=True, schema=SCHEMA, run_id=s.loop.run_id, periods=s.loop.periods))
+                return self.send(200, dict(ok=True, schema=s.loop.schema, run_id=s.loop.run_id, periods=s.loop.periods))
             if self.path == "/v1/exploration-snapshot":
                 return self.send(200, dict(exploration=s.loop.snapshot(), history={}))
         self.send(404, dict(error="unknown_endpoint"))
