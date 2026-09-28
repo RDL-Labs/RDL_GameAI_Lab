@@ -11,7 +11,7 @@ def computed_float_path(path):
     """Only derived diagnostics, never acquired evidence or control decisions."""
     parts=path.split('/')
     if parts[0]=='$history':
-        return 'local_motion' in parts
+        return 'local_motion' in parts or 'world_audit' in parts
     if len(parts)<7 or parts[1]!='agents' or parts[3]!='decisions':
         return False
     tail=parts[5:]

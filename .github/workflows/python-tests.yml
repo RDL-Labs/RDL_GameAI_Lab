@@ -14,7 +14,15 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check portable World replay first
-        run: python -m unittest discover -s tests -p test_rest_obstacle.py -v
+        env:
+          PYTHONPATH: tests
+        run: |
+          python -m unittest -v \
+            test_replay_portability test_goal_reassessment \
+            test_movement_history_diagnostic test_movement_rest \
+            test_repetition_shadow test_rest_obstacle test_rest_reactivation \
+            test_terrain_lateral_bias test_terrain_resource_exploration \
+            test_terrain_steering test_terrain_tie_break
       - name: Run runtime and v2.3 acquisition tests
         run: python -m unittest discover -s tests -v
 

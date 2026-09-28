@@ -17,6 +17,7 @@ from runtime.terrain_resource_exploration import TerrainResourceExploration
 from runtime.terrain_steering import SteeredResourceExploration
 from runtime.terrain_tie_break import TieBreakResourceExploration
 from .run_exploration_series import ROOT, write
+from .check_multi_resource import first_difference
 
 from runtime.movement_recurrence import (
     WINDOW_OPERATIONS, WINDOW_US, RETURN_DISTANCE, RETURN_YAW, SCHEMA, wrap, view_key, diagnose_window,
@@ -42,7 +43,8 @@ def analyze(data, diagnostic=diagnose_window):
         if fresh:
             records[-1]["decision"]=agent.decisions[p["observation_id"]]
             windows[p["agent_id"]].append(diagnostic(records))
-    assert loop.snapshot()==state,"diagnostic replay changed the accepted state"
+    difference=first_difference(loop.snapshot(),state)
+    assert difference is None, "diagnostic replay changed the accepted state: "+str(difference)
     # Independent observer comparison after every agent diagnostic is frozen.
     for aid,rows in windows.items():
         bodies={r["packet"]["observation_id"]:r["body"] for r in data["world"]["agents"][aid]["observations"]}

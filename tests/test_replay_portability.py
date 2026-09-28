@@ -43,5 +43,9 @@ class ReplayPortabilityTests(unittest.TestCase):
         self.assertIsNotNone(first_difference([1],[1,2]))
         self.assertIn('$/a/0',first_difference({'a':[1]},{'a':[2]}))
 
+    def test_offline_world_projection_is_numeric_but_status_is_exact(self):
+        self.assertIsNone(first_difference(1.,math.nextafter(1.,2.),'$history/0/windows/npc_a/0/world_audit/right'))
+        self.assertIsNotNone(first_difference('unknown','translated','$history/0/windows/npc_a/0/status'))
+
 
 if __name__=='__main__':unittest.main()
