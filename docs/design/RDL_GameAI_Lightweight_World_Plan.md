@@ -1,6 +1,6 @@
 # 軽量Worldと探索Runtime接続計画
 
-状態: LW-0/1 FINITE IMPLEMENTED、LW-2以降未実装
+状態: LW-0/1 FINITE IMPLEMENTED、LW-2 READ-ONLY REPLAY IMPLEMENTED、LW-3以降未実施
 基準: `ae0f1ae`（2026-09-29）
 
 ## 目的
@@ -28,7 +28,7 @@ Luantiの長期安定運転を当面の主課題から外し、本人の経験�
 | --- | --- | --- | --- |
 | LW-0 | packet/result対応表、仮想時計・身体・センサーの契約 | 必須入力、単位、ID、座標系、観測上限、既存schemaとの対応を固定 | COMPLETE（LW-1契約参照） |
 | LW-1 | Python 2D Worldと直接Runtime adapter | move/turn/wait/pickupと実結果、遮蔽、枯渇、3個体の独立性。まず1日、次に3日 | FINITE COMPLETE |
-| LW-2 | 増分ログとp5再生 | 個体視点と全景の分離、時刻・操作IDの追跡、停止/再生/速度変更 | PLANNED |
+| LW-2 | 増分ログとp5再生 | 個体視点と全景の分離、時刻・操作IDの追跡、停止/再生/速度変更 | IMPLEMENTED（Canvas） |
 | LW-3 | 有限な複数日比較 | 同じWorld seedでmodel field disabled/enabled、最大30日・3資源持帰りで停止 | PLANNED |
 | LW-4 | 目標に紐づく残存Hの独立契約と接続 | 未達の差、未解消分、減衰、閾値、方法再検査を追跡。方法変更と目標達成を分離 | DESIGN CANDIDATE |
 | LW-5 | Luantiへの節目確認 | 観測・作用の境界が維持されるか。軌跡一致や性能同等は要求しない | PLANNED |

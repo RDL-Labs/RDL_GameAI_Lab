@@ -645,3 +645,9 @@ Luanti長期負荷対策は保留し、節目の契約確認に残す。
 Pythonの有限2D Worldから既存ReturnCampaignへ直接接続。3個体・3日、各768観測を約2.37秒で実行。採取・持帰り・モデル形成は0件。
 [契約](/docs/experiment-contracts/LW_1_planar_world.md) / [Evidence](/docs/experiment-evidence/LW_1_planar_world_evidence.md)。
 p5再生は次工程、目標H・canonical Sleep接続は未実装。Luantiと同一物理・同一センサーとは扱わない。
+
+
+### LW-2 記録再生
+
+既存p5ワークベンチ配下にCanvas読取専用ビューを追加。全景／個体取得情報、時刻指定、速度変更、JSONL/gzip読込みに対応。
+[検証記録](/docs/experiment-evidence/LW_2_replay_evidence.md)。Runtime・World判断は変更なし。

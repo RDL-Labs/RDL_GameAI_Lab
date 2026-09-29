@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),zlib=require('node:zlib');
+const api=require('../gui-p5/lightweight/replay.js');
+const text=zlib.gunzipSync(fs.readFileSync('tests/fixtures/lightweight_world_three_days.jsonl.gz')).toString();
+const data=api.parse(text);assert.equal(data.groups.length,768);assert.equal(data.complete,true);
+const before=JSON.stringify(data);for(const i of [0,300,767]){api.worldView(data,i);const a=api.agentView(data,i,'npc_a');assert.equal(a.body,undefined);assert.equal(a.objects,undefined);assert.equal(a.packet.agent_id,'npc_a');}assert.equal(JSON.stringify(data),before);
+const lines=text.trim().split('\n');assert.equal(api.parse(lines.slice(0,-1).join('\n')).complete,false);
+assert.equal(api.parse(lines.slice(0,-1).join('\n')+'\n{"broken":').complete,false);
+assert.throws(()=>api.parse(lines.slice(0,5).join('\n')+'\nBAD\n'+lines[6]));
+assert.throws(()=>api.parse('{}'));
+console.log('LW replay: 11 assertions PASS');
