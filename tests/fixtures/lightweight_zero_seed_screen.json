@@ -1,0 +1,4329 @@
+{
+  "runs": [
+    {
+      "path": "integrations/lightweight/output/zero_search_20261001_10d.jsonl",
+      "sha256": "779b4d0e79a5cb26c0677cd794b715a74cfe13f7972001de557c583623667f5c",
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 10,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -24.360453461995107,
+            "z": -1.9185691020655793,
+            "radius": 1.0761603729473708,
+            "height": 8.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -16.4375524610027,
+            "z": 17.316017342306075,
+            "radius": 1.1082443892636569,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -7.1696510123807204,
+            "z": 23.368815959014054,
+            "radius": 1.0534211488518515,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 21.62717326762599,
+            "z": 19.711321647514804,
+            "radius": 0.6488202909889865,
+            "height": 5.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": -17.418580846839635,
+            "z": 9.821597942813405,
+            "radius": 1.4979076028121576,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -22.284293089047736,
+            "z": -1.9185691020655793,
+            "stock": 12
+          },
+          {
+            "x": -21.593575395828893,
+            "z": 28.874898277911942,
+            "stock": 12
+          },
+          {
+            "x": 17.951357711574694,
+            "z": -1.0075870779846043,
+            "stock": 12
+          },
+          {
+            "x": -14.329308071739042,
+            "z": 17.316017342306075,
+            "stock": 12
+          },
+          {
+            "x": 36.49854549184699,
+            "z": -14.953174371309071,
+            "stock": 12
+          },
+          {
+            "x": 30.557129416408014,
+            "z": -23.93255387490489,
+            "stock": 12
+          },
+          {
+            "x": -5.1162298635288685,
+            "z": 23.368815959014054,
+            "stock": 12
+          },
+          {
+            "x": -7.678398154483791,
+            "z": 29.60834178097203,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20261001
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 7680,
+        "ended_us": 640000000,
+        "pickups": 48,
+        "returns": [
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:42",
+              "op:lw-work:npc_b:obs:45",
+              "op:lw-work:npc_b:obs:48",
+              "op:lw-work:npc_b:obs:51",
+              "op:lw-work:npc_b:obs:54",
+              "op:lw-work:npc_b:obs:57",
+              "op:lw-work:npc_b:obs:60",
+              "op:lw-work:npc_b:obs:63",
+              "op:lw-work:npc_b:obs:66",
+              "op:lw-work:npc_b:obs:69",
+              "op:lw-work:npc_b:obs:72",
+              "op:lw-work:npc_b:obs:75"
+            ],
+            "executed_us": 38750001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:33",
+              "op:lw-work:npc_a:obs:36",
+              "op:lw-work:npc_a:obs:39",
+              "op:lw-work:npc_a:obs:42",
+              "op:lw-work:npc_a:obs:45",
+              "op:lw-work:npc_a:obs:48",
+              "op:lw-work:npc_a:obs:51",
+              "op:lw-work:npc_a:obs:54",
+              "op:lw-work:npc_a:obs:57",
+              "op:lw-work:npc_a:obs:60",
+              "op:lw-work:npc_a:obs:63",
+              "op:lw-work:npc_a:obs:66"
+            ],
+            "executed_us": 39000001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_c:obs:55",
+              "op:lw-work:npc_c:obs:58",
+              "op:lw-work:npc_c:obs:61",
+              "op:lw-work:npc_c:obs:64",
+              "op:lw-work:npc_c:obs:67",
+              "op:lw-work:npc_c:obs:70",
+              "op:lw-work:npc_c:obs:73",
+              "op:lw-work:npc_c:obs:76",
+              "op:lw-work:npc_c:obs:79",
+              "op:lw-work:npc_c:obs:82",
+              "op:lw-work:npc_c:obs:85",
+              "op:lw-work:npc_c:obs:88"
+            ],
+            "executed_us": 42750001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_c:obs:299",
+              "op:lw-work:npc_c:obs:302",
+              "op:lw-work:npc_c:obs:305",
+              "op:lw-work:npc_c:obs:308",
+              "op:lw-work:npc_c:obs:311",
+              "op:lw-work:npc_c:obs:314",
+              "op:lw-work:npc_c:obs:317",
+              "op:lw-work:npc_c:obs:320",
+              "op:lw-work:npc_c:obs:323",
+              "op:lw-work:npc_c:obs:326",
+              "op:lw-work:npc_c:obs:329",
+              "op:lw-work:npc_c:obs:332"
+            ],
+            "executed_us": 101250001
+          }
+        ],
+        "elapsed_seconds": 23.251131400000304,
+        "stock": [
+          0,
+          12,
+          12,
+          0,
+          12,
+          12,
+          0,
+          0
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 2536,
+            "carried": 0,
+            "unloaded": 12,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 2536,
+            "carried": 0,
+            "unloaded": 12,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_c": {
+            "observations": 2512,
+            "carried": 0,
+            "unloaded": 24,
+            "records": 24,
+            "model_ref": "gameai-reconstructed-mb:00249a1e0a6f7199:v1"
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "pickups": 12,
+          "movement": 495,
+          "turns": 380,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_ambiguous": 24,
+            "acquisition_incomplete": 161,
+            "return_approach_blocked": 40,
+            "return_unload_attempt": 9,
+            "return_delivery_confirmed": 67,
+            "day_night": 320,
+            "landmark_operation_budget": 3,
+            "neighborhood_completed_no_food": 11,
+            "landmark_no_candidate_after_scan": 101,
+            "landmark_goal_budget": 130,
+            "return_home_like_observed": 711,
+            "landmark_lost": 10,
+            "neighborhood_return_not_confirmed": 1,
+            "neighborhood_operation_not_executed": 1,
+            "return_approach_budget": 20
+          },
+          "days": {
+            "1": {
+              "movement": 48,
+              "pickups": 12,
+              "new_2m_cells": 22,
+              "visited_2m_cells": 22
+            },
+            "2": {
+              "movement": 62,
+              "pickups": 0,
+              "new_2m_cells": 22,
+              "visited_2m_cells": 26
+            },
+            "3": {
+              "movement": 76,
+              "pickups": 0,
+              "new_2m_cells": 26,
+              "visited_2m_cells": 34
+            },
+            "4": {
+              "movement": 70,
+              "pickups": 0,
+              "new_2m_cells": 12,
+              "visited_2m_cells": 31
+            },
+            "5": {
+              "movement": 67,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 24
+            },
+            "6": {
+              "movement": 11,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 5
+            },
+            "7": {
+              "movement": 51,
+              "pickups": 0,
+              "new_2m_cells": 7,
+              "visited_2m_cells": 24
+            },
+            "8": {
+              "movement": 51,
+              "pickups": 0,
+              "new_2m_cells": 5,
+              "visited_2m_cells": 19
+            },
+            "9": {
+              "movement": 11,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 4
+            },
+            "10": {
+              "movement": 48,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 23
+            }
+          },
+          "visited_2m_cells": 98,
+          "max_nontranslation_completions": 225,
+          "zero_translation_days": [],
+          "delivered": 12
+        },
+        "npc_b": {
+          "pickups": 12,
+          "movement": 472,
+          "turns": 343,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_ambiguous": 28,
+            "acquisition_incomplete": 199,
+            "landmark_lost": 28,
+            "landmark_goal_budget": 258,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 68,
+            "day_night": 320,
+            "landmark_operation_budget": 2,
+            "neighborhood_completed_no_food": 9,
+            "landmark_no_candidate_after_scan": 58,
+            "return_home_like_observed": 687,
+            "return_approach_blocked": 2
+          },
+          "days": {
+            "1": {
+              "movement": 56,
+              "pickups": 12,
+              "new_2m_cells": 27,
+              "visited_2m_cells": 27
+            },
+            "2": {
+              "movement": 54,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 22
+            },
+            "3": {
+              "movement": 53,
+              "pickups": 0,
+              "new_2m_cells": 8,
+              "visited_2m_cells": 21
+            },
+            "4": {
+              "movement": 63,
+              "pickups": 0,
+              "new_2m_cells": 27,
+              "visited_2m_cells": 30
+            },
+            "5": {
+              "movement": 63,
+              "pickups": 0,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 19
+            },
+            "6": {
+              "movement": 53,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 16
+            },
+            "7": {
+              "movement": 47,
+              "pickups": 0,
+              "new_2m_cells": 7,
+              "visited_2m_cells": 19
+            },
+            "8": {
+              "movement": 7,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 3
+            },
+            "9": {
+              "movement": 54,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 24
+            },
+            "10": {
+              "movement": 22,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 10
+            }
+          },
+          "visited_2m_cells": 92,
+          "max_nontranslation_completions": 214,
+          "zero_translation_days": [],
+          "delivered": 12
+        },
+        "npc_c": {
+          "pickups": 24,
+          "movement": 600,
+          "turns": 443,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_ambiguous": 29,
+            "acquisition_incomplete": 117,
+            "landmark_no_candidate_after_scan": 40,
+            "return_search_acquisition_incomplete": 2,
+            "return_approach_blocked": 10,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 126,
+            "day_night": 320,
+            "landmark_lost": 15,
+            "landmark_operation_budget": 3,
+            "neighborhood_completed_no_food": 13,
+            "return_home_like_observed": 526,
+            "neighborhood_operation_not_executed": 2,
+            "landmark_goal_budget": 192
+          },
+          "days": {
+            "1": {
+              "movement": 69,
+              "pickups": 12,
+              "new_2m_cells": 32,
+              "visited_2m_cells": 32
+            },
+            "2": {
+              "movement": 40,
+              "pickups": 12,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 20
+            },
+            "3": {
+              "movement": 85,
+              "pickups": 0,
+              "new_2m_cells": 29,
+              "visited_2m_cells": 34
+            },
+            "4": {
+              "movement": 53,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 26
+            },
+            "5": {
+              "movement": 73,
+              "pickups": 0,
+              "new_2m_cells": 17,
+              "visited_2m_cells": 25
+            },
+            "6": {
+              "movement": 43,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 20
+            },
+            "7": {
+              "movement": 59,
+              "pickups": 0,
+              "new_2m_cells": 16,
+              "visited_2m_cells": 27
+            },
+            "8": {
+              "movement": 77,
+              "pickups": 0,
+              "new_2m_cells": 7,
+              "visited_2m_cells": 29
+            },
+            "9": {
+              "movement": 54,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 22
+            },
+            "10": {
+              "movement": 47,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 17
+            }
+          },
+          "visited_2m_cells": 129,
+          "max_nontranslation_completions": 125,
+          "zero_translation_days": [],
+          "delivered": 24
+        }
+      }
+    },
+    {
+      "path": "integrations/lightweight/output/zero_search_20261002_10d.jsonl",
+      "sha256": "758b87fbf5c28330e16516475b9f7bb36d6e561cdf2887710cd76291e53ce605",
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 10,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -15.345435100042694,
+            "z": -9.605992895346922,
+            "radius": 1.423519328141192,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 23.645064231131645,
+            "z": -24.098077660033468,
+            "radius": 1.2486153795367687,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -11.435502562860727,
+            "z": -34.19608463233221,
+            "radius": 1.160806000297407,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 39.43393955974148,
+            "z": -14.83767792594785,
+            "radius": 0.8043263072271727,
+            "height": 5.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 16.90294859377259,
+            "z": -9.438763655797644,
+            "radius": 1.4266604570998658,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -12.921915771901503,
+            "z": -9.605992895346922,
+            "stock": 12
+          },
+          {
+            "x": 40.64430578491719,
+            "z": 12.397645497749828,
+            "stock": 12
+          },
+          {
+            "x": -28.975129565916355,
+            "z": 4.375305073935012,
+            "stock": 12
+          },
+          {
+            "x": 25.893679610668414,
+            "z": -24.098077660033468,
+            "stock": 12
+          },
+          {
+            "x": 4.732690248739588,
+            "z": 28.697297006045343,
+            "stock": 12
+          },
+          {
+            "x": -23.589246888695275,
+            "z": -30.79676158840818,
+            "stock": 12
+          },
+          {
+            "x": -9.274696562563319,
+            "z": -34.19608463233221,
+            "stock": 12
+          },
+          {
+            "x": 29.308914638459473,
+            "z": -7.431567914483614,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20261002
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 7680,
+        "ended_us": 640000000,
+        "pickups": 48,
+        "returns": [
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:28",
+              "op:lw-work:npc_a:obs:31",
+              "op:lw-work:npc_a:obs:34",
+              "op:lw-work:npc_a:obs:37",
+              "op:lw-work:npc_a:obs:40",
+              "op:lw-work:npc_a:obs:43"
+            ],
+            "executed_us": 36500001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:28",
+              "op:lw-work:npc_b:obs:31",
+              "op:lw-work:npc_b:obs:34",
+              "op:lw-work:npc_b:obs:37",
+              "op:lw-work:npc_b:obs:40",
+              "op:lw-work:npc_b:obs:43",
+              "op:lw-work:npc_b:obs:88",
+              "op:lw-work:npc_b:obs:91",
+              "op:lw-work:npc_b:obs:94",
+              "op:lw-work:npc_b:obs:97",
+              "op:lw-work:npc_b:obs:100",
+              "op:lw-work:npc_b:obs:103",
+              "op:lw-work:npc_b:obs:106",
+              "op:lw-work:npc_b:obs:109",
+              "op:lw-work:npc_b:obs:112",
+              "op:lw-work:npc_b:obs:115",
+              "op:lw-work:npc_b:obs:118",
+              "op:lw-work:npc_b:obs:121"
+            ],
+            "executed_us": 43500001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:303",
+              "op:lw-work:npc_a:obs:306",
+              "op:lw-work:npc_a:obs:309",
+              "op:lw-work:npc_a:obs:312",
+              "op:lw-work:npc_a:obs:315",
+              "op:lw-work:npc_a:obs:318",
+              "op:lw-work:npc_a:obs:321",
+              "op:lw-work:npc_a:obs:324",
+              "op:lw-work:npc_a:obs:327",
+              "op:lw-work:npc_a:obs:330",
+              "op:lw-work:npc_a:obs:333"
+            ],
+            "executed_us": 105750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_b:obs:320",
+              "op:lw-work:npc_b:obs:323",
+              "op:lw-work:npc_b:obs:326",
+              "op:lw-work:npc_b:obs:329",
+              "op:lw-work:npc_b:obs:332",
+              "op:lw-work:npc_b:obs:335",
+              "op:lw-work:npc_b:obs:338",
+              "op:lw-work:npc_b:obs:341",
+              "op:lw-work:npc_b:obs:344",
+              "op:lw-work:npc_b:obs:347",
+              "op:lw-work:npc_b:obs:350",
+              "op:lw-work:npc_b:obs:353"
+            ],
+            "executed_us": 107250001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 6,
+            "pickups": [
+              "op:lw-work:npc_b:obs:1399"
+            ],
+            "executed_us": 360500001
+          }
+        ],
+        "elapsed_seconds": 21.836045500007458,
+        "stock": [
+          0,
+          12,
+          12,
+          12,
+          12,
+          0,
+          0,
+          0
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 2526,
+            "carried": 0,
+            "unloaded": 17,
+            "records": 11,
+            "model_ref": "gameai-reconstructed-mb:7205132e6b2149d4:v1"
+          },
+          "npc_b": {
+            "observations": 2498,
+            "carried": 0,
+            "unloaded": 31,
+            "records": 19,
+            "model_ref": "gameai-reconstructed-mb:63d7ca0f8a770bc6:v1"
+          },
+          "npc_c": {
+            "observations": 2560,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "pickups": 17,
+          "movement": 593,
+          "turns": 268,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_ambiguous": 39,
+            "acquisition_incomplete": 82,
+            "landmark_lost": 18,
+            "landmark_goal_budget": 437,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 133,
+            "day_night": 320,
+            "landmark_operation_budget": 2,
+            "return_home_like_observed": 562,
+            "neighborhood_completed_no_food": 4,
+            "neighborhood_operation_not_executed": 1
+          },
+          "days": {
+            "1": {
+              "movement": 38,
+              "pickups": 6,
+              "new_2m_cells": 17,
+              "visited_2m_cells": 17
+            },
+            "2": {
+              "movement": 79,
+              "pickups": 11,
+              "new_2m_cells": 34,
+              "visited_2m_cells": 35
+            },
+            "3": {
+              "movement": 25,
+              "pickups": 0,
+              "new_2m_cells": 5,
+              "visited_2m_cells": 9
+            },
+            "4": {
+              "movement": 23,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 9
+            },
+            "5": {
+              "movement": 49,
+              "pickups": 0,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 16
+            },
+            "6": {
+              "movement": 125,
+              "pickups": 0,
+              "new_2m_cells": 44,
+              "visited_2m_cells": 56
+            },
+            "7": {
+              "movement": 53,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 18
+            },
+            "8": {
+              "movement": 65,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 30
+            },
+            "9": {
+              "movement": 35,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 12
+            },
+            "10": {
+              "movement": 101,
+              "pickups": 0,
+              "new_2m_cells": 24,
+              "visited_2m_cells": 42
+            }
+          },
+          "visited_2m_cells": 146,
+          "max_nontranslation_completions": 124,
+          "zero_translation_days": [],
+          "delivered": 17
+        },
+        "npc_b": {
+          "pickups": 31,
+          "movement": 814,
+          "turns": 288,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_operation_budget": 12,
+            "acquisition_incomplete": 16,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 160,
+            "day_night": 320,
+            "landmark_lost": 9,
+            "landmark_ambiguous": 33,
+            "landmark_goal_budget": 254,
+            "landmark_no_candidate_after_scan": 13,
+            "return_home_like_observed": 492,
+            "neighborhood_completed_no_food": 6
+          },
+          "days": {
+            "1": {
+              "movement": 98,
+              "pickups": 18,
+              "new_2m_cells": 51,
+              "visited_2m_cells": 51
+            },
+            "2": {
+              "movement": 94,
+              "pickups": 12,
+              "new_2m_cells": 44,
+              "visited_2m_cells": 53
+            },
+            "3": {
+              "movement": 57,
+              "pickups": 0,
+              "new_2m_cells": 17,
+              "visited_2m_cells": 28
+            },
+            "4": {
+              "movement": 57,
+              "pickups": 0,
+              "new_2m_cells": 8,
+              "visited_2m_cells": 29
+            },
+            "5": {
+              "movement": 88,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 31
+            },
+            "6": {
+              "movement": 115,
+              "pickups": 1,
+              "new_2m_cells": 53,
+              "visited_2m_cells": 62
+            },
+            "7": {
+              "movement": 94,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 43
+            },
+            "8": {
+              "movement": 85,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 36
+            },
+            "9": {
+              "movement": 106,
+              "pickups": 0,
+              "new_2m_cells": 21,
+              "visited_2m_cells": 49
+            },
+            "10": {
+              "movement": 20,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 11
+            }
+          },
+          "visited_2m_cells": 213,
+          "max_nontranslation_completions": 122,
+          "zero_translation_days": [],
+          "delivered": 31
+        },
+        "npc_c": {
+          "pickups": 0,
+          "movement": 552,
+          "turns": 266,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_ambiguous": 57,
+            "landmark_no_candidate_after_scan": 9,
+            "landmark_operation_budget": 1,
+            "landmark_goal_budget": 558,
+            "return_unload_attempt": 10,
+            "return_home_like_observed": 725,
+            "day_night": 320,
+            "acquisition_incomplete": 11,
+            "landmark_lost": 7,
+            "neighborhood_completed_no_food": 4
+          },
+          "days": {
+            "1": {
+              "movement": 61,
+              "pickups": 0,
+              "new_2m_cells": 29,
+              "visited_2m_cells": 29
+            },
+            "2": {
+              "movement": 30,
+              "pickups": 0,
+              "new_2m_cells": 5,
+              "visited_2m_cells": 11
+            },
+            "3": {
+              "movement": 62,
+              "pickups": 0,
+              "new_2m_cells": 20,
+              "visited_2m_cells": 31
+            },
+            "4": {
+              "movement": 51,
+              "pickups": 0,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 21
+            },
+            "5": {
+              "movement": 29,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 12
+            },
+            "6": {
+              "movement": 101,
+              "pickups": 0,
+              "new_2m_cells": 24,
+              "visited_2m_cells": 46
+            },
+            "7": {
+              "movement": 53,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 24
+            },
+            "8": {
+              "movement": 68,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 28
+            },
+            "9": {
+              "movement": 18,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 7
+            },
+            "10": {
+              "movement": 79,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 40
+            }
+          },
+          "visited_2m_cells": 112,
+          "max_nontranslation_completions": 133,
+          "zero_translation_days": [],
+          "delivered": 0
+        }
+      }
+    },
+    {
+      "path": "integrations/lightweight/output/zero_search_20261003_10d.jsonl",
+      "sha256": "045d4e180a011ca38b87cde479f334e41626e0dc3928cadbaf932c2efde5ee3d",
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 10,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.170317891789581,
+            "z": -40.094953618408624,
+            "radius": 0.9049545915635968,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 12.413288564408582,
+            "z": -12.597293362603972,
+            "radius": 1.157798540297686,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -6.542418066026161,
+            "z": -26.303186499330568,
+            "radius": 0.6284562317860444,
+            "height": 2.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": -18.2767648313911,
+            "z": -13.862908720977003,
+            "radius": 0.7782152964256779,
+            "height": 2.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 29.342332133770785,
+            "z": 21.752531312736416,
+            "radius": 1.2718612884785259,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.265363300225983,
+            "z": -40.094953618408624,
+            "stock": 12
+          },
+          {
+            "x": -14.653767544884849,
+            "z": 4.090123738626085,
+            "stock": 12
+          },
+          {
+            "x": -0.7183107159141999,
+            "z": -27.622396653272656,
+            "stock": 12
+          },
+          {
+            "x": 14.571087104706267,
+            "z": -12.597293362603972,
+            "stock": 12
+          },
+          {
+            "x": -35.94421157483683,
+            "z": -5.91922465792939,
+            "stock": 12
+          },
+          {
+            "x": 13.625233359447913,
+            "z": 9.246678499252363,
+            "stock": 12
+          },
+          {
+            "x": -4.913961834240117,
+            "z": -26.303186499330568,
+            "stock": 12
+          },
+          {
+            "x": 23.422254288397273,
+            "z": 9.886004290231714,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20261003
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 7680,
+        "ended_us": 640000000,
+        "pickups": 84,
+        "returns": [
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:22",
+              "op:lw-work:npc_b:obs:25",
+              "op:lw-work:npc_b:obs:28",
+              "op:lw-work:npc_b:obs:31",
+              "op:lw-work:npc_b:obs:34",
+              "op:lw-work:npc_b:obs:37",
+              "op:lw-work:npc_b:obs:40",
+              "op:lw-work:npc_b:obs:43",
+              "op:lw-work:npc_b:obs:46",
+              "op:lw-work:npc_b:obs:63",
+              "op:lw-work:npc_b:obs:66",
+              "op:lw-work:npc_b:obs:69",
+              "op:lw-work:npc_b:obs:72",
+              "op:lw-work:npc_b:obs:75",
+              "op:lw-work:npc_b:obs:78"
+            ],
+            "executed_us": 39000001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:43",
+              "op:lw-work:npc_a:obs:46",
+              "op:lw-work:npc_a:obs:49",
+              "op:lw-work:npc_a:obs:64",
+              "op:lw-work:npc_a:obs:67",
+              "op:lw-work:npc_a:obs:70",
+              "op:lw-work:npc_a:obs:73",
+              "op:lw-work:npc_a:obs:76",
+              "op:lw-work:npc_a:obs:79"
+            ],
+            "executed_us": 40000001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_c:obs:51",
+              "op:lw-work:npc_c:obs:54",
+              "op:lw-work:npc_c:obs:57",
+              "op:lw-work:npc_c:obs:60",
+              "op:lw-work:npc_c:obs:63",
+              "op:lw-work:npc_c:obs:66",
+              "op:lw-work:npc_c:obs:69",
+              "op:lw-work:npc_c:obs:72",
+              "op:lw-work:npc_c:obs:75",
+              "op:lw-work:npc_c:obs:78",
+              "op:lw-work:npc_c:obs:81",
+              "op:lw-work:npc_c:obs:84",
+              "op:lw-work:npc_c:obs:93",
+              "op:lw-work:npc_c:obs:96",
+              "op:lw-work:npc_c:obs:99",
+              "op:lw-work:npc_c:obs:102",
+              "op:lw-work:npc_c:obs:105",
+              "op:lw-work:npc_c:obs:108",
+              "op:lw-work:npc_c:obs:111",
+              "op:lw-work:npc_c:obs:114",
+              "op:lw-work:npc_c:obs:117",
+              "op:lw-work:npc_c:obs:120",
+              "op:lw-work:npc_c:obs:123"
+            ],
+            "executed_us": 44250001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:312",
+              "op:lw-work:npc_a:obs:315",
+              "op:lw-work:npc_a:obs:318",
+              "op:lw-work:npc_a:obs:321",
+              "op:lw-work:npc_a:obs:324",
+              "op:lw-work:npc_a:obs:327",
+              "op:lw-work:npc_a:obs:330",
+              "op:lw-work:npc_a:obs:333",
+              "op:lw-work:npc_a:obs:336",
+              "op:lw-work:npc_a:obs:339",
+              "op:lw-work:npc_a:obs:342",
+              "op:lw-work:npc_a:obs:345"
+            ],
+            "executed_us": 103250001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_a:obs:542",
+              "op:lw-work:npc_a:obs:545",
+              "op:lw-work:npc_a:obs:548",
+              "op:lw-work:npc_a:obs:551",
+              "op:lw-work:npc_a:obs:554",
+              "op:lw-work:npc_a:obs:557",
+              "op:lw-work:npc_a:obs:560",
+              "op:lw-work:npc_a:obs:563",
+              "op:lw-work:npc_a:obs:566",
+              "op:lw-work:npc_a:obs:569"
+            ],
+            "executed_us": 173750001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_c:obs:553"
+            ],
+            "executed_us": 179500001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 5,
+            "pickups": [
+              "op:lw-work:npc_a:obs:860",
+              "op:lw-work:npc_a:obs:863",
+              "op:lw-work:npc_a:obs:866",
+              "op:lw-work:npc_a:obs:869",
+              "op:lw-work:npc_a:obs:872",
+              "op:lw-work:npc_a:obs:875",
+              "op:lw-work:npc_a:obs:878",
+              "op:lw-work:npc_a:obs:881",
+              "op:lw-work:npc_a:obs:884",
+              "op:lw-work:npc_a:obs:887",
+              "op:lw-work:npc_a:obs:890",
+              "op:lw-work:npc_a:obs:893"
+            ],
+            "executed_us": 271750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 6,
+            "pickups": [
+              "op:lw-work:npc_b:obs:1315",
+              "op:lw-work:npc_b:obs:1318"
+            ],
+            "executed_us": 355250001
+          }
+        ],
+        "elapsed_seconds": 21.415231899998616,
+        "stock": [
+          0,
+          0,
+          0,
+          0,
+          12,
+          0,
+          0,
+          0
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 2474,
+            "carried": 0,
+            "unloaded": 43,
+            "records": 19,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 2524,
+            "carried": 0,
+            "unloaded": 17,
+            "records": 18,
+            "model_ref": "gameai-reconstructed-mb:1472f47fe5087d07:v1"
+          },
+          "npc_c": {
+            "observations": 2512,
+            "carried": 0,
+            "unloaded": 24,
+            "records": 24,
+            "model_ref": "gameai-reconstructed-mb:3293b4377ce4b31a:v1"
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "pickups": 43,
+          "movement": 773,
+          "turns": 316,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "acquisition_incomplete": 116,
+            "landmark_lost": 12,
+            "neighborhood_completed_no_food": 11,
+            "landmark_no_candidate_after_scan": 59,
+            "return_unload_attempt": 9,
+            "return_delivery_confirmed": 329,
+            "day_night": 320,
+            "landmark_operation_budget": 13,
+            "return_search_no_candidate_after_scan": 2,
+            "return_search_acquisition_incomplete": 68,
+            "return_reposition_continue": 1,
+            "return_home_like_observed": 328,
+            "landmark_ambiguous": 4,
+            "landmark_goal_budget": 29,
+            "return_search_near_feature_observed": 1
+          },
+          "days": {
+            "1": {
+              "movement": 74,
+              "pickups": 9,
+              "new_2m_cells": 35,
+              "visited_2m_cells": 35
+            },
+            "2": {
+              "movement": 53,
+              "pickups": 12,
+              "new_2m_cells": 25,
+              "visited_2m_cells": 28
+            },
+            "3": {
+              "movement": 101,
+              "pickups": 10,
+              "new_2m_cells": 45,
+              "visited_2m_cells": 47
+            },
+            "4": {
+              "movement": 73,
+              "pickups": 12,
+              "new_2m_cells": 19,
+              "visited_2m_cells": 35
+            },
+            "5": {
+              "movement": 47,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 25
+            },
+            "6": {
+              "movement": 10,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 4
+            },
+            "7": {
+              "movement": 118,
+              "pickups": 0,
+              "new_2m_cells": 30,
+              "visited_2m_cells": 60
+            },
+            "8": {
+              "movement": 85,
+              "pickups": 0,
+              "new_2m_cells": 8,
+              "visited_2m_cells": 36
+            },
+            "9": {
+              "movement": 93,
+              "pickups": 0,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 41
+            },
+            "10": {
+              "movement": 119,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 51
+            }
+          },
+          "visited_2m_cells": 188,
+          "max_nontranslation_completions": 199,
+          "zero_translation_days": [],
+          "delivered": 43
+        },
+        "npc_b": {
+          "pickups": 17,
+          "movement": 851,
+          "turns": 375,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "neighborhood_completed_no_food": 12,
+            "landmark_no_candidate_after_scan": 21,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 149,
+            "day_night": 320,
+            "acquisition_incomplete": 107,
+            "landmark_lost": 17,
+            "landmark_operation_budget": 12,
+            "landmark_ambiguous": 8,
+            "landmark_goal_budget": 101,
+            "return_home_like_observed": 477,
+            "return_search_operation_budget": 1,
+            "return_search_near_feature_observed": 3,
+            "return_search_acquisition_incomplete": 2
+          },
+          "days": {
+            "1": {
+              "movement": 72,
+              "pickups": 15,
+              "new_2m_cells": 27,
+              "visited_2m_cells": 27
+            },
+            "2": {
+              "movement": 77,
+              "pickups": 0,
+              "new_2m_cells": 31,
+              "visited_2m_cells": 40
+            },
+            "3": {
+              "movement": 104,
+              "pickups": 0,
+              "new_2m_cells": 36,
+              "visited_2m_cells": 53
+            },
+            "4": {
+              "movement": 130,
+              "pickups": 0,
+              "new_2m_cells": 43,
+              "visited_2m_cells": 55
+            },
+            "5": {
+              "movement": 73,
+              "pickups": 0,
+              "new_2m_cells": 7,
+              "visited_2m_cells": 34
+            },
+            "6": {
+              "movement": 86,
+              "pickups": 2,
+              "new_2m_cells": 24,
+              "visited_2m_cells": 36
+            },
+            "7": {
+              "movement": 7,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 5
+            },
+            "8": {
+              "movement": 101,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 49
+            },
+            "9": {
+              "movement": 94,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 37
+            },
+            "10": {
+              "movement": 107,
+              "pickups": 0,
+              "new_2m_cells": 25,
+              "visited_2m_cells": 52
+            }
+          },
+          "visited_2m_cells": 210,
+          "max_nontranslation_completions": 130,
+          "zero_translation_days": [],
+          "delivered": 17
+        },
+        "npc_c": {
+          "pickups": 24,
+          "movement": 842,
+          "turns": 371,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "harvest_work_deadline": 2,
+            "return_search_lost": 1,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 63,
+            "day_night": 320,
+            "acquisition_incomplete": 66,
+            "landmark_no_candidate_after_scan": 118,
+            "return_home_like_observed": 576,
+            "landmark_operation_budget": 13,
+            "return_search_acquisition_incomplete": 2,
+            "neighborhood_completed_no_food": 14,
+            "landmark_lost": 11,
+            "landmark_ambiguous": 5,
+            "landmark_goal_budget": 34
+          },
+          "days": {
+            "1": {
+              "movement": 77,
+              "pickups": 23,
+              "new_2m_cells": 39,
+              "visited_2m_cells": 39
+            },
+            "2": {
+              "movement": 12,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 5
+            },
+            "3": {
+              "movement": 104,
+              "pickups": 1,
+              "new_2m_cells": 28,
+              "visited_2m_cells": 46
+            },
+            "4": {
+              "movement": 104,
+              "pickups": 0,
+              "new_2m_cells": 40,
+              "visited_2m_cells": 49
+            },
+            "5": {
+              "movement": 84,
+              "pickups": 0,
+              "new_2m_cells": 14,
+              "visited_2m_cells": 41
+            },
+            "6": {
+              "movement": 97,
+              "pickups": 0,
+              "new_2m_cells": 32,
+              "visited_2m_cells": 48
+            },
+            "7": {
+              "movement": 91,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 36
+            },
+            "8": {
+              "movement": 100,
+              "pickups": 0,
+              "new_2m_cells": 29,
+              "visited_2m_cells": 57
+            },
+            "9": {
+              "movement": 86,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 39
+            },
+            "10": {
+              "movement": 87,
+              "pickups": 0,
+              "new_2m_cells": 7,
+              "visited_2m_cells": 39
+            }
+          },
+          "visited_2m_cells": 209,
+          "max_nontranslation_completions": 130,
+          "zero_translation_days": [],
+          "delivered": 24
+        }
+      }
+    },
+    {
+      "path": "integrations/lightweight/output/zero_search_20261004_10d.jsonl",
+      "sha256": "28f35b68f52e08cf6fb878402476f0f5ac71bbd00cf58c63ce2277eadf0f9d6c",
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 10,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -31.93138904835466,
+            "z": -16.369077517470057,
+            "radius": 0.9535651866121728,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": -11.701582198798636,
+            "z": 15.598000963643958,
+            "radius": 1.1772126221874377,
+            "height": 2.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 14.124865164709382,
+            "z": -18.78587936072109,
+            "radius": 1.4050637015674154,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 32.586656817463144,
+            "z": 11.809390012100911,
+            "radius": 0.9372113661987456,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 25.438773784808507,
+            "z": 0.020779600918487528,
+            "radius": 0.7843845666057593,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -29.977823861742486,
+            "z": -16.369077517470057,
+            "stock": 12
+          },
+          {
+            "x": 32.13470004842087,
+            "z": -16.199217752214295,
+            "stock": 12
+          },
+          {
+            "x": 13.148206683675856,
+            "z": 16.43366314875272,
+            "stock": 12
+          },
+          {
+            "x": -9.524369576611198,
+            "z": 15.598000963643958,
+            "stock": 12
+          },
+          {
+            "x": -7.287526203942765,
+            "z": 17.910733813321748,
+            "stock": 12
+          },
+          {
+            "x": 23.154895953560327,
+            "z": -14.058331625257907,
+            "stock": 12
+          },
+          {
+            "x": 16.529928866276798,
+            "z": -18.78587936072109,
+            "stock": 12
+          },
+          {
+            "x": -14.95896172630112,
+            "z": 9.739450689638751,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20261004
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 7680,
+        "ended_us": 640000000,
+        "pickups": 96,
+        "returns": [
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:31",
+              "op:lw-work:npc_b:obs:34",
+              "op:lw-work:npc_b:obs:37",
+              "op:lw-work:npc_b:obs:40",
+              "op:lw-work:npc_b:obs:43",
+              "op:lw-work:npc_b:obs:46",
+              "op:lw-work:npc_b:obs:49",
+              "op:lw-work:npc_b:obs:55",
+              "op:lw-work:npc_b:obs:58",
+              "op:lw-work:npc_b:obs:61",
+              "op:lw-work:npc_b:obs:64",
+              "op:lw-work:npc_b:obs:67",
+              "op:lw-work:npc_b:obs:70",
+              "op:lw-work:npc_b:obs:92",
+              "op:lw-work:npc_b:obs:95",
+              "op:lw-work:npc_b:obs:98",
+              "op:lw-work:npc_b:obs:101",
+              "op:lw-work:npc_b:obs:104",
+              "op:lw-work:npc_b:obs:107",
+              "op:lw-work:npc_b:obs:110",
+              "op:lw-work:npc_b:obs:113",
+              "op:lw-work:npc_b:obs:116",
+              "op:lw-work:npc_b:obs:119",
+              "op:lw-work:npc_b:obs:122"
+            ],
+            "executed_us": 36500001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_c:obs:26",
+              "op:lw-work:npc_c:obs:29",
+              "op:lw-work:npc_c:obs:32",
+              "op:lw-work:npc_c:obs:35",
+              "op:lw-work:npc_c:obs:38",
+              "op:lw-work:npc_c:obs:41",
+              "op:lw-work:npc_c:obs:44",
+              "op:lw-work:npc_c:obs:47",
+              "op:lw-work:npc_c:obs:50",
+              "op:lw-work:npc_c:obs:53",
+              "op:lw-work:npc_c:obs:56",
+              "op:lw-work:npc_c:obs:121"
+            ],
+            "executed_us": 36500001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:36",
+              "op:lw-work:npc_a:obs:39",
+              "op:lw-work:npc_a:obs:42",
+              "op:lw-work:npc_a:obs:45",
+              "op:lw-work:npc_a:obs:48",
+              "op:lw-work:npc_a:obs:56",
+              "op:lw-work:npc_a:obs:59",
+              "op:lw-work:npc_a:obs:62",
+              "op:lw-work:npc_a:obs:65",
+              "op:lw-work:npc_a:obs:68",
+              "op:lw-work:npc_a:obs:71"
+            ],
+            "executed_us": 71250001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_b:obs:566",
+              "op:lw-work:npc_b:obs:569",
+              "op:lw-work:npc_b:obs:572",
+              "op:lw-work:npc_b:obs:575",
+              "op:lw-work:npc_b:obs:578",
+              "op:lw-work:npc_b:obs:581",
+              "op:lw-work:npc_b:obs:584",
+              "op:lw-work:npc_b:obs:587",
+              "op:lw-work:npc_b:obs:590",
+              "op:lw-work:npc_b:obs:593",
+              "op:lw-work:npc_b:obs:596",
+              "op:lw-work:npc_b:obs:599"
+            ],
+            "executed_us": 167000001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_c:obs:542",
+              "op:lw-work:npc_c:obs:629",
+              "op:lw-work:npc_c:obs:632",
+              "op:lw-work:npc_c:obs:635"
+            ],
+            "executed_us": 170500001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 5,
+            "pickups": [
+              "op:lw-work:npc_c:obs:1118",
+              "op:lw-work:npc_c:obs:1121",
+              "op:lw-work:npc_c:obs:1124",
+              "op:lw-work:npc_c:obs:1127",
+              "op:lw-work:npc_c:obs:1130",
+              "op:lw-work:npc_c:obs:1133",
+              "op:lw-work:npc_c:obs:1136",
+              "op:lw-work:npc_c:obs:1139",
+              "op:lw-work:npc_c:obs:1142",
+              "op:lw-work:npc_c:obs:1145",
+              "op:lw-work:npc_c:obs:1148"
+            ],
+            "executed_us": 302500001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 5,
+            "pickups": [
+              "op:lw-work:npc_b:obs:1071",
+              "op:lw-work:npc_b:obs:1074",
+              "op:lw-work:npc_b:obs:1077",
+              "op:lw-work:npc_b:obs:1080",
+              "op:lw-work:npc_b:obs:1083",
+              "op:lw-work:npc_b:obs:1086",
+              "op:lw-work:npc_b:obs:1089",
+              "op:lw-work:npc_b:obs:1092",
+              "op:lw-work:npc_b:obs:1095",
+              "op:lw-work:npc_b:obs:1107",
+              "op:lw-work:npc_b:obs:1110",
+              "op:lw-work:npc_b:obs:1113",
+              "op:lw-work:npc_b:obs:1116",
+              "op:lw-work:npc_b:obs:1119",
+              "op:lw-work:npc_b:obs:1122",
+              "op:lw-work:npc_b:obs:1125",
+              "op:lw-work:npc_b:obs:1128",
+              "op:lw-work:npc_b:obs:1131",
+              "op:lw-work:npc_b:obs:1134",
+              "op:lw-work:npc_b:obs:1137",
+              "op:lw-work:npc_b:obs:1140"
+            ],
+            "executed_us": 305750001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 10,
+            "pickups": [
+              "op:lw-work:npc_c:obs:2419"
+            ],
+            "executed_us": 618750001
+          }
+        ],
+        "elapsed_seconds": 22.080157899996266,
+        "stock": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 2538,
+            "carried": 0,
+            "unloaded": 11,
+            "records": 6,
+            "model_ref": "gameai-reconstructed-mb:4858bdfcfc872aca:v1"
+          },
+          "npc_b": {
+            "observations": 2446,
+            "carried": 0,
+            "unloaded": 57,
+            "records": 50,
+            "model_ref": "gameai-reconstructed-mb:d649e6e28b0427a8:v1"
+          },
+          "npc_c": {
+            "observations": 2504,
+            "carried": 0,
+            "unloaded": 28,
+            "records": 16,
+            "model_ref": "gameai-reconstructed-mb:055300d64b071393:v1"
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "pickups": 11,
+          "movement": 619,
+          "turns": 330,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_no_candidate_after_scan": 143,
+            "return_approach_blocked": 24,
+            "return_approach_budget": 23,
+            "day_night": 320,
+            "return_unload_attempt": 9,
+            "return_delivery_confirmed": 194,
+            "acquisition_incomplete": 173,
+            "landmark_lost": 17,
+            "landmark_ambiguous": 2,
+            "landmark_operation_budget": 9,
+            "landmark_goal_budget": 38,
+            "return_home_like_observed": 577,
+            "neighborhood_completed_no_food": 7,
+            "return_search_no_candidate_after_scan": 2
+          },
+          "days": {
+            "1": {
+              "movement": 43,
+              "pickups": 11,
+              "new_2m_cells": 21,
+              "visited_2m_cells": 21
+            },
+            "2": {
+              "movement": 7,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 3
+            },
+            "3": {
+              "movement": 74,
+              "pickups": 0,
+              "new_2m_cells": 17,
+              "visited_2m_cells": 25
+            },
+            "4": {
+              "movement": 85,
+              "pickups": 0,
+              "new_2m_cells": 34,
+              "visited_2m_cells": 41
+            },
+            "5": {
+              "movement": 8,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 5
+            },
+            "6": {
+              "movement": 9,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 6
+            },
+            "7": {
+              "movement": 104,
+              "pickups": 0,
+              "new_2m_cells": 44,
+              "visited_2m_cells": 50
+            },
+            "8": {
+              "movement": 112,
+              "pickups": 0,
+              "new_2m_cells": 30,
+              "visited_2m_cells": 52
+            },
+            "9": {
+              "movement": 63,
+              "pickups": 0,
+              "new_2m_cells": 12,
+              "visited_2m_cells": 36
+            },
+            "10": {
+              "movement": 114,
+              "pickups": 0,
+              "new_2m_cells": 26,
+              "visited_2m_cells": 60
+            }
+          },
+          "visited_2m_cells": 187,
+          "max_nontranslation_completions": 234,
+          "zero_translation_days": [],
+          "delivered": 11
+        },
+        "npc_b": {
+          "pickups": 57,
+          "movement": 658,
+          "turns": 316,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "acquisition_incomplete": 20,
+            "return_unload_attempt": 9,
+            "return_delivery_confirmed": 168,
+            "day_night": 320,
+            "landmark_operation_budget": 9,
+            "neighborhood_completed_no_food": 11,
+            "landmark_no_candidate_after_scan": 102,
+            "return_home_like_observed": 578,
+            "landmark_lost": 16,
+            "return_search_no_candidate_after_scan": 3,
+            "return_search_lost": 2,
+            "landmark_goal_budget": 66,
+            "return_search_acquisition_incomplete": 70,
+            "return_reposition_continue": 1
+          },
+          "days": {
+            "1": {
+              "movement": 46,
+              "pickups": 24,
+              "new_2m_cells": 20,
+              "visited_2m_cells": 20
+            },
+            "2": {
+              "movement": 93,
+              "pickups": 0,
+              "new_2m_cells": 35,
+              "visited_2m_cells": 37
+            },
+            "3": {
+              "movement": 83,
+              "pickups": 12,
+              "new_2m_cells": 42,
+              "visited_2m_cells": 44
+            },
+            "4": {
+              "movement": 87,
+              "pickups": 0,
+              "new_2m_cells": 20,
+              "visited_2m_cells": 42
+            },
+            "5": {
+              "movement": 90,
+              "pickups": 21,
+              "new_2m_cells": 43,
+              "visited_2m_cells": 48
+            },
+            "6": {
+              "movement": 29,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 11
+            },
+            "7": {
+              "movement": 36,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 14
+            },
+            "8": {
+              "movement": 83,
+              "pickups": 0,
+              "new_2m_cells": 25,
+              "visited_2m_cells": 40
+            },
+            "9": {
+              "movement": 28,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 15
+            },
+            "10": {
+              "movement": 83,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 36
+            }
+          },
+          "visited_2m_cells": 201,
+          "max_nontranslation_completions": 230,
+          "zero_translation_days": [],
+          "delivered": 57
+        },
+        "npc_c": {
+          "pickups": 28,
+          "movement": 756,
+          "turns": 365,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "neighborhood_completed_no_food": 12,
+            "landmark_no_candidate_after_scan": 51,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 219,
+            "day_night": 320,
+            "acquisition_incomplete": 186,
+            "landmark_lost": 26,
+            "return_approach_blocked": 2,
+            "return_home_like_observed": 398,
+            "landmark_operation_budget": 10,
+            "harvest_work_deadline": 2,
+            "return_search_near_feature_observed": 1,
+            "landmark_goal_budget": 72,
+            "return_search_acquisition_incomplete": 4,
+            "landmark_blocked": 1
+          },
+          "days": {
+            "1": {
+              "movement": 70,
+              "pickups": 12,
+              "new_2m_cells": 36,
+              "visited_2m_cells": 36
+            },
+            "2": {
+              "movement": 5,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 3
+            },
+            "3": {
+              "movement": 104,
+              "pickups": 4,
+              "new_2m_cells": 47,
+              "visited_2m_cells": 50
+            },
+            "4": {
+              "movement": 70,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 26
+            },
+            "5": {
+              "movement": 103,
+              "pickups": 11,
+              "new_2m_cells": 29,
+              "visited_2m_cells": 53
+            },
+            "6": {
+              "movement": 96,
+              "pickups": 0,
+              "new_2m_cells": 22,
+              "visited_2m_cells": 46
+            },
+            "7": {
+              "movement": 56,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 22
+            },
+            "8": {
+              "movement": 87,
+              "pickups": 0,
+              "new_2m_cells": 27,
+              "visited_2m_cells": 33
+            },
+            "9": {
+              "movement": 68,
+              "pickups": 0,
+              "new_2m_cells": 15,
+              "visited_2m_cells": 31
+            },
+            "10": {
+              "movement": 97,
+              "pickups": 1,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 37
+            }
+          },
+          "visited_2m_cells": 198,
+          "max_nontranslation_completions": 226,
+          "zero_translation_days": [],
+          "delivered": 28
+        }
+      }
+    },
+    {
+      "path": "integrations/lightweight/output/zero_search_20261005_10d.jsonl",
+      "sha256": "37afbccfe085a4626e4d7f12a4b70458e156f39fae5aa548377a67e18fdac226",
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 10,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -22.273349060107822,
+            "z": 3.7903536563592684,
+            "radius": 0.7390445827348319,
+            "height": 8.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 26.387010836215147,
+            "z": -29.83084545620562,
+            "radius": 0.9301823531485957,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 20.43296917377373,
+            "z": -3.283739529632919,
+            "radius": 1.2789952760134697,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -6.510450894845475,
+            "z": 14.190370076924934,
+            "radius": 1.1729954263935125,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -12.787135155476644,
+            "z": -7.3437236895537605,
+            "radius": 0.8490137203273548,
+            "height": 5.0,
+            "color": "brown",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -20.53430447737299,
+            "z": 3.7903536563592684,
+            "stock": 12
+          },
+          {
+            "x": -0.5095958136959498,
+            "z": -17.077180109479638,
+            "stock": 12
+          },
+          {
+            "x": 23.888611109360298,
+            "z": -24.251850724363702,
+            "stock": 12
+          },
+          {
+            "x": 28.317193189363742,
+            "z": -29.83084545620562,
+            "stock": 12
+          },
+          {
+            "x": -14.301901205333943,
+            "z": 15.996005611534253,
+            "stock": 12
+          },
+          {
+            "x": 6.574551049956078,
+            "z": -22.584384161366277,
+            "stock": 12
+          },
+          {
+            "x": 22.7119644497872,
+            "z": -3.283739529632919,
+            "stock": 12
+          },
+          {
+            "x": -0.7259240850710551,
+            "z": 17.665649154040274,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20261005
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 7680,
+        "ended_us": 640000000,
+        "pickups": 70,
+        "returns": [
+          {
+            "agent_id": "npc_c",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_c:obs:29",
+              "op:lw-work:npc_c:obs:32",
+              "op:lw-work:npc_c:obs:35"
+            ],
+            "executed_us": 35000001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:24",
+              "op:lw-work:npc_a:obs:27",
+              "op:lw-work:npc_a:obs:30",
+              "op:lw-work:npc_a:obs:33",
+              "op:lw-work:npc_a:obs:36"
+            ],
+            "executed_us": 36750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:26",
+              "op:lw-work:npc_b:obs:29",
+              "op:lw-work:npc_b:obs:32",
+              "op:lw-work:npc_b:obs:35",
+              "op:lw-work:npc_b:obs:98",
+              "op:lw-work:npc_b:obs:101",
+              "op:lw-work:npc_b:obs:104",
+              "op:lw-work:npc_b:obs:107",
+              "op:lw-work:npc_b:obs:110",
+              "op:lw-work:npc_b:obs:113",
+              "op:lw-work:npc_b:obs:116",
+              "op:lw-work:npc_b:obs:119",
+              "op:lw-work:npc_b:obs:122",
+              "op:lw-work:npc_b:obs:125"
+            ],
+            "executed_us": 36750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_b:obs:341",
+              "op:lw-work:npc_b:obs:344"
+            ],
+            "executed_us": 101750001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:331",
+              "op:lw-work:npc_a:obs:334",
+              "op:lw-work:npc_a:obs:337",
+              "op:lw-work:npc_a:obs:340",
+              "op:lw-work:npc_a:obs:343",
+              "op:lw-work:npc_a:obs:346",
+              "op:lw-work:npc_a:obs:349",
+              "op:lw-work:npc_a:obs:352",
+              "op:lw-work:npc_a:obs:355",
+              "op:lw-work:npc_a:obs:358",
+              "op:lw-work:npc_a:obs:361",
+              "op:lw-work:npc_a:obs:373",
+              "op:lw-work:npc_a:obs:376",
+              "op:lw-work:npc_a:obs:379"
+            ],
+            "executed_us": 106750001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_a:obs:599",
+              "op:lw-work:npc_a:obs:602"
+            ],
+            "executed_us": 161750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_b:obs:573",
+              "op:lw-work:npc_b:obs:576",
+              "op:lw-work:npc_b:obs:579",
+              "op:lw-work:npc_b:obs:582",
+              "op:lw-work:npc_b:obs:585",
+              "op:lw-work:npc_b:obs:588",
+              "op:lw-work:npc_b:obs:591",
+              "op:lw-work:npc_b:obs:594",
+              "op:lw-work:npc_b:obs:597",
+              "op:lw-work:npc_b:obs:600"
+            ],
+            "executed_us": 164000001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 7,
+            "pickups": [
+              "op:lw-work:npc_c:obs:1629",
+              "op:lw-work:npc_c:obs:1642",
+              "op:lw-work:npc_c:obs:1645",
+              "op:lw-work:npc_c:obs:1648",
+              "op:lw-work:npc_c:obs:1651",
+              "op:lw-work:npc_c:obs:1654",
+              "op:lw-work:npc_c:obs:1657",
+              "op:lw-work:npc_c:obs:1660"
+            ],
+            "executed_us": 424000001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 10,
+            "pickups": [
+              "op:lw-work:npc_c:obs:1867",
+              "op:lw-work:npc_c:obs:1870",
+              "op:lw-work:npc_c:obs:1873",
+              "op:lw-work:npc_c:obs:1876",
+              "op:lw-work:npc_c:obs:1879",
+              "op:lw-work:npc_c:obs:1882",
+              "op:lw-work:npc_c:obs:1885",
+              "op:lw-work:npc_c:obs:1888",
+              "op:lw-work:npc_c:obs:1891",
+              "op:lw-work:npc_c:obs:1894",
+              "op:lw-work:npc_c:obs:1897",
+              "op:lw-work:npc_c:obs:1900"
+            ],
+            "executed_us": 594750001
+          }
+        ],
+        "elapsed_seconds": 22.425274899986107,
+        "stock": [
+          0,
+          0,
+          0,
+          12,
+          0,
+          2,
+          12,
+          0
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 2518,
+            "carried": 0,
+            "unloaded": 21,
+            "records": 16,
+            "model_ref": "gameai-reconstructed-mb:71a8989a2038ae80:v1"
+          },
+          "npc_b": {
+            "observations": 2508,
+            "carried": 0,
+            "unloaded": 26,
+            "records": 22,
+            "model_ref": "gameai-reconstructed-mb:63b7e9e4af007838:v1"
+          },
+          "npc_c": {
+            "observations": 2512,
+            "carried": 0,
+            "unloaded": 23,
+            "records": 21,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "pickups": 21,
+          "movement": 641,
+          "turns": 390,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "acquisition_incomplete": 179,
+            "landmark_lost": 14,
+            "neighborhood_completed_no_food": 15,
+            "landmark_no_candidate_after_scan": 99,
+            "landmark_operation_budget": 9,
+            "landmark_ambiguous": 6,
+            "landmark_goal_budget": 12,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 216,
+            "day_night": 320,
+            "harvest_work_deadline": 2,
+            "landmark_blocked": 4,
+            "return_approach_blocked": 4,
+            "return_home_like_observed": 531
+          },
+          "days": {
+            "1": {
+              "movement": 78,
+              "pickups": 5,
+              "new_2m_cells": 39,
+              "visited_2m_cells": 39
+            },
+            "2": {
+              "movement": 76,
+              "pickups": 14,
+              "new_2m_cells": 30,
+              "visited_2m_cells": 36
+            },
+            "3": {
+              "movement": 66,
+              "pickups": 2,
+              "new_2m_cells": 23,
+              "visited_2m_cells": 34
+            },
+            "4": {
+              "movement": 24,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 7
+            },
+            "5": {
+              "movement": 39,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 17
+            },
+            "6": {
+              "movement": 89,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 41
+            },
+            "7": {
+              "movement": 79,
+              "pickups": 0,
+              "new_2m_cells": 8,
+              "visited_2m_cells": 28
+            },
+            "8": {
+              "movement": 93,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 41
+            },
+            "9": {
+              "movement": 20,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 7
+            },
+            "10": {
+              "movement": 77,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 26
+            }
+          },
+          "visited_2m_cells": 140,
+          "max_nontranslation_completions": 129,
+          "zero_translation_days": [],
+          "delivered": 21
+        },
+        "npc_b": {
+          "pickups": 26,
+          "movement": 526,
+          "turns": 348,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "acquisition_incomplete": 112,
+            "neighborhood_completed_no_food": 13,
+            "landmark_no_candidate_after_scan": 135,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 227,
+            "day_night": 320,
+            "landmark_lost": 27,
+            "landmark_operation_budget": 3,
+            "landmark_ambiguous": 3,
+            "neighborhood_anchor_lost": 1,
+            "return_home_like_observed": 599,
+            "landmark_goal_budget": 116,
+            "neighborhood_operation_not_executed": 2
+          },
+          "days": {
+            "1": {
+              "movement": 68,
+              "pickups": 14,
+              "new_2m_cells": 32,
+              "visited_2m_cells": 32
+            },
+            "2": {
+              "movement": 83,
+              "pickups": 2,
+              "new_2m_cells": 26,
+              "visited_2m_cells": 35
+            },
+            "3": {
+              "movement": 74,
+              "pickups": 10,
+              "new_2m_cells": 34,
+              "visited_2m_cells": 37
+            },
+            "4": {
+              "movement": 45,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 16
+            },
+            "5": {
+              "movement": 10,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 4
+            },
+            "6": {
+              "movement": 61,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 27
+            },
+            "7": {
+              "movement": 73,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 32
+            },
+            "8": {
+              "movement": 80,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 25
+            },
+            "9": {
+              "movement": 24,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 6
+            },
+            "10": {
+              "movement": 8,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 4
+            }
+          },
+          "visited_2m_cells": 113,
+          "max_nontranslation_completions": 229,
+          "zero_translation_days": [],
+          "delivered": 26
+        },
+        "npc_c": {
+          "pickups": 23,
+          "movement": 671,
+          "turns": 328,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "landmark_operation_budget": 7,
+            "acquisition_incomplete": 109,
+            "neighborhood_completed_no_food": 13,
+            "landmark_no_candidate_after_scan": 14,
+            "return_unload_attempt": 8,
+            "return_delivery_confirmed": 294,
+            "day_night": 320,
+            "landmark_lost": 15,
+            "return_home_like_observed": 385,
+            "landmark_ambiguous": 3,
+            "landmark_goal_budget": 10,
+            "return_approach_blocked": 2,
+            "harvest_work_deadline": 1,
+            "return_search_no_candidate_after_scan": 197,
+            "return_reposition_continue": 2,
+            "return_search_acquisition_incomplete": 69
+          },
+          "days": {
+            "1": {
+              "movement": 81,
+              "pickups": 3,
+              "new_2m_cells": 36,
+              "visited_2m_cells": 36
+            },
+            "2": {
+              "movement": 91,
+              "pickups": 0,
+              "new_2m_cells": 33,
+              "visited_2m_cells": 41
+            },
+            "3": {
+              "movement": 91,
+              "pickups": 0,
+              "new_2m_cells": 21,
+              "visited_2m_cells": 43
+            },
+            "4": {
+              "movement": 95,
+              "pickups": 0,
+              "new_2m_cells": 21,
+              "visited_2m_cells": 42
+            },
+            "5": {
+              "movement": 79,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 24
+            },
+            "6": {
+              "movement": 13,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 8
+            },
+            "7": {
+              "movement": 93,
+              "pickups": 8,
+              "new_2m_cells": 21,
+              "visited_2m_cells": 44
+            },
+            "8": {
+              "movement": 64,
+              "pickups": 12,
+              "new_2m_cells": 22,
+              "visited_2m_cells": 36
+            },
+            "9": {
+              "movement": 8,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 3
+            },
+            "10": {
+              "movement": 56,
+              "pickups": 0,
+              "new_2m_cells": 19,
+              "visited_2m_cells": 34
+            }
+          },
+          "visited_2m_cells": 179,
+          "max_nontranslation_completions": 237,
+          "zero_translation_days": [],
+          "delivered": 23
+        }
+      }
+    },
+    {
+      "path": "integrations/lightweight/output/zero_search_20261006_10d.jsonl",
+      "sha256": "fbbfe358e83342f908e7125fcecf0ac000a55b5453cd9186f6db81c64d601057",
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 10,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -1.0956546667520168,
+            "z": 33.528916768968976,
+            "radius": 1.4254512746619052,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": -10.381890167869956,
+            "z": -18.785260535084955,
+            "radius": 1.1179302050482418,
+            "height": 5.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 15.357654399833068,
+            "z": 3.8241271783959263,
+            "radius": 1.4567574079762096,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 14.127789469014147,
+            "z": -10.446065675392491,
+            "radius": 0.6362587984214684,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 17.432564802832022,
+            "z": 38.82510137679238,
+            "radius": 1.098146214367989,
+            "height": 2.0,
+            "color": "brown",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": 1.3297966079098884,
+            "z": 33.528916768968976,
+            "stock": 12
+          },
+          {
+            "x": 22.48177055228988,
+            "z": -4.269274943892513,
+            "stock": 12
+          },
+          {
+            "x": 29.535119620422307,
+            "z": -22.86320198951531,
+            "stock": 12
+          },
+          {
+            "x": -8.263959962821716,
+            "z": -18.785260535084955,
+            "stock": 12
+          },
+          {
+            "x": 1.0638465536937693,
+            "z": -18.72984247895261,
+            "stock": 12
+          },
+          {
+            "x": 12.662000187239077,
+            "z": -30.89948125899729,
+            "stock": 12
+          },
+          {
+            "x": 17.81441180780928,
+            "z": 3.8241271783959263,
+            "stock": 12
+          },
+          {
+            "x": 0.10177798932279725,
+            "z": 18.520504228376076,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20261006
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 7680,
+        "ended_us": 640000000,
+        "pickups": 72,
+        "returns": [
+          {
+            "agent_id": "npc_c",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_c:obs:58",
+              "op:lw-work:npc_c:obs:61",
+              "op:lw-work:npc_c:obs:64",
+              "op:lw-work:npc_c:obs:67",
+              "op:lw-work:npc_c:obs:70",
+              "op:lw-work:npc_c:obs:73",
+              "op:lw-work:npc_c:obs:90",
+              "op:lw-work:npc_c:obs:93",
+              "op:lw-work:npc_c:obs:96",
+              "op:lw-work:npc_c:obs:99",
+              "op:lw-work:npc_c:obs:102",
+              "op:lw-work:npc_c:obs:105"
+            ],
+            "executed_us": 35750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:60",
+              "op:lw-work:npc_b:obs:63",
+              "op:lw-work:npc_b:obs:66",
+              "op:lw-work:npc_b:obs:69",
+              "op:lw-work:npc_b:obs:72",
+              "op:lw-work:npc_b:obs:75",
+              "op:lw-work:npc_b:obs:89",
+              "op:lw-work:npc_b:obs:92",
+              "op:lw-work:npc_b:obs:95",
+              "op:lw-work:npc_b:obs:98",
+              "op:lw-work:npc_b:obs:101",
+              "op:lw-work:npc_b:obs:104"
+            ],
+            "executed_us": 38000001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:60",
+              "op:lw-work:npc_a:obs:63",
+              "op:lw-work:npc_a:obs:66",
+              "op:lw-work:npc_a:obs:69",
+              "op:lw-work:npc_a:obs:72",
+              "op:lw-work:npc_a:obs:75",
+              "op:lw-work:npc_a:obs:78",
+              "op:lw-work:npc_a:obs:81",
+              "op:lw-work:npc_a:obs:84",
+              "op:lw-work:npc_a:obs:87",
+              "op:lw-work:npc_a:obs:90",
+              "op:lw-work:npc_a:obs:93"
+            ],
+            "executed_us": 38750001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:322",
+              "op:lw-work:npc_a:obs:325",
+              "op:lw-work:npc_a:obs:328",
+              "op:lw-work:npc_a:obs:331",
+              "op:lw-work:npc_a:obs:334",
+              "op:lw-work:npc_a:obs:337",
+              "op:lw-work:npc_a:obs:340",
+              "op:lw-work:npc_a:obs:343",
+              "op:lw-work:npc_a:obs:346",
+              "op:lw-work:npc_a:obs:349"
+            ],
+            "executed_us": 107000001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_b:obs:347",
+              "op:lw-work:npc_b:obs:350",
+              "op:lw-work:npc_b:obs:379"
+            ],
+            "executed_us": 107250001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_c:obs:312",
+              "op:lw-work:npc_c:obs:315",
+              "op:lw-work:npc_c:obs:318",
+              "op:lw-work:npc_c:obs:321",
+              "op:lw-work:npc_c:obs:324",
+              "op:lw-work:npc_c:obs:327",
+              "op:lw-work:npc_c:obs:330",
+              "op:lw-work:npc_c:obs:333",
+              "op:lw-work:npc_c:obs:336",
+              "op:lw-work:npc_c:obs:339",
+              "op:lw-work:npc_c:obs:342",
+              "op:lw-work:npc_c:obs:345"
+            ],
+            "executed_us": 108500001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_c:obs:574",
+              "op:lw-work:npc_c:obs:577",
+              "op:lw-work:npc_c:obs:580",
+              "op:lw-work:npc_c:obs:583",
+              "op:lw-work:npc_c:obs:586",
+              "op:lw-work:npc_c:obs:589",
+              "op:lw-work:npc_c:obs:592",
+              "op:lw-work:npc_c:obs:595",
+              "op:lw-work:npc_c:obs:598",
+              "op:lw-work:npc_c:obs:601",
+              "op:lw-work:npc_c:obs:604"
+            ],
+            "executed_us": 172000001
+          }
+        ],
+        "elapsed_seconds": 21.93256719998317,
+        "stock": [
+          0,
+          0,
+          12,
+          0,
+          0,
+          12,
+          0,
+          0
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 2516,
+            "carried": 0,
+            "unloaded": 22,
+            "records": 22,
+            "model_ref": "gameai-reconstructed-mb:407118928cdd214a:v1"
+          },
+          "npc_b": {
+            "observations": 2530,
+            "carried": 0,
+            "unloaded": 15,
+            "records": 8,
+            "model_ref": "gameai-reconstructed-mb:89770c4ba6b231f3:v1"
+          },
+          "npc_c": {
+            "observations": 2488,
+            "carried": 0,
+            "unloaded": 35,
+            "records": 7,
+            "model_ref": "gameai-reconstructed-mb:dc76b7ab4d87afce:v1"
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "pickups": 22,
+          "movement": 710,
+          "turns": 382,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "acquisition_incomplete": 85,
+            "landmark_operation_budget": 4,
+            "landmark_ambiguous": 23,
+            "landmark_goal_budget": 146,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 119,
+            "day_night": 320,
+            "landmark_lost": 12,
+            "neighborhood_completed_no_food": 13,
+            "landmark_no_candidate_after_scan": 28,
+            "return_approach_blocked": 4,
+            "return_home_like_observed": 598
+          },
+          "days": {
+            "1": {
+              "movement": 70,
+              "pickups": 12,
+              "new_2m_cells": 36,
+              "visited_2m_cells": 36
+            },
+            "2": {
+              "movement": 72,
+              "pickups": 10,
+              "new_2m_cells": 26,
+              "visited_2m_cells": 28
+            },
+            "3": {
+              "movement": 41,
+              "pickups": 0,
+              "new_2m_cells": 15,
+              "visited_2m_cells": 22
+            },
+            "4": {
+              "movement": 56,
+              "pickups": 0,
+              "new_2m_cells": 14,
+              "visited_2m_cells": 20
+            },
+            "5": {
+              "movement": 94,
+              "pickups": 0,
+              "new_2m_cells": 32,
+              "visited_2m_cells": 39
+            },
+            "6": {
+              "movement": 74,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 37
+            },
+            "7": {
+              "movement": 85,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 38
+            },
+            "8": {
+              "movement": 58,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 26
+            },
+            "9": {
+              "movement": 85,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 35
+            },
+            "10": {
+              "movement": 75,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 38
+            }
+          },
+          "visited_2m_cells": 155,
+          "max_nontranslation_completions": 128,
+          "zero_translation_days": [],
+          "delivered": 22
+        },
+        "npc_b": {
+          "pickups": 15,
+          "movement": 646,
+          "turns": 368,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "neighborhood_completed_no_food": 13,
+            "acquisition_incomplete": 57,
+            "landmark_lost": 17,
+            "return_unload_attempt": 9,
+            "return_delivery_confirmed": 121,
+            "day_night": 320,
+            "landmark_operation_budget": 7,
+            "landmark_ambiguous": 13,
+            "landmark_no_candidate_after_scan": 105,
+            "landmark_goal_budget": 81,
+            "return_approach_blocked": 22,
+            "return_home_like_observed": 674,
+            "return_approach_budget": 22
+          },
+          "days": {
+            "1": {
+              "movement": 73,
+              "pickups": 12,
+              "new_2m_cells": 32,
+              "visited_2m_cells": 32
+            },
+            "2": {
+              "movement": 99,
+              "pickups": 3,
+              "new_2m_cells": 43,
+              "visited_2m_cells": 50
+            },
+            "3": {
+              "movement": 77,
+              "pickups": 0,
+              "new_2m_cells": 20,
+              "visited_2m_cells": 34
+            },
+            "4": {
+              "movement": 72,
+              "pickups": 0,
+              "new_2m_cells": 18,
+              "visited_2m_cells": 32
+            },
+            "5": {
+              "movement": 78,
+              "pickups": 0,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 37
+            },
+            "6": {
+              "movement": 49,
+              "pickups": 0,
+              "new_2m_cells": 12,
+              "visited_2m_cells": 21
+            },
+            "7": {
+              "movement": 5,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 3
+            },
+            "8": {
+              "movement": 51,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 21
+            },
+            "9": {
+              "movement": 92,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 34
+            },
+            "10": {
+              "movement": 50,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 20
+            }
+          },
+          "visited_2m_cells": 152,
+          "max_nontranslation_completions": 244,
+          "zero_translation_days": [],
+          "delivered": 15
+        },
+        "npc_c": {
+          "pickups": 35,
+          "movement": 657,
+          "turns": 351,
+          "wait_reasons": {
+            "day_orientation": 40,
+            "neighborhood_completed_no_food": 10,
+            "acquisition_incomplete": 146,
+            "landmark_no_candidate_after_scan": 102,
+            "return_unload_attempt": 10,
+            "return_delivery_confirmed": 172,
+            "day_night": 320,
+            "landmark_lost": 16,
+            "landmark_operation_budget": 11,
+            "return_search_no_candidate_after_scan": 4,
+            "landmark_ambiguous": 17,
+            "landmark_goal_budget": 106,
+            "return_approach_blocked": 4,
+            "return_home_like_observed": 485,
+            "return_search_lost": 1
+          },
+          "days": {
+            "1": {
+              "movement": 65,
+              "pickups": 12,
+              "new_2m_cells": 31,
+              "visited_2m_cells": 31
+            },
+            "2": {
+              "movement": 64,
+              "pickups": 12,
+              "new_2m_cells": 22,
+              "visited_2m_cells": 23
+            },
+            "3": {
+              "movement": 74,
+              "pickups": 11,
+              "new_2m_cells": 27,
+              "visited_2m_cells": 34
+            },
+            "4": {
+              "movement": 81,
+              "pickups": 0,
+              "new_2m_cells": 26,
+              "visited_2m_cells": 35
+            },
+            "5": {
+              "movement": 127,
+              "pickups": 0,
+              "new_2m_cells": 34,
+              "visited_2m_cells": 62
+            },
+            "6": {
+              "movement": 54,
+              "pickups": 0,
+              "new_2m_cells": 18,
+              "visited_2m_cells": 29
+            },
+            "7": {
+              "movement": 82,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 30
+            },
+            "8": {
+              "movement": 9,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 4
+            },
+            "9": {
+              "movement": 11,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 4
+            },
+            "10": {
+              "movement": 90,
+              "pickups": 0,
+              "new_2m_cells": 14,
+              "visited_2m_cells": 37
+            }
+          },
+          "visited_2m_cells": 178,
+          "max_nontranslation_completions": 133,
+          "zero_translation_days": [],
+          "delivered": 35
+        }
+      }
+    },
+    {
+      "path": "integrations/lightweight/output/zero_search_20261002_30d.jsonl",
+      "sha256": "70a9d9e893209b8f587aa25b6f37f837fffd472d2f62378b27f70b0aa3795a96",
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -15.345435100042694,
+            "z": -9.605992895346922,
+            "radius": 1.423519328141192,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 23.645064231131645,
+            "z": -24.098077660033468,
+            "radius": 1.2486153795367687,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -11.435502562860727,
+            "z": -34.19608463233221,
+            "radius": 1.160806000297407,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": 39.43393955974148,
+            "z": -14.83767792594785,
+            "radius": 0.8043263072271727,
+            "height": 5.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 16.90294859377259,
+            "z": -9.438763655797644,
+            "radius": 1.4266604570998658,
+            "height": 5.0,
+            "color": "green",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -12.921915771901503,
+            "z": -9.605992895346922,
+            "stock": 12
+          },
+          {
+            "x": 40.64430578491719,
+            "z": 12.397645497749828,
+            "stock": 12
+          },
+          {
+            "x": -28.975129565916355,
+            "z": 4.375305073935012,
+            "stock": 12
+          },
+          {
+            "x": 25.893679610668414,
+            "z": -24.098077660033468,
+            "stock": 12
+          },
+          {
+            "x": 4.732690248739588,
+            "z": 28.697297006045343,
+            "stock": 12
+          },
+          {
+            "x": -23.589246888695275,
+            "z": -30.79676158840818,
+            "stock": 12
+          },
+          {
+            "x": -9.274696562563319,
+            "z": -34.19608463233221,
+            "stock": 12
+          },
+          {
+            "x": 29.308914638459473,
+            "z": -7.431567914483614,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20261002
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 60,
+        "returns": [
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:28",
+              "op:lw-work:npc_a:obs:31",
+              "op:lw-work:npc_a:obs:34",
+              "op:lw-work:npc_a:obs:37",
+              "op:lw-work:npc_a:obs:40",
+              "op:lw-work:npc_a:obs:43"
+            ],
+            "executed_us": 36500001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:28",
+              "op:lw-work:npc_b:obs:31",
+              "op:lw-work:npc_b:obs:34",
+              "op:lw-work:npc_b:obs:37",
+              "op:lw-work:npc_b:obs:40",
+              "op:lw-work:npc_b:obs:43",
+              "op:lw-work:npc_b:obs:88",
+              "op:lw-work:npc_b:obs:91",
+              "op:lw-work:npc_b:obs:94",
+              "op:lw-work:npc_b:obs:97",
+              "op:lw-work:npc_b:obs:100",
+              "op:lw-work:npc_b:obs:103",
+              "op:lw-work:npc_b:obs:106",
+              "op:lw-work:npc_b:obs:109",
+              "op:lw-work:npc_b:obs:112",
+              "op:lw-work:npc_b:obs:115",
+              "op:lw-work:npc_b:obs:118",
+              "op:lw-work:npc_b:obs:121"
+            ],
+            "executed_us": 43500001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:303",
+              "op:lw-work:npc_a:obs:306",
+              "op:lw-work:npc_a:obs:309",
+              "op:lw-work:npc_a:obs:312",
+              "op:lw-work:npc_a:obs:315",
+              "op:lw-work:npc_a:obs:318",
+              "op:lw-work:npc_a:obs:321",
+              "op:lw-work:npc_a:obs:324",
+              "op:lw-work:npc_a:obs:327",
+              "op:lw-work:npc_a:obs:330",
+              "op:lw-work:npc_a:obs:333"
+            ],
+            "executed_us": 105750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_b:obs:320",
+              "op:lw-work:npc_b:obs:323",
+              "op:lw-work:npc_b:obs:326",
+              "op:lw-work:npc_b:obs:329",
+              "op:lw-work:npc_b:obs:332",
+              "op:lw-work:npc_b:obs:335",
+              "op:lw-work:npc_b:obs:338",
+              "op:lw-work:npc_b:obs:341",
+              "op:lw-work:npc_b:obs:344",
+              "op:lw-work:npc_b:obs:347",
+              "op:lw-work:npc_b:obs:350",
+              "op:lw-work:npc_b:obs:353"
+            ],
+            "executed_us": 107250001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 6,
+            "pickups": [
+              "op:lw-work:npc_b:obs:1399"
+            ],
+            "executed_us": 360500001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 17,
+            "pickups": [
+              "op:lw-work:npc_c:obs:4186",
+              "op:lw-work:npc_c:obs:4189",
+              "op:lw-work:npc_c:obs:4192",
+              "op:lw-work:npc_c:obs:4195",
+              "op:lw-work:npc_c:obs:4198",
+              "op:lw-work:npc_c:obs:4201",
+              "op:lw-work:npc_c:obs:4204",
+              "op:lw-work:npc_c:obs:4207",
+              "op:lw-work:npc_c:obs:4210",
+              "op:lw-work:npc_c:obs:4213",
+              "op:lw-work:npc_c:obs:4216"
+            ],
+            "executed_us": 1078750001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 23,
+            "pickups": [
+              "op:lw-work:npc_c:obs:5737"
+            ],
+            "executed_us": 1452250001
+          }
+        ],
+        "elapsed_seconds": 146.26337240001885,
+        "stock": [
+          0,
+          12,
+          12,
+          0,
+          12,
+          0,
+          0,
+          0
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7646,
+            "carried": 0,
+            "unloaded": 17,
+            "records": 11,
+            "model_ref": "gameai-reconstructed-mb:7205132e6b2149d4:v1"
+          },
+          "npc_b": {
+            "observations": 7618,
+            "carried": 0,
+            "unloaded": 31,
+            "records": 19,
+            "model_ref": "gameai-reconstructed-mb:63d7ca0f8a770bc6:v1"
+          },
+          "npc_c": {
+            "observations": 7656,
+            "carried": 0,
+            "unloaded": 12,
+            "records": 11,
+            "model_ref": "gameai-reconstructed-mb:0452a497a9689c6f:v1"
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "pickups": 17,
+          "movement": 1678,
+          "turns": 864,
+          "wait_reasons": {
+            "day_orientation": 120,
+            "landmark_ambiguous": 130,
+            "acquisition_incomplete": 203,
+            "landmark_lost": 33,
+            "landmark_goal_budget": 1313,
+            "return_unload_attempt": 30,
+            "return_delivery_confirmed": 133,
+            "day_night": 960,
+            "landmark_operation_budget": 3,
+            "return_home_like_observed": 2048,
+            "neighborhood_completed_no_food": 14,
+            "neighborhood_operation_not_executed": 1,
+            "return_search_near_feature_observed": 1,
+            "landmark_no_candidate_after_scan": 96,
+            "return_approach_blocked": 2
+          },
+          "days": {
+            "1": {
+              "movement": 38,
+              "pickups": 6,
+              "new_2m_cells": 17,
+              "visited_2m_cells": 17
+            },
+            "2": {
+              "movement": 79,
+              "pickups": 11,
+              "new_2m_cells": 34,
+              "visited_2m_cells": 35
+            },
+            "3": {
+              "movement": 25,
+              "pickups": 0,
+              "new_2m_cells": 5,
+              "visited_2m_cells": 9
+            },
+            "4": {
+              "movement": 23,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 9
+            },
+            "5": {
+              "movement": 49,
+              "pickups": 0,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 16
+            },
+            "6": {
+              "movement": 125,
+              "pickups": 0,
+              "new_2m_cells": 44,
+              "visited_2m_cells": 56
+            },
+            "7": {
+              "movement": 53,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 18
+            },
+            "8": {
+              "movement": 65,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 30
+            },
+            "9": {
+              "movement": 35,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 12
+            },
+            "10": {
+              "movement": 101,
+              "pickups": 0,
+              "new_2m_cells": 24,
+              "visited_2m_cells": 42
+            },
+            "11": {
+              "movement": 60,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 32
+            },
+            "12": {
+              "movement": 29,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 13
+            },
+            "13": {
+              "movement": 94,
+              "pickups": 0,
+              "new_2m_cells": 17,
+              "visited_2m_cells": 46
+            },
+            "14": {
+              "movement": 24,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 12
+            },
+            "15": {
+              "movement": 98,
+              "pickups": 0,
+              "new_2m_cells": 11,
+              "visited_2m_cells": 38
+            },
+            "16": {
+              "movement": 13,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 5
+            },
+            "17": {
+              "movement": 46,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 28
+            },
+            "18": {
+              "movement": 71,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 29
+            },
+            "19": {
+              "movement": 28,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 14
+            },
+            "20": {
+              "movement": 9,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 5
+            },
+            "21": {
+              "movement": 97,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 39
+            },
+            "22": {
+              "movement": 87,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 41
+            },
+            "23": {
+              "movement": 40,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 19
+            },
+            "24": {
+              "movement": 14,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 6
+            },
+            "25": {
+              "movement": 16,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 8
+            },
+            "26": {
+              "movement": 36,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 15
+            },
+            "27": {
+              "movement": 74,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 34
+            },
+            "28": {
+              "movement": 51,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 24
+            },
+            "29": {
+              "movement": 89,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 42
+            },
+            "30": {
+              "movement": 109,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 54
+            }
+          },
+          "visited_2m_cells": 232,
+          "max_nontranslation_completions": 217,
+          "zero_translation_days": [],
+          "delivered": 17
+        },
+        "npc_b": {
+          "pickups": 31,
+          "movement": 1525,
+          "turns": 741,
+          "wait_reasons": {
+            "day_orientation": 120,
+            "landmark_operation_budget": 13,
+            "acquisition_incomplete": 46,
+            "return_unload_attempt": 30,
+            "return_delivery_confirmed": 160,
+            "day_night": 960,
+            "landmark_lost": 31,
+            "landmark_ambiguous": 159,
+            "landmark_goal_budget": 1700,
+            "landmark_no_candidate_after_scan": 15,
+            "return_home_like_observed": 2079,
+            "neighborhood_completed_no_food": 8
+          },
+          "days": {
+            "1": {
+              "movement": 98,
+              "pickups": 18,
+              "new_2m_cells": 51,
+              "visited_2m_cells": 51
+            },
+            "2": {
+              "movement": 94,
+              "pickups": 12,
+              "new_2m_cells": 44,
+              "visited_2m_cells": 53
+            },
+            "3": {
+              "movement": 57,
+              "pickups": 0,
+              "new_2m_cells": 17,
+              "visited_2m_cells": 28
+            },
+            "4": {
+              "movement": 57,
+              "pickups": 0,
+              "new_2m_cells": 8,
+              "visited_2m_cells": 29
+            },
+            "5": {
+              "movement": 88,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 31
+            },
+            "6": {
+              "movement": 115,
+              "pickups": 1,
+              "new_2m_cells": 53,
+              "visited_2m_cells": 62
+            },
+            "7": {
+              "movement": 94,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 43
+            },
+            "8": {
+              "movement": 85,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 36
+            },
+            "9": {
+              "movement": 106,
+              "pickups": 0,
+              "new_2m_cells": 21,
+              "visited_2m_cells": 49
+            },
+            "10": {
+              "movement": 20,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 11
+            },
+            "11": {
+              "movement": 25,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 12
+            },
+            "12": {
+              "movement": 44,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 22
+            },
+            "13": {
+              "movement": 39,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 21
+            },
+            "14": {
+              "movement": 29,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 14
+            },
+            "15": {
+              "movement": 33,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 16
+            },
+            "16": {
+              "movement": 41,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 19
+            },
+            "17": {
+              "movement": 25,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 10
+            },
+            "18": {
+              "movement": 72,
+              "pickups": 0,
+              "new_2m_cells": 4,
+              "visited_2m_cells": 34
+            },
+            "19": {
+              "movement": 31,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 14
+            },
+            "20": {
+              "movement": 49,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 22
+            },
+            "21": {
+              "movement": 26,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 13
+            },
+            "22": {
+              "movement": 19,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 8
+            },
+            "23": {
+              "movement": 34,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 14
+            },
+            "24": {
+              "movement": 57,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 31
+            },
+            "25": {
+              "movement": 15,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 5
+            },
+            "26": {
+              "movement": 46,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 20
+            },
+            "27": {
+              "movement": 55,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 19
+            },
+            "28": {
+              "movement": 34,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 13
+            },
+            "29": {
+              "movement": 16,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 6
+            },
+            "30": {
+              "movement": 21,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 9
+            }
+          },
+          "visited_2m_cells": 225,
+          "max_nontranslation_completions": 136,
+          "zero_translation_days": [],
+          "delivered": 31
+        },
+        "npc_c": {
+          "pickups": 12,
+          "movement": 1789,
+          "turns": 859,
+          "wait_reasons": {
+            "day_orientation": 120,
+            "landmark_ambiguous": 152,
+            "landmark_no_candidate_after_scan": 9,
+            "landmark_operation_budget": 9,
+            "landmark_goal_budget": 1481,
+            "return_unload_attempt": 30,
+            "return_home_like_observed": 2016,
+            "day_night": 960,
+            "acquisition_incomplete": 119,
+            "landmark_lost": 29,
+            "neighborhood_completed_no_food": 13,
+            "return_search_lost": 3,
+            "return_search_no_candidate_after_scan": 2,
+            "return_search_acquisition_incomplete": 2,
+            "return_search_near_feature_observed": 1,
+            "return_delivery_confirmed": 50
+          },
+          "days": {
+            "1": {
+              "movement": 61,
+              "pickups": 0,
+              "new_2m_cells": 29,
+              "visited_2m_cells": 29
+            },
+            "2": {
+              "movement": 30,
+              "pickups": 0,
+              "new_2m_cells": 5,
+              "visited_2m_cells": 11
+            },
+            "3": {
+              "movement": 62,
+              "pickups": 0,
+              "new_2m_cells": 20,
+              "visited_2m_cells": 31
+            },
+            "4": {
+              "movement": 51,
+              "pickups": 0,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 21
+            },
+            "5": {
+              "movement": 29,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 12
+            },
+            "6": {
+              "movement": 101,
+              "pickups": 0,
+              "new_2m_cells": 24,
+              "visited_2m_cells": 46
+            },
+            "7": {
+              "movement": 53,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 24
+            },
+            "8": {
+              "movement": 68,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 28
+            },
+            "9": {
+              "movement": 18,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 7
+            },
+            "10": {
+              "movement": 79,
+              "pickups": 0,
+              "new_2m_cells": 10,
+              "visited_2m_cells": 40
+            },
+            "11": {
+              "movement": 70,
+              "pickups": 0,
+              "new_2m_cells": 5,
+              "visited_2m_cells": 31
+            },
+            "12": {
+              "movement": 38,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 22
+            },
+            "13": {
+              "movement": 48,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 21
+            },
+            "14": {
+              "movement": 104,
+              "pickups": 0,
+              "new_2m_cells": 26,
+              "visited_2m_cells": 49
+            },
+            "15": {
+              "movement": 25,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 9
+            },
+            "16": {
+              "movement": 60,
+              "pickups": 0,
+              "new_2m_cells": 18,
+              "visited_2m_cells": 34
+            },
+            "17": {
+              "movement": 112,
+              "pickups": 11,
+              "new_2m_cells": 33,
+              "visited_2m_cells": 56
+            },
+            "18": {
+              "movement": 19,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 9
+            },
+            "19": {
+              "movement": 75,
+              "pickups": 0,
+              "new_2m_cells": 3,
+              "visited_2m_cells": 36
+            },
+            "20": {
+              "movement": 43,
+              "pickups": 0,
+              "new_2m_cells": 2,
+              "visited_2m_cells": 19
+            },
+            "21": {
+              "movement": 44,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 20
+            },
+            "22": {
+              "movement": 48,
+              "pickups": 0,
+              "new_2m_cells": 1,
+              "visited_2m_cells": 22
+            },
+            "23": {
+              "movement": 111,
+              "pickups": 1,
+              "new_2m_cells": 13,
+              "visited_2m_cells": 55
+            },
+            "24": {
+              "movement": 98,
+              "pickups": 0,
+              "new_2m_cells": 6,
+              "visited_2m_cells": 47
+            },
+            "25": {
+              "movement": 94,
+              "pickups": 0,
+              "new_2m_cells": 7,
+              "visited_2m_cells": 48
+            },
+            "26": {
+              "movement": 38,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 16
+            },
+            "27": {
+              "movement": 17,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 6
+            },
+            "28": {
+              "movement": 49,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 23
+            },
+            "29": {
+              "movement": 100,
+              "pickups": 0,
+              "new_2m_cells": 7,
+              "visited_2m_cells": 50
+            },
+            "30": {
+              "movement": 44,
+              "pickups": 0,
+              "new_2m_cells": 0,
+              "visited_2m_cells": 21
+            }
+          },
+          "visited_2m_cells": 239,
+          "max_nontranslation_completions": 133,
+          "zero_translation_days": [],
+          "delivered": 12
+        }
+      }
+    }
+  ]
+}
