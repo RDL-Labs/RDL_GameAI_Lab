@@ -38,3 +38,22 @@ class HomeSearchTests(unittest.TestCase):
         a,p,s=self.setup();p['ground']['coverage']='partial'
         action,out=review(a,p,dict(color='ochre'),s,True,None)
         self.assertEqual(action,['wait',0]);self.assertEqual(out['diagnostic'],'search_acquisition_incomplete')
+
+    def test_overnight_pending_home_has_priority_without_erasing_history(self):
+        from integrations.lightweight.timed_harvest import HarvestAgent
+        from runtime.landmark_day_cycle import DAY_US
+        a=HarvestAgent('test','npc_a','steady',periods=3)
+        old=dict(day=0,return_state=dict(outcome='search_operation_budget'),home_pending=False,nights=[{'day':0,'return_outcome':'search_operation_budget'}])
+        state=deepcopy(old)
+        self.assertEqual(a._activity_phase({'capture_us':DAY_US},state,old),'orientation')
+        self.assertTrue(state['home_pending']);self.assertEqual(state['nights'],old['nights'])
+        state['day']=1;prior=deepcopy(state)
+        self.assertEqual(a._activity_phase({'capture_us':DAY_US+1000000},state,prior),'return')
+        self.assertEqual(a._activity_phase({'capture_us':DAY_US+56000000},state,prior),'night')
+        old=dict(day=1,return_state=dict(outcome='home_like_observed'),home_pending=True)
+        state=deepcopy(old)
+        self.assertEqual(a._activity_phase({'capture_us':2*DAY_US+1000000},state,old),'exploration')
+        self.assertFalse(state['home_pending'])
+        a.results['picked']=dict(acquired=True)
+        state=deepcopy(old)
+        self.assertEqual(a._activity_phase({'capture_us':2*DAY_US+1000000},state,old),'return')

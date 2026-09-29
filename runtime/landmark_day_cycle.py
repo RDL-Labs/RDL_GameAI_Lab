@@ -101,6 +101,9 @@ class DayCycleAgent(SteeredResourceAgent):
     def _return_review(self,p,memory,state,linked,result):
         return home_review(p,memory,state,linked,result)
 
+    def _activity_phase(self,p,state,old):
+        return phase(p['capture_us'])
+
     def _decision(self,p):
         day, mode = p["capture_us"]//DAY_US, phase(p["capture_us"])
         last = next(reversed(self.decisions.values())) if self.decisions else None
@@ -125,6 +128,7 @@ class DayCycleAgent(SteeredResourceAgent):
                     capture_us=p["capture_us"], pose_ref=p["pose_ref"], observation=deepcopy(p["skyline"]))
         if old is None or old["day"] != day:
             s["return_state"] = dict(scans=0,operations=0,outcome=None,diagnostic=None,candidates=[])
+        mode = self._activity_phase(p,s,old)
         if mode == "exploration":
             d = super()._decision(p)
         else:

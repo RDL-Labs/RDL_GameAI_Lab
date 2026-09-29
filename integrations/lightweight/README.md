@@ -40,3 +40,5 @@ The timed-harvest adapter now uses confirmed unload receipts to free carried cap
 For an adopted-model comparison use `--inexhaustible-after-model --mb-field-mode enabled` (or `disabled`) with `--no-return-target --skyline-subrays`. This starts finite and freezes remaining stock on actual adoption. See `docs/experiment-evidence/LW_mb_stock_evidence.md`; field application changed actions, but did not improve returns.
 
 Timed-harvest return now keeps the home purpose while searching observed landmarks after home loss. Search/homing switches share finite daily budgets; night still ends movement. See `LW_home_search_evidence.md`: actual reacquisition occurred, but deliveries did not improve.
+
+Unresolved return now carries overnight in timed harvest: next-day exploration time is allocated to home search, with cargo/history retained. Night remains stationary. See `LW_overnight_home_evidence.md`; 30-day daily resumption passed, but return remained unresolved and repeated paths persisted.

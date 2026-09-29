@@ -4,8 +4,9 @@ No Food selection, World map, reverse path, or learned route authority.
 """
 from copy import deepcopy
 from types import SimpleNamespace
-from .landmark_day_cycle import home_review
+from .landmark_day_cycle import home_review, DAY_US
 from .landmark_exploration import LandmarkExplorationDay, initial_state
+from .exploration_series import digest
 
 MAX_SEARCH_OPERATIONS=32
 
@@ -33,7 +34,8 @@ def review(agent,packet,memory,state,linked,result):
     if search['operations']>=MAX_SEARCH_OPERATIONS:
         s['outcome']='search_operation_budget';return ['wait',0],s
     view=SimpleNamespace(observations=agent.observations,results=agent.results,
-        decisions={'last':dict(landmark=search['landmark'])},seed=agent.seed)
+        decisions={'last':dict(landmark=search['landmark'])},
+        seed=int(digest([agent.seed,packet['capture_us']//DAY_US,'home-search-attempt'])[:8],16))
     action,landmark=LandmarkExplorationDay._subgoal(view,packet)
     search['landmark']=landmark
     s['diagnostic']='search_'+(landmark['outcome'] or landmark['stage'])

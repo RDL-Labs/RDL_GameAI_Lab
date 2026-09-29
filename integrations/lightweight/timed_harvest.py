@@ -42,6 +42,18 @@ class HarvestAgent(ApproachAgent):
             self.unload_receipts[op]=deepcopy(receipt)
             return True
 
+    def _activity_phase(self,p,state,old):
+        scheduled=phase(p['capture_us'])
+        if old is None:
+            state['home_pending']=False
+        elif old['day']!=state['day'] or p['capture_us']//DAY_US!=old['day']:
+            # A home-like appearance is insufficient to discharge carried cargo.
+            delivered=any(r['executed_us']//DAY_US==old['day'] for r in self.unload_receipts.values())
+            state['home_pending']=((not delivered and old['return_state']['outcome']!='home_like_observed') or self.carried_count()>0)
+        if state.get('home_pending') and scheduled=='exploration':
+            return 'return'
+        return scheduled
+
     def _return_review(self,p,memory,state,linked,result):
         from runtime.home_search import review
         return review(self,p,memory,state,linked,result)
@@ -106,7 +118,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,stop_after_returns=stop_after_returns,return_mode='observed-landmark-search-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,stop_after_returns=stop_after_returns,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -128,7 +140,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
                     emit(dict(type='working_capture',packet=p,reason='body_busy' if aid in scheduler.pending else 'completion_boundary'))
                     continue
                 c=loop.observe(p)['command'];d=loop.agents[aid].decisions[p['observation_id']]
-                emit(dict(type='decision',packet=p,command=c,model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),mb_field=d.get('mb_field'),return_state=d['day_cycle']['return_state']))
+                emit(dict(type='decision',packet=p,command=c,model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),mb_field=d.get('mb_field'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase']))
                 if inexhaustible_after_model and not w.inexhaustible and loop.agents[aid].model is not None:
                     w.inexhaustible=True
                     emit(dict(type='stock_mode_transition',capture_us=now,agent_id=aid,mode='inexhaustible',model=loop.agents[aid].model.to_json(),admission=loop.agents[aid].learning['admission'],stock=[x['stock'] for x in w.resources]))
