@@ -679,3 +679,10 @@ opt-in `--distant-mode patches`を追加。連続する同色・同距離帯だ�
 `--approach-mode enabled`で、観測済み食料への接近時にsoft obstacle寄与を0.1倍。衝突・物理除外は維持。
 30日完走、Cは食料0.843単位まで接近したがground partialでpickup前に待機。採取0。
 [Evidence](/docs/experiment-evidence/LW_approach_field_evidence.md)。H/学習規則は変更なし。
+
+
+### LW 時間を持つ採取
+
+opt-in timed_harvestで距離1.25以内→0.5秒作業→完了時判定。30日完走、Cが12採取・1地点枯渇、帰還0。
+学習の観測条件は維持しrecords/M_B0。[Evidence](/docs/experiment-evidence/LW_timed_harvest_evidence.md)。
+作業中も取得を続け身体操作を抑制。新イベント形式のviewer対応は次工程。

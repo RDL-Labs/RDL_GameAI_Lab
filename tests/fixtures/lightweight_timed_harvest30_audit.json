@@ -1,0 +1,54 @@
+{
+  "summary": {
+    "type": "summary",
+    "reason": "time_limit",
+    "captures": 23040,
+    "ended_us": 1920000000,
+    "pickups": 12,
+    "returns": [],
+    "elapsed_seconds": 20.87400070001604,
+    "stock": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      0,
+      12
+    ],
+    "agents": {
+      "npc_a": {
+        "observations": 7680,
+        "records": 0,
+        "model_ref": null
+      },
+      "npc_b": {
+        "observations": 7680,
+        "records": 0,
+        "model_ref": null
+      },
+      "npc_c": {
+        "observations": 7656,
+        "records": 0,
+        "model_ref": null
+      }
+    }
+  },
+  "events": {
+    "manifest": 1,
+    "decision": 23016,
+    "completed": 23016,
+    "work_started": 12,
+    "working_capture": 24,
+    "summary": 1
+  },
+  "started": 12,
+  "completed_work": 12,
+  "work_duration_us": 500000,
+  "log_sha256": "c7e007a73b4fa8f60386568e423ccd0b45bd9bdc97a7d068e30d470c054feebb",
+  "sources": {
+    "integrations/lightweight/timed_harvest.py": "1ac6dde266a6132741c57ba917b9b41a34f606aa8b608c0f7f7aa67ddf4a0dee",
+    "integrations/lightweight/world.py": "5434c62431370fcb8eee6f9171df7d97941f2ba54db1efdcd8aaa0fd92742205"
+  }
+}

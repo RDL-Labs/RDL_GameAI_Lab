@@ -22,3 +22,9 @@ Optional `--distant-mode patches` merges contiguous equal color/range ray interv
 `--layout sparse` keeps six of the dense layout objects while preserving all resource positions/stocks and initial agents. It changes visibility and collision, not Runtime decisions. Default remains dense.
 
 `--approach-mode enabled` opts into the finite visible-food soft-repulsion appraisal. Default disabled. Example: `python -m integrations.lightweight.world --days 30 --layout sparse --approach-mode enabled --output integrations/lightweight/output/approach.jsonl`.
+
+Timed harvesting (opt-in, sparse layout + approach mode):
+```powershell
+python -m integrations.lightweight.timed_harvest --days 30 --output integrations/lightweight/output/work.jsonl
+```
+Uses lw-timed-harvest-v1 event records; the original viewer does not yet support this format.

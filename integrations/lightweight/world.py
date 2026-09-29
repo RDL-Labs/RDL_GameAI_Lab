@@ -158,7 +158,7 @@ class World:
             obstacles=dict(source=dict(context,frame_id=ident+':obstacles'),coverage='complete',output_limited=False,items=obstacles))
         return p
 
-    def execute(self, command, packet):
+    def execute(self, command, packet, executed_us=None):
         c=command;aid=c['agent_id'];op=c['operation_id']
         if any(c.get(k)!=v for k,v in self.context(aid).items()):raise ValueError('context')
         if op!='op:'+packet['observation_id']:raise ValueError('operation_binding')
@@ -167,7 +167,8 @@ class World:
             if old!=c:raise ValueError('operation_conflict')
             return deepcopy(result)
         if c['source_id']!=packet['observation_id'] or packet['agent_id']!=aid:raise ValueError('source_binding')
-        a=self.agents[aid];before=self.pose(aid);revision=a['revision'];now=c['capture_us']+1
+        a=self.agents[aid];before=self.pose(aid);revision=a['revision'];now=c['capture_us']+1 if executed_us is None else executed_us
+        if now<c['capture_us']:raise ValueError('execution_time')
         status={'move':'blocked','turn':'turned','wait':'waited','pickup':'not_found'}[c['kind']]
         if c['pose_ref']!=before or c['body_revision']!=revision:status='stale'
         elif now>=c['expires_us']:status='expired'
