@@ -234,3 +234,10 @@ p5再生は次工程、目標H・canonical Sleep接続は未実装。Luantiと�
 M_B移動寄与disabled/enabledとも約30秒で30日完了。採取・持帰り・モデル形成0、全行動一致。
 遠景partialに伴う取得不完了待機が多数で、学習効果の適用機会はなかった。
 [Evidence](/docs/experiment-evidence/LW_3_paired_campaign_evidence.md)。Hは未接続、次は有限観測と判断条件の整理。
+
+
+### LW 遠景角域化の限定比較
+
+opt-in `--distant-mode patches`を追加。連続する同色・同距離帯だけを結合し、4件超過はpartialを維持。
+30日disabledは完了、行動差0。有効条件はプロセス異常終了で未完了。
+[Evidence](/docs/experiment-evidence/LW_3_distant_patches_evidence.md)。Runtime/Hは変更なし。

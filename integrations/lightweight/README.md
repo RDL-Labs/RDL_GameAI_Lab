@@ -16,3 +16,5 @@ Paired audit:
 python -m integrations.lightweight.compare disabled.jsonl enabled.jsonl --output comparison.json
 ```
 The saved 30-day gzip logs in tests/fixtures can be selected in the replay viewer. See LW_3_paired_campaign_evidence.md for the zero-harvest result.
+
+Optional `--distant-mode patches` merges contiguous equal color/range ray intervals before the four-feature cap. Default `rays` preserves the original acquisition. This is not object recognition; overflow remains partial. See LW_3_distant_patches_evidence.md for the incomplete paired experiment.

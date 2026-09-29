@@ -84,3 +84,5 @@ p5は記録を読み取る。全景には「実験者用」と表示し、個体
 
 
 LW-3: [30日比較](../experiment-evidence/LW_3_paired_campaign_evidence.md)。遠景partialに伴う待機が多数。次は軽量センサーの有限取得・判断条件を整理し、その後に目標H接続を進める。
+
+遠景角域化のopt-in比較: disabled30日完了・行動差0、有効条件は未完了。[記録](../experiment-evidence/LW_3_distant_patches_evidence.md)。次は用途ごとの取得完全性条件を契約化する候補。

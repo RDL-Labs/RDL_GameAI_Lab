@@ -1,0 +1,619 @@
+{
+  "audit": {
+    "manifest": {
+      "type": "manifest",
+      "version": "lw-planar-world-v1",
+      "run_id": "lw-demo",
+      "seed": 20260928,
+      "days": 30,
+      "model_field": "disabled",
+      "objects": [
+        {
+          "x": 0.0,
+          "z": 8.0,
+          "radius": 1.0,
+          "height": 12.0,
+          "color": "ochre",
+          "solid": true
+        },
+        {
+          "x": 37.04960100860342,
+          "z": 15.375220970513087,
+          "radius": 1.2198621899587785,
+          "height": 2.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 11.971918720443718,
+          "z": -34.798505930332155,
+          "radius": 1.4670034201192492,
+          "height": 8.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 1.9122548512930868,
+          "z": -23.65176945826959,
+          "radius": 1.3362615602366068,
+          "height": 5.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": -33.87737183723341,
+          "z": 2.132027443403455,
+          "radius": 1.1854690806451456,
+          "height": 8.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": 36.343938843165986,
+          "z": -18.62138718545028,
+          "radius": 0.6519608588773045,
+          "height": 2.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": 6.854460811080743,
+          "z": 19.73184113226014,
+          "radius": 1.166565475086934,
+          "height": 5.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": -17.730760378514947,
+          "z": -9.326166393557584,
+          "radius": 1.4600449557596464,
+          "height": 2.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 2.6756254683288994,
+          "z": -16.70446650215903,
+          "radius": 0.7504995242000895,
+          "height": 8.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": -14.044888943139398,
+          "z": 0.13151830130028036,
+          "radius": 1.337863844698008,
+          "height": 8.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": 8.55822361526842,
+          "z": -40.45238410957333,
+          "radius": 1.1319362931547583,
+          "height": 2.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 14.487251558017475,
+          "z": 32.932055983009995,
+          "radius": 1.3978242181283314,
+          "height": 8.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": 19.66889165644049,
+          "z": -28.325335234621345,
+          "radius": 1.1105715645838792,
+          "height": 5.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 28.11546977170837,
+          "z": -16.267849521733893,
+          "radius": 0.9254243484992035,
+          "height": 2.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -27.198010474943768,
+          "z": -25.937248093315226,
+          "radius": 0.6567715330977651,
+          "height": 8.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -26.516385767599267,
+          "z": 20.69700694785673,
+          "radius": 1.2046273119384638,
+          "height": 2.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": 9.981463288455906,
+          "z": -17.35879029053619,
+          "radius": 1.2963064084447613,
+          "height": 8.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": -17.606713098090545,
+          "z": 3.1641843972111965,
+          "radius": 0.6880443127677532,
+          "height": 8.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": 11.631138239778094,
+          "z": -37.15256849945238,
+          "radius": 1.2824122905576223,
+          "height": 2.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": 9.068429401385723,
+          "z": 14.258429574958814,
+          "radius": 1.0970345371188581,
+          "height": 2.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 7.830806856957715,
+          "z": 14.676529769592559,
+          "radius": 0.7666781703702216,
+          "height": 5.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -37.03978532334285,
+          "z": 3.3876004320316007,
+          "radius": 0.791053136702331,
+          "height": 2.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": -25.38573807472301,
+          "z": -8.009804419129864,
+          "radius": 1.3774445342483679,
+          "height": 2.0,
+          "color": "green",
+          "solid": true
+        }
+      ],
+      "resources": [
+        {
+          "x": 39.26946319856219,
+          "z": 15.375220970513087,
+          "stock": 12
+        },
+        {
+          "x": 14.438922140562967,
+          "z": -34.798505930332155,
+          "stock": 12
+        },
+        {
+          "x": 4.248516411529693,
+          "z": -23.65176945826959,
+          "stock": 12
+        },
+        {
+          "x": -31.691902756588263,
+          "z": 2.132027443403455,
+          "stock": 12
+        },
+        {
+          "x": 37.99589970204329,
+          "z": -18.62138718545028,
+          "stock": 12
+        },
+        {
+          "x": 9.021026286167677,
+          "z": 19.73184113226014,
+          "stock": 12
+        },
+        {
+          "x": -15.270715422755302,
+          "z": -9.326166393557584,
+          "stock": 12
+        },
+        {
+          "x": 4.4261249925289885,
+          "z": -16.70446650215903,
+          "stock": 12
+        }
+      ],
+      "agents": {
+        "npc_a": {
+          "x": -2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_b": {
+          "x": 0.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_c": {
+          "x": 2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        }
+      },
+      "authority": "experimenter-only World truth",
+      "clock": "virtual integer microseconds",
+      "body_model": "instant discrete one-unit step, no agent collisions",
+      "sensor": "lw-planar-patches-v1"
+    },
+    "summary": {
+      "type": "summary",
+      "reason": "time_limit",
+      "slots": 7680,
+      "days_completed": 30,
+      "returns": [],
+      "pickups": 0,
+      "stock": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "elapsed_seconds": 27.125907699984964,
+      "agents": {
+        "npc_a": {
+          "records": 0,
+          "model_ref": null,
+          "observations": 7680,
+          "body": {
+            "x": -7.6550548769777835,
+            "z": 2.175436620873919,
+            "yaw": -120.0,
+            "revision": 165,
+            "inventory": 0
+          }
+        },
+        "npc_b": {
+          "records": 0,
+          "model_ref": null,
+          "observations": 7680,
+          "body": {
+            "x": 28.90842443455105,
+            "z": 9.573900655394953,
+            "yaw": -165.0,
+            "revision": 158,
+            "inventory": 0
+          }
+        },
+        "npc_c": {
+          "records": 0,
+          "model_ref": null,
+          "observations": 7680,
+          "body": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": -45.0,
+            "revision": 1,
+            "inventory": 0
+          }
+        }
+      }
+    },
+    "agents": {
+      "npc_a": {
+        "observations": 7680,
+        "actions": {
+          "wait": 7515,
+          "turn": 128,
+          "move": 37
+        },
+        "reasons": {
+          "day_orientation": 120,
+          "landmark_active": 50,
+          "landmark_ambiguous": 9,
+          "acquisition_incomplete": 3661,
+          "return_not_observed": 2500,
+          "return_appearance_candidate": 7,
+          "return_home_like_observed": 373,
+          "day_night": 960
+        },
+        "statuses": {
+          "waited": 7515,
+          "turned": 128,
+          "moved": 37
+        },
+        "distance": 37.0,
+        "field_statuses": {},
+        "field_applied": 0,
+        "first_model_us": null,
+        "max_learning_records": 0,
+        "last_capture": 1919750000,
+        "first_pickup_us": null,
+        "acquisition_reasons": {
+          "distant_partial": 3661
+        },
+        "food_visible_steps": 0,
+        "visited_4unit_cells": 9
+      },
+      "npc_b": {
+        "observations": 7680,
+        "actions": {
+          "wait": 7522,
+          "turn": 124,
+          "move": 34
+        },
+        "reasons": {
+          "day_orientation": 120,
+          "landmark_active": 37,
+          "landmark_ambiguous": 2,
+          "landmark_operation_budget": 2,
+          "landmark_no_candidate": 1,
+          "acquisition_incomplete": 3678,
+          "return_not_observed": 2880,
+          "day_night": 960
+        },
+        "statuses": {
+          "waited": 7522,
+          "turned": 124,
+          "moved": 34
+        },
+        "distance": 34.0,
+        "field_statuses": {},
+        "field_applied": 0,
+        "first_model_us": null,
+        "max_learning_records": 0,
+        "last_capture": 1919750000,
+        "first_pickup_us": null,
+        "acquisition_reasons": {
+          "distant_partial": 3678
+        },
+        "food_visible_steps": 0,
+        "visited_4unit_cells": 10
+      },
+      "npc_c": {
+        "observations": 7680,
+        "actions": {
+          "wait": 7679,
+          "turn": 1
+        },
+        "reasons": {
+          "day_orientation": 120,
+          "landmark_active": 1,
+          "acquisition_incomplete": 3719,
+          "return_home_like_observed": 2880,
+          "day_night": 960
+        },
+        "statuses": {
+          "waited": 7679,
+          "turned": 1
+        },
+        "distance": 0.0,
+        "field_statuses": {},
+        "field_applied": 0,
+        "first_model_us": null,
+        "max_learning_records": 0,
+        "last_capture": 1919750000,
+        "first_pickup_us": null,
+        "acquisition_reasons": {
+          "distant_partial": 3719
+        },
+        "food_visible_steps": 0,
+        "visited_4unit_cells": 1
+      }
+    },
+    "daily": {
+      "1": {
+        "pickups": 0,
+        "moves": 47,
+        "turns": 18,
+        "waits": 703
+      },
+      "2": {
+        "pickups": 0,
+        "moves": 10,
+        "turns": 9,
+        "waits": 749
+      },
+      "3": {
+        "pickups": 0,
+        "moves": 11,
+        "turns": 7,
+        "waits": 750
+      },
+      "4": {
+        "pickups": 0,
+        "moves": 1,
+        "turns": 8,
+        "waits": 759
+      },
+      "5": {
+        "pickups": 0,
+        "moves": 2,
+        "turns": 11,
+        "waits": 755
+      },
+      "6": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "7": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "8": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "9": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "10": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "11": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "12": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "13": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "14": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "15": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "16": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "17": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "18": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "19": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "20": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "21": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "22": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "23": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "24": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "25": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "26": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "27": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "28": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "29": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      },
+      "30": {
+        "pickups": 0,
+        "moves": 0,
+        "turns": 8,
+        "waits": 760
+      }
+    }
+  },
+  "versus_rays": {
+    "pairs": 23040,
+    "differences": {
+      "packet": 11,
+      "command": 0,
+      "result": 0,
+      "body": 0
+    }
+  },
+  "paired_enabled_status": "incomplete; host interpreter errors",
+  "source_sha256": "1d13724d934576526ff7e2d407921e8aabcb2d52960409b395f24046c4871e3a"
+}

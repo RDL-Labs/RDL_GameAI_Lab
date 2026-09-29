@@ -25,10 +25,26 @@ def ray_hit(start, direction, obj):
     return max(0, along-sqrt(disc)) if far >= 0 else None
 
 
+def distant_patches(features, mode):
+    """Compress contiguous identical observed bands; never consult object identity."""
+    if mode not in ('rays', 'patches'): raise ValueError('distant_mode')
+    out=[]
+    for feature in features:
+        f=deepcopy(feature)
+        if (mode=='patches' and out and out[-1]['color']==f['color']
+                and out[-1]['range_band']==f['range_band']
+                and out[-1]['azimuth'][1]==f['azimuth'][0]):
+            out[-1]['azimuth'][1]=f['azimuth'][1]
+        else:out.append(f)
+    return out
+
+
 class World:
     version = 'lw-planar-world-v1'
 
-    def __init__(self, run_id='lw-demo', seed=20260928):
+    def __init__(self, run_id='lw-demo', seed=20260928, distant_mode='rays'):
+        distant_patches([],distant_mode)
+        self.distant_mode=distant_mode
         self.run_id, self.seed = run_id, seed
         rng = Random(seed)
         self.objects = [dict(x=0., z=8., radius=1., height=12., color='ochre', solid=True)]
@@ -115,14 +131,15 @@ class World:
         p['skyline']=dict(model='finite-elevated-fan-v1',source={k:p[k] for k in ('agent_id','observation_id','capture_us','pose_ref')},coverage='complete',features=sky)
         # Finite surface rays, same wire vocabulary; new sensor implementation is declared in the run manifest.
         distant=[]
-        for j,f in enumerate(features[:4]):
+        patches=distant_patches(features,self.distant_mode)
+        for j,f in enumerate(patches[:4]):
             distant.append(dict(feature_id=f'f{j}',color_band={'green':'unknown','brown':'unknown','gray':'dark_gray','blue':'unknown','red':'muted_red'}[f['color']],
                 azimuth_interval_deg=f['azimuth'],elevation_interval_deg=[0,5],angular_width_band='unknown',angular_height_band='unknown'))
         p['distant']=dict(frame_id=f'{self.run_id}:{aid}:distant:{slot}',agent_id=aid,sensor_id='eye',channel='vision_distant',
             profile_id='fixture-distant-enabled',profile_revision=1,sensor_model_revision='sampled-surface-v0.2',
             sample_seq=slot,clock_id='world-sim-v1',sampled_world_tick=slot,observer_frame_ref=p['pose_ref'],
             capture_window=dict(kind='instant',start_us=now,end_us=now),status='SAMPLED',
-            coverage='PARTIAL' if len(features)>4 else 'COMPLETE_WITHIN_PLAN',output_limited=len(features)>4,payload=dict(features=distant))
+            coverage='PARTIAL' if len(patches)>4 else 'COMPLETE_WITHIN_PLAN',output_limited=len(patches)>4,payload=dict(features=distant))
         context={k:p[k] for k in ('run_id','world_epoch','agent_id','observation_id','clock_id','capture_us','pose_ref','body_revision')}
         samples=[dict(direction_deg=angle,status='sampled' if self.traversable(aid,angle) else 'blocked',
                       height_delta=0 if self.traversable(aid,angle) else None) for angle in (-90,-45,0,45,90)]
@@ -173,11 +190,11 @@ class World:
         return r
 
 
-def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo'):
+def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo', distant_mode='rays'):
     """Append complete JSON lines; an interrupted file retains its valid prefix."""
     import json, time
     from pathlib import Path
-    world=World(run_id,seed);loop=ReturnCampaign(run_id,days,seed,mb_field_mode=mode,harvest_state=True)
+    world=World(run_id,seed,distant_mode);loop=ReturnCampaign(run_id,days,seed,mb_field_mode=mode,harvest_state=True)
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     started=time.perf_counter();slots=0
     with path.open('w',encoding='utf8') as stream:
@@ -185,7 +202,7 @@ def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo'):
             stream.write(json.dumps(value,separators=(',',':'),allow_nan=False)+'\n');stream.flush()
         emit(dict(type='manifest',version=world.version,run_id=run_id,seed=seed,days=days,model_field=mode,
                   objects=world.objects,resources=world.resources,agents=world.agents,authority='experimenter-only World truth',
-                  clock='virtual integer microseconds',body_model='instant discrete one-unit step, no agent collisions',sensor='lw-planar-rays-v1'))
+                  clock='virtual integer microseconds',body_model='instant discrete one-unit step, no agent collisions',sensor='lw-planar-rays-v1' if distant_mode=='rays' else 'lw-planar-patches-v1'))
         for aid in world.agents:
             config=dict(world.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mode,
                 teaching=dict(statement_id=f'{run_id}:{aid}:teaching',source='god_statue',sample_observation=f'{run_id}:{aid}:sample',
@@ -218,5 +235,6 @@ if __name__=='__main__':
     import argparse,json
     p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=3)
     p.add_argument('--seed',type=int,default=20260928);p.add_argument('--mode',choices=['enabled','disabled'],default='enabled')
-    args=p.parse_args();print(json.dumps(run(args.output,args.days,args.seed,args.mode),indent=2))
+    p.add_argument('--distant-mode',choices=['rays','patches'],default='rays')
+    args=p.parse_args();print(json.dumps(run(args.output,args.days,args.seed,args.mode,distant_mode=args.distant_mode),indent=2))
 
