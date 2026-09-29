@@ -44,6 +44,7 @@ class World:
 
     def __init__(self, run_id='lw-demo', seed=20260928, distant_mode='rays', layout='dense'):
         distant_patches([],distant_mode)
+        self.skyline_subrays=False
         self.distant_mode=distant_mode
         if layout not in ('dense','sparse'):raise ValueError('layout')
         self.layout=layout
@@ -125,12 +126,20 @@ class World:
         for elevation in (0,15,30):
             for j,angle in enumerate(range(-90,91,15)):
                 hit=self.cast(aid,angle,48,elevation)
-                if hit:
-                    d,obj=hit; bounds=[max(-90,angle-7.5),min(90,angle+7.5)]
-                    feature=dict(ref=f'ray:{elevation}:{j}',color=obj['color'],azimuth=bounds,
-                                 range_band='near' if d<=8 else 'mid' if d<=24 else 'far')
-                    sky.append(dict(feature,elevation=elevation))
-                    if elevation==0 and obj['color']!='ochre':features.append(feature)
+                bounds=[max(-90,angle-7.5),min(90,angle+7.5)]
+                if hit and elevation==0 and hit[1]['color']!='ochre':
+                    d,obj=hit
+                    features.append(dict(ref=f'ray:{elevation}:{j}',color=obj['color'],azimuth=bounds,
+                        range_band='near' if d<=8 else 'mid' if d<=24 else 'far'))
+                skyhit=hit
+                if self.skyline_subrays:
+                    hits=[h for delta in (-5,0,5) if -90<=angle+delta<=90
+                          if (h:=self.cast(aid,angle+delta,48,elevation))]
+                    skyhit=min(hits,key=lambda h:h[0]) if hits else None
+                if skyhit:
+                    d,obj=skyhit
+                    sky.append(dict(ref=f'ray:{elevation}:{j}',color=obj['color'],azimuth=bounds,
+                        range_band='near' if d<=8 else 'mid' if d<=24 else 'far',elevation=elevation))
         p['landmarks']=dict(model='l13u-horizontal-surface-fan-v1',profile='l13u-landmark-fixed-v1',
                             coverage='complete',output_limited=False,features=features)
         p['skyline']=dict(model='finite-elevated-fan-v1',source={k:p[k] for k in ('agent_id','observation_id','capture_us','pose_ref')},coverage='complete',features=sky)

@@ -28,3 +28,5 @@ Timed harvesting (opt-in, sparse layout + approach mode):
 python -m integrations.lightweight.timed_harvest --days 30 --output integrations/lightweight/output/work.jsonl
 ```
 Uses lw-timed-harvest-v1 event records; the original viewer does not yet support this format.
+
+Add `--skyline-subrays` to the timed_harvest command for three finite rays per skyline bin. This only changes skyline acquisition and records the option in the manifest.

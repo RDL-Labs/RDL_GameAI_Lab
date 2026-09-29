@@ -262,3 +262,10 @@ opt-in `--distant-mode patches`を追加。連続する同色・同距離帯だ�
 opt-in timed_harvestで距離1.25以内→0.5秒作業→完了時判定。30日完走、Cが12採取・1地点枯渇、帰還0。
 学習の観測条件は維持しrecords/M_B0。[Evidence](/docs/experiment-evidence/LW_timed_harvest_evidence.md)。
 作業中も取得を続け身体操作を抑制。新イベント形式のviewer対応は次工程。
+
+
+### LW 時刻帰還の成立
+
+opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の探索継続・時刻帰還によりCが2回、24単位持帰り。
+30日採取60、CのM_B形成あり。3回目持帰りは未達、学習効果への単独帰属なし。
+[Evidence](/docs/experiment-evidence/LW_time_return_evidence.md)。H/帰還規則は変更なし。

@@ -1,0 +1,84 @@
+{
+  "summary": {
+    "type": "summary",
+    "reason": "time_limit",
+    "captures": 23040,
+    "ended_us": 1920000000,
+    "pickups": 60,
+    "returns": [
+      {
+        "agent_id": "npc_c",
+        "day": 1,
+        "pickups": [
+          "op:lw-work:npc_c:obs:30",
+          "op:lw-work:npc_c:obs:33",
+          "op:lw-work:npc_c:obs:36",
+          "op:lw-work:npc_c:obs:39",
+          "op:lw-work:npc_c:obs:42",
+          "op:lw-work:npc_c:obs:45",
+          "op:lw-work:npc_c:obs:48",
+          "op:lw-work:npc_c:obs:51",
+          "op:lw-work:npc_c:obs:54",
+          "op:lw-work:npc_c:obs:57",
+          "op:lw-work:npc_c:obs:60",
+          "op:lw-work:npc_c:obs:63"
+        ],
+        "executed_us": 56000001
+      },
+      {
+        "agent_id": "npc_c",
+        "day": 2,
+        "pickups": [
+          "op:lw-work:npc_c:obs:292",
+          "op:lw-work:npc_c:obs:295",
+          "op:lw-work:npc_c:obs:298",
+          "op:lw-work:npc_c:obs:301",
+          "op:lw-work:npc_c:obs:304",
+          "op:lw-work:npc_c:obs:307",
+          "op:lw-work:npc_c:obs:310",
+          "op:lw-work:npc_c:obs:313",
+          "op:lw-work:npc_c:obs:316",
+          "op:lw-work:npc_c:obs:319",
+          "op:lw-work:npc_c:obs:322",
+          "op:lw-work:npc_c:obs:325"
+        ],
+        "executed_us": 120000001
+      }
+    ],
+    "elapsed_seconds": 23.39467250002781,
+    "stock": [
+      12,
+      0,
+      0,
+      0,
+      12,
+      12,
+      0,
+      0
+    ],
+    "agents": {
+      "npc_a": {
+        "observations": 7680,
+        "records": 0,
+        "model_ref": null
+      },
+      "npc_b": {
+        "observations": 7680,
+        "records": 0,
+        "model_ref": null
+      },
+      "npc_c": {
+        "observations": 7560,
+        "records": 48,
+        "model_ref": "gameai-reconstructed-mb:1c5071f34315e46a:v1"
+      }
+    }
+  },
+  "first_model_us": 76750000,
+  "verified_returned_units": 24,
+  "log_sha256": "55461265a3ab52c69fc30789676ef66ce4582e5d09f13324e5119df936836340",
+  "sources": {
+    "integrations/lightweight/world.py": "a181a816b049b180bd9432abf3f11baf2bf25d1deac2f32034b50a5984c953c0",
+    "integrations/lightweight/timed_harvest.py": "a3cef9ec53996aa1eec8cfc0299d844c0170699bf3df398403c5385b694ed13d"
+  }
+}
