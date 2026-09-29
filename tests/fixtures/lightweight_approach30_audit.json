@@ -1,0 +1,477 @@
+{
+  "manifest": {
+    "type": "manifest",
+    "version": "lw-planar-world-v1",
+    "run_id": "lw-demo",
+    "seed": 20260928,
+    "days": 30,
+    "model_field": "enabled",
+    "approach_mode": "enabled",
+    "layout": "sparse",
+    "objects": [
+      {
+        "x": 0.0,
+        "z": 8.0,
+        "radius": 1.0,
+        "height": 12.0,
+        "color": "ochre",
+        "solid": true
+      },
+      {
+        "x": 37.04960100860342,
+        "z": 15.375220970513087,
+        "radius": 1.2198621899587785,
+        "height": 2.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": -33.87737183723341,
+        "z": 2.132027443403455,
+        "radius": 1.1854690806451456,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -17.730760378514947,
+        "z": -9.326166393557584,
+        "radius": 1.4600449557596464,
+        "height": 2.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 8.55822361526842,
+        "z": -40.45238410957333,
+        "radius": 1.1319362931547583,
+        "height": 2.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": -27.198010474943768,
+        "z": -25.937248093315226,
+        "radius": 0.6567715330977651,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      }
+    ],
+    "resources": [
+      {
+        "x": 39.26946319856219,
+        "z": 15.375220970513087,
+        "stock": 12
+      },
+      {
+        "x": 14.438922140562967,
+        "z": -34.798505930332155,
+        "stock": 12
+      },
+      {
+        "x": 4.248516411529693,
+        "z": -23.65176945826959,
+        "stock": 12
+      },
+      {
+        "x": -31.691902756588263,
+        "z": 2.132027443403455,
+        "stock": 12
+      },
+      {
+        "x": 37.99589970204329,
+        "z": -18.62138718545028,
+        "stock": 12
+      },
+      {
+        "x": 9.021026286167677,
+        "z": 19.73184113226014,
+        "stock": 12
+      },
+      {
+        "x": -15.270715422755302,
+        "z": -9.326166393557584,
+        "stock": 12
+      },
+      {
+        "x": 4.4261249925289885,
+        "z": -16.70446650215903,
+        "stock": 12
+      }
+    ],
+    "agents": {
+      "npc_a": {
+        "x": -2.0,
+        "z": 4.0,
+        "yaw": 0.0,
+        "revision": 0,
+        "inventory": 0
+      },
+      "npc_b": {
+        "x": 0.0,
+        "z": 4.0,
+        "yaw": 0.0,
+        "revision": 0,
+        "inventory": 0
+      },
+      "npc_c": {
+        "x": 2.0,
+        "z": 4.0,
+        "yaw": 0.0,
+        "revision": 0,
+        "inventory": 0
+      }
+    },
+    "authority": "experimenter-only World truth",
+    "clock": "virtual integer microseconds",
+    "body_model": "instant discrete one-unit step, no agent collisions",
+    "sensor": "lw-planar-rays-v1"
+  },
+  "summary": {
+    "type": "summary",
+    "reason": "time_limit",
+    "slots": 7680,
+    "days_completed": 30,
+    "returns": [],
+    "pickups": 0,
+    "stock": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "elapsed_seconds": 20.20207489997847,
+    "agents": {
+      "npc_a": {
+        "records": 0,
+        "model_ref": null,
+        "observations": 7680,
+        "body": {
+          "x": 28.9096264412502,
+          "z": 12.28220944328065,
+          "yaw": 75.0,
+          "revision": 290,
+          "inventory": 0
+        }
+      },
+      "npc_b": {
+        "records": 0,
+        "model_ref": null,
+        "observations": 7680,
+        "body": {
+          "x": 0.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 120,
+          "inventory": 0
+        }
+      },
+      "npc_c": {
+        "records": 0,
+        "model_ref": null,
+        "observations": 7680,
+        "body": {
+          "x": -14.435028842544407,
+          "z": -9.435028842544405,
+          "yaw": -90.0,
+          "revision": 146,
+          "inventory": 0
+        }
+      }
+    }
+  },
+  "agents": {
+    "npc_a": {
+      "observations": 7680,
+      "actions": {
+        "wait": 7390,
+        "turn": 250,
+        "move": 40
+      },
+      "reasons": {
+        "day_orientation": 120,
+        "landmark_active": 34,
+        "landmark_operation_budget": 2,
+        "neighborhood_survey": 16,
+        "neighborhood_completed_no_food": 1,
+        "landmark_no_candidate": 120,
+        "landmark_no_candidate_after_scan": 3547,
+        "return_not_observed": 2880,
+        "day_night": 960
+      },
+      "statuses": {
+        "waited": 7390,
+        "turned": 250,
+        "moved": 40
+      },
+      "distance": 40.0,
+      "field_statuses": {},
+      "field_applied": 0,
+      "first_model_us": null,
+      "max_learning_records": 0,
+      "last_capture": 1919750000,
+      "first_pickup_us": null,
+      "acquisition_reasons": {},
+      "food_visible_steps": 0,
+      "visited_4unit_cells": 12
+    },
+    "npc_b": {
+      "observations": 7680,
+      "actions": {
+        "wait": 7560,
+        "turn": 120
+      },
+      "reasons": {
+        "day_orientation": 120,
+        "landmark_no_candidate": 120,
+        "landmark_no_candidate_after_scan": 3600,
+        "return_home_like_observed": 2880,
+        "day_night": 960
+      },
+      "statuses": {
+        "waited": 7560,
+        "turned": 120
+      },
+      "distance": 0.0,
+      "field_statuses": {},
+      "field_applied": 0,
+      "first_model_us": null,
+      "max_learning_records": 0,
+      "last_capture": 1919750000,
+      "first_pickup_us": null,
+      "acquisition_reasons": {},
+      "food_visible_steps": 0,
+      "visited_4unit_cells": 1
+    },
+    "npc_c": {
+      "observations": 7680,
+      "actions": {
+        "wait": 7534,
+        "turn": 124,
+        "move": 22
+      },
+      "reasons": {
+        "day_orientation": 120,
+        "landmark_no_candidate": 2,
+        "landmark_active": 11,
+        "observed_material_terrain_heading_held": 12,
+        "observed_material_terrain_turn_minimum": 1,
+        "acquisition_incomplete": 3694,
+        "return_not_observed": 2880,
+        "day_night": 960
+      },
+      "statuses": {
+        "waited": 7534,
+        "turned": 124,
+        "moved": 22
+      },
+      "distance": 22.0,
+      "field_statuses": {
+        "no_adopted_model": 13
+      },
+      "field_applied": 0,
+      "first_model_us": null,
+      "max_learning_records": 0,
+      "last_capture": 1919750000,
+      "first_pickup_us": null,
+      "acquisition_reasons": {
+        "ground_partial": 3694
+      },
+      "food_visible_steps": 7603,
+      "visited_4unit_cells": 9
+    }
+  },
+  "daily": {
+    "1": {
+      "pickups": 0,
+      "moves": 62,
+      "turns": 30,
+      "waits": 676
+    },
+    "2": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "3": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "4": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "5": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "6": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "7": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "8": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "9": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "10": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "11": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "12": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "13": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "14": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "15": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "16": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "17": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "18": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "19": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "20": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "21": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "22": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "23": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "24": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "25": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "26": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "27": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "28": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "29": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    },
+    "30": {
+      "pickups": 0,
+      "moves": 0,
+      "turns": 16,
+      "waits": 752
+    }
+  },
+  "approach_applications": 13,
+  "minimum_food_distance": 0.8427473483458665,
+  "sources": {
+    "runtime/approach_movement_field.py": "0d446e3a965ef8bf32a5626eb10f2d5cbd915bcd2a0a9b339a9ef612748aa41a",
+    "integrations/lightweight/world.py": "bbc0921917389c59a7c3716dedb5c0b5d8f5a178bfca5540356b961911c26a77"
+  }
+}

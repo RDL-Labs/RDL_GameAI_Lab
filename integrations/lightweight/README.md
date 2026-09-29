@@ -20,3 +20,5 @@ The saved 30-day gzip logs in tests/fixtures can be selected in the replay viewe
 Optional `--distant-mode patches` merges contiguous equal color/range ray intervals before the four-feature cap. Default `rays` preserves the original acquisition. This is not object recognition; overflow remains partial. See LW_3_distant_patches_evidence.md for the incomplete paired experiment.
 
 `--layout sparse` keeps six of the dense layout objects while preserving all resource positions/stocks and initial agents. It changes visibility and collision, not Runtime decisions. Default remains dense.
+
+`--approach-mode enabled` opts into the finite visible-food soft-repulsion appraisal. Default disabled. Example: `python -m integrations.lightweight.world --days 30 --layout sparse --approach-mode enabled --output integrations/lightweight/output/approach.jsonl`.

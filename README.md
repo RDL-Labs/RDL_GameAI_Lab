@@ -248,3 +248,10 @@ opt-in `--distant-mode patches`を追加。連続する同色・同距離帯だ�
 `--layout sparse`を追加し30日完走。取得不完了待機0、Cが食料を308観測・138単位移動、採取0。
 資源配置は固定し物体/障害物のみ減らした。密配置は以前の完走ログとの比較。
 [Evidence](/docs/experiment-evidence/LW_sparse_layout_evidence.md)。Runtime/Hは変更なし。
+
+
+### LW 食料接近の場切替
+
+`--approach-mode enabled`で、観測済み食料への接近時にsoft obstacle寄与を0.1倍。衝突・物理除外は維持。
+30日完走、Cは食料0.843単位まで接近したがground partialでpickup前に待機。採取0。
+[Evidence](/docs/experiment-evidence/LW_approach_field_evidence.md)。H/学習規則は変更なし。

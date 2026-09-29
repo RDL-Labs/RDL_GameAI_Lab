@@ -5,7 +5,7 @@ from random import Random
 from hashlib import sha256
 
 from runtime.exploration import CELLS, SLOT_US
-from runtime.landmark_return_campaign import ReturnCampaign
+from runtime.landmark_return_campaign import ReturnCampaign, CampaignAgent
 from runtime.landmark_day_cycle import DAY_US
 
 
@@ -195,18 +195,30 @@ class World:
         return r
 
 
-def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo', distant_mode='rays', layout='dense'):
+class ApproachAgent(CampaignAgent):
+    def _calculate_current_terrain(self, observed, packet):
+        from runtime.approach_movement_field import approach_field
+        return approach_field(super()._calculate_current_terrain(observed,packet),packet)
+
+
+class ApproachCampaign(ReturnCampaign):
+    agent_type=ApproachAgent
+
+
+def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo', distant_mode='rays', layout='dense', approach_mode='disabled'):
     """Append complete JSON lines; an interrupted file retains its valid prefix."""
     import json, time
     from pathlib import Path
-    world=World(run_id,seed,distant_mode,layout);loop=ReturnCampaign(run_id,days,seed,mb_field_mode=mode,harvest_state=True)
+    if approach_mode not in ('disabled','enabled'):raise ValueError('approach_mode')
+    campaign=ApproachCampaign if approach_mode=='enabled' else ReturnCampaign
+    world=World(run_id,seed,distant_mode,layout);loop=campaign(run_id,days,seed,mb_field_mode=mode,harvest_state=True)
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     started=time.perf_counter();slots=0
     with path.open('w',encoding='utf8') as stream:
         def emit(value):
             stream.write(json.dumps(value,separators=(',',':'),allow_nan=False)+'\n');stream.flush()
         emit(dict(type='manifest',version=world.version,run_id=run_id,seed=seed,days=days,model_field=mode,
-                  layout=layout,objects=world.objects,resources=world.resources,agents=world.agents,authority='experimenter-only World truth',
+                  approach_mode=approach_mode,layout=layout,objects=world.objects,resources=world.resources,agents=world.agents,authority='experimenter-only World truth',
                   clock='virtual integer microseconds',body_model='instant discrete one-unit step, no agent collisions',sensor='lw-planar-rays-v1' if distant_mode=='rays' else 'lw-planar-patches-v1'))
         for aid in world.agents:
             config=dict(world.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mode,
@@ -221,7 +233,8 @@ def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo', distant_m
                 decision=loop.agents[aid].decisions[packets[aid]['observation_id']]
                 emit(dict(type='step',packet=packets[aid],command=c,result=result,body=world.agents[aid],
                     model_ref=decision['model_ref'],model_field=decision.get('mb_field'),
-                    learning_count=len(loop.agents[aid].learning['records']),returns=len(world.returns)))
+                    learning_count=len(loop.agents[aid].learning['records']),returns=len(world.returns),
+                    approach_field=(decision.get('movement_terrain') or {}).get('approach_field')))
             slots=slot+1
             if slots%256==0:emit(dict(type='day',day=slots//256,returns=world.returns,stock=[r['stock'] for r in world.resources]))
             if len(world.returns)>=3:break
@@ -242,5 +255,6 @@ if __name__=='__main__':
     p.add_argument('--seed',type=int,default=20260928);p.add_argument('--mode',choices=['enabled','disabled'],default='enabled')
     p.add_argument('--distant-mode',choices=['rays','patches'],default='rays')
     p.add_argument('--layout',choices=['dense','sparse'],default='dense')
-    args=p.parse_args();print(json.dumps(run(args.output,args.days,args.seed,args.mode,distant_mode=args.distant_mode,layout=args.layout),indent=2))
+    p.add_argument('--approach-mode',choices=['disabled','enabled'],default='disabled')
+    args=p.parse_args();print(json.dumps(run(args.output,args.days,args.seed,args.mode,distant_mode=args.distant_mode,layout=args.layout,approach_mode=args.approach_mode),indent=2))
 
