@@ -37,3 +37,20 @@ class GoalDifferenceTests(unittest.TestCase):
   with self.assertRaises(ValueError):finish(s,'one',0,True,'end')
   with self.assertRaises(ValueError):initial('a',threshold=0)
   with self.assertRaises(ValueError):initial('a',parent_goal_id='a')
+
+ def test_threshold_only_changes_method_for_identical_experience(self):
+  from runtime.goal_difference import method
+  outcomes=[]
+  for threshold in (1,2,4):
+   s=initial('same',threshold=threshold)
+   for n in range(2):s=finish(begin(s,str(n),{}),str(n),False,True,'end'+str(n))
+   outcomes.append(s)
+  self.assertEqual([s['H'] for s in outcomes],[2,2,2])
+  self.assertEqual(outcomes[0]['records'],outcomes[1]['records'])
+  self.assertEqual(outcomes[1]['records'],outcomes[2]['records'])
+  self.assertEqual([method(s,True,'normal','alternative') for s in outcomes],['alternative','alternative','normal'])
+
+ def test_runner_rejects_invalid_threshold_before_running(self):
+  from integrations.lightweight.timed_harvest import run
+  for value in (0,31,True,1.5):
+   with self.assertRaises(ValueError):run('unused.jsonl',goal_switch_threshold=value)

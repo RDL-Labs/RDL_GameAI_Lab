@@ -45,3 +45,5 @@ Unresolved return now carries overnight in timed harvest: next-day exploration t
 `--goal-difference-mode enabled` enables the local home-goal residual/method experiment; default disabled. See docs/experiment-evidence/LW_goal_difference_evidence.md for the supplied comparison hypothesis, Core boundary, and paired 30-day outcome (24 vs 67 delivered).
 
 `--food-goal-mode enabled` uses the shared goal comparator for Food and permits bounded rescanning after unmet trials. Home/Food residuals remain separate. Parent references are metadata, not a recursive planner. See `LW_generic_goal_evidence.md`: real rescan actions occurred, but yields did not improve.
+
+Individual switching tendency can be tested with `--goal-switch-threshold 1|2|4` and World `--seed`. See `LW_threshold_individuality_evidence.md` for nine completed runs: threshold effects depended on layout; lower was not uniformly better. Controller seed stays fixed.
