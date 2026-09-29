@@ -716,3 +716,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 
 
 2026-09-29: [局所帰還完了と候補拡張](../docs/experiment-evidence/LW_local_return_evidence.md) — 有限opt-in実装。塔nearで止めず局所接近・実荷下ろし確認。帰還停滞でも位置変更。30日で48採取・48持帰り4便、Cは採取0だが帰還位置変更44操作。初回不成立も保存。48テストPASS、Luanti未接続。
+
+
+2026-09-29: [全個体の資源共用](../docs/experiment-contracts/LW_shared_resource_access.md) — 既存動作を契約・manifest・回帰で固定。所有／利用権なし、共通残量と取得競合は維持。採取規則変更なし。

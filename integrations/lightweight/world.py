@@ -41,6 +41,8 @@ def distant_patches(features, mode):
 
 class World:
     version = 'lw-planar-world-v1'
+    # Shared stock, no ownership or relation-based permission gate.
+    resource_access = 'shared-all-agents-v1'
 
     def __init__(self, run_id='lw-demo', seed=20260928, distant_mode='rays', layout='dense'):
         distant_patches([],distant_mode)

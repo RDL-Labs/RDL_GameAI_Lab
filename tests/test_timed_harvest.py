@@ -63,3 +63,18 @@ class TimedHarvestTests(unittest.TestCase):
         p=w.packet(aid,260);c=l.observe(p)['command'];self.assertEqual(c['kind'],'pickup')
         s.start(c,p);r=s.advance(p['capture_us']+500000)[0][2];l.result(r)
         self.assertEqual(a.carried_count(),1);self.assertEqual(sum(x['acquired'] for x in a.results.values()),2)
+
+    def test_all_agents_use_same_resource_with_shared_depletion(self):
+        w,s=self.setup_world();w.resources[0]['stock']=3
+        refs=[]
+        for aid in ('npc_a','npc_b','npc_c'):
+            p,c=self.command(w,aid);refs.append(c['target_ref']);s.start(c,p)
+        self.assertEqual(w.resource_access,'shared-all-agents-v1')
+        self.assertEqual(len(set(refs)),3) # Individual observation references, not ownership.
+        results=s.advance(1500000)
+        self.assertEqual([r[2]['status'] for r in results],['picked_up']*3)
+        self.assertEqual(w.resources[0]['stock'],0)
+        self.assertEqual([a['inventory'] for a in w.agents.values()],[1,1,1])
+        for aid in w.agents:self.assertEqual(w.packet(aid,7)['food']['visible'],[])
+        for p,c,r in results:self.assertFalse(s.start(c,p))
+        self.assertEqual(w.resources[0]['stock'],0)
