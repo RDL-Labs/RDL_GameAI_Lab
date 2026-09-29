@@ -332,3 +332,7 @@ FINITE IMPLEMENTED / opt-in。[契約](../experiment-evidence/LW_relation_field_
 ### 2026-09-29 — 経路候補の相対重み
 
 FINITE IMPLEMENTED（関係場opt-in内）。[契約・Evidence](../experiment-evidence/LW_route_weight.md)。成功支持と局所Hによる候補間相対寄与、H>=2でも翌日以降再候補化、当日失敗除外は維持。未使用減衰・忘却・経路効率学習は未実装。65テストと軽量5日受入、長期安定改善は未検証。
+
+### 2026-09-29 — 動く危険物体と安全確保M_B
+
+DESIGN ONLY。[計画](RDL_GameAI_Moving_Hazard_Safety_Plan.md)。生存・身体維持の下で食料確保と安全確保を調停。初期能力としての危険認識と有限対処、待機中の観測、目的保留／再開、旧権限失効、割込みの経路H非誤帰属を設計。軽量Worldへの実装・受入は未実施。

@@ -745,3 +745,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-29: [発見後の経路安定性](../docs/experiment-evidence/LW_route_stability.md)を保存ログで監査。初回発見と再訪を分離。同地点固定往復は未成立、Bは既知複数地点利用、A/Cの長い無採取区間を次の調査対象とする。runtime・係数変更なし。
 
 2026-09-29: [経路候補の相対重み](../docs/experiment-evidence/LW_route_weight.md)を関係場v2に実装。新候補支持で旧候補shareが低下し、失敗Hで絶対寄与低下。経路は消去せず当日失敗のみ除外。軽量5日ではv1と集計同じ。長期安定性は別途比較する。
+
+2026-09-29: [動く危険物体・安全確保計画](../docs/design/RDL_GameAI_Moving_Hazard_Safety_Plan.md)を追加（DESIGN ONLY）。S0契約固定→S1観測shadow→S2安全目的接続→S3既知経路との統合→S4複数seed・長期確認。危険学習・負傷・狩猟AIは初版外。runtime変更なし。
