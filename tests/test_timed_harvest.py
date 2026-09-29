@@ -40,3 +40,26 @@ class TimedHarvestTests(unittest.TestCase):
         self.assertEqual(w.agents[aid]['inventory'],2)
         self.assertEqual(l.agents[aid].learning['records'],[]) # No manufactured complete learning evidence.
         p=w.packet(aid,127);c=l.observe(p)['command'];self.assertEqual(c['kind'],'wait')
+
+    def test_confirmed_unload_releases_capacity_without_erasing_experience(self):
+        w,s=self.setup_world();w.resources[0]['stock']=12
+        l=HarvestCampaign(w.run_id,2,mb_field_mode='enabled',harvest_state=True)
+        aid='npc_a';a=l.agents[aid];a.inventory_capacity=1
+        l.configure(dict(w.context(aid),schema=l.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode='enabled',teaching=dict(statement_id='t',source='god_statue',sample_observation='s',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
+        p=w.packet(aid,4);c=l.observe(p)['command'];s.start(c,p)
+        r=s.advance(1500000)[0][2];l.result(r);pickup=r['operation_id']
+        self.assertEqual(a.carried_count(),1)
+        p=w.packet(aid,7);c=l.observe(p)['command'];self.assertEqual(c['reason'],'inventory_capacity');l.result(w.execute(c,p))
+        p=w.packet(aid,224);c=l.observe(p)['command'];r=w.execute(c,p);l.result(r)
+        receipt=dict(operation_id=c['operation_id'],executed_us=r['executed_us'],pickups=w.returns[0]['pickups'])
+        before=deepcopy(a.results)
+        with self.assertRaises(ValueError):a.admit_unload(dict(receipt,pickups=[pickup,'foreign']))
+        self.assertEqual(a.carried_count(),1)
+        self.assertTrue(a.admit_unload(receipt));self.assertFalse(a.admit_unload(receipt))
+        self.assertEqual(a.results,before);self.assertEqual(a.carried_count(),0)
+        self.assertEqual(a.snapshot()['inventory'],[])
+        self.assertEqual(len(a.snapshot()['unload_receipts']),1)
+        with self.assertRaises(ValueError):a.admit_unload(dict(receipt,pickups=[]))
+        p=w.packet(aid,260);c=l.observe(p)['command'];self.assertEqual(c['kind'],'pickup')
+        s.start(c,p);r=s.advance(p['capture_us']+500000)[0][2];l.result(r)
+        self.assertEqual(a.carried_count(),1);self.assertEqual(sum(x['acquired'] for x in a.results.values()),2)

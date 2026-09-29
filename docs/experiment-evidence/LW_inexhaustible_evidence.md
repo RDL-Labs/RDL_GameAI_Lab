@@ -40,3 +40,22 @@ Completed all 30 days / 1920 virtual seconds / 23040 captures in 24.33 wall seco
 Removing the stop condition therefore did not expose continued harvesting routes: the unchanged Runtime cumulative acquisition cap blocks further exploration. This is not evidence of route convergence or learned optimization. World unloading and Runtime cumulative acquisition accounting remain separate. Altering that accounting is a separate change, not silently bundled into this stop-condition comparison.
 
 `lightweight_inexhaustible_no_target.jsonl.gz` preserves the actual complete run; the corresponding `_audit.json` retains its SHA-256, manifest, summary, daily action reasons, movement traces and final poses for all agents. Focused stock/timed-harvest tests: 6 PASS. Full suite and Luanti not rerun.
+
+
+## Confirmed unloading: continued harvesting over 30 days
+
+The lightweight HarvestAgent now counts acquired operation IDs minus explicitly confirmed unloaded IDs. Capacity remains 96 carried items; cumulative Experience/results are never deleted. The shared ResourceExploration uses a count hook with its original cumulative default, preserving other integrations. Only the lightweight subclass admits unloading. Its adapter submits a delivery receipt after the corresponding body result has been accepted; the receipt binds a recorded waited operation/time and distinct, earlier successful pickup operations of that agent. Duplicate receipts are idempotent; conflicts, missing/foreign/already-unloaded items reject before mutation. This is a trusted local body adapter boundary, not a new network endpoint or canonical learning transition. Public lightweight inventory snapshots exclude unloaded items and retain separate unload receipts.
+
+Same CLI as the previous section, with output `infinite30_unload_final.jsonl`: completed 30 days, 1920 virtual seconds in 23.885 wall seconds. C acquired and returned 1046 units across 30 returned batches; final carried count 0. A/B acquired 0. All learning records/model refs remain 0/null. Stock stayed 12 per patch.
+
+| C days | Daily movement | Daily pickups |
+| --- | ---: | ---: |
+| 1 | 36 | 32 |
+| 2 | 30 | 34 |
+| 3–30 | 28 | 35 |
+
+The full ordered movement coordinates match exactly across days 4–30. Thus continued harvesting and returning no longer stops at lifetime acquisition 96, but no continuing route variation or learned optimization emerged. Movement includes outbound and return legs. This one seed/initial condition is not a general convergence claim.
+
+Saved complete evidence: `lightweight_inexhaustible_unload.jsonl.gz` and `_audit.json` (source SHA-256, manifest, summary, all daily coordinate paths and reasons). Two earlier execution attempts did not finish: Python 3.14 raised a TypeError in ray_hit; a Python 3.11 attempt exited 1 without diagnostic output. Those local logs remain separate; neither is counted as acceptance. Cause was not established. The subsequent Python run completed with exit 0 and its summary was verified before fixture creation.
+
+Validation: timed harvest 5 PASS (including real acquisition/capacity stop/unload/next-day acquisition, preserved history, snapshot, retry and invalid receipt rejection), stock 2 PASS, legacy resource exploration 16 PASS. Full suite and Luanti not rerun.

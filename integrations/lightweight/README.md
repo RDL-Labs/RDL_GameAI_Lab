@@ -34,3 +34,5 @@ Add `--skyline-subrays` to the timed_harvest command for three finite rays per s
 Add `--inexhaustible` to timed_harvest to keep all resource patches available without depletion. Existing per-agent cumulative96 acquisition cap and three-return stop are unchanged.
 
 Use `timed_harvest --no-return-target` to continue until the day limit even after three returned batches. This does not remove the Runtime cumulative acquisition cap; see LW_inexhaustible_evidence.md for the 30-day continuation result.
+
+The timed-harvest adapter now uses confirmed unload receipts to free carried capacity. The 96-item limit applies to current holdings, while acquisition history persists. Other Runtime integrations retain their prior accounting. Thirty-day infinite-stock continuation: 1046 pickups / 30 returns; see the latest evidence section.

@@ -31,6 +31,10 @@ class ResourceExploration(FiniteExploration):
         self.teaching = None
         self.decisions = {}
 
+    def carried_count(self):
+        # Legacy paths retain cumulative accounting unless explicitly specialized.
+        return sum(r["acquired"] for r in self.results.values())
+
     def expiry(self, capture_us):
         return min(super().expiry(capture_us), (capture_us//self.period_us+1)*self.period_us)
 
@@ -61,7 +65,7 @@ class ResourceExploration(FiniteExploration):
         action, target, reason = ["wait", 0], "", "acquisition_incomplete"
         body_ok = previous is None or (result is not None and result["after_pose_ref"] == p["pose_ref"]
             and result["after_revision"] == p["body_revision"] and result["executed_us"] < p["capture_us"])
-        if sum(r["acquired"] for r in self.results.values()) >= self.inventory_capacity:
+        if self.carried_count() >= self.inventory_capacity:
             reason = "inventory_capacity"
         elif not body_ok:
             reason = "body_correspondence_unavailable"
@@ -135,7 +139,7 @@ class ResourceExploration(FiniteExploration):
             # Unknown results must not create inventory. Base validation checks
             # all bindings/effects before publication; old receipts stay valid.
             if value.get("operation_id") not in self.results and value.get("acquired") is True:
-                require(sum(r["acquired"] for r in self.results.values()) < self.inventory_capacity, "inventory_capacity")
+                require(self.carried_count() < self.inventory_capacity, "inventory_capacity")
             return super().result(value)
 
     def _snapshot_decisions(self):
