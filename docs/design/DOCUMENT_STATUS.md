@@ -301,3 +301,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 
 
 2026-09-29: [初期方位30日比較](../experiment-evidence/LW_initial_orientation_evidence.md) — seed20260930・3個体、あり／なし双方完走。Aの112見回し中28回が左、総移動は53/3/2で同じ、採取・配送0。B/Cの取得不完了待機は継続。改善未確認、runtime変更なし。
+
+
+2026-09-29: [取得不足からの有限位置変更](../experiment-evidence/LW_incomplete_reposition_evidence.md) — opt-in実装。現在の身体観測と反復残存で方向選択、追加操作16/日。seed20260930の30日で採取0→48、配送0のまま。BでM_B形成。方向別許可と反復効果は未分離。40テストPASS、Luanti未接続。
