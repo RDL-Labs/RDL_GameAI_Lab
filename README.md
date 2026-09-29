@@ -309,3 +309,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-29: [双方向経路の30日比較](docs/experiment-evidence/LW_directional_routes_30d.md) — 無限資源・同seed。なし1396/あり981採取・配送、支持蓄積あり。あり側に終日並進0が16個体日発生し、Aは25〜30日目に連続。単なる期間延長による安定往復改善は未成立。最初5日のcommand列一致を監査。
 
 2026-09-29: [複数目印の関係場合成](docs/experiment-evidence/LW_relation_field_evidence.md) — `--relation-field-mode enabled`。2点以上の角度関係と現在terrain/目標を5方向へ合成、owner保持と旋回後一歩を追加。58 tests PASS。軽量30日で関係寄与523操作、終日並進0は16→1個体日、配送981→807。効率改善は未成立。
+
+2026-09-29: [発見後の経路安定性監査](docs/experiment-evidence/LW_route_stability.md) — 保存30日ログ再解析。配送区間A13→9/B16→22/C16→13。Bの既知地点利用は継続、A/Cは再採取までの移動増。固定往復への収束は未成立。runtime変更なし。
