@@ -301,3 +301,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 
 
 2026-09-29: [局所モデル3seed比較](docs/experiment-evidence/LW_nested_seed_evidence.md) — 追加2run＋既存1run、各3個体30日。全270個体日に並進、終日並進0なし。採取・配送72/96/60。効率は判定対象外、World配置だけ変更。
+
+2026-09-29: [成功目印による翌日再訪](docs/experiment-evidence/LW_food_revisit_evidence.md) — `--food-revisit-mode enabled`で有限実装。日越し成功記憶→目印再観測→採取→帰還を単純軽量Worldで確認。自然配置では曖昧性/見失いから探索へ復帰、安定往復は未成立。資源無限を明示した比較、38テストPASS。
