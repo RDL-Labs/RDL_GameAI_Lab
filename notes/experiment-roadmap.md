@@ -651,3 +651,10 @@ p5再生は次工程、目標H・canonical Sleep接続は未実装。Luantiと�
 
 既存p5ワークベンチ配下にCanvas読取専用ビューを追加。全景／個体取得情報、時刻指定、速度変更、JSONL/gzip読込みに対応。
 [検証記録](/docs/experiment-evidence/LW_2_replay_evidence.md)。Runtime・World判断は変更なし。
+
+
+### LW-3 30日比較完了
+
+M_B移動寄与disabled/enabledとも約30秒で30日完了。採取・持帰り・モデル形成0、全行動一致。
+遠景partialに伴う取得不完了待機が多数で、学習効果の適用機会はなかった。
+[Evidence](/docs/experiment-evidence/LW_3_paired_campaign_evidence.md)。Hは未接続、次は有限観測と判断条件の整理。
