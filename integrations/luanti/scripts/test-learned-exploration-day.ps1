@@ -16,6 +16,7 @@ param(
     [ValidateSet(3,6)][int]$AgentCount = 3,
     [ValidateSet("off","disabled","enabled")][string]$ModelFieldMode = "off",
     [switch]$RawWorldOnly,
+    [switch]$CampaignDiagnostics,
     [ValidateSet("off","disabled","enabled")][string]$ReversalReviewMode = "off",
     [ValidateSet(0,16,32,64)][int]$TaskSeconds = 0,
     [ValidateRange(1,16)][double]$SimulationSpeed = 1,
@@ -87,6 +88,7 @@ rdl_reassessment_mode = $ReassessmentMode
 rdl_day_cycle = $($DayCycle.IsPresent.ToString().ToLowerInvariant())
 rdl_model_field_mode = $ModelFieldMode
 rdl_campaign_agent_count = $AgentCount
+rdl_campaign_diagnostics = $($CampaignDiagnostics.IsPresent.ToString().ToLower())
 rdl_return_campaign = $($ReturnCampaign.IsPresent.ToString().ToLowerInvariant())
 rdl_task_seconds = $TaskSeconds
 rdl_reversal_review_mode = $ReversalReviewMode
@@ -131,6 +133,7 @@ try {
         Start-Sleep -Milliseconds 100
         $evidenceFile = if ($MultiResources) { "l14b-evidence.json" } else { "l13a-evidence.json" }
         $complete = Test-Path -LiteralPath (Join-Path $worldPath $evidenceFile)
+        if ($complete -and $CampaignDiagnostics) { $complete = Test-Path -LiteralPath (Join-Path $worldPath "campaign-diagnostics-complete.json") }
     } while (-not $complete -and -not $luanti.HasExited -and [DateTime]::UtcNow -lt $deadline)
     if (-not $complete) { throw "L13S World did not complete" }
     if ($RawWorldOnly) { Write-Output "WORLD EVIDENCE: $worldPath"; return }

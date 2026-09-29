@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+2026-09-29: [Campaign timing](../docs/experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md) — day 16 passed; day 23 pending capacity interruption with a 2.05-second Runtime observe call. Received replies replay; unreceived accepted calls remain explicit. Next isolate long observe work and export overhead, preserving behavior.
+
 2026-09-29: [Six-agent campaign](../docs/experiment-evidence/LUANTI_L15A_six_agent_world_evidence.md) — finite six-agent opt-in, independent state and six-batch goal. Actual run interrupted on day 16: 36 units / two returns, exact saved-prefix replay; not clean acceptance.
 
 2026-09-29: [Current harvest actual run](../docs/experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md) — interrupted on day 16 by missed acquisition slot; 36 units / two returns. Current absence and retained success verified in the actual recorded prefix; not complete acceptance.

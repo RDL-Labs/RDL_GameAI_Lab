@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [長期探索の時間計測](docs/experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md)：16日目を通過、23日目に送信待ち上限で中断。Runtime観測処理に2.05秒。受信済み69,887応答は再生一致、最終Runtimeとの差も保存。
+
 - [6個体の連続探索](docs/experiment-evidence/LUANTI_L15A_six_agent_world_evidence.md)：B/C/Eが各12単位、B/Eが帰還。16日目に観測枠逸失で中断、正常完走は未達。
 
 - [現在採取状態の実走行](docs/experiment-evidence/LUANTI_L15A_current_harvest_world_evidence.md)：16日目に観測枠逸失で中断。36単位・2便。不在と過去成功の併存を実機で確認。

@@ -79,7 +79,11 @@ return function(http,runtime_url)
         return (core.write_json(x):gsub('"visible":null','"visible":[]'):gsub('"features":null','"features":[]')
             :gsub('"items":null','"items":[]'):gsub('"__l15a_missing_height__"','null'))
     end
+    local diagnostic=core.settings:get_bool("rdl_campaign_diagnostics",false) and
+        dofile(root .. "/campaign_diagnostics.lua")(run) or nil
     local function save(failure)
+        if diagnostic then diagnostic.flush(sim,"before_export",failure) end
+        local export_start=core.get_us_time()
         evidence.failure=failure;evidence.finished_us=sim
         evidence.timing.wall_elapsed_us=core.get_us_time()-wall_start
         local ok,stock=pcall(resource.audit,patches)
@@ -89,6 +93,7 @@ return function(http,runtime_url)
             a.e.controller={count=a.ctl.count,effects=a.ctl.effects,distance=a.ctl.distance,rotation=a.ctl.rotation}
         end
         core.safe_file_write(core.get_worldpath() .. "/l14b-evidence.json",encode(evidence));stage="done"
+        if diagnostic then diagnostic.export_us=core.get_us_time()-export_start;diagnostic.flush(sim,"after_export",failure) end
     end
     local function enqueue(a,kind,payload,first)
         local job={kind=kind,payload=table.copy(payload)}
@@ -354,6 +359,7 @@ return function(http,runtime_url)
     end) end)
     core.register_globalstep(function(dt)
         if stage=="setup" or stage=="done" then return end
+        if diagnostic then diagnostic.begin(sim,dt,last_slot) end
         local step=math.floor(dt*speed*1000000+.5)
         evidence.timing.max_step_us=math.max(evidence.timing.max_step_us,step)
         sim=sim+step
@@ -366,6 +372,7 @@ return function(http,runtime_url)
             -- Rotate simultaneous execution order; fixed A-first never decides all races.
             local first=math.floor(sim/250000)%agent_count
             for j=1,agent_count do receive(agents[(first+j-1)%agent_count+1]) end
+            if diagnostic then diagnostic.mark("receive") end
             local configured=true
             for _,a in ipairs(agents) do configured=configured and a.configured end
             if stage=="configuring" and configured then stage="running" end
@@ -373,6 +380,7 @@ return function(http,runtime_url)
                 audit_returns()
                 if stop_requested then stage="draining" end
             end
+            if diagnostic then diagnostic.mark("return_audit") end
             if stage=="running" then
                 local slot=math.floor(sim/250000)
                 if slot~=last_slot then
@@ -380,6 +388,7 @@ return function(http,runtime_url)
                     if slot%slots_per_period==0 then evidence.periods[#evidence.periods+1]={period=math.floor(slot/slots_per_period),capture_us=sim,
                         stock=resource.audit(patches),stock_event_count=#evidence.stock_events} end
                     for _,a in ipairs(agents) do sample(a,slot) end
+                    if diagnostic then diagnostic.mark("sample") end
                     if return_campaign and slot%slots_per_period==0 then
                         local status={day=math.floor(slot/slots_per_period)+1,capture_us=sim,returns=#return_events,agents={}}
                         for _,a in ipairs(agents) do status.agents[a.id]={inventory=#a.inventory,body=a.body()} end
@@ -387,6 +396,7 @@ return function(http,runtime_url)
                     end
                 end
             end
+            if diagnostic then diagnostic.mark("progress") end
             for _,a in ipairs(agents) do
                 if stage=="draining" and not a.finishing and not a.busy and #a.queue==0 then
                     if stop_requested then a.ending=context(a,{ended_us=sim,reason="return_target_reached"}) end
@@ -396,8 +406,12 @@ return function(http,runtime_url)
             end
             local done=true
             for _,a in ipairs(agents) do done=done and a.done end
+            if diagnostic then diagnostic.mark("send");diagnostic.finish(sim,last_slot) end
             if done then save() end
         end)
-        if not ok then save(tostring(err)) end
+        if not ok then
+            if diagnostic then diagnostic.mark("failed_phase");diagnostic.finish(sim,last_slot,tostring(err)) end
+            save(tostring(err))
+        end
     end)
 end

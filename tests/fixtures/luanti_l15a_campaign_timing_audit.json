@@ -1,0 +1,1691 @@
+{
+  "schema": "campaign-timing-audit-v1",
+  "run_id": "l15campaign-cc83773e7a58",
+  "source": "tests\\fixtures\\luanti_l15a_campaign_timing_world.json.xz",
+  "source_sha256": "a898caf9c8c7d2434bbac5eaf64c69b81c2ba9e006c64b6bc4e8784514375158",
+  "failure": "...ames\\rdl_game\\mods\\rdl_bridge/multi_resource_fixture.lua:102: per-agent pending capacity",
+  "finished_us": 1457763230,
+  "days": [
+    {
+      "day": 1,
+      "steps": 2168,
+      "max_dt_us": 124570,
+      "max_work_us": 124425,
+      "max_gap_us": 48780,
+      "last_heap_kib": 143868.6328125,
+      "phases": {
+        "progress": {
+          "count": 2168,
+          "max_us": 5930,
+          "total_us": 7820
+        },
+        "receive": {
+          "count": 2168,
+          "max_us": 3251,
+          "total_us": 306679
+        },
+        "return_audit": {
+          "count": 2168,
+          "max_us": 428,
+          "total_us": 19273
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 121214,
+          "total_us": 5378326
+        },
+        "send": {
+          "count": 2168,
+          "max_us": 15436,
+          "total_us": 1480089
+        }
+      }
+    },
+    {
+      "day": 2,
+      "steps": 2373,
+      "max_dt_us": 176028,
+      "max_work_us": 175659,
+      "max_gap_us": 45928,
+      "last_heap_kib": 428134.078125,
+      "phases": {
+        "progress": {
+          "count": 2373,
+          "max_us": 13025,
+          "total_us": 14831
+        },
+        "receive": {
+          "count": 2373,
+          "max_us": 2502,
+          "total_us": 274858
+        },
+        "return_audit": {
+          "count": 2373,
+          "max_us": 494,
+          "total_us": 19924
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 169261,
+          "total_us": 5442272
+        },
+        "send": {
+          "count": 2373,
+          "max_us": 15023,
+          "total_us": 1530090
+        }
+      }
+    },
+    {
+      "day": 3,
+      "steps": 2480,
+      "max_dt_us": 178776,
+      "max_work_us": 178694,
+      "max_gap_us": 35440,
+      "last_heap_kib": 604332.875,
+      "phases": {
+        "progress": {
+          "count": 2480,
+          "max_us": 12267,
+          "total_us": 14031
+        },
+        "receive": {
+          "count": 2480,
+          "max_us": 3486,
+          "total_us": 230858
+        },
+        "return_audit": {
+          "count": 2480,
+          "max_us": 412,
+          "total_us": 19090
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 170339,
+          "total_us": 5563736
+        },
+        "send": {
+          "count": 2480,
+          "max_us": 14540,
+          "total_us": 1635478
+        }
+      }
+    },
+    {
+      "day": 4,
+      "steps": 2456,
+      "max_dt_us": 205233,
+      "max_work_us": 205139,
+      "max_gap_us": 41473,
+      "last_heap_kib": 802756.63671875,
+      "phases": {
+        "progress": {
+          "count": 2456,
+          "max_us": 11339,
+          "total_us": 13273
+        },
+        "receive": {
+          "count": 2456,
+          "max_us": 2406,
+          "total_us": 250524
+        },
+        "return_audit": {
+          "count": 2456,
+          "max_us": 166,
+          "total_us": 19261
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 192069,
+          "total_us": 5696378
+        },
+        "send": {
+          "count": 2456,
+          "max_us": 16899,
+          "total_us": 1669338
+        }
+      }
+    },
+    {
+      "day": 5,
+      "steps": 2433,
+      "max_dt_us": 222660,
+      "max_work_us": 222582,
+      "max_gap_us": 36319,
+      "last_heap_kib": 547898.0625,
+      "phases": {
+        "progress": {
+          "count": 2433,
+          "max_us": 12472,
+          "total_us": 14458
+        },
+        "receive": {
+          "count": 2433,
+          "max_us": 3196,
+          "total_us": 254559
+        },
+        "return_audit": {
+          "count": 2433,
+          "max_us": 1474,
+          "total_us": 24363
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 212510,
+          "total_us": 6359416
+        },
+        "send": {
+          "count": 2433,
+          "max_us": 15590,
+          "total_us": 1648411
+        }
+      }
+    },
+    {
+      "day": 6,
+      "steps": 2462,
+      "max_dt_us": 191530,
+      "max_work_us": 191401,
+      "max_gap_us": 36688,
+      "last_heap_kib": 1009106.71875,
+      "phases": {
+        "progress": {
+          "count": 2462,
+          "max_us": 11973,
+          "total_us": 13672
+        },
+        "receive": {
+          "count": 2462,
+          "max_us": 2974,
+          "total_us": 222909
+        },
+        "return_audit": {
+          "count": 2462,
+          "max_us": 226,
+          "total_us": 19488
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 182135,
+          "total_us": 5135589
+        },
+        "send": {
+          "count": 2462,
+          "max_us": 17547,
+          "total_us": 1667011
+        }
+      }
+    },
+    {
+      "day": 7,
+      "steps": 2451,
+      "max_dt_us": 234344,
+      "max_work_us": 234243,
+      "max_gap_us": 35954,
+      "last_heap_kib": 1313406,
+      "phases": {
+        "progress": {
+          "count": 2451,
+          "max_us": 11843,
+          "total_us": 13618
+        },
+        "receive": {
+          "count": 2451,
+          "max_us": 3604,
+          "total_us": 227097
+        },
+        "return_audit": {
+          "count": 2451,
+          "max_us": 1569,
+          "total_us": 23742
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 224962,
+          "total_us": 5544939
+        },
+        "send": {
+          "count": 2451,
+          "max_us": 18116,
+          "total_us": 1653726
+        }
+      }
+    },
+    {
+      "day": 8,
+      "steps": 2445,
+      "max_dt_us": 225623,
+      "max_work_us": 225530,
+      "max_gap_us": 35583,
+      "last_heap_kib": 1377253.81640625,
+      "phases": {
+        "progress": {
+          "count": 2445,
+          "max_us": 12692,
+          "total_us": 14731
+        },
+        "receive": {
+          "count": 2445,
+          "max_us": 3039,
+          "total_us": 248293
+        },
+        "return_audit": {
+          "count": 2445,
+          "max_us": 2509,
+          "total_us": 22209
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 215130,
+          "total_us": 5969272
+        },
+        "send": {
+          "count": 2445,
+          "max_us": 25662,
+          "total_us": 1674316
+        }
+      }
+    },
+    {
+      "day": 9,
+      "steps": 2449,
+      "max_dt_us": 230710,
+      "max_work_us": 230136,
+      "max_gap_us": 35954,
+      "last_heap_kib": 1097054.8046875,
+      "phases": {
+        "progress": {
+          "count": 2449,
+          "max_us": 12035,
+          "total_us": 13803
+        },
+        "receive": {
+          "count": 2449,
+          "max_us": 2558,
+          "total_us": 231255
+        },
+        "return_audit": {
+          "count": 2449,
+          "max_us": 425,
+          "total_us": 21833
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 226183,
+          "total_us": 6567002
+        },
+        "send": {
+          "count": 2449,
+          "max_us": 13885,
+          "total_us": 1620159
+        }
+      }
+    },
+    {
+      "day": 10,
+      "steps": 2506,
+      "max_dt_us": 190603,
+      "max_work_us": 190530,
+      "max_gap_us": 36195,
+      "last_heap_kib": 1688694.33203125,
+      "phases": {
+        "progress": {
+          "count": 2506,
+          "max_us": 13766,
+          "total_us": 16065
+        },
+        "receive": {
+          "count": 2506,
+          "max_us": 2685,
+          "total_us": 200144
+        },
+        "return_audit": {
+          "count": 2506,
+          "max_us": 674,
+          "total_us": 24584
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 183032,
+          "total_us": 4518552
+        },
+        "send": {
+          "count": 2506,
+          "max_us": 15795,
+          "total_us": 1471198
+        }
+      }
+    },
+    {
+      "day": 11,
+      "steps": 2494,
+      "max_dt_us": 231941,
+      "max_work_us": 231729,
+      "max_gap_us": 36267,
+      "last_heap_kib": 2290887.4375,
+      "phases": {
+        "progress": {
+          "count": 2494,
+          "max_us": 12910,
+          "total_us": 14831
+        },
+        "receive": {
+          "count": 2494,
+          "max_us": 1578,
+          "total_us": 207376
+        },
+        "return_audit": {
+          "count": 2494,
+          "max_us": 314,
+          "total_us": 23276
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 223667,
+          "total_us": 5165137
+        },
+        "send": {
+          "count": 2494,
+          "max_us": 11255,
+          "total_us": 1509305
+        }
+      }
+    },
+    {
+      "day": 12,
+      "steps": 2462,
+      "max_dt_us": 213821,
+      "max_work_us": 213737,
+      "max_gap_us": 35591,
+      "last_heap_kib": 2682452.53125,
+      "phases": {
+        "progress": {
+          "count": 2462,
+          "max_us": 14112,
+          "total_us": 16155
+        },
+        "receive": {
+          "count": 2462,
+          "max_us": 3910,
+          "total_us": 238379
+        },
+        "return_audit": {
+          "count": 2462,
+          "max_us": 216,
+          "total_us": 21180
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 203105,
+          "total_us": 5252751
+        },
+        "send": {
+          "count": 2462,
+          "max_us": 15555,
+          "total_us": 1624993
+        }
+      }
+    },
+    {
+      "day": 13,
+      "steps": 2456,
+      "max_dt_us": 235171,
+      "max_work_us": 234759,
+      "max_gap_us": 35917,
+      "last_heap_kib": 2897584.7734375,
+      "phases": {
+        "progress": {
+          "count": 2456,
+          "max_us": 12018,
+          "total_us": 13991
+        },
+        "receive": {
+          "count": 2456,
+          "max_us": 3058,
+          "total_us": 245129
+        },
+        "return_audit": {
+          "count": 2456,
+          "max_us": 354,
+          "total_us": 23476
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 222419,
+          "total_us": 5399734
+        },
+        "send": {
+          "count": 2456,
+          "max_us": 19652,
+          "total_us": 1808824
+        }
+      }
+    },
+    {
+      "day": 14,
+      "steps": 2154,
+      "max_dt_us": 264292,
+      "max_work_us": 263999,
+      "max_gap_us": 49696,
+      "last_heap_kib": 3073908.84375,
+      "phases": {
+        "progress": {
+          "count": 2154,
+          "max_us": 14877,
+          "total_us": 16740
+        },
+        "receive": {
+          "count": 2154,
+          "max_us": 2205,
+          "total_us": 284318
+        },
+        "return_audit": {
+          "count": 2154,
+          "max_us": 1934,
+          "total_us": 28625
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 262198,
+          "total_us": 5620686
+        },
+        "send": {
+          "count": 2154,
+          "max_us": 13486,
+          "total_us": 1586158
+        }
+      }
+    },
+    {
+      "day": 15,
+      "steps": 2382,
+      "max_dt_us": 151326,
+      "max_work_us": 151145,
+      "max_gap_us": 46959,
+      "last_heap_kib": 3181434.0546875,
+      "phases": {
+        "progress": {
+          "count": 2382,
+          "max_us": 11478,
+          "total_us": 13263
+        },
+        "receive": {
+          "count": 2382,
+          "max_us": 2042,
+          "total_us": 242231
+        },
+        "return_audit": {
+          "count": 2382,
+          "max_us": 375,
+          "total_us": 25098
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 145681,
+          "total_us": 4713864
+        },
+        "send": {
+          "count": 2382,
+          "max_us": 13917,
+          "total_us": 1291059
+        }
+      }
+    },
+    {
+      "day": 16,
+      "steps": 2131,
+      "max_dt_us": 240121,
+      "max_work_us": 239945,
+      "max_gap_us": 49263,
+      "last_heap_kib": 3024866.6796875,
+      "phases": {
+        "progress": {
+          "count": 2131,
+          "max_us": 11691,
+          "total_us": 13554
+        },
+        "receive": {
+          "count": 2131,
+          "max_us": 2425,
+          "total_us": 313824
+        },
+        "return_audit": {
+          "count": 2131,
+          "max_us": 464,
+          "total_us": 26315
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 231882,
+          "total_us": 5498687
+        },
+        "send": {
+          "count": 2131,
+          "max_us": 50378,
+          "total_us": 1690887
+        }
+      }
+    },
+    {
+      "day": 17,
+      "steps": 2027,
+      "max_dt_us": 234915,
+      "max_work_us": 234794,
+      "max_gap_us": 48139,
+      "last_heap_kib": 2589885.3046875,
+      "phases": {
+        "progress": {
+          "count": 2027,
+          "max_us": 11343,
+          "total_us": 13419
+        },
+        "receive": {
+          "count": 2027,
+          "max_us": 8423,
+          "total_us": 341958
+        },
+        "return_audit": {
+          "count": 2027,
+          "max_us": 1626,
+          "total_us": 32453
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 222522,
+          "total_us": 6309987
+        },
+        "send": {
+          "count": 2027,
+          "max_us": 19351,
+          "total_us": 1748699
+        }
+      }
+    },
+    {
+      "day": 18,
+      "steps": 2044,
+      "max_dt_us": 242859,
+      "max_work_us": 242342,
+      "max_gap_us": 47831,
+      "last_heap_kib": 2055742.05859375,
+      "phases": {
+        "progress": {
+          "count": 2044,
+          "max_us": 13980,
+          "total_us": 15833
+        },
+        "receive": {
+          "count": 2044,
+          "max_us": 3365,
+          "total_us": 326579
+        },
+        "return_audit": {
+          "count": 2044,
+          "max_us": 1367,
+          "total_us": 29543
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 235567,
+          "total_us": 6707223
+        },
+        "send": {
+          "count": 2044,
+          "max_us": 21892,
+          "total_us": 1760423
+        }
+      }
+    },
+    {
+      "day": 19,
+      "steps": 2505,
+      "max_dt_us": 50135,
+      "max_work_us": 31581,
+      "max_gap_us": 50217,
+      "last_heap_kib": 3751182.7734375,
+      "phases": {
+        "progress": {
+          "count": 2505,
+          "max_us": 11229,
+          "total_us": 12785
+        },
+        "receive": {
+          "count": 2505,
+          "max_us": 1728,
+          "total_us": 200329
+        },
+        "return_audit": {
+          "count": 2505,
+          "max_us": 740,
+          "total_us": 26876
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 24030,
+          "total_us": 2426877
+        },
+        "send": {
+          "count": 2505,
+          "max_us": 12534,
+          "total_us": 1243183
+        }
+      }
+    },
+    {
+      "day": 20,
+      "steps": 2260,
+      "max_dt_us": 223342,
+      "max_work_us": 222667,
+      "max_gap_us": 46746,
+      "last_heap_kib": 2965181.2890625,
+      "phases": {
+        "progress": {
+          "count": 2260,
+          "max_us": 11623,
+          "total_us": 13515
+        },
+        "receive": {
+          "count": 2260,
+          "max_us": 3394,
+          "total_us": 286790
+        },
+        "return_audit": {
+          "count": 2260,
+          "max_us": 288,
+          "total_us": 25699
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 214196,
+          "total_us": 6482737
+        },
+        "send": {
+          "count": 2260,
+          "max_us": 13916,
+          "total_us": 1658713
+        }
+      }
+    },
+    {
+      "day": 21,
+      "steps": 2119,
+      "max_dt_us": 45678,
+      "max_work_us": 45568,
+      "max_gap_us": 44910,
+      "last_heap_kib": 4775246.625,
+      "phases": {
+        "progress": {
+          "count": 2119,
+          "max_us": 13366,
+          "total_us": 15198
+        },
+        "receive": {
+          "count": 2119,
+          "max_us": 3662,
+          "total_us": 292547
+        },
+        "return_audit": {
+          "count": 2119,
+          "max_us": 3549,
+          "total_us": 32637
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 37821,
+          "total_us": 3963514
+        },
+        "send": {
+          "count": 2119,
+          "max_us": 12910,
+          "total_us": 1608736
+        }
+      }
+    },
+    {
+      "day": 22,
+      "steps": 2028,
+      "max_dt_us": 235693,
+      "max_work_us": 235299,
+      "max_gap_us": 41047,
+      "last_heap_kib": 3755449.8203125,
+      "phases": {
+        "progress": {
+          "count": 2028,
+          "max_us": 11922,
+          "total_us": 13720
+        },
+        "receive": {
+          "count": 2028,
+          "max_us": 5172,
+          "total_us": 336198
+        },
+        "return_audit": {
+          "count": 2028,
+          "max_us": 382,
+          "total_us": 29889
+        },
+        "sample": {
+          "count": 256,
+          "max_us": 227593,
+          "total_us": 6123354
+        },
+        "send": {
+          "count": 2028,
+          "max_us": 15557,
+          "total_us": 1805792
+        }
+      }
+    },
+    {
+      "day": 23,
+      "steps": 1626,
+      "max_dt_us": 57008,
+      "max_work_us": 47256,
+      "max_gap_us": 47083,
+      "last_heap_kib": 5117660.734375,
+      "phases": {
+        "failed_phase": {
+          "count": 1,
+          "max_us": 4135,
+          "total_us": 4135
+        },
+        "progress": {
+          "count": 1625,
+          "max_us": 12750,
+          "total_us": 14101
+        },
+        "receive": {
+          "count": 1626,
+          "max_us": 4127,
+          "total_us": 236737
+        },
+        "return_audit": {
+          "count": 1626,
+          "max_us": 1606,
+          "total_us": 20323
+        },
+        "sample": {
+          "count": 199,
+          "max_us": 42537,
+          "total_us": 3348905
+        },
+        "send": {
+          "count": 1625,
+          "max_us": 14417,
+          "total_us": 1257603
+        }
+      }
+    }
+  ],
+  "export_us": 353577627,
+  "final_heap_kib": 30697690.24609375,
+  "last_flush_us": 15792,
+  "final_entries": [
+    {
+      "dt_us": 31117,
+      "gap_since_previous_end_us": 31031,
+      "last_slot_before": 5802,
+      "lua_heap_kib": 4931078.921875,
+      "phases": {
+        "progress": 0,
+        "receive": 16,
+        "return_audit": 7,
+        "send": 6
+      },
+      "sim_before_us": 1450700885,
+      "sim_us": 1450732002,
+      "slot": 5802,
+      "work_us": 29
+    },
+    {
+      "dt_us": 31729,
+      "gap_since_previous_end_us": 31686,
+      "last_slot_before": 5806,
+      "lua_heap_kib": 4957747.26953125,
+      "phases": {
+        "progress": 3,
+        "receive": 17,
+        "return_audit": 131,
+        "send": 19
+      },
+      "sim_before_us": 1451713529,
+      "sim_us": 1451745258,
+      "slot": 5806,
+      "work_us": 172
+    },
+    {
+      "dt_us": 31631,
+      "gap_since_previous_end_us": 31522,
+      "last_slot_before": 5810,
+      "lua_heap_kib": 4991017.6484375,
+      "phases": {
+        "progress": 3,
+        "receive": 12,
+        "return_audit": 9,
+        "sample": 23815,
+        "send": 9625
+      },
+      "sim_before_us": 1452742690,
+      "sim_us": 1452774321,
+      "slot": 5811,
+      "work_us": 33465
+    },
+    {
+      "dt_us": 27152,
+      "gap_since_previous_end_us": 75,
+      "last_slot_before": 5815,
+      "lua_heap_kib": 5017698.453125,
+      "phases": {
+        "progress": 0,
+        "receive": 6,
+        "return_audit": 7,
+        "send": 1
+      },
+      "sim_before_us": 1453755597,
+      "sim_us": 1453782749,
+      "slot": 5815,
+      "work_us": 14
+    },
+    {
+      "dt_us": 31293,
+      "gap_since_previous_end_us": 11798,
+      "last_slot_before": 5819,
+      "lua_heap_kib": 5044389.03125,
+      "phases": {
+        "progress": 0,
+        "receive": 198,
+        "return_audit": 4,
+        "send": 172
+      },
+      "sim_before_us": 1454768872,
+      "sim_us": 1454800165,
+      "slot": 5819,
+      "work_us": 374
+    },
+    {
+      "dt_us": 27279,
+      "gap_since_previous_end_us": 27357,
+      "last_slot_before": 5823,
+      "lua_heap_kib": 5071061.82421875,
+      "phases": {
+        "progress": 0,
+        "receive": 173,
+        "return_audit": 4,
+        "send": 95
+      },
+      "sim_before_us": 1455791661,
+      "sim_us": 1455818940,
+      "slot": 5823,
+      "work_us": 273
+    },
+    {
+      "dt_us": 32147,
+      "gap_since_previous_end_us": 32088,
+      "last_slot_before": 5827,
+      "lua_heap_kib": 5096853.83984375,
+      "phases": {
+        "progress": 1,
+        "receive": 21,
+        "return_audit": 9,
+        "send": 3
+      },
+      "sim_before_us": 1456805799,
+      "sim_us": 1456837946,
+      "slot": 5827,
+      "work_us": 35
+    },
+    {
+      "dt_us": 31884,
+      "failure": "...ames\\rdl_game\\mods\\rdl_bridge/multi_resource_fixture.lua:102: per-agent pending capacity",
+      "gap_since_previous_end_us": 31868,
+      "last_slot_before": 5830,
+      "lua_heap_kib": 5117660.734375,
+      "phases": {
+        "failed_phase": 4135,
+        "receive": 8,
+        "return_audit": 8
+      },
+      "sim_before_us": 1457731346,
+      "sim_us": 1457763230,
+      "slot": 5831,
+      "work_us": 4153
+    }
+  ],
+  "runtime": {
+    "schema": "campaign-runtime-timing-v1",
+    "stats": {
+      "1:configure": {
+        "count": 6,
+        "total_us": 173,
+        "max_us": 44
+      },
+      "1:observe": {
+        "count": 1536,
+        "total_us": 3308694,
+        "max_us": 13439
+      },
+      "1:result": {
+        "count": 1536,
+        "total_us": 166400,
+        "max_us": 527
+      },
+      "2:observe": {
+        "count": 1536,
+        "total_us": 3858348,
+        "max_us": 44921
+      },
+      "2:result": {
+        "count": 1536,
+        "total_us": 152865,
+        "max_us": 548
+      },
+      "3:observe": {
+        "count": 1536,
+        "total_us": 4281366,
+        "max_us": 103185
+      },
+      "3:result": {
+        "count": 1536,
+        "total_us": 142261,
+        "max_us": 1990
+      },
+      "4:observe": {
+        "count": 1536,
+        "total_us": 5069537,
+        "max_us": 198755
+      },
+      "4:result": {
+        "count": 1536,
+        "total_us": 144638,
+        "max_us": 1032
+      },
+      "5:observe": {
+        "count": 1536,
+        "total_us": 5390852,
+        "max_us": 231298
+      },
+      "5:result": {
+        "count": 1536,
+        "total_us": 140622,
+        "max_us": 1722
+      },
+      "6:observe": {
+        "count": 1536,
+        "total_us": 5819284,
+        "max_us": 287944
+      },
+      "6:result": {
+        "count": 1536,
+        "total_us": 128958,
+        "max_us": 610
+      },
+      "7:observe": {
+        "count": 1536,
+        "total_us": 5930495,
+        "max_us": 350540
+      },
+      "7:result": {
+        "count": 1536,
+        "total_us": 127023,
+        "max_us": 2801
+      },
+      "8:observe": {
+        "count": 1536,
+        "total_us": 6510739,
+        "max_us": 442680
+      },
+      "8:result": {
+        "count": 1536,
+        "total_us": 127216,
+        "max_us": 724
+      },
+      "9:observe": {
+        "count": 1536,
+        "total_us": 6059278,
+        "max_us": 16547
+      },
+      "9:result": {
+        "count": 1536,
+        "total_us": 125232,
+        "max_us": 523
+      },
+      "10:observe": {
+        "count": 1536,
+        "total_us": 6412570,
+        "max_us": 546131
+      },
+      "10:result": {
+        "count": 1536,
+        "total_us": 94699,
+        "max_us": 514
+      },
+      "11:observe": {
+        "count": 1536,
+        "total_us": 6986401,
+        "max_us": 688711
+      },
+      "11:result": {
+        "count": 1536,
+        "total_us": 114472,
+        "max_us": 1101
+      },
+      "12:observe": {
+        "count": 1536,
+        "total_us": 7962184,
+        "max_us": 25041
+      },
+      "12:result": {
+        "count": 1536,
+        "total_us": 121754,
+        "max_us": 718
+      },
+      "13:observe": {
+        "count": 1536,
+        "total_us": 9247190,
+        "max_us": 899107
+      },
+      "13:result": {
+        "count": 1536,
+        "total_us": 121921,
+        "max_us": 2504
+      },
+      "14:observe": {
+        "count": 1536,
+        "total_us": 8045239,
+        "max_us": 24166
+      },
+      "14:result": {
+        "count": 1536,
+        "total_us": 129073,
+        "max_us": 1023
+      },
+      "15:observe": {
+        "count": 1536,
+        "total_us": 7821710,
+        "max_us": 984091
+      },
+      "15:result": {
+        "count": 1536,
+        "total_us": 113535,
+        "max_us": 647
+      },
+      "16:observe": {
+        "count": 1536,
+        "total_us": 9501247,
+        "max_us": 27920
+      },
+      "16:result": {
+        "count": 1536,
+        "total_us": 140298,
+        "max_us": 973
+      },
+      "17:observe": {
+        "count": 1536,
+        "total_us": 9314454,
+        "max_us": 22514
+      },
+      "17:result": {
+        "count": 1536,
+        "total_us": 144534,
+        "max_us": 1837
+      },
+      "18:observe": {
+        "count": 1536,
+        "total_us": 10832405,
+        "max_us": 1291547
+      },
+      "18:result": {
+        "count": 1536,
+        "total_us": 143155,
+        "max_us": 866
+      },
+      "19:observe": {
+        "count": 1536,
+        "total_us": 8102140,
+        "max_us": 28170
+      },
+      "19:result": {
+        "count": 1536,
+        "total_us": 95353,
+        "max_us": 443
+      },
+      "20:observe": {
+        "count": 1536,
+        "total_us": 11848641,
+        "max_us": 1627921
+      },
+      "20:result": {
+        "count": 1536,
+        "total_us": 114410,
+        "max_us": 841
+      },
+      "21:observe": {
+        "count": 1536,
+        "total_us": 10969165,
+        "max_us": 199260
+      },
+      "21:result": {
+        "count": 1536,
+        "total_us": 164691,
+        "max_us": 3675
+      },
+      "22:observe": {
+        "count": 1536,
+        "total_us": 11891145,
+        "max_us": 33996
+      },
+      "22:result": {
+        "count": 1536,
+        "total_us": 142666,
+        "max_us": 1224
+      },
+      "23:observe": {
+        "count": 1152,
+        "total_us": 11244513,
+        "max_us": 2053777
+      },
+      "23:result": {
+        "count": 1151,
+        "total_us": 86723,
+        "max_us": 864
+      }
+    },
+    "slow": [
+      {
+        "kind": "observe",
+        "agent_id": "npc_c",
+        "capture_us": 132766660,
+        "elapsed_us": 103185
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_a",
+        "capture_us": 192766780,
+        "elapsed_us": 146643
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_d",
+        "capture_us": 247009084,
+        "elapsed_us": 198755
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_c",
+        "capture_us": 297517739,
+        "elapsed_us": 231298
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_b",
+        "capture_us": 357003501,
+        "elapsed_us": 287944
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_a",
+        "capture_us": 427268557,
+        "elapsed_us": 350540
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_d",
+        "capture_us": 506766151,
+        "elapsed_us": 442680
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_f",
+        "capture_us": 597518897,
+        "elapsed_us": 546131
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_f",
+        "capture_us": 699512737,
+        "elapsed_us": 688711
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_c",
+        "capture_us": 815269053,
+        "elapsed_us": 899107
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_c",
+        "capture_us": 949507356,
+        "elapsed_us": 984091
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_f",
+        "capture_us": 1097761150,
+        "elapsed_us": 1291547
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_a",
+        "capture_us": 1267006795,
+        "elapsed_us": 1627921
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_b",
+        "capture_us": 1286260430,
+        "elapsed_us": 199260
+      },
+      {
+        "kind": "observe",
+        "agent_id": "npc_f",
+        "capture_us": 1455755740,
+        "elapsed_us": 2053777
+      }
+    ],
+    "scope": "loop calls inside existing HTTP lock; excludes lock wait, JSON and network"
+  },
+  "agents": {
+    "npc_a": {
+      "max_pending": 9,
+      "world_observations": 5832,
+      "runtime_observations": 5824,
+      "pickups": 0,
+      "last_deliveries": [
+        {
+          "kind": "result",
+          "sent_us": 1454800165,
+          "arrived_us": 1454832728,
+          "received_us": 1454863904
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455022257,
+          "arrived_us": 1455050515,
+          "received_us": 1455075388
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455075388,
+          "arrived_us": 1455075388,
+          "received_us": 1455106856
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455264724,
+          "arrived_us": 1455264724,
+          "received_us": 1455296177
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455296177,
+          "arrived_us": 1455328507,
+          "received_us": 1455359767
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455517820,
+          "arrived_us": 1455565220,
+          "received_us": 1455597665
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455597665,
+          "arrived_us": 1455597665,
+          "received_us": 1455629449
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455755740,
+          "arrived_us": 1455791661,
+          "received_us": 1455818940
+        }
+      ]
+    },
+    "npc_b": {
+      "max_pending": 8,
+      "world_observations": 5831,
+      "runtime_observations": 5824,
+      "pickups": 12,
+      "last_deliveries": [
+        {
+          "kind": "result",
+          "sent_us": 1454800165,
+          "arrived_us": 1454832728,
+          "received_us": 1454863904
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455022257,
+          "arrived_us": 1455050515,
+          "received_us": 1455075388
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455075388,
+          "arrived_us": 1455075388,
+          "received_us": 1455106856
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455264724,
+          "arrived_us": 1455296177,
+          "received_us": 1455328507
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455328507,
+          "arrived_us": 1455328507,
+          "received_us": 1455359767
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455517820,
+          "arrived_us": 1455565220,
+          "received_us": 1455597665
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455597665,
+          "arrived_us": 1455597665,
+          "received_us": 1455629449
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455755740,
+          "arrived_us": 1455791661,
+          "received_us": 1455818940
+        }
+      ]
+    },
+    "npc_c": {
+      "max_pending": 8,
+      "world_observations": 5831,
+      "runtime_observations": 5824,
+      "pickups": 0,
+      "last_deliveries": [
+        {
+          "kind": "result",
+          "sent_us": 1454832728,
+          "arrived_us": 1454832728,
+          "received_us": 1454863904
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455022257,
+          "arrived_us": 1455050515,
+          "received_us": 1455075388
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455075388,
+          "arrived_us": 1455075388,
+          "received_us": 1455106856
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455264724,
+          "arrived_us": 1455296177,
+          "received_us": 1455328507
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455328507,
+          "arrived_us": 1455328507,
+          "received_us": 1455359767
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455517820,
+          "arrived_us": 1455565220,
+          "received_us": 1455597665
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455597665,
+          "arrived_us": 1455597665,
+          "received_us": 1455629449
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455755740,
+          "arrived_us": 1455818940,
+          "received_us": 1455850743
+        }
+      ]
+    },
+    "npc_d": {
+      "max_pending": 8,
+      "world_observations": 5831,
+      "runtime_observations": 5824,
+      "pickups": 0,
+      "last_deliveries": [
+        {
+          "kind": "result",
+          "sent_us": 1454832728,
+          "arrived_us": 1454832728,
+          "received_us": 1454863904
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455022257,
+          "arrived_us": 1455050515,
+          "received_us": 1455075388
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455075388,
+          "arrived_us": 1455075388,
+          "received_us": 1455106856
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455264724,
+          "arrived_us": 1455296177,
+          "received_us": 1455328507
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455328507,
+          "arrived_us": 1455328507,
+          "received_us": 1455359767
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455517820,
+          "arrived_us": 1455565220,
+          "received_us": 1455597665
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455597665,
+          "arrived_us": 1455597665,
+          "received_us": 1455629449
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455755740,
+          "arrived_us": 1455818940,
+          "received_us": 1455850743
+        }
+      ]
+    },
+    "npc_e": {
+      "max_pending": 8,
+      "world_observations": 5831,
+      "runtime_observations": 5824,
+      "pickups": 12,
+      "last_deliveries": [
+        {
+          "kind": "result",
+          "sent_us": 1454832728,
+          "arrived_us": 1454832728,
+          "received_us": 1454863904
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455022257,
+          "arrived_us": 1455075388,
+          "received_us": 1455106856
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455106856,
+          "arrived_us": 1455106856,
+          "received_us": 1455138268
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455264724,
+          "arrived_us": 1455296177,
+          "received_us": 1455328507
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455328507,
+          "arrived_us": 1455328507,
+          "received_us": 1455359767
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455517820,
+          "arrived_us": 1455565220,
+          "received_us": 1455597665
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455597665,
+          "arrived_us": 1455597665,
+          "received_us": 1455629449
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455755740,
+          "arrived_us": 1455818940,
+          "received_us": 1455850743
+        }
+      ]
+    },
+    "npc_f": {
+      "max_pending": 8,
+      "world_observations": 5831,
+      "runtime_observations": 5824,
+      "pickups": 0,
+      "last_deliveries": [
+        {
+          "kind": "observe",
+          "sent_us": 1454768872,
+          "arrived_us": 1454832728,
+          "received_us": 1454863904
+        },
+        {
+          "kind": "result",
+          "sent_us": 1454863904,
+          "arrived_us": 1454863904,
+          "received_us": 1454895681
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455022257,
+          "arrived_us": 1455075388,
+          "received_us": 1455106856
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455106856,
+          "arrived_us": 1455106856,
+          "received_us": 1455138268
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455264724,
+          "arrived_us": 1455328507,
+          "received_us": 1455359767
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455359767,
+          "arrived_us": 1455359767,
+          "received_us": 1455391748
+        },
+        {
+          "kind": "observe",
+          "sent_us": 1455517820,
+          "arrived_us": 1455565220,
+          "received_us": 1455597665
+        },
+        {
+          "kind": "result",
+          "sent_us": 1455597665,
+          "arrived_us": 1455597665,
+          "received_us": 1455629449
+        }
+      ]
+    }
+  },
+  "returns": 2,
+  "source_matches": {
+    "runtime/current_harvest_state.py": true,
+    "runtime/multi_resource_exploration.py": true,
+    "integrations/luanti/scripts/test-learned-exploration-day.ps1": true,
+    "runtime/landmark_return_campaign.py": true,
+    "runtime/landmark_day_cycle.py": true,
+    "runtime/exploration.py": true,
+    "runtime/model_movement_field.py": true,
+    "runtime/terrain_resource_exploration.py": true,
+    "runtime/terrain_steering.py": true,
+    "integrations/luanti/game/rdl_game/mods/rdl_bridge/multi_resource_fixture.lua": true,
+    "integrations/luanti/game/rdl_game/mods/rdl_bridge/campaign_diagnostics.lua": true,
+    "integrations/luanti/tests/campaign_diagnostics.py": true,
+    "integrations/luanti/tests/run_return_campaign.py": true,
+    "integrations/luanti/scripts/install-game.ps1": true
+  },
+  "replay_verified": true,
+  "replayed_responses": 69887,
+  "final_runtime_exact": false,
+  "replay_observations": {
+    "npc_a": 5824,
+    "npc_b": 5824,
+    "npc_c": 5824,
+    "npc_d": 5824,
+    "npc_e": 5824,
+    "npc_f": 5823
+  },
+  "accepted_without_received_reply": {
+    "npc_a": {
+      "accepted_observations_without_received_reply": [],
+      "accepted_results_without_received_reply": [
+        "op:l15campaign-cc83773e7a58:npc_a:obs:5823"
+      ]
+    },
+    "npc_b": {
+      "accepted_observations_without_received_reply": [],
+      "accepted_results_without_received_reply": [
+        "op:l15campaign-cc83773e7a58:npc_b:obs:5823"
+      ]
+    },
+    "npc_c": {
+      "accepted_observations_without_received_reply": [],
+      "accepted_results_without_received_reply": [
+        "op:l15campaign-cc83773e7a58:npc_c:obs:5823"
+      ]
+    },
+    "npc_d": {
+      "accepted_observations_without_received_reply": [],
+      "accepted_results_without_received_reply": [
+        "op:l15campaign-cc83773e7a58:npc_d:obs:5823"
+      ]
+    },
+    "npc_e": {
+      "accepted_observations_without_received_reply": [],
+      "accepted_results_without_received_reply": [
+        "op:l15campaign-cc83773e7a58:npc_e:obs:5823"
+      ]
+    },
+    "npc_f": {
+      "accepted_observations_without_received_reply": [
+        "l15campaign-cc83773e7a58:npc_f:obs:5823"
+      ],
+      "accepted_results_without_received_reply": []
+    }
+  }
+}

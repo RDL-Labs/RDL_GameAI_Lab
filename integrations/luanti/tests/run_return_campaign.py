@@ -31,11 +31,14 @@ def main():
     parser.add_argument("--model-field",choices=("off","disabled","enabled"),default="off")
     parser.add_argument("--harvest-state",action="store_true")
     parser.add_argument("--agents",type=int,choices=(3,6),default=3)
+    parser.add_argument("--diagnostics",action="store_true")
     args=parser.parse_args()
     run_id="l15campaign-"+uuid4().hex[:12]
     loop=ReturnCampaign(run_id,args.periods,mb_field_mode=args.model_field,harvest_state=args.harvest_state,agent_count=args.agents)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
-    server.series=SimpleNamespace(loop=loop,lock=RLock())
+    from .campaign_diagnostics import TimedLoop
+    measured=TimedLoop(loop) if args.diagnostics else loop
+    server.series=SimpleNamespace(loop=measured,lock=RLock())
     worker=Thread(target=server.serve_forever,daemon=True);worker.start()
     report=dict(schema="l15a-return-campaign-evidence-v1",run_id=run_id,
         predeclared=dict(days=args.periods,stop_after_returns=args.agents,agent_count=args.agents,scope="population aggregate; one batch per agent/night",
@@ -44,6 +47,9 @@ def main():
     sources=["runtime/current_harvest_state.py","runtime/multi_resource_exploration.py","integrations/luanti/scripts/test-learned-exploration-day.ps1","runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
         "runtime/model_movement_field.py","runtime/terrain_resource_exploration.py","runtime/terrain_steering.py",
         "integrations/luanti/game/rdl_game/mods/rdl_bridge/multi_resource_fixture.lua"]
+    if args.diagnostics:
+        report["predeclared"]["diagnostics"]=True
+        sources.extend(["integrations/luanti/game/rdl_game/mods/rdl_bridge/campaign_diagnostics.lua", "integrations/luanti/tests/campaign_diagnostics.py", "integrations/luanti/tests/run_return_campaign.py", "integrations/luanti/scripts/install-game.ps1"])
     report["source_sha256"]={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in sources}
     OUTPUT.mkdir(exist_ok=True);write(args.output,report)
     try:
@@ -53,6 +59,7 @@ def main():
             "-Scenario","natural_meadow","-MultiResources","-MovementTerrain","-MovementSteering","-DayCycle",
             "-ReturnCampaign","-RawWorldOnly","-ResourcePeriods",str(args.periods),"-ResourceAssignment","steady",
             "-AgentCount",str(args.agents),"-SimulationSpeed",str(args.speed),"-ModelFieldMode",args.model_field]
+        if args.diagnostics: command.append("-CampaignDiagnostics")
         log=OUTPUT/(run_id+".launch.log")
         with log.open("wb") as stream:
             result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=args.periods*64+600)
@@ -60,6 +67,9 @@ def main():
         path=ROOT/"integrations/luanti/worlds"/run_id/"l14b-evidence.json"
         world=json.loads(path.read_text(encoding="utf-8"))
         print("World ended; collecting final Runtime before audit",flush=True)
+        if args.diagnostics:
+            diagnostic_path=path.parent/"campaign-diagnostics-complete.json"
+            report["diagnostics"]=dict(world=json.loads(diagnostic_path.read_text(encoding="utf8")), runtime=measured.diagnostics())
         data=dict(world=world,runtime=dict(exploration=loop.snapshot(),history={}))
         # Save before checking so an audit failure never discards the actual run.
         failure=world.get("failure")
