@@ -1,0 +1,562 @@
+{
+  "baseline": {
+    "manifest": {
+      "type": "manifest",
+      "version": "lw-timed-harvest-v1",
+      "return_completion_mode": "enabled",
+      "reposition_mode": "enabled",
+      "orientation_mode": "enabled",
+      "days": 30,
+      "stop_after_returns": null,
+      "lateral_side": "left",
+      "goal_switch_threshold": 2,
+      "controller_seed": 20260928,
+      "food_goal_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "return_mode": "overnight-home-purpose-v1",
+      "inventory_mode": "confirmed-unloads-v1",
+      "mb_field_mode": "enabled",
+      "inexhaustible_after_model": false,
+      "stock_mode": "finite",
+      "work_us": 500000,
+      "skyline_subrays": true,
+      "objects": [
+        {
+          "x": 0.0,
+          "z": 8.0,
+          "radius": 1.0,
+          "height": 12.0,
+          "color": "ochre",
+          "solid": true
+        },
+        {
+          "x": -7.4804237644239935,
+          "z": 31.407022591474394,
+          "radius": 0.8000925422261725,
+          "height": 5.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -2.5409673849977352,
+          "z": -14.941927231833446,
+          "radius": 1.379593532354185,
+          "height": 2.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": 0.9632951928890053,
+          "z": 26.87956422765719,
+          "radius": 1.3820725199635218,
+          "height": 8.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 40.917066585249465,
+          "z": 1.365747337842609,
+          "radius": 1.3735967520994907,
+          "height": 2.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": -10.763175732777919,
+          "z": 25.168944265170428,
+          "radius": 0.8463480792036165,
+          "height": 5.0,
+          "color": "gray",
+          "solid": true
+        }
+      ],
+      "resources": [
+        {
+          "x": -5.680331222197821,
+          "z": 31.407022591474394,
+          "stock": 12
+        },
+        {
+          "x": 2.685879459809848,
+          "z": 41.27477438131782,
+          "stock": 12
+        },
+        {
+          "x": 16.374628567988346,
+          "z": 32.67047418657611,
+          "stock": 12
+        },
+        {
+          "x": -0.1613738526435502,
+          "z": -14.941927231833446,
+          "stock": 12
+        },
+        {
+          "x": 5.273084457019506,
+          "z": 15.876683339686771,
+          "stock": 12
+        },
+        {
+          "x": 42.66751027369044,
+          "z": -8.379395976129905,
+          "stock": 12
+        },
+        {
+          "x": 3.345367712852527,
+          "z": 26.87956422765719,
+          "stock": 12
+        },
+        {
+          "x": -32.73299435206351,
+          "z": -10.681564291478802,
+          "stock": 12
+        }
+      ],
+      "agents": {
+        "npc_a": {
+          "x": -2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_b": {
+          "x": 0.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_c": {
+          "x": 2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        }
+      },
+      "seed": 20260930
+    },
+    "summary": {
+      "type": "summary",
+      "reason": "time_limit",
+      "captures": 23040,
+      "ended_us": 1920000000,
+      "pickups": 48,
+      "returns": [
+        {
+          "agent_id": "npc_a",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_a:obs:31",
+            "op:lw-work:npc_a:obs:34",
+            "op:lw-work:npc_a:obs:37",
+            "op:lw-work:npc_a:obs:40",
+            "op:lw-work:npc_a:obs:43",
+            "op:lw-work:npc_a:obs:46",
+            "op:lw-work:npc_a:obs:49",
+            "op:lw-work:npc_a:obs:52",
+            "op:lw-work:npc_a:obs:55",
+            "op:lw-work:npc_a:obs:58",
+            "op:lw-work:npc_a:obs:61",
+            "op:lw-work:npc_a:obs:64"
+          ],
+          "executed_us": 36750001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_b:obs:33",
+            "op:lw-work:npc_b:obs:36",
+            "op:lw-work:npc_b:obs:39",
+            "op:lw-work:npc_b:obs:42",
+            "op:lw-work:npc_b:obs:45",
+            "op:lw-work:npc_b:obs:48",
+            "op:lw-work:npc_b:obs:51",
+            "op:lw-work:npc_b:obs:54",
+            "op:lw-work:npc_b:obs:57",
+            "op:lw-work:npc_b:obs:60",
+            "op:lw-work:npc_b:obs:78",
+            "op:lw-work:npc_b:obs:81",
+            "op:lw-work:npc_b:obs:84",
+            "op:lw-work:npc_b:obs:87",
+            "op:lw-work:npc_b:obs:90",
+            "op:lw-work:npc_b:obs:93",
+            "op:lw-work:npc_b:obs:96",
+            "op:lw-work:npc_b:obs:99",
+            "op:lw-work:npc_b:obs:102",
+            "op:lw-work:npc_b:obs:105",
+            "op:lw-work:npc_b:obs:108",
+            "op:lw-work:npc_b:obs:111"
+          ],
+          "executed_us": 43750001
+        },
+        {
+          "agent_id": "npc_a",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_a:obs:326",
+            "op:lw-work:npc_a:obs:329",
+            "op:lw-work:npc_a:obs:332",
+            "op:lw-work:npc_a:obs:335"
+          ],
+          "executed_us": 106750001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_b:obs:276",
+            "op:lw-work:npc_b:obs:279",
+            "op:lw-work:npc_b:obs:311",
+            "op:lw-work:npc_b:obs:314",
+            "op:lw-work:npc_b:obs:317",
+            "op:lw-work:npc_b:obs:320",
+            "op:lw-work:npc_b:obs:323",
+            "op:lw-work:npc_b:obs:326",
+            "op:lw-work:npc_b:obs:329",
+            "op:lw-work:npc_b:obs:332"
+          ],
+          "executed_us": 110250001
+        }
+      ],
+      "elapsed_seconds": 179.13806189998286,
+      "stock": [
+        0,
+        12,
+        12,
+        0,
+        0,
+        12,
+        0,
+        12
+      ],
+      "agents": {
+        "npc_a": {
+          "observations": 7648,
+          "carried": 0,
+          "unloaded": 16,
+          "records": 0,
+          "model_ref": null
+        },
+        "npc_b": {
+          "observations": 7614,
+          "carried": 0,
+          "unloaded": 32,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+        },
+        "npc_c": {
+          "observations": 7680,
+          "carried": 0,
+          "unloaded": 0,
+          "records": 0,
+          "model_ref": null
+        }
+      }
+    },
+    "resource_consumers": {
+      "3": {
+        "npc_a": 12
+      },
+      "4": {
+        "npc_b": 12
+      },
+      "6": {
+        "npc_b": 12
+      },
+      "0": {
+        "npc_b": 8,
+        "npc_a": 4
+      },
+      "1": {},
+      "2": {},
+      "5": {},
+      "7": {}
+    },
+    "raw_sha256": "359f98ef12ce2ac17f74f9fae9e90493a4f49e4e89ae7718f1b5b3bb100992e5",
+    "command_sha256": "49943a28112623da2e07fbf3c731079f784756448a24802fe9a934045aeacefc"
+  },
+  "current": {
+    "manifest": {
+      "type": "manifest",
+      "version": "lw-timed-harvest-v1",
+      "resource_access": "shared-all-agents-v1",
+      "return_completion_mode": "enabled",
+      "reposition_mode": "enabled",
+      "orientation_mode": "enabled",
+      "days": 30,
+      "stop_after_returns": null,
+      "lateral_side": "left",
+      "goal_switch_threshold": 2,
+      "controller_seed": 20260928,
+      "food_goal_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "return_mode": "overnight-home-purpose-v1",
+      "inventory_mode": "confirmed-unloads-v1",
+      "mb_field_mode": "enabled",
+      "inexhaustible_after_model": false,
+      "stock_mode": "finite",
+      "work_us": 500000,
+      "skyline_subrays": true,
+      "objects": [
+        {
+          "x": 0.0,
+          "z": 8.0,
+          "radius": 1.0,
+          "height": 12.0,
+          "color": "ochre",
+          "solid": true
+        },
+        {
+          "x": -7.4804237644239935,
+          "z": 31.407022591474394,
+          "radius": 0.8000925422261725,
+          "height": 5.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -2.5409673849977352,
+          "z": -14.941927231833446,
+          "radius": 1.379593532354185,
+          "height": 2.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": 0.9632951928890053,
+          "z": 26.87956422765719,
+          "radius": 1.3820725199635218,
+          "height": 8.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 40.917066585249465,
+          "z": 1.365747337842609,
+          "radius": 1.3735967520994907,
+          "height": 2.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": -10.763175732777919,
+          "z": 25.168944265170428,
+          "radius": 0.8463480792036165,
+          "height": 5.0,
+          "color": "gray",
+          "solid": true
+        }
+      ],
+      "resources": [
+        {
+          "x": -5.680331222197821,
+          "z": 31.407022591474394,
+          "stock": 12
+        },
+        {
+          "x": 2.685879459809848,
+          "z": 41.27477438131782,
+          "stock": 12
+        },
+        {
+          "x": 16.374628567988346,
+          "z": 32.67047418657611,
+          "stock": 12
+        },
+        {
+          "x": -0.1613738526435502,
+          "z": -14.941927231833446,
+          "stock": 12
+        },
+        {
+          "x": 5.273084457019506,
+          "z": 15.876683339686771,
+          "stock": 12
+        },
+        {
+          "x": 42.66751027369044,
+          "z": -8.379395976129905,
+          "stock": 12
+        },
+        {
+          "x": 3.345367712852527,
+          "z": 26.87956422765719,
+          "stock": 12
+        },
+        {
+          "x": -32.73299435206351,
+          "z": -10.681564291478802,
+          "stock": 12
+        }
+      ],
+      "agents": {
+        "npc_a": {
+          "x": -2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_b": {
+          "x": 0.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_c": {
+          "x": 2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        }
+      },
+      "seed": 20260930
+    },
+    "summary": {
+      "type": "summary",
+      "reason": "time_limit",
+      "captures": 23040,
+      "ended_us": 1920000000,
+      "pickups": 48,
+      "returns": [
+        {
+          "agent_id": "npc_a",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_a:obs:31",
+            "op:lw-work:npc_a:obs:34",
+            "op:lw-work:npc_a:obs:37",
+            "op:lw-work:npc_a:obs:40",
+            "op:lw-work:npc_a:obs:43",
+            "op:lw-work:npc_a:obs:46",
+            "op:lw-work:npc_a:obs:49",
+            "op:lw-work:npc_a:obs:52",
+            "op:lw-work:npc_a:obs:55",
+            "op:lw-work:npc_a:obs:58",
+            "op:lw-work:npc_a:obs:61",
+            "op:lw-work:npc_a:obs:64"
+          ],
+          "executed_us": 36750001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_b:obs:33",
+            "op:lw-work:npc_b:obs:36",
+            "op:lw-work:npc_b:obs:39",
+            "op:lw-work:npc_b:obs:42",
+            "op:lw-work:npc_b:obs:45",
+            "op:lw-work:npc_b:obs:48",
+            "op:lw-work:npc_b:obs:51",
+            "op:lw-work:npc_b:obs:54",
+            "op:lw-work:npc_b:obs:57",
+            "op:lw-work:npc_b:obs:60",
+            "op:lw-work:npc_b:obs:78",
+            "op:lw-work:npc_b:obs:81",
+            "op:lw-work:npc_b:obs:84",
+            "op:lw-work:npc_b:obs:87",
+            "op:lw-work:npc_b:obs:90",
+            "op:lw-work:npc_b:obs:93",
+            "op:lw-work:npc_b:obs:96",
+            "op:lw-work:npc_b:obs:99",
+            "op:lw-work:npc_b:obs:102",
+            "op:lw-work:npc_b:obs:105",
+            "op:lw-work:npc_b:obs:108",
+            "op:lw-work:npc_b:obs:111"
+          ],
+          "executed_us": 43750001
+        },
+        {
+          "agent_id": "npc_a",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_a:obs:326",
+            "op:lw-work:npc_a:obs:329",
+            "op:lw-work:npc_a:obs:332",
+            "op:lw-work:npc_a:obs:335"
+          ],
+          "executed_us": 106750001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_b:obs:276",
+            "op:lw-work:npc_b:obs:279",
+            "op:lw-work:npc_b:obs:311",
+            "op:lw-work:npc_b:obs:314",
+            "op:lw-work:npc_b:obs:317",
+            "op:lw-work:npc_b:obs:320",
+            "op:lw-work:npc_b:obs:323",
+            "op:lw-work:npc_b:obs:326",
+            "op:lw-work:npc_b:obs:329",
+            "op:lw-work:npc_b:obs:332"
+          ],
+          "executed_us": 110250001
+        }
+      ],
+      "elapsed_seconds": 100.50939570000628,
+      "stock": [
+        0,
+        12,
+        12,
+        0,
+        0,
+        12,
+        0,
+        12
+      ],
+      "agents": {
+        "npc_a": {
+          "observations": 7648,
+          "carried": 0,
+          "unloaded": 16,
+          "records": 0,
+          "model_ref": null
+        },
+        "npc_b": {
+          "observations": 7614,
+          "carried": 0,
+          "unloaded": 32,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+        },
+        "npc_c": {
+          "observations": 7680,
+          "carried": 0,
+          "unloaded": 0,
+          "records": 0,
+          "model_ref": null
+        }
+      }
+    },
+    "resource_consumers": {
+      "3": {
+        "npc_a": 12
+      },
+      "4": {
+        "npc_b": 12
+      },
+      "6": {
+        "npc_b": 12
+      },
+      "0": {
+        "npc_b": 8,
+        "npc_a": 4
+      },
+      "1": {},
+      "2": {},
+      "5": {},
+      "7": {}
+    },
+    "raw_sha256": "b6afe944be578e61a8aaeaa5211ab3efacdd8b276542397af306b6e3f34f06d8",
+    "command_sha256": "49943a28112623da2e07fbf3c731079f784756448a24802fe9a934045aeacefc"
+  },
+  "commands_identical": true
+}
