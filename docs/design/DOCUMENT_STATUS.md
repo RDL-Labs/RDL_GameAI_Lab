@@ -220,3 +220,12 @@ Completed-night sharing preserves all 69,887 replay responses and six public sta
 The six-agent live run reached day 30 but stopped on pending capacity; full World
 export timed out. Long-run acceptance remains incomplete. See
 [history-storage evidence](/docs/experiment-evidence/LUANTI_L15A_campaign_history_storage_evidence.md).
+
+
+### 軽量Worldへの探索接続計画（2026-09-29）
+
+[計画表](/docs/design/RDL_GameAI_Lightweight_World_Plan.md)を追加。DESIGN ONLY。
+Python仮想World＋既存ReturnCampaign＋p5再生を段階実装する。
+まず3個体・有限視覚・身体操作・増分ログを接続し、最大30日／3資源持帰りを観察する。
+目標Hの接続はWorld差し替え後の別工程。canonical Sleepの統合済みとは扱わない。
+Luanti長期負荷対策は保留し、節目の契約確認に残す。
