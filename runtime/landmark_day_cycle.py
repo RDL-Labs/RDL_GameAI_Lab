@@ -95,11 +95,14 @@ class DayCycleAgent(SteeredResourceAgent):
         super()._packet({k:v for k,v in p.items() if k != "skyline"})
         validate_skyline(p)
 
+    def _stage_day_state(self, old):
+        return deepcopy(old)
+
     def _decision(self,p):
         day, mode = p["capture_us"]//DAY_US, phase(p["capture_us"])
         last = next(reversed(self.decisions.values())) if self.decisions else None
         old = last.get("day_cycle") if last else None
-        s = deepcopy(old) if old else dict(day=day, phase=mode, home_memory=None,
+        s = self._stage_day_state(old) if old else dict(day=day, phase=mode, home_memory=None,
             return_state=None, nights=[], fatigue=0., charged_operation=None, night_wait_us=0)
         previous = next(reversed(self.observations.values())) if self.observations else None
         r = self.results.get("op:"+previous["observation_id"]) if previous else None

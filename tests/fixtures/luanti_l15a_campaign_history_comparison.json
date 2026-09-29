@@ -1,0 +1,113 @@
+{
+  "schema": "campaign-history-comparison-v1",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "source_files": {
+    "tests\\fixtures\\luanti_l15a_campaign_profile_before.json": "ca3aa72bd8043c9c4a7dd87611b31f11828d3e311a2a161e042b8507366a56e7",
+    "tests\\fixtures\\luanti_l15a_campaign_profile_after.json": "13479a863a411590813eccb18011f81c590d940f45c2a30a94d489615dbe853f"
+  },
+  "responses": 69887,
+  "all_agent_states_equal": true,
+  "before": {
+    "replay_us": 109790463,
+    "observe": {
+      "count": 34943,
+      "total_us": 104818597,
+      "max_us": 1614163
+    },
+    "gc": {
+      "1": {
+        "count": 517,
+        "total_us": 2023995,
+        "max_us": 17022
+      },
+      "0": {
+        "count": 5678,
+        "total_us": 7060395,
+        "max_us": 12427
+      },
+      "2": {
+        "count": 14,
+        "total_us": 7653663,
+        "max_us": 1609260
+      }
+    },
+    "night_storage": {
+      "npc_a": {
+        "references": 64064,
+        "distinct_entries": 64064
+      },
+      "npc_b": {
+        "references": 64064,
+        "distinct_entries": 64064
+      },
+      "npc_c": {
+        "references": 64064,
+        "distinct_entries": 64064
+      },
+      "npc_d": {
+        "references": 64064,
+        "distinct_entries": 64064
+      },
+      "npc_e": {
+        "references": 64064,
+        "distinct_entries": 64064
+      },
+      "npc_f": {
+        "references": 64042,
+        "distinct_entries": 64042
+      }
+    }
+  },
+  "after": {
+    "replay_us": 68414709,
+    "observe": {
+      "count": 34943,
+      "total_us": 61748408,
+      "max_us": 813829
+    },
+    "gc": {
+      "1": {
+        "count": 177,
+        "total_us": 558637,
+        "max_us": 8994
+      },
+      "0": {
+        "count": 1939,
+        "total_us": 2227999,
+        "max_us": 8794
+      },
+      "2": {
+        "count": 10,
+        "total_us": 4265411,
+        "max_us": 1014582
+      }
+    },
+    "night_storage": {
+      "npc_a": {
+        "references": 64064,
+        "distinct_entries": 22
+      },
+      "npc_b": {
+        "references": 64064,
+        "distinct_entries": 22
+      },
+      "npc_c": {
+        "references": 64064,
+        "distinct_entries": 22
+      },
+      "npc_d": {
+        "references": 64064,
+        "distinct_entries": 22
+      },
+      "npc_e": {
+        "references": 64064,
+        "distinct_entries": 22
+      },
+      "npc_f": {
+        "references": 64042,
+        "distinct_entries": 22
+      }
+    }
+  },
+  "scope": "same received prefix; one separate process each; nested timings inclusive; public snapshot hashing outside timer; not actual World timing"
+}

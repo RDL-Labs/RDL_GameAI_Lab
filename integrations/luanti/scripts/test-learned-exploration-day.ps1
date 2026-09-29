@@ -127,7 +127,9 @@ try {
         -RedirectStandardError (Join-Path $outputPath "$RunId.world.err.log") -WindowStyle Hidden -PassThru
     # Long campaign JSON export occurs after the simulated task ends.
     # Give export its own wall-time margin without extending any agent budget.
-    $exportMargin = if ($ReturnCampaign) { 300 } else { 35 }
+    # Measured six-agent export took 354 seconds after day 23. This is host
+    # export grace only; the World and agent day budgets remain fixed.
+    $exportMargin = if ($ReturnCampaign) { 900 } else { 35 }
     $deadline = [DateTime]::UtcNow.AddSeconds($(if ($Resources) { $ResourcePeriods*$(if ($DayCycle) { 64 } elseif ($TaskSeconds) { $TaskSeconds } else { 16 })+$exportMargin } else { 50 }))
     do {
         Start-Sleep -Milliseconds 100

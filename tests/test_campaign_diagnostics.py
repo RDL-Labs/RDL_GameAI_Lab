@@ -38,3 +38,17 @@ class CampaignDiagnosticsTests(unittest.TestCase):
         self.assertEqual(len(result["agents"]),6)
         self.assertTrue(all(a["runtime_observations"]==256 for a in result["agents"].values()))
         self.assertTrue(all(not v for a in result["accepted_without_received_reply"].values() for v in a.values()))
+
+    def test_passive_gc_callback_and_cleanup(self):
+        import gc
+        before=list(gc.callbacks)
+        measured=TimedLoop(object(),track_gc=True)
+        try:
+            measured.current=dict(kind="observe",agent_id="a",capture_us=1,gc_us=0)
+            with patch("integrations.luanti.tests.campaign_diagnostics.perf_counter_ns",side_effect=[0,150000000]):
+                measured.collection("start",dict(generation=2))
+                measured.collection("stop",dict(generation=2))
+            self.assertEqual(measured.current["gc_us"],150000)
+            self.assertEqual(measured.diagnostics()["gc"]["slow"][-1]["elapsed_us"],150000)
+        finally:measured.close()
+        self.assertEqual(gc.callbacks,before)

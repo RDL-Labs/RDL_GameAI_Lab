@@ -197,3 +197,11 @@ tests/                     acceptance tests
 ```
 
 [文書棚卸し](docs/design/DOCUMENT_STATUS.md)に整理理由を記録しています。
+
+
+### Campaign history storage follow-up
+
+Completed-night sharing preserves all 69,887 replay responses and six public states.
+The six-agent live run reached day 30 but stopped on pending capacity; full World
+export timed out. Long-run acceptance remains incomplete. See
+[history-storage evidence](/docs/experiment-evidence/LUANTI_L15A_campaign_history_storage_evidence.md).

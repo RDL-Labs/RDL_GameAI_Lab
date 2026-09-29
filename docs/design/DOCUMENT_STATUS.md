@@ -212,3 +212,11 @@ DNA・動的神経状態・睡眠・会話・生活機能の詳細は設計候�
 - Godot 4.7.2の実HTTP連携5件を含む既存70テスト成功、skipなし。
 - runtime / godot / experimentsの追跡ファイルは差分なし。test変更は層間分離acceptanceの意味を明示するdocstringのみで、assertionと挙動は不変。
 - 未解消競合なし、git diff --check成功。新規commit・pushは実施していない。
+
+
+### Campaign history storage follow-up
+
+Completed-night sharing preserves all 69,887 replay responses and six public states.
+The six-agent live run reached day 30 but stopped on pending capacity; full World
+export timed out. Long-run acceptance remains incomplete. See
+[history-storage evidence](/docs/experiment-evidence/LUANTI_L15A_campaign_history_storage_evidence.md).

@@ -37,14 +37,14 @@ def main():
     loop=ReturnCampaign(run_id,args.periods,mb_field_mode=args.model_field,harvest_state=args.harvest_state,agent_count=args.agents)
     server=ThreadingHTTPServer(("127.0.0.1",8765),MultiResourceHandler)
     from .campaign_diagnostics import TimedLoop
-    measured=TimedLoop(loop) if args.diagnostics else loop
+    measured=TimedLoop(loop,track_gc=True) if args.diagnostics else loop
     server.series=SimpleNamespace(loop=measured,lock=RLock())
     worker=Thread(target=server.serve_forever,daemon=True);worker.start()
     report=dict(schema="l15a-return-campaign-evidence-v1",run_id=run_id,
         predeclared=dict(days=args.periods,stop_after_returns=args.agents,agent_count=args.agents,scope="population aggregate; one batch per agent/night",
             harvest_state=args.harvest_state,model_field_mode=args.model_field,simulation_speed=args.speed,scenario="natural_meadow",assignment="steady"),runs=[],
         baseline_commit=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip())
-    sources=["runtime/current_harvest_state.py","runtime/multi_resource_exploration.py","integrations/luanti/scripts/test-learned-exploration-day.ps1","runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
+    sources=["runtime/resource_exploration.py","runtime/current_harvest_state.py","runtime/multi_resource_exploration.py","integrations/luanti/scripts/test-learned-exploration-day.ps1","runtime/landmark_return_campaign.py","runtime/landmark_day_cycle.py","runtime/exploration.py",
         "runtime/model_movement_field.py","runtime/terrain_resource_exploration.py","runtime/terrain_steering.py",
         "integrations/luanti/game/rdl_game/mods/rdl_bridge/multi_resource_fixture.lua"]
     if args.diagnostics:
@@ -62,7 +62,7 @@ def main():
         if args.diagnostics: command.append("-CampaignDiagnostics")
         log=OUTPUT/(run_id+".launch.log")
         with log.open("wb") as stream:
-            result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=args.periods*64+600)
+            result=subprocess.run(command,cwd=ROOT,stdout=stream,stderr=subprocess.STDOUT,timeout=args.periods*64+1200)
         if result.returncode: raise RuntimeError(f"World failed: {log}")
         path=ROOT/"integrations/luanti/worlds"/run_id/"l14b-evidence.json"
         world=json.loads(path.read_text(encoding="utf-8"))
@@ -82,6 +82,7 @@ def main():
         if not summary["strict_acceptance"]: raise SystemExit(1)
     finally:
         server.shutdown();server.server_close();worker.join()
+        if args.diagnostics: measured.close()
 
 
 if __name__=="__main__":main()

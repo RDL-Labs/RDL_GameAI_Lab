@@ -621,3 +621,11 @@ observed candidates only, conservative held-color exclusion, unique minimum or d
 review authority from internal retrieval. Six selections lead to actual turns and movement, while
 all runs have zero harvest and same-wire memory ablation preserves commands. General goal rebuilding,
 learned route value and exploration improvement remain unimplemented or unestablished.
+
+
+### Campaign history storage follow-up
+
+Completed-night sharing preserves all 69,887 replay responses and six public states.
+The six-agent live run reached day 30 but stopped on pending capacity; full World
+export timed out. Long-run acceptance remains incomplete. See
+[history-storage evidence](/docs/experiment-evidence/LUANTI_L15A_campaign_history_storage_evidence.md).

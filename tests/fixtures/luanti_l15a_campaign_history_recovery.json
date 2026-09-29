@@ -1,0 +1,5343 @@
+{
+  "schema": "campaign-incomplete-recovery-v1",
+  "run_id": "l15campaign-c67137f7a391",
+  "status": "world_export_timeout",
+  "full_world_export_available": false,
+  "runtime_recovery": "luanti_l15a_campaign_history_runtime.json.xz",
+  "runtime_uncompressed_bytes": 2468406578,
+  "runtime_compressed_bytes": 7491304,
+  "progress": {
+    "agents": {
+      "npc_a": {
+        "body": {
+          "pose_ref": "l15campaign-c67137f7a391:npc_a:pose:490",
+          "position": {
+            "x": 31.097034454345703,
+            "y": 3,
+            "z": 24.039661407470703
+          },
+          "revision": 490,
+          "yaw": -208.91493225097656
+        },
+        "inventory": 0
+      },
+      "npc_b": {
+        "body": {
+          "pose_ref": "l15campaign-c67137f7a391:npc_b:pose:627",
+          "position": {
+            "x": -31.653194427490234,
+            "y": 1,
+            "z": 29.151636123657227
+          },
+          "revision": 627,
+          "yaw": -193.1197967529297
+        },
+        "inventory": 0
+      },
+      "npc_c": {
+        "body": {
+          "pose_ref": "l15campaign-c67137f7a391:npc_c:pose:1939",
+          "position": {
+            "x": -7.966578483581543,
+            "y": -1,
+            "z": -3.6737685203552246
+          },
+          "revision": 1939,
+          "yaw": -297.4842224121094
+        },
+        "inventory": 12
+      },
+      "npc_d": {
+        "body": {
+          "pose_ref": "l15campaign-c67137f7a391:npc_d:pose:1654",
+          "position": {
+            "x": -8.531155586242676,
+            "y": 0,
+            "z": 3.352614164352417
+          },
+          "revision": 1654,
+          "yaw": -195.90953063964844
+        },
+        "inventory": 12
+      },
+      "npc_e": {
+        "body": {
+          "pose_ref": "l15campaign-c67137f7a391:npc_e:pose:1370",
+          "position": {
+            "x": -21.71673583984375,
+            "y": -2,
+            "z": -18.843847274780273
+          },
+          "revision": 1370,
+          "yaw": -144.16171264648438
+        },
+        "inventory": 12
+      },
+      "npc_f": {
+        "body": {
+          "pose_ref": "l15campaign-c67137f7a391:npc_f:pose:496",
+          "position": {
+            "x": -19.989185333251953,
+            "y": 0,
+            "z": 11.285400390625
+          },
+          "revision": 496,
+          "yaw": -46.42534255981445
+        },
+        "inventory": 0
+      }
+    },
+    "capture_us": 1856001545,
+    "day": 30,
+    "returns": 3
+  },
+  "world_diagnostics": {
+    "days": {
+      "1": {
+        "last_heap_kib": 194452.1796875,
+        "max_dt_us": 135299,
+        "max_gap_us": 47535,
+        "max_work_us": 135092,
+        "phases": {
+          "progress": {
+            "count": 2311,
+            "max_us": 2692,
+            "total_us": 4170
+          },
+          "receive": {
+            "count": 2311,
+            "max_us": 7515,
+            "total_us": 308326
+          },
+          "return_audit": {
+            "count": 2311,
+            "max_us": 1689,
+            "total_us": 22870
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 129208,
+            "total_us": 6273137
+          },
+          "send": {
+            "count": 2311,
+            "max_us": 17242,
+            "total_us": 1432009
+          }
+        },
+        "steps": 2311
+      },
+      "10": {
+        "last_heap_kib": 1852605.12890625,
+        "max_dt_us": 280391,
+        "max_gap_us": 49461,
+        "max_work_us": 280306,
+        "phases": {
+          "progress": {
+            "count": 2097,
+            "max_us": 12279,
+            "total_us": 14101
+          },
+          "receive": {
+            "count": 2097,
+            "max_us": 3409,
+            "total_us": 293598
+          },
+          "return_audit": {
+            "count": 2097,
+            "max_us": 312,
+            "total_us": 24431
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 271330,
+            "total_us": 7021379
+          },
+          "send": {
+            "count": 2097,
+            "max_us": 16828,
+            "total_us": 1522936
+          }
+        },
+        "steps": 2097
+      },
+      "11": {
+        "last_heap_kib": 1597855.16015625,
+        "max_dt_us": 305414,
+        "max_gap_us": 44031,
+        "max_work_us": 305106,
+        "phases": {
+          "progress": {
+            "count": 2009,
+            "max_us": 11025,
+            "total_us": 12669
+          },
+          "receive": {
+            "count": 2009,
+            "max_us": 2651,
+            "total_us": 271337
+          },
+          "return_audit": {
+            "count": 2009,
+            "max_us": 1316,
+            "total_us": 27216
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 298712,
+            "total_us": 7104821
+          },
+          "send": {
+            "count": 2009,
+            "max_us": 13809,
+            "total_us": 1400614
+          }
+        },
+        "steps": 2009
+      },
+      "12": {
+        "last_heap_kib": 2492094.41796875,
+        "max_dt_us": 252631,
+        "max_gap_us": 36579,
+        "max_work_us": 252121,
+        "phases": {
+          "progress": {
+            "count": 2005,
+            "max_us": 12652,
+            "total_us": 13979
+          },
+          "receive": {
+            "count": 2005,
+            "max_us": 3651,
+            "total_us": 292898
+          },
+          "return_audit": {
+            "count": 2005,
+            "max_us": 1317,
+            "total_us": 27470
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 241863,
+            "total_us": 5958159
+          },
+          "send": {
+            "count": 2005,
+            "max_us": 12611,
+            "total_us": 1478645
+          }
+        },
+        "steps": 2005
+      },
+      "13": {
+        "last_heap_kib": 1816052.87109375,
+        "max_dt_us": 312696,
+        "max_gap_us": 35449,
+        "max_work_us": 312518,
+        "phases": {
+          "progress": {
+            "count": 1958,
+            "max_us": 13538,
+            "total_us": 14582
+          },
+          "receive": {
+            "count": 1958,
+            "max_us": 2238,
+            "total_us": 230097
+          },
+          "return_audit": {
+            "count": 1958,
+            "max_us": 230,
+            "total_us": 18605
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 305327,
+            "total_us": 7612602
+          },
+          "send": {
+            "count": 1958,
+            "max_us": 15325,
+            "total_us": 1334039
+          }
+        },
+        "steps": 1958
+      },
+      "14": {
+        "last_heap_kib": 2481683.69921875,
+        "max_dt_us": 246767,
+        "max_gap_us": 35778,
+        "max_work_us": 246470,
+        "phases": {
+          "progress": {
+            "count": 2007,
+            "max_us": 5715,
+            "total_us": 7089
+          },
+          "receive": {
+            "count": 2007,
+            "max_us": 1745,
+            "total_us": 244262
+          },
+          "return_audit": {
+            "count": 2007,
+            "max_us": 404,
+            "total_us": 21362
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 237816,
+            "total_us": 5719832
+          },
+          "send": {
+            "count": 2007,
+            "max_us": 12982,
+            "total_us": 1417783
+          }
+        },
+        "steps": 2007
+      },
+      "15": {
+        "last_heap_kib": 3301266.81640625,
+        "max_dt_us": 298944,
+        "max_gap_us": 36051,
+        "max_work_us": 298646,
+        "phases": {
+          "progress": {
+            "count": 2007,
+            "max_us": 4973,
+            "total_us": 6279
+          },
+          "receive": {
+            "count": 2007,
+            "max_us": 3829,
+            "total_us": 190650
+          },
+          "return_audit": {
+            "count": 2007,
+            "max_us": 261,
+            "total_us": 17773
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 295411,
+            "total_us": 6675390
+          },
+          "send": {
+            "count": 2007,
+            "max_us": 12437,
+            "total_us": 1216862
+          }
+        },
+        "steps": 2007
+      },
+      "16": {
+        "last_heap_kib": 1794621.5234375,
+        "max_dt_us": 288850,
+        "max_gap_us": 36318,
+        "max_work_us": 288645,
+        "phases": {
+          "progress": {
+            "count": 1940,
+            "max_us": 11429,
+            "total_us": 12659
+          },
+          "receive": {
+            "count": 1940,
+            "max_us": 2376,
+            "total_us": 254552
+          },
+          "return_audit": {
+            "count": 1940,
+            "max_us": 505,
+            "total_us": 19169
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 288599,
+            "total_us": 8414022
+          },
+          "send": {
+            "count": 1940,
+            "max_us": 18870,
+            "total_us": 1402565
+          }
+        },
+        "steps": 1940
+      },
+      "17": {
+        "last_heap_kib": 2125075.140625,
+        "max_dt_us": 282715,
+        "max_gap_us": 35596,
+        "max_work_us": 282396,
+        "phases": {
+          "progress": {
+            "count": 1977,
+            "max_us": 13538,
+            "total_us": 14843
+          },
+          "receive": {
+            "count": 1977,
+            "max_us": 2707,
+            "total_us": 243672
+          },
+          "return_audit": {
+            "count": 1977,
+            "max_us": 1294,
+            "total_us": 21248
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 281299,
+            "total_us": 6365102
+          },
+          "send": {
+            "count": 1977,
+            "max_us": 12377,
+            "total_us": 1267300
+          }
+        },
+        "steps": 1977
+      },
+      "18": {
+        "last_heap_kib": 2289714.609375,
+        "max_dt_us": 269511,
+        "max_gap_us": 35758,
+        "max_work_us": 268849,
+        "phases": {
+          "progress": {
+            "count": 1989,
+            "max_us": 12088,
+            "total_us": 13283
+          },
+          "receive": {
+            "count": 1989,
+            "max_us": 2600,
+            "total_us": 236776
+          },
+          "return_audit": {
+            "count": 1989,
+            "max_us": 880,
+            "total_us": 23508
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 263535,
+            "total_us": 6537536
+          },
+          "send": {
+            "count": 1989,
+            "max_us": 49522,
+            "total_us": 1389877
+          }
+        },
+        "steps": 1989
+      },
+      "19": {
+        "last_heap_kib": 2520499.03125,
+        "max_dt_us": 337419,
+        "max_gap_us": 35915,
+        "max_work_us": 337100,
+        "phases": {
+          "progress": {
+            "count": 1973,
+            "max_us": 14662,
+            "total_us": 15911
+          },
+          "receive": {
+            "count": 1973,
+            "max_us": 3190,
+            "total_us": 219136
+          },
+          "return_audit": {
+            "count": 1973,
+            "max_us": 520,
+            "total_us": 21681
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 337073,
+            "total_us": 6904988
+          },
+          "send": {
+            "count": 1973,
+            "max_us": 11206,
+            "total_us": 1234451
+          }
+        },
+        "steps": 1973
+      },
+      "2": {
+        "last_heap_kib": 385372.5234375,
+        "max_dt_us": 191217,
+        "max_gap_us": 49072,
+        "max_work_us": 191098,
+        "phases": {
+          "progress": {
+            "count": 2460,
+            "max_us": 11735,
+            "total_us": 13078
+          },
+          "receive": {
+            "count": 2460,
+            "max_us": 5979,
+            "total_us": 248022
+          },
+          "return_audit": {
+            "count": 2460,
+            "max_us": 448,
+            "total_us": 21180
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 184582,
+            "total_us": 5812954
+          },
+          "send": {
+            "count": 2460,
+            "max_us": 22153,
+            "total_us": 1382037
+          }
+        },
+        "steps": 2460
+      },
+      "20": {
+        "last_heap_kib": 2428924.14453125,
+        "max_dt_us": 287577,
+        "max_gap_us": 36278,
+        "max_work_us": 272571,
+        "phases": {
+          "progress": {
+            "count": 1986,
+            "max_us": 12766,
+            "total_us": 14111
+          },
+          "receive": {
+            "count": 1986,
+            "max_us": 3986,
+            "total_us": 249535
+          },
+          "return_audit": {
+            "count": 1986,
+            "max_us": 1373,
+            "total_us": 25779
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 271086,
+            "total_us": 6905807
+          },
+          "send": {
+            "count": 1986,
+            "max_us": 13036,
+            "total_us": 1316580
+          }
+        },
+        "steps": 1986
+      },
+      "21": {
+        "last_heap_kib": 2285463.5234375,
+        "max_dt_us": 296475,
+        "max_gap_us": 36027,
+        "max_work_us": 296161,
+        "phases": {
+          "progress": {
+            "count": 1972,
+            "max_us": 5107,
+            "total_us": 6565
+          },
+          "receive": {
+            "count": 1972,
+            "max_us": 2907,
+            "total_us": 238864
+          },
+          "return_audit": {
+            "count": 1972,
+            "max_us": 311,
+            "total_us": 20780
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 289081,
+            "total_us": 7011951
+          },
+          "send": {
+            "count": 1972,
+            "max_us": 14933,
+            "total_us": 1293738
+          }
+        },
+        "steps": 1972
+      },
+      "22": {
+        "last_heap_kib": 3739805.11328125,
+        "max_dt_us": 227796,
+        "max_gap_us": 36072,
+        "max_work_us": 227382,
+        "phases": {
+          "progress": {
+            "count": 2032,
+            "max_us": 4889,
+            "total_us": 6064
+          },
+          "receive": {
+            "count": 2032,
+            "max_us": 2402,
+            "total_us": 219668
+          },
+          "return_audit": {
+            "count": 2032,
+            "max_us": 278,
+            "total_us": 21819
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 216252,
+            "total_us": 5068729
+          },
+          "send": {
+            "count": 2032,
+            "max_us": 14701,
+            "total_us": 1247200
+          }
+        },
+        "steps": 2032
+      },
+      "23": {
+        "last_heap_kib": 4519317.10546875,
+        "max_dt_us": 372360,
+        "max_gap_us": 35814,
+        "max_work_us": 365927,
+        "phases": {
+          "progress": {
+            "count": 1978,
+            "max_us": 5452,
+            "total_us": 6772
+          },
+          "receive": {
+            "count": 1978,
+            "max_us": 2128,
+            "total_us": 251870
+          },
+          "return_audit": {
+            "count": 1978,
+            "max_us": 996,
+            "total_us": 26141
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 364401,
+            "total_us": 6196935
+          },
+          "send": {
+            "count": 1978,
+            "max_us": 11411,
+            "total_us": 1405246
+          }
+        },
+        "steps": 1978
+      },
+      "24": {
+        "last_heap_kib": 3872751.72265625,
+        "max_dt_us": 316361,
+        "max_gap_us": 35276,
+        "max_work_us": 316002,
+        "phases": {
+          "progress": {
+            "count": 1972,
+            "max_us": 4267,
+            "total_us": 5445
+          },
+          "receive": {
+            "count": 1972,
+            "max_us": 2470,
+            "total_us": 230223
+          },
+          "return_audit": {
+            "count": 1972,
+            "max_us": 514,
+            "total_us": 22431
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 309258,
+            "total_us": 6975514
+          },
+          "send": {
+            "count": 1972,
+            "max_us": 22478,
+            "total_us": 1447607
+          }
+        },
+        "steps": 1972
+      },
+      "25": {
+        "last_heap_kib": 2998839.5390625,
+        "max_dt_us": 278165,
+        "max_gap_us": 35880,
+        "max_work_us": 277954,
+        "phases": {
+          "progress": {
+            "count": 1971,
+            "max_us": 5410,
+            "total_us": 6602
+          },
+          "receive": {
+            "count": 1971,
+            "max_us": 3739,
+            "total_us": 243539
+          },
+          "return_audit": {
+            "count": 1971,
+            "max_us": 479,
+            "total_us": 24094
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 277933,
+            "total_us": 7767329
+          },
+          "send": {
+            "count": 1971,
+            "max_us": 16401,
+            "total_us": 1399228
+          }
+        },
+        "steps": 1971
+      },
+      "26": {
+        "last_heap_kib": 5378018.94921875,
+        "max_dt_us": 47381,
+        "max_gap_us": 35957,
+        "max_work_us": 47310,
+        "phases": {
+          "progress": {
+            "count": 2055,
+            "max_us": 4594,
+            "total_us": 6120
+          },
+          "receive": {
+            "count": 2055,
+            "max_us": 2462,
+            "total_us": 230306
+          },
+          "return_audit": {
+            "count": 2055,
+            "max_us": 1219,
+            "total_us": 26133
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 40175,
+            "total_us": 3925818
+          },
+          "send": {
+            "count": 2055,
+            "max_us": 11242,
+            "total_us": 1386697
+          }
+        },
+        "steps": 2055
+      },
+      "27": {
+        "last_heap_kib": 4470299.53515625,
+        "max_dt_us": 322147,
+        "max_gap_us": 35957,
+        "max_work_us": 315129,
+        "phases": {
+          "progress": {
+            "count": 1959,
+            "max_us": 4117,
+            "total_us": 5339
+          },
+          "receive": {
+            "count": 1959,
+            "max_us": 2009,
+            "total_us": 248068
+          },
+          "return_audit": {
+            "count": 1959,
+            "max_us": 399,
+            "total_us": 23192
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 312472,
+            "total_us": 7039885
+          },
+          "send": {
+            "count": 1959,
+            "max_us": 12666,
+            "total_us": 1367269
+          }
+        },
+        "steps": 1959
+      },
+      "28": {
+        "last_heap_kib": 3219804.6171875,
+        "max_dt_us": 298013,
+        "max_gap_us": 36465,
+        "max_work_us": 297663,
+        "phases": {
+          "progress": {
+            "count": 1959,
+            "max_us": 4531,
+            "total_us": 5821
+          },
+          "receive": {
+            "count": 1959,
+            "max_us": 3162,
+            "total_us": 268998
+          },
+          "return_audit": {
+            "count": 1959,
+            "max_us": 593,
+            "total_us": 24401
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 290995,
+            "total_us": 8713406
+          },
+          "send": {
+            "count": 1959,
+            "max_us": 15545,
+            "total_us": 1572482
+          }
+        },
+        "steps": 1959
+      },
+      "29": {
+        "last_heap_kib": 5546864.1171875,
+        "max_dt_us": 41514,
+        "max_gap_us": 35757,
+        "max_work_us": 41088,
+        "phases": {
+          "progress": {
+            "count": 2059,
+            "max_us": 7004,
+            "total_us": 8163
+          },
+          "receive": {
+            "count": 2059,
+            "max_us": 2287,
+            "total_us": 217468
+          },
+          "return_audit": {
+            "count": 2059,
+            "max_us": 287,
+            "total_us": 20439
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 32099,
+            "total_us": 3460472
+          },
+          "send": {
+            "count": 2059,
+            "max_us": 12277,
+            "total_us": 1365790
+          }
+        },
+        "steps": 2059
+      },
+      "3": {
+        "last_heap_kib": 596857.17578125,
+        "max_dt_us": 213754,
+        "max_gap_us": 46809,
+        "max_work_us": 213428,
+        "phases": {
+          "progress": {
+            "count": 2350,
+            "max_us": 10991,
+            "total_us": 12347
+          },
+          "receive": {
+            "count": 2350,
+            "max_us": 2690,
+            "total_us": 246049
+          },
+          "return_audit": {
+            "count": 2350,
+            "max_us": 431,
+            "total_us": 22384
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 206588,
+            "total_us": 5698907
+          },
+          "send": {
+            "count": 2350,
+            "max_us": 11047,
+            "total_us": 1344100
+          }
+        },
+        "steps": 2350
+      },
+      "30": {
+        "last_heap_kib": 2887586.69140625,
+        "max_dt_us": 368518,
+        "max_gap_us": 35983,
+        "max_work_us": 368315,
+        "phases": {
+          "failed_phase": {
+            "count": 1,
+            "max_us": 231708,
+            "total_us": 231708
+          },
+          "progress": {
+            "count": 734,
+            "max_us": 4596,
+            "total_us": 5203
+          },
+          "receive": {
+            "count": 735,
+            "max_us": 2816,
+            "total_us": 129804
+          },
+          "return_audit": {
+            "count": 735,
+            "max_us": 229,
+            "total_us": 8422
+          },
+          "sample": {
+            "count": 104,
+            "max_us": 366657,
+            "total_us": 5961961
+          },
+          "send": {
+            "count": 734,
+            "max_us": 10723,
+            "total_us": 582664
+          }
+        },
+        "steps": 735
+      },
+      "4": {
+        "last_heap_kib": 555219.84375,
+        "max_dt_us": 255575,
+        "max_gap_us": 46175,
+        "max_work_us": 255469,
+        "phases": {
+          "progress": {
+            "count": 2151,
+            "max_us": 12328,
+            "total_us": 13886
+          },
+          "receive": {
+            "count": 2151,
+            "max_us": 4045,
+            "total_us": 286501
+          },
+          "return_audit": {
+            "count": 2151,
+            "max_us": 495,
+            "total_us": 23105
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 243032,
+            "total_us": 6173450
+          },
+          "send": {
+            "count": 2151,
+            "max_us": 17731,
+            "total_us": 1528220
+          }
+        },
+        "steps": 2151
+      },
+      "5": {
+        "last_heap_kib": 507963.66015625,
+        "max_dt_us": 240107,
+        "max_gap_us": 46170,
+        "max_work_us": 240033,
+        "phases": {
+          "progress": {
+            "count": 2099,
+            "max_us": 13177,
+            "total_us": 14527
+          },
+          "receive": {
+            "count": 2099,
+            "max_us": 4786,
+            "total_us": 278068
+          },
+          "return_audit": {
+            "count": 2099,
+            "max_us": 414,
+            "total_us": 21519
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 231804,
+            "total_us": 6130148
+          },
+          "send": {
+            "count": 2099,
+            "max_us": 12386,
+            "total_us": 1493972
+          }
+        },
+        "steps": 2099
+      },
+      "6": {
+        "last_heap_kib": 732778.52734375,
+        "max_dt_us": 233744,
+        "max_gap_us": 49325,
+        "max_work_us": 233112,
+        "phases": {
+          "progress": {
+            "count": 2166,
+            "max_us": 13042,
+            "total_us": 14498
+          },
+          "receive": {
+            "count": 2166,
+            "max_us": 4742,
+            "total_us": 307214
+          },
+          "return_audit": {
+            "count": 2166,
+            "max_us": 429,
+            "total_us": 25396
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 230682,
+            "total_us": 6805232
+          },
+          "send": {
+            "count": 2166,
+            "max_us": 14329,
+            "total_us": 1565682
+          }
+        },
+        "steps": 2166
+      },
+      "7": {
+        "last_heap_kib": 811611.796875,
+        "max_dt_us": 269128,
+        "max_gap_us": 45322,
+        "max_work_us": 268029,
+        "phases": {
+          "progress": {
+            "count": 2023,
+            "max_us": 12351,
+            "total_us": 13942
+          },
+          "receive": {
+            "count": 2023,
+            "max_us": 2710,
+            "total_us": 321609
+          },
+          "return_audit": {
+            "count": 2023,
+            "max_us": 859,
+            "total_us": 24771
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 265565,
+            "total_us": 7469363
+          },
+          "send": {
+            "count": 2023,
+            "max_us": 11430,
+            "total_us": 1686415
+          }
+        },
+        "steps": 2023
+      },
+      "8": {
+        "last_heap_kib": 1404356.3828125,
+        "max_dt_us": 280774,
+        "max_gap_us": 43051,
+        "max_work_us": 280033,
+        "phases": {
+          "progress": {
+            "count": 2101,
+            "max_us": 13591,
+            "total_us": 15037
+          },
+          "receive": {
+            "count": 2101,
+            "max_us": 3756,
+            "total_us": 302025
+          },
+          "return_audit": {
+            "count": 2101,
+            "max_us": 1146,
+            "total_us": 24080
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 270850,
+            "total_us": 6502947
+          },
+          "send": {
+            "count": 2101,
+            "max_us": 12990,
+            "total_us": 1600924
+          }
+        },
+        "steps": 2101
+      },
+      "9": {
+        "last_heap_kib": 1676696.72265625,
+        "max_dt_us": 247752,
+        "max_gap_us": 46326,
+        "max_work_us": 247477,
+        "phases": {
+          "progress": {
+            "count": 2309,
+            "max_us": 12581,
+            "total_us": 13823
+          },
+          "receive": {
+            "count": 2309,
+            "max_us": 3070,
+            "total_us": 248835
+          },
+          "return_audit": {
+            "count": 2309,
+            "max_us": 486,
+            "total_us": 22363
+          },
+          "sample": {
+            "count": 256,
+            "max_us": 236904,
+            "total_us": 6158982
+          },
+          "send": {
+            "count": 2309,
+            "max_us": 20439,
+            "total_us": 1448876
+          }
+        },
+        "steps": 2309
+      }
+    },
+    "export_us": 0,
+    "failure": "...ames\\rdl_game\\mods\\rdl_bridge/multi_resource_fixture.lua:102: per-agent pending capacity",
+    "last_flush_us": 7925,
+    "lua_heap_kib": 2887586.69140625,
+    "phase": "before_export",
+    "recent": [
+      {
+        "dt_us": 214499,
+        "gap_since_previous_end_us": 262,
+        "last_slot_before": 7108,
+        "lua_heap_kib": 2729250.54296875,
+        "phases": {
+          "progress": 0,
+          "receive": 19,
+          "return_audit": 10,
+          "send": 906
+        },
+        "sim_before_us": 1777030971,
+        "sim_us": 1777245470,
+        "slot": 7108,
+        "work_us": 935
+      },
+      {
+        "dt_us": 23107,
+        "gap_since_previous_end_us": 22435,
+        "last_slot_before": 7108,
+        "lua_heap_kib": 2737787.32421875,
+        "phases": {
+          "progress": 2,
+          "receive": 415,
+          "return_audit": 13,
+          "sample": 191164,
+          "send": 1575
+        },
+        "sim_before_us": 1777245470,
+        "sim_us": 1777268577,
+        "slot": 7109,
+        "work_us": 193170
+      },
+      {
+        "dt_us": 193649,
+        "gap_since_previous_end_us": 355,
+        "last_slot_before": 7109,
+        "lua_heap_kib": 2737824.10546875,
+        "phases": {
+          "progress": 0,
+          "receive": 898,
+          "return_audit": 6,
+          "send": 282
+        },
+        "sim_before_us": 1777268577,
+        "sim_us": 1777462226,
+        "slot": 7109,
+        "work_us": 1186
+      },
+      {
+        "dt_us": 31459,
+        "gap_since_previous_end_us": 15463,
+        "last_slot_before": 7109,
+        "lua_heap_kib": 2746559.359375,
+        "phases": {
+          "progress": 3,
+          "receive": 1408,
+          "return_audit": 7,
+          "sample": 187412,
+          "send": 3577
+        },
+        "sim_before_us": 1777491657,
+        "sim_us": 1777523116,
+        "slot": 7110,
+        "work_us": 192409
+      },
+      {
+        "dt_us": 192690,
+        "gap_since_previous_end_us": 167,
+        "last_slot_before": 7110,
+        "lua_heap_kib": 2746587.0078125,
+        "phases": {
+          "progress": 0,
+          "receive": 35,
+          "return_audit": 9,
+          "send": 797
+        },
+        "sim_before_us": 1777523116,
+        "sim_us": 1777715806,
+        "slot": 7110,
+        "work_us": 841
+      },
+      {
+        "dt_us": 31980,
+        "gap_since_previous_end_us": 19869,
+        "last_slot_before": 7110,
+        "lua_heap_kib": 2755322.25,
+        "phases": {
+          "progress": 2,
+          "receive": 1925,
+          "return_audit": 10,
+          "sample": 202563,
+          "send": 3001
+        },
+        "sim_before_us": 1777745524,
+        "sim_us": 1777777504,
+        "slot": 7111,
+        "work_us": 207502
+      },
+      {
+        "dt_us": 209367,
+        "gap_since_previous_end_us": 163,
+        "last_slot_before": 7111,
+        "lua_heap_kib": 2755326.3515625,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 10,
+          "send": 22
+        },
+        "sim_before_us": 1777777504,
+        "sim_us": 1777986871,
+        "slot": 7111,
+        "work_us": 37
+      },
+      {
+        "dt_us": 31491,
+        "gap_since_previous_end_us": 31399,
+        "last_slot_before": 7115,
+        "lua_heap_kib": 2800061.05078125,
+        "phases": {
+          "progress": 2,
+          "receive": 14,
+          "return_audit": 14,
+          "sample": 23738,
+          "send": 3843
+        },
+        "sim_before_us": 1778981462,
+        "sim_us": 1779012953,
+        "slot": 7116,
+        "work_us": 27613
+      },
+      {
+        "dt_us": 31672,
+        "gap_since_previous_end_us": 31715,
+        "last_slot_before": 7119,
+        "lua_heap_kib": 2835030.51171875,
+        "phases": {
+          "progress": 2,
+          "receive": 12,
+          "return_audit": 18,
+          "sample": 11769,
+          "send": 3424
+        },
+        "sim_before_us": 1779995856,
+        "sim_us": 1780027528,
+        "slot": 7120,
+        "work_us": 15226
+      },
+      {
+        "dt_us": 21333,
+        "gap_since_previous_end_us": 77,
+        "last_slot_before": 7124,
+        "lua_heap_kib": 2870006.83203125,
+        "phases": {
+          "progress": 0,
+          "receive": 3,
+          "return_audit": 8,
+          "send": 1
+        },
+        "sim_before_us": 1781009866,
+        "sim_us": 1781031199,
+        "slot": 7124,
+        "work_us": 12
+      },
+      {
+        "dt_us": 26332,
+        "gap_since_previous_end_us": 79,
+        "last_slot_before": 7128,
+        "lua_heap_kib": 2904983.34765625,
+        "phases": {
+          "progress": 0,
+          "receive": 3,
+          "return_audit": 7,
+          "send": 1
+        },
+        "sim_before_us": 1782022550,
+        "sim_us": 1782048882,
+        "slot": 7128,
+        "work_us": 12
+      },
+      {
+        "dt_us": 25325,
+        "gap_since_previous_end_us": 25361,
+        "last_slot_before": 7132,
+        "lua_heap_kib": 2939995.8203125,
+        "phases": {
+          "progress": 0,
+          "receive": 390,
+          "return_audit": 7,
+          "send": 330
+        },
+        "sim_before_us": 1783025663,
+        "sim_us": 1783050988,
+        "slot": 7132,
+        "work_us": 728
+      },
+      {
+        "dt_us": 31991,
+        "gap_since_previous_end_us": 31901,
+        "last_slot_before": 7136,
+        "lua_heap_kib": 2974976.109375,
+        "phases": {
+          "progress": 0,
+          "receive": 629,
+          "return_audit": 115,
+          "send": 310
+        },
+        "sim_before_us": 1784047587,
+        "sim_us": 1784079578,
+        "slot": 7136,
+        "work_us": 1055
+      },
+      {
+        "dt_us": 31419,
+        "gap_since_previous_end_us": 28630,
+        "last_slot_before": 7140,
+        "lua_heap_kib": 3009962.69921875,
+        "phases": {
+          "progress": 1,
+          "receive": 584,
+          "return_audit": 23,
+          "send": 1563
+        },
+        "sim_before_us": 1785077266,
+        "sim_us": 1785108685,
+        "slot": 7140,
+        "work_us": 2175
+      },
+      {
+        "dt_us": 32107,
+        "gap_since_previous_end_us": 31546,
+        "last_slot_before": 7144,
+        "lua_heap_kib": 3044938.5859375,
+        "phases": {
+          "progress": 4,
+          "receive": 25,
+          "return_audit": 116,
+          "send": 17
+        },
+        "sim_before_us": 1786090678,
+        "sim_us": 1786122785,
+        "slot": 7144,
+        "work_us": 164
+      },
+      {
+        "dt_us": 31519,
+        "gap_since_previous_end_us": 31114,
+        "last_slot_before": 7148,
+        "lua_heap_kib": 3079912.34765625,
+        "phases": {
+          "progress": 1,
+          "receive": 21,
+          "return_audit": 52,
+          "send": 13
+        },
+        "sim_before_us": 1787104313,
+        "sim_us": 1787135832,
+        "slot": 7148,
+        "work_us": 88
+      },
+      {
+        "dt_us": 31993,
+        "gap_since_previous_end_us": 31389,
+        "last_slot_before": 7152,
+        "lua_heap_kib": 3114882.46484375,
+        "phases": {
+          "progress": 0,
+          "receive": 17,
+          "return_audit": 27,
+          "send": 10
+        },
+        "sim_before_us": 1788116838,
+        "sim_us": 1788148831,
+        "slot": 7152,
+        "work_us": 55
+      },
+      {
+        "dt_us": 31928,
+        "gap_since_previous_end_us": 31646,
+        "last_slot_before": 7156,
+        "lua_heap_kib": 3149851.55078125,
+        "phases": {
+          "progress": 1,
+          "receive": 19,
+          "return_audit": 44,
+          "send": 13
+        },
+        "sim_before_us": 1789130922,
+        "sim_us": 1789162850,
+        "slot": 7156,
+        "work_us": 79
+      },
+      {
+        "dt_us": 31466,
+        "gap_since_previous_end_us": 31402,
+        "last_slot_before": 7160,
+        "lua_heap_kib": 3184822.8203125,
+        "phases": {
+          "progress": 0,
+          "receive": 15,
+          "return_audit": 31,
+          "send": 10
+        },
+        "sim_before_us": 1790145046,
+        "sim_us": 1790176512,
+        "slot": 7160,
+        "work_us": 57
+      },
+      {
+        "dt_us": 32121,
+        "gap_since_previous_end_us": 32183,
+        "last_slot_before": 7164,
+        "lua_heap_kib": 3219804.6171875,
+        "phases": {
+          "progress": 1,
+          "receive": 17,
+          "return_audit": 44,
+          "send": 12
+        },
+        "sim_before_us": 1791158491,
+        "sim_us": 1791190612,
+        "slot": 7164,
+        "work_us": 75
+      },
+      {
+        "dt_us": 32014,
+        "gap_since_previous_end_us": 32093,
+        "last_slot_before": 7168,
+        "lua_heap_kib": 3254868.1640625,
+        "phases": {
+          "progress": 0,
+          "receive": 12,
+          "return_audit": 8,
+          "send": 6
+        },
+        "sim_before_us": 1792186974,
+        "sim_us": 1792218988,
+        "slot": 7168,
+        "work_us": 27
+      },
+      {
+        "dt_us": 32316,
+        "gap_since_previous_end_us": 32266,
+        "last_slot_before": 7172,
+        "lua_heap_kib": 3289861.4921875,
+        "phases": {
+          "progress": 1,
+          "receive": 16,
+          "return_audit": 15,
+          "send": 9
+        },
+        "sim_before_us": 1793201210,
+        "sim_us": 1793233526,
+        "slot": 7172,
+        "work_us": 41
+      },
+      {
+        "dt_us": 31781,
+        "gap_since_previous_end_us": 31640,
+        "last_slot_before": 7176,
+        "lua_heap_kib": 3337608.25,
+        "phases": {
+          "progress": 4,
+          "receive": 22,
+          "return_audit": 24,
+          "sample": 18827,
+          "send": 6553
+        },
+        "sim_before_us": 1794232119,
+        "sim_us": 1794263900,
+        "slot": 7177,
+        "work_us": 25431
+      },
+      {
+        "dt_us": 31874,
+        "gap_since_previous_end_us": 31871,
+        "last_slot_before": 7180,
+        "lua_heap_kib": 3378085.84765625,
+        "phases": {
+          "progress": 2,
+          "receive": 3,
+          "return_audit": 4,
+          "sample": 13470,
+          "send": 3983
+        },
+        "sim_before_us": 1795241190,
+        "sim_us": 1795273064,
+        "slot": 7181,
+        "work_us": 17463
+      },
+      {
+        "dt_us": 31727,
+        "gap_since_previous_end_us": 13173,
+        "last_slot_before": 7185,
+        "lua_heap_kib": 3418549.859375,
+        "phases": {
+          "progress": 0,
+          "receive": 96,
+          "return_audit": 9,
+          "send": 1195
+        },
+        "sim_before_us": 1796263697,
+        "sim_us": 1796295424,
+        "slot": 7185,
+        "work_us": 1303
+      },
+      {
+        "dt_us": 29434,
+        "gap_since_previous_end_us": 72,
+        "last_slot_before": 7189,
+        "lua_heap_kib": 3457843.171875,
+        "phases": {
+          "progress": 0,
+          "receive": 4,
+          "return_audit": 7,
+          "send": 1
+        },
+        "sim_before_us": 1797271825,
+        "sim_us": 1797301259,
+        "slot": 7189,
+        "work_us": 13
+      },
+      {
+        "dt_us": 25725,
+        "gap_since_previous_end_us": 25771,
+        "last_slot_before": 7193,
+        "lua_heap_kib": 3499329.65234375,
+        "phases": {
+          "progress": 0,
+          "receive": 309,
+          "return_audit": 4,
+          "send": 341
+        },
+        "sim_before_us": 1798300922,
+        "sim_us": 1798326647,
+        "slot": 7193,
+        "work_us": 655
+      },
+      {
+        "dt_us": 31729,
+        "gap_since_previous_end_us": 31384,
+        "last_slot_before": 7197,
+        "lua_heap_kib": 3540828.87890625,
+        "phases": {
+          "progress": 1,
+          "receive": 1118,
+          "return_audit": 10,
+          "send": 2072
+        },
+        "sim_before_us": 1799305250,
+        "sim_us": 1799336979,
+        "slot": 7197,
+        "work_us": 3203
+      },
+      {
+        "dt_us": 31286,
+        "gap_since_previous_end_us": 30644,
+        "last_slot_before": 7201,
+        "lua_heap_kib": 3583725.02734375,
+        "phases": {
+          "progress": 1,
+          "receive": 61,
+          "return_audit": 4,
+          "send": 2
+        },
+        "sim_before_us": 1800332578,
+        "sim_us": 1800363864,
+        "slot": 7201,
+        "work_us": 68
+      },
+      {
+        "dt_us": 31202,
+        "gap_since_previous_end_us": 30191,
+        "last_slot_before": 7205,
+        "lua_heap_kib": 3626972.83984375,
+        "phases": {
+          "progress": 0,
+          "receive": 93,
+          "return_audit": 3,
+          "send": 84
+        },
+        "sim_before_us": 1801357424,
+        "sim_us": 1801388626,
+        "slot": 7205,
+        "work_us": 181
+      },
+      {
+        "dt_us": 31402,
+        "gap_since_previous_end_us": 31338,
+        "last_slot_before": 7209,
+        "lua_heap_kib": 3670675.7578125,
+        "phases": {
+          "progress": 1,
+          "receive": 4,
+          "return_audit": 6,
+          "send": 3
+        },
+        "sim_before_us": 1802364752,
+        "sim_us": 1802396154,
+        "slot": 7209,
+        "work_us": 14
+      },
+      {
+        "dt_us": 32190,
+        "gap_since_previous_end_us": 32217,
+        "last_slot_before": 7213,
+        "lua_heap_kib": 3712691.37890625,
+        "phases": {
+          "progress": 1,
+          "receive": 13,
+          "return_audit": 13,
+          "send": 8
+        },
+        "sim_before_us": 1803392821,
+        "sim_us": 1803425011,
+        "slot": 7213,
+        "work_us": 37
+      },
+      {
+        "dt_us": 31627,
+        "gap_since_previous_end_us": 31648,
+        "last_slot_before": 7217,
+        "lua_heap_kib": 3754401.73046875,
+        "phases": {
+          "progress": 0,
+          "receive": 4,
+          "return_audit": 3,
+          "send": 2
+        },
+        "sim_before_us": 1804399000,
+        "sim_us": 1804430627,
+        "slot": 7217,
+        "work_us": 10
+      },
+      {
+        "dt_us": 31353,
+        "gap_since_previous_end_us": 31285,
+        "last_slot_before": 7221,
+        "lua_heap_kib": 3797161.2421875,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 5,
+          "send": 3
+        },
+        "sim_before_us": 1805427553,
+        "sim_us": 1805458906,
+        "slot": 7221,
+        "work_us": 14
+      },
+      {
+        "dt_us": 31796,
+        "gap_since_previous_end_us": 31833,
+        "last_slot_before": 7225,
+        "lua_heap_kib": 3841370.609375,
+        "phases": {
+          "progress": 1,
+          "receive": 14,
+          "return_audit": 17,
+          "send": 8
+        },
+        "sim_before_us": 1806439901,
+        "sim_us": 1806471697,
+        "slot": 7225,
+        "work_us": 41
+      },
+      {
+        "dt_us": 31017,
+        "gap_since_previous_end_us": 31027,
+        "last_slot_before": 7229,
+        "lua_heap_kib": 3886340.51953125,
+        "phases": {
+          "progress": 0,
+          "receive": 7,
+          "return_audit": 11,
+          "send": 5
+        },
+        "sim_before_us": 1807466387,
+        "sim_us": 1807497404,
+        "slot": 7229,
+        "work_us": 24
+      },
+      {
+        "dt_us": 31596,
+        "gap_since_previous_end_us": 31607,
+        "last_slot_before": 7233,
+        "lua_heap_kib": 3941630.359375,
+        "phases": {
+          "progress": 2,
+          "receive": 15,
+          "return_audit": 20,
+          "sample": 25667,
+          "send": 3837
+        },
+        "sim_before_us": 1808477895,
+        "sim_us": 1808509491,
+        "slot": 7234,
+        "work_us": 29542
+      },
+      {
+        "dt_us": 31935,
+        "gap_since_previous_end_us": 31873,
+        "last_slot_before": 7237,
+        "lua_heap_kib": 3983561.75,
+        "phases": {
+          "progress": 1,
+          "receive": 16,
+          "return_audit": 22,
+          "sample": 13740,
+          "send": 4026
+        },
+        "sim_before_us": 1809489528,
+        "sim_us": 1809521463,
+        "slot": 7238,
+        "work_us": 17806
+      },
+      {
+        "dt_us": 31866,
+        "gap_since_previous_end_us": 14534,
+        "last_slot_before": 7242,
+        "lua_heap_kib": 4021641.52734375,
+        "phases": {
+          "progress": 0,
+          "receive": 99,
+          "return_audit": 6,
+          "send": 270
+        },
+        "sim_before_us": 1810505590,
+        "sim_us": 1810537456,
+        "slot": 7242,
+        "work_us": 375
+      },
+      {
+        "dt_us": 24905,
+        "gap_since_previous_end_us": 61,
+        "last_slot_before": 7246,
+        "lua_heap_kib": 4058562,
+        "phases": {
+          "progress": 0,
+          "receive": 2,
+          "return_audit": 4,
+          "send": 1
+        },
+        "sim_before_us": 1811522437,
+        "sim_us": 1811547342,
+        "slot": 7246,
+        "work_us": 7
+      },
+      {
+        "dt_us": 25130,
+        "gap_since_previous_end_us": 25526,
+        "last_slot_before": 7250,
+        "lua_heap_kib": 4095499.84375,
+        "phases": {
+          "progress": 0,
+          "receive": 295,
+          "return_audit": 11,
+          "send": 251
+        },
+        "sim_before_us": 1812545789,
+        "sim_us": 1812570919,
+        "slot": 7250,
+        "work_us": 557
+      },
+      {
+        "dt_us": 31735,
+        "gap_since_previous_end_us": 31164,
+        "last_slot_before": 7254,
+        "lua_heap_kib": 4132449.234375,
+        "phases": {
+          "progress": 0,
+          "receive": 165,
+          "return_audit": 8,
+          "send": 105
+        },
+        "sim_before_us": 1813553379,
+        "sim_us": 1813585114,
+        "slot": 7254,
+        "work_us": 278
+      },
+      {
+        "dt_us": 32636,
+        "gap_since_previous_end_us": 31454,
+        "last_slot_before": 7258,
+        "lua_heap_kib": 4169407.87890625,
+        "phases": {
+          "progress": 0,
+          "receive": 191,
+          "return_audit": 2,
+          "send": 139
+        },
+        "sim_before_us": 1814568903,
+        "sim_us": 1814601539,
+        "slot": 7258,
+        "work_us": 333
+      },
+      {
+        "dt_us": 31764,
+        "gap_since_previous_end_us": 31465,
+        "last_slot_before": 7262,
+        "lua_heap_kib": 4206342.59765625,
+        "phases": {
+          "progress": 0,
+          "receive": 9,
+          "return_audit": 6,
+          "send": 6
+        },
+        "sim_before_us": 1815600152,
+        "sim_us": 1815631916,
+        "slot": 7262,
+        "work_us": 22
+      },
+      {
+        "dt_us": 31719,
+        "gap_since_previous_end_us": 31503,
+        "last_slot_before": 7266,
+        "lua_heap_kib": 4243271.12109375,
+        "phases": {
+          "progress": 1,
+          "receive": 17,
+          "return_audit": 25,
+          "send": 10
+        },
+        "sim_before_us": 1816629688,
+        "sim_us": 1816661407,
+        "slot": 7266,
+        "work_us": 55
+      },
+      {
+        "dt_us": 31454,
+        "gap_since_previous_end_us": 31381,
+        "last_slot_before": 7270,
+        "lua_heap_kib": 4280198.6796875,
+        "phases": {
+          "progress": 1,
+          "receive": 15,
+          "return_audit": 10,
+          "send": 8
+        },
+        "sim_before_us": 1817659893,
+        "sim_us": 1817691347,
+        "slot": 7270,
+        "work_us": 35
+      },
+      {
+        "dt_us": 31921,
+        "gap_since_previous_end_us": 31913,
+        "last_slot_before": 7274,
+        "lua_heap_kib": 4317125.69140625,
+        "phases": {
+          "progress": 0,
+          "receive": 12,
+          "return_audit": 7,
+          "send": 6
+        },
+        "sim_before_us": 1818673396,
+        "sim_us": 1818705317,
+        "slot": 7274,
+        "work_us": 26
+      },
+      {
+        "dt_us": 31457,
+        "gap_since_previous_end_us": 31419,
+        "last_slot_before": 7278,
+        "lua_heap_kib": 4354051.26171875,
+        "phases": {
+          "progress": 1,
+          "receive": 15,
+          "return_audit": 17,
+          "send": 9
+        },
+        "sim_before_us": 1819673920,
+        "sim_us": 1819705377,
+        "slot": 7278,
+        "work_us": 43
+      },
+      {
+        "dt_us": 31784,
+        "gap_since_previous_end_us": 31757,
+        "last_slot_before": 7282,
+        "lua_heap_kib": 4390976.84765625,
+        "phases": {
+          "progress": 1,
+          "receive": 21,
+          "return_audit": 15,
+          "send": 13
+        },
+        "sim_before_us": 1820689607,
+        "sim_us": 1820721391,
+        "slot": 7282,
+        "work_us": 52
+      },
+      {
+        "dt_us": 32222,
+        "gap_since_previous_end_us": 32061,
+        "last_slot_before": 7286,
+        "lua_heap_kib": 4427909.1875,
+        "phases": {
+          "progress": 0,
+          "receive": 11,
+          "return_audit": 8,
+          "send": 6
+        },
+        "sim_before_us": 1821703171,
+        "sim_us": 1821735393,
+        "slot": 7286,
+        "work_us": 26
+      },
+      {
+        "dt_us": 32266,
+        "gap_since_previous_end_us": 32239,
+        "last_slot_before": 7290,
+        "lua_heap_kib": 4474005.2109375,
+        "phases": {
+          "progress": 1,
+          "receive": 15,
+          "return_audit": 7,
+          "sample": 12390,
+          "send": 10081
+        },
+        "sim_before_us": 1822735085,
+        "sim_us": 1822767351,
+        "slot": 7291,
+        "work_us": 22495
+      },
+      {
+        "dt_us": 31663,
+        "gap_since_previous_end_us": 21471,
+        "last_slot_before": 7295,
+        "lua_heap_kib": 4510949.46875,
+        "phases": {
+          "progress": 1,
+          "receive": 115,
+          "return_audit": 8,
+          "send": 67
+        },
+        "sim_before_us": 1823766932,
+        "sim_us": 1823798595,
+        "slot": 7295,
+        "work_us": 191
+      },
+      {
+        "dt_us": 31732,
+        "gap_since_previous_end_us": 13883,
+        "last_slot_before": 7299,
+        "lua_heap_kib": 4546942.41015625,
+        "phases": {
+          "progress": 1,
+          "receive": 630,
+          "return_audit": 15,
+          "send": 382
+        },
+        "sim_before_us": 1824781006,
+        "sim_us": 1824812738,
+        "slot": 7299,
+        "work_us": 1029
+      },
+      {
+        "dt_us": 31864,
+        "gap_since_previous_end_us": 31922,
+        "last_slot_before": 7303,
+        "lua_heap_kib": 4581496.3359375,
+        "phases": {
+          "progress": 0,
+          "receive": 570,
+          "return_audit": 2,
+          "send": 603
+        },
+        "sim_before_us": 1825795753,
+        "sim_us": 1825827617,
+        "slot": 7303,
+        "work_us": 1176
+      },
+      {
+        "dt_us": 31636,
+        "gap_since_previous_end_us": 30939,
+        "last_slot_before": 7307,
+        "lua_heap_kib": 4616837.0703125,
+        "phases": {
+          "progress": 1,
+          "receive": 862,
+          "return_audit": 14,
+          "send": 1902
+        },
+        "sim_before_us": 1826809958,
+        "sim_us": 1826841594,
+        "slot": 7307,
+        "work_us": 2781
+      },
+      {
+        "dt_us": 31805,
+        "gap_since_previous_end_us": 31683,
+        "last_slot_before": 7311,
+        "lua_heap_kib": 4650628.9140625,
+        "phases": {
+          "progress": 0,
+          "receive": 4,
+          "return_audit": 3,
+          "send": 2
+        },
+        "sim_before_us": 1827821478,
+        "sim_us": 1827853283,
+        "slot": 7311,
+        "work_us": 9
+      },
+      {
+        "dt_us": 31457,
+        "gap_since_previous_end_us": 31394,
+        "last_slot_before": 7315,
+        "lua_heap_kib": 4682989.2890625,
+        "phases": {
+          "progress": 0,
+          "receive": 3,
+          "return_audit": 3,
+          "send": 2
+        },
+        "sim_before_us": 1828830265,
+        "sim_us": 1828861722,
+        "slot": 7315,
+        "work_us": 8
+      },
+      {
+        "dt_us": 31400,
+        "gap_since_previous_end_us": 31336,
+        "last_slot_before": 7319,
+        "lua_heap_kib": 4715832.0625,
+        "phases": {
+          "progress": 2,
+          "receive": 11,
+          "return_audit": 9,
+          "send": 6
+        },
+        "sim_before_us": 1829851619,
+        "sim_us": 1829883019,
+        "slot": 7319,
+        "work_us": 29
+      },
+      {
+        "dt_us": 31486,
+        "gap_since_previous_end_us": 31457,
+        "last_slot_before": 7323,
+        "lua_heap_kib": 4748738.87109375,
+        "phases": {
+          "progress": 1,
+          "receive": 2,
+          "return_audit": 2,
+          "send": 1
+        },
+        "sim_before_us": 1830857712,
+        "sim_us": 1830889198,
+        "slot": 7323,
+        "work_us": 6
+      },
+      {
+        "dt_us": 30451,
+        "gap_since_previous_end_us": 30437,
+        "last_slot_before": 7327,
+        "lua_heap_kib": 4781644.0859375,
+        "phases": {
+          "progress": 1,
+          "receive": 18,
+          "return_audit": 21,
+          "send": 12
+        },
+        "sim_before_us": 1831867475,
+        "sim_us": 1831897926,
+        "slot": 7327,
+        "work_us": 53
+      },
+      {
+        "dt_us": 31490,
+        "gap_since_previous_end_us": 31332,
+        "last_slot_before": 7331,
+        "lua_heap_kib": 4814555.43359375,
+        "phases": {
+          "progress": 0,
+          "receive": 6,
+          "return_audit": 7,
+          "send": 4
+        },
+        "sim_before_us": 1832874023,
+        "sim_us": 1832905513,
+        "slot": 7331,
+        "work_us": 17
+      },
+      {
+        "dt_us": 31781,
+        "gap_since_previous_end_us": 31752,
+        "last_slot_before": 7335,
+        "lua_heap_kib": 4847466.69140625,
+        "phases": {
+          "progress": 1,
+          "receive": 10,
+          "return_audit": 11,
+          "send": 5
+        },
+        "sim_before_us": 1833880203,
+        "sim_us": 1833911984,
+        "slot": 7335,
+        "work_us": 27
+      },
+      {
+        "dt_us": 31876,
+        "gap_since_previous_end_us": 31811,
+        "last_slot_before": 7339,
+        "lua_heap_kib": 4880372.98046875,
+        "phases": {
+          "progress": 0,
+          "receive": 2,
+          "return_audit": 1,
+          "send": 1
+        },
+        "sim_before_us": 1834889052,
+        "sim_us": 1834920928,
+        "slot": 7339,
+        "work_us": 5
+      },
+      {
+        "dt_us": 31570,
+        "gap_since_previous_end_us": 31534,
+        "last_slot_before": 7343,
+        "lua_heap_kib": 4913278.734375,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 7,
+          "send": 4
+        },
+        "sim_before_us": 1835895692,
+        "sim_us": 1835927262,
+        "slot": 7343,
+        "work_us": 16
+      },
+      {
+        "dt_us": 31911,
+        "gap_since_previous_end_us": 31944,
+        "last_slot_before": 7347,
+        "lua_heap_kib": 4946186.27734375,
+        "phases": {
+          "progress": 0,
+          "receive": 13,
+          "return_audit": 14,
+          "send": 8
+        },
+        "sim_before_us": 1836905907,
+        "sim_us": 1836937818,
+        "slot": 7347,
+        "work_us": 36
+      },
+      {
+        "dt_us": 30943,
+        "gap_since_previous_end_us": 30867,
+        "last_slot_before": 7351,
+        "lua_heap_kib": 4979089.28515625,
+        "phases": {
+          "progress": 0,
+          "receive": 8,
+          "return_audit": 5,
+          "send": 4
+        },
+        "sim_before_us": 1837914252,
+        "sim_us": 1837945195,
+        "slot": 7351,
+        "work_us": 17
+      },
+      {
+        "dt_us": 31682,
+        "gap_since_previous_end_us": 31673,
+        "last_slot_before": 7355,
+        "lua_heap_kib": 5011998.69921875,
+        "phases": {
+          "progress": 1,
+          "receive": 3,
+          "return_audit": 3,
+          "send": 2
+        },
+        "sim_before_us": 1838921457,
+        "sim_us": 1838953139,
+        "slot": 7355,
+        "work_us": 9
+      },
+      {
+        "dt_us": 31671,
+        "gap_since_previous_end_us": 31649,
+        "last_slot_before": 7359,
+        "lua_heap_kib": 5044904.0078125,
+        "phases": {
+          "progress": 0,
+          "receive": 14,
+          "return_audit": 19,
+          "send": 9
+        },
+        "sim_before_us": 1839928703,
+        "sim_us": 1839960374,
+        "slot": 7359,
+        "work_us": 43
+      },
+      {
+        "dt_us": 31237,
+        "gap_since_previous_end_us": 31228,
+        "last_slot_before": 7363,
+        "lua_heap_kib": 5077810.3828125,
+        "phases": {
+          "progress": 0,
+          "receive": 3,
+          "return_audit": 4,
+          "send": 2
+        },
+        "sim_before_us": 1840939392,
+        "sim_us": 1840970629,
+        "slot": 7363,
+        "work_us": 10
+      },
+      {
+        "dt_us": 31438,
+        "gap_since_previous_end_us": 31428,
+        "last_slot_before": 7367,
+        "lua_heap_kib": 5110716.76953125,
+        "phases": {
+          "progress": 1,
+          "receive": 14,
+          "return_audit": 17,
+          "send": 8
+        },
+        "sim_before_us": 1841949455,
+        "sim_us": 1841980893,
+        "slot": 7367,
+        "work_us": 41
+      },
+      {
+        "dt_us": 31338,
+        "gap_since_previous_end_us": 31325,
+        "last_slot_before": 7371,
+        "lua_heap_kib": 5143624.84375,
+        "phases": {
+          "progress": 0,
+          "receive": 3,
+          "return_audit": 3,
+          "send": 2
+        },
+        "sim_before_us": 1842956677,
+        "sim_us": 1842988015,
+        "slot": 7371,
+        "work_us": 9
+      },
+      {
+        "dt_us": 30953,
+        "gap_since_previous_end_us": 30919,
+        "last_slot_before": 7375,
+        "lua_heap_kib": 5176543.47265625,
+        "phases": {
+          "progress": 0,
+          "receive": 9,
+          "return_audit": 10,
+          "send": 8
+        },
+        "sim_before_us": 1843962800,
+        "sim_us": 1843993753,
+        "slot": 7375,
+        "work_us": 28
+      },
+      {
+        "dt_us": 31397,
+        "gap_since_previous_end_us": 31426,
+        "last_slot_before": 7379,
+        "lua_heap_kib": 5217625.05078125,
+        "phases": {
+          "progress": 2,
+          "receive": 7,
+          "return_audit": 4,
+          "sample": 24896,
+          "send": 5490
+        },
+        "sim_before_us": 1844984931,
+        "sim_us": 1845016328,
+        "slot": 7380,
+        "work_us": 30400
+      },
+      {
+        "dt_us": 31060,
+        "gap_since_previous_end_us": 31117,
+        "last_slot_before": 7383,
+        "lua_heap_kib": 5250542,
+        "phases": {
+          "progress": 2,
+          "receive": 3,
+          "return_audit": 4,
+          "sample": 18247,
+          "send": 3727
+        },
+        "sim_before_us": 1845991138,
+        "sim_us": 1846022198,
+        "slot": 7384,
+        "work_us": 21984
+      },
+      {
+        "dt_us": 26389,
+        "gap_since_previous_end_us": 88,
+        "last_slot_before": 7388,
+        "lua_heap_kib": 5283470.68359375,
+        "phases": {
+          "progress": 1,
+          "receive": 85,
+          "return_audit": 6,
+          "send": 44
+        },
+        "sim_before_us": 1847016048,
+        "sim_us": 1847042437,
+        "slot": 7388,
+        "work_us": 136
+      },
+      {
+        "dt_us": 41514,
+        "gap_since_previous_end_us": 85,
+        "last_slot_before": 7392,
+        "lua_heap_kib": 5316381.16015625,
+        "phases": {
+          "progress": 0,
+          "receive": 6,
+          "return_audit": 9,
+          "send": 1
+        },
+        "sim_before_us": 1848006207,
+        "sim_us": 1848047721,
+        "slot": 7392,
+        "work_us": 17
+      },
+      {
+        "dt_us": 32530,
+        "gap_since_previous_end_us": 96,
+        "last_slot_before": 7396,
+        "lua_heap_kib": 5349308.94140625,
+        "phases": {
+          "progress": 0,
+          "receive": 93,
+          "return_audit": 12,
+          "send": 45
+        },
+        "sim_before_us": 1849015807,
+        "sim_us": 1849048337,
+        "slot": 7396,
+        "work_us": 150
+      },
+      {
+        "dt_us": 21775,
+        "gap_since_previous_end_us": 21592,
+        "last_slot_before": 7400,
+        "lua_heap_kib": 5382270.734375,
+        "phases": {
+          "progress": 1,
+          "receive": 223,
+          "return_audit": 3,
+          "send": 143
+        },
+        "sim_before_us": 1850045393,
+        "sim_us": 1850067168,
+        "slot": 7400,
+        "work_us": 370
+      },
+      {
+        "dt_us": 30969,
+        "gap_since_previous_end_us": 30608,
+        "last_slot_before": 7404,
+        "lua_heap_kib": 5415191.3125,
+        "phases": {
+          "progress": 0,
+          "receive": 53,
+          "return_audit": 14,
+          "send": 4
+        },
+        "sim_before_us": 1851058863,
+        "sim_us": 1851089832,
+        "slot": 7404,
+        "work_us": 71
+      },
+      {
+        "dt_us": 31001,
+        "gap_since_previous_end_us": 30549,
+        "last_slot_before": 7408,
+        "lua_heap_kib": 5448108.44921875,
+        "phases": {
+          "progress": 0,
+          "receive": 34,
+          "return_audit": 3,
+          "send": 1
+        },
+        "sim_before_us": 1852066807,
+        "sim_us": 1852097808,
+        "slot": 7408,
+        "work_us": 38
+      },
+      {
+        "dt_us": 30750,
+        "gap_since_previous_end_us": 30090,
+        "last_slot_before": 7412,
+        "lua_heap_kib": 5481024.43359375,
+        "phases": {
+          "progress": 0,
+          "receive": 65,
+          "return_audit": 7,
+          "send": 3
+        },
+        "sim_before_us": 1853072194,
+        "sim_us": 1853102944,
+        "slot": 7412,
+        "work_us": 75
+      },
+      {
+        "dt_us": 31229,
+        "gap_since_previous_end_us": 30064,
+        "last_slot_before": 7416,
+        "lua_heap_kib": 5513945.38671875,
+        "phases": {
+          "progress": 0,
+          "receive": 194,
+          "return_audit": 15,
+          "send": 5
+        },
+        "sim_before_us": 1854079147,
+        "sim_us": 1854110376,
+        "slot": 7416,
+        "work_us": 214
+      },
+      {
+        "dt_us": 31467,
+        "gap_since_previous_end_us": 31376,
+        "last_slot_before": 7420,
+        "lua_heap_kib": 5546864.1171875,
+        "phases": {
+          "progress": 1,
+          "receive": 4,
+          "return_audit": 9,
+          "send": 2
+        },
+        "sim_before_us": 1855086244,
+        "sim_us": 1855117711,
+        "slot": 7420,
+        "work_us": 17
+      },
+      {
+        "dt_us": 31910,
+        "gap_since_previous_end_us": 31833,
+        "last_slot_before": 7424,
+        "lua_heap_kib": 5579865.5703125,
+        "phases": {
+          "progress": 1,
+          "receive": 14,
+          "return_audit": 15,
+          "send": 9
+        },
+        "sim_before_us": 1856096264,
+        "sim_us": 1856128174,
+        "slot": 7424,
+        "work_us": 40
+      },
+      {
+        "dt_us": 31836,
+        "gap_since_previous_end_us": 31502,
+        "last_slot_before": 7428,
+        "lua_heap_kib": 5612795.8046875,
+        "phases": {
+          "progress": 0,
+          "receive": 29,
+          "return_audit": 7,
+          "send": 9
+        },
+        "sim_before_us": 1857106092,
+        "sim_us": 1857137928,
+        "slot": 7428,
+        "work_us": 45
+      },
+      {
+        "dt_us": 31379,
+        "gap_since_previous_end_us": 30754,
+        "last_slot_before": 7432,
+        "lua_heap_kib": 5648952.30859375,
+        "phases": {
+          "progress": 0,
+          "receive": 12,
+          "return_audit": 11,
+          "send": 8
+        },
+        "sim_before_us": 1858132767,
+        "sim_us": 1858164146,
+        "slot": 7432,
+        "work_us": 31
+      },
+      {
+        "dt_us": 31858,
+        "gap_since_previous_end_us": 31677,
+        "last_slot_before": 7436,
+        "lua_heap_kib": 5687496.26953125,
+        "phases": {
+          "progress": 1,
+          "receive": 27,
+          "return_audit": 14,
+          "send": 8
+        },
+        "sim_before_us": 1859148090,
+        "sim_us": 1859179948,
+        "slot": 7436,
+        "work_us": 51
+      },
+      {
+        "dt_us": 31467,
+        "gap_since_previous_end_us": 31431,
+        "last_slot_before": 7440,
+        "lua_heap_kib": 5725586.40625,
+        "phases": {
+          "progress": 1,
+          "receive": 23,
+          "return_audit": 25,
+          "send": 16
+        },
+        "sim_before_us": 1860148989,
+        "sim_us": 1860180456,
+        "slot": 7440,
+        "work_us": 66
+      },
+      {
+        "dt_us": 31778,
+        "gap_since_previous_end_us": 31667,
+        "last_slot_before": 7444,
+        "lua_heap_kib": 5767348.25390625,
+        "phases": {
+          "progress": 1,
+          "receive": 22,
+          "return_audit": 12,
+          "send": 9
+        },
+        "sim_before_us": 1861165972,
+        "sim_us": 1861197750,
+        "slot": 7444,
+        "work_us": 45
+      },
+      {
+        "dt_us": 31359,
+        "gap_since_previous_end_us": 31298,
+        "last_slot_before": 7448,
+        "lua_heap_kib": 5805387.5546875,
+        "phases": {
+          "progress": 1,
+          "receive": 22,
+          "return_audit": 10,
+          "send": 10
+        },
+        "sim_before_us": 1862184448,
+        "sim_us": 1862215807,
+        "slot": 7448,
+        "work_us": 44
+      },
+      {
+        "dt_us": 32120,
+        "gap_since_previous_end_us": 32177,
+        "last_slot_before": 7452,
+        "lua_heap_kib": 5843650.73046875,
+        "phases": {
+          "progress": 1,
+          "receive": 23,
+          "return_audit": 19,
+          "send": 11
+        },
+        "sim_before_us": 1863214508,
+        "sim_us": 1863246628,
+        "slot": 7452,
+        "work_us": 55
+      },
+      {
+        "dt_us": 31531,
+        "gap_since_previous_end_us": 31473,
+        "last_slot_before": 7456,
+        "lua_heap_kib": 5883815.05859375,
+        "phases": {
+          "progress": 0,
+          "receive": 10,
+          "return_audit": 7,
+          "send": 6
+        },
+        "sim_before_us": 1864216756,
+        "sim_us": 1864248287,
+        "slot": 7456,
+        "work_us": 24
+      },
+      {
+        "dt_us": 31900,
+        "gap_since_previous_end_us": 31788,
+        "last_slot_before": 7460,
+        "lua_heap_kib": 5933988.55078125,
+        "phases": {
+          "progress": 2,
+          "receive": 23,
+          "return_audit": 28,
+          "sample": 27806,
+          "send": 4678
+        },
+        "sim_before_us": 1865233887,
+        "sim_us": 1865265787,
+        "slot": 7461,
+        "work_us": 32541
+      },
+      {
+        "dt_us": 31933,
+        "gap_since_previous_end_us": 31911,
+        "last_slot_before": 7464,
+        "lua_heap_kib": 5971995.7890625,
+        "phases": {
+          "progress": 2,
+          "receive": 22,
+          "return_audit": 18,
+          "sample": 28250,
+          "send": 4217
+        },
+        "sim_before_us": 1866234895,
+        "sim_us": 1866266828,
+        "slot": 7465,
+        "work_us": 32515
+      },
+      {
+        "dt_us": 32126,
+        "gap_since_previous_end_us": 32122,
+        "last_slot_before": 7468,
+        "lua_heap_kib": 6011093.96875,
+        "phases": {
+          "progress": 4,
+          "receive": 21,
+          "return_audit": 11,
+          "sample": 32417,
+          "send": 7556
+        },
+        "sim_before_us": 1867236249,
+        "sim_us": 1867268375,
+        "slot": 7469,
+        "work_us": 40018
+      },
+      {
+        "dt_us": 27292,
+        "gap_since_previous_end_us": 84,
+        "last_slot_before": 7473,
+        "lua_heap_kib": 6051396.6640625,
+        "phases": {
+          "progress": 0,
+          "receive": 4,
+          "return_audit": 7,
+          "send": 1
+        },
+        "sim_before_us": 1868268332,
+        "sim_us": 1868295624,
+        "slot": 7473,
+        "work_us": 12
+      },
+      {
+        "dt_us": 40252,
+        "gap_since_previous_end_us": 83,
+        "last_slot_before": 7477,
+        "lua_heap_kib": 6090204.51953125,
+        "phases": {
+          "progress": 1,
+          "receive": 4,
+          "return_audit": 6,
+          "send": 1
+        },
+        "sim_before_us": 1869267512,
+        "sim_us": 1869307764,
+        "slot": 7477,
+        "work_us": 12
+      },
+      {
+        "dt_us": 23493,
+        "gap_since_previous_end_us": 23542,
+        "last_slot_before": 7481,
+        "lua_heap_kib": 6130300.99609375,
+        "phases": {
+          "progress": 1,
+          "receive": 338,
+          "return_audit": 5,
+          "send": 187
+        },
+        "sim_before_us": 1870292600,
+        "sim_us": 1870316093,
+        "slot": 7481,
+        "work_us": 532
+      },
+      {
+        "dt_us": 25057,
+        "gap_since_previous_end_us": 25182,
+        "last_slot_before": 7485,
+        "lua_heap_kib": 6170689,
+        "phases": {
+          "progress": 0,
+          "receive": 283,
+          "return_audit": 17,
+          "send": 152
+        },
+        "sim_before_us": 1871308434,
+        "sim_us": 1871333491,
+        "slot": 7485,
+        "work_us": 452
+      },
+      {
+        "dt_us": 31362,
+        "gap_since_previous_end_us": 30944,
+        "last_slot_before": 7489,
+        "lua_heap_kib": 6210880.8515625,
+        "phases": {
+          "progress": 1,
+          "receive": 760,
+          "return_audit": 7,
+          "send": 493
+        },
+        "sim_before_us": 1872317705,
+        "sim_us": 1872349067,
+        "slot": 7489,
+        "work_us": 1263
+      },
+      {
+        "dt_us": 31820,
+        "gap_since_previous_end_us": 31397,
+        "last_slot_before": 7493,
+        "lua_heap_kib": 6250874.7109375,
+        "phases": {
+          "progress": 1,
+          "receive": 498,
+          "return_audit": 5,
+          "send": 230
+        },
+        "sim_before_us": 1873319704,
+        "sim_us": 1873351524,
+        "slot": 7493,
+        "work_us": 735
+      },
+      {
+        "dt_us": 31774,
+        "gap_since_previous_end_us": 31276,
+        "last_slot_before": 7497,
+        "lua_heap_kib": 6291317.3125,
+        "phases": {
+          "progress": 0,
+          "receive": 50,
+          "return_audit": 5,
+          "send": 5
+        },
+        "sim_before_us": 1874348763,
+        "sim_us": 1874380537,
+        "slot": 7497,
+        "work_us": 60
+      },
+      {
+        "dt_us": 31430,
+        "gap_since_previous_end_us": 31245,
+        "last_slot_before": 7501,
+        "lua_heap_kib": 6331604.421875,
+        "phases": {
+          "progress": 1,
+          "receive": 6,
+          "return_audit": 2,
+          "send": 2
+        },
+        "sim_before_us": 1875379556,
+        "sim_us": 1875410986,
+        "slot": 7501,
+        "work_us": 11
+      },
+      {
+        "dt_us": 31660,
+        "gap_since_previous_end_us": 31625,
+        "last_slot_before": 7505,
+        "lua_heap_kib": 6371461.80078125,
+        "phases": {
+          "progress": 1,
+          "receive": 6,
+          "return_audit": 4,
+          "send": 7
+        },
+        "sim_before_us": 1876394298,
+        "sim_us": 1876425958,
+        "slot": 7505,
+        "work_us": 18
+      },
+      {
+        "dt_us": 32136,
+        "gap_since_previous_end_us": 32087,
+        "last_slot_before": 7509,
+        "lua_heap_kib": 6411711.765625,
+        "phases": {
+          "progress": 0,
+          "receive": 2,
+          "return_audit": 1,
+          "send": 2
+        },
+        "sim_before_us": 1877425929,
+        "sim_us": 1877458065,
+        "slot": 7509,
+        "work_us": 5
+      },
+      {
+        "dt_us": 31674,
+        "gap_since_previous_end_us": 31519,
+        "last_slot_before": 7512,
+        "lua_heap_kib": 6315132.4140625,
+        "phases": {
+          "progress": 2,
+          "receive": 15,
+          "return_audit": 13,
+          "sample": 125664,
+          "send": 9403
+        },
+        "sim_before_us": 1878223493,
+        "sim_us": 1878255167,
+        "slot": 7513,
+        "work_us": 135152
+      },
+      {
+        "dt_us": 135268,
+        "gap_since_previous_end_us": 138,
+        "last_slot_before": 7513,
+        "lua_heap_kib": 6314772.4140625,
+        "phases": {
+          "progress": 1,
+          "receive": 208,
+          "return_audit": 6,
+          "send": 91
+        },
+        "sim_before_us": 1878255167,
+        "sim_us": 1878390435,
+        "slot": 7513,
+        "work_us": 306
+      },
+      {
+        "dt_us": 32005,
+        "gap_since_previous_end_us": 31916,
+        "last_slot_before": 7513,
+        "lua_heap_kib": 6020006.921875,
+        "phases": {
+          "progress": 2,
+          "receive": 11,
+          "return_audit": 11,
+          "sample": 181962,
+          "send": 10723
+        },
+        "sim_before_us": 1878478268,
+        "sim_us": 1878510273,
+        "slot": 7514,
+        "work_us": 192815
+      },
+      {
+        "dt_us": 192922,
+        "gap_since_previous_end_us": 325,
+        "last_slot_before": 7514,
+        "lua_heap_kib": 6019683.87890625,
+        "phases": {
+          "progress": 0,
+          "receive": 265,
+          "return_audit": 8,
+          "send": 80
+        },
+        "sim_before_us": 1878510273,
+        "sim_us": 1878703195,
+        "slot": 7514,
+        "work_us": 353
+      },
+      {
+        "dt_us": 31799,
+        "gap_since_previous_end_us": 30268,
+        "last_slot_before": 7514,
+        "lua_heap_kib": 5727996.421875,
+        "phases": {
+          "progress": 3,
+          "receive": 448,
+          "return_audit": 3,
+          "sample": 238470,
+          "send": 4178
+        },
+        "sim_before_us": 1878733550,
+        "sim_us": 1878765349,
+        "slot": 7515,
+        "work_us": 243103
+      },
+      {
+        "dt_us": 243422,
+        "gap_since_previous_end_us": 212,
+        "last_slot_before": 7515,
+        "lua_heap_kib": 5442220.8984375,
+        "phases": {
+          "progress": 2,
+          "receive": 5,
+          "return_audit": 8,
+          "sample": 197166,
+          "send": 5
+        },
+        "sim_before_us": 1878765349,
+        "sim_us": 1879008771,
+        "slot": 7516,
+        "work_us": 197186
+      },
+      {
+        "dt_us": 197441,
+        "gap_since_previous_end_us": 278,
+        "last_slot_before": 7516,
+        "lua_heap_kib": 5438589.50390625,
+        "phases": {
+          "progress": 0,
+          "receive": 624,
+          "return_audit": 5,
+          "send": 3763
+        },
+        "sim_before_us": 1879008771,
+        "sim_us": 1879206212,
+        "slot": 7516,
+        "work_us": 4450
+      },
+      {
+        "dt_us": 31487,
+        "gap_since_previous_end_us": 26965,
+        "last_slot_before": 7516,
+        "lua_heap_kib": 5146677.23828125,
+        "phases": {
+          "progress": 3,
+          "receive": 600,
+          "return_audit": 5,
+          "sample": 184664,
+          "send": 3669
+        },
+        "sim_before_us": 1879238613,
+        "sim_us": 1879270100,
+        "slot": 7517,
+        "work_us": 188998
+      },
+      {
+        "dt_us": 189381,
+        "gap_since_previous_end_us": 182,
+        "last_slot_before": 7517,
+        "lua_heap_kib": 5145872.59765625,
+        "phases": {
+          "progress": 0,
+          "receive": 20,
+          "return_audit": 10,
+          "send": 838
+        },
+        "sim_before_us": 1879270100,
+        "sim_us": 1879459481,
+        "slot": 7517,
+        "work_us": 868
+      },
+      {
+        "dt_us": 31666,
+        "gap_since_previous_end_us": 27821,
+        "last_slot_before": 7517,
+        "lua_heap_kib": 4853761.99609375,
+        "phases": {
+          "progress": 3,
+          "receive": 444,
+          "return_audit": 6,
+          "sample": 169872,
+          "send": 4237
+        },
+        "sim_before_us": 1879490162,
+        "sim_us": 1879521828,
+        "slot": 7518,
+        "work_us": 174621
+      },
+      {
+        "dt_us": 174906,
+        "gap_since_previous_end_us": 177,
+        "last_slot_before": 7518,
+        "lua_heap_kib": 4853672.66796875,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 8,
+          "send": 2
+        },
+        "sim_before_us": 1879521828,
+        "sim_us": 1879696734,
+        "slot": 7518,
+        "work_us": 15
+      },
+      {
+        "dt_us": 31589,
+        "gap_since_previous_end_us": 27280,
+        "last_slot_before": 7518,
+        "lua_heap_kib": 4561011.375,
+        "phases": {
+          "progress": 3,
+          "receive": 405,
+          "return_audit": 6,
+          "sample": 228340,
+          "send": 6276
+        },
+        "sim_before_us": 1879726930,
+        "sim_us": 1879758519,
+        "slot": 7519,
+        "work_us": 235105
+      },
+      {
+        "dt_us": 235621,
+        "gap_since_previous_end_us": 213,
+        "last_slot_before": 7519,
+        "lua_heap_kib": 4560922.7734375,
+        "phases": {
+          "progress": 1,
+          "receive": 5,
+          "return_audit": 9,
+          "send": 1
+        },
+        "sim_before_us": 1879758519,
+        "sim_us": 1879994140,
+        "slot": 7519,
+        "work_us": 16
+      },
+      {
+        "dt_us": 31133,
+        "gap_since_previous_end_us": 31605,
+        "last_slot_before": 7519,
+        "lua_heap_kib": 4271469.84765625,
+        "phases": {
+          "progress": 5,
+          "receive": 865,
+          "return_audit": 7,
+          "sample": 219807,
+          "send": 8857
+        },
+        "sim_before_us": 1879994140,
+        "sim_us": 1880025273,
+        "slot": 7520,
+        "work_us": 229543
+      },
+      {
+        "dt_us": 230244,
+        "gap_since_previous_end_us": 195,
+        "last_slot_before": 7520,
+        "lua_heap_kib": 3982558.70703125,
+        "phases": {
+          "progress": 2,
+          "receive": 247,
+          "return_audit": 9,
+          "sample": 207232,
+          "send": 1643
+        },
+        "sim_before_us": 1880025273,
+        "sim_us": 1880255517,
+        "slot": 7521,
+        "work_us": 209134
+      },
+      {
+        "dt_us": 209327,
+        "gap_since_previous_end_us": 198,
+        "last_slot_before": 7521,
+        "lua_heap_kib": 3980511.484375,
+        "phases": {
+          "progress": 0,
+          "receive": 437,
+          "return_audit": 7,
+          "send": 2117
+        },
+        "sim_before_us": 1880255517,
+        "sim_us": 1880464844,
+        "slot": 7521,
+        "work_us": 2561
+      },
+      {
+        "dt_us": 31219,
+        "gap_since_previous_end_us": 27053,
+        "last_slot_before": 7521,
+        "lua_heap_kib": 3686541.5234375,
+        "phases": {
+          "progress": 4,
+          "receive": 1203,
+          "return_audit": 10,
+          "sample": 243920,
+          "send": 2760
+        },
+        "sim_before_us": 1880496096,
+        "sim_us": 1880527315,
+        "slot": 7522,
+        "work_us": 247898
+      },
+      {
+        "dt_us": 248269,
+        "gap_since_previous_end_us": 227,
+        "last_slot_before": 7522,
+        "lua_heap_kib": 3398915.4609375,
+        "phases": {
+          "progress": 3,
+          "receive": 282,
+          "return_audit": 7,
+          "sample": 258867,
+          "send": 119
+        },
+        "sim_before_us": 1880527315,
+        "sim_us": 1880775584,
+        "slot": 7523,
+        "work_us": 259278
+      },
+      {
+        "dt_us": 259511,
+        "gap_since_previous_end_us": 249,
+        "last_slot_before": 7523,
+        "lua_heap_kib": 3109430.13671875,
+        "phases": {
+          "progress": 3,
+          "receive": 601,
+          "return_audit": 7,
+          "sample": 288907,
+          "send": 4792
+        },
+        "sim_before_us": 1880775584,
+        "sim_us": 1881035095,
+        "slot": 7524,
+        "work_us": 294311
+      },
+      {
+        "dt_us": 294572,
+        "gap_since_previous_end_us": 199,
+        "last_slot_before": 7524,
+        "lua_heap_kib": 2858231.3203125,
+        "phases": {
+          "progress": 3,
+          "receive": 48,
+          "return_audit": 9,
+          "sample": 366657,
+          "send": 1535
+        },
+        "sim_before_us": 1881035095,
+        "sim_us": 1881329667,
+        "slot": 7525,
+        "work_us": 368315
+      },
+      {
+        "dt_us": 368518,
+        "gap_since_previous_end_us": 193,
+        "last_slot_before": 7525,
+        "lua_heap_kib": 2867964.2890625,
+        "phases": {
+          "progress": 2,
+          "receive": 555,
+          "return_audit": 7,
+          "sample": 205561,
+          "send": 2765
+        },
+        "sim_before_us": 1881329667,
+        "sim_us": 1881698185,
+        "slot": 7526,
+        "work_us": 208891
+      },
+      {
+        "dt_us": 209102,
+        "gap_since_previous_end_us": 198,
+        "last_slot_before": 7526,
+        "lua_heap_kib": 2877760.25,
+        "phases": {
+          "progress": 3,
+          "receive": 273,
+          "return_audit": 7,
+          "sample": 219648,
+          "send": 2764
+        },
+        "sim_before_us": 1881698185,
+        "sim_us": 1881907287,
+        "slot": 7527,
+        "work_us": 222699
+      },
+      {
+        "dt_us": 222990,
+        "failure": "...ames\\rdl_game\\mods\\rdl_bridge/multi_resource_fixture.lua:102: per-agent pending capacity",
+        "gap_since_previous_end_us": 662,
+        "last_slot_before": 7527,
+        "lua_heap_kib": 2887586.69140625,
+        "phases": {
+          "failed_phase": 231708,
+          "receive": 1205,
+          "return_audit": 15
+        },
+        "sim_before_us": 1881907287,
+        "sim_us": 1882130277,
+        "slot": 7528,
+        "work_us": 232931
+      }
+    ],
+    "run_id": "l15campaign-c67137f7a391",
+    "schema": "campaign-timing-v1",
+    "sim_us": 1882130277,
+    "slow": [
+      {
+        "dt_us": 23635,
+        "gap_since_previous_end_us": 435,
+        "last_slot_before": 5965,
+        "lua_heap_kib": 2310720.046875,
+        "phases": {
+          "progress": 2,
+          "receive": 256,
+          "return_audit": 5,
+          "sample": 189916,
+          "send": 922
+        },
+        "sim_before_us": 1491493743,
+        "sim_us": 1491517378,
+        "slot": 5966,
+        "work_us": 191103
+      },
+      {
+        "dt_us": 191520,
+        "gap_since_previous_end_us": 287,
+        "last_slot_before": 5966,
+        "lua_heap_kib": 2310765.015625,
+        "phases": {
+          "progress": 0,
+          "receive": 859,
+          "return_audit": 4,
+          "send": 375
+        },
+        "sim_before_us": 1491517378,
+        "sim_us": 1491708898,
+        "slot": 5966,
+        "work_us": 1238
+      },
+      {
+        "dt_us": 31670,
+        "gap_since_previous_end_us": 31689,
+        "last_slot_before": 6315,
+        "lua_heap_kib": 5237514.859375,
+        "phases": {
+          "progress": 2,
+          "receive": 24,
+          "return_audit": 16,
+          "sample": 131913,
+          "send": 6352
+        },
+        "sim_before_us": 1578970603,
+        "sim_us": 1579002273,
+        "slot": 6316,
+        "work_us": 138308
+      },
+      {
+        "dt_us": 138474,
+        "gap_since_previous_end_us": 137,
+        "last_slot_before": 6316,
+        "lua_heap_kib": 5237395.921875,
+        "phases": {
+          "progress": 0,
+          "receive": 18,
+          "return_audit": 7,
+          "send": 1
+        },
+        "sim_before_us": 1579002273,
+        "sim_us": 1579140747,
+        "slot": 6316,
+        "work_us": 26
+      },
+      {
+        "dt_us": 31765,
+        "gap_since_previous_end_us": 31662,
+        "last_slot_before": 6316,
+        "lua_heap_kib": 4982938.4296875,
+        "phases": {
+          "progress": 5,
+          "receive": 3,
+          "return_audit": 3,
+          "sample": 143348,
+          "send": 9092
+        },
+        "sim_before_us": 1579237786,
+        "sim_us": 1579269551,
+        "slot": 6317,
+        "work_us": 152452
+      },
+      {
+        "dt_us": 159281,
+        "gap_since_previous_end_us": 7136,
+        "last_slot_before": 6317,
+        "lua_heap_kib": 4982073.05859375,
+        "phases": {
+          "progress": 0,
+          "receive": 627,
+          "return_audit": 6,
+          "send": 233
+        },
+        "sim_before_us": 1579269551,
+        "sim_us": 1579428832,
+        "slot": 6317,
+        "work_us": 866
+      },
+      {
+        "dt_us": 32183,
+        "gap_since_previous_end_us": 32086,
+        "last_slot_before": 6317,
+        "lua_heap_kib": 4728295.22265625,
+        "phases": {
+          "progress": 2,
+          "receive": 90,
+          "return_audit": 5,
+          "sample": 209698,
+          "send": 8224
+        },
+        "sim_before_us": 1579490582,
+        "sim_us": 1579522765,
+        "slot": 6318,
+        "work_us": 218021
+      },
+      {
+        "dt_us": 218104,
+        "gap_since_previous_end_us": 238,
+        "last_slot_before": 6318,
+        "lua_heap_kib": 4727911.5546875,
+        "phases": {
+          "progress": 0,
+          "receive": 313,
+          "return_audit": 7,
+          "send": 109
+        },
+        "sim_before_us": 1579522765,
+        "sim_us": 1579740869,
+        "slot": 6318,
+        "work_us": 429
+      },
+      {
+        "dt_us": 35416,
+        "gap_since_previous_end_us": 35137,
+        "last_slot_before": 6318,
+        "lua_heap_kib": 4478316.96875,
+        "phases": {
+          "progress": 3,
+          "receive": 1303,
+          "return_audit": 4,
+          "sample": 164730,
+          "send": 1198
+        },
+        "sim_before_us": 1579740869,
+        "sim_us": 1579776285,
+        "slot": 6319,
+        "work_us": 167239
+      },
+      {
+        "dt_us": 167632,
+        "gap_since_previous_end_us": 183,
+        "last_slot_before": 6319,
+        "lua_heap_kib": 4478196.8515625,
+        "phases": {
+          "progress": 0,
+          "receive": 23,
+          "return_audit": 8,
+          "send": 1
+        },
+        "sim_before_us": 1579776285,
+        "sim_us": 1579943917,
+        "slot": 6319,
+        "work_us": 32
+      },
+      {
+        "dt_us": 31713,
+        "gap_since_previous_end_us": 30466,
+        "last_slot_before": 6319,
+        "lua_heap_kib": 4218944.94921875,
+        "phases": {
+          "progress": 2,
+          "receive": 140,
+          "return_audit": 6,
+          "sample": 129833,
+          "send": 16401
+        },
+        "sim_before_us": 1579996927,
+        "sim_us": 1580028640,
+        "slot": 6320,
+        "work_us": 146388
+      },
+      {
+        "dt_us": 146915,
+        "gap_since_previous_end_us": 701,
+        "last_slot_before": 6320,
+        "lua_heap_kib": 4218584.515625,
+        "phases": {
+          "progress": 1,
+          "receive": 998,
+          "return_audit": 14,
+          "send": 336
+        },
+        "sim_before_us": 1580028640,
+        "sim_us": 1580175555,
+        "slot": 6320,
+        "work_us": 1350
+      },
+      {
+        "dt_us": 31918,
+        "gap_since_previous_end_us": 31653,
+        "last_slot_before": 6320,
+        "lua_heap_kib": 3963762.1328125,
+        "phases": {
+          "progress": 2,
+          "receive": 12,
+          "return_audit": 14,
+          "sample": 163160,
+          "send": 6414
+        },
+        "sim_before_us": 1580235187,
+        "sim_us": 1580267105,
+        "slot": 6321,
+        "work_us": 169603
+      },
+      {
+        "dt_us": 169807,
+        "gap_since_previous_end_us": 179,
+        "last_slot_before": 6321,
+        "lua_heap_kib": 3963402.78515625,
+        "phases": {
+          "progress": 0,
+          "receive": 210,
+          "return_audit": 7,
+          "send": 64
+        },
+        "sim_before_us": 1580267105,
+        "sim_us": 1580436912,
+        "slot": 6321,
+        "work_us": 281
+      },
+      {
+        "dt_us": 31029,
+        "gap_since_previous_end_us": 29718,
+        "last_slot_before": 6321,
+        "lua_heap_kib": 3708628.09375,
+        "phases": {
+          "progress": 2,
+          "receive": 94,
+          "return_audit": 4,
+          "sample": 137291,
+          "send": 5944
+        },
+        "sim_before_us": 1580471557,
+        "sim_us": 1580502586,
+        "slot": 6322,
+        "work_us": 143337
+      },
+      {
+        "dt_us": 143515,
+        "gap_since_previous_end_us": 207,
+        "last_slot_before": 6322,
+        "lua_heap_kib": 3708239.99609375,
+        "phases": {
+          "progress": 0,
+          "receive": 320,
+          "return_audit": 8,
+          "send": 85
+        },
+        "sim_before_us": 1580502586,
+        "sim_us": 1580646101,
+        "slot": 6322,
+        "work_us": 414
+      },
+      {
+        "dt_us": 31653,
+        "gap_since_previous_end_us": 31545,
+        "last_slot_before": 6322,
+        "lua_heap_kib": 3453428.71875,
+        "phases": {
+          "progress": 2,
+          "receive": 5,
+          "return_audit": 7,
+          "sample": 177965,
+          "send": 9025
+        },
+        "sim_before_us": 1580738886,
+        "sim_us": 1580770539,
+        "slot": 6323,
+        "work_us": 187005
+      },
+      {
+        "dt_us": 187074,
+        "gap_since_previous_end_us": 170,
+        "last_slot_before": 6323,
+        "lua_heap_kib": 3453070.93359375,
+        "phases": {
+          "progress": 0,
+          "receive": 257,
+          "return_audit": 8,
+          "send": 181
+        },
+        "sim_before_us": 1580770539,
+        "sim_us": 1580957613,
+        "slot": 6323,
+        "work_us": 447
+      },
+      {
+        "dt_us": 31629,
+        "gap_since_previous_end_us": 29359,
+        "last_slot_before": 6323,
+        "lua_heap_kib": 3198279.765625,
+        "phases": {
+          "progress": 3,
+          "receive": 312,
+          "return_audit": 16,
+          "sample": 188177,
+          "send": 7042
+        },
+        "sim_before_us": 1580991492,
+        "sim_us": 1581023121,
+        "slot": 6324,
+        "work_us": 195553
+      },
+      {
+        "dt_us": 196035,
+        "gap_since_previous_end_us": 228,
+        "last_slot_before": 6324,
+        "lua_heap_kib": 3197889.62109375,
+        "phases": {
+          "progress": 0,
+          "receive": 220,
+          "return_audit": 7,
+          "send": 87
+        },
+        "sim_before_us": 1581023121,
+        "sim_us": 1581219156,
+        "slot": 6324,
+        "work_us": 315
+      },
+      {
+        "dt_us": 31299,
+        "gap_since_previous_end_us": 29849,
+        "last_slot_before": 6324,
+        "lua_heap_kib": 2943050.3671875,
+        "phases": {
+          "progress": 5,
+          "receive": 134,
+          "return_audit": 10,
+          "sample": 208308,
+          "send": 16295
+        },
+        "sim_before_us": 1581243526,
+        "sim_us": 1581274825,
+        "slot": 6325,
+        "work_us": 224755
+      },
+      {
+        "dt_us": 224964,
+        "gap_since_previous_end_us": 302,
+        "last_slot_before": 6325,
+        "lua_heap_kib": 2942702.65234375,
+        "phases": {
+          "progress": 0,
+          "receive": 417,
+          "return_audit": 11,
+          "send": 124
+        },
+        "sim_before_us": 1581274825,
+        "sim_us": 1581499789,
+        "slot": 6325,
+        "work_us": 552
+      },
+      {
+        "dt_us": 29351,
+        "gap_since_previous_end_us": 28707,
+        "last_slot_before": 6325,
+        "lua_heap_kib": 2692625.31640625,
+        "phases": {
+          "progress": 2,
+          "receive": 677,
+          "return_audit": 3,
+          "sample": 255063,
+          "send": 1546
+        },
+        "sim_before_us": 1581499789,
+        "sim_us": 1581529140,
+        "slot": 6326,
+        "work_us": 257291
+      },
+      {
+        "dt_us": 257494,
+        "gap_since_previous_end_us": 186,
+        "last_slot_before": 6326,
+        "lua_heap_kib": 2444559.75390625,
+        "phases": {
+          "progress": 3,
+          "receive": 4,
+          "return_audit": 10,
+          "sample": 277933,
+          "send": 4
+        },
+        "sim_before_us": 1581529140,
+        "sim_us": 1581786634,
+        "slot": 6327,
+        "work_us": 277954
+      },
+      {
+        "dt_us": 278165,
+        "gap_since_previous_end_us": 309,
+        "last_slot_before": 6327,
+        "lua_heap_kib": 2404739.78515625,
+        "phases": {
+          "progress": 2,
+          "receive": 412,
+          "return_audit": 7,
+          "sample": 202782,
+          "send": 8986
+        },
+        "sim_before_us": 1581786634,
+        "sim_us": 1582064799,
+        "slot": 6328,
+        "work_us": 212190
+      },
+      {
+        "dt_us": 212494,
+        "gap_since_previous_end_us": 207,
+        "last_slot_before": 6328,
+        "lua_heap_kib": 2413245.6796875,
+        "phases": {
+          "progress": 3,
+          "receive": 238,
+          "return_audit": 6,
+          "sample": 185454,
+          "send": 1074
+        },
+        "sim_before_us": 1582064799,
+        "sim_us": 1582277293,
+        "slot": 6329,
+        "work_us": 186776
+      },
+      {
+        "dt_us": 186988,
+        "gap_since_previous_end_us": 239,
+        "last_slot_before": 6329,
+        "lua_heap_kib": 2413282.4765625,
+        "phases": {
+          "progress": 0,
+          "receive": 760,
+          "return_audit": 6,
+          "send": 320
+        },
+        "sim_before_us": 1582277293,
+        "sim_us": 1582464281,
+        "slot": 6329,
+        "work_us": 1086
+      },
+      {
+        "dt_us": 31529,
+        "gap_since_previous_end_us": 23389,
+        "last_slot_before": 6329,
+        "lua_heap_kib": 2421998.59375,
+        "phases": {
+          "progress": 2,
+          "receive": 1152,
+          "return_audit": 4,
+          "sample": 181346,
+          "send": 2046
+        },
+        "sim_before_us": 1582492131,
+        "sim_us": 1582523660,
+        "slot": 6330,
+        "work_us": 184551
+      },
+      {
+        "dt_us": 184830,
+        "gap_since_previous_end_us": 157,
+        "last_slot_before": 6330,
+        "lua_heap_kib": 2422002.6953125,
+        "phases": {
+          "progress": 0,
+          "receive": 20,
+          "return_audit": 8,
+          "send": 1
+        },
+        "sim_before_us": 1582523660,
+        "sim_us": 1582708490,
+        "slot": 6330,
+        "work_us": 29
+      },
+      {
+        "dt_us": 31494,
+        "gap_since_previous_end_us": 17328,
+        "last_slot_before": 6330,
+        "lua_heap_kib": 2430725.3125,
+        "phases": {
+          "progress": 3,
+          "receive": 1163,
+          "return_audit": 5,
+          "sample": 184009,
+          "send": 1942
+        },
+        "sim_before_us": 1582729318,
+        "sim_us": 1582760812,
+        "slot": 6331,
+        "work_us": 187123
+      },
+      {
+        "dt_us": 187387,
+        "gap_since_previous_end_us": 175,
+        "last_slot_before": 6331,
+        "lua_heap_kib": 2430729.4140625,
+        "phases": {
+          "progress": 0,
+          "receive": 23,
+          "return_audit": 11,
+          "send": 1
+        },
+        "sim_before_us": 1582760812,
+        "sim_us": 1582948199,
+        "slot": 6331,
+        "work_us": 35
+      },
+      {
+        "dt_us": 31521,
+        "gap_since_previous_end_us": 25156,
+        "last_slot_before": 6331,
+        "lua_heap_kib": 2439452.03125,
+        "phases": {
+          "progress": 2,
+          "receive": 933,
+          "return_audit": 3,
+          "sample": 171919,
+          "send": 1305
+        },
+        "sim_before_us": 1582981750,
+        "sim_us": 1583013271,
+        "slot": 6332,
+        "work_us": 174163
+      },
+      {
+        "dt_us": 174471,
+        "gap_since_previous_end_us": 145,
+        "last_slot_before": 6332,
+        "lua_heap_kib": 2439456.1328125,
+        "phases": {
+          "progress": 1,
+          "receive": 42,
+          "return_audit": 10,
+          "send": 1
+        },
+        "sim_before_us": 1583013271,
+        "sim_us": 1583187742,
+        "slot": 6332,
+        "work_us": 54
+      },
+      {
+        "dt_us": 31464,
+        "gap_since_previous_end_us": 25101,
+        "last_slot_before": 6332,
+        "lua_heap_kib": 2448349.859375,
+        "phases": {
+          "progress": 2,
+          "receive": 260,
+          "return_audit": 2,
+          "sample": 174624,
+          "send": 8509
+        },
+        "sim_before_us": 1583248864,
+        "sim_us": 1583280328,
+        "slot": 6333,
+        "work_us": 183399
+      },
+      {
+        "dt_us": 183587,
+        "gap_since_previous_end_us": 210,
+        "last_slot_before": 6333,
+        "lua_heap_kib": 2448385.67578125,
+        "phases": {
+          "progress": 0,
+          "receive": 403,
+          "return_audit": 9,
+          "send": 1080
+        },
+        "sim_before_us": 1583280328,
+        "sim_us": 1583463915,
+        "slot": 6333,
+        "work_us": 1493
+      },
+      {
+        "dt_us": 31111,
+        "gap_since_previous_end_us": 28910,
+        "last_slot_before": 6333,
+        "lua_heap_kib": 2457108.6015625,
+        "phases": {
+          "progress": 3,
+          "receive": 578,
+          "return_audit": 5,
+          "sample": 164409,
+          "send": 4094
+        },
+        "sim_before_us": 1583485451,
+        "sim_us": 1583516562,
+        "slot": 6334,
+        "work_us": 169090
+      },
+      {
+        "dt_us": 169390,
+        "gap_since_previous_end_us": 101,
+        "last_slot_before": 6334,
+        "lua_heap_kib": 2457112.703125,
+        "phases": {
+          "progress": 0,
+          "receive": 4,
+          "return_audit": 8,
+          "send": 1
+        },
+        "sim_before_us": 1583516562,
+        "sim_us": 1583685952,
+        "slot": 6334,
+        "work_us": 14
+      },
+      {
+        "dt_us": 31956,
+        "gap_since_previous_end_us": 31930,
+        "last_slot_before": 6689,
+        "lua_heap_kib": 5523408.0703125,
+        "phases": {
+          "progress": 2,
+          "receive": 7,
+          "return_audit": 4,
+          "sample": 148642,
+          "send": 6092
+        },
+        "sim_before_us": 1672483171,
+        "sim_us": 1672515127,
+        "slot": 6690,
+        "work_us": 154795
+      },
+      {
+        "dt_us": 154869,
+        "gap_since_previous_end_us": 172,
+        "last_slot_before": 6690,
+        "lua_heap_kib": 5523288.8203125,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 7,
+          "send": 2
+        },
+        "sim_before_us": 1672515127,
+        "sim_us": 1672669996,
+        "slot": 6690,
+        "work_us": 14
+      },
+      {
+        "dt_us": 31779,
+        "gap_since_previous_end_us": 30625,
+        "last_slot_before": 6690,
+        "lua_heap_kib": 5233478.55859375,
+        "phases": {
+          "progress": 2,
+          "receive": 47,
+          "return_audit": 3,
+          "sample": 172555,
+          "send": 9625
+        },
+        "sim_before_us": 1672736269,
+        "sim_us": 1672768048,
+        "slot": 6691,
+        "work_us": 182488
+      },
+      {
+        "dt_us": 182656,
+        "gap_since_previous_end_us": 282,
+        "last_slot_before": 6691,
+        "lua_heap_kib": 5233389.06640625,
+        "phases": {
+          "progress": 1,
+          "receive": 5,
+          "return_audit": 8,
+          "send": 2
+        },
+        "sim_before_us": 1672768048,
+        "sim_us": 1672950704,
+        "slot": 6691,
+        "work_us": 17
+      },
+      {
+        "dt_us": 32085,
+        "gap_since_previous_end_us": 30783,
+        "last_slot_before": 6691,
+        "lua_heap_kib": 4939631.08984375,
+        "phases": {
+          "progress": 3,
+          "receive": 1377,
+          "return_audit": 7,
+          "sample": 224973,
+          "send": 5548
+        },
+        "sim_before_us": 1672973551,
+        "sim_us": 1673005636,
+        "slot": 6692,
+        "work_us": 231909
+      },
+      {
+        "dt_us": 232441,
+        "gap_since_previous_end_us": 241,
+        "last_slot_before": 6692,
+        "lua_heap_kib": 4939511.83984375,
+        "phases": {
+          "progress": 0,
+          "receive": 31,
+          "return_audit": 9,
+          "send": 2
+        },
+        "sim_before_us": 1673005636,
+        "sim_us": 1673238077,
+        "slot": 6692,
+        "work_us": 42
+      },
+      {
+        "dt_us": 20249,
+        "gap_since_previous_end_us": 20424,
+        "last_slot_before": 6692,
+        "lua_heap_kib": 4645745.9609375,
+        "phases": {
+          "progress": 2,
+          "receive": 684,
+          "return_audit": 6,
+          "sample": 182135,
+          "send": 4050
+        },
+        "sim_before_us": 1673238077,
+        "sim_us": 1673258326,
+        "slot": 6693,
+        "work_us": 186932
+      },
+      {
+        "dt_us": 187392,
+        "gap_since_previous_end_us": 160,
+        "last_slot_before": 6693,
+        "lua_heap_kib": 4643731.88671875,
+        "phases": {
+          "progress": 0,
+          "receive": 61,
+          "return_audit": 9,
+          "send": 2348
+        },
+        "sim_before_us": 1673258326,
+        "sim_us": 1673445718,
+        "slot": 6693,
+        "work_us": 2419
+      },
+      {
+        "dt_us": 31800,
+        "gap_since_previous_end_us": 28964,
+        "last_slot_before": 6693,
+        "lua_heap_kib": 4347379.7109375,
+        "phases": {
+          "progress": 3,
+          "receive": 362,
+          "return_audit": 16,
+          "sample": 191082,
+          "send": 5693
+        },
+        "sim_before_us": 1673480075,
+        "sim_us": 1673511875,
+        "slot": 6694,
+        "work_us": 197198
+      },
+      {
+        "dt_us": 197590,
+        "gap_since_previous_end_us": 150,
+        "last_slot_before": 6694,
+        "lua_heap_kib": 4347290.53125,
+        "phases": {
+          "progress": 0,
+          "receive": 4,
+          "return_audit": 8,
+          "send": 1
+        },
+        "sim_before_us": 1673511875,
+        "sim_us": 1673709465,
+        "slot": 6694,
+        "work_us": 13
+      },
+      {
+        "dt_us": 31365,
+        "gap_since_previous_end_us": 31374,
+        "last_slot_before": 6694,
+        "lua_heap_kib": 4060608.21875,
+        "phases": {
+          "progress": 2,
+          "receive": 2009,
+          "return_audit": 8,
+          "sample": 163298,
+          "send": 2196
+        },
+        "sim_before_us": 1673733532,
+        "sim_us": 1673764897,
+        "slot": 6695,
+        "work_us": 167515
+      },
+      {
+        "dt_us": 168132,
+        "gap_since_previous_end_us": 147,
+        "last_slot_before": 6695,
+        "lua_heap_kib": 4060488.8125,
+        "phases": {
+          "progress": 1,
+          "receive": 4,
+          "return_audit": 8,
+          "send": 16
+        },
+        "sim_before_us": 1673764897,
+        "sim_us": 1673933029,
+        "slot": 6695,
+        "work_us": 29
+      },
+      {
+        "dt_us": 30986,
+        "gap_since_previous_end_us": 30766,
+        "last_slot_before": 6695,
+        "lua_heap_kib": 3768462.50390625,
+        "phases": {
+          "progress": 4,
+          "receive": 681,
+          "return_audit": 4,
+          "sample": 169659,
+          "send": 6342
+        },
+        "sim_before_us": 1673999105,
+        "sim_us": 1674030091,
+        "slot": 6696,
+        "work_us": 176692
+      },
+      {
+        "dt_us": 176997,
+        "gap_since_previous_end_us": 185,
+        "last_slot_before": 6696,
+        "lua_heap_kib": 3768343.54296875,
+        "phases": {
+          "progress": 0,
+          "receive": 6,
+          "return_audit": 10,
+          "send": 22
+        },
+        "sim_before_us": 1674030091,
+        "sim_us": 1674207088,
+        "slot": 6696,
+        "work_us": 38
+      },
+      {
+        "dt_us": 31579,
+        "gap_since_previous_end_us": 25205,
+        "last_slot_before": 6696,
+        "lua_heap_kib": 3478042.3828125,
+        "phases": {
+          "progress": 2,
+          "receive": 707,
+          "return_audit": 7,
+          "sample": 194317,
+          "send": 2589
+        },
+        "sim_before_us": 1674233577,
+        "sim_us": 1674265156,
+        "slot": 6697,
+        "work_us": 197623
+      },
+      {
+        "dt_us": 198059,
+        "gap_since_previous_end_us": 181,
+        "last_slot_before": 6697,
+        "lua_heap_kib": 3477685.0703125,
+        "phases": {
+          "progress": 1,
+          "receive": 221,
+          "return_audit": 9,
+          "send": 66
+        },
+        "sim_before_us": 1674265156,
+        "sim_us": 1674463215,
+        "slot": 6697,
+        "work_us": 298
+      },
+      {
+        "dt_us": 32209,
+        "gap_since_previous_end_us": 24874,
+        "last_slot_before": 6697,
+        "lua_heap_kib": 3189101.0234375,
+        "phases": {
+          "progress": 2,
+          "receive": 68,
+          "return_audit": 7,
+          "sample": 212640,
+          "send": 1977
+        },
+        "sim_before_us": 1674485950,
+        "sim_us": 1674518159,
+        "slot": 6698,
+        "work_us": 214695
+      },
+      {
+        "dt_us": 214878,
+        "gap_since_previous_end_us": 238,
+        "last_slot_before": 6698,
+        "lua_heap_kib": 3188027.0625,
+        "phases": {
+          "progress": 0,
+          "receive": 845,
+          "return_audit": 7,
+          "send": 315
+        },
+        "sim_before_us": 1674518159,
+        "sim_us": 1674733037,
+        "slot": 6698,
+        "work_us": 1167
+      },
+      {
+        "dt_us": 20826,
+        "gap_since_previous_end_us": 19646,
+        "last_slot_before": 6698,
+        "lua_heap_kib": 2900612.48046875,
+        "phases": {
+          "progress": 3,
+          "receive": 557,
+          "return_audit": 3,
+          "sample": 276154,
+          "send": 9135
+        },
+        "sim_before_us": 1674733037,
+        "sim_us": 1674753863,
+        "slot": 6699,
+        "work_us": 285959
+      },
+      {
+        "dt_us": 286197,
+        "gap_since_previous_end_us": 422,
+        "last_slot_before": 6699,
+        "lua_heap_kib": 2616203.9765625,
+        "phases": {
+          "progress": 3,
+          "receive": 116,
+          "return_audit": 10,
+          "sample": 312472,
+          "send": 2527
+        },
+        "sim_before_us": 1674753863,
+        "sim_us": 1675040060,
+        "slot": 6700,
+        "work_us": 315129
+      },
+      {
+        "dt_us": 322147,
+        "gap_since_previous_end_us": 6903,
+        "last_slot_before": 6700,
+        "lua_heap_kib": 2545046.48046875,
+        "phases": {
+          "progress": 2,
+          "receive": 1054,
+          "return_audit": 5,
+          "sample": 229448,
+          "send": 1331
+        },
+        "sim_before_us": 1675040060,
+        "sim_us": 1675362207,
+        "slot": 6701,
+        "work_us": 231841
+      },
+      {
+        "dt_us": 232157,
+        "gap_since_previous_end_us": 177,
+        "last_slot_before": 6701,
+        "lua_heap_kib": 2554740.85546875,
+        "phases": {
+          "progress": 2,
+          "receive": 544,
+          "return_audit": 5,
+          "sample": 214226,
+          "send": 155
+        },
+        "sim_before_us": 1675362207,
+        "sim_us": 1675594364,
+        "slot": 6702,
+        "work_us": 214932
+      },
+      {
+        "dt_us": 215103,
+        "gap_since_previous_end_us": 133,
+        "last_slot_before": 6702,
+        "lua_heap_kib": 2564564.671875,
+        "phases": {
+          "progress": 2,
+          "receive": 71,
+          "return_audit": 4,
+          "sample": 201026,
+          "send": 4933
+        },
+        "sim_before_us": 1675594364,
+        "sim_us": 1675809467,
+        "slot": 6703,
+        "work_us": 206087
+      },
+      {
+        "dt_us": 206238,
+        "gap_since_previous_end_us": 197,
+        "last_slot_before": 6703,
+        "lua_heap_kib": 2574307.42578125,
+        "phases": {
+          "progress": 2,
+          "receive": 72,
+          "return_audit": 11,
+          "sample": 187586,
+          "send": 3629
+        },
+        "sim_before_us": 1675809467,
+        "sim_us": 1676015705,
+        "slot": 6704,
+        "work_us": 191301
+      },
+      {
+        "dt_us": 191509,
+        "gap_since_previous_end_us": 201,
+        "last_slot_before": 6704,
+        "lua_heap_kib": 2574344.2265625,
+        "phases": {
+          "progress": 0,
+          "receive": 618,
+          "return_audit": 5,
+          "send": 280
+        },
+        "sim_before_us": 1676015705,
+        "sim_us": 1676207214,
+        "slot": 6704,
+        "work_us": 904
+      },
+      {
+        "dt_us": 31860,
+        "gap_since_previous_end_us": 25338,
+        "last_slot_before": 6704,
+        "lua_heap_kib": 2584253.12109375,
+        "phases": {
+          "progress": 2,
+          "receive": 619,
+          "return_audit": 9,
+          "sample": 203740,
+          "send": 2370
+        },
+        "sim_before_us": 1676236954,
+        "sim_us": 1676268814,
+        "slot": 6705,
+        "work_us": 206743
+      },
+      {
+        "dt_us": 207134,
+        "gap_since_previous_end_us": 200,
+        "last_slot_before": 6705,
+        "lua_heap_kib": 2584273.5703125,
+        "phases": {
+          "progress": 0,
+          "receive": 433,
+          "return_audit": 9,
+          "send": 154
+        },
+        "sim_before_us": 1676268814,
+        "sim_us": 1676475948,
+        "slot": 6705,
+        "work_us": 597
+      },
+      {
+        "dt_us": 28214,
+        "gap_since_previous_end_us": 27592,
+        "last_slot_before": 6705,
+        "lua_heap_kib": 2594116.05859375,
+        "phases": {
+          "progress": 1,
+          "receive": 378,
+          "return_audit": 5,
+          "sample": 193664,
+          "send": 5138
+        },
+        "sim_before_us": 1676475948,
+        "sim_us": 1676504162,
+        "slot": 6706,
+        "work_us": 199243
+      },
+      {
+        "dt_us": 199429,
+        "gap_since_previous_end_us": 169,
+        "last_slot_before": 6706,
+        "lua_heap_kib": 2594120.16015625,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 10,
+          "send": 2
+        },
+        "sim_before_us": 1676504162,
+        "sim_us": 1676703591,
+        "slot": 6706,
+        "work_us": 17
+      },
+      {
+        "dt_us": 31260,
+        "gap_since_previous_end_us": 28835,
+        "last_slot_before": 6706,
+        "lua_heap_kib": 2603969.1953125,
+        "phases": {
+          "progress": 1,
+          "receive": 707,
+          "return_audit": 6,
+          "sample": 128127,
+          "send": 2285
+        },
+        "sim_before_us": 1676724495,
+        "sim_us": 1676755755,
+        "slot": 6707,
+        "work_us": 131128
+      },
+      {
+        "dt_us": 131333,
+        "gap_since_previous_end_us": 104,
+        "last_slot_before": 6707,
+        "lua_heap_kib": 2603973.296875,
+        "phases": {
+          "progress": 1,
+          "receive": 4,
+          "return_audit": 8,
+          "send": 1
+        },
+        "sim_before_us": 1676755755,
+        "sim_us": 1676887088,
+        "slot": 6707,
+        "work_us": 14
+      },
+      {
+        "dt_us": 31240,
+        "gap_since_previous_end_us": 31218,
+        "last_slot_before": 7090,
+        "lua_heap_kib": 5939545.203125,
+        "phases": {
+          "progress": 2,
+          "receive": 4,
+          "return_audit": 4,
+          "sample": 111956,
+          "send": 6879
+        },
+        "sim_before_us": 1772749216,
+        "sim_us": 1772780456,
+        "slot": 7091,
+        "work_us": 118886
+      },
+      {
+        "dt_us": 118968,
+        "gap_since_previous_end_us": 154,
+        "last_slot_before": 7091,
+        "lua_heap_kib": 5939455.8671875,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 6,
+          "send": 2
+        },
+        "sim_before_us": 1772780456,
+        "sim_us": 1772899424,
+        "slot": 7091,
+        "work_us": 13
+      },
+      {
+        "dt_us": 31555,
+        "gap_since_previous_end_us": 30973,
+        "last_slot_before": 7091,
+        "lua_heap_kib": 5684324.890625,
+        "phases": {
+          "progress": 2,
+          "receive": 31,
+          "return_audit": 4,
+          "sample": 137451,
+          "send": 10274
+        },
+        "sim_before_us": 1772984865,
+        "sim_us": 1773016420,
+        "slot": 7092,
+        "work_us": 147836
+      },
+      {
+        "dt_us": 147979,
+        "gap_since_previous_end_us": 172,
+        "last_slot_before": 7092,
+        "lua_heap_kib": 5683740.9140625,
+        "phases": {
+          "progress": 0,
+          "receive": 408,
+          "return_audit": 6,
+          "send": 169
+        },
+        "sim_before_us": 1773016420,
+        "sim_us": 1773164399,
+        "slot": 7092,
+        "work_us": 583
+      },
+      {
+        "dt_us": 30955,
+        "gap_since_previous_end_us": 30506,
+        "last_slot_before": 7092,
+        "lua_heap_kib": 5430337.796875,
+        "phases": {
+          "progress": 2,
+          "receive": 8,
+          "return_audit": 9,
+          "sample": 173359,
+          "send": 7010
+        },
+        "sim_before_us": 1773220808,
+        "sim_us": 1773251763,
+        "slot": 7093,
+        "work_us": 180451
+      },
+      {
+        "dt_us": 180535,
+        "gap_since_previous_end_us": 195,
+        "last_slot_before": 7093,
+        "lua_heap_kib": 5429976.76171875,
+        "phases": {
+          "progress": 1,
+          "receive": 224,
+          "return_audit": 6,
+          "send": 66
+        },
+        "sim_before_us": 1773251763,
+        "sim_us": 1773432298,
+        "slot": 7093,
+        "work_us": 297
+      },
+      {
+        "dt_us": 30697,
+        "gap_since_previous_end_us": 29659,
+        "last_slot_before": 7093,
+        "lua_heap_kib": 5176172.23046875,
+        "phases": {
+          "progress": 2,
+          "receive": 12,
+          "return_audit": 12,
+          "sample": 180010,
+          "send": 8445
+        },
+        "sim_before_us": 1773486871,
+        "sim_us": 1773517568,
+        "slot": 7094,
+        "work_us": 188531
+      },
+      {
+        "dt_us": 188623,
+        "gap_since_previous_end_us": 177,
+        "last_slot_before": 7094,
+        "lua_heap_kib": 5175585.16015625,
+        "phases": {
+          "progress": 0,
+          "receive": 679,
+          "return_audit": 5,
+          "send": 153
+        },
+        "sim_before_us": 1773517568,
+        "sim_us": 1773706191,
+        "slot": 7094,
+        "work_us": 838
+      },
+      {
+        "dt_us": 30987,
+        "gap_since_previous_end_us": 30374,
+        "last_slot_before": 7094,
+        "lua_heap_kib": 4920581.8359375,
+        "phases": {
+          "progress": 3,
+          "receive": 31,
+          "return_audit": 2,
+          "sample": 164594,
+          "send": 6551
+        },
+        "sim_before_us": 1773737994,
+        "sim_us": 1773768981,
+        "slot": 7095,
+        "work_us": 171240
+      },
+      {
+        "dt_us": 171406,
+        "gap_since_previous_end_us": 190,
+        "last_slot_before": 7095,
+        "lua_heap_kib": 4920221.53515625,
+        "phases": {
+          "progress": 0,
+          "receive": 220,
+          "return_audit": 5,
+          "send": 71
+        },
+        "sim_before_us": 1773768981,
+        "sim_us": 1773940387,
+        "slot": 7095,
+        "work_us": 297
+      },
+      {
+        "dt_us": 31804,
+        "gap_since_previous_end_us": 30425,
+        "last_slot_before": 7095,
+        "lua_heap_kib": 4664499.6171875,
+        "phases": {
+          "progress": 3,
+          "receive": 138,
+          "return_audit": 9,
+          "sample": 147726,
+          "send": 7733
+        },
+        "sim_before_us": 1773972842,
+        "sim_us": 1774004646,
+        "slot": 7096,
+        "work_us": 155666
+      },
+      {
+        "dt_us": 156035,
+        "gap_since_previous_end_us": 152,
+        "last_slot_before": 7096,
+        "lua_heap_kib": 4664146.08203125,
+        "phases": {
+          "progress": 0,
+          "receive": 440,
+          "return_audit": 7,
+          "send": 214
+        },
+        "sim_before_us": 1774004646,
+        "sim_us": 1774160681,
+        "slot": 7096,
+        "work_us": 662
+      },
+      {
+        "dt_us": 30855,
+        "gap_since_previous_end_us": 29828,
+        "last_slot_before": 7096,
+        "lua_heap_kib": 4409173.5546875,
+        "phases": {
+          "progress": 3,
+          "receive": 16,
+          "return_audit": 17,
+          "sample": 162316,
+          "send": 6031
+        },
+        "sim_before_us": 1774227700,
+        "sim_us": 1774258555,
+        "slot": 7097,
+        "work_us": 168432
+      },
+      {
+        "dt_us": 168533,
+        "gap_since_previous_end_us": 161,
+        "last_slot_before": 7097,
+        "lua_heap_kib": 4408845.12890625,
+        "phases": {
+          "progress": 0,
+          "receive": 218,
+          "return_audit": 7,
+          "send": 60
+        },
+        "sim_before_us": 1774258555,
+        "sim_us": 1774427088,
+        "slot": 7097,
+        "work_us": 285
+      },
+      {
+        "dt_us": 31652,
+        "gap_since_previous_end_us": 31291,
+        "last_slot_before": 7097,
+        "lua_heap_kib": 4154004.77734375,
+        "phases": {
+          "progress": 2,
+          "receive": 15,
+          "return_audit": 16,
+          "sample": 170681,
+          "send": 7449
+        },
+        "sim_before_us": 1774480105,
+        "sim_us": 1774511757,
+        "slot": 7098,
+        "work_us": 178210
+      },
+      {
+        "dt_us": 178955,
+        "gap_since_previous_end_us": 566,
+        "last_slot_before": 7098,
+        "lua_heap_kib": 4153646.859375,
+        "phases": {
+          "progress": 1,
+          "receive": 300,
+          "return_audit": 28,
+          "send": 75
+        },
+        "sim_before_us": 1774511757,
+        "sim_us": 1774690712,
+        "slot": 7098,
+        "work_us": 404
+      },
+      {
+        "dt_us": 31552,
+        "gap_since_previous_end_us": 30883,
+        "last_slot_before": 7098,
+        "lua_heap_kib": 3898850.46484375,
+        "phases": {
+          "progress": 2,
+          "receive": 469,
+          "return_audit": 18,
+          "sample": 180348,
+          "send": 8100
+        },
+        "sim_before_us": 1774719321,
+        "sim_us": 1774750873,
+        "slot": 7099,
+        "work_us": 188991
+      },
+      {
+        "dt_us": 189612,
+        "gap_since_previous_end_us": 477,
+        "last_slot_before": 7099,
+        "lua_heap_kib": 3898522.9140625,
+        "phases": {
+          "progress": 1,
+          "receive": 637,
+          "return_audit": 13,
+          "send": 416
+        },
+        "sim_before_us": 1774750873,
+        "sim_us": 1774940485,
+        "slot": 7099,
+        "work_us": 1068
+      },
+      {
+        "dt_us": 31609,
+        "gap_since_previous_end_us": 28945,
+        "last_slot_before": 7099,
+        "lua_heap_kib": 3643707.9296875,
+        "phases": {
+          "progress": 4,
+          "receive": 974,
+          "return_audit": 15,
+          "sample": 192053,
+          "send": 13210
+        },
+        "sim_before_us": 1774971814,
+        "sim_us": 1775003423,
+        "slot": 7100,
+        "work_us": 206363
+      },
+      {
+        "dt_us": 206973,
+        "gap_since_previous_end_us": 315,
+        "last_slot_before": 7100,
+        "lua_heap_kib": 3643348.41015625,
+        "phases": {
+          "progress": 1,
+          "receive": 512,
+          "return_audit": 12,
+          "send": 255
+        },
+        "sim_before_us": 1775003423,
+        "sim_us": 1775210396,
+        "slot": 7100,
+        "work_us": 780
+      },
+      {
+        "dt_us": 31675,
+        "gap_since_previous_end_us": 28595,
+        "last_slot_before": 7100,
+        "lua_heap_kib": 3387893.93359375,
+        "phases": {
+          "progress": 3,
+          "receive": 131,
+          "return_audit": 8,
+          "sample": 202700,
+          "send": 9806
+        },
+        "sim_before_us": 1775240814,
+        "sim_us": 1775272489,
+        "slot": 7101,
+        "work_us": 212811
+      },
+      {
+        "dt_us": 213162,
+        "gap_since_previous_end_us": 564,
+        "last_slot_before": 7101,
+        "lua_heap_kib": 3387341.57421875,
+        "phases": {
+          "progress": 0,
+          "receive": 630,
+          "return_audit": 6,
+          "send": 160
+        },
+        "sim_before_us": 1775272489,
+        "sim_us": 1775485651,
+        "slot": 7101,
+        "work_us": 797
+      },
+      {
+        "dt_us": 24917,
+        "gap_since_previous_end_us": 24299,
+        "last_slot_before": 7101,
+        "lua_heap_kib": 3135559.4375,
+        "phases": {
+          "progress": 3,
+          "receive": 2265,
+          "return_audit": 11,
+          "sample": 272656,
+          "send": 2677
+        },
+        "sim_before_us": 1775485651,
+        "sim_us": 1775510568,
+        "slot": 7102,
+        "work_us": 277613
+      },
+      {
+        "dt_us": 278282,
+        "gap_since_previous_end_us": 174,
+        "last_slot_before": 7102,
+        "lua_heap_kib": 2886057.2265625,
+        "phases": {
+          "progress": 2,
+          "receive": 4,
+          "return_audit": 8,
+          "sample": 285399,
+          "send": 5
+        },
+        "sim_before_us": 1775510568,
+        "sim_us": 1775788850,
+        "slot": 7103,
+        "work_us": 285418
+      },
+      {
+        "dt_us": 285629,
+        "gap_since_previous_end_us": 343,
+        "last_slot_before": 7103,
+        "lua_heap_kib": 2694799.67578125,
+        "phases": {
+          "progress": 3,
+          "receive": 567,
+          "return_audit": 5,
+          "sample": 290995,
+          "send": 6029
+        },
+        "sim_before_us": 1775788850,
+        "sim_us": 1776074479,
+        "slot": 7104,
+        "work_us": 297663
+      },
+      {
+        "dt_us": 298013,
+        "gap_since_previous_end_us": 163,
+        "last_slot_before": 7104,
+        "lua_heap_kib": 2703309.33203125,
+        "phases": {
+          "progress": 2,
+          "receive": 78,
+          "return_audit": 8,
+          "sample": 201604,
+          "send": 2610
+        },
+        "sim_before_us": 1776074479,
+        "sim_us": 1776372492,
+        "slot": 7105,
+        "work_us": 204304
+      },
+      {
+        "dt_us": 211804,
+        "gap_since_previous_end_us": 7530,
+        "last_slot_before": 7105,
+        "lua_heap_kib": 2711829.625,
+        "phases": {
+          "progress": 2,
+          "receive": 534,
+          "return_audit": 7,
+          "sample": 185978,
+          "send": 1462
+        },
+        "sim_before_us": 1776372492,
+        "sim_us": 1776584296,
+        "slot": 7106,
+        "work_us": 187984
+      },
+      {
+        "dt_us": 188419,
+        "gap_since_previous_end_us": 486,
+        "last_slot_before": 7106,
+        "lua_heap_kib": 2720353.5703125,
+        "phases": {
+          "progress": 2,
+          "receive": 732,
+          "return_audit": 5,
+          "sample": 193702,
+          "send": 389
+        },
+        "sim_before_us": 1776584296,
+        "sim_us": 1776772715,
+        "slot": 7107,
+        "work_us": 194831
+      },
+      {
+        "dt_us": 195254,
+        "gap_since_previous_end_us": 238,
+        "last_slot_before": 7107,
+        "lua_heap_kib": 2720487.6484375,
+        "phases": {
+          "progress": 0,
+          "receive": 93,
+          "return_audit": 9,
+          "send": 4893
+        },
+        "sim_before_us": 1776772715,
+        "sim_us": 1776967969,
+        "slot": 7107,
+        "work_us": 5057
+      },
+      {
+        "dt_us": 31457,
+        "gap_since_previous_end_us": 23329,
+        "last_slot_before": 7107,
+        "lua_heap_kib": 2729222.89453125,
+        "phases": {
+          "progress": 3,
+          "receive": 857,
+          "return_audit": 9,
+          "sample": 204316,
+          "send": 7975
+        },
+        "sim_before_us": 1776999514,
+        "sim_us": 1777030971,
+        "slot": 7108,
+        "work_us": 213227
+      },
+      {
+        "dt_us": 214499,
+        "gap_since_previous_end_us": 262,
+        "last_slot_before": 7108,
+        "lua_heap_kib": 2729250.54296875,
+        "phases": {
+          "progress": 0,
+          "receive": 19,
+          "return_audit": 10,
+          "send": 906
+        },
+        "sim_before_us": 1777030971,
+        "sim_us": 1777245470,
+        "slot": 7108,
+        "work_us": 935
+      },
+      {
+        "dt_us": 23107,
+        "gap_since_previous_end_us": 22435,
+        "last_slot_before": 7108,
+        "lua_heap_kib": 2737787.32421875,
+        "phases": {
+          "progress": 2,
+          "receive": 415,
+          "return_audit": 13,
+          "sample": 191164,
+          "send": 1575
+        },
+        "sim_before_us": 1777245470,
+        "sim_us": 1777268577,
+        "slot": 7109,
+        "work_us": 193170
+      },
+      {
+        "dt_us": 193649,
+        "gap_since_previous_end_us": 355,
+        "last_slot_before": 7109,
+        "lua_heap_kib": 2737824.10546875,
+        "phases": {
+          "progress": 0,
+          "receive": 898,
+          "return_audit": 6,
+          "send": 282
+        },
+        "sim_before_us": 1777268577,
+        "sim_us": 1777462226,
+        "slot": 7109,
+        "work_us": 1186
+      },
+      {
+        "dt_us": 31459,
+        "gap_since_previous_end_us": 15463,
+        "last_slot_before": 7109,
+        "lua_heap_kib": 2746559.359375,
+        "phases": {
+          "progress": 3,
+          "receive": 1408,
+          "return_audit": 7,
+          "sample": 187412,
+          "send": 3577
+        },
+        "sim_before_us": 1777491657,
+        "sim_us": 1777523116,
+        "slot": 7110,
+        "work_us": 192409
+      },
+      {
+        "dt_us": 192690,
+        "gap_since_previous_end_us": 167,
+        "last_slot_before": 7110,
+        "lua_heap_kib": 2746587.0078125,
+        "phases": {
+          "progress": 0,
+          "receive": 35,
+          "return_audit": 9,
+          "send": 797
+        },
+        "sim_before_us": 1777523116,
+        "sim_us": 1777715806,
+        "slot": 7110,
+        "work_us": 841
+      },
+      {
+        "dt_us": 31980,
+        "gap_since_previous_end_us": 19869,
+        "last_slot_before": 7110,
+        "lua_heap_kib": 2755322.25,
+        "phases": {
+          "progress": 2,
+          "receive": 1925,
+          "return_audit": 10,
+          "sample": 202563,
+          "send": 3001
+        },
+        "sim_before_us": 1777745524,
+        "sim_us": 1777777504,
+        "slot": 7111,
+        "work_us": 207502
+      },
+      {
+        "dt_us": 209367,
+        "gap_since_previous_end_us": 163,
+        "last_slot_before": 7111,
+        "lua_heap_kib": 2755326.3515625,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 10,
+          "send": 22
+        },
+        "sim_before_us": 1777777504,
+        "sim_us": 1777986871,
+        "slot": 7111,
+        "work_us": 37
+      },
+      {
+        "dt_us": 31674,
+        "gap_since_previous_end_us": 31519,
+        "last_slot_before": 7512,
+        "lua_heap_kib": 6315132.4140625,
+        "phases": {
+          "progress": 2,
+          "receive": 15,
+          "return_audit": 13,
+          "sample": 125664,
+          "send": 9403
+        },
+        "sim_before_us": 1878223493,
+        "sim_us": 1878255167,
+        "slot": 7513,
+        "work_us": 135152
+      },
+      {
+        "dt_us": 135268,
+        "gap_since_previous_end_us": 138,
+        "last_slot_before": 7513,
+        "lua_heap_kib": 6314772.4140625,
+        "phases": {
+          "progress": 1,
+          "receive": 208,
+          "return_audit": 6,
+          "send": 91
+        },
+        "sim_before_us": 1878255167,
+        "sim_us": 1878390435,
+        "slot": 7513,
+        "work_us": 306
+      },
+      {
+        "dt_us": 32005,
+        "gap_since_previous_end_us": 31916,
+        "last_slot_before": 7513,
+        "lua_heap_kib": 6020006.921875,
+        "phases": {
+          "progress": 2,
+          "receive": 11,
+          "return_audit": 11,
+          "sample": 181962,
+          "send": 10723
+        },
+        "sim_before_us": 1878478268,
+        "sim_us": 1878510273,
+        "slot": 7514,
+        "work_us": 192815
+      },
+      {
+        "dt_us": 192922,
+        "gap_since_previous_end_us": 325,
+        "last_slot_before": 7514,
+        "lua_heap_kib": 6019683.87890625,
+        "phases": {
+          "progress": 0,
+          "receive": 265,
+          "return_audit": 8,
+          "send": 80
+        },
+        "sim_before_us": 1878510273,
+        "sim_us": 1878703195,
+        "slot": 7514,
+        "work_us": 353
+      },
+      {
+        "dt_us": 31799,
+        "gap_since_previous_end_us": 30268,
+        "last_slot_before": 7514,
+        "lua_heap_kib": 5727996.421875,
+        "phases": {
+          "progress": 3,
+          "receive": 448,
+          "return_audit": 3,
+          "sample": 238470,
+          "send": 4178
+        },
+        "sim_before_us": 1878733550,
+        "sim_us": 1878765349,
+        "slot": 7515,
+        "work_us": 243103
+      },
+      {
+        "dt_us": 243422,
+        "gap_since_previous_end_us": 212,
+        "last_slot_before": 7515,
+        "lua_heap_kib": 5442220.8984375,
+        "phases": {
+          "progress": 2,
+          "receive": 5,
+          "return_audit": 8,
+          "sample": 197166,
+          "send": 5
+        },
+        "sim_before_us": 1878765349,
+        "sim_us": 1879008771,
+        "slot": 7516,
+        "work_us": 197186
+      },
+      {
+        "dt_us": 197441,
+        "gap_since_previous_end_us": 278,
+        "last_slot_before": 7516,
+        "lua_heap_kib": 5438589.50390625,
+        "phases": {
+          "progress": 0,
+          "receive": 624,
+          "return_audit": 5,
+          "send": 3763
+        },
+        "sim_before_us": 1879008771,
+        "sim_us": 1879206212,
+        "slot": 7516,
+        "work_us": 4450
+      },
+      {
+        "dt_us": 31487,
+        "gap_since_previous_end_us": 26965,
+        "last_slot_before": 7516,
+        "lua_heap_kib": 5146677.23828125,
+        "phases": {
+          "progress": 3,
+          "receive": 600,
+          "return_audit": 5,
+          "sample": 184664,
+          "send": 3669
+        },
+        "sim_before_us": 1879238613,
+        "sim_us": 1879270100,
+        "slot": 7517,
+        "work_us": 188998
+      },
+      {
+        "dt_us": 189381,
+        "gap_since_previous_end_us": 182,
+        "last_slot_before": 7517,
+        "lua_heap_kib": 5145872.59765625,
+        "phases": {
+          "progress": 0,
+          "receive": 20,
+          "return_audit": 10,
+          "send": 838
+        },
+        "sim_before_us": 1879270100,
+        "sim_us": 1879459481,
+        "slot": 7517,
+        "work_us": 868
+      },
+      {
+        "dt_us": 31666,
+        "gap_since_previous_end_us": 27821,
+        "last_slot_before": 7517,
+        "lua_heap_kib": 4853761.99609375,
+        "phases": {
+          "progress": 3,
+          "receive": 444,
+          "return_audit": 6,
+          "sample": 169872,
+          "send": 4237
+        },
+        "sim_before_us": 1879490162,
+        "sim_us": 1879521828,
+        "slot": 7518,
+        "work_us": 174621
+      },
+      {
+        "dt_us": 174906,
+        "gap_since_previous_end_us": 177,
+        "last_slot_before": 7518,
+        "lua_heap_kib": 4853672.66796875,
+        "phases": {
+          "progress": 0,
+          "receive": 5,
+          "return_audit": 8,
+          "send": 2
+        },
+        "sim_before_us": 1879521828,
+        "sim_us": 1879696734,
+        "slot": 7518,
+        "work_us": 15
+      },
+      {
+        "dt_us": 31589,
+        "gap_since_previous_end_us": 27280,
+        "last_slot_before": 7518,
+        "lua_heap_kib": 4561011.375,
+        "phases": {
+          "progress": 3,
+          "receive": 405,
+          "return_audit": 6,
+          "sample": 228340,
+          "send": 6276
+        },
+        "sim_before_us": 1879726930,
+        "sim_us": 1879758519,
+        "slot": 7519,
+        "work_us": 235105
+      },
+      {
+        "dt_us": 235621,
+        "gap_since_previous_end_us": 213,
+        "last_slot_before": 7519,
+        "lua_heap_kib": 4560922.7734375,
+        "phases": {
+          "progress": 1,
+          "receive": 5,
+          "return_audit": 9,
+          "send": 1
+        },
+        "sim_before_us": 1879758519,
+        "sim_us": 1879994140,
+        "slot": 7519,
+        "work_us": 16
+      },
+      {
+        "dt_us": 31133,
+        "gap_since_previous_end_us": 31605,
+        "last_slot_before": 7519,
+        "lua_heap_kib": 4271469.84765625,
+        "phases": {
+          "progress": 5,
+          "receive": 865,
+          "return_audit": 7,
+          "sample": 219807,
+          "send": 8857
+        },
+        "sim_before_us": 1879994140,
+        "sim_us": 1880025273,
+        "slot": 7520,
+        "work_us": 229543
+      },
+      {
+        "dt_us": 230244,
+        "gap_since_previous_end_us": 195,
+        "last_slot_before": 7520,
+        "lua_heap_kib": 3982558.70703125,
+        "phases": {
+          "progress": 2,
+          "receive": 247,
+          "return_audit": 9,
+          "sample": 207232,
+          "send": 1643
+        },
+        "sim_before_us": 1880025273,
+        "sim_us": 1880255517,
+        "slot": 7521,
+        "work_us": 209134
+      },
+      {
+        "dt_us": 209327,
+        "gap_since_previous_end_us": 198,
+        "last_slot_before": 7521,
+        "lua_heap_kib": 3980511.484375,
+        "phases": {
+          "progress": 0,
+          "receive": 437,
+          "return_audit": 7,
+          "send": 2117
+        },
+        "sim_before_us": 1880255517,
+        "sim_us": 1880464844,
+        "slot": 7521,
+        "work_us": 2561
+      },
+      {
+        "dt_us": 31219,
+        "gap_since_previous_end_us": 27053,
+        "last_slot_before": 7521,
+        "lua_heap_kib": 3686541.5234375,
+        "phases": {
+          "progress": 4,
+          "receive": 1203,
+          "return_audit": 10,
+          "sample": 243920,
+          "send": 2760
+        },
+        "sim_before_us": 1880496096,
+        "sim_us": 1880527315,
+        "slot": 7522,
+        "work_us": 247898
+      },
+      {
+        "dt_us": 248269,
+        "gap_since_previous_end_us": 227,
+        "last_slot_before": 7522,
+        "lua_heap_kib": 3398915.4609375,
+        "phases": {
+          "progress": 3,
+          "receive": 282,
+          "return_audit": 7,
+          "sample": 258867,
+          "send": 119
+        },
+        "sim_before_us": 1880527315,
+        "sim_us": 1880775584,
+        "slot": 7523,
+        "work_us": 259278
+      },
+      {
+        "dt_us": 259511,
+        "gap_since_previous_end_us": 249,
+        "last_slot_before": 7523,
+        "lua_heap_kib": 3109430.13671875,
+        "phases": {
+          "progress": 3,
+          "receive": 601,
+          "return_audit": 7,
+          "sample": 288907,
+          "send": 4792
+        },
+        "sim_before_us": 1880775584,
+        "sim_us": 1881035095,
+        "slot": 7524,
+        "work_us": 294311
+      },
+      {
+        "dt_us": 294572,
+        "gap_since_previous_end_us": 199,
+        "last_slot_before": 7524,
+        "lua_heap_kib": 2858231.3203125,
+        "phases": {
+          "progress": 3,
+          "receive": 48,
+          "return_audit": 9,
+          "sample": 366657,
+          "send": 1535
+        },
+        "sim_before_us": 1881035095,
+        "sim_us": 1881329667,
+        "slot": 7525,
+        "work_us": 368315
+      },
+      {
+        "dt_us": 368518,
+        "gap_since_previous_end_us": 193,
+        "last_slot_before": 7525,
+        "lua_heap_kib": 2867964.2890625,
+        "phases": {
+          "progress": 2,
+          "receive": 555,
+          "return_audit": 7,
+          "sample": 205561,
+          "send": 2765
+        },
+        "sim_before_us": 1881329667,
+        "sim_us": 1881698185,
+        "slot": 7526,
+        "work_us": 208891
+      },
+      {
+        "dt_us": 209102,
+        "gap_since_previous_end_us": 198,
+        "last_slot_before": 7526,
+        "lua_heap_kib": 2877760.25,
+        "phases": {
+          "progress": 3,
+          "receive": 273,
+          "return_audit": 7,
+          "sample": 219648,
+          "send": 2764
+        },
+        "sim_before_us": 1881698185,
+        "sim_us": 1881907287,
+        "slot": 7527,
+        "work_us": 222699
+      },
+      {
+        "dt_us": 222990,
+        "failure": "...ames\\rdl_game\\mods\\rdl_bridge/multi_resource_fixture.lua:102: per-agent pending capacity",
+        "gap_since_previous_end_us": 662,
+        "last_slot_before": 7527,
+        "lua_heap_kib": 2887586.69140625,
+        "phases": {
+          "failed_phase": 231708,
+          "receive": 1205,
+          "return_audit": 15
+        },
+        "sim_before_us": 1881907287,
+        "sim_us": 1882130277,
+        "slot": 7528,
+        "work_us": 232931
+      }
+    ]
+  },
+  "runtime_timing_available": false,
+  "runtime_uncompressed_sha256": "3d12a81fd60d814b3d57464b8be49b212f391b26132133f2a22e61208d0bd340",
+  "limitations": [
+    "World export timed out; no full World replay",
+    "Runtime timing and live GC aggregates unavailable",
+    "Other host workload overlapped actual run",
+    "Progress returns are periodic, not final audited totals"
+  ]
+}

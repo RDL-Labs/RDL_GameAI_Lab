@@ -28,6 +28,24 @@ class CampaignAgent(DayCycleAgent):
     harvest_state=False
     allowed_agent_ids=tuple("npc_"+c for c in "abcdef")
 
+    def _stage_day_state(self, old):
+        # Completed night entries and initial home evidence are never edited.
+        # Copy the list for a possible append, and all mutable current state.
+        state=deepcopy({k:v for k,v in old.items() if k not in ("nights","home_memory")})
+        state["nights"]=list(old["nights"])
+        state["home_memory"]=old["home_memory"]
+        return state
+
+    def _store_decision(self, decision):
+        stored=deepcopy({k:v for k,v in decision.items() if k!="day_cycle"})
+        stored["day_cycle"]=self._stage_day_state(decision["day_cycle"])
+        return stored
+
+    def _snapshot_decisions(self):
+        # Expand shared history at the public boundary. Separate deepcopy memos
+        # preserve independence between caller-visible decision records too.
+        return {key:deepcopy(value) for key,value in self.decisions.items()}
+
     def _decision(self, packet):
         decision=super()._decision(packet)
         if self.mb_field_mode != "off":

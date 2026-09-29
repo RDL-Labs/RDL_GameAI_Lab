@@ -138,6 +138,9 @@ class ResourceExploration(FiniteExploration):
                 require(sum(r["acquired"] for r in self.results.values()) < self.inventory_capacity, "inventory_capacity")
             return super().result(value)
 
+    def _snapshot_decisions(self):
+        return deepcopy(self.decisions)
+
     def snapshot(self):
         with self.lock:
             s = super().snapshot()
@@ -145,5 +148,5 @@ class ResourceExploration(FiniteExploration):
                               acquired_us=r["executed_us"]) for r in self.results.values() if r["acquired"]]
             s.update(schema=RESOURCE_SCHEMA, authority="initial-observed-control; learning-not-connected",
                      periods=self.periods, seed=self.seed, teaching=deepcopy(self.teaching),
-                     decisions=deepcopy(self.decisions), inventory=inventory)
+                     decisions=self._snapshot_decisions(), inventory=inventory)
             return s

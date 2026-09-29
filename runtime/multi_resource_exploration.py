@@ -92,6 +92,9 @@ class PredictableResourceAgent(ResourceExploration):
         d["counterfactual"] = {name:tendency(name, confirmations) for name in PROFILES}
         return d
 
+    def _store_decision(self, decision):
+        return deepcopy(decision)
+
     def observe(self, p):
         with self.lock:
             require(self.config is not None and self.teaching is not None, "not_configured")
@@ -111,7 +114,7 @@ class PredictableResourceAgent(ResourceExploration):
             finally:
                 self._prospective = None
                 self._cached_choice = None
-            self.decisions[p["observation_id"]] = deepcopy(d)
+            self.decisions[p["observation_id"]] = self._store_decision(d)
             self.learning, self.model = s, model
             return response
 

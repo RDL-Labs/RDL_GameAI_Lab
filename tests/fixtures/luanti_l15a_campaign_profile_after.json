@@ -1,0 +1,286 @@
+{
+  "schema": "campaign-offline-profile-v1",
+  "header": {
+    "run_id": "l15campaign-cc83773e7a58",
+    "periods": 30,
+    "mb_field_mode": "enabled",
+    "harvest_state": true,
+    "agent_count": 6,
+    "source_sha256": "a898caf9c8c7d2434bbac5eaf64c69b81c2ba9e006c64b6bc4e8784514375158"
+  },
+  "responses_verified": 69887,
+  "elapsed_us": 68414709,
+  "gc_thresholds": [
+    2000,
+    10,
+    10
+  ],
+  "stats": {
+    "storage_deepcopy": {
+      "count": 34260,
+      "total_us": 1103,
+      "max_us": 79
+    },
+    "configure": {
+      "count": 6,
+      "total_us": 133,
+      "max_us": 41
+    },
+    "advance": {
+      "count": 34943,
+      "total_us": 2340036,
+      "max_us": 173543
+    },
+    "day_deepcopy": {
+      "count": 13059,
+      "total_us": 51666,
+      "max_us": 1820
+    },
+    "day_decision": {
+      "count": 34943,
+      "total_us": 16531706,
+      "max_us": 506964
+    },
+    "campaign_deepcopy": {
+      "count": 139766,
+      "total_us": 1663382,
+      "max_us": 3545
+    },
+    "sensory_stage": {
+      "count": 34943,
+      "total_us": 5311432,
+      "max_us": 10635
+    },
+    "observe": {
+      "count": 34943,
+      "total_us": 61748408,
+      "max_us": 813829
+    },
+    "result": {
+      "count": 34938,
+      "total_us": 883703,
+      "max_us": 2298
+    }
+  },
+  "gc": {
+    "1": {
+      "count": 177,
+      "total_us": 558637,
+      "max_us": 8994
+    },
+    "0": {
+      "count": 1939,
+      "total_us": 2227999,
+      "max_us": 8794
+    },
+    "2": {
+      "count": 10,
+      "total_us": 4265411,
+      "max_us": 1014582
+    }
+  },
+  "slow": [
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "outside_call",
+      "elapsed_us": 120401,
+      "call": null
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "observe",
+      "elapsed_us": 188020,
+      "call": {
+        "kind": "observe",
+        "agent": "npc_d",
+        "capture_us": 273018205,
+        "gc_us": 188020
+      }
+    },
+    {
+      "type": "call",
+      "elapsed_us": 189793,
+      "kind": "observe",
+      "agent": "npc_d",
+      "capture_us": 273018205,
+      "gc_us": 188020
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "observe",
+      "elapsed_us": 244858,
+      "call": {
+        "kind": "observe",
+        "agent": "npc_e",
+        "capture_us": 367513177,
+        "gc_us": 244858
+      }
+    },
+    {
+      "type": "call",
+      "elapsed_us": 246751,
+      "kind": "observe",
+      "agent": "npc_e",
+      "capture_us": 367513177,
+      "gc_us": 244858
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "observe",
+      "elapsed_us": 323930,
+      "call": {
+        "kind": "observe",
+        "agent": "npc_d",
+        "capture_us": 457501342,
+        "gc_us": 323930
+      }
+    },
+    {
+      "type": "call",
+      "elapsed_us": 325911,
+      "kind": "observe",
+      "agent": "npc_d",
+      "capture_us": 457501342,
+      "gc_us": 323930
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "observe",
+      "elapsed_us": 399044,
+      "call": {
+        "kind": "observe",
+        "agent": "npc_d",
+        "capture_us": 575007311,
+        "gc_us": 399044
+      }
+    },
+    {
+      "type": "call",
+      "elapsed_us": 400409,
+      "kind": "observe",
+      "agent": "npc_d",
+      "capture_us": 575007311,
+      "gc_us": 399044
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "day_decision",
+      "elapsed_us": 506377,
+      "call": {
+        "kind": "observe",
+        "agent": "npc_a",
+        "capture_us": 720500835,
+        "gc_us": 506377
+      }
+    },
+    {
+      "type": "call",
+      "elapsed_us": 508195,
+      "kind": "observe",
+      "agent": "npc_a",
+      "capture_us": 720500835,
+      "gc_us": 506377
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "observe",
+      "elapsed_us": 633499,
+      "call": {
+        "kind": "observe",
+        "agent": "npc_c",
+        "capture_us": 903507805,
+        "gc_us": 633499
+      }
+    },
+    {
+      "type": "call",
+      "elapsed_us": 636033,
+      "kind": "observe",
+      "agent": "npc_c",
+      "capture_us": 903507805,
+      "gc_us": 633499
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "observe",
+      "elapsed_us": 812265,
+      "call": {
+        "kind": "observe",
+        "agent": "npc_a",
+        "capture_us": 1129024524,
+        "gc_us": 812265
+      }
+    },
+    {
+      "type": "call",
+      "elapsed_us": 813829,
+      "kind": "observe",
+      "agent": "npc_a",
+      "capture_us": 1129024524,
+      "gc_us": 812265
+    },
+    {
+      "type": "call",
+      "elapsed_us": 177288,
+      "kind": "observe",
+      "agent": "npc_b",
+      "capture_us": 1286260430,
+      "gc_us": 0
+    },
+    {
+      "type": "gc",
+      "generation": 2,
+      "phase": "outside_call",
+      "elapsed_us": 1014582,
+      "call": null
+    }
+  ],
+  "state_hashes": {
+    "npc_a": "1a805356df067165d7ba68069b186a9df64290633b4f2508e9ecd7ac519385ad",
+    "npc_b": "88689a5e5866bb6fa12dff539f83042a2be3da84166e32f0ed3d915ac1c599bb",
+    "npc_c": "dcc6e81f4166463d24e1bb26ca02e252553d60dc5f2d3b5c56b653e70e6097a1",
+    "npc_d": "4774d3efa18978c7f81660effc4f65ebbf1b59ced897d4bd061494d3414c42f6",
+    "npc_e": "79898a9c260028fa3d9ac2912ea429ff73c0c412f6a1b51d1697aae8b71184ab",
+    "npc_f": "91c8f2762dc361107f54367118d668eac0ebd37a6c8e1ef1d11eb65b1fb956be"
+  },
+  "night_storage": {
+    "npc_a": {
+      "references": 64064,
+      "distinct_entries": 22
+    },
+    "npc_b": {
+      "references": 64064,
+      "distinct_entries": 22
+    },
+    "npc_c": {
+      "references": 64064,
+      "distinct_entries": 22
+    },
+    "npc_d": {
+      "references": 64064,
+      "distinct_entries": 22
+    },
+    "npc_e": {
+      "references": 64064,
+      "distinct_entries": 22
+    },
+    "npc_f": {
+      "references": 64042,
+      "distinct_entries": 22
+    }
+  },
+  "source_sha256": {
+    "runtime/landmark_day_cycle.py": "485e16a932106c3f996b7a5a89338d5feeef6df9a942b4193ff94b5f9b7ecfbb",
+    "runtime/landmark_return_campaign.py": "9c2c4465919bebbcb9ebc9eeb74e1c5fe205dfa09cd93c7facca1247d92430d1",
+    "runtime/multi_resource_exploration.py": "6a6dfd97886a3630e0e50ed05efa5870f51fbfa4c13cfc4a7c7d0b8641546f3d",
+    "runtime/resource_exploration.py": "5a2dbf035464d7e7a225e75cb003464a3d3c12d96612b8f9d66c89ffceb188d0"
+  }
+}
