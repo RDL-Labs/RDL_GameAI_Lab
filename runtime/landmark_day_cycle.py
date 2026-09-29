@@ -98,6 +98,9 @@ class DayCycleAgent(SteeredResourceAgent):
     def _stage_day_state(self, old):
         return deepcopy(old)
 
+    def _return_review(self,p,memory,state,linked,result):
+        return home_review(p,memory,state,linked,result)
+
     def _decision(self,p):
         day, mode = p["capture_us"]//DAY_US, phase(p["capture_us"])
         last = next(reversed(self.decisions.values())) if self.decisions else None
@@ -132,7 +135,7 @@ class DayCycleAgent(SteeredResourceAgent):
                 model_ref=model.model_ref if model else None,exploration_started=False,
                 authority="initial observed homing and finite night review; no new model authority")
             if mode == "return":
-                d["action"],s["return_state"] = home_review(p,s["home_memory"],s["return_state"],linked,r if old and old["phase"] == "return" else None)
+                d["action"],s["return_state"] = self._return_review(p,s["home_memory"],s["return_state"],linked,r if old and old["phase"] == "return" else None)
                 d["reason"] = "return_"+(s["return_state"]["outcome"] or s["return_state"]["diagnostic"])
             if mode == "night" and (old is None or old["phase"] != "night"):
                 if s["return_state"]["outcome"] is None: s["return_state"]["outcome"] = "deadline"

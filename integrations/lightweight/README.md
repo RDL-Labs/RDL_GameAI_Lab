@@ -38,3 +38,5 @@ Use `timed_harvest --no-return-target` to continue until the day limit even afte
 The timed-harvest adapter now uses confirmed unload receipts to free carried capacity. The 96-item limit applies to current holdings, while acquisition history persists. Other Runtime integrations retain their prior accounting. Thirty-day infinite-stock continuation: 1046 pickups / 30 returns; see the latest evidence section.
 
 For an adopted-model comparison use `--inexhaustible-after-model --mb-field-mode enabled` (or `disabled`) with `--no-return-target --skyline-subrays`. This starts finite and freezes remaining stock on actual adoption. See `docs/experiment-evidence/LW_mb_stock_evidence.md`; field application changed actions, but did not improve returns.
+
+Timed-harvest return now keeps the home purpose while searching observed landmarks after home loss. Search/homing switches share finite daily budgets; night still ends movement. See `LW_home_search_evidence.md`: actual reacquisition occurred, but deliveries did not improve.
