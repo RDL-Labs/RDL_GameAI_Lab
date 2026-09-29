@@ -298,3 +298,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 
 
 2026-09-29: [入れ子の局所モデル選択](docs/experiment-evidence/LW_nested_local_models_evidence.md) — 有限opt-in。survey/approach/work/repositionごとに問い・結果・Hを保持し、上位Hと代替Hから位置変更を提案。30日60採取・60配送8便、Cも1単位と後半毎日の並進。58テストPASS。canonical再構成・全既存M_Bの統一・Luantiは未接続。
+
+
+2026-09-29: [局所モデル3seed比較](docs/experiment-evidence/LW_nested_seed_evidence.md) — 追加2run＋既存1run、各3個体30日。全270個体日に並進、終日並進0なし。採取・配送72/96/60。効率は判定対象外、World配置だけ変更。
