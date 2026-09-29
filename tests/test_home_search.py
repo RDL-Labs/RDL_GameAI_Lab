@@ -45,15 +45,27 @@ class HomeSearchTests(unittest.TestCase):
         a=HarvestAgent('test','npc_a','steady',periods=3)
         old=dict(day=0,return_state=dict(outcome='search_operation_budget'),home_pending=False,nights=[{'day':0,'return_outcome':'search_operation_budget'}])
         state=deepcopy(old)
-        self.assertEqual(a._activity_phase({'capture_us':DAY_US},state,old),'orientation')
+        self.assertEqual(a._activity_phase({'observation_id':'test-observation','capture_us':DAY_US},state,old),'orientation')
         self.assertTrue(state['home_pending']);self.assertEqual(state['nights'],old['nights'])
         state['day']=1;prior=deepcopy(state)
-        self.assertEqual(a._activity_phase({'capture_us':DAY_US+1000000},state,prior),'return')
-        self.assertEqual(a._activity_phase({'capture_us':DAY_US+56000000},state,prior),'night')
+        self.assertEqual(a._activity_phase({'observation_id':'test-observation','capture_us':DAY_US+1000000},state,prior),'return')
+        self.assertEqual(a._activity_phase({'observation_id':'test-observation','capture_us':DAY_US+56000000},state,prior),'night')
         old=dict(day=1,return_state=dict(outcome='home_like_observed'),home_pending=True)
         state=deepcopy(old)
-        self.assertEqual(a._activity_phase({'capture_us':2*DAY_US+1000000},state,old),'exploration')
+        self.assertEqual(a._activity_phase({'observation_id':'test-observation','capture_us':2*DAY_US+1000000},state,old),'exploration')
         self.assertFalse(state['home_pending'])
         a.results['picked']=dict(acquired=True)
         state=deepcopy(old)
-        self.assertEqual(a._activity_phase({'capture_us':2*DAY_US+1000000},state,old),'return')
+        self.assertEqual(a._activity_phase({'observation_id':'test-observation','capture_us':2*DAY_US+1000000},state,old),'return')
+
+    def test_landmark_first_is_bounded_and_home_near_still_wins(self):
+        a,p,s=self.setup();s['method']='landmark_first';s['outcome']=None
+        p['skyline']['features']=[dict(ref='home',color='ochre',azimuth=[25,35],elevation=15,range_band='far')]
+        action,out=review(a,p,dict(color='ochre'),s,True,None)
+        self.assertEqual(action,['move',1]);self.assertEqual(out['search']['mode'],'searching')
+        out['search']['operations']=8
+        action,out=review(a,p,dict(color='ochre'),out,True,None)
+        self.assertEqual(action,['turn',30]);self.assertEqual(out['search']['mode'],'homing')
+        p['skyline']['features'][0]['range_band']='near'
+        action,out=review(a,p,dict(color='ochre'),s,True,None)
+        self.assertEqual(action,['wait',0]);self.assertEqual(out['outcome'],'home_like_observed')

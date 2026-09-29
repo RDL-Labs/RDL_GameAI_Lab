@@ -1,0 +1,20 @@
+# Goal-scoped Difference/residual pilot
+
+Baseline b9e8639. Local Core SPEC was checked: F/F-prime use the same pre-update interpretation model; missingness is not E; canonical theta crossing is not automatically an action gate. This implementation is a GameAI-local goal hypothesis comparator, not admission to canonical Core E/H, M_delta or T1. Existing adopted harvest M_B is unchanged. Only the home goal is integrated; other goals are not silently covered.
+
+The explicit, supplied goal hypothesis `home-trial-confirmation-hypothesis-v1` expects a daily home-search trial to produce home confirmation. This is an experimental expectation, not a learned probability of return or evidence that the destination exists at a hidden coordinate. Each trial freezes goal ID, model ref, opening observation/time and F(home_confirmed=1). At next morning, F-prime is confirmed delivery or home-like appearance with no cargo. Unconfirmed trials with complete observed skyline records and home memory compare to 0; missing/incomplete conditions defer. E is 1 for comparable nonconfirmation, 0 for confirmation; H retains unresolved units across nights. Confirmed return resolves current H to zero, preserving all records. This is goal-level residual, not per-tick punishment, physical fatigue, or summing subgoal failures again.
+
+Receipts are evaluated once per trial; matching retries do not add H, conflicting retries reject. Thirty-day simulation means at most 29 closed daily trials; day30 remains open without a next-morning observation. The trial comparison does not claim World absence or universal route failure. Goal history lives in decision state and is committed with the existing observation path.
+
+Local method-review threshold is 2. Disabled logs the same E/H but does not change method. Enabled uses `landmark_first`: first up to eight search body operations consider observed landmarks before far home-like appearance. Near home-like appearance still wins; after eight operations normal homing priority returns. Existing total search/homing budgets, night waits, collision execution, cargo receipts and observation completeness rules remain. This is a fixed alternative search method supplied by the experiment, not invention of a new method or canonical model reconstruction. If no observed landmark is available, no unseen direction is manufactured.
+
+## Actual paired 30-day runs
+
+Same sparse seed20260928, A/B/C steady profiles, adopted harvest field enabled, finite stock until actual adoption then persistent remaining resources, no return-count stop. Both completed with exit0. Disabled matches prior overnight behavior: 43 pickups, two deliveries totaling24, carried19. Enabled: 67 pickups, four deliveries totaling67, carried0. Only C harvested.
+
+C H and behavior: day4 H=1; day5 H=2, alternative method starts (32 movement vs disabled44); day6 H=3, returns the previously carried19; day7 H=0, resumes Food activity and returns another24. Disabled H continues to27 by day30 with repeated44 daily movement. Enabled days8–30 movement/pickups are zero: this home-goal experiment does not solve later Food exploration inactivity. It is not evidence of universal continuous exploration.
+
+This single seed demonstrates local goal residual -> method change -> changed World outcome under the paired intervention. It does not establish general efficiency, biologically validated emotion, learned route planning, or completed canonical T1. Other goals still need their own comparison contracts.
+
+Reproduction: timed_harvest with `--days 30 --skyline-subrays --no-return-target --inexhaustible-after-model --mb-field-mode enabled --goal-difference-mode enabled` or `disabled`. Default remains disabled. Artifacts: `lightweight_goal_eh_enabled.jsonl.gz`, `lightweight_goal_eh_disabled.jsonl.gz`, `lightweight_goal_eh_comparison.json`, including source hashes, goal comparison traces, trajectories, manifest and summary. Full suite/live Luanti not rerun.
+Focused checks: goal comparator 2 PASS; home search 6 PASS; timed harvest 5 PASS (13 total).

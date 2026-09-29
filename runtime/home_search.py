@@ -22,11 +22,12 @@ def review(agent,packet,memory,state,linked,result):
     # collision is handled by the landmark controller, not attributed to home.
     probe=deepcopy(s);probe['outcome']=None
     action,h=home_review(packet,memory,probe,linked,result if search['mode']=='homing' else None)
-    if h['diagnostic']=='appearance_candidate' and h['outcome'] in (None,'home_like_observed'):
+    prefer_search=s.get('method')=='landmark_first' and search['operations']<8 and h['outcome']!='home_like_observed'
+    if not prefer_search and h['diagnostic']=='appearance_candidate' and h['outcome'] in (None,'home_like_observed'):
         search['mode']='homing';search['landmark']['stage']='suspended'
         h['search']=search
         return action,h
-    if search['mode']=='homing' and h['outcome'] not in ('not_observed','ambiguous','blocked'):
+    if not prefer_search and search['mode']=='homing' and h['outcome'] not in ('not_observed','ambiguous','blocked'):
         return action,h
     search['mode']='searching'
     s['outcome']=None
