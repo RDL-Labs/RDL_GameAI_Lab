@@ -43,3 +43,5 @@ Timed-harvest return now keeps the home purpose while searching observed landmar
 
 Unresolved return now carries overnight in timed harvest: next-day exploration time is allocated to home search, with cargo/history retained. Night remains stationary. See `LW_overnight_home_evidence.md`; 30-day daily resumption passed, but return remained unresolved and repeated paths persisted.
 `--goal-difference-mode enabled` enables the local home-goal residual/method experiment; default disabled. See docs/experiment-evidence/LW_goal_difference_evidence.md for the supplied comparison hypothesis, Core boundary, and paired 30-day outcome (24 vs 67 delivered).
+
+`--food-goal-mode enabled` uses the shared goal comparator for Food and permits bounded rescanning after unmet trials. Home/Food residuals remain separate. Parent references are metadata, not a recursive planner. See `LW_generic_goal_evidence.md`: real rescan actions occurred, but yields did not improve.

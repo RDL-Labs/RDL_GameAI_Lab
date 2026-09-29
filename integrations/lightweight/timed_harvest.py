@@ -43,12 +43,30 @@ class HarvestAgent(ApproachAgent):
             return True
 
     goal_difference_mode='disabled'
+    food_goal_mode='disabled'
 
     def _activity_phase(self,p,state,old):
-        from runtime.goal_difference import initial,begin,finish
-        state.setdefault('goal_difference',initial(self.agent_id+':home'))
+        from runtime.goal_difference import initial,begin,finish,method
+        parent=self.agent_id+':food-security'
+        state.setdefault('goal_difference',initial(self.agent_id+':home',parent_goal_id=parent))
+        state.setdefault('food_goal',initial(self.agent_id+':food','food-trial-acquisition-hypothesis-v1',
+            'food_acquired',parent_goal_id=parent))
+        state.setdefault('food_review_scans',0)
         g=state['goal_difference']
         new_day=old is not None and p['capture_us']//DAY_US!=old['day']
+        food=state['food_goal']
+        if new_day:
+            state['food_review_scans']=0
+            if food['trial'] is not None:
+                start=food['trial']['source']['capture_us']
+                records=[r for r in self.results.values() if start<=r['executed_us']<(old['day']*DAY_US+32000000)]
+                packets=[q for q in self.observations.values() if start<=q['capture_us']<(old['day']*DAY_US+32000000)]
+                confirmed=any(r['acquired'] for r in records)
+                comparable=confirmed or (bool(records) and bool(packets) and
+                    all(q['food']['coverage']=='complete' for q in packets) and
+                    all(r['status'] not in ('stale','expired') for r in records))
+                food=finish(food,food['trial']['trial_id'],confirmed,comparable,p['observation_id'])
+                state['food_goal']=food
         if new_day and g['trial'] is not None:
             delivered=any(r['executed_us']//DAY_US==old['day'] for r in self.unload_receipts.values())
             confirmed=delivered or (old['return_state']['outcome']=='home_like_observed' and self.carried_count()==0)
@@ -68,7 +86,11 @@ class HarvestAgent(ApproachAgent):
         if effective=='return' and g['trial'] is None:
             state['goal_difference']=begin(g,self.agent_id+':home:'+str(p['capture_us']//DAY_US),
                 dict(observation_id=p['observation_id'],capture_us=p['capture_us']))
-        state['return_state']['method']='landmark_first' if self.goal_difference_mode=='enabled' and state['goal_difference']['H']>=g['threshold'] else 'home_first'
+        if effective=='exploration' and food['trial'] is None:
+            state['food_goal']=begin(food,self.agent_id+':food:'+str(p['capture_us']//DAY_US),
+                dict(observation_id=p['observation_id'],capture_us=p['capture_us']))
+        state['food_method']=method(state['food_goal'],self.food_goal_mode=='enabled','existing_exploration','bounded_rescan')
+        state['return_state']['method']=method(state['goal_difference'],self.goal_difference_mode=='enabled','home_first','landmark_first')
         return effective
 
     def _return_review(self,p,memory,state,linked,result):
@@ -82,6 +104,12 @@ class HarvestAgent(ApproachAgent):
 
     def _decision(self,p):
         d=super()._decision(p)
+        state=d['day_cycle']
+        if (state['phase']=='exploration' and state['food_method']=='bounded_rescan'
+                and d['action'][0]=='wait' and d['reason'] in ('landmark_no_candidate_after_scan','landmark_goal_budget','landmark_operation_budget')
+                and state['food_review_scans']<4):
+            state['food_review_scans']+=1
+            d.update(action=['turn',90],target='',reason='food_goal_rescan',terrain_gate='goal_review')
         if d['action'][0]=='pickup' and p['capture_us']+WORK_US>=self.expiry(p['capture_us']):
             d.update(action=['wait',0],target='',reason='harvest_work_deadline')
         # Only bypass the combined appearance gate, never a body/life/variation gate.
@@ -124,19 +152,21 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled"):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled"):
     import json,time
     from pathlib import Path
     if stop_after_returns is not None and (type(stop_after_returns) is not int or stop_after_returns < 1):raise ValueError('return_target')
     w=World('lw-work',layout='sparse');loop=HarvestCampaign(w.run_id,days,mb_field_mode=mb_field_mode,harvest_state=True)
-    for agent in loop.agents.values():agent.goal_difference_mode=goal_difference_mode
+    for agent in loop.agents.values():
+        agent.goal_difference_mode=goal_difference_mode
+        agent.food_goal_mode=food_goal_mode
     w.skyline_subrays=skyline_subrays
     w.inexhaustible=inexhaustible
     scheduler=WorkScheduler(w);start=time.perf_counter();captures=0
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,stop_after_returns=stop_after_returns,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,stop_after_returns=stop_after_returns,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -158,7 +188,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
                     emit(dict(type='working_capture',packet=p,reason='body_busy' if aid in scheduler.pending else 'completion_boundary'))
                     continue
                 c=loop.observe(p)['command'];d=loop.agents[aid].decisions[p['observation_id']]
-                emit(dict(type='decision',packet=p,command=c,model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),mb_field=d.get('mb_field'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference']))
+                emit(dict(type='decision',packet=p,command=c,model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),mb_field=d.get('mb_field'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference'],food_goal=d['day_cycle']['food_goal'],food_method=d['day_cycle']['food_method'],food_review_scans=d['day_cycle']['food_review_scans']))
                 if inexhaustible_after_model and not w.inexhaustible and loop.agents[aid].model is not None:
                     w.inexhaustible=True
                     emit(dict(type='stock_mode_transition',capture_us=now,agent_id=aid,mode='inexhaustible',model=loop.agents[aid].model.to_json(),admission=loop.agents[aid].learning['admission'],stock=[x['stock'] for x in w.resources]))
@@ -176,5 +206,5 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
 
 if __name__=='__main__':
     import argparse,json
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');a=p.parse_args()
-    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode),indent=2))
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');a=p.parse_args()
+    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode),indent=2))
