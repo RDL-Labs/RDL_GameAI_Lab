@@ -1,0 +1,60 @@
+{
+  "type": "summary",
+  "reason": "time_limit",
+  "slots": 768,
+  "days_completed": 3,
+  "returns": [],
+  "pickups": 0,
+  "stock": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12
+  ],
+  "elapsed_seconds": 2.371925999992527,
+  "agents": {
+    "npc_a": {
+      "records": 0,
+      "model_ref": null,
+      "observations": 768,
+      "body": {
+        "x": -4.789029473193345,
+        "z": 2.6754366208739184,
+        "yaw": -15.0,
+        "revision": 51,
+        "inventory": 0
+      }
+    },
+    "npc_b": {
+      "records": 0,
+      "model_ref": null,
+      "observations": 768,
+      "body": {
+        "x": 28.90842443455105,
+        "z": 9.573900655394953,
+        "yaw": -165.0,
+        "revision": 50,
+        "inventory": 0
+      }
+    },
+    "npc_c": {
+      "records": 0,
+      "model_ref": null,
+      "observations": 768,
+      "body": {
+        "x": 2.0,
+        "z": 4.0,
+        "yaw": -45.0,
+        "revision": 1,
+        "inventory": 0
+      }
+    }
+  },
+  "source_sha256": "dbb1918aee2772b00c2647a7c397cb1750b2c226e30d071312abdabb4536e2a6",
+  "log_sha256": "e194c46df3fa7693fe415b0c58c1ea0fee9bbcdcb1e63e5ac0efe0b8fa5620fe",
+  "archive_bytes": 240019
+}

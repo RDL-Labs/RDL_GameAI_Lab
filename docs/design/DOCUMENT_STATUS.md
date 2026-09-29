@@ -229,3 +229,10 @@ Python仮想World＋既存ReturnCampaign＋p5再生を段階実装する。
 まず3個体・有限視覚・身体操作・増分ログを接続し、最大30日／3資源持帰りを観察する。
 目標Hの接続はWorld差し替え後の別工程。canonical Sleepの統合済みとは扱わない。
 Luanti長期負荷対策は保留し、節目の契約確認に残す。
+
+
+### LW-1 軽量World接続（2026-09-29）
+
+Pythonの有限2D Worldから既存ReturnCampaignへ直接接続。3個体・3日、各768観測を約2.37秒で実行。採取・持帰り・モデル形成は0件。
+[契約](/docs/experiment-contracts/LW_1_planar_world.md) / [Evidence](/docs/experiment-evidence/LW_1_planar_world_evidence.md)。
+p5再生は次工程、目標H・canonical Sleep接続は未実装。Luantiと同一物理・同一センサーとは扱わない。

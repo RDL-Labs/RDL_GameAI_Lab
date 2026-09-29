@@ -1,6 +1,6 @@
 # 軽量Worldと探索Runtime接続計画
 
-状態: DESIGN ONLY / 実装未着手
+状態: LW-0/1 FINITE IMPLEMENTED、LW-2以降未実装
 基準: `ae0f1ae`（2026-09-29）
 
 ## 目的
@@ -26,8 +26,8 @@ Luantiの長期安定運転を当面の主課題から外し、本人の経験�
 
 | 工程 | 作るもの | 確認すること | 状態 |
 | --- | --- | --- | --- |
-| LW-0 | packet/result対応表、仮想時計・身体・センサーの契約 | 必須入力、単位、ID、座標系、観測上限、既存schemaとの対応を固定 | NEXT |
-| LW-1 | Python 2D Worldと直接Runtime adapter | move/turn/wait/pickupと実結果、遮蔽、枯渇、3個体の独立性。まず1日、次に3日 | PLANNED |
+| LW-0 | packet/result対応表、仮想時計・身体・センサーの契約 | 必須入力、単位、ID、座標系、観測上限、既存schemaとの対応を固定 | COMPLETE（LW-1契約参照） |
+| LW-1 | Python 2D Worldと直接Runtime adapter | move/turn/wait/pickupと実結果、遮蔽、枯渇、3個体の独立性。まず1日、次に3日 | FINITE COMPLETE |
 | LW-2 | 増分ログとp5再生 | 個体視点と全景の分離、時刻・操作IDの追跡、停止/再生/速度変更 | PLANNED |
 | LW-3 | 有限な複数日比較 | 同じWorld seedでmodel field disabled/enabled、最大30日・3資源持帰りで停止 | PLANNED |
 | LW-4 | 目標に紐づく残存Hの独立契約と接続 | 未達の差、未解消分、減衰、閾値、方法再検査を追跡。方法変更と目標達成を分離 | DESIGN CANDIDATE |
@@ -78,3 +78,6 @@ p5は記録を読み取る。全景には「実験者用」と表示し、個体
 ## 停止境界
 
 初版はLuanti互換エンジンではなく、同じ探索Runtimeを用いる別World。3D物理、一般音響、任意通信障害、大規模個体群、神経・社会系の一括統合は必須にしない。研究対象は経験から行動への循環であり、成功率を上げるためのWorld真値利用や経路誘導は追加しない。
+
+
+実装記録: [LW-1契約](../experiment-contracts/LW_1_planar_world.md)、[3日Evidence](../experiment-evidence/LW_1_planar_world_evidence.md)。
