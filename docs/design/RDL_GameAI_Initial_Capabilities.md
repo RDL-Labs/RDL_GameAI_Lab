@@ -1,7 +1,9 @@
 # 初期能力と経験学習の境界
 
-状態: DESIGN ONLY。2026-09-29、照合基準 `68e595e`。
-本書は探索実験へ初期に与えてよい能力の設計方針であり、新しい方位入力・記憶・身体操作が実装済みという意味ではない。
+状態: 方位入力＋既存再見回しconsumerを有限実装。広い初期能力・方向保持は設計案。
+[初版契約](../experiment-contracts/LW_initial_orientation_contract.md) / [Evidence](../experiment-evidence/LW_initial_orientation_evidence.md)。
+以下の設計照合基準は `68e595e`。
+本書は探索実験へ初期に与えてよい能力の設計方針。実装範囲は初版契約を正本とし、目印方向の保持・帰還利用は未実装。
 
 ## 目的
 

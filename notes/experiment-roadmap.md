@@ -704,3 +704,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 ## 初期方位感覚の次工程
 
 [初期能力の設計](../docs/design/RDL_GameAI_Initial_Capabilities.md)は DESIGN ONLY。次は粗い昼夜共通の方位入力と有限consumerを契約化し、同条件の有無比較を行う。目印学習・帰還先知識・地面の取得不完了を分離し、改善を前提にしない。
+
+
+2026-09-29: [初期方位感覚の有限実装](../docs/experiment-evidence/LW_initial_orientation_evidence.md) — 昼夜共通30度幅の入力と既存再見回しの左右選択へopt-in接続。3日比較で旋回差、採取・帰還改善なし。上記DESIGN ONLYは導入前履歴。方向記憶・帰還利用・Luantiは未接続。
