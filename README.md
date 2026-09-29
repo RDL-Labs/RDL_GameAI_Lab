@@ -276,3 +276,7 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 `--inexhaustible`で資源を減らさず実行。Cは同じ餌場で32/34/30採取、3日目の3回持帰りで終了。
 移動距離36/30/28、M_B形成0のため学習による経路短縮とは扱わない。既存累計96上限は維持。
 [Evidence](/docs/experiment-evidence/LW_inexhaustible_evidence.md)。
+
+## 初期能力の設計
+
+[初期能力と経験学習の境界](docs/design/RDL_GameAI_Initial_Capabilities.md)（DESIGN ONLY）を追加。昼夜の粗い相対方位を初期能力として与える案と、経験から学ぶ場所・経路・目印関係を分離。runtime変更なし。
