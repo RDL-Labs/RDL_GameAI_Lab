@@ -28,15 +28,19 @@ def record(trail,p,result):
     color=choices[0][1]
     if trail['points'] and trail['points'][-1]['color']==color:return
     if len(trail['points'])>=MAX_POINTS:trail['overflow']=True;return
-    trail['points'].append(dict(color=color,source=p['observation_id'],capture_us=p['capture_us'],pose_ref=p['pose_ref'],result=result['operation_id']))
+    from .relational_movement import scene
+    trail['points'].append(dict(color=color,scene=scene(p) or [],source=p['observation_id'],capture_us=p['capture_us'],pose_ref=p['pose_ref'],result=result['operation_id']))
 
 
-def admit(routes,goal,points,receipt):
+def admit(routes,goal,points,receipt,*,relational=False):
     """Credit the actually observed directional sequence, once per delivery."""
     if not points:return []
     added=[]
     for target,seq,reverse in [(goal,points,False),('home' if goal=='food' else 'food',list(reversed(points)),True)]:
-        key=sha256(repr([target,[p['color'] for p in seq]]).encode()).hexdigest()[:16]
+        signature=[target,[p['color'] for p in seq]]
+        if relational:
+            signature.append([[(a['color'],b['color'],round((b['angle']-a['angle'])/15)) for i,a in enumerate(p.get('scene',[])) for b in p.get('scene',[])[i+1:]] for p in seq])
+        key=sha256(repr(signature).encode()).hexdigest()[:16]
         if key not in routes:
             if len(routes)>=MAX_ROUTES:continue
             routes[key]=dict(goal=target,points=deepcopy(seq),support=0,H=0,receipts=[],proposals=[])
@@ -50,7 +54,7 @@ def admit(routes,goal,points,receipt):
     return added
 
 
-def review(agent,p,d):
+def review(agent,p,d,*,propose_only=False):
     d=deepcopy(d);previous=next(reversed(agent.observations.values())) if agent.observations else None
     last=agent.decisions.get(previous['observation_id'],{}) if previous else {}
     s=deepcopy(last.get('directional_routes')) if last.get('directional_routes') else dict(rule=RULE,binding=[p['run_id'],p['agent_id']],routes={},trip=None,day=-1,at_home=False,outbound=dict(points=[],overflow=False))
@@ -84,7 +88,7 @@ def review(agent,p,d):
         receipt=agent.unload_receipts[result['operation_id']]
         if s['trip']['pickup'] in receipt['pickups']:
             for target,trail in [('food',s['trip']['outbound']),('home',s['trip']['inbound'])]:
-                if trail and not trail['overflow']:s['admissions']+=admit(s['routes'],target,trail['points'],result['operation_id'])
+                if trail and not trail['overflow']:s['admissions']+=admit(s['routes'],target,trail['points'],result['operation_id'],relational=propose_only)
             s['trip']=None;s['active']=None;s['at_home']=True;s['outbound']=dict(points=[],overflow=False)
     if s['day']!=day:
         dc=last.get('day_cycle',{})
@@ -104,6 +108,7 @@ def review(agent,p,d):
         key=s.get('active')
         if key in s['routes'] and key not in s['failed']:
             fail(key,'actual_blocked')
+    if propose_only:return d
     for key,node in s['routes'].items():
         if node['goal']!=goal or key in s['failed'] or node['H']>=2:continue
         cursor=s['cursors'].get(key,0)

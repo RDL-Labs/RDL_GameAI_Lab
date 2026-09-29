@@ -324,3 +324,7 @@ FINITE IMPLEMENTED / opt-in。`runtime/food_revisit.py`、[契約](../experiment
 ### 2026-09-29 — 双方向の経路候補
 
 FINITE IMPLEMENTED / opt-in。`runtime/directional_routes.py`。[契約・Evidence](../experiment-evidence/LW_directional_routes.md)。実往復の方向別支持、未検証逆順候補、現在目標による優先切替。自然Worldで両目的の逆順選択を確認。粗い色系列による局所運用仮説でありcanonical T1/M_B採用や一般場所同定ではない。効率改善は未成立。
+
+### 2026-09-29 — 角度関係による有限移動場
+
+FINITE IMPLEMENTED / opt-in。[契約](../experiment-evidence/LW_relation_field_contract.md)、[Evidence](../experiment-evidence/LW_relation_field_evidence.md)。二つ以上の目印角度間隔、現在terrain、直接目標を共通の5方向候補で評価。経路owner保持と旋回後の一歩を有限接続。正確な位置復元・全判断機構の一般調停・canonical T1採用は未実装。軽量30日で移動継続は改善、配送量は減少。
