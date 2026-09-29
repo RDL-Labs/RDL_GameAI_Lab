@@ -315,3 +315,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-29: [経験による経路候補の相対重み](docs/experiment-evidence/LW_route_weight.md) — 関係場v2。成功支持/Hから有限weightを計算し、比較可能な代替候補が強まれば旧候補の相対寄与が低下。未使用減衰なし。65 tests PASS、軽量5日完走、集計はv1と同じ。
 
 2026-09-29: [動く危険物体と安全確保M_Bの計画](docs/design/RDL_GameAI_Moving_Hazard_Safety_Plan.md) — DESIGN ONLY。初期の危険知識、食料目的の保留、退避・待機・再観測、限定安全確認後の再選択。経路支持を割込みだけで消さない。実装・試験は未実施。
+
+2026-09-29: [M_B強化の非線形化メモ](docs/design/RDL_GameAI_MB_Reinforcement_Nonlinearity.md) — DESIGN ONLY。証拠量・更新量・現在寄与を分離し、説明力とDifferenceから更新逓減が生じるかを検査する方針。現行supportは飽和カウンタ。runtime変更なし。
