@@ -320,3 +320,7 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 ### 2026-09-29 — 成功した採取方法の翌日再訪
 
 FINITE IMPLEMENTED / opt-in。`runtime/food_revisit.py`、[契約](../experiment-evidence/LW_food_revisit_contract.md)、[Evidence](../experiment-evidence/LW_food_revisit_evidence.md)。日課のexploration枠内で成功目印への再訪を選択。記憶・Hは日越し保持し、有限試行不成立なら探索へ。単純Worldの再訪取得4試行、自然配置の再訪取得0。一般的な場所同定/経路記憶、canonical T1採用は未実装。
+
+### 2026-09-29 — 双方向の経路候補
+
+FINITE IMPLEMENTED / opt-in。`runtime/directional_routes.py`。[契約・Evidence](../experiment-evidence/LW_directional_routes.md)。実往復の方向別支持、未検証逆順候補、現在目標による優先切替。自然Worldで両目的の逆順選択を確認。粗い色系列による局所運用仮説でありcanonical T1/M_B採用や一般場所同定ではない。効率改善は未成立。
