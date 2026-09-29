@@ -298,3 +298,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 
 
 2026-09-29: [初期方位感覚の有限実装](../experiment-evidence/LW_initial_orientation_evidence.md) — 昼夜共通30度幅の入力と既存再見回しの左右選択へopt-in接続。3日比較で旋回差、採取・帰還改善なし。上記DESIGN ONLYは導入前履歴。方向記憶・帰還利用・Luantiは未接続。
+
+
+2026-09-29: [初期方位30日比較](../experiment-evidence/LW_initial_orientation_evidence.md) — seed20260930・3個体、あり／なし双方完走。Aの112見回し中28回が左、総移動は53/3/2で同じ、採取・配送0。B/Cの取得不完了待機は継続。改善未確認、runtime変更なし。

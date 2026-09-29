@@ -1,0 +1,1542 @@
+{
+  "runs": [
+    {
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "orientation_mode": "disabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.4804237644239935,
+            "z": 31.407022591474394,
+            "radius": 0.8000925422261725,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -2.5409673849977352,
+            "z": -14.941927231833446,
+            "radius": 1.379593532354185,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 0.9632951928890053,
+            "z": 26.87956422765719,
+            "radius": 1.3820725199635218,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 40.917066585249465,
+            "z": 1.365747337842609,
+            "radius": 1.3735967520994907,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -10.763175732777919,
+            "z": 25.168944265170428,
+            "radius": 0.8463480792036165,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.680331222197821,
+            "z": 31.407022591474394,
+            "stock": 12
+          },
+          {
+            "x": 2.685879459809848,
+            "z": 41.27477438131782,
+            "stock": 12
+          },
+          {
+            "x": 16.374628567988346,
+            "z": 32.67047418657611,
+            "stock": 12
+          },
+          {
+            "x": -0.1613738526435502,
+            "z": -14.941927231833446,
+            "stock": 12
+          },
+          {
+            "x": 5.273084457019506,
+            "z": 15.876683339686771,
+            "stock": 12
+          },
+          {
+            "x": 42.66751027369044,
+            "z": -8.379395976129905,
+            "stock": 12
+          },
+          {
+            "x": 3.345367712852527,
+            "z": 26.87956422765719,
+            "stock": 12
+          },
+          {
+            "x": -32.73299435206351,
+            "z": -10.681564291478802,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20260930
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 0,
+        "returns": [],
+        "elapsed_seconds": 55.30591390002519,
+        "stock": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_c": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "movement": 53,
+          "pickups": 0,
+          "turns": 237,
+          "rescans": 112,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 29,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        },
+        "npc_b": {
+          "movement": 3,
+          "pickups": 0,
+          "turns": 1,
+          "rescans": 0,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 29,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        },
+        "npc_c": {
+          "movement": 2,
+          "pickups": 0,
+          "turns": 1,
+          "rescans": 0,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 29,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        }
+      },
+      "sha256": "a51a4dcde6923b5bcbf5f5d7cff44070fcda1587930b073780fae6813940f4c8",
+      "decision_reasons": {
+        "npc_a": {
+          "day_orientation": 120,
+          "landmark_no_candidate": 114,
+          "landmark_active": 15,
+          "observed_material_terrain_heading_held": 18,
+          "acquisition_incomplete": 212,
+          "return_not_observed": 4,
+          "return_appearance_candidate": 26,
+          "return_home_like_observed": 2850,
+          "day_night": 960,
+          "observed_material_terrain_turn_minimum": 1,
+          "food_goal_rescan": 112,
+          "landmark_no_candidate_after_scan": 3248
+        },
+        "npc_b": {
+          "day_orientation": 120,
+          "landmark_active": 4,
+          "landmark_ambiguous": 1,
+          "acquisition_incomplete": 3715,
+          "return_home_like_observed": 2880,
+          "day_night": 960
+        },
+        "npc_c": {
+          "day_orientation": 120,
+          "landmark_active": 1,
+          "observed_material_terrain_heading_held": 1,
+          "observed_material_terrain_turn_minimum": 1,
+          "acquisition_incomplete": 3717,
+          "return_home_like_observed": 2880,
+          "day_night": 960
+        }
+      },
+      "days": {
+        "1": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 28
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 3
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 2
+          }
+        },
+        "2": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 25
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "3": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "4": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "5": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "6": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "7": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "8": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "9": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "10": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "11": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "12": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "13": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "14": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "15": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "16": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "17": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "18": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "19": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "20": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "21": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "22": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "23": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "24": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "25": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "26": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "27": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "28": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "29": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "30": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        }
+      }
+    },
+    {
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "orientation_mode": "enabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.4804237644239935,
+            "z": 31.407022591474394,
+            "radius": 0.8000925422261725,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -2.5409673849977352,
+            "z": -14.941927231833446,
+            "radius": 1.379593532354185,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 0.9632951928890053,
+            "z": 26.87956422765719,
+            "radius": 1.3820725199635218,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 40.917066585249465,
+            "z": 1.365747337842609,
+            "radius": 1.3735967520994907,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -10.763175732777919,
+            "z": 25.168944265170428,
+            "radius": 0.8463480792036165,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.680331222197821,
+            "z": 31.407022591474394,
+            "stock": 12
+          },
+          {
+            "x": 2.685879459809848,
+            "z": 41.27477438131782,
+            "stock": 12
+          },
+          {
+            "x": 16.374628567988346,
+            "z": 32.67047418657611,
+            "stock": 12
+          },
+          {
+            "x": -0.1613738526435502,
+            "z": -14.941927231833446,
+            "stock": 12
+          },
+          {
+            "x": 5.273084457019506,
+            "z": 15.876683339686771,
+            "stock": 12
+          },
+          {
+            "x": 42.66751027369044,
+            "z": -8.379395976129905,
+            "stock": 12
+          },
+          {
+            "x": 3.345367712852527,
+            "z": 26.87956422765719,
+            "stock": 12
+          },
+          {
+            "x": -32.73299435206351,
+            "z": -10.681564291478802,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20260930
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 0,
+        "returns": [],
+        "elapsed_seconds": 54.6533075000043,
+        "stock": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_c": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "movement": 53,
+          "pickups": 0,
+          "turns": 238,
+          "rescans": 112,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 29,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        },
+        "npc_b": {
+          "movement": 3,
+          "pickups": 0,
+          "turns": 1,
+          "rescans": 0,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 29,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        },
+        "npc_c": {
+          "movement": 2,
+          "pickups": 0,
+          "turns": 1,
+          "rescans": 0,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 29,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        }
+      },
+      "sha256": "9d2a009a791f70e99b348946318c62610163b779c319081604dc37933972cf54",
+      "decision_reasons": {
+        "npc_a": {
+          "day_orientation": 120,
+          "landmark_no_candidate": 114,
+          "landmark_active": 15,
+          "observed_material_terrain_heading_held": 18,
+          "acquisition_incomplete": 212,
+          "return_not_observed": 5,
+          "return_appearance_candidate": 26,
+          "return_home_like_observed": 2849,
+          "day_night": 960,
+          "observed_material_terrain_turn_minimum": 1,
+          "food_goal_rescan": 112,
+          "landmark_no_candidate_after_scan": 3248
+        },
+        "npc_b": {
+          "day_orientation": 120,
+          "landmark_active": 4,
+          "landmark_ambiguous": 1,
+          "acquisition_incomplete": 3715,
+          "return_home_like_observed": 2880,
+          "day_night": 960
+        },
+        "npc_c": {
+          "day_orientation": 120,
+          "landmark_active": 1,
+          "observed_material_terrain_heading_held": 1,
+          "observed_material_terrain_turn_minimum": 1,
+          "acquisition_incomplete": 3717,
+          "return_home_like_observed": 2880,
+          "day_night": 960
+        }
+      },
+      "days": {
+        "1": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 28
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 3
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 2
+          }
+        },
+        "2": {
+          "npc_a": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 25
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "3": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "4": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "5": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "6": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "7": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "8": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "9": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "10": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "11": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "12": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "13": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "14": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "15": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "16": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "17": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "18": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "19": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "20": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "21": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "22": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "23": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "24": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "25": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "26": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "27": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "28": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "29": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        },
+        "30": {
+          "npc_a": {
+            "reviews": 4,
+            "left_rescans": 1,
+            "moves": 0
+          },
+          "npc_b": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          },
+          "npc_c": {
+            "reviews": 0,
+            "left_rescans": 0,
+            "moves": 0
+          }
+        }
+      }
+    }
+  ]
+}
