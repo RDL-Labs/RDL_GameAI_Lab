@@ -42,9 +42,11 @@ def distant_patches(features, mode):
 class World:
     version = 'lw-planar-world-v1'
 
-    def __init__(self, run_id='lw-demo', seed=20260928, distant_mode='rays'):
+    def __init__(self, run_id='lw-demo', seed=20260928, distant_mode='rays', layout='dense'):
         distant_patches([],distant_mode)
         self.distant_mode=distant_mode
+        if layout not in ('dense','sparse'):raise ValueError('layout')
+        self.layout=layout
         self.run_id, self.seed = run_id, seed
         rng = Random(seed)
         self.objects = [dict(x=0., z=8., radius=1., height=12., color='ochre', solid=True)]
@@ -57,6 +59,9 @@ class World:
         # Patches are distinct from visual trunks; association is not taught.
         for obj in self.objects[1:9]:
             self.resources.append(dict(x=obj['x']+obj['radius']+1., z=obj['z'], stock=12))
+        # Keep food positions/stock identical: vary only visible solid objects.
+        if layout=='sparse':
+            self.objects=[self.objects[i] for i in (0,1,4,7,10,14)]
         self.agents = {f'npc_{c}':dict(x=float(i*2-2), z=4., yaw=0., revision=0, inventory=0)
                        for i,c in enumerate('abc')}
         self.effects, self.tokens = {}, {a:{} for a in self.agents}
@@ -190,18 +195,18 @@ class World:
         return r
 
 
-def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo', distant_mode='rays'):
+def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo', distant_mode='rays', layout='dense'):
     """Append complete JSON lines; an interrupted file retains its valid prefix."""
     import json, time
     from pathlib import Path
-    world=World(run_id,seed,distant_mode);loop=ReturnCampaign(run_id,days,seed,mb_field_mode=mode,harvest_state=True)
+    world=World(run_id,seed,distant_mode,layout);loop=ReturnCampaign(run_id,days,seed,mb_field_mode=mode,harvest_state=True)
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     started=time.perf_counter();slots=0
     with path.open('w',encoding='utf8') as stream:
         def emit(value):
             stream.write(json.dumps(value,separators=(',',':'),allow_nan=False)+'\n');stream.flush()
         emit(dict(type='manifest',version=world.version,run_id=run_id,seed=seed,days=days,model_field=mode,
-                  objects=world.objects,resources=world.resources,agents=world.agents,authority='experimenter-only World truth',
+                  layout=layout,objects=world.objects,resources=world.resources,agents=world.agents,authority='experimenter-only World truth',
                   clock='virtual integer microseconds',body_model='instant discrete one-unit step, no agent collisions',sensor='lw-planar-rays-v1' if distant_mode=='rays' else 'lw-planar-patches-v1'))
         for aid in world.agents:
             config=dict(world.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mode,
@@ -236,5 +241,6 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=3)
     p.add_argument('--seed',type=int,default=20260928);p.add_argument('--mode',choices=['enabled','disabled'],default='enabled')
     p.add_argument('--distant-mode',choices=['rays','patches'],default='rays')
-    args=p.parse_args();print(json.dumps(run(args.output,args.days,args.seed,args.mode,distant_mode=args.distant_mode),indent=2))
+    p.add_argument('--layout',choices=['dense','sparse'],default='dense')
+    args=p.parse_args();print(json.dumps(run(args.output,args.days,args.seed,args.mode,distant_mode=args.distant_mode,layout=args.layout),indent=2))
 

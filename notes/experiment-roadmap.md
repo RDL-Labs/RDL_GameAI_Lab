@@ -665,3 +665,10 @@ M_B移動寄与disabled/enabledとも約30秒で30日完了。採取・持帰り
 opt-in `--distant-mode patches`を追加。連続する同色・同距離帯だけを結合し、4件超過はpartialを維持。
 30日disabledは完了、行動差0。有効条件はプロセス異常終了で未完了。
 [Evidence](/docs/experiment-evidence/LW_3_distant_patches_evidence.md)。Runtime/Hは変更なし。
+
+
+### 軽量World 疎配置
+
+`--layout sparse`を追加し30日完走。取得不完了待機0、Cが食料を308観測・138単位移動、採取0。
+資源配置は固定し物体/障害物のみ減らした。密配置は以前の完走ログとの比較。
+[Evidence](/docs/experiment-evidence/LW_sparse_layout_evidence.md)。Runtime/Hは変更なし。

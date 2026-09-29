@@ -18,3 +18,5 @@ python -m integrations.lightweight.compare disabled.jsonl enabled.jsonl --output
 The saved 30-day gzip logs in tests/fixtures can be selected in the replay viewer. See LW_3_paired_campaign_evidence.md for the zero-harvest result.
 
 Optional `--distant-mode patches` merges contiguous equal color/range ray intervals before the four-feature cap. Default `rays` preserves the original acquisition. This is not object recognition; overflow remains partial. See LW_3_distant_patches_evidence.md for the incomplete paired experiment.
+
+`--layout sparse` keeps six of the dense layout objects while preserving all resource positions/stocks and initial agents. It changes visibility and collision, not Runtime decisions. Default remains dense.
