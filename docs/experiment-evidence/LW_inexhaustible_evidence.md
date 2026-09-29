@@ -25,3 +25,18 @@ C reached the unchanged cumulative96 acquisition cap on day3. That explains why 
 `lightweight_inexhaustible.jsonl.gz` and `lightweight_inexhaustible_comparison.json` preserve the run, source hashes, initial-condition check, per-day movement traces and finite comparison. Two new tests PASS (13 distinct acquisitions without depletion, retry idempotence, default finite) plus four timed-harvest tests PASS. Full suite and Luanti not rerun.
 
 Conclusion: keeping a resource available changes the observed use of space from moving between depleted patches to repeatedly harvesting and returning from one patch. Learned routing has not been established. A separate learning-use comparison or observation-boundary contract is needed before calling it learning.
+
+
+## Thirty-day continuation without returned-batch stop
+
+Added `--no-return-target` (API `stop_after_returns=None`); default remains three returns. Reproduction:
+
+```powershell
+python -m integrations.lightweight.timed_harvest --days 30 --skyline-subrays --inexhaustible --no-return-target --output integrations/lightweight/output/infinite30_no_target.jsonl
+```
+
+Completed all 30 days / 1920 virtual seconds / 23040 captures in 24.33 wall seconds. C still acquired 96 and delivered three batches; all agents had zero learning records and no adopted model. C daily movement/pickups were 36/32, 30/34, 28/30 on days 1–3, then 0/0 on every day 4–30. Its final pose stayed fixed. Each subsequent exploration phase had 124 `inventory_capacity` waits. World stock stayed 12 at every patch.
+
+Removing the stop condition therefore did not expose continued harvesting routes: the unchanged Runtime cumulative acquisition cap blocks further exploration. This is not evidence of route convergence or learned optimization. World unloading and Runtime cumulative acquisition accounting remain separate. Altering that accounting is a separate change, not silently bundled into this stop-condition comparison.
+
+`lightweight_inexhaustible_no_target.jsonl.gz` preserves the actual complete run; the corresponding `_audit.json` retains its SHA-256, manifest, summary, daily action reasons, movement traces and final poses for all agents. Focused stock/timed-harvest tests: 6 PASS. Full suite and Luanti not rerun.

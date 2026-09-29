@@ -56,9 +56,10 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False,inexhaustible=False):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3):
     import json,time
     from pathlib import Path
+    if stop_after_returns is not None and (type(stop_after_returns) is not int or stop_after_returns < 1):raise ValueError('return_target')
     w=World('lw-work',layout='sparse');loop=HarvestCampaign(w.run_id,days,mb_field_mode='enabled',harvest_state=True)
     w.skyline_subrays=skyline_subrays
     w.inexhaustible=inexhaustible
@@ -66,7 +67,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,stop_after_returns=stop_after_returns,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode='enabled',teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -87,9 +88,9 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False):
                 if c['kind']=='pickup':
                     scheduler.start(c,p);emit(dict(type='work_started',agent_id=aid,operation_id=c['operation_id'],start_us=now,due_us=now+WORK_US))
                 else:complete(p,c,w.execute(c,p))
-            if len(w.returns)>=3 and not scheduler.pending:break
+            if stop_after_returns is not None and len(w.returns)>=stop_after_returns and not scheduler.pending:break
         assert not scheduler.pending
-        ended=(slot+1)*250000;reason='return_target_reached' if len(w.returns)>=3 else 'time_limit'
+        ended=(slot+1)*250000;reason='return_target_reached' if stop_after_returns is not None and len(w.returns)>=stop_after_returns else 'time_limit'
         for aid in w.agents:loop.finish(dict(w.context(aid),ended_us=ended,reason=reason))
         summary=dict(type='summary',reason=reason,captures=captures,ended_us=ended,pickups=len(w.pickups),returns=w.returns,elapsed_seconds=time.perf_counter()-start,stock=[x['stock'] for x in w.resources],
             agents={aid:dict(observations=len(a.observations),records=len(a.learning['records']),model_ref=a.model.model_ref if a.model else None) for aid,a in loop.agents.items()})
@@ -98,5 +99,5 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False):
 
 if __name__=='__main__':
     import argparse,json
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');a=p.parse_args()
-    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible),indent=2))
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');a=p.parse_args()
+    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3),indent=2))
