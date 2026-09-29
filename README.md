@@ -289,3 +289,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 
 
 2026-09-29: [取得不足からの有限位置変更](docs/experiment-evidence/LW_incomplete_reposition_evidence.md) — opt-in実装。現在の身体観測と反復残存で方向選択、追加操作16/日。seed20260930の30日で採取0→48、配送0のまま。BでM_B形成。方向別許可と反復効果は未分離。40テストPASS、Luanti未接続。
+
+
+2026-09-29: [局所帰還完了と候補拡張](docs/experiment-evidence/LW_local_return_evidence.md) — 有限opt-in実装。塔nearで止めず局所接近・実荷下ろし確認。帰還停滞でも位置変更。30日で48採取・48持帰り4便、Cは採取0だが帰還位置変更44操作。初回不成立も保存。48テストPASS、Luanti未接続。

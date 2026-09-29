@@ -7,19 +7,19 @@ from hashlib import sha256
 
 RULE='incomplete-view-release-v1'
 
-def review(agent,p,d):
+def review(agent,p,d,*,key='reposition',phase='exploration',reasons=('acquisition_incomplete',),landmarks=False):
     d=deepcopy(d)
     previous=next(reversed(agent.observations.values())) if agent.observations else None
     last=agent.decisions.get(previous['observation_id'],{}) if previous else {}
-    old=last.get('reposition',{})
+    old=last.get(key,{})
     day=p['capture_us']//64000000
     dt=max(0,p['capture_us']-old.get('capture_us',p['capture_us']))/1000000
     residual=max(0,old.get('residual',0)-dt*.5)
     state=dict(rule=RULE,day=day,capture_us=p['capture_us'],residual=residual,
         operations=old.get('operations',0) if old.get('day')==day else 0,
         pending_step=False,applied=False,reason='priority',baseline_reason=d['reason'],eligible=[])
-    d['reposition']=state
-    if d['day_cycle']['phase']!='exploration' or d['reason']!='acquisition_incomplete' or d['action'][0]!='wait':return d
+    d[key]=state
+    if d['day_cycle']['phase']!=phase or d['reason'] not in reasons or d['action'][0]!='wait':return d
     command=agent.commands.get(previous['observation_id']) if previous else None
     result=agent.results.get(command['operation_id']) if command else None
     linked=bool(result and result['after_pose_ref']==p['pose_ref'] and result['after_revision']==p['body_revision'] and result['executed_us']<p['capture_us'])
@@ -41,8 +41,16 @@ def review(agent,p,d):
         # the full currently observed set. No unknown direction is promoted.
         choices=[a for a in allowed if abs(a)<=45] if state['residual']<4 else allowed
         if not choices:choices=allowed
-        key=[p['run_id'],p['agent_id'],day,state['operations'],RULE]
-        index=int(sha256(repr(key).encode()).hexdigest()[:8],16)%len(choices)
+        if landmarks and state['residual']<4 and p['landmarks']['coverage']=='complete':
+            features=p['landmarks']['features']
+            if features:
+                center=sum(features[0]['azimuth'])/2
+                choices=sorted(choices,key=lambda a:abs(a-center))[:1]
+                state['candidate_source']=dict(observation=p['observation_id'],feature=features[0]['ref'])
+        seed_key=[p['run_id'],p['agent_id'],day,state['operations'],RULE,key]
+        # Preserve the original exploration draw sequence.
+        if key=='reposition':seed_key=seed_key[:-1]
+        index=int(sha256(repr(seed_key).encode()).hexdigest()[:8],16)%len(choices)
         angle=choices[index]
         action=['move',1] if angle==0 else ['turn',angle]
         reason='observed_step' if angle==0 else 'alternate_heading'

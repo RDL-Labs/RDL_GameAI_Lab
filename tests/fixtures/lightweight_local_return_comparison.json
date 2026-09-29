@@ -1,0 +1,1095 @@
+{
+  "runs": [
+    {
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.4804237644239935,
+            "z": 31.407022591474394,
+            "radius": 0.8000925422261725,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -2.5409673849977352,
+            "z": -14.941927231833446,
+            "radius": 1.379593532354185,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 0.9632951928890053,
+            "z": 26.87956422765719,
+            "radius": 1.3820725199635218,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 40.917066585249465,
+            "z": 1.365747337842609,
+            "radius": 1.3735967520994907,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -10.763175732777919,
+            "z": 25.168944265170428,
+            "radius": 0.8463480792036165,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.680331222197821,
+            "z": 31.407022591474394,
+            "stock": 12
+          },
+          {
+            "x": 2.685879459809848,
+            "z": 41.27477438131782,
+            "stock": 12
+          },
+          {
+            "x": 16.374628567988346,
+            "z": 32.67047418657611,
+            "stock": 12
+          },
+          {
+            "x": -0.1613738526435502,
+            "z": -14.941927231833446,
+            "stock": 12
+          },
+          {
+            "x": 5.273084457019506,
+            "z": 15.876683339686771,
+            "stock": 12
+          },
+          {
+            "x": 42.66751027369044,
+            "z": -8.379395976129905,
+            "stock": 12
+          },
+          {
+            "x": 3.345367712852527,
+            "z": 26.87956422765719,
+            "stock": 12
+          },
+          {
+            "x": -32.73299435206351,
+            "z": -10.681564291478802,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20260930
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 48,
+        "returns": [],
+        "elapsed_seconds": 73.98118160001468,
+        "stock": [
+          0,
+          12,
+          12,
+          0,
+          0,
+          12,
+          0,
+          12
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7656,
+            "carried": 12,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 7636,
+            "carried": 22,
+            "unloaded": 0,
+            "records": 10,
+            "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+          },
+          "npc_c": {
+            "observations": 7652,
+            "carried": 14,
+            "unloaded": 0,
+            "records": 2,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "movement": 51,
+          "pickups": 12,
+          "turns": 19,
+          "rescans": 0,
+          "home_switches": 1,
+          "food_switches": 0,
+          "home_H": 29,
+          "food_H": 0,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 12,
+          "model_ref": null
+        },
+        "npc_b": {
+          "movement": 39,
+          "pickups": 22,
+          "turns": 17,
+          "rescans": 0,
+          "home_switches": 1,
+          "food_switches": 0,
+          "home_H": 29,
+          "food_H": 0,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 22,
+          "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+        },
+        "npc_c": {
+          "movement": 120,
+          "pickups": 14,
+          "turns": 160,
+          "rescans": 0,
+          "home_switches": 1,
+          "food_switches": 0,
+          "home_H": 28,
+          "food_H": 0,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 14,
+          "model_ref": null
+        }
+      },
+      "sha256": "440e59a480caf5e82dec383cfd3fc3759eec68634d661f29104974c2c116bcb7",
+      "reasons": {
+        "npc_a": {
+          "day_orientation": 120,
+          "landmark_no_candidate": 4,
+          "landmark_active": 43,
+          "observed_material_terrain_heading_held": 9,
+          "acquisition_incomplete": 2,
+          "incomplete_reposition_alternate_heading": 7,
+          "incomplete_reposition_confirmed_turn_step": 4,
+          "reachable_food_work": 12,
+          "landmark_operation_budget": 2,
+          "landmark_ambiguous": 5,
+          "landmark_goal_budget": 12,
+          "return_not_observed": 1,
+          "return_appearance_candidate": 2,
+          "return_home_like_observed": 6473,
+          "day_night": 960
+        },
+        "npc_b": {
+          "day_orientation": 120,
+          "landmark_active": 5,
+          "landmark_ambiguous": 1,
+          "acquisition_incomplete": 6,
+          "incomplete_reposition_alternate_heading": 5,
+          "incomplete_reposition_confirmed_turn_step": 3,
+          "landmark_lost": 1,
+          "observed_material_terrain_heading_held": 22,
+          "observed_material_terrain_turn_minimum": 3,
+          "observed_material_in_reach": 10,
+          "incomplete_reposition_observed_step": 1,
+          "reachable_food_work": 12,
+          "landmark_no_candidate": 4,
+          "landmark_no_candidate_after_scan": 7,
+          "return_not_observed": 2,
+          "return_appearance_candidate": 11,
+          "return_home_like_observed": 6463,
+          "day_night": 960
+        },
+        "npc_c": {
+          "day_orientation": 120,
+          "landmark_active": 59,
+          "observed_material_terrain_heading_held": 31,
+          "observed_material_terrain_turn_minimum": 7,
+          "acquisition_incomplete": 4,
+          "incomplete_reposition_alternate_heading": 6,
+          "observed_material_terrain_reversal_stopped": 1,
+          "incomplete_reposition_observed_step": 4,
+          "landmark_lost": 2,
+          "landmark_operation_budget": 3,
+          "neighborhood_survey": 16,
+          "neighborhood_completed_no_food": 1,
+          "landmark_goal_budget": 32,
+          "return_not_observed": 9,
+          "return_appearance_candidate": 28,
+          "return_home_like_observed": 67,
+          "day_night": 960,
+          "observed_material_in_reach": 2,
+          "landmark_ambiguous": 3,
+          "reachable_food_work": 12,
+          "landmark_no_candidate": 4,
+          "landmark_no_candidate_after_scan": 33,
+          "return_search_no_candidate": 116,
+          "return_search_no_candidate_after_scan": 6132
+        }
+      },
+      "recovery": {
+        "npc_a": {},
+        "npc_b": {},
+        "npc_c": {}
+      },
+      "final_bodies": {
+        "npc_a": {
+          "x": -6.384431964413459,
+          "z": 13.890528618823334,
+          "yaw": 135.0,
+          "revision": 82,
+          "inventory": 12
+        },
+        "npc_b": {
+          "x": 0.7860208189113334,
+          "z": 16.32718271584186,
+          "yaw": -165.0,
+          "revision": 78,
+          "inventory": 22
+        },
+        "npc_c": {
+          "x": -5.154174327427367,
+          "z": 31.45784853004758,
+          "yaw": 60.0,
+          "revision": 294,
+          "inventory": 14
+        }
+      }
+    },
+    {
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.4804237644239935,
+            "z": 31.407022591474394,
+            "radius": 0.8000925422261725,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -2.5409673849977352,
+            "z": -14.941927231833446,
+            "radius": 1.379593532354185,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 0.9632951928890053,
+            "z": 26.87956422765719,
+            "radius": 1.3820725199635218,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 40.917066585249465,
+            "z": 1.365747337842609,
+            "radius": 1.3735967520994907,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -10.763175732777919,
+            "z": 25.168944265170428,
+            "radius": 0.8463480792036165,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.680331222197821,
+            "z": 31.407022591474394,
+            "stock": 12
+          },
+          {
+            "x": 2.685879459809848,
+            "z": 41.27477438131782,
+            "stock": 12
+          },
+          {
+            "x": 16.374628567988346,
+            "z": 32.67047418657611,
+            "stock": 12
+          },
+          {
+            "x": -0.1613738526435502,
+            "z": -14.941927231833446,
+            "stock": 12
+          },
+          {
+            "x": 5.273084457019506,
+            "z": 15.876683339686771,
+            "stock": 12
+          },
+          {
+            "x": 42.66751027369044,
+            "z": -8.379395976129905,
+            "stock": 12
+          },
+          {
+            "x": 3.345367712852527,
+            "z": 26.87956422765719,
+            "stock": 12
+          },
+          {
+            "x": -32.73299435206351,
+            "z": -10.681564291478802,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20260930
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 34,
+        "returns": [],
+        "elapsed_seconds": 92.20038290001685,
+        "stock": [
+          12,
+          12,
+          12,
+          0,
+          2,
+          12,
+          0,
+          12
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7656,
+            "carried": 12,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 7636,
+            "carried": 22,
+            "unloaded": 0,
+            "records": 10,
+            "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+          },
+          "npc_c": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "movement": 59,
+          "pickups": 12,
+          "turns": 1238,
+          "rescans": 0,
+          "home_switches": 1,
+          "food_switches": 0,
+          "home_H": 29,
+          "food_H": 0,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 12,
+          "model_ref": null
+        },
+        "npc_b": {
+          "movement": 47,
+          "pickups": 22,
+          "turns": 1304,
+          "rescans": 0,
+          "home_switches": 1,
+          "food_switches": 0,
+          "home_H": 29,
+          "food_H": 0,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 22,
+          "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+        },
+        "npc_c": {
+          "movement": 97,
+          "pickups": 0,
+          "turns": 24,
+          "rescans": 0,
+          "home_switches": 1,
+          "food_switches": 0,
+          "home_H": 29,
+          "food_H": 1,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        }
+      },
+      "sha256": "94b59ae9b58c6e751e7818f15e111e3018a86e160a21ec31ef396b267850a7a6",
+      "reasons": {
+        "npc_a": {
+          "day_orientation": 120,
+          "landmark_no_candidate": 4,
+          "landmark_active": 43,
+          "observed_material_terrain_heading_held": 9,
+          "acquisition_incomplete": 2,
+          "incomplete_reposition_alternate_heading": 487,
+          "incomplete_reposition_confirmed_turn_step": 4,
+          "reachable_food_work": 12,
+          "landmark_operation_budget": 2,
+          "landmark_ambiguous": 5,
+          "landmark_goal_budget": 12,
+          "return_not_observed": 2,
+          "return_dock_approach": 748,
+          "return_approach_blocked": 692,
+          "return_approach_budget": 4554,
+          "day_night": 960
+        },
+        "npc_b": {
+          "day_orientation": 120,
+          "landmark_active": 5,
+          "landmark_ambiguous": 1,
+          "acquisition_incomplete": 6,
+          "incomplete_reposition_alternate_heading": 484,
+          "incomplete_reposition_confirmed_turn_step": 4,
+          "landmark_lost": 1,
+          "observed_material_terrain_heading_held": 22,
+          "observed_material_terrain_turn_minimum": 3,
+          "observed_material_in_reach": 10,
+          "incomplete_reposition_observed_step": 1,
+          "reachable_food_work": 12,
+          "landmark_no_candidate": 4,
+          "landmark_no_candidate_after_scan": 7,
+          "return_not_observed": 2,
+          "return_dock_approach": 826,
+          "return_approach_blocked": 615,
+          "return_approach_budget": 4553,
+          "day_night": 960
+        },
+        "npc_c": {
+          "day_orientation": 120,
+          "landmark_active": 46,
+          "observed_material_terrain_heading_held": 10,
+          "observed_material_terrain_turn_minimum": 3,
+          "acquisition_incomplete": 2,
+          "incomplete_reposition_alternate_heading": 5,
+          "observed_material_terrain_reversal_stopped": 1,
+          "incomplete_reposition_observed_step": 3,
+          "landmark_lost": 2,
+          "landmark_operation_budget": 3,
+          "neighborhood_survey": 16,
+          "neighborhood_completed_no_food": 1,
+          "landmark_goal_budget": 32,
+          "return_not_observed": 1,
+          "return_dock_approach": 37,
+          "return_unload_attempt": 6438,
+          "day_night": 960
+        }
+      },
+      "recovery": {
+        "npc_a": {
+          "priority": 1930,
+          "accumulating": 2,
+          "alternate_heading": 480,
+          "daily_operation_budget": 5244
+        },
+        "npc_b": {
+          "priority": 1988,
+          "accumulating": 2,
+          "alternate_heading": 479,
+          "confirmed_turn_step": 1,
+          "daily_operation_budget": 5166
+        },
+        "npc_c": {
+          "priority": 7680
+        }
+      },
+      "final_bodies": {
+        "npc_a": {
+          "x": -1.2017451857786279,
+          "z": 7.850665220528174,
+          "yaw": 145.0,
+          "revision": 1309,
+          "inventory": 12
+        },
+        "npc_b": {
+          "x": -0.9866310144879756,
+          "z": 9.342249494227,
+          "yaw": 145.0,
+          "revision": 1373,
+          "inventory": 22
+        },
+        "npc_c": {
+          "x": 0.5517304470600272,
+          "z": 6.258819045102521,
+          "yaw": -105.0,
+          "revision": 121,
+          "inventory": 0
+        }
+      }
+    },
+    {
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.4804237644239935,
+            "z": 31.407022591474394,
+            "radius": 0.8000925422261725,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -2.5409673849977352,
+            "z": -14.941927231833446,
+            "radius": 1.379593532354185,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 0.9632951928890053,
+            "z": 26.87956422765719,
+            "radius": 1.3820725199635218,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 40.917066585249465,
+            "z": 1.365747337842609,
+            "radius": 1.3735967520994907,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -10.763175732777919,
+            "z": 25.168944265170428,
+            "radius": 0.8463480792036165,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.680331222197821,
+            "z": 31.407022591474394,
+            "stock": 12
+          },
+          {
+            "x": 2.685879459809848,
+            "z": 41.27477438131782,
+            "stock": 12
+          },
+          {
+            "x": 16.374628567988346,
+            "z": 32.67047418657611,
+            "stock": 12
+          },
+          {
+            "x": -0.1613738526435502,
+            "z": -14.941927231833446,
+            "stock": 12
+          },
+          {
+            "x": 5.273084457019506,
+            "z": 15.876683339686771,
+            "stock": 12
+          },
+          {
+            "x": 42.66751027369044,
+            "z": -8.379395976129905,
+            "stock": 12
+          },
+          {
+            "x": 3.345367712852527,
+            "z": 26.87956422765719,
+            "stock": 12
+          },
+          {
+            "x": -32.73299435206351,
+            "z": -10.681564291478802,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20260930
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 48,
+        "returns": [
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:31",
+              "op:lw-work:npc_a:obs:34",
+              "op:lw-work:npc_a:obs:37",
+              "op:lw-work:npc_a:obs:40",
+              "op:lw-work:npc_a:obs:43",
+              "op:lw-work:npc_a:obs:46",
+              "op:lw-work:npc_a:obs:49",
+              "op:lw-work:npc_a:obs:52",
+              "op:lw-work:npc_a:obs:55",
+              "op:lw-work:npc_a:obs:58",
+              "op:lw-work:npc_a:obs:61",
+              "op:lw-work:npc_a:obs:64"
+            ],
+            "executed_us": 36750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:33",
+              "op:lw-work:npc_b:obs:36",
+              "op:lw-work:npc_b:obs:39",
+              "op:lw-work:npc_b:obs:42",
+              "op:lw-work:npc_b:obs:45",
+              "op:lw-work:npc_b:obs:48",
+              "op:lw-work:npc_b:obs:51",
+              "op:lw-work:npc_b:obs:54",
+              "op:lw-work:npc_b:obs:57",
+              "op:lw-work:npc_b:obs:60",
+              "op:lw-work:npc_b:obs:78",
+              "op:lw-work:npc_b:obs:81",
+              "op:lw-work:npc_b:obs:84",
+              "op:lw-work:npc_b:obs:87",
+              "op:lw-work:npc_b:obs:90",
+              "op:lw-work:npc_b:obs:93",
+              "op:lw-work:npc_b:obs:96",
+              "op:lw-work:npc_b:obs:99",
+              "op:lw-work:npc_b:obs:102",
+              "op:lw-work:npc_b:obs:105",
+              "op:lw-work:npc_b:obs:108",
+              "op:lw-work:npc_b:obs:111"
+            ],
+            "executed_us": 43750001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:326",
+              "op:lw-work:npc_a:obs:329",
+              "op:lw-work:npc_a:obs:332",
+              "op:lw-work:npc_a:obs:335"
+            ],
+            "executed_us": 106750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_b:obs:276",
+              "op:lw-work:npc_b:obs:279",
+              "op:lw-work:npc_b:obs:311",
+              "op:lw-work:npc_b:obs:314",
+              "op:lw-work:npc_b:obs:317",
+              "op:lw-work:npc_b:obs:320",
+              "op:lw-work:npc_b:obs:323",
+              "op:lw-work:npc_b:obs:326",
+              "op:lw-work:npc_b:obs:329",
+              "op:lw-work:npc_b:obs:332"
+            ],
+            "executed_us": 110250001
+          }
+        ],
+        "elapsed_seconds": 179.13806189998286,
+        "stock": [
+          0,
+          12,
+          12,
+          0,
+          0,
+          12,
+          0,
+          12
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7648,
+            "carried": 0,
+            "unloaded": 16,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 7614,
+            "carried": 0,
+            "unloaded": 32,
+            "records": 12,
+            "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+          },
+          "npc_c": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "movement": 772,
+          "pickups": 16,
+          "turns": 650,
+          "rescans": 80,
+          "home_switches": 2,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 21,
+          "deliveries": 2,
+          "delivered": 16,
+          "carried": 0,
+          "model_ref": null
+        },
+        "npc_b": {
+          "movement": 119,
+          "pickups": 32,
+          "turns": 343,
+          "rescans": 104,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 27,
+          "deliveries": 2,
+          "delivered": 32,
+          "carried": 0,
+          "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+        },
+        "npc_c": {
+          "movement": 403,
+          "pickups": 0,
+          "turns": 454,
+          "rescans": 100,
+          "home_switches": 1,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 27,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        }
+      },
+      "sha256": "359f98ef12ce2ac17f74f9fae9e90493a4f49e4e89ae7718f1b5b3bb100992e5",
+      "reasons": {
+        "npc_a": {
+          "day_orientation": 120,
+          "landmark_no_candidate": 76,
+          "landmark_active": 461,
+          "observed_material_terrain_heading_held": 25,
+          "acquisition_incomplete": 33,
+          "incomplete_reposition_alternate_heading": 129,
+          "incomplete_reposition_confirmed_turn_step": 105,
+          "reachable_food_work": 16,
+          "landmark_operation_budget": 7,
+          "landmark_ambiguous": 41,
+          "landmark_goal_budget": 433,
+          "return_not_observed": 33,
+          "return_dock_approach": 339,
+          "return_approach_blocked": 129,
+          "return_unload_attempt": 24,
+          "return_delivery_confirmed": 128,
+          "day_night": 960,
+          "incomplete_reposition_observed_step": 15,
+          "observed_material_terrain_turn_minimum": 3,
+          "neighborhood_survey": 128,
+          "neighborhood_completed_no_food": 8,
+          "landmark_no_candidate_after_scan": 1515,
+          "return_home_like_observed": 2255,
+          "landmark_lost": 17,
+          "return_search_active": 24,
+          "return_reposition_continue": 1,
+          "return_approach_budget": 206,
+          "food_goal_rescan": 80,
+          "return_search_acquisition_incomplete": 332,
+          "return_search_no_candidate": 4,
+          "return_search_near_feature_observed": 1
+        },
+        "npc_b": {
+          "day_orientation": 120,
+          "landmark_active": 17,
+          "landmark_ambiguous": 4,
+          "acquisition_incomplete": 12,
+          "incomplete_reposition_alternate_heading": 19,
+          "incomplete_reposition_confirmed_turn_step": 15,
+          "landmark_lost": 1,
+          "observed_material_terrain_heading_held": 42,
+          "observed_material_terrain_turn_minimum": 7,
+          "observed_material_in_reach": 12,
+          "incomplete_reposition_observed_step": 5,
+          "reachable_food_work": 21,
+          "landmark_no_candidate": 120,
+          "landmark_no_candidate_after_scan": 3298,
+          "return_not_observed": 58,
+          "return_dock_approach": 74,
+          "return_approach_blocked": 4,
+          "return_search_no_candidate": 1,
+          "return_unload_attempt": 30,
+          "return_delivery_confirmed": 86,
+          "day_night": 960,
+          "return_home_like_observed": 2604,
+          "food_goal_rescan": 104
+        },
+        "npc_c": {
+          "day_orientation": 120,
+          "landmark_active": 269,
+          "observed_material_terrain_heading_held": 13,
+          "observed_material_terrain_turn_minimum": 3,
+          "acquisition_incomplete": 120,
+          "incomplete_reposition_alternate_heading": 63,
+          "observed_material_terrain_reversal_stopped": 1,
+          "incomplete_reposition_observed_step": 10,
+          "landmark_lost": 17,
+          "landmark_operation_budget": 4,
+          "neighborhood_survey": 64,
+          "neighborhood_completed_no_food": 4,
+          "landmark_goal_budget": 291,
+          "return_not_observed": 50,
+          "return_dock_approach": 145,
+          "return_unload_attempt": 28,
+          "return_home_like_observed": 2611,
+          "day_night": 960,
+          "incomplete_reposition_confirmed_turn_step": 43,
+          "landmark_no_candidate": 93,
+          "landmark_no_candidate_after_scan": 2407,
+          "return_approach_blocked": 41,
+          "return_search_active": 4,
+          "return_reposition_continue": 1,
+          "return_search_acquisition_incomplete": 61,
+          "return_approach_budget": 143,
+          "landmark_ambiguous": 14,
+          "food_goal_rescan": 100
+        }
+      },
+      "recovery": {
+        "npc_a": {
+          "priority": 6832,
+          "accumulating": 24,
+          "alternate_heading": 76,
+          "confirmed_turn_step": 71,
+          "observed_step": 1,
+          "daily_operation_budget": 644
+        },
+        "npc_b": {
+          "priority": 7587,
+          "accumulating": 4,
+          "alternate_heading": 11,
+          "confirmed_turn_step": 11,
+          "observed_step": 1
+        },
+        "npc_c": {
+          "priority": 7390,
+          "accumulating": 4,
+          "alternate_heading": 22,
+          "confirmed_turn_step": 21,
+          "observed_step": 1,
+          "daily_operation_budget": 242
+        }
+      },
+      "final_bodies": {
+        "npc_a": {
+          "x": 0.2399902239911793,
+          "z": 5.826269241585679,
+          "yaw": -135.0,
+          "revision": 1438,
+          "inventory": 0
+        },
+        "npc_b": {
+          "x": -0.34045597027341634,
+          "z": 5.578235631871446,
+          "yaw": -50.0,
+          "revision": 494,
+          "inventory": 0
+        },
+        "npc_c": {
+          "x": -0.51996263872886,
+          "z": 5.436354137090525,
+          "yaw": -20.0,
+          "revision": 857,
+          "inventory": 0
+        }
+      }
+    }
+  ],
+  "labels": [
+    "previous control",
+    "initial implementation with integration defects",
+    "corrected implementation"
+  ]
+}

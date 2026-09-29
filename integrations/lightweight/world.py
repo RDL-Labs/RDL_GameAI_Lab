@@ -199,7 +199,9 @@ class World:
             before_pose_ref=before,after_pose_ref=self.pose(aid),before_revision=revision,after_revision=a['revision'],
             status=status,forward=1 if status=='moved' else 0,right=0,up=0,yaw=c['amount'] if status=='turned' else 0,acquired=status=='picked_up')
         self.effects[op]=(deepcopy(c),deepcopy(r))
-        if c['capture_us']%DAY_US>=56000000 and status=='waited' and hypot(a['x'],a['z']-6)<=10:
+        local_return=getattr(self,'local_return',False)
+        unload_allowed=(c.get('reason')=='return_unload_attempt' and hypot(a['x'],a['z']-6)<=1.25) if local_return else (c['capture_us']%DAY_US>=56000000 and hypot(a['x'],a['z']-6)<=10)
+        if unload_allowed and status=='waited':
             fresh=[e['operation_id'] for e in self.pickups if e['agent_id']==aid and e['operation_id'] not in self.counted]
             if fresh:
                 self.counted.update(fresh);self.returns.append(dict(agent_id=aid,day=c['capture_us']//DAY_US+1,pickups=fresh,executed_us=now))

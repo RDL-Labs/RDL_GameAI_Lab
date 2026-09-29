@@ -95,6 +95,7 @@ class HarvestAgent(ApproachAgent):
         return effective
 
     orientation_mode='disabled'
+    return_completion_mode='disabled'
 
     def _packet(self,p):
         if 'orientation' in p:
@@ -102,7 +103,10 @@ class HarvestAgent(ApproachAgent):
             validate(p)
         if self.orientation_mode=='enabled' and 'orientation' not in p:
             raise ValueError('orientation_required')
-        return super()._packet({k:v for k,v in p.items() if k!='orientation'})
+        if self.return_completion_mode=='enabled':
+            from runtime.local_return import validate
+            validate(p)
+        return super()._packet({k:v for k,v in p.items() if k not in ('orientation','dock')})
 
     lateral_side=None
 
@@ -114,7 +118,10 @@ class HarvestAgent(ApproachAgent):
         return terrain
 
     def _return_review(self,p,memory,state,linked,result):
-        from runtime.home_search import review
+        if self.return_completion_mode=='enabled':
+            from runtime.local_return import review
+        else:
+            from runtime.home_search import review
         return review(self,p,memory,state,linked,result)
 
     def expiry(self,capture):
@@ -129,6 +136,12 @@ class HarvestAgent(ApproachAgent):
         if self.reposition_mode=='enabled':
             from runtime.incomplete_reposition import review
             d=review(self,p,d)
+        if self.return_completion_mode=='enabled':
+            from runtime.incomplete_reposition import review
+            d=review(self,p,d,key='return_reposition',phase='return',landmarks=True,
+                reasons=('return_reposition_continue','return_search_no_candidate_after_scan','return_search_acquisition_incomplete',
+                    'return_approach_blocked','return_approach_budget','return_search_goal_budget',
+                    'return_search_operation_budget','return_search_ambiguous','return_search_blocked'))
         return d
 
     def _base_decision(self,p):
@@ -185,11 +198,12 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled"):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled"):
     import json,time
     from pathlib import Path
     if stop_after_returns is not None and (type(stop_after_returns) is not int or stop_after_returns < 1):raise ValueError('return_target')
     if type(goal_switch_threshold) is not int or not 1<=goal_switch_threshold<=30:raise ValueError('goal_switch_threshold')
+    if return_completion_mode not in ('disabled','enabled'):raise ValueError('return_completion_mode')
     if reposition_mode not in ('disabled','enabled'):raise ValueError('reposition_mode')
     if orientation_mode not in ('disabled','enabled'):raise ValueError('orientation_mode')
     if lateral_side not in (None,'left','right'):raise ValueError('lateral_side')
@@ -201,13 +215,15 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
         agent.lateral_side=lateral_side
         agent.orientation_mode=orientation_mode
         agent.reposition_mode=reposition_mode
+        agent.return_completion_mode=return_completion_mode
+    w.local_return=return_completion_mode=="enabled"
     w.skyline_subrays=skyline_subrays
     w.inexhaustible=inexhaustible
     scheduler=WorkScheduler(w);start=time.perf_counter();captures=0
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -226,13 +242,16 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
             if orientation_mode=='enabled':
                 from runtime.initial_orientation import sample
                 for aid,p in packets.items():p['orientation']=sample(p,w.agents[aid]['yaw'])
+            if w.local_return:
+                from runtime.local_return import sample
+                for aid,p in packets.items():p['dock']=sample(w,p)
             for aid,p in packets.items():
                 captures+=1
                 if aid in scheduler.pending or aid in finished:
                     emit(dict(type='working_capture',packet=p,reason='body_busy' if aid in scheduler.pending else 'completion_boundary'))
                     continue
                 c=loop.observe(p)['command'];d=loop.agents[aid].decisions[p['observation_id']]
-                emit(dict(type='decision',packet=p,command=c,model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),lateral=(d.get('movement_terrain') or {}).get('lateral'),mb_field=d.get('mb_field'),reposition=d.get('reposition'),orientation_review=d.get('orientation_review'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference'],food_goal=d['day_cycle']['food_goal'],food_method=d['day_cycle']['food_method'],food_review_scans=d['day_cycle']['food_review_scans']))
+                emit(dict(type='decision',packet=p,command=c,model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),lateral=(d.get('movement_terrain') or {}).get('lateral'),mb_field=d.get('mb_field'),return_reposition=d.get('return_reposition'),reposition=d.get('reposition'),orientation_review=d.get('orientation_review'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference'],food_goal=d['day_cycle']['food_goal'],food_method=d['day_cycle']['food_method'],food_review_scans=d['day_cycle']['food_review_scans']))
                 if inexhaustible_after_model and not w.inexhaustible and loop.agents[aid].model is not None:
                     w.inexhaustible=True
                     emit(dict(type='stock_mode_transition',capture_us=now,agent_id=aid,mode='inexhaustible',model=loop.agents[aid].model.to_json(),admission=loop.agents[aid].learning['admission'],stock=[x['stock'] for x in w.resources]))
@@ -250,5 +269,5 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
 
 if __name__=='__main__':
     import argparse,json
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');a=p.parse_args()
-    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode,a.seed,a.goal_switch_threshold,a.lateral_side,a.orientation_mode,a.reposition_mode),indent=2))
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--return-completion-mode',choices=['disabled','enabled'],default='disabled');a=p.parse_args()
+    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode,a.seed,a.goal_switch_threshold,a.lateral_side,a.orientation_mode,a.reposition_mode,a.return_completion_mode),indent=2))
