@@ -743,3 +743,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 [関係場](../docs/experiment-evidence/LW_relation_field_evidence.md)を有限実装。単一点への直接命令から、複数目印の角度間隔と現在の物理/目標寄与を5方向へ合成する経路を追加。旧modeは比較用に維持。30日では終日並進0が16→1個体日、配送は981→807。一般的自己位置推定や効率改善の完成とはしない。
 
 2026-09-29: [発見後の経路安定性](../docs/experiment-evidence/LW_route_stability.md)を保存ログで監査。初回発見と再訪を分離。同地点固定往復は未成立、Bは既知複数地点利用、A/Cの長い無採取区間を次の調査対象とする。runtime・係数変更なし。
+
+2026-09-29: [経路候補の相対重み](../docs/experiment-evidence/LW_route_weight.md)を関係場v2に実装。新候補支持で旧候補shareが低下し、失敗Hで絶対寄与低下。経路は消去せず当日失敗のみ除外。軽量5日ではv1と集計同じ。長期安定性は別途比較する。

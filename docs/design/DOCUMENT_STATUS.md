@@ -328,3 +328,7 @@ FINITE IMPLEMENTED / opt-in。`runtime/directional_routes.py`。[契約・Eviden
 ### 2026-09-29 — 角度関係による有限移動場
 
 FINITE IMPLEMENTED / opt-in。[契約](../experiment-evidence/LW_relation_field_contract.md)、[Evidence](../experiment-evidence/LW_relation_field_evidence.md)。二つ以上の目印角度間隔、現在terrain、直接目標を共通の5方向候補で評価。経路owner保持と旋回後の一歩を有限接続。正確な位置復元・全判断機構の一般調停・canonical T1採用は未実装。軽量30日で移動継続は改善、配送量は減少。
+
+### 2026-09-29 — 経路候補の相対重み
+
+FINITE IMPLEMENTED（関係場opt-in内）。[契約・Evidence](../experiment-evidence/LW_route_weight.md)。成功支持と局所Hによる候補間相対寄与、H>=2でも翌日以降再候補化、当日失敗除外は維持。未使用減衰・忘却・経路効率学習は未実装。65テストと軽量5日受入、長期安定改善は未検証。

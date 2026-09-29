@@ -1,10 +1,24 @@
 """Finite angular-relation field in the current body frame; no world map."""
 from copy import deepcopy
-from math import atan2,degrees,radians,sin,cos
+from math import atan2,degrees,radians,sin,cos,fsum
 from .landmark_day_cycle import clusters
 from .terrain_resource_exploration import terrain_input
 
-RULE='angular-relation-movement-field-v1'
+RULE='angular-relation-movement-field-v2'
+WEIGHT_RULE='experience-relative-route-weight-v1'
+
+
+def route_strength(node):
+    # Unused time is not negative evidence. Even weakened routes remain proposals.
+    return (1.+.25*node['support'])/(1.+node['H'])
+
+
+def weight_candidates(candidates):
+    total=fsum(c['score'] for c in candidates)
+    for c in candidates:
+        c['share']=c['score']/total
+        c['field_weight']=min(1.,c['score']/3.)*c['share']
+    return candidates
 
 
 def wrap(x):return (x+180)%360-180
@@ -82,7 +96,7 @@ def review(agent,p,d):
     goal='home' if phase=='return' else 'food';owner=old.get('owner') if old.get('day')==day and old.get('phase')==phase else None
     target=None
     for key,n in s['routes'].items():
-        if n['goal']!=goal or n['H']>=2 or key in s['failed']:continue
+        if n['goal']!=goal or key in s['failed']:continue
         cursor=s['cursors'].get(key,0)
         while cursor<len(n['points']):
             rel=relation(p,n['points'][cursor])
@@ -90,8 +104,10 @@ def review(agent,p,d):
             else:break
         s['cursors'][key]=cursor
         if cursor>=len(n['points']):continue
-        rel=relation(p,n['points'][cursor]);score=1+n['support']*.25-n['H']*.5
+        rel=relation(p,n['points'][cursor]);score=route_strength(n)
         if rel['status']=='comparable':f['candidates'].append(dict(route=key,score=score,cursor=cursor))
+    weight_candidates(f['candidates'])
+    f['weight_rule']=WEIGHT_RULE
     eligible={x['route']:x for x in f['candidates']}
     if owner not in eligible:owner=None
     if owner is None and eligible:owner=sorted(eligible,key=lambda k:(-eligible[k]['score'],k))[0]
@@ -116,7 +132,7 @@ def review(agent,p,d):
     terrain=agent._calculate_current_terrain(terrain_input(p,agent.teaching['appearance'],d.get('blocked_targets',[])),p)
     # Existing terrain validation / incomplete acquisition are hard constraints.
     if terrain['status']!='complete':f['reason']='terrain_'+terrain['status'];return d
-    trace=compose(p,target,terrain,min(1.,eligible[owner]['score']/3) if owner else 0.,goal_angle)
+    trace=compose(p,target,terrain,eligible[owner]['field_weight'] if owner else 0.,goal_angle)
     f['field']=trace
     rows=[x for x in trace['samples'] if x['status']=='scored']
     if not rows:f['reason']='no_scored_direction';return d

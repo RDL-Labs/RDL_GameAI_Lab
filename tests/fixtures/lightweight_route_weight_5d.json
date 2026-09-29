@@ -1,0 +1,496 @@
+{
+  "sha256": "f18df01155e8586ae8bef98c47440c847b6ef6e8213f8373a01bf0648bf1f50f",
+  "manifest": {
+    "type": "manifest",
+    "version": "lw-timed-harvest-v1",
+    "relation_field_rule": "angular-relation-movement-field-v2",
+    "relation_field_mode": "enabled",
+    "directional_route_mode": "enabled",
+    "food_revisit_mode": "disabled",
+    "nested_model_mode": "enabled",
+    "resource_access": "shared-all-agents-v1",
+    "return_completion_mode": "enabled",
+    "reposition_mode": "enabled",
+    "orientation_mode": "enabled",
+    "days": 5,
+    "stop_after_returns": null,
+    "lateral_side": "left",
+    "goal_switch_threshold": 2,
+    "controller_seed": 20260928,
+    "food_goal_mode": "enabled",
+    "goal_difference_mode": "enabled",
+    "return_mode": "overnight-home-purpose-v1",
+    "inventory_mode": "confirmed-unloads-v1",
+    "mb_field_mode": "enabled",
+    "inexhaustible_after_model": false,
+    "stock_mode": "inexhaustible",
+    "work_us": 500000,
+    "skyline_subrays": true,
+    "objects": [
+      {
+        "x": 0.0,
+        "z": 8.0,
+        "radius": 1.0,
+        "height": 12.0,
+        "color": "ochre",
+        "solid": true
+      },
+      {
+        "x": -24.360453461995107,
+        "z": -1.9185691020655793,
+        "radius": 1.0761603729473708,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -16.4375524610027,
+        "z": 17.316017342306075,
+        "radius": 1.1082443892636569,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -7.1696510123807204,
+        "z": 23.368815959014054,
+        "radius": 1.0534211488518515,
+        "height": 8.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 21.62717326762599,
+        "z": 19.711321647514804,
+        "radius": 0.6488202909889865,
+        "height": 5.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": -17.418580846839635,
+        "z": 9.821597942813405,
+        "radius": 1.4979076028121576,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      }
+    ],
+    "resources": [
+      {
+        "x": -22.284293089047736,
+        "z": -1.9185691020655793,
+        "stock": 12
+      },
+      {
+        "x": -21.593575395828893,
+        "z": 28.874898277911942,
+        "stock": 12
+      },
+      {
+        "x": 17.951357711574694,
+        "z": -1.0075870779846043,
+        "stock": 12
+      },
+      {
+        "x": -14.329308071739042,
+        "z": 17.316017342306075,
+        "stock": 12
+      },
+      {
+        "x": 36.49854549184699,
+        "z": -14.953174371309071,
+        "stock": 12
+      },
+      {
+        "x": 30.557129416408014,
+        "z": -23.93255387490489,
+        "stock": 12
+      },
+      {
+        "x": -5.1162298635288685,
+        "z": 23.368815959014054,
+        "stock": 12
+      },
+      {
+        "x": -7.678398154483791,
+        "z": 29.60834178097203,
+        "stock": 12
+      }
+    ],
+    "agents": {
+      "npc_a": {
+        "x": -2.0,
+        "z": 4.0,
+        "yaw": 0.0,
+        "revision": 0,
+        "inventory": 0
+      },
+      "npc_b": {
+        "x": 0.0,
+        "z": 4.0,
+        "yaw": 0.0,
+        "revision": 0,
+        "inventory": 0
+      },
+      "npc_c": {
+        "x": 2.0,
+        "z": 4.0,
+        "yaw": 0.0,
+        "revision": 0,
+        "inventory": 0
+      }
+    },
+    "seed": 20261001
+  },
+  "counts": {
+    "eligible_reviews": 104,
+    "multiple_candidates": 33,
+    "weakened_candidate_entries": 0,
+    "weighted_route_operations": 32,
+    "competing_route_operations": 10,
+    "weakened_route_operations": 0
+  },
+  "agents": {
+    "npc_a": {
+      "movement": 317,
+      "pickups": 46,
+      "turns": 181
+    },
+    "npc_b": {
+      "movement": 261,
+      "pickups": 87,
+      "turns": 137
+    },
+    "npc_c": {
+      "movement": 235,
+      "pickups": 61,
+      "turns": 163
+    }
+  },
+  "baseline_first5": {
+    "npc_a": {
+      "movement": 317,
+      "pickups": 46,
+      "turns": 181
+    },
+    "npc_b": {
+      "movement": 261,
+      "pickups": 87,
+      "turns": 137
+    },
+    "npc_c": {
+      "movement": 235,
+      "pickups": 61,
+      "turns": 163
+    }
+  },
+  "summary": {
+    "type": "summary",
+    "reason": "time_limit",
+    "captures": 3840,
+    "ended_us": 320000000,
+    "pickups": 194,
+    "returns": [
+      {
+        "agent_id": "npc_b",
+        "day": 1,
+        "pickups": [
+          "op:lw-work:npc_b:obs:42",
+          "op:lw-work:npc_b:obs:45",
+          "op:lw-work:npc_b:obs:48",
+          "op:lw-work:npc_b:obs:51",
+          "op:lw-work:npc_b:obs:54",
+          "op:lw-work:npc_b:obs:57",
+          "op:lw-work:npc_b:obs:60",
+          "op:lw-work:npc_b:obs:63",
+          "op:lw-work:npc_b:obs:66",
+          "op:lw-work:npc_b:obs:69",
+          "op:lw-work:npc_b:obs:72",
+          "op:lw-work:npc_b:obs:75",
+          "op:lw-work:npc_b:obs:78",
+          "op:lw-work:npc_b:obs:81",
+          "op:lw-work:npc_b:obs:84",
+          "op:lw-work:npc_b:obs:87",
+          "op:lw-work:npc_b:obs:90",
+          "op:lw-work:npc_b:obs:93",
+          "op:lw-work:npc_b:obs:96",
+          "op:lw-work:npc_b:obs:99",
+          "op:lw-work:npc_b:obs:102",
+          "op:lw-work:npc_b:obs:105",
+          "op:lw-work:npc_b:obs:108",
+          "op:lw-work:npc_b:obs:111",
+          "op:lw-work:npc_b:obs:114",
+          "op:lw-work:npc_b:obs:117",
+          "op:lw-work:npc_b:obs:120",
+          "op:lw-work:npc_b:obs:123"
+        ],
+        "executed_us": 40000001
+      },
+      {
+        "agent_id": "npc_c",
+        "day": 1,
+        "pickups": [
+          "op:lw-work:npc_c:obs:57",
+          "op:lw-work:npc_c:obs:60",
+          "op:lw-work:npc_c:obs:63",
+          "op:lw-work:npc_c:obs:66",
+          "op:lw-work:npc_c:obs:69",
+          "op:lw-work:npc_c:obs:72",
+          "op:lw-work:npc_c:obs:75",
+          "op:lw-work:npc_c:obs:78",
+          "op:lw-work:npc_c:obs:81",
+          "op:lw-work:npc_c:obs:84",
+          "op:lw-work:npc_c:obs:87",
+          "op:lw-work:npc_c:obs:90",
+          "op:lw-work:npc_c:obs:93",
+          "op:lw-work:npc_c:obs:96",
+          "op:lw-work:npc_c:obs:99",
+          "op:lw-work:npc_c:obs:102",
+          "op:lw-work:npc_c:obs:105",
+          "op:lw-work:npc_c:obs:108",
+          "op:lw-work:npc_c:obs:111",
+          "op:lw-work:npc_c:obs:114",
+          "op:lw-work:npc_c:obs:117",
+          "op:lw-work:npc_c:obs:120",
+          "op:lw-work:npc_c:obs:123"
+        ],
+        "executed_us": 43000001
+      },
+      {
+        "agent_id": "npc_a",
+        "day": 2,
+        "pickups": [
+          "op:lw-work:npc_a:obs:57",
+          "op:lw-work:npc_a:obs:60",
+          "op:lw-work:npc_a:obs:63",
+          "op:lw-work:npc_a:obs:66",
+          "op:lw-work:npc_a:obs:69",
+          "op:lw-work:npc_a:obs:72",
+          "op:lw-work:npc_a:obs:75",
+          "op:lw-work:npc_a:obs:78",
+          "op:lw-work:npc_a:obs:81",
+          "op:lw-work:npc_a:obs:84",
+          "op:lw-work:npc_a:obs:87",
+          "op:lw-work:npc_a:obs:90",
+          "op:lw-work:npc_a:obs:93",
+          "op:lw-work:npc_a:obs:96",
+          "op:lw-work:npc_a:obs:99",
+          "op:lw-work:npc_a:obs:102",
+          "op:lw-work:npc_a:obs:105",
+          "op:lw-work:npc_a:obs:108",
+          "op:lw-work:npc_a:obs:111",
+          "op:lw-work:npc_a:obs:114",
+          "op:lw-work:npc_a:obs:117",
+          "op:lw-work:npc_a:obs:120",
+          "op:lw-work:npc_a:obs:123"
+        ],
+        "executed_us": 68500001
+      },
+      {
+        "agent_id": "npc_b",
+        "day": 2,
+        "pickups": [
+          "op:lw-work:npc_b:obs:306",
+          "op:lw-work:npc_b:obs:309",
+          "op:lw-work:npc_b:obs:312",
+          "op:lw-work:npc_b:obs:315",
+          "op:lw-work:npc_b:obs:318",
+          "op:lw-work:npc_b:obs:321",
+          "op:lw-work:npc_b:obs:324",
+          "op:lw-work:npc_b:obs:327",
+          "op:lw-work:npc_b:obs:330",
+          "op:lw-work:npc_b:obs:333",
+          "op:lw-work:npc_b:obs:336",
+          "op:lw-work:npc_b:obs:339",
+          "op:lw-work:npc_b:obs:342",
+          "op:lw-work:npc_b:obs:345",
+          "op:lw-work:npc_b:obs:348",
+          "op:lw-work:npc_b:obs:351",
+          "op:lw-work:npc_b:obs:354",
+          "op:lw-work:npc_b:obs:357",
+          "op:lw-work:npc_b:obs:360",
+          "op:lw-work:npc_b:obs:363",
+          "op:lw-work:npc_b:obs:366",
+          "op:lw-work:npc_b:obs:369",
+          "op:lw-work:npc_b:obs:372",
+          "op:lw-work:npc_b:obs:375",
+          "op:lw-work:npc_b:obs:378",
+          "op:lw-work:npc_b:obs:381"
+        ],
+        "executed_us": 104750001
+      },
+      {
+        "agent_id": "npc_c",
+        "day": 3,
+        "pickups": [
+          "op:lw-work:npc_c:obs:352",
+          "op:lw-work:npc_c:obs:355",
+          "op:lw-work:npc_c:obs:358",
+          "op:lw-work:npc_c:obs:361",
+          "op:lw-work:npc_c:obs:364",
+          "op:lw-work:npc_c:obs:367",
+          "op:lw-work:npc_c:obs:370",
+          "op:lw-work:npc_c:obs:373",
+          "op:lw-work:npc_c:obs:376",
+          "op:lw-work:npc_c:obs:379"
+        ],
+        "executed_us": 133000001
+      },
+      {
+        "agent_id": "npc_a",
+        "day": 3,
+        "pickups": [
+          "op:lw-work:npc_a:obs:634",
+          "op:lw-work:npc_a:obs:637"
+        ],
+        "executed_us": 170000001
+      },
+      {
+        "agent_id": "npc_b",
+        "day": 3,
+        "pickups": [
+          "op:lw-work:npc_b:obs:554",
+          "op:lw-work:npc_b:obs:557",
+          "op:lw-work:npc_b:obs:560",
+          "op:lw-work:npc_b:obs:563",
+          "op:lw-work:npc_b:obs:566",
+          "op:lw-work:npc_b:obs:569",
+          "op:lw-work:npc_b:obs:572",
+          "op:lw-work:npc_b:obs:575",
+          "op:lw-work:npc_b:obs:578",
+          "op:lw-work:npc_b:obs:581",
+          "op:lw-work:npc_b:obs:584",
+          "op:lw-work:npc_b:obs:587",
+          "op:lw-work:npc_b:obs:590",
+          "op:lw-work:npc_b:obs:593",
+          "op:lw-work:npc_b:obs:596",
+          "op:lw-work:npc_b:obs:599",
+          "op:lw-work:npc_b:obs:602",
+          "op:lw-work:npc_b:obs:605",
+          "op:lw-work:npc_b:obs:608",
+          "op:lw-work:npc_b:obs:611",
+          "op:lw-work:npc_b:obs:614",
+          "op:lw-work:npc_b:obs:617",
+          "op:lw-work:npc_b:obs:620",
+          "op:lw-work:npc_b:obs:623",
+          "op:lw-work:npc_b:obs:626",
+          "op:lw-work:npc_b:obs:629",
+          "op:lw-work:npc_b:obs:632",
+          "op:lw-work:npc_b:obs:635"
+        ],
+        "executed_us": 173250001
+      },
+      {
+        "agent_id": "npc_a",
+        "day": 4,
+        "pickups": [
+          "op:lw-work:npc_a:obs:833",
+          "op:lw-work:npc_a:obs:836",
+          "op:lw-work:npc_a:obs:839",
+          "op:lw-work:npc_a:obs:842",
+          "op:lw-work:npc_a:obs:845",
+          "op:lw-work:npc_a:obs:848",
+          "op:lw-work:npc_a:obs:851",
+          "op:lw-work:npc_a:obs:854",
+          "op:lw-work:npc_a:obs:857",
+          "op:lw-work:npc_a:obs:860",
+          "op:lw-work:npc_a:obs:863",
+          "op:lw-work:npc_a:obs:866",
+          "op:lw-work:npc_a:obs:869",
+          "op:lw-work:npc_a:obs:872",
+          "op:lw-work:npc_a:obs:875",
+          "op:lw-work:npc_a:obs:878",
+          "op:lw-work:npc_a:obs:881",
+          "op:lw-work:npc_a:obs:884",
+          "op:lw-work:npc_a:obs:887",
+          "op:lw-work:npc_a:obs:890",
+          "op:lw-work:npc_a:obs:893"
+        ],
+        "executed_us": 232750001
+      },
+      {
+        "agent_id": "npc_b",
+        "day": 5,
+        "pickups": [
+          "op:lw-work:npc_b:obs:879",
+          "op:lw-work:npc_b:obs:882",
+          "op:lw-work:npc_b:obs:885",
+          "op:lw-work:npc_b:obs:888",
+          "op:lw-work:npc_b:obs:891"
+        ],
+        "executed_us": 259750001
+      },
+      {
+        "agent_id": "npc_c",
+        "day": 5,
+        "pickups": [
+          "op:lw-work:npc_c:obs:1067",
+          "op:lw-work:npc_c:obs:1070",
+          "op:lw-work:npc_c:obs:1073",
+          "op:lw-work:npc_c:obs:1076",
+          "op:lw-work:npc_c:obs:1079",
+          "op:lw-work:npc_c:obs:1082",
+          "op:lw-work:npc_c:obs:1085",
+          "op:lw-work:npc_c:obs:1088",
+          "op:lw-work:npc_c:obs:1091",
+          "op:lw-work:npc_c:obs:1094",
+          "op:lw-work:npc_c:obs:1097",
+          "op:lw-work:npc_c:obs:1100",
+          "op:lw-work:npc_c:obs:1103",
+          "op:lw-work:npc_c:obs:1106",
+          "op:lw-work:npc_c:obs:1109",
+          "op:lw-work:npc_c:obs:1112",
+          "op:lw-work:npc_c:obs:1115",
+          "op:lw-work:npc_c:obs:1118",
+          "op:lw-work:npc_c:obs:1121",
+          "op:lw-work:npc_c:obs:1124",
+          "op:lw-work:npc_c:obs:1127",
+          "op:lw-work:npc_c:obs:1130",
+          "op:lw-work:npc_c:obs:1133",
+          "op:lw-work:npc_c:obs:1136",
+          "op:lw-work:npc_c:obs:1140",
+          "op:lw-work:npc_c:obs:1143",
+          "op:lw-work:npc_c:obs:1146",
+          "op:lw-work:npc_c:obs:1149"
+        ],
+        "executed_us": 297500001
+      }
+    ],
+    "elapsed_seconds": 13.744029699999373,
+    "stock": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "agents": {
+      "npc_a": {
+        "observations": 1188,
+        "carried": 0,
+        "unloaded": 46,
+        "records": 25,
+        "model_ref": "gameai-reconstructed-mb:c250fa9a84ab2f04:v1"
+      },
+      "npc_b": {
+        "observations": 1106,
+        "carried": 0,
+        "unloaded": 87,
+        "records": 5,
+        "model_ref": "gameai-reconstructed-mb:779b9b2b8dfc3e2e:v1"
+      },
+      "npc_c": {
+        "observations": 1158,
+        "carried": 0,
+        "unloaded": 61,
+        "records": 57,
+        "model_ref": "gameai-reconstructed-mb:e976ac1bd5902148:v1"
+      }
+    }
+  },
+  "baseline_sha256": "6ba27d239ed508959d2d1c23e4e204a2d05942569238468aa3f4cb109948a976"
+}
