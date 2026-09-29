@@ -47,3 +47,5 @@ Unresolved return now carries overnight in timed harvest: next-day exploration t
 `--food-goal-mode enabled` uses the shared goal comparator for Food and permits bounded rescanning after unmet trials. Home/Food residuals remain separate. Parent references are metadata, not a recursive planner. See `LW_generic_goal_evidence.md`: real rescan actions occurred, but yields did not improve.
 
 Individual switching tendency can be tested with `--goal-switch-threshold 1|2|4` and World `--seed`. See `LW_threshold_individuality_evidence.md` for nine completed runs: threshold effects depended on layout; lower was not uniformly better. Controller seed stays fixed.
+
+`--lateral-side left|right` adds a bounded near-tie contribution after model/approach fields and before steering. No neutral personality option is exposed; omission retains the legacy control. See `LW_lateral_threshold_evidence.md` for the side × threshold × World-seed experiment.
