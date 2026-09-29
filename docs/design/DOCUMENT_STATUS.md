@@ -340,3 +340,7 @@ DESIGN ONLY。[計画](RDL_GameAI_Moving_Hazard_Safety_Plan.md)。生存・身�
 ### 2026-09-29 — M_B強化の非線形化
 
 DESIGN ONLY。[提供メモと実装照合](RDL_GameAI_MB_Reinforcement_Nonlinearity.md)。raw support/effective influence/E/H分離と更新前モデルによる比較を方針化。自然な逓減は未検証、log等は補助mapping候補。現行経路重み・支持上限・更新権限は変更しない。
+
+### 2026-09-29 — 合成的感情
+
+HYPOTHESIS / DESIGN ONLY。[M_B・評価機・Hの相互作用仮説](RDL_GameAI_Compositional_Emotion_Hypothesis.md)。同時に働く接近／回避、退避後に残る問い、目的別の解消を分離。実装・検証なし。危険対処初版の必須範囲は拡張しない。

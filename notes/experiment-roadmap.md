@@ -749,3 +749,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-29: [動く危険物体・安全確保計画](../docs/design/RDL_GameAI_Moving_Hazard_Safety_Plan.md)を追加（DESIGN ONLY）。S0契約固定→S1観測shadow→S2安全目的接続→S3既知経路との統合→S4複数seed・長期確認。危険学習・負傷・狩猟AIは初版外。runtime変更なし。
 
 2026-09-29: [M_B強化の非線形化](../docs/design/RDL_GameAI_MB_Reinforcement_Nonlinearity.md)をDESIGN ONLYで保存。現行の有限support mappingと説明力由来の更新逓減を区別。未予測を大Eにせず、証拠計数分離→固定経験shadow→比較契約→必要時のみ補助mappingの順。危険対処計画は継続し、本メモでruntimeは変更しない。
+
+2026-09-29: [合成的感情仮説](../docs/design/RDL_GameAI_Compositional_Emotion_Hypothesis.md)を保存。安全確保と探索の同時寄与、退避後の保留問い再選択、関連H解消量と支持の分離を後続比較案とする。既知危険対処→別契約で固定観測shadowの順とし、今回runtimeは変更しない。
