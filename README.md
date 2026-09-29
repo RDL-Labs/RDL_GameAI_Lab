@@ -295,3 +295,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 
 
 2026-09-29: [全個体の資源共用](docs/experiment-contracts/LW_shared_resource_access.md) — 既存動作を契約・manifest・回帰で固定。所有／利用権なし、共通残量と取得競合は維持。採取規則変更なし。
+
+
+2026-09-29: [入れ子の局所モデル選択](docs/experiment-evidence/LW_nested_local_models_evidence.md) — 有限opt-in。survey/approach/work/repositionごとに問い・結果・Hを保持し、上位Hと代替Hから位置変更を提案。30日60採取・60配送8便、Cも1単位と後半毎日の並進。58テストPASS。canonical再構成・全既存M_Bの統一・Luantiは未接続。

@@ -1,0 +1,2860 @@
+{
+  "runs": [
+    {
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.4804237644239935,
+            "z": 31.407022591474394,
+            "radius": 0.8000925422261725,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -2.5409673849977352,
+            "z": -14.941927231833446,
+            "radius": 1.379593532354185,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 0.9632951928890053,
+            "z": 26.87956422765719,
+            "radius": 1.3820725199635218,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 40.917066585249465,
+            "z": 1.365747337842609,
+            "radius": 1.3735967520994907,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -10.763175732777919,
+            "z": 25.168944265170428,
+            "radius": 0.8463480792036165,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.680331222197821,
+            "z": 31.407022591474394,
+            "stock": 12
+          },
+          {
+            "x": 2.685879459809848,
+            "z": 41.27477438131782,
+            "stock": 12
+          },
+          {
+            "x": 16.374628567988346,
+            "z": 32.67047418657611,
+            "stock": 12
+          },
+          {
+            "x": -0.1613738526435502,
+            "z": -14.941927231833446,
+            "stock": 12
+          },
+          {
+            "x": 5.273084457019506,
+            "z": 15.876683339686771,
+            "stock": 12
+          },
+          {
+            "x": 42.66751027369044,
+            "z": -8.379395976129905,
+            "stock": 12
+          },
+          {
+            "x": 3.345367712852527,
+            "z": 26.87956422765719,
+            "stock": 12
+          },
+          {
+            "x": -32.73299435206351,
+            "z": -10.681564291478802,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20260930
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 48,
+        "returns": [
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:31",
+              "op:lw-work:npc_a:obs:34",
+              "op:lw-work:npc_a:obs:37",
+              "op:lw-work:npc_a:obs:40",
+              "op:lw-work:npc_a:obs:43",
+              "op:lw-work:npc_a:obs:46",
+              "op:lw-work:npc_a:obs:49",
+              "op:lw-work:npc_a:obs:52",
+              "op:lw-work:npc_a:obs:55",
+              "op:lw-work:npc_a:obs:58",
+              "op:lw-work:npc_a:obs:61",
+              "op:lw-work:npc_a:obs:64"
+            ],
+            "executed_us": 36750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:33",
+              "op:lw-work:npc_b:obs:36",
+              "op:lw-work:npc_b:obs:39",
+              "op:lw-work:npc_b:obs:42",
+              "op:lw-work:npc_b:obs:45",
+              "op:lw-work:npc_b:obs:48",
+              "op:lw-work:npc_b:obs:51",
+              "op:lw-work:npc_b:obs:54",
+              "op:lw-work:npc_b:obs:57",
+              "op:lw-work:npc_b:obs:60",
+              "op:lw-work:npc_b:obs:78",
+              "op:lw-work:npc_b:obs:81",
+              "op:lw-work:npc_b:obs:84",
+              "op:lw-work:npc_b:obs:87",
+              "op:lw-work:npc_b:obs:90",
+              "op:lw-work:npc_b:obs:93",
+              "op:lw-work:npc_b:obs:96",
+              "op:lw-work:npc_b:obs:99",
+              "op:lw-work:npc_b:obs:102",
+              "op:lw-work:npc_b:obs:105",
+              "op:lw-work:npc_b:obs:108",
+              "op:lw-work:npc_b:obs:111"
+            ],
+            "executed_us": 43750001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:326",
+              "op:lw-work:npc_a:obs:329",
+              "op:lw-work:npc_a:obs:332",
+              "op:lw-work:npc_a:obs:335"
+            ],
+            "executed_us": 106750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_b:obs:276",
+              "op:lw-work:npc_b:obs:279",
+              "op:lw-work:npc_b:obs:311",
+              "op:lw-work:npc_b:obs:314",
+              "op:lw-work:npc_b:obs:317",
+              "op:lw-work:npc_b:obs:320",
+              "op:lw-work:npc_b:obs:323",
+              "op:lw-work:npc_b:obs:326",
+              "op:lw-work:npc_b:obs:329",
+              "op:lw-work:npc_b:obs:332"
+            ],
+            "executed_us": 110250001
+          }
+        ],
+        "elapsed_seconds": 100.50939570000628,
+        "stock": [
+          0,
+          12,
+          12,
+          0,
+          0,
+          12,
+          0,
+          12
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7648,
+            "carried": 0,
+            "unloaded": 16,
+            "records": 0,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 7614,
+            "carried": 0,
+            "unloaded": 32,
+            "records": 12,
+            "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+          },
+          "npc_c": {
+            "observations": 7680,
+            "carried": 0,
+            "unloaded": 0,
+            "records": 0,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "movement": 772,
+          "pickups": 16,
+          "turns": 650,
+          "rescans": 80,
+          "home_switches": 2,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 21,
+          "deliveries": 2,
+          "delivered": 16,
+          "carried": 0,
+          "model_ref": null
+        },
+        "npc_b": {
+          "movement": 119,
+          "pickups": 32,
+          "turns": 343,
+          "rescans": 104,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 27,
+          "deliveries": 2,
+          "delivered": 32,
+          "carried": 0,
+          "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+        },
+        "npc_c": {
+          "movement": 403,
+          "pickups": 0,
+          "turns": 454,
+          "rescans": 100,
+          "home_switches": 1,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 27,
+          "deliveries": 0,
+          "delivered": 0,
+          "carried": 0,
+          "model_ref": null
+        }
+      },
+      "sha256": "b6afe944be578e61a8aaeaa5211ab3efacdd8b276542397af306b6e3f34f06d8",
+      "days": {
+        "1": {
+          "npc_a": {
+            "moved": 61,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 55,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 97,
+            "selected": 0
+          }
+        },
+        "2": {
+          "npc_a": {
+            "moved": 67,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 61,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 20,
+            "selected": 0
+          }
+        },
+        "3": {
+          "npc_a": {
+            "moved": 98,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 3,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 9,
+            "selected": 0
+          }
+        },
+        "4": {
+          "npc_a": {
+            "moved": 39,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 7,
+            "selected": 0
+          }
+        },
+        "5": {
+          "npc_a": {
+            "moved": 5,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 37,
+            "selected": 0
+          }
+        },
+        "6": {
+          "npc_a": {
+            "moved": 71,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 40,
+            "selected": 0
+          }
+        },
+        "7": {
+          "npc_a": {
+            "moved": 8,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 7,
+            "selected": 0
+          }
+        },
+        "8": {
+          "npc_a": {
+            "moved": 6,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 12,
+            "selected": 0
+          }
+        },
+        "9": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 100,
+            "selected": 0
+          }
+        },
+        "10": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 73,
+            "selected": 0
+          }
+        },
+        "11": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 1,
+            "selected": 0
+          }
+        },
+        "12": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "13": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "14": {
+          "npc_a": {
+            "moved": 2,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "15": {
+          "npc_a": {
+            "moved": 87,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "16": {
+          "npc_a": {
+            "moved": 51,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "17": {
+          "npc_a": {
+            "moved": 64,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "18": {
+          "npc_a": {
+            "moved": 8,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "19": {
+          "npc_a": {
+            "moved": 1,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "20": {
+          "npc_a": {
+            "moved": 55,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "21": {
+          "npc_a": {
+            "moved": 8,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "22": {
+          "npc_a": {
+            "moved": 44,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "23": {
+          "npc_a": {
+            "moved": 4,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "24": {
+          "npc_a": {
+            "moved": 57,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "25": {
+          "npc_a": {
+            "moved": 35,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "26": {
+          "npc_a": {
+            "moved": 1,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "27": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "28": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "29": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        },
+        "30": {
+          "npc_a": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 0,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 0,
+            "selected": 0
+          }
+        }
+      },
+      "selections": {
+        "npc_a": {},
+        "npc_b": {},
+        "npc_c": {}
+      },
+      "final_models": {}
+    },
+    {
+      "manifest": {
+        "type": "manifest",
+        "version": "lw-timed-harvest-v1",
+        "nested_model_mode": "enabled",
+        "resource_access": "shared-all-agents-v1",
+        "return_completion_mode": "enabled",
+        "reposition_mode": "enabled",
+        "orientation_mode": "enabled",
+        "days": 30,
+        "stop_after_returns": null,
+        "lateral_side": "left",
+        "goal_switch_threshold": 2,
+        "controller_seed": 20260928,
+        "food_goal_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "return_mode": "overnight-home-purpose-v1",
+        "inventory_mode": "confirmed-unloads-v1",
+        "mb_field_mode": "enabled",
+        "inexhaustible_after_model": false,
+        "stock_mode": "finite",
+        "work_us": 500000,
+        "skyline_subrays": true,
+        "objects": [
+          {
+            "x": 0.0,
+            "z": 8.0,
+            "radius": 1.0,
+            "height": 12.0,
+            "color": "ochre",
+            "solid": true
+          },
+          {
+            "x": -7.4804237644239935,
+            "z": 31.407022591474394,
+            "radius": 0.8000925422261725,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": -2.5409673849977352,
+            "z": -14.941927231833446,
+            "radius": 1.379593532354185,
+            "height": 2.0,
+            "color": "gray",
+            "solid": true
+          },
+          {
+            "x": 0.9632951928890053,
+            "z": 26.87956422765719,
+            "radius": 1.3820725199635218,
+            "height": 8.0,
+            "color": "brown",
+            "solid": true
+          },
+          {
+            "x": 40.917066585249465,
+            "z": 1.365747337842609,
+            "radius": 1.3735967520994907,
+            "height": 2.0,
+            "color": "green",
+            "solid": true
+          },
+          {
+            "x": -10.763175732777919,
+            "z": 25.168944265170428,
+            "radius": 0.8463480792036165,
+            "height": 5.0,
+            "color": "gray",
+            "solid": true
+          }
+        ],
+        "resources": [
+          {
+            "x": -5.680331222197821,
+            "z": 31.407022591474394,
+            "stock": 12
+          },
+          {
+            "x": 2.685879459809848,
+            "z": 41.27477438131782,
+            "stock": 12
+          },
+          {
+            "x": 16.374628567988346,
+            "z": 32.67047418657611,
+            "stock": 12
+          },
+          {
+            "x": -0.1613738526435502,
+            "z": -14.941927231833446,
+            "stock": 12
+          },
+          {
+            "x": 5.273084457019506,
+            "z": 15.876683339686771,
+            "stock": 12
+          },
+          {
+            "x": 42.66751027369044,
+            "z": -8.379395976129905,
+            "stock": 12
+          },
+          {
+            "x": 3.345367712852527,
+            "z": 26.87956422765719,
+            "stock": 12
+          },
+          {
+            "x": -32.73299435206351,
+            "z": -10.681564291478802,
+            "stock": 12
+          }
+        ],
+        "agents": {
+          "npc_a": {
+            "x": -2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_b": {
+            "x": 0.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          },
+          "npc_c": {
+            "x": 2.0,
+            "z": 4.0,
+            "yaw": 0.0,
+            "revision": 0,
+            "inventory": 0
+          }
+        },
+        "seed": 20260930
+      },
+      "summary": {
+        "type": "summary",
+        "reason": "time_limit",
+        "captures": 23040,
+        "ended_us": 1920000000,
+        "pickups": 60,
+        "returns": [
+          {
+            "agent_id": "npc_a",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_a:obs:31",
+              "op:lw-work:npc_a:obs:34",
+              "op:lw-work:npc_a:obs:37",
+              "op:lw-work:npc_a:obs:40",
+              "op:lw-work:npc_a:obs:43",
+              "op:lw-work:npc_a:obs:46",
+              "op:lw-work:npc_a:obs:49",
+              "op:lw-work:npc_a:obs:52",
+              "op:lw-work:npc_a:obs:55",
+              "op:lw-work:npc_a:obs:58",
+              "op:lw-work:npc_a:obs:61",
+              "op:lw-work:npc_a:obs:64"
+            ],
+            "executed_us": 40750001
+          },
+          {
+            "agent_id": "npc_b",
+            "day": 1,
+            "pickups": [
+              "op:lw-work:npc_b:obs:33",
+              "op:lw-work:npc_b:obs:36",
+              "op:lw-work:npc_b:obs:39",
+              "op:lw-work:npc_b:obs:42",
+              "op:lw-work:npc_b:obs:45",
+              "op:lw-work:npc_b:obs:48",
+              "op:lw-work:npc_b:obs:51",
+              "op:lw-work:npc_b:obs:54",
+              "op:lw-work:npc_b:obs:57",
+              "op:lw-work:npc_b:obs:60",
+              "op:lw-work:npc_b:obs:78",
+              "op:lw-work:npc_b:obs:81",
+              "op:lw-work:npc_b:obs:84",
+              "op:lw-work:npc_b:obs:87",
+              "op:lw-work:npc_b:obs:90",
+              "op:lw-work:npc_b:obs:93",
+              "op:lw-work:npc_b:obs:96",
+              "op:lw-work:npc_b:obs:99",
+              "op:lw-work:npc_b:obs:102",
+              "op:lw-work:npc_b:obs:105",
+              "op:lw-work:npc_b:obs:108",
+              "op:lw-work:npc_b:obs:111"
+            ],
+            "executed_us": 45250001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_a:obs:287"
+            ],
+            "executed_us": 97000001
+          },
+          {
+            "agent_id": "npc_c",
+            "day": 2,
+            "pickups": [
+              "op:lw-work:npc_c:obs:284"
+            ],
+            "executed_us": 104000001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 3,
+            "pickups": [
+              "op:lw-work:npc_a:obs:626",
+              "op:lw-work:npc_a:obs:629",
+              "op:lw-work:npc_a:obs:632",
+              "op:lw-work:npc_a:obs:635"
+            ],
+            "executed_us": 175000001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 4,
+            "pickups": [
+              "op:lw-work:npc_a:obs:854",
+              "op:lw-work:npc_a:obs:857",
+              "op:lw-work:npc_a:obs:860",
+              "op:lw-work:npc_a:obs:863",
+              "op:lw-work:npc_a:obs:866",
+              "op:lw-work:npc_a:obs:869",
+              "op:lw-work:npc_a:obs:872",
+              "op:lw-work:npc_a:obs:875"
+            ],
+            "executed_us": 239750001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 11,
+            "pickups": [
+              "op:lw-work:npc_a:obs:2635",
+              "op:lw-work:npc_a:obs:2638",
+              "op:lw-work:npc_a:obs:2641",
+              "op:lw-work:npc_a:obs:2644",
+              "op:lw-work:npc_a:obs:2647",
+              "op:lw-work:npc_a:obs:2650",
+              "op:lw-work:npc_a:obs:2653",
+              "op:lw-work:npc_a:obs:2656",
+              "op:lw-work:npc_a:obs:2659",
+              "op:lw-work:npc_a:obs:2662"
+            ],
+            "executed_us": 692500001
+          },
+          {
+            "agent_id": "npc_a",
+            "day": 17,
+            "pickups": [
+              "op:lw-work:npc_a:obs:4188",
+              "op:lw-work:npc_a:obs:4191"
+            ],
+            "executed_us": 1063000001
+          }
+        ],
+        "elapsed_seconds": 239.65768639999442,
+        "stock": [
+          0,
+          12,
+          12,
+          0,
+          0,
+          0,
+          0,
+          12
+        ],
+        "agents": {
+          "npc_a": {
+            "observations": 7606,
+            "carried": 0,
+            "unloaded": 37,
+            "records": 13,
+            "model_ref": null
+          },
+          "npc_b": {
+            "observations": 7636,
+            "carried": 0,
+            "unloaded": 22,
+            "records": 10,
+            "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+          },
+          "npc_c": {
+            "observations": 7676,
+            "carried": 0,
+            "unloaded": 1,
+            "records": 2,
+            "model_ref": null
+          }
+        }
+      },
+      "agents": {
+        "npc_a": {
+          "movement": 1728,
+          "pickups": 37,
+          "turns": 1004,
+          "rescans": 60,
+          "home_switches": 2,
+          "food_switches": 3,
+          "home_H": 0,
+          "food_H": 9,
+          "deliveries": 6,
+          "delivered": 37,
+          "carried": 0,
+          "model_ref": null
+        },
+        "npc_b": {
+          "movement": 1537,
+          "pickups": 22,
+          "turns": 1032,
+          "rescans": 96,
+          "home_switches": 1,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 25,
+          "deliveries": 1,
+          "delivered": 22,
+          "carried": 0,
+          "model_ref": "gameai-reconstructed-mb:98ab0152b0750373:v1"
+        },
+        "npc_c": {
+          "movement": 1605,
+          "pickups": 1,
+          "turns": 1039,
+          "rescans": 96,
+          "home_switches": 0,
+          "food_switches": 1,
+          "home_H": 0,
+          "food_H": 27,
+          "deliveries": 1,
+          "delivered": 1,
+          "carried": 0,
+          "model_ref": null
+        }
+      },
+      "sha256": "915a7d061859e9bc01941ffbd60a371e4a0d5245a87f449f50b4bfdbc27c1c95",
+      "days": {
+        "1": {
+          "npc_a": {
+            "moved": 73,
+            "selected": 4
+          },
+          "npc_b": {
+            "moved": 55,
+            "selected": 1
+          },
+          "npc_c": {
+            "moved": 116,
+            "selected": 8
+          }
+        },
+        "2": {
+          "npc_a": {
+            "moved": 43,
+            "selected": 4
+          },
+          "npc_b": {
+            "moved": 44,
+            "selected": 11
+          },
+          "npc_c": {
+            "moved": 107,
+            "selected": 0
+          }
+        },
+        "3": {
+          "npc_a": {
+            "moved": 97,
+            "selected": 7
+          },
+          "npc_b": {
+            "moved": 36,
+            "selected": 14
+          },
+          "npc_c": {
+            "moved": 35,
+            "selected": 5
+          }
+        },
+        "4": {
+          "npc_a": {
+            "moved": 74,
+            "selected": 4
+          },
+          "npc_b": {
+            "moved": 48,
+            "selected": 10
+          },
+          "npc_c": {
+            "moved": 65,
+            "selected": 1
+          }
+        },
+        "5": {
+          "npc_a": {
+            "moved": 34,
+            "selected": 1
+          },
+          "npc_b": {
+            "moved": 9,
+            "selected": 7
+          },
+          "npc_c": {
+            "moved": 47,
+            "selected": 5
+          }
+        },
+        "6": {
+          "npc_a": {
+            "moved": 9,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 66,
+            "selected": 14
+          },
+          "npc_c": {
+            "moved": 101,
+            "selected": 10
+          }
+        },
+        "7": {
+          "npc_a": {
+            "moved": 3,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 8,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 66,
+            "selected": 7
+          }
+        },
+        "8": {
+          "npc_a": {
+            "moved": 10,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 30,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 66,
+            "selected": 4
+          }
+        },
+        "9": {
+          "npc_a": {
+            "moved": 39,
+            "selected": 7
+          },
+          "npc_b": {
+            "moved": 40,
+            "selected": 4
+          },
+          "npc_c": {
+            "moved": 39,
+            "selected": 7
+          }
+        },
+        "10": {
+          "npc_a": {
+            "moved": 65,
+            "selected": 15
+          },
+          "npc_b": {
+            "moved": 68,
+            "selected": 7
+          },
+          "npc_c": {
+            "moved": 39,
+            "selected": 11
+          }
+        },
+        "11": {
+          "npc_a": {
+            "moved": 115,
+            "selected": 13
+          },
+          "npc_b": {
+            "moved": 58,
+            "selected": 8
+          },
+          "npc_c": {
+            "moved": 15,
+            "selected": 0
+          }
+        },
+        "12": {
+          "npc_a": {
+            "moved": 86,
+            "selected": 14
+          },
+          "npc_b": {
+            "moved": 56,
+            "selected": 11
+          },
+          "npc_c": {
+            "moved": 108,
+            "selected": 11
+          }
+        },
+        "13": {
+          "npc_a": {
+            "moved": 46,
+            "selected": 13
+          },
+          "npc_b": {
+            "moved": 62,
+            "selected": 8
+          },
+          "npc_c": {
+            "moved": 45,
+            "selected": 5
+          }
+        },
+        "14": {
+          "npc_a": {
+            "moved": 90,
+            "selected": 12
+          },
+          "npc_b": {
+            "moved": 11,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 38,
+            "selected": 10
+          }
+        },
+        "15": {
+          "npc_a": {
+            "moved": 76,
+            "selected": 12
+          },
+          "npc_b": {
+            "moved": 47,
+            "selected": 0
+          },
+          "npc_c": {
+            "moved": 8,
+            "selected": 7
+          }
+        },
+        "16": {
+          "npc_a": {
+            "moved": 95,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 97,
+            "selected": 13
+          },
+          "npc_c": {
+            "moved": 7,
+            "selected": 0
+          }
+        },
+        "17": {
+          "npc_a": {
+            "moved": 108,
+            "selected": 13
+          },
+          "npc_b": {
+            "moved": 48,
+            "selected": 10
+          },
+          "npc_c": {
+            "moved": 43,
+            "selected": 9
+          }
+        },
+        "18": {
+          "npc_a": {
+            "moved": 64,
+            "selected": 5
+          },
+          "npc_b": {
+            "moved": 67,
+            "selected": 9
+          },
+          "npc_c": {
+            "moved": 66,
+            "selected": 5
+          }
+        },
+        "19": {
+          "npc_a": {
+            "moved": 6,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 67,
+            "selected": 1
+          },
+          "npc_c": {
+            "moved": 9,
+            "selected": 3
+          }
+        },
+        "20": {
+          "npc_a": {
+            "moved": 79,
+            "selected": 14
+          },
+          "npc_b": {
+            "moved": 71,
+            "selected": 14
+          },
+          "npc_c": {
+            "moved": 50,
+            "selected": 14
+          }
+        },
+        "21": {
+          "npc_a": {
+            "moved": 10,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 53,
+            "selected": 6
+          },
+          "npc_c": {
+            "moved": 47,
+            "selected": 10
+          }
+        },
+        "22": {
+          "npc_a": {
+            "moved": 37,
+            "selected": 0
+          },
+          "npc_b": {
+            "moved": 43,
+            "selected": 10
+          },
+          "npc_c": {
+            "moved": 82,
+            "selected": 16
+          }
+        },
+        "23": {
+          "npc_a": {
+            "moved": 85,
+            "selected": 11
+          },
+          "npc_b": {
+            "moved": 85,
+            "selected": 12
+          },
+          "npc_c": {
+            "moved": 55,
+            "selected": 13
+          }
+        },
+        "24": {
+          "npc_a": {
+            "moved": 29,
+            "selected": 8
+          },
+          "npc_b": {
+            "moved": 61,
+            "selected": 12
+          },
+          "npc_c": {
+            "moved": 31,
+            "selected": 0
+          }
+        },
+        "25": {
+          "npc_a": {
+            "moved": 46,
+            "selected": 9
+          },
+          "npc_b": {
+            "moved": 45,
+            "selected": 13
+          },
+          "npc_c": {
+            "moved": 61,
+            "selected": 2
+          }
+        },
+        "26": {
+          "npc_a": {
+            "moved": 89,
+            "selected": 14
+          },
+          "npc_b": {
+            "moved": 105,
+            "selected": 13
+          },
+          "npc_c": {
+            "moved": 13,
+            "selected": 3
+          }
+        },
+        "27": {
+          "npc_a": {
+            "moved": 40,
+            "selected": 10
+          },
+          "npc_b": {
+            "moved": 12,
+            "selected": 14
+          },
+          "npc_c": {
+            "moved": 86,
+            "selected": 10
+          }
+        },
+        "28": {
+          "npc_a": {
+            "moved": 34,
+            "selected": 6
+          },
+          "npc_b": {
+            "moved": 98,
+            "selected": 12
+          },
+          "npc_c": {
+            "moved": 59,
+            "selected": 8
+          }
+        },
+        "29": {
+          "npc_a": {
+            "moved": 57,
+            "selected": 10
+          },
+          "npc_b": {
+            "moved": 13,
+            "selected": 14
+          },
+          "npc_c": {
+            "moved": 20,
+            "selected": 9
+          }
+        },
+        "30": {
+          "npc_a": {
+            "moved": 89,
+            "selected": 13
+          },
+          "npc_b": {
+            "moved": 34,
+            "selected": 16
+          },
+          "npc_c": {
+            "moved": 81,
+            "selected": 13
+          }
+        }
+      },
+      "selections": {
+        "npc_a": {
+          "selected": 219,
+          "food/reposition": 219
+        },
+        "npc_b": {
+          "selected": 264,
+          "food/reposition": 264
+        },
+        "npc_c": {
+          "selected": 206,
+          "food/reposition": 206
+        }
+      },
+      "final_models": {
+        "npc_a": {
+          "rule": "nested-local-mb-selection-v1",
+          "binding": [
+            "lw-work",
+            "npc_a"
+          ],
+          "nodes": {
+            "food/survey": {
+              "H": 10,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/approach": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/reposition": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/work": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "home/survey": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/approach": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/reposition": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/work": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            }
+          },
+          "events": [
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7544",
+              "result_source": "lw-work:npc_a:obs:7545",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 2,
+              "H_after": 3,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7545",
+              "result_source": "lw-work:npc_a:obs:7546",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 3,
+              "H_after": 4,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7546",
+              "result_source": "lw-work:npc_a:obs:7547",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 4,
+              "H_after": 5,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7547",
+              "result_source": "lw-work:npc_a:obs:7548",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 5,
+              "H_after": 6,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7548",
+              "result_source": "lw-work:npc_a:obs:7549",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 6,
+              "H_after": 7,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7549",
+              "result_source": "lw-work:npc_a:obs:7550",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 7,
+              "H_after": 8,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7550",
+              "result_source": "lw-work:npc_a:obs:7551",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 8,
+              "H_after": 9,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7551",
+              "result_source": "lw-work:npc_a:obs:7552",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 9,
+              "H_after": 10,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7552",
+              "result_source": "lw-work:npc_a:obs:7553",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7553",
+              "result_source": "lw-work:npc_a:obs:7554",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7554",
+              "result_source": "lw-work:npc_a:obs:7555",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7555",
+              "result_source": "lw-work:npc_a:obs:7556",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7556",
+              "result_source": "lw-work:npc_a:obs:7557",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7557",
+              "result_source": "lw-work:npc_a:obs:7558",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7558",
+              "result_source": "lw-work:npc_a:obs:7559",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7559",
+              "result_source": "lw-work:npc_a:obs:7560",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7560",
+              "result_source": "lw-work:npc_a:obs:7561",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7561",
+              "result_source": "lw-work:npc_a:obs:7562",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7562",
+              "result_source": "lw-work:npc_a:obs:7563",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7563",
+              "result_source": "lw-work:npc_a:obs:7564",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7564",
+              "result_source": "lw-work:npc_a:obs:7565",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7565",
+              "result_source": "lw-work:npc_a:obs:7566",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7566",
+              "result_source": "lw-work:npc_a:obs:7567",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7567",
+              "result_source": "lw-work:npc_a:obs:7568",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7568",
+              "result_source": "lw-work:npc_a:obs:7569",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_a:obs:7569",
+              "result_source": "lw-work:npc_a:obs:7570",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7570",
+              "result_source": "lw-work:npc_a:obs:7571",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7571",
+              "result_source": "lw-work:npc_a:obs:7572",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7572",
+              "result_source": "lw-work:npc_a:obs:7573",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7573",
+              "result_source": "lw-work:npc_a:obs:7574",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_a:obs:7574",
+              "result_source": "lw-work:npc_a:obs:7575",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/work",
+              "question": "arrived",
+              "source": "lw-work:npc_a:obs:7575",
+              "result_source": "lw-work:npc_a:obs:7576",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            }
+          ],
+          "selection": {
+            "applied": false,
+            "reason": "priority",
+            "candidates": []
+          },
+          "parent": {
+            "goal_id": "npc_a:home",
+            "H": 0,
+            "threshold": 2,
+            "authority": "existing-goal-model"
+          },
+          "active_model": "home/survey"
+        },
+        "npc_b": {
+          "rule": "nested-local-mb-selection-v1",
+          "binding": [
+            "lw-work",
+            "npc_b"
+          ],
+          "nodes": {
+            "food/survey": {
+              "H": 32,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/approach": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/reposition": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/work": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "home/survey": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/approach": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/reposition": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/work": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            }
+          },
+          "events": [
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7536",
+              "result_source": "lw-work:npc_b:obs:7537",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7537",
+              "result_source": "lw-work:npc_b:obs:7538",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7538",
+              "result_source": "lw-work:npc_b:obs:7539",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7539",
+              "result_source": "lw-work:npc_b:obs:7540",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7540",
+              "result_source": "lw-work:npc_b:obs:7541",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7541",
+              "result_source": "lw-work:npc_b:obs:7542",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7542",
+              "result_source": "lw-work:npc_b:obs:7543",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7543",
+              "result_source": "lw-work:npc_b:obs:7544",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7544",
+              "result_source": "lw-work:npc_b:obs:7545",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7545",
+              "result_source": "lw-work:npc_b:obs:7546",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7546",
+              "result_source": "lw-work:npc_b:obs:7547",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7547",
+              "result_source": "lw-work:npc_b:obs:7548",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7548",
+              "result_source": "lw-work:npc_b:obs:7549",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7549",
+              "result_source": "lw-work:npc_b:obs:7550",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7550",
+              "result_source": "lw-work:npc_b:obs:7551",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7551",
+              "result_source": "lw-work:npc_b:obs:7552",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 32,
+              "H_after": 32,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7552",
+              "result_source": "lw-work:npc_b:obs:7553",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 1,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7553",
+              "result_source": "lw-work:npc_b:obs:7554",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7554",
+              "result_source": "lw-work:npc_b:obs:7555",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7555",
+              "result_source": "lw-work:npc_b:obs:7556",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7556",
+              "result_source": "lw-work:npc_b:obs:7557",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7557",
+              "result_source": "lw-work:npc_b:obs:7558",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7558",
+              "result_source": "lw-work:npc_b:obs:7559",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7559",
+              "result_source": "lw-work:npc_b:obs:7560",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7560",
+              "result_source": "lw-work:npc_b:obs:7561",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7561",
+              "result_source": "lw-work:npc_b:obs:7562",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7562",
+              "result_source": "lw-work:npc_b:obs:7563",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7563",
+              "result_source": "lw-work:npc_b:obs:7564",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_b:obs:7564",
+              "result_source": "lw-work:npc_b:obs:7565",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7565",
+              "result_source": "lw-work:npc_b:obs:7566",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_b:obs:7566",
+              "result_source": "lw-work:npc_b:obs:7567",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/work",
+              "question": "arrived",
+              "source": "lw-work:npc_b:obs:7567",
+              "result_source": "lw-work:npc_b:obs:7568",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            }
+          ],
+          "selection": {
+            "applied": false,
+            "reason": "priority",
+            "candidates": []
+          },
+          "parent": {
+            "goal_id": "npc_b:home",
+            "H": 0,
+            "threshold": 2,
+            "authority": "existing-goal-model"
+          },
+          "active_model": "home/survey"
+        },
+        "npc_c": {
+          "rule": "nested-local-mb-selection-v1",
+          "binding": [
+            "lw-work",
+            "npc_c"
+          ],
+          "nodes": {
+            "food/approach": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/survey": {
+              "H": 22,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "food/reposition": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "food"
+            },
+            "home/survey": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/approach": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/reposition": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "home/work": {
+              "H": 0,
+              "threshold": 2,
+              "parent": "home"
+            },
+            "food/work": {
+              "H": 1,
+              "threshold": 2,
+              "parent": "food"
+            }
+          },
+          "events": [
+            {
+              "model": "food/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7551",
+              "result_source": "lw-work:npc_c:obs:7552",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 21,
+              "H_after": 22,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7552",
+              "result_source": "lw-work:npc_c:obs:7553",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7553",
+              "result_source": "lw-work:npc_c:obs:7554",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7554",
+              "result_source": "lw-work:npc_c:obs:7555",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 0,
+              "H_after": 1,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7555",
+              "result_source": "lw-work:npc_c:obs:7556",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7556",
+              "result_source": "lw-work:npc_c:obs:7557",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7557",
+              "result_source": "lw-work:npc_c:obs:7558",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7558",
+              "result_source": "lw-work:npc_c:obs:7559",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7559",
+              "result_source": "lw-work:npc_c:obs:7560",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7560",
+              "result_source": "lw-work:npc_c:obs:7561",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7561",
+              "result_source": "lw-work:npc_c:obs:7562",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7562",
+              "result_source": "lw-work:npc_c:obs:7563",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7563",
+              "result_source": "lw-work:npc_c:obs:7564",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7564",
+              "result_source": "lw-work:npc_c:obs:7565",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 1,
+              "H_after": 2,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7565",
+              "result_source": "lw-work:npc_c:obs:7566",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 2,
+              "H_after": 3,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7566",
+              "result_source": "lw-work:npc_c:obs:7567",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 3,
+              "H_after": 4,
+              "status": "compared"
+            },
+            {
+              "model": "home/reposition",
+              "question": "view_or_position_changed",
+              "source": "lw-work:npc_c:obs:7567",
+              "result_source": "lw-work:npc_c:obs:7568",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/reposition",
+              "question": "view_or_position_changed",
+              "source": "lw-work:npc_c:obs:7568",
+              "result_source": "lw-work:npc_c:obs:7569",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7569",
+              "result_source": "lw-work:npc_c:obs:7570",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 4,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7570",
+              "result_source": "lw-work:npc_c:obs:7571",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/reposition",
+              "question": "view_or_position_changed",
+              "source": "lw-work:npc_c:obs:7571",
+              "result_source": "lw-work:npc_c:obs:7572",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/reposition",
+              "question": "view_or_position_changed",
+              "source": "lw-work:npc_c:obs:7572",
+              "result_source": "lw-work:npc_c:obs:7573",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7573",
+              "result_source": "lw-work:npc_c:obs:7574",
+              "F": 1,
+              "F_prime": 0,
+              "E": 1,
+              "H_before": 0,
+              "H_after": 1,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7574",
+              "result_source": "lw-work:npc_c:obs:7575",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 1,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7575",
+              "result_source": "lw-work:npc_c:obs:7576",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/reposition",
+              "question": "view_or_position_changed",
+              "source": "lw-work:npc_c:obs:7576",
+              "result_source": "lw-work:npc_c:obs:7577",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/reposition",
+              "question": "view_or_position_changed",
+              "source": "lw-work:npc_c:obs:7577",
+              "result_source": "lw-work:npc_c:obs:7578",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7578",
+              "result_source": "lw-work:npc_c:obs:7579",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/survey",
+              "question": "view_changed",
+              "source": "lw-work:npc_c:obs:7579",
+              "result_source": "lw-work:npc_c:obs:7580",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7580",
+              "result_source": "lw-work:npc_c:obs:7581",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/approach",
+              "question": "moved",
+              "source": "lw-work:npc_c:obs:7581",
+              "result_source": "lw-work:npc_c:obs:7582",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            },
+            {
+              "model": "home/work",
+              "question": "arrived",
+              "source": "lw-work:npc_c:obs:7582",
+              "result_source": "lw-work:npc_c:obs:7583",
+              "F": 1,
+              "F_prime": 1,
+              "E": 0,
+              "H_before": 0,
+              "H_after": 0,
+              "status": "compared"
+            }
+          ],
+          "selection": {
+            "applied": false,
+            "reason": "priority",
+            "candidates": []
+          },
+          "parent": {
+            "goal_id": "npc_c:home",
+            "H": 0,
+            "threshold": 2,
+            "authority": "existing-goal-model"
+          },
+          "active_model": "home/survey"
+        }
+      }
+    }
+  ]
+}
