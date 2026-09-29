@@ -30,3 +30,5 @@ python -m integrations.lightweight.timed_harvest --days 30 --output integrations
 Uses lw-timed-harvest-v1 event records; the original viewer does not yet support this format.
 
 Add `--skyline-subrays` to the timed_harvest command for three finite rays per skyline bin. This only changes skyline acquisition and records the option in the manifest.
+
+Add `--inexhaustible` to timed_harvest to keep all resource patches available without depletion. Existing per-agent cumulative96 acquisition cap and three-return stop are unchanged.

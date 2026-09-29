@@ -44,6 +44,7 @@ class World:
 
     def __init__(self, run_id='lw-demo', seed=20260928, distant_mode='rays', layout='dense'):
         distant_patches([],distant_mode)
+        self.inexhaustible=False
         self.skyline_subrays=False
         self.distant_mode=distant_mode
         if layout not in ('dense','sparse'):raise ValueError('layout')
@@ -190,7 +191,8 @@ class World:
             if index is not None and c['target_ref'] in visible:
                 obj=self.resources[index]
                 if obj['stock']>0 and hypot(obj['x']-a['x'],obj['z']-a['z'])<=1.25 and self.visible(aid,obj):
-                    obj['stock']-=1;a['inventory']+=1;status='picked_up'
+                    if not self.inexhaustible:obj['stock']-=1
+                    a['inventory']+=1;status='picked_up'
                     self.pickups.append(dict(agent_id=aid,operation_id=op,executed_us=now))
         if status in ('moved','turned','picked_up'):a['revision']+=1
         r=dict(self.context(aid),operation_id=op,source_id=c['source_id'],executed_us=now,

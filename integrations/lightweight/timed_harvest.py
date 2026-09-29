@@ -56,16 +56,17 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False):
     import json,time
     from pathlib import Path
     w=World('lw-work',layout='sparse');loop=HarvestCampaign(w.run_id,days,mb_field_mode='enabled',harvest_state=True)
     w.skyline_subrays=skyline_subrays
+    w.inexhaustible=inexhaustible
     scheduler=WorkScheduler(w);start=time.perf_counter();captures=0
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',days=days,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode='enabled',teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -97,5 +98,5 @@ def run(path,days=30,skyline_subrays=False):
 
 if __name__=='__main__':
     import argparse,json
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');a=p.parse_args()
-    print(json.dumps(run(a.output,a.days,a.skyline_subrays),indent=2))
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');a=p.parse_args()
+    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible),indent=2))

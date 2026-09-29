@@ -693,3 +693,10 @@ opt-in timed_harvestで距離1.25以内→0.5秒作業→完了時判定。30日
 opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の探索継続・時刻帰還によりCが2回、24単位持帰り。
 30日採取60、CのM_B形成あり。3回目持帰りは未達、学習効果への単独帰属なし。
 [Evidence](/docs/experiment-evidence/LW_time_return_evidence.md)。H/帰還規則は変更なし。
+
+
+### LW 無限資源比較
+
+`--inexhaustible`で資源を減らさず実行。Cは同じ餌場で32/34/30採取、3日目の3回持帰りで終了。
+移動距離36/30/28、M_B形成0のため学習による経路短縮とは扱わない。既存累計96上限は維持。
+[Evidence](/docs/experiment-evidence/LW_inexhaustible_evidence.md)。
