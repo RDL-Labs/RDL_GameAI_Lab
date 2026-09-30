@@ -217,3 +217,22 @@ Threat / Novelty / Space / Timeへの展開は一括してdeferredとする。
 ## 13. 一文圧縮
 
 > GameAIにおけるρは、Godot Worldの精密状態を直接NPCへ渡すためではなく、有限なBoundary内でどの関係差まで区別可能なbounded observationとして投影するかを制御する横断的なObservation Adapter概念である。
+
+## 14. 解像度遷移 — 後続のdynamic ρ設計
+
+本指南のLOW / MID / HIGHは、既存の有限Observation Adapterと回帰基準を固定するためのprofileである。
+後続設計として、同じ個体・同じBoundaryでも目的、曖昧性、危険、操作接近に応じて `ρ_B` を有限に上下させる
+[ρ解像度遷移設計](RDL_GameAI_ρ解像度遷移設計.md) を分離した。
+
+```text
+固定profile
+!= dynamic resolution transition
+
+ρ遷移
+!= B変更
+!= Hそのもの
+!= T1再構成
+```
+
+dynamic ρはDESIGN ONLYであり、本指南の既存Acceptanceや `RHO_v0_reference_evidence` を再度openしない。
+実装する場合は別opt-in実験として、ρ変更をまたぐF/F'比較、局所高ρ化、遷移コスト、provenanceを先に固定する。
