@@ -344,3 +344,7 @@ DESIGN ONLY。[提供メモと実装照合](RDL_GameAI_MB_Reinforcement_Nonlinea
 ### 2026-09-29 — 合成的感情
 
 HYPOTHESIS / DESIGN ONLY。[M_B・評価機・Hの相互作用仮説](RDL_GameAI_Compositional_Emotion_Hypothesis.md)。同時に働く接近／回避、退避後に残る問い、目的別の解消を分離。実装・検証なし。危険対処初版の必須範囲は拡張しない。
+
+### 2026-09-30 — 動的ρの具体化
+
+DESIGN ONLY。[ρ解像度遷移設計](RDL_GameAI_ρ解像度遷移設計.md) §24–27に、食料接近、障害物の縁・隙間・足元、聴覚の方向／時間粒度、再解釈と新規取得の区別を追記。軽量化と見逃し・遷移コストを比較する案。行動phase切替をdynamic ρ実装済みとはしない。runtime変更なし。

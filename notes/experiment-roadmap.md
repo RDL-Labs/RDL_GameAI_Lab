@@ -751,3 +751,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-29: [M_B強化の非線形化](../docs/design/RDL_GameAI_MB_Reinforcement_Nonlinearity.md)をDESIGN ONLYで保存。現行の有限support mappingと説明力由来の更新逓減を区別。未予測を大Eにせず、証拠計数分離→固定経験shadow→比較契約→必要時のみ補助mappingの順。危険対処計画は継続し、本メモでruntimeは変更しない。
 
 2026-09-29: [合成的感情仮説](../docs/design/RDL_GameAI_Compositional_Emotion_Hypothesis.md)を保存。安全確保と探索の同時寄与、退避後の保留問い再選択、関連H解消量と支持の分離を後続比較案とする。既知危険対処→別契約で固定観測shadowの順とし、今回runtimeは変更しない。
+
+2026-09-30: [動的ρ設計](../docs/design/RDL_GameAI_ρ解像度遷移設計.md) §24–27を追加。食料接近／障害物局所場／聴覚へ展開する具体案。固定低・固定高・局所dynamicを比較し、生成段階の処理量と見逃しを監査。DESIGN ONLYであり、危険対処初版に必須追加しない。
