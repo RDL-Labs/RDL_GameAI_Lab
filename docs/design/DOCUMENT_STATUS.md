@@ -348,3 +348,7 @@ HYPOTHESIS / DESIGN ONLY。[M_B・評価機・Hの相互作用仮説](RDL_GameAI
 ### 2026-09-30 — 動的ρの具体化
 
 DESIGN ONLY。[ρ解像度遷移設計](RDL_GameAI_ρ解像度遷移設計.md) §24–27に、食料接近、障害物の縁・隙間・足元、聴覚の方向／時間粒度、再解釈と新規取得の区別を追記。軽量化と見逃し・遷移コストを比較する案。行動phase切替をdynamic ρ実装済みとはしない。runtime変更なし。
+
+### 2026-09-30 — 世界履歴
+
+IDEA / DESIGN ONLY。[世界履歴](RDL_GameAI_World_History_Idea.md)。実移動による草地の踏み跡から道形成、多個体による利用、道以外の痕跡を整理。環境状態と個体記憶を分離。runtime・地面観測・移動負荷は未変更。

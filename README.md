@@ -322,3 +322,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-29: [合成的感情の仮説](docs/design/RDL_GameAI_Compositional_Emotion_Hypothesis.md) — HYPOTHESIS / DESIGN ONLY。M_B・評価機・関係別Hから恐怖と好奇心の併存、退避後の問いの再選択を検査する案。感情ラベルを制御入力にせず、未知を自動的にE/Hへ変換しない。
 
 2026-09-30: [動的ρの具体案](docs/design/RDL_GameAI_ρ解像度遷移設計.md) — §24–27に食料接近・障害物場・聴覚を追記。保存情報の再解釈と新規取得を分離し、局所詳細化の処理量・比較可能性・見逃しを検査する計画。未実装。
+
+2026-09-30: [世界履歴のアイディア](docs/design/RDL_GameAI_World_History_Idea.md) — DESIGN ONLY。草地の通行痕が重なって道になる例から、環境に残る作用履歴を整理。個体記憶・World状態・監査ログを分離し、初版候補は外観変化のみ。
