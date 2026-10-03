@@ -6,7 +6,7 @@
 
 ## 入力と初期能力
 
-`violet_hazard`を既知危険外観として初期設定する。観測は同じrun/agent/observation/capture/pose/body revisionへ束縛。
+`violet_hazard`を既知危険外観として初期設定する。縄張りfixtureでは`violet_warning`も同じ既知危険として許可する（[追加契約・Evidence](../experiment-evidence/LW_territorial_hazard.md)）。観測は同じrun/agent/observation/capture/pose/body revisionへ束縛。
 前方180度、距離12以内、Worldの既存遮蔽検査を通した最大1特徴。方向は15度刻みの区間、距離帯はnear<=4、watch<=8、far<=12。
 World座標・個体ID・未来軌道・接触結果は個体入力に含めない。規則版が固定sensor条件も識別する。Observation v1のSensorFrame拡張ではない。
 

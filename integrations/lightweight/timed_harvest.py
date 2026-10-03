@@ -264,8 +264,10 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     if orientation_mode not in ('disabled','enabled'):raise ValueError('orientation_mode')
     if lateral_side not in (None,'left','right'):raise ValueError('lateral_side')
     if hazard_mode not in ('disabled','shadow','enabled'):raise ValueError('hazard_mode')
-    if hazard_scenario not in ('crossing','persistent','night','route_crossing'):raise ValueError('hazard_scenario')
+    if hazard_scenario not in ('crossing','persistent','night','route_crossing','territorial'):raise ValueError('hazard_scenario')
     w=World('lw-work',seed=seed,layout='sparse');loop=HarvestCampaign(w.run_id,days,mb_field_mode=mb_field_mode,harvest_state=True)
+    from .territorial_hazard import TerritorialHazard
+    territory=TerritorialHazard() if hazard_scenario=='territorial' else None
     for agent in loop.agents.values():
         agent.hazard_mode=hazard_mode
         agent.goal_difference_mode=goal_difference_mode
@@ -286,6 +288,8 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
+        if territory:
+            emit(dict(type='territory_config',rule='fixed-territorial-response-v1',center=territory.center,home=territory.home,radius=territory.radius,leash=territory.leash,speed=2,warning_distance=3,detector='world-radius',authority='experimenter-only'))
         emit(dict(type='manifest',version='lw-timed-harvest-v1',hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
@@ -301,6 +305,8 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
             now=slot*250000
             finished=set()
             for p,c,r in scheduler.advance(now):complete(p,c,r);finished.add(c['agent_id'])
+            territory_state=territory.advance(now,w.agents,w.objects) if territory and hazard_mode!='disabled' else None
+            if territory_state:emit(dict(type='territory_world',**territory_state))
             packets={aid:w.packet(aid,slot) for aid in w.agents}
             if orientation_mode=='enabled':
                 from runtime.initial_orientation import sample
@@ -310,8 +316,8 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
                 for aid,p in packets.items():p['dock']=sample(w,p)
             if hazard_mode!='disabled':
                 from .moving_hazard import sample,position
-                for aid,p in packets.items():p['hazard']=sample(w,p,hazard_scenario)
-                obj=position(now,hazard_scenario)
+                obj=territory_state['position'] if territory_state else position(now,hazard_scenario)
+                for aid,p in packets.items():p['hazard']=sample(w,p,hazard_scenario,object_state=obj)
                 from math import hypot
                 emit(dict(type='hazard_world',capture_us=now,position=obj,distances={aid:hypot(body['x']-obj['x'],body['z']-obj['z']) for aid,body in w.agents.items()} if obj else {}))
             for aid,p in packets.items():
@@ -338,5 +344,5 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
 
 if __name__=='__main__':
     import argparse,json
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--return-completion-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--nested-model-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-revisit-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--directional-route-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--relation-field-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--hazard-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--hazard-scenario',choices=['crossing','persistent','night','route_crossing'],default='crossing');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--return-completion-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--nested-model-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-revisit-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--directional-route-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--relation-field-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--hazard-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--hazard-scenario',choices=['crossing','persistent','night','route_crossing','territorial'],default='crossing');a=p.parse_args()
     print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode,a.seed,a.goal_switch_threshold,a.lateral_side,a.orientation_mode,a.reposition_mode,a.return_completion_mode,a.nested_model_mode,a.food_revisit_mode,a.directional_route_mode,a.relation_field_mode,a.hazard_mode,a.hazard_scenario),indent=2))

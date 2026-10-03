@@ -324,3 +324,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-30: [動的ρの具体案](docs/design/RDL_GameAI_ρ解像度遷移設計.md) — §24–27に食料接近・障害物場・聴覚を追記。保存情報の再解釈と新規取得を分離し、局所詳細化の処理量・比較可能性・見逃しを検査する計画。未実装。
 
 2026-09-30: [世界履歴のアイディア](docs/design/RDL_GameAI_World_History_Idea.md) — DESIGN ONLY。草地の通行痕が重なって道になる例から、環境に残る作用履歴を整理。個体記憶・World状態・監査ログを分離し、初版候補は外観変化のみ。
+
+2026-10-03: [固定縄張り反応物](docs/experiment-evidence/LW_territorial_hazard.md)を軽量Worldへ追加。侵入→接近→可視威嚇→退去後帰巣。5日×3条件、91 tests PASS。enabledで5回の安全解除・再開。動物学習・負傷は未実装。

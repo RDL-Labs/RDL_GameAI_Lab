@@ -352,3 +352,7 @@ DESIGN ONLY。[ρ解像度遷移設計](RDL_GameAI_ρ解像度遷移設計.md) �
 ### 2026-09-30 — 世界履歴
 
 IDEA / DESIGN ONLY。[世界履歴](RDL_GameAI_World_History_Idea.md)。実移動による草地の踏み跡から道形成、多個体による利用、道以外の痕跡を整理。環境状態と個体記憶を分離。runtime・地面観測・移動負荷は未変更。
+
+### 2026-10-03 — 固定縄張り反応物
+
+FINITE IMPLEMENTED。[契約・Evidence](../experiment-evidence/LW_territorial_hazard.md)。World半径検知・接近・威嚇・帰巣、個体入力は有限視覚だけ。判断と身体操作を分離。軽量World3run、91 tests PASS。動物学習・縄張り学習・負傷・Luanti移植は未実装。

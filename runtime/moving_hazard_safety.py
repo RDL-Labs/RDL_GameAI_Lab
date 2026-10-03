@@ -10,7 +10,7 @@ def validate(p):
     if h.get('rule')!=RULE or h.get('source')!={k:p[k] for k in KEYS}:raise ValueError('hazard_binding')
     if h.get('coverage') not in ('complete','partial') or len(h.get('features',[]))>1:raise ValueError('hazard_coverage')
     for x in h['features']:
-        if set(x)!= {'appearance','azimuth','range_band'} or x['appearance']!='violet_hazard':raise ValueError('hazard_feature')
+        if set(x)!= {'appearance','azimuth','range_band'} or x['appearance'] not in ('violet_hazard','violet_warning'):raise ValueError('hazard_feature')
         if x['range_band'] not in ('near','watch','far'):raise ValueError('hazard_range')
         a=x['azimuth']
         if len(a)!=2 or not -90<=a[0]<=a[1]<=90:raise ValueError('hazard_angle')
