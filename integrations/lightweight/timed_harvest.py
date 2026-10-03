@@ -44,6 +44,7 @@ class HarvestAgent(ApproachAgent):
             return True
 
     hazard_mode='disabled'
+    warning_review_mode='disabled'
 
     goal_difference_mode='disabled'
     food_goal_mode='disabled'
@@ -147,11 +148,11 @@ class HarvestAgent(ApproachAgent):
 
     def _decision(self,p):
         if self.hazard_mode!='disabled':
-            from runtime.moving_hazard_safety import review
+            from runtime.safety_mode_review import evaluate
             previous=next(reversed(self.decisions.values())) if self.decisions else {}
             packet=next(reversed(self.observations.values())) if self.observations else None
             result=self.results.get('op:'+packet['observation_id']) if packet else None
-            safety=review(p,previous.get('safety'),result)
+            safety=evaluate(p,previous.get('safety'),result,self.warning_review_mode)
             self._safety_current=safety if self.hazard_mode=='enabled' else {}
             d=self._normal_decision(p)
             d['safety']=safety
@@ -247,7 +248,7 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing"):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing",warning_review_mode="disabled"):
     import json,time
     from pathlib import Path
     if stop_after_returns is not None and (type(stop_after_returns) is not int or stop_after_returns < 1):raise ValueError('return_target')
@@ -265,11 +266,13 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     if lateral_side not in (None,'left','right'):raise ValueError('lateral_side')
     if hazard_mode not in ('disabled','shadow','enabled'):raise ValueError('hazard_mode')
     if hazard_scenario not in ('crossing','persistent','night','route_crossing','territorial'):raise ValueError('hazard_scenario')
+    if warning_review_mode not in ('disabled','shadow','enabled'):raise ValueError('warning_review_mode')
     w=World('lw-work',seed=seed,layout='sparse');loop=HarvestCampaign(w.run_id,days,mb_field_mode=mb_field_mode,harvest_state=True)
     from .territorial_hazard import TerritorialHazard
     territory=TerritorialHazard() if hazard_scenario=='territorial' else None
     for agent in loop.agents.values():
         agent.hazard_mode=hazard_mode
+        agent.warning_review_mode=warning_review_mode
         agent.goal_difference_mode=goal_difference_mode
         agent.food_goal_mode=food_goal_mode
         agent.goal_switch_threshold=goal_switch_threshold
@@ -290,7 +293,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
         if territory:
             emit(dict(type='territory_config',rule='fixed-territorial-response-v1',center=territory.center,home=territory.home,radius=territory.radius,leash=territory.leash,speed=2,warning_distance=3,detector='world-radius',authority='experimenter-only'))
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',warning_review_mode=warning_review_mode,hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -344,5 +347,5 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
 
 if __name__=='__main__':
     import argparse,json
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--return-completion-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--nested-model-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-revisit-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--directional-route-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--relation-field-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--hazard-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--hazard-scenario',choices=['crossing','persistent','night','route_crossing','territorial'],default='crossing');a=p.parse_args()
-    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode,a.seed,a.goal_switch_threshold,a.lateral_side,a.orientation_mode,a.reposition_mode,a.return_completion_mode,a.nested_model_mode,a.food_revisit_mode,a.directional_route_mode,a.relation_field_mode,a.hazard_mode,a.hazard_scenario),indent=2))
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--return-completion-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--nested-model-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-revisit-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--directional-route-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--relation-field-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--hazard-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--hazard-scenario',choices=['crossing','persistent','night','route_crossing','territorial'],default='crossing');p.add_argument('--warning-review-mode',choices=['disabled','shadow','enabled'],default='disabled');a=p.parse_args()
+    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode,a.seed,a.goal_switch_threshold,a.lateral_side,a.orientation_mode,a.reposition_mode,a.return_completion_mode,a.nested_model_mode,a.food_revisit_mode,a.directional_route_mode,a.relation_field_mode,a.hazard_mode,a.hazard_scenario,a.warning_review_mode),indent=2))

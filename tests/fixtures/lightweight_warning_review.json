@@ -1,0 +1,5070 @@
+{
+  "disabled": {
+    "sha256": "90b456e2de140676671e08b8be6b123ba8c0849613136fe43342acf0ef85ef99",
+    "manifest": {
+      "type": "manifest",
+      "version": "lw-timed-harvest-v1",
+      "warning_review_mode": "disabled",
+      "hazard_mode": "enabled",
+      "hazard_scenario": "territorial",
+      "relation_field_rule": "angular-relation-movement-field-v2",
+      "relation_field_mode": "enabled",
+      "directional_route_mode": "enabled",
+      "food_revisit_mode": "disabled",
+      "nested_model_mode": "enabled",
+      "resource_access": "shared-all-agents-v1",
+      "return_completion_mode": "enabled",
+      "reposition_mode": "enabled",
+      "orientation_mode": "enabled",
+      "days": 5,
+      "stop_after_returns": null,
+      "lateral_side": "left",
+      "goal_switch_threshold": 2,
+      "controller_seed": 20260928,
+      "food_goal_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "return_mode": "overnight-home-purpose-v1",
+      "inventory_mode": "confirmed-unloads-v1",
+      "mb_field_mode": "enabled",
+      "inexhaustible_after_model": false,
+      "stock_mode": "finite",
+      "work_us": 500000,
+      "skyline_subrays": true,
+      "objects": [
+        {
+          "x": 0.0,
+          "z": 8.0,
+          "radius": 1.0,
+          "height": 12.0,
+          "color": "ochre",
+          "solid": true
+        },
+        {
+          "x": -24.360453461995107,
+          "z": -1.9185691020655793,
+          "radius": 1.0761603729473708,
+          "height": 8.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -16.4375524610027,
+          "z": 17.316017342306075,
+          "radius": 1.1082443892636569,
+          "height": 5.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": -7.1696510123807204,
+          "z": 23.368815959014054,
+          "radius": 1.0534211488518515,
+          "height": 8.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 21.62717326762599,
+          "z": 19.711321647514804,
+          "radius": 0.6488202909889865,
+          "height": 5.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": -17.418580846839635,
+          "z": 9.821597942813405,
+          "radius": 1.4979076028121576,
+          "height": 5.0,
+          "color": "green",
+          "solid": true
+        }
+      ],
+      "resources": [
+        {
+          "x": -22.284293089047736,
+          "z": -1.9185691020655793,
+          "stock": 12
+        },
+        {
+          "x": -21.593575395828893,
+          "z": 28.874898277911942,
+          "stock": 12
+        },
+        {
+          "x": 17.951357711574694,
+          "z": -1.0075870779846043,
+          "stock": 12
+        },
+        {
+          "x": -14.329308071739042,
+          "z": 17.316017342306075,
+          "stock": 12
+        },
+        {
+          "x": 36.49854549184699,
+          "z": -14.953174371309071,
+          "stock": 12
+        },
+        {
+          "x": 30.557129416408014,
+          "z": -23.93255387490489,
+          "stock": 12
+        },
+        {
+          "x": -5.1162298635288685,
+          "z": 23.368815959014054,
+          "stock": 12
+        },
+        {
+          "x": -7.678398154483791,
+          "z": 29.60834178097203,
+          "stock": 12
+        }
+      ],
+      "agents": {
+        "npc_a": {
+          "x": -2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_b": {
+          "x": 0.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_c": {
+          "x": 2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        }
+      },
+      "seed": 20261001
+    },
+    "summary": {
+      "type": "summary",
+      "reason": "time_limit",
+      "captures": 3840,
+      "ended_us": 320000000,
+      "pickups": 60,
+      "returns": [
+        {
+          "agent_id": "npc_a",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_a:obs:57",
+            "op:lw-work:npc_a:obs:60",
+            "op:lw-work:npc_a:obs:63",
+            "op:lw-work:npc_a:obs:66",
+            "op:lw-work:npc_a:obs:69",
+            "op:lw-work:npc_a:obs:72",
+            "op:lw-work:npc_a:obs:75",
+            "op:lw-work:npc_a:obs:78",
+            "op:lw-work:npc_a:obs:81",
+            "op:lw-work:npc_a:obs:84",
+            "op:lw-work:npc_a:obs:87",
+            "op:lw-work:npc_a:obs:90"
+          ],
+          "executed_us": 40500001
+        },
+        {
+          "agent_id": "npc_c",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_c:obs:57",
+            "op:lw-work:npc_c:obs:60",
+            "op:lw-work:npc_c:obs:63",
+            "op:lw-work:npc_c:obs:66",
+            "op:lw-work:npc_c:obs:69",
+            "op:lw-work:npc_c:obs:72",
+            "op:lw-work:npc_c:obs:75",
+            "op:lw-work:npc_c:obs:78",
+            "op:lw-work:npc_c:obs:81",
+            "op:lw-work:npc_c:obs:84",
+            "op:lw-work:npc_c:obs:87",
+            "op:lw-work:npc_c:obs:90",
+            "op:lw-work:npc_c:obs:102",
+            "op:lw-work:npc_c:obs:105",
+            "op:lw-work:npc_c:obs:108",
+            "op:lw-work:npc_c:obs:111",
+            "op:lw-work:npc_c:obs:114",
+            "op:lw-work:npc_c:obs:117",
+            "op:lw-work:npc_c:obs:120",
+            "op:lw-work:npc_c:obs:123"
+          ],
+          "executed_us": 40500001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_b:obs:42",
+            "op:lw-work:npc_b:obs:82",
+            "op:lw-work:npc_b:obs:85",
+            "op:lw-work:npc_b:obs:88",
+            "op:lw-work:npc_b:obs:91",
+            "op:lw-work:npc_b:obs:94",
+            "op:lw-work:npc_b:obs:97",
+            "op:lw-work:npc_b:obs:100"
+          ],
+          "executed_us": 41750001
+        },
+        {
+          "agent_id": "npc_c",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_c:obs:307",
+            "op:lw-work:npc_c:obs:310",
+            "op:lw-work:npc_c:obs:335",
+            "op:lw-work:npc_c:obs:338",
+            "op:lw-work:npc_c:obs:341",
+            "op:lw-work:npc_c:obs:344",
+            "op:lw-work:npc_c:obs:347"
+          ],
+          "executed_us": 102500001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_b:obs:305",
+            "op:lw-work:npc_b:obs:308",
+            "op:lw-work:npc_b:obs:329",
+            "op:lw-work:npc_b:obs:332",
+            "op:lw-work:npc_b:obs:335",
+            "op:lw-work:npc_b:obs:338",
+            "op:lw-work:npc_b:obs:341",
+            "op:lw-work:npc_b:obs:344",
+            "op:lw-work:npc_b:obs:347"
+          ],
+          "executed_us": 104250001
+        }
+      ],
+      "elapsed_seconds": 12.122214899980463,
+      "stock": [
+        0,
+        0,
+        12,
+        0,
+        12,
+        12,
+        0,
+        0
+      ],
+      "agents": {
+        "npc_a": {
+          "observations": 1248,
+          "carried": 4,
+          "unloaded": 12,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:c250fa9a84ab2f04:v1"
+        },
+        "npc_b": {
+          "observations": 1244,
+          "carried": 0,
+          "unloaded": 17,
+          "records": 7,
+          "model_ref": "gameai-reconstructed-mb:55a88247637d4c6d:v1"
+        },
+        "npc_c": {
+          "observations": 1226,
+          "carried": 0,
+          "unloaded": 27,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:e976ac1bd5902148:v1"
+        }
+      }
+    },
+    "counts": {
+      "sampled_contacts": 0,
+      "normal": 2711,
+      "safety_wait_crossing": 126,
+      "safety_turn": 23,
+      "safety_scan": 45,
+      "safety_step": 12,
+      "limited_clearance": 4,
+      "resume_reviews": 4,
+      "safety_budget": 797
+    },
+    "transitions": [
+      {
+        "agent": "npc_a",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 11250000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 14250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 14500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 19250000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 25750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 27250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 27500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 29250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 29500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 31000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 33500000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 137500000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 139250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 139500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 141250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 141500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 143000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 144500000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 145750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 148000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 148750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 149000000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 151000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 152500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 152750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 157250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 157750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 158250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 158750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 159250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 159750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 160250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 160500000,
+        "mode": "safety_unresolved",
+        "reason": "safety_budget"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 264250000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 280250000,
+        "mode": "safety_unresolved",
+        "reason": "safety_budget"
+      }
+    ],
+    "final_modes": {
+      "npc_a": "safety_unresolved",
+      "npc_b": "normal",
+      "npc_c": "safety_unresolved"
+    },
+    "command_hash": "33da2f04d2ffb7640708d749b8f32590808889308e0633a04a36eb7a032cc7ab",
+    "territory_config": {
+      "type": "territory_config",
+      "rule": "fixed-territorial-response-v1",
+      "center": [
+        -20.0,
+        -2.0
+      ],
+      "home": [
+        -20.0,
+        -14.0
+      ],
+      "radius": 8.0,
+      "leash": 12.0,
+      "speed": 2,
+      "warning_distance": 3,
+      "detector": "world-radius",
+      "authority": "experimenter-only"
+    },
+    "territory_counts": {
+      "idle": 429,
+      "blocked": 0,
+      "approaching": 100,
+      "warning_observations": 253,
+      "warning": 679,
+      "returning": 72
+    },
+    "territory_transitions": [
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 0,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 8500000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -19.851666246044946,
+          "z": -13.522509583931152,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 13750000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.984804353434157,
+          "z": -4.0044922607196805,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 14250000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.962807520930326,
+          "z": -3.5805541912231726,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 14500000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.962807520930326,
+          "z": -3.5805541912231726,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15000000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.822577381214,
+          "z": -3.1006213751799896,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15500000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.782711370069517,
+          "z": -2.96418132718685,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15750000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.557246402888733,
+          "z": -2.5179016518999635,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 16500000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.428094931071822,
+          "z": -2.2622624826490694,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 22500000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 22750000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.06424532774028,
+          "z": -13.504144640178666,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 28000000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -21.287909372898767,
+          "z": -4.059716589855751,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 28500000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -21.219419366151204,
+          "z": -3.564429684137743,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 29750000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.9769541656072,
+          "z": -2.9001631794341867,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 30000000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.728191500803824,
+          "z": -2.466438454983385,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 30750000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.567881116807374,
+          "z": -2.186932777632561,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 36750000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 135000000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -19.807881619892306,
+          "z": -13.538382703936696,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 140000000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.544363615287274,
+          "z": -4.492494264767776,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 140500000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.58184517135883,
+          "z": -3.993901111029726,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141000000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.606724992755613,
+          "z": -3.6629407690690097,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141250000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.58139382773902,
+          "z": -3.1635828492570752,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141750000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.56098305754379,
+          "z": -2.7612215784756646,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 142000000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.488147379275368,
+          "z": -2.266555060535367,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 142250000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.488147379275368,
+          "z": -2.266555060535367,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 148250000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 148500000,
+        "mode": "approaching",
+        "target": "npc_a",
+        "blocked": false,
+        "position": {
+          "x": -20.060746201761145,
+          "z": -13.503703819305857,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 153250000,
+        "mode": "warning",
+        "target": "npc_a",
+        "blocked": false,
+        "position": {
+          "x": -21.109494558112313,
+          "z": -4.935434714795999,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      }
+    ],
+    "finite_resources": {
+      "initial": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "overlapping_resources": [
+        0
+      ],
+      "pickups": [
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 11000000,
+          "remaining": 11
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 14750000,
+          "remaining": 11
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 14750000,
+          "remaining": 11
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 15500000,
+          "remaining": 10
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 15500000,
+          "remaining": 10
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 16250000,
+          "remaining": 9
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 16250000,
+          "remaining": 9
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 17000000,
+          "remaining": 8
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 17000000,
+          "remaining": 8
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 17750000,
+          "remaining": 7
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 17750000,
+          "remaining": 7
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 18500000,
+          "remaining": 6
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 18500000,
+          "remaining": 6
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 19250000,
+          "remaining": 5
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 19250000,
+          "remaining": 5
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 20000000,
+          "remaining": 4
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 20000000,
+          "remaining": 4
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 20750000,
+          "remaining": 3
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 20750000,
+          "remaining": 3
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 21000000,
+          "remaining": 10
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 21500000,
+          "remaining": 2
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 21500000,
+          "remaining": 2
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 21750000,
+          "remaining": 9
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 22250000,
+          "remaining": 1
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 22250000,
+          "remaining": 1
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 22500000,
+          "remaining": 8
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 23000000,
+          "remaining": 0
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 23000000,
+          "remaining": 0
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 23250000,
+          "remaining": 7
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 24000000,
+          "remaining": 6
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 24750000,
+          "remaining": 5
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 25500000,
+          "remaining": 4
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 26000000,
+          "remaining": 11
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 26750000,
+          "remaining": 10
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 27500000,
+          "remaining": 9
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 28250000,
+          "remaining": 8
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 29000000,
+          "remaining": 7
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 29750000,
+          "remaining": 6
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 30500000,
+          "remaining": 5
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 31250000,
+          "remaining": 4
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 76750000,
+          "remaining": 3
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 77250000,
+          "remaining": 2
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 77500000,
+          "remaining": 1
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 78000000,
+          "remaining": 0
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 82750000,
+          "remaining": 11
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 83500000,
+          "remaining": 10
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 84250000,
+          "remaining": 9
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 84250000,
+          "remaining": 8
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 85000000,
+          "remaining": 7
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 85000000,
+          "remaining": 6
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 85750000,
+          "remaining": 5
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 85750000,
+          "remaining": 4
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 86500000,
+          "remaining": 3
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 86500000,
+          "remaining": 2
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 87250000,
+          "remaining": 1
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 87250000,
+          "remaining": 0
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 148500000,
+          "remaining": 3
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 149250000,
+          "remaining": 2
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 150000000,
+          "remaining": 1
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 150750000,
+          "remaining": 0
+        }
+      ],
+      "depletions": [
+        {
+          "resource": 1,
+          "capture_us": 23000000
+        },
+        {
+          "resource": 7,
+          "capture_us": 23000000
+        },
+        {
+          "resource": 6,
+          "capture_us": 78000000
+        },
+        {
+          "resource": 3,
+          "capture_us": 87250000
+        },
+        {
+          "resource": 0,
+          "capture_us": 150750000
+        }
+      ],
+      "daily_pickups": {
+        "1": 40,
+        "2": 16,
+        "3": 4
+      },
+      "activity_after_first_depletion": {
+        "picked_up": 34,
+        "turned": 449,
+        "moved": 678,
+        "waited": 2337,
+        "not_found": 1
+      }
+    },
+    "provisional_releases": []
+  },
+  "shadow": {
+    "sha256": "f425edf1cb8dd4b8b3f1814d6b1b4d3c64ef1cb556b7aeea2ae631199dab2283",
+    "manifest": {
+      "type": "manifest",
+      "version": "lw-timed-harvest-v1",
+      "warning_review_mode": "shadow",
+      "hazard_mode": "enabled",
+      "hazard_scenario": "territorial",
+      "relation_field_rule": "angular-relation-movement-field-v2",
+      "relation_field_mode": "enabled",
+      "directional_route_mode": "enabled",
+      "food_revisit_mode": "disabled",
+      "nested_model_mode": "enabled",
+      "resource_access": "shared-all-agents-v1",
+      "return_completion_mode": "enabled",
+      "reposition_mode": "enabled",
+      "orientation_mode": "enabled",
+      "days": 5,
+      "stop_after_returns": null,
+      "lateral_side": "left",
+      "goal_switch_threshold": 2,
+      "controller_seed": 20260928,
+      "food_goal_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "return_mode": "overnight-home-purpose-v1",
+      "inventory_mode": "confirmed-unloads-v1",
+      "mb_field_mode": "enabled",
+      "inexhaustible_after_model": false,
+      "stock_mode": "finite",
+      "work_us": 500000,
+      "skyline_subrays": true,
+      "objects": [
+        {
+          "x": 0.0,
+          "z": 8.0,
+          "radius": 1.0,
+          "height": 12.0,
+          "color": "ochre",
+          "solid": true
+        },
+        {
+          "x": -24.360453461995107,
+          "z": -1.9185691020655793,
+          "radius": 1.0761603729473708,
+          "height": 8.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -16.4375524610027,
+          "z": 17.316017342306075,
+          "radius": 1.1082443892636569,
+          "height": 5.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": -7.1696510123807204,
+          "z": 23.368815959014054,
+          "radius": 1.0534211488518515,
+          "height": 8.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 21.62717326762599,
+          "z": 19.711321647514804,
+          "radius": 0.6488202909889865,
+          "height": 5.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": -17.418580846839635,
+          "z": 9.821597942813405,
+          "radius": 1.4979076028121576,
+          "height": 5.0,
+          "color": "green",
+          "solid": true
+        }
+      ],
+      "resources": [
+        {
+          "x": -22.284293089047736,
+          "z": -1.9185691020655793,
+          "stock": 12
+        },
+        {
+          "x": -21.593575395828893,
+          "z": 28.874898277911942,
+          "stock": 12
+        },
+        {
+          "x": 17.951357711574694,
+          "z": -1.0075870779846043,
+          "stock": 12
+        },
+        {
+          "x": -14.329308071739042,
+          "z": 17.316017342306075,
+          "stock": 12
+        },
+        {
+          "x": 36.49854549184699,
+          "z": -14.953174371309071,
+          "stock": 12
+        },
+        {
+          "x": 30.557129416408014,
+          "z": -23.93255387490489,
+          "stock": 12
+        },
+        {
+          "x": -5.1162298635288685,
+          "z": 23.368815959014054,
+          "stock": 12
+        },
+        {
+          "x": -7.678398154483791,
+          "z": 29.60834178097203,
+          "stock": 12
+        }
+      ],
+      "agents": {
+        "npc_a": {
+          "x": -2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_b": {
+          "x": 0.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_c": {
+          "x": 2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        }
+      },
+      "seed": 20261001
+    },
+    "summary": {
+      "type": "summary",
+      "reason": "time_limit",
+      "captures": 3840,
+      "ended_us": 320000000,
+      "pickups": 60,
+      "returns": [
+        {
+          "agent_id": "npc_a",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_a:obs:57",
+            "op:lw-work:npc_a:obs:60",
+            "op:lw-work:npc_a:obs:63",
+            "op:lw-work:npc_a:obs:66",
+            "op:lw-work:npc_a:obs:69",
+            "op:lw-work:npc_a:obs:72",
+            "op:lw-work:npc_a:obs:75",
+            "op:lw-work:npc_a:obs:78",
+            "op:lw-work:npc_a:obs:81",
+            "op:lw-work:npc_a:obs:84",
+            "op:lw-work:npc_a:obs:87",
+            "op:lw-work:npc_a:obs:90"
+          ],
+          "executed_us": 40500001
+        },
+        {
+          "agent_id": "npc_c",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_c:obs:57",
+            "op:lw-work:npc_c:obs:60",
+            "op:lw-work:npc_c:obs:63",
+            "op:lw-work:npc_c:obs:66",
+            "op:lw-work:npc_c:obs:69",
+            "op:lw-work:npc_c:obs:72",
+            "op:lw-work:npc_c:obs:75",
+            "op:lw-work:npc_c:obs:78",
+            "op:lw-work:npc_c:obs:81",
+            "op:lw-work:npc_c:obs:84",
+            "op:lw-work:npc_c:obs:87",
+            "op:lw-work:npc_c:obs:90",
+            "op:lw-work:npc_c:obs:102",
+            "op:lw-work:npc_c:obs:105",
+            "op:lw-work:npc_c:obs:108",
+            "op:lw-work:npc_c:obs:111",
+            "op:lw-work:npc_c:obs:114",
+            "op:lw-work:npc_c:obs:117",
+            "op:lw-work:npc_c:obs:120",
+            "op:lw-work:npc_c:obs:123"
+          ],
+          "executed_us": 40500001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_b:obs:42",
+            "op:lw-work:npc_b:obs:82",
+            "op:lw-work:npc_b:obs:85",
+            "op:lw-work:npc_b:obs:88",
+            "op:lw-work:npc_b:obs:91",
+            "op:lw-work:npc_b:obs:94",
+            "op:lw-work:npc_b:obs:97",
+            "op:lw-work:npc_b:obs:100"
+          ],
+          "executed_us": 41750001
+        },
+        {
+          "agent_id": "npc_c",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_c:obs:307",
+            "op:lw-work:npc_c:obs:310",
+            "op:lw-work:npc_c:obs:335",
+            "op:lw-work:npc_c:obs:338",
+            "op:lw-work:npc_c:obs:341",
+            "op:lw-work:npc_c:obs:344",
+            "op:lw-work:npc_c:obs:347"
+          ],
+          "executed_us": 102500001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_b:obs:305",
+            "op:lw-work:npc_b:obs:308",
+            "op:lw-work:npc_b:obs:329",
+            "op:lw-work:npc_b:obs:332",
+            "op:lw-work:npc_b:obs:335",
+            "op:lw-work:npc_b:obs:338",
+            "op:lw-work:npc_b:obs:341",
+            "op:lw-work:npc_b:obs:344",
+            "op:lw-work:npc_b:obs:347"
+          ],
+          "executed_us": 104250001
+        }
+      ],
+      "elapsed_seconds": 13.14581390004605,
+      "stock": [
+        0,
+        0,
+        12,
+        0,
+        12,
+        12,
+        0,
+        0
+      ],
+      "agents": {
+        "npc_a": {
+          "observations": 1248,
+          "carried": 4,
+          "unloaded": 12,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:c250fa9a84ab2f04:v1"
+        },
+        "npc_b": {
+          "observations": 1244,
+          "carried": 0,
+          "unloaded": 17,
+          "records": 7,
+          "model_ref": "gameai-reconstructed-mb:55a88247637d4c6d:v1"
+        },
+        "npc_c": {
+          "observations": 1226,
+          "carried": 0,
+          "unloaded": 27,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:e976ac1bd5902148:v1"
+        }
+      }
+    },
+    "counts": {
+      "sampled_contacts": 0,
+      "normal": 2711,
+      "safety_wait_crossing": 126,
+      "safety_turn": 23,
+      "safety_scan": 45,
+      "safety_step": 12,
+      "limited_clearance": 4,
+      "resume_reviews": 4,
+      "safety_budget": 797
+    },
+    "transitions": [
+      {
+        "agent": "npc_a",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 11250000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 14250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 14500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 19250000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 25750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 27250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 27500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 29250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 29500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 31000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 33500000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 137500000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 139250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 139500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 141250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 141500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 143000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 144500000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 145750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 148000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 148750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 149000000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 151000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 152500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 152750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 157250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 157750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 158250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 158750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 159250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 159750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 160250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 160500000,
+        "mode": "safety_unresolved",
+        "reason": "safety_budget"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 264250000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 280250000,
+        "mode": "safety_unresolved",
+        "reason": "safety_budget"
+      }
+    ],
+    "final_modes": {
+      "npc_a": "safety_unresolved",
+      "npc_b": "normal",
+      "npc_c": "safety_unresolved"
+    },
+    "command_hash": "33da2f04d2ffb7640708d749b8f32590808889308e0633a04a36eb7a032cc7ab",
+    "territory_config": {
+      "type": "territory_config",
+      "rule": "fixed-territorial-response-v1",
+      "center": [
+        -20.0,
+        -2.0
+      ],
+      "home": [
+        -20.0,
+        -14.0
+      ],
+      "radius": 8.0,
+      "leash": 12.0,
+      "speed": 2,
+      "warning_distance": 3,
+      "detector": "world-radius",
+      "authority": "experimenter-only"
+    },
+    "territory_counts": {
+      "idle": 429,
+      "blocked": 0,
+      "approaching": 100,
+      "warning_observations": 253,
+      "warning": 679,
+      "returning": 72
+    },
+    "territory_transitions": [
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 0,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 8500000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -19.851666246044946,
+          "z": -13.522509583931152,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 13750000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.984804353434157,
+          "z": -4.0044922607196805,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 14250000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.962807520930326,
+          "z": -3.5805541912231726,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 14500000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.962807520930326,
+          "z": -3.5805541912231726,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15000000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.822577381214,
+          "z": -3.1006213751799896,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15500000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.782711370069517,
+          "z": -2.96418132718685,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15750000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.557246402888733,
+          "z": -2.5179016518999635,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 16500000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.428094931071822,
+          "z": -2.2622624826490694,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 22500000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 22750000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.06424532774028,
+          "z": -13.504144640178666,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 28000000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -21.287909372898767,
+          "z": -4.059716589855751,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 28500000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -21.219419366151204,
+          "z": -3.564429684137743,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 29750000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.9769541656072,
+          "z": -2.9001631794341867,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 30000000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.728191500803824,
+          "z": -2.466438454983385,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 30750000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.567881116807374,
+          "z": -2.186932777632561,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 36750000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 135000000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -19.807881619892306,
+          "z": -13.538382703936696,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 140000000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.544363615287274,
+          "z": -4.492494264767776,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 140500000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.58184517135883,
+          "z": -3.993901111029726,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141000000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.606724992755613,
+          "z": -3.6629407690690097,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141250000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.58139382773902,
+          "z": -3.1635828492570752,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141750000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.56098305754379,
+          "z": -2.7612215784756646,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 142000000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.488147379275368,
+          "z": -2.266555060535367,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 142250000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.488147379275368,
+          "z": -2.266555060535367,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 148250000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 148500000,
+        "mode": "approaching",
+        "target": "npc_a",
+        "blocked": false,
+        "position": {
+          "x": -20.060746201761145,
+          "z": -13.503703819305857,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 153250000,
+        "mode": "warning",
+        "target": "npc_a",
+        "blocked": false,
+        "position": {
+          "x": -21.109494558112313,
+          "z": -4.935434714795999,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      }
+    ],
+    "finite_resources": {
+      "initial": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "overlapping_resources": [
+        0
+      ],
+      "pickups": [
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 11000000,
+          "remaining": 11
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 14750000,
+          "remaining": 11
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 14750000,
+          "remaining": 11
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 15500000,
+          "remaining": 10
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 15500000,
+          "remaining": 10
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 16250000,
+          "remaining": 9
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 16250000,
+          "remaining": 9
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 17000000,
+          "remaining": 8
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 17000000,
+          "remaining": 8
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 17750000,
+          "remaining": 7
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 17750000,
+          "remaining": 7
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 18500000,
+          "remaining": 6
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 18500000,
+          "remaining": 6
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 19250000,
+          "remaining": 5
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 19250000,
+          "remaining": 5
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 20000000,
+          "remaining": 4
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 20000000,
+          "remaining": 4
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 20750000,
+          "remaining": 3
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 20750000,
+          "remaining": 3
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 21000000,
+          "remaining": 10
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 21500000,
+          "remaining": 2
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 21500000,
+          "remaining": 2
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 21750000,
+          "remaining": 9
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 22250000,
+          "remaining": 1
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 22250000,
+          "remaining": 1
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 22500000,
+          "remaining": 8
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 23000000,
+          "remaining": 0
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 23000000,
+          "remaining": 0
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 23250000,
+          "remaining": 7
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 24000000,
+          "remaining": 6
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 24750000,
+          "remaining": 5
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 25500000,
+          "remaining": 4
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 26000000,
+          "remaining": 11
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 26750000,
+          "remaining": 10
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 27500000,
+          "remaining": 9
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 28250000,
+          "remaining": 8
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 29000000,
+          "remaining": 7
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 29750000,
+          "remaining": 6
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 30500000,
+          "remaining": 5
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 31250000,
+          "remaining": 4
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 76750000,
+          "remaining": 3
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 77250000,
+          "remaining": 2
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 77500000,
+          "remaining": 1
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 78000000,
+          "remaining": 0
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 82750000,
+          "remaining": 11
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 83500000,
+          "remaining": 10
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 84250000,
+          "remaining": 9
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 84250000,
+          "remaining": 8
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 85000000,
+          "remaining": 7
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 85000000,
+          "remaining": 6
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 85750000,
+          "remaining": 5
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 85750000,
+          "remaining": 4
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 86500000,
+          "remaining": 3
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 86500000,
+          "remaining": 2
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 87250000,
+          "remaining": 1
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 87250000,
+          "remaining": 0
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 148500000,
+          "remaining": 3
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 149250000,
+          "remaining": 2
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 150000000,
+          "remaining": 1
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 150750000,
+          "remaining": 0
+        }
+      ],
+      "depletions": [
+        {
+          "resource": 1,
+          "capture_us": 23000000
+        },
+        {
+          "resource": 7,
+          "capture_us": 23000000
+        },
+        {
+          "resource": 6,
+          "capture_us": 78000000
+        },
+        {
+          "resource": 3,
+          "capture_us": 87250000
+        },
+        {
+          "resource": 0,
+          "capture_us": 150750000
+        }
+      ],
+      "daily_pickups": {
+        "1": 40,
+        "2": 16,
+        "3": 4
+      },
+      "activity_after_first_depletion": {
+        "picked_up": 34,
+        "turned": 449,
+        "moved": 678,
+        "waited": 2337,
+        "not_found": 1
+      }
+    },
+    "provisional_releases": []
+  },
+  "enabled": {
+    "sha256": "517d2b69002ffdaa96aa3d07c1454aa5528dedf81e25f592aa39905aa1ec088a",
+    "manifest": {
+      "type": "manifest",
+      "version": "lw-timed-harvest-v1",
+      "warning_review_mode": "enabled",
+      "hazard_mode": "enabled",
+      "hazard_scenario": "territorial",
+      "relation_field_rule": "angular-relation-movement-field-v2",
+      "relation_field_mode": "enabled",
+      "directional_route_mode": "enabled",
+      "food_revisit_mode": "disabled",
+      "nested_model_mode": "enabled",
+      "resource_access": "shared-all-agents-v1",
+      "return_completion_mode": "enabled",
+      "reposition_mode": "enabled",
+      "orientation_mode": "enabled",
+      "days": 5,
+      "stop_after_returns": null,
+      "lateral_side": "left",
+      "goal_switch_threshold": 2,
+      "controller_seed": 20260928,
+      "food_goal_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "return_mode": "overnight-home-purpose-v1",
+      "inventory_mode": "confirmed-unloads-v1",
+      "mb_field_mode": "enabled",
+      "inexhaustible_after_model": false,
+      "stock_mode": "finite",
+      "work_us": 500000,
+      "skyline_subrays": true,
+      "objects": [
+        {
+          "x": 0.0,
+          "z": 8.0,
+          "radius": 1.0,
+          "height": 12.0,
+          "color": "ochre",
+          "solid": true
+        },
+        {
+          "x": -24.360453461995107,
+          "z": -1.9185691020655793,
+          "radius": 1.0761603729473708,
+          "height": 8.0,
+          "color": "gray",
+          "solid": true
+        },
+        {
+          "x": -16.4375524610027,
+          "z": 17.316017342306075,
+          "radius": 1.1082443892636569,
+          "height": 5.0,
+          "color": "green",
+          "solid": true
+        },
+        {
+          "x": -7.1696510123807204,
+          "z": 23.368815959014054,
+          "radius": 1.0534211488518515,
+          "height": 8.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": 21.62717326762599,
+          "z": 19.711321647514804,
+          "radius": 0.6488202909889865,
+          "height": 5.0,
+          "color": "brown",
+          "solid": true
+        },
+        {
+          "x": -17.418580846839635,
+          "z": 9.821597942813405,
+          "radius": 1.4979076028121576,
+          "height": 5.0,
+          "color": "green",
+          "solid": true
+        }
+      ],
+      "resources": [
+        {
+          "x": -22.284293089047736,
+          "z": -1.9185691020655793,
+          "stock": 12
+        },
+        {
+          "x": -21.593575395828893,
+          "z": 28.874898277911942,
+          "stock": 12
+        },
+        {
+          "x": 17.951357711574694,
+          "z": -1.0075870779846043,
+          "stock": 12
+        },
+        {
+          "x": -14.329308071739042,
+          "z": 17.316017342306075,
+          "stock": 12
+        },
+        {
+          "x": 36.49854549184699,
+          "z": -14.953174371309071,
+          "stock": 12
+        },
+        {
+          "x": 30.557129416408014,
+          "z": -23.93255387490489,
+          "stock": 12
+        },
+        {
+          "x": -5.1162298635288685,
+          "z": 23.368815959014054,
+          "stock": 12
+        },
+        {
+          "x": -7.678398154483791,
+          "z": 29.60834178097203,
+          "stock": 12
+        }
+      ],
+      "agents": {
+        "npc_a": {
+          "x": -2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_b": {
+          "x": 0.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        },
+        "npc_c": {
+          "x": 2.0,
+          "z": 4.0,
+          "yaw": 0.0,
+          "revision": 0,
+          "inventory": 0
+        }
+      },
+      "seed": 20261001
+    },
+    "summary": {
+      "type": "summary",
+      "reason": "time_limit",
+      "captures": 3840,
+      "ended_us": 320000000,
+      "pickups": 60,
+      "returns": [
+        {
+          "agent_id": "npc_a",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_a:obs:57",
+            "op:lw-work:npc_a:obs:60",
+            "op:lw-work:npc_a:obs:63",
+            "op:lw-work:npc_a:obs:66",
+            "op:lw-work:npc_a:obs:69",
+            "op:lw-work:npc_a:obs:72",
+            "op:lw-work:npc_a:obs:75",
+            "op:lw-work:npc_a:obs:78",
+            "op:lw-work:npc_a:obs:81",
+            "op:lw-work:npc_a:obs:84",
+            "op:lw-work:npc_a:obs:87",
+            "op:lw-work:npc_a:obs:90"
+          ],
+          "executed_us": 40500001
+        },
+        {
+          "agent_id": "npc_c",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_c:obs:57",
+            "op:lw-work:npc_c:obs:60",
+            "op:lw-work:npc_c:obs:63",
+            "op:lw-work:npc_c:obs:66",
+            "op:lw-work:npc_c:obs:69",
+            "op:lw-work:npc_c:obs:72",
+            "op:lw-work:npc_c:obs:75",
+            "op:lw-work:npc_c:obs:78",
+            "op:lw-work:npc_c:obs:81",
+            "op:lw-work:npc_c:obs:84",
+            "op:lw-work:npc_c:obs:87",
+            "op:lw-work:npc_c:obs:90",
+            "op:lw-work:npc_c:obs:102",
+            "op:lw-work:npc_c:obs:105",
+            "op:lw-work:npc_c:obs:108",
+            "op:lw-work:npc_c:obs:111",
+            "op:lw-work:npc_c:obs:114",
+            "op:lw-work:npc_c:obs:117",
+            "op:lw-work:npc_c:obs:120",
+            "op:lw-work:npc_c:obs:123"
+          ],
+          "executed_us": 40500001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 1,
+          "pickups": [
+            "op:lw-work:npc_b:obs:42",
+            "op:lw-work:npc_b:obs:82",
+            "op:lw-work:npc_b:obs:85",
+            "op:lw-work:npc_b:obs:88",
+            "op:lw-work:npc_b:obs:91",
+            "op:lw-work:npc_b:obs:94",
+            "op:lw-work:npc_b:obs:97",
+            "op:lw-work:npc_b:obs:100"
+          ],
+          "executed_us": 41750001
+        },
+        {
+          "agent_id": "npc_c",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_c:obs:307",
+            "op:lw-work:npc_c:obs:310",
+            "op:lw-work:npc_c:obs:335",
+            "op:lw-work:npc_c:obs:338",
+            "op:lw-work:npc_c:obs:341",
+            "op:lw-work:npc_c:obs:344",
+            "op:lw-work:npc_c:obs:347"
+          ],
+          "executed_us": 102500001
+        },
+        {
+          "agent_id": "npc_b",
+          "day": 2,
+          "pickups": [
+            "op:lw-work:npc_b:obs:305",
+            "op:lw-work:npc_b:obs:308",
+            "op:lw-work:npc_b:obs:329",
+            "op:lw-work:npc_b:obs:332",
+            "op:lw-work:npc_b:obs:335",
+            "op:lw-work:npc_b:obs:338",
+            "op:lw-work:npc_b:obs:341",
+            "op:lw-work:npc_b:obs:344",
+            "op:lw-work:npc_b:obs:347"
+          ],
+          "executed_us": 104250001
+        },
+        {
+          "agent_id": "npc_a",
+          "day": 3,
+          "pickups": [
+            "op:lw-work:npc_a:obs:592",
+            "op:lw-work:npc_a:obs:595",
+            "op:lw-work:npc_a:obs:598",
+            "op:lw-work:npc_a:obs:601"
+          ],
+          "executed_us": 175250001
+        }
+      ],
+      "elapsed_seconds": 13.840459999977611,
+      "stock": [
+        0,
+        0,
+        12,
+        0,
+        12,
+        12,
+        0,
+        0
+      ],
+      "agents": {
+        "npc_a": {
+          "observations": 1248,
+          "carried": 0,
+          "unloaded": 16,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:c250fa9a84ab2f04:v1"
+        },
+        "npc_b": {
+          "observations": 1244,
+          "carried": 0,
+          "unloaded": 17,
+          "records": 7,
+          "model_ref": "gameai-reconstructed-mb:55a88247637d4c6d:v1"
+        },
+        "npc_c": {
+          "observations": 1226,
+          "carried": 0,
+          "unloaded": 27,
+          "records": 12,
+          "model_ref": "gameai-reconstructed-mb:e976ac1bd5902148:v1"
+        }
+      }
+    },
+    "counts": {
+      "sampled_contacts": 0,
+      "normal": 3525,
+      "safety_wait_crossing": 77,
+      "safety_turn": 23,
+      "safety_scan": 45,
+      "safety_step": 12,
+      "limited_clearance": 5,
+      "resume_reviews": 5,
+      "safety_budget": 30,
+      "provisional_mode_release": 1
+    },
+    "transitions": [
+      {
+        "agent": "npc_a",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 0,
+        "mode": "normal",
+        "reason": "normal"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 11250000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 13750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 14250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 14500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 15750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 16750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 19250000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 25750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 27250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 27500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 28750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 29250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 29500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 30750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 31000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_b",
+        "capture_us": 33500000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 137500000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 139250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 139500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140000000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 140750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 141250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 141500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 142750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 143000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 144500000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 145750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 148000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 148750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 149000000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 151000000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 152500000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 152750000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 153750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 154750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 155750000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156000000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156250000,
+        "mode": "safety_active",
+        "reason": "safety_turn"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156500000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 156750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 157250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 157750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 158250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 158750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 159250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 159750000,
+        "mode": "safety_review",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 160250000,
+        "mode": "safety_uncertain",
+        "reason": "safety_scan"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 160500000,
+        "mode": "safety_unresolved",
+        "reason": "safety_budget"
+      },
+      {
+        "agent": "npc_a",
+        "capture_us": 168000000,
+        "mode": "normal",
+        "reason": "provisional_mode_release"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 267750000,
+        "mode": "safety_review",
+        "reason": "safety_wait_crossing"
+      },
+      {
+        "agent": "npc_c",
+        "capture_us": 271500000,
+        "mode": "normal",
+        "reason": "limited_clearance"
+      }
+    ],
+    "final_modes": {
+      "npc_a": "normal",
+      "npc_b": "normal",
+      "npc_c": "normal"
+    },
+    "command_hash": "2dbc1a5385e872134f0c046d2519d8a30568e3f93bf1516654bc60ff9e3f6070",
+    "territory_config": {
+      "type": "territory_config",
+      "rule": "fixed-territorial-response-v1",
+      "center": [
+        -20.0,
+        -2.0
+      ],
+      "home": [
+        -20.0,
+        -14.0
+      ],
+      "radius": 8.0,
+      "leash": 12.0,
+      "speed": 2,
+      "warning_distance": 3,
+      "detector": "world-radius",
+      "authority": "experimenter-only"
+    },
+    "territory_counts": {
+      "idle": 938,
+      "blocked": 0,
+      "approaching": 140,
+      "warning_observations": 19,
+      "warning": 73,
+      "returning": 129
+    },
+    "territory_transitions": [
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 0,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 8500000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -19.851666246044946,
+          "z": -13.522509583931152,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 13750000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.984804353434157,
+          "z": -4.0044922607196805,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 14250000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.962807520930326,
+          "z": -3.5805541912231726,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 14500000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.962807520930326,
+          "z": -3.5805541912231726,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15000000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.822577381214,
+          "z": -3.1006213751799896,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15500000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.782711370069517,
+          "z": -2.96418132718685,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 15750000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.557246402888733,
+          "z": -2.5179016518999635,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 16500000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.428094931071822,
+          "z": -2.2622624826490694,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 22500000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 22750000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.06424532774028,
+          "z": -13.504144640178666,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 28000000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -21.287909372898767,
+          "z": -4.059716589855751,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 28500000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -21.219419366151204,
+          "z": -3.564429684137743,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 29750000,
+        "mode": "warning",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.9769541656072,
+          "z": -2.9001631794341867,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 30000000,
+        "mode": "approaching",
+        "target": "npc_b",
+        "blocked": false,
+        "position": {
+          "x": -20.728191500803824,
+          "z": -2.466438454983385,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 30750000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.567881116807374,
+          "z": -2.186932777632561,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 36750000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 135000000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -19.807881619892306,
+          "z": -13.538382703936696,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 140000000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.544363615287274,
+          "z": -4.492494264767776,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 140500000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.58184517135883,
+          "z": -3.993901111029726,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141000000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.606724992755613,
+          "z": -3.6629407690690097,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141250000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.58139382773902,
+          "z": -3.1635828492570752,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 141750000,
+        "mode": "warning",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.56098305754379,
+          "z": -2.7612215784756646,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 142000000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -20.488147379275368,
+          "z": -2.266555060535367,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 142250000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.488147379275368,
+          "z": -2.266555060535367,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 148250000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 148500000,
+        "mode": "approaching",
+        "target": "npc_a",
+        "blocked": false,
+        "position": {
+          "x": -20.060746201761145,
+          "z": -13.503703819305857,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 153250000,
+        "mode": "warning",
+        "target": "npc_a",
+        "blocked": false,
+        "position": {
+          "x": -21.109494558112313,
+          "z": -4.935434714795999,
+          "radius": 0.5,
+          "display": "warning"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 168500000,
+        "mode": "approaching",
+        "target": "npc_a",
+        "blocked": false,
+        "position": {
+          "x": -21.04599853285293,
+          "z": -4.439482847397297,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 170000000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -19.77063329100104,
+          "z": -2.315744965147389,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 176000000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 263500000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -19.82142097998781,
+          "z": -13.532978015922714,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 269500000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -17.583532951812515,
+          "z": -2.279942737246188,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 275500000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 301000000,
+        "mode": "approaching",
+        "target": "npc_c",
+        "blocked": false,
+        "position": {
+          "x": -19.81432009392722,
+          "z": -13.535755482013192,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 303500000,
+        "mode": "returning",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -18.684339959142466,
+          "z": -9.708232664488781,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      },
+      {
+        "type": "territory_world",
+        "rule": "fixed-territorial-response-v1",
+        "capture_us": 305750000,
+        "mode": "idle",
+        "target": null,
+        "blocked": false,
+        "position": {
+          "x": -20.0,
+          "z": -14.0,
+          "radius": 0.5,
+          "display": "ordinary"
+        }
+      }
+    ],
+    "finite_resources": {
+      "initial": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "overlapping_resources": [
+        0
+      ],
+      "pickups": [
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 11000000,
+          "remaining": 11
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 14750000,
+          "remaining": 11
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 14750000,
+          "remaining": 11
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 15500000,
+          "remaining": 10
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 15500000,
+          "remaining": 10
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 16250000,
+          "remaining": 9
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 16250000,
+          "remaining": 9
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 17000000,
+          "remaining": 8
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 17000000,
+          "remaining": 8
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 17750000,
+          "remaining": 7
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 17750000,
+          "remaining": 7
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 18500000,
+          "remaining": 6
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 18500000,
+          "remaining": 6
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 19250000,
+          "remaining": 5
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 19250000,
+          "remaining": 5
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 20000000,
+          "remaining": 4
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 20000000,
+          "remaining": 4
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 20750000,
+          "remaining": 3
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 20750000,
+          "remaining": 3
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 21000000,
+          "remaining": 10
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 21500000,
+          "remaining": 2
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 21500000,
+          "remaining": 2
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 21750000,
+          "remaining": 9
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 22250000,
+          "remaining": 1
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 22250000,
+          "remaining": 1
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 22500000,
+          "remaining": 8
+        },
+        {
+          "resource": 1,
+          "inside_territory": false,
+          "agent": "npc_a",
+          "capture_us": 23000000,
+          "remaining": 0
+        },
+        {
+          "resource": 7,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 23000000,
+          "remaining": 0
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 23250000,
+          "remaining": 7
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 24000000,
+          "remaining": 6
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 24750000,
+          "remaining": 5
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_b",
+          "capture_us": 25500000,
+          "remaining": 4
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 26000000,
+          "remaining": 11
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 26750000,
+          "remaining": 10
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 27500000,
+          "remaining": 9
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 28250000,
+          "remaining": 8
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 29000000,
+          "remaining": 7
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 29750000,
+          "remaining": 6
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 30500000,
+          "remaining": 5
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 31250000,
+          "remaining": 4
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 76750000,
+          "remaining": 3
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 77250000,
+          "remaining": 2
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 77500000,
+          "remaining": 1
+        },
+        {
+          "resource": 6,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 78000000,
+          "remaining": 0
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 82750000,
+          "remaining": 11
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 83500000,
+          "remaining": 10
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 84250000,
+          "remaining": 9
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 84250000,
+          "remaining": 8
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 85000000,
+          "remaining": 7
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 85000000,
+          "remaining": 6
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 85750000,
+          "remaining": 5
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 85750000,
+          "remaining": 4
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 86500000,
+          "remaining": 3
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 86500000,
+          "remaining": 2
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_b",
+          "capture_us": 87250000,
+          "remaining": 1
+        },
+        {
+          "resource": 3,
+          "inside_territory": false,
+          "agent": "npc_c",
+          "capture_us": 87250000,
+          "remaining": 0
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 148500000,
+          "remaining": 3
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 149250000,
+          "remaining": 2
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 150000000,
+          "remaining": 1
+        },
+        {
+          "resource": 0,
+          "inside_territory": true,
+          "agent": "npc_a",
+          "capture_us": 150750000,
+          "remaining": 0
+        }
+      ],
+      "depletions": [
+        {
+          "resource": 1,
+          "capture_us": 23000000
+        },
+        {
+          "resource": 7,
+          "capture_us": 23000000
+        },
+        {
+          "resource": 6,
+          "capture_us": 78000000
+        },
+        {
+          "resource": 3,
+          "capture_us": 87250000
+        },
+        {
+          "resource": 0,
+          "capture_us": 150750000
+        }
+      ],
+      "daily_pickups": {
+        "1": 40,
+        "2": 16,
+        "3": 4
+      },
+      "activity_after_first_depletion": {
+        "picked_up": 34,
+        "turned": 595,
+        "moved": 953,
+        "waited": 1916,
+        "not_found": 1
+      }
+    },
+    "provisional_releases": [
+      {
+        "agent": "npc_a",
+        "capture_us": 168000000,
+        "coverage": "partial",
+        "H": 8,
+        "action": "turn",
+        "reason": "relation_field",
+        "phase": "return"
+      }
+    ]
+  }
+}

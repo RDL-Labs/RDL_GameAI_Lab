@@ -328,3 +328,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-10-03: [固定縄張り反応物](docs/experiment-evidence/LW_territorial_hazard.md)を軽量Worldへ追加。侵入→接近→可視威嚇→退去後帰巣。5日×3条件、91 tests PASS。enabledで5回の安全解除・再開。動物学習・負傷は未実装。
 
 2026-10-03: [有限採取場×縄張り比較](docs/experiment-evidence/LW_finite_territory.md)。8地点各12単位、うち1地点が縄張り内。5日×3条件、総採取60は同じだが対処ありの配送56・携行4。資源利用時期/個体が変化し、安全未解決も残る。
+
+2026-10-03: [警戒モードの局所H評価](docs/experiment-evidence/LW_warning_mode_review.md)を追加。維持根拠の未更新→H→閾値で暫定解除。有限資源5日比較でAが携行4個を配送、全員normal終了。99 tests PASS。安全の証明とは区別。
