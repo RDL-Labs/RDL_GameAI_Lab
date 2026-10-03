@@ -13,15 +13,17 @@ MAX_SEARCH_OPERATIONS=32
 
 def review(agent,packet,memory,state,linked,result):
     s=deepcopy(state)
+    continuous=getattr(agent,"continuous_selection",False)
+    if continuous and s["outcome"]!="home_like_observed":s["outcome"]=None
     search=s.setdefault('search',dict(landmark=initial_state(),operations=0,mode='homing',purpose='find-home-appearance'))
     if not linked or memory is None:
-        return home_review(packet,memory,s,linked,result)
+        return home_review(packet,memory,s,linked,result,continuous=continuous)
     if s['outcome'] not in (None,'not_observed','ambiguous','blocked'):
         return ['wait',0],s
     # While searching, recheck home at each actual new observation. A search
     # collision is handled by the landmark controller, not attributed to home.
     probe=deepcopy(s);probe['outcome']=None
-    action,h=home_review(packet,memory,probe,linked,result if search['mode']=='homing' else None)
+    action,h=home_review(packet,memory,probe,linked,result if search['mode']=='homing' else None,continuous=continuous)
     prefer_search=s.get('method')=='landmark_first' and search['operations']<8 and h['outcome']!='home_like_observed'
     if not prefer_search and h['diagnostic']=='appearance_candidate' and h['outcome'] in (None,'home_like_observed'):
         search['mode']='homing';search['landmark']['stage']='suspended'
@@ -32,9 +34,9 @@ def review(agent,packet,memory,state,linked,result):
     search['mode']='searching'
     s['outcome']=None
     s['diagnostic']='searching_home'
-    if search['operations']>=MAX_SEARCH_OPERATIONS:
+    if not continuous and search['operations']>=MAX_SEARCH_OPERATIONS:
         s['outcome']='search_operation_budget';return ['wait',0],s
-    view=SimpleNamespace(observations=agent.observations,results=agent.results,
+    view=SimpleNamespace(continuous_selection=continuous,observations=agent.observations,results=agent.results,
         decisions={'last':dict(landmark=search['landmark'])},
         seed=int(digest([agent.seed,packet['capture_us']//DAY_US,'home-search-attempt'])[:8],16))
     action,landmark=LandmarkExplorationDay._subgoal(view,packet)

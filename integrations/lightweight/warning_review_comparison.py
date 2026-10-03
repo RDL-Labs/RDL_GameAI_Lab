@@ -12,7 +12,7 @@ def main(execute=False):
     for mode in ('disabled','shadow','enabled'):
         path=ROOT/f'warning_review_{mode}.jsonl'
         if execute:
-            run(path,days=5,skyline_subrays=True,inexhaustible=False,stop_after_returns=None,
+            run(path,selection_mode="legacy",days=5,skyline_subrays=True,inexhaustible=False,stop_after_returns=None,
                 mb_field_mode='enabled',goal_difference_mode='enabled',food_goal_mode='enabled',seed=20261001,
                 lateral_side='left',orientation_mode='enabled',reposition_mode='enabled',return_completion_mode='enabled',
                 nested_model_mode='enabled',directional_route_mode='enabled',relation_field_mode='enabled',

@@ -26,7 +26,7 @@ def review(agent,p,d,*,key='reposition',phase='exploration',reasons=('acquisitio
     if not linked:state['reason']='body_unlinked';return d
     state['residual']=min(8,residual+1)
     state['reason']='accumulating'
-    if state['operations']>=16:state['reason']='daily_operation_budget';return d
+    if not getattr(agent,'continuous_selection',False) and state['operations']>=16:state['reason']='daily_operation_budget';return d
     surface=p['movement_surface']['ground']
     if surface['output_limited']:state['reason']='surface_limited';return d
     allowed=sorted(s['direction_deg'] for s in surface['samples'] if s['status']=='sampled' and abs(s['height_delta'])<=.5)

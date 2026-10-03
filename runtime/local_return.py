@@ -49,7 +49,7 @@ def review(agent,p,memory,state,linked,result):
     if angle is None:
         action,s=legacy_review(agent,p,memory,s,linked,result)
         return action,s
-    if s['operations']>=64:return ['wait',0],dict(s,diagnostic='approach_budget',outcome=None)
+    if not getattr(agent,'continuous_selection',False) and s['operations']>=64:return ['wait',0],dict(s,diagnostic='approach_budget',outcome=None)
     s['operations']+=1
     if abs(angle)>7.5:
         return ['turn',max(-45,min(45,round(angle/5)*5))],dict(s,diagnostic='dock_approach',outcome=None)

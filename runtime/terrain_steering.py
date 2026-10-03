@@ -93,7 +93,7 @@ class SteeredResourceAgent(TerrainResourceAgent):
                 if getattr(self, 'reversal_review_mode', None) is not None:
                     meta['stopped_approach'] = deepcopy(d['approach'])
                 require(len(d["blocked_targets"]) + len(refs) <= 32, "approach_capacity")
-                d["blocked_targets"] += refs
+                if not getattr(self,"continuous_selection",False):d["blocked_targets"] += refs
                 d["approach"] = None
                 meta["stopped_targets"] = refs
                 d.update(action=["wait", 0], target="", reason="observed_material_terrain_"+

@@ -128,7 +128,7 @@ def review(agent,p,d):
     if has_food:owner=None;target=None
     f['owner']=owner
     if not target and goal_angle is None and not has_food and not pending:f['reason']='no_comparable_relation';return d
-    if f['operations']>=48:f['reason']='operation_budget';return d
+    if not getattr(agent,'continuous_selection',False) and f['operations']>=48:f['reason']='operation_budget';return d
     terrain=agent._calculate_current_terrain(terrain_input(p,agent.teaching['appearance'],d.get('blocked_targets',[])),p)
     # Existing terrain validation / incomplete acquisition are hard constraints.
     if terrain['status']!='complete':f['reason']='terrain_'+terrain['status'];return d

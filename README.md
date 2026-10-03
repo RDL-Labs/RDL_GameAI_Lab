@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [継続する局所方法選択](docs/experiment-contracts/LW_continuous_selection.md)：現行lightweight CLIは探索・帰還・警戒で回数切れ終端を撤去。局所E/H/θで方法を選び直す。[5日×4条件の結果](docs/experiment-evidence/LW_continuous_selection.md)では選択継続を確認、採取/帰還改善は未達。旧Python APIは再生互換のためlegacy既定。
+
 - [長期探索の時間計測](docs/experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md)：16日目を通過、23日目に送信待ち上限で中断。Runtime観測処理に2.05秒。受信済み69,887応答は再生一致、最終Runtimeとの差も保存。
 
 - [6個体の連続探索](docs/experiment-evidence/LUANTI_L15A_six_agent_world_evidence.md)：B/C/Eが各12単位、B/Eが帰還。16日目に観測枠逸失で中断、正常完走は未達。

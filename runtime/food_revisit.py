@@ -127,7 +127,7 @@ def review(agent, packet, decision):
     if not (d['reason'].startswith(('landmark_', 'neighborhood_')) or d['reason'] in ('food_goal_rescan', 'acquisition_incomplete')):
         s['reason'] = 'existing_priority'
         return d
-    if s['operations'] >= MAX_OPERATIONS:
+    if not getattr(agent,'continuous_selection',False) and s['operations'] >= MAX_OPERATIONS:
         fail('revisit_operation_budget')
         return d
     points = s['memory']['anchors']

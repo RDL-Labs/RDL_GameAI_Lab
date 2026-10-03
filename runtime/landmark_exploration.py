@@ -94,9 +94,9 @@ class LandmarkExplorationDay(LearnedExplorationDay):
             f = matches[0]
             goal.update(current_feature=deepcopy(f), current_observation=p["observation_id"], current_pose=p["pose_ref"])
             if f["range_band"] == "near": return terminate(state, "near_feature_observed")
-            if goal["operations"] >= MAX_OPERATIONS: return terminate(state, "operation_budget")
+            if not getattr(self,"continuous_selection",False) and goal["operations"] >= MAX_OPERATIONS: return terminate(state, "operation_budget")
         else:
-            if state["selected_count"] >= MAX_GOALS:
+            if not getattr(self,"continuous_selection",False) and state["selected_count"] >= MAX_GOALS:
                 state.update(stage="deferred", outcome="goal_budget")
                 return ["wait", 0], state
             candidates = [f for f in features if f["range_band"] != "near" and f["azimuth"][1]-f["azimuth"][0] <= 45]
@@ -104,7 +104,7 @@ class LandmarkExplorationDay(LearnedExplorationDay):
             # observed patches, never an unseen direction or destination.
             state["candidates"] = [f["ref"] for f in candidates]
             if not candidates:
-                if state["scan_count"] >= MAX_SCANS:
+                if not getattr(self,"continuous_selection",False) and state["scan_count"] >= MAX_SCANS:
                     state.update(stage="deferred", outcome="no_candidate_after_scan")
                     return ["wait", 0], state
                 state.update(stage="scan", goal=None, scan_count=state["scan_count"]+1, outcome="no_candidate")

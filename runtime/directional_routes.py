@@ -134,7 +134,7 @@ def review(agent,p,d,*,propose_only=False):
     if goal=='food' and not s['at_home']:s['reason']='origin_unconfirmed';return d
     allowed=(d['reason'].startswith(('landmark_','neighborhood_')) or d['reason'] in ('food_goal_rescan','acquisition_incomplete')) if goal=='food' else (d['reason'].startswith('return_search_') or d['reason'] in ('return_approach_blocked','return_approach_budget'))
     if not allowed or d['action'][0]=='pickup':return d
-    if s['operations']>=48:
+    if not getattr(agent,'continuous_selection',False) and s['operations']>=48:
         fail(s.get('active'),'operation_budget');s['reason']='operation_budget';return d
     eligible=[c for c in s['candidates'] if c.get('status')=='visible']
     if not eligible:s['reason']='no_visible_route';return d

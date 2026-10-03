@@ -16,7 +16,7 @@ def validate(p):
         if len(a)!=2 or not -90<=a[0]<=a[1]<=90:raise ValueError('hazard_angle')
 
 
-def review(p,old=None,result=None):
+def review(p,old=None,result=None,*,continuous=False):
     validate(p);h=p['hazard'];now=p['capture_us'];features=h['features'];visible=features[0] if features else None
     s=deepcopy(old) if old else dict(mode='normal',generation=0,operations=0,clear_yaw=0,far_count=0)
     s.update(rule=RULE,source=p['observation_id'],override=False,action=['wait',0],reason='normal')
@@ -29,13 +29,13 @@ def review(p,old=None,result=None):
     complete=h['coverage']=='complete'
     if complete and visible and visible['range_band']=='far':s['far_count']+=1
     else:s['far_count']=0
-    if complete and not visible and linked and old and old.get('reason')=='safety_scan' and result['status']=='turned' and abs(result['yaw']-90)<.01:
-        s['clear_yaw']+=abs(result['yaw'])
-    elif visible or not complete or not linked or result['status']=='moved':s['clear_yaw']=0
-    if s['far_count']>=2 or s['clear_yaw']>=360:
+    if complete and not visible and linked and old and (old.get('reason')=='safety_scan' or old.get('clearance_scan')) and result['status']=='turned' and abs(abs(result['yaw'])-90)<.01:
+        s['clear_yaw']+=result['yaw']
+    elif visible or not complete or not linked or result['status'] in ('moved','turned'):s['clear_yaw']=0
+    if s['far_count']>=2 or abs(s['clear_yaw'])>=360:
         s.update(mode='normal',override=False,reason='limited_clearance',clear_yaw=0,far_count=0)
         return s
-    if now-s['started_us']>=16000000 or s['operations']>=32:
+    if not continuous and (now-s['started_us']>=16000000 or s['operations']>=32):
         s.update(mode='safety_unresolved',reason='safety_budget');return s
     if not linked:
         s.update(mode='safety_uncertain',reason='safety_body_unlinked');return s
@@ -44,7 +44,7 @@ def review(p,old=None,result=None):
         return s
     ground=p['movement_surface']['ground']
     safe={x['direction_deg'] for x in ground['samples'] if x['status']=='sampled' and x['height_delta'] is not None and abs(x['height_delta'])<=.5} if ground['coverage']=='complete' and not ground['output_limited'] else set()
-    if s['operations']>=16:
+    if not continuous and s['operations']>=16:
         s.update(mode='safety_review',action=['turn',90],reason='safety_scan')
     elif pending and old.get('reason')=='safety_turn' and result['status']=='turned' and abs(result['yaw']-old['action'][1])<.01 and 0 in safe:
         s.update(mode='safety_active',action=['move',1],reason='safety_step')

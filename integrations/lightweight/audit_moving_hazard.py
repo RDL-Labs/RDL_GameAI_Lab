@@ -20,7 +20,8 @@ def audit(path):
         p=r['packet'];c=r['command'];aid=p['agent_id'];s=r.get('safety')
         commands.append(c)
         if not s:continue
-        validate(p);assert s['operations']<=32
+        validate(p)
+        if manifest.get('selection_mode','legacy')=='legacy':assert s['operations']<=32
         stats[s['reason']]+=1
         prev=previous.get(aid)
         if not prev or s['mode']!=prev['safety']['mode']:

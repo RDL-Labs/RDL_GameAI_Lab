@@ -5,9 +5,9 @@ from .moving_hazard_safety import review,KEYS
 RULE='warning-mode-justification-v1'
 
 
-def evaluate(p,old=None,result=None,mode='enabled'):
+def evaluate(p,old=None,result=None,mode='enabled',*,continuous=False):
     if mode not in ('disabled','shadow','enabled'):raise ValueError('warning_review_mode')
-    if mode=='disabled':return review(p,old,result)
+    if mode=='disabled':return review(p,old,result,continuous=continuous)
     binding=[p['run_id'],p['agent_id']]
     fingerprint=dict(hazard=p['hazard'],**{k:p[k] for k in KEYS})
     previous=(old or {}).get('mode_model')
@@ -17,7 +17,7 @@ def evaluate(p,old=None,result=None,mode='enabled'):
         if p['capture_us']==previous['last_seen_us']:
             if fingerprint!=previous['fingerprint']:raise ValueError('warning_review_conflict')
             return deepcopy(old)
-    s=review(p,old,result);now=p['capture_us']
+    s=review(p,old,result,continuous=continuous);now=p['capture_us']
     node=deepcopy(previous) if previous else dict(rule=RULE,binding=binding,model='safety/maintain-warning',
         question='current_observation_renews_warning_basis',H=0,threshold=8,events=[],last_eval_us=now,generation=s['generation'])
     node.update(last_seen_us=now,fingerprint=deepcopy(fingerprint),eligible=False,applied=False)

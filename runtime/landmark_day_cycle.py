@@ -49,8 +49,9 @@ def clusters(features):
     return out
 
 
-def home_review(packet, memory, state, linked, result):
+def home_review(packet, memory, state, linked, result, *, continuous=False):
     s = deepcopy(state)
+    if continuous and s["outcome"] not in (None,"home_like_observed"):s["outcome"]=None
     if s["outcome"] is not None: return ["wait",0], s
     if not linked: s["outcome"] = "body_correspondence_unavailable"
     elif result and result["status"] == "blocked": s["outcome"] = "blocked"
@@ -59,7 +60,7 @@ def home_review(packet, memory, state, linked, result):
     f = packet["skyline"]
     if f["coverage"] != "complete":
         s["diagnostic"] = "acquisition_incomplete"
-        if s["scans"] >= 4: s["outcome"] = "acquisition_incomplete"; return ["wait",0], s
+        if not continuous and s["scans"] >= 4: s["outcome"] = "acquisition_incomplete"; return ["wait",0], s
         s["scans"] += 1
         return ["turn",90], s
     found = [x for x in f["features"] if x["color"] == memory["color"]]
@@ -67,14 +68,14 @@ def home_review(packet, memory, state, linked, result):
     s["candidates"] = patches
     if len(patches) != 1:
         s["diagnostic"] = "ambiguous" if patches else "not_observed"
-        if s["scans"] >= 4: s["outcome"] = s["diagnostic"]; return ["wait",0], s
+        if not continuous and s["scans"] >= 4: s["outcome"] = s["diagnostic"]; return ["wait",0], s
         s["scans"] += 1
         return ["turn",90], s
     s["diagnostic"] = "appearance_candidate"
     # Near is a coarse observation, not proof of returning to the exact start.
     if any(x["range_band"] == "near" for x in found):
         s["outcome"] = "home_like_observed"; return ["wait",0], s
-    if s["operations"] >= 64: s["outcome"] = "operation_budget"; return ["wait",0], s
+    if not continuous and s["operations"] >= 64: s["outcome"] = "operation_budget"; return ["wait",0], s
     angle = sum(patches[0])/2
     s["operations"] += 1
     if abs(angle) > 7.5:
@@ -99,7 +100,7 @@ class DayCycleAgent(SteeredResourceAgent):
         return deepcopy(old)
 
     def _return_review(self,p,memory,state,linked,result):
-        return home_review(p,memory,state,linked,result)
+        return home_review(p,memory,state,linked,result,continuous=getattr(self,"continuous_selection",False))
 
     def _activity_phase(self,p,state,old):
         return phase(p['capture_us'])

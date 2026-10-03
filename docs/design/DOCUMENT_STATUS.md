@@ -1,5 +1,7 @@
 # Design Document Status
 
+2026-10-03: [継続方法選択](../experiment-contracts/LW_continuous_selection.md) — 現行lightweight経路IMPLEMENTED。回数だけの打切りを撤去し、局所Hで候補を再選択。13専用テストと5日×4条件完了。効率改善・確実な脱出は未達。旧独立実験/旧Python既定は互換維持。
+
 2026-09-29: [Campaign時間診断](../experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md) — opt-in計測を実装。1日smoke PASS、6個体長期走行は23日目にpending上限。34関連テストPASS。前回の16日停止原因の確定や改善達成ではない。
 
 2026-09-29: [6個体campaign](../experiment-evidence/LUANTI_L15A_six_agent_world_evidence.md) — 6個体／6便目標をopt-in実装。49関連テストPASS。実走行36単位・2便、16日目に中断。3個体既定経路を保持。
