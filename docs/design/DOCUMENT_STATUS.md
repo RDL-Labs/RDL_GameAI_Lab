@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Sleep夜間接続](../experiment-evidence/LW_sleep_learning.md)：FINITE IMPLEMENTED。夜間採取M_B採用と異種経験の関係診断。汎用関係採用は未接続。
+
 2026-10-03: [時間補充30日](../experiment-evidence/LW_patrol_30d_regrowth.md) — lightweight実行完了。3日ごと最大12へWorld補充、NPCへの周期通知なし。2 seed×2条件、関連63テストPASS。周期学習・安定往復は未確認。
 
 2026-10-03: [危険物体2体](../experiment-contracts/LW_dynamic_hazard_pair.md) — lightweight IMPLEMENTED。縄張り＋固定巡回、粗い視覚最大2件、全可視脅威から方向を評価。2 seed×2条件の5日比較完了、関連96テストPASS。負傷/攻撃/動的物理遮蔽は未実装。

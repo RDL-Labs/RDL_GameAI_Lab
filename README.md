@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [Sleep夜間接続・異種経験比較](docs/experiment-evidence/LW_sleep_learning.md)：軽量Worldで実装・3日比較。採取M_Bは夜間に採用、異種関係は共通/相違/欠測の診断まで。汎用関係の採用は未接続。
+
 - [30日・時間補充比較](docs/experiment-evidence/LW_patrol_30d_regrowth.md)：3日ごと最大12単位、2 seed×縄張り/巡回追加。全4run完走。再採取は成立する条件があるが、後半の採取停止も記録。
 
 - [縄張り＋巡回危険物体](docs/experiment-evidence/LW_dynamic_hazard_pair.md)：2 seed×5日、2体同時観測と継続選択を実行。追加脅威で持帰りが減るseedと増えるseedの両方を記録。

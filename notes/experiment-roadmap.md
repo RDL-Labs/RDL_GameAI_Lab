@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [Sleep夜間接続・異種経験比較](../docs/experiment-evidence/LW_sleep_learning.md)：軽量Worldで実装・3日比較。採取M_Bは夜間に採用、異種関係は共通/相違/欠測の診断まで。汎用関係の採用は未接続。
+
 2026-09-29: [Campaign timing](../docs/experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md) — day 16 passed; day 23 pending capacity interruption with a 2.05-second Runtime observe call. Received replies replay; unreceived accepted calls remain explicit. Next isolate long observe work and export overhead, preserving behavior.
 
 2026-09-29: [Six-agent campaign](../docs/experiment-evidence/LUANTI_L15A_six_agent_world_evidence.md) — finite six-agent opt-in, independent state and six-batch goal. Actual run interrupted on day 16: 36 units / two returns, exact saved-prefix replay; not clean acceptance.

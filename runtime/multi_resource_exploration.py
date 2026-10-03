@@ -13,6 +13,7 @@ AGENTS = ("npc_a", "npc_b", "npc_c")
 
 
 class PredictableResourceAgent(ResourceExploration):
+    sleep_learning = False
     inventory_capacity = 96
     allowed_agent_ids = AGENTS
 
@@ -56,7 +57,7 @@ class PredictableResourceAgent(ResourceExploration):
                 if not confirmed: s["invalidated"] = True
             else:
                 s["confirmations"] = 0  # missing, unexecuted and non-harvest are not confirmations
-        if model is None and len(s["records"]) >= 5 and (s["admission"] is None or s["admission"]["status"] == "DEFER"):
+        if not self.sleep_learning and model is None and len(s["records"]) >= 5 and (s["admission"] is None or s["admission"]["status"] == "DEFER"):
             model, s["admission"] = build_admission(self.run_id, self.agent_id, s["records"],
                                                    [*self.observations.values(), p])
         return s, model
@@ -109,6 +110,7 @@ class PredictableResourceAgent(ResourceExploration):
                 # Resource.observe calculates twice. _decision mutates only its
                 # prospective state, so compute once and reuse the frozen choice.
                 d = self._decision(p)
+                s, model = self._prospective
                 self._cached_choice = d
                 response = super(ResourceExploration, self).observe(p)
             finally:
