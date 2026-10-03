@@ -8,13 +8,13 @@ from .finite_territory_comparison import stock_audit
 from .audit_moving_hazard import ROOT
 
 
-def main(execute=False):
+def main(execute=False,days=5,regrowth_days=None):
     reports={}
     for seed in (20261001,20261002):
         for dynamic in (False,True):
-            key=f'{seed}_{"patrol" if dynamic else "territory"}';path=ROOT/f'{key}.jsonl'
+            key=f'{seed}_{"patrol" if dynamic else "territory"}';suffix=f'_{days}d_regrow{regrowth_days}' if regrowth_days is not None or days!=5 else '';path=ROOT/f'{key}{suffix}.jsonl'
             if execute:
-                run(path,days=5,skyline_subrays=True,stop_after_returns=None,seed=seed,
+                run(path,days=days,regrowth_days=regrowth_days,skyline_subrays=True,stop_after_returns=None,seed=seed,
                     goal_difference_mode='enabled',food_goal_mode='enabled',lateral_side='left',
                     orientation_mode='enabled',reposition_mode='enabled',return_completion_mode='enabled',
                     nested_model_mode='enabled',directional_route_mode='enabled',relation_field_mode='enabled',
@@ -40,8 +40,8 @@ def main(execute=False):
             report['patrol_audit']=dict(distance=round(distance,3),counts=dict(counts),agents={a:dict(v) for a,v in agents.items()})
             reports[key]=report
             print(key,report['summary']['pickups'],sum(a['unloaded'] for a in report['summary']['agents'].values()),report['patrol_audit'],flush=True)
-    Path('tests/fixtures/lightweight_patrol_comparison.json').write_text(json.dumps(reports,indent=2),encoding='utf8')
+    Path(f'tests/fixtures/lightweight_patrol_comparison{suffix}.json').write_text(json.dumps(reports,indent=2),encoding='utf8')
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--run',action='store_true');main(p.parse_args().run)
+    p=argparse.ArgumentParser();p.add_argument('--run',action='store_true');p.add_argument('--days',type=int,default=5);p.add_argument('--regrowth-days',type=int);a=p.parse_args();main(a.run,a.days,a.regrowth_days)

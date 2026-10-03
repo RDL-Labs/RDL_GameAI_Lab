@@ -16,31 +16,45 @@ def stock_audit(path):
     overlap=[i for i,r in enumerate(resources) if hypot(r['x']-config['center'][0],r['z']-config['center'][1])<=config['radius']]
     assert overlap and len(overlap)<len(resources)
     initial=[r['stock'] for r in resources];stock=initial[:];events=[];depleted=[];activity=Counter();daily=Counter()
-    group_time=None;group_stock=None
-    for line in path.open(encoding='utf8'):
-        r=json.loads(line)
-        assert r['type']!='stock_mode_transition'
-        if r['type']!='completed':continue
-        now=r['result']['executed_us'];new=r['stock']
-        # Scheduler publishes each completion after advancing the whole due batch.
-        if group_time is not None and now!=group_time:assert stock==group_stock
-        group_time=now;group_stock=new
-        acquired=int(r['result']['acquired'])
-        assert len(new)==len(stock) and all(x>=0 for x in new)
-        if acquired:
-            aid=r['result']['agent_id'];run_id=r['result']['run_id']
-            ids=[i for i in range(len(resources)) if r['command']['target_ref']=='seen:'+sha256(f'{run_id}:{aid}:{i}'.encode()).hexdigest()[:24]]
-            assert len(ids)==1
-            i=ids[0];assert stock[i]>0;stock[i]-=1
-            events.append(dict(resource=i,inside_territory=i in overlap,agent=aid,capture_us=now,remaining=stock[i]))
-            daily[str(now//64000000+1)]+=1
-            if stock[i]==0:depleted.append(dict(resource=i,capture_us=now))
-        if depleted:activity[r['result']['status']]+=1
+    group_time=None;group_stock=None;regrowth=[];added=0
+    with path.open(encoding='utf8') as stream:
+        for line in stream:
+            r=json.loads(line)
+            assert r['type']!='stock_mode_transition'
+            if r['type']=='resource_regrowth':
+                if group_stock is not None:assert stock==group_stock
+                period=manifest['regrowth_days']*64000000
+                assert r['period_us']==period and r['capture_us']%period==0
+                assert r['epoch']==len(regrowth)+1 and r['capacity']==12
+                assert r['before']==stock and r['stock']==[max(v,12) for v in stock]
+                assert r['added']==[b-a for a,b in zip(stock,r['stock'])]
+                added+=sum(r['added']);stock=r['stock'];regrowth.append(r)
+                group_time=None;group_stock=None
+                continue
+            if r['type']!='completed':continue
+            now=r['result']['executed_us'];new=r['stock']
+            # Scheduler publishes each completion after advancing the whole due batch.
+            if group_time is not None and now!=group_time:assert stock==group_stock
+            group_time=now;group_stock=new
+            acquired=int(r['result']['acquired'])
+            assert len(new)==len(stock) and all(x>=0 for x in new)
+            if acquired:
+                aid=r['result']['agent_id'];run_id=r['result']['run_id']
+                ids=[i for i in range(len(resources)) if r['command']['target_ref']=='seen:'+sha256(f'{run_id}:{aid}:{i}'.encode()).hexdigest()[:24]]
+                assert len(ids)==1
+                i=ids[0];assert stock[i]>0;stock[i]-=1
+                events.append(dict(resource=i,inside_territory=i in overlap,agent=aid,capture_us=now,remaining=stock[i]))
+                daily[str(now//64000000+1)]+=1
+                if stock[i]==0:depleted.append(dict(resource=i,capture_us=now))
+            if depleted:activity[r['result']['status']]+=1
     assert stock==group_stock
-    assert stock==result['summary']['stock'] and sum(initial)-sum(stock)==result['summary']['pickups']
+    assert stock==result['summary']['stock'] and sum(initial)+added-sum(stock)==result['summary']['pickups']
+    if manifest.get('regrowth_days'):
+        assert len(regrowth)==(result['summary']['ended_us']-1)//(manifest['regrowth_days']*64000000)
     assert sum(a['carried']+a['unloaded'] for a in result['summary']['agents'].values())==len(events)
     result['finite_resources']=dict(initial=initial,overlapping_resources=overlap,pickups=events,depletions=depleted,
         daily_pickups=dict(daily),activity_after_first_depletion=dict(activity))
+    if regrowth:result['finite_resources'].update(regrowth=regrowth,total_added=added)
     return result,commands
 
 

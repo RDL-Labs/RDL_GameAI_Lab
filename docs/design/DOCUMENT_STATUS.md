@@ -1,5 +1,7 @@
 # Design Document Status
 
+2026-10-03: [時間補充30日](../experiment-evidence/LW_patrol_30d_regrowth.md) — lightweight実行完了。3日ごと最大12へWorld補充、NPCへの周期通知なし。2 seed×2条件、関連63テストPASS。周期学習・安定往復は未確認。
+
 2026-10-03: [危険物体2体](../experiment-contracts/LW_dynamic_hazard_pair.md) — lightweight IMPLEMENTED。縄張り＋固定巡回、粗い視覚最大2件、全可視脅威から方向を評価。2 seed×2条件の5日比較完了、関連96テストPASS。負傷/攻撃/動的物理遮蔽は未実装。
 
 2026-10-03: [継続方法選択](../experiment-contracts/LW_continuous_selection.md) — 現行lightweight経路IMPLEMENTED。回数だけの打切りを撤去し、局所Hで候補を再選択。13専用テストと5日×4条件完了。効率改善・確実な脱出は未達。旧独立実験/旧Python既定は互換維持。

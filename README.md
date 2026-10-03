@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [30日・時間補充比較](docs/experiment-evidence/LW_patrol_30d_regrowth.md)：3日ごと最大12単位、2 seed×縄張り/巡回追加。全4run完走。再採取は成立する条件があるが、後半の採取停止も記録。
+
 - [縄張り＋巡回危険物体](docs/experiment-evidence/LW_dynamic_hazard_pair.md)：2 seed×5日、2体同時観測と継続選択を実行。追加脅威で持帰りが減るseedと増えるseedの両方を記録。
 
 - [継続する局所方法選択](docs/experiment-contracts/LW_continuous_selection.md)：現行lightweight CLIは探索・帰還・警戒で回数切れ終端を撤去。局所E/H/θで方法を選び直す。[5日×4条件の結果](docs/experiment-evidence/LW_continuous_selection.md)では選択継続を確認、採取/帰還改善は未達。旧Python APIは再生互換のためlegacy既定。
