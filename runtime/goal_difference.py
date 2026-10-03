@@ -28,6 +28,8 @@ def begin(state,trial_id,source):
 def finish(state,trial_id,confirmed,comparable,source):
     if type(confirmed) is not bool or type(comparable) is not bool:raise ValueError('goal_evidence')
     s=deepcopy(state)
+    compared_trial=state['records'].get(trial_id,{}).get('trial') or state['trial']
+    if compared_trial and compared_trial.get('interrupted_by_safety') and not confirmed:comparable=False
     evidence=dict(confirmed=confirmed,comparable=comparable,source=source)
     if trial_id in s['records']:
         if s['records'][trial_id]['evidence']!=evidence:raise ValueError('goal_trial_conflict')

@@ -1,9 +1,11 @@
 # 動く危険物体と安全確保M_B — 有限統合計画
 
-状態: **DESIGN ONLY / 実装・受入未実施**  
+状態: **有限実装・軽量World比較済み（S1/S2、S3先行比較）。S4未実施**
 作成: 2026-09-29  
 照合基準: `06f2747`（経験による経路候補の相対重み）  
 対象: 軽量Worldの複数個体・探索／採取／帰還・関係移動場。Luantiへの移植は別工程。
+
+2026-10-03: [実装契約](../experiment-contracts/LW_moving_hazard_safety_contract.md)・[Evidence](../experiment-evidence/LW_moving_hazard_safety_evidence.md)。以下は元計画を含む。現実装は同期実行器・開始済み採取完了後の切替に限定し、非同期旧権限失効や全シナリオ完了を主張しない。既知経路の横断では解除・再開を確認した一方、遮蔽条件では長期unresolvedが残った。
 
 ## 1. 問いと到達点
 

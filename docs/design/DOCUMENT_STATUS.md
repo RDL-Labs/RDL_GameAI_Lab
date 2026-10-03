@@ -335,7 +335,7 @@ FINITE IMPLEMENTED（関係場opt-in内）。[契約・Evidence](../experiment-e
 
 ### 2026-09-29 — 動く危険物体と安全確保M_B
 
-DESIGN ONLY。[計画](RDL_GameAI_Moving_Hazard_Safety_Plan.md)。生存・身体維持の下で食料確保と安全確保を調停。初期能力としての危険認識と有限対処、待機中の観測、目的保留／再開、旧権限失効、割込みの経路H非誤帰属を設計。軽量Worldへの実装・受入は未実施。
+2026-10-03 有限実装・軽量World比較済み。[計画](RDL_GameAI_Moving_Hazard_Safety_Plan.md) / [契約](../experiment-contracts/LW_moving_hazard_safety_contract.md) / [Evidence](../experiment-evidence/LW_moving_hazard_safety_evidence.md)。S1/S2およびS3先行比較。既知危険による目的保留・退避/待機/再観測・限定解除、経路support/Hの割込み非誤帰属。7run、82 tests PASS。同期実行器限定、採取中キャンセル・非同期旧権限失効・S4は未実装/未実施。遮蔽で長期unresolvedが残り、常時退避・停滞解消は未達。
 
 ### 2026-09-29 — M_B強化の非線形化
 

@@ -70,6 +70,14 @@ def review(agent,p,d,*,propose_only=False):
             if comparable:s['routes'][key]['H']=min(32,s['routes'][key]['H']+1)
             s.setdefault('failed',[]).append(key)
             s['comparison']=dict(route=key,E=1 if comparable else None,reason=reason,source=p['observation_id'])
+    if phase=='safety':
+        if linked and last.get('directional_routes',{}).get('applied') and result['status']=='blocked':
+            fail(s.get('active'),'actual_blocked_before_safety')
+        s['active']=None;s['trial_complete']=False
+        s['outbound']['overflow']=True
+        if s['trip']:
+            if s['trip']['outbound']:s['trip']['outbound']['overflow']=True
+            s['trip']['inbound']['overflow']=True
     active=s.get('active')
     if active in s['routes']:
         target=s['routes'][active]['goal']
