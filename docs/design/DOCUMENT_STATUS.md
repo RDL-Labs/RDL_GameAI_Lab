@@ -364,3 +364,7 @@ FINITE EXPERIMENT COMPLETE。[Evidence](../experiment-evidence/LW_finite_territo
 ### 2026-10-03 — 警戒モード維持根拠の評価
 
 FINITE IMPLEMENTED。[契約・Evidence](../experiment-evidence/LW_warning_mode_review.md)。本人観測から警戒の局所Hを評価し、閾値で暫定解除。complete/partialを区別。3run・99 tests PASS。内部方法ごとのH、Core接続、Luanti、複数seedは未実施。
+
+### 2026-10-03 — 縄張り内採取場の増加
+
+FINITE EXPERIMENT COMPLETE。[Evidence](../experiment-evidence/LW_territory_resource_density.md)。1→3地点、総量一定、危険なし/ありの2×2比較。4run・関連41 tests PASS。可視威嚇が続く状況で退避方法の予算切れが残る。内部方法Hによる再選択は今回未追加。

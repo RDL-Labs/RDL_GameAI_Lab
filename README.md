@@ -330,3 +330,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-10-03: [有限採取場×縄張り比較](docs/experiment-evidence/LW_finite_territory.md)。8地点各12単位、うち1地点が縄張り内。5日×3条件、総採取60は同じだが対処ありの配送56・携行4。資源利用時期/個体が変化し、安全未解決も残る。
 
 2026-10-03: [警戒モードの局所H評価](docs/experiment-evidence/LW_warning_mode_review.md)を追加。維持根拠の未更新→H→閾値で暫定解除。有限資源5日比較でAが携行4個を配送、全員normal終了。99 tests PASS。安全の証明とは区別。
+
+2026-10-03: [縄張り内採取場1→3地点比較](docs/experiment-evidence/LW_territory_resource_density.md)。総96単位を保持し2地点を移設。5日×4条件。3地点・対処ありは46採取/36配送、Bは可視威嚇下で10携行・安全操作予算切れ。関連41 tests PASS。

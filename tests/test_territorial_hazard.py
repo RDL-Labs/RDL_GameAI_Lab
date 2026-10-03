@@ -6,6 +6,17 @@ from runtime.moving_hazard_safety import validate,review
 
 
 class TerritoryTests(unittest.TestCase):
+    def test_three_inside_layout_preserves_stock(self):
+        from integrations.lightweight.territorial_hazard import resource_layout
+        from math import hypot
+        w=World(seed=20261001,layout='sparse');stock=[r['stock'] for r in w.resources]
+        before=[dict(r) for r in w.resources];resource_layout(w)
+        self.assertEqual(w.resources,before)
+        resource_layout(w,'three_inside')
+        self.assertEqual([r['stock'] for r in w.resources],stock)
+        self.assertEqual([i for i,r in enumerate(w.resources) if hypot(r['x']+20,r['z']+2)<=8],[0,1,3])
+        with self.assertRaises(ValueError):resource_layout(w,'other')
+
     def test_idle(self):
         h=TerritorialHazard(center=(0,0),home=(0,0))
         self.assertEqual(h.advance(0,{'a':dict(x=9,z=0)})['mode'],'idle')

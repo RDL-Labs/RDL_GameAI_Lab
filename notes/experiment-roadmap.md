@@ -761,3 +761,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-10-03: [有限採取場と縄張りの重なり](../docs/experiment-evidence/LW_finite_territory.md)を5日比較。再生なし・各地点12単位、1地点重複。採取時期と利用個体の差を記録。長期安全保留は残件。
 
 2026-10-03: [警戒モードのH再選択](../docs/experiment-evidence/LW_warning_mode_review.md)。安全予算切れ後も維持根拠を評価し、暫定解除後に現在の通常目的を再選択。有限資源比較で配送56→60。新機構の解除はAの1回で、他個体の変化はWorld相互作用を含む。
+
+2026-10-03: [縄張り内3採取場](../docs/experiment-evidence/LW_territory_resource_density.md)を比較。既存の1危険個体と総資源量を維持。可視威嚇による警戒継続と退避予算切れを分離して記録。

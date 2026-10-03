@@ -6,6 +6,14 @@ from .world import segment_hit
 RULE='fixed-territorial-response-v1'
 
 
+def resource_layout(world,layout='original'):
+    """Experimenter placement only; keep shared stock and total site count."""
+    if layout not in ('original','three_inside'):raise ValueError('territory_resource_layout')
+    if layout=='three_inside':
+        for index,x,z in ((1,-18.,-2.),(3,-20.,2.)):
+            world.resources[index].update(x=x,z=z)
+
+
 class TerritorialHazard:
     def __init__(self,center=(-20.,-2.),home=(-20.,-14.),radius=8.,leash=12.):
         self.center=center;self.home=home;self.radius=radius;self.leash=leash
