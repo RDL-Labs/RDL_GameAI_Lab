@@ -1,0 +1,732 @@
+{
+  "rule": "layered-body-fixture-v1",
+  "events": [
+    {
+      "agent_id": "npc_a",
+      "operation_id": "0",
+      "start_us": 0,
+      "end_us": 1000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 100.0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.18,
+        "reserve": 99.5,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "run",
+        "status": "performed",
+        "seconds": 1,
+        "distance": 1.5,
+        "food_consumed": 0,
+        "delta": {
+          "burst": -3.0,
+          "strain": 0.18,
+          "reserve": -0.5,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "1",
+      "start_us": 1000000,
+      "end_us": 2000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.18,
+        "reserve": 99.5,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 4.0,
+        "strain": 0.36,
+        "reserve": 99.0,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "run",
+        "status": "performed",
+        "seconds": 1,
+        "distance": 1.5,
+        "food_consumed": 0,
+        "delta": {
+          "burst": -3.0,
+          "strain": 0.18,
+          "reserve": -0.5,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "2",
+      "start_us": 2000000,
+      "end_us": 3000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 4.0,
+        "strain": 0.36,
+        "reserve": 99.0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 1.0,
+        "strain": 0.54,
+        "reserve": 98.5,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "run",
+        "status": "performed",
+        "seconds": 1,
+        "distance": 1.5,
+        "food_consumed": 0,
+        "delta": {
+          "burst": -3.0,
+          "strain": 0.18000000000000005,
+          "reserve": -0.5,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "3",
+      "start_us": 3000000,
+      "end_us": 4000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 1.0,
+        "strain": 0.54,
+        "reserve": 98.5,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 1.0,
+        "strain": 0.54,
+        "reserve": 98.5,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "run",
+        "status": "body_limited",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 0.0,
+          "strain": 0.0,
+          "reserve": 0.0,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "4",
+      "start_us": 4000000,
+      "end_us": 5000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 1.0,
+        "strain": 0.54,
+        "reserve": 98.5,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 1.0,
+        "strain": 0.5700000000000001,
+        "reserve": 98.4,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "walk",
+        "status": "performed",
+        "seconds": 1,
+        "distance": 0.5,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 0.0,
+          "strain": 0.030000000000000027,
+          "reserve": -0.09999999999999432,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "5",
+      "start_us": 5000000,
+      "end_us": 6000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 1.0,
+        "strain": 0.5700000000000001,
+        "reserve": 98.4,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 3.0,
+        "strain": 0.42000000000000004,
+        "reserve": 98.35000000000001,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 2.0,
+          "strain": -0.15000000000000002,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "6",
+      "start_us": 6000000,
+      "end_us": 7000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 3.0,
+        "strain": 0.42000000000000004,
+        "reserve": 98.35000000000001,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 5.0,
+        "strain": 0.27,
+        "reserve": 98.30000000000001,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 2.0,
+          "strain": -0.15000000000000002,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "7",
+      "start_us": 7000000,
+      "end_us": 8000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 5.0,
+        "strain": 0.27,
+        "reserve": 98.30000000000001,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.12000000000000002,
+        "reserve": 98.25000000000001,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 2.0,
+          "strain": -0.15,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "8",
+      "start_us": 8000000,
+      "end_us": 9000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.12000000000000002,
+        "reserve": 98.25000000000001,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 9.0,
+        "strain": 0,
+        "reserve": 98.20000000000002,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 2.0,
+          "strain": -0.12000000000000002,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "9",
+      "start_us": 9000000,
+      "end_us": 10000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 9.0,
+        "strain": 0,
+        "reserve": 98.20000000000002,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0,
+        "reserve": 98.15000000000002,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 1.0,
+          "strain": 0,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "10",
+      "start_us": 10000000,
+      "end_us": 11000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0,
+        "reserve": 98.15000000000002,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.18,
+        "reserve": 97.65000000000002,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "run",
+        "status": "performed",
+        "seconds": 1,
+        "distance": 1.5,
+        "food_consumed": 0,
+        "delta": {
+          "burst": -3.0,
+          "strain": 0.18,
+          "reserve": -0.5,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "11",
+      "start_us": 11000000,
+      "end_us": 12000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.18,
+        "reserve": 97.65000000000002,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.18,
+        "reserve": 97.60000000000002,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "walk",
+        "status": "blocked",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 0.0,
+          "strain": 0.0,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "12",
+      "start_us": 12000000,
+      "end_us": 13000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.18,
+        "reserve": 97.60000000000002,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 3.0,
+        "strain": 0.32999999999999996,
+        "reserve": 97.20000000000002,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "climb",
+        "status": "performed",
+        "seconds": 1,
+        "distance": 1.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": -4.0,
+          "strain": 0.14999999999999997,
+          "reserve": -0.4000000000000057,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "13",
+      "start_us": 13000000,
+      "end_us": 14000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 3.0,
+        "strain": 0.32999999999999996,
+        "reserve": 97.20000000000002,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 5.0,
+        "strain": 0.17999999999999997,
+        "reserve": 97.15000000000002,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 2.0,
+          "strain": -0.15,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "14",
+      "start_us": 14000000,
+      "end_us": 15000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 5.0,
+        "strain": 0.17999999999999997,
+        "reserve": 97.15000000000002,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.02999999999999997,
+        "reserve": 97.10000000000002,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 2.0,
+          "strain": -0.15,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "15",
+      "start_us": 15000000,
+      "end_us": 16000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.02999999999999997,
+        "reserve": 97.10000000000002,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 7.0,
+        "strain": 0.02999999999999997,
+        "reserve": 97.05000000000003,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "climb",
+        "status": "blocked",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 0.0,
+          "strain": 0.0,
+          "reserve": -0.04999999999999716,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "16",
+      "start_us": 16000000,
+      "end_us": 17000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 0.0,
+        "strain": 0.8,
+        "reserve": 0.0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 0.0,
+        "strain": 0.8,
+        "reserve": 0,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 0.0,
+          "strain": 0.0,
+          "reserve": 0.0,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "17",
+      "start_us": 17000000,
+      "end_us": 18000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 0.0,
+        "strain": 0.8,
+        "reserve": 0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 0.0,
+        "strain": 0.8,
+        "reserve": 0,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "run",
+        "status": "body_limited",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 0.0,
+          "strain": 0.0,
+          "reserve": 0,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "18",
+      "start_us": 18000000,
+      "end_us": 19000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 0.0,
+        "strain": 0.8,
+        "reserve": 0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 0.0,
+        "strain": 0.8,
+        "reserve": 20,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "eat",
+        "status": "ate",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 1,
+        "delta": {
+          "burst": 0.0,
+          "strain": 0.0,
+          "reserve": 20,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "19",
+      "start_us": 19000000,
+      "end_us": 20000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 0.0,
+        "strain": 0.8,
+        "reserve": 20,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 2.0,
+        "strain": 0.65,
+        "reserve": 19.95,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 2.0,
+          "strain": -0.15000000000000002,
+          "reserve": -0.05000000000000071,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "20",
+      "start_us": 20000000,
+      "end_us": 21000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 2.0,
+        "strain": 0.65,
+        "reserve": 19.95,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 3.995,
+        "strain": 0.500375,
+        "reserve": 19.900125,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "rest",
+        "status": "rested",
+        "seconds": 1,
+        "distance": 0.0,
+        "food_consumed": 0,
+        "delta": {
+          "burst": 1.995,
+          "strain": -0.149625,
+          "reserve": -0.049875000000000114,
+          "damage": 0.0
+        }
+      }
+    },
+    {
+      "agent_id": "npc_a",
+      "operation_id": "21",
+      "start_us": 21000000,
+      "end_us": 22000000,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 3.995,
+        "strain": 0.500375,
+        "reserve": 19.900125,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 0.9950000000000001,
+        "strain": 0.680375,
+        "reserve": 19.400125,
+        "damage": 0.0
+      },
+      "result": {
+        "action": "run",
+        "status": "performed",
+        "seconds": 1,
+        "distance": 1.5,
+        "food_consumed": 0,
+        "delta": {
+          "burst": -3.0,
+          "strain": 0.17999999999999994,
+          "reserve": -0.5,
+          "damage": 0.0
+        }
+      }
+    }
+  ],
+  "authority": "scripted body actions; depleted state and food inventory are fixture inputs; not autonomous exploration"
+}

@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [四層身体の最小構築](docs/experiment-evidence/LW_layered_body.md)：瞬発/持続/蓄え/肉体限界、歩行・走行・低障害越え・休息・食事の22操作fixture。探索AI接続は未実装。
+
 - [Sleep自動採用・30日の日次評価](docs/experiment-evidence/LW_sleep_daily_30d.md)：3個体、同seed、採取84→121・持帰り60→111。180個体日の前日差を記録。日次Hフィードバックは未接続。
 
 - [Sleep関係の自動採用実験](docs/experiment-evidence/LW_sleep_auto_adoption.md)：未検査の局所M_Bを翌日の候補順位へ接続。3日比較で88回の直接選択差、採取48→45・持帰り15→27。canonical T1採用とは別経路。
