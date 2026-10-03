@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [Sleep自動採用・30日の日次評価](docs/experiment-evidence/LW_sleep_daily_30d.md)：3個体、同seed、採取84→121・持帰り60→111。180個体日の前日差を記録。日次Hフィードバックは未接続。
+
 - [Sleep関係の自動採用実験](docs/experiment-evidence/LW_sleep_auto_adoption.md)：未検査の局所M_Bを翌日の候補順位へ接続。3日比較で88回の直接選択差、採取48→45・持帰り15→27。canonical T1採用とは別経路。
 
 - [Sleep夜間接続・異種経験比較](docs/experiment-evidence/LW_sleep_learning.md)：軽量Worldで実装・3日比較。採取M_Bは夜間に採用、異種関係は共通/相違/欠測の診断まで。汎用関係の採用は未接続。
