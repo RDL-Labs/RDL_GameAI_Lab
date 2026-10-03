@@ -326,3 +326,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-30: [世界履歴のアイディア](docs/design/RDL_GameAI_World_History_Idea.md) — DESIGN ONLY。草地の通行痕が重なって道になる例から、環境に残る作用履歴を整理。個体記憶・World状態・監査ログを分離し、初版候補は外観変化のみ。
 
 2026-10-03: [固定縄張り反応物](docs/experiment-evidence/LW_territorial_hazard.md)を軽量Worldへ追加。侵入→接近→可視威嚇→退去後帰巣。5日×3条件、91 tests PASS。enabledで5回の安全解除・再開。動物学習・負傷は未実装。
+
+2026-10-03: [有限採取場×縄張り比較](docs/experiment-evidence/LW_finite_territory.md)。8地点各12単位、うち1地点が縄張り内。5日×3条件、総採取60は同じだが対処ありの配送56・携行4。資源利用時期/個体が変化し、安全未解決も残る。

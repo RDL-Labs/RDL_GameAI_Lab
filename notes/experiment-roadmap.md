@@ -757,3 +757,5 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-09-30: [世界履歴案](../docs/design/RDL_GameAI_World_History_Idea.md)を保存。初回候補は実通行で蓄積する草地外観のみ、専用の道追従規則なし。将来は利用集中、足場の変化、回復、道以外の痕跡を独立比較。危険対処・動的ρの前提条件には加えない。
 
 2026-10-03: [固定縄張り反応物](../docs/experiment-evidence/LW_territorial_hazard.md)を実装。5日比較で安全解除5回、帰巣5回、全個体normal終了。固定反応との相互作用まで。学習動物・負傷は後続。
+
+2026-10-03: [有限採取場と縄張りの重なり](../docs/experiment-evidence/LW_finite_territory.md)を5日比較。再生なし・各地点12単位、1地点重複。採取時期と利用個体の差を記録。長期安全保留は残件。

@@ -356,3 +356,7 @@ IDEA / DESIGN ONLY。[世界履歴](RDL_GameAI_World_History_Idea.md)。実移�
 ### 2026-10-03 — 固定縄張り反応物
 
 FINITE IMPLEMENTED。[契約・Evidence](../experiment-evidence/LW_territorial_hazard.md)。World半径検知・接近・威嚇・帰巣、個体入力は有限視覚だけ。判断と身体操作を分離。軽量World3run、91 tests PASS。動物学習・縄張り学習・負傷・Luanti移植は未実装。
+
+### 2026-10-03 — 有限採取場と縄張り
+
+FINITE EXPERIMENT COMPLETE。[Evidence](../experiment-evidence/LW_finite_territory.md)。有限共有資源96単位、1地点の縄張り重複、5日×3条件。既存の有限stockを利用。総採取60、残36。enabledは配送56・携行4、A/C安全未解決。関連32 tests PASS。長期・複数seed・枯渇/縄張り関係の学習は未検証/未実装。
