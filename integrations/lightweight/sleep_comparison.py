@@ -4,8 +4,8 @@ from pathlib import Path
 from .timed_harvest import run
 
 
-def main():
-    root = Path('outputs/sleep_learning')
+def main(auto_adoption=False):
+    root = Path('outputs/sleep_auto' if auto_adoption else 'outputs/sleep_learning')
     root.mkdir(parents=True, exist_ok=True)
     reports = {}
     for enabled in (False, True):
@@ -16,11 +16,15 @@ def main():
             nested_model_mode='enabled', directional_route_mode='enabled', relation_field_mode='enabled',
             selection_mode='continuous', hazard_mode='enabled', hazard_scenario='territorial',
             warning_review_mode='enabled', territory_resource_layout='three_inside',
-            dynamic_hazard=True, regrowth_days=3, sleep_learning=enabled)
+            dynamic_hazard=True, regrowth_days=3, sleep_learning=True if auto_adoption else enabled,
+            sleep_auto_adopt=enabled if auto_adoption else False)
         print(enabled, reports[str(enabled)]['pickups'], flush=True)
-    Path('tests/fixtures/lightweight_sleep_comparison.json').write_text(
+    Path('tests/fixtures/lightweight_sleep_auto_comparison.json' if auto_adoption
+         else 'tests/fixtures/lightweight_sleep_comparison.json').write_text(
         json.dumps(reports, indent=2), encoding='utf8')
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--auto-adoption',action='store_true')
+    main(parser.parse_args().auto_adoption)

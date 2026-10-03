@@ -53,6 +53,11 @@ def review(agent, p, decision):
             p['capture_us'] - result['executed_us']) if linked else 0
         if cycle['rest_us'] >= REST_US:
             cycle['relation_review'] = inspect(cycle['relation_materials'])
+            if getattr(agent, 'sleep_auto_adopt', False):
+                from .sleep_auto_model import adopt
+                learning['sleep_auto_model'] = adopt(learning.get('sleep_auto_model'),
+                    cycle['relation_review'], agent.run_id, agent.agent_id, p['capture_us'])
+                cycle['auto_model_ref'] = learning['sleep_auto_model']['model_ref']
             if model is not None:
                 outcome = dict(status='MODEL_ALREADY_PRESENT')
             elif len(cycle['records']) < 5:

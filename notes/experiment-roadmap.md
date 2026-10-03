@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [Sleep関係の自動採用実験](../docs/experiment-evidence/LW_sleep_auto_adoption.md)：未検査の局所M_Bを翌日の候補順位へ接続。3日比較で88回の直接選択差、採取48→45・持帰り15→27。canonical T1採用とは別経路。
+
 - [Sleep夜間接続・異種経験比較](../docs/experiment-evidence/LW_sleep_learning.md)：軽量Worldで実装・3日比較。採取M_Bは夜間に採用、異種関係は共通/相違/欠測の診断まで。汎用関係の採用は未接続。
 
 2026-09-29: [Campaign timing](../docs/experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md) — day 16 passed; day 23 pending capacity interruption with a 2.05-second Runtime observe call. Received replies replay; unreceived accepted calls remain explicit. Next isolate long observe work and export overhead, preserving behavior.

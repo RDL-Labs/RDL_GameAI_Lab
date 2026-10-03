@@ -30,7 +30,7 @@ def prepare(agent, p):
         seen.add(key)
         selected.append(dict(record_id='op:'+oid, agent_id=agent.agent_id,
             tick=r['executed_us'], decision_tick=source['capture_us'],
-            source_observation_id=oid, action=c['kind'], outcome=r['status'],
+            source_observation_id=oid, action=c['kind'], amount=c.get('amount', 0), outcome=r['status'],
             phase=mode, target=c.get('target_ref') or None,
             food_coverage=source.get('food', {}).get('coverage'),
             food_seen=bool(source.get('food', {}).get('visible')),

@@ -87,7 +87,13 @@ def review(agent,p,d):
                 add('step_'+str(angle),['move',1] if angle==0 else ['turn',angle],priority,
                     question if angle==0 else 'rotation_then_step')
             s['gate']='method_reselection'
+    if getattr(agent,'sleep_auto_adopt',False):
+        from .sleep_auto_model import apply
+        before=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))['model']
+        s['sleep_model']=apply(agent,p,s['candidates'])
     chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
+    if getattr(agent,'sleep_auto_adopt',False):
+        s['sleep_model'].update(baseline_selected=before,selected=chosen['model'],changed=before!=chosen['model'])
     name=chosen['model'].split('/',1)[1];n=s['nodes'][chosen['model']];n['last_selected']=s['sequence']
     s['selected']=chosen['model'];s['applied']=chosen['action']!=d['action'] or phase=='safety'
     s['trial']=dict(model=chosen['model'],question=chosen['question'],source=p['observation_id'],band=band,angle=chosen['action'][1])
