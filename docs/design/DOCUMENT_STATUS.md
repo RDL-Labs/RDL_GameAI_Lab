@@ -1,5 +1,7 @@
 # Design Document Status
 
+2026-10-03: [危険物体2体](../experiment-contracts/LW_dynamic_hazard_pair.md) — lightweight IMPLEMENTED。縄張り＋固定巡回、粗い視覚最大2件、全可視脅威から方向を評価。2 seed×2条件の5日比較完了、関連96テストPASS。負傷/攻撃/動的物理遮蔽は未実装。
+
 2026-10-03: [継続方法選択](../experiment-contracts/LW_continuous_selection.md) — 現行lightweight経路IMPLEMENTED。回数だけの打切りを撤去し、局所Hで候補を再選択。13専用テストと5日×4条件完了。効率改善・確実な脱出は未達。旧独立実験/旧Python既定は互換維持。
 
 2026-09-29: [Campaign時間診断](../experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md) — opt-in計測を実装。1日smoke PASS、6個体長期走行は23日目にpending上限。34関連テストPASS。前回の16日停止原因の確定や改善達成ではない。

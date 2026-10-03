@@ -2,13 +2,14 @@
 from copy import deepcopy
 
 RULE='finite-moving-hazard-safety-v1'
+MULTI_RULE='finite-two-hazard-safety-v1'
 KEYS=('run_id','agent_id','observation_id','capture_us','pose_ref','body_revision')
 
 
 def validate(p):
     h=p['hazard']
-    if h.get('rule')!=RULE or h.get('source')!={k:p[k] for k in KEYS}:raise ValueError('hazard_binding')
-    if h.get('coverage') not in ('complete','partial') or len(h.get('features',[]))>1:raise ValueError('hazard_coverage')
+    if h.get('rule') not in (RULE,MULTI_RULE) or h.get('source')!={k:p[k] for k in KEYS}:raise ValueError('hazard_binding')
+    if h.get('coverage') not in ('complete','partial') or len(h.get('features',[]))>(2 if h['rule']==MULTI_RULE else 1):raise ValueError('hazard_coverage')
     for x in h['features']:
         if set(x)!= {'appearance','azimuth','range_band'} or x['appearance'] not in ('violet_hazard','violet_warning'):raise ValueError('hazard_feature')
         if x['range_band'] not in ('near','watch','far'):raise ValueError('hazard_range')
@@ -17,7 +18,8 @@ def validate(p):
 
 
 def review(p,old=None,result=None,*,continuous=False):
-    validate(p);h=p['hazard'];now=p['capture_us'];features=h['features'];visible=features[0] if features else None
+    validate(p);h=p['hazard'];now=p['capture_us'];features=h['features']
+    visible=min(features,key=lambda x:({'near':0,'watch':1,'far':2}[x['range_band']],tuple(x['azimuth']),x['appearance'])) if features else None
     s=deepcopy(old) if old else dict(mode='normal',generation=0,operations=0,clear_yaw=0,far_count=0)
     s.update(rule=RULE,source=p['observation_id'],override=False,action=['wait',0],reason='normal')
     linked=bool(result and result['after_pose_ref']==p['pose_ref'] and result['after_revision']==p['body_revision'] and result['executed_us']<now and result['status'] not in ('stale','expired'))

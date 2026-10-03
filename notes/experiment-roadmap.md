@@ -765,4 +765,6 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-10-03: [縄張り内3採取場](../docs/experiment-evidence/LW_territory_resource_density.md)を比較。既存の1危険個体と総資源量を維持。可視威嚇による警戒継続と退避予算切れを分離して記録。
 # 2026-10-03 継続方法選択
 
+追加比較: [縄張り＋巡回危険物体](../docs/experiment-evidence/LW_dynamic_hazard_pair.md)。現在の継続選択を維持して2体観測へ拡張。2 seedの5日比較で同時視認42判断。採取/帰還効果はseedにより逆向き、改善の一般化はしない。
+
 [契約](../docs/experiment-contracts/LW_continuous_selection.md) / [Evidence](../docs/experiment-evidence/LW_continuous_selection.md)。現行lightweight探索・帰還・警戒の回数終了を撤去。毎観測、実行結果と局所H/θから方法候補を選ぶ。計算/保存上限と身体・観測権限は保持。通常CLIはcontinuous、旧Python APIはlegacy既定。4条件比較完了、効率改善とはしない。次は局所の見え方変化と大目的の進展を分けて観察する。

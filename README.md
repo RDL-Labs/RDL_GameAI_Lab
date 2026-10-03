@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [縄張り＋巡回危険物体](docs/experiment-evidence/LW_dynamic_hazard_pair.md)：2 seed×5日、2体同時観測と継続選択を実行。追加脅威で持帰りが減るseedと増えるseedの両方を記録。
+
 - [継続する局所方法選択](docs/experiment-contracts/LW_continuous_selection.md)：現行lightweight CLIは探索・帰還・警戒で回数切れ終端を撤去。局所E/H/θで方法を選び直す。[5日×4条件の結果](docs/experiment-evidence/LW_continuous_selection.md)では選択継続を確認、採取/帰還改善は未達。旧Python APIは再生互換のためlegacy既定。
 
 - [長期探索の時間計測](docs/experiment-evidence/LUANTI_L15A_campaign_timing_evidence.md)：16日目を通過、23日目に送信待ち上限で中断。Runtime観測処理に2.05秒。受信済み69,887応答は再生一致、最終Runtimeとの差も保存。

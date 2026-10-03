@@ -81,8 +81,9 @@ def review(agent,p,d):
                 if phase=='safety' and angle==0 and front_threat:continue
                 priority=2
                 if phase=='safety' and features:
-                    danger=sum(features[0]['azimuth'])/2
-                    priority=2-1.5*cos(radians(angle-danger))
+                    # Minimax directional pressure: a second threat cannot disappear
+                    # through vector cancellation or feature ordering.
+                    priority=2-1.5*max(cos(radians(angle-sum(x['azimuth'])/2)) for x in features)
                 add('step_'+str(angle),['move',1] if angle==0 else ['turn',angle],priority,
                     question if angle==0 else 'rotation_then_step')
             s['gate']='method_reselection'
