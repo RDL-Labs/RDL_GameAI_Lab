@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [最小コミュニケーション実験](docs/experiment-evidence/LW_minimal_communication.md)：要求→譲渡/拒否、手伸ばし→警告→再選択の5条件。保持食料の移転と消費を検証。通常探索・Sleep未接続。
+
 - [主観的援助関係](docs/experiment-evidence/LW_aid_relations.md)：同じ拠点所属から、救助/無応答で個体別の援助期待と次の相手選択が変化。聞こえなかった場合も本人には無応答。有限専用実験、通常探索・Sleep未接続。
 
 - [声による救助と救助者の行動不能](docs/experiment-evidence/LW_voice_rescue.md)：有限軽量Worldで救援声→接近→給食。救助者も消耗で歩行不能になる対照を確認。通常探索・Sleepへの統合は未実装。
