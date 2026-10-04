@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [簡易エネルギー消費場](../docs/experiment-evidence/LW_energy_field.md)：抵抗・荷重・身体余力で有限候補のcost/実行可否を評価。2個体の資源移転と実消耗を検証。専用fixture、通常探索への自動接続は未実装。
+
 - [2.5D SILN World・物理構造帯計画](../docs/design/RDL_GameAI_25D_SILN_World_Plan.md)：DESIGN ONLY。World側モデルと個体M_Bを分離し、既存幾何・身体・積載を独立レイヤーへ整理。PW-0〜4は未実装。
 
 - [重量・障害・荷物を置く](../docs/experiment-evidence/LW_cargo_obstacle.md)：5個/6個の通過境界、実dropと再取得、帰還/逃走目的の候補差。有限専用実験、通常探索の重量台帳は未接続。

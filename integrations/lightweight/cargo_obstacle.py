@@ -8,6 +8,9 @@ from .world import segment_hit
 
 
 class CargoWorld(BodyWorld):
+    def surface_resistance(self,aid,action):
+        return 1.
+
     def __init__(self,stock=6):
         super().__init__()
         for aid in self.world.agents:self.world.agents[aid].update(x=0.,z=0.,yaw=0.,inventory=0)
@@ -43,14 +46,15 @@ class CargoWorld(BodyWorld):
                     status='dropped'
             else:
                 body_action='walk' if action=='detour' else action
-                load=sum(self.cargo[aid]);cap=capabilities(self.states[aid],load)
+                load=sum(self.cargo[aid]);resistance=self.surface_resistance(aid,action)
+                cap=capabilities(self.states[aid],load,resistance)
                 dx,dz=self.world.direction(aid,90 if action=='detour' else 0)
                 length=cap.get(body_action+'_distance',0.)
                 end=(a['x']+dx*length,a['z']+dz*length)
                 hits=[o for o in self.world.objects if segment_hit((a['x'],a['z']),end,o,.2)]
                 clear=not hits if body_action!='climb' else all(o['height']<=cap['climb_height']+1e-12
                     and not segment_hit(end,end,o,.2) for o in hits)
-                self.states[aid],result=step(self.states[aid],body_action,load=load,unobstructed=clear)
+                self.states[aid],result=step(self.states[aid],body_action,load=load,unobstructed=clear,resistance=resistance)
                 status=result['status'];distance=result['distance']
                 if distance:a['x'],a['z']=end
             a['inventory']=len(self.cargo[aid]);self.clock[aid]+=1_000_000

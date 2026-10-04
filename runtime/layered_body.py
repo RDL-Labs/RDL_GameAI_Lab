@@ -19,26 +19,28 @@ def validate(s):
             raise ValueError('body_state')
 
 
-def capabilities(s, load=0.):
+def capabilities(s, load=0., resistance=1.):
     validate(s)
     if type(load) not in (int,float) or not isfinite(load) or load<0:
         raise ValueError('body_load')
-    effort=1+.1*load
+    if type(resistance) not in (int,float) or not isfinite(resistance) or not 1<=resistance<=10:
+        raise ValueError('body_resistance')
+    effort=(1+.1*load)*resistance
     integrity=1-s['damage']
     return dict(walk_distance=.5*integrity,run_distance=1.5*integrity,
-        climb_distance=1.*integrity,climb_height=.6*integrity/effort,
+        climb_distance=1.*integrity,climb_height=.6*integrity/(1+.1*load),
         burst_capacity=10*integrity,
         can_walk=s['reserve']>=.1*effort and s['strain']<1 and integrity>0,
         can_run=s['reserve']>=.5*effort and s['burst']>=3*effort and s['strain']<=.8 and integrity>0,
         can_climb=s['reserve']>=.4*effort and s['burst']>=4*effort and s['strain']<=.8 and integrity>0)
 
 
-def step(s, action, *, unobstructed=True, food_available=False, load=0.):
+def step(s, action, *, unobstructed=True, food_available=False, load=0., resistance=1.):
     """One second, one body action. Caller owns geometry and food inventory."""
     validate(s)
     if action not in ACTIONS or type(unobstructed) is not bool or type(food_available) is not bool:
         raise ValueError('body_action')
-    out=deepcopy(s);cap=capabilities(s,load);distance=0.;ate=False;effort=1+.1*load
+    out=deepcopy(s);cap=capabilities(s,load,resistance);distance=0.;ate=False;effort=(1+.1*load)*resistance
     if action in ('walk','run','climb'):
         if not cap['can_'+action]:status='body_limited'
         elif not unobstructed:
