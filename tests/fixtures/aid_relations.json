@@ -1,0 +1,1356 @@
+{
+  "help": {
+    "experimenter_mode": "help",
+    "helper_records": [
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "load": 2.0,
+          "inventory": 2,
+          "heard": [
+            {
+              "kind": "help_call",
+              "azimuth": -90,
+              "range_band": "near",
+              "capture_s": 0
+            }
+          ],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": true
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "feed",
+          "target": "npc_a"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:0",
+          "action": "feed",
+          "status": "fed",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "time": 0
+        }
+      },
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "load": 1.0,
+          "inventory": 1,
+          "heard": [
+            {
+              "kind": "help_call",
+              "azimuth": -90,
+              "range_band": "near",
+              "capture_s": 1
+            }
+          ],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": true
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "feed",
+          "target": "npc_a"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:1",
+          "action": "feed",
+          "status": "fed",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "time": 1
+        }
+      },
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "load": 0.0,
+          "inventory": 0,
+          "heard": [
+            {
+              "kind": "help_call",
+              "azimuth": -90,
+              "range_band": "near",
+              "capture_s": 2
+            }
+          ],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": true
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "rest"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:2",
+          "action": "rest",
+          "status": "rested",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "time": 2
+        }
+      }
+    ],
+    "own_evidence": {
+      "expected_helper": "npc_b",
+      "start": 0,
+      "deadline": 3,
+      "expectation": 0.5,
+      "outcome": "aid_observed",
+      "received_aid": [
+        {
+          "giver": "npc_b",
+          "time": 0,
+          "operation": "reply:0"
+        },
+        {
+          "giver": "npc_b",
+          "time": 1,
+          "operation": "reply:1"
+        }
+      ],
+      "intent": "unknown",
+      "owner": "npc_a"
+    },
+    "expectations": {
+      "npc_b": 0.6666666666666666,
+      "npc_c": 0.5
+    },
+    "next_expected_helper": "npc_b",
+    "next_command": {
+      "agent": "npc_a",
+      "operation": "next-request",
+      "action": "call",
+      "status": "called",
+      "distance": 0.0,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 40.0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 40.0,
+        "damage": 0.0
+      },
+      "time": 3
+    },
+    "recipient_body": {
+      "rule": "layered-body-v1",
+      "burst": 10.0,
+      "strain": 0.0,
+      "reserve": 40.0,
+      "damage": 0.0
+    },
+    "reverse_expectation": 0.5,
+    "later_help": {
+      "experimenter_mode": "help",
+      "helper_records": [
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 2.0,
+            "inventory": 2,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 0
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "feed",
+            "target": "npc_a"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:0",
+            "action": "feed",
+            "status": "fed",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "time": 0
+          }
+        },
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 1.0,
+            "inventory": 1,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 1
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "feed",
+            "target": "npc_a"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:1",
+            "action": "feed",
+            "status": "fed",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "time": 1
+          }
+        },
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 0.0,
+            "inventory": 0,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 2
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "rest"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:2",
+            "action": "rest",
+            "status": "rested",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 99.95,
+              "damage": 0.0
+            },
+            "time": 2
+          }
+        }
+      ],
+      "own_evidence": {
+        "expected_helper": "npc_b",
+        "start": 0,
+        "deadline": 3,
+        "expectation": 0.6666666666666666,
+        "outcome": "aid_observed",
+        "received_aid": [
+          {
+            "giver": "npc_b",
+            "time": 0,
+            "operation": "reply:0"
+          },
+          {
+            "giver": "npc_b",
+            "time": 1,
+            "operation": "reply:1"
+          }
+        ],
+        "intent": "unknown",
+        "owner": "npc_a"
+      },
+      "expectations": {
+        "npc_b": 0.75,
+        "npc_c": 0.5
+      },
+      "next_expected_helper": "npc_b",
+      "next_command": {
+        "agent": "npc_a",
+        "operation": "next-request",
+        "action": "call",
+        "status": "called",
+        "distance": 0.0,
+        "before": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.0,
+          "reserve": 40.0,
+          "damage": 0.0
+        },
+        "after": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.0,
+          "reserve": 40.0,
+          "damage": 0.0
+        },
+        "time": 3
+      },
+      "recipient_body": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 40.0,
+        "damage": 0.0
+      }
+    }
+  },
+  "decline": {
+    "experimenter_mode": "decline",
+    "helper_records": [
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "load": 2.0,
+          "inventory": 2,
+          "heard": [
+            {
+              "kind": "help_call",
+              "azimuth": -90,
+              "range_band": "near",
+              "capture_s": 0
+            }
+          ],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": true
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "rest"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:0",
+          "action": "rest",
+          "status": "rested",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "time": 0
+        }
+      },
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "load": 2.0,
+          "inventory": 2,
+          "heard": [
+            {
+              "kind": "help_call",
+              "azimuth": -90,
+              "range_band": "near",
+              "capture_s": 1
+            }
+          ],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": true
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "rest"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:1",
+          "action": "rest",
+          "status": "rested",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "time": 1
+        }
+      },
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "load": 2.0,
+          "inventory": 2,
+          "heard": [
+            {
+              "kind": "help_call",
+              "azimuth": -90,
+              "range_band": "near",
+              "capture_s": 2
+            }
+          ],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": true
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "rest"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:2",
+          "action": "rest",
+          "status": "rested",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.85000000000001,
+            "damage": 0.0
+          },
+          "time": 2
+        }
+      }
+    ],
+    "own_evidence": {
+      "expected_helper": "npc_b",
+      "start": 0,
+      "deadline": 3,
+      "expectation": 0.5,
+      "outcome": "no_aid_observed",
+      "received_aid": [],
+      "intent": "unknown",
+      "owner": "npc_a"
+    },
+    "expectations": {
+      "npc_b": 0.3333333333333333,
+      "npc_c": 0.5
+    },
+    "next_expected_helper": "npc_c",
+    "next_command": {
+      "agent": "npc_a",
+      "operation": "next-request",
+      "action": "call",
+      "status": "called",
+      "distance": 0.0,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 0.0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 0.0,
+        "damage": 0.0
+      },
+      "time": 3
+    },
+    "recipient_body": {
+      "rule": "layered-body-v1",
+      "burst": 10.0,
+      "strain": 0.0,
+      "reserve": 0.0,
+      "damage": 0.0
+    },
+    "reverse_expectation": 0.5,
+    "later_help": {
+      "experimenter_mode": "help",
+      "helper_records": [
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 2.0,
+            "inventory": 2,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 0
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "feed",
+            "target": "npc_a"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:0",
+            "action": "feed",
+            "status": "fed",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "time": 0
+          }
+        },
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 1.0,
+            "inventory": 1,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 1
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "feed",
+            "target": "npc_a"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:1",
+            "action": "feed",
+            "status": "fed",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "time": 1
+          }
+        },
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 0.0,
+            "inventory": 0,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 2
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "rest"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:2",
+            "action": "rest",
+            "status": "rested",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 99.95,
+              "damage": 0.0
+            },
+            "time": 2
+          }
+        }
+      ],
+      "own_evidence": {
+        "expected_helper": "npc_b",
+        "start": 0,
+        "deadline": 3,
+        "expectation": 0.3333333333333333,
+        "outcome": "aid_observed",
+        "received_aid": [
+          {
+            "giver": "npc_b",
+            "time": 0,
+            "operation": "reply:0"
+          },
+          {
+            "giver": "npc_b",
+            "time": 1,
+            "operation": "reply:1"
+          }
+        ],
+        "intent": "unknown",
+        "owner": "npc_a"
+      },
+      "expectations": {
+        "npc_b": 0.5,
+        "npc_c": 0.5
+      },
+      "next_expected_helper": "npc_b",
+      "next_command": {
+        "agent": "npc_a",
+        "operation": "next-request",
+        "action": "call",
+        "status": "called",
+        "distance": 0.0,
+        "before": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.0,
+          "reserve": 40.0,
+          "damage": 0.0
+        },
+        "after": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.0,
+          "reserve": 40.0,
+          "damage": 0.0
+        },
+        "time": 3
+      },
+      "recipient_body": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 40.0,
+        "damage": 0.0
+      }
+    }
+  },
+  "unheard": {
+    "experimenter_mode": "unheard",
+    "helper_records": [
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "load": 2.0,
+          "inventory": 2,
+          "heard": [],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": false
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "rest"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:0",
+          "action": "rest",
+          "status": "rested",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "time": 0
+        }
+      },
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "load": 2.0,
+          "inventory": 2,
+          "heard": [],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": false
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "rest"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:1",
+          "action": "rest",
+          "status": "rested",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "time": 1
+        }
+      },
+      {
+        "observation": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "load": 2.0,
+          "inventory": 2,
+          "heard": [],
+          "near": [
+            {
+              "ref": "npc_a",
+              "requesting_help": false
+            },
+            {
+              "ref": "npc_c",
+              "requesting_help": false
+            }
+          ],
+          "received_aid": []
+        },
+        "decision": {
+          "action": "rest"
+        },
+        "result": {
+          "agent": "npc_b",
+          "operation": "reply:2",
+          "action": "rest",
+          "status": "rested",
+          "distance": 0.0,
+          "before": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "after": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 99.85000000000001,
+            "damage": 0.0
+          },
+          "time": 2
+        }
+      }
+    ],
+    "own_evidence": {
+      "expected_helper": "npc_b",
+      "start": 0,
+      "deadline": 3,
+      "expectation": 0.5,
+      "outcome": "no_aid_observed",
+      "received_aid": [],
+      "intent": "unknown",
+      "owner": "npc_a"
+    },
+    "expectations": {
+      "npc_b": 0.3333333333333333,
+      "npc_c": 0.5
+    },
+    "next_expected_helper": "npc_c",
+    "next_command": {
+      "agent": "npc_a",
+      "operation": "next-request",
+      "action": "call",
+      "status": "called",
+      "distance": 0.0,
+      "before": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 0.0,
+        "damage": 0.0
+      },
+      "after": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 0.0,
+        "damage": 0.0
+      },
+      "time": 3
+    },
+    "recipient_body": {
+      "rule": "layered-body-v1",
+      "burst": 10.0,
+      "strain": 0.0,
+      "reserve": 0.0,
+      "damage": 0.0
+    },
+    "reverse_expectation": 0.5,
+    "later_help": {
+      "experimenter_mode": "help",
+      "helper_records": [
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 2.0,
+            "inventory": 2,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 0
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "feed",
+            "target": "npc_a"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:0",
+            "action": "feed",
+            "status": "fed",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "time": 0
+          }
+        },
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 1.0,
+            "inventory": 1,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 1
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "feed",
+            "target": "npc_a"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:1",
+            "action": "feed",
+            "status": "fed",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "time": 1
+          }
+        },
+        {
+          "observation": {
+            "body": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "load": 0.0,
+            "inventory": 0,
+            "heard": [
+              {
+                "kind": "help_call",
+                "azimuth": -90,
+                "range_band": "near",
+                "capture_s": 2
+              }
+            ],
+            "near": [
+              {
+                "ref": "npc_a",
+                "requesting_help": true
+              },
+              {
+                "ref": "npc_c",
+                "requesting_help": false
+              }
+            ],
+            "received_aid": []
+          },
+          "decision": {
+            "action": "rest"
+          },
+          "result": {
+            "agent": "npc_b",
+            "operation": "reply:2",
+            "action": "rest",
+            "status": "rested",
+            "distance": 0.0,
+            "before": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0.0,
+              "reserve": 100.0,
+              "damage": 0.0
+            },
+            "after": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 99.95,
+              "damage": 0.0
+            },
+            "time": 2
+          }
+        }
+      ],
+      "own_evidence": {
+        "expected_helper": "npc_b",
+        "start": 0,
+        "deadline": 3,
+        "expectation": 0.3333333333333333,
+        "outcome": "aid_observed",
+        "received_aid": [
+          {
+            "giver": "npc_b",
+            "time": 0,
+            "operation": "reply:0"
+          },
+          {
+            "giver": "npc_b",
+            "time": 1,
+            "operation": "reply:1"
+          }
+        ],
+        "intent": "unknown",
+        "owner": "npc_a"
+      },
+      "expectations": {
+        "npc_b": 0.5,
+        "npc_c": 0.5
+      },
+      "next_expected_helper": "npc_b",
+      "next_command": {
+        "agent": "npc_a",
+        "operation": "next-request",
+        "action": "call",
+        "status": "called",
+        "distance": 0.0,
+        "before": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.0,
+          "reserve": 40.0,
+          "damage": 0.0
+        },
+        "after": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.0,
+          "reserve": 40.0,
+          "damage": 0.0
+        },
+        "time": 3
+      },
+      "recipient_body": {
+        "rule": "layered-body-v1",
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 40.0,
+        "damage": 0.0
+      }
+    }
+  }
+}
