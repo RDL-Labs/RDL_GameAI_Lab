@@ -84,6 +84,8 @@ class SocialAgent(EnergyAgent):
     share=True
     social_adopt=True
     social_pressure=True
+    refusal_field_mode='disabled'
+    refusal_seed=0
     deposit_enabled=True
 
     def carried_count(self):
@@ -127,6 +129,9 @@ class SocialAgent(EnergyAgent):
         if self.social_pressure:
             from runtime.aid_method_pressure import update
             s['pressure']=update(s.get('pressure'),s['records'],self.agent_id)
+        if self.refusal_field_mode!='disabled':
+            from runtime.refusal_relation_field import compile_field
+            s['refusal_field']=compile_field(s['records'],s['pressure'],self.agent_id)
         cycle=(learning.get('sleep') or {}).get('cycle')
         if cycle:
             formation=self.observations.get(cycle['source'],p)['capture_us']
@@ -147,6 +152,13 @@ class SocialAgent(EnergyAgent):
             if message:
                 action={'warn':'withdraw','reach':'warn','request':'give' if self.share and obs['inventory'] else 'refuse'}[message['kind']]
                 intent=dict(action=action,target=message['sender'],reply_to=message['id'])
+                if (message['kind']=='request' and self.share and self.refusal_field_mode!='disabled'
+                        and message['sender'] in {o['ref'] for o in obs['others']}):
+                    from runtime.refusal_relation_field import choose
+                    current=dict(obs,messages=[message])
+                    seed=f'{self.refusal_seed}:{self.run_id}:{self.agent_id}:{p["observation_id"]}:respond:{message["sender"]}'
+                    intent,d['refusal_choice']=choose(s['refusal_field'],current,message['sender'],'respond',seed,
+                                                    enabled=self.refusal_field_mode=='enabled')
             elif obs['body']['reserve']<80 and obs['inventory']:
                 intent=dict(action='eat')
             elif obs['body']['reserve']<80 and obs['at_base'] and obs['stock']:
@@ -161,9 +173,16 @@ class SocialAgent(EnergyAgent):
                 else:target=None
                 if target is not None:
                     intent=dict(action='request',target=target)
-                    mid=self.agent_id+':op:'+p['observation_id']
-                    s['pending']=dict(message_id=mid,target=target,deadline=p['capture_us']+5_000_000,
-                                      request_observation_id=p['observation_id'],operation_id='op:'+p['observation_id'])
+                    if self.refusal_field_mode!='disabled':
+                        from runtime.refusal_relation_field import choose
+                        seed=f'{self.refusal_seed}:{self.run_id}:{self.agent_id}:{p["observation_id"]}:request:{target}'
+                        candidate,d['refusal_choice']=choose(s['refusal_field'],obs,target,'request_again',seed,
+                                                           enabled=self.refusal_field_mode=='enabled')
+                        intent=candidate if candidate['action']=='request' else None
+                    if intent:
+                        mid=self.agent_id+':op:'+p['observation_id']
+                        s['pending']=dict(message_id=mid,target=target,deadline=p['capture_us']+5_000_000,
+                                          request_observation_id=p['observation_id'],operation_id='op:'+p['observation_id'])
             if intent is None and self.deposit_enabled and obs['at_base'] and obs['inventory'] and phase in ('return','night'):
                 intent=dict(action='deposit')
         if d['reason']=='return_unload_attempt' and intent is None:

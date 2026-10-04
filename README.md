@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [拒否関係場の生活適用](docs/experiment-evidence/LW_refusal_life.md)：3seed×3日でshadow/enabled比較。1seedで再要求から既存採取へ切替、総要求/譲渡/食事数は同じ。逆向きの正重み場面は0件。
+
 - [拒否経験のHと関係場](docs/experiment-evidence/LW_refusal_relation_field.md)：実拒否2件を用いた共通32seed比較。再要求28→10、逆向き要求への譲渡28→10。固定された使用仮説の専用実験、通常生活へは未適用。
 
 - [援助要求のE/H](docs/experiment-evidence/LW_aid_pressure.md)：拒否/応答未観測を目的・相手別方法へ蓄積。θ到達で同日中にB→Cへ再選択。3日要求31→5、譲渡2→3の有限比較。

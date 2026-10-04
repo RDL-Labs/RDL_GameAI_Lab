@@ -1,0 +1,2376 @@
+{
+  "20261004-shadow": {
+    "options": {
+      "days": 3,
+      "stop_after_returns": null,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "selection_mode": "continuous",
+      "sleep_learning": true,
+      "social_mode": "enabled",
+      "social_pressure": true,
+      "return_completion_mode": "enabled",
+      "orientation_mode": "enabled",
+      "seed": 20261004,
+      "body_scene": "social_camp",
+      "refusal_field_mode": "shadow"
+    },
+    "audit": {
+      "initial_food": 16,
+      "conserved": true,
+      "body_overlap": false,
+      "effects": 459,
+      "actions": {
+        "request:expressed": 7,
+        "refuse:expressed": 3,
+        "eat:ate": 12,
+        "give:transferred": 4
+      },
+      "requests": [
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:5"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:20"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:35"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:45"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:165"
+        },
+        {
+          "day": 2,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:445"
+        },
+        {
+          "day": 3,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:720"
+        }
+      ],
+      "sleep_cycles": {
+        "npc_a": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_b": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_c": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    "choices": [
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:5",
+        "time": 1250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:5:request:npc_b",
+          "draw": 0.5612720954117781,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:20",
+        "time": 5000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:20:request:npc_b",
+          "draw": 0.8218858191038244,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:5"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:35",
+        "time": 8750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:35:request:npc_c",
+          "draw": 0.46669891886888143,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:40",
+        "time": 10000000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:40:respond:npc_a",
+          "draw": 0.03454902480420768,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:35",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:35",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "refuse",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:45",
+        "time": 11250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:45:request:npc_c",
+          "draw": 0.6601979735950273,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:50",
+        "time": 12500000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:50:respond:npc_a",
+          "draw": 0.7288386093266898,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:45",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:45",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:150",
+        "time": 37500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:150:request:npc_c",
+          "draw": 0.10695270211967992,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": false
+        },
+        "actual_action": "turn"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:155",
+        "time": 38750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:155:request:npc_c",
+          "draw": 0.11345493530116223,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": false
+        },
+        "actual_action": "move"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:160",
+        "time": 40000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:160:request:npc_c",
+          "draw": 0.22248565519811314,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": false
+        },
+        "actual_action": "turn"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:165",
+        "time": 41250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:165:request:npc_c",
+          "draw": 0.9711542916894761,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:170",
+        "time": 42500000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:170:respond:npc_a",
+          "draw": 0.36835184990119085,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:165",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:165",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:445",
+        "time": 111250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:445:request:npc_c",
+          "draw": 0.44946582204145313,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:450",
+        "time": 112500000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:450:respond:npc_a",
+          "draw": 0.4643769738811836,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:445",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:445",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:720",
+        "time": 180000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:720:request:npc_c",
+          "draw": 0.5749985545171239,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:725",
+        "time": 181250000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:725:respond:npc_a",
+          "draw": 0.38822592400930994,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:720",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:720",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": false
+        },
+        "actual_action": "social"
+      }
+    ],
+    "summary": {
+      "pickups": 12,
+      "social_stock": 0,
+      "social_consumed": 12,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 3,
+        "npc_c": 1
+      }
+    }
+  },
+  "20261004-enabled": {
+    "options": {
+      "days": 3,
+      "stop_after_returns": null,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "selection_mode": "continuous",
+      "sleep_learning": true,
+      "social_mode": "enabled",
+      "social_pressure": true,
+      "return_completion_mode": "enabled",
+      "orientation_mode": "enabled",
+      "seed": 20261004,
+      "body_scene": "social_camp",
+      "refusal_field_mode": "enabled"
+    },
+    "audit": {
+      "initial_food": 16,
+      "conserved": true,
+      "body_overlap": false,
+      "effects": 459,
+      "actions": {
+        "request:expressed": 7,
+        "refuse:expressed": 3,
+        "eat:ate": 12,
+        "give:transferred": 4
+      },
+      "requests": [
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:5"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:20"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:35"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:45"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:165"
+        },
+        {
+          "day": 2,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:445"
+        },
+        {
+          "day": 3,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:720"
+        }
+      ],
+      "sleep_cycles": {
+        "npc_a": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_b": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_c": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    "choices": [
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:5",
+        "time": 1250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:5:request:npc_b",
+          "draw": 0.5612720954117781,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:20",
+        "time": 5000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:20:request:npc_b",
+          "draw": 0.8218858191038244,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:5"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:35",
+        "time": 8750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:35:request:npc_c",
+          "draw": 0.46669891886888143,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:40",
+        "time": 10000000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:40:respond:npc_a",
+          "draw": 0.03454902480420768,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:35",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:35",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "refuse",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:45",
+        "time": 11250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:45:request:npc_c",
+          "draw": 0.6601979735950273,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:50",
+        "time": 12500000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:50:respond:npc_a",
+          "draw": 0.7288386093266898,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:45",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:45",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:150",
+        "time": 37500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:150:request:npc_c",
+          "draw": 0.10695270211967992,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "wait",
+          "enabled": true
+        },
+        "actual_action": "turn"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:155",
+        "time": 38750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:155:request:npc_c",
+          "draw": 0.11345493530116223,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "wait",
+          "enabled": true
+        },
+        "actual_action": "move"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:160",
+        "time": 40000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:160:request:npc_c",
+          "draw": 0.22248565519811314,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "wait",
+          "enabled": true
+        },
+        "actual_action": "turn"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:165",
+        "time": 41250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:165:request:npc_c",
+          "draw": 0.9711542916894761,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:170",
+        "time": 42500000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:170:respond:npc_a",
+          "draw": 0.36835184990119085,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:165",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:165",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:445",
+        "time": 111250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:445:request:npc_c",
+          "draw": 0.44946582204145313,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:450",
+        "time": 112500000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:450:respond:npc_a",
+          "draw": 0.4643769738811836,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:445",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:445",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:720",
+        "time": 180000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261004:lw-work:npc_a:lw-work:npc_a:obs:720:request:npc_c",
+          "draw": 0.5749985545171239,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:35"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:725",
+        "time": 181250000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261004:lw-work:npc_c:lw-work:npc_c:obs:725:respond:npc_a",
+          "draw": 0.38822592400930994,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:720",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:720",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": true
+        },
+        "actual_action": "social"
+      }
+    ],
+    "summary": {
+      "pickups": 12,
+      "social_stock": 0,
+      "social_consumed": 12,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 3,
+        "npc_c": 1
+      }
+    }
+  },
+  "20261005-shadow": {
+    "options": {
+      "days": 3,
+      "stop_after_returns": null,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "selection_mode": "continuous",
+      "sleep_learning": true,
+      "social_mode": "enabled",
+      "social_pressure": true,
+      "return_completion_mode": "enabled",
+      "orientation_mode": "enabled",
+      "seed": 20261005,
+      "body_scene": "social_camp",
+      "refusal_field_mode": "shadow"
+    },
+    "audit": {
+      "initial_food": 16,
+      "conserved": true,
+      "body_overlap": false,
+      "effects": 459,
+      "actions": {
+        "request:expressed": 4,
+        "refuse:expressed": 4,
+        "eat:ate": 9
+      },
+      "requests": [
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:5"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:20"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:140"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:150"
+        }
+      ],
+      "sleep_cycles": {
+        "npc_a": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_b": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_c": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    "choices": [
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:5",
+        "time": 1250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:5:request:npc_b",
+          "draw": 0.986996769944432,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:20",
+        "time": 5000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:20:request:npc_b",
+          "draw": 0.27422052587666473,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:5"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:35",
+        "time": 8750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:35:request:npc_c",
+          "draw": 0.2194064572037006,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": false
+        },
+        "actual_action": "pickup"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:130",
+        "time": 32500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:130:request:npc_c",
+          "draw": 0.20853973212687743,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": false
+        },
+        "actual_action": "wait"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:135",
+        "time": 33750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:135:request:npc_c",
+          "draw": 0.2671041202622767,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": false
+        },
+        "actual_action": "turn"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:140",
+        "time": 35000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:140:request:npc_c",
+          "draw": 0.9492892676515463,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:145",
+        "time": 36250000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261005:lw-work:npc_c:lw-work:npc_c:obs:145:respond:npc_a",
+          "draw": 0.026035131758163684,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:140",
+              "score": 0.0,
+              "probability": 0.2701350495850091
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:140",
+              "score": 0.9939374999999991,
+              "probability": 0.7298649504149909
+            }
+          ],
+          "selected": "refuse",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:150",
+        "time": 37500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:150:request:npc_c",
+          "draw": 0.7672990880209692,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:140"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:155",
+        "time": 38750000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261005:lw-work:npc_c:lw-work:npc_c:obs:155:respond:npc_a",
+          "draw": 0.074499944894779,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:150",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:150",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "refuse",
+          "enabled": false
+        },
+        "actual_action": "social"
+      }
+    ],
+    "summary": {
+      "pickups": 12,
+      "social_stock": 0,
+      "social_consumed": 9,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 2,
+        "npc_c": 5
+      }
+    }
+  },
+  "20261005-enabled": {
+    "options": {
+      "days": 3,
+      "stop_after_returns": null,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "selection_mode": "continuous",
+      "sleep_learning": true,
+      "social_mode": "enabled",
+      "social_pressure": true,
+      "return_completion_mode": "enabled",
+      "orientation_mode": "enabled",
+      "seed": 20261005,
+      "body_scene": "social_camp",
+      "refusal_field_mode": "enabled"
+    },
+    "audit": {
+      "initial_food": 16,
+      "conserved": true,
+      "body_overlap": false,
+      "effects": 459,
+      "actions": {
+        "request:expressed": 4,
+        "refuse:expressed": 4,
+        "eat:ate": 9
+      },
+      "requests": [
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:5"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:30"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:140"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:150"
+        }
+      ],
+      "sleep_cycles": {
+        "npc_a": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_b": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_c": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    "choices": [
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:5",
+        "time": 1250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:5:request:npc_b",
+          "draw": 0.986996769944432,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:20",
+        "time": 5000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:20:request:npc_b",
+          "draw": 0.27422052587666473,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:5"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "wait",
+          "enabled": true
+        },
+        "actual_action": "pickup"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:30",
+        "time": 7500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:30:request:npc_b",
+          "draw": 0.6734128631586143,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:5"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:130",
+        "time": 32500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:130:request:npc_c",
+          "draw": 0.20853973212687743,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": true
+        },
+        "actual_action": "wait"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:135",
+        "time": 33750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:135:request:npc_c",
+          "draw": 0.2671041202622767,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": true
+        },
+        "actual_action": "turn"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:140",
+        "time": 35000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:140:request:npc_c",
+          "draw": 0.9492892676515463,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:145",
+        "time": 36250000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261005:lw-work:npc_c:lw-work:npc_c:obs:145:respond:npc_a",
+          "draw": 0.026035131758163684,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:140",
+              "score": 0.0,
+              "probability": 0.26983940841989823
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:140",
+              "score": 0.9954374999999999,
+              "probability": 0.7301605915801017
+            }
+          ],
+          "selected": "refuse",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:150",
+        "time": 37500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261005:lw-work:npc_a:lw-work:npc_a:obs:150:request:npc_c",
+          "draw": 0.7672990880209692,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:140"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:155",
+        "time": 38750000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261005:lw-work:npc_c:lw-work:npc_c:obs:155:respond:npc_a",
+          "draw": 0.074499944894779,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:150",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:150",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "refuse",
+          "enabled": true
+        },
+        "actual_action": "social"
+      }
+    ],
+    "summary": {
+      "pickups": 12,
+      "social_stock": 0,
+      "social_consumed": 9,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 3,
+        "npc_c": 4
+      }
+    }
+  },
+  "20261006-shadow": {
+    "options": {
+      "days": 3,
+      "stop_after_returns": null,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "selection_mode": "continuous",
+      "sleep_learning": true,
+      "social_mode": "enabled",
+      "social_pressure": true,
+      "return_completion_mode": "enabled",
+      "orientation_mode": "enabled",
+      "seed": 20261006,
+      "body_scene": "social_camp",
+      "refusal_field_mode": "shadow"
+    },
+    "audit": {
+      "initial_food": 16,
+      "conserved": true,
+      "body_overlap": false,
+      "effects": 459,
+      "actions": {
+        "request:expressed": 4,
+        "refuse:expressed": 2,
+        "eat:ate": 11,
+        "give:transferred": 2
+      },
+      "requests": [
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:5"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:20"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:130"
+        },
+        {
+          "day": 3,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:535"
+        }
+      ],
+      "sleep_cycles": {
+        "npc_a": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_b": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_c": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    "choices": [
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:5",
+        "time": 1250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:5:request:npc_b",
+          "draw": 0.4548394292492567,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:20",
+        "time": 5000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:20:request:npc_b",
+          "draw": 0.7039239119872955,
+          "weight": 0.0,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:5"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:35",
+        "time": 8750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:35:request:npc_c",
+          "draw": 0.11912865354830515,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": false
+        },
+        "actual_action": "pickup"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:130",
+        "time": 32500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:130:request:npc_c",
+          "draw": 0.8540229600470082,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:135",
+        "time": 33750000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261006:lw-work:npc_c:lw-work:npc_c:obs:135:respond:npc_a",
+          "draw": 0.6967040121719114,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:130",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:130",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:535",
+        "time": 133750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:535:request:npc_c",
+          "draw": 0.8929207682803173,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": false
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:540",
+        "time": 135000000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261006:lw-work:npc_c:lw-work:npc_c:obs:540:respond:npc_a",
+          "draw": 0.47451878149555665,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:535",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:535",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": false
+        },
+        "actual_action": "social"
+      }
+    ],
+    "summary": {
+      "pickups": 12,
+      "social_stock": 0,
+      "social_consumed": 11,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 2,
+        "npc_c": 3
+      }
+    }
+  },
+  "20261006-enabled": {
+    "options": {
+      "days": 3,
+      "stop_after_returns": null,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "selection_mode": "continuous",
+      "sleep_learning": true,
+      "social_mode": "enabled",
+      "social_pressure": true,
+      "return_completion_mode": "enabled",
+      "orientation_mode": "enabled",
+      "seed": 20261006,
+      "body_scene": "social_camp",
+      "refusal_field_mode": "enabled"
+    },
+    "audit": {
+      "initial_food": 16,
+      "conserved": true,
+      "body_overlap": false,
+      "effects": 459,
+      "actions": {
+        "request:expressed": 4,
+        "refuse:expressed": 2,
+        "eat:ate": 11,
+        "give:transferred": 2
+      },
+      "requests": [
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:5"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_b",
+          "observation": "lw-work:npc_a:obs:20"
+        },
+        {
+          "day": 1,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:130"
+        },
+        {
+          "day": 3,
+          "agent": "npc_a",
+          "target": "npc_c",
+          "observation": "lw-work:npc_a:obs:535"
+        }
+      ],
+      "sleep_cycles": {
+        "npc_a": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_b": [
+          "completed",
+          "completed",
+          "completed"
+        ],
+        "npc_c": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    "choices": [
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:5",
+        "time": 1250000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:5:request:npc_b",
+          "draw": 0.4548394292492567,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:20",
+        "time": 5000000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:20:request:npc_b",
+          "draw": 0.7039239119872955,
+          "weight": 0.6,
+          "sources": [
+            "npc_a:op:lw-work:npc_a:obs:5"
+          ],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.401312339887548
+            },
+            {
+              "action": "request",
+              "target": "npc_b",
+              "score": 0.4,
+              "probability": 0.598687660112452
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:35",
+        "time": 8750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:35:request:npc_c",
+          "draw": 0.11912865354830515,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "wait",
+          "enabled": true
+        },
+        "actual_action": "pickup"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:130",
+        "time": 32500000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:130:request:npc_c",
+          "draw": 0.8540229600470082,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:135",
+        "time": 33750000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261006:lw-work:npc_c:lw-work:npc_c:obs:135:respond:npc_a",
+          "draw": 0.6967040121719114,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:130",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:130",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_a",
+        "observation": "lw-work:npc_a:obs:535",
+        "time": 133750000,
+        "trace": {
+          "question": "request_again",
+          "seed": "20261006:lw-work:npc_a:lw-work:npc_a:obs:535:request:npc_c",
+          "draw": 0.8929207682803173,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "wait",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "request",
+              "target": "npc_c",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "request",
+          "enabled": true
+        },
+        "actual_action": "social"
+      },
+      {
+        "agent": "npc_c",
+        "observation": "lw-work:npc_c:obs:540",
+        "time": 135000000,
+        "trace": {
+          "question": "respond",
+          "seed": "20261006:lw-work:npc_c:lw-work:npc_c:obs:540:respond:npc_a",
+          "draw": 0.47451878149555665,
+          "weight": 0.0,
+          "sources": [],
+          "candidates": [
+            {
+              "action": "refuse",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:535",
+              "score": 0.0,
+              "probability": 0.2689414213699951
+            },
+            {
+              "action": "give",
+              "target": "npc_a",
+              "reply_to": "npc_a:op:lw-work:npc_a:obs:535",
+              "score": 1.0,
+              "probability": 0.7310585786300049
+            }
+          ],
+          "selected": "give",
+          "enabled": true
+        },
+        "actual_action": "social"
+      }
+    ],
+    "summary": {
+      "pickups": 12,
+      "social_stock": 0,
+      "social_consumed": 11,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 2,
+        "npc_c": 3
+      }
+    }
+  }
+}
