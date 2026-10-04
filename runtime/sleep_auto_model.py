@@ -16,8 +16,10 @@ def body_context(observation):
     if observation is None:
         return None
     from .layered_body import capabilities
-    c=capabilities(observation['state'])
-    return (c['can_walk'],c['can_climb'],c['climb_height'],observation['front_height_upper'])
+    e=observation.get('energy')
+    c=capabilities(observation['state'],e['load'] if e else 0,e['climb_resistance'] if e else 1)
+    base=(c['can_walk'],c['can_climb'],c['climb_height'],observation['front_height_upper'])
+    return base+(e['load'],e['climb_resistance'],*(s['resistance'] for s in e['samples'])) if e else base
 
 
 def adopt(previous, review, run, agent, capture_us):

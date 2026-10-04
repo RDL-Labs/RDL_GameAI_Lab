@@ -14,13 +14,19 @@ from .visible_food_obstacle import sight_blocked
 class BodyAgent(HarvestAgent):
     crossing_enabled = True
 
+    def body_capabilities(self,p,action='climb'):
+        b=p['locomotor'];e=b.get('energy',{})
+        resistance=(next(s['resistance'] for s in e['samples'] if s['angle']==0)
+                    if e and action=='walk' else e.get('climb_resistance',1))
+        return capabilities(b['state'],e.get('load',0),resistance if resistance is not None else 10.)
+
     def sleep_rest_credit(self, previous, result, current):
         # Count the confirmed one-second wait, not the gap after completion.
         return min(1_000_000, result['executed_us']-previous['capture_us'])
 
     def body_candidate(self,p,action):
         if action[0]!='move':return action
-        cap=capabilities(p['locomotor']['state'])
+        cap=self.body_capabilities(p,'walk')
         return ['move',cap['walk_distance']] if cap['can_walk'] else ['wait',0]
 
     def _body_final(self,d):
@@ -42,7 +48,10 @@ class BodyAgent(HarvestAgent):
 
     def _packet(self, p):
         b = p['locomotor']
-        require(set(b) == {'source', 'state', 'front_height_upper'}, 'locomotor_fields')
+        require(set(b) == {'source', 'state', 'front_height_upper'} | ({'energy'} if getattr(self,'energy_enabled',False) else set()), 'locomotor_fields')
+        if 'energy' in b:
+            from runtime.energy_connection import validate_energy
+            validate_energy(b)
         require(b['source'] == {k:p[k] for k in ('agent_id','observation_id','capture_us','pose_ref')}, 'locomotor_binding')
         validate(b['state'])
         h=b['front_height_upper']
@@ -63,7 +72,7 @@ class BodyAgent(HarvestAgent):
 
     def _decision(self,p):
         d=super()._decision(p)
-        b=p['locomotor']; cap=capabilities(b['state'])
+        b=p['locomotor']; cap=self.body_capabilities(p)
         d['body_bridge']=dict(baseline_action=list(d['action']), baseline_reason=d['reason'], applied=False)
         if p['capture_us']+1_000_000 >= self.expiry(p['capture_us']):
             d.update(action=['wait',0],target='',reason='body_phase_boundary')
@@ -85,6 +94,7 @@ class BodyAgent(HarvestAgent):
             d.update(action=action,target='',reason='observed_low_barrier_cross' if action[0]=='climb' else 'body_recovery_before_cross')
             d['body_bridge']['applied']=True
         elif d['action'][0]=='move':
+            cap=self.body_capabilities(p,'walk')
             if cap['can_walk']: d['action']=['move',cap['walk_distance']]
             else: d.update(action=['wait',0],target='',reason='body_recovery_before_walk')
         return self._body_final(d)
@@ -95,6 +105,10 @@ class BodyCampaign(HarvestCampaign):
 
 
 class ExplorationBodyWorld(World):
+    def carried_load(self,aid):return 0.
+
+    def resistance(self,aid,angle=0,action='walk'):return 1.
+
     def __init__(self,run_id,**kwargs):
         super().__init__(run_id,**kwargs)
         self.bodies={aid:initial() for aid in self.agents}
@@ -128,12 +142,14 @@ class ExplorationBodyWorld(World):
         if c['pose_ref']!=before or c['body_revision']!=revision: status='stale'
         elif now>=c['expires_us']: status='expired'
         elif c['kind'] in ('move','climb'):
-            action='walk' if c['kind']=='move' else 'climb';cap=capabilities(body)
+            action='walk' if c['kind']=='move' else 'climb'
+            load=self.carried_load(aid);resistance=self.resistance(aid,action=action)
+            cap=capabilities(body,load,resistance)
             require(c['amount']==cap[action+'_distance'],'body_distance')
             dx,dz=self.direction(aid);end=(a['x']+dx*c['amount'],a['z']+dz*c['amount'])
             hits=[o for o in self.objects if o['solid'] and segment_hit((a['x'],a['z']),end,o,.2)]
             clear=not hits if action=='walk' else all(o['height']<=cap['climb_height'] and not segment_hit(end,end,o,.2) for o in hits)
-            self.bodies[aid],effect=step(body,action,unobstructed=clear)
+            self.bodies[aid],effect=step(body,action,unobstructed=clear,load=load,resistance=resistance)
             status='moved' if effect['status']=='performed' else effect['status'];distance=effect['distance']
             if distance:a['x'],a['z']=end
         elif c['kind']=='wait':

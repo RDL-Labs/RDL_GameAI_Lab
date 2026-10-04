@@ -89,6 +89,9 @@ def review(agent,p,d):
                 add('step_'+str(angle),['move',1] if angle==0 else ['turn',angle],priority,
                     question if angle==0 else 'rotation_then_step')
             s['gate']='method_reselection'
+    if getattr(agent,'energy_enabled',False) and getattr(agent,'energy_apply',True):
+        from .energy_connection import apply as apply_energy
+        s['energy_field']=apply_energy(p,s['candidates'])
     if getattr(agent,'sleep_auto_adopt',False):
         from .sleep_auto_model import apply
         before=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))['model']

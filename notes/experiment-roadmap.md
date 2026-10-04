@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [エネルギー場の探索・Sleep接続](../docs/experiment-evidence/LW_energy_connection.md)：同じ荷重/抵抗で候補costの有無を3日比較。自然地形の採取0、低障害の持帰り31→36。単一seedの有限結果。
+
 - [簡易エネルギー消費場](../docs/experiment-evidence/LW_energy_field.md)：抵抗・荷重・身体余力で有限候補のcost/実行可否を評価。2個体の資源移転と実消耗を検証。専用fixture、通常探索への自動接続は未実装。
 
 - [2.5D SILN World・物理構造帯計画](../docs/design/RDL_GameAI_25D_SILN_World_Plan.md)：DESIGN ONLY。World側モデルと個体M_Bを分離し、既存幾何・身体・積載を独立レイヤーへ整理。PW-0〜4は未実装。
