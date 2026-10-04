@@ -83,6 +83,7 @@ class SocialWorld(EnergyWorld):
 class SocialAgent(EnergyAgent):
     share=True
     social_adopt=True
+    social_pressure=True
     deposit_enabled=True
 
     def carried_count(self):
@@ -123,6 +124,9 @@ class SocialAgent(EnergyAgent):
         d=super()._decision(p)
         learning,model=self._prospective
         s=ingest(learning.get('social_relations'),p,self.results)
+        if self.social_pressure:
+            from runtime.aid_method_pressure import update
+            s['pressure']=update(s.get('pressure'),s['records'],self.agent_id)
         cycle=(learning.get('sleep') or {}).get('cycle')
         if cycle:
             formation=self.observations.get(cycle['source'],p)['capture_us']
@@ -150,7 +154,12 @@ class SocialAgent(EnergyAgent):
             elif obs['body']['reserve']<80 and not s['pending']:
                 targets=[x['ref'] for x in obs['others'] if x['holding_food']]
                 if targets:
-                    target=min(targets,key=lambda x:(-s['model'].get(x,{}).get('expectation',.5),x))
+                    if self.social_pressure:
+                        from runtime.aid_method_pressure import select
+                        target,d['aid_method_selection']=select(targets,s['model'],s['pressure'])
+                    else:target=min(targets,key=lambda x:(-s['model'].get(x,{}).get('expectation',.5),x))
+                else:target=None
+                if target is not None:
                     intent=dict(action='request',target=target)
                     mid=self.agent_id+':op:'+p['observation_id']
                     s['pending']=dict(message_id=mid,target=target,deadline=p['capture_us']+5_000_000,

@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [援助要求のE/H](docs/experiment-evidence/LW_aid_pressure.md)：拒否/応答未観測を目的・相手別方法へ蓄積。θ到達で同日中にB→Cへ再選択。3日要求31→5、譲渡2→3の有限比較。
+
 - [探索・食事・通信・Sleep統合](docs/experiment-evidence/LW_social_life.md)：既存軽量探索で3個体3日。Sleep採用なしの要求先B→B→Bに対し、採用ありB→C→B、実譲渡2回。共有備蓄・食事・在庫保存も検証。有限opt-in。
 
 - [最小コミュニケーション実験](docs/experiment-evidence/LW_minimal_communication.md)：要求→譲渡/拒否、手伸ばし→警告→再選択の5条件。保持食料の移転と消費を検証。通常探索・Sleep未接続。

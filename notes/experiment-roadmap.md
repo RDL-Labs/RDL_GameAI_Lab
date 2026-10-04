@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [援助要求E/H](../docs/experiment-evidence/LW_aid_pressure.md)：反復要求のH接続と3日比較完了。Sleep前にも別相手を選択可能。要求禁止や自動成功補完はしない。
+
 - [社会生活・Sleep統合](../docs/experiment-evidence/LW_social_life.md)：3個体3日比較完了。次の観測点は同日中の反復要求、関係ごとの候補評価、目撃と本人経験の分離。遠隔救助/交換/30日運転は未受入。
 
 - [エネルギー場の探索・Sleep接続](../docs/experiment-evidence/LW_energy_connection.md)：同じ荷重/抵抗で候補costの有無を3日比較。自然地形の採取0、低障害の持帰り31→36。単一seedの有限結果。

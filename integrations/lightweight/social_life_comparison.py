@@ -7,7 +7,7 @@ from .timed_harvest import run
 
 
 OPTIONS=dict(days=3,stop_after_returns=None,body_mode='enabled',energy_mode='enabled',
-             selection_mode='continuous',sleep_learning=True,social_mode='enabled',
+             selection_mode='continuous',sleep_learning=True,social_mode='enabled',social_pressure=False,
              return_completion_mode='enabled',orientation_mode='enabled',seed=20261004)
 
 

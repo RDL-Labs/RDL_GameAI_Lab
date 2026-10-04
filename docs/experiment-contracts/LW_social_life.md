@@ -1,5 +1,8 @@
 # 探索・食事・通信・夜間Sleepの有限統合
 
+追補: [援助要求E/H](../experiment-evidence/LW_aid_pressure.md)により、同日中の要求不成立を
+援助取得目的と相手別方法のHへ蓄積する。下記Sleep更新とは別経路。既定で有効。
+
 2026-10-04。基準ff94d44。既存 `timed_harvest.run` のopt-in `social_mode=enabled`。
 EnergyWorld / EnergyAgentを拡張し、既存BodyScheduler・昼夜・探索・帰還・Sleepを使用する。
 別の夜間シミュレーターへ個体を転送せず、位置・身体・在庫は日をまたいで連続する。

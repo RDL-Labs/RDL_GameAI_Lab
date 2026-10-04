@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [援助要求E/H](../experiment-evidence/LW_aid_pressure.md)：FINITE INTEGRATED。同日中の不成立を援助目的・相手別方法へ蓄積し、θで候補を再評価。Sleep関係更新と独立。
+
 - [社会生活・Sleep統合](../experiment-evidence/LW_social_life.md)：FINITE INTEGRATED。既存探索/身体scheduler/夜間Sleepへ要求・譲渡・食事・共有備蓄を接続。3条件×3日。固定調停、遠隔救助/交換/第三者解釈は未統合。
 
 - [エネルギー場の探索・Sleep接続](../experiment-evidence/LW_energy_connection.md)：同じ荷重/抵抗で候補costの有無を3日比較。自然地形の採取0、低障害の持帰り31→36。単一seedの有限結果。
