@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [声による救助と救助者の行動不能](docs/experiment-evidence/LW_voice_rescue.md)：有限軽量Worldで救援声→接近→給食。救助者も消耗で歩行不能になる対照を確認。通常探索・Sleepへの統合は未実装。
+
 - [エネルギー場の探索・Sleep接続](docs/experiment-evidence/LW_energy_connection.md)：同じ荷重/抵抗で候補costの有無を3日比較。自然地形の採取0、低障害の持帰り31→36。単一seedの有限結果。
 
 - [簡易エネルギー消費場](docs/experiment-evidence/LW_energy_field.md)：抵抗・荷重・身体余力で有限候補のcost/実行可否を評価。2個体の資源移転と実消耗を検証。専用fixture、通常探索への自動接続は未実装。
