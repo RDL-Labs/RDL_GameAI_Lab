@@ -99,9 +99,11 @@ def review(agent,p,d):
     chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
     if getattr(agent,'sleep_auto_adopt',False):
         s['sleep_model'].update(baseline_selected=before,selected=chosen['model'],changed=before!=chosen['model'])
-    name=chosen['model'].split('/',1)[1];n=s['nodes'][chosen['model']];n['last_selected']=s['sequence']
+    name=chosen['model'].split('/',1)[1]
     s['selected']=chosen['model'];s['applied']=chosen['action']!=d['action'] or phase=='safety'
-    s['trial']=dict(model=chosen['model'],question=chosen['question'],source=p['observation_id'],band=band,angle=chosen['action'][1])
+    if chosen.get('record_trial',True):
+        n=s['nodes'][chosen['model']];n['last_selected']=s['sequence']
+        s['trial']=dict(model=chosen['model'],question=chosen['question'],source=p['observation_id'],band=band,angle=chosen['action'][1])
     if chosen['question']=='rotation_then_step':s['pending']=dict(family=family,name=name)
     if s['applied']:
         # A superseded proposal must not later receive credit for an unexecuted action.

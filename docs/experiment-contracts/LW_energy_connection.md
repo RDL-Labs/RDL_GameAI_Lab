@@ -25,6 +25,9 @@ Worldは作用完了時の位置・身体・荷重・抵抗で改めて実消耗
 moveとrotation_then_step候補に予想歩行消耗を減点する。
 旋回後は新観測で再評価し、その場で予定した歩行まで同時実行しない。
 未知/blocked/身体能力不足の方向は候補から外す。全て不成立ならwaitへ戻す。
+このfallbackは専用identity `energy/no_feasible_move` を持つ非trial待機とする。
+元の移動methodのidentity、H、last_selectedを引き継がず、待機成功を移動成功として記録しない。
+次の観測で候補を再評価する。通常の休憩methodの試行・評価は従来どおり。
 pickup、夜間wait、荷下ろし、見回しには移動costを付けない。
 危険回避が除外した候補を復活させず、残った候補内で消耗を比較する。
 この寄与は既存のH/目的評価を置換しない。
@@ -36,6 +39,10 @@ pickup、夜間wait、荷下ろし、見回しには移動costを付けない。
 情報を持たない旧body記録を同じ条件として使わない。
 これは固定の消耗モデルを使った選択接続で、エネルギー法則の学習ではない。
 未開始・中断の夜間処理を完了へ補完しない。
+
+今後の別契約候補は、ρに応じた身体・抵抗条件の有限band化と、
+pickup/inventory/drop/World上の荷物/再取得/unloadを結ぶ台帳。
+現行の完全一致セルを一般化済みとは扱わない。
 
 再実行: `python -m integrations.lightweight.energy_connection_comparison`
 自然地形/低障害対照×shadow/enabled、3個体3日。両条件Sleepと局所自動採用あり。

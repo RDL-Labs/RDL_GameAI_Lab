@@ -24,3 +24,15 @@ Sleepに保存したbody_observationと元観測の一致、身体状態の連�
 
 保存: `tests/fixtures/energy_connection/comparison.json`と4runのjsonl.gz。
 dropは依然専用実験側。今回通常探索へつないだ荷重は、食料inventoryの固定単位重量。
+
+## d1dc0df1後のfallback修正
+
+全候補不成立時に元のmovement identityをコピーしていた処理を、
+`energy/no_feasible_move` の非trial待機へ変更した。
+未知・blockedの両条件で、待機後の観測まで進めても元methodのH=1と
+last_selectedが保持され、偽の成功eventが作られないことを検査。
+その後、可否が成立すれば通常の移動trialへ戻る。
+
+エネルギー接続/場・継続選択・身体・身体探索・Sleep関連の51テストPASS。
+上記4runは以前の保存記録の再検査であり、今回World比較の再生成、
+全体suite、Luanti実機の再実行はしていない。

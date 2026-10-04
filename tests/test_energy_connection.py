@@ -35,6 +35,33 @@ class EnergyConnectionTests(unittest.TestCase):
         for s in p['locomotor']['energy']['samples']:s['clear']=None
         c=[dict(model='f/front',action=['move',.5],question='view_changed',score=100.,last_selected=0)]
         apply(p,c);self.assertEqual(c[0]['action'],['wait',0])
+        self.assertEqual(c[0]['model'],'energy/no_feasible_move')
+        self.assertFalse(c[0]['record_trial'])
+
+    def test_fallback_wait_does_not_credit_movement_on_next_observation(self):
+        from tests.test_continuous_selection import context,tick
+        from runtime.continuous_selection import review
+        for clear in (None,False):
+            with self.subTest(clear=clear):
+                a,p,d,r=context('exploration');a.energy_enabled=True
+                p['locomotor']=EnergyWorld('e').packet('npc_a',8)['locomotor']
+                for sample in p['locomotor']['energy']['samples']:sample['clear']=clear
+                d.update(action=['move',.5],reason='explore')
+                first=review(a,p,d)
+                # Seed a residual below the reselection threshold, from an older trial.
+                first['continuous_selection']['nodes']['food/baseline']['H']=1
+                nodes=deepcopy(first['continuous_selection']['nodes'])
+                self.assertEqual(first['action'],['wait',0])
+                self.assertNotIn('trial',first['continuous_selection'])
+                p=tick(a,p,first,r)
+                second=review(a,p,d)
+                self.assertEqual(second['continuous_selection']['nodes'],nodes)
+                self.assertEqual(second['continuous_selection']['events'],[])
+                # A later feasible move still receives its own ordinary trial.
+                for sample in p['locomotor']['energy']['samples']:sample['clear']=True
+                resumed=review(a,p,d)
+                self.assertEqual(resumed['action'],['move',.5])
+                self.assertEqual(resumed['continuous_selection']['trial']['model'],'food/baseline')
 
     def test_sleep_context_separates_load_resistance_and_legacy(self):
         w=EnergyWorld('e');b=w.packet('npc_a',8)['locomotor'];old=body_context(b)

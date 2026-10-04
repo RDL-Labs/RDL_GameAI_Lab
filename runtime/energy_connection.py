@@ -30,10 +30,10 @@ def apply(p,candidates):
         contributions.append(dict(model=c['model'],angle=angle,status=row['status'],cost=row['cost'],score_before=c['score']))
         if row['cost'] is not None:
             c['score']-=row['cost'];retained.append(c)
-    # Reuse a node already allocated by continuous_selection; no new untracked H node.
+    # This wait is not a trial of any rejected movement method.
     if not retained:
-        c=dict(candidates[0]);c.update(action=['wait',0],question='rested',score=0.)
-        retained=[c]
+        retained=[dict(model='energy/no_feasible_move',action=['wait',0],
+                       question=None,score=0.,last_selected=0,record_trial=False)]
     candidates[:]=retained
     selected=min(candidates,key=lambda c:(-c['score'],c['last_selected'],c['model']))['model']
     return dict(rule='energy-candidate-connection-v1',field=field,contributions=contributions,
