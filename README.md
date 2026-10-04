@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [2.5D SILN World・物理構造帯計画](docs/design/RDL_GameAI_25D_SILN_World_Plan.md)：DESIGN ONLY。World側モデルと個体M_Bを分離し、既存幾何・身体・積載を独立レイヤーへ整理。PW-0〜4は未実装。
+
 - [重量・障害・荷物を置く](docs/experiment-evidence/LW_cargo_obstacle.md)：5個/6個の通過境界、実dropと再取得、帰還/逃走目的の候補差。有限専用実験、通常探索の重量台帳は未接続。
 
 - [身体・生活・Sleep統合](docs/experiment-evidence/LW_body_sleep.md)：3個体×3日×4run。障害越え、荷下ろし、夜間参照を接続。自然地形でSleep由来の候補選択差59件、採取改善は未達。
