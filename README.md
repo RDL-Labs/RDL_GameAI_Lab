@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [拒否経験のHと関係場](docs/experiment-evidence/LW_refusal_relation_field.md)：実拒否2件を用いた共通32seed比較。再要求28→10、逆向き要求への譲渡28→10。固定された使用仮説の専用実験、通常生活へは未適用。
+
 - [援助要求のE/H](docs/experiment-evidence/LW_aid_pressure.md)：拒否/応答未観測を目的・相手別方法へ蓄積。θ到達で同日中にB→Cへ再選択。3日要求31→5、譲渡2→3の有限比較。
 
 - [探索・食事・通信・Sleep統合](docs/experiment-evidence/LW_social_life.md)：既存軽量探索で3個体3日。Sleep採用なしの要求先B→B→Bに対し、採用ありB→C→B、実譲渡2回。共有備蓄・食事・在庫保存も検証。有限opt-in。

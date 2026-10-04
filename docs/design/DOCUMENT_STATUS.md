@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [拒否経験のHと関係場](../experiment-evidence/LW_refusal_relation_field.md)：FINITE EXPERIMENT。明示拒否の出典/Hを再要求・逆向き協力scoreへ投影。転用規則は手設計、通常生活/Sleep採用は未接続。
+
 - [援助要求E/H](../experiment-evidence/LW_aid_pressure.md)：FINITE INTEGRATED。同日中の不成立を援助目的・相手別方法へ蓄積し、θで候補を再評価。Sleep関係更新と独立。
 
 - [社会生活・Sleep統合](../experiment-evidence/LW_social_life.md)：FINITE INTEGRATED。既存探索/身体scheduler/夜間Sleepへ要求・譲渡・食事・共有備蓄を接続。3条件×3日。固定調停、遠隔救助/交換/第三者解釈は未統合。

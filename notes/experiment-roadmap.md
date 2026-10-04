@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [拒否経験のHと関係場](../docs/experiment-evidence/LW_refusal_relation_field.md)：224回の有限World実行。次は正の援助経験との合成・保持/減衰・Sleepとの境界を定めてから通常生活へ接続する。
+
 - [援助要求E/H](../docs/experiment-evidence/LW_aid_pressure.md)：反復要求のH接続と3日比較完了。Sleep前にも別相手を選択可能。要求禁止や自動成功補完はしない。
 
 - [社会生活・Sleep統合](../docs/experiment-evidence/LW_social_life.md)：3個体3日比較完了。次の観測点は同日中の反復要求、関係ごとの候補評価、目撃と本人経験の分離。遠隔救助/交換/30日運転は未受入。
