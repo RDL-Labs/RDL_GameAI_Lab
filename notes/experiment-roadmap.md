@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [30日統合運転](../docs/experiment-evidence/LW_integrated_social_30d.md)：接続済み経路を2配置で完走。自然地形の消耗後移動停止、共有食料があってもBが補給できない結果を保存。遠隔救助・第三者目撃は未統合。
+
 - [拒否関係場の生活適用](../docs/experiment-evidence/LW_refusal_life.md)：6run完了。次の未観測点は、拒否経験を持つ相手から実際に要求される局面と、後続の援助経験による更新。
 
 - [拒否経験のHと関係場](../docs/experiment-evidence/LW_refusal_relation_field.md)：224回の有限World実行。次は正の援助経験との合成・保持/減衰・Sleepとの境界を定めてから通常生活へ接続する。

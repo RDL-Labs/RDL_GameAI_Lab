@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [接続済み生活経路30日](../experiment-evidence/LW_integrated_social_30d.md)：FINITE RUN COMPLETE。自然/共有拠点の2run。身体・危険・Sleep・社会場を併走、全個体の補給成功や全過去fixture統合の意味ではない。
+
 - [拒否関係場の生活適用](../experiment-evidence/LW_refusal_life.md)：FINITE INTEGRATED、明示opt-in。3seed×2条件×3日、既存身体scheduler/Sleepを維持。効率改善・一般的報復学習は未主張。
 
 - [拒否経験のHと関係場](../experiment-evidence/LW_refusal_relation_field.md)：FINITE EXPERIMENT。明示拒否の出典/Hを再要求・逆向き協力scoreへ投影。転用規則は手設計、通常生活/Sleep採用は未接続。

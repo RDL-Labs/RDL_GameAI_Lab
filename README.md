@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [接続済み生活経路の30日統合](docs/experiment-evidence/LW_integrated_social_30d.md)：自然/共有拠点の2run完走。探索・危険・身体・Sleep・社会・拒否場を併走。共有側採取220/食事66、自然側採取0。遠隔救助等は未統合。
+
 - [拒否関係場の生活適用](docs/experiment-evidence/LW_refusal_life.md)：3seed×3日でshadow/enabled比較。1seedで再要求から既存採取へ切替、総要求/譲渡/食事数は同じ。逆向きの正重み場面は0件。
 
 - [拒否経験のHと関係場](docs/experiment-evidence/LW_refusal_relation_field.md)：実拒否2件を用いた共通32seed比較。再要求28→10、逆向き要求への譲渡28→10。固定された使用仮説の専用実験、通常生活へは未適用。
