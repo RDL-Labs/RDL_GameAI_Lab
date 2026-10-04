@@ -48,6 +48,8 @@ def review(agent,p,d):
     d['continuous_selection']=s
     def node(name):return s['nodes'].setdefault(family+'/'+name,dict(H=0,threshold=2,last_selected=0))
     def add(name,action,priority,question):
+        if hasattr(agent,'body_candidate'):
+            action=agent.body_candidate(p,action)
         n=node(name)
         # Bounded soft penalty keeps every feasible method eligible, including at H saturation.
         pressure=min(2,n['H']/n['threshold'])

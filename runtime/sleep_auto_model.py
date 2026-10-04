@@ -11,6 +11,15 @@ SUCCESS = {'moved', 'turned', 'picked_up', 'waited'}
 FAILURE = {'blocked', 'not_found'}
 
 
+def body_context(observation):
+    """Coarse current capability, not interchangeable with an unobserved body."""
+    if observation is None:
+        return None
+    from .layered_body import capabilities
+    c=capabilities(observation['state'])
+    return (c['can_walk'],c['can_climb'],c['climb_height'],observation['front_height_upper'])
+
+
 def adopt(previous, review, run, agent, capture_us):
     state = deepcopy(previous) if previous else dict(rule=RULE, binding=[run, agent], records=[], cells=[])
     if state['binding'] != [run, agent]:
@@ -34,15 +43,17 @@ def adopt(previous, review, run, agent, capture_us):
             continue
         if r['outcome'] not in SUCCESS | FAILURE:
             continue
-        key = (r['food_seen'], r['hazard_seen'], r['action'], r['amount'])
+        key = (r['food_seen'], r['hazard_seen'], r['action'], r['amount'],body_context(r.get('body_observation')))
         groups.setdefault(key, []).append(r)
     cells = []
-    for key, records in sorted(groups.items()):
+    for key, records in sorted(groups.items(),key=lambda item:(item[0][:4],repr(item[0][4]))):
         positive = sum(r['outcome'] in SUCCESS for r in records)
-        cells.append(dict(context=list(key[:2]), action=list(key[2:]),
+        cells.append(dict(context=list(key[:2]), action=list(key[2:4]),
             execution_rate=positive/len(records), support=len(records),
             positive=positive, negative=len(records)-positive,
             sources=[r['record_id'] for r in records]))
+        if key[4] is not None:
+            cells[-1]['body_context']=list(key[4])
     state.update(cells=cells, model_ref=RULE+':'+digest([run, agent, cells])[:24],
         adopted_us=capture_us, authority='automatic unvalidated local M_B; not canonical T1 or causal truth')
     return state
@@ -65,7 +76,9 @@ def apply(agent, p, candidates):
     context = [bool(food.get('visible')), bool(hazard.get('features'))]
     trace['status'] = 'no_matching_cell'
     for c in candidates:
-        cells = [cell for cell in model['cells'] if cell['context'] == context and cell['action'] == c['action']]
+        current_body=body_context(p.get('locomotor'))
+        cells = [cell for cell in model['cells'] if cell['context'] == context and cell['action'] == c['action']
+                 and cell.get('body_context')==(list(current_body) if current_body is not None else None)]
         if not cells:
             continue
         cell = cells[0]

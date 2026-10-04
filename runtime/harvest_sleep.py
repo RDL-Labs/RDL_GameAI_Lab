@@ -49,8 +49,10 @@ def review(agent, p, decision):
             and result['after_pose_ref'] == p['pose_ref']
             and result['after_revision'] == p['body_revision']
             and result['executed_us'] < p['capture_us'])
-        cycle['rest_us'] = cycle['rest_us'] + min(250_000,
-            p['capture_us'] - result['executed_us']) if linked else 0
+        credit = (agent.sleep_rest_credit(previous, result, p)
+                  if linked and hasattr(agent, 'sleep_rest_credit') else
+                  min(250_000, p['capture_us'] - result['executed_us']) if linked else 0)
+        cycle['rest_us'] = cycle['rest_us'] + credit if linked else 0
         if cycle['rest_us'] >= REST_US:
             cycle['relation_review'] = inspect(cycle['relation_materials'])
             if getattr(agent, 'sleep_auto_adopt', False):

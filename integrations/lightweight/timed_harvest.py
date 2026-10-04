@@ -259,8 +259,10 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing",warning_review_mode="disabled",territory_resource_layout="original",selection_mode="legacy",dynamic_hazard=False,regrowth_days=None,sleep_learning=False,sleep_auto_adopt=False):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing",warning_review_mode="disabled",territory_resource_layout="original",selection_mode="legacy",dynamic_hazard=False,regrowth_days=None,sleep_learning=False,sleep_auto_adopt=False,body_mode="disabled",body_scene="natural"):
     import json,time
+    if body_mode not in ("disabled","enabled"):raise ValueError("body_mode")
+    if body_scene not in ("natural","food_barrier") or (body_scene!="natural" and body_mode!="enabled"):raise ValueError("body_scene")
     if sleep_auto_adopt and (not sleep_learning or selection_mode!="continuous"):raise ValueError("sleep_auto_dependencies")
     from pathlib import Path
     if stop_after_returns is not None and (type(stop_after_returns) is not int or stop_after_returns < 1):raise ValueError('return_target')
@@ -283,10 +285,23 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     from .resource_regrowth import ResourceRegrowth
     if regrowth_days is not None and (inexhaustible or inexhaustible_after_model):raise ValueError('regrowth_requires_finite_stock')
     regrowth=ResourceRegrowth(regrowth_days) if regrowth_days is not None else None
-    w=World('lw-work',seed=seed,layout='sparse');loop=HarvestCampaign(w.run_id,days,mb_field_mode=mb_field_mode,harvest_state=True)
+    world_type,campaign_type=World,HarvestCampaign
+    if body_mode=='enabled':
+        from .body_exploration import ExplorationBodyWorld,BodyCampaign
+        world_type,campaign_type=ExplorationBodyWorld,BodyCampaign
+    w=world_type('lw-work',seed=seed,layout='sparse');loop=campaign_type(w.run_id,days,mb_field_mode=mb_field_mode,harvest_state=True)
     from .territorial_hazard import TerritorialHazard,resource_layout
     if territory_resource_layout!="original" and hazard_scenario!="territorial":raise ValueError("territory_layout_scenario")
     resource_layout(w,territory_resource_layout)
+    if body_scene=='food_barrier':
+        # Controlled World initial layout, never a target coordinate sent to policy.
+        w.objects=[dict(x=0.,z=8.,radius=1.,height=12.,solid=True,color='ochre')]
+        w.resources=[]
+        for i,aid in enumerate(w.agents):
+            x=(i-1)*2.
+            w.agents[aid].update(x=x,z=4.,yaw=0.)
+            w.objects.append(dict(x=x,z=4.5,radius=.1,height=.4,solid=True,color='gray'))
+            w.resources.append(dict(x=x,z=5.8,stock=12))
     territory=TerritorialHazard() if hazard_scenario=='territorial' else None
     if dynamic_hazard and (not territory or selection_mode!='continuous'):raise ValueError('dynamic_hazard_requires_continuous_territory')
     from .patrol_hazard import PatrolHazard,sample_pair
@@ -311,13 +326,17 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     w.local_return=return_completion_mode=="enabled"
     w.skyline_subrays=skyline_subrays
     w.inexhaustible=inexhaustible
-    scheduler=WorkScheduler(w);start=time.perf_counter();captures=0
+    scheduler=WorkScheduler(w)
+    if body_mode=='enabled':
+        from .body_exploration import BodyScheduler
+        scheduler=BodyScheduler(w)
+    start=time.perf_counter();captures=0
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
         if territory:
             emit(dict(type='territory_config',rule='fixed-territorial-response-v1',center=territory.center,home=territory.home,radius=territory.radius,leash=territory.leash,speed=2,warning_distance=3,detector='world-radius',authority='experimenter-only'))
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',regrowth_days=regrowth_days,dynamic_hazard=dynamic_hazard,selection_mode=selection_mode,territory_resource_layout=territory_resource_layout,warning_review_mode=warning_review_mode,hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',body_mode=body_mode,body_scene=body_scene,regrowth_days=regrowth_days,dynamic_hazard=dynamic_hazard,selection_mode=selection_mode,territory_resource_layout=territory_resource_layout,warning_review_mode=warning_review_mode,hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=1_000_000 if body_mode=='enabled' else WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -327,7 +346,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
                     receipt=dict(operation_id=c['operation_id'],executed_us=r['executed_us'],pickups=returned['pickups'])
                     loop.agents[c['agent_id']].admit_unload(receipt)
                     emit(dict(type='unload_receipt',agent_id=c['agent_id'],receipt=receipt))
-            emit(dict(type='completed',packet=p,command=c,result=r,body=w.agents[c['agent_id']],stock=[x['stock'] for x in w.resources]))
+            emit(dict(type='completed',packet=p,command=c,result=r,body=w.agents[c['agent_id']],layered_body=getattr(w,'body_log',{}).get(c['operation_id']),stock=[x['stock'] for x in w.resources]))
         for slot in range(days*256):
             now=slot*250000
             finished=set()
@@ -358,20 +377,22 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
                 if aid in scheduler.pending or aid in finished:
                     emit(dict(type='working_capture',packet=p,reason='body_busy' if aid in scheduler.pending else 'completion_boundary'))
                     continue
+                if body_mode=='enabled' and now+1_000_000>=days*64000000:
+                    emit(dict(type='working_capture',packet=p,reason='campaign_completion_boundary'));continue
                 c=loop.observe(p)['command'];d=loop.agents[aid].decisions[p['observation_id']]
-                emit(dict(type='decision',sleep_learning=d.get('sleep_learning'),packet=p,command=c,continuous_selection=d.get('continuous_selection'),safety=d.get('safety'),relation_field=d.get('relation_field'),directional_routes=d.get('directional_routes'),food_revisit=d.get('food_revisit'),model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),lateral=(d.get('movement_terrain') or {}).get('lateral'),mb_field=d.get('mb_field'),nested_models=d.get('nested_models'),return_reposition=d.get('return_reposition'),reposition=d.get('reposition'),orientation_review=d.get('orientation_review'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference'],food_goal=d['day_cycle']['food_goal'],food_method=d['day_cycle']['food_method'],food_review_scans=d['day_cycle']['food_review_scans']))
+                emit(dict(type='decision',body_bridge=d.get('body_bridge'),sleep_learning=d.get('sleep_learning'),packet=p,command=c,continuous_selection=d.get('continuous_selection'),safety=d.get('safety'),relation_field=d.get('relation_field'),directional_routes=d.get('directional_routes'),food_revisit=d.get('food_revisit'),model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),lateral=(d.get('movement_terrain') or {}).get('lateral'),mb_field=d.get('mb_field'),nested_models=d.get('nested_models'),return_reposition=d.get('return_reposition'),reposition=d.get('reposition'),orientation_review=d.get('orientation_review'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference'],food_goal=d['day_cycle']['food_goal'],food_method=d['day_cycle']['food_method'],food_review_scans=d['day_cycle']['food_review_scans']))
                 if inexhaustible_after_model and not w.inexhaustible and loop.agents[aid].model is not None:
                     w.inexhaustible=True
                     emit(dict(type='stock_mode_transition',capture_us=now,agent_id=aid,mode='inexhaustible',model=loop.agents[aid].model.to_json(),admission=loop.agents[aid].learning['admission'],stock=[x['stock'] for x in w.resources]))
-                if c['kind']=='pickup':
-                    scheduler.start(c,p);emit(dict(type='work_started',agent_id=aid,operation_id=c['operation_id'],start_us=now,due_us=now+WORK_US))
+                if body_mode=='enabled' or c['kind']=='pickup':
+                    scheduler.start(c,p);emit(dict(type='work_started',agent_id=aid,operation_id=c['operation_id'],start_us=now,due_us=now+(1_000_000 if body_mode=='enabled' else WORK_US)))
                 else:complete(p,c,w.execute(c,p))
             if stop_after_returns is not None and len(w.returns)>=stop_after_returns and not scheduler.pending:break
         assert not scheduler.pending
         ended=(slot+1)*250000;reason='return_target_reached' if stop_after_returns is not None and len(w.returns)>=stop_after_returns else 'time_limit'
         for aid in w.agents:loop.finish(dict(w.context(aid),ended_us=ended,reason=reason))
         summary=dict(type='summary',reason=reason,captures=captures,ended_us=ended,pickups=len(w.pickups),returns=w.returns,elapsed_seconds=time.perf_counter()-start,stock=[x['stock'] for x in w.resources],
-            sleep_learning=sleep_learning,
+            sleep_learning=sleep_learning,body_mode=body_mode,layered_bodies=getattr(w,'bodies',None),
             agents={aid:dict(observations=len(a.observations),carried=a.carried_count(),unloaded=len(a.unloaded),records=len(a.learning['records']),model_ref=a.model.model_ref if a.model else None,
                 sleep=a.learning.get('sleep'),sleep_auto_model=a.learning.get('sleep_auto_model')) for aid,a in loop.agents.items()})
         emit(summary)
@@ -379,5 +400,5 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
 
 if __name__=='__main__':
     import argparse,json
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--return-completion-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--nested-model-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-revisit-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--directional-route-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--relation-field-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--hazard-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--hazard-scenario',choices=['crossing','persistent','night','route_crossing','territorial'],default='crossing');p.add_argument('--warning-review-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--territory-resource-layout',choices=['original','three_inside'],default='original');p.add_argument('--regrowth-days',type=int);p.add_argument('--dynamic-hazard',action='store_true');p.add_argument('--selection-mode',choices=['legacy','continuous'],default='continuous');p.add_argument('--sleep-learning',action='store_true');p.add_argument('--sleep-auto-adopt',action='store_true');a=p.parse_args()
-    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode,a.seed,a.goal_switch_threshold,a.lateral_side,a.orientation_mode,a.reposition_mode,a.return_completion_mode,a.nested_model_mode,a.food_revisit_mode,a.directional_route_mode,a.relation_field_mode,a.hazard_mode,a.hazard_scenario,a.warning_review_mode,a.territory_resource_layout,a.selection_mode,a.dynamic_hazard,a.regrowth_days,a.sleep_learning,a.sleep_auto_adopt),indent=2))
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--days',type=int,default=30);p.add_argument('--skyline-subrays',action='store_true');p.add_argument('--inexhaustible',action='store_true');p.add_argument('--no-return-target',action='store_true');p.add_argument('--mb-field-mode',choices=['enabled','disabled'],default='enabled');p.add_argument('--inexhaustible-after-model',action='store_true');p.add_argument('--goal-difference-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-goal-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--seed',type=int,default=20260928);p.add_argument('--goal-switch-threshold',type=int,default=2);p.add_argument('--lateral-side',choices=['left','right']);p.add_argument('--orientation-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--reposition-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--return-completion-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--nested-model-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--food-revisit-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--directional-route-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--relation-field-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--hazard-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--hazard-scenario',choices=['crossing','persistent','night','route_crossing','territorial'],default='crossing');p.add_argument('--warning-review-mode',choices=['disabled','shadow','enabled'],default='disabled');p.add_argument('--territory-resource-layout',choices=['original','three_inside'],default='original');p.add_argument('--regrowth-days',type=int);p.add_argument('--dynamic-hazard',action='store_true');p.add_argument('--selection-mode',choices=['legacy','continuous'],default='continuous');p.add_argument('--sleep-learning',action='store_true');p.add_argument('--sleep-auto-adopt',action='store_true');p.add_argument('--body-mode',choices=['disabled','enabled'],default='disabled');p.add_argument('--body-scene',choices=['natural','food_barrier'],default='natural');a=p.parse_args()
+    print(json.dumps(run(a.output,a.days,a.skyline_subrays,a.inexhaustible,None if a.no_return_target else 3,a.mb_field_mode,a.inexhaustible_after_model,a.goal_difference_mode,a.food_goal_mode,a.seed,a.goal_switch_threshold,a.lateral_side,a.orientation_mode,a.reposition_mode,a.return_completion_mode,a.nested_model_mode,a.food_revisit_mode,a.directional_route_mode,a.relation_field_mode,a.hazard_mode,a.hazard_scenario,a.warning_review_mode,a.territory_resource_layout,a.selection_mode,a.dynamic_hazard,a.regrowth_days,a.sleep_learning,a.sleep_auto_adopt,a.body_mode,a.body_scene),indent=2))

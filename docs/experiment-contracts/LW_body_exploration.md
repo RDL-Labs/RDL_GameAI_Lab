@@ -2,6 +2,9 @@
 
 2026-10-04。基準3be51fc。軽量Worldの明示opt-in、短い探索場面のみ。
 
+後続: [身体・生活・Sleep統合](LW_body_sleep.md)で長期CLI、帰還荷下ろし、夜間処理へ接続。
+以下は初回の短い接続実験の契約・停止境界。
+
 `BodyCampaign → BodyAgent(HarvestAgent) → ExplorationBodyWorld`で、既存の
 観測受付・探索判断・command保存・結果検証・inventoryへ接続する。
 既存CLIの通常Worldは置換しない。

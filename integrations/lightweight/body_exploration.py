@@ -14,6 +14,32 @@ from .visible_food_obstacle import sight_blocked
 class BodyAgent(HarvestAgent):
     crossing_enabled = True
 
+    def sleep_rest_credit(self, previous, result, current):
+        # Count the confirmed one-second wait, not the gap after completion.
+        return min(1_000_000, result['executed_us']-previous['capture_us'])
+
+    def body_candidate(self,p,action):
+        if action[0]!='move':return action
+        cap=capabilities(p['locomotor']['state'])
+        return ['move',cap['walk_distance']] if cap['can_walk'] else ['wait',0]
+
+    def _body_final(self,d):
+        if d['body_bridge']['baseline_action'][0]!=d['action'][0]:
+            # Never credit the superseded method/route for a different operation.
+            if d.get('continuous_selection'):
+                d['continuous_selection'].pop('trial',None)
+                d['continuous_selection'].pop('pending',None)
+                d['continuous_selection']['superseded_by_body']=True
+            if d.get('nested_models'):d['nested_models'].pop('trial',None)
+            if d.get('relation_field'):d['relation_field'].update(applied=False,pending_step=False,owner=None)
+            if d.get('directional_routes'):
+                rs=d['directional_routes'];rs.update(applied=False,active=None,trial_complete=False)
+                rs['outbound']['overflow']=True
+                if rs['trip']:
+                    if rs['trip']['outbound']:rs['trip']['outbound']['overflow']=True
+                    rs['trip']['inbound']['overflow']=True
+        return d
+
     def _packet(self, p):
         b = p['locomotor']
         require(set(b) == {'source', 'state', 'front_height_upper'}, 'locomotor_fields')
@@ -41,7 +67,7 @@ class BodyAgent(HarvestAgent):
         d['body_bridge']=dict(baseline_action=list(d['action']), baseline_reason=d['reason'], applied=False)
         if p['capture_us']+1_000_000 >= self.expiry(p['capture_us']):
             d.update(action=['wait',0],target='',reason='body_phase_boundary')
-            return d
+            return self._body_final(d)
         # No override of night/return, hazard, inventory or non-corresponding body.
         previous=next(reversed(self.observations.values())) if self.observations else None
         result=self.results.get('op:'+previous['observation_id']) if previous else None
@@ -61,7 +87,7 @@ class BodyAgent(HarvestAgent):
         elif d['action'][0]=='move':
             if cap['can_walk']: d['action']=['move',cap['walk_distance']]
             else: d.update(action=['wait',0],target='',reason='body_recovery_before_walk')
-        return d
+        return self._body_final(d)
 
 
 class BodyCampaign(HarvestCampaign):
@@ -69,8 +95,8 @@ class BodyCampaign(HarvestCampaign):
 
 
 class ExplorationBodyWorld(World):
-    def __init__(self,run_id):
-        super().__init__(run_id)
+    def __init__(self,run_id,**kwargs):
+        super().__init__(run_id,**kwargs)
         self.bodies={aid:initial() for aid in self.agents}
         self.body_log={}
         self.ready_us={aid:0 for aid in self.agents}
@@ -120,7 +146,8 @@ class ExplorationBodyWorld(World):
                 obj=self.resources[index]
                 clear=not any(o['solid'] and segment_hit((a['x'],a['z']),(obj['x'],obj['z']),o) for o in self.objects)
                 if obj['stock'] and hypot(obj['x']-a['x'],obj['z']-a['z'])<=1.25 and clear and self.visible(aid,obj):
-                    obj['stock']-=1;a['inventory']+=1;status='picked_up'
+                    if not self.inexhaustible: obj['stock']-=1
+                    a['inventory']+=1;status='picked_up'
                     self.pickups.append(dict(agent_id=aid,operation_id=op,executed_us=now))
         else: raise ValueError('body_kind')
         if status in ('moved','turned','picked_up'):a['revision']+=1
@@ -129,7 +156,40 @@ class ExplorationBodyWorld(World):
                status=status,forward=distance,right=0,up=0,yaw=yaw,acquired=status=='picked_up')
         self.effects[op]=(deepcopy(c),deepcopy(r));self.ready_us[aid]=now
         self.body_log[op]=dict(before=body,after=deepcopy(self.bodies[aid]))
+        if status=='waited' and c.get('reason')=='return_unload_attempt' and hypot(a['x'],a['z']-6)<=1.25:
+            fresh=[e['operation_id'] for e in self.pickups if e['agent_id']==aid and e['operation_id'] not in self.counted]
+            if fresh:
+                self.counted.update(fresh)
+                self.returns.append(dict(agent_id=aid,day=start//64_000_000+1,pickups=fresh,executed_us=now))
+                a['inventory']-=len(fresh)
         return r
+
+
+class BodyScheduler:
+    """World keeps advancing/observing during all one-second body operations."""
+    def __init__(self,world):
+        self.world=world;self.pending={};self.completed={}
+
+    def start(self,c,p):
+        aid=c['agent_id'];op=c['operation_id']
+        if op in self.completed:
+            require(self.completed[op][0]==c,'operation_conflict');return False
+        if aid in self.pending:
+            old,q,_=self.pending[aid]
+            require(old==c and q==p,'body_busy');return False
+        require(c['source_id']==p['observation_id'] and c['agent_id']==p['agent_id'],'source_binding')
+        require(c['capture_us']>=self.world.ready_us[aid],'body_schedule')
+        self.pending[aid]=(deepcopy(c),deepcopy(p),c['capture_us']+1_000_000)
+        return True
+
+    def advance(self,now):
+        out=[]
+        for aid,(c,p,due) in sorted(list(self.pending.items()),key=lambda item:(item[1][2],item[0])):
+            if due>now:continue
+            r=self.world.execute(c,p,executed_us=due)
+            self.completed[c['operation_id']]=(c,deepcopy(r));del self.pending[aid]
+            out.append((p,c,r))
+        return out
 
 
 def run_case(enabled=True,burst=10.,height=.4):

@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [身体・生活・Sleep統合](../docs/experiment-evidence/LW_body_sleep.md)：3個体×3日×4run。障害越え、荷下ろし、夜間参照を接続。自然地形でSleep由来の候補選択差59件、採取改善は未達。
+
 - [探索と身体の接続](../docs/experiment-evidence/LW_body_exploration.md)：既存探索Runtimeで低障害越え・休息・実採取・結果受付。4条件比較。専用opt-in、長期生活/Sleep統合は未検証。
 
 - [見える食料と身体障害](../docs/experiment-evidence/LW_visible_food_obstacle.md)：軽量World5条件。低障害越え、休息後の採取、高さ超過・遮蔽・蓄え枯渇を分離。固定初期能力の専用実験。

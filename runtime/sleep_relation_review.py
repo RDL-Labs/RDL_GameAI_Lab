@@ -5,6 +5,7 @@ the existing Sleep window and structural comparator without fabricating an
 approach Experience for the legacy approach-only Deep compiler.
 """
 from itertools import combinations, islice
+from copy import deepcopy
 import json
 
 from .sleep_window import SleepExperienceWindowStore
@@ -24,7 +25,9 @@ def prepare(agent, p):
         if not c or not r or source['agent_id'] != agent.agent_id:
             continue
         mode = agent.decisions[oid].get('day_cycle', {}).get('phase', 'unspecified')
-        key = c['kind'], r['status'], mode
+        # Body mode reserves the same six slots across action/result, rather
+        # than letting each phase repeat the same walk/turn/wait strata.
+        key = (c['kind'], r['status']) if 'locomotor' in p else (c['kind'], r['status'], mode)
         if key in seen:
             continue
         seen.add(key)
@@ -36,6 +39,8 @@ def prepare(agent, p):
             food_seen=bool(source.get('food', {}).get('visible')),
             hazard_coverage=source.get('hazard', {}).get('coverage'),
             hazard_seen=bool(source.get('hazard', {}).get('features'))))
+        if 'locomotor' in source:
+            selected[-1]['body_observation']=deepcopy(source['locomotor'])
         if len(selected) == 6:
             break
     history = dict(authority='read-only-history', records=selected)
@@ -45,7 +50,8 @@ def prepare(agent, p):
     by_id = {r['record_id']: r for r in selected}
     return dict(rule=RULE, window=window,
         records=[by_id[i] for i in window['source_experience_ids']],
-        selection='latest per action/outcome/phase, within last 64 observations; maximum six',
+        selection=('latest per action/outcome, within last 64 observations; maximum six; body mode'
+                   if 'locomotor' in p else 'latest per action/outcome/phase, within last 64 observations; maximum six'),
         authority='reported local records; not new independent Experience')
 
 
