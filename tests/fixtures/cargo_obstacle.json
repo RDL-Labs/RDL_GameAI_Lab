@@ -1,0 +1,1940 @@
+{
+  "five": {
+    "count": 5,
+    "goal": "return",
+    "detour_observed": false,
+    "tired": false,
+    "decisions": [
+      {
+        "goal": "return",
+        "load": 5.0,
+        "climb_height": 0.39999999999999997,
+        "obstacle_pressure": 1.0000000000000002,
+        "candidates": [
+          {
+            "action": "climb",
+            "cost": 0.2,
+            "reason": "current_load_clearable"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "climb"
+      }
+    ],
+    "records": [
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:0",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 0,
+        "end_us": 1000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:1",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 1000000,
+        "end_us": 2000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:2",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 2000000,
+        "end_us": 3000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:3",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 3000000,
+        "end_us": 4000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:4",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 4000000,
+        "end_us": 5000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:0",
+        "action": "climb",
+        "status": "performed",
+        "start_us": 5000000,
+        "end_us": 6000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 4.0,
+            "strain": 0.22499999999999998,
+            "reserve": 99.4,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.0
+        },
+        "distance": 1.0,
+        "item_weight": null
+      }
+    ],
+    "audit": {
+      "carried": 5,
+      "ground": 0,
+      "total_weight": 5.0
+    }
+  },
+  "six": {
+    "count": 6,
+    "goal": "return",
+    "detour_observed": false,
+    "tired": false,
+    "decisions": [
+      {
+        "goal": "return",
+        "load": 6.0,
+        "climb_height": 0.37499999999999994,
+        "obstacle_pressure": 1.0666666666666669,
+        "candidates": [
+          {
+            "action": "drop",
+            "cost": 0.7,
+            "reason": "reduce_load_constraint"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "drop"
+      },
+      {
+        "goal": "return",
+        "load": 5.0,
+        "climb_height": 0.39999999999999997,
+        "obstacle_pressure": 1.0000000000000002,
+        "candidates": [
+          {
+            "action": "climb",
+            "cost": 0.2,
+            "reason": "current_load_clearable"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "climb"
+      }
+    ],
+    "records": [
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:0",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 0,
+        "end_us": 1000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:1",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 1000000,
+        "end_us": 2000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:2",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 2000000,
+        "end_us": 3000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:3",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 3000000,
+        "end_us": 4000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:4",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 4000000,
+        "end_us": 5000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:5",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 5000000,
+        "end_us": 6000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:0",
+        "action": "drop",
+        "status": "dropped",
+        "start_us": 6000000,
+        "end_us": 7000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:1",
+        "action": "climb",
+        "status": "performed",
+        "start_us": 7000000,
+        "end_us": 8000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 4.0,
+            "strain": 0.22499999999999998,
+            "reserve": 99.4,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.0
+        },
+        "distance": 1.0,
+        "item_weight": null
+      }
+    ],
+    "audit": {
+      "carried": 5,
+      "ground": 1,
+      "total_weight": 6.0
+    }
+  },
+  "six_tired": {
+    "count": 6,
+    "goal": "return",
+    "detour_observed": false,
+    "tired": true,
+    "decisions": [
+      {
+        "goal": "return",
+        "load": 6.0,
+        "climb_height": 0.37499999999999994,
+        "obstacle_pressure": 1.0666666666666669,
+        "candidates": [
+          {
+            "action": "drop",
+            "cost": 0.7,
+            "reason": "reduce_load_constraint"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "drop"
+      },
+      {
+        "goal": "return",
+        "load": 5.0,
+        "climb_height": 0.39999999999999997,
+        "obstacle_pressure": 1.0000000000000002,
+        "candidates": [
+          {
+            "action": "rest",
+            "cost": 0.3,
+            "reason": "body_recovery_needed"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "rest"
+      },
+      {
+        "goal": "return",
+        "load": 5.0,
+        "climb_height": 0.39999999999999997,
+        "obstacle_pressure": 1.0000000000000002,
+        "candidates": [
+          {
+            "action": "rest",
+            "cost": 0.3,
+            "reason": "body_recovery_needed"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "rest"
+      },
+      {
+        "goal": "return",
+        "load": 5.0,
+        "climb_height": 0.39999999999999997,
+        "obstacle_pressure": 1.0000000000000002,
+        "candidates": [
+          {
+            "action": "rest",
+            "cost": 0.3,
+            "reason": "body_recovery_needed"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "rest"
+      },
+      {
+        "goal": "return",
+        "load": 5.0,
+        "climb_height": 0.39999999999999997,
+        "obstacle_pressure": 1.0000000000000002,
+        "candidates": [
+          {
+            "action": "climb",
+            "cost": 0.2,
+            "reason": "current_load_clearable"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "climb"
+      }
+    ],
+    "records": [
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:0",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 0,
+        "end_us": 1000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:1",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 1000000,
+        "end_us": 2000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:2",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 2000000,
+        "end_us": 3000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:3",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 3000000,
+        "end_us": 4000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:4",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 4000000,
+        "end_us": 5000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:5",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 5000000,
+        "end_us": 6000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:0",
+        "action": "drop",
+        "status": "dropped",
+        "start_us": 6000000,
+        "end_us": 7000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 0.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 0.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:1",
+        "action": "rest",
+        "status": "rested",
+        "start_us": 7000000,
+        "end_us": 8000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 0.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 2.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": null
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:2",
+        "action": "rest",
+        "status": "rested",
+        "start_us": 8000000,
+        "end_us": 9000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 2.0,
+            "strain": 0,
+            "reserve": 99.95,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 4.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": null
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:3",
+        "action": "rest",
+        "status": "rested",
+        "start_us": 9000000,
+        "end_us": 10000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 4.0,
+            "strain": 0,
+            "reserve": 99.9,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 6.0,
+            "strain": 0,
+            "reserve": 99.85000000000001,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": null
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:4",
+        "action": "climb",
+        "status": "performed",
+        "start_us": 10000000,
+        "end_us": 11000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 6.0,
+            "strain": 0,
+            "reserve": 99.85000000000001,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 0.0,
+            "strain": 0.22499999999999998,
+            "reserve": 99.25000000000001,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.0
+        },
+        "distance": 1.0,
+        "item_weight": null
+      }
+    ],
+    "audit": {
+      "carried": 5,
+      "ground": 1,
+      "total_weight": 6.0
+    }
+  },
+  "return_detour": {
+    "count": 6,
+    "goal": "return",
+    "detour_observed": true,
+    "tired": false,
+    "decisions": [
+      {
+        "goal": "return",
+        "load": 6.0,
+        "climb_height": 0.37499999999999994,
+        "obstacle_pressure": 1.0666666666666669,
+        "candidates": [
+          {
+            "action": "drop",
+            "cost": 0.7,
+            "reason": "reduce_load_constraint"
+          },
+          {
+            "action": "detour",
+            "cost": 0.4,
+            "reason": "observed_side_step"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "detour"
+      }
+    ],
+    "records": [
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:0",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 0,
+        "end_us": 1000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:1",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 1000000,
+        "end_us": 2000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:2",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 2000000,
+        "end_us": 3000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:3",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 3000000,
+        "end_us": 4000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:4",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 4000000,
+        "end_us": 5000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:5",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 5000000,
+        "end_us": 6000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:0",
+        "action": "detour",
+        "status": "performed",
+        "start_us": 6000000,
+        "end_us": 7000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.048,
+            "reserve": 99.84,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.0
+        },
+        "distance": 0.5,
+        "item_weight": null
+      }
+    ],
+    "audit": {
+      "carried": 6,
+      "ground": 0,
+      "total_weight": 6.0
+    }
+  },
+  "escape_detour": {
+    "count": 6,
+    "goal": "escape",
+    "detour_observed": true,
+    "tired": false,
+    "decisions": [
+      {
+        "goal": "escape",
+        "load": 6.0,
+        "climb_height": 0.37499999999999994,
+        "obstacle_pressure": 1.0666666666666669,
+        "candidates": [
+          {
+            "action": "drop",
+            "cost": 0.1,
+            "reason": "reduce_load_constraint"
+          },
+          {
+            "action": "detour",
+            "cost": 0.4,
+            "reason": "observed_side_step"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "drop"
+      },
+      {
+        "goal": "escape",
+        "load": 5.0,
+        "climb_height": 0.39999999999999997,
+        "obstacle_pressure": 1.0000000000000002,
+        "candidates": [
+          {
+            "action": "climb",
+            "cost": 0.2,
+            "reason": "current_load_clearable"
+          },
+          {
+            "action": "detour",
+            "cost": 0.4,
+            "reason": "observed_side_step"
+          },
+          {
+            "action": "rest",
+            "cost": 2.0,
+            "reason": "hold_and_recover"
+          }
+        ],
+        "selected": "climb"
+      }
+    ],
+    "records": [
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:0",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 0,
+        "end_us": 1000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:1",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 1000000,
+        "end_us": 2000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:2",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 2000000,
+        "end_us": 3000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:3",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 3000000,
+        "end_us": 4000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:4",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 4000000,
+        "end_us": 5000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "collect:5",
+        "action": "pickup",
+        "status": "picked_up",
+        "start_us": 5000000,
+        "end_us": 6000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:0",
+        "action": "drop",
+        "status": "dropped",
+        "start_us": 6000000,
+        "end_us": 7000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "distance": 0.0,
+        "item_weight": 1.0
+      },
+      {
+        "agent_id": "npc_a",
+        "operation_id": "trial:1",
+        "action": "climb",
+        "status": "performed",
+        "start_us": 7000000,
+        "end_us": 8000000,
+        "before": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.0,
+            "reserve": 100.0,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.4
+        },
+        "after": {
+          "body": {
+            "rule": "layered-body-v1",
+            "burst": 4.0,
+            "strain": 0.22499999999999998,
+            "reserve": 99.4,
+            "damage": 0.0
+          },
+          "weights": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "front_height": 0.0
+        },
+        "distance": 1.0,
+        "item_weight": null
+      }
+    ],
+    "audit": {
+      "carried": 5,
+      "ground": 1,
+      "total_weight": 6.0
+    }
+  }
+}

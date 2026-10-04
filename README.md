@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [重量・障害・荷物を置く](docs/experiment-evidence/LW_cargo_obstacle.md)：5個/6個の通過境界、実dropと再取得、帰還/逃走目的の候補差。有限専用実験、通常探索の重量台帳は未接続。
+
 - [身体・生活・Sleep統合](docs/experiment-evidence/LW_body_sleep.md)：3個体×3日×4run。障害越え、荷下ろし、夜間参照を接続。自然地形でSleep由来の候補選択差59件、採取改善は未達。
 
 - [探索と身体の接続](docs/experiment-evidence/LW_body_exploration.md)：既存探索Runtimeで低障害越え・休息・実採取・結果受付。4条件比較。専用opt-in、長期生活/Sleep統合は未検証。
