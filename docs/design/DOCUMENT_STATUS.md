@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [見える食料と身体障害](../experiment-evidence/LW_visible_food_obstacle.md)：軽量World5条件。低障害越え、休息後の採取、高さ超過・遮蔽・蓄え枯渇を分離。固定初期能力の専用実験。
+
 - [四層身体の最小構築](../experiment-evidence/LW_layered_body.md)：瞬発/持続/蓄え/肉体限界、歩行・走行・低障害越え・休息・食事の22操作fixture。探索AI接続は未実装。
 
 - [Sleep自動採用・30日の日次評価](../experiment-evidence/LW_sleep_daily_30d.md)：3個体、同seed、採取84→121・持帰り60→111。180個体日の前日差を記録。日次Hフィードバックは未接続。
