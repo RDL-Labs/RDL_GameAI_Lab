@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [探索・食事・通信・Sleep統合](docs/experiment-evidence/LW_social_life.md)：既存軽量探索で3個体3日。Sleep採用なしの要求先B→B→Bに対し、採用ありB→C→B、実譲渡2回。共有備蓄・食事・在庫保存も検証。有限opt-in。
+
 - [最小コミュニケーション実験](docs/experiment-evidence/LW_minimal_communication.md)：要求→譲渡/拒否、手伸ばし→警告→再選択の5条件。保持食料の移転と消費を検証。通常探索・Sleep未接続。
 
 - [主観的援助関係](docs/experiment-evidence/LW_aid_relations.md)：同じ拠点所属から、救助/無応答で個体別の援助期待と次の相手選択が変化。聞こえなかった場合も本人には無応答。有限専用実験、通常探索・Sleep未接続。

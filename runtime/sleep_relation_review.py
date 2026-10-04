@@ -41,6 +41,9 @@ def prepare(agent, p):
             hazard_seen=bool(source.get('hazard', {}).get('features'))))
         if 'locomotor' in source:
             selected[-1]['body_observation']=deepcopy(source['locomotor'])
+        if 'social' in source:
+            selected[-1]['social_observation']=deepcopy(source['social'])
+            selected[-1]['social_intent']=deepcopy(agent.decisions[oid].get('social_intent'))
         if len(selected) == 6:
             break
     history = dict(authority='read-only-history', records=selected)

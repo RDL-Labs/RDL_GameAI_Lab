@@ -7,10 +7,10 @@ from .voice_rescue import RescueWorld
 
 
 class CommunicationWorld(RescueWorld):
-    def __init__(self):
+    def __init__(self,capacity=64):
         super().__init__('contact-communication')
         self.inbox={a:[] for a in self.agents};self.hearing={a:True for a in self.agents}
-        self.communication_receipts={};self.consumed=0;self.answered=set()
+        self.communication_receipts={};self.consumed=0;self.answered=set();self.communication_capacity=capacity
 
     def contact(self,aid,target):
         return target in {c['ref'] for c in super().observe_rescue(aid)['near']}
@@ -29,7 +29,7 @@ class CommunicationWorld(RescueWorld):
                 if old!=request:raise ValueError('communication_conflict')
                 return deepcopy(r)
             if aid not in self.agents or not isinstance(op,str) or not op:raise ValueError('identity')
-            if len(self.communication_receipts)>=64:raise ValueError('capacity')
+            if len(self.communication_receipts)>=self.communication_capacity:raise ValueError('capacity')
             if action not in ('request','give','refuse','reach','warn','withdraw','eat','wait'):raise ValueError('action')
             if target is not None and (target==aid or target not in self.agents):raise ValueError('target')
             status='unavailable';a=self.agents[aid]

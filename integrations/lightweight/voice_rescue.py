@@ -8,6 +8,7 @@ from .world import segment_hit
 
 
 class RescueWorld(EnergyWorld):
+    contact_distance=.6
     def __init__(self,run_id='voice-rescue'):
         super().__init__(run_id)
         self.seconds=0;self.calls=[];self.rescue_receipts={};self.rescue_lock=RLock()
@@ -23,7 +24,7 @@ class RescueWorld(EnergyWorld):
             heard.append(dict(kind='help_call',azimuth=round(angle/30)*30,
                               range_band='near' if distance<=1 else 'far',capture_s=self.seconds))
         for other,b in self.agents.items():
-            if other==aid or hypot(b['x']-a['x'],b['z']-a['z'])>.6:continue
+            if other==aid or hypot(b['x']-a['x'],b['z']-a['z'])>self.contact_distance:continue
             if any(o['solid'] and segment_hit((a['x'],a['z']),(b['x'],b['z']),o,0.) for o in self.objects):continue
             near.append(dict(ref=other,requesting_help=any(c['speaker']==other and
                 0<=self.seconds-c['time']<2 for c in self.calls)))

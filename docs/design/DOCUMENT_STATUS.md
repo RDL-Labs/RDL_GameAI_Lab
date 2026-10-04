@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [社会生活・Sleep統合](../experiment-evidence/LW_social_life.md)：FINITE INTEGRATED。既存探索/身体scheduler/夜間Sleepへ要求・譲渡・食事・共有備蓄を接続。3条件×3日。固定調停、遠隔救助/交換/第三者解釈は未統合。
+
 - [エネルギー場の探索・Sleep接続](../experiment-evidence/LW_energy_connection.md)：同じ荷重/抵抗で候補costの有無を3日比較。自然地形の採取0、低障害の持帰り31→36。単一seedの有限結果。
 
 - [簡易エネルギー消費場](../experiment-evidence/LW_energy_field.md)：抵抗・荷重・身体余力で有限候補のcost/実行可否を評価。2個体の資源移転と実消耗を検証。専用fixture、通常探索への自動接続は未実装。
