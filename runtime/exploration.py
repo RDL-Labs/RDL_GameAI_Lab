@@ -212,6 +212,11 @@ class FiniteExploration:
         return {"accepted": True, "observation_id": ident, "new_observations": count,
                 "new_frames": count, "command": deepcopy(self.commands[ident])}
 
+    def result_contract(self, command):
+        """Default discrete-body contract; opt-in bodies may specialize it."""
+        return ({"move": {"moved", "blocked"}, "turn": {"turned"},
+                 "pickup": {"picked_up", "not_found"}, "wait": {"waited"}}, 1)
+
     def result(self, value):
         with self.lock:
             require(self.config is not None, "not_configured")
@@ -238,8 +243,7 @@ class FiniteExploration:
                 number(value["up"], -1.001, 1.001)
                 require(abs(value["up"] - round(value["up"])) < .001, "vertical_step")
                 require(status == "moved" or abs(value["up"]) < .001, "vertical_effect")
-            allowed = {"move": {"moved", "blocked"}, "turn": {"turned"},
-                       "pickup": {"picked_up", "not_found"}, "wait": {"waited"}}
+            allowed, moved_distance = self.result_contract(command)
             require(status in allowed[command["kind"]] | {"expired", "stale", "stopped"}, "result_status")
             active = status not in ("expired", "stale", "stopped")
             if active:
@@ -256,7 +260,7 @@ class FiniteExploration:
             require(value["after_revision"] == value["before_revision"] + int(changed), "revision_change")
             require((value["before_pose_ref"] != value["after_pose_ref"]) == changed, "pose_change")
             require(value["acquired"] == (status == "picked_up"), "acquisition_result")
-            require(abs(value["forward"] - (1 if status == "moved" else 0)) < 0.001
+            require(abs(value["forward"] - (moved_distance if status == "moved" else 0)) < 0.001
                     and abs(value["yaw"] - (command["amount"] if status == "turned" else 0)) < 0.01, "measured_effect")
             require(self.allow_resources or not value["acquired"] or not any(r["acquired"] for r in self.results.values()), "duplicate_pickup")
             self.results[ident] = deepcopy(value)

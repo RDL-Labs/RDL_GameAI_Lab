@@ -1,5 +1,7 @@
 # Experiment Roadmap
 
+- [探索と身体の接続](../docs/experiment-evidence/LW_body_exploration.md)：既存探索Runtimeで低障害越え・休息・実採取・結果受付。4条件比較。専用opt-in、長期生活/Sleep統合は未検証。
+
 - [見える食料と身体障害](../docs/experiment-evidence/LW_visible_food_obstacle.md)：軽量World5条件。低障害越え、休息後の採取、高さ超過・遮蔽・蓄え枯渇を分離。固定初期能力の専用実験。
 
 - [四層身体の最小構築](../docs/experiment-evidence/LW_layered_body.md)：瞬発/持続/蓄え/肉体限界、歩行・走行・低障害越え・休息・食事の22操作fixture。探索AI接続は未実装。
