@@ -8,6 +8,14 @@ from runtime.energy_connection import ANGLES
 
 class EnergyAgent(BodyAgent):
     energy_enabled=True
+    ground_pattern_enabled=False
+
+    def _decision(self,p):
+        d=super()._decision(p)
+        if self.ground_pattern_enabled and 'ground_appearance' in p:
+            from runtime.ground_pattern import recognize
+            d['ground_patterns']=recognize(p)
+        return d
 
     def _packet(self,p):
         if 'ground_appearance' in p:

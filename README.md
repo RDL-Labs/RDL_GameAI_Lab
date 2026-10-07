@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [地面をまとまりとして認識](docs/experiment-evidence/LW_ground_pattern.md)：局所観測点を帯候補/面へ集約。30日で認識を保存、全command/resultは非介入。道や川の意味同定は未実装。
+
 - [地面の見た目の認識](docs/experiment-evidence/LW_ground_appearance.md)：本人視点の草/踏まれた草/露出地面を保存。道を使う規則は未追加、30日で視認なしと全command/result一致。
 
 - [使われない道の回復](docs/experiment-evidence/LW_ground_recovery.md)：World時間で草地へ戻る。30日で通行履歴32区画中17区画が回復、4区画が道として残存。

@@ -1,0 +1,14 @@
+{
+  "identical_events": 9216,
+  "patterns": {
+    "grass:sampled_band_candidate": 486,
+    "grass:sampled_patch": 4443,
+    "trampled_grass:insufficient_shape": 5086,
+    "trampled_grass:sampled_patch": 897,
+    "trampled_grass:sampled_band_candidate": 1167,
+    "grass:insufficient_shape": 297,
+    "bare_ground:insufficient_shape": 2888,
+    "bare_ground:sampled_patch": 603,
+    "bare_ground:sampled_band_candidate": 876
+  }
+}

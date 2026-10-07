@@ -32,7 +32,9 @@ class AppearanceTests(unittest.TestCase):
   for enabled in (False,True):
    w=self.world();w.ground_appearance_enabled=enabled;l=EnergyCampaign('r',1)
    l.configure(dict(w.context('npc_a'),schema=l.schema,clock_id='world-sim-v1',selection_profile='steady',teaching=dict(statement_id='t',source='god_statue',sample_observation='s',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
+   l.agents['npc_a'].ground_pattern_enabled=enabled
    p=w.packet('npc_a',8);commands.append(l.observe(p)['command'])
+   self.assertEqual('ground_patterns' in l.agents['npc_a'].decisions[p['observation_id']],enabled)
    self.assertEqual('ground_appearance' in l.agents['npc_a'].observations[p['observation_id']],enabled)
    self.assertEqual(l.observe(p)['command'],commands[-1])
   self.assertEqual(commands[0],commands[1])
