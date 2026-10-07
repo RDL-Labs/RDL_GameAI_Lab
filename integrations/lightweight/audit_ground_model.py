@@ -4,9 +4,9 @@ from pathlib import Path
 from runtime.ground_continuity import update
 
 
-def main():
+def main(root=Path('outputs/ground_model')):
     states={};commands={};results={};count=0;max_models=0;executed=[]
-    for line in Path('outputs/ground_model/enabled.jsonl').open(encoding='utf8'):
+    for line in (root/'enabled.jsonl').open(encoding='utf8'):
         row=json.loads(line)
         if row['type']=='completed':
             results[row['command']['operation_id']]=row['result']
@@ -20,7 +20,7 @@ def main():
         max_models=max(max_models,len(state['models']))
         states[aid]=state;commands[aid]=row['command']['operation_id'];count+=1
     out=dict(replayed_decisions=count,all_models_reproduced=True,max_active_models=max_models,executed_ground_methods=executed)
-    Path('outputs/ground_model/replay.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf8')
+    (root/'replay.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf8')
     print(json.dumps(out,indent=2))
 
 if __name__=='__main__':main()

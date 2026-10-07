@@ -7,14 +7,14 @@ from .integrated_social_campaign import audit,compact_report
 from .render_ground_wear import render
 
 
-def main():
-    root=Path('outputs/ground_model');root.mkdir(parents=True,exist_ok=True)
+def main(days=30):
+    root=Path('outputs/ground_model' if days==30 else f'outputs/ground_model_{days}d');root.mkdir(parents=True,exist_ok=True)
     source=json.loads(Path('docs/experiment-evidence/LW_cohort_paths.json').read_text(encoding='utf8'))
     reports={};actions={}
     for name in ('disabled','enabled'):
-        opts=dict(source['runs']['inherited']['options'],ground_continuity_enabled=name=='enabled')
+        opts=dict(source['runs']['inherited']['options'],days=days,ground_continuity_enabled=name=='enabled')
         path=root/(name+'.jsonl');run(path,**opts,world_checkpoint=source['checkpoint'])
-        checked=audit(path);report=compact_report({name:dict(options=opts,audit=checked)})[name]
+        checked=audit(path,days=days);report=compact_report({name:dict(options=opts,audit=checked)})[name]
         report['ground_wear']=checked['summary']['ground_wear']
         counts=Counter();identities=set();commands={};increases=set();selected_ops=set();executed=0
         for line in path.open(encoding='utf8'):
@@ -48,6 +48,11 @@ def main():
     (root/'report.json').write_text(json.dumps(output,indent=2)+'\n',encoding='utf8')
     print('changed_kind_amount',difference,flush=True)
     from .audit_ground_model import main as replay
-    replay()
+    replay(root)
+    from .summarize_ground_model import main as periods
+    periods(root)
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--days',type=int,choices=(30,90),default=30)
+    main(parser.parse_args().days)

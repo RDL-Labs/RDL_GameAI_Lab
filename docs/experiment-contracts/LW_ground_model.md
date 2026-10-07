@@ -46,3 +46,12 @@ ground_continuity_enabledは明示opt-in。ground_pattern_enabledとcontinuous�
 道は両条件とも存在し、接続フラグだけ異なる。観測・身体resultから保存モデルを
 全再計算する。候補提示/選択/最終実行を別々に計数。
 採取改善を受入条件にせず、既存生活との競合も結果として残す。
+
+## 90日延長比較
+
+`python -m integrations.lightweight.ground_model_campaign --days 90`。
+同じ形成30日checkpointから、新個体の運転を90日へ延長する（Worldは通算120日）。
+disabled/enabledとも終了条件は90日期限のみ。途中の30日境界で状態をリセットしない。
+既存の長期設定に従いSleep保存容量は576、道モデルの保持条件・係数は変更しない。
+期間別集計は `python -m integrations.lightweight.summarize_ground_model outputs/ground_model_90d`。
+1〜30日/31〜60日/61〜90日の採取・食事・移動距離・道候補実行を分ける。
