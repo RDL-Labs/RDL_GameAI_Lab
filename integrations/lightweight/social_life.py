@@ -142,6 +142,9 @@ class SocialAgent(EnergyAgent):
             h=learning['hunger']
             d['hunger']=dict(intensity=h['intensity'],H=h['goal']['H'],threshold=h['goal']['threshold'],
                              due=h['due'],comparisons=len(h['goal']['records']))
+        if getattr(self,'trail_enabled',False):
+            from runtime.selection_trail import review
+            learning['selection_trail']=review(learning.get('selection_trail'),self,p,learning['hunger'])
         s=ingest(learning.get('social_relations'),p,self.results)
         if getattr(self,'experience_bundle_mode','disabled')!='disabled':
             from runtime.experience_bundle import form

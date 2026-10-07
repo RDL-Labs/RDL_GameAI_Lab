@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [獣道型選択](../experiment-contracts/LW_selection_trail.md)：FINITE IMPLEMENTED。親/context/method/action結合への使用定着と期限なし親成功。任意M_B階層の一般化・計算省略は未実装。
+
 - [親Hによる拘束強化](../experiment-contracts/LW_bundle_credit.md)：FINITE IMPLEMENTED。親の成功確認で選択時Hを有限creditへ。自然30日で成功強化0、子独自H・失敗減衰・汎用親子選択は未実装。
 
 - [経験束のSleep整理](../experiment-contracts/LW_bundle_sleep.md)：FINITE IMPLEMENTED。完了Sleepで未使用束を休眠化、照合時に復帰。active32/総数256。使用結果H・canonical採用は未実装。
