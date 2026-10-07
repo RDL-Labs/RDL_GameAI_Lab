@@ -1,0 +1,1566 @@
+{
+  "sources": {
+    "before": "outputs/scaled_base_17280000000us/run.jsonl",
+    "after": "outputs/crash_fixed_312_20261007/trial-1/run.jsonl"
+  },
+  "results": {
+    "before_600": {
+      "npc_a": {
+        "turns": 220,
+        "moves": 213,
+        "stationary_reversals": 107,
+        "turn_followed_by_move": 96,
+        "max_alternating": {
+          "turns": 29,
+          "start_us": 342250000,
+          "end_us": 377250000,
+          "duration_us": 35000000,
+          "position": [
+            -4.486148286430947,
+            0.3192800618916035
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/horizon_45": 15,
+            "continuous_food/horizon_-45": 11,
+            "incomplete_reposition_alternate_heading": 3
+          },
+          "first_turns": [
+            {
+              "t": 342250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 343500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 344750000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 346000000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 347250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 348500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 30,
+          "start_us": 342250000,
+          "end_us": 378500000,
+          "duration_us": 36250000,
+          "position": [
+            -4.486148286430947,
+            0.3192800618916035
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/horizon_45": 15,
+            "continuous_food/horizon_-45": 11,
+            "incomplete_reposition_alternate_heading": 3,
+            "continuous_safety/step_90": 1
+          },
+          "first_turns": [
+            {
+              "t": 342250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 343500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 344750000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 346000000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 347250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 348500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 8,
+        "reasons": {
+          "continuous_safety/step_-90": 18,
+          "continuous_safety/step_-45": 7,
+          "continuous_food/step_-45": 3,
+          "continuous_safety/step_90": 13,
+          "continuous_safety/step_45": 3,
+          "landmark_active": 31,
+          "continuous_food/horizon_45": 63,
+          "continuous_food/horizon_-45": 59,
+          "continuous_food/horizon_90": 10,
+          "continuous_food/horizon_-90": 6,
+          "landmark_no_candidate": 2,
+          "incomplete_reposition_alternate_heading": 5
+        }
+      },
+      "npc_b": {
+        "turns": 134,
+        "moves": 300,
+        "stationary_reversals": 19,
+        "turn_followed_by_move": 98,
+        "max_alternating": {
+          "turns": 3,
+          "start_us": 176000000,
+          "end_us": 178500000,
+          "duration_us": 2500000,
+          "position": [
+            -8.571067811865477,
+            5.921320343559644
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/horizon_-90": 1,
+            "continuous_food/horizon_90": 1,
+            "continuous_safety/step_-90": 1
+          },
+          "first_turns": [
+            {
+              "t": 176000000,
+              "yaw": -90,
+              "x": -8.571067811865477,
+              "z": 5.921320343559644,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-90"
+            },
+            {
+              "t": 177250000,
+              "yaw": 90,
+              "x": -8.571067811865477,
+              "z": 5.921320343559644,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_90"
+            },
+            {
+              "t": 178500000,
+              "yaw": -90,
+              "x": -8.571067811865477,
+              "z": 5.921320343559644,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 5,
+          "start_us": 99750000,
+          "end_us": 104750000,
+          "duration_us": 5000000,
+          "position": [
+            0.9223027413647129,
+            7.024143868042013
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/ground_2": 1,
+            "landmark_active": 2,
+            "continuous_food/horizon_45": 1,
+            "continuous_food/horizon_-45": 1
+          },
+          "first_turns": [
+            {
+              "t": 99750000,
+              "yaw": 90,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "continuous_food/ground_2"
+            },
+            {
+              "t": 101000000,
+              "yaw": 45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 102250000,
+              "yaw": 45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 103500000,
+              "yaw": 45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 104750000,
+              "yaw": -45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 9,
+          "continuous_safety/step_-45": 5,
+          "continuous_food/step_-45": 4,
+          "continuous_food/step_-90": 1,
+          "landmark_active": 6,
+          "continuous_safety/step_45": 4,
+          "continuous_safety/step_90": 3,
+          "continuous_safety/survey_left": 1,
+          "continuous_safety/survey_right": 1,
+          "incomplete_reposition_alternate_heading": 12,
+          "continuous_food/ground_2": 2,
+          "continuous_food/horizon_45": 19,
+          "continuous_food/horizon_-45": 29,
+          "continuous_food/horizon_90": 18,
+          "continuous_food/horizon_-90": 20
+        }
+      },
+      "npc_c": {
+        "turns": 331,
+        "moves": 101,
+        "stationary_reversals": 243,
+        "turn_followed_by_move": 64,
+        "max_alternating": {
+          "turns": 218,
+          "start_us": 328500000,
+          "end_us": 599750000,
+          "duration_us": 271250000,
+          "position": [
+            -3.835786437626906,
+            18.456854249492373
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "incomplete_reposition_alternate_heading": 38,
+            "continuous_food/horizon_45": 84,
+            "continuous_food/horizon_-45": 96
+          },
+          "first_turns": [
+            {
+              "t": 328500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 329750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 331000000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 332250000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 333500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 334750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 218,
+          "start_us": 328500000,
+          "end_us": 599750000,
+          "duration_us": 271250000,
+          "position": [
+            -3.835786437626906,
+            18.456854249492373
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "incomplete_reposition_alternate_heading": 38,
+            "continuous_food/horizon_45": 84,
+            "continuous_food/horizon_-45": 96
+          },
+          "first_turns": [
+            {
+              "t": 328500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 329750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 331000000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 332250000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 333500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 334750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 3,
+        "reasons": {
+          "continuous_safety/step_-90": 6,
+          "continuous_safety/step_-45": 10,
+          "landmark_active": 11,
+          "continuous_food/step_90": 2,
+          "continuous_food/step_-45": 1,
+          "continuous_safety/step_45": 4,
+          "continuous_safety/step_90": 13,
+          "continuous_safety/survey_left": 7,
+          "continuous_safety/survey_right": 9,
+          "continuous_food/ground_2": 1,
+          "incomplete_reposition_alternate_heading": 43,
+          "continuous_food/step_-90": 1,
+          "continuous_food/horizon_45": 97,
+          "continuous_food/horizon_-90": 7,
+          "continuous_food/horizon_90": 20,
+          "continuous_food/horizon_-45": 99
+        }
+      }
+    },
+    "before_1800": {
+      "npc_a": {
+        "turns": 261,
+        "moves": 310,
+        "stationary_reversals": 115,
+        "turn_followed_by_move": 126,
+        "max_alternating": {
+          "turns": 29,
+          "start_us": 342250000,
+          "end_us": 377250000,
+          "duration_us": 35000000,
+          "position": [
+            -4.486148286430947,
+            0.3192800618916035
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/horizon_45": 15,
+            "continuous_food/horizon_-45": 11,
+            "incomplete_reposition_alternate_heading": 3
+          },
+          "first_turns": [
+            {
+              "t": 342250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 343500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 344750000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 346000000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 347250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 348500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 30,
+          "start_us": 342250000,
+          "end_us": 378500000,
+          "duration_us": 36250000,
+          "position": [
+            -4.486148286430947,
+            0.3192800618916035
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/horizon_45": 15,
+            "continuous_food/horizon_-45": 11,
+            "incomplete_reposition_alternate_heading": 3,
+            "continuous_safety/step_90": 1
+          },
+          "first_turns": [
+            {
+              "t": 342250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 343500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 344750000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 346000000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 347250000,
+              "yaw": 45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 348500000,
+              "yaw": -45,
+              "x": -4.486148286430947,
+              "z": 0.3192800618916035,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 8,
+        "reasons": {
+          "continuous_safety/step_-90": 20,
+          "continuous_safety/step_-45": 9,
+          "continuous_food/step_-45": 3,
+          "continuous_safety/step_90": 17,
+          "continuous_safety/step_45": 3,
+          "landmark_active": 35,
+          "continuous_food/horizon_45": 77,
+          "continuous_food/horizon_-45": 66,
+          "continuous_food/horizon_90": 10,
+          "continuous_food/horizon_-90": 7,
+          "landmark_no_candidate": 2,
+          "incomplete_reposition_alternate_heading": 9,
+          "relation_field": 3
+        }
+      },
+      "npc_b": {
+        "turns": 148,
+        "moves": 363,
+        "stationary_reversals": 19,
+        "turn_followed_by_move": 111,
+        "max_alternating": {
+          "turns": 3,
+          "start_us": 176000000,
+          "end_us": 178500000,
+          "duration_us": 2500000,
+          "position": [
+            -8.571067811865477,
+            5.921320343559644
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/horizon_-90": 1,
+            "continuous_food/horizon_90": 1,
+            "continuous_safety/step_-90": 1
+          },
+          "first_turns": [
+            {
+              "t": 176000000,
+              "yaw": -90,
+              "x": -8.571067811865477,
+              "z": 5.921320343559644,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-90"
+            },
+            {
+              "t": 177250000,
+              "yaw": 90,
+              "x": -8.571067811865477,
+              "z": 5.921320343559644,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_90"
+            },
+            {
+              "t": 178500000,
+              "yaw": -90,
+              "x": -8.571067811865477,
+              "z": 5.921320343559644,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 5,
+          "start_us": 99750000,
+          "end_us": 104750000,
+          "duration_us": 5000000,
+          "position": [
+            0.9223027413647129,
+            7.024143868042013
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/ground_2": 1,
+            "landmark_active": 2,
+            "continuous_food/horizon_45": 1,
+            "continuous_food/horizon_-45": 1
+          },
+          "first_turns": [
+            {
+              "t": 99750000,
+              "yaw": 90,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "continuous_food/ground_2"
+            },
+            {
+              "t": 101000000,
+              "yaw": 45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 102250000,
+              "yaw": 45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 103500000,
+              "yaw": 45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 104750000,
+              "yaw": -45,
+              "x": 0.9223027413647129,
+              "z": 7.024143868042013,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 11,
+          "continuous_safety/step_-45": 5,
+          "continuous_food/step_-45": 4,
+          "continuous_food/step_-90": 1,
+          "landmark_active": 6,
+          "continuous_safety/step_45": 4,
+          "continuous_safety/step_90": 3,
+          "continuous_safety/survey_left": 1,
+          "continuous_safety/survey_right": 1,
+          "incomplete_reposition_alternate_heading": 13,
+          "continuous_food/ground_2": 2,
+          "continuous_food/horizon_45": 19,
+          "continuous_food/horizon_-45": 32,
+          "continuous_food/horizon_90": 20,
+          "continuous_food/horizon_-90": 22,
+          "relation_field": 4
+        }
+      },
+      "npc_c": {
+        "turns": 1291,
+        "moves": 101,
+        "stationary_reversals": 1203,
+        "turn_followed_by_move": 64,
+        "max_alternating": {
+          "turns": 1178,
+          "start_us": 328500000,
+          "end_us": 1799750000,
+          "duration_us": 1471250000,
+          "position": [
+            -3.835786437626906,
+            18.456854249492373
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "incomplete_reposition_alternate_heading": 195,
+            "continuous_food/horizon_45": 487,
+            "continuous_food/horizon_-45": 496
+          },
+          "first_turns": [
+            {
+              "t": 328500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 329750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 331000000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 332250000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 333500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 334750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 1178,
+          "start_us": 328500000,
+          "end_us": 1799750000,
+          "duration_us": 1471250000,
+          "position": [
+            -3.835786437626906,
+            18.456854249492373
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "incomplete_reposition_alternate_heading": 195,
+            "continuous_food/horizon_45": 487,
+            "continuous_food/horizon_-45": 496
+          },
+          "first_turns": [
+            {
+              "t": 328500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            },
+            {
+              "t": 329750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 331000000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 332250000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_45"
+            },
+            {
+              "t": 333500000,
+              "yaw": -45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_-45"
+            },
+            {
+              "t": 334750000,
+              "yaw": 45,
+              "x": -3.835786437626906,
+              "z": 18.456854249492373,
+              "phase": "exploration",
+              "reason": "incomplete_reposition_alternate_heading"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 3,
+        "reasons": {
+          "continuous_safety/step_-90": 6,
+          "continuous_safety/step_-45": 10,
+          "landmark_active": 11,
+          "continuous_food/step_90": 2,
+          "continuous_food/step_-45": 1,
+          "continuous_safety/step_45": 4,
+          "continuous_safety/step_90": 13,
+          "continuous_safety/survey_left": 7,
+          "continuous_safety/survey_right": 9,
+          "continuous_food/ground_2": 1,
+          "incomplete_reposition_alternate_heading": 200,
+          "continuous_food/step_-90": 1,
+          "continuous_food/horizon_45": 500,
+          "continuous_food/horizon_-90": 7,
+          "continuous_food/horizon_90": 20,
+          "continuous_food/horizon_-45": 499
+        }
+      }
+    },
+    "after_600": {
+      "npc_a": {
+        "turns": 203,
+        "moves": 229,
+        "stationary_reversals": 10,
+        "turn_followed_by_move": 187,
+        "max_alternating": {
+          "turns": 2,
+          "start_us": 126000000,
+          "end_us": 127250000,
+          "duration_us": 1250000,
+          "position": [
+            -4.285533905932739,
+            8.835533905932737
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/horizon_90": 1,
+            "continuous_safety/step_-90": 1
+          },
+          "first_turns": [
+            {
+              "t": 126000000,
+              "yaw": 90,
+              "x": -4.285533905932739,
+              "z": 8.835533905932737,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_90"
+            },
+            {
+              "t": 127250000,
+              "yaw": -90,
+              "x": -4.285533905932739,
+              "z": 8.835533905932737,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 2,
+          "start_us": 27250000,
+          "end_us": 62250000,
+          "duration_us": 35000000,
+          "position": [
+            -1.1035533905932737,
+            5.446446609406726
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_safety/step_-90": 1,
+            "continuous_food/step_-45": 1
+          },
+          "first_turns": [
+            {
+              "t": 27250000,
+              "yaw": -90,
+              "x": -1.1035533905932737,
+              "z": 5.446446609406726,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            },
+            {
+              "t": 62250000,
+              "yaw": -45,
+              "x": -1.1035533905932737,
+              "z": 5.446446609406726,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 18,
+          "continuous_safety/step_-45": 9,
+          "continuous_food/step_-45": 1,
+          "continuous_safety/step_90": 13,
+          "continuous_safety/step_45": 6,
+          "landmark_active": 10,
+          "continuous_food/step_45": 1,
+          "continuous_food/step_90": 2,
+          "continuous_food/horizon_90": 45,
+          "continuous_food/horizon_-45": 34,
+          "continuous_food/horizon_45": 34,
+          "continuous_food/horizon_-90": 29,
+          "incomplete_reposition_alternate_heading": 1
+        }
+      },
+      "npc_b": {
+        "turns": 175,
+        "moves": 259,
+        "stationary_reversals": 6,
+        "turn_followed_by_move": 162,
+        "max_alternating": {
+          "turns": 3,
+          "start_us": 94750000,
+          "end_us": 97250000,
+          "duration_us": 2500000,
+          "position": [
+            -0.5606601717798214,
+            4.739339828220178
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/ground_2": 1,
+            "landmark_active": 1,
+            "continuous_food/step_-45": 1
+          },
+          "first_turns": [
+            {
+              "t": 94750000,
+              "yaw": -90,
+              "x": -0.5606601717798214,
+              "z": 4.739339828220178,
+              "phase": "exploration",
+              "reason": "continuous_food/ground_2"
+            },
+            {
+              "t": 96000000,
+              "yaw": 45,
+              "x": -0.5606601717798214,
+              "z": 4.739339828220178,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 97250000,
+              "yaw": -45,
+              "x": -0.5606601717798214,
+              "z": 4.739339828220178,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 3,
+          "start_us": 27250000,
+          "end_us": 63500000,
+          "duration_us": 36250000,
+          "position": [
+            -0.8535533905932737,
+            5.446446609406726
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_safety/step_-90": 1,
+            "continuous_food/step_-45": 1,
+            "continuous_food/step_-90": 1
+          },
+          "first_turns": [
+            {
+              "t": 27250000,
+              "yaw": -90,
+              "x": -0.8535533905932737,
+              "z": 5.446446609406726,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            },
+            {
+              "t": 61000000,
+              "yaw": -45,
+              "x": -0.8535533905932737,
+              "z": 5.446446609406726,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            },
+            {
+              "t": 63500000,
+              "yaw": -90,
+              "x": -0.8535533905932737,
+              "z": 5.446446609406726,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-90"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 13,
+          "continuous_safety/step_-45": 6,
+          "continuous_food/step_-45": 4,
+          "continuous_food/step_-90": 1,
+          "landmark_active": 6,
+          "continuous_safety/step_45": 8,
+          "continuous_safety/step_90": 17,
+          "continuous_food/ground_2": 1,
+          "continuous_food/horizon_-45": 28,
+          "continuous_food/horizon_90": 5,
+          "continuous_food/horizon_-90": 37,
+          "continuous_food/horizon_45": 23,
+          "incomplete_reposition_alternate_heading": 3,
+          "continuous_food/ground_23": 1,
+          "continuous_food/step_45": 17,
+          "relation_field": 3,
+          "continuous_food/step_90": 1,
+          "continuous_food/ground_29": 1
+        }
+      },
+      "npc_c": {
+        "turns": 139,
+        "moves": 296,
+        "stationary_reversals": 8,
+        "turn_followed_by_move": 123,
+        "max_alternating": {
+          "turns": 3,
+          "start_us": 64750000,
+          "end_us": 68500000,
+          "duration_us": 3750000,
+          "position": [
+            -0.9571067811865475,
+            5.592893218813452
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "landmark_active": 1,
+            "continuous_food/step_-45": 1,
+            "continuous_food/step_90": 1
+          },
+          "first_turns": [
+            {
+              "t": 64750000,
+              "yaw": 45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 66000000,
+              "yaw": -45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            },
+            {
+              "t": 68500000,
+              "yaw": 90,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_90"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 4,
+          "start_us": 64750000,
+          "end_us": 71000000,
+          "duration_us": 6250000,
+          "position": [
+            -0.9571067811865475,
+            5.592893218813452
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "landmark_active": 1,
+            "continuous_food/step_-45": 1,
+            "continuous_food/step_90": 1,
+            "continuous_safety/step_90": 1
+          },
+          "first_turns": [
+            {
+              "t": 64750000,
+              "yaw": 45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 66000000,
+              "yaw": -45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            },
+            {
+              "t": 68500000,
+              "yaw": 90,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_90"
+            },
+            {
+              "t": 71000000,
+              "yaw": 90,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "safety",
+              "reason": "continuous_safety/step_90"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 12,
+          "continuous_safety/step_-45": 5,
+          "landmark_active": 4,
+          "continuous_food/step_90": 7,
+          "continuous_food/step_-45": 1,
+          "continuous_safety/step_90": 7,
+          "continuous_safety/step_45": 3,
+          "continuous_food/ground_2": 1,
+          "continuous_food/step_45": 3,
+          "continuous_food/ground_3": 1,
+          "continuous_food/horizon_-45": 26,
+          "continuous_food/horizon_45": 24,
+          "incomplete_reposition_alternate_heading": 9,
+          "relation_field": 2,
+          "continuous_food/step_-90": 16,
+          "continuous_food/horizon_90": 8,
+          "continuous_food/horizon_-90": 5,
+          "continuous_food/ground_9": 1,
+          "continuous_food/ground_13": 3,
+          "landmark_no_candidate": 1
+        }
+      }
+    },
+    "after_1800": {
+      "npc_a": {
+        "turns": 369,
+        "moves": 459,
+        "stationary_reversals": 17,
+        "turn_followed_by_move": 344,
+        "max_alternating": {
+          "turns": 3,
+          "start_us": 661000000,
+          "end_us": 663500000,
+          "duration_us": 2500000,
+          "position": [
+            -7.028174593052017,
+            8.471572875253816
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_safety/step_-45": 1,
+            "continuous_food/horizon_90": 1,
+            "continuous_safety/step_-90": 1
+          },
+          "first_turns": [
+            {
+              "t": 661000000,
+              "yaw": -45,
+              "x": -7.028174593052017,
+              "z": 8.471572875253816,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-45"
+            },
+            {
+              "t": 662250000,
+              "yaw": 90,
+              "x": -7.028174593052017,
+              "z": 8.471572875253816,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_90"
+            },
+            {
+              "t": 663500000,
+              "yaw": -90,
+              "x": -7.028174593052017,
+              "z": 8.471572875253816,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 3,
+          "start_us": 661000000,
+          "end_us": 663500000,
+          "duration_us": 2500000,
+          "position": [
+            -7.028174593052017,
+            8.471572875253816
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_safety/step_-45": 1,
+            "continuous_food/horizon_90": 1,
+            "continuous_safety/step_-90": 1
+          },
+          "first_turns": [
+            {
+              "t": 661000000,
+              "yaw": -45,
+              "x": -7.028174593052017,
+              "z": 8.471572875253816,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-45"
+            },
+            {
+              "t": 662250000,
+              "yaw": 90,
+              "x": -7.028174593052017,
+              "z": 8.471572875253816,
+              "phase": "exploration",
+              "reason": "continuous_food/horizon_90"
+            },
+            {
+              "t": 663500000,
+              "yaw": -90,
+              "x": -7.028174593052017,
+              "z": 8.471572875253816,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 37,
+          "continuous_safety/step_-45": 13,
+          "continuous_food/step_-45": 2,
+          "continuous_safety/step_90": 23,
+          "continuous_safety/step_45": 12,
+          "landmark_active": 15,
+          "continuous_food/step_45": 1,
+          "continuous_food/step_90": 2,
+          "continuous_food/horizon_90": 79,
+          "continuous_food/horizon_-45": 57,
+          "continuous_food/horizon_45": 70,
+          "continuous_food/horizon_-90": 43,
+          "incomplete_reposition_alternate_heading": 4,
+          "relation_field": 11
+        }
+      },
+      "npc_b": {
+        "turns": 515,
+        "moves": 879,
+        "stationary_reversals": 10,
+        "turn_followed_by_move": 497,
+        "max_alternating": {
+          "turns": 3,
+          "start_us": 94750000,
+          "end_us": 97250000,
+          "duration_us": 2500000,
+          "position": [
+            -0.5606601717798214,
+            4.739339828220178
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_food/ground_2": 1,
+            "landmark_active": 1,
+            "continuous_food/step_-45": 1
+          },
+          "first_turns": [
+            {
+              "t": 94750000,
+              "yaw": -90,
+              "x": -0.5606601717798214,
+              "z": 4.739339828220178,
+              "phase": "exploration",
+              "reason": "continuous_food/ground_2"
+            },
+            {
+              "t": 96000000,
+              "yaw": 45,
+              "x": -0.5606601717798214,
+              "z": 4.739339828220178,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 97250000,
+              "yaw": -45,
+              "x": -0.5606601717798214,
+              "z": 4.739339828220178,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 3,
+          "start_us": 27250000,
+          "end_us": 63500000,
+          "duration_us": 36250000,
+          "position": [
+            -0.8535533905932737,
+            5.446446609406726
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "continuous_safety/step_-90": 1,
+            "continuous_food/step_-45": 1,
+            "continuous_food/step_-90": 1
+          },
+          "first_turns": [
+            {
+              "t": 27250000,
+              "yaw": -90,
+              "x": -0.8535533905932737,
+              "z": 5.446446609406726,
+              "phase": "safety",
+              "reason": "continuous_safety/step_-90"
+            },
+            {
+              "t": 61000000,
+              "yaw": -45,
+              "x": -0.8535533905932737,
+              "z": 5.446446609406726,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            },
+            {
+              "t": 63500000,
+              "yaw": -90,
+              "x": -0.8535533905932737,
+              "z": 5.446446609406726,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-90"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 18,
+          "continuous_safety/step_-45": 9,
+          "continuous_food/step_-45": 5,
+          "continuous_food/step_-90": 2,
+          "landmark_active": 10,
+          "continuous_safety/step_45": 10,
+          "continuous_safety/step_90": 21,
+          "continuous_food/ground_2": 1,
+          "continuous_food/horizon_-45": 81,
+          "continuous_food/horizon_90": 12,
+          "continuous_food/horizon_-90": 190,
+          "continuous_food/horizon_45": 49,
+          "incomplete_reposition_alternate_heading": 10,
+          "continuous_food/ground_23": 1,
+          "continuous_food/step_45": 58,
+          "relation_field": 19,
+          "continuous_food/step_90": 12,
+          "continuous_food/ground_29": 1,
+          "continuous_food/ground_36": 1,
+          "continuous_food/ground_38": 1,
+          "continuous_food/ground_44": 1,
+          "continuous_food/ground_56": 1,
+          "continuous_food/ground_68": 1,
+          "continuous_food/ground_73": 1
+        }
+      },
+      "npc_c": {
+        "turns": 444,
+        "moves": 950,
+        "stationary_reversals": 10,
+        "turn_followed_by_move": 423,
+        "max_alternating": {
+          "turns": 3,
+          "start_us": 64750000,
+          "end_us": 68500000,
+          "duration_us": 3750000,
+          "position": [
+            -0.9571067811865475,
+            5.592893218813452
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "landmark_active": 1,
+            "continuous_food/step_-45": 1,
+            "continuous_food/step_90": 1
+          },
+          "first_turns": [
+            {
+              "t": 64750000,
+              "yaw": 45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 66000000,
+              "yaw": -45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            },
+            {
+              "t": 68500000,
+              "yaw": 90,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_90"
+            }
+          ]
+        },
+        "max_stationary": {
+          "turns": 4,
+          "start_us": 64750000,
+          "end_us": 71000000,
+          "duration_us": 6250000,
+          "position": [
+            -0.9571067811865475,
+            5.592893218813452
+          ],
+          "max_position_displacement": 0.0,
+          "reasons": {
+            "landmark_active": 1,
+            "continuous_food/step_-45": 1,
+            "continuous_food/step_90": 1,
+            "continuous_safety/step_90": 1
+          },
+          "first_turns": [
+            {
+              "t": 64750000,
+              "yaw": 45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "landmark_active"
+            },
+            {
+              "t": 66000000,
+              "yaw": -45,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_-45"
+            },
+            {
+              "t": 68500000,
+              "yaw": 90,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "exploration",
+              "reason": "continuous_food/step_90"
+            },
+            {
+              "t": 71000000,
+              "yaw": 90,
+              "x": -0.9571067811865475,
+              "z": 5.592893218813452,
+              "phase": "safety",
+              "reason": "continuous_safety/step_90"
+            }
+          ]
+        },
+        "alternating_episodes_ge4": 0,
+        "reasons": {
+          "continuous_safety/step_-90": 15,
+          "continuous_safety/step_-45": 5,
+          "landmark_active": 4,
+          "continuous_food/step_90": 14,
+          "continuous_food/step_-45": 2,
+          "continuous_safety/step_90": 7,
+          "continuous_safety/step_45": 4,
+          "continuous_food/ground_2": 1,
+          "continuous_food/step_45": 23,
+          "continuous_food/ground_3": 1,
+          "continuous_food/horizon_-45": 38,
+          "continuous_food/horizon_45": 37,
+          "incomplete_reposition_alternate_heading": 10,
+          "relation_field": 3,
+          "continuous_food/step_-90": 161,
+          "continuous_food/horizon_90": 43,
+          "continuous_food/horizon_-90": 59,
+          "continuous_food/ground_9": 1,
+          "continuous_food/ground_13": 3,
+          "landmark_no_candidate": 1,
+          "continuous_food/ground_32": 2,
+          "continuous_food/ground_34": 2,
+          "continuous_food/ground_44": 1,
+          "continuous_food/ground_67": 2,
+          "continuous_food/ground_106": 1,
+          "continuous_food/ground_107": 1,
+          "continuous_food/ground_108": 1,
+          "continuous_food/ground_112": 1,
+          "continuous_food/ground_119": 1
+        }
+      }
+    }
+  }
+}
