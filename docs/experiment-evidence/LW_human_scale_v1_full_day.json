@@ -1,0 +1,2274 @@
+{
+  "options": {
+    "days": 1,
+    "stop_after_returns": null,
+    "seed": 20261005,
+    "skyline_subrays": true,
+    "mb_field_mode": "enabled",
+    "goal_difference_mode": "enabled",
+    "food_goal_mode": "enabled",
+    "orientation_mode": "enabled",
+    "reposition_mode": "enabled",
+    "return_completion_mode": "enabled",
+    "nested_model_mode": "enabled",
+    "food_revisit_mode": "enabled",
+    "directional_route_mode": "enabled",
+    "relation_field_mode": "enabled",
+    "hazard_mode": "enabled",
+    "hazard_scenario": "territorial",
+    "warning_review_mode": "enabled",
+    "selection_mode": "continuous",
+    "dynamic_hazard": true,
+    "regrowth_days": 3,
+    "sleep_learning": true,
+    "sleep_auto_adopt": true,
+    "body_mode": "enabled",
+    "energy_mode": "enabled",
+    "social_mode": "enabled",
+    "social_adopt": true,
+    "social_pressure": true,
+    "refusal_field_mode": "enabled",
+    "body_scene": "social_base",
+    "personal_food": true,
+    "hunger_enabled": true,
+    "body_method_field": true,
+    "food_retention": true,
+    "experience_bundle_mode": "enabled",
+    "bundle_sleep_enabled": true,
+    "trail_enabled": true,
+    "ground_wear_enabled": true,
+    "ground_recovery_enabled": true,
+    "ground_appearance_enabled": true,
+    "ground_pattern_enabled": true,
+    "run_id": "lw-scaled-base",
+    "ground_continuity_enabled": true,
+    "exploration_horizon_enabled": true,
+    "run_duration_us": 17280000000
+  },
+  "audit": {
+    "completed": 41472,
+    "food_conserved": true,
+    "no_duplicate_or_overlapping_effects": true,
+    "initial_food": 124,
+    "regrown_food": 0,
+    "actions": {
+      "request:expressed": 3,
+      "refuse:expressed": 3,
+      "eat:ate": 6
+    },
+    "commands": {
+      "wait": 26598,
+      "turn": 14066,
+      "move": 789,
+      "social": 12,
+      "pickup": 7
+    },
+    "positive_refusal_choices": {
+      "request_again": 1
+    },
+    "safety_decisions": 41472,
+    "visible_hazard_decisions": 2029,
+    "safety_reasons": {
+      "normal": 41180,
+      "continuous_safety/step_-90": 83,
+      "continuous_safety/step_-45": 45,
+      "continuous_safety/step_0": 15,
+      "provisional_mode_release": 32,
+      "continuous_safety/step_90": 67,
+      "continuous_safety/step_45": 21,
+      "continuous_safety/survey_left": 8,
+      "continuous_safety/survey_right": 10,
+      "continuous_safety/wait": 6,
+      "limited_clearance": 5
+    },
+    "daily": {
+      "1": {
+        "wait": 26598,
+        "picked_up": 7,
+        "turn": 14066,
+        "move": 789,
+        "social": 12,
+        "pickup": 7
+      }
+    },
+    "summary": {
+      "ended_us": 17280000000,
+      "pickups": 7,
+      "social_stock": 0,
+      "social_consumed": 6,
+      "physical_inventory": {
+        "npc_a": 2,
+        "npc_b": 2,
+        "npc_c": 1
+      },
+      "layered_bodies": {
+        "npc_a": {
+          "rule": "layered-body-human-scale-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 91.8002635495721,
+          "damage": 0.0
+        },
+        "npc_b": {
+          "rule": "layered-body-human-scale-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 91.71281500020031,
+          "damage": 0.0
+        },
+        "npc_c": {
+          "rule": "layered-body-human-scale-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 93.0644503705893,
+          "damage": 0.0
+        }
+      },
+      "elapsed_seconds": 1446.2019473000255
+    },
+    "learning": {
+      "npc_a": {
+        "sleep_statuses": {
+          "completed": 1
+        },
+        "harvest_model": null,
+        "social_records": 3,
+        "social_model": {
+          "npc_b": {
+            "expectation": 0.25,
+            "sources": [
+              "npc_a:op:lw-scaled-base:npc_a:obs:240",
+              "npc_a:op:lw-scaled-base:npc_a:obs:250"
+            ],
+            "authority": "unvalidated local aid expectation; not intent or canonical T1"
+          },
+          "npc_c": {
+            "expectation": 0.3333333333333333,
+            "sources": [
+              "npc_a:op:lw-scaled-base:npc_a:obs:260"
+            ],
+            "authority": "unvalidated local aid expectation; not intent or canonical T1"
+          }
+        },
+        "sleep_model": "sleep-unvalidated-action-model-v1:6f83000bce800dbc0286ed24",
+        "sleep_records": 1
+      },
+      "npc_b": {
+        "sleep_statuses": {
+          "completed": 1
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:6b21adc83243c06a1776cecf",
+        "sleep_records": 1
+      },
+      "npc_c": {
+        "sleep_statuses": {
+          "completed": 1
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:c09d0e505adc3ddc8bd01fe6",
+        "sleep_records": 1
+      }
+    }
+  },
+  "movement": {
+    "npc_a": {
+      "distance": 155.0,
+      "max_camp_distance": 29.04003072748398,
+      "first_zero_us": null,
+      "first_food_us": 743750000,
+      "food_decisions": 12653,
+      "water_observations": 42,
+      "water_moves": 4,
+      "bank_crossings": 1,
+      "statuses": {
+        "waited": 10937,
+        "turned": 2564,
+        "moved": 310,
+        "expressed": 3,
+        "picked_up": 6,
+        "ate": 4
+      },
+      "post_zero": {},
+      "daily": {
+        "1": {
+          "distance": 155.0,
+          "statuses": {
+            "waited": 10937,
+            "turned": 2564,
+            "moved": 310,
+            "expressed": 3,
+            "picked_up": 6,
+            "ate": 4
+          },
+          "reserve": 91.8002635495721,
+          "position": {
+            "x": 22.283852013431297,
+            "z": -12.621313704911039
+          }
+        }
+      }
+    },
+    "npc_b": {
+      "distance": 182.0,
+      "max_camp_distance": 33.147645999845935,
+      "first_zero_us": null,
+      "first_food_us": 660000000,
+      "food_decisions": 13296,
+      "water_observations": 0,
+      "water_moves": 0,
+      "bank_crossings": 0,
+      "statuses": {
+        "waited": 11006,
+        "turned": 2450,
+        "moved": 364,
+        "expressed": 2,
+        "picked_up": 1,
+        "ate": 1
+      },
+      "post_zero": {},
+      "daily": {
+        "1": {
+          "distance": 182.0,
+          "statuses": {
+            "waited": 11006,
+            "turned": 2450,
+            "moved": 364,
+            "expressed": 2,
+            "picked_up": 1,
+            "ate": 1
+          },
+          "reserve": 91.71281500020031,
+          "position": {
+            "x": -27.188077169749313,
+            "z": 24.224621202458746
+          }
+        }
+      }
+    },
+    "npc_c": {
+      "distance": 57.5,
+      "max_camp_distance": 13.319981407346587,
+      "first_zero_us": null,
+      "first_food_us": null,
+      "food_decisions": 0,
+      "water_observations": 0,
+      "water_moves": 0,
+      "bank_crossings": 0,
+      "statuses": {
+        "waited": 4655,
+        "turned": 9052,
+        "moved": 115,
+        "expressed": 1,
+        "ate": 1
+      },
+      "post_zero": {},
+      "daily": {
+        "1": {
+          "distance": 57.5,
+          "statuses": {
+            "waited": 4655,
+            "turned": 9052,
+            "moved": 115,
+            "expressed": 1,
+            "ate": 1
+          },
+          "reserve": 93.0644503705893,
+          "position": {
+            "x": -4.128679656440358,
+            "z": 18.16396103067892
+          }
+        }
+      }
+    }
+  },
+  "returns": [],
+  "ground_wear": {
+    "rule": "world-ground-recovery-v1",
+    "recovery_enabled": true,
+    "now_us": 17279750000,
+    "grace_us": 17280000000,
+    "recovery_per_day": 2,
+    "cell_size": 1.0,
+    "road_distance": 10.0,
+    "operations": 789,
+    "cells": {
+      "-1,5": {
+        "distance": 9.166666666666657,
+        "wear": 9.166666666666657,
+        "last_walk_us": 167250000,
+        "agents": {
+          "npc_a": 3.133333333333335,
+          "npc_b": 1.583333333333334,
+          "npc_c": 4.450000000000001
+        }
+      },
+      "0,5": {
+        "distance": 0.30000000000000004,
+        "wear": 0.30000000000000004,
+        "last_walk_us": 23500000,
+        "agents": {
+          "npc_c": 0.30000000000000004
+        }
+      },
+      "-2,5": {
+        "distance": 0.9500000000000003,
+        "wear": 0.9500000000000003,
+        "last_walk_us": 161000000,
+        "agents": {
+          "npc_a": 0.2666666666666667,
+          "npc_c": 0.6833333333333336
+        }
+      },
+      "-1,6": {
+        "distance": 7.999999999999989,
+        "wear": 7.999999999999989,
+        "last_walk_us": 274750000,
+        "agents": {
+          "npc_b": 0.5333333333333334,
+          "npc_c": 7.466666666666657
+        }
+      },
+      "-2,6": {
+        "distance": 3.4166666666666696,
+        "wear": 3.4166666666666696,
+        "last_walk_us": 279750000,
+        "agents": {
+          "npc_b": 1.1333333333333337,
+          "npc_c": 2.283333333333334
+        }
+      },
+      "-2,7": {
+        "distance": 1.8000000000000005,
+        "wear": 1.8000000000000005,
+        "last_walk_us": 119750000,
+        "agents": {
+          "npc_b": 1.8000000000000005
+        }
+      },
+      "-1,4": {
+        "distance": 3.400000000000002,
+        "wear": 3.400000000000002,
+        "last_walk_us": 153500000,
+        "agents": {
+          "npc_a": 0.9999999999999999,
+          "npc_c": 2.4000000000000004
+        }
+      },
+      "-1,3": {
+        "distance": 1.666666666666666,
+        "wear": 1.666666666666666,
+        "last_walk_us": 153500000,
+        "agents": {
+          "npc_a": 0.9999999999999999,
+          "npc_c": 0.6666666666666669
+        }
+      },
+      "-1,7": {
+        "distance": 2.466666666666668,
+        "wear": 2.466666666666668,
+        "last_walk_us": 114750000,
+        "agents": {
+          "npc_b": 1.8499999999999999,
+          "npc_c": 0.6166666666666668
+        }
+      },
+      "0,3": {
+        "distance": 0.09999999999999995,
+        "wear": 0.09999999999999995,
+        "last_walk_us": 83500000,
+        "agents": {
+          "npc_a": 0.09999999999999995
+        }
+      },
+      "0,7": {
+        "distance": 7.033333333333325,
+        "wear": 7.033333333333325,
+        "last_walk_us": 266000000,
+        "agents": {
+          "npc_c": 5.383333333333331,
+          "npc_b": 1.6500000000000004
+        }
+      },
+      "0,2": {
+        "distance": 0.7999999999999997,
+        "wear": 0.7999999999999997,
+        "last_walk_us": 87250000,
+        "agents": {
+          "npc_a": 0.7999999999999997
+        }
+      },
+      "0,6": {
+        "distance": 4.566666666666667,
+        "wear": 4.566666666666667,
+        "last_walk_us": 253500000,
+        "agents": {
+          "npc_b": 1.05,
+          "npc_c": 3.5166666666666684
+        }
+      },
+      "-1,2": {
+        "distance": 1.3166666666666662,
+        "wear": 1.3166666666666662,
+        "last_walk_us": 594750000,
+        "agents": {
+          "npc_a": 1.3166666666666662
+        }
+      },
+      "-1,1": {
+        "distance": 2.2499999999999996,
+        "wear": 2.2499999999999996,
+        "last_walk_us": 599750000,
+        "agents": {
+          "npc_a": 2.2499999999999996
+        }
+      },
+      "0,1": {
+        "distance": 1.866666666666667,
+        "wear": 1.866666666666667,
+        "last_walk_us": 222250000,
+        "agents": {
+          "npc_a": 1.866666666666667
+        }
+      },
+      "1,1": {
+        "distance": 1.1666666666666665,
+        "wear": 1.1666666666666665,
+        "last_walk_us": 218500000,
+        "agents": {
+          "npc_a": 1.1666666666666665
+        }
+      },
+      "2,1": {
+        "distance": 1.0833333333333337,
+        "wear": 1.0833333333333337,
+        "last_walk_us": 108500000,
+        "agents": {
+          "npc_a": 1.0833333333333337
+        }
+      },
+      "3,0": {
+        "distance": 0.7166666666666667,
+        "wear": 0.7166666666666667,
+        "last_walk_us": 112250000,
+        "agents": {
+          "npc_a": 0.7166666666666667
+        }
+      },
+      "2,0": {
+        "distance": 2.800000000000001,
+        "wear": 2.800000000000001,
+        "last_walk_us": 212250000,
+        "agents": {
+          "npc_a": 2.800000000000001
+        }
+      },
+      "2,-1": {
+        "distance": 4.783333333333333,
+        "wear": 4.783333333333333,
+        "last_walk_us": 671000000,
+        "agents": {
+          "npc_a": 4.783333333333333
+        }
+      },
+      "3,-1": {
+        "distance": 1.3000000000000007,
+        "wear": 1.3000000000000007,
+        "last_walk_us": 672250000,
+        "agents": {
+          "npc_a": 1.3000000000000007
+        }
+      },
+      "-2,4": {
+        "distance": 2.4333333333333336,
+        "wear": 2.4333333333333336,
+        "last_walk_us": 587250000,
+        "agents": {
+          "npc_c": 1.7666666666666664,
+          "npc_a": 0.6666666666666666
+        }
+      },
+      "-3,7": {
+        "distance": 1.933333333333335,
+        "wear": 1.933333333333335,
+        "last_walk_us": 283500000,
+        "agents": {
+          "npc_b": 1.1000000000000003,
+          "npc_c": 0.8333333333333337
+        }
+      },
+      "3,-2": {
+        "distance": 2.766666666666668,
+        "wear": 2.766666666666668,
+        "last_walk_us": 673500000,
+        "agents": {
+          "npc_a": 2.766666666666668
+        }
+      },
+      "4,-2": {
+        "distance": 1.3333333333333328,
+        "wear": 1.3333333333333328,
+        "last_walk_us": 676000000,
+        "agents": {
+          "npc_a": 1.3333333333333328
+        }
+      },
+      "-4,7": {
+        "distance": 1.8166666666666682,
+        "wear": 1.8166666666666682,
+        "last_walk_us": 286000000,
+        "agents": {
+          "npc_b": 1.4000000000000008,
+          "npc_c": 0.4166666666666672
+        }
+      },
+      "4,-3": {
+        "distance": 1.5166666666666662,
+        "wear": 1.5166666666666662,
+        "last_walk_us": 179750000,
+        "agents": {
+          "npc_a": 1.5166666666666662
+        }
+      },
+      "3,-3": {
+        "distance": 1.7166666666666668,
+        "wear": 1.7166666666666668,
+        "last_walk_us": 179750000,
+        "agents": {
+          "npc_a": 1.7166666666666668
+        }
+      },
+      "0,4": {
+        "distance": 0.3333333333333334,
+        "wear": 0.3333333333333334,
+        "last_walk_us": 133500000,
+        "agents": {
+          "npc_c": 0.3333333333333334
+        }
+      },
+      "2,-3": {
+        "distance": 1.3166666666666662,
+        "wear": 1.3166666666666662,
+        "last_walk_us": 191000000,
+        "agents": {
+          "npc_a": 1.3166666666666662
+        }
+      },
+      "2,-2": {
+        "distance": 1.4166666666666667,
+        "wear": 1.4166666666666667,
+        "last_walk_us": 191000000,
+        "agents": {
+          "npc_a": 1.4166666666666667
+        }
+      },
+      "-4,8": {
+        "distance": 2.3500000000000005,
+        "wear": 2.3500000000000005,
+        "last_walk_us": 288500000,
+        "agents": {
+          "npc_b": 1.2999999999999994,
+          "npc_c": 1.0500000000000003
+        }
+      },
+      "-4,9": {
+        "distance": 1.0999999999999999,
+        "wear": 1.0999999999999999,
+        "last_walk_us": 291000000,
+        "agents": {
+          "npc_b": 0.09999999999999994,
+          "npc_c": 0.9999999999999999
+        }
+      },
+      "-5,9": {
+        "distance": 0.09999999999999994,
+        "wear": 0.09999999999999994,
+        "last_walk_us": 143500000,
+        "agents": {
+          "npc_b": 0.09999999999999994
+        }
+      },
+      "-5,8": {
+        "distance": 1.2999999999999992,
+        "wear": 1.2999999999999992,
+        "last_walk_us": 146000000,
+        "agents": {
+          "npc_b": 1.2999999999999992
+        }
+      },
+      "-6,8": {
+        "distance": 0.09999999999999994,
+        "wear": 0.09999999999999994,
+        "last_walk_us": 146000000,
+        "agents": {
+          "npc_b": 0.09999999999999994
+        }
+      },
+      "1,-2": {
+        "distance": 1.1666666666666667,
+        "wear": 1.1666666666666667,
+        "last_walk_us": 193500000,
+        "agents": {
+          "npc_a": 1.1666666666666667
+        }
+      },
+      "-6,7": {
+        "distance": 1.3000000000000007,
+        "wear": 1.3000000000000007,
+        "last_walk_us": 151000000,
+        "agents": {
+          "npc_b": 1.3000000000000007
+        }
+      },
+      "-6,6": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 153500000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "1,-1": {
+        "distance": 2.4833333333333347,
+        "wear": 2.4833333333333347,
+        "last_walk_us": 667250000,
+        "agents": {
+          "npc_a": 2.4833333333333347
+        }
+      },
+      "-6,5": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 156000000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-6,4": {
+        "distance": 1.0833333333333333,
+        "wear": 1.0833333333333333,
+        "last_walk_us": 162250000,
+        "agents": {
+          "npc_b": 1.0833333333333333
+        }
+      },
+      "-6,3": {
+        "distance": 0.4500000000000001,
+        "wear": 0.4500000000000001,
+        "last_walk_us": 162250000,
+        "agents": {
+          "npc_b": 0.4500000000000001
+        }
+      },
+      "-7,4": {
+        "distance": 1.3333333333333344,
+        "wear": 1.3333333333333344,
+        "last_walk_us": 166000000,
+        "agents": {
+          "npc_b": 1.3333333333333344
+        }
+      },
+      "-7,5": {
+        "distance": 0.08333333333333337,
+        "wear": 0.08333333333333337,
+        "last_walk_us": 166000000,
+        "agents": {
+          "npc_b": 0.08333333333333337
+        }
+      },
+      "-8,5": {
+        "distance": 1.9166666666666687,
+        "wear": 1.9166666666666687,
+        "last_walk_us": 188500000,
+        "agents": {
+          "npc_b": 1.9166666666666687
+        }
+      },
+      "-9,5": {
+        "distance": 1.9166666666666674,
+        "wear": 1.9166666666666674,
+        "last_walk_us": 184750000,
+        "agents": {
+          "npc_b": 1.9166666666666674
+        }
+      },
+      "3,-4": {
+        "distance": 0.9999999999999998,
+        "wear": 0.9999999999999998,
+        "last_walk_us": 182250000,
+        "agents": {
+          "npc_a": 0.9999999999999998
+        }
+      },
+      "2,-4": {
+        "distance": 0.6999999999999998,
+        "wear": 0.6999999999999998,
+        "last_walk_us": 188500000,
+        "agents": {
+          "npc_a": 0.6999999999999998
+        }
+      },
+      "-8,4": {
+        "distance": 1.3333333333333344,
+        "wear": 1.3333333333333344,
+        "last_walk_us": 194750000,
+        "agents": {
+          "npc_b": 1.3333333333333344
+        }
+      },
+      "1,7": {
+        "distance": 2.4833333333333334,
+        "wear": 2.4833333333333334,
+        "last_walk_us": 262250000,
+        "agents": {
+          "npc_c": 2.4833333333333334
+        }
+      },
+      "1,6": {
+        "distance": 4.066666666666669,
+        "wear": 4.066666666666669,
+        "last_walk_us": 246000000,
+        "agents": {
+          "npc_c": 4.066666666666669
+        }
+      },
+      "-9,4": {
+        "distance": 1.3833333333333324,
+        "wear": 1.3833333333333324,
+        "last_walk_us": 199750000,
+        "agents": {
+          "npc_b": 1.3833333333333324
+        }
+      },
+      "-10,4": {
+        "distance": 0.09999999999999994,
+        "wear": 0.09999999999999994,
+        "last_walk_us": 199750000,
+        "agents": {
+          "npc_b": 0.09999999999999994
+        }
+      },
+      "-10,5": {
+        "distance": 1.2999999999999992,
+        "wear": 1.2999999999999992,
+        "last_walk_us": 203500000,
+        "agents": {
+          "npc_b": 1.2999999999999992
+        }
+      },
+      "-11,5": {
+        "distance": 0.09999999999999994,
+        "wear": 0.09999999999999994,
+        "last_walk_us": 203500000,
+        "agents": {
+          "npc_b": 0.09999999999999994
+        }
+      },
+      "-11,6": {
+        "distance": 1.3999999999999995,
+        "wear": 1.3999999999999995,
+        "last_walk_us": 208500000,
+        "agents": {
+          "npc_b": 1.3999999999999995
+        }
+      },
+      "-11,7": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 211000000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-11,8": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 213500000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "1,0": {
+        "distance": 2.166666666666667,
+        "wear": 2.166666666666667,
+        "last_walk_us": 666000000,
+        "agents": {
+          "npc_a": 2.166666666666667
+        }
+      },
+      "-11,9": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 216000000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-11,10": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 218500000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-11,11": {
+        "distance": 1.099999999999999,
+        "wear": 1.099999999999999,
+        "last_walk_us": 224750000,
+        "agents": {
+          "npc_b": 1.099999999999999
+        }
+      },
+      "0,0": {
+        "distance": 2.700000000000001,
+        "wear": 2.700000000000001,
+        "last_walk_us": 662250000,
+        "agents": {
+          "npc_a": 2.700000000000001
+        }
+      },
+      "-1,0": {
+        "distance": 3.9833333333333356,
+        "wear": 3.9833333333333356,
+        "last_walk_us": 659750000,
+        "agents": {
+          "npc_a": 3.9833333333333356
+        }
+      },
+      "-11,12": {
+        "distance": 0.7,
+        "wear": 0.7,
+        "last_walk_us": 227250000,
+        "agents": {
+          "npc_b": 0.7
+        }
+      },
+      "-2,0": {
+        "distance": 2.1000000000000005,
+        "wear": 2.1000000000000005,
+        "last_walk_us": 657250000,
+        "agents": {
+          "npc_a": 2.1000000000000005
+        }
+      },
+      "-2,-1": {
+        "distance": 6.999999999999992,
+        "wear": 6.999999999999992,
+        "last_walk_us": 617250000,
+        "agents": {
+          "npc_a": 6.999999999999992
+        }
+      },
+      "-3,-1": {
+        "distance": 3.7000000000000033,
+        "wear": 3.7000000000000033,
+        "last_walk_us": 617250000,
+        "agents": {
+          "npc_a": 3.7000000000000033
+        }
+      },
+      "-12,12": {
+        "distance": 0.9999999999999989,
+        "wear": 0.9999999999999989,
+        "last_walk_us": 232250000,
+        "agents": {
+          "npc_b": 0.9999999999999989
+        }
+      },
+      "-4,-1": {
+        "distance": 3.3500000000000023,
+        "wear": 3.3500000000000023,
+        "last_walk_us": 559750000,
+        "agents": {
+          "npc_a": 3.3500000000000023
+        }
+      },
+      "-4,-2": {
+        "distance": 2.1000000000000005,
+        "wear": 2.1000000000000005,
+        "last_walk_us": 249750000,
+        "agents": {
+          "npc_a": 2.1000000000000005
+        }
+      },
+      "-5,-2": {
+        "distance": 0.9000000000000001,
+        "wear": 0.9000000000000001,
+        "last_walk_us": 238500000,
+        "agents": {
+          "npc_a": 0.9000000000000001
+        }
+      },
+      "-12,13": {
+        "distance": 0.7999999999999983,
+        "wear": 0.7999999999999983,
+        "last_walk_us": 236000000,
+        "agents": {
+          "npc_b": 0.7999999999999983
+        }
+      },
+      "-13,13": {
+        "distance": 0.5999999999999988,
+        "wear": 0.5999999999999988,
+        "last_walk_us": 237250000,
+        "agents": {
+          "npc_b": 0.5999999999999988
+        }
+      },
+      "-13,14": {
+        "distance": 0.899999999999998,
+        "wear": 0.899999999999998,
+        "last_walk_us": 239750000,
+        "agents": {
+          "npc_b": 0.899999999999998
+        }
+      },
+      "-5,-3": {
+        "distance": 2.7000000000000006,
+        "wear": 2.7000000000000006,
+        "last_walk_us": 443500000,
+        "agents": {
+          "npc_a": 2.7000000000000006
+        }
+      },
+      "-14,14": {
+        "distance": 0.499999999999999,
+        "wear": 0.499999999999999,
+        "last_walk_us": 241000000,
+        "agents": {
+          "npc_b": 0.499999999999999
+        }
+      },
+      "-14,15": {
+        "distance": 1.0333333333333339,
+        "wear": 1.0333333333333339,
+        "last_walk_us": 248500000,
+        "agents": {
+          "npc_b": 1.0333333333333339
+        }
+      },
+      "-4,-3": {
+        "distance": 1.0,
+        "wear": 1.0,
+        "last_walk_us": 423500000,
+        "agents": {
+          "npc_a": 1.0
+        }
+      },
+      "-14,16": {
+        "distance": 1.1666666666666672,
+        "wear": 1.1666666666666672,
+        "last_walk_us": 252250000,
+        "agents": {
+          "npc_b": 1.1666666666666672
+        }
+      },
+      "-4,0": {
+        "distance": 4.700000000000001,
+        "wear": 4.700000000000001,
+        "last_walk_us": 566000000,
+        "agents": {
+          "npc_a": 4.700000000000001
+        }
+      },
+      "-13,16": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 254750000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-4,1": {
+        "distance": 2.300000000000002,
+        "wear": 2.300000000000002,
+        "last_walk_us": 624750000,
+        "agents": {
+          "npc_a": 2.300000000000002
+        }
+      },
+      "-3,1": {
+        "distance": 2.350000000000002,
+        "wear": 2.350000000000002,
+        "last_walk_us": 652250000,
+        "agents": {
+          "npc_a": 2.350000000000002
+        }
+      },
+      "-12,16": {
+        "distance": 1.0999999999999996,
+        "wear": 1.0999999999999996,
+        "last_walk_us": 641000000,
+        "agents": {
+          "npc_b": 1.0999999999999996
+        }
+      },
+      "-11,16": {
+        "distance": 1.4999999999999991,
+        "wear": 1.4999999999999991,
+        "last_walk_us": 641000000,
+        "agents": {
+          "npc_b": 1.4999999999999991
+        }
+      },
+      "-2,1": {
+        "distance": 2.3666666666666667,
+        "wear": 2.3666666666666667,
+        "last_walk_us": 657250000,
+        "agents": {
+          "npc_a": 2.3666666666666667
+        }
+      },
+      "-10,16": {
+        "distance": 1.9999999999999984,
+        "wear": 1.9999999999999984,
+        "last_walk_us": 431000000,
+        "agents": {
+          "npc_b": 1.9999999999999984
+        }
+      },
+      "-9,16": {
+        "distance": 2.8,
+        "wear": 2.8,
+        "last_walk_us": 567250000,
+        "agents": {
+          "npc_b": 2.8
+        }
+      },
+      "-8,16": {
+        "distance": 4.6999999999999975,
+        "wear": 4.6999999999999975,
+        "last_walk_us": 569750000,
+        "agents": {
+          "npc_b": 4.6999999999999975
+        }
+      },
+      "-8,15": {
+        "distance": 0.9999999999999996,
+        "wear": 0.9999999999999996,
+        "last_walk_us": 571000000,
+        "agents": {
+          "npc_b": 0.9999999999999996
+        }
+      },
+      "0,-1": {
+        "distance": 1.9000000000000006,
+        "wear": 1.9000000000000006,
+        "last_walk_us": 538500000,
+        "agents": {
+          "npc_a": 1.9000000000000006
+        }
+      },
+      "-7,15": {
+        "distance": 3.8000000000000003,
+        "wear": 3.8000000000000003,
+        "last_walk_us": 573500000,
+        "agents": {
+          "npc_b": 3.8000000000000003
+        }
+      },
+      "-1,-1": {
+        "distance": 6.549999999999994,
+        "wear": 6.549999999999994,
+        "last_walk_us": 609750000,
+        "agents": {
+          "npc_a": 6.549999999999994
+        }
+      },
+      "-6,15": {
+        "distance": 5.999999999999995,
+        "wear": 5.999999999999995,
+        "last_walk_us": 586000000,
+        "agents": {
+          "npc_b": 5.999999999999995
+        }
+      },
+      "-5,15": {
+        "distance": 3.5999999999999996,
+        "wear": 3.5999999999999996,
+        "last_walk_us": 581000000,
+        "agents": {
+          "npc_b": 2.699999999999999,
+          "npc_c": 0.8999999999999996
+        }
+      },
+      "-3,6": {
+        "distance": 0.5833333333333336,
+        "wear": 0.5833333333333336,
+        "last_walk_us": 281000000,
+        "agents": {
+          "npc_c": 0.5833333333333336
+        }
+      },
+      "-5,14": {
+        "distance": 2.8000000000000003,
+        "wear": 2.8000000000000003,
+        "last_walk_us": 581000000,
+        "agents": {
+          "npc_b": 1.7999999999999994,
+          "npc_c": 0.9999999999999999
+        }
+      },
+      "-4,14": {
+        "distance": 1.399999999999999,
+        "wear": 1.399999999999999,
+        "last_walk_us": 292250000,
+        "agents": {
+          "npc_b": 1.399999999999999
+        }
+      },
+      "-4,13": {
+        "distance": 1.499999999999999,
+        "wear": 1.499999999999999,
+        "last_walk_us": 302250000,
+        "agents": {
+          "npc_b": 1.399999999999999,
+          "npc_c": 0.09999999999999994
+        }
+      },
+      "-4,10": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 293500000,
+        "agents": {
+          "npc_c": 0.9999999999999999
+        }
+      },
+      "-4,11": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 296000000,
+        "agents": {
+          "npc_c": 0.9999999999999999
+        }
+      },
+      "-4,12": {
+        "distance": 1.2999999999999994,
+        "wear": 1.2999999999999994,
+        "last_walk_us": 302250000,
+        "agents": {
+          "npc_c": 1.2999999999999994
+        }
+      },
+      "-6,16": {
+        "distance": 2.700000000000001,
+        "wear": 2.700000000000001,
+        "last_walk_us": 586000000,
+        "agents": {
+          "npc_b": 2.700000000000001
+        }
+      },
+      "-6,17": {
+        "distance": 2.0000000000000004,
+        "wear": 2.0000000000000004,
+        "last_walk_us": 366000000,
+        "agents": {
+          "npc_b": 2.0000000000000004
+        }
+      },
+      "-5,13": {
+        "distance": 1.1999999999999997,
+        "wear": 1.1999999999999997,
+        "last_walk_us": 306000000,
+        "agents": {
+          "npc_c": 1.1999999999999997
+        }
+      },
+      "-6,18": {
+        "distance": 3.4000000000000017,
+        "wear": 3.4000000000000017,
+        "last_walk_us": 521000000,
+        "agents": {
+          "npc_b": 3.4000000000000017
+        }
+      },
+      "-6,19": {
+        "distance": 3.0000000000000013,
+        "wear": 3.0000000000000013,
+        "last_walk_us": 523500000,
+        "agents": {
+          "npc_b": 3.0000000000000013
+        }
+      },
+      "-6,20": {
+        "distance": 3.0000000000000013,
+        "wear": 3.0000000000000013,
+        "last_walk_us": 526000000,
+        "agents": {
+          "npc_b": 3.0000000000000013
+        }
+      },
+      "-6,21": {
+        "distance": 3.600000000000002,
+        "wear": 3.600000000000002,
+        "last_walk_us": 528500000,
+        "agents": {
+          "npc_b": 3.600000000000002
+        }
+      },
+      "-4,15": {
+        "distance": 0.39999999999999974,
+        "wear": 0.39999999999999974,
+        "last_walk_us": 313500000,
+        "agents": {
+          "npc_c": 0.39999999999999974
+        }
+      },
+      "-4,16": {
+        "distance": 2.0999999999999983,
+        "wear": 2.0999999999999983,
+        "last_walk_us": 511000000,
+        "agents": {
+          "npc_c": 0.9999999999999996,
+          "npc_b": 1.0999999999999994
+        }
+      },
+      "-7,21": {
+        "distance": 1.2999999999999996,
+        "wear": 1.2999999999999996,
+        "last_walk_us": 537250000,
+        "agents": {
+          "npc_b": 1.2999999999999996
+        }
+      },
+      "-3,16": {
+        "distance": 0.39999999999999974,
+        "wear": 0.39999999999999974,
+        "last_walk_us": 321000000,
+        "agents": {
+          "npc_c": 0.39999999999999974
+        }
+      },
+      "-3,17": {
+        "distance": 0.19999999999999987,
+        "wear": 0.19999999999999987,
+        "last_walk_us": 321000000,
+        "agents": {
+          "npc_c": 0.19999999999999987
+        }
+      },
+      "-4,17": {
+        "distance": 3.4000000000000012,
+        "wear": 3.4000000000000012,
+        "last_walk_us": 8816000000,
+        "agents": {
+          "npc_c": 3.3000000000000016,
+          "npc_b": 0.09999999999999994
+        }
+      },
+      "-8,21": {
+        "distance": 2.5999999999999983,
+        "wear": 2.5999999999999983,
+        "last_walk_us": 543500000,
+        "agents": {
+          "npc_b": 2.5999999999999983
+        }
+      },
+      "-4,18": {
+        "distance": 2.0999999999999996,
+        "wear": 2.0999999999999996,
+        "last_walk_us": 8816000000,
+        "agents": {
+          "npc_c": 2.0999999999999996
+        }
+      },
+      "-9,21": {
+        "distance": 2.0,
+        "wear": 2.0,
+        "last_walk_us": 546000000,
+        "agents": {
+          "npc_b": 2.0
+        }
+      },
+      "-10,21": {
+        "distance": 3.2000000000000006,
+        "wear": 3.2000000000000006,
+        "last_walk_us": 547250000,
+        "agents": {
+          "npc_b": 3.2000000000000006
+        }
+      },
+      "-10,20": {
+        "distance": 2.6999999999999997,
+        "wear": 2.6999999999999997,
+        "last_walk_us": 601000000,
+        "agents": {
+          "npc_b": 2.6999999999999997
+        }
+      },
+      "-11,20": {
+        "distance": 2.499999999999995,
+        "wear": 2.499999999999995,
+        "last_walk_us": 603500000,
+        "agents": {
+          "npc_b": 2.499999999999995
+        }
+      },
+      "-11,19": {
+        "distance": 5.2999999999999945,
+        "wear": 5.2999999999999945,
+        "last_walk_us": 607250000,
+        "agents": {
+          "npc_b": 5.2999999999999945
+        }
+      },
+      "-5,0": {
+        "distance": 1.4999999999999996,
+        "wear": 1.4999999999999996,
+        "last_walk_us": 517250000,
+        "agents": {
+          "npc_a": 1.4999999999999996
+        }
+      },
+      "-11,18": {
+        "distance": 4.399999999999994,
+        "wear": 4.399999999999994,
+        "last_walk_us": 633500000,
+        "agents": {
+          "npc_b": 4.399999999999994
+        }
+      },
+      "-10,18": {
+        "distance": 3.499999999999991,
+        "wear": 3.499999999999991,
+        "last_walk_us": 563500000,
+        "agents": {
+          "npc_b": 3.499999999999991
+        }
+      },
+      "-10,17": {
+        "distance": 2.699999999999997,
+        "wear": 2.699999999999997,
+        "last_walk_us": 563500000,
+        "agents": {
+          "npc_b": 2.699999999999997
+        }
+      },
+      "-9,17": {
+        "distance": 3.199999999999995,
+        "wear": 3.199999999999995,
+        "last_walk_us": 566000000,
+        "agents": {
+          "npc_b": 3.199999999999995
+        }
+      },
+      "-7,16": {
+        "distance": 4.799999999999997,
+        "wear": 4.799999999999997,
+        "last_walk_us": 589750000,
+        "agents": {
+          "npc_b": 4.799999999999997
+        }
+      },
+      "-6,22": {
+        "distance": 1.6999999999999986,
+        "wear": 1.6999999999999986,
+        "last_walk_us": 532250000,
+        "agents": {
+          "npc_b": 1.6999999999999986
+        }
+      },
+      "-7,22": {
+        "distance": 2.399999999999999,
+        "wear": 2.399999999999999,
+        "last_walk_us": 537250000,
+        "agents": {
+          "npc_b": 2.399999999999999
+        }
+      },
+      "-3,0": {
+        "distance": 3.2000000000000033,
+        "wear": 3.2000000000000033,
+        "last_walk_us": 619750000,
+        "agents": {
+          "npc_a": 3.2000000000000033
+        }
+      },
+      "-8,22": {
+        "distance": 1.0999999999999999,
+        "wear": 1.0999999999999999,
+        "last_walk_us": 392250000,
+        "agents": {
+          "npc_b": 1.0999999999999999
+        }
+      },
+      "-9,22": {
+        "distance": 0.999999999999999,
+        "wear": 0.999999999999999,
+        "last_walk_us": 396000000,
+        "agents": {
+          "npc_b": 0.999999999999999
+        }
+      },
+      "-10,22": {
+        "distance": 0.8999999999999999,
+        "wear": 0.8999999999999999,
+        "last_walk_us": 399750000,
+        "agents": {
+          "npc_b": 0.8999999999999999
+        }
+      },
+      "-10,19": {
+        "distance": 3.399999999999992,
+        "wear": 3.399999999999992,
+        "last_walk_us": 599750000,
+        "agents": {
+          "npc_b": 3.399999999999992
+        }
+      },
+      "-3,-2": {
+        "distance": 1.3,
+        "wear": 1.3,
+        "last_walk_us": 418500000,
+        "agents": {
+          "npc_a": 1.3
+        }
+      },
+      "-3,-3": {
+        "distance": 0.8000000000000002,
+        "wear": 0.8000000000000002,
+        "last_walk_us": 422250000,
+        "agents": {
+          "npc_a": 0.8000000000000002
+        }
+      },
+      "-4,-4": {
+        "distance": 0.65,
+        "wear": 0.65,
+        "last_walk_us": 424750000,
+        "agents": {
+          "npc_a": 0.65
+        }
+      },
+      "-5,-4": {
+        "distance": 2.266666666666668,
+        "wear": 2.266666666666668,
+        "last_walk_us": 441000000,
+        "agents": {
+          "npc_a": 2.266666666666668
+        }
+      },
+      "-11,17": {
+        "distance": 4.9999999999999964,
+        "wear": 4.9999999999999964,
+        "last_walk_us": 638500000,
+        "agents": {
+          "npc_b": 4.9999999999999964
+        }
+      },
+      "-6,-4": {
+        "distance": 0.16666666666666674,
+        "wear": 0.16666666666666674,
+        "last_walk_us": 429750000,
+        "agents": {
+          "npc_a": 0.16666666666666674
+        }
+      },
+      "-6,-5": {
+        "distance": 0.08333333333333337,
+        "wear": 0.08333333333333337,
+        "last_walk_us": 429750000,
+        "agents": {
+          "npc_a": 0.08333333333333337
+        }
+      },
+      "-5,-5": {
+        "distance": 1.3333333333333333,
+        "wear": 1.3333333333333333,
+        "last_walk_us": 438500000,
+        "agents": {
+          "npc_a": 1.3333333333333333
+        }
+      },
+      "-4,-5": {
+        "distance": 0.2999999999999998,
+        "wear": 0.2999999999999998,
+        "last_walk_us": 438500000,
+        "agents": {
+          "npc_a": 0.2999999999999998
+        }
+      },
+      "-7,14": {
+        "distance": 0.49999999999999967,
+        "wear": 0.49999999999999967,
+        "last_walk_us": 574750000,
+        "agents": {
+          "npc_b": 0.49999999999999967
+        }
+      },
+      "-6,-3": {
+        "distance": 0.3833333333333333,
+        "wear": 0.3833333333333333,
+        "last_walk_us": 444750000,
+        "agents": {
+          "npc_a": 0.3833333333333333
+        }
+      },
+      "-6,14": {
+        "distance": 3.1,
+        "wear": 3.1,
+        "last_walk_us": 578500000,
+        "agents": {
+          "npc_b": 3.1
+        }
+      },
+      "-6,-2": {
+        "distance": 1.1666666666666667,
+        "wear": 1.1666666666666667,
+        "last_walk_us": 447250000,
+        "agents": {
+          "npc_a": 1.1666666666666667
+        }
+      },
+      "-6,-1": {
+        "distance": 0.45000000000000007,
+        "wear": 0.45000000000000007,
+        "last_walk_us": 448500000,
+        "agents": {
+          "npc_a": 0.45000000000000007
+        }
+      },
+      "-7,-1": {
+        "distance": 0.7,
+        "wear": 0.7,
+        "last_walk_us": 449750000,
+        "agents": {
+          "npc_a": 0.7
+        }
+      },
+      "-7,0": {
+        "distance": 1.1833333333333333,
+        "wear": 1.1833333333333333,
+        "last_walk_us": 453500000,
+        "agents": {
+          "npc_a": 1.1833333333333333
+        }
+      },
+      "-7,1": {
+        "distance": 1.083333333333333,
+        "wear": 1.083333333333333,
+        "last_walk_us": 507250000,
+        "agents": {
+          "npc_a": 1.083333333333333
+        }
+      },
+      "-8,1": {
+        "distance": 2.5333333333333328,
+        "wear": 2.5333333333333328,
+        "last_walk_us": 504750000,
+        "agents": {
+          "npc_a": 2.5333333333333328
+        }
+      },
+      "-8,17": {
+        "distance": 3.600000000000001,
+        "wear": 3.600000000000001,
+        "last_walk_us": 593500000,
+        "agents": {
+          "npc_b": 3.600000000000001
+        }
+      },
+      "-8,2": {
+        "distance": 0.0999999999999999,
+        "wear": 0.0999999999999999,
+        "last_walk_us": 459750000,
+        "agents": {
+          "npc_a": 0.0999999999999999
+        }
+      },
+      "-9,2": {
+        "distance": 1.3666666666666665,
+        "wear": 1.3666666666666665,
+        "last_walk_us": 468500000,
+        "agents": {
+          "npc_a": 1.3666666666666665
+        }
+      },
+      "-9,18": {
+        "distance": 2.6999999999999944,
+        "wear": 2.6999999999999944,
+        "last_walk_us": 597250000,
+        "agents": {
+          "npc_b": 2.6999999999999944
+        }
+      },
+      "-10,2": {
+        "distance": 0.2666666666666666,
+        "wear": 0.2666666666666666,
+        "last_walk_us": 468500000,
+        "agents": {
+          "npc_a": 0.2666666666666666
+        }
+      },
+      "-9,1": {
+        "distance": 0.9666666666666673,
+        "wear": 0.9666666666666673,
+        "last_walk_us": 502250000,
+        "agents": {
+          "npc_a": 0.9666666666666673
+        }
+      },
+      "-6,1": {
+        "distance": 1.0999999999999999,
+        "wear": 1.0999999999999999,
+        "last_walk_us": 512250000,
+        "agents": {
+          "npc_a": 1.0999999999999999
+        }
+      },
+      "-5,16": {
+        "distance": 0.2999999999999998,
+        "wear": 0.2999999999999998,
+        "last_walk_us": 507250000,
+        "agents": {
+          "npc_b": 0.2999999999999998
+        }
+      },
+      "-5,17": {
+        "distance": 2.299999999999999,
+        "wear": 2.299999999999999,
+        "last_walk_us": 8912250000,
+        "agents": {
+          "npc_b": 1.2999999999999992,
+          "npc_c": 0.9999999999999998
+        }
+      },
+      "-5,1": {
+        "distance": 1.6833333333333325,
+        "wear": 1.6833333333333325,
+        "last_walk_us": 628500000,
+        "agents": {
+          "npc_a": 1.6833333333333325
+        }
+      },
+      "-5,18": {
+        "distance": 2.399999999999999,
+        "wear": 2.399999999999999,
+        "last_walk_us": 8918500000,
+        "agents": {
+          "npc_b": 0.09999999999999994,
+          "npc_c": 2.2999999999999994
+        }
+      },
+      "-4,2": {
+        "distance": 1.0000000000000004,
+        "wear": 1.0000000000000004,
+        "last_walk_us": 571000000,
+        "agents": {
+          "npc_a": 1.0000000000000004
+        }
+      },
+      "-4,3": {
+        "distance": 1.8833333333333342,
+        "wear": 1.8833333333333342,
+        "last_walk_us": 647250000,
+        "agents": {
+          "npc_a": 1.8833333333333342
+        }
+      },
+      "-4,4": {
+        "distance": 2.216666666666668,
+        "wear": 2.216666666666668,
+        "last_walk_us": 646000000,
+        "agents": {
+          "npc_a": 2.216666666666668
+        }
+      },
+      "-3,5": {
+        "distance": 1.2333333333333338,
+        "wear": 1.2333333333333338,
+        "last_walk_us": 584750000,
+        "agents": {
+          "npc_a": 1.2333333333333338
+        }
+      },
+      "-3,4": {
+        "distance": 0.5000000000000002,
+        "wear": 0.5000000000000002,
+        "last_walk_us": 586000000,
+        "agents": {
+          "npc_a": 0.5000000000000002
+        }
+      },
+      "-2,3": {
+        "distance": 1.0999999999999996,
+        "wear": 1.0999999999999996,
+        "last_walk_us": 591000000,
+        "agents": {
+          "npc_a": 1.0999999999999996
+        }
+      },
+      "-7,17": {
+        "distance": 0.09999999999999994,
+        "wear": 0.09999999999999994,
+        "last_walk_us": 589750000,
+        "agents": {
+          "npc_b": 0.09999999999999994
+        }
+      },
+      "-2,2": {
+        "distance": 0.2833333333333333,
+        "wear": 0.2833333333333333,
+        "last_walk_us": 594750000,
+        "agents": {
+          "npc_a": 0.2833333333333333
+        }
+      },
+      "-8,18": {
+        "distance": 0.09999999999999994,
+        "wear": 0.09999999999999994,
+        "last_walk_us": 593500000,
+        "agents": {
+          "npc_b": 0.09999999999999994
+        }
+      },
+      "-9,19": {
+        "distance": 0.0999999999999998,
+        "wear": 0.0999999999999998,
+        "last_walk_us": 597250000,
+        "agents": {
+          "npc_b": 0.0999999999999998
+        }
+      },
+      "-2,-2": {
+        "distance": 0.5000000000000001,
+        "wear": 0.5000000000000001,
+        "last_walk_us": 614750000,
+        "agents": {
+          "npc_a": 0.5000000000000001
+        }
+      },
+      "-12,18": {
+        "distance": 1.0999999999999976,
+        "wear": 1.0999999999999976,
+        "last_walk_us": 632250000,
+        "agents": {
+          "npc_b": 1.0999999999999976
+        }
+      },
+      "-12,19": {
+        "distance": 1.9999999999999976,
+        "wear": 1.9999999999999976,
+        "last_walk_us": 629750000,
+        "agents": {
+          "npc_b": 1.9999999999999976
+        }
+      },
+      "-5,2": {
+        "distance": 0.5333333333333334,
+        "wear": 0.5333333333333334,
+        "last_walk_us": 633500000,
+        "agents": {
+          "npc_a": 0.5333333333333334
+        }
+      },
+      "-6,2": {
+        "distance": 0.5666666666666667,
+        "wear": 0.5666666666666667,
+        "last_walk_us": 632250000,
+        "agents": {
+          "npc_a": 0.5666666666666667
+        }
+      },
+      "-5,3": {
+        "distance": 1.0999999999999996,
+        "wear": 1.0999999999999996,
+        "last_walk_us": 636000000,
+        "agents": {
+          "npc_a": 1.0999999999999996
+        }
+      },
+      "-5,4": {
+        "distance": 1.1333333333333329,
+        "wear": 1.1333333333333329,
+        "last_walk_us": 639750000,
+        "agents": {
+          "npc_a": 1.1333333333333329
+        }
+      },
+      "-5,5": {
+        "distance": 0.16666666666666674,
+        "wear": 0.16666666666666674,
+        "last_walk_us": 639750000,
+        "agents": {
+          "npc_a": 0.16666666666666674
+        }
+      },
+      "-12,17": {
+        "distance": 1.2999999999999974,
+        "wear": 1.2999999999999974,
+        "last_walk_us": 644750000,
+        "agents": {
+          "npc_b": 1.2999999999999974
+        }
+      },
+      "-4,5": {
+        "distance": 0.08333333333333337,
+        "wear": 0.08333333333333337,
+        "last_walk_us": 643500000,
+        "agents": {
+          "npc_a": 0.08333333333333337
+        }
+      },
+      "-13,17": {
+        "distance": 0.0999999999999998,
+        "wear": 0.0999999999999998,
+        "last_walk_us": 644750000,
+        "agents": {
+          "npc_b": 0.0999999999999998
+        }
+      },
+      "-13,18": {
+        "distance": 1.2999999999999974,
+        "wear": 1.2999999999999974,
+        "last_walk_us": 647250000,
+        "agents": {
+          "npc_b": 1.2999999999999974
+        }
+      },
+      "-3,3": {
+        "distance": 0.3999999999999999,
+        "wear": 0.3999999999999999,
+        "last_walk_us": 648500000,
+        "agents": {
+          "npc_a": 0.3999999999999999
+        }
+      },
+      "-3,2": {
+        "distance": 1.183333333333333,
+        "wear": 1.183333333333333,
+        "last_walk_us": 652250000,
+        "agents": {
+          "npc_a": 1.183333333333333
+        }
+      },
+      "-14,18": {
+        "distance": 0.0999999999999998,
+        "wear": 0.0999999999999998,
+        "last_walk_us": 648500000,
+        "agents": {
+          "npc_b": 0.0999999999999998
+        }
+      },
+      "-14,19": {
+        "distance": 1.3999999999999972,
+        "wear": 1.3999999999999972,
+        "last_walk_us": 651000000,
+        "agents": {
+          "npc_b": 1.3999999999999972
+        }
+      },
+      "-15,20": {
+        "distance": 1.3999999999999972,
+        "wear": 1.3999999999999972,
+        "last_walk_us": 654750000,
+        "agents": {
+          "npc_b": 1.3999999999999972
+        }
+      },
+      "-16,21": {
+        "distance": 1.3999999999999972,
+        "wear": 1.3999999999999972,
+        "last_walk_us": 658500000,
+        "agents": {
+          "npc_b": 1.3999999999999972
+        }
+      },
+      "-17,21": {
+        "distance": 0.0999999999999998,
+        "wear": 0.0999999999999998,
+        "last_walk_us": 658500000,
+        "agents": {
+          "npc_b": 0.0999999999999998
+        }
+      },
+      "-17,22": {
+        "distance": 1.0999999999999988,
+        "wear": 1.0999999999999988,
+        "last_walk_us": 662250000,
+        "agents": {
+          "npc_b": 1.0999999999999988
+        }
+      },
+      "-18,22": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 664750000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-19,22": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 667250000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-20,22": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 669750000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-21,22": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 672250000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-22,22": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 674750000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "-23,22": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 677250000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "5,-2": {
+        "distance": 0.9999999999999997,
+        "wear": 0.9999999999999997,
+        "last_walk_us": 678500000,
+        "agents": {
+          "npc_a": 0.9999999999999997
+        }
+      },
+      "-24,22": {
+        "distance": 0.9999999999999999,
+        "wear": 0.9999999999999999,
+        "last_walk_us": 679750000,
+        "agents": {
+          "npc_b": 0.9999999999999999
+        }
+      },
+      "6,-2": {
+        "distance": 1.0999999999999996,
+        "wear": 1.0999999999999996,
+        "last_walk_us": 682250000,
+        "agents": {
+          "npc_a": 1.0999999999999996
+        }
+      },
+      "7,-2": {
+        "distance": 0.2999999999999998,
+        "wear": 0.2999999999999998,
+        "last_walk_us": 682250000,
+        "agents": {
+          "npc_a": 0.2999999999999998
+        }
+      },
+      "7,-3": {
+        "distance": 0.6999999999999996,
+        "wear": 0.6999999999999996,
+        "last_walk_us": 687250000,
+        "agents": {
+          "npc_a": 0.6999999999999996
+        }
+      },
+      "-25,22": {
+        "distance": 0.7999999999999983,
+        "wear": 0.7999999999999983,
+        "last_walk_us": 683500000,
+        "agents": {
+          "npc_b": 0.7999999999999983
+        }
+      },
+      "-25,23": {
+        "distance": 0.5999999999999988,
+        "wear": 0.5999999999999988,
+        "last_walk_us": 684750000,
+        "agents": {
+          "npc_b": 0.5999999999999988
+        }
+      },
+      "-26,23": {
+        "distance": 0.7999999999999983,
+        "wear": 0.7999999999999983,
+        "last_walk_us": 687250000,
+        "agents": {
+          "npc_b": 0.7999999999999983
+        }
+      },
+      "8,-3": {
+        "distance": 0.5999999999999996,
+        "wear": 0.5999999999999996,
+        "last_walk_us": 697250000,
+        "agents": {
+          "npc_a": 0.5999999999999996
+        }
+      },
+      "8,-2": {
+        "distance": 1.6999999999999997,
+        "wear": 1.6999999999999997,
+        "last_walk_us": 694750000,
+        "agents": {
+          "npc_a": 1.6999999999999997
+        }
+      },
+      "-26,24": {
+        "distance": 0.5999999999999988,
+        "wear": 0.5999999999999988,
+        "last_walk_us": 688500000,
+        "agents": {
+          "npc_b": 0.5999999999999988
+        }
+      },
+      "-27,24": {
+        "distance": 1.1999999999999986,
+        "wear": 1.1999999999999986,
+        "last_walk_us": 692250000,
+        "agents": {
+          "npc_b": 1.1999999999999986
+        }
+      },
+      "-28,24": {
+        "distance": 1.4999999999999982,
+        "wear": 1.4999999999999982,
+        "last_walk_us": 8644750000,
+        "agents": {
+          "npc_b": 1.4999999999999982
+        }
+      },
+      "9,-3": {
+        "distance": 0.6999999999999998,
+        "wear": 0.6999999999999998,
+        "last_walk_us": 699750000,
+        "agents": {
+          "npc_a": 0.6999999999999998
+        }
+      },
+      "9,-4": {
+        "distance": 1.1999999999999997,
+        "wear": 1.1999999999999997,
+        "last_walk_us": 702250000,
+        "agents": {
+          "npc_a": 1.1999999999999997
+        }
+      },
+      "11,-6": {
+        "distance": 0.33333333333333365,
+        "wear": 0.33333333333333365,
+        "last_walk_us": 712250000,
+        "agents": {
+          "npc_a": 0.33333333333333365
+        }
+      },
+      "11,-7": {
+        "distance": 1.4500000000000002,
+        "wear": 1.4500000000000002,
+        "last_walk_us": 723500000,
+        "agents": {
+          "npc_a": 1.4500000000000002
+        }
+      },
+      "12,-7": {
+        "distance": 0.09999999999999992,
+        "wear": 0.09999999999999992,
+        "last_walk_us": 719750000,
+        "agents": {
+          "npc_a": 0.09999999999999992
+        }
+      },
+      "11,-8": {
+        "distance": 1.099999999999999,
+        "wear": 1.099999999999999,
+        "last_walk_us": 728500000,
+        "agents": {
+          "npc_a": 1.099999999999999
+        }
+      },
+      "11,-9": {
+        "distance": 1.2666666666666677,
+        "wear": 1.2666666666666677,
+        "last_walk_us": 738500000,
+        "agents": {
+          "npc_a": 1.2666666666666677
+        }
+      },
+      "12,-9": {
+        "distance": 0.8333333333333339,
+        "wear": 0.8333333333333339,
+        "last_walk_us": 739750000,
+        "agents": {
+          "npc_a": 0.8333333333333339
+        }
+      },
+      "12,-10": {
+        "distance": 0.16666666666666682,
+        "wear": 0.16666666666666682,
+        "last_walk_us": 743500000,
+        "agents": {
+          "npc_a": 0.16666666666666682
+        }
+      },
+      "13,-10": {
+        "distance": 1.0000000000000007,
+        "wear": 1.0000000000000007,
+        "last_walk_us": 746000000,
+        "agents": {
+          "npc_a": 1.0000000000000007
+        }
+      },
+      "14,-10": {
+        "distance": 1.0833333333333341,
+        "wear": 1.0833333333333341,
+        "last_walk_us": 748500000,
+        "agents": {
+          "npc_a": 1.0833333333333341
+        }
+      },
+      "15,-10": {
+        "distance": 1.0499999999999998,
+        "wear": 1.0499999999999998,
+        "last_walk_us": 751000000,
+        "agents": {
+          "npc_a": 1.0499999999999998
+        }
+      },
+      "16,-10": {
+        "distance": 0.5999999999999985,
+        "wear": 0.5999999999999985,
+        "last_walk_us": 752250000,
+        "agents": {
+          "npc_a": 0.5999999999999985
+        }
+      },
+      "16,-11": {
+        "distance": 0.399999999999999,
+        "wear": 0.399999999999999,
+        "last_walk_us": 753500000,
+        "agents": {
+          "npc_a": 0.399999999999999
+        }
+      },
+      "17,-11": {
+        "distance": 0.9999999999999976,
+        "wear": 0.9999999999999976,
+        "last_walk_us": 756000000,
+        "agents": {
+          "npc_a": 0.9999999999999976
+        }
+      },
+      "18,-11": {
+        "distance": 1.0999999999999974,
+        "wear": 1.0999999999999974,
+        "last_walk_us": 758500000,
+        "agents": {
+          "npc_a": 1.0999999999999974
+        }
+      },
+      "19,-11": {
+        "distance": 0.9999999999999976,
+        "wear": 0.9999999999999976,
+        "last_walk_us": 761000000,
+        "agents": {
+          "npc_a": 0.9999999999999976
+        }
+      },
+      "20,-11": {
+        "distance": 0.19999999999999965,
+        "wear": 0.19999999999999965,
+        "last_walk_us": 763500000,
+        "agents": {
+          "npc_a": 0.19999999999999965
+        }
+      },
+      "20,-12": {
+        "distance": 1.0999999999999979,
+        "wear": 1.0999999999999979,
+        "last_walk_us": 767250000,
+        "agents": {
+          "npc_a": 1.0999999999999979
+        }
+      },
+      "21,-12": {
+        "distance": 1.0999999999999976,
+        "wear": 1.0999999999999976,
+        "last_walk_us": 771000000,
+        "agents": {
+          "npc_a": 1.0999999999999976
+        }
+      },
+      "21,-13": {
+        "distance": 0.0999999999999999,
+        "wear": 0.0999999999999999,
+        "last_walk_us": 771000000,
+        "agents": {
+          "npc_a": 0.0999999999999999
+        }
+      },
+      "22,-13": {
+        "distance": 0.5999999999999993,
+        "wear": 0.5999999999999993,
+        "last_walk_us": 772250000,
+        "agents": {
+          "npc_a": 0.5999999999999993
+        }
+      }
+    }
+  },
+  "sleep_results": {
+    "npc_a": {
+      "cycle_status": "completed",
+      "rest_us": 2880000000,
+      "harvest_result": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "reason": null,
+        "model_ref": null
+      },
+      "harvest_records": 0,
+      "auto_model_ref": "sleep-unvalidated-action-model-v1:6f83000bce800dbc0286ed24",
+      "auto_cells": 0
+    },
+    "npc_b": {
+      "cycle_status": "completed",
+      "rest_us": 2880000000,
+      "harvest_result": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "reason": null,
+        "model_ref": null
+      },
+      "harvest_records": 0,
+      "auto_model_ref": "sleep-unvalidated-action-model-v1:6b21adc83243c06a1776cecf",
+      "auto_cells": 0
+    },
+    "npc_c": {
+      "cycle_status": "completed",
+      "rest_us": 2880000000,
+      "harvest_result": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "reason": null,
+        "model_ref": null
+      },
+      "harvest_records": 0,
+      "auto_model_ref": "sleep-unvalidated-action-model-v1:c09d0e505adc3ddc8bd01fe6",
+      "auto_cells": 1
+    }
+  },
+  "provenance": {
+    "implementation_commit": "0887044",
+    "log_path": "outputs\\scaled_base_17280000000us\\run.jsonl",
+    "log_bytes": 3989538802,
+    "sha256": "6b42293ad9a9733c29ee4a8246e063a144cb730773c53ad4a2e0587e083fe0f9",
+    "command": "python -m integrations.lightweight.scaled_base_campaign --full-day",
+    "scope": "one seed, one human-scale day; no Luanti or full unit suite rerun"
+  }
+}
