@@ -1,0 +1,413 @@
+{
+  "environment": {
+    "executable": "C:\\Users\\ken_m\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "commit": "9ce3f5f444ed33bebad09bcb5e90785e83f56693",
+    "source_sha256": "572c3323ed69f7069e31aa6e34100aab4d366c90fb8d652480b80fb83e79f85c",
+    "seconds": 1800,
+    "trials": 3,
+    "inherited_environment": {
+      "PYTHONHASHSEED": null,
+      "PYTHONPATH": null,
+      "PYTHONHOME": null,
+      "PYTHONMALLOC": null,
+      "PYTHONDEVMODE": null
+    },
+    "fixed_environment": {
+      "RDL_LW_TIME_PROFILE": "human_scale_v1",
+      "PYTHONHASHSEED": "0"
+    }
+  },
+  "results": [
+    {
+      "trial": 1,
+      "returncode": 0,
+      "exit_hex": "0x0",
+      "elapsed_seconds": 134.10900000002584,
+      "peak_working_set": 549216256,
+      "last_sim_us": 1800000000,
+      "report_written": true
+    },
+    {
+      "trial": 2,
+      "returncode": 0,
+      "exit_hex": "0x0",
+      "elapsed_seconds": 134.07800000000861,
+      "peak_working_set": 548786176,
+      "last_sim_us": 1800000000,
+      "report_written": true
+    },
+    {
+      "trial": 3,
+      "returncode": 0,
+      "exit_hex": "0x0",
+      "elapsed_seconds": 133.0779999999795,
+      "peak_working_set": 548835328,
+      "last_sim_us": 1800000000,
+      "report_written": true
+    }
+  ],
+  "determinism": [
+    {
+      "trial": "trial-1",
+      "completed": 4320,
+      "action_result_sha256": "8f77cc321b18967d884ce92a28d6ab5b022d4ddaf88ae80d87f03d837b17d5b0"
+    },
+    {
+      "trial": "trial-2",
+      "completed": 4320,
+      "action_result_sha256": "8f77cc321b18967d884ce92a28d6ab5b022d4ddaf88ae80d87f03d837b17d5b0"
+    },
+    {
+      "trial": "trial-3",
+      "completed": 4320,
+      "action_result_sha256": "8f77cc321b18967d884ce92a28d6ab5b022d4ddaf88ae80d87f03d837b17d5b0"
+    }
+  ],
+  "host_memory": {
+    "Caption": "Microsoft Windows 11 Pro",
+    "Version": "10.0.26300",
+    "BuildNumber": "26300",
+    "TotalVisibleMemorySize": 134042164,
+    "FreePhysicalMemory": 118033640,
+    "TotalVirtualMemorySize": 142430772,
+    "FreeVirtualMemory": 125159424
+  },
+  "python_hashes": [
+    {
+      "Path": "C:\\Users\\ken_m\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "Hash": "372C2EAE555B344520BF147BE0096E009069AECA4E7F78D6AECEA6D53158056A"
+    },
+    {
+      "Path": "C:\\Users\\ken_m\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python312.dll",
+      "Hash": "C1CE6D603041759061139F482C4B90C4AC9DB676E30ABF52FDA66A794AAB1BD0"
+    }
+  ],
+  "historical_crashes": {
+    "python312_dll_access_violation": 4,
+    "scoop_python_ntdll_heap_corruption": 1,
+    "source": "local Windows Application event 1000, previous five hours; outputs/crash_fixed_312_20261007/windows_events.json"
+  },
+  "audits": {
+    "trial-1": {
+      "completed": 4320,
+      "food_conserved": true,
+      "no_duplicate_or_overlapping_effects": true,
+      "initial_food": 124,
+      "regrown_food": 0,
+      "actions": {
+        "request:expressed": 4,
+        "refuse:expressed": 3,
+        "eat:ate": 3
+      },
+      "commands": {
+        "wait": 688,
+        "turn": 1328,
+        "move": 2288,
+        "social": 10,
+        "pickup": 6
+      },
+      "positive_refusal_choices": {
+        "request_again": 2
+      },
+      "safety_decisions": 4320,
+      "visible_hazard_decisions": 240,
+      "safety_reasons": {
+        "normal": 3923,
+        "continuous_safety/step_-90": 135,
+        "continuous_safety/step_-45": 49,
+        "continuous_safety/step_0": 8,
+        "provisional_mode_release": 47,
+        "continuous_safety/step_90": 99,
+        "continuous_safety/wait": 3,
+        "continuous_safety/step_45": 50,
+        "limited_clearance": 6
+      },
+      "daily": {
+        "1": {
+          "wait": 688,
+          "picked_up": 6,
+          "turn": 1328,
+          "move": 2288,
+          "social": 10,
+          "pickup": 6
+        }
+      },
+      "summary": {
+        "ended_us": 1800000000,
+        "pickups": 6,
+        "social_stock": 0,
+        "social_consumed": 3,
+        "physical_inventory": {
+          "npc_a": 3,
+          "npc_b": 2,
+          "npc_c": 2
+        },
+        "layered_bodies": {
+          "npc_a": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 87.96640972222926,
+            "damage": 0.0
+          },
+          "npc_b": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0.809409200000005,
+            "reserve": 87.72269170372888,
+            "damage": 0.0
+          },
+          "npc_c": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0.9597707500000032,
+            "reserve": 87.60985611113715,
+            "damage": 0.0
+          }
+        },
+        "elapsed_seconds": 131.0081972000189
+      },
+      "learning": {
+        "npc_a": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 4,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        },
+        "npc_b": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        },
+        "npc_c": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        }
+      }
+    },
+    "trial-2": {
+      "completed": 4320,
+      "food_conserved": true,
+      "no_duplicate_or_overlapping_effects": true,
+      "initial_food": 124,
+      "regrown_food": 0,
+      "actions": {
+        "request:expressed": 4,
+        "refuse:expressed": 3,
+        "eat:ate": 3
+      },
+      "commands": {
+        "wait": 688,
+        "turn": 1328,
+        "move": 2288,
+        "social": 10,
+        "pickup": 6
+      },
+      "positive_refusal_choices": {
+        "request_again": 2
+      },
+      "safety_decisions": 4320,
+      "visible_hazard_decisions": 240,
+      "safety_reasons": {
+        "normal": 3923,
+        "continuous_safety/step_-90": 135,
+        "continuous_safety/step_-45": 49,
+        "continuous_safety/step_0": 8,
+        "provisional_mode_release": 47,
+        "continuous_safety/step_90": 99,
+        "continuous_safety/wait": 3,
+        "continuous_safety/step_45": 50,
+        "limited_clearance": 6
+      },
+      "daily": {
+        "1": {
+          "wait": 688,
+          "picked_up": 6,
+          "turn": 1328,
+          "move": 2288,
+          "social": 10,
+          "pickup": 6
+        }
+      },
+      "summary": {
+        "ended_us": 1800000000,
+        "pickups": 6,
+        "social_stock": 0,
+        "social_consumed": 3,
+        "physical_inventory": {
+          "npc_a": 3,
+          "npc_b": 2,
+          "npc_c": 2
+        },
+        "layered_bodies": {
+          "npc_a": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 87.96640972222926,
+            "damage": 0.0
+          },
+          "npc_b": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0.809409200000005,
+            "reserve": 87.72269170372888,
+            "damage": 0.0
+          },
+          "npc_c": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0.9597707500000032,
+            "reserve": 87.60985611113715,
+            "damage": 0.0
+          }
+        },
+        "elapsed_seconds": 130.73954320000485
+      },
+      "learning": {
+        "npc_a": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 4,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        },
+        "npc_b": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        },
+        "npc_c": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        }
+      }
+    },
+    "trial-3": {
+      "completed": 4320,
+      "food_conserved": true,
+      "no_duplicate_or_overlapping_effects": true,
+      "initial_food": 124,
+      "regrown_food": 0,
+      "actions": {
+        "request:expressed": 4,
+        "refuse:expressed": 3,
+        "eat:ate": 3
+      },
+      "commands": {
+        "wait": 688,
+        "turn": 1328,
+        "move": 2288,
+        "social": 10,
+        "pickup": 6
+      },
+      "positive_refusal_choices": {
+        "request_again": 2
+      },
+      "safety_decisions": 4320,
+      "visible_hazard_decisions": 240,
+      "safety_reasons": {
+        "normal": 3923,
+        "continuous_safety/step_-90": 135,
+        "continuous_safety/step_-45": 49,
+        "continuous_safety/step_0": 8,
+        "provisional_mode_release": 47,
+        "continuous_safety/step_90": 99,
+        "continuous_safety/wait": 3,
+        "continuous_safety/step_45": 50,
+        "limited_clearance": 6
+      },
+      "daily": {
+        "1": {
+          "wait": 688,
+          "picked_up": 6,
+          "turn": 1328,
+          "move": 2288,
+          "social": 10,
+          "pickup": 6
+        }
+      },
+      "summary": {
+        "ended_us": 1800000000,
+        "pickups": 6,
+        "social_stock": 0,
+        "social_consumed": 3,
+        "physical_inventory": {
+          "npc_a": 3,
+          "npc_b": 2,
+          "npc_c": 2
+        },
+        "layered_bodies": {
+          "npc_a": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 87.96640972222926,
+            "damage": 0.0
+          },
+          "npc_b": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0.809409200000005,
+            "reserve": 87.72269170372888,
+            "damage": 0.0
+          },
+          "npc_c": {
+            "rule": "layered-body-human-scale-v1",
+            "burst": 10.0,
+            "strain": 0.9597707500000032,
+            "reserve": 87.60985611113715,
+            "damage": 0.0
+          }
+        },
+        "elapsed_seconds": 129.34749309998006
+      },
+      "learning": {
+        "npc_a": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 4,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        },
+        "npc_b": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        },
+        "npc_c": {
+          "sleep_statuses": {},
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": null,
+          "sleep_records": 0
+        }
+      }
+    }
+  }
+}
