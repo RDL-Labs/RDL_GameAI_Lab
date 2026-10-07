@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [譲渡への備蓄保持拘束](docs/experiment-evidence/LW_food_retention.md)：reserve・粗い備蓄・食料Hをgive候補へ合成。30日完走。将来の補給予測は未実装。
+
 - [身体・社会生活の複数seed](docs/experiment-evidence/LW_body_field_seeds.md)：追加3seed×30日完走。全員最終reserve正・30日目に移動あり。1個体で途中枯渇後の近傍採取/食事回復を記録。
 
 - [身体系の方法選択接続](docs/experiment-evidence/LW_body_method_field.md)：空腹/H・疲労を探索/帰還の既存候補へ合成。30日で9判断の最終操作選択差、全員の最終reserveは正。

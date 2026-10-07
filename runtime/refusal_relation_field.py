@@ -21,10 +21,12 @@ def compile_field(records,pressure,owner):
                 authority='experimental local M_B use rule; reverse cooperation is not an observed fact')
 
 
-def choose(field,observation,other,question,seed,*,enabled=True,affiliation=0.):
+def choose(field,observation,other,question,seed,*,enabled=True,affiliation=0.,retention=None):
     if observation['self_id']!=field['owner']:raise ValueError('choice_owner')
     if question not in ('request_again','respond'):raise ValueError('choice_question')
     if not isfinite(affiliation) or not 0<=affiliation<=2:raise ValueError('affiliation')
+    retention_cost=retention['cost'] if retention else 0.
+    if not isfinite(retention_cost) or not 0<=retention_cost<=4:raise ValueError('retention_cost')
     contacts={c['ref']:c for c in observation['others']}
     if other not in contacts:raise ValueError('unobserved_partner')
     trace=field['relations'].get(other,dict(weight=0.,sources=[]))
@@ -39,7 +41,7 @@ def choose(field,observation,other,question,seed,*,enabled=True,affiliation=0.):
         if observation['inventory']>0:
             # Current bodily need and prior affiliation compete with the trace.
             need=max(0.,(80-observation['body']['reserve'])/40)
-            candidates.append(dict(action='give',target=other,reply_to=request['id'],score=1.+affiliation-need-weight))
+            candidates.append(dict(action='give',target=other,reply_to=request['id'],score=1.+affiliation-need-weight-retention_cost))
     total=sum(exp(c['score']) for c in candidates)
     u=int.from_bytes(sha256(str(seed).encode()).digest()[:8],'big')/2**64
     cumulative=0.;selected=candidates[-1]
@@ -52,4 +54,4 @@ def choose(field,observation,other,question,seed,*,enabled=True,affiliation=0.):
     for c in candidates:c['probability']=exp(c['score'])/total
     return {k:v for k,v in selected.items() if k not in ('score','probability')},dict(
         question=question,seed=seed,draw=u,weight=weight,sources=deepcopy(trace['sources']),
-        candidates=candidates,selected=selected['action'],enabled=enabled)
+        candidates=candidates,selected=selected['action'],enabled=enabled,retention=deepcopy(retention))

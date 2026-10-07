@@ -85,6 +85,7 @@ class SocialWorld(EnergyWorld):
 
 
 class SocialAgent(EnergyAgent):
+    food_retention=False
     hunger_enabled=False
     personal_food=False
     share=True
@@ -180,8 +181,12 @@ class SocialAgent(EnergyAgent):
                     from runtime.refusal_relation_field import choose
                     current=dict(obs,messages=[message])
                     seed=f'{self.refusal_seed}:{self.run_id}:{self.agent_id}:{p["observation_id"]}:respond:{message["sender"]}'
+                    retention=None
+                    if self.food_retention:
+                        from runtime.food_retention import evaluate
+                        retention=evaluate(obs,learning['hunger'])
                     intent,d['refusal_choice']=choose(s['refusal_field'],current,message['sender'],'respond',seed,
-                                                    enabled=self.refusal_field_mode=='enabled')
+                                                    enabled=self.refusal_field_mode=='enabled',retention=retention)
             elif (provision['choice']=='eat' if provision else obs['body']['reserve']<80 and obs['inventory']):
                 intent=dict(action='eat')
             elif not self.personal_food and obs['body']['reserve']<80 and obs['at_base'] and obs['stock']:
