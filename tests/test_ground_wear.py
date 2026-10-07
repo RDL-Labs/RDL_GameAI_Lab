@@ -1,6 +1,25 @@
 import unittest
 from integrations.lightweight.ground_wear import GroundWear
 class WearTests(unittest.TestCase):
+ def test_unused_ground_recovers_but_history_and_replay_remain(self):
+  w=GroundWear();w.recovery_enabled=True
+  w.walk('a','a',(.1,.5),(.9,.5));raw=w.snapshot()['cells']['0,0']['distance']
+  w.advance(64000000);self.assertAlmostEqual(w.cells['0,0']['wear'],raw)
+  w.advance(128000000);self.assertEqual(w.factor(.5,.5),1.)
+  self.assertEqual(w.cells['0,0']['distance'],raw)
+  w.walk('a','a',(.1,.5),(.9,.5));self.assertEqual(w.cells['0,0']['wear'],0)
+  w.walk('b','b',(.1,.5),(.9,.5));self.assertGreater(w.cells['0,0']['wear'],0)
+  with self.assertRaises(ValueError):w.advance(0)
+ def test_clock_partition_and_continued_use(self):
+  a=GroundWear();b=GroundWear()
+  for w in (a,b):
+   w.recovery_enabled=True;w.walk('a','a',(.1,.5),(.9,.5))
+  a.advance(80000000);a.advance(90000000);b.advance(90000000)
+  self.assertAlmostEqual(a.cells['0,0']['wear'],b.cells['0,0']['wear'])
+  before=a.snapshot();a.advance(90000000);self.assertEqual(a.snapshot(),before)
+  a.walk('b','b',(.1,.5),(.9,.5));a.advance(130000000)
+  self.assertGreater(a.cells['0,0']['wear'],b.cells['0,0']['wear'])
+
  def test_world_actual_effect_and_observation(self):
   from integrations.lightweight.energy_exploration import EnergyWorld
   w=EnergyWorld('w');w.ground_wear_enabled=True;w.objects=[]

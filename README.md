@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [使われない道の回復](docs/experiment-evidence/LW_ground_recovery.md)：World時間で草地へ戻る。30日で通行履歴32区画中17区画が回復、4区画が道として残存。
+
 - [実通行で生まれる共有の道](docs/experiment-evidence/LW_ground_wear.md)：30日で39区画の通行跡、8区画が道。局所抵抗と身体消耗へ接続、複数個体のWorld履歴を共有。
 
 - [獣道型の選択経路](docs/experiment-evidence/LW_selection_trail.md)：実使用で定着、親充足で経路全体へ成功支持。30日で使用定着による選択差2件、自然運転の成功強化は0件。
