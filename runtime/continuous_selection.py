@@ -26,6 +26,9 @@ def review(agent,p,d):
     s=deepcopy(last.get('continuous_selection')) if last.get('continuous_selection') else dict(
         rule=RULE,binding=[p['run_id'],p['agent_id']],nodes={},events=[],sequence=0)
     if s['binding']!=[p['run_id'],p['agent_id']]:raise ValueError('selection_binding')
+    if getattr(agent,'exploration_horizon_enabled',False):
+        from .exploration_horizon import update as update_horizon
+        s['exploration_horizon']=update_horizon(s.get('exploration_horizon'),p,last,r,linked)
     trial=s.pop('trial',None);pending=s.pop('pending',None);continuing=False
     if trial:
         n=s['nodes'][trial['model']];before=n['H'];value=None
@@ -107,6 +110,14 @@ def review(agent,p,d):
                 for name,angle in proposals(ground_model,safe):
                     add(name,['move',1] if angle==0 else ['turn',angle],2.25,
                         'ground_extension' if angle==0 else 'rotation_then_step')
+    if getattr(agent,'exploration_horizon_enabled',False) and phase=='exploration' and linked and not protected and not p['food']['visible']:
+        from .exploration_horizon import proposals
+        ground=p['movement_surface']['ground']
+        safe=[x['direction_deg'] for x in ground['samples'] if x['status']=='sampled' and x['height_delta'] is not None and abs(x['height_delta'])<=.5 and x['direction_deg'] in (-90,-45,0,45,90)] if not ground['output_limited'] else []
+        for proposal in proposals(p,s['exploration_horizon'],safe):
+            angle=proposal['angle'];name='horizon_'+str(angle)
+            add(name,['move',1] if angle==0 else ['turn',angle],proposal['score'],question if angle==0 else 'rotation_then_step')
+            s['candidates'][-1]['observed_landmark']=proposal
     if getattr(agent,'energy_enabled',False) and getattr(agent,'energy_apply',True):
         from .energy_connection import apply as apply_energy
         s['energy_field']=apply_energy(p,s['candidates'])
