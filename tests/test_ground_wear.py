@@ -1,6 +1,25 @@
 import unittest
 from integrations.lightweight.ground_wear import GroundWear
 class WearTests(unittest.TestCase):
+ def test_ordinary_ground_has_wear_discount_and_matching_body_cost(self):
+  from copy import deepcopy
+  from integrations.lightweight.energy_exploration import EnergyWorld
+  from runtime.layered_body import step
+  for worn,expected in ((False,1.5),(True,1.25)):
+   w=EnergyWorld('ordinary');w.ground_wear_enabled=True;w.objects=[]
+   w.agents['npc_a'].update(x=.5,z=.1,yaw=0.,inventory=0)
+   if worn:
+    for i in range(20):w.ground_wear.walk(str(i),'npc_b',(.1,.5),(.9,.5))
+   p=w.packet('npc_a',8)
+   resistance=next(s['resistance'] for s in p['locomotor']['energy']['samples'] if s['angle']==0)
+   self.assertAlmostEqual(resistance,expected)
+   before=deepcopy(w.bodies['npc_a'])
+   c=dict(w.context('npc_a'),operation_id='op:'+p['observation_id'],source_id=p['observation_id'],capture_us=p['capture_us'],expires_us=p['capture_us']+1500000,pose_ref=p['pose_ref'],body_revision=p['body_revision'],kind='move',amount=.5,reason='test',target_ref='')
+   self.assertEqual(w.execute(c,p)['status'],'moved')
+   after,_=step(before,'walk',load=0,resistance=resistance)
+   self.assertEqual(w.bodies['npc_a'],after)
+   w.ground_wear.recovery_enabled=True;w.ground_wear.advance(20*64000000)
+   self.assertEqual(w.resistance('npc_a'),1.5)
  def test_unused_ground_recovers_but_history_and_replay_remain(self):
   w=GroundWear();w.recovery_enabled=True
   w.walk('a','a',(.1,.5),(.9,.5));raw=w.snapshot()['cells']['0,0']['distance']

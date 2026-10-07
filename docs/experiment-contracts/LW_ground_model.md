@@ -55,3 +55,17 @@ disabled/enabledとも終了条件は90日期限のみ。途中の30日境界で
 既存の長期設定に従いSleep保存容量は576、道モデルの保持条件・係数は変更しない。
 期間別集計は `python -m integrations.lightweight.summarize_ground_model outputs/ground_model_90d`。
 1〜30日/31〜60日/61〜90日の採取・食事・移動距離・道候補実行を分ける。
+
+## 普通地面の基本抵抗調整（2026-10-07、402a9ab後）
+
+EnergyWorldの普通地面を1.0から1.5へ変更。高抵抗帯は5.0のまま。
+既存の歩行軽減式 `1 + (base - 1) * wear_factor` を維持するため、
+十分に踏まれた普通地面は1.25、高抵抗帯は3.0となる。
+草が戻ればそれぞれ元の抵抗へ戻る。道の優先scoreは変更しない。
+地面材料の基本抵抗はwalk/run/climbに共通、踏み固まりの軽減は従来どおりwalkのみ。
+実行manifestにenergy_material_resistanceを保存する。
+
+関連48テストPASS。普通地面/道の観測抵抗と実消耗の一致、未使用時回復を確認。
+LW統合版の道継承・接続あり1日運転は採取8、食料保存/操作重複なし監査PASS。
+生ログ `outputs/ground_resistance/smoke.jsonl`。
+この値で90日は未再実行。既存の90日Evidenceは基本抵抗1.0時点の記録として残す。

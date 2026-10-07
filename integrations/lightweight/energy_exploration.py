@@ -31,6 +31,8 @@ class EnergyCampaign(BodyCampaign):
 class EnergyWorld(ExplorationBodyWorld):
     ground_wear_enabled=False
     ground_appearance_enabled=False
+    ordinary_resistance=1.5
+    difficult_resistance=5.
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -52,7 +54,7 @@ class EnergyWorld(ExplorationBodyWorld):
         a=self.agents[aid];dx,dz=self.direction(aid,angle)
         distance=capabilities(self.bodies[aid],self.carried_load(aid))[action+'_distance']
         # Fixed local material strips; no destination, agent ID or success labels.
-        base=5. if floor((a['x']+dx*distance/2)/2)%2 else 1.
+        base=self.difficult_resistance if floor((a['x']+dx*distance/2)/2)%2 else self.ordinary_resistance
         if self.ground_wear_enabled and action=='walk':
             return 1+(base-1)*self.ground_wear.factor(a['x']+dx*distance/2,a['z']+dz*distance/2)
         return base
