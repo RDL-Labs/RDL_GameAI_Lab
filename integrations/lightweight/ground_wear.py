@@ -31,6 +31,7 @@ class GroundWear:
         n=max(1,ceil(distance/.1))
         for i in range(n):
             t=(i+.5)/n;x=start[0]+t*(end[0]-start[0]);z=start[1]+t*(end[1]-start[1])
+            if hasattr(self,'walkable_surface') and not self.walkable_surface(x,z):continue
             key=f'{floor(x)},{floor(z)}'
             cell=self.cells.setdefault(key,dict(distance=0.,wear=0.,last_walk_us=self.now_us,agents={}))
             cell['distance']+=distance/n

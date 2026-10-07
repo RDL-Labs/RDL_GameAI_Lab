@@ -1,0 +1,195 @@
+{
+  "base": {
+    "options": {
+      "days": 3,
+      "stop_after_returns": null,
+      "seed": 20261005,
+      "skyline_subrays": true,
+      "mb_field_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "food_goal_mode": "enabled",
+      "orientation_mode": "enabled",
+      "reposition_mode": "enabled",
+      "return_completion_mode": "enabled",
+      "nested_model_mode": "enabled",
+      "food_revisit_mode": "enabled",
+      "directional_route_mode": "enabled",
+      "relation_field_mode": "enabled",
+      "hazard_mode": "enabled",
+      "hazard_scenario": "territorial",
+      "warning_review_mode": "enabled",
+      "selection_mode": "continuous",
+      "dynamic_hazard": true,
+      "regrowth_days": 3,
+      "sleep_learning": true,
+      "sleep_auto_adopt": true,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "social_mode": "enabled",
+      "social_adopt": true,
+      "social_pressure": true,
+      "refusal_field_mode": "enabled",
+      "body_scene": "social_base",
+      "personal_food": true,
+      "hunger_enabled": true,
+      "body_method_field": true,
+      "food_retention": true,
+      "experience_bundle_mode": "enabled",
+      "bundle_sleep_enabled": true,
+      "trail_enabled": true,
+      "ground_wear_enabled": true,
+      "ground_recovery_enabled": true,
+      "ground_appearance_enabled": true,
+      "ground_pattern_enabled": true,
+      "run_id": "lw-base",
+      "ground_continuity_enabled": true
+    },
+    "audit": {
+      "completed": 459,
+      "food_conserved": true,
+      "no_duplicate_or_overlapping_effects": true,
+      "initial_food": 124,
+      "regrown_food": 0,
+      "actions": {
+        "request:expressed": 7,
+        "refuse:expressed": 5,
+        "give:transferred": 2,
+        "eat:ate": 4
+      },
+      "commands": {
+        "wait": 142,
+        "social": 18,
+        "turn": 171,
+        "move": 128
+      },
+      "positive_refusal_choices": {
+        "request_again": 10
+      },
+      "safety_decisions": 459,
+      "visible_hazard_decisions": 88,
+      "safety_reasons": {
+        "normal": 320,
+        "continuous_safety/wait": 4,
+        "continuous_safety/step_90": 41,
+        "continuous_safety/step_-45": 18,
+        "continuous_safety/step_-90": 36,
+        "provisional_mode_release": 11,
+        "continuous_safety/step_0": 9,
+        "continuous_safety/await_body": 6,
+        "limited_clearance": 4,
+        "continuous_safety/step_45": 8,
+        "continuous_safety/survey_left": 1,
+        "continuous_safety/survey_right": 1
+      },
+      "daily": {
+        "1": {
+          "wait": 58,
+          "picked_up": 0,
+          "social": 17,
+          "turn": 45,
+          "move": 36
+        },
+        "2": {
+          "wait": 60,
+          "picked_up": 0,
+          "turn": 53,
+          "move": 39,
+          "social": 1
+        },
+        "3": {
+          "wait": 24,
+          "picked_up": 0,
+          "turn": 73,
+          "move": 53
+        }
+      },
+      "summary": {
+        "ended_us": 192000000,
+        "pickups": 0,
+        "social_stock": 0,
+        "social_consumed": 4,
+        "physical_inventory": {
+          "npc_a": 0,
+          "npc_b": 0,
+          "npc_c": 0
+        },
+        "layered_bodies": {
+          "npc_a": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 15.248078692197799,
+            "damage": 0.0
+          },
+          "npc_b": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.09458203125000003,
+            "reserve": 72.98089635416676,
+            "damage": 0.0
+          },
+          "npc_c": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.24999999999999992,
+            "reserve": 32.911991666666786,
+            "damage": 0.0
+          }
+        },
+        "elapsed_seconds": 13.413483099982841
+      },
+      "learning": {
+        "npc_a": {
+          "sleep_statuses": {
+            "completed": 2
+          },
+          "harvest_model": null,
+          "social_records": 7,
+          "social_model": {
+            "npc_b": {
+              "expectation": 0.16666666666666666,
+              "sources": [
+                "npc_a:op:lw-base:npc_a:obs:5",
+                "npc_a:op:lw-base:npc_a:obs:20",
+                "npc_a:op:lw-base:npc_a:obs:190",
+                "npc_a:op:lw-base:npc_a:obs:205"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            },
+            "npc_c": {
+              "expectation": 0.6,
+              "sources": [
+                "npc_a:op:lw-base:npc_a:obs:30",
+                "npc_a:op:lw-base:npc_a:obs:50",
+                "npc_a:op:lw-base:npc_a:obs:130"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:59e7c6e03c4988c2a698f231",
+          "sleep_records": 10
+        },
+        "npc_b": {
+          "sleep_statuses": {
+            "completed": 3
+          },
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": "sleep-unvalidated-action-model-v1:6c652b65c243006581e1ef71",
+          "sleep_records": 15
+        },
+        "npc_c": {
+          "sleep_statuses": {
+            "completed": 2
+          },
+          "harvest_model": null,
+          "social_records": 0,
+          "social_model": {},
+          "sleep_model": "sleep-unvalidated-action-model-v1:7e8df8333eac87d6be3b9423",
+          "sleep_records": 10
+        }
+      }
+    }
+  }
+}

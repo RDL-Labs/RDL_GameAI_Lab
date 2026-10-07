@@ -8,6 +8,7 @@ def checkpoint(world,regrowth,territory,patrol,next_us):
         ground=world.ground_wear.snapshot() if world.ground_wear_enabled else None,
         regrowth=vars(regrowth) if regrowth else None,
         territory=vars(territory) if territory else None,patrol=vars(patrol) if patrol else None))
+    if hasattr(world,'landscape'):result['landscape']=world.landscape.metadata()
     if result['ground']:
         for cell in result['ground']['cells'].values():
             cell['agents']={(a if '/' in a else world.run_id+'/'+a):v for a,v in cell['agents'].items()}
@@ -18,6 +19,7 @@ def restore(world,regrowth,territory,patrol,state,reset_wear=False):
     if state is None:
         if reset_wear:raise ValueError('reset_requires_checkpoint')
         return 0
+    if state.get('landscape') is not None:raise ValueError('landscape_checkpoint_restore_not_supported')
     s=deepcopy(state)
     if s['rule']!='cohort-world-v1':raise ValueError('checkpoint_rule')
     world.objects=s['objects'];world.resources=s['resources'];world.stock=s['stock']

@@ -1,5 +1,6 @@
 # RDL Game AI Lab
 
+- [LWベース地形 v1](docs/experiment-evidence/LW_base_landscape_v1.md)：渡れる小川・草地・林・岩場と資源分布。51テスト、統合3日監査PASS。
 - [LW拡張World v3・30日結果](docs/experiment-evidence/LW_expanded_world_v3_30d.md)：採取/持ち帰り0。A/Bは食料視認、全員7日目までにreserve枯渇。道は未使用で回復。
 - [LW拡張World v3・拠点周辺の障害](docs/experiment-evidence/LW_expanded_world_v3.md)：高い岩4個・低い障害4個を追加。関連38テスト、統合3日監査PASS。
 - [LW拡張World v2・拠点から食料を見せない配置](docs/experiment-evidence/LW_expanded_world_v2.md)：旧近場2地点を東西18mへ移設。視認距離12mは維持。3日採取0、Aのreserve枯渇を記録。

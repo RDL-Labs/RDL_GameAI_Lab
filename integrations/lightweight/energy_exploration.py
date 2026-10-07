@@ -55,6 +55,10 @@ class EnergyWorld(ExplorationBodyWorld):
         distance=capabilities(self.bodies[aid],self.carried_load(aid))[action+'_distance']
         # Fixed local material strips; no destination, agent ID or success labels.
         base=self.difficult_resistance if floor((a['x']+dx*distance/2)/2)%2 else self.ordinary_resistance
+        if hasattr(self,'landscape'):
+            x,z=a['x']+dx*distance/2,a['z']+dz*distance/2
+            base=self.landscape.resistance(x,z)
+            if not self.landscape.dry(x,z):return base
         if self.ground_wear_enabled and action=='walk':
             return 1+(base-1)*self.ground_wear.factor(a['x']+dx*distance/2,a['z']+dz*distance/2)
         return base
