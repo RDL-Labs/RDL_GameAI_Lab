@@ -7,8 +7,8 @@ from .integrated_social_campaign import audit,compact_report
 from .render_ground_wear import render
 
 
-def main(days=30):
-    root=Path('outputs/ground_model' if days==30 else f'outputs/ground_model_{days}d');root.mkdir(parents=True,exist_ok=True)
+def main(days=30,output=None):
+    root=Path(output) if output is not None else Path('outputs/ground_model' if days==30 else f'outputs/ground_model_{days}d');root.mkdir(parents=True,exist_ok=True)
     source=json.loads(Path('docs/experiment-evidence/LW_cohort_paths.json').read_text(encoding='utf8'))
     reports={};actions={}
     for name in ('disabled','enabled'):
@@ -55,4 +55,5 @@ def main(days=30):
 if __name__=='__main__':
     import argparse
     parser=argparse.ArgumentParser();parser.add_argument('--days',type=int,choices=(30,90),default=30)
-    main(parser.parse_args().days)
+    parser.add_argument('--output',type=Path)
+    args=parser.parse_args();main(args.days,args.output)

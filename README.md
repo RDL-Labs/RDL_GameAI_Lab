@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [LW統合版・基本抵抗1.5の90日比較](docs/experiment-evidence/LW_ground_resistance_15_90d.md)：採取273／274、食事270／270。道候補の実行は旋回1件、継続未確認でH加算後に採取。道追従の増加は未確認。
+
 - [LW統合版・道M_Bの90日比較](docs/experiment-evidence/LW_ground_model_90d.md)：採取274／272、食事269／269。道候補の実移動は1回のまま、後半60日は追加0。全員reserve枯渇なし。
 
 - **LW統合版**：現在の軽量World本線（探索・採取・帰還・身体・危険・社会・Sleep）。[地面の暫定M_Bを既存探索へ接続](docs/experiment-evidence/LW_ground_model.md)：30日比較で道候補9選択、優先処理後の実移動1件。採取91→92、一般的な改善は未確認。

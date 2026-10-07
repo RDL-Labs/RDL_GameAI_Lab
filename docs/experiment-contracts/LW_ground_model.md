@@ -68,4 +68,7 @@ EnergyWorldの普通地面を1.0から1.5へ変更。高抵抗帯は5.0のまま
 関連48テストPASS。普通地面/道の観測抵抗と実消耗の一致、未使用時回復を確認。
 LW統合版の道継承・接続あり1日運転は採取8、食料保存/操作重複なし監査PASS。
 生ログ `outputs/ground_resistance/smoke.jsonl`。
-この値で90日は未再実行。既存の90日Evidenceは基本抵抗1.0時点の記録として残す。
+調整時点では90日は未再実行だった。旧90日Evidenceは基本抵抗1.0時点の記録として残す。
+
+追記: [基本抵抗1.5の90日比較](../experiment-evidence/LW_ground_resistance_15_90d.md)を実行済み。
+旧1.0ログを維持するため、runnerの`--output`で別保存先を指定する。
