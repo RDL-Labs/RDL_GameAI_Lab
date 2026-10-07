@@ -20,5 +20,8 @@ def main():
    counts['changed']+=bool(t.get('changed'));counts['contributed']+=any(c['delta']>0 for c in t.get('contributions',[]))
  report['counts']=dict(counts)
  (root/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8')
+ from .render_ground_wear import render
+ render(root/'report.json',root/'map.svg')
+ print('Ground map: '+str((root/'map.html').resolve()),flush=True)
  print(json.dumps(dict(summary=report['audit']['summary'],counts=counts,trails={a:dict(edges=len(s['edges']),uses=sum(e['uses'] for e in s['edges'].values()),successes=len(s['completed']),pending=bool(s['episode'])) for a,s in report['trails'].items()})),flush=True)
 if __name__=='__main__':main()
