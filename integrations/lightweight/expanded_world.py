@@ -2,7 +2,7 @@
 from random import Random
 from math import sin,cos,radians,hypot
 
-RULE='expanded-camp-landscape-v2'
+RULE='expanded-camp-landscape-v3'
 
 
 def extend(world):
@@ -26,6 +26,15 @@ def extend(world):
             color=rng.choice(('brown','green','gray')),solid=True)
         if any(hypot(obj['x']-r['x'],obj['z']-r['z'])<=obj['radius']+.5 for r in world.resources):continue
         world.objects.append(obj);added+=1
+
+    # Fixed near-camp geometry, appended after seeded outer placement.
+    # The eastern corridor stays open; low stones use the existing climb geometry.
+    for x,z,radius,height in ((-3.,8.,.7,2.),(3.,10.,.8,2.5),
+                              (-5.,3.,.6,2.),(6.,2.,.7,2.),
+                              (0.,10.,.1,.4),(-3.,4.,.1,.4),
+                              (5.,8.,.1,.4),(-7.,10.,.1,.4)):
+        world.objects.append(dict(x=x,z=z,radius=radius,height=height,
+                                  color='gray',solid=True))
 
 
 def render_layout(manifest,path):

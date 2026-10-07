@@ -16,7 +16,7 @@ class ExpandedTests(unittest.TestCase):
         self.assertEqual(w.objects[:1],before[0]);self.assertEqual(w.agents,before[2])
         self.assertEqual([r['stock'] for r in w.resources[:2]],[r['stock'] for r in before[1]])
         self.assertEqual([(r['x'],r['z']) for r in w.resources[:2]],[(-18.,6.),(18.,6.)])
-        self.assertEqual(len(w.resources),10);self.assertEqual(len(w.objects),25)
+        self.assertEqual(len(w.resources),10);self.assertEqual(len(w.objects),33)
         self.assertEqual([round(hypot(r['x'],r['z']-6)) for r in w.resources[2:]],[16,24,32,40,56,64,80,96])
         for r in w.resources:
             self.assertTrue(all(hypot(r['x']-o['x'],r['z']-o['z'])>o['radius'] for o in w.objects))
@@ -41,3 +41,28 @@ class ExpandedTests(unittest.TestCase):
         w.objects=[] # Sensor-range control, independent of occluder placement.
         w.agents['npc_a'].update(x=-18,z=5,yaw=0)
         self.assertTrue(w.packet('npc_a',9)['food']['visible'])
+
+    def test_near_obstacles_leave_camp_and_exit_clear(self):
+        from integrations.lightweight.world import segment_hit
+        w=self.world();extend(w)
+        near=w.objects[-8:]
+        self.assertEqual(sum(o['height']==.4 for o in near),4)
+        self.assertTrue(all(hypot(o['x'],o['z']-6)>1.25+o['radius']+.2 for o in near))
+        self.assertFalse(any(segment_hit((0,6),(10,6),o,.2) for o in w.objects))
+        for o in near:
+            self.assertTrue(segment_hit((o['x'],o['z']-.5),(o['x'],o['z']),o,.2))
+
+    def test_low_obstacle_uses_existing_body_climb(self):
+        from integrations.lightweight.body_exploration import BodyCampaign, ExplorationBodyWorld
+        layout=self.world();extend(layout)
+        low=layout.objects[-4]
+        w=ExplorationBodyWorld('near-rock');w.objects=[deepcopy(low)]
+        w.resources=[dict(x=low['x'],z=low['z']+1.3,stock=1)]
+        w.agents['npc_a'].update(x=low['x'],z=low['z']-.5,yaw=0.)
+        loop=BodyCampaign(w.run_id,1)
+        loop.configure(dict(w.context('npc_a'),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',
+            teaching=dict(statement_id='t',source='god_statue',sample_observation='s',
+                          appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
+        packet=w.packet('npc_a',8);command=loop.observe(packet)['command']
+        self.assertEqual(command['kind'],'climb')
+        self.assertEqual(w.execute(command,packet)['status'],'moved')

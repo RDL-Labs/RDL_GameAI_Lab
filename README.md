@@ -1,5 +1,6 @@
 # RDL Game AI Lab
 
+- [LW拡張World v3・拠点周辺の障害](docs/experiment-evidence/LW_expanded_world_v3.md)：高い岩4個・低い障害4個を追加。関連38テスト、統合3日監査PASS。
 - [LW拡張World v2・拠点から食料を見せない配置](docs/experiment-evidence/LW_expanded_world_v2.md)：旧近場2地点を東西18mへ移設。視認距離12mは維持。3日採取0、Aのreserve枯渇を記録。
 
 - [LW統合版・World外側の拡張](docs/experiment-evidence/LW_expanded_world.md)：拠点近場を維持し、半径16〜96mに資源8地点を追加。3日接続確認済み、外側への探索利用は未確認。

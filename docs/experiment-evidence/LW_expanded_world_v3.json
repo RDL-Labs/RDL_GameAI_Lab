@@ -1,0 +1,783 @@
+{
+  "options": {
+    "days": 3,
+    "stop_after_returns": null,
+    "seed": 20261005,
+    "skyline_subrays": true,
+    "mb_field_mode": "enabled",
+    "goal_difference_mode": "enabled",
+    "food_goal_mode": "enabled",
+    "orientation_mode": "enabled",
+    "reposition_mode": "enabled",
+    "return_completion_mode": "enabled",
+    "nested_model_mode": "enabled",
+    "food_revisit_mode": "enabled",
+    "directional_route_mode": "enabled",
+    "relation_field_mode": "enabled",
+    "hazard_mode": "enabled",
+    "hazard_scenario": "territorial",
+    "warning_review_mode": "enabled",
+    "selection_mode": "continuous",
+    "dynamic_hazard": true,
+    "regrowth_days": 3,
+    "sleep_learning": true,
+    "sleep_auto_adopt": true,
+    "body_mode": "enabled",
+    "energy_mode": "enabled",
+    "social_mode": "enabled",
+    "social_adopt": true,
+    "social_pressure": true,
+    "refusal_field_mode": "enabled",
+    "body_scene": "social_expanded",
+    "personal_food": true,
+    "hunger_enabled": true,
+    "body_method_field": true,
+    "food_retention": true,
+    "experience_bundle_mode": "enabled",
+    "bundle_sleep_enabled": true,
+    "trail_enabled": true,
+    "ground_wear_enabled": true,
+    "ground_recovery_enabled": true,
+    "ground_appearance_enabled": true,
+    "ground_pattern_enabled": true,
+    "run_id": "lw-expanded",
+    "ground_continuity_enabled": true
+  },
+  "audit": {
+    "completed": 459,
+    "food_conserved": true,
+    "no_duplicate_or_overlapping_effects": true,
+    "initial_food": 112,
+    "regrown_food": 0,
+    "actions": {
+      "request:expressed": 4,
+      "refuse:expressed": 3,
+      "give:transferred": 1,
+      "eat:ate": 4
+    },
+    "commands": {
+      "wait": 128,
+      "social": 12,
+      "turn": 216,
+      "move": 103
+    },
+    "positive_refusal_choices": {
+      "request_again": 5
+    },
+    "safety_decisions": 459,
+    "visible_hazard_decisions": 31,
+    "safety_reasons": {
+      "normal": 384,
+      "continuous_safety/step_-90": 10,
+      "continuous_safety/step_90": 12,
+      "continuous_safety/step_45": 24,
+      "continuous_safety/step_0": 4,
+      "continuous_safety/step_-45": 6,
+      "limited_clearance": 1,
+      "provisional_mode_release": 5,
+      "continuous_safety/survey_left": 4,
+      "continuous_safety/await_body": 3,
+      "continuous_safety/survey_right": 4,
+      "continuous_safety/wait": 2
+    },
+    "daily": {
+      "1": {
+        "wait": 65,
+        "picked_up": 0,
+        "social": 11,
+        "turn": 49,
+        "move": 31
+      },
+      "2": {
+        "wait": 37,
+        "picked_up": 0,
+        "move": 42,
+        "turn": 73,
+        "social": 1
+      },
+      "3": {
+        "wait": 26,
+        "picked_up": 0,
+        "turn": 94,
+        "move": 30
+      }
+    },
+    "summary": {
+      "ended_us": 192000000,
+      "pickups": 0,
+      "social_stock": 0,
+      "social_consumed": 4,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 0,
+        "npc_c": 0
+      },
+      "layered_bodies": {
+        "npc_a": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 1.0,
+          "reserve": 0.0,
+          "damage": 0.0
+        },
+        "npc_b": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 73.77958229166673,
+          "damage": 0.0
+        },
+        "npc_c": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.1866468749999999,
+          "reserve": 47.806420052083446,
+          "damage": 0.0
+        }
+      },
+      "elapsed_seconds": 6.190144099993631
+    },
+    "learning": {
+      "npc_a": {
+        "sleep_statuses": {
+          "completed": 3
+        },
+        "harvest_model": null,
+        "social_records": 4,
+        "social_model": {
+          "npc_b": {
+            "expectation": 0.25,
+            "sources": [
+              "npc_a:op:lw-expanded:npc_a:obs:5",
+              "npc_a:op:lw-expanded:npc_a:obs:25"
+            ],
+            "authority": "unvalidated local aid expectation; not intent or canonical T1"
+          },
+          "npc_c": {
+            "expectation": 0.5,
+            "sources": [
+              "npc_a:op:lw-expanded:npc_a:obs:40",
+              "npc_a:op:lw-expanded:npc_a:obs:50"
+            ],
+            "authority": "unvalidated local aid expectation; not intent or canonical T1"
+          }
+        },
+        "sleep_model": "sleep-unvalidated-action-model-v1:2456cb26eea6d9371921a5b4",
+        "sleep_records": 14
+      },
+      "npc_b": {
+        "sleep_statuses": {
+          "completed": 3
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:54b843fa0ebf9e3de0631bec",
+        "sleep_records": 15
+      },
+      "npc_c": {
+        "sleep_statuses": {
+          "completed": 2
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:7b021c270aee0e9c1e06b548",
+        "sleep_records": 10
+      }
+    }
+  },
+  "ground_wear": {
+    "rule": "world-ground-recovery-v1",
+    "recovery_enabled": true,
+    "now_us": 191750000,
+    "grace_us": 64000000,
+    "recovery_per_day": 2,
+    "cell_size": 1.0,
+    "road_distance": 10.0,
+    "operations": 103,
+    "cells": {
+      "-1,5": {
+        "distance": 0.2,
+        "wear": 0.0,
+        "last_walk_us": 4750000,
+        "agents": {
+          "npc_a": 0.2
+        }
+      },
+      "0,5": {
+        "distance": 3.2666666666666684,
+        "wear": 1.4932291666666684,
+        "last_walk_us": 71000000,
+        "agents": {
+          "npc_a": 2.2666666666666684,
+          "npc_b": 0.7500000000000001,
+          "npc_c": 0.2500000000000001
+        }
+      },
+      "1,5": {
+        "distance": 2.5500000000000007,
+        "wear": 0.8156250000000007,
+        "last_walk_us": 72250000,
+        "agents": {
+          "npc_a": 2.5500000000000007
+        }
+      },
+      "0,6": {
+        "distance": 4.1833333333333345,
+        "wear": 4.1833333333333345,
+        "last_walk_us": 138500000,
+        "agents": {
+          "npc_b": 0.9166666666666667,
+          "npc_c": 3.2666666666666675
+        }
+      },
+      "2,5": {
+        "distance": 1.0833333333333335,
+        "wear": 0.0,
+        "last_walk_us": 29750000,
+        "agents": {
+          "npc_a": 1.0833333333333335
+        }
+      },
+      "-1,6": {
+        "distance": 2.3333333333333344,
+        "wear": 2.0442708333333344,
+        "last_walk_us": 118500000,
+        "agents": {
+          "npc_b": 1.3333333333333335,
+          "npc_c": 1.0
+        }
+      },
+      "-1,7": {
+        "distance": 2.350000000000001,
+        "wear": 2.217187500000001,
+        "last_walk_us": 123500000,
+        "agents": {
+          "npc_c": 2.266666666666667,
+          "npc_b": 0.08333333333333336
+        }
+      },
+      "0,7": {
+        "distance": 1.849999999999999,
+        "wear": 1.0218749999999992,
+        "last_walk_us": 123500000,
+        "agents": {
+          "npc_c": 1.849999999999999
+        }
+      },
+      "-2,7": {
+        "distance": 1.883333333333333,
+        "wear": 1.164583333333333,
+        "last_walk_us": 104750000,
+        "agents": {
+          "npc_b": 1.1166666666666665,
+          "npc_c": 0.7666666666666665
+        }
+      },
+      "1,4": {
+        "distance": 0.5000000000000002,
+        "wear": 0.0,
+        "last_walk_us": 37250000,
+        "agents": {
+          "npc_a": 0.5000000000000002
+        }
+      },
+      "-2,8": {
+        "distance": 3.8666666666666663,
+        "wear": 3.0307291666666663,
+        "last_walk_us": 101000000,
+        "agents": {
+          "npc_b": 1.199999999999999,
+          "npc_c": 2.6666666666666656
+        }
+      },
+      "-2,9": {
+        "distance": 1.1333333333333329,
+        "wear": 0.43802083333333286,
+        "last_walk_us": 179750000,
+        "agents": {
+          "npc_b": 0.3999999999999997,
+          "npc_c": 0.7333333333333332
+        }
+      },
+      "-3,9": {
+        "distance": 1.9,
+        "wear": 0.5796874999999998,
+        "last_walk_us": 179750000,
+        "agents": {
+          "npc_b": 1.9
+        }
+      },
+      "-3,10": {
+        "distance": 2.8,
+        "wear": 2.534375,
+        "last_walk_us": 177250000,
+        "agents": {
+          "npc_b": 2.8
+        }
+      },
+      "1,6": {
+        "distance": 1.4,
+        "wear": 1.36875,
+        "last_walk_us": 139750000,
+        "agents": {
+          "npc_a": 0.8999999999999998,
+          "npc_c": 0.4999999999999999
+        }
+      },
+      "2,6": {
+        "distance": 1.0999999999999996,
+        "wear": 0.0,
+        "last_walk_us": 77250000,
+        "agents": {
+          "npc_a": 1.0999999999999996
+        }
+      },
+      "2,7": {
+        "distance": 1.1833333333333338,
+        "wear": 1.1520833333333336,
+        "last_walk_us": 146000000,
+        "agents": {
+          "npc_a": 0.09999999999999998,
+          "npc_c": 1.0833333333333337
+        }
+      },
+      "3,7": {
+        "distance": 2.2833333333333345,
+        "wear": 2.2130208333333345,
+        "last_walk_us": 152250000,
+        "agents": {
+          "npc_a": 1.1999999999999997,
+          "npc_c": 1.0833333333333335
+        }
+      },
+      "4,7": {
+        "distance": 2.533333333333333,
+        "wear": 2.533333333333333,
+        "last_walk_us": 167250000,
+        "agents": {
+          "npc_a": 0.9999999999999998,
+          "npc_c": 1.5333333333333325
+        }
+      },
+      "5,7": {
+        "distance": 1.183333333333334,
+        "wear": 0.464583333333334,
+        "last_walk_us": 104750000,
+        "agents": {
+          "npc_a": 1.183333333333334
+        }
+      },
+      "5,8": {
+        "distance": 3.016666666666667,
+        "wear": 2.985416666666667,
+        "last_walk_us": 183500000,
+        "agents": {
+          "npc_a": 1.4166666666666665,
+          "npc_c": 1.599999999999999
+        }
+      },
+      "5,9": {
+        "distance": 1.3333333333333335,
+        "wear": 1.0052083333333335,
+        "last_walk_us": 117250000,
+        "agents": {
+          "npc_a": 1.3333333333333335
+        }
+      },
+      "5,10": {
+        "distance": 1.083333333333333,
+        "wear": 1.083333333333333,
+        "last_walk_us": 133500000,
+        "agents": {
+          "npc_a": 1.083333333333333
+        }
+      },
+      "5,11": {
+        "distance": 1.4833333333333327,
+        "wear": 1.4833333333333327,
+        "last_walk_us": 139750000,
+        "agents": {
+          "npc_a": 1.4833333333333327
+        }
+      },
+      "4,12": {
+        "distance": 0.35,
+        "wear": 0.35,
+        "last_walk_us": 142250000,
+        "agents": {
+          "npc_a": 0.35
+        }
+      },
+      "1,7": {
+        "distance": 0.6999999999999998,
+        "wear": 0.6999999999999998,
+        "last_walk_us": 141000000,
+        "agents": {
+          "npc_c": 0.6999999999999998
+        }
+      },
+      "4,11": {
+        "distance": 0.7499999999999996,
+        "wear": 0.7499999999999996,
+        "last_walk_us": 144750000,
+        "agents": {
+          "npc_a": 0.7499999999999996
+        }
+      },
+      "3,12": {
+        "distance": 1.2999999999999996,
+        "wear": 1.2999999999999996,
+        "last_walk_us": 151000000,
+        "agents": {
+          "npc_a": 1.2999999999999996
+        }
+      },
+      "2,12": {
+        "distance": 0.2,
+        "wear": 0.2,
+        "last_walk_us": 151000000,
+        "agents": {
+          "npc_a": 0.2
+        }
+      },
+      "4,8": {
+        "distance": 1.5166666666666673,
+        "wear": 1.5166666666666673,
+        "last_walk_us": 174750000,
+        "agents": {
+          "npc_c": 1.5166666666666673
+        }
+      },
+      "4,9": {
+        "distance": 0.1833333333333333,
+        "wear": 0.1833333333333333,
+        "last_walk_us": 174750000,
+        "agents": {
+          "npc_c": 0.1833333333333333
+        }
+      }
+    }
+  },
+  "layout": {
+    "objects": [
+      {
+        "x": 0.0,
+        "z": 8.0,
+        "radius": 0.3,
+        "height": 12.0,
+        "solid": true,
+        "color": "ochre"
+      },
+      {
+        "x": 3.0084643708237246,
+        "z": 21.968187111027323,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": 17.73656802274529,
+        "z": -12.120718166383764,
+        "radius": 0.65,
+        "height": 12.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -29.8801524046471,
+        "z": 3.233073427704712,
+        "radius": 0.65,
+        "height": 12.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 36.364068691415305,
+        "z": 26.47219536277656,
+        "radius": 0.65,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -15.561254731076836,
+        "z": -47.17520411122304,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -25.248111602955177,
+        "z": 63.90976095679294,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 79.0587513867719,
+        "z": -15.492995014927043,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -73.5317085410077,
+        "z": -53.253362814917644,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -69.166943500642,
+        "z": -43.024659269541566,
+        "radius": 1.1272218370211111,
+        "height": 5.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -43.51171841273494,
+        "z": -35.86724987943488,
+        "radius": 1.102545831649198,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -87.35972432805683,
+        "z": -8.838007302914637,
+        "radius": 0.842746297396785,
+        "height": 16.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 15.388308264337162,
+        "z": -86.31360342637608,
+        "radius": 0.650205437417867,
+        "height": 16.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": -35.574432095520066,
+        "z": 3.543524583309512,
+        "radius": 0.6596011987431039,
+        "height": 16.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -41.50720398467229,
+        "z": 42.27412231600508,
+        "radius": 0.6095456764192074,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -49.2066229394589,
+        "z": -18.063777745705938,
+        "radius": 0.8901874966110741,
+        "height": 16.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 40.06744269239909,
+        "z": 81.7587594518154,
+        "radius": 0.8644542490705436,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": 24.272032722453993,
+        "z": 83.97049459386126,
+        "radius": 0.6295029361097016,
+        "height": 16.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": -11.928426515160794,
+        "z": -3.4617638206808614,
+        "radius": 0.7236201720108607,
+        "height": 5.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 36.50460207218504,
+        "z": -8.002633582094132,
+        "radius": 0.6097240939468641,
+        "height": 16.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": 50.632086640533444,
+        "z": 40.12942120979669,
+        "radius": 0.9786016806044249,
+        "height": 5.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 52.610591314638405,
+        "z": -34.11751993304798,
+        "radius": 0.6870350967342159,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -47.93951229023696,
+        "z": -3.1981076153196,
+        "radius": 0.7166877124645477,
+        "height": 5.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 42.06230616402487,
+        "z": 89.45943239633941,
+        "radius": 0.6293041154746369,
+        "height": 2.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -4.982873572101412,
+        "z": 48.212367769587516,
+        "radius": 0.7616005492075186,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -3.0,
+        "z": 8.0,
+        "radius": 0.7,
+        "height": 2.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 3.0,
+        "z": 10.0,
+        "radius": 0.8,
+        "height": 2.5,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -5.0,
+        "z": 3.0,
+        "radius": 0.6,
+        "height": 2.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 6.0,
+        "z": 2.0,
+        "radius": 0.7,
+        "height": 2.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 0.0,
+        "z": 10.0,
+        "radius": 0.1,
+        "height": 0.4,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -3.0,
+        "z": 4.0,
+        "radius": 0.1,
+        "height": 0.4,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 5.0,
+        "z": 8.0,
+        "radius": 0.1,
+        "height": 0.4,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -7.0,
+        "z": 10.0,
+        "radius": 0.1,
+        "height": 0.4,
+        "color": "gray",
+        "solid": true
+      }
+    ],
+    "resources": [
+      {
+        "x": -18.0,
+        "z": 6.0,
+        "stock": 6
+      },
+      {
+        "x": 18.0,
+        "z": 6.0,
+        "stock": 6
+      },
+      {
+        "x": 1.0084643708237249,
+        "z": 21.968187111027323,
+        "stock": 12
+      },
+      {
+        "x": 15.736568022745287,
+        "z": -12.120718166383764,
+        "stock": 12
+      },
+      {
+        "x": -31.8801524046471,
+        "z": 3.233073427704712,
+        "stock": 12
+      },
+      {
+        "x": 34.364068691415305,
+        "z": 26.47219536277656,
+        "stock": 12
+      },
+      {
+        "x": -17.561254731076836,
+        "z": -47.17520411122304,
+        "stock": 12
+      },
+      {
+        "x": -27.248111602955177,
+        "z": 63.90976095679294,
+        "stock": 12
+      },
+      {
+        "x": 77.0587513867719,
+        "z": -15.492995014927043,
+        "stock": 12
+      },
+      {
+        "x": -75.5317085410077,
+        "z": -53.253362814917644,
+        "stock": 12
+      }
+    ]
+  }
+}
