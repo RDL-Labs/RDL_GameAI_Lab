@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [道を新個体へ引き継ぐ30+30日比較](docs/experiment-evidence/LW_cohort_paths.md)：新3個体の採取は道あり91／wearリセット95。地面継承で行動差、効率改善は未確認。
+
 - [地面をまとまりとして認識](docs/experiment-evidence/LW_ground_pattern.md)：局所観測点を帯候補/面へ集約。30日で認識を保存、全command/resultは非介入。道や川の意味同定は未実装。
 
 - [地面の見た目の認識](docs/experiment-evidence/LW_ground_appearance.md)：本人視点の草/踏まれた草/露出地面を保存。道を使う規則は未追加、30日で視認なしと全command/result一致。

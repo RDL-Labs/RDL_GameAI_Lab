@@ -259,7 +259,7 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing",warning_review_mode="disabled",territory_resource_layout="original",selection_mode="legacy",dynamic_hazard=False,regrowth_days=None,sleep_learning=False,sleep_auto_adopt=False,body_mode="disabled",body_scene="natural",energy_mode="disabled",social_mode="disabled",social_adopt=True,social_pressure=True,refusal_field_mode="disabled",personal_food=False,hunger_enabled=False,body_method_field=False,food_retention=False,experience_bundle_mode="disabled",bundle_sleep_enabled=False,bundle_credit_enabled=False,trail_enabled=False,ground_wear_enabled=False,ground_recovery_enabled=False,ground_appearance_enabled=False,ground_pattern_enabled=False):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing",warning_review_mode="disabled",territory_resource_layout="original",selection_mode="legacy",dynamic_hazard=False,regrowth_days=None,sleep_learning=False,sleep_auto_adopt=False,body_mode="disabled",body_scene="natural",energy_mode="disabled",social_mode="disabled",social_adopt=True,social_pressure=True,refusal_field_mode="disabled",personal_food=False,hunger_enabled=False,body_method_field=False,food_retention=False,experience_bundle_mode="disabled",bundle_sleep_enabled=False,bundle_credit_enabled=False,trail_enabled=False,ground_wear_enabled=False,ground_recovery_enabled=False,ground_appearance_enabled=False,ground_pattern_enabled=False,world_checkpoint=None,reset_inherited_wear=False,run_id="lw-work"):
     import json,time
     if ground_pattern_enabled and not ground_appearance_enabled:raise ValueError('ground_pattern_requires_appearance')
     if ground_appearance_enabled and not ground_wear_enabled:raise ValueError('ground_appearance_requires_wear')
@@ -310,7 +310,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     if social_mode=='enabled':
         from .social_life import SocialWorld,SocialCampaign
         world_type,campaign_type=SocialWorld,SocialCampaign
-    w=world_type('lw-work',seed=seed,layout='sparse');w.ground_wear_enabled=ground_wear_enabled;
+    w=world_type(run_id,seed=seed,layout='sparse');w.ground_wear_enabled=ground_wear_enabled;
     w.ground_appearance_enabled=ground_appearance_enabled
     if ground_wear_enabled:w.ground_wear.recovery_enabled=ground_recovery_enabled
     loop=campaign_type(w.run_id,days,mb_field_mode=mb_field_mode,harvest_state=True)
@@ -341,6 +341,8 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     if dynamic_hazard and (not territory or selection_mode!='continuous'):raise ValueError('dynamic_hazard_requires_continuous_territory')
     from .patrol_hazard import PatrolHazard,sample_pair
     patrol=PatrolHazard() if dynamic_hazard else None
+    from .cohort_world import restore,checkpoint
+    world_offset=restore(w,regrowth,territory,patrol,world_checkpoint,reset_inherited_wear)
     for agent in loop.agents.values():
         agent.sleep_model_capacity=192 if days<=30 else 576
         agent.ground_pattern_enabled=ground_pattern_enabled
@@ -386,7 +388,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
         def emit(x):f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
         if territory:
             emit(dict(type='territory_config',rule='fixed-territorial-response-v1',center=territory.center,home=territory.home,radius=territory.radius,leash=territory.leash,speed=2,warning_distance=3,detector='world-radius',authority='experimenter-only'))
-        emit(dict(type='manifest',version='lw-timed-harvest-v1',ground_pattern_enabled=ground_pattern_enabled,ground_appearance_enabled=ground_appearance_enabled,ground_recovery_enabled=ground_recovery_enabled,ground_wear_enabled=ground_wear_enabled,trail_enabled=trail_enabled,sleep_model_capacity=192 if days<=30 else 576,bundle_credit_enabled=bundle_credit_enabled,bundle_sleep_enabled=bundle_sleep_enabled,experience_bundle_mode=experience_bundle_mode,food_retention=food_retention,body_method_field=body_method_field,hunger_enabled=hunger_enabled,personal_food=personal_food,social_mode=social_mode,social_adopt=social_adopt,social_pressure=social_pressure,refusal_field_mode=refusal_field_mode,body_mode=body_mode,body_scene=body_scene,energy_mode=energy_mode,regrowth_days=regrowth_days,dynamic_hazard=dynamic_hazard,selection_mode=selection_mode,territory_resource_layout=territory_resource_layout,warning_review_mode=warning_review_mode,hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=1_000_000 if body_mode=='enabled' else WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+        emit(dict(type='manifest',version='lw-timed-harvest-v1',run_id=w.run_id,world_offset_us=world_offset,inherited_world=world_checkpoint is not None,reset_inherited_wear=reset_inherited_wear,initial_shared_stock=getattr(w,'stock',0),ground_pattern_enabled=ground_pattern_enabled,ground_appearance_enabled=ground_appearance_enabled,ground_recovery_enabled=ground_recovery_enabled,ground_wear_enabled=ground_wear_enabled,trail_enabled=trail_enabled,sleep_model_capacity=192 if days<=30 else 576,bundle_credit_enabled=bundle_credit_enabled,bundle_sleep_enabled=bundle_sleep_enabled,experience_bundle_mode=experience_bundle_mode,food_retention=food_retention,body_method_field=body_method_field,hunger_enabled=hunger_enabled,personal_food=personal_food,social_mode=social_mode,social_adopt=social_adopt,social_pressure=social_pressure,refusal_field_mode=refusal_field_mode,body_mode=body_mode,body_scene=body_scene,energy_mode=energy_mode,regrowth_days=regrowth_days,dynamic_hazard=dynamic_hazard,selection_mode=selection_mode,territory_resource_layout=territory_resource_layout,warning_review_mode=warning_review_mode,hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=1_000_000 if body_mode=='enabled' else WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -401,18 +403,18 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
             emit(dict(type='completed',food_ledger=getattr(w,'food_ledger',{}).get(c['operation_id']),packet=p,command=c,result=r,body=w.agents[c['agent_id']],layered_body=getattr(w,'body_log',{}).get(c['operation_id']),stock=[x['stock'] for x in w.resources]))
         for slot in range(days*256):
             now=slot*250000
-            if ground_wear_enabled:w.ground_wear.advance(now)
+            if ground_wear_enabled:w.ground_wear.advance(world_offset+now)
             if social_mode=="enabled":
                 w.advance_metabolism(now)
                 if w.metabolic_log and w.metabolic_log[-1]["end_us"]==now:emit(dict(type="metabolism",**w.metabolic_log[-1]))
             finished=set()
             for p,c,r in scheduler.advance(now):complete(p,c,r);finished.add(c['agent_id'])
             if regrowth:
-                replenished=regrowth.advance(now,w.resources)
+                replenished=regrowth.advance(world_offset+now,w.resources)
                 if replenished:emit(replenished)
-            territory_state=territory.advance(now,w.agents,w.objects) if territory and hazard_mode!='disabled' else None
+            territory_state=territory.advance(world_offset+now,w.agents,w.objects) if territory and hazard_mode!='disabled' else None
             if territory_state:emit(dict(type='territory_world',**territory_state))
-            patrol_state=patrol.advance(now,w.objects) if patrol and hazard_mode!='disabled' else None
+            patrol_state=patrol.advance(world_offset+now,w.objects) if patrol and hazard_mode!='disabled' else None
             if patrol_state:emit(dict(type='patrol_world',**patrol_state))
             packets={aid:w.packet(aid,slot) for aid in w.agents}
             if orientation_mode=='enabled':
@@ -447,7 +449,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
         assert not scheduler.pending
         ended=(slot+1)*250000;reason='return_target_reached' if stop_after_returns is not None and len(w.returns)>=stop_after_returns else 'time_limit'
         for aid in w.agents:loop.finish(dict(w.context(aid),ended_us=ended,reason=reason))
-        summary=dict(type='summary',ground_wear=w.ground_wear.snapshot() if ground_wear_enabled else None,reason=reason,captures=captures,ended_us=ended,pickups=len(w.pickups),returns=w.returns,elapsed_seconds=time.perf_counter()-start,stock=[x['stock'] for x in w.resources],
+        summary=dict(type='summary',world_checkpoint=checkpoint(w,regrowth,territory,patrol,world_offset+ended),ground_wear=w.ground_wear.snapshot() if ground_wear_enabled else None,reason=reason,captures=captures,ended_us=ended,pickups=len(w.pickups),returns=w.returns,elapsed_seconds=time.perf_counter()-start,stock=[x['stock'] for x in w.resources],
             social_mode=social_mode,social_stock=getattr(w,'stock',None),social_consumed=getattr(getattr(w,'communication',None),'consumed',None),physical_inventory={aid:b['inventory'] for aid,b in w.agents.items()},
             sleep_learning=sleep_learning,energy_mode=energy_mode,body_mode=body_mode,layered_bodies=getattr(w,'bodies',None),
             agents={aid:dict(observations=len(a.observations),carried=a.carried_count(),unloaded=len(a.unloaded),records=len(a.learning['records']),model_ref=a.model.model_ref if a.model else None,

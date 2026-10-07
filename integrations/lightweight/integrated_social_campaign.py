@@ -24,7 +24,7 @@ def audit(path, days=30):
             r=json.loads(line)
             if r['type']=='manifest':
                 assert r['days']==days, 'campaign_days'
-                initial=sum(a['inventory'] for a in r['agents'].values())+sum(x['stock'] for x in r['resources'])
+                initial=r.get('initial_shared_stock',0)+sum(a['inventory'] for a in r['agents'].values())+sum(x['stock'] for x in r['resources'])
             elif r['type']=='resource_regrowth':added+=sum(r['added'])
             elif r['type']=='completed':
                 c=r['command']; result=r['result']; op=c['operation_id']; aid=c['agent_id']
