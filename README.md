@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- **LW統合版**：現在の軽量World本線（探索・採取・帰還・身体・危険・社会・Sleep）。[地面の暫定M_Bを既存探索へ接続](docs/experiment-evidence/LW_ground_model.md)：30日比較で道候補9選択、優先処理後の実移動1件。採取91→92、一般的な改善は未確認。
+
 - [道を新個体へ引き継ぐ30+30日比較](docs/experiment-evidence/LW_cohort_paths.md)：新3個体の採取は道あり91／wearリセット95。地面継承で行動差、効率改善は未確認。
 
 - [地面をまとまりとして認識](docs/experiment-evidence/LW_ground_pattern.md)：局所観測点を帯候補/面へ集約。30日で認識を保存、全command/resultは非介入。道や川の意味同定は未実装。

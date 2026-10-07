@@ -1,0 +1,1631 @@
+{
+  "rule": "LW-integrated-ground-model-comparison-v1",
+  "runs": {
+    "disabled": {
+      "options": {
+        "days": 30,
+        "stop_after_returns": null,
+        "seed": 20261005,
+        "skyline_subrays": true,
+        "mb_field_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "food_goal_mode": "enabled",
+        "orientation_mode": "enabled",
+        "reposition_mode": "enabled",
+        "return_completion_mode": "enabled",
+        "nested_model_mode": "enabled",
+        "food_revisit_mode": "enabled",
+        "directional_route_mode": "enabled",
+        "relation_field_mode": "enabled",
+        "hazard_mode": "enabled",
+        "hazard_scenario": "territorial",
+        "warning_review_mode": "enabled",
+        "selection_mode": "continuous",
+        "dynamic_hazard": true,
+        "regrowth_days": 3,
+        "sleep_learning": true,
+        "sleep_auto_adopt": true,
+        "body_mode": "enabled",
+        "energy_mode": "enabled",
+        "social_mode": "enabled",
+        "social_adopt": true,
+        "social_pressure": true,
+        "refusal_field_mode": "enabled",
+        "body_scene": "social_shared",
+        "personal_food": true,
+        "hunger_enabled": true,
+        "body_method_field": true,
+        "food_retention": true,
+        "experience_bundle_mode": "enabled",
+        "bundle_sleep_enabled": true,
+        "trail_enabled": true,
+        "ground_wear_enabled": true,
+        "ground_recovery_enabled": true,
+        "ground_appearance_enabled": true,
+        "ground_pattern_enabled": true,
+        "run_id": "cohort-newcomers",
+        "ground_continuity_enabled": false
+      },
+      "audit": {
+        "completed": 4608,
+        "food_conserved": true,
+        "no_duplicate_or_overlapping_effects": true,
+        "initial_food": 21,
+        "regrown_food": 91,
+        "actions": {
+          "request:expressed": 12,
+          "refuse:expressed": 9,
+          "eat:ate": 91
+        },
+        "commands": {
+          "wait": 2928,
+          "social": 112,
+          "pickup": 91,
+          "turn": 821,
+          "move": 656
+        },
+        "positive_refusal_choices": {
+          "request_again": 7,
+          "respond": 5
+        },
+        "safety_decisions": 4608,
+        "visible_hazard_decisions": 698,
+        "safety_reasons": {
+          "normal": 3179,
+          "continuous_safety/step_-90": 736,
+          "continuous_safety/step_-45": 68,
+          "continuous_safety/step_0": 24,
+          "provisional_mode_release": 135,
+          "continuous_safety/step_90": 233,
+          "continuous_safety/step_45": 99,
+          "continuous_safety/wait": 9,
+          "limited_clearance": 13,
+          "continuous_safety/survey_left": 23,
+          "continuous_safety/await_body": 69,
+          "continuous_safety/survey_right": 20
+        },
+        "daily": {
+          "1": {
+            "wait": 120,
+            "picked_up": 8,
+            "social": 10,
+            "pickup": 8,
+            "turn": 10,
+            "move": 8
+          },
+          "2": {
+            "wait": 65,
+            "picked_up": 0,
+            "turn": 44,
+            "move": 41,
+            "social": 3
+          },
+          "3": {
+            "wait": 84,
+            "picked_up": 0,
+            "turn": 37,
+            "move": 29,
+            "social": 3
+          },
+          "4": {
+            "wait": 108,
+            "picked_up": 0,
+            "move": 24,
+            "turn": 21
+          },
+          "5": {
+            "wait": 63,
+            "picked_up": 11,
+            "turn": 39,
+            "pickup": 11,
+            "move": 29,
+            "social": 11
+          },
+          "6": {
+            "wait": 100,
+            "picked_up": 0,
+            "turn": 29,
+            "move": 24,
+            "social": 3
+          },
+          "7": {
+            "wait": 102,
+            "picked_up": 3,
+            "turn": 28,
+            "pickup": 3,
+            "move": 17,
+            "social": 3
+          },
+          "8": {
+            "wait": 91,
+            "picked_up": 6,
+            "turn": 32,
+            "move": 21,
+            "pickup": 6,
+            "social": 3
+          },
+          "9": {
+            "wait": 87,
+            "picked_up": 0,
+            "turn": 36,
+            "move": 27,
+            "social": 3
+          },
+          "10": {
+            "wait": 108,
+            "picked_up": 3,
+            "turn": 22,
+            "pickup": 3,
+            "move": 17,
+            "social": 3
+          },
+          "11": {
+            "wait": 68,
+            "picked_up": 5,
+            "turn": 47,
+            "move": 33,
+            "pickup": 5,
+            "social": 3
+          },
+          "12": {
+            "wait": 89,
+            "picked_up": 0,
+            "turn": 35,
+            "move": 26,
+            "social": 3
+          },
+          "13": {
+            "wait": 96,
+            "picked_up": 3,
+            "pickup": 3,
+            "turn": 28,
+            "move": 23,
+            "social": 3
+          },
+          "14": {
+            "wait": 72,
+            "picked_up": 7,
+            "pickup": 7,
+            "turn": 40,
+            "move": 30,
+            "social": 4
+          },
+          "15": {
+            "wait": 94,
+            "picked_up": 0,
+            "turn": 35,
+            "move": 21,
+            "social": 3
+          },
+          "16": {
+            "wait": 106,
+            "picked_up": 0,
+            "move": 22,
+            "turn": 23,
+            "social": 5
+          },
+          "17": {
+            "wait": 75,
+            "picked_up": 11,
+            "turn": 33,
+            "pickup": 11,
+            "move": 26,
+            "social": 8
+          },
+          "18": {
+            "wait": 119,
+            "picked_up": 0,
+            "turn": 19,
+            "move": 13,
+            "social": 2
+          },
+          "19": {
+            "wait": 107,
+            "picked_up": 0,
+            "social": 4,
+            "turn": 22,
+            "move": 20
+          },
+          "20": {
+            "wait": 97,
+            "picked_up": 3,
+            "turn": 28,
+            "move": 23,
+            "pickup": 3,
+            "social": 2
+          },
+          "21": {
+            "wait": 91,
+            "picked_up": 7,
+            "turn": 28,
+            "move": 23,
+            "social": 7,
+            "pickup": 7
+          },
+          "22": {
+            "social": 3,
+            "picked_up": 0,
+            "wait": 111,
+            "turn": 22,
+            "move": 17
+          },
+          "23": {
+            "wait": 99,
+            "picked_up": 3,
+            "social": 2,
+            "turn": 26,
+            "move": 23,
+            "pickup": 3
+          },
+          "24": {
+            "wait": 108,
+            "picked_up": 3,
+            "social": 4,
+            "move": 18,
+            "turn": 20,
+            "pickup": 3
+          },
+          "25": {
+            "wait": 120,
+            "picked_up": 4,
+            "pickup": 4,
+            "social": 3,
+            "turn": 14,
+            "move": 12
+          },
+          "26": {
+            "wait": 106,
+            "picked_up": 0,
+            "social": 2,
+            "turn": 27,
+            "move": 21
+          },
+          "27": {
+            "social": 4,
+            "picked_up": 7,
+            "wait": 112,
+            "turn": 16,
+            "pickup": 7,
+            "move": 14
+          },
+          "28": {
+            "wait": 127,
+            "picked_up": 0,
+            "social": 2,
+            "turn": 13,
+            "move": 11
+          },
+          "29": {
+            "wait": 91,
+            "picked_up": 4,
+            "social": 3,
+            "turn": 30,
+            "move": 25,
+            "pickup": 4
+          },
+          "30": {
+            "wait": 112,
+            "picked_up": 3,
+            "social": 3,
+            "move": 18,
+            "turn": 17,
+            "pickup": 3
+          }
+        },
+        "summary": {
+          "ended_us": 1920000000,
+          "pickups": 91,
+          "social_stock": 0,
+          "social_consumed": 91,
+          "physical_inventory": {
+            "npc_a": 2,
+            "npc_b": 2,
+            "npc_c": 0
+          },
+          "layered_bodies": {
+            "npc_a": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 81.0191812500027,
+              "damage": 0.0
+            },
+            "npc_b": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 92.56709270833596,
+              "damage": 0.0
+            },
+            "npc_c": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 78.45937500000292,
+              "damage": 0.0
+            }
+          },
+          "elapsed_seconds": 51.960658500000136
+        },
+        "learning": {
+          "npc_a": {
+            "sleep_statuses": {
+              "completed": 26,
+              "interrupted": 1
+            },
+            "harvest_model": "gameai-reconstructed-mb:f7a81db51084503a:v1",
+            "social_records": 4,
+            "social_model": {
+              "npc_b": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_a:op:cohort-newcomers:npc_a:obs:10",
+                  "npc_a:op:cohort-newcomers:npc_a:obs:35"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              },
+              "npc_c": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_a:op:cohort-newcomers:npc_a:obs:5145",
+                  "npc_a:op:cohort-newcomers:npc_a:obs:5155"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              }
+            },
+            "sleep_model": "sleep-unvalidated-action-model-v1:61cd73fcf05eac3b8ef93329",
+            "sleep_records": 134
+          },
+          "npc_b": {
+            "sleep_statuses": {
+              "completed": 26
+            },
+            "harvest_model": "gameai-reconstructed-mb:021ea6e023e11a26:v1",
+            "social_records": 4,
+            "social_model": {
+              "npc_c": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_b:op:cohort-newcomers:npc_b:obs:3955",
+                  "npc_b:op:cohort-newcomers:npc_b:obs:3980"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              },
+              "npc_a": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_b:op:cohort-newcomers:npc_b:obs:4180",
+                  "npc_b:op:cohort-newcomers:npc_b:obs:4190"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              }
+            },
+            "sleep_model": "sleep-unvalidated-action-model-v1:f57bf7f6540d9c215e29b808",
+            "sleep_records": 136
+          },
+          "npc_c": {
+            "sleep_statuses": {
+              "completed": 28
+            },
+            "harvest_model": "gameai-reconstructed-mb:74a6f810b2ad3504:v1",
+            "social_records": 4,
+            "social_model": {
+              "npc_a": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_c:op:cohort-newcomers:npc_c:obs:1115",
+                  "npc_c:op:cohort-newcomers:npc_c:obs:3230"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              },
+              "npc_b": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_c:op:cohort-newcomers:npc_c:obs:1085",
+                  "npc_c:op:cohort-newcomers:npc_c:obs:1125"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              }
+            },
+            "sleep_model": "sleep-unvalidated-action-model-v1:20a751f31384317e4a5ab72f",
+            "sleep_records": 147
+          }
+        }
+      },
+      "ground_wear": {
+        "rule": "world-ground-recovery-v1",
+        "recovery_enabled": true,
+        "now_us": 3839750000,
+        "grace_us": 64000000,
+        "recovery_per_day": 2,
+        "cell_size": 1.0,
+        "road_distance": 10.0,
+        "operations": 656,
+        "cells": {
+          "-1,5": {
+            "distance": 98.04999999999883,
+            "wear": 78.79218749999997,
+            "last_walk_us": 3812250000,
+            "agents": {
+              "cohort-founders/npc_a": 29.983333333333427,
+              "cohort-founders/npc_b": 3.3500000000000014,
+              "cohort-founders/npc_c": 11.883333333333326,
+              "npc_a": 14.2333333333333,
+              "npc_b": 31.716666666666633,
+              "npc_c": 6.883333333333327
+            }
+          },
+          "0,5": {
+            "distance": 35.066666666666784,
+            "wear": 6.399479166666637,
+            "last_walk_us": 3623500000,
+            "agents": {
+              "cohort-founders/npc_c": 1.633333333333333,
+              "cohort-founders/npc_a": 17.416666666666668,
+              "cohort-founders/npc_b": 0.9166666666666667,
+              "npc_c": 1.7500000000000009,
+              "npc_b": 8.98333333333332,
+              "npc_a": 4.366666666666668
+            }
+          },
+          "-2,5": {
+            "distance": 51.88333333333376,
+            "wear": 0.0,
+            "last_walk_us": 3722250000,
+            "agents": {
+              "cohort-founders/npc_a": 7.249999999999991,
+              "cohort-founders/npc_b": 6.499999999999993,
+              "cohort-founders/npc_c": 16.16666666666667,
+              "npc_a": 9.733333333333322,
+              "npc_b": 6.483333333333326,
+              "npc_c": 5.749999999999996
+            }
+          },
+          "-1,6": {
+            "distance": 145.64999999999915,
+            "wear": 143.2828124999988,
+            "last_walk_us": 3821000000,
+            "agents": {
+              "cohort-founders/npc_c": 26.68333333333329,
+              "cohort-founders/npc_b": 37.10000000000007,
+              "cohort-founders/npc_a": 8.483333333333322,
+              "npc_b": 14.466666666666656,
+              "npc_c": 33.68333333333315,
+              "npc_a": 25.23333333333322
+            }
+          },
+          "-3,5": {
+            "distance": 9.849999999999989,
+            "wear": 0.0,
+            "last_walk_us": 2674750000,
+            "agents": {
+              "cohort-founders/npc_b": 1.866666666666668,
+              "cohort-founders/npc_c": 4.6,
+              "npc_b": 1.0333333333333334,
+              "npc_c": 0.8333333333333337,
+              "npc_a": 1.516666666666666
+            }
+          },
+          "-2,6": {
+            "distance": 68.65000000000045,
+            "wear": 44.454687500000404,
+            "last_walk_us": 3823500000,
+            "agents": {
+              "cohort-founders/npc_c": 12.033333333333317,
+              "cohort-founders/npc_b": 17.84999999999999,
+              "cohort-founders/npc_a": 1.4166666666666663,
+              "npc_b": 7.1499999999999915,
+              "npc_c": 20.949999999999946,
+              "npc_a": 9.24999999999999
+            }
+          },
+          "-2,4": {
+            "distance": 16.366666666666646,
+            "wear": 1.1187500000000008,
+            "last_walk_us": 3734750000,
+            "agents": {
+              "cohort-founders/npc_a": 7.649999999999989,
+              "cohort-founders/npc_c": 4.350000000000002,
+              "npc_a": 1.1666666666666667,
+              "npc_b": 3.2000000000000015
+            }
+          },
+          "-1,4": {
+            "distance": 24.900000000000087,
+            "wear": 2.070833333333335,
+            "last_walk_us": 3749750000,
+            "agents": {
+              "cohort-founders/npc_a": 6.233333333333326,
+              "cohort-founders/npc_c": 5.833333333333331,
+              "npc_a": 4.400000000000001,
+              "npc_b": 8.433333333333321
+            }
+          },
+          "-3,4": {
+            "distance": 6.549999999999996,
+            "wear": 0.0,
+            "last_walk_us": 2116000000,
+            "agents": {
+              "cohort-founders/npc_b": 2.333333333333336,
+              "npc_b": 2.333333333333336,
+              "npc_a": 1.8833333333333344
+            }
+          },
+          "-4,4": {
+            "distance": 0.666666666666667,
+            "wear": 0.0,
+            "last_walk_us": 2009750000,
+            "agents": {
+              "cohort-founders/npc_b": 0.3333333333333335,
+              "npc_b": 0.3333333333333335
+            }
+          },
+          "-3,6": {
+            "distance": 8.54999999999999,
+            "wear": 0.0,
+            "last_walk_us": 2672250000,
+            "agents": {
+              "cohort-founders/npc_b": 3.066666666666669,
+              "cohort-founders/npc_c": 0.5,
+              "npc_c": 1.116666666666667,
+              "npc_b": 0.2500000000000001,
+              "npc_a": 3.6166666666666694
+            }
+          },
+          "-1,7": {
+            "distance": 76.74999999999984,
+            "wear": 60.295833333334116,
+            "last_walk_us": 3818500000,
+            "agents": {
+              "cohort-founders/npc_b": 22.816666666666613,
+              "cohort-founders/npc_c": 5.8333333333333295,
+              "cohort-founders/npc_a": 1.6000000000000003,
+              "npc_b": 9.866666666666653,
+              "npc_c": 20.249999999999982,
+              "npc_a": 16.383333333333365
+            }
+          },
+          "-2,7": {
+            "distance": 22.400000000000034,
+            "wear": 3.7677083333333385,
+            "last_walk_us": 3821000000,
+            "agents": {
+              "cohort-founders/npc_b": 10.200000000000003,
+              "cohort-founders/npc_c": 1.4166666666666672,
+              "npc_c": 3.5833333333333366,
+              "npc_b": 5.783333333333329,
+              "npc_a": 1.4166666666666663
+            }
+          },
+          "-3,7": {
+            "distance": 4.550000000000002,
+            "wear": 0.0,
+            "last_walk_us": 2143500000,
+            "agents": {
+              "cohort-founders/npc_b": 1.0666666666666669,
+              "npc_c": 1.5499999999999998,
+              "npc_b": 0.6833333333333331,
+              "npc_a": 1.2500000000000009
+            }
+          },
+          "-4,5": {
+            "distance": 0.9999999999999999,
+            "wear": 0.0,
+            "last_walk_us": 183500000,
+            "agents": {
+              "cohort-founders/npc_c": 0.9999999999999999
+            }
+          },
+          "-2,8": {
+            "distance": 4.150000000000001,
+            "wear": 0.0,
+            "last_walk_us": 2889750000,
+            "agents": {
+              "cohort-founders/npc_b": 3.250000000000001,
+              "npc_b": 0.9000000000000004
+            }
+          },
+          "-2,9": {
+            "distance": 1.199999999999999,
+            "wear": 0.0,
+            "last_walk_us": 292250000,
+            "agents": {
+              "cohort-founders/npc_b": 1.199999999999999
+            }
+          },
+          "0,7": {
+            "distance": 27.316666666666652,
+            "wear": 0.0,
+            "last_walk_us": 3284750000,
+            "agents": {
+              "cohort-founders/npc_c": 6.96666666666666,
+              "cohort-founders/npc_a": 9.266666666666662,
+              "npc_c": 2.6666666666666687,
+              "npc_a": 7.2333333333333245,
+              "npc_b": 1.1833333333333331
+            }
+          },
+          "0,6": {
+            "distance": 31.81666666666656,
+            "wear": 0.0,
+            "last_walk_us": 3094750000,
+            "agents": {
+              "cohort-founders/npc_c": 17.70000000000002,
+              "cohort-founders/npc_a": 8.78333333333332,
+              "cohort-founders/npc_b": 0.5500000000000002,
+              "npc_c": 0.1666666666666667,
+              "npc_a": 1.7499999999999996,
+              "npc_b": 2.8666666666666667
+            }
+          },
+          "-1,8": {
+            "distance": 4.383333333333335,
+            "wear": 0.0,
+            "last_walk_us": 2891000000,
+            "agents": {
+              "cohort-founders/npc_b": 1.6000000000000003,
+              "npc_c": 0.8166666666666673,
+              "npc_a": 1.0999999999999999,
+              "npc_b": 0.8666666666666666
+            }
+          },
+          "1,6": {
+            "distance": 6.56666666666666,
+            "wear": 0.0,
+            "last_walk_us": 1909750000,
+            "agents": {
+              "cohort-founders/npc_c": 5.199999999999998,
+              "cohort-founders/npc_a": 1.3666666666666671
+            }
+          },
+          "1,7": {
+            "distance": 0.5,
+            "wear": 0.0,
+            "last_walk_us": 351000000,
+            "agents": {
+              "cohort-founders/npc_c": 0.5
+            }
+          },
+          "1,5": {
+            "distance": 3.0666666666666687,
+            "wear": 0.0,
+            "last_walk_us": 1843500000,
+            "agents": {
+              "cohort-founders/npc_c": 1.583333333333333,
+              "cohort-founders/npc_a": 1.4833333333333336
+            }
+          },
+          "1,4": {
+            "distance": 0.7500000000000001,
+            "wear": 0.0,
+            "last_walk_us": 807250000,
+            "agents": {
+              "cohort-founders/npc_c": 0.30000000000000004,
+              "cohort-founders/npc_a": 0.4500000000000001
+            }
+          },
+          "0,4": {
+            "distance": 26.11666666666674,
+            "wear": 0.0,
+            "last_walk_us": 3589750000,
+            "agents": {
+              "cohort-founders/npc_c": 1.916666666666667,
+              "cohort-founders/npc_a": 12.93333333333332,
+              "npc_b": 8.466666666666654,
+              "npc_a": 2.800000000000001
+            }
+          },
+          "-2,3": {
+            "distance": 2.0000000000000004,
+            "wear": 0.0,
+            "last_walk_us": 581000000,
+            "agents": {
+              "cohort-founders/npc_c": 2.0000000000000004
+            }
+          },
+          "-2,2": {
+            "distance": 0.4,
+            "wear": 0.0,
+            "last_walk_us": 566000000,
+            "agents": {
+              "cohort-founders/npc_c": 0.4
+            }
+          },
+          "0,8": {
+            "distance": 3.2833333333333345,
+            "wear": 0.0,
+            "last_walk_us": 3278500000,
+            "agents": {
+              "cohort-founders/npc_a": 0.9833333333333338,
+              "npc_a": 2.3000000000000003
+            }
+          },
+          "0,3": {
+            "distance": 1.2,
+            "wear": 0.0,
+            "last_walk_us": 3117250000,
+            "agents": {
+              "cohort-founders/npc_a": 0.2,
+              "npc_a": 0.9999999999999999
+            }
+          },
+          "-4,7": {
+            "distance": 0.7333333333333334,
+            "wear": 0.0,
+            "last_walk_us": 2148500000,
+            "agents": {
+              "npc_a": 0.7333333333333334
+            }
+          },
+          "-4,6": {
+            "distance": 0.9333333333333335,
+            "wear": 0.0,
+            "last_walk_us": 2152250000,
+            "agents": {
+              "npc_a": 0.9333333333333335
+            }
+          },
+          "-1,3": {
+            "distance": 0.7,
+            "wear": 0.0,
+            "last_walk_us": 3111000000,
+            "agents": {
+              "npc_a": 0.7
+            }
+          }
+        }
+      },
+      "ground_models": {
+        "decisions_with_candidate": 0,
+        "selected": 0,
+        "distinct_models": 0,
+        "H_increases": 0,
+        "executed_selected": 0
+      }
+    },
+    "enabled": {
+      "options": {
+        "days": 30,
+        "stop_after_returns": null,
+        "seed": 20261005,
+        "skyline_subrays": true,
+        "mb_field_mode": "enabled",
+        "goal_difference_mode": "enabled",
+        "food_goal_mode": "enabled",
+        "orientation_mode": "enabled",
+        "reposition_mode": "enabled",
+        "return_completion_mode": "enabled",
+        "nested_model_mode": "enabled",
+        "food_revisit_mode": "enabled",
+        "directional_route_mode": "enabled",
+        "relation_field_mode": "enabled",
+        "hazard_mode": "enabled",
+        "hazard_scenario": "territorial",
+        "warning_review_mode": "enabled",
+        "selection_mode": "continuous",
+        "dynamic_hazard": true,
+        "regrowth_days": 3,
+        "sleep_learning": true,
+        "sleep_auto_adopt": true,
+        "body_mode": "enabled",
+        "energy_mode": "enabled",
+        "social_mode": "enabled",
+        "social_adopt": true,
+        "social_pressure": true,
+        "refusal_field_mode": "enabled",
+        "body_scene": "social_shared",
+        "personal_food": true,
+        "hunger_enabled": true,
+        "body_method_field": true,
+        "food_retention": true,
+        "experience_bundle_mode": "enabled",
+        "bundle_sleep_enabled": true,
+        "trail_enabled": true,
+        "ground_wear_enabled": true,
+        "ground_recovery_enabled": true,
+        "ground_appearance_enabled": true,
+        "ground_pattern_enabled": true,
+        "run_id": "cohort-newcomers",
+        "ground_continuity_enabled": true
+      },
+      "audit": {
+        "completed": 4608,
+        "food_conserved": true,
+        "no_duplicate_or_overlapping_effects": true,
+        "initial_food": 21,
+        "regrown_food": 91,
+        "actions": {
+          "request:expressed": 12,
+          "refuse:expressed": 9,
+          "eat:ate": 91
+        },
+        "commands": {
+          "wait": 2879,
+          "social": 112,
+          "pickup": 92,
+          "turn": 832,
+          "move": 693
+        },
+        "positive_refusal_choices": {
+          "request_again": 7,
+          "respond": 5
+        },
+        "safety_decisions": 4608,
+        "visible_hazard_decisions": 757,
+        "safety_reasons": {
+          "normal": 3110,
+          "continuous_safety/step_-90": 737,
+          "continuous_safety/step_-45": 81,
+          "continuous_safety/step_0": 45,
+          "provisional_mode_release": 136,
+          "continuous_safety/step_90": 270,
+          "continuous_safety/step_45": 84,
+          "continuous_safety/wait": 11,
+          "limited_clearance": 14,
+          "continuous_safety/survey_left": 24,
+          "continuous_safety/await_body": 75,
+          "continuous_safety/survey_right": 21
+        },
+        "daily": {
+          "1": {
+            "wait": 120,
+            "picked_up": 8,
+            "social": 10,
+            "pickup": 8,
+            "turn": 10,
+            "move": 8
+          },
+          "2": {
+            "wait": 65,
+            "picked_up": 0,
+            "turn": 44,
+            "move": 41,
+            "social": 3
+          },
+          "3": {
+            "wait": 84,
+            "picked_up": 0,
+            "turn": 37,
+            "move": 29,
+            "social": 3
+          },
+          "4": {
+            "wait": 108,
+            "picked_up": 0,
+            "move": 24,
+            "turn": 21
+          },
+          "5": {
+            "wait": 63,
+            "picked_up": 11,
+            "turn": 39,
+            "pickup": 11,
+            "move": 29,
+            "social": 11
+          },
+          "6": {
+            "wait": 100,
+            "picked_up": 0,
+            "turn": 29,
+            "move": 24,
+            "social": 3
+          },
+          "7": {
+            "wait": 102,
+            "picked_up": 3,
+            "turn": 28,
+            "pickup": 3,
+            "move": 17,
+            "social": 3
+          },
+          "8": {
+            "wait": 91,
+            "picked_up": 6,
+            "turn": 32,
+            "move": 21,
+            "pickup": 6,
+            "social": 3
+          },
+          "9": {
+            "wait": 87,
+            "picked_up": 0,
+            "turn": 36,
+            "move": 27,
+            "social": 3
+          },
+          "10": {
+            "wait": 108,
+            "picked_up": 3,
+            "turn": 22,
+            "pickup": 3,
+            "move": 17,
+            "social": 3
+          },
+          "11": {
+            "wait": 68,
+            "picked_up": 5,
+            "turn": 47,
+            "move": 33,
+            "pickup": 5,
+            "social": 3
+          },
+          "12": {
+            "wait": 89,
+            "picked_up": 0,
+            "turn": 35,
+            "move": 26,
+            "social": 3
+          },
+          "13": {
+            "wait": 96,
+            "picked_up": 3,
+            "pickup": 3,
+            "turn": 28,
+            "move": 23,
+            "social": 3
+          },
+          "14": {
+            "wait": 72,
+            "picked_up": 7,
+            "pickup": 7,
+            "turn": 40,
+            "move": 30,
+            "social": 4
+          },
+          "15": {
+            "wait": 94,
+            "picked_up": 0,
+            "turn": 35,
+            "move": 21,
+            "social": 3
+          },
+          "16": {
+            "wait": 106,
+            "picked_up": 0,
+            "move": 22,
+            "turn": 23,
+            "social": 5
+          },
+          "17": {
+            "wait": 77,
+            "picked_up": 9,
+            "turn": 33,
+            "pickup": 9,
+            "move": 26,
+            "social": 8
+          },
+          "18": {
+            "wait": 110,
+            "picked_up": 0,
+            "turn": 25,
+            "social": 2,
+            "move": 16
+          },
+          "19": {
+            "wait": 104,
+            "picked_up": 3,
+            "social": 4,
+            "turn": 22,
+            "move": 20,
+            "pickup": 3
+          },
+          "20": {
+            "wait": 90,
+            "picked_up": 3,
+            "turn": 27,
+            "move": 31,
+            "pickup": 3,
+            "social": 2
+          },
+          "21": {
+            "wait": 104,
+            "picked_up": 4,
+            "turn": 21,
+            "move": 20,
+            "social": 7,
+            "pickup": 4
+          },
+          "22": {
+            "social": 3,
+            "picked_up": 3,
+            "wait": 104,
+            "turn": 20,
+            "pickup": 3,
+            "move": 23
+          },
+          "23": {
+            "wait": 95,
+            "picked_up": 3,
+            "social": 2,
+            "turn": 28,
+            "move": 25,
+            "pickup": 3
+          },
+          "24": {
+            "wait": 96,
+            "picked_up": 0,
+            "social": 4,
+            "move": 27,
+            "turn": 26
+          },
+          "25": {
+            "wait": 110,
+            "picked_up": 4,
+            "pickup": 4,
+            "turn": 18,
+            "social": 2,
+            "move": 19
+          },
+          "26": {
+            "wait": 102,
+            "picked_up": 5,
+            "turn": 26,
+            "move": 20,
+            "social": 3,
+            "pickup": 5
+          },
+          "27": {
+            "wait": 102,
+            "picked_up": 4,
+            "social": 4,
+            "turn": 22,
+            "pickup": 4,
+            "move": 21
+          },
+          "28": {
+            "wait": 120,
+            "picked_up": 0,
+            "turn": 16,
+            "social": 2,
+            "move": 15
+          },
+          "29": {
+            "wait": 101,
+            "picked_up": 4,
+            "social": 3,
+            "turn": 24,
+            "move": 21,
+            "pickup": 4
+          },
+          "30": {
+            "wait": 111,
+            "picked_up": 4,
+            "social": 3,
+            "move": 17,
+            "pickup": 4,
+            "turn": 18
+          }
+        },
+        "summary": {
+          "ended_us": 1920000000,
+          "pickups": 92,
+          "social_stock": 0,
+          "social_consumed": 91,
+          "physical_inventory": {
+            "npc_a": 2,
+            "npc_b": 3,
+            "npc_c": 0
+          },
+          "layered_bodies": {
+            "npc_a": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 81.21586458333603,
+              "damage": 0.0
+            },
+            "npc_b": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 81.91099791666926,
+              "damage": 0.0
+            },
+            "npc_c": {
+              "rule": "layered-body-v1",
+              "burst": 10.0,
+              "strain": 0,
+              "reserve": 78.45937500000292,
+              "damage": 0.0
+            }
+          },
+          "elapsed_seconds": 53.78711159998784
+        },
+        "learning": {
+          "npc_a": {
+            "sleep_statuses": {
+              "completed": 26,
+              "interrupted": 1
+            },
+            "harvest_model": "gameai-reconstructed-mb:f7a81db51084503a:v1",
+            "social_records": 4,
+            "social_model": {
+              "npc_b": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_a:op:cohort-newcomers:npc_a:obs:10",
+                  "npc_a:op:cohort-newcomers:npc_a:obs:35"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              },
+              "npc_c": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_a:op:cohort-newcomers:npc_a:obs:5145",
+                  "npc_a:op:cohort-newcomers:npc_a:obs:5155"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              }
+            },
+            "sleep_model": "sleep-unvalidated-action-model-v1:3e8aecb05cb186d3e7ec5177",
+            "sleep_records": 134
+          },
+          "npc_b": {
+            "sleep_statuses": {
+              "completed": 24,
+              "interrupted": 1
+            },
+            "harvest_model": "gameai-reconstructed-mb:021ea6e023e11a26:v1",
+            "social_records": 4,
+            "social_model": {
+              "npc_c": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_b:op:cohort-newcomers:npc_b:obs:3955",
+                  "npc_b:op:cohort-newcomers:npc_b:obs:3980"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              },
+              "npc_a": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_b:op:cohort-newcomers:npc_b:obs:4180",
+                  "npc_b:op:cohort-newcomers:npc_b:obs:4190"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              }
+            },
+            "sleep_model": "sleep-unvalidated-action-model-v1:0ab56eec927b66c4a7cb2e86",
+            "sleep_records": 124
+          },
+          "npc_c": {
+            "sleep_statuses": {
+              "completed": 28
+            },
+            "harvest_model": "gameai-reconstructed-mb:74a6f810b2ad3504:v1",
+            "social_records": 4,
+            "social_model": {
+              "npc_a": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_c:op:cohort-newcomers:npc_c:obs:1115",
+                  "npc_c:op:cohort-newcomers:npc_c:obs:3230"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              },
+              "npc_b": {
+                "expectation": 0.25,
+                "sources": [
+                  "npc_c:op:cohort-newcomers:npc_c:obs:1085",
+                  "npc_c:op:cohort-newcomers:npc_c:obs:1125"
+                ],
+                "authority": "unvalidated local aid expectation; not intent or canonical T1"
+              }
+            },
+            "sleep_model": "sleep-unvalidated-action-model-v1:eba0c16f9648d8c74a8ed933",
+            "sleep_records": 147
+          }
+        }
+      },
+      "ground_wear": {
+        "rule": "world-ground-recovery-v1",
+        "recovery_enabled": true,
+        "now_us": 3839750000,
+        "grace_us": 64000000,
+        "recovery_per_day": 2,
+        "cell_size": 1.0,
+        "road_distance": 10.0,
+        "operations": 693,
+        "cells": {
+          "-1,5": {
+            "distance": 87.26666666666611,
+            "wear": 59.71197916666695,
+            "last_walk_us": 3621000000,
+            "agents": {
+              "cohort-founders/npc_a": 29.983333333333427,
+              "cohort-founders/npc_b": 3.3500000000000014,
+              "cohort-founders/npc_c": 11.883333333333326,
+              "npc_a": 14.2333333333333,
+              "npc_b": 20.933333333333362,
+              "npc_c": 6.883333333333327
+            }
+          },
+          "0,5": {
+            "distance": 29.066666666666734,
+            "wear": 0.0,
+            "last_walk_us": 3096000000,
+            "agents": {
+              "cohort-founders/npc_c": 1.633333333333333,
+              "cohort-founders/npc_a": 17.416666666666668,
+              "cohort-founders/npc_b": 0.9166666666666667,
+              "npc_c": 1.7500000000000009,
+              "npc_b": 2.983333333333335,
+              "npc_a": 4.366666666666668
+            }
+          },
+          "-2,5": {
+            "distance": 53.700000000000465,
+            "wear": 1.9031250000000686,
+            "last_walk_us": 3831000000,
+            "agents": {
+              "cohort-founders/npc_a": 7.249999999999991,
+              "cohort-founders/npc_b": 6.499999999999993,
+              "cohort-founders/npc_c": 16.16666666666667,
+              "npc_a": 9.733333333333322,
+              "npc_b": 8.29999999999999,
+              "npc_c": 5.749999999999996
+            }
+          },
+          "-1,6": {
+            "distance": 148.6166666666661,
+            "wear": 146.24947916666576,
+            "last_walk_us": 3821000000,
+            "agents": {
+              "cohort-founders/npc_c": 26.68333333333329,
+              "cohort-founders/npc_b": 37.10000000000007,
+              "cohort-founders/npc_a": 8.483333333333322,
+              "npc_b": 17.433333333333298,
+              "npc_c": 33.68333333333315,
+              "npc_a": 25.23333333333322
+            }
+          },
+          "-3,5": {
+            "distance": 11.199999999999992,
+            "wear": 0.4166666666666668,
+            "last_walk_us": 3831000000,
+            "agents": {
+              "cohort-founders/npc_b": 1.866666666666668,
+              "cohort-founders/npc_c": 4.6,
+              "npc_b": 2.383333333333334,
+              "npc_c": 0.8333333333333337,
+              "npc_a": 1.516666666666666
+            }
+          },
+          "-2,6": {
+            "distance": 86.21666666666611,
+            "wear": 63.880729166667436,
+            "last_walk_us": 3826000000,
+            "agents": {
+              "cohort-founders/npc_c": 12.033333333333317,
+              "cohort-founders/npc_b": 17.84999999999999,
+              "cohort-founders/npc_a": 1.4166666666666663,
+              "npc_b": 24.716666666666537,
+              "npc_c": 20.949999999999946,
+              "npc_a": 9.24999999999999
+            }
+          },
+          "-2,4": {
+            "distance": 14.266666666666648,
+            "wear": 0.0,
+            "last_walk_us": 3057250000,
+            "agents": {
+              "cohort-founders/npc_a": 7.649999999999989,
+              "cohort-founders/npc_c": 4.350000000000002,
+              "npc_a": 1.1666666666666667,
+              "npc_b": 1.0999999999999999
+            }
+          },
+          "-1,4": {
+            "distance": 20.63333333333338,
+            "wear": 0.0,
+            "last_walk_us": 3206000000,
+            "agents": {
+              "cohort-founders/npc_a": 6.233333333333326,
+              "cohort-founders/npc_c": 5.833333333333331,
+              "npc_a": 4.400000000000001,
+              "npc_b": 4.166666666666669
+            }
+          },
+          "-3,4": {
+            "distance": 6.549999999999996,
+            "wear": 0.0,
+            "last_walk_us": 2116000000,
+            "agents": {
+              "cohort-founders/npc_b": 2.333333333333336,
+              "npc_b": 2.333333333333336,
+              "npc_a": 1.8833333333333344
+            }
+          },
+          "-4,4": {
+            "distance": 0.666666666666667,
+            "wear": 0.0,
+            "last_walk_us": 2009750000,
+            "agents": {
+              "cohort-founders/npc_b": 0.3333333333333335,
+              "npc_b": 0.3333333333333335
+            }
+          },
+          "-3,6": {
+            "distance": 10.733333333333327,
+            "wear": 1.0833333333333335,
+            "last_walk_us": 3828500000,
+            "agents": {
+              "cohort-founders/npc_b": 3.066666666666669,
+              "cohort-founders/npc_c": 0.5,
+              "npc_c": 1.116666666666667,
+              "npc_b": 2.433333333333334,
+              "npc_a": 3.6166666666666694
+            }
+          },
+          "-1,7": {
+            "distance": 84.39999999999941,
+            "wear": 68.80520833333384,
+            "last_walk_us": 3818500000,
+            "agents": {
+              "cohort-founders/npc_b": 22.816666666666613,
+              "cohort-founders/npc_c": 5.8333333333333295,
+              "cohort-founders/npc_a": 1.6000000000000003,
+              "npc_b": 17.516666666666648,
+              "npc_c": 20.249999999999982,
+              "npc_a": 16.383333333333365
+            }
+          },
+          "-2,7": {
+            "distance": 30.266666666666723,
+            "wear": 11.751562499999991,
+            "last_walk_us": 3821000000,
+            "agents": {
+              "cohort-founders/npc_b": 10.200000000000003,
+              "cohort-founders/npc_c": 1.4166666666666672,
+              "npc_c": 3.5833333333333366,
+              "npc_b": 13.649999999999988,
+              "npc_a": 1.4166666666666663
+            }
+          },
+          "-3,7": {
+            "distance": 4.716666666666668,
+            "wear": 0.1666666666666667,
+            "last_walk_us": 3821000000,
+            "agents": {
+              "cohort-founders/npc_b": 1.0666666666666669,
+              "npc_c": 1.5499999999999998,
+              "npc_b": 0.8499999999999999,
+              "npc_a": 1.2500000000000009
+            }
+          },
+          "-4,5": {
+            "distance": 0.9999999999999999,
+            "wear": 0.0,
+            "last_walk_us": 183500000,
+            "agents": {
+              "cohort-founders/npc_c": 0.9999999999999999
+            }
+          },
+          "-2,8": {
+            "distance": 4.616666666666666,
+            "wear": 0.0,
+            "last_walk_us": 3486000000,
+            "agents": {
+              "cohort-founders/npc_b": 3.250000000000001,
+              "npc_b": 1.3666666666666667
+            }
+          },
+          "-2,9": {
+            "distance": 1.199999999999999,
+            "wear": 0.0,
+            "last_walk_us": 292250000,
+            "agents": {
+              "cohort-founders/npc_b": 1.199999999999999
+            }
+          },
+          "0,7": {
+            "distance": 29.96666666666667,
+            "wear": 0.0,
+            "last_walk_us": 3476000000,
+            "agents": {
+              "cohort-founders/npc_c": 6.96666666666666,
+              "cohort-founders/npc_a": 9.266666666666662,
+              "npc_c": 2.6666666666666687,
+              "npc_a": 7.2333333333333245,
+              "npc_b": 3.8333333333333366
+            }
+          },
+          "0,6": {
+            "distance": 31.349999999999905,
+            "wear": 0.0,
+            "last_walk_us": 3428500000,
+            "agents": {
+              "cohort-founders/npc_c": 17.70000000000002,
+              "cohort-founders/npc_a": 8.78333333333332,
+              "cohort-founders/npc_b": 0.5500000000000002,
+              "npc_c": 0.1666666666666667,
+              "npc_a": 1.7499999999999996,
+              "npc_b": 2.400000000000001
+            }
+          },
+          "-1,8": {
+            "distance": 6.783333333333326,
+            "wear": 0.0,
+            "last_walk_us": 3483500000,
+            "agents": {
+              "cohort-founders/npc_b": 1.6000000000000003,
+              "npc_c": 0.8166666666666673,
+              "npc_a": 1.0999999999999999,
+              "npc_b": 3.266666666666666
+            }
+          },
+          "1,6": {
+            "distance": 6.56666666666666,
+            "wear": 0.0,
+            "last_walk_us": 1909750000,
+            "agents": {
+              "cohort-founders/npc_c": 5.199999999999998,
+              "cohort-founders/npc_a": 1.3666666666666671
+            }
+          },
+          "1,7": {
+            "distance": 1.85,
+            "wear": 0.0,
+            "last_walk_us": 3462250000,
+            "agents": {
+              "cohort-founders/npc_c": 0.5,
+              "npc_b": 1.3499999999999996
+            }
+          },
+          "1,5": {
+            "distance": 3.0666666666666687,
+            "wear": 0.0,
+            "last_walk_us": 1843500000,
+            "agents": {
+              "cohort-founders/npc_c": 1.583333333333333,
+              "cohort-founders/npc_a": 1.4833333333333336
+            }
+          },
+          "1,4": {
+            "distance": 0.7500000000000001,
+            "wear": 0.0,
+            "last_walk_us": 807250000,
+            "agents": {
+              "cohort-founders/npc_c": 0.30000000000000004,
+              "cohort-founders/npc_a": 0.4500000000000001
+            }
+          },
+          "0,4": {
+            "distance": 19.616666666666706,
+            "wear": 0.0,
+            "last_walk_us": 3143500000,
+            "agents": {
+              "cohort-founders/npc_c": 1.916666666666667,
+              "cohort-founders/npc_a": 12.93333333333332,
+              "npc_b": 1.9666666666666675,
+              "npc_a": 2.800000000000001
+            }
+          },
+          "-2,3": {
+            "distance": 2.0000000000000004,
+            "wear": 0.0,
+            "last_walk_us": 581000000,
+            "agents": {
+              "cohort-founders/npc_c": 2.0000000000000004
+            }
+          },
+          "-2,2": {
+            "distance": 0.4,
+            "wear": 0.0,
+            "last_walk_us": 566000000,
+            "agents": {
+              "cohort-founders/npc_c": 0.4
+            }
+          },
+          "0,8": {
+            "distance": 3.2833333333333345,
+            "wear": 0.0,
+            "last_walk_us": 3278500000,
+            "agents": {
+              "cohort-founders/npc_a": 0.9833333333333338,
+              "npc_a": 2.3000000000000003
+            }
+          },
+          "0,3": {
+            "distance": 1.2,
+            "wear": 0.0,
+            "last_walk_us": 3117250000,
+            "agents": {
+              "cohort-founders/npc_a": 0.2,
+              "npc_a": 0.9999999999999999
+            }
+          },
+          "-4,7": {
+            "distance": 0.7333333333333334,
+            "wear": 0.0,
+            "last_walk_us": 2148500000,
+            "agents": {
+              "npc_a": 0.7333333333333334
+            }
+          },
+          "-4,6": {
+            "distance": 0.9333333333333335,
+            "wear": 0.0,
+            "last_walk_us": 2152250000,
+            "agents": {
+              "npc_a": 0.9333333333333335
+            }
+          },
+          "-1,3": {
+            "distance": 0.7,
+            "wear": 0.0,
+            "last_walk_us": 3111000000,
+            "agents": {
+              "npc_a": 0.7
+            }
+          },
+          "-3,8": {
+            "distance": 0.1833333333333333,
+            "wear": 0.0,
+            "last_walk_us": 3294750000,
+            "agents": {
+              "npc_b": 0.1833333333333333
+            }
+          }
+        }
+      },
+      "ground_models": {
+        "decisions_with_candidate": 9,
+        "selected": 9,
+        "linked_model_observations": 3091,
+        "changed_context": 121,
+        "distinct_models": 382,
+        "H_increases": 0,
+        "executed_selected": 1
+      }
+    }
+  },
+  "compared_decisions": 4608,
+  "changed_kind_amount": 322,
+  "replay": {
+    "replayed_decisions": 4608,
+    "all_models_reproduced": true,
+    "max_active_models": 4,
+    "executed_ground_methods": [
+      {
+        "command": {
+          "run_id": "cohort-newcomers",
+          "world_epoch": 1,
+          "agent_id": "npc_b",
+          "pose_ref": "cohort-newcomers:npc_b:pose:319",
+          "body_revision": 319,
+          "capture_us": 1046250000,
+          "operation_id": "op:cohort-newcomers:npc_b:obs:4185",
+          "source_id": "cohort-newcomers:npc_b:obs:4185",
+          "expires_us": 1047750000,
+          "kind": "move",
+          "amount": 0.5,
+          "target_ref": "",
+          "reason": "continuous_food/ground_72"
+        },
+        "result": {
+          "run_id": "cohort-newcomers",
+          "world_epoch": 1,
+          "agent_id": "npc_b",
+          "operation_id": "op:cohort-newcomers:npc_b:obs:4185",
+          "source_id": "cohort-newcomers:npc_b:obs:4185",
+          "executed_us": 1047250000,
+          "before_pose_ref": "cohort-newcomers:npc_b:pose:319",
+          "after_pose_ref": "cohort-newcomers:npc_b:pose:320",
+          "before_revision": 319,
+          "after_revision": 320,
+          "status": "moved",
+          "forward": 0.5,
+          "right": 0,
+          "up": 0,
+          "yaw": 0,
+          "acquired": false
+        }
+      }
+    ]
+  },
+  "log_sha256": {
+    "disabled": "1e731fca501009f46d939b9b72120b5273b161b455f68a8caed48db5c84d01ea",
+    "enabled": "bd893e9f52a945aa606475d3b8f41bcd0dc1515cd4f44e6df85abd155e9a8279"
+  }
+}

@@ -18,6 +18,11 @@ def review(agent,p,d):
     r=agent.results.get(cmd['operation_id']) if cmd else None
     linked=bool(r and r['after_pose_ref']==p['pose_ref'] and r['after_revision']==p['body_revision']
         and r['executed_us']<p['capture_us'] and r['status'] not in ('stale','expired'))
+    ground_model=None
+    if getattr(agent,'ground_continuity_enabled',False):
+        from .ground_continuity import update
+        ground_model=update(p,last.get('ground_continuity'),r)
+        d['ground_continuity']=ground_model
     s=deepcopy(last.get('continuous_selection')) if last.get('continuous_selection') else dict(
         rule=RULE,binding=[p['run_id'],p['agent_id']],nodes={},events=[],sequence=0)
     if s['binding']!=[p['run_id'],p['agent_id']]:raise ValueError('selection_binding')
@@ -31,11 +36,17 @@ def review(agent,p,d):
                 forward=any(x['direction_deg']==0 and x['status']=='sampled' and x['height_delta'] is not None and abs(x['height_delta'])<=.5 for x in g['samples']) and not g['output_limited']
                 danger=trial['model'].startswith('safety/') and any(x['range_band']=='near' and x['azimuth'][0]<30 and x['azimuth'][1]>-30 for x in p.get('hazard',{}).get('features',[]))
                 continuing=continuing and forward and not danger
+                if trial['model'].startswith('food/ground_'):
+                    continuing=continuing and bool(ground_model and any(
+                        m['status']=='observed' and trial['model']=='food/'+m['model_ref'] for m in ground_model['models']))
                 if not continuing:value=0
             elif trial['question']=='clearance_evidence':
                 h=p.get('hazard',{});fs=h.get('features',[])
                 before_band=trial['band'];band=min(({'near':0,'watch':1,'far':2}[x['range_band']] for x in fs),default=3)
                 value=int((not fs and h.get('coverage')=='complete') or (bool(fs) and band>before_band))
+            elif trial['question']=='ground_extension':
+                m=next((m for m in ground_model['models'] if trial['model'].endswith('/'+m['model_ref'])),None) if ground_model else None
+                value=int(bool(m and m['status']=='observed' and m['extended'] and r['status']=='moved')) if m and m['status']=='observed' else None
             elif trial['question']=='acquired':value=int(bool(r['acquired']))
             elif trial['question']=='rested':value=int(r['status']=='waited')
             else:value=int(signature(p)!=signature(previous))
@@ -44,6 +55,8 @@ def review(agent,p,d):
             question=trial['question'],F=1,F_prime=value,E=None if value is None else 1-value,
             H_before=before,H_after=n['H'],status='pending_step' if continuing else ('defer' if value is None else 'compared'))])[-32:]
     phase=d['day_cycle']['phase'];family={'exploration':'food','return':'home','safety':'safety','night':'rest','orientation':'orientation'}[phase]
+    if ground_model:
+        for ref in ground_model['retired']:s['nodes'].pop('food/'+ref,None)
     s.update(sequence=s['sequence']+1,candidates=[],selected=None,source=p['observation_id'],baseline=dict(action=d['action'][:],reason=d['reason']),applied=False)
     d['continuous_selection']=s
     def node(name):return s['nodes'].setdefault(family+'/'+name,dict(H=0,threshold=2,last_selected=0))
@@ -73,7 +86,7 @@ def review(agent,p,d):
             x['height_delta'] is not None and abs(x['height_delta'])<=.5) if not ground['output_limited'] else []
         front_threat=any(x['range_band']=='near' and x['azimuth'][0]<30 and x['azimuth'][1]>-30 for x in features)
         if continuing and pending and pending['family']==family and 0 in safe and not (phase=='safety' and front_threat):
-            add(pending['name'],['move',1],10,question);s['gate']='measured_turn_current_step'
+            add(pending['name'],['move',1],10,'ground_extension' if pending['name'].startswith('ground_') else question);s['gate']='measured_turn_current_step'
         else:
             add('wait',['wait',0],2 if phase=='safety' and features else 1,question)
             add('survey_left',['turn',-90],1.5,question)
@@ -89,6 +102,11 @@ def review(agent,p,d):
                 add('step_'+str(angle),['move',1] if angle==0 else ['turn',angle],priority,
                     question if angle==0 else 'rotation_then_step')
             s['gate']='method_reselection'
+            if ground_model and phase=='exploration':
+                from .ground_continuity import proposals
+                for name,angle in proposals(ground_model,safe):
+                    add(name,['move',1] if angle==0 else ['turn',angle],2.25,
+                        'ground_extension' if angle==0 else 'rotation_then_step')
     if getattr(agent,'energy_enabled',False) and getattr(agent,'energy_apply',True):
         from .energy_connection import apply as apply_energy
         s['energy_field']=apply_energy(p,s['candidates'])
