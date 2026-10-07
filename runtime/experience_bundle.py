@@ -18,7 +18,8 @@ def form(agent,p,hunger):
     if latest is None or latest==s['last_comparison']:return s
     s['last_comparison']=latest
     if hunger['goal']['H']<hunger['goal']['threshold']:return s
-    if len(s['bundles'])>=32:s['formation_status']='capacity_reached';return s
+    if len(s['bundles'])>=32 or len(s['bundles'])+len(s.get('dormant',[]))>=256:
+        s['formation_status']='capacity_reached';return s
     sources=[]
     for observation in list(agent.observations.values())[-8:]:
         ident=observation['observation_id'];command=agent.commands.get(ident)
@@ -68,5 +69,6 @@ def apply(agent,p,selection,phase):
         if agent.experience_bundle_mode=='enabled':candidate['score']+=delta
     selected=min(selection['candidates'],key=key)['model']
     trace.update(status='matched' if matches else 'no_match',baseline=baseline,selected=selected,
-        changed=baseline!=selected,mode=agent.experience_bundle_mode)
+        changed=baseline!=selected,mode=agent.experience_bundle_mode,
+        matched_refs=sorted({ref for ref,source in matches}))
     return trace

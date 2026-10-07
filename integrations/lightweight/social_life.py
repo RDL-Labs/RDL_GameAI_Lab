@@ -159,6 +159,14 @@ class SocialAgent(EnergyAgent):
         if cycle:
             formation=self.observations.get(cycle['source'],p)['capture_us']
             if self.social_adopt:s=consolidate(s,dict(cycle,formation_us=formation),self.agent_id)
+        if getattr(self,'bundle_sleep_enabled',False):
+            from runtime.bundle_sleep import review as review_bundles
+            learning['experience_bundles']=review_bundles(learning['experience_bundles'],self,p,cycle,
+                self.observations.get(cycle['source'],p)['capture_us'] if cycle else p['capture_us'],
+                d['day_cycle']['phase'])
+            b=learning['experience_bundles']
+            d['bundle_sleep']=dict(active=len(b['bundles']),dormant=len(b['dormant']),
+                completed_reviews=len(b['sleep_cycles']),woken=b['woken'])
         intent=None;obs=p['social'];phase=d['day_cycle']['phase'];time=p['capture_us']%64_000_000
         provision=None
         if self.personal_food:

@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [経験束のSleep整理](docs/experiment-evidence/LW_bundle_sleep.md)：未使用束を休眠化し再照合で復帰。30日で形成累計47/73/65束。使用後の失敗Hは未実装。
+
 - [困窮時の経験束と再活性化](docs/experiment-evidence/LW_experience_bundle.md)：本人の過去条件/行動/結果から未検証の局所モデルを形成。30日で最終操作6判断に選択差、生活結果は悪化。原因の正しさは未保証。
 
 - [譲渡への備蓄保持拘束](docs/experiment-evidence/LW_food_retention.md)：reserve・粗い備蓄・食料Hをgive候補へ合成。30日完走。将来の補給予測は未実装。

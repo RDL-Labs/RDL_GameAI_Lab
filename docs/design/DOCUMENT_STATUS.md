@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [経験束のSleep整理](../experiment-contracts/LW_bundle_sleep.md)：FINITE IMPLEMENTED。完了Sleepで未使用束を休眠化、照合時に復帰。active32/総数256。使用結果H・canonical採用は未実装。
+
 - [経験束の形成](../experiment-contracts/LW_experience_bundle.md)：FINITE IMPLEMENTED。空腹Hを契機に最大32束/個体を保存・再活性化。canonical採用、Sleep検査、全M_Bネットワーク形成は未実装。
 
 - [身体方法場](../experiment-contracts/LW_body_method_field.md)：FINITE IMPLEMENTED。探索/帰還の再選択時に身体寄与。大目的切替・全身体層の独立H化は未実装。
