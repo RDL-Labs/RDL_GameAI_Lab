@@ -1,0 +1,14 @@
+{
+  "observations": {
+    "npc_a": 7680,
+    "npc_b": 7680,
+    "npc_c": 7680
+  },
+  "samples": {
+    "grass": 213524,
+    "occluded": 8531,
+    "trampled_grass": 77270,
+    "bare_ground": 46275
+  },
+  "identical_command_result_events": 9216
+}

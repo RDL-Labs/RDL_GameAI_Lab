@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [地面の見た目の認識](docs/experiment-evidence/LW_ground_appearance.md)：本人視点の草/踏まれた草/露出地面を保存。道を使う規則は未追加、30日で視認なしと全command/result一致。
+
 - [使われない道の回復](docs/experiment-evidence/LW_ground_recovery.md)：World時間で草地へ戻る。30日で通行履歴32区画中17区画が回復、4区画が道として残存。
 
 - [実通行で生まれる共有の道](docs/experiment-evidence/LW_ground_wear.md)：30日で39区画の通行跡、8区画が道。局所抵抗と身体消耗へ接続、複数個体のWorld履歴を共有。

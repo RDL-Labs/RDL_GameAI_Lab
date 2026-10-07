@@ -9,6 +9,12 @@ from runtime.energy_connection import ANGLES
 class EnergyAgent(BodyAgent):
     energy_enabled=True
 
+    def _packet(self,p):
+        if 'ground_appearance' in p:
+            from .ground_appearance import validate
+            validate(p['ground_appearance'],p)
+        return super()._packet({k:v for k,v in p.items() if k!='ground_appearance'})
+
 
 class EnergyCampaign(BodyCampaign):
     agent_type=EnergyAgent
@@ -16,6 +22,7 @@ class EnergyCampaign(BodyCampaign):
 
 class EnergyWorld(ExplorationBodyWorld):
     ground_wear_enabled=False
+    ground_appearance_enabled=False
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -51,4 +58,7 @@ class EnergyWorld(ExplorationBodyWorld):
                 (a['x']+dx*distance,a['z']+dz*distance),o,.2) for o in self.objects)
             samples.append(dict(angle=angle,clear=clear,resistance=self.resistance(aid,angle)))
         p['locomotor']['energy']=dict(load=self.carried_load(aid),climb_resistance=self.resistance(aid,action='climb'),samples=samples)
+        if self.ground_appearance_enabled:
+            from .ground_appearance import sample
+            p['ground_appearance']=sample(self,aid,p)
         return p
