@@ -19,9 +19,11 @@ def world(): return dict(agents={"npc_a":dict(actions=[])},stock_events=[])
 
 class CampaignTests(unittest.TestCase):
     def test_day_bound_and_three_day_wire_equivalence(self):
-        for n in (0,31,True):
+        for n in (0,91,True):
             with self.assertRaises(ValueError):ReturnCampaign("r",n)
         ReturnCampaign("r",30)
+        extended=ReturnCampaign("extended",90)
+        self.assertEqual(extended.agents["npc_a"].limit_us,90*64000000)
         with gzip.open("tests/fixtures/luanti_l15a_landmark_day_cycle.json.gz","rt",encoding="utf-8") as f:
             data=json.load(f)["runs"][0]["data"]
         w=data["world"];loop=ReturnCampaign(w["run_id"],3)

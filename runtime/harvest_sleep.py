@@ -58,7 +58,8 @@ def review(agent, p, decision):
             if getattr(agent, 'sleep_auto_adopt', False):
                 from .sleep_auto_model import adopt
                 learning['sleep_auto_model'] = adopt(learning.get('sleep_auto_model'),
-                    cycle['relation_review'], agent.run_id, agent.agent_id, p['capture_us'])
+                    cycle['relation_review'], agent.run_id, agent.agent_id, p['capture_us'],
+                    capacity=getattr(agent,'sleep_model_capacity',192))
                 cycle['auto_model_ref'] = learning['sleep_auto_model']['model_ref']
             if model is not None:
                 outcome = dict(status='MODEL_ALREADY_PRESENT')

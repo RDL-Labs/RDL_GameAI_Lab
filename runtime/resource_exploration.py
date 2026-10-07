@@ -21,9 +21,10 @@ class ResourceExploration(FiniteExploration):
     period_us = PERIOD_US
     allow_resources = True
     inventory_capacity = 32
+    max_periods = 30
 
     def __init__(self, run_id, periods=30, seed=20260928, agent_id="npc_a"):
-        integer(periods, 1, 30); integer(seed, 0, 2**32-1)
+        integer(periods, 1, self.max_periods); integer(seed, 0, 2**32-1)
         self.periods, self.seed = periods, seed
         self.capacity, self.limit_us = periods*(self.period_us//250_000), periods*self.period_us
         self.deadline_us = self.limit_us+9_000_000

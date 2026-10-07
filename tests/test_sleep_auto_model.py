@@ -11,6 +11,16 @@ def record(i, outcome='blocked', action='move', amount=1):
 
 
 class SleepAutoTests(unittest.TestCase):
+    def test_explicit_long_campaign_capacity(self):
+        review=dict(records=[record(i) for i in range(193)])
+        with self.assertRaises(ValueError):adopt(None,review,'r','a',1000)
+        m=adopt(None,review,'r','a',1000,capacity=576)
+        self.assertEqual(len(m['records']),193)
+        full=dict(records=[record(i) for i in range(576)])
+        self.assertEqual(len(adopt(None,full,'r','a',1000,capacity=576)['records']),576)
+        with self.assertRaises(ValueError):adopt(m,dict(records=[record(i) for i in range(577)]),'r','a',1000,capacity=576)
+        self.assertEqual(len(m['records']),193)
+
     def test_failure_is_adopted_and_changes_choice(self):
         m = adopt(None, dict(records=[record(1)]), 'r', 'a', 10)
         self.assertEqual(m['cells'][0]['execution_rate'], 0)

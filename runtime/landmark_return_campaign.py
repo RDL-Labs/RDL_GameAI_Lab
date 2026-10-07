@@ -1,4 +1,4 @@
-"""Thirty-day opt-in; identical day policy, externally audited return-trip stop."""
+"""Up-to-ninety-day opt-in; identical day policy, externally audited return-trip stop."""
 from copy import copy, deepcopy
 from .landmark_day_cycle import DayCycleAgent, DAY_US
 from .terrain_steering import SteeredResourceExploration
@@ -24,6 +24,7 @@ def admission_fork(store):
 
 
 class CampaignAgent(DayCycleAgent):
+    max_periods=90
     allow_return_target=True
     harvest_state=False
     allowed_agent_ids=tuple("npc_"+c for c in "abcdef")
@@ -67,7 +68,7 @@ class ReturnCampaign(SteeredResourceExploration):
     agent_type=CampaignAgent
 
     def __init__(self,run_id,periods=30,seed=20260928,assignment="steady", mb_field_mode="off", harvest_state=False, agent_count=3):
-        require(type(periods) is int and 1<=periods<=30,"campaign_day_budget")
+        require(type(periods) is int and 1<=periods<=90,"campaign_day_budget")
         require(mb_field_mode in ("off","disabled","enabled"),"model_field_mode")
         require(type(agent_count) is int and agent_count in (3,6),"campaign_agent_count")
         require(agent_count==3 or assignment=="steady","six_agent_steady_assignment")

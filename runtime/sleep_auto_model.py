@@ -22,7 +22,8 @@ def body_context(observation):
     return base+(e['load'],e['climb_resistance'],*(s['resistance'] for s in e['samples'])) if e else base
 
 
-def adopt(previous, review, run, agent, capture_us):
+def adopt(previous, review, run, agent, capture_us, capacity=192):
+    if type(capacity) is not int or not 192<=capacity<=576:raise ValueError('sleep_model_capacity_setting')
     state = deepcopy(previous) if previous else dict(rule=RULE, binding=[run, agent], records=[], cells=[])
     if state['binding'] != [run, agent]:
         raise ValueError('sleep_model_binding')
@@ -36,7 +37,7 @@ def adopt(previous, review, run, agent, capture_us):
             continue
         known[r['record_id']] = deepcopy(r)
     # Bounded research campaign store, never silently truncate sources.
-    if len(known) > 192:
+    if len(known) > capacity:
         raise ValueError('sleep_model_capacity')
     state['records'] = list(known.values())
     groups = {}

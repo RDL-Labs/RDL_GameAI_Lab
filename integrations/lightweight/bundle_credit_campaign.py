@@ -6,15 +6,16 @@ from .timed_harvest import run
 from .integrated_social_campaign import OPTIONS, audit, compact_report
 
 
-def main(replay=False):
-    root=Path('outputs/bundle_credit');root.mkdir(parents=True,exist_ok=True)
-    options=dict(OPTIONS,seed=20261005,body_scene='social_shared',personal_food=True,
+def main(replay=False, days=30):
+    root=Path('outputs/bundle_credit' if days==30 else f'outputs/bundle_credit_{days}d');root.mkdir(parents=True,exist_ok=True)
+    options=dict(OPTIONS,days=days,seed=20261005,body_scene='social_shared',personal_food=True,
         hunger_enabled=True,body_method_field=True,food_retention=True,
         experience_bundle_mode='enabled',bundle_sleep_enabled=True,bundle_credit_enabled=True)
     path=root/'enabled.jsonl'
     if not replay:run(path,**options)
-    checked=audit(path);summary=checked['summary']
+    checked=audit(path,days=days);summary=checked['summary']
     report=compact_report({'enabled':dict(options=options,audit=checked)})['enabled']
+    report['sleep_model_capacity']=192 if days<=30 else 576
     report['bundles']={};counts=Counter()
     for aid,value in summary['agents'].items():
         state=value['experience_bundles'];all_bundles=state['bundles']+state['dormant']

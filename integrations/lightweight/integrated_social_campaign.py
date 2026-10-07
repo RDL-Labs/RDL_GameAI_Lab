@@ -15,7 +15,7 @@ OPTIONS = dict(days=30, stop_after_returns=None, seed=20261004,
     social_pressure=True, refusal_field_mode='enabled')
 
 
-def audit(path):
+def audit(path, days=30):
     actions=Counter(); commands=Counter(); choices=Counter(); clocks={}; operations=set()
     added=0; initial=None; completed=0; hazard_observations=0
     daily={}; safety=Counter(); visible_hazards=0
@@ -23,6 +23,7 @@ def audit(path):
         for line in source:
             r=json.loads(line)
             if r['type']=='manifest':
+                assert r['days']==days, 'campaign_days'
                 initial=sum(a['inventory'] for a in r['agents'].values())+sum(x['stock'] for x in r['resources'])
             elif r['type']=='resource_regrowth':added+=sum(r['added'])
             elif r['type']=='completed':
@@ -44,7 +45,7 @@ def audit(path):
                 choice=r.get('refusal_choice')
                 if choice and choice['weight']>0:choices[choice['question']]+=1
             elif r['type']=='summary':summary=r
-    assert summary['ended_us']==30*64_000_000 and summary['reason']=='time_limit'
+    assert summary['ended_us']==days*64_000_000 and summary['reason']=='time_limit'
     return dict(completed=completed,food_conserved=True,no_duplicate_or_overlapping_effects=True,
         initial_food=initial,regrown_food=added,actions=dict(actions),commands=dict(commands),
         positive_refusal_choices=dict(choices),safety_decisions=hazard_observations,
