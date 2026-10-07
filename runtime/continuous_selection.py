@@ -102,6 +102,10 @@ def review(agent,p,d):
         from .body_method_field import apply as apply_body
         s['body_method_field']=apply_body(agent,p,s,phase)
     chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
+    if getattr(agent,'experience_bundle_mode','disabled')!='disabled':
+        from .experience_bundle import apply as apply_bundle
+        s['experience_bundle']=apply_bundle(agent,p,s,phase)
+        chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
     name=chosen['model'].split('/',1)[1]
     s['selected']=chosen['model'];s['applied']=chosen['action']!=d['action'] or phase=='safety'
     if chosen.get('record_trial',True):

@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [経験束の形成](../experiment-contracts/LW_experience_bundle.md)：FINITE IMPLEMENTED。空腹Hを契機に最大32束/個体を保存・再活性化。canonical採用、Sleep検査、全M_Bネットワーク形成は未実装。
+
 - [身体方法場](../experiment-contracts/LW_body_method_field.md)：FINITE IMPLEMENTED。探索/帰還の再選択時に身体寄与。大目的切替・全身体層の独立H化は未実装。
 
 - [空腹M_B/H](../experiment-evidence/LW_hunger.md)：FINITE IMPLEMENTED。80％からの段階的寄与と5秒充足比較。食事/要求候補に限定、全探索候補への合成は未実装。

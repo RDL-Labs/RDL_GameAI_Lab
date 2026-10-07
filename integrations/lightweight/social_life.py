@@ -143,6 +143,12 @@ class SocialAgent(EnergyAgent):
             d['hunger']=dict(intensity=h['intensity'],H=h['goal']['H'],threshold=h['goal']['threshold'],
                              due=h['due'],comparisons=len(h['goal']['records']))
         s=ingest(learning.get('social_relations'),p,self.results)
+        if getattr(self,'experience_bundle_mode','disabled')!='disabled':
+            from runtime.experience_bundle import form
+            learning['experience_bundles']=form(self,p,learning['hunger'])
+            bundles=learning['experience_bundles']
+            d['bundle_formation']=dict(count=len(bundles['bundles']),sources=len(bundles['used']),
+                status=bundles.get('formation_status'),latest=bundles['bundles'][-1]['model_ref'] if bundles['bundles'] else None)
         if self.social_pressure:
             from runtime.aid_method_pressure import update
             s['pressure']=update(s.get('pressure'),s['records'],self.agent_id)
