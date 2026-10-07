@@ -1,0 +1,365 @@
+{
+  "window_us": 600000000,
+  "baseline_commit": "f8c0ccd",
+  "baseline": {
+    "npc_a": {
+      "actions": {
+        "waited": 44,
+        "turned": 220,
+        "moved": 213,
+        "expressed": 3
+      },
+      "reasons": {
+        "day_orientation": 43,
+        "continuous_safety/step_-90": 34,
+        "continuous_safety/step_-45": 12,
+        "social_request": 3,
+        "continuous_food/step_-45": 4,
+        "continuous_food/step_0": 5,
+        "continuous_safety/step_90": 25,
+        "continuous_safety/step_0": 8,
+        "continuous_safety/step_45": 5,
+        "landmark_active": 31,
+        "continuous_food/baseline": 2,
+        "continuous_food/horizon_45": 83,
+        "continuous_food/horizon_0": 125,
+        "continuous_safety/wait": 1,
+        "continuous_food/horizon_-45": 71,
+        "continuous_food/horizon_90": 14,
+        "continuous_food/horizon_-90": 7,
+        "landmark_no_candidate": 2,
+        "incomplete_reposition_alternate_heading": 5
+      },
+      "gates": {
+        "current_feasible_proposal": 260,
+        "method_reselection": 147,
+        "measured_turn_current_step": 73
+      },
+      "distance": 106.5,
+      "max_radius": 11.442940221672787,
+      "pickups": 0,
+      "steps": 73,
+      "interrupted": 0
+    },
+    "npc_b": {
+      "actions": {
+        "waited": 44,
+        "turned": 134,
+        "moved": 300,
+        "expressed": 2
+      },
+      "reasons": {
+        "day_orientation": 43,
+        "continuous_safety/step_-90": 17,
+        "continuous_safety/step_-45": 9,
+        "continuous_food/step_-45": 6,
+        "social_refuse": 2,
+        "continuous_food/step_-90": 1,
+        "continuous_food/step_0": 4,
+        "landmark_active": 6,
+        "continuous_safety/step_0": 1,
+        "continuous_safety/step_45": 8,
+        "continuous_safety/step_90": 6,
+        "continuous_safety/survey_left": 1,
+        "continuous_safety/survey_right": 1,
+        "incomplete_reposition_alternate_heading": 12,
+        "continuous_food/ground_2": 2,
+        "continuous_food/horizon_45": 27,
+        "continuous_food/horizon_-45": 53,
+        "continuous_food/horizon_0": 217,
+        "continuous_food/horizon_90": 27,
+        "continuous_safety/wait": 1,
+        "continuous_food/horizon_-90": 36
+      },
+      "gates": {
+        "current_feasible_proposal": 172,
+        "method_reselection": 229,
+        "measured_turn_current_step": 79
+      },
+      "distance": 150.0,
+      "max_radius": 18.898828956612316,
+      "pickups": 0,
+      "steps": 79,
+      "interrupted": 0
+    },
+    "npc_c": {
+      "actions": {
+        "waited": 47,
+        "turned": 331,
+        "moved": 101,
+        "expressed": 1
+      },
+      "reasons": {
+        "day_orientation": 43,
+        "continuous_safety/step_-90": 12,
+        "continuous_safety/step_-45": 20,
+        "continuous_safety/step_0": 5,
+        "landmark_active": 11,
+        "continuous_food/step_90": 4,
+        "continuous_food/step_-45": 1,
+        "social_refuse": 1,
+        "continuous_safety/step_45": 8,
+        "continuous_safety/step_90": 24,
+        "continuous_safety/survey_left": 7,
+        "continuous_safety/survey_right": 9,
+        "continuous_food/ground_2": 1,
+        "continuous_food/baseline": 2,
+        "incomplete_reposition_alternate_heading": 43,
+        "continuous_food/step_-90": 1,
+        "continuous_food/horizon_45": 103,
+        "continuous_food/horizon_0": 46,
+        "continuous_food/horizon_-90": 8,
+        "continuous_food/horizon_90": 26,
+        "continuous_safety/wait": 4,
+        "continuous_food/horizon_-45": 101
+      },
+      "gates": {
+        "current_feasible_proposal": 335,
+        "method_reselection": 96,
+        "measured_turn_current_step": 49
+      },
+      "distance": 50.5,
+      "max_radius": 13.034050613227597,
+      "pickups": 0,
+      "steps": 49,
+      "interrupted": 0
+    }
+  },
+  "enabled": {
+    "npc_a": {
+      "actions": {
+        "waited": 44,
+        "turned": 203,
+        "moved": 229,
+        "expressed": 4
+      },
+      "reasons": {
+        "day_orientation": 43,
+        "continuous_safety/step_-90": 35,
+        "continuous_safety/step_-45": 17,
+        "social_request": 4,
+        "continuous_food/step_-45": 1,
+        "continuous_food/step_0": 5,
+        "continuous_safety/step_90": 25,
+        "continuous_safety/step_0": 2,
+        "continuous_safety/step_45": 11,
+        "landmark_active": 10,
+        "continuous_food/step_45": 2,
+        "continuous_food/step_90": 4,
+        "continuous_food/baseline": 3,
+        "continuous_food/horizon_90": 86,
+        "continuous_food/horizon_-45": 71,
+        "continuous_food/horizon_45": 70,
+        "continuous_food/horizon_0": 32,
+        "continuous_food/horizon_-90": 57,
+        "continuous_safety/wait": 1,
+        "incomplete_reposition_alternate_heading": 1
+      },
+      "gates": {
+        "current_feasible_proposal": 138,
+        "method_reselection": 154,
+        "measured_turn_current_step": 188
+      },
+      "distance": 114.5,
+      "max_radius": 10.665634417666407,
+      "pickups": 0,
+      "steps": 188,
+      "interrupted": 13
+    },
+    "npc_b": {
+      "actions": {
+        "waited": 44,
+        "turned": 175,
+        "moved": 259,
+        "expressed": 2
+      },
+      "reasons": {
+        "day_orientation": 43,
+        "continuous_safety/step_-90": 24,
+        "continuous_safety/step_-45": 12,
+        "continuous_food/step_-45": 7,
+        "social_refuse": 2,
+        "continuous_food/step_-90": 1,
+        "continuous_food/step_0": 7,
+        "landmark_active": 6,
+        "continuous_safety/step_0": 1,
+        "continuous_safety/step_45": 16,
+        "continuous_safety/step_90": 34,
+        "continuous_food/ground_2": 2,
+        "continuous_food/horizon_-45": 60,
+        "continuous_food/horizon_0": 89,
+        "continuous_food/horizon_90": 10,
+        "continuous_food/horizon_-90": 71,
+        "continuous_food/horizon_45": 47,
+        "continuous_safety/wait": 1,
+        "incomplete_reposition_alternate_heading": 3,
+        "continuous_food/ground_23": 1,
+        "continuous_food/step_45": 36,
+        "relation_field": 3,
+        "continuous_food/step_90": 2,
+        "continuous_food/ground_29": 2
+      },
+      "gates": {
+        "current_feasible_proposal": 45,
+        "method_reselection": 272,
+        "measured_turn_current_step": 163
+      },
+      "distance": 129.5,
+      "max_radius": 25.23170589633971,
+      "pickups": 0,
+      "steps": 163,
+      "interrupted": 9
+    },
+    "npc_c": {
+      "actions": {
+        "waited": 44,
+        "turned": 139,
+        "moved": 296,
+        "expressed": 1
+      },
+      "reasons": {
+        "day_orientation": 43,
+        "continuous_safety/step_-90": 24,
+        "continuous_safety/step_-45": 8,
+        "continuous_safety/step_0": 4,
+        "landmark_active": 4,
+        "continuous_food/step_90": 14,
+        "continuous_food/step_-45": 1,
+        "social_refuse": 1,
+        "continuous_safety/wait": 1,
+        "continuous_safety/step_90": 13,
+        "continuous_safety/step_45": 5,
+        "continuous_food/ground_2": 1,
+        "continuous_food/step_45": 6,
+        "continuous_food/ground_3": 1,
+        "continuous_food/horizon_-45": 53,
+        "continuous_food/horizon_0": 159,
+        "continuous_food/horizon_45": 53,
+        "incomplete_reposition_alternate_heading": 9,
+        "relation_field": 2,
+        "continuous_food/step_-90": 32,
+        "continuous_food/horizon_90": 16,
+        "continuous_food/horizon_-90": 11,
+        "continuous_food/ground_8": 2,
+        "continuous_food/ground_9": 2,
+        "continuous_food/ground_13": 8,
+        "landmark_no_candidate": 1,
+        "continuous_food/step_0": 6
+      },
+      "gates": {
+        "current_feasible_proposal": 45,
+        "method_reselection": 311,
+        "measured_turn_current_step": 124
+      },
+      "distance": 148.0,
+      "max_radius": 27.014937614461786,
+      "pickups": 0,
+      "steps": 124,
+      "interrupted": 12
+    }
+  },
+  "world_audit": {
+    "completed": 1440,
+    "food_conserved": true,
+    "no_duplicate_or_overlapping_effects": true,
+    "initial_food": 124,
+    "regrown_food": 0,
+    "actions": {
+      "request:expressed": 4,
+      "refuse:expressed": 3
+    },
+    "commands": {
+      "wait": 132,
+      "turn": 517,
+      "move": 784,
+      "social": 7
+    },
+    "positive_refusal_choices": {
+      "request_again": 2
+    },
+    "safety_decisions": 1440,
+    "visible_hazard_decisions": 160,
+    "safety_reasons": {
+      "normal": 1169,
+      "continuous_safety/step_-90": 83,
+      "continuous_safety/step_-45": 37,
+      "continuous_safety/step_0": 7,
+      "provisional_mode_release": 35,
+      "continuous_safety/step_90": 72,
+      "continuous_safety/wait": 3,
+      "continuous_safety/step_45": 32,
+      "limited_clearance": 2
+    },
+    "daily": {
+      "1": {
+        "wait": 132,
+        "picked_up": 0,
+        "turn": 517,
+        "move": 784,
+        "social": 7
+      }
+    },
+    "summary": {
+      "ended_us": 600000000,
+      "pickups": 0,
+      "social_stock": 0,
+      "social_consumed": 0,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 2,
+        "npc_c": 2
+      },
+      "layered_bodies": {
+        "npc_a": {
+          "rule": "layered-body-human-scale-v1",
+          "burst": 10.0,
+          "strain": 0.1599545833333334,
+          "reserve": 29.315091049382314,
+          "damage": 0.0
+        },
+        "npc_b": {
+          "rule": "layered-body-human-scale-v1",
+          "burst": 10.0,
+          "strain": 0.23288450000000002,
+          "reserve": 89.26085814815632,
+          "damage": 0.0
+        },
+        "npc_c": {
+          "rule": "layered-body-human-scale-v1",
+          "burst": 10.0,
+          "strain": 0.30242824999999995,
+          "reserve": 89.20992462963783,
+          "damage": 0.0
+        }
+      },
+      "elapsed_seconds": 38.653430000005756
+    },
+    "learning": {
+      "npc_a": {
+        "sleep_statuses": {},
+        "harvest_model": null,
+        "social_records": 4,
+        "social_model": {},
+        "sleep_model": null,
+        "sleep_records": 0
+      },
+      "npc_b": {
+        "sleep_statuses": {},
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": null,
+        "sleep_records": 0
+      },
+      "npc_c": {
+        "sleep_statuses": {},
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": null,
+        "sleep_records": 0
+      }
+    }
+  },
+  "scope": "600-second same-seed prefix comparison; baseline from saved full day; longer attempts interrupted, including native Python access violation"
+}

@@ -37,7 +37,7 @@ def review(agent,p,d):
                 continuing=r['status']=='turned' and abs(r['yaw']-trial['angle'])<.01
                 g=p['movement_surface']['ground']
                 forward=any(x['direction_deg']==0 and x['status']=='sampled' and x['height_delta'] is not None and abs(x['height_delta'])<=.5 for x in g['samples']) and not g['output_limited']
-                danger=trial['model'].startswith('safety/') and any(x['range_band']=='near' and x['azimuth'][0]<30 and x['azimuth'][1]>-30 for x in p.get('hazard',{}).get('features',[]))
+                danger=any(x['range_band']=='near' and x['azimuth'][0]<30 and x['azimuth'][1]>-30 for x in p.get('hazard',{}).get('features',[]))
                 continuing=continuing and forward and not danger
                 if trial['model'].startswith('food/ground_'):
                     continuing=continuing and bool(ground_model and any(
@@ -50,6 +50,7 @@ def review(agent,p,d):
             elif trial['question']=='ground_extension':
                 m=next((m for m in ground_model['models'] if trial['model'].endswith('/'+m['model_ref'])),None) if ground_model else None
                 value=int(bool(m and m['status']=='observed' and m['extended'] and r['status']=='moved')) if m and m['status']=='observed' else None
+            elif trial['question']=='movement_progress':value=int(r['status']=='moved' and bool(r.get('forward',0) or r.get('right',0)))
             elif trial['question']=='acquired':value=int(bool(r['acquired']))
             elif trial['question']=='rested':value=int(r['status']=='waited')
             else:value=int(signature(p)!=signature(previous))
@@ -76,14 +77,23 @@ def review(agent,p,d):
     question='clearance_evidence' if phase=='safety' else 'view_changed'
     protected=(phase in ('night','orientation') or d['action'][0]=='pickup' or d['reason'] in (
         'return_unload_attempt','return_delivery_confirmed','return_home_like_observed','finite_rest','inventory_capacity'))
+    committed=bool(linked and continuing and pending and pending['family']==family and not protected)
+    s['execution_commitment']=dict(status='step_due' if committed else ('interrupted' if pending else 'none'),
+        source=trial['source'] if pending and trial else None,
+        model=trial['model'] if pending and trial else None)
     if not linked and previous is not None:
         add('await_body',['wait',0],1,'view_changed');s['gate']='body_unlinked'
+    elif committed:
+        # A confirmed turn owns one current-observation-checked step. A new
+        # candidate score cannot replace it with another turn before its result.
+        add(pending['name'],['move',1],10,'ground_extension' if pending['name'].startswith('ground_') else 'movement_progress')
+        s['gate']='measured_turn_current_step'
     elif protected or (phase!='safety' and d['action'][0]!='wait' and node('baseline')['H']<node('baseline')['threshold']):
-        q='acquired' if d['action'][0]=='pickup' else ('rested' if protected else 'view_changed')
+        q='acquired' if d['action'][0]=='pickup' else ('rested' if protected else 'movement_progress')
         add('work' if q=='acquired' else ('rest' if protected else 'baseline'),d['action'][:],3,q)
         s['gate']='current_feasible_proposal'
     else:
-        if phase!='safety' and d['action'][0]!='wait':add('baseline',d['action'][:],3,'view_changed')
+        if phase!='safety' and d['action'][0]!='wait':add('baseline',d['action'][:],3,'movement_progress')
         ground=p['movement_surface']['ground']
         safe=sorted(x['direction_deg'] for x in ground['samples'] if x['status']=='sampled' and
             x['height_delta'] is not None and abs(x['height_delta'])<=.5) if not ground['output_limited'] else []
@@ -110,7 +120,7 @@ def review(agent,p,d):
                 for name,angle in proposals(ground_model,safe):
                     add(name,['move',1] if angle==0 else ['turn',angle],2.25,
                         'ground_extension' if angle==0 else 'rotation_then_step')
-    if getattr(agent,'exploration_horizon_enabled',False) and phase=='exploration' and linked and not protected and not p['food']['visible']:
+    if getattr(agent,'exploration_horizon_enabled',False) and phase=='exploration' and linked and not protected and not committed and not p['food']['visible']:
         from .exploration_horizon import proposals
         ground=p['movement_surface']['ground']
         safe=[x['direction_deg'] for x in ground['samples'] if x['status']=='sampled' and x['height_delta'] is not None and abs(x['height_delta'])<=.5 and x['direction_deg'] in (-90,-45,0,45,90)] if not ground['output_limited'] else []
@@ -140,6 +150,11 @@ def review(agent,p,d):
         s['selection_trail']=apply_trail(agent,p,s,phase)
         chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
     name=chosen['model'].split('/',1)[1]
+    if committed and chosen['action'][0]!='move':
+        # Body/energy rejection is an interrupted trial, never successful rest
+        # credited to the movement method that could not execute.
+        s['execution_commitment']['status']='body_limited'
+        chosen=dict(chosen,record_trial=False)
     s['selected']=chosen['model'];s['applied']=chosen['action']!=d['action'] or phase=='safety'
     if chosen.get('record_trial',True):
         n=s['nodes'][chosen['model']];n['last_selected']=s['sequence']

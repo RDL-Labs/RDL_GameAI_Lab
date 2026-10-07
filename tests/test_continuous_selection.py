@@ -106,6 +106,7 @@ class ContinuousTests(unittest.TestCase):
 
     def test_successful_turn_step_rechecks_current_surface(self):
         a,p,d,r=context('exploration');out=review(a,p,d)
+        p['hazard'].update(features=[],coverage='complete')
         # Force one eligible rotation through the normal scoring path.
         for x in p['movement_surface']['ground']['samples']:
             if x['direction_deg']!=-90:x['status']='unavailable'
