@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [80％からの空腹寄与](docs/experiment-evidence/LW_hunger.md)：局所M_Bで5秒ごとに充足比較、Hを食事/要求候補へ接続。30日採取100/食事99、全員の最終reserveが正。1seedの有限結果。
+
 - [個人所持と粗い備蓄認識](docs/experiment-evidence/LW_personal_food.md)：30日完走。自動共有を止め、備蓄some以上で探索休止、減少後に再開。採取67/食事69、補給成功は全員ではない。
 
 - [接続済み生活経路の30日統合](docs/experiment-evidence/LW_integrated_social_30d.md)：自然/共有拠点の2run完走。探索・危険・身体・Sleep・社会・拒否場を併走。共有側採取220/食事66、自然側採取0。遠隔救助等は未統合。

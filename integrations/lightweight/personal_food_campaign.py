@@ -6,10 +6,10 @@ from .timed_harvest import run
 from .integrated_social_campaign import OPTIONS, audit, compact_report
 
 
-def main():
-    root=Path('outputs/personal_food');root.mkdir(parents=True,exist_ok=True)
+def main(hunger=False):
+    root=Path('outputs/hunger' if hunger else 'outputs/personal_food');root.mkdir(parents=True,exist_ok=True)
     path=root/'personal.jsonl'
-    options=dict(OPTIONS,body_scene='social_shared',personal_food=True)
+    options=dict(OPTIONS,body_scene='social_shared',personal_food=True,hunger_enabled=hunger)
     run(path,**options)
     result=compact_report(dict(personal=dict(options=options,audit=audit(path))))
     rests=Counter();bands=Counter();resumed=set();rested=set()
@@ -30,4 +30,7 @@ def main():
     return result
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--hunger',action='store_true')
+    main(parser.parse_args().hunger)

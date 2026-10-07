@@ -85,6 +85,7 @@ class SocialWorld(EnergyWorld):
 
 
 class SocialAgent(EnergyAgent):
+    hunger_enabled=False
     personal_food=False
     share=True
     social_adopt=True
@@ -133,6 +134,13 @@ class SocialAgent(EnergyAgent):
         self._social_inventory=p['social']['inventory']
         d=super()._decision(p)
         learning,model=self._prospective
+        if self.hunger_enabled:
+            from runtime.hunger_review import update
+            learning['hunger']=update(learning.get('hunger'),self.agent_id,p['capture_us'],
+                                     p['social']['body']['reserve'],p['observation_id'])
+            h=learning['hunger']
+            d['hunger']=dict(intensity=h['intensity'],H=h['goal']['H'],threshold=h['goal']['threshold'],
+                             due=h['due'],comparisons=len(h['goal']['records']))
         s=ingest(learning.get('social_relations'),p,self.results)
         if self.social_pressure:
             from runtime.aid_method_pressure import update
@@ -149,6 +157,8 @@ class SocialAgent(EnergyAgent):
         if self.personal_food:
             from runtime.personal_food import assess
             provision=assess(obs['food_band'],obs['body']['reserve'])
+            if self.hunger_enabled and obs['body']['reserve']==80 and obs['food_band']!='none':
+                provision['choice']='eat'
             d['personal_food']=provision
         # Existing safety and in-flight body/deadline gates retain authority.
         previous=next(reversed(self.observations.values())) if self.observations else None
@@ -201,6 +211,14 @@ class SocialAgent(EnergyAgent):
         if d['reason']=='return_unload_attempt' and intent is None:
             if obs['inventory'] and self.deposit_enabled and not self.personal_food:intent=dict(action='deposit')
             else:d.update(action=['wait',0],reason='social_base_wait')
+        if self.hunger_enabled and intent and intent['action'] in ('eat','request'):
+            from runtime.hunger_review import select
+            d['hunger_selection']=select(learning['hunger'],intent['action'])
+            if d['hunger_selection']['selected']=='existing_activity':
+                if intent['action']=='request':s['pending']=None
+                intent=None
+        if self.personal_food and intent is None and d['reason']=='return_unload_attempt':
+            d.update(action=['wait',0],target='',reason='social_base_wait')
         if (intent is None and provision and provision['choice']=='provisioned_rest' and available
                 and phase=='exploration' and d.get('terrain_gate')!='safety'):
             d['body_bridge']['baseline_action']=list(d['action'])

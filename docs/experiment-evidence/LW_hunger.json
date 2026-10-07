@@ -1,0 +1,441 @@
+{
+  "enabled": {
+    "options": {
+      "days": 30,
+      "stop_after_returns": null,
+      "seed": 20261004,
+      "skyline_subrays": true,
+      "mb_field_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "food_goal_mode": "enabled",
+      "orientation_mode": "enabled",
+      "reposition_mode": "enabled",
+      "return_completion_mode": "enabled",
+      "nested_model_mode": "enabled",
+      "food_revisit_mode": "enabled",
+      "directional_route_mode": "enabled",
+      "relation_field_mode": "enabled",
+      "hazard_mode": "enabled",
+      "hazard_scenario": "territorial",
+      "warning_review_mode": "enabled",
+      "selection_mode": "continuous",
+      "dynamic_hazard": true,
+      "regrowth_days": 3,
+      "sleep_learning": true,
+      "sleep_auto_adopt": true,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "social_mode": "enabled",
+      "social_adopt": true,
+      "social_pressure": true,
+      "refusal_field_mode": "enabled",
+      "body_scene": "social_shared",
+      "personal_food": true,
+      "hunger_enabled": true
+    },
+    "audit": {
+      "completed": 4608,
+      "food_conserved": true,
+      "no_duplicate_or_overlapping_effects": true,
+      "initial_food": 16,
+      "regrown_food": 102,
+      "actions": {
+        "request:expressed": 14,
+        "refuse:expressed": 11,
+        "eat:ate": 99,
+        "give:transferred": 2
+      },
+      "commands": {
+        "wait": 2528,
+        "social": 126,
+        "pickup": 100,
+        "turn": 1023,
+        "move": 831
+      },
+      "positive_refusal_choices": {
+        "request_again": 6,
+        "respond": 7
+      },
+      "safety_decisions": 4608,
+      "visible_hazard_decisions": 793,
+      "safety_reasons": {
+        "normal": 3024,
+        "continuous_safety/step_-90": 617,
+        "continuous_safety/step_-45": 207,
+        "continuous_safety/step_0": 95,
+        "provisional_mode_release": 152,
+        "continuous_safety/wait": 19,
+        "continuous_safety/await_body": 75,
+        "continuous_safety/step_90": 268,
+        "continuous_safety/step_45": 78,
+        "continuous_safety/survey_left": 25,
+        "limited_clearance": 21,
+        "continuous_safety/survey_right": 27
+      },
+      "daily": {
+        "1": {
+          "wait": 103,
+          "picked_up": 8,
+          "social": 12,
+          "pickup": 8,
+          "turn": 17,
+          "move": 16
+        },
+        "2": {
+          "wait": 85,
+          "picked_up": 0,
+          "turn": 37,
+          "move": 28,
+          "social": 3
+        },
+        "3": {
+          "wait": 60,
+          "picked_up": 0,
+          "turn": 48,
+          "move": 42,
+          "social": 3
+        },
+        "4": {
+          "wait": 84,
+          "picked_up": 0,
+          "turn": 37,
+          "move": 32
+        },
+        "5": {
+          "wait": 63,
+          "picked_up": 4,
+          "move": 41,
+          "turn": 36,
+          "pickup": 4,
+          "social": 9
+        },
+        "6": {
+          "wait": 69,
+          "picked_up": 11,
+          "move": 28,
+          "turn": 36,
+          "pickup": 11,
+          "social": 12
+        },
+        "7": {
+          "wait": 80,
+          "picked_up": 7,
+          "social": 5,
+          "move": 28,
+          "pickup": 7,
+          "turn": 33
+        },
+        "8": {
+          "wait": 62,
+          "picked_up": 0,
+          "social": 3,
+          "turn": 47,
+          "move": 41
+        },
+        "9": {
+          "wait": 89,
+          "picked_up": 0,
+          "social": 2,
+          "move": 30,
+          "turn": 32
+        },
+        "10": {
+          "wait": 76,
+          "picked_up": 4,
+          "turn": 37,
+          "move": 33,
+          "pickup": 4,
+          "social": 3
+        },
+        "11": {
+          "wait": 74,
+          "picked_up": 5,
+          "turn": 38,
+          "move": 34,
+          "pickup": 5,
+          "social": 5
+        },
+        "12": {
+          "wait": 100,
+          "picked_up": 0,
+          "turn": 28,
+          "move": 22,
+          "social": 3
+        },
+        "13": {
+          "wait": 104,
+          "picked_up": 0,
+          "turn": 24,
+          "move": 24,
+          "social": 1
+        },
+        "14": {
+          "wait": 62,
+          "picked_up": 9,
+          "turn": 45,
+          "move": 33,
+          "pickup": 9,
+          "social": 4
+        },
+        "15": {
+          "wait": 97,
+          "picked_up": 5,
+          "turn": 29,
+          "social": 4,
+          "move": 18,
+          "pickup": 5
+        },
+        "16": {
+          "wait": 113,
+          "picked_up": 0,
+          "social": 4,
+          "move": 18,
+          "turn": 21
+        },
+        "17": {
+          "wait": 64,
+          "picked_up": 3,
+          "turn": 47,
+          "move": 36,
+          "pickup": 3,
+          "social": 3
+        },
+        "18": {
+          "wait": 87,
+          "picked_up": 4,
+          "social": 6,
+          "turn": 31,
+          "move": 25,
+          "pickup": 4
+        },
+        "19": {
+          "wait": 65,
+          "picked_up": 4,
+          "move": 24,
+          "turn": 56,
+          "pickup": 4,
+          "social": 4
+        },
+        "20": {
+          "wait": 54,
+          "picked_up": 0,
+          "turn": 60,
+          "move": 38,
+          "social": 1
+        },
+        "21": {
+          "wait": 98,
+          "picked_up": 5,
+          "turn": 25,
+          "move": 24,
+          "pickup": 5,
+          "social": 4
+        },
+        "22": {
+          "wait": 107,
+          "picked_up": 7,
+          "pickup": 7,
+          "turn": 20,
+          "social": 6,
+          "move": 13
+        },
+        "23": {
+          "wait": 102,
+          "picked_up": 0,
+          "turn": 30,
+          "move": 18,
+          "social": 3
+        },
+        "24": {
+          "wait": 96,
+          "picked_up": 0,
+          "turn": 32,
+          "move": 22,
+          "social": 3
+        },
+        "25": {
+          "wait": 102,
+          "picked_up": 4,
+          "pickup": 4,
+          "move": 19,
+          "turn": 23,
+          "social": 5
+        },
+        "26": {
+          "wait": 87,
+          "picked_up": 4,
+          "turn": 36,
+          "move": 26,
+          "pickup": 4,
+          "social": 3
+        },
+        "27": {
+          "wait": 78,
+          "picked_up": 6,
+          "turn": 31,
+          "move": 33,
+          "pickup": 6,
+          "social": 5
+        },
+        "28": {
+          "wait": 98,
+          "picked_up": 0,
+          "social": 4,
+          "turn": 24,
+          "move": 27
+        },
+        "29": {
+          "wait": 79,
+          "picked_up": 5,
+          "turn": 33,
+          "move": 34,
+          "pickup": 5,
+          "social": 2
+        },
+        "30": {
+          "wait": 90,
+          "picked_up": 5,
+          "turn": 30,
+          "move": 24,
+          "pickup": 5,
+          "social": 4
+        }
+      },
+      "summary": {
+        "ended_us": 1920000000,
+        "pickups": 100,
+        "social_stock": 0,
+        "social_consumed": 99,
+        "physical_inventory": {
+          "npc_a": 2,
+          "npc_b": 3,
+          "npc_c": 0
+        },
+        "layered_bodies": {
+          "npc_a": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 96.7225000000024,
+            "damage": 0.0
+          },
+          "npc_b": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.09999999999999992,
+            "reserve": 85.22250000000224,
+            "damage": 0.0
+          },
+          "npc_c": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 65.81250000000257,
+            "damage": 0.0
+          }
+        },
+        "elapsed_seconds": 45.037950900004944
+      },
+      "learning": {
+        "npc_a": {
+          "sleep_statuses": {
+            "completed": 26,
+            "interrupted": 4
+          },
+          "harvest_model": "gameai-reconstructed-mb:45a38bfb3cac0e77:v1",
+          "social_records": 4,
+          "social_model": {
+            "npc_b": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_a:op:lw-work:npc_a:obs:5",
+                "npc_a:op:lw-work:npc_a:obs:20"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            },
+            "npc_c": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_a:op:lw-work:npc_a:obs:35",
+                "npc_a:op:lw-work:npc_a:obs:1340"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:b48a8f7271039e0a5b1ff989",
+          "sleep_records": 136
+        },
+        "npc_b": {
+          "sleep_statuses": {
+            "completed": 23,
+            "interrupted": 4
+          },
+          "harvest_model": "gameai-reconstructed-mb:046ab6067cdf10db:v1",
+          "social_records": 6,
+          "social_model": {
+            "npc_c": {
+              "expectation": 0.4,
+              "sources": [
+                "npc_b:op:lw-work:npc_b:obs:1065",
+                "npc_b:op:lw-work:npc_b:obs:4325",
+                "npc_b:op:lw-work:npc_b:obs:4375"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            },
+            "npc_a": {
+              "expectation": 0.4,
+              "sources": [
+                "npc_b:op:lw-work:npc_b:obs:5395",
+                "npc_b:op:lw-work:npc_b:obs:6320",
+                "npc_b:op:lw-work:npc_b:obs:6330"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:b28caf7e34b083784b5ca47b",
+          "sleep_records": 117
+        },
+        "npc_c": {
+          "sleep_statuses": {
+            "completed": 26,
+            "interrupted": 2
+          },
+          "harvest_model": "gameai-reconstructed-mb:3cfb89ed0e6f4d90:v1",
+          "social_records": 4,
+          "social_model": {
+            "npc_a": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_c:op:lw-work:npc_c:obs:1330",
+                "npc_c:op:lw-work:npc_c:obs:1350"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            },
+            "npc_b": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_c:op:lw-work:npc_c:obs:1135",
+                "npc_c:op:lw-work:npc_c:obs:1160"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:cd638f5ccac54309b92fcc4e",
+          "sleep_records": 131
+        }
+      }
+    },
+    "hunger_review": {
+      "selections": {
+        "request": 14,
+        "eat": 99,
+        "existing_activity": 202
+      },
+      "maximum_H": {
+        "npc_a": 27,
+        "npc_b": 15,
+        "npc_c": 28
+      }
+    }
+  }
+}
