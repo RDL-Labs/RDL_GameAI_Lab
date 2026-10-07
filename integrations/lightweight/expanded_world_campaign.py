@@ -8,7 +8,7 @@ from .render_ground_wear import render
 
 
 def main(days=3):
-    root=Path(f'outputs/expanded_world_{days}d');root.mkdir(parents=True,exist_ok=True)
+    root=Path(f'outputs/expanded_world_v2_{days}d');root.mkdir(parents=True,exist_ok=True)
     source=json.loads(Path('docs/experiment-evidence/LW_cohort_paths.json').read_text(encoding='utf8'))
     options=dict(source['runs']['inherited']['options'],days=days,body_scene='social_expanded',
                  run_id='lw-expanded',ground_continuity_enabled=True)

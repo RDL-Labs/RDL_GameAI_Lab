@@ -2,12 +2,15 @@
 from random import Random
 from math import sin,cos,radians,hypot
 
-RULE='expanded-camp-landscape-v1'
+RULE='expanded-camp-landscape-v2'
 
 
 def extend(world):
-    rng=Random(f'{RULE}:{world.seed}')
-    # Retain camp, nearby resources and starting bodies exactly as configured.
+    # Preserve the outer layout's random stream while moving the two camp sites.
+    rng=Random(f'expanded-camp-landscape-v1:{world.seed}')
+    for resource,x in zip(world.resources,(-18.,18.)):
+        resource.update(x=x,z=6.)
+    # Camp and starting bodies stay fixed; every resource is outside food sight range.
     for i,distance in enumerate((16,24,32,40,56,64,80,96)):
         angle=radians(i*137.5+rng.uniform(-12,12))
         x,z=sin(angle)*distance,6+cos(angle)*distance

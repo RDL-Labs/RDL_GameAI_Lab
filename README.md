@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [LW拡張World v2・拠点から食料を見せない配置](docs/experiment-evidence/LW_expanded_world_v2.md)：旧近場2地点を東西18mへ移設。視認距離12mは維持。3日採取0、Aのreserve枯渇を記録。
+
 - [LW統合版・World外側の拡張](docs/experiment-evidence/LW_expanded_world.md)：拠点近場を維持し、半径16〜96mに資源8地点を追加。3日接続確認済み、外側への探索利用は未確認。
 
 - [LW統合版・基本抵抗1.5の90日比較](docs/experiment-evidence/LW_ground_resistance_15_90d.md)：採取273／274、食事270／270。道候補の実行は旋回1件、継続未確認でH加算後に採取。道追従の増加は未確認。
