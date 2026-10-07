@@ -15,6 +15,21 @@ class EnergyCampaign(BodyCampaign):
 
 
 class EnergyWorld(ExplorationBodyWorld):
+    ground_wear_enabled=False
+
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        from .ground_wear import GroundWear
+        self.ground_wear=GroundWear()
+
+    def execute(self,c,p,executed_us=None):
+        a=self.agents[c['agent_id']];start=(a['x'],a['z'])
+        replay=c['operation_id'] in self.effects
+        result=super().execute(c,p,executed_us)
+        if self.ground_wear_enabled and not replay and c['kind']=='move' and result['status']=='moved':
+            self.ground_wear.walk(c['operation_id'],c['agent_id'],start,(a['x'],a['z']))
+        return result
+
     def carried_load(self,aid):
         return float(self.agents[aid]['inventory'])
 
@@ -22,7 +37,10 @@ class EnergyWorld(ExplorationBodyWorld):
         a=self.agents[aid];dx,dz=self.direction(aid,angle)
         distance=capabilities(self.bodies[aid],self.carried_load(aid))[action+'_distance']
         # Fixed local material strips; no destination, agent ID or success labels.
-        return 5. if floor((a['x']+dx*distance/2)/2)%2 else 1.
+        base=5. if floor((a['x']+dx*distance/2)/2)%2 else 1.
+        if self.ground_wear_enabled and action=='walk':
+            return 1+(base-1)*self.ground_wear.factor(a['x']+dx*distance/2,a['z']+dz*distance/2)
+        return base
 
     def packet(self,aid,slot):
         p=super().packet(aid,slot);a=self.agents[aid];samples=[]

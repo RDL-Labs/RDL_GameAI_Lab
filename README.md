@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [実通行で生まれる共有の道](docs/experiment-evidence/LW_ground_wear.md)：30日で39区画の通行跡、8区画が道。局所抵抗と身体消耗へ接続、複数個体のWorld履歴を共有。
+
 - [獣道型の選択経路](docs/experiment-evidence/LW_selection_trail.md)：実使用で定着、親充足で経路全体へ成功支持。30日で使用定着による選択差2件、自然運転の成功強化は0件。
 
 - [親H強化の90日試験](docs/experiment-evidence/LW_bundle_credit_90d.md)：採取245・食事242、試用7件すべて未充足で成功強化0。Aは51日目にreserve枯渇、B/Cは90日目も活動。

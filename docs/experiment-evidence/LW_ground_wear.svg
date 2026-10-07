@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="348" height="505" viewBox="0 0 348 505">
+<rect width="100%" height="100%" fill="#e3efd3"/>
+<text x="20" y="26" font-family="sans-serif" font-size="18">Shared ground — 30 days</text>
+<text x="20" y="48" font-family="sans-serif" font-size="12">Green: grass / brown: worn ground. Darker = more walking; full road at 10 m per cell.</text>
+<rect x="160" y="345" width="28" height="28" fill="rgb(111, 76, 45)"><title>-1,5: 35.08 m; 3 agents</title></rect>
+<rect x="188" y="345" width="28" height="28" fill="rgb(111, 76, 45)"><title>0,5: 13.87 m; 2 agents</title></rect>
+<rect x="132" y="345" width="28" height="28" fill="rgb(111, 76, 45)"><title>-2,5: 25.22 m; 3 agents</title></rect>
+<rect x="160" y="317" width="28" height="28" fill="rgb(111, 76, 45)"><title>-1,6: 80.75 m; 3 agents</title></rect>
+<rect x="104" y="345" width="28" height="28" fill="rgb(156, 151, 104)"><title>-3,5: 4.37 m; 2 agents</title></rect>
+<rect x="132" y="317" width="28" height="28" fill="rgb(111, 76, 45)"><title>-2,6: 44.85 m; 3 agents</title></rect>
+<rect x="132" y="373" width="28" height="28" fill="rgb(131, 109, 71)"><title>-2,4: 7.50 m; 2 agents</title></rect>
+<rect x="160" y="373" width="28" height="28" fill="rgb(155, 149, 102)"><title>-1,4: 4.50 m; 2 agents</title></rect>
+<rect x="104" y="373" width="28" height="28" fill="rgb(164, 164, 113)"><title>-3,4: 3.42 m; 2 agents</title></rect>
+<rect x="76" y="373" width="28" height="28" fill="rgb(188, 205, 146)"><title>-4,4: 0.33 m; 1 agents</title></rect>
+<rect x="104" y="317" width="28" height="28" fill="rgb(165, 166, 115)"><title>-3,6: 3.23 m; 2 agents</title></rect>
+<rect x="160" y="289" width="28" height="28" fill="rgb(111, 76, 45)"><title>-1,7: 48.68 m; 3 agents</title></rect>
+<rect x="132" y="289" width="28" height="28" fill="rgb(111, 76, 45)"><title>-2,7: 12.35 m; 3 agents</title></rect>
+<rect x="104" y="289" width="28" height="28" fill="rgb(177, 186, 131)"><title>-3,7: 1.73 m; 2 agents</title></rect>
+<rect x="76" y="345" width="28" height="28" fill="rgb(183, 196, 139)"><title>-4,5: 1.00 m; 1 agents</title></rect>
+<rect x="132" y="261" width="28" height="28" fill="rgb(152, 144, 99)"><title>-2,8: 4.85 m; 3 agents</title></rect>
+<rect x="132" y="233" width="28" height="28" fill="rgb(173, 180, 126)"><title>-2,9: 2.20 m; 2 agents</title></rect>
+<rect x="188" y="289" width="28" height="28" fill="rgb(138, 121, 80)"><title>0,7: 6.63 m; 2 agents</title></rect>
+<rect x="188" y="317" width="28" height="28" fill="rgb(111, 76, 45)"><title>0,6: 17.50 m; 2 agents</title></rect>
+<rect x="160" y="261" width="28" height="28" fill="rgb(167, 169, 118)"><title>-1,8: 3.00 m; 3 agents</title></rect>
+<rect x="216" y="317" width="28" height="28" fill="rgb(183, 196, 139)"><title>1,6: 0.97 m; 2 agents</title></rect>
+<rect x="188" y="373" width="28" height="28" fill="rgb(126, 101, 64)"><title>0,4: 8.13 m; 2 agents</title></rect>
+<rect x="216" y="289" width="28" height="28" fill="rgb(185, 199, 141)"><title>1,7: 0.77 m; 2 agents</title></rect>
+<rect x="216" y="345" width="28" height="28" fill="rgb(183, 195, 138)"><title>1,5: 1.03 m; 2 agents</title></rect>
+<rect x="188" y="261" width="28" height="28" fill="rgb(181, 192, 136)"><title>0,8: 1.25 m; 1 agents</title></rect>
+<rect x="216" y="261" width="28" height="28" fill="rgb(185, 198, 141)"><title>1,8: 0.80 m; 1 agents</title></rect>
+<rect x="216" y="233" width="28" height="28" fill="rgb(182, 194, 138)"><title>1,9: 1.10 m; 1 agents</title></rect>
+<rect x="216" y="205" width="28" height="28" fill="rgb(168, 170, 119)"><title>1,10: 2.90 m; 1 agents</title></rect>
+<rect x="244" y="205" width="28" height="28" fill="rgb(180, 190, 134)"><title>2,10: 1.40 m; 1 agents</title></rect>
+<rect x="216" y="177" width="28" height="28" fill="rgb(175, 182, 128)"><title>1,11: 2.00 m; 1 agents</title></rect>
+<rect x="188" y="177" width="28" height="28" fill="rgb(183, 196, 139)"><title>0,11: 1.00 m; 1 agents</title></rect>
+<rect x="160" y="177" width="28" height="28" fill="rgb(183, 196, 139)"><title>-1,11: 1.00 m; 1 agents</title></rect>
+<rect x="132" y="177" width="28" height="28" fill="rgb(159, 156, 107)"><title>-2,11: 4.00 m; 1 agents</title></rect>
+<rect x="132" y="149" width="28" height="28" fill="rgb(170, 174, 122)"><title>-2,12: 2.60 m; 1 agents</title></rect>
+<rect x="104" y="401" width="28" height="28" fill="rgb(190, 207, 147)"><title>-3,3: 0.18 m; 1 agents</title></rect>
+<rect x="132" y="121" width="28" height="28" fill="rgb(186, 201, 143)"><title>-2,13: 0.60 m; 1 agents</title></rect>
+<rect x="132" y="205" width="28" height="28" fill="rgb(177, 186, 131)"><title>-2,10: 1.70 m; 1 agents</title></rect>
+<rect x="104" y="177" width="28" height="28" fill="rgb(186, 201, 143)"><title>-3,11: 0.60 m; 1 agents</title></rect>
+<rect x="104" y="149" width="28" height="28" fill="rgb(184, 197, 140)"><title>-3,12: 0.90 m; 1 agents</title></rect>
+</svg>
