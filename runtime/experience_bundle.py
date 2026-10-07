@@ -63,7 +63,8 @@ def apply(agent,p,selection,phase):
         evidence=[(ref,s) for ref,s in matches if s['action']==candidate['action'][0]]
         if not evidence:continue
         # Frequency within the recalled set, not independent causal confirmation.
-        delta=-.75*len(evidence)/len(matches)
+        credits=state.get('parent_credit',{}).get('strength',{}) if getattr(agent,'bundle_credit_enabled',False) else {}
+        delta=-.75*sum(1+min(8.,credits.get(ref,0.))*.125 for ref,source in evidence)/len(matches)
         trace['contributions'].append(dict(candidate=candidate['model'],delta=delta,
             model_refs=sorted({ref for ref,s in evidence}),sources=[s['operation'] for ref,s in evidence]))
         if agent.experience_bundle_mode=='enabled':candidate['score']+=delta
@@ -71,4 +72,9 @@ def apply(agent,p,selection,phase):
     trace.update(status='matched' if matches else 'no_match',baseline=baseline,selected=selected,
         changed=baseline!=selected,mode=agent.experience_bundle_mode,
         matched_refs=sorted({ref for ref,source in matches}))
+    if getattr(agent,'bundle_credit_enabled',False):
+        from .hunger_review import update
+        h=update(agent.learning.get('hunger'),p['agent_id'],p['capture_us'],p['social']['body']['reserve'],p['observation_id'])
+        trace['parent_use']=dict(goal_id=h['goal']['goal_id'],model_ref=h['goal']['model_ref'],
+            H=h['goal']['H'],trial_id=h['goal']['trial']['trial_id'] if h['goal']['trial'] else None)
     return trace

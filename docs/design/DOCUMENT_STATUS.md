@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [親Hによる拘束強化](../experiment-contracts/LW_bundle_credit.md)：FINITE IMPLEMENTED。親の成功確認で選択時Hを有限creditへ。自然30日で成功強化0、子独自H・失敗減衰・汎用親子選択は未実装。
+
 - [経験束のSleep整理](../experiment-contracts/LW_bundle_sleep.md)：FINITE IMPLEMENTED。完了Sleepで未使用束を休眠化、照合時に復帰。active32/総数256。使用結果H・canonical採用は未実装。
 
 - [経験束の形成](../experiment-contracts/LW_experience_bundle.md)：FINITE IMPLEMENTED。空腹Hを契機に最大32束/個体を保存・再活性化。canonical採用、Sleep検査、全M_Bネットワーク形成は未実装。

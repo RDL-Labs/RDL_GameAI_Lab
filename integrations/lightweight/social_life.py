@@ -146,6 +146,9 @@ class SocialAgent(EnergyAgent):
         if getattr(self,'experience_bundle_mode','disabled')!='disabled':
             from runtime.experience_bundle import form
             learning['experience_bundles']=form(self,p,learning['hunger'])
+            if getattr(self,'bundle_credit_enabled',False):
+                from runtime.bundle_credit import review
+                learning['experience_bundles']=review(learning['experience_bundles'],self,p,learning['hunger'])
             bundles=learning['experience_bundles']
             d['bundle_formation']=dict(count=len(bundles['bundles']),sources=len(bundles['used']),
                 status=bundles.get('formation_status'),latest=bundles['bundles'][-1]['model_ref'] if bundles['bundles'] else None)
