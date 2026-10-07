@@ -1,5 +1,6 @@
 # RDL Game AI Lab
 
+- [LWベース地形 v1・30日運転](docs/experiment-evidence/LW_base_landscape_v1_30d.md)：3個体とも食料視認/採取/渡河0、最大拠点距離4.3〜7.5m。実移動軌跡を保存。
 - [LWベース地形 v1](docs/experiment-evidence/LW_base_landscape_v1.md)：渡れる小川・草地・林・岩場と資源分布。51テスト、統合3日監査PASS。
 - [LW拡張World v3・30日結果](docs/experiment-evidence/LW_expanded_world_v3_30d.md)：採取/持ち帰り0。A/Bは食料視認、全員7日目までにreserve枯渇。道は未使用で回復。
 - [LW拡張World v3・拠点周辺の障害](docs/experiment-evidence/LW_expanded_world_v3.md)：高い岩4個・低い障害4個を追加。関連38テスト、統合3日監査PASS。

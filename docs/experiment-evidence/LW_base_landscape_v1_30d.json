@@ -1,0 +1,1923 @@
+{
+  "options": {
+    "days": 30,
+    "stop_after_returns": null,
+    "seed": 20261005,
+    "skyline_subrays": true,
+    "mb_field_mode": "enabled",
+    "goal_difference_mode": "enabled",
+    "food_goal_mode": "enabled",
+    "orientation_mode": "enabled",
+    "reposition_mode": "enabled",
+    "return_completion_mode": "enabled",
+    "nested_model_mode": "enabled",
+    "food_revisit_mode": "enabled",
+    "directional_route_mode": "enabled",
+    "relation_field_mode": "enabled",
+    "hazard_mode": "enabled",
+    "hazard_scenario": "territorial",
+    "warning_review_mode": "enabled",
+    "selection_mode": "continuous",
+    "dynamic_hazard": true,
+    "regrowth_days": 3,
+    "sleep_learning": true,
+    "sleep_auto_adopt": true,
+    "body_mode": "enabled",
+    "energy_mode": "enabled",
+    "social_mode": "enabled",
+    "social_adopt": true,
+    "social_pressure": true,
+    "refusal_field_mode": "enabled",
+    "body_scene": "social_base",
+    "personal_food": true,
+    "hunger_enabled": true,
+    "body_method_field": true,
+    "food_retention": true,
+    "experience_bundle_mode": "enabled",
+    "bundle_sleep_enabled": true,
+    "trail_enabled": true,
+    "ground_wear_enabled": true,
+    "ground_recovery_enabled": true,
+    "ground_appearance_enabled": true,
+    "ground_pattern_enabled": true,
+    "run_id": "lw-base",
+    "ground_continuity_enabled": true
+  },
+  "audit": {
+    "completed": 4608,
+    "food_conserved": true,
+    "no_duplicate_or_overlapping_effects": true,
+    "initial_food": 124,
+    "regrown_food": 0,
+    "actions": {
+      "request:expressed": 7,
+      "refuse:expressed": 5,
+      "give:transferred": 2,
+      "eat:ate": 4
+    },
+    "commands": {
+      "wait": 3226,
+      "social": 18,
+      "turn": 1157,
+      "move": 207
+    },
+    "positive_refusal_choices": {
+      "request_again": 10
+    },
+    "safety_decisions": 4608,
+    "visible_hazard_decisions": 1065,
+    "safety_reasons": {
+      "normal": 2667,
+      "continuous_safety/wait": 826,
+      "continuous_safety/step_90": 73,
+      "continuous_safety/step_-45": 33,
+      "continuous_safety/step_-90": 62,
+      "provisional_mode_release": 129,
+      "continuous_safety/step_0": 641,
+      "continuous_safety/await_body": 107,
+      "limited_clearance": 5,
+      "continuous_safety/step_45": 12,
+      "continuous_safety/survey_left": 24,
+      "continuous_safety/survey_right": 29
+    },
+    "daily": {
+      "1": {
+        "wait": 58,
+        "picked_up": 0,
+        "social": 17,
+        "turn": 45,
+        "move": 36
+      },
+      "2": {
+        "wait": 60,
+        "picked_up": 0,
+        "turn": 53,
+        "move": 39,
+        "social": 1
+      },
+      "3": {
+        "wait": 27,
+        "picked_up": 0,
+        "turn": 73,
+        "move": 53
+      },
+      "4": {
+        "wait": 90,
+        "picked_up": 0,
+        "move": 34,
+        "turn": 29
+      },
+      "5": {
+        "wait": 76,
+        "picked_up": 0,
+        "turn": 55,
+        "move": 22
+      },
+      "6": {
+        "wait": 75,
+        "picked_up": 0,
+        "turn": 66,
+        "move": 15
+      },
+      "7": {
+        "wait": 112,
+        "picked_up": 0,
+        "turn": 33,
+        "move": 8
+      },
+      "8": {
+        "wait": 114,
+        "picked_up": 0,
+        "turn": 39
+      },
+      "9": {
+        "wait": 103,
+        "picked_up": 0,
+        "turn": 50
+      },
+      "10": {
+        "wait": 121,
+        "picked_up": 0,
+        "turn": 32
+      },
+      "11": {
+        "wait": 134,
+        "picked_up": 0,
+        "turn": 22
+      },
+      "12": {
+        "wait": 109,
+        "picked_up": 0,
+        "turn": 44
+      },
+      "13": {
+        "wait": 103,
+        "picked_up": 0,
+        "turn": 50
+      },
+      "14": {
+        "wait": 126,
+        "picked_up": 0,
+        "turn": 27
+      },
+      "15": {
+        "wait": 117,
+        "picked_up": 0,
+        "turn": 36
+      },
+      "16": {
+        "wait": 121,
+        "picked_up": 0,
+        "turn": 35
+      },
+      "17": {
+        "wait": 124,
+        "picked_up": 0,
+        "turn": 29
+      },
+      "18": {
+        "wait": 110,
+        "picked_up": 0,
+        "turn": 43
+      },
+      "19": {
+        "wait": 119,
+        "picked_up": 0,
+        "turn": 34
+      },
+      "20": {
+        "wait": 122,
+        "picked_up": 0,
+        "turn": 31
+      },
+      "21": {
+        "wait": 123,
+        "picked_up": 0,
+        "turn": 33
+      },
+      "22": {
+        "wait": 117,
+        "picked_up": 0,
+        "turn": 36
+      },
+      "23": {
+        "wait": 117,
+        "picked_up": 0,
+        "turn": 36
+      },
+      "24": {
+        "wait": 125,
+        "picked_up": 0,
+        "turn": 28
+      },
+      "25": {
+        "wait": 119,
+        "picked_up": 0,
+        "turn": 34
+      },
+      "26": {
+        "wait": 123,
+        "picked_up": 0,
+        "turn": 33
+      },
+      "27": {
+        "wait": 120,
+        "picked_up": 0,
+        "turn": 33
+      },
+      "28": {
+        "wait": 118,
+        "picked_up": 0,
+        "turn": 35
+      },
+      "29": {
+        "wait": 118,
+        "picked_up": 0,
+        "turn": 35
+      },
+      "30": {
+        "wait": 125,
+        "picked_up": 0,
+        "turn": 28
+      }
+    },
+    "summary": {
+      "ended_us": 1920000000,
+      "pickups": 0,
+      "social_stock": 0,
+      "social_consumed": 4,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 0,
+        "npc_c": 0
+      },
+      "layered_bodies": {
+        "npc_a": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 0,
+          "damage": 0.0
+        },
+        "npc_b": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 0,
+          "damage": 0.0
+        },
+        "npc_c": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0.09357814043212148,
+          "reserve": 0,
+          "damage": 0.0
+        }
+      },
+      "elapsed_seconds": 189.71142680000048
+    },
+    "learning": {
+      "npc_a": {
+        "sleep_statuses": {
+          "completed": 20
+        },
+        "harvest_model": null,
+        "social_records": 7,
+        "social_model": {
+          "npc_b": {
+            "expectation": 0.16666666666666666,
+            "sources": [
+              "npc_a:op:lw-base:npc_a:obs:5",
+              "npc_a:op:lw-base:npc_a:obs:20",
+              "npc_a:op:lw-base:npc_a:obs:190",
+              "npc_a:op:lw-base:npc_a:obs:205"
+            ],
+            "authority": "unvalidated local aid expectation; not intent or canonical T1"
+          },
+          "npc_c": {
+            "expectation": 0.6,
+            "sources": [
+              "npc_a:op:lw-base:npc_a:obs:30",
+              "npc_a:op:lw-base:npc_a:obs:50",
+              "npc_a:op:lw-base:npc_a:obs:130"
+            ],
+            "authority": "unvalidated local aid expectation; not intent or canonical T1"
+          }
+        },
+        "sleep_model": "sleep-unvalidated-action-model-v1:be465fb7bdf287b49dd6ef3f",
+        "sleep_records": 65
+      },
+      "npc_b": {
+        "sleep_statuses": {
+          "completed": 26
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:1d0e5deca955faecb8ab3325",
+        "sleep_records": 88
+      },
+      "npc_c": {
+        "sleep_statuses": {
+          "completed": 22
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:31d65fd78974688a64979f06",
+        "sleep_records": 71
+      }
+    }
+  },
+  "movement": {
+    "npc_a": {
+      "distance": 23.5,
+      "max_camp_distance": 4.337189124340698,
+      "first_zero_us": 246000000,
+      "first_food_us": null,
+      "food_decisions": 0,
+      "water_observations": 0,
+      "water_moves": 0,
+      "bank_crossings": 0,
+      "statuses": {
+        "expired": 96,
+        "expressed": 7,
+        "turned": 356,
+        "moved": 47,
+        "ate": 2,
+        "waited": 1028
+      },
+      "post_zero": {
+        "waited": 973,
+        "expired": 85,
+        "turned": 281
+      },
+      "daily": {
+        "1": {
+          "distance": 6.0,
+          "statuses": {
+            "expired": 3,
+            "expressed": 7,
+            "turned": 14,
+            "moved": 12,
+            "ate": 2,
+            "waited": 13
+          },
+          "reserve": 51.701875000000044,
+          "position": {
+            "x": -0.9537027568363288,
+            "z": 5.718649773276068
+          }
+        },
+        "2": {
+          "distance": 6.5,
+          "statuses": {
+            "expired": 2,
+            "waited": 14,
+            "turned": 22,
+            "moved": 13
+          },
+          "reserve": 33.226765625000084,
+          "position": {
+            "x": -0.9749938151300148,
+            "z": 4.155626545483011
+          }
+        },
+        "3": {
+          "distance": 5.5,
+          "statuses": {
+            "expired": 3,
+            "waited": 6,
+            "turned": 31,
+            "moved": 11
+          },
+          "reserve": 15.435578692197799,
+          "position": {
+            "x": -2.0419811132377954,
+            "z": 2.1735757379141343
+          }
+        },
+        "4": {
+          "distance": 5.5,
+          "statuses": {
+            "expired": 5,
+            "waited": 28,
+            "moved": 11,
+            "turned": 8
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "5": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "6": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 35,
+            "turned": 13
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "7": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 37,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "8": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "9": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 39,
+            "turned": 8
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "10": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "11": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 37,
+            "turned": 11
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "12": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 36,
+            "turned": 13
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "13": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "14": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 35,
+            "turned": 12
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "15": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 40,
+            "turned": 8
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "16": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 37,
+            "turned": 11
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "17": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 38,
+            "turned": 11
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "18": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "19": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 37,
+            "turned": 10
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "20": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 39,
+            "turned": 9
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "21": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 35,
+            "turned": 13
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "22": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 37,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "23": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "24": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 39,
+            "turned": 8
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "25": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "26": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 37,
+            "turned": 11
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "27": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 36,
+            "turned": 13
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "28": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "29": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 35,
+            "turned": 12
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        },
+        "30": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 40,
+            "turned": 8
+          },
+          "reserve": 0,
+          "position": {
+            "x": -1.158006517022234,
+            "z": 5.7046646511596695
+          }
+        }
+      }
+    },
+    "npc_b": {
+      "distance": 45.0,
+      "max_camp_distance": 4.524582768683985,
+      "first_zero_us": 446000000,
+      "first_food_us": null,
+      "food_decisions": 0,
+      "water_observations": 0,
+      "water_moves": 0,
+      "bank_crossings": 0,
+      "statuses": {
+        "expired": 96,
+        "waited": 948,
+        "expressed": 4,
+        "turned": 396,
+        "moved": 90,
+        "ate": 2
+      },
+      "post_zero": {
+        "waited": 817,
+        "expired": 75,
+        "turned": 287
+      },
+      "daily": {
+        "1": {
+          "distance": 7.5,
+          "statuses": {
+            "expired": 3,
+            "waited": 13,
+            "expressed": 4,
+            "turned": 15,
+            "moved": 15,
+            "ate": 1
+          },
+          "reserve": 90.86359166666668,
+          "position": {
+            "x": 0.12424344553738365,
+            "z": 5.1882285676537805
+          }
+        },
+        "2": {
+          "distance": 3.5,
+          "statuses": {
+            "expired": 2,
+            "waited": 33,
+            "turned": 8,
+            "moved": 7,
+            "ate": 1
+          },
+          "reserve": 92.22116979166677,
+          "position": {
+            "x": -0.47930994505588986,
+            "z": 4.142843430065766
+          }
+        },
+        "3": {
+          "distance": 9.5,
+          "statuses": {
+            "expired": 3,
+            "waited": 6,
+            "turned": 23,
+            "moved": 19
+          },
+          "reserve": 73.16839635416676,
+          "position": {
+            "x": -0.5256071882195599,
+            "z": 3.1839745962155606
+          }
+        },
+        "4": {
+          "distance": 6.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 27,
+            "moved": 12,
+            "turned": 8
+          },
+          "reserve": 53.883475781250155,
+          "position": {
+            "x": -0.8967986690178751,
+            "z": 5.36947921688234
+          }
+        },
+        "5": {
+          "distance": 7.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 15,
+            "turned": 19,
+            "moved": 14
+          },
+          "reserve": 35.270303906250206,
+          "position": {
+            "x": -1.4226548009758617,
+            "z": 5.465975615036752
+          }
+        },
+        "6": {
+          "distance": 7.5,
+          "statuses": {
+            "expired": 3,
+            "waited": 8,
+            "moved": 15,
+            "turned": 25
+          },
+          "reserve": 16.972203879778192,
+          "position": {
+            "x": -1.319101410382588,
+            "z": 6.593623084924353
+          }
+        },
+        "7": {
+          "distance": 4.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 30,
+            "turned": 11,
+            "moved": 8
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "8": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 32,
+            "turned": 16
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "9": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 25,
+            "turned": 22
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "10": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 39,
+            "turned": 9
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "11": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 41,
+            "turned": 7
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "12": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 33,
+            "turned": 16
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "13": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 33,
+            "turned": 15
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "14": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 42,
+            "turned": 5
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "15": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 30,
+            "turned": 18
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "16": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "17": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 41,
+            "turned": 8
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "18": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 25,
+            "turned": 23
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "19": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 35,
+            "turned": 12
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "20": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "21": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "22": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 37,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "23": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "24": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 37,
+            "turned": 10
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "25": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "26": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "27": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 39,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "28": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "29": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 35,
+            "turned": 12
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        },
+        "30": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": -0.04957240475256125,
+            "z": 6.1018411266772965
+          }
+        }
+      }
+    },
+    "npc_c": {
+      "distance": 35.0,
+      "max_camp_distance": 7.469752225230551,
+      "first_zero_us": 308500000,
+      "first_food_us": null,
+      "food_decisions": 0,
+      "water_observations": 0,
+      "water_moves": 0,
+      "bank_crossings": 0,
+      "statuses": {
+        "expired": 96,
+        "waited": 962,
+        "turned": 405,
+        "moved": 70,
+        "expressed": 1,
+        "transferred": 2
+      },
+      "post_zero": {
+        "turned": 316,
+        "waited": 892,
+        "expired": 81
+      },
+      "daily": {
+        "1": {
+          "distance": 4.5,
+          "statuses": {
+            "expired": 3,
+            "waited": 20,
+            "turned": 16,
+            "moved": 9,
+            "expressed": 1,
+            "transferred": 2
+          },
+          "reserve": 71.68574166666671,
+          "position": {
+            "x": -1.17668557556426,
+            "z": 5.687627564304205
+          }
+        },
+        "2": {
+          "distance": 9.5,
+          "statuses": {
+            "expired": 2,
+            "waited": 7,
+            "turned": 23,
+            "moved": 19
+          },
+          "reserve": 52.73911666666676,
+          "position": {
+            "x": -2.2025417075222467,
+            "z": 6.142843430065764
+          }
+        },
+        "3": {
+          "distance": 11.5,
+          "statuses": {
+            "expired": 3,
+            "waited": 6,
+            "turned": 19,
+            "moved": 23
+          },
+          "reserve": 33.099491666666786,
+          "position": {
+            "x": -3.3328011771615085,
+            "z": 8.239468690981505
+          }
+        },
+        "4": {
+          "distance": 5.5,
+          "statuses": {
+            "expired": 5,
+            "waited": 23,
+            "moved": 11,
+            "turned": 13
+          },
+          "reserve": 14.217851236999378,
+          "position": {
+            "x": -0.6509495245833719,
+            "z": 6.422792495099804
+          }
+        },
+        "5": {
+          "distance": 4.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 16,
+            "turned": 24,
+            "moved": 8
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "6": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 20,
+            "turned": 28
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "7": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 39,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "8": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 37,
+            "turned": 11
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "9": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 27,
+            "turned": 20
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "10": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 35,
+            "turned": 13
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "11": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 44,
+            "turned": 4
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "12": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 34,
+            "turned": 15
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "13": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 23,
+            "turned": 25
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "14": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 37,
+            "turned": 10
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "15": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "16": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "17": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 39,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "18": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "19": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 35,
+            "turned": 12
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "20": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "21": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "22": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 37,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "23": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "24": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 37,
+            "turned": 10
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "25": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 36,
+            "turned": 12
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "26": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "27": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 2,
+            "waited": 39,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "28": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 35,
+            "turned": 13
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "29": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 5,
+            "waited": 36,
+            "turned": 11
+          },
+          "reserve": 0.0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        },
+        "30": {
+          "distance": 0.0,
+          "statuses": {
+            "expired": 3,
+            "waited": 38,
+            "turned": 10
+          },
+          "reserve": 0,
+          "position": {
+            "x": 0.21507587920106638,
+            "z": 6.922792495099804
+          }
+        }
+      }
+    }
+  },
+  "returns": [],
+  "ground_wear": {
+    "rule": "world-ground-recovery-v1",
+    "recovery_enabled": true,
+    "now_us": 1919750000,
+    "grace_us": 64000000,
+    "recovery_per_day": 2,
+    "cell_size": 1.0,
+    "road_distance": 10.0,
+    "operations": 207,
+    "cells": {
+      "-1,5": {
+        "distance": 12.866666666666676,
+        "wear": 0.0,
+        "last_walk_us": 426000000,
+        "agents": {
+          "npc_a": 2.0833333333333344,
+          "npc_b": 8.249999999999988,
+          "npc_c": 2.5333333333333345
+        }
+      },
+      "-1,6": {
+        "distance": 6.733333333333328,
+        "wear": 0.0,
+        "last_walk_us": 426000000,
+        "agents": {
+          "npc_a": 0.9333333333333337,
+          "npc_b": 2.6000000000000014,
+          "npc_c": 3.2000000000000006
+        }
+      },
+      "0,5": {
+        "distance": 0.6666666666666667,
+        "wear": 0.0,
+        "last_walk_us": 72250000,
+        "agents": {
+          "npc_c": 0.30000000000000004,
+          "npc_b": 0.36666666666666664
+        }
+      },
+      "-2,6": {
+        "distance": 13.2,
+        "wear": 0.0,
+        "last_walk_us": 422250000,
+        "agents": {
+          "npc_b": 3.750000000000003,
+          "npc_a": 3.783333333333336,
+          "npc_c": 5.666666666666664
+        }
+      },
+      "-3,6": {
+        "distance": 6.066666666666663,
+        "wear": 0.0,
+        "last_walk_us": 271000000,
+        "agents": {
+          "npc_a": 2.1000000000000005,
+          "npc_c": 3.6000000000000028,
+          "npc_b": 0.3666666666666667
+        }
+      },
+      "-1,4": {
+        "distance": 7.183333333333325,
+        "wear": 0.0,
+        "last_walk_us": 286000000,
+        "agents": {
+          "npc_b": 3.400000000000002,
+          "npc_a": 3.783333333333336
+        }
+      },
+      "0,4": {
+        "distance": 1.8166666666666655,
+        "wear": 0.0,
+        "last_walk_us": 202250000,
+        "agents": {
+          "npc_b": 1.8166666666666655
+        }
+      },
+      "-2,5": {
+        "distance": 12.199999999999992,
+        "wear": 0.0,
+        "last_walk_us": 422250000,
+        "agents": {
+          "npc_c": 4.083333333333337,
+          "npc_a": 3.6333333333333355,
+          "npc_b": 4.483333333333335
+        }
+      },
+      "-3,5": {
+        "distance": 3.8666666666666685,
+        "wear": 0.0,
+        "last_walk_us": 276000000,
+        "agents": {
+          "npc_a": 1.3166666666666664,
+          "npc_c": 1.2166666666666663,
+          "npc_b": 1.333333333333334
+        }
+      },
+      "0,3": {
+        "distance": 2.983333333333335,
+        "wear": 0.0,
+        "last_walk_us": 201000000,
+        "agents": {
+          "npc_b": 2.983333333333335
+        }
+      },
+      "-2,4": {
+        "distance": 5.716666666666663,
+        "wear": 0.0,
+        "last_walk_us": 293500000,
+        "agents": {
+          "npc_b": 5.050000000000001,
+          "npc_a": 0.666666666666667
+        }
+      },
+      "-4,6": {
+        "distance": 1.0999999999999996,
+        "wear": 0.0,
+        "last_walk_us": 138500000,
+        "agents": {
+          "npc_c": 1.0999999999999996
+        }
+      },
+      "-5,6": {
+        "distance": 0.4999999999999999,
+        "wear": 0.0,
+        "last_walk_us": 139750000,
+        "agents": {
+          "npc_c": 0.4999999999999999
+        }
+      },
+      "-5,7": {
+        "distance": 0.9999999999999997,
+        "wear": 0.0,
+        "last_walk_us": 146000000,
+        "agents": {
+          "npc_c": 0.9999999999999997
+        }
+      },
+      "-1,3": {
+        "distance": 3.2833333333333345,
+        "wear": 0.0,
+        "last_walk_us": 198500000,
+        "agents": {
+          "npc_b": 2.0666666666666678,
+          "npc_a": 1.2166666666666668
+        }
+      },
+      "-6,7": {
+        "distance": 0.9166666666666671,
+        "wear": 0.0,
+        "last_walk_us": 151000000,
+        "agents": {
+          "npc_c": 0.9166666666666671
+        }
+      },
+      "-6,8": {
+        "distance": 1.0000000000000007,
+        "wear": 0.0,
+        "last_walk_us": 153500000,
+        "agents": {
+          "npc_c": 1.0000000000000007
+        }
+      },
+      "0,2": {
+        "distance": 1.4000000000000004,
+        "wear": 0.0,
+        "last_walk_us": 162250000,
+        "agents": {
+          "npc_b": 1.4000000000000004
+        }
+      },
+      "1,2": {
+        "distance": 0.1833333333333333,
+        "wear": 0.0,
+        "last_walk_us": 156000000,
+        "agents": {
+          "npc_b": 0.1833333333333333
+        }
+      },
+      "-6,9": {
+        "distance": 1.383333333333332,
+        "wear": 0.0,
+        "last_walk_us": 166000000,
+        "agents": {
+          "npc_c": 1.383333333333332
+        }
+      },
+      "0,1": {
+        "distance": 1.4166666666666672,
+        "wear": 0.0,
+        "last_walk_us": 161000000,
+        "agents": {
+          "npc_b": 1.4166666666666672
+        }
+      },
+      "-7,9": {
+        "distance": 1.0999999999999988,
+        "wear": 0.0,
+        "last_walk_us": 163500000,
+        "agents": {
+          "npc_c": 1.0999999999999988
+        }
+      },
+      "-2,3": {
+        "distance": 1.3666666666666667,
+        "wear": 0.0,
+        "last_walk_us": 201000000,
+        "agents": {
+          "npc_a": 1.3666666666666667
+        }
+      },
+      "-1,2": {
+        "distance": 2.5500000000000003,
+        "wear": 0.0,
+        "last_walk_us": 182250000,
+        "agents": {
+          "npc_b": 2.5500000000000003
+        }
+      },
+      "-5,9": {
+        "distance": 1.0166666666666668,
+        "wear": 0.0,
+        "last_walk_us": 169750000,
+        "agents": {
+          "npc_c": 1.0166666666666668
+        }
+      },
+      "-5,8": {
+        "distance": 1.8833333333333335,
+        "wear": 0.0,
+        "last_walk_us": 182250000,
+        "agents": {
+          "npc_c": 1.8833333333333335
+        }
+      },
+      "-2,2": {
+        "distance": 2.7000000000000015,
+        "wear": 0.0,
+        "last_walk_us": 197250000,
+        "agents": {
+          "npc_a": 2.416666666666668,
+          "npc_b": 0.2833333333333333
+        }
+      },
+      "-3,2": {
+        "distance": 0.19999999999999996,
+        "wear": 0.0,
+        "last_walk_us": 196000000,
+        "agents": {
+          "npc_a": 0.19999999999999996
+        }
+      },
+      "-4,8": {
+        "distance": 0.9999999999999999,
+        "wear": 0.0,
+        "last_walk_us": 196000000,
+        "agents": {
+          "npc_c": 0.9999999999999999
+        }
+      },
+      "-3,8": {
+        "distance": 0.6166666666666669,
+        "wear": 0.0,
+        "last_walk_us": 197250000,
+        "agents": {
+          "npc_c": 0.6166666666666669
+        }
+      },
+      "-3,7": {
+        "distance": 0.8500000000000003,
+        "wear": 0.0,
+        "last_walk_us": 368500000,
+        "agents": {
+          "npc_c": 0.666666666666667,
+          "npc_b": 0.18333333333333335
+        }
+      },
+      "-2,7": {
+        "distance": 2.1,
+        "wear": 0.0,
+        "last_walk_us": 368500000,
+        "agents": {
+          "npc_c": 0.9166666666666671,
+          "npc_b": 1.1833333333333336
+        }
+      },
+      "-3,4": {
+        "distance": 0.3333333333333334,
+        "wear": 0.0,
+        "last_walk_us": 277250000,
+        "agents": {
+          "npc_b": 0.3333333333333334
+        }
+      },
+      "-1,7": {
+        "distance": 1.3999999999999997,
+        "wear": 0.0,
+        "last_walk_us": 359750000,
+        "agents": {
+          "npc_c": 0.4,
+          "npc_b": 1.0
+        }
+      },
+      "0,7": {
+        "distance": 0.7999999999999999,
+        "wear": 0.0,
+        "last_walk_us": 293500000,
+        "agents": {
+          "npc_c": 0.7999999999999999
+        }
+      },
+      "0,6": {
+        "distance": 0.09999999999999995,
+        "wear": 0.0,
+        "last_walk_us": 293500000,
+        "agents": {
+          "npc_c": 0.09999999999999995
+        }
+      }
+    }
+  }
+}
