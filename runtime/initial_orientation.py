@@ -1,4 +1,5 @@
 """Initial coarse sky orientation; no position, destination or route knowledge."""
+from runtime.lw_time import DAY_US, BOUNDARIES
 from math import floor, isfinite
 from collections import deque
 
@@ -13,7 +14,7 @@ def sample(packet, yaw, available=True):
     return dict(model=MODEL, source={k:packet[k] for k in SOURCE},
                 reference='world-fixed-bearing-zero', status='available' if available else 'unavailable',
                 relative_center=center if available else None, half_width=15,
-                cue='stars_equivalent' if packet['capture_us'] % 64000000 >= 56000000 else 'sun_shadow_equivalent',
+                cue='stars_equivalent' if packet['capture_us'] % DAY_US >= BOUNDARIES[2] else 'sun_shadow_equivalent',
                 environment='ideal-sky-no-occlusion')
 
 def validate(packet):
@@ -24,7 +25,7 @@ def validate(packet):
         raise ValueError('orientation_binding')
     if x['reference']!='world-fixed-bearing-zero' or x['half_width']!=15 or x['environment']!='ideal-sky-no-occlusion':
         raise ValueError('orientation_rule')
-    expected='stars_equivalent' if packet['capture_us']%64000000>=56000000 else 'sun_shadow_equivalent'
+    expected='stars_equivalent' if packet['capture_us']%DAY_US>=BOUNDARIES[2] else 'sun_shadow_equivalent'
     if x['cue']!=expected:raise ValueError('orientation_cue')
     if x['status']=='unavailable':
         if x['relative_center'] is not None:raise ValueError('orientation_unavailable')
@@ -43,7 +44,7 @@ def scan(packet, observations):
     counts=[0]*12
     records=list(deque(observations,maxlen=256))+[packet]
     for old in records:
-        if old['capture_us']>packet['capture_us'] or old['capture_us']//64000000!=packet['capture_us']//64000000:continue
+        if old['capture_us']>packet['capture_us'] or old['capture_us']//DAY_US!=packet['capture_us']//DAY_US:continue
         if old['run_id']!=packet['run_id'] or old['agent_id']!=packet['agent_id']:continue
         if 'orientation' not in old:continue
         validate(old)

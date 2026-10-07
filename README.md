@@ -1,5 +1,6 @@
 # RDL Game AI Lab
 
+- [LWの距離・時間尺度](docs/design/LW_Time_Distance_Profile.md)：human_scale_v1。一日17280秒、身体消耗・Sleep・資源再生・道の回復を同じ時計へ接続。有限180秒検証。
 - [日跨ぎ探索H・遠方候補比較](docs/experiment-evidence/LW_cross_day_exploration_horizon.md)：H保持と候補介入を実装。30日では探索範囲拡大・採取に未到達。
 - [LWベース地形 v1・30日運転](docs/experiment-evidence/LW_base_landscape_v1_30d.md)：3個体とも食料視認/採取/渡河0、最大拠点距離4.3〜7.5m。実移動軌跡を保存。
 - [LWベース地形 v1](docs/experiment-evidence/LW_base_landscape_v1.md)：渡れる小川・草地・林・岩場と資源分布。51テスト、統合3日監査PASS。

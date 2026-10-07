@@ -6,7 +6,7 @@ from hashlib import sha256
 
 from runtime.exploration import CELLS, SLOT_US
 from runtime.landmark_return_campaign import ReturnCampaign, CampaignAgent
-from runtime.landmark_day_cycle import DAY_US
+from runtime.landmark_day_cycle import DAY_US, BOUNDARIES
 
 
 def segment_hit(start, end, obj, margin=0):
@@ -202,7 +202,7 @@ class World:
             status=status,forward=1 if status=='moved' else 0,right=0,up=0,yaw=c['amount'] if status=='turned' else 0,acquired=status=='picked_up')
         self.effects[op]=(deepcopy(c),deepcopy(r))
         local_return=getattr(self,'local_return',False)
-        unload_allowed=(c.get('reason')=='return_unload_attempt' and hypot(a['x'],a['z']-6)<=1.25) if local_return else (c['capture_us']%DAY_US>=56000000 and hypot(a['x'],a['z']-6)<=10)
+        unload_allowed=(c.get('reason')=='return_unload_attempt' and hypot(a['x'],a['z']-6)<=1.25) if local_return else (c['capture_us']%DAY_US>=BOUNDARIES[2] and hypot(a['x'],a['z']-6)<=10)
         if unload_allowed and status=='waited':
             fresh=[e['operation_id'] for e in self.pickups if e['agent_id']==aid and e['operation_id'] not in self.counted]
             if fresh:
@@ -241,7 +241,7 @@ def run(path, days=3, seed=20260928, mode='enabled', run_id='lw-demo', distant_m
                 teaching=dict(statement_id=f'{run_id}:{aid}:teaching',source='god_statue',sample_observation=f'{run_id}:{aid}:sample',
                               appearance='brown_capped_ovoid',predicate='food_after_known_processing'))
             loop.configure(config)
-        for slot in range(days*256):
+        for slot in range(days*(DAY_US//SLOT_US)):
             packets={aid:world.packet(aid,slot) for aid in world.agents}
             commands={aid:loop.observe(p)['command'] for aid,p in packets.items()}
             for aid,c in commands.items():

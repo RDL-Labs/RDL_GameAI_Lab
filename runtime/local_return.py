@@ -1,4 +1,5 @@
 """Local dock observation and result-confirmed homing, finite recovery."""
+from runtime.lw_time import DAY_US
 from copy import deepcopy
 from math import atan2, degrees, hypot
 from .home_search import review as legacy_review
@@ -26,8 +27,8 @@ def review(agent,p,memory,state,linked,result):
     s=deepcopy(state)
     if not linked:return ['wait',0],dict(s,outcome='body_correspondence_unavailable')
     # Actual accepted unload receipt, not a near-looking landmark, ends the task.
-    day=p['capture_us']//64000000
-    if agent.carried_count()==0 and any(r['executed_us']//64000000==day for r in agent.unload_receipts.values()):
+    day=p['capture_us']//DAY_US
+    if agent.carried_count()==0 and any(r['executed_us']//DAY_US==day for r in agent.unload_receipts.values()):
         return ['wait',0],dict(s,outcome='delivery_confirmed')
     s['outcome']=None
     dock=p['dock']

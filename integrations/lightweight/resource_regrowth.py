@@ -1,5 +1,5 @@
 """World-time stock replenishment, never an agent-side food oracle."""
-DAY_US=64000000
+from runtime.lw_time import DAY_US
 
 
 class ResourceRegrowth:

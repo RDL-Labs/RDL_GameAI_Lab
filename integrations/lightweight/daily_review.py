@@ -6,11 +6,10 @@ No retrospective attribution of a day's result to every used model.
 import json
 from math import sqrt
 
-DAY_US = 64_000_000
 
 
 def analyze(path, days):
-    agents = {}
+    agents = {};day_us=64_000_000
     seen_results, seen_unloads = set(), set()
     def entry(aid, day):
         if not 0 <= day < days:
@@ -24,11 +23,13 @@ def analyze(path, days):
     with path.open(encoding='utf8') as stream:
         for line in stream:
             x = json.loads(line)
-            if x['type'] == 'completed':
+            if x['type']=='manifest':
+                day_us=x.get('time_profile',{}).get('day_us',64_000_000)
+            elif x['type'] == 'completed':
                 r = x['result'];aid=x['packet']['agent_id'];key=(aid,r['operation_id'])
                 if key in seen_results:
                     continue
-                seen_results.add(key);d=entry(aid,r['executed_us']//DAY_US)
+                seen_results.add(key);d=entry(aid,r['executed_us']//day_us)
                 d['result_sources'].append(r['operation_id'])
                 d['pickups'] += int(r['acquired'])
                 d['movement'] += sqrt(r['forward']**2+r['right']**2+r['up']**2)
@@ -39,10 +40,10 @@ def analyze(path, days):
                 r=x['receipt'];key=(x['agent_id'],r['operation_id'])
                 if key in seen_unloads:
                     continue
-                seen_unloads.add(key);d=entry(x['agent_id'],r['executed_us']//DAY_US)
+                seen_unloads.add(key);d=entry(x['agent_id'],r['executed_us']//day_us)
                 d['unloaded'] += len(r['pickups']);d['unload_sources'].append(r['operation_id'])
             elif x['type'] == 'decision':
-                p=x['packet'];d=entry(p['agent_id'],p['capture_us']//DAY_US)
+                p=x['packet'];d=entry(p['agent_id'],p['capture_us']//day_us)
                 d['observations']+=1
                 d['safety_observations'] += int(x['activity_phase']=='safety')
                 d['home_like_observed'] |= x['return_state'].get('outcome')=='home_like_observed'

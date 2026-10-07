@@ -1,4 +1,5 @@
 """Opt-in social actions inside the existing one-body-action exploration scheduler."""
+from runtime.lw_time import DAY_US, BOUNDARIES, QUIET_NIGHT_US, RESERVE_SCALE
 from copy import deepcopy
 import json
 from math import hypot
@@ -26,7 +27,7 @@ class SocialWorld(EnergyWorld):
     def advance_metabolism(self,now):
         require(now>=self.metabolic_us,'metabolic_clock')
         if now==self.metabolic_us:return
-        cost=(now-self.metabolic_us)/1e6*.25
+        cost=(now-self.metabolic_us)/1e6*.25*RESERVE_SCALE
         before={a:b['reserve'] for a,b in self.bodies.items()}
         for body in self.bodies.values():body['reserve']=max(0.,body['reserve']-cost)
         self.metabolic_log.append(dict(start_us=self.metabolic_us,end_us=now,before=before,
@@ -173,7 +174,7 @@ class SocialAgent(EnergyAgent):
             b=learning['experience_bundles']
             d['bundle_sleep']=dict(active=len(b['bundles']),dormant=len(b['dormant']),
                 completed_reviews=len(b['sleep_cycles']),woken=b['woken'])
-        intent=None;obs=p['social'];phase=d['day_cycle']['phase'];time=p['capture_us']%64_000_000
+        intent=None;obs=p['social'];phase=d['day_cycle']['phase'];time=p['capture_us']%DAY_US
         provision=None
         if self.personal_food:
             from runtime.personal_food import assess
@@ -188,7 +189,7 @@ class SocialAgent(EnergyAgent):
             and result['after_revision']==p['body_revision'] and result['executed_us']<p['capture_us'])
         available=(linked and phase not in ('safety','orientation') and p['capture_us']+1_000_000<self.expiry(p['capture_us']))
         # Final four night seconds are reserved for confirmed ordinary rest/Sleep.
-        if available and not (phase=='night' and time>=60_000_000):
+        if available and not (phase=='night' and time>=QUIET_NIGHT_US):
             answered=set()
             for prior in self.decisions.values():
                 if prior.get('social_intent',{}).get('reply_to'):answered.add(prior['social_intent']['reply_to'])

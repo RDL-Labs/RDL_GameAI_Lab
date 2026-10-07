@@ -3,6 +3,7 @@
 Reuse the Sleep window, then the unchanged three-formation/two-validation
 harvest inspector. A night wait is a local rest receipt, not proof of safety.
 """
+from runtime.lw_time import DAY_US
 from copy import deepcopy
 
 from .harvest_predictability import build_admission
@@ -10,7 +11,7 @@ from .sleep_window import SleepExperienceWindowStore
 from .sleep_relation_review import prepare, inspect
 
 RULE = 'harvest-night-consolidation-v1'
-REST_US = 1_000_000
+from .lw_time import SLEEP_REST_US as REST_US
 
 
 def review(agent, p, decision):
@@ -18,7 +19,7 @@ def review(agent, p, decision):
     state = dict(learning.get('sleep', dict(rule=RULE, cycle=None, completed=[])))
     state['completed'] = list(state['completed'])
     state['cycle'] = deepcopy(state['cycle'])
-    day = p['capture_us'] // 64_000_000
+    day = p['capture_us'] // DAY_US
     previous = next(reversed(agent.observations.values())) if agent.observations else None
     prior = agent.decisions.get(previous['observation_id']) if previous else None
     result = agent.results.get('op:' + previous['observation_id']) if previous else None
@@ -43,7 +44,7 @@ def review(agent, p, decision):
             relation_materials=prepare(agent, p), relation_review=None)
     if cycle is not None and cycle['status'] == 'pending':
         linked = (night and prior is not None and prior['day_cycle']['phase'] == 'night'
-            and previous['capture_us'] // 64_000_000 == day
+            and previous['capture_us'] // DAY_US == day
             and agent.commands[previous['observation_id']]['kind'] == 'wait'
             and result is not None and result['status'] == 'waited'
             and result['after_pose_ref'] == p['pose_ref']

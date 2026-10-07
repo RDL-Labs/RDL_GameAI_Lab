@@ -11,8 +11,7 @@ from .neighborhood_exploration import local_state
 from .terrain_steering import SteeredResourceAgent, SteeredResourceExploration
 
 SCHEMA = "l15a-landmark-day-cycle-v1"
-DAY_US = 64_000_000
-BOUNDARIES = (1_000_000, 32_000_000, 56_000_000, DAY_US)
+from .lw_time import DAY_US, BOUNDARIES
 
 
 def phase(capture):

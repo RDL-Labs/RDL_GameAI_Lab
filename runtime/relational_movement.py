@@ -1,4 +1,5 @@
 """Finite angular-relation field in the current body frame; no world map."""
+from runtime.lw_time import DAY_US
 from copy import deepcopy
 from math import atan2,degrees,radians,sin,cos,fsum
 from .landmark_day_cycle import clusters
@@ -79,7 +80,7 @@ def compose(p,target,terrain,weight=1.,goal_angle=None):
 def review(agent,p,d):
     d=deepcopy(d);previous=next(reversed(agent.observations.values())) if agent.observations else None
     last=agent.decisions.get(previous['observation_id'],{}) if previous else {}
-    old=last.get('relation_field',{});s=d['directional_routes'];day=p['capture_us']//64000000;phase=d['day_cycle']['phase']
+    old=last.get('relation_field',{});s=d['directional_routes'];day=p['capture_us']//DAY_US;phase=d['day_cycle']['phase']
     f=dict(rule=RULE,day=day,phase=phase,owner=None,operations=old.get('operations',0) if old.get('day')==day else 0,
         applied=False,pending_step=False,reason='priority',candidates=[])
     d['relation_field']=f

@@ -4,6 +4,7 @@ Reported regularities are not causal constraints or adopted knowledge. Reuse
 the existing Sleep window and structural comparator without fabricating an
 approach Experience for the legacy approach-only Deep compiler.
 """
+from runtime.lw_time import DAY_US
 from itertools import combinations, islice
 from copy import deepcopy
 import json
@@ -48,7 +49,7 @@ def prepare(agent, p):
             break
     history = dict(authority='read-only-history', records=selected)
     window = SleepExperienceWindowStore().form_window(history, agent_id=agent.agent_id,
-        sleep_cycle=f'{agent.run_id}:{agent.agent_id}:relations:{p["capture_us"]//64000000}',
+        sleep_cycle=f'{agent.run_id}:{agent.agent_id}:relations:{p["capture_us"]//DAY_US}',
         formation_tick=p['capture_us'], enabled=True)
     by_id = {r['record_id']: r for r in selected}
     return dict(rule=RULE, window=window,

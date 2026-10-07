@@ -1,4 +1,5 @@
 """Experimenter-only environmental transfer; never transfers agent learning."""
+from runtime.lw_time import metadata as time_metadata, PROFILE
 from copy import deepcopy
 
 
@@ -8,6 +9,7 @@ def checkpoint(world,regrowth,territory,patrol,next_us):
         ground=world.ground_wear.snapshot() if world.ground_wear_enabled else None,
         regrowth=vars(regrowth) if regrowth else None,
         territory=vars(territory) if territory else None,patrol=vars(patrol) if patrol else None))
+    if PROFILE!='legacy':result['time_profile']=time_metadata()
     if hasattr(world,'landscape'):result['landscape']=world.landscape.metadata()
     if result['ground']:
         for cell in result['ground']['cells'].values():
@@ -19,6 +21,7 @@ def restore(world,regrowth,territory,patrol,state,reset_wear=False):
     if state is None:
         if reset_wear:raise ValueError('reset_requires_checkpoint')
         return 0
+    if state.get('time_profile',{}).get('profile','legacy')!=PROFILE:raise ValueError('checkpoint_time_profile')
     if state.get('landscape') is not None:raise ValueError('landscape_checkpoint_restore_not_supported')
     s=deepcopy(state)
     if s['rule']!='cohort-world-v1':raise ValueError('checkpoint_rule')

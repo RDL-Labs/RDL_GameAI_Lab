@@ -1,4 +1,5 @@
 """Finite acquired-history recurrence; no World lookup or action authority."""
+from .lw_time import DAY_US
 from math import cos, sin, radians, sqrt
 from .learned_exploration import observation_key
 from .resource_exploration import PERIOD_US
@@ -28,7 +29,7 @@ def view_key(p):
 
 def diagnose_window(records, *, purpose_scoped=True, period_us=PERIOD_US):
     """At most nine acquired views, linked by eight already received results."""
-    if type(period_us) is not int or period_us not in (16_000_000,32_000_000,64_000_000):
+    if type(period_us) is not int or period_us not in (16_000_000,32_000_000,64_000_000,DAY_US):
         raise ValueError("history_period")
     if not 1<=len(records)<=WINDOW_OPERATIONS+1:
         raise ValueError("history_budget")

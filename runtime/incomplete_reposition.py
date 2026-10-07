@@ -2,6 +2,7 @@
 
 Local residual, not canonical E/H, no goal coordinates or global heat field.
 """
+from runtime.lw_time import DAY_US
 from copy import deepcopy
 from hashlib import sha256
 
@@ -12,7 +13,7 @@ def review(agent,p,d,*,key='reposition',phase='exploration',reasons=('acquisitio
     previous=next(reversed(agent.observations.values())) if agent.observations else None
     last=agent.decisions.get(previous['observation_id'],{}) if previous else {}
     old=last.get(key,{})
-    day=p['capture_us']//64000000
+    day=p['capture_us']//DAY_US
     dt=max(0,p['capture_us']-old.get('capture_us',p['capture_us']))/1000000
     residual=max(0,old.get('residual',0)-dt*.5)
     state=dict(rule=RULE,day=day,capture_us=p['capture_us'],residual=residual,

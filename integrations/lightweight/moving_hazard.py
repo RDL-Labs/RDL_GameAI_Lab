@@ -1,11 +1,12 @@
 """World-owned moving fixture and bounded forward visual observation."""
+from runtime.lw_time import DAY_US
 from math import hypot,atan2,degrees
 from runtime.moving_hazard_safety import RULE,KEYS
 
 
 def position(now,scenario='crossing'):
     t=now/1e6%64
-    if scenario=='route_crossing' and now<64000000:return None
+    if scenario=='route_crossing' and now<DAY_US:return None
     start=56 if scenario=='night' else 2
     if not start<=t<start+8:return None
     u=t-start

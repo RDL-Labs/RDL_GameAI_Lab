@@ -1,4 +1,5 @@
 """Shared World ground history; no route or destination knowledge."""
+from runtime.lw_time import DAY_US
 from math import floor,hypot,ceil
 from copy import deepcopy
 
@@ -11,9 +12,9 @@ class GroundWear:
         if type(now_us) is not int or now_us<self.now_us:raise ValueError('ground_clock')
         if self.recovery_enabled:
             for cell in self.cells.values():
-                start=max(self.now_us,cell['last_walk_us']+64_000_000)
+                start=max(self.now_us,cell['last_walk_us']+DAY_US)
                 elapsed=max(0,now_us-start)
-                cell['wear']=max(0.,cell['wear']-2*elapsed/64_000_000)
+                cell['wear']=max(0.,cell['wear']-2*elapsed/DAY_US)
         self.now_us=now_us
 
     def factor(self,x,z):
@@ -40,6 +41,6 @@ class GroundWear:
 
     def snapshot(self):
         return dict(rule='world-ground-recovery-v1' if self.recovery_enabled else 'world-ground-wear-v1',
-            recovery_enabled=self.recovery_enabled,now_us=self.now_us,grace_us=64_000_000,
+            recovery_enabled=self.recovery_enabled,now_us=self.now_us,grace_us=DAY_US,
             recovery_per_day=2,cell_size=1.,road_distance=10.,
             operations=len(self.operations),cells=deepcopy(self.cells))

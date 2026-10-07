@@ -1,4 +1,5 @@
 """Opt-in layered-body bridge to the existing HarvestCampaign exploration stack."""
+from runtime.lw_time import DAY_US, BOUNDARIES
 from copy import deepcopy
 from math import ceil, hypot
 import json
@@ -176,7 +177,7 @@ class ExplorationBodyWorld(World):
             fresh=[e['operation_id'] for e in self.pickups if e['agent_id']==aid and e['operation_id'] not in self.counted]
             if fresh:
                 self.counted.update(fresh)
-                self.returns.append(dict(agent_id=aid,day=start//64_000_000+1,pickups=fresh,executed_us=now))
+                self.returns.append(dict(agent_id=aid,day=start//DAY_US+1,pickups=fresh,executed_us=now))
                 a['inventory']-=len(fresh)
         return r
 
