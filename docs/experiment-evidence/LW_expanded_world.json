@@ -1,0 +1,475 @@
+{
+  "options": {
+    "days": 3,
+    "stop_after_returns": null,
+    "seed": 20261005,
+    "skyline_subrays": true,
+    "mb_field_mode": "enabled",
+    "goal_difference_mode": "enabled",
+    "food_goal_mode": "enabled",
+    "orientation_mode": "enabled",
+    "reposition_mode": "enabled",
+    "return_completion_mode": "enabled",
+    "nested_model_mode": "enabled",
+    "food_revisit_mode": "enabled",
+    "directional_route_mode": "enabled",
+    "relation_field_mode": "enabled",
+    "hazard_mode": "enabled",
+    "hazard_scenario": "territorial",
+    "warning_review_mode": "enabled",
+    "selection_mode": "continuous",
+    "dynamic_hazard": true,
+    "regrowth_days": 3,
+    "sleep_learning": true,
+    "sleep_auto_adopt": true,
+    "body_mode": "enabled",
+    "energy_mode": "enabled",
+    "social_mode": "enabled",
+    "social_adopt": true,
+    "social_pressure": true,
+    "refusal_field_mode": "enabled",
+    "body_scene": "social_expanded",
+    "personal_food": true,
+    "hunger_enabled": true,
+    "body_method_field": true,
+    "food_retention": true,
+    "experience_bundle_mode": "enabled",
+    "bundle_sleep_enabled": true,
+    "trail_enabled": true,
+    "ground_wear_enabled": true,
+    "ground_recovery_enabled": true,
+    "ground_appearance_enabled": true,
+    "ground_pattern_enabled": true,
+    "run_id": "lw-expanded",
+    "ground_continuity_enabled": true
+  },
+  "audit": {
+    "completed": 459,
+    "food_conserved": true,
+    "no_duplicate_or_overlapping_effects": true,
+    "initial_food": 112,
+    "regrown_food": 0,
+    "actions": {
+      "request:expressed": 2,
+      "refuse:expressed": 2,
+      "eat:ate": 12
+    },
+    "commands": {
+      "wait": 417,
+      "social": 16,
+      "pickup": 8,
+      "turn": 10,
+      "move": 8
+    },
+    "positive_refusal_choices": {
+      "request_again": 2
+    },
+    "safety_decisions": 459,
+    "visible_hazard_decisions": 23,
+    "safety_reasons": {
+      "normal": 441,
+      "continuous_safety/step_-90": 8,
+      "continuous_safety/step_-45": 6,
+      "continuous_safety/step_0": 1,
+      "provisional_mode_release": 3
+    },
+    "daily": {
+      "1": {
+        "wait": 120,
+        "picked_up": 8,
+        "social": 10,
+        "pickup": 8,
+        "turn": 10,
+        "move": 8
+      },
+      "2": {
+        "wait": 150,
+        "picked_up": 0,
+        "social": 3
+      },
+      "3": {
+        "wait": 147,
+        "picked_up": 0,
+        "social": 3
+      }
+    },
+    "summary": {
+      "ended_us": 192000000,
+      "pickups": 8,
+      "social_stock": 0,
+      "social_consumed": 12,
+      "physical_inventory": {
+        "npc_a": 0,
+        "npc_b": 0,
+        "npc_c": 0
+      },
+      "layered_bodies": {
+        "npc_a": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 94.49370000000036,
+          "damage": 0.0
+        },
+        "npc_b": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 94.11536666666704,
+          "damage": 0.0
+        },
+        "npc_c": {
+          "rule": "layered-body-v1",
+          "burst": 10.0,
+          "strain": 0,
+          "reserve": 93.50903333333373,
+          "damage": 0.0
+        }
+      },
+      "elapsed_seconds": 4.91829990001861
+    },
+    "learning": {
+      "npc_a": {
+        "sleep_statuses": {
+          "completed": 3
+        },
+        "harvest_model": "gameai-reconstructed-mb:02d3379866dcb28b:v1",
+        "social_records": 2,
+        "social_model": {
+          "npc_b": {
+            "expectation": 0.25,
+            "sources": [
+              "npc_a:op:lw-expanded:npc_a:obs:5",
+              "npc_a:op:lw-expanded:npc_a:obs:30"
+            ],
+            "authority": "unvalidated local aid expectation; not intent or canonical T1"
+          }
+        },
+        "sleep_model": "sleep-unvalidated-action-model-v1:d0b18cf4f6fb0e12b92e7ffb",
+        "sleep_records": 12
+      },
+      "npc_b": {
+        "sleep_statuses": {
+          "completed": 3
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:7bf0d5d68294fd38572aca20",
+        "sleep_records": 12
+      },
+      "npc_c": {
+        "sleep_statuses": {
+          "completed": 3
+        },
+        "harvest_model": null,
+        "social_records": 0,
+        "social_model": {},
+        "sleep_model": "sleep-unvalidated-action-model-v1:f7b5dd658d7ca5a8a78005bc",
+        "sleep_records": 12
+      }
+    }
+  },
+  "ground_wear": {
+    "rule": "world-ground-recovery-v1",
+    "recovery_enabled": true,
+    "now_us": 191750000,
+    "grace_us": 64000000,
+    "recovery_per_day": 2,
+    "cell_size": 1.0,
+    "road_distance": 10.0,
+    "operations": 8,
+    "cells": {
+      "-1,5": {
+        "distance": 3.5333333333333354,
+        "wear": 0.7442708333333354,
+        "last_walk_us": 38500000,
+        "agents": {
+          "npc_a": 0.8333333333333335,
+          "npc_b": 1.0000000000000002,
+          "npc_c": 1.6999999999999997
+        }
+      },
+      "0,5": {
+        "distance": 0.30000000000000004,
+        "wear": 0.0,
+        "last_walk_us": 23500000,
+        "agents": {
+          "npc_c": 0.30000000000000004
+        }
+      },
+      "-2,5": {
+        "distance": 0.1666666666666667,
+        "wear": 0.0,
+        "last_walk_us": 26000000,
+        "agents": {
+          "npc_a": 0.1666666666666667
+        }
+      }
+    }
+  },
+  "layout": {
+    "objects": [
+      {
+        "x": 0.0,
+        "z": 8.0,
+        "radius": 0.3,
+        "height": 12.0,
+        "solid": true,
+        "color": "ochre"
+      },
+      {
+        "x": 3.0084643708237246,
+        "z": 21.968187111027323,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": 17.73656802274529,
+        "z": -12.120718166383764,
+        "radius": 0.65,
+        "height": 12.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -29.8801524046471,
+        "z": 3.233073427704712,
+        "radius": 0.65,
+        "height": 12.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 36.364068691415305,
+        "z": 26.47219536277656,
+        "radius": 0.65,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -15.561254731076836,
+        "z": -47.17520411122304,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -25.248111602955177,
+        "z": 63.90976095679294,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 79.0587513867719,
+        "z": -15.492995014927043,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -73.5317085410077,
+        "z": -53.253362814917644,
+        "radius": 0.65,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -69.166943500642,
+        "z": -43.024659269541566,
+        "radius": 1.1272218370211111,
+        "height": 5.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -43.51171841273494,
+        "z": -35.86724987943488,
+        "radius": 1.102545831649198,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -87.35972432805683,
+        "z": -8.838007302914637,
+        "radius": 0.842746297396785,
+        "height": 16.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": 15.388308264337162,
+        "z": -86.31360342637608,
+        "radius": 0.650205437417867,
+        "height": 16.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": -35.574432095520066,
+        "z": 3.543524583309512,
+        "radius": 0.6596011987431039,
+        "height": 16.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -41.50720398467229,
+        "z": 42.27412231600508,
+        "radius": 0.6095456764192074,
+        "height": 8.0,
+        "color": "gray",
+        "solid": true
+      },
+      {
+        "x": -49.2066229394589,
+        "z": -18.063777745705938,
+        "radius": 0.8901874966110741,
+        "height": 16.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 40.06744269239909,
+        "z": 81.7587594518154,
+        "radius": 0.8644542490705436,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": 24.272032722453993,
+        "z": 83.97049459386126,
+        "radius": 0.6295029361097016,
+        "height": 16.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": -11.928426515160794,
+        "z": -3.4617638206808614,
+        "radius": 0.7236201720108607,
+        "height": 5.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 36.50460207218504,
+        "z": -8.002633582094132,
+        "radius": 0.6097240939468641,
+        "height": 16.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": 50.632086640533444,
+        "z": 40.12942120979669,
+        "radius": 0.9786016806044249,
+        "height": 5.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 52.610591314638405,
+        "z": -34.11751993304798,
+        "radius": 0.6870350967342159,
+        "height": 8.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -47.93951229023696,
+        "z": -3.1981076153196,
+        "radius": 0.7166877124645477,
+        "height": 5.0,
+        "color": "brown",
+        "solid": true
+      },
+      {
+        "x": 42.06230616402487,
+        "z": 89.45943239633941,
+        "radius": 0.6293041154746369,
+        "height": 2.0,
+        "color": "green",
+        "solid": true
+      },
+      {
+        "x": -4.982873572101412,
+        "z": 48.212367769587516,
+        "radius": 0.7616005492075186,
+        "height": 5.0,
+        "color": "green",
+        "solid": true
+      }
+    ],
+    "resources": [
+      {
+        "x": -0.4,
+        "z": 6.8,
+        "stock": 6
+      },
+      {
+        "x": 0.4,
+        "z": 6.8,
+        "stock": 6
+      },
+      {
+        "x": 1.0084643708237249,
+        "z": 21.968187111027323,
+        "stock": 12
+      },
+      {
+        "x": 15.736568022745287,
+        "z": -12.120718166383764,
+        "stock": 12
+      },
+      {
+        "x": -31.8801524046471,
+        "z": 3.233073427704712,
+        "stock": 12
+      },
+      {
+        "x": 34.364068691415305,
+        "z": 26.47219536277656,
+        "stock": 12
+      },
+      {
+        "x": -17.561254731076836,
+        "z": -47.17520411122304,
+        "stock": 12
+      },
+      {
+        "x": -27.248111602955177,
+        "z": 63.90976095679294,
+        "stock": 12
+      },
+      {
+        "x": 77.0587513867719,
+        "z": -15.492995014927043,
+        "stock": 12
+      },
+      {
+        "x": -75.5317085410077,
+        "z": -53.253362814917644,
+        "stock": 12
+      }
+    ]
+  },
+  "extent_observed": {
+    "max_distance_from_camp": {
+      "npc_a": 1.2346057840975881,
+      "npc_b": 1.0173370861374236,
+      "npc_c": 1.3186720983883347
+    },
+    "outer_pickups": 0
+  }
+}

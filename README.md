@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [LW統合版・World外側の拡張](docs/experiment-evidence/LW_expanded_world.md)：拠点近場を維持し、半径16〜96mに資源8地点を追加。3日接続確認済み、外側への探索利用は未確認。
+
 - [LW統合版・基本抵抗1.5の90日比較](docs/experiment-evidence/LW_ground_resistance_15_90d.md)：採取273／274、食事270／270。道候補の実行は旋回1件、継続未確認でH加算後に採取。道追従の増加は未確認。
 
 - [LW統合版・道M_Bの90日比較](docs/experiment-evidence/LW_ground_model_90d.md)：採取274／272、食事269／269。道候補の実移動は1回のまま、後半60日は追加0。全員reserve枯渇なし。
