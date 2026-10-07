@@ -9,6 +9,7 @@ from .minimal_communication import CommunicationWorld
 
 
 class SocialWorld(EnergyWorld):
+    personal_food=False
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.communication=CommunicationWorld(capacity=1024)
@@ -43,6 +44,9 @@ class SocialWorld(EnergyWorld):
         s.update(source={k:p[k] for k in ('run_id','agent_id','observation_id','capture_us','pose_ref')},
                  at_base=self.at_base(aid),stock=self.stock if self.at_base(aid) else None)
         p['social']=s
+        if self.personal_food:
+            from runtime.personal_food import observe
+            s['food_band']=observe(s['inventory'])
         return p
 
     def execute(self,c,p,executed_us=None):
@@ -61,7 +65,7 @@ class SocialWorld(EnergyWorld):
         if before!=c['pose_ref'] or revision!=c['body_revision']:status='stale'
         elif now>=c['expires_us']:status='expired'
         elif intent['action'] in ('deposit','take'):
-            if self.at_base(aid):
+            if self.at_base(aid) and not self.personal_food:
                 if intent['action']=='deposit' and a['inventory']:
                     self.stock+=a['inventory'];a['inventory']=0;status='deposited'
                 elif intent['action']=='take' and self.stock:
@@ -81,6 +85,7 @@ class SocialWorld(EnergyWorld):
 
 
 class SocialAgent(EnergyAgent):
+    personal_food=False
     share=True
     social_adopt=True
     social_pressure=True
@@ -93,7 +98,10 @@ class SocialAgent(EnergyAgent):
 
     def _packet(self,p):
         s=p['social']
-        require(set(s)=={'source','self_id','body','inventory','others','messages','at_base','stock'},'social_fields')
+        require(set(s)=={'source','self_id','body','inventory','others','messages','at_base','stock'} | ({'food_band'} if self.personal_food else set()),'social_fields')
+        if self.personal_food:
+            from runtime.personal_food import observe
+            require(s['food_band']==observe(s['inventory']),'food_band')
         require(s['source']=={k:p[k] for k in ('run_id','agent_id','observation_id','capture_us','pose_ref')},'social_binding')
         require(s['self_id']==p['agent_id'] and type(s['inventory']) is int and s['inventory']>=0,'social_inventory')
         require(s['body']==p['locomotor']['state'] and s['inventory']==p['locomotor']['energy']['load'],'social_body')
@@ -137,6 +145,11 @@ class SocialAgent(EnergyAgent):
             formation=self.observations.get(cycle['source'],p)['capture_us']
             if self.social_adopt:s=consolidate(s,dict(cycle,formation_us=formation),self.agent_id)
         intent=None;obs=p['social'];phase=d['day_cycle']['phase'];time=p['capture_us']%64_000_000
+        provision=None
+        if self.personal_food:
+            from runtime.personal_food import assess
+            provision=assess(obs['food_band'],obs['body']['reserve'])
+            d['personal_food']=provision
         # Existing safety and in-flight body/deadline gates retain authority.
         previous=next(reversed(self.observations.values())) if self.observations else None
         result=self.results.get('op:'+previous['observation_id']) if previous else None
@@ -159,9 +172,9 @@ class SocialAgent(EnergyAgent):
                     seed=f'{self.refusal_seed}:{self.run_id}:{self.agent_id}:{p["observation_id"]}:respond:{message["sender"]}'
                     intent,d['refusal_choice']=choose(s['refusal_field'],current,message['sender'],'respond',seed,
                                                     enabled=self.refusal_field_mode=='enabled')
-            elif obs['body']['reserve']<80 and obs['inventory']:
+            elif (provision['choice']=='eat' if provision else obs['body']['reserve']<80 and obs['inventory']):
                 intent=dict(action='eat')
-            elif obs['body']['reserve']<80 and obs['at_base'] and obs['stock']:
+            elif not self.personal_food and obs['body']['reserve']<80 and obs['at_base'] and obs['stock']:
                 intent=dict(action='take')
             elif obs['body']['reserve']<80 and not s['pending']:
                 targets=[x['ref'] for x in obs['others'] if x['holding_food']]
@@ -183,11 +196,17 @@ class SocialAgent(EnergyAgent):
                         mid=self.agent_id+':op:'+p['observation_id']
                         s['pending']=dict(message_id=mid,target=target,deadline=p['capture_us']+5_000_000,
                                           request_observation_id=p['observation_id'],operation_id='op:'+p['observation_id'])
-            if intent is None and self.deposit_enabled and obs['at_base'] and obs['inventory'] and phase in ('return','night'):
+            if intent is None and not self.personal_food and self.deposit_enabled and obs['at_base'] and obs['inventory'] and phase in ('return','night'):
                 intent=dict(action='deposit')
         if d['reason']=='return_unload_attempt' and intent is None:
-            if obs['inventory'] and self.deposit_enabled:intent=dict(action='deposit')
+            if obs['inventory'] and self.deposit_enabled and not self.personal_food:intent=dict(action='deposit')
             else:d.update(action=['wait',0],reason='social_base_wait')
+        if (intent is None and provision and provision['choice']=='provisioned_rest' and available
+                and phase=='exploration' and d.get('terrain_gate')!='safety'):
+            d['body_bridge']['baseline_action']=list(d['action'])
+            d['body_bridge']['baseline_reason']=d['reason']
+            d.update(action=['wait',0],target='',reason='personal_food_sufficient')
+            self._body_final(d)
         if intent:
             # Preserve the actual superseded proposal for auditing.
             d['body_bridge']['baseline_action']=list(d['action'])

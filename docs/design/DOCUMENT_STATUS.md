@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [個人所持・備蓄認識](../experiment-contracts/LW_personal_food.md)：FINITE IMPLEMENTED。粗い区分で探索休止/再開、30日検証。正確な荷重入力は維持、個人倉庫と学習充足量は未実装。
+
 - [接続済み生活経路30日](../experiment-evidence/LW_integrated_social_30d.md)：FINITE RUN COMPLETE。自然/共有拠点の2run。身体・危険・Sleep・社会場を併走、全個体の補給成功や全過去fixture統合の意味ではない。
 
 - [拒否関係場の生活適用](../experiment-evidence/LW_refusal_life.md)：FINITE INTEGRATED、明示opt-in。3seed×2条件×3日、既存身体scheduler/Sleepを維持。効率改善・一般的報復学習は未主張。

@@ -1,0 +1,421 @@
+{
+  "personal": {
+    "options": {
+      "days": 30,
+      "stop_after_returns": null,
+      "seed": 20261004,
+      "skyline_subrays": true,
+      "mb_field_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "food_goal_mode": "enabled",
+      "orientation_mode": "enabled",
+      "reposition_mode": "enabled",
+      "return_completion_mode": "enabled",
+      "nested_model_mode": "enabled",
+      "food_revisit_mode": "enabled",
+      "directional_route_mode": "enabled",
+      "relation_field_mode": "enabled",
+      "hazard_mode": "enabled",
+      "hazard_scenario": "territorial",
+      "warning_review_mode": "enabled",
+      "selection_mode": "continuous",
+      "dynamic_hazard": true,
+      "regrowth_days": 3,
+      "sleep_learning": true,
+      "sleep_auto_adopt": true,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "social_mode": "enabled",
+      "social_adopt": true,
+      "social_pressure": true,
+      "refusal_field_mode": "enabled",
+      "body_scene": "social_shared",
+      "personal_food": true
+    },
+    "audit": {
+      "completed": 4608,
+      "food_conserved": true,
+      "no_duplicate_or_overlapping_effects": true,
+      "initial_food": 16,
+      "regrown_food": 74,
+      "actions": {
+        "request:expressed": 8,
+        "refuse:expressed": 7,
+        "eat:ate": 69
+      },
+      "commands": {
+        "wait": 3095,
+        "social": 84,
+        "pickup": 67,
+        "turn": 766,
+        "move": 596
+      },
+      "positive_refusal_choices": {
+        "request_again": 6
+      },
+      "safety_decisions": 4608,
+      "visible_hazard_decisions": 1039,
+      "safety_reasons": {
+        "normal": 3340,
+        "continuous_safety/step_-90": 556,
+        "continuous_safety/step_-45": 56,
+        "continuous_safety/step_0": 120,
+        "provisional_mode_release": 112,
+        "continuous_safety/await_body": 74,
+        "continuous_safety/step_45": 59,
+        "continuous_safety/step_90": 115,
+        "continuous_safety/wait": 12,
+        "continuous_safety/survey_left": 12,
+        "limited_clearance": 39,
+        "continuous_safety/survey_right": 113
+      },
+      "daily": {
+        "1": {
+          "wait": 99,
+          "picked_up": 8,
+          "social": 12,
+          "pickup": 8,
+          "turn": 19,
+          "move": 18
+        },
+        "2": {
+          "wait": 78,
+          "picked_up": 0,
+          "turn": 41,
+          "move": 31,
+          "social": 3
+        },
+        "3": {
+          "wait": 59,
+          "picked_up": 0,
+          "turn": 52,
+          "move": 39,
+          "social": 3
+        },
+        "4": {
+          "wait": 94,
+          "picked_up": 0,
+          "turn": 34,
+          "move": 25
+        },
+        "5": {
+          "wait": 48,
+          "picked_up": 2,
+          "turn": 50,
+          "move": 47,
+          "pickup": 2,
+          "social": 6
+        },
+        "6": {
+          "wait": 58,
+          "picked_up": 10,
+          "turn": 38,
+          "move": 40,
+          "pickup": 10,
+          "social": 10
+        },
+        "7": {
+          "wait": 70,
+          "picked_up": 0,
+          "social": 3,
+          "turn": 41,
+          "move": 39
+        },
+        "8": {
+          "wait": 92,
+          "picked_up": 0,
+          "turn": 31,
+          "move": 29,
+          "social": 1
+        },
+        "9": {
+          "wait": 115,
+          "picked_up": 3,
+          "turn": 20,
+          "pickup": 3,
+          "move": 13,
+          "social": 2
+        },
+        "10": {
+          "wait": 122,
+          "picked_up": 0,
+          "turn": 17,
+          "move": 13,
+          "social": 1
+        },
+        "11": {
+          "wait": 97,
+          "picked_up": 5,
+          "turn": 33,
+          "pickup": 5,
+          "move": 17,
+          "social": 4
+        },
+        "12": {
+          "wait": 103,
+          "picked_up": 4,
+          "turn": 22,
+          "move": 22,
+          "pickup": 4,
+          "social": 2
+        },
+        "13": {
+          "wait": 122,
+          "picked_up": 0,
+          "move": 15,
+          "turn": 14,
+          "social": 2
+        },
+        "14": {
+          "wait": 88,
+          "picked_up": 4,
+          "turn": 31,
+          "move": 28,
+          "pickup": 4,
+          "social": 2
+        },
+        "15": {
+          "wait": 110,
+          "picked_up": 0,
+          "turn": 25,
+          "move": 16,
+          "social": 2
+        },
+        "16": {
+          "wait": 130,
+          "picked_up": 4,
+          "turn": 13,
+          "move": 7,
+          "pickup": 4,
+          "social": 2
+        },
+        "17": {
+          "wait": 115,
+          "picked_up": 0,
+          "turn": 22,
+          "move": 14,
+          "social": 2
+        },
+        "18": {
+          "wait": 113,
+          "picked_up": 4,
+          "turn": 20,
+          "pickup": 4,
+          "move": 13,
+          "social": 3
+        },
+        "19": {
+          "wait": 132,
+          "picked_up": 0,
+          "turn": 13,
+          "move": 6,
+          "social": 2
+        },
+        "20": {
+          "wait": 104,
+          "picked_up": 4,
+          "move": 18,
+          "turn": 26,
+          "pickup": 4,
+          "social": 1
+        },
+        "21": {
+          "wait": 121,
+          "picked_up": 0,
+          "social": 2,
+          "turn": 21,
+          "move": 12
+        },
+        "22": {
+          "wait": 121,
+          "picked_up": 4,
+          "turn": 16,
+          "pickup": 4,
+          "social": 3,
+          "move": 9
+        },
+        "23": {
+          "wait": 107,
+          "picked_up": 0,
+          "turn": 23,
+          "move": 21,
+          "social": 2
+        },
+        "24": {
+          "wait": 116,
+          "picked_up": 3,
+          "turn": 19,
+          "move": 13,
+          "pickup": 3,
+          "social": 2
+        },
+        "25": {
+          "wait": 117,
+          "picked_up": 3,
+          "pickup": 3,
+          "turn": 22,
+          "move": 9,
+          "social": 2
+        },
+        "26": {
+          "wait": 108,
+          "picked_up": 0,
+          "turn": 26,
+          "move": 20,
+          "social": 2
+        },
+        "27": {
+          "wait": 112,
+          "picked_up": 4,
+          "move": 17,
+          "turn": 18,
+          "pickup": 4,
+          "social": 2
+        },
+        "28": {
+          "wait": 121,
+          "picked_up": 0,
+          "turn": 18,
+          "move": 13,
+          "social": 1
+        },
+        "29": {
+          "wait": 100,
+          "picked_up": 5,
+          "turn": 24,
+          "pickup": 5,
+          "move": 21,
+          "social": 3
+        },
+        "30": {
+          "wait": 123,
+          "picked_up": 0,
+          "move": 11,
+          "turn": 17,
+          "social": 2
+        }
+      },
+      "summary": {
+        "ended_us": 1920000000,
+        "pickups": 67,
+        "social_stock": 0,
+        "social_consumed": 69,
+        "physical_inventory": {
+          "npc_a": 0,
+          "npc_b": 0,
+          "npc_c": 2
+        },
+        "layered_bodies": {
+          "npc_a": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0.30909095914592366,
+            "reserve": 0,
+            "damage": 0.0
+          },
+          "npc_b": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 80.47250000000285,
+            "damage": 0.0
+          },
+          "npc_c": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 82.93250000000288,
+            "damage": 0.0
+          }
+        },
+        "elapsed_seconds": 35.96921179999481
+      },
+      "learning": {
+        "npc_a": {
+          "sleep_statuses": {
+            "completed": 30
+          },
+          "harvest_model": "gameai-reconstructed-mb:45a38bfb3cac0e77:v1",
+          "social_records": 4,
+          "social_model": {
+            "npc_b": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_a:op:lw-work:npc_a:obs:5",
+                "npc_a:op:lw-work:npc_a:obs:20"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            },
+            "npc_c": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_a:op:lw-work:npc_a:obs:35",
+                "npc_a:op:lw-work:npc_a:obs:1515"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:0e9ec050dd75b457908600a3",
+          "sleep_records": 103
+        },
+        "npc_b": {
+          "sleep_statuses": {
+            "completed": 25,
+            "interrupted": 1
+          },
+          "harvest_model": "gameai-reconstructed-mb:ccd5e7a41fd33a80:v1",
+          "social_records": 2,
+          "social_model": {
+            "npc_c": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_b:op:lw-work:npc_b:obs:1070",
+                "npc_b:op:lw-work:npc_b:obs:1155"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:cc59656f35cb4acebee5b56d",
+          "sleep_records": 131
+        },
+        "npc_c": {
+          "sleep_statuses": {
+            "completed": 23,
+            "interrupted": 2
+          },
+          "harvest_model": "gameai-reconstructed-mb:9e5e10b2eb3fb9d7:v1",
+          "social_records": 2,
+          "social_model": {
+            "npc_b": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_c:op:lw-work:npc_c:obs:1320",
+                "npc_c:op:lw-work:npc_c:obs:1335"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:09402d1aa7d218ca2d0f18c8",
+          "sleep_records": 118
+        }
+      }
+    },
+    "provision_review": {
+      "rests": {
+        "npc_c": 79,
+        "npc_b": 87,
+        "npc_a": 7
+      },
+      "bands": {
+        "none": 2360,
+        "low": 1654,
+        "some": 594
+      },
+      "resumed_after_low": [
+        "npc_a",
+        "npc_b",
+        "npc_c"
+      ]
+    }
+  }
+}

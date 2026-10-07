@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [個人所持と粗い備蓄認識](docs/experiment-evidence/LW_personal_food.md)：30日完走。自動共有を止め、備蓄some以上で探索休止、減少後に再開。採取67/食事69、補給成功は全員ではない。
+
 - [接続済み生活経路の30日統合](docs/experiment-evidence/LW_integrated_social_30d.md)：自然/共有拠点の2run完走。探索・危険・身体・Sleep・社会・拒否場を併走。共有側採取220/食事66、自然側採取0。遠隔救助等は未統合。
 
 - [拒否関係場の生活適用](docs/experiment-evidence/LW_refusal_life.md)：3seed×3日でshadow/enabled比較。1seedで再要求から既存採取へ切替、総要求/譲渡/食事数は同じ。逆向きの正重み場面は0件。
