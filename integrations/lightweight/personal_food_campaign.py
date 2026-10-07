@@ -6,24 +6,30 @@ from .timed_harvest import run
 from .integrated_social_campaign import OPTIONS, audit, compact_report
 
 
-def main(hunger=False):
-    root=Path('outputs/hunger' if hunger else 'outputs/personal_food');root.mkdir(parents=True,exist_ok=True)
+def main(hunger=False,body_field=False):
+    root=Path('outputs/body_method_field' if body_field else 'outputs/hunger' if hunger else 'outputs/personal_food');root.mkdir(parents=True,exist_ok=True)
     path=root/'personal.jsonl'
-    options=dict(OPTIONS,body_scene='social_shared',personal_food=True,hunger_enabled=hunger)
+    options=dict(OPTIONS,body_scene='social_shared',personal_food=True,hunger_enabled=hunger,body_method_field=body_field)
     run(path,**options)
     result=compact_report(dict(personal=dict(options=options,audit=audit(path))))
-    rests=Counter();bands=Counter();resumed=set();rested=set()
+    rests=Counter();bands=Counter();resumed=set();rested=set();field_counts=Counter()
     with path.open(encoding='utf8') as source:
         for line in source:
             r=json.loads(line)
             if r['type']!='decision':continue
             aid=r['packet']['agent_id'];band=r['packet']['social']['food_band'];bands[band]+=1
+            field=(r.get('continuous_selection') or {}).get('body_method_field')
+            if field:
+                field_counts['evaluated']+=1
+                if field['applied']:field_counts['applied_'+r['activity_phase']]+=1
+                if field['changed']:field_counts['changed_'+r['activity_phase']]+=1
             if r['command']['reason']=='personal_food_sufficient':
                 rests[aid]+=1;rested.add(aid)
             elif aid in rested and band in ('none','low') and r['command']['kind'] in ('move','pickup'):
                 resumed.add(aid)
     result['personal']['provision_review']=dict(rests=dict(rests),bands=dict(bands),
         resumed_after_low=sorted(resumed))
+    result['personal']['body_field_counts']=dict(field_counts)
     (root/'report.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf8')
     print(json.dumps(dict(summary=result['personal']['audit']['summary'],
         actions=result['personal']['audit']['actions'],provision_review=result['personal']['provision_review'])),flush=True)
@@ -33,4 +39,5 @@ def main(hunger=False):
 if __name__=='__main__':
     import argparse
     parser=argparse.ArgumentParser();parser.add_argument('--hunger',action='store_true')
-    main(parser.parse_args().hunger)
+    parser.add_argument('--body-field',action='store_true')
+    args=parser.parse_args();main(args.hunger,args.body_field)

@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [身体系の方法選択接続](docs/experiment-evidence/LW_body_method_field.md)：空腹/H・疲労を探索/帰還の既存候補へ合成。30日で9判断の最終操作選択差、全員の最終reserveは正。
+
 - [80％からの空腹寄与](docs/experiment-evidence/LW_hunger.md)：局所M_Bで5秒ごとに充足比較、Hを食事/要求候補へ接続。30日採取100/食事99、全員の最終reserveが正。1seedの有限結果。
 
 - [個人所持と粗い備蓄認識](docs/experiment-evidence/LW_personal_food.md)：30日完走。自動共有を止め、備蓄some以上で探索休止、減少後に再開。採取67/食事69、補給成功は全員ではない。

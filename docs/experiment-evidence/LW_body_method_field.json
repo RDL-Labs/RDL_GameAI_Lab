@@ -1,0 +1,746 @@
+{
+  "personal": {
+    "options": {
+      "days": 30,
+      "stop_after_returns": null,
+      "seed": 20261004,
+      "skyline_subrays": true,
+      "mb_field_mode": "enabled",
+      "goal_difference_mode": "enabled",
+      "food_goal_mode": "enabled",
+      "orientation_mode": "enabled",
+      "reposition_mode": "enabled",
+      "return_completion_mode": "enabled",
+      "nested_model_mode": "enabled",
+      "food_revisit_mode": "enabled",
+      "directional_route_mode": "enabled",
+      "relation_field_mode": "enabled",
+      "hazard_mode": "enabled",
+      "hazard_scenario": "territorial",
+      "warning_review_mode": "enabled",
+      "selection_mode": "continuous",
+      "dynamic_hazard": true,
+      "regrowth_days": 3,
+      "sleep_learning": true,
+      "sleep_auto_adopt": true,
+      "body_mode": "enabled",
+      "energy_mode": "enabled",
+      "social_mode": "enabled",
+      "social_adopt": true,
+      "social_pressure": true,
+      "refusal_field_mode": "enabled",
+      "body_scene": "social_shared",
+      "personal_food": true,
+      "hunger_enabled": true,
+      "body_method_field": true
+    },
+    "audit": {
+      "completed": 4608,
+      "food_conserved": true,
+      "no_duplicate_or_overlapping_effects": true,
+      "initial_food": 16,
+      "regrown_food": 97,
+      "actions": {
+        "request:expressed": 16,
+        "refuse:expressed": 10,
+        "eat:ate": 96,
+        "give:transferred": 6
+      },
+      "commands": {
+        "wait": 2661,
+        "social": 128,
+        "pickup": 100,
+        "turn": 996,
+        "move": 723
+      },
+      "positive_refusal_choices": {
+        "request_again": 15,
+        "respond": 8
+      },
+      "safety_decisions": 4608,
+      "visible_hazard_decisions": 727,
+      "safety_reasons": {
+        "normal": 3168,
+        "continuous_safety/step_-90": 702,
+        "continuous_safety/step_-45": 91,
+        "continuous_safety/step_0": 36,
+        "provisional_mode_release": 138,
+        "continuous_safety/wait": 19,
+        "continuous_safety/await_body": 65,
+        "continuous_safety/step_90": 254,
+        "continuous_safety/step_45": 59,
+        "continuous_safety/survey_left": 31,
+        "limited_clearance": 15,
+        "continuous_safety/survey_right": 30
+      },
+      "daily": {
+        "1": {
+          "wait": 103,
+          "picked_up": 8,
+          "social": 12,
+          "pickup": 8,
+          "turn": 17,
+          "move": 16
+        },
+        "2": {
+          "wait": 77,
+          "picked_up": 0,
+          "turn": 41,
+          "move": 32,
+          "social": 3
+        },
+        "3": {
+          "wait": 67,
+          "picked_up": 0,
+          "turn": 43,
+          "move": 40,
+          "social": 3
+        },
+        "4": {
+          "wait": 106,
+          "picked_up": 0,
+          "move": 25,
+          "turn": 22
+        },
+        "5": {
+          "wait": 48,
+          "picked_up": 10,
+          "turn": 43,
+          "move": 38,
+          "pickup": 10,
+          "social": 14
+        },
+        "6": {
+          "wait": 83,
+          "picked_up": 4,
+          "turn": 33,
+          "move": 33,
+          "social": 3,
+          "pickup": 4
+        },
+        "7": {
+          "wait": 103,
+          "picked_up": 0,
+          "turn": 24,
+          "move": 22,
+          "social": 4
+        },
+        "8": {
+          "wait": 80,
+          "picked_up": 2,
+          "turn": 41,
+          "move": 28,
+          "pickup": 2,
+          "social": 2
+        },
+        "9": {
+          "wait": 90,
+          "picked_up": 3,
+          "turn": 31,
+          "move": 26,
+          "social": 3,
+          "pickup": 3
+        },
+        "10": {
+          "wait": 110,
+          "picked_up": 8,
+          "social": 5,
+          "pickup": 8,
+          "move": 14,
+          "turn": 16
+        },
+        "11": {
+          "wait": 83,
+          "picked_up": 0,
+          "social": 4,
+          "turn": 38,
+          "move": 31
+        },
+        "12": {
+          "wait": 77,
+          "picked_up": 0,
+          "social": 4,
+          "move": 23,
+          "turn": 49
+        },
+        "13": {
+          "wait": 108,
+          "picked_up": 0,
+          "move": 21,
+          "turn": 24
+        },
+        "14": {
+          "wait": 57,
+          "picked_up": 1,
+          "turn": 60,
+          "move": 34,
+          "pickup": 1,
+          "social": 1
+        },
+        "15": {
+          "wait": 49,
+          "picked_up": 11,
+          "turn": 53,
+          "move": 33,
+          "pickup": 11,
+          "social": 7
+        },
+        "16": {
+          "wait": 102,
+          "picked_up": 0,
+          "move": 24,
+          "social": 10,
+          "turn": 20
+        },
+        "17": {
+          "wait": 73,
+          "picked_up": 9,
+          "turn": 41,
+          "move": 24,
+          "pickup": 9,
+          "social": 6
+        },
+        "18": {
+          "wait": 78,
+          "picked_up": 3,
+          "turn": 43,
+          "move": 25,
+          "pickup": 3,
+          "social": 4
+        },
+        "19": {
+          "wait": 108,
+          "picked_up": 0,
+          "turn": 20,
+          "move": 22,
+          "social": 3
+        },
+        "20": {
+          "wait": 67,
+          "picked_up": 5,
+          "turn": 48,
+          "move": 29,
+          "pickup": 5,
+          "social": 4
+        },
+        "21": {
+          "wait": 94,
+          "picked_up": 9,
+          "turn": 28,
+          "move": 16,
+          "pickup": 9,
+          "social": 9
+        },
+        "22": {
+          "wait": 122,
+          "picked_up": 0,
+          "social": 3,
+          "turn": 16,
+          "move": 12
+        },
+        "23": {
+          "wait": 113,
+          "picked_up": 3,
+          "pickup": 3,
+          "turn": 19,
+          "move": 15,
+          "social": 3
+        },
+        "24": {
+          "wait": 111,
+          "picked_up": 0,
+          "turn": 22,
+          "move": 17,
+          "social": 3
+        },
+        "25": {
+          "wait": 125,
+          "picked_up": 0,
+          "move": 12,
+          "social": 2,
+          "turn": 14
+        },
+        "26": {
+          "wait": 86,
+          "picked_up": 9,
+          "turn": 37,
+          "move": 21,
+          "pickup": 9,
+          "social": 3
+        },
+        "27": {
+          "wait": 93,
+          "picked_up": 0,
+          "turn": 42,
+          "move": 16,
+          "social": 2
+        },
+        "28": {
+          "wait": 95,
+          "picked_up": 0,
+          "turn": 36,
+          "move": 20,
+          "social": 2
+        },
+        "29": {
+          "wait": 80,
+          "picked_up": 0,
+          "turn": 44,
+          "move": 27,
+          "social": 2
+        },
+        "30": {
+          "wait": 73,
+          "picked_up": 15,
+          "turn": 31,
+          "pickup": 15,
+          "move": 27,
+          "social": 7
+        }
+      },
+      "summary": {
+        "ended_us": 1920000000,
+        "pickups": 100,
+        "social_stock": 0,
+        "social_consumed": 96,
+        "physical_inventory": {
+          "npc_a": 2,
+          "npc_b": 3,
+          "npc_c": 3
+        },
+        "layered_bodies": {
+          "npc_a": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 88.96892986422368,
+            "damage": 0.0
+          },
+          "npc_b": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 83.0125000000026,
+            "damage": 0.0
+          },
+          "npc_c": {
+            "rule": "layered-body-v1",
+            "burst": 10.0,
+            "strain": 0,
+            "reserve": 79.74250000000275,
+            "damage": 0.0
+          }
+        },
+        "elapsed_seconds": 43.39843249999103
+      },
+      "learning": {
+        "npc_a": {
+          "sleep_statuses": {
+            "completed": 24
+          },
+          "harvest_model": "gameai-reconstructed-mb:45a38bfb3cac0e77:v1",
+          "social_records": 4,
+          "social_model": {
+            "npc_b": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_a:op:lw-work:npc_a:obs:5",
+                "npc_a:op:lw-work:npc_a:obs:20"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            },
+            "npc_c": {
+              "expectation": 0.25,
+              "sources": [
+                "npc_a:op:lw-work:npc_a:obs:35",
+                "npc_a:op:lw-work:npc_a:obs:2655"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:234b17f5d8087f0ac406c174",
+          "sleep_records": 121
+        },
+        "npc_b": {
+          "sleep_statuses": {
+            "completed": 28,
+            "interrupted": 1
+          },
+          "harvest_model": "gameai-reconstructed-mb:d24ea1c8098e7399:v1",
+          "social_records": 8,
+          "social_model": {
+            "npc_c": {
+              "expectation": 0.5714285714285714,
+              "sources": [
+                "npc_b:op:lw-work:npc_b:obs:1065",
+                "npc_b:op:lw-work:npc_b:obs:3895",
+                "npc_b:op:lw-work:npc_b:obs:3910",
+                "npc_b:op:lw-work:npc_b:obs:4170",
+                "npc_b:op:lw-work:npc_b:obs:5175"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            },
+            "npc_a": {
+              "expectation": 0.4,
+              "sources": [
+                "npc_b:op:lw-work:npc_b:obs:3870",
+                "npc_b:op:lw-work:npc_b:obs:5145",
+                "npc_b:op:lw-work:npc_b:obs:5155"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:be951aa3f30c290c8f5e3cd3",
+          "sleep_records": 143
+        },
+        "npc_c": {
+          "sleep_statuses": {
+            "completed": 27,
+            "interrupted": 1
+          },
+          "harvest_model": "gameai-reconstructed-mb:7ba18ffb7a078a0d:v1",
+          "social_records": 4,
+          "social_model": {
+            "npc_a": {
+              "expectation": 0.5,
+              "sources": [
+                "npc_c:op:lw-work:npc_c:obs:1130",
+                "npc_c:op:lw-work:npc_c:obs:1145",
+                "npc_c:op:lw-work:npc_c:obs:1160",
+                "npc_c:op:lw-work:npc_c:obs:2310"
+              ],
+              "authority": "unvalidated local aid expectation; not intent or canonical T1"
+            }
+          },
+          "sleep_model": "sleep-unvalidated-action-model-v1:2cccc1eb854ea0d6ca25a44e",
+          "sleep_records": 144
+        }
+      }
+    },
+    "provision_review": {
+      "rests": {
+        "npc_c": 80,
+        "npc_b": 48,
+        "npc_a": 28
+      },
+      "bands": {
+        "none": 2089,
+        "low": 1812,
+        "some": 707
+      },
+      "resumed_after_low": [
+        "npc_a",
+        "npc_b",
+        "npc_c"
+      ]
+    },
+    "body_field_review": {
+      "counts": {
+        "evaluated": 4608,
+        "applied_return": 34,
+        "changed_return": 6,
+        "changed_final_matches": 9,
+        "applied_exploration": 192,
+        "changed_exploration": 3
+      },
+      "examples": [
+        {
+          "agent": "npc_a",
+          "observation": "lw-work:npc_a:obs:370",
+          "field": {
+            "rule": "body-method-field-v1",
+            "applied": true,
+            "contributions": [
+              {
+                "model": "home/baseline",
+                "before": 1.8443313578974492,
+                "delta": -0.425,
+                "after": 1.4193313578974491
+              },
+              {
+                "model": "home/wait",
+                "before": 1.0,
+                "delta": 0.85,
+                "after": 1.85
+              },
+              {
+                "model": "home/survey_left",
+                "before": 1.5,
+                "delta": -0.425,
+                "after": 1.075
+              },
+              {
+                "model": "home/survey_right",
+                "before": 1.5,
+                "delta": -0.425,
+                "after": 1.075
+              },
+              {
+                "model": "home/step_-90",
+                "before": 1.8443313578974492,
+                "delta": -0.425,
+                "after": 1.4193313578974491
+              },
+              {
+                "model": "home/step_-45",
+                "before": 1.8443313578974492,
+                "delta": -0.425,
+                "after": 1.4193313578974491
+              },
+              {
+                "model": "home/step_0",
+                "before": 1.8443313578974492,
+                "delta": -0.425,
+                "after": 1.4193313578974491
+              },
+              {
+                "model": "home/step_45",
+                "before": 1.8443313578974492,
+                "delta": -0.425,
+                "after": 1.4193313578974491
+              },
+              {
+                "model": "home/step_90",
+                "before": 1.8443313578974492,
+                "delta": -0.425,
+                "after": 1.4193313578974491
+              }
+            ],
+            "baseline": "home/step_-45",
+            "selected": "home/wait",
+            "changed": true,
+            "urgency": 0.0,
+            "fatigue": 0.85,
+            "hunger_H": 1,
+            "reason": "existing_methods_only"
+          },
+          "command": {
+            "run_id": "lw-work",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "pose_ref": "lw-work:npc_a:pose:38",
+            "body_revision": 38,
+            "capture_us": 92500000,
+            "operation_id": "op:lw-work:npc_a:obs:370",
+            "source_id": "lw-work:npc_a:obs:370",
+            "expires_us": 94000000,
+            "kind": "wait",
+            "amount": 0,
+            "target_ref": "",
+            "reason": "continuous_home/wait"
+          }
+        },
+        {
+          "agent": "npc_a",
+          "observation": "lw-work:npc_a:obs:535",
+          "field": {
+            "rule": "body-method-field-v1",
+            "applied": true,
+            "contributions": [
+              {
+                "model": "home/baseline",
+                "before": 1.5,
+                "delta": -0.5,
+                "after": 1.0
+              },
+              {
+                "model": "home/wait",
+                "before": 0.5,
+                "delta": 1.0,
+                "after": 1.5
+              },
+              {
+                "model": "home/survey_left",
+                "before": 1.5,
+                "delta": -0.5,
+                "after": 1.0
+              },
+              {
+                "model": "home/survey_right",
+                "before": 1.5,
+                "delta": -0.5,
+                "after": 1.0
+              },
+              {
+                "model": "home/step_0",
+                "before": 1.5,
+                "delta": 1.0,
+                "after": 2.5
+              }
+            ],
+            "baseline": "home/survey_left",
+            "selected": "home/step_0",
+            "changed": true,
+            "urgency": 0.0,
+            "fatigue": 1,
+            "hunger_H": 0,
+            "reason": "existing_methods_only"
+          },
+          "command": {
+            "run_id": "lw-work",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "pose_ref": "lw-work:npc_a:pose:59",
+            "body_revision": 59,
+            "capture_us": 133750000,
+            "operation_id": "op:lw-work:npc_a:obs:535",
+            "source_id": "lw-work:npc_a:obs:535",
+            "expires_us": 135250000,
+            "kind": "wait",
+            "amount": 0,
+            "target_ref": "",
+            "reason": "continuous_home/step_0"
+          }
+        },
+        {
+          "agent": "npc_a",
+          "observation": "lw-work:npc_a:obs:590",
+          "field": {
+            "rule": "body-method-field-v1",
+            "applied": true,
+            "contributions": [
+              {
+                "model": "home/baseline",
+                "before": 1.5,
+                "delta": -0.5,
+                "after": 1.0
+              },
+              {
+                "model": "home/wait",
+                "before": 0.5,
+                "delta": 1.0,
+                "after": 1.5
+              },
+              {
+                "model": "home/survey_left",
+                "before": 1.5,
+                "delta": -0.5,
+                "after": 1.0
+              },
+              {
+                "model": "home/survey_right",
+                "before": 1.5,
+                "delta": -0.5,
+                "after": 1.0
+              },
+              {
+                "model": "home/step_0",
+                "before": 1.5,
+                "delta": 1.0,
+                "after": 2.5
+              }
+            ],
+            "baseline": "home/survey_left",
+            "selected": "home/step_0",
+            "changed": true,
+            "urgency": 0.0,
+            "fatigue": 1,
+            "hunger_H": 0,
+            "reason": "existing_methods_only"
+          },
+          "command": {
+            "run_id": "lw-work",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "pose_ref": "lw-work:npc_a:pose:68",
+            "body_revision": 68,
+            "capture_us": 147500000,
+            "operation_id": "op:lw-work:npc_a:obs:590",
+            "source_id": "lw-work:npc_a:obs:590",
+            "expires_us": 149000000,
+            "kind": "wait",
+            "amount": 0,
+            "target_ref": "",
+            "reason": "continuous_home/step_0"
+          }
+        },
+        {
+          "agent": "npc_a",
+          "observation": "lw-work:npc_a:obs:615",
+          "field": {
+            "rule": "body-method-field-v1",
+            "applied": true,
+            "contributions": [
+              {
+                "model": "home/baseline",
+                "before": 1.5,
+                "delta": -0.455,
+                "after": 1.045
+              },
+              {
+                "model": "home/wait",
+                "before": 0.5,
+                "delta": 0.91,
+                "after": 1.4100000000000001
+              },
+              {
+                "model": "home/survey_left",
+                "before": 1.5,
+                "delta": -0.455,
+                "after": 1.045
+              },
+              {
+                "model": "home/survey_right",
+                "before": 1.5,
+                "delta": -0.455,
+                "after": 1.045
+              },
+              {
+                "model": "home/step_-90",
+                "before": 1.4689466199668186,
+                "delta": -0.455,
+                "after": 1.0139466199668186
+              },
+              {
+                "model": "home/step_-45",
+                "before": 1.4689466199668186,
+                "delta": -0.455,
+                "after": 1.0139466199668186
+              },
+              {
+                "model": "home/step_0",
+                "before": 0.9689466199668185,
+                "delta": -0.455,
+                "after": 0.5139466199668186
+              },
+              {
+                "model": "home/step_45",
+                "before": 1.4689466199668186,
+                "delta": -0.455,
+                "after": 1.0139466199668186
+              },
+              {
+                "model": "home/step_90",
+                "before": 1.4689466199668186,
+                "delta": -0.455,
+                "after": 1.0139466199668186
+              }
+            ],
+            "baseline": "home/survey_left",
+            "selected": "home/wait",
+            "changed": true,
+            "urgency": 0.0,
+            "fatigue": 0.91,
+            "hunger_H": 0,
+            "reason": "existing_methods_only"
+          },
+          "command": {
+            "run_id": "lw-work",
+            "world_epoch": 1,
+            "agent_id": "npc_a",
+            "pose_ref": "lw-work:npc_a:pose:72",
+            "body_revision": 72,
+            "capture_us": 153750000,
+            "operation_id": "op:lw-work:npc_a:obs:615",
+            "source_id": "lw-work:npc_a:obs:615",
+            "expires_us": 155250000,
+            "kind": "wait",
+            "amount": 0,
+            "target_ref": "",
+            "reason": "continuous_home/wait"
+          }
+        }
+      ]
+    }
+  }
+}
