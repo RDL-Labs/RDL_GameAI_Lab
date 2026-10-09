@@ -397,7 +397,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
     if body_mode=='enabled':
         from .body_exploration import BodyScheduler
         scheduler=BodyScheduler(w)
-    if observation_interval_us not in (250000,1000000):raise ValueError('observation_interval_us')
+    if observation_interval_us not in (250000,1000000,5000000):raise ValueError('observation_interval_us')
     start=time.perf_counter();captures=0
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:

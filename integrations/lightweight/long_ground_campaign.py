@@ -70,7 +70,7 @@ def worker(args):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True)
     p.add_argument('--days',type=int,default=30);p.add_argument('--seconds',type=int)
-    p.add_argument('--observation-us',type=int,choices=(250000,1000000),default=250000)
+    p.add_argument('--observation-us',type=int,choices=(250000,1000000,5000000),default=250000)
     p.add_argument('--worker',action='store_true');args=p.parse_args()
     if args.worker:worker(args);return
     args.output.mkdir(parents=True,exist_ok=False)
