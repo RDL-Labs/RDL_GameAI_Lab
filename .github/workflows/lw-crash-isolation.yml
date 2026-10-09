@@ -1,0 +1,47 @@
+name: LW Linux crash isolation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12']
+    env:
+      PYTHONHASHSEED: '0'
+      RDL_LW_TIME_PROFILE: human_scale_v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Record environment
+        run: |
+          mkdir -p outputs/isolation
+          python -VV > outputs/isolation/environment.txt
+          uname -a >> outputs/isolation/environment.txt
+          git rev-parse HEAD >> outputs/isolation/environment.txt
+          free -h >> outputs/isolation/environment.txt
+      - name: Standard-library-only probe
+        run: |
+          set -o pipefail
+          python -I -X faulthandler integrations/lightweight/stdlib_crash_probe.py 2>&1 | tee outputs/isolation/stdlib.log
+      - name: Integrated fixed workload
+        if: ${{ !cancelled() }}
+        run: |
+          python -X faulthandler -m integrations.lightweight.long_ground_campaign --days 3 --seconds 7200 --observation-us 1000000 --output outputs/isolation/integrated
+      - name: Upload diagnostic evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lw-linux-isolation-python-${{ matrix.python }}
+          path: outputs/isolation/
+          retention-days: 7
+          compression-level: 6
