@@ -58,7 +58,8 @@ def worker(args):
                 actions=counts,ground_candidate_selections=usage))
     source=json.loads(Path('docs/experiment-evidence/LW_cohort_paths.json').read_text(encoding='utf8'))
     options=dict(source['runs']['inherited']['options'],days=args.days,body_scene='social_base',
-        run_id='lw-scaled-base',ground_continuity_enabled=True,exploration_horizon_enabled=True)
+        run_id='lw-scaled-base',ground_continuity_enabled=True,exploration_horizon_enabled=True,
+        observation_interval_us=args.observation_us)
     if args.seconds:options['run_duration_us']=args.seconds*1_000_000
     save(root/'options.json',dict(options,time_profile=metadata()))
     run(root/'run.jsonl',log_observer=observe,**options)
@@ -69,10 +70,12 @@ def worker(args):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True)
     p.add_argument('--days',type=int,default=30);p.add_argument('--seconds',type=int)
+    p.add_argument('--observation-us',type=int,choices=(250000,1000000),default=250000)
     p.add_argument('--worker',action='store_true');args=p.parse_args()
     if args.worker:worker(args);return
     args.output.mkdir(parents=True,exist_ok=False)
-    command=[sys.executable,'-X','faulthandler','-m',__spec__.name,'--worker','--days',str(args.days),'--output',str(args.output)]
+    command=[sys.executable,'-X','faulthandler','-m',__spec__.name,'--worker','--days',str(args.days),'--output',str(args.output),
+        '--observation-us',str(args.observation_us)]
     if args.seconds:command+=['--seconds',str(args.seconds)]
     env=dict(os.environ,RDL_LW_TIME_PROFILE='human_scale_v1',PYTHONHASHSEED='0')
     start=time.time()
