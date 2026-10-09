@@ -1,0 +1,49 @@
+name: LW three-day Linux experiment
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  campaign:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      PYTHONHASHSEED: '0'
+      RDL_LW_TIME_PROFILE: human_scale_v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - name: Record environment
+        run: |
+          mkdir -p outputs/three-day
+          python -VV > outputs/three-day/environment.txt
+          uname -a >> outputs/three-day/environment.txt
+          cat /etc/os-release >> outputs/three-day/environment.txt
+          git rev-parse HEAD >> outputs/three-day/environment.txt
+          free -h >> outputs/three-day/environment.txt
+          df -h >> outputs/three-day/environment.txt
+      - name: Run three full days with one-second observations
+        run: |
+          python -X faulthandler -m integrations.lightweight.long_ground_campaign --days 3 --observation-us 1000000 --output outputs/three-day/integrated
+      - name: Upload summaries and daily maps
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lw-three-day-results
+          path: |
+            outputs/three-day/**
+            !outputs/three-day/**/run.jsonl
+          retention-days: 14
+      - name: Upload raw observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lw-three-day-raw-log
+          path: outputs/three-day/integrated/run.jsonl
+          retention-days: 7
+          compression-level: 6
