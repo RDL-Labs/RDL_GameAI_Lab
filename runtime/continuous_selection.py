@@ -81,8 +81,32 @@ def review(agent,p,d):
     s['execution_commitment']=dict(status='step_due' if committed else ('interrupted' if pending else 'none'),
         source=trial['source'] if pending and trial else None,
         model=trial['model'] if pending and trial else None)
+    # Opt-in inertia: retain a confirmed movement method until current evidence
+    # interrupts it. Repeated subjective views accumulate a separate local H.
+    rolling=False
+    if getattr(agent,'movement_inertia',False):
+        prior=last.get('continuous_selection',{}).get('inertia',{})
+        repeat=bool(previous and signature(p)==signature(previous))
+        residual=min(32,prior.get('H',0)+1) if repeat else 0
+        g=p['movement_surface']['ground']
+        clear=not g['output_limited'] and any(x['direction_deg']==0 and x['status']=='sampled' and
+            x['height_delta'] is not None and abs(x['height_delta'])<=.5 for x in g['samples'])
+        reason=('body_unlinked' if not linked else 'priority' if protected or phase not in ('exploration','return') or d['action'][0] not in ('move','turn','wait')
+            else 'phase_changed' if last.get('day_cycle',{}).get('phase')!=phase
+            else 'hazard_or_unknown' if h.get('coverage')!='complete' or features
+            else 'food_observed' if p['food']['visible']
+            else 'surface_unavailable' if not clear
+            else 'repetition_threshold' if residual>=4
+            else 'no_confirmed_move' if not trial or r['status']!='moved' or not (r.get('forward',0) or r.get('right',0)) or not trial['model'].startswith(family+'/')
+            else None)
+        rolling=reason is None
+        s['inertia']=dict(rule='movement-inertia-v1',H=residual,threshold=4,
+            continued=rolling,interrupt=reason,source=p['observation_id'])
     if not linked and previous is not None:
         add('await_body',['wait',0],1,'view_changed');s['gate']='body_unlinked'
+    elif rolling:
+        add(trial['model'].split('/',1)[1],['move',1],10,'movement_progress')
+        s['gate']='inertial_current_step'
     elif committed:
         # A confirmed turn owns one current-observation-checked step. A new
         # candidate score cannot replace it with another turn before its result.
@@ -120,7 +144,7 @@ def review(agent,p,d):
                 for name,angle in proposals(ground_model,safe):
                     add(name,['move',1] if angle==0 else ['turn',angle],2.25,
                         'ground_extension' if angle==0 else 'rotation_then_step')
-    if getattr(agent,'exploration_horizon_enabled',False) and phase=='exploration' and linked and not protected and not committed and not p['food']['visible']:
+    if getattr(agent,'exploration_horizon_enabled',False) and phase=='exploration' and linked and not protected and not committed and not rolling and not p['food']['visible']:
         from .exploration_horizon import proposals
         ground=p['movement_surface']['ground']
         safe=[x['direction_deg'] for x in ground['samples'] if x['status']=='sampled' and x['height_delta'] is not None and abs(x['height_delta'])<=.5 and x['direction_deg'] in (-90,-45,0,45,90)] if not ground['output_limited'] else []
@@ -131,29 +155,30 @@ def review(agent,p,d):
     if getattr(agent,'energy_enabled',False) and getattr(agent,'energy_apply',True):
         from .energy_connection import apply as apply_energy
         s['energy_field']=apply_energy(p,s['candidates'])
-    if getattr(agent,'sleep_auto_adopt',False):
+    if not rolling and getattr(agent,'sleep_auto_adopt',False):
         from .sleep_auto_model import apply
         before=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))['model']
         s['sleep_model']=apply(agent,p,s['candidates'])
         after_sleep=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))['model']
         s['sleep_model'].update(baseline_selected=before,selected=after_sleep,changed=before!=after_sleep)
-    if getattr(agent,'body_method_field',False):
+    if not rolling and getattr(agent,'body_method_field',False):
         from .body_method_field import apply as apply_body
         s['body_method_field']=apply_body(agent,p,s,phase)
     chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
-    if getattr(agent,'experience_bundle_mode','disabled')!='disabled':
+    if not rolling and getattr(agent,'experience_bundle_mode','disabled')!='disabled':
         from .experience_bundle import apply as apply_bundle
         s['experience_bundle']=apply_bundle(agent,p,s,phase)
         chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
-    if getattr(agent,'trail_enabled',False):
+    if not rolling and getattr(agent,'trail_enabled',False):
         from .selection_trail import apply as apply_trail
         s['selection_trail']=apply_trail(agent,p,s,phase)
         chosen=min(s['candidates'],key=lambda c:(-c['score'],c['last_selected'],c['model']))
     name=chosen['model'].split('/',1)[1]
-    if committed and chosen['action'][0]!='move':
+    if (committed or rolling) and chosen['action'][0]!='move':
         # Body/energy rejection is an interrupted trial, never successful rest
         # credited to the movement method that could not execute.
         s['execution_commitment']['status']='body_limited'
+        if rolling:s['inertia'].update(continued=False,interrupt='body_limited')
         chosen=dict(chosen,record_trial=False)
     s['selected']=chosen['model'];s['applied']=chosen['action']!=d['action'] or phase=='safety'
     if chosen.get('record_trial',True):

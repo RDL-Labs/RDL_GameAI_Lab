@@ -1,0 +1,29 @@
+name: LW movement inertia comparison
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONHASHSEED: '0'
+      RDL_LW_TIME_PROFILE: human_scale_v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - name: Boundary tests
+        run: python -m unittest tests.test_movement_inertia tests.test_movement_commitment tests.test_continuous_selection
+      - name: Baseline
+        run: python -m integrations.lightweight.long_ground_campaign --days 3 --seconds 600 --observation-us 1000000 --output outputs/inertia/disabled
+      - name: Inertia enabled
+        run: python -m integrations.lightweight.long_ground_campaign --days 3 --seconds 600 --observation-us 1000000 --movement-inertia --output outputs/inertia/enabled
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lw-inertia-comparison
+          path: outputs/inertia/
+          retention-days: 7
