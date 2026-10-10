@@ -23,3 +23,21 @@ Validation: 26 focused tests passed. A 20-second paired run produced identical
 final simulation/learning state excluding wall time, identical action counts and
 conservation/dedup audit results, and smaller event output. No long-run speedup
 is claimed from this test. Internal observation/history retention is not reduced.
+
+
+## Metabolic intervals (event schema v2)
+
+Consecutive metabolic samples merge while timestamps, reserve endpoints and
+per-agent rates agree (rate tolerance 1e-9 relative / 1e-15 absolute per us).
+Intervals retain exact measured endpoints, rates and sample count. Reserve <=80
+(the current hunger boundary), zero saturation, rate changes and external reserve
+jumps split intervals. Daily ground snapshots and final summary flush them.
+Food/body action receipts remain separate. This changes no metabolic calculation,
+hunger evaluation or agent memory. An interrupted run can lose its unflushed tail.
+
+Five focused tests passed, including paired full/event state equality, hunger
+crossing, reserve jump, changing rate, saturation and final flush. Reprocessing
+the saved one-day metabolic rows reduced 69,119 rows to 7,966 intervals (88.5%
+fewer metabolic records). This is offline log reprocessing, not a new World run
+or a measured total-runtime improvement. Body consumption frequently interrupts
+linear reserve continuity, so those boundaries are intentionally retained.

@@ -1,6 +1,7 @@
 """Observer-only event log. Full packets and periodic World samples are omitted."""
 from copy import deepcopy
 from math import hypot
+from math import isclose
 
 
 class EventLog:
@@ -8,6 +9,33 @@ class EventLog:
         self.write=write
         self.last={}
         self.segments={}
+        self.metabolism=None
+
+    def flush_metabolism(self):
+        if self.metabolism is not None:
+            self.write(self.metabolism)
+            self.metabolism=None
+
+    def metabolic(self, row):
+        duration=row['end_us']-row['start_us']
+        rates={a:(row['after'][a]-v)/duration for a,v in row['before'].items()}
+        # Actual current hunger boundary is reserve <= 80; zero is saturation.
+        bands=lambda values:{a:(v<=80,v<=0) for a,v in values.items()}
+        crossing=bands(row['before'])!=bands(row['after'])
+        old=self.metabolism
+        compatible=bool(old and old['end_us']==row['start_us'] and
+            old['after']==row['before'] and old['rate_per_us'].keys()==rates.keys() and
+            all(isclose(old['rate_per_us'][a],rate,rel_tol=1e-9,abs_tol=1e-15)
+                for a,rate in rates.items()))
+        if crossing or not compatible:self.flush_metabolism()
+        if self.metabolism is None:
+            self.metabolism=dict(type='metabolism_interval',start_us=row['start_us'],
+                before=deepcopy(row['before']),rate_per_us=rates,count=0)
+        self.metabolism.update(end_us=row['end_us'],after=deepcopy(row['after']))
+        self.metabolism['count']+=1
+        if crossing:
+            self.metabolism['boundary_crossing']=dict(before=bands(row['before']),after=bands(row['after']))
+            self.flush_metabolism()
 
     def flush(self, aid=None):
         for key in list(self.segments):
@@ -16,6 +44,9 @@ class EventLog:
 
     def emit(self, row):
         kind=row['type']
+        if kind=='metabolism':
+            self.metabolic(row)
+            return
         if kind in ('working_capture','work_started','hazard_world','territory_world','patrol_world'):
             return
         if kind=='decision':
@@ -53,6 +84,7 @@ class EventLog:
             else:
                 self.flush(aid)
             return
+        if kind in ('summary','ground_day'):self.flush_metabolism()
         if kind=='summary':self.flush()
-        if kind=='manifest':row=dict(row,log_mode='events',log_schema='lw-event-log-v1')
+        if kind=='manifest':row=dict(row,log_mode='events',log_schema='lw-event-log-v2')
         self.write(row)

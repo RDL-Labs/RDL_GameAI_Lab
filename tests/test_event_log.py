@@ -7,6 +7,30 @@ from integrations.lightweight.integrated_social_campaign import audit
 
 
 class EventLogTests(unittest.TestCase):
+    def test_metabolic_intervals_split_at_rate_jump_and_hunger_boundary(self):
+        from integrations.lightweight.event_log import EventLog
+        rows=[];log=EventLog(rows.append)
+        def feed(start,before,after):
+            log.emit(dict(type='metabolism',start_us=start,end_us=start+1,
+                before={'a':before},after={'a':after}))
+        feed(0,84,83);feed(1,83,82)
+        feed(2,82,81);feed(3,81,80)
+        feed(4,90,89);feed(5,89,87)
+        log.flush_metabolism()
+        self.assertEqual([r['count'] for r in rows],[3,1,1,1])
+        self.assertIn('boundary_crossing',rows[1])
+        self.assertEqual(rows[2]['before'],{'a':90})
+        for r in rows:
+            self.assertAlmostEqual(r['before']['a']+r['rate_per_us']['a']*(r['end_us']-r['start_us']),r['after']['a'])
+
+    def test_zero_saturation_and_summary_flush(self):
+        from integrations.lightweight.event_log import EventLog
+        rows=[];log=EventLog(rows.append)
+        for t,b,a in [(0,1,0),(1,0,0),(2,0,0)]:
+            log.emit(dict(type='metabolism',start_us=t,end_us=t+1,before={'a':b},after={'a':a}))
+        log.emit(dict(type='summary'))
+        self.assertEqual([r.get('count') for r in rows],[1,2,None])
+
     def test_logging_does_not_change_state_and_preserves_audit(self):
         source=json.loads(Path('docs/experiment-evidence/LW_cohort_paths.json').read_text())
         options=dict(source['runs']['inherited']['options'],days=1,body_scene='social_base',
