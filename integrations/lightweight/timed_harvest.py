@@ -260,7 +260,7 @@ class WorkScheduler:
         return out
 
 
-def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing",warning_review_mode="disabled",territory_resource_layout="original",selection_mode="legacy",dynamic_hazard=False,regrowth_days=None,sleep_learning=False,sleep_auto_adopt=False,body_mode="disabled",body_scene="natural",energy_mode="disabled",social_mode="disabled",social_adopt=True,social_pressure=True,refusal_field_mode="disabled",personal_food=False,hunger_enabled=False,body_method_field=False,food_retention=False,experience_bundle_mode="disabled",bundle_sleep_enabled=False,bundle_credit_enabled=False,trail_enabled=False,ground_wear_enabled=False,ground_recovery_enabled=False,ground_appearance_enabled=False,ground_pattern_enabled=False,world_checkpoint=None,reset_inherited_wear=False,run_id="lw-work",ground_continuity_enabled=False,exploration_horizon_enabled=False,run_duration_us=None,log_observer=None,observation_interval_us=250000,movement_inertia=False):
+def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_returns=3,mb_field_mode="enabled",inexhaustible_after_model=False,goal_difference_mode="disabled",food_goal_mode="disabled",seed=20260928,goal_switch_threshold=2,lateral_side=None,orientation_mode="disabled",reposition_mode="disabled",return_completion_mode="disabled",nested_model_mode="disabled",food_revisit_mode="disabled",directional_route_mode="disabled",relation_field_mode="disabled",hazard_mode="disabled",hazard_scenario="crossing",warning_review_mode="disabled",territory_resource_layout="original",selection_mode="legacy",dynamic_hazard=False,regrowth_days=None,sleep_learning=False,sleep_auto_adopt=False,body_mode="disabled",body_scene="natural",energy_mode="disabled",social_mode="disabled",social_adopt=True,social_pressure=True,refusal_field_mode="disabled",personal_food=False,hunger_enabled=False,body_method_field=False,food_retention=False,experience_bundle_mode="disabled",bundle_sleep_enabled=False,bundle_credit_enabled=False,trail_enabled=False,ground_wear_enabled=False,ground_recovery_enabled=False,ground_appearance_enabled=False,ground_pattern_enabled=False,world_checkpoint=None,reset_inherited_wear=False,run_id="lw-work",ground_continuity_enabled=False,exploration_horizon_enabled=False,run_duration_us=None,log_observer=None,observation_interval_us=250000,movement_inertia=False,log_mode="full"):
     import json,time
     if ground_continuity_enabled and (not ground_pattern_enabled or selection_mode!='continuous'):raise ValueError('ground_continuity_dependencies')
     if ground_pattern_enabled and not ground_appearance_enabled:raise ValueError('ground_pattern_requires_appearance')
@@ -399,11 +399,17 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
         from .body_exploration import BodyScheduler
         scheduler=BodyScheduler(w)
     if observation_interval_us not in (250000,1000000,5000000):raise ValueError('observation_interval_us')
+    if log_mode not in ("full","events"):raise ValueError("log_mode")
     start=time.perf_counter();captures=0
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     with path.open('w',encoding='utf8') as f:
-        def emit(x):
+        def write_row(x):
             f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
+        from .event_log import EventLog
+        event_log=EventLog(write_row) if log_mode=='events' else None
+        def emit(x):
+            if event_log is not None:event_log.emit(x)
+            else:write_row(x)
             if log_observer is not None:log_observer(x)
         if territory:
             emit(dict(type='territory_config',rule='fixed-territorial-response-v1',center=territory.center,home=territory.home,radius=territory.radius,leash=territory.leash,speed=2,warning_distance=3,detector='world-radius',authority='experimenter-only'))

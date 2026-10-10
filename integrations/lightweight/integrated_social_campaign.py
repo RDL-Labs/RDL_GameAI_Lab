@@ -25,6 +25,7 @@ def audit(path, days=30, duration_us=None):
             if r['type']=='manifest':
                 assert r['days']==days, 'campaign_days'
                 day_us=r.get('time_profile',{}).get('day_us',64_000_000)
+                log_mode=r.get('log_mode','full')
                 initial=r.get('initial_shared_stock',0)+sum(a['inventory'] for a in r['agents'].values())+sum(x['stock'] for x in r['resources'])
             elif r['type']=='resource_regrowth':added+=sum(r['added'])
             elif r['type']=='completed':
@@ -49,8 +50,9 @@ def audit(path, days=30, duration_us=None):
     assert summary['ended_us']==(duration_us or days*day_us) and summary['reason']==('window_limit' if duration_us and duration_us<days*day_us else 'time_limit')
     return dict(completed=completed,food_conserved=True,no_duplicate_or_overlapping_effects=True,
         initial_food=initial,regrown_food=added,actions=dict(actions),commands=dict(commands),
-        positive_refusal_choices=dict(choices),safety_decisions=hazard_observations,
-        visible_hazard_decisions=visible_hazards,safety_reasons=dict(safety),daily=daily,
+        decision_diagnostics_available=log_mode=='full',
+        positive_refusal_choices=dict(choices) if log_mode=='full' else None,safety_decisions=hazard_observations if log_mode=='full' else None,
+        visible_hazard_decisions=visible_hazards if log_mode=='full' else None,safety_reasons=dict(safety) if log_mode=='full' else None,daily=daily,
         summary=summary)
 
 
