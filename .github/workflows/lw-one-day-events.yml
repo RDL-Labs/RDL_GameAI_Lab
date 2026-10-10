@@ -1,0 +1,49 @@
+name: LW one-day event-log experiment
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  campaign:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      PYTHONHASHSEED: '0'
+      RDL_LW_TIME_PROFILE: human_scale_v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - name: Record environment
+        run: |
+          mkdir -p outputs/one-day-events
+          python -VV > outputs/one-day-events/environment.txt
+          uname -a >> outputs/one-day-events/environment.txt
+          cat /etc/os-release >> outputs/one-day-events/environment.txt
+          git rev-parse HEAD >> outputs/one-day-events/environment.txt
+          free -h >> outputs/one-day-events/environment.txt
+          df -h >> outputs/one-day-events/environment.txt
+      - name: Run one full day with inertia and event logging
+        run: |
+          python -X faulthandler -m integrations.lightweight.long_ground_campaign --days 1 --observation-us 1000000 --movement-inertia --log-mode events --output outputs/one-day-events/integrated
+      - name: Upload summaries and daily maps
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lw-one-day-events-results
+          path: |
+            outputs/one-day-events/**
+            !outputs/one-day-events/**/run.jsonl
+          retention-days: 14
+      - name: Upload event log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lw-one-day-events-event-log
+          path: outputs/one-day-events/integrated/run.jsonl
+          retention-days: 7
+          compression-level: 6
