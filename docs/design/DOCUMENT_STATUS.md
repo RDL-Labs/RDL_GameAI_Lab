@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Juliaの関係応答・費用による評価方針](RDL_Julia_Behavioral_Fidelity_Policy.md)：新しい再設計に適用。完全同値は診断、コピー独立性は明示snapshotに限定可能。T0改訂ではない。増分援助実験で初回評価する。
+
 - [Julia巡航更新の費用](../../experiments/julia_migration/typed_models/cruise_report.md)：DIAGNOSTIC COMPLETE。3/16/64件について新規0/1件の時間・割当・入力走査数を分離計測。コピー方式や行動の変更なし。共有化・部分更新は未実装。
 
 - [Julia局所モデルの型整理](../../experiments/julia_migration/typed_models/report.md)：FINITE REFACTOR / PARITY PASS。目的・相手別Hを型付き状態へ変更。証拠辞書とdeepcopyは維持、過去状態不変性をJuliaで検査。局所測定のみでLW全体高速化は未検証。

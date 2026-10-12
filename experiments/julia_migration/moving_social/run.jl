@@ -1,4 +1,5 @@
 include(joinpath(@__DIR__,"../social_loop/run.jl"))
+include(joinpath(@__DIR__,"../incremental_aid/state.jl"))
 
 function moving_world(spec)
     w=world(spec.hearing);w.capacity=4096
@@ -38,9 +39,10 @@ function movement_observation(w,actor,yaw,food,stock)
         "action"=>chosen===nothing ? "rest" : "walk","status"=>chosen===nothing ? "no_feasible_observed_move" : "selected"))
 end
 
-function moving_scenario(spec)
+function moving_scenario(spec;incremental=false)
     w=moving_world(spec);yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     states=D(a=>social_initial() for a in IDS);pressures=D(a=>pressure_update(nothing,D(),a,3) for a in IDS)
+    live=Dict(a=>live_aid(a) for a in IDS)
     results=D(a=>D() for a in IDS);answered=Dict(a=>Set{String}() for a in IDS)
     rows=Any[];nights=Any[];effects=D();requests=Dict(a=>0 for a in IDS)
     function actor_state(actor)
@@ -50,8 +52,15 @@ function moving_scenario(spec)
     end
     function integrate(actor,now,obs)
         p=D("agent_id"=>actor,"capture_us"=>now,"observation_id"=>"ob:$now:$actor","social"=>obs)
+        count_before=length(states[actor]["records"])
         states[actor]=ingest(states[actor],p,results[actor])
-        pressures[actor]=pressure_update(pressures[actor],states[actor]["records"],actor,3)
+        if incremental
+            records=states[actor]["records"]
+            # ingest appends at most one accepted result; no full-history diff/hash.
+            pressures[actor]=pressure_poll!(live[actor],records,count_before)
+        else
+            pressures[actor]=pressure_update(pressures[actor],states[actor]["records"],actor,3)
+        end
     end
     function execute(actor,op,plan)
         if haskey(effects,op)
@@ -129,7 +138,8 @@ function moving_scenario(spec)
                 push!(rows,D("day"=>day,"tick"=>tick,"actor"=>actor,"observation"=>observations[actor],"movement"=>moves[actor],
                     "plan"=>plans[actor],"selection"=>get(selections,actor,nothing),"result"=>r,
                     "position"=>D("x"=>p[1],"z"=>p[2],"yaw"=>yaw[actor]),"body"=>bodydict(w.bodies[actor]),
-                    "inventory"=>copy(w.inventory),"stock"=>copy(stock),"social"=>deepcopy(states[actor]),"pressure"=>deepcopy(pressures[actor])))
+                    "inventory"=>copy(w.inventory),"stock"=>copy(stock),"social"=>deepcopy(states[actor]),
+                    "pressure"=>incremental ? pressure_snapshot(live[actor]) : deepcopy(pressures[actor])))
             end
             @assert sum(stock)+sum(values(w.inventory))+w.consumed==60
         end
