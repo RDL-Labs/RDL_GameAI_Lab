@@ -1,8 +1,10 @@
 # Design Document Status
 
+- [Julia A2 移動・社会接触・Sleep](../../experiments/julia_migration/moving_social/report.md)：FINITE PARITY COMPLETE。6条件×3fixture日、4,860行一致。距離・遮蔽・実行時接触を検査。A1/A0回帰PASS。Sleep採用による今回の行動差0、通常LW全面移植は未完了。
+
 - [Julia A1 局所M_B・Sleep・社会期待](../../experiments/julia_migration/social_loop/report.md)：FINITE PARITY COMPLETE。5条件×3fixture日でPythonと一致。受理済み休息・相手別H・期待による翌日選択を独立実行。移動接続・一般Sleep採用・canonical T1・LW全面移植は未完了。
 
-- [RDL用語と実装と可視化の対応](RDL_Implementation_Visualization_Mapping.md)：DESIGN ONLY。Bを境界として保ち、Core／GameAI局所近似／World・身体値を分離。植物・地形への拡張、B・ρ・更新周期の区別を記録。共通スキーマ・UI・JuliaのM_B移植は未実装。
+- [RDL用語と実装と可視化の対応](RDL_Implementation_Visualization_Mapping.md)：DESIGN ONLY。Bを境界として保ち、Core／GameAI局所近似／World・身体値を分離。植物・地形への拡張、B・ρ・更新周期の区別を記録。共通スキーマ・UI・一般的なM_B移植は未実装。局所的なJulia実装の範囲はA1/A2のEvidenceを参照。
 
 - [獣道型選択](../experiment-contracts/LW_selection_trail.md)：FINITE IMPLEMENTED。親/context/method/action結合への使用定着と期限なし親成功。任意M_B階層の一般化・計算省略は未実装。
 

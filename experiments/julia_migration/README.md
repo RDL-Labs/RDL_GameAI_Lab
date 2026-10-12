@@ -16,6 +16,11 @@ roughly 24–25x. This is not an integrated LW speedup claim.
 three-day fixtures match Python, including goal/method H, accepted rest, social
 expectation and next-day selection. A0 regression passes. General Sleep admission,
 canonical T1 and integration into navigation remain unported; no A1 speed claim.
+[A2 moving contact parity](moving_social/report.md): six three-day fixtures compose
+A0 movement with A1 local aid and Sleep. All 4,860 daytime rows and nightly terminal
+states match; A1/A0 regressions pass. Current contact gates social targets and execution.
+Sleep adoption makes no action difference in these fixtures. This is not the full
+LW exploration/return policy, continuous whole-day metabolism, or a speed benchmark.
 Baseline: `52a94225484f7e1771c4b4c3703c3eb9eef39730`.
 No runtime, World rules, H, rho, observation cadence or test expectations changed.
 
