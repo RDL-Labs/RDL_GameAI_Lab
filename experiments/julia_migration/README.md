@@ -1,5 +1,11 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[New behavioral-fidelity policy](../../docs/design/RDL_Julia_Behavioral_Fidelity_Policy.md)
+applies to new redesign experiments; earlier parity contracts remain historical.
+[Incremental aid](incremental_aid/report.md) is an opt-in adoption candidate:
+mutable updates, explicit snapshots, 40 behavioral/boundary checks. Equality is
+diagnostic. Snapshot costs are measured separately; full LW adoption is not claimed.
+
 [Cruise-cost diagnostic](typed_models/cruise_report.md): unchanged-history versus
 one-new-record updates at 3/16/64 accepted records. Zero-new still scans all input
 and allocates an independent state. Sixty ownership assertions pass. No copy-policy

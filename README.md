@@ -1,6 +1,6 @@
 # RDL Game AI Lab
 
-- [Juliaの新評価方針](docs/design/RDL_Julia_Behavioral_Fidelity_Policy.md)：今後の再設計は完全同値を診断用とし、関係応答と費用で評価。通常更新と明示snapshotを分ける[増分援助実験](experiments/julia_migration/incremental_aid/contract.md)を開始。過去Evidenceは維持。
+- [Juliaの新評価方針](docs/design/RDL_Julia_Behavioral_Fidelity_Policy.md)：今後の再設計は完全同値を診断用とし、関係応答と費用で評価。[増分援助実験](experiments/julia_migration/incremental_aid/report.md)は採用候補。通常更新と明示snapshotを分離、40検査PASS。毎回snapshotする費用も別測定。過去Evidenceは維持。
 - [Julia巡航更新の費用](experiments/julia_migration/typed_models/cruise_report.md)：新規根拠0件でも64件全走査、単発更新約0.360ms・累積割当462KB。新規1件は約1.054ms。コピー方式は未変更、所有検査60 PASS、A1/A2/A0回帰PASS。
 - [Julia局所モデルの型整理](experiments/julia_migration/typed_models/report.md)：GoalState/AidPressureへ整理、A1/A2・夜間終端・A0回帰一致。Julia所有検査12 PASS。局所計測は約1.03〜1.25倍、割当減少。LW全体の速度効果ではない。
 - [Julia移行実験 J0〜J2](experiments/julia_migration/report.md)：独立幾何1146件一致、100物体の準備後計算は約17倍。[J3接続比較](experiments/julia_migration/j3/report.md)では178,005問い合わせ一致。ただし転送・詰め直し込みでPythonの1.93〜1.99倍の時間。本線Python維持、J4未着手。
