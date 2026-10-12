@@ -6,7 +6,12 @@ Extract `BasicLoop` (goal, parent reference, H/threshold, method nodes, active
 trial, last receipt, last 32 evaluations). Candidate generation, body execution
 and result interpretation are separate adapters. The kernel does not know food,
 home coordinates or social identity. Selection uses current candidates only,
-score minus min(2,H/theta), least recently selected then name. Evidence resolves
+score minus min(2,H/theta), least recently selected then name. When all current
+candidate methods have H>=theta, reconsider least recently selected first,
+then priority/name. This prevents penalty saturation restoring a permanently
+dominant failed method; it does not create candidates or guarantee success.
+This additional general rule was needed after the first three-day run exposed
+fixed survey selection at saturation. Evidence resolves
 method H separately from parent goal H. A successful step is not successful home
 arrival. Unknown evaluation defers; accepted false evaluation adds one up to32;
 confirmation resets that node. No lifetime action quota or daily H reset.

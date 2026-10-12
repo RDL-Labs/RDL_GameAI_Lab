@@ -182,10 +182,10 @@ function lw_day(spec,clock;days=1,basic_loop=false)
                 pending[a]=merge(pending[a],(status=status,))
             end
             counts[a][action]=get(counts[a],action,0)+1
-            sig=(phase,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing))
+            sig=(phase,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))
             if get(previous,a,nothing)!=sig
                 push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing),
-                    "method"=>get(plan,"method",nothing),"direction"=>get(plan,"direction",nothing)))
+                    "method"=>get(plan,"method",nothing),"direction"=>get(plan,"direction",nothing),"selection_mode"=>get(plan,"selection_mode",nothing)))
                 previous[a]=sig
             end
         end

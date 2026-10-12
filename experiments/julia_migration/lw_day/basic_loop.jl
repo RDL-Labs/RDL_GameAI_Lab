@@ -29,13 +29,17 @@ function choose_method!(s::BasicLoop,candidates,source)
     for name in names
         get!(s.methods,name,MethodNode(0,s.threshold,0))
     end
+    # Once all current methods are unresolved, bounded penalties alone would
+    # restore the original priority forever. Reconsider the least recent method.
+    reconsider=all(s.methods[name].H>=s.methods[name].threshold for name in names)
     selected=first(sort(candidates,by=c->begin
         n=s.methods[c["method"]]
-        (-c["priority"]+min(2.,n.H/n.threshold),n.last_selected,c["method"])
+        reconsider ? (Float64(n.last_selected),-c["priority"],c["method"]) :
+            (-c["priority"]+min(2.,n.H/n.threshold),Float64(n.last_selected),c["method"])
     end))
     s.sequence+=1;s.methods[selected["method"]].last_selected=s.sequence
     s.trial=(source=source,method=selected["method"],question=selected["question"])
-    copy(selected)
+    merge(copy(selected),D("selection_mode"=>reconsider ? "reconsider_unresolved" : "weighted"))
 end
 
 function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true)

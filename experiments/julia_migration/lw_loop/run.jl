@@ -28,6 +28,15 @@ proposal(name,priority=2.)=D("method"=>name,"priority"=>priority,"question"=>"te
     @test length(search_candidates(move,nothing,s))==1
     @test search_candidates(move,nothing,s)[1]["action"]=="scan"
     @test_throws ErrorException BasicLoop("same";parent="same")
+    s=BasicLoop("unresolved");selected=String[]
+    for i in 1:100
+        c=choose_method!(s,[proposal("survey",2.),proposal("step",1.5)],string(i))
+        push!(selected,c["method"]);resolve_method!(s,string(i),false,false)
+    end
+    @test Set(selected[end-9:end])==Set(["survey","step"])
+    @test s.methods["survey"].H==32 && s.methods["step"].H==32
+    @test length(s.events)==32
+    @test choose_method!(s,[proposal("survey")],"only-feasible")["method"]=="survey"
 end
 
 input=JSON3.read(read(ARGS[1],String));report=D("scenes"=>D())
@@ -41,6 +50,7 @@ input=JSON3.read(read(ARGS[1],String));report=D("scenes"=>D())
         @test all(n["sleep"][a]["sleep"]["cycle"]["status"]=="completed" for n in result["daily"] for a in IDS)
         @test all(n["ground"]+n["consumed"]+sum(n["physical"][a]["inventory"]+n["physical"][a]["personal_stock"] for a in IDS)==result["initial_food"] for n in result["daily"])
         @test any(e["phase"]=="return" && e["action"]=="walk" for e in result["events"])
+        @test all(get(result["daily"][d]["counts"][a],"walk",0)>get(result["daily"][d-1]["counts"][a],"walk",0) for d in 2:3 for a in IDS)
         report["scenes"][spec.name]=D("baseline_one_day_counts"=>baseline["counts"],
             "elapsed_seconds_unpaired"=>elapsed,"result"=>result)
     end
