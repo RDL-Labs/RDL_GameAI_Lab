@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Typed goal/aid state](typed_models/report.md): GoalState and AidPressure preserve
+A1/A2 parity, including overnight/final physical state. Twelve Julia-native
+ownership/parity assertions pass. Paired local measurements show 1.03–1.25x speed
+and lower allocated bytes; neither full-loop speed nor peak RSS is measured here.
+
 Independent experiment; Python remains the only production backend.
 [J0–J2 results](report.md): 1146 equivalent cases, three timing series,
 roughly 17x warm 100-object kernel speed, substantial startup/RSS overhead.
