@@ -6,6 +6,12 @@ roughly 17x warm 100-object kernel speed, substantial startup/RSS overhead.
 [J3 results](j3/report.md): persistent shadow bridge matches 178,005 captured
 queries, but total batch latency is 1.93–1.99x Python. This bridge is not adopted.
 J4 and production adoption are not implemented.
+The separately authorized [ALL-loop A0](all_loop/contract.md) tries an entirely
+Julia-owned minimal loop. It is not a port of the complete LW integrated campaign:
+M_B/E/H/theta, Sleep and social relation logic remain outside A0.
+[A0 results](all_loop/report.md): 9,000 steps match; warm complete minimal loops
+are 7.44–10.19x faster, but short process wall time is similar and Julia RSS is
+roughly 24–25x. This is not an integrated LW speedup claim.
 Baseline: `52a94225484f7e1771c4b4c3703c3eb9eef39730`.
 No runtime, World rules, H, rho, observation cadence or test expectations changed.
 

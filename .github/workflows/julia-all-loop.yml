@@ -27,7 +27,9 @@ jobs:
           julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
           git diff --exit-code -- experiments/julia_migration/julia/Manifest.toml
       - name: Compare standalone loops and five timing series
-        run: python -m experiments.julia_migration.all_loop.measure outputs/julia_migration/all-loop
+        run: |
+          python -m unittest experiments.julia_migration.all_loop.tests
+          python -m experiments.julia_migration.all_loop.measure outputs/julia_migration/all-loop
       - uses: actions/upload-artifact@v4
         if: always()
         with:
