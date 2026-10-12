@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Independent narrower replacement B1f](lw_relearn/report.md): 30 assertions PASS.
+Provided acquired-only schema passes native Sleep replacement/review tests.
+Four-day living has only3/4/0 new attempts: no natural replacement formed.
+Original evidence is not recycled; canonical reconstruction remains unported.
+
 [Later harvest review B1e](lw_review/report.md): 65 assertions PASS.
 Frozen pickup predictions are compared with accepted results and next observations.
 Three natural persistence counterexamples invalidate local model use; living continues.

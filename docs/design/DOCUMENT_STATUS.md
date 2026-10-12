@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia 独立材料による限定再学習 B1f](../../experiments/julia_migration/lw_relearn/report.md)：FINITE IMPLEMENTED / WORLD MATERIAL INSUFFICIENT。30検査PASS。局所試験で採取のみの候補へSleep置換と再検査成立。4日生活では新材料A3/B4/C0件で置換なし。元の成功記録は再利用せず、canonical再構成・一般候補発明は未実装。
+
 - [Julia 後続採取比較 B1e](../../experiments/julia_migration/lw_review/report.md)：FINITE IMPLEMENTED。操作前予測→受理済み結果＋次観測→差の記録→局所モデル利用停止。65検査PASS。疎配置3個体で持続性反例・失効後の生活継続を確認。再学習・canonical再構成は未接続。
 
 - [Julia 学習モデル移動寄与 B1d](../../experiments/julia_migration/lw_field/report.md)：FINITE IMPLEMENTED。Sleepで形成した局所採取モデル→現在観測への最大0.5寄与→既存移動選択。24検査PASS、2配置×有効無効×3日。疎配置で同状態比較106選択差、備蓄63→82。1 seed限定、後続反例によるモデル失効・canonical T1は未接続。
