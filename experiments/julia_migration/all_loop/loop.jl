@@ -74,7 +74,7 @@ function simulate(scene, trace=false)
         for (j,angle) in enumerate(ANGLES)
             theta=deg2rad(a.yaw+angle);endpoint=(a.x+sin(theta),a.z+cos(theta))
             clear=!any(o->segment_hit(origin,endpoint,o,.2),obstacles)
-            goal=target===nothing ? 1.+abs(angle)/90 : min(10.,hypot(target.forward-cos(deg2rad(Float64(angle))),target.right-sin(deg2rad(Float64(angle)))))
+            goal=target===nothing ? 1.0+abs(angle)/90 : min(10.,hypot(target.forward-cos(deg2rad(Float64(angle))),target.right-sin(deg2rad(Float64(angle)))))
             _,status,_,delta=step(a.body,"walk",a.inventory,scene.resistance,clear)
             cost=status=="performed" ? goal-delta["reserve"]/max(a.body.reserve,.001)-delta["burst"]/max(a.body.burst,.001)+delta["strain"] : nothing
             counts["blocked_samples"]+=status=="blocked"
@@ -128,3 +128,4 @@ function main()
     end
 end
 main()
+
