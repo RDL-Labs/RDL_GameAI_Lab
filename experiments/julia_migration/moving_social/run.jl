@@ -43,6 +43,11 @@ function moving_scenario(spec)
     states=D(a=>social_initial() for a in IDS);pressures=D(a=>pressure_update(nothing,D(),a,3) for a in IDS)
     results=D(a=>D() for a in IDS);answered=Dict(a=>Set{String}() for a in IDS)
     rows=Any[];nights=Any[];effects=D();requests=Dict(a=>0 for a in IDS)
+    function actor_state(actor)
+        p=w.positions[actor]
+        D("position"=>D("x"=>p[1],"z"=>p[2],"yaw"=>yaw[actor]),
+          "body"=>bodydict(w.bodies[actor]),"inventory"=>w.inventory[actor])
+    end
     function integrate(actor,now,obs)
         p=D("agent_id"=>actor,"capture_us"=>now,"observation_id"=>"ob:$now:$actor","social"=>obs)
         states[actor]=ingest(states[actor],p,results[actor])
@@ -138,11 +143,12 @@ function moving_scenario(spec)
             end
             cycle=learning["sleep"]["cycle"]
             spec.adopt && (states[actor]=consolidate_social(states[actor],merge(copy(cycle),D("formation_us"=>start)),actor))
-            night[actor]=D("sleep"=>learning["sleep"],"social"=>deepcopy(states[actor]))
+            night[actor]=merge(D("sleep"=>learning["sleep"],"social"=>deepcopy(states[actor])),actor_state(actor))
         end
         push!(nights,night)
     end
-    D("rows"=>rows,"nights"=>nights,"request_counts"=>requests,"consumed"=>w.consumed,"stock"=>stock,"inventory"=>w.inventory)
+    D("rows"=>rows,"nights"=>nights,"request_counts"=>requests,"consumed"=>w.consumed,"stock"=>stock,"inventory"=>w.inventory,
+      "final_agents"=>D(a=>actor_state(a) for a in IDS))
 end
 
 function contact_boundaries(spec)

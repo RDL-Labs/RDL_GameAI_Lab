@@ -41,6 +41,9 @@ def scenario(spec):
     w=make_world(spec);states={a:dict(records={},pending=None,model={},cycles=[]) for a in IDS}
     pressures={a:aid.update(None,{},a,threshold=3) for a in IDS};results={a:{} for a in IDS}
     answered={a:set() for a in IDS};rows=[];nights=[];effects={};request_counts={a:0 for a in IDS}
+    def actor_state(actor):
+        return dict(position={k:w.agents[actor][k] for k in ('x','z','yaw')},
+                    body=deepcopy(w.bodies[actor]),inventory=w.agents[actor]['inventory'])
     def integrate(actor,now,obs):
         p=dict(agent_id=actor,capture_us=now,observation_id=f'ob:{now}:{actor}',social=obs)
         states[actor]=social.ingest(states[actor],p,results[actor])
@@ -120,10 +123,11 @@ def scenario(spec):
                 receipt(a,start+sec*1_000_000,phase)
             cycle=a.learning['sleep']['cycle']
             if spec['adopt']:states[actor]=social.consolidate(states[actor],dict(cycle,formation_us=start),actor)
-            night[actor]=dict(sleep=a.learning['sleep'],social=deepcopy(states[actor]))
+            night[actor]=dict(sleep=a.learning['sleep'],social=deepcopy(states[actor]),**actor_state(actor))
         nights.append(night)
     return dict(rows=rows,nights=nights,request_counts=request_counts,consumed=w.consumed,
-                stock=[f['stock'] for f in w.resources],inventory={a:w.agents[a]['inventory'] for a in IDS})
+                stock=[f['stock'] for f in w.resources],inventory={a:w.agents[a]['inventory'] for a in IDS},
+                final_agents={a:actor_state(a) for a in IDS})
 
 
 def contact_boundaries():

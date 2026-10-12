@@ -31,7 +31,7 @@ to force difference. The default B refuses and C shares when able, as in A1.
 Record every daytime observation, candidate/choice, execution result, pose, body,
 stock and local/social state. Compare Python production primitives + fixture
 composition against a fully Julia-owned execution, then replay. Nightly terminal
-states and explicit A1 Sleep boundaries are compared, not all intermediate night
+states (including position, body and inventory), final actor states and explicit A1 Sleep boundaries are compared, not all intermediate night
 states cross-language. No performance claim from correctness runtime.
 
 Explicit contact boundary tests: within reach, outside reach, occluded, move into

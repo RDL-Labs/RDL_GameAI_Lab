@@ -32,12 +32,20 @@ def audit(value,spec):
         if r['plan']['action']=='request':
             assert r['plan']['target'] in {o['ref'] for o in r['observation']['others'] if o['holding_food']}
     assert sum(value['stock'])+sum(value['inventory'].values())+value['consumed']==60
-    for n in value['nights']:
+    for day,n in enumerate(value['nights']):
         for actor in IDS:
+            last=next(r for r in reversed(rows) if r['day']==day and r['actor']==actor)
+            assert n[actor]['position']==last['position']
+            assert n[actor]['inventory']==last['inventory'][actor]
+            assert n[actor]['body']['reserve']<last['body']['reserve']
+            assert n[actor]['body']['strain']<=last['body']['strain']
             cycle=n[actor]['sleep']['cycle']
             assert cycle['status']==('pending' if spec['interrupt'] else 'completed')
             assert cycle['rest_us']==(2779 if spec['interrupt'] else 2880)*1_000_000
             if not spec['adopt'] or spec['interrupt']:assert not n[actor]['social']['model']
+    for actor in IDS:
+        assert value['final_agents'][actor]=={k:value['nights'][-1][actor][k] for k in ('position','body','inventory')}
+        assert value['final_agents'][actor]['inventory']==value['inventory'][actor]
     if spec['name']=='enabled':
         a=[r for r in rows if r['actor']=='npc_a']
         assert not a[0]['observation']['others']
@@ -49,7 +57,7 @@ def audit(value,spec):
         request_counts=value['request_counts'],consumed=value['consumed'],stock=value['stock'],inventory=value['inventory'],
         observed_contact_rows=sum(bool(r['observation']['others']) for r in rows),
         sleep=[n['npc_a']['sleep']['cycle']['status'] for n in value['nights']],
-        final_models={a:value['nights'][-1][a]['social']['model'] for a in IDS})
+        final_models={a:value['nights'][-1][a]['social']['model'] for a in IDS},final_agents=value['final_agents'])
 
 def main():
     out=Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=True)
@@ -77,6 +85,8 @@ def main():
         spec_sha256=hashlib.sha256(specs.read_bytes()).hexdigest(),
         sources={f:hashlib.sha256(Path(f).read_bytes()).hexdigest() for f in sources},
         compared_daytime_rows=sum(len(s['rows']) for s in p['scenarios'].values()),
+        compared_night_actor_states=sum(len(n) for s in p['scenarios'].values() for n in s['nights']),
+        compared_final_actor_states=sum(len(s['final_agents']) for s in p['scenarios'].values()),
         note='Each implementation replayed independently; no speed claim',scenarios=summaries,boundaries=b)
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 

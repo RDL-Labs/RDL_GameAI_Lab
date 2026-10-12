@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.12.15'
       - name: Existing accepted Sleep and goal boundaries
-        run: python -m unittest tests.test_goal_difference tests.test_sleep_receipt_boundary
+        run: python -m unittest tests.test_goal_difference tests.test_sleep_receipt_boundary tests.test_julia_moving_terminal
       - uses: julia-actions/setup-julia@v2
         with:
           version: '1.13.1'
