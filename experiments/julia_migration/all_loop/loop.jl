@@ -127,5 +127,5 @@ function main()
         JSON3.write(io,results)
     end
 end
-main()
+abspath(PROGRAM_FILE)==@__FILE__ && main()
 
