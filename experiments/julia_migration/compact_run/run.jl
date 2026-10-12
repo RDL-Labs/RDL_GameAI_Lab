@@ -1,6 +1,6 @@
 using BenchmarkTools, Statistics, Test
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
-plain(x)=JSON3.read(JSON3.write(x),Dict{String,Any})
+plain(x)=JSON3.read(JSON3.write(x))
 function metrics(t)
     m=median(t)
     D("median_ns"=>m.time,"allocated_bytes"=>m.memory,"allocations"=>m.allocs,"times_ns"=>t.times)
