@@ -1,0 +1,45 @@
+name: Julia J3 persistent shadow bridge
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bridge:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      PYTHONHASHSEED: '0'
+      RDL_LW_TIME_PROFILE: human_scale_v1
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - name: Python reference and codec
+        run: python -m unittest experiments.julia_migration.python.test_reference experiments.julia_migration.j3.tests
+      - name: Capture actual Python-owned observation query traces
+        run: python -m experiments.julia_migration.j3.capture outputs/julia_migration/j3/snapshots
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Restore frozen Julia environment
+        run: |
+          julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl > outputs/julia_migration/j3/setup.txt 2>&1
+          git diff --exit-code -- experiments/julia_migration/julia/Manifest.toml
+      - name: Shadow, ownership, framing and failure tests
+        env:
+          J3_INTEGRATION: '1'
+          J3_SNAPSHOTS: outputs/julia_migration/j3/snapshots
+        run: python -m unittest -v experiments.julia_migration.j3.tests
+      - name: Five alternating persistent comparison series
+        run: python -m experiments.julia_migration.j3.measure outputs/julia_migration/j3/snapshots outputs/julia_migration/j3/benchmark
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-migration-j3
+          path: outputs/julia_migration/j3
+          retention-days: 14
