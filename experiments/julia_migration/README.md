@@ -1,5 +1,9 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[LW lifecycle reconnection B0](lw_day/report.md): two continuous one-day scenes,
+three agents each, conservation and Sleep PASS. Provisional navigation ends in
+lost-home scanning; not full LW reproduction. B1 must port goal/landmark recovery.
+
 [Compact A2 recording](compact_run/report.md): finite adoption candidate.
 Every-step snapshots omitted in opt-in mode; whole short-loop time reduced
 21–30%, JSON size about 99.4–99.5%; 13 checks PASS. Not full LW adoption.

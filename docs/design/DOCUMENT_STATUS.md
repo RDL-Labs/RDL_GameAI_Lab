@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia LW生活周期 B0](../../experiments/julia_migration/lw_day/report.md)：連続1日×2条件、3個体の資源収支・Sleep確認、10検査PASS。LW全面再現は未完了。暫定帰還が見回しに留まるため、次は既存LWの目標／目印M_B・帰還探索を接続。
+
 - [Julia軽量記録経路](../../experiments/julia_migration/compact_run/report.md)：FINITE ADOPTION CANDIDATE。毎step全状態snapshotを省略し、遷移・夜間・終端を保存。代表2条件の短区間全体時間21〜30%減、13検査PASS。昼間全状態の再生は不可、本線LWへの適用は未実施。
 
 - [Juliaの関係応答・費用による評価方針](RDL_Julia_Behavioral_Fidelity_Policy.md)：新しい再設計に適用。完全同値は診断、コピー独立性は明示snapshotに限定可能。T0改訂ではない。[増分援助の初回結果](../../experiments/julia_migration/incremental_aid/report.md)は採用候補。忘却やH規則変更は未実施。
