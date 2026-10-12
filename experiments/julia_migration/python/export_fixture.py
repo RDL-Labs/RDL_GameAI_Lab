@@ -38,7 +38,7 @@ def export():
         groups.append(dict(indices=ids, nearest=nearest(values)))
     for name, data in [('geometry_inputs.jsonl', rows), ('geometry_expected.jsonl',
             [dict(id=i, value=v) for i, v in enumerate(expected)]), ('groups.jsonl', groups)]:
-        (ROOT/name).write_text(''.join(json.dumps(r, allow_nan=False)+'\n' for r in data), encoding='utf8')
+        (ROOT/name).write_bytes(''.join(json.dumps(r, allow_nan=False)+'\n' for r in data).encode('utf8'))
     hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(ROOT.glob('*.jsonl'))}
     meta = dict(baseline=BASE, source_git_blob=subprocess.check_output(['git','rev-parse',f'{BASE}:{SOURCE}'], text=True).strip(),
                 seed=20261012, boundaries=len(rows)-1000, generated=1000, hashes=hashes)
