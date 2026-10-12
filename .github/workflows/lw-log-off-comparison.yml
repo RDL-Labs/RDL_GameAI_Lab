@@ -1,0 +1,53 @@
+name: LW logging on versus off
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  comparison:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      PYTHONHASHSEED: '0'
+      RDL_LW_TIME_PROFILE: human_scale_v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - name: Record environment
+        run: |
+          mkdir -p outputs/log-comparison
+          python -VV > outputs/log-comparison/environment.txt
+          uname -a >> outputs/log-comparison/environment.txt
+          git rev-parse HEAD >> outputs/log-comparison/environment.txt
+      - name: One day with event logs
+        run: python -X faulthandler -m integrations.lightweight.long_ground_campaign --days 1 --observation-us 1000000 --movement-inertia --log-mode events --output outputs/log-comparison/events
+      - name: Same day without telemetry
+        run: python -X faulthandler -m integrations.lightweight.long_ground_campaign --days 1 --observation-us 1000000 --movement-inertia --log-mode off --output outputs/log-comparison/off
+      - name: Compare time and final state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('outputs/log-comparison')
+          states=[];times={};wall={}
+          for mode in ('events','off'):
+              s=json.loads((root/mode/'summary.json').read_text())
+              times[mode]=s.pop('elapsed_seconds');states.append(s)
+              wall[mode]=json.loads((root/mode/'status.json').read_text())['elapsed_seconds']
+          result=dict(simulation_seconds=times,supervisor_seconds=wall,
+              reduction_percent=100*(1-times['off']/times['events']),
+              speedup=times['events']/times['off'],final_state_equal=states[0]==states[1],
+              event_log_bytes=(root/'events/run.jsonl').stat().st_size,
+              off_log_exists=(root/'off/run.jsonl').exists())
+          (root/'comparison.json').write_text(json.dumps(result,indent=2))
+          print(json.dumps(result,indent=2))
+          assert result['final_state_equal'] and not result['off_log_exists']
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lw-log-comparison
+          path: outputs/log-comparison
+          retention-days: 7

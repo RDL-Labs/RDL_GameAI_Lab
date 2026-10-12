@@ -44,6 +44,13 @@ class EventLogTests(unittest.TestCase):
                 sizes.append(path.stat().st_size)
                 audits.append(audit(path,days=1,duration_us=20_000_000))
             self.assertEqual(summaries[0],summaries[1])
+            off_path=Path(directory)/'absent'/'run.jsonl'
+            off=run(off_path,log_mode='off',**options)
+            off.pop('elapsed_seconds')
+            self.assertEqual(summaries[0],off)
+            self.assertFalse(off_path.parent.exists())
+            with self.assertRaisesRegex(ValueError,'off_log_observer'):
+                run(off_path,log_mode='off',log_observer=lambda row:None,**options)
             self.assertLess(sizes[1],sizes[0])
             for key in ('completed','commands','daily','food_conserved','no_duplicate_or_overlapping_effects'):
                 self.assertEqual(audits[0][key],audits[1][key])

@@ -20,6 +20,18 @@ def worker(args):
     from .base_landscape import install,render
     from .energy_exploration import EnergyWorld
     root=args.output
+    source=json.loads(Path('docs/experiment-evidence/LW_cohort_paths.json').read_text(encoding='utf8'))
+    options=dict(source['runs']['inherited']['options'],days=args.days,body_scene='social_base',
+        run_id='lw-scaled-base',ground_continuity_enabled=True,exploration_horizon_enabled=True,
+        observation_interval_us=args.observation_us,movement_inertia=args.movement_inertia,log_mode=args.log_mode)
+    if args.seconds:options['run_duration_us']=args.seconds*1_000_000
+    save(root/'options.json',dict(options,time_profile=metadata()))
+    if args.log_mode=='off':
+        summary=run(root/'run.jsonl',**options)
+        save(root/'summary.json',summary)
+        save(root/'report.json',dict(log_mode='off',audit=None,
+            audit_reason='per-operation receipts not retained'))
+        return
     preview=EnergyWorld('map',seed=20261005);install(preview);render(preview,root/'base.html')
     base=(root/'base.html').read_text(encoding='utf8')
     counts={};usage={};last_hour=-1
@@ -56,12 +68,6 @@ def worker(args):
             last_hour=hour
             save(root/'progress.json',dict(sim_us=t,day_fraction=t/DAY_US,planned_days=args.days,
                 actions=counts,ground_candidate_selections=usage))
-    source=json.loads(Path('docs/experiment-evidence/LW_cohort_paths.json').read_text(encoding='utf8'))
-    options=dict(source['runs']['inherited']['options'],days=args.days,body_scene='social_base',
-        run_id='lw-scaled-base',ground_continuity_enabled=True,exploration_horizon_enabled=True,
-        observation_interval_us=args.observation_us,movement_inertia=args.movement_inertia,log_mode=args.log_mode)
-    if args.seconds:options['run_duration_us']=args.seconds*1_000_000
-    save(root/'options.json',dict(options,time_profile=metadata()))
     run(root/'run.jsonl',log_observer=observe,**options)
     save(root/'report.json',compact_report({'long':dict(options=options,
         audit=audit(root/'run.jsonl',days=args.days,duration_us=args.seconds*1_000_000 if args.seconds else None))}))
@@ -71,7 +77,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True)
     p.add_argument('--days',type=int,default=30);p.add_argument('--seconds',type=int)
     p.add_argument('--observation-us',type=int,choices=(250000,1000000,5000000),default=250000)
-    p.add_argument('--log-mode',choices=('full','events'),default='events')
+    p.add_argument('--log-mode',choices=('full','events','off'),default='events')
     p.add_argument('--movement-inertia',action='store_true')
     p.add_argument('--worker',action='store_true');args=p.parse_args()
     if args.worker:worker(args);return

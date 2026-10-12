@@ -400,10 +400,14 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
         from .body_exploration import BodyScheduler
         scheduler=BodyScheduler(w)
     if observation_interval_us not in (250000,1000000,5000000):raise ValueError('observation_interval_us')
-    if log_mode not in ("full","events"):raise ValueError("log_mode")
+    if log_mode not in ("full","events","off"):raise ValueError("log_mode")
     start=time.perf_counter();captures=0
-    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
-    with path.open('w',encoding='utf8') as f:
+    from contextlib import nullcontext
+    logging_enabled=log_mode!='off'
+    if not logging_enabled and log_observer is not None:raise ValueError('off_log_observer')
+    path=Path(path)
+    if logging_enabled:path.parent.mkdir(parents=True,exist_ok=True)
+    with (path.open('w',encoding='utf8') if logging_enabled else nullcontext(None)) as f:
         def write_row(x):
             f.write(json.dumps(x,separators=(',',':'))+'\n');f.flush()
         from .event_log import EventLog
@@ -413,8 +417,8 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
             else:write_row(x)
             if log_observer is not None:log_observer(x)
         if territory:
-            emit(dict(type='territory_config',rule='fixed-territorial-response-v1',center=territory.center,home=territory.home,radius=territory.radius,leash=territory.leash,speed=2,warning_distance=3,detector='world-radius',authority='experimenter-only'))
-        emit(dict(type='manifest',movement_inertia=movement_inertia,observation_interval_us=observation_interval_us,time_profile=time_metadata(),requested_duration_us=duration_us,exploration_horizon_enabled=exploration_horizon_enabled,landscape=w.landscape.metadata() if hasattr(w,'landscape') else None,version='lw-timed-harvest-v1',expanded_layout_rule='expanded-camp-landscape-v3' if body_scene=='social_expanded' else None,energy_material_resistance=dict(ordinary=w.ordinary_resistance,difficult=w.difficult_resistance) if energy_mode!='disabled' else None,ground_continuity_enabled=ground_continuity_enabled,run_id=w.run_id,world_offset_us=world_offset,inherited_world=world_checkpoint is not None,reset_inherited_wear=reset_inherited_wear,initial_shared_stock=getattr(w,'stock',0),ground_pattern_enabled=ground_pattern_enabled,ground_appearance_enabled=ground_appearance_enabled,ground_recovery_enabled=ground_recovery_enabled,ground_wear_enabled=ground_wear_enabled,trail_enabled=trail_enabled,sleep_model_capacity=192 if days<=30 else 576,bundle_credit_enabled=bundle_credit_enabled,bundle_sleep_enabled=bundle_sleep_enabled,experience_bundle_mode=experience_bundle_mode,food_retention=food_retention,body_method_field=body_method_field,hunger_enabled=hunger_enabled,personal_food=personal_food,social_mode=social_mode,social_adopt=social_adopt,social_pressure=social_pressure,refusal_field_mode=refusal_field_mode,body_mode=body_mode,body_scene=body_scene,energy_mode=energy_mode,regrowth_days=regrowth_days,dynamic_hazard=dynamic_hazard,selection_mode=selection_mode,territory_resource_layout=territory_resource_layout,warning_review_mode=warning_review_mode,hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=1_000_000 if body_mode=='enabled' else WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
+            if logging_enabled:emit(dict(type='territory_config',rule='fixed-territorial-response-v1',center=territory.center,home=territory.home,radius=territory.radius,leash=territory.leash,speed=2,warning_distance=3,detector='world-radius',authority='experimenter-only'))
+        if logging_enabled:emit(dict(type='manifest',movement_inertia=movement_inertia,observation_interval_us=observation_interval_us,time_profile=time_metadata(),requested_duration_us=duration_us,exploration_horizon_enabled=exploration_horizon_enabled,landscape=w.landscape.metadata() if hasattr(w,'landscape') else None,version='lw-timed-harvest-v1',expanded_layout_rule='expanded-camp-landscape-v3' if body_scene=='social_expanded' else None,energy_material_resistance=dict(ordinary=w.ordinary_resistance,difficult=w.difficult_resistance) if energy_mode!='disabled' else None,ground_continuity_enabled=ground_continuity_enabled,run_id=w.run_id,world_offset_us=world_offset,inherited_world=world_checkpoint is not None,reset_inherited_wear=reset_inherited_wear,initial_shared_stock=getattr(w,'stock',0),ground_pattern_enabled=ground_pattern_enabled,ground_appearance_enabled=ground_appearance_enabled,ground_recovery_enabled=ground_recovery_enabled,ground_wear_enabled=ground_wear_enabled,trail_enabled=trail_enabled,sleep_model_capacity=192 if days<=30 else 576,bundle_credit_enabled=bundle_credit_enabled,bundle_sleep_enabled=bundle_sleep_enabled,experience_bundle_mode=experience_bundle_mode,food_retention=food_retention,body_method_field=body_method_field,hunger_enabled=hunger_enabled,personal_food=personal_food,social_mode=social_mode,social_adopt=social_adopt,social_pressure=social_pressure,refusal_field_mode=refusal_field_mode,body_mode=body_mode,body_scene=body_scene,energy_mode=energy_mode,regrowth_days=regrowth_days,dynamic_hazard=dynamic_hazard,selection_mode=selection_mode,territory_resource_layout=territory_resource_layout,warning_review_mode=warning_review_mode,hazard_mode=hazard_mode,hazard_scenario=hazard_scenario,relation_field_rule=RELATION_FIELD_RULE if relation_field_mode=='enabled' else None,relation_field_mode=relation_field_mode,directional_route_mode=directional_route_mode,food_revisit_mode=food_revisit_mode,nested_model_mode=nested_model_mode,resource_access=w.resource_access,return_completion_mode=return_completion_mode,reposition_mode=reposition_mode,orientation_mode=orientation_mode,days=days,stop_after_returns=stop_after_returns,lateral_side=lateral_side,goal_switch_threshold=goal_switch_threshold,controller_seed=20260928,food_goal_mode=food_goal_mode,goal_difference_mode=goal_difference_mode,return_mode='overnight-home-purpose-v1',inventory_mode='confirmed-unloads-v1',mb_field_mode=mb_field_mode,inexhaustible_after_model=inexhaustible_after_model,stock_mode='inexhaustible' if inexhaustible else 'finite',work_us=1_000_000 if body_mode=='enabled' else WORK_US,skyline_subrays=skyline_subrays,objects=w.objects,resources=w.resources,agents=w.agents,seed=w.seed))
         for aid in w.agents:
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
@@ -423,30 +427,30 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
                 from runtime.harvest_sleep import accept_rest_result
                 accept_rest_result(loop.agents[c["agent_id"]],p,c,r)
             if social_mode=='enabled' and c['operation_id'] in w.social_log:
-                emit(dict(type='social_effect',**w.social_log[c['operation_id']]))
+                if logging_enabled:emit(dict(type='social_effect',**w.social_log[c['operation_id']]))
             for returned in w.returns:
                 if returned['agent_id']==c['agent_id'] and returned['executed_us']==r['executed_us']:
                     receipt=dict(operation_id=c['operation_id'],executed_us=r['executed_us'],pickups=returned['pickups'])
                     loop.agents[c['agent_id']].admit_unload(receipt)
-                    emit(dict(type='unload_receipt',agent_id=c['agent_id'],receipt=receipt))
-            emit(dict(type='completed',food_ledger=getattr(w,'food_ledger',{}).get(c['operation_id']),packet=p,command=c,result=r,body=w.agents[c['agent_id']],layered_body=getattr(w,'body_log',{}).get(c['operation_id']),stock=[x['stock'] for x in w.resources]))
+                    if logging_enabled:emit(dict(type='unload_receipt',agent_id=c['agent_id'],receipt=receipt))
+            if logging_enabled:emit(dict(type='completed',food_ledger=getattr(w,'food_ledger',{}).get(c['operation_id']),packet=p,command=c,result=r,body=w.agents[c['agent_id']],layered_body=getattr(w,'body_log',{}).get(c['operation_id']),stock=[x['stock'] for x in w.resources]))
         for slot in range(duration_us//250000):
             now=slot*250000
             if ground_wear_enabled:w.ground_wear.advance(world_offset+now)
             if social_mode=="enabled":
                 w.advance_metabolism(now)
-                if w.metabolic_log and w.metabolic_log[-1]["end_us"]==now:emit(dict(type="metabolism",**w.metabolic_log[-1]))
+                if w.metabolic_log and w.metabolic_log[-1]["end_us"]==now and logging_enabled:emit(dict(type="metabolism",**w.metabolic_log[-1]))
             finished=set()
             for p,c,r in scheduler.advance(now):complete(p,c,r);finished.add(c['agent_id'])
             if log_observer is not None and ground_wear_enabled and now % DAY_US == 0:
-                emit(dict(type='ground_day',capture_us=now,day=now//DAY_US,ground_wear=w.ground_wear.snapshot()))
+                if logging_enabled:emit(dict(type='ground_day',capture_us=now,day=now//DAY_US,ground_wear=w.ground_wear.snapshot()))
             if regrowth:
                 replenished=regrowth.advance(world_offset+now,w.resources)
-                if replenished:emit(replenished)
+                if replenished and logging_enabled:emit(replenished)
             territory_state=territory.advance(world_offset+now,w.agents,w.objects) if territory and hazard_mode!='disabled' else None
-            if territory_state:emit(dict(type='territory_world',**territory_state))
+            if territory_state and logging_enabled:emit(dict(type='territory_world',**territory_state))
             patrol_state=patrol.advance(world_offset+now,w.objects) if patrol and hazard_mode!='disabled' else None
-            if patrol_state:emit(dict(type='patrol_world',**patrol_state))
+            if patrol_state and logging_enabled:emit(dict(type='patrol_world',**patrol_state))
             if now % observation_interval_us:continue
             packets={aid:w.packet(aid,slot) for aid in w.agents}
             if orientation_mode=='enabled':
@@ -461,21 +465,23 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
                 for aid,p in packets.items():
                     p['hazard']=sample_pair(w,p,[obj,patrol_state['position']]) if patrol_state else sample(w,p,hazard_scenario,object_state=obj)
                 from math import hypot
-                emit(dict(type='hazard_world',capture_us=now,position=obj,distances={aid:hypot(body['x']-obj['x'],body['z']-obj['z']) for aid,body in w.agents.items()} if obj else {}))
+                if logging_enabled:emit(dict(type='hazard_world',capture_us=now,position=obj,distances={aid:hypot(body['x']-obj['x'],body['z']-obj['z']) for aid,body in w.agents.items()} if obj else {}))
             for aid,p in packets.items():
                 captures+=1
                 if aid in scheduler.pending or aid in finished:
-                    emit(dict(type='working_capture',packet=p,reason='body_busy' if aid in scheduler.pending else 'completion_boundary'))
+                    if logging_enabled:emit(dict(type='working_capture',packet=p,reason='body_busy' if aid in scheduler.pending else 'completion_boundary'))
                     continue
                 if body_mode=='enabled' and now+1_000_000>=duration_us:
-                    emit(dict(type='working_capture',packet=p,reason='campaign_completion_boundary'));continue
+                    if logging_enabled:emit(dict(type='working_capture',packet=p,reason='campaign_completion_boundary'))
+                    continue
                 c=loop.observe(p)['command'];d=loop.agents[aid].decisions[p['observation_id']]
-                emit(dict(type='decision',ground_continuity=d.get('ground_continuity'),ground_patterns=d.get('ground_patterns'),bundle_sleep=d.get('bundle_sleep'),bundle_formation=d.get('bundle_formation'),hunger_selection=d.get('hunger_selection'),hunger=d.get('hunger'),personal_food=d.get('personal_food'),refusal_choice=d.get('refusal_choice'),aid_method_selection=d.get('aid_method_selection'),social_relations=d.get('social_relations'),social_intent=d.get('social_intent'),body_bridge=d.get('body_bridge'),sleep_learning=d.get('sleep_learning'),packet=p,command=c,continuous_selection=d.get('continuous_selection'),safety=d.get('safety'),relation_field=d.get('relation_field'),directional_routes=d.get('directional_routes'),food_revisit=d.get('food_revisit'),model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),lateral=(d.get('movement_terrain') or {}).get('lateral'),mb_field=d.get('mb_field'),nested_models=d.get('nested_models'),return_reposition=d.get('return_reposition'),reposition=d.get('reposition'),orientation_review=d.get('orientation_review'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference'],food_goal=d['day_cycle']['food_goal'],food_method=d['day_cycle']['food_method'],food_review_scans=d['day_cycle']['food_review_scans']))
+                if logging_enabled:emit(dict(type='decision',ground_continuity=d.get('ground_continuity'),ground_patterns=d.get('ground_patterns'),bundle_sleep=d.get('bundle_sleep'),bundle_formation=d.get('bundle_formation'),hunger_selection=d.get('hunger_selection'),hunger=d.get('hunger'),personal_food=d.get('personal_food'),refusal_choice=d.get('refusal_choice'),aid_method_selection=d.get('aid_method_selection'),social_relations=d.get('social_relations'),social_intent=d.get('social_intent'),body_bridge=d.get('body_bridge'),sleep_learning=d.get('sleep_learning'),packet=p,command=c,continuous_selection=d.get('continuous_selection'),safety=d.get('safety'),relation_field=d.get('relation_field'),directional_routes=d.get('directional_routes'),food_revisit=d.get('food_revisit'),model_ref=d['model_ref'],records=len(loop.agents[aid].learning['records']),lateral=(d.get('movement_terrain') or {}).get('lateral'),mb_field=d.get('mb_field'),nested_models=d.get('nested_models'),return_reposition=d.get('return_reposition'),reposition=d.get('reposition'),orientation_review=d.get('orientation_review'),return_state=d['day_cycle']['return_state'],home_pending=d['day_cycle'].get('home_pending',False),activity_phase=d['day_cycle']['phase'],goal_difference=d['day_cycle']['goal_difference'],food_goal=d['day_cycle']['food_goal'],food_method=d['day_cycle']['food_method'],food_review_scans=d['day_cycle']['food_review_scans']))
                 if inexhaustible_after_model and not w.inexhaustible and loop.agents[aid].model is not None:
                     w.inexhaustible=True
-                    emit(dict(type='stock_mode_transition',capture_us=now,agent_id=aid,mode='inexhaustible',model=loop.agents[aid].model.to_json(),admission=loop.agents[aid].learning['admission'],stock=[x['stock'] for x in w.resources]))
+                    if logging_enabled:emit(dict(type='stock_mode_transition',capture_us=now,agent_id=aid,mode='inexhaustible',model=loop.agents[aid].model.to_json(),admission=loop.agents[aid].learning['admission'],stock=[x['stock'] for x in w.resources]))
                 if body_mode=='enabled' or c['kind']=='pickup':
-                    scheduler.start(c,p);emit(dict(type='work_started',agent_id=aid,operation_id=c['operation_id'],start_us=now,due_us=now+(1_000_000 if body_mode=='enabled' else WORK_US)))
+                    scheduler.start(c,p)
+                    if logging_enabled:emit(dict(type='work_started',agent_id=aid,operation_id=c['operation_id'],start_us=now,due_us=now+(1_000_000 if body_mode=='enabled' else WORK_US)))
                 else:complete(p,c,w.execute(c,p))
             if stop_after_returns is not None and len(w.returns)>=stop_after_returns and not scheduler.pending:break
         assert not scheduler.pending
@@ -487,7 +493,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
             sleep_learning=sleep_learning,energy_mode=energy_mode,body_mode=body_mode,layered_bodies=getattr(w,'bodies',None),
             agents={aid:dict(observations=len(a.observations),carried=a.carried_count(),unloaded=len(a.unloaded),records=len(a.learning['records']),model_ref=a.model.model_ref if a.model else None,
                 selection_trail=a.learning.get('selection_trail'),experience_bundles=a.learning.get('experience_bundles'),social_relations=a.learning.get('social_relations'),sleep=a.learning.get('sleep'),sleep_auto_model=a.learning.get('sleep_auto_model')) for aid,a in loop.agents.items()})
-        emit(summary)
+        if logging_enabled:emit(summary)
     return summary
 
 if __name__=='__main__':
