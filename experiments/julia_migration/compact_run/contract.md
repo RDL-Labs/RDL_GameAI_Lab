@@ -1,6 +1,6 @@
 # Compact A2 execution experiment
 
-Status: implementation, measurement pending. Baseline: 9ccf86c.
+Status: finite measured adoption candidate; see report.md. Baseline: 9ccf86c.
 
 Applies the behavioral fidelity policy. Both conditions use incremental aid,
 the same two A2 fixtures (enabled/obstacle), three finite days, 90 daytime

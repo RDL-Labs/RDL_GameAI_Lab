@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia軽量記録経路](../../experiments/julia_migration/compact_run/report.md)：FINITE ADOPTION CANDIDATE。毎step全状態snapshotを省略し、遷移・夜間・終端を保存。代表2条件の短区間全体時間21〜30%減、13検査PASS。昼間全状態の再生は不可、本線LWへの適用は未実施。
+
 - [Juliaの関係応答・費用による評価方針](RDL_Julia_Behavioral_Fidelity_Policy.md)：新しい再設計に適用。完全同値は診断、コピー独立性は明示snapshotに限定可能。T0改訂ではない。[増分援助の初回結果](../../experiments/julia_migration/incremental_aid/report.md)は採用候補。忘却やH規則変更は未実施。
 
 - [Julia巡航更新の費用](../../experiments/julia_migration/typed_models/cruise_report.md)：DIAGNOSTIC COMPLETE。3/16/64件について新規0/1件の時間・割当・入力走査数を分離計測。コピー方式や行動の変更なし。共有化・部分更新は未実装。

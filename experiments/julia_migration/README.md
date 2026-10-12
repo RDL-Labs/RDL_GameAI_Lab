@@ -1,5 +1,9 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Compact A2 recording](compact_run/report.md): finite adoption candidate.
+Every-step snapshots omitted in opt-in mode; whole short-loop time reduced
+21–30%, JSON size about 99.4–99.5%; 13 checks PASS. Not full LW adoption.
+
 [New behavioral-fidelity policy](../../docs/design/RDL_Julia_Behavioral_Fidelity_Policy.md)
 applies to new redesign experiments; earlier parity contracts remain historical.
 [Incremental aid](incremental_aid/report.md) is an opt-in adoption candidate:

@@ -1,3 +1,5 @@
+- [Julia軽量記録の実測](experiments/julia_migration/compact_run/report.md)：短区間全体21〜30%短縮、保存JSON約99.4〜99.5%減。実験経路限定。
+
 # RDL Game AI Lab
 
 - [Juliaの新評価方針](docs/design/RDL_Julia_Behavioral_Fidelity_Policy.md)：今後の再設計は完全同値を診断用とし、関係応答と費用で評価。[増分援助実験](experiments/julia_migration/incremental_aid/report.md)は採用候補。通常更新と明示snapshotを分離、40検査PASS。毎回snapshotする費用も別測定。過去Evidenceは維持。
@@ -434,3 +436,4 @@ opt-in skyline-subraysで塔のサンプリング隙間を軽減。採取後の�
 2026-10-03: [警戒モードの局所H評価](docs/experiment-evidence/LW_warning_mode_review.md)を追加。維持根拠の未更新→H→閾値で暫定解除。有限資源5日比較でAが携行4個を配送、全員normal終了。99 tests PASS。安全の証明とは区別。
 
 2026-10-03: [縄張り内採取場1→3地点比較](docs/experiment-evidence/LW_territory_resource_density.md)。総96単位を保持し2地点を移設。5日×4条件。3地点・対処ありは46採取/36配送、Bは可視威嚇下で10携行・安全操作予算切れ。関連41 tests PASS。
+
