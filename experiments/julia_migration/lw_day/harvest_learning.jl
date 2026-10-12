@@ -39,9 +39,15 @@ function freeze_harvest!(h,cycle,now)
     cycle["harvest_frozen_us"]=now
     cycle["records"]=deepcopy([r for r in h["records"] if r["after"]["capture_us"]<=now])
     cycle["count_evidence"]=deepcopy([h["count_first"],h["count_difference"]])
+    if get(h,"relearn_enabled",false)
+        cycle["replacement_records"]=deepcopy([r for r in get(h,"replacement_records",Any[]) if r["after"]["capture_us"]<=now])
+    end
 end
 
 function consolidate_harvest!(h,cycle,executed)
+    if get(h,"relearn_enabled",false) && get(h,"invalidated",false)
+        consolidate_replacement!(h,cycle,executed);return
+    end
     rs=cycle["records"];reason=nothing
     status=if get(h,"invalidated",false)
         "MODEL_INVALIDATED"

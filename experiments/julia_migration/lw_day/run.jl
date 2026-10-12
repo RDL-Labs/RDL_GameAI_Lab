@@ -5,6 +5,7 @@ include(joinpath(@__DIR__,"landmark_routes.jl"))
 include(joinpath(@__DIR__,"harvest_learning.jl"))
 include(joinpath(@__DIR__,"harvest_field.jl"))
 include(joinpath(@__DIR__,"harvest_review.jl"))
+include(joinpath(@__DIR__,"harvest_relearn.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
 function home_observation(w,a,yaw,home)
@@ -17,11 +18,12 @@ function home_observation(w,a,yaw,home)
     nothing
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false)
-    check(days isa Int && 1<=days<=3,"lw_days")
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false)
+    check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
+    check(!model_relearn || model_review,"harvest_relearn_requires_review")
     w=moving_world(spec);w.capacity=100_000
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
@@ -31,6 +33,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     distance=Dict(a=>0. for a in IDS)
     routes=Dict(a=>route_memory() for a in IDS)
     harvest=Dict(a=>harvest_state(a) for a in IDS);harvest_pending=Dict{String,Any}()
+    model_relearn && foreach(a->(harvest[a]["relearn_enabled"]=true),IDS)
     field_stats=Dict(a=>D("applied"=>0,"selection_changes"=>0,"examples"=>Any[]) for a in IDS)
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
@@ -74,6 +77,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 harvest_observe!(harvest[a],sections[a])
                 if haskey(harvest_pending,a)
                     t=pop!(harvest_pending,a)
+                    model_relearn && replacement_result!(harvest[a],a,t.op,t.before,t.status,t.executed,sections[a];
+                        pose=t.position==w.positions[a] && t.yaw==yaw[a])
                     harvest_result!(harvest[a],a,t.op,t.before,t.status,t.executed,sections[a])
                     if model_review
                         review_harvest!(harvest[a],a,t.op,t.prediction,t.before,t.status,t.executed,sections[a];

@@ -26,6 +26,7 @@ function review_harvest!(h,actor,op,prediction,before,status,executed,after;acce
     h["review_receipt"]=request
     if verdict=="difference" && !get(h,"invalidated",false)
         h["invalidated"]=true;h["invalidation"]=deepcopy(row)
+        history=get!(h,"invalidations",Any[]);push!(history,deepcopy(row));length(history)>2 && popfirst!(history)
     end
     true
 end
