@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Learned movement appraisal B1d](lw_field/report.md): 24 assertions PASS.
+Sleep-formed local harvest models bias current feasible food movement candidates.
+Three-day sparse scene:106 same-state selection changes, stock63->82 (one seed).
+Canonical T1/general Sleep and later model invalidation remain unported.
+
 [Harvest Sleep intake B1c](lw_harvest/report.md): 37 assertions PASS.
 Actual pickup and subsequent observations feed a frozen three-formation/two-validation
 night inspection. Local models persist and B uses one on day3 in the sparse scene.

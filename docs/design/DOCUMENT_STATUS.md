@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia 学習モデル移動寄与 B1d](../../experiments/julia_migration/lw_field/report.md)：FINITE IMPLEMENTED。Sleepで形成した局所採取モデル→現在観測への最大0.5寄与→既存移動選択。24検査PASS、2配置×有効無効×3日。疎配置で同状態比較106選択差、備蓄63→82。1 seed限定、後続反例によるモデル失効・canonical T1は未接続。
+
 - [Julia 採取Sleep接続 B1c](../../experiments/julia_migration/lw_harvest/report.md)：FINITE IMPLEMENTED。実採取と次観測→夜間3形成＋2検査→局所モデル→翌日解釈。37検査PASS。疎配置で3個体が形成、Bが3日目に20観測で適用。行動権限・canonical T1・一般相互作用Sleepは未接続。
 
 - [Julia 目印・経路接続 B1b](../../experiments/julia_migration/lw_landmarks/report.md)：FINITE IMPLEMENTED。現在観測の色・角域と実持帰りに基づく有限経路を基本ループへ接続。39検査PASS、2配置×有効無効×連続3日。疎配置で経路形成・選択成立。複数目印の角度拘束合成、一般採取Sleepは未接続。
