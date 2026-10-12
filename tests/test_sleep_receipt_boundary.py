@@ -40,5 +40,36 @@ class SleepReceiptBoundaryTests(unittest.TestCase):
             accept_rest_result(a,p,c,r)
         self.assertEqual(a.learning['sleep']['cycle']['rest_us'],0)
 
+    def test_safety_interrupt_then_night_starts_new_accumulation(self):
+        for kind,status in [('move','moved'),('wait','waited')]:
+            with self.subTest(kind=kind):
+                a,p,c,r=self.fixture()
+                p['capture_us']=16000000000;r['executed_us']=16001000000
+                a.learning['sleep']['cycle']['rest_us']=100000000
+                a.decisions[p['observation_id']]['day_cycle']['phase']='safety'
+                c['kind']=kind;r['status']=status
+                with patch('runtime.harvest_sleep.DAY_US',17280000000):
+                    self.assertTrue(accept_rest_result(a,p,c,r))
+                    self.assertEqual(a.learning['sleep']['cycle']['rest_us'],0)
+                    saved=deepcopy(a.learning)
+                    self.assertFalse(accept_rest_result(a,p,c,r))
+                    self.assertEqual(a.learning,saved)
+                    p2=dict(p,observation_id='resumed',capture_us=16002000000)
+                    c2=dict(operation_id='op:resumed',kind='wait')
+                    r2=dict(r,status='waited',executed_us=16003000000)
+                    a.results[c2['operation_id']]=r2
+                    a.decisions['resumed']=dict(day_cycle=dict(phase='night'))
+                    accept_rest_result(a,p2,c2,r2)
+                    self.assertEqual(a.learning['sleep']['cycle']['rest_us'],1000000)
+                    self.assertFalse(accept_rest_result(a,p,c,r))
+                    self.assertEqual(a.learning['sleep']['cycle']['rest_us'],1000000)
+
+    def test_other_day_result_does_not_reset_pending_cycle(self):
+        a,p,c,r=self.fixture();p['capture_us']=17280000000;r['executed_us']=17281000000
+        before=deepcopy(a.learning)
+        with patch('runtime.harvest_sleep.DAY_US',17280000000):
+            self.assertFalse(accept_rest_result(a,p,c,r))
+        self.assertEqual(a.learning,before)
+
 
 if __name__=='__main__':unittest.main()

@@ -40,3 +40,19 @@ Thus this is a verified behavioral consequence of the explicit movement fix,
 not a duplicated pickup. The current live test expects 24 returned/12 carried;
 saved historical replay expectations remain unchanged. Body continuity,
 duplicate checks, nine completed Sleep cycles and source provenance still pass.
+
+
+## Safety-interruption correction
+
+The first receipt implementation returned early for a same-day non-night phase,
+leaving earlier rest credited across safety activity. It now processes such an
+accepted result as an interruption: only a night-phase successful wait with valid
+body correspondence earns credit. Safety moves and safety waits reset pending
+rest to zero. Results from another day remain excluded; duplicate/older receipts
+do not reset newly resumed rest. Completed cycles are not reopened.
+
+Regression: 100 seconds rested -> safety move/wait -> zero -> resumed night wait
+-> 1 second, including immediate duplicate and delayed old interruption replay.
+Different-day exclusion and terminal 2879+1 completion remain tested. Related
+suite: 21 tests PASS. Human-scale one-day cloud re-execution is requested after
+this patch; its result is not yet evidence in this document.

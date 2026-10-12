@@ -103,8 +103,10 @@ def accept_rest_result(agent, packet, command, result):
     cycle=state['cycle'];op=command['operation_id']
     if result['executed_us']<=cycle.get('last_rest_executed_us',-1):return False
     prior=agent.decisions[packet['observation_id']]
-    if cycle['day']!=packet['capture_us']//DAY_US or prior['day_cycle']['phase']!='night':return False
-    valid=(command['kind']=='wait' and result['status']=='waited' and
+    if cycle['day']!=packet['capture_us']//DAY_US:return False
+    # An accepted same-cycle safety action interrupts rest, even a safety wait.
+    # Only a night wait earns credit; other phases must not bypass the reset.
+    valid=(prior['day_cycle']['phase']=='night' and command['kind']=='wait' and result['status']=='waited' and
         result['after_pose_ref']==packet['pose_ref'] and result['after_revision']==packet['body_revision'] and
         packet['capture_us'] < result['executed_us'] <= (cycle['day']+1)*DAY_US)
     cycle['last_rest_operation']=op
