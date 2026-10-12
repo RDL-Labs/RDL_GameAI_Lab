@@ -150,7 +150,7 @@ function sleeper(day,rest=0)
     D("sleep"=>D("cycle"=>D("day"=>day,"status"=>"pending","rest_us"=>rest,"records"=>Any[],
         "source"=>"night","result"=>nothing,"relation_materials"=>D("records"=>Any[],"window"=>D()),"relation_review"=>nothing),"completed"=>Any[]))
 end
-function receipt!(learning,now;phase="night",status="waited",pose=true,kind="wait",accepted=true)
+function receipt!(learning,now;phase="night",status="waited",pose=true,kind="wait",accepted=true,on_complete=nothing)
     check(accepted,"sleep_result_not_accepted")
     c=learning["sleep"]["cycle"]
     c["status"]!="pending" && return false
@@ -161,6 +161,11 @@ function receipt!(learning,now;phase="night",status="waited",pose=true,kind="wai
     c["last_rest_operation"]="op:$now";c["last_rest_executed_us"]=executed
     c["rest_us"]=valid ? c["rest_us"]+1_000_000 : 0
     if c["rest_us"]>=REST
+        if on_complete!==nothing
+            on_complete(c,executed)
+            c["status"]="completed";c["completed_us"]=executed
+            return true
+        end
         # Explicit empty-harvest-material branch, not general relation inspection.
         check(isempty(c["records"]) && isempty(c["relation_materials"]["records"]),"unported_sleep_material")
         c["relation_review"]=D("rule"=>"cross-action-sleep-review-v1","status"=>"insufficient_records",

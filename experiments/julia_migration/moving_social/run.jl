@@ -17,7 +17,8 @@ function movement_observation(w,actor,yaw,food,stock)
         dx,dz=f.x-origin[1],f.z-origin[2];forward,right=dx*s+dz*c,dx*c-dz*s
         distance=hypot(forward,right)
         if stock[j]>0 && distance<=12 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),w.obstacles)
-            push!(visible,D("ref"=>j-1,"forward"=>forward,"right"=>right,"distance"=>distance))
+            push!(visible,D("ref"=>j-1,"forward"=>forward,"right"=>right,"distance"=>distance,
+                "appearance"=>hasproperty(f,:appearance) ? f.appearance : "brown_capped_ovoid"))
         end
     end
     sort!(visible,by=v->(v["distance"],v["ref"]));resize!(visible,min(5,length(visible)))

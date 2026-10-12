@@ -2,6 +2,7 @@ using Test
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
+include(joinpath(@__DIR__,"harvest_learning.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
 function home_observation(w,a,yaw,home)
@@ -14,7 +15,7 @@ function home_observation(w,a,yaw,home)
     nothing
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false)
     check(days isa Int && 1<=days<=3,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     w=moving_world(spec);w.capacity=100_000
@@ -25,6 +26,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false)
     counts=Dict(a=>Dict{String,Int}() for a in IDS);events=Any[];previous=Dict{String,Any}()
     distance=Dict(a=>0. for a in IDS)
     routes=Dict(a=>route_memory() for a in IDS)
+    harvest=Dict(a=>harvest_state(a) for a in IDS);harvest_pending=Dict{String,Any}()
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security") for f in ("food","home")) for a in IDS)
@@ -32,7 +34,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false)
     physical()=D(a=>D("position"=>collect(w.positions[a]),"yaw"=>yaw[a],"body"=>bodydict(w.bodies[a]),
         "inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
         "social_model"=>deepcopy(states[a]["model"]),"loops"=>D(f=>loop_snapshot(s) for (f,s) in loops[a]),
-        "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a]) for a in IDS)
+        "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
+        "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing) for a in IDS)
     for (i,a) in enumerate(IDS)
         w.inventory[a]=spec.initial_inventory[i];w.bodies[a]=Body(10.,0.,spec.reserve[i],0.)
         append!(cargo[a],fill(nothing,w.inventory[a]))
@@ -60,6 +63,21 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false)
         obs=Dict(a=>observe(w,a) for a in IDS)
         moves=Dict(a=>movement_observation(w,a,yaw,spec.food,stock) for a in IDS)
         homes=Dict(a=>home_observation(w,a,yaw,spec.home) for a in IDS)
+        sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
+        if harvest_sleep
+            for a in IDS
+                harvest_observe!(harvest[a],sections[a])
+                if haskey(harvest_pending,a)
+                    t=pop!(harvest_pending,a)
+                    harvest_result!(harvest[a],a,t.op,t.before,t.status,t.executed,sections[a])
+                end
+                prediction=harvest_predict(harvest[a],sections[a])
+                harvest[a]["prediction_counts"][prediction["status"]]+=1
+                if prediction["status"]=="known" && harvest[a]["first_known"]===nothing
+                    harvest[a]["first_known"]=merge(prediction,D("capture_us"=>now))
+                end
+            end
+        end
         landmarks=landmark_routes ? Dict(a=>landmark_fan(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
         plans=D()
         for a in IDS
@@ -210,7 +228,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false)
                 route_result!(routes[a],landmarks[a],op,action,status,leg,near,get(plan,"route",nothing);delivered=delivered)
             end
             if phase=="night"
-                receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status)
+                cycle=learning[a]["sleep"]["cycle"]
+                harvest_sleep && action=="rest" && freeze_harvest!(harvest[a],cycle,now)
+                callback=harvest_sleep ? ((c,t)->consolidate_harvest!(harvest[a],c,t)) : nothing
+                receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
+            end
+            if harvest_sleep && action=="pickup"
+                harvest_pending[a]=(op=op,before=deepcopy(sections[a]),status=status,executed=now+1_000_000)
             end
             if haskey(pending,a)
                 pending[a]=merge(pending[a],(status=status,))
@@ -242,7 +266,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false)
         states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>Int(days*clock.day_us))),a)
         terminal[a]=D("position"=>collect(w.positions[a]),"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
             "personal_stock"=>stores[a],"sleep"=>learning[a],"social"=>states[a],"aid"=>pressure_snapshot(live[a]),"distance"=>distance[a],
-            "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a])
+            "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
+            "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing)
     end
     D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
