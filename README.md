@@ -2,6 +2,7 @@
 
 - [Julia移行実験 J0〜J2](experiments/julia_migration/report.md)：独立幾何1146件一致、100物体の準備後計算は約17倍。[J3接続比較](experiments/julia_migration/j3/report.md)では178,005問い合わせ一致。ただし転送・詰め直し込みでPythonの1.93〜1.99倍の時間。本線Python維持、J4未着手。
 - [ALL Julia最小ループ A0](experiments/julia_migration/all_loop/report.md)：9,000ステップ一致、準備後7.44〜10.19倍。起動込みはほぼ同時間、メモリ増大あり。M_B・Sleep・社会関係を含むLW統合版の全面移植ではない。
+- [Julia A1 局所M_B・Sleep・社会期待](experiments/julia_migration/social_loop/report.md)：援助目的／相手別H、受理済み休息、完了Sleep後の期待と翌日選択が5条件でPythonと一致。A0回帰PASS。固定接触fixtureであり、探索との統合・canonical T1は未移植。
 - [RDL用語・実装・可視化の対応設計](docs/design/RDL_Implementation_Visualization_Mapping.md)：Bは境界、目的・問いは別条件。Core／局所近似／World・身体値を分離し、非生物系への拡張も見据える。DESIGN ONLY。
 
 - [LWの距離・時間尺度](docs/design/LW_Time_Distance_Profile.md)：human_scale_v1。一日17280秒、身体消耗・Sleep・資源再生・道の回復を同じ時計へ接続。[1日実行](docs/experiment-evidence/LW_human_scale_v1_full_day.md)：採取7・持帰り0、全員Sleep完了。旋回と帰還は残課題。

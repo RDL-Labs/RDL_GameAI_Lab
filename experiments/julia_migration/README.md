@@ -1,4 +1,4 @@
-# Julia migration probe J0–J3
+# Julia migration probes J0–J3 and standalone loops
 
 Independent experiment; Python remains the only production backend.
 [J0–J2 results](report.md): 1146 equivalent cases, three timing series,
@@ -12,6 +12,10 @@ M_B/E/H/theta, Sleep and social relation logic remain outside A0.
 [A0 results](all_loop/report.md): 9,000 steps match; warm complete minimal loops
 are 7.44–10.19x faster, but short process wall time is similar and Julia RSS is
 roughly 24–25x. This is not an integrated LW speedup claim.
+[A1 local model / Sleep / social parity](social_loop/report.md): five fixed-contact
+three-day fixtures match Python, including goal/method H, accepted rest, social
+expectation and next-day selection. A0 regression passes. General Sleep admission,
+canonical T1 and integration into navigation remain unported; no A1 speed claim.
 Baseline: `52a94225484f7e1771c4b4c3703c3eb9eef39730`.
 No runtime, World rules, H, rho, observation cadence or test expectations changed.
 
