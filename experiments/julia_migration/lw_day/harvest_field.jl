@@ -6,6 +6,9 @@ function harvest_field(candidates,move,h,actor,now;enabled=false,complete=true)
         "model_ref"=>nothing,"gain"=>0.5,"purpose"=>"approach-to-test")
     model=h["model"];model===nothing && return out,trace
     trace["model_ref"]=model["model_ref"]
+    if get(h,"invalidated",false)
+        trace["status"]="model_invalidated";return out,trace
+    end
     check(h["admission"]["status"]=="LOCAL_ADOPTED","harvest_field_admission")
     if now<model["formed_us"] || !complete
         trace["status"]="not_comparable";return out,trace

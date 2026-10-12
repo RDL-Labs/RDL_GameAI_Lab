@@ -43,7 +43,9 @@ end
 
 function consolidate_harvest!(h,cycle,executed)
     rs=cycle["records"];reason=nothing
-    status=if h["model"]!==nothing
+    status=if get(h,"invalidated",false)
+        "MODEL_INVALIDATED"
+    elseif h["model"]!==nothing
         "MODEL_ALREADY_PRESENT"
     elseif length(rs)<5
         "INSUFFICIENT_EVIDENCE"
@@ -64,7 +66,7 @@ function consolidate_harvest!(h,cycle,executed)
         "LOCAL_ADOPTED"
     end
     result=D("status"=>status,"reason"=>reason,"model_ref"=>h["model"]===nothing ? nothing : h["model"]["model_ref"])
-    if !(status in ("PREVIOUSLY_REJECTED","MODEL_ALREADY_PRESENT"))
+    if !(status in ("PREVIOUSLY_REJECTED","MODEL_ALREADY_PRESENT","MODEL_INVALIDATED"))
         h["admission"]=deepcopy(result)
     end
     cycle["relation_review"]=D("status"=>"harvest_only","general_cross_action_review"=>"unported")
@@ -72,7 +74,7 @@ function consolidate_harvest!(h,cycle,executed)
 end
 
 function harvest_predict(h,section)
-    known=h["model"]!==nothing && section["complete"] && section["affordance"] && section["capture_us"]>=h["model"]["formed_us"]
+    known=!get(h,"invalidated",false) && h["model"]!==nothing && section["complete"] && section["affordance"] && section["capture_us"]>=h["model"]["formed_us"]
     D("status"=>known ? "known" : "unknown","values"=>known ? deepcopy(h["model"]["prediction"]) : nothing,
       "model_ref"=>h["model"]===nothing ? nothing : h["model"]["model_ref"],"source"=>section["source"])
 end

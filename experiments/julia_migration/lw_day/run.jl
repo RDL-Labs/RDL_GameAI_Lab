@@ -4,6 +4,7 @@ include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
 include(joinpath(@__DIR__,"harvest_learning.jl"))
 include(joinpath(@__DIR__,"harvest_field.jl"))
+include(joinpath(@__DIR__,"harvest_review.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
 function home_observation(w,a,yaw,home)
@@ -16,10 +17,11 @@ function home_observation(w,a,yaw,home)
     nothing
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false)
     check(days isa Int && 1<=days<=3,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
+    check(!model_review || harvest_sleep,"harvest_review_requires_learning")
     w=moving_world(spec);w.capacity=100_000
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
@@ -73,6 +75,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 if haskey(harvest_pending,a)
                     t=pop!(harvest_pending,a)
                     harvest_result!(harvest[a],a,t.op,t.before,t.status,t.executed,sections[a])
+                    if model_review
+                        review_harvest!(harvest[a],a,t.op,t.prediction,t.before,t.status,t.executed,sections[a];
+                            pose=t.position==w.positions[a] && t.yaw==yaw[a])
+                    end
                 end
                 prediction=harvest_predict(harvest[a],sections[a])
                 harvest[a]["prediction_counts"][prediction["status"]]+=1
@@ -197,6 +203,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         w.seconds=sec+1
         for a in IDS
             plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];status="performed"
+            frozen_prediction=harvest_sleep && action=="pickup" ? harvest_predict(harvest[a],sections[a]) : nothing
             leg=phase in ("return","night") || w.inventory[a]>=6 ? "home" : "food"
             delivered=String[]
             # Exactly one body update per simulated second, including non-movement actions.
@@ -252,7 +259,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
             end
             if harvest_sleep && action=="pickup"
-                harvest_pending[a]=(op=op,before=deepcopy(sections[a]),status=status,executed=now+1_000_000)
+                harvest_pending[a]=(op=op,before=deepcopy(sections[a]),status=status,executed=now+1_000_000,
+                    prediction=frozen_prediction,position=p,yaw=yaw[a])
             end
             if haskey(pending,a)
                 pending[a]=merge(pending[a],(status=status,))
