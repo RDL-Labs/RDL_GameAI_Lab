@@ -17,70 +17,96 @@ function Base.setindex!(r::Records,v,k)
 end
 check(c,code)=c || error(code)
 
+# Fixed state fields; open-ended evidence payloads remain owned dictionaries.
+# AbstractDict is an output/compatibility view. Updates below use concrete fields.
+abstract type LocalModelState <: AbstractDict{String,Any} end
+mutable struct GoalState <: LocalModelState
+    goal_id::String
+    model_ref::String
+    dimension::String
+    parent_goal_id::Any # Existing API permits opaque parent references.
+    H::Int
+    threshold::Int
+    records::Records
+    trial::Union{Nothing,D}
+end
+mutable struct AidPressure <: LocalModelState
+    parent::GoalState
+    methods::Dict{String,GoalState}
+end
+Base.length(s::LocalModelState)=fieldcount(typeof(s))
+Base.keys(s::LocalModelState)=String.(fieldnames(typeof(s)))
+Base.haskey(s::LocalModelState,k)=k isa String && Symbol(k) in fieldnames(typeof(s))
+Base.getindex(s::LocalModelState,k)=haskey(s,k) ? getfield(s,Symbol(k)) : throw(KeyError(k))
+Base.get(s::LocalModelState,k,default)=haskey(s,k) ? s[k] : default
+function Base.iterate(s::LocalModelState,i=1)
+    i>length(s) && return nothing
+    (String(fieldname(typeof(s),i))=>getfield(s,i),i+1)
+end
+
 function ginitial(id,model="home-trial-confirmation-hypothesis-v1",dim="home_confirmed",theta=2,parent=nothing)
     check(all(x->x isa String && !isempty(x),(id,model,dim)),"goal_contract")
     check(theta isa Int && !(theta isa Bool) && theta>=1,"goal_threshold")
     check(parent!=id,"goal_parent")
-    D("goal_id"=>id,"model_ref"=>model,"dimension"=>dim,"parent_goal_id"=>parent,
-      "H"=>0,"threshold"=>theta,"records"=>Records(),"trial"=>nothing)
+    GoalState(id,model,dim,parent,0,theta,Records(),nothing)
 end
-gmethod(s,enabled,primary,alternative)=enabled && s["H"]>=s["threshold"] ? alternative : primary
+gmethod(s,enabled,primary,alternative)=enabled && s.H>=s.threshold ? alternative : primary
 function gbegin(state,id,source)
     s=deepcopy(state)
-    trial=D("trial_id"=>id,"source"=>deepcopy(source),"model_ref"=>s["model_ref"],
-        "goal_id"=>s["goal_id"],"dimension"=>s["dimension"],"F"=>D(s["dimension"]=>1))
-    if s["trial"]!==nothing
-        check(s["trial"]==trial,"goal_trial_active");return s
+    trial=D("trial_id"=>id,"source"=>deepcopy(source),"model_ref"=>s.model_ref,
+        "goal_id"=>s.goal_id,"dimension"=>s.dimension,"F"=>D(s.dimension=>1))
+    if s.trial!==nothing
+        check(s.trial==trial,"goal_trial_active");return s
     end
-    check(!haskey(s["records"],id),"goal_trial_closed");s["trial"]=trial;s
+    check(!haskey(s.records,id),"goal_trial_closed");s.trial=trial;s
 end
 function gfinish(state,id,confirmed,comparable,source)
     check(confirmed isa Bool && comparable isa Bool,"goal_evidence")
     s=deepcopy(state)
-    compared=haskey(state["records"],id) ? state["records"][id]["trial"] : state["trial"]
+    compared=haskey(state.records,id) ? state.records[id]["trial"] : state.trial
     if compared!==nothing && get(compared,"interrupted_by_safety",false) && !confirmed
         comparable=false
     end
     evidence=D("confirmed"=>confirmed,"comparable"=>comparable,"source"=>source)
-    if haskey(s["records"],id)
-        check(s["records"][id]["evidence"]==evidence,"goal_trial_conflict");return s
+    if haskey(s.records,id)
+        check(s.records[id]["evidence"]==evidence,"goal_trial_conflict");return s
     end
-    trial=s["trial"];check(trial!==nothing && trial["trial_id"]==id,"goal_trial_binding")
-    E=comparable ? (confirmed ? 0 : 1) : nothing;before=s["H"]
-    comparable && (s["H"]=confirmed ? 0 : before+E)
-    s["records"][id]=D("trial"=>deepcopy(trial),"evidence"=>evidence,
+    trial=s.trial;check(trial!==nothing && trial["trial_id"]==id,"goal_trial_binding")
+    E=comparable ? (confirmed ? 0 : 1) : nothing;before=s.H
+    comparable && (s.H=confirmed ? 0 : before+E)
+    s.records[id]=D("trial"=>deepcopy(trial),"evidence"=>evidence,
         "F_prime"=>comparable ? D(trial["dimension"]=>Int(confirmed)) : nothing,
-        "E"=>E,"H_before"=>before,"H_after"=>s["H"],"status"=>comparable ? "compared" : "defer")
-    s["trial"]=nothing;s
+        "E"=>E,"H_before"=>before,"H_after"=>s.H,"status"=>comparable ? "compared" : "defer")
+    s.trial=nothing;s
 end
 function pressure_update(previous,records,actor,theta=2)
-    s=previous===nothing ? D("parent"=>ginitial(actor*":obtain-aid","received-aid-within-request-window-v1","aid_received",theta),"methods"=>D()) : deepcopy(previous)
-    check(s["parent"]["goal_id"]==actor*":obtain-aid","aid_pressure_binding")
+    s=previous===nothing ? AidPressure(ginitial(actor*":obtain-aid","received-aid-within-request-window-v1","aid_received",theta),Dict{String,GoalState}()) : deepcopy(previous)
+    check(s.parent.goal_id==actor*":obtain-aid","aid_pressure_binding")
     for (id,r) in records
         check(r["agent_id"]==actor,"aid_pressure_agent")
-        haskey(s["parent"]["records"],id) && continue
+        haskey(s.parent.records,id) && continue
         target=r["target"]
-        if !haskey(s["methods"],target)
-            s["methods"][target]=ginitial(actor*":request:"*target,"received-aid-within-request-window-v1","aid_received",theta,s["parent"]["goal_id"])
+        if !haskey(s.methods,target)
+            s.methods[target]=ginitial(actor*":request:"*target,"received-aid-within-request-window-v1","aid_received",theta,s.parent.goal_id)
         end
         source=D("observation_id"=>r["request_observation_id"])
         confirmed=r["outcome"]=="given";comparable=r["outcome"]!="request_not_executed"
-        s["parent"]=gfinish(gbegin(s["parent"],id,source),id,confirmed,comparable,r["source_observation_id"])
-        s["methods"][target]=gfinish(gbegin(s["methods"][target],id,source),id,confirmed,comparable,r["source_observation_id"])
+        s.parent=gfinish(gbegin(s.parent,id,source),id,confirmed,comparable,r["source_observation_id"])
+        s.methods[target]=gfinish(gbegin(s.methods[target],id,source),id,confirmed,comparable,r["source_observation_id"])
     end
     s
 end
 function select_target(targets,model,pressure)
     candidates=Any[]
     for target in sort(unique(targets))
-        state=get(pressure["methods"],target,nothing)
-        H=state===nothing ? 0 : state["H"]
-        theta=state===nothing ? pressure["parent"]["threshold"] : state["threshold"]
+        state=get(pressure.methods,target,nothing)
+        H=state===nothing ? 0 : state.H
+        theta=state===nothing ? pressure.parent.threshold : state.threshold
         penalty=H>=theta ? min(2,H/theta) : 0
         push!(candidates,D("target"=>target,"H"=>H,"threshold"=>theta,
             "score"=>get(get(model,target,D()),"expectation",.5)-penalty))
     end
-    if pressure["parent"]["H"]>=pressure["parent"]["threshold"]
+    if pressure.parent.H>=pressure.parent.threshold
         push!(candidates,D("target"=>nothing,"score"=>.25,"reason"=>"reconsider_existing_activity"))
     end
     chosen=isempty(candidates) ? nothing : candidates[argmin([(-c["score"],c["target"]===nothing ? "" : c["target"]) for c in candidates])]
