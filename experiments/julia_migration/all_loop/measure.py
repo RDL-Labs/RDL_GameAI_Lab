@@ -18,7 +18,9 @@ def compare(a,b,path='root'):
     elif isinstance(a,list):
         assert isinstance(b,list) and len(a)==len(b),path
         for i,(x,y) in enumerate(zip(a,b)):compare(x,y,f'{path}[{i}]')
-    elif type(a) is float:
+    elif type(a) in (int,float) and path.rsplit('.',1)[-1] in {
+            'x','z','yaw','burst','strain','reserve','damage','forward','right',
+            'distance','resistance','goal_cost','cost'}:
         assert type(b) in (float,int) and math.isclose(a,b,rel_tol=1e-12,abs_tol=1e-12),(path,a,b)
     else:assert type(a)==type(b) and a==b,(path,a,b)
 
