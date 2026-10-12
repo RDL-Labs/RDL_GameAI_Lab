@@ -3,6 +3,7 @@ include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
 include(joinpath(@__DIR__,"harvest_learning.jl"))
+include(joinpath(@__DIR__,"harvest_field.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
 function home_observation(w,a,yaw,home)
@@ -15,9 +16,10 @@ function home_observation(w,a,yaw,home)
     nothing
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false)
     check(days isa Int && 1<=days<=3,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
+    check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     w=moving_world(spec);w.capacity=100_000
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
@@ -27,6 +29,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     distance=Dict(a=>0. for a in IDS)
     routes=Dict(a=>route_memory() for a in IDS)
     harvest=Dict(a=>harvest_state(a) for a in IDS);harvest_pending=Dict{String,Any}()
+    field_stats=Dict(a=>D("applied"=>0,"selection_changes"=>0,"examples"=>Any[]) for a in IDS)
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security") for f in ("food","home")) for a in IDS)
@@ -140,7 +143,22 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
                             end
                         end
+                        counterfactual=nothing;field_trace=nothing
+                        if model_field && family=="food"
+                            projected,field_trace=harvest_field(candidates,moves[a],harvest[a],a,now;enabled=true)
+                            if field_trace["applied"]
+                                counterfactual=choose_method!(deepcopy(s),candidates,source)
+                                candidates=projected;field_stats[a]["applied"]+=1
+                            end
+                        end
                         plan=choose_method!(s,candidates,source)
+                        if counterfactual!==nothing && counterfactual["method"]!=plan["method"]
+                            field_stats[a]["selection_changes"]+=1
+                            if length(field_stats[a]["examples"])<8
+                                push!(field_stats[a]["examples"],D("source"=>"ob:$now:$a","without"=>counterfactual["method"],
+                                    "with"=>plan["method"],"field"=>field_trace))
+                            end
+                        end
                         landmark_routes && get(plan,"route",nothing)!==nothing && (routes[a]["selections"]+=1)
                         pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
                             distance=target===nothing ? nothing : target["distance"],
@@ -267,7 +285,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         terminal[a]=D("position"=>collect(w.positions[a]),"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
             "personal_stock"=>stores[a],"sleep"=>learning[a],"social"=>states[a],"aid"=>pressure_snapshot(live[a]),"distance"=>distance[a],
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
-            "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing)
+            "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
     D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
