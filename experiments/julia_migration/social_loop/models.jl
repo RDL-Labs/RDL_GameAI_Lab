@@ -8,6 +8,7 @@ Records()=Records(D(),String[])
 Base.length(r::Records)=length(r.order)
 Base.iterate(r::Records,i=1)=i>length(r.order) ? nothing : (r.order[i]=>r.data[r.order[i]],i+1)
 Base.getindex(r::Records,k)=r.data[k]
+Base.get(r::Records,k,default)=get(r.data,k,default)
 Base.haskey(r::Records,k)=haskey(r.data,k)
 Base.keys(r::Records)=r.order
 function Base.setindex!(r::Records,v,k)
