@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Later harvest review B1e](lw_review/report.md): 65 assertions PASS.
+Frozen pickup predictions are compared with accepted results and next observations.
+Three natural persistence counterexamples invalidate local model use; living continues.
+Replacement learning and canonical reconstruction remain unported.
+
 [Learned movement appraisal B1d](lw_field/report.md): 24 assertions PASS.
 Sleep-formed local harvest models bias current feasible food movement candidates.
 Three-day sparse scene:106 same-state selection changes, stock63->82 (one seed).

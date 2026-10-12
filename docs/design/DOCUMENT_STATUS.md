@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia 後続採取比較 B1e](../../experiments/julia_migration/lw_review/report.md)：FINITE IMPLEMENTED。操作前予測→受理済み結果＋次観測→差の記録→局所モデル利用停止。65検査PASS。疎配置3個体で持続性反例・失効後の生活継続を確認。再学習・canonical再構成は未接続。
+
 - [Julia 学習モデル移動寄与 B1d](../../experiments/julia_migration/lw_field/report.md)：FINITE IMPLEMENTED。Sleepで形成した局所採取モデル→現在観測への最大0.5寄与→既存移動選択。24検査PASS、2配置×有効無効×3日。疎配置で同状態比較106選択差、備蓄63→82。1 seed限定、後続反例によるモデル失効・canonical T1は未接続。
 
 - [Julia 採取Sleep接続 B1c](../../experiments/julia_migration/lw_harvest/report.md)：FINITE IMPLEMENTED。実採取と次観測→夜間3形成＋2検査→局所モデル→翌日解釈。37検査PASS。疎配置で3個体が形成、Bが3日目に20観測で適用。行動権限・canonical T1・一般相互作用Sleepは未接続。
