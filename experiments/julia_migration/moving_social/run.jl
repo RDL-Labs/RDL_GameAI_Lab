@@ -39,12 +39,14 @@ function movement_observation(w,actor,yaw,food,stock)
         "action"=>chosen===nothing ? "rest" : "walk","status"=>chosen===nothing ? "no_feasible_observed_move" : "selected"))
 end
 
-function moving_scenario(spec;incremental=false)
+function moving_scenario(spec;incremental=false,recording=:detailed)
+    check(recording in (:detailed,:compact),"a2_recording_mode")
     w=moving_world(spec);yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     states=D(a=>social_initial() for a in IDS);pressures=D(a=>pressure_update(nothing,D(),a,3) for a in IDS)
     live=Dict(a=>live_aid(a) for a in IDS)
     results=D(a=>D() for a in IDS);answered=Dict(a=>Set{String}() for a in IDS)
     rows=Any[];nights=Any[];effects=D();requests=Dict(a=>0 for a in IDS)
+    transitions=Any[];previous=Dict{String,Any}();counts=Dict(a=>Dict{String,Int}() for a in IDS)
     function actor_state(actor)
         p=w.positions[actor]
         D("position"=>D("x"=>p[1],"z"=>p[2],"yaw"=>yaw[actor]),
@@ -135,6 +137,21 @@ function moving_scenario(spec;incremental=false)
                 @assert execute(actor,op,plans[actor])==r
                 @assert saved==(w.inventory,w.bodies,w.positions,yaw,stock,w.consumed)
                 results[actor][op]=r;p=w.positions[actor]
+                if recording==:compact
+                    action=plans[actor]["action"]
+                    counts[actor][action]=get(counts[actor],action,0)+1
+                    signature=(day,action,get(plans[actor],"target",nothing),get(plans[actor],"direction",nothing),
+                        get(plans[actor],"food_ref",nothing),get(r,"status",nothing))
+                    if get(previous,actor,nothing)!=signature
+                        push!(transitions,D("day"=>day,"tick"=>tick,"actor"=>actor,
+                            "plan"=>copy(plans[actor]),"status"=>get(r,"status",nothing)))
+                        previous[actor]=signature
+                    end
+                    if action=="request"
+                        @assert plans[actor]["target"] in [o["ref"] for o in observations[actor]["others"] if o["holding_food"]]
+                    end
+                    continue
+                end
                 push!(rows,D("day"=>day,"tick"=>tick,"actor"=>actor,"observation"=>observations[actor],"movement"=>moves[actor],
                     "plan"=>plans[actor],"selection"=>get(selections,actor,nothing),"result"=>r,
                     "position"=>D("x"=>p[1],"z"=>p[2],"yaw"=>yaw[actor]),"body"=>bodydict(w.bodies[actor]),
@@ -157,8 +174,13 @@ function moving_scenario(spec;incremental=false)
         end
         push!(nights,night)
     end
-    D("rows"=>rows,"nights"=>nights,"request_counts"=>requests,"consumed"=>w.consumed,"stock"=>stock,"inventory"=>w.inventory,
+    output=D("rows"=>rows,"nights"=>nights,"request_counts"=>requests,"consumed"=>w.consumed,"stock"=>stock,"inventory"=>w.inventory,
       "final_agents"=>D(a=>actor_state(a) for a in IDS))
+    if recording==:compact
+        output["transitions"]=transitions;output["action_counts"]=counts
+        output["recording"]="compact-v1"
+    end
+    output
 end
 
 function contact_boundaries(spec)
