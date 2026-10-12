@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Reusable goal/method loop B1a](lw_loop/report.md): finite implementation,
+66 assertions PASS, two continuous three-day scenes. Goal and method H separated;
+unresolved-method reconsideration and private stock carry-over exercised.
+Full learned landmark/route navigation and general Sleep remain unported.
+
 [LW lifecycle reconnection B0](lw_day/report.md): two continuous one-day scenes,
 three agents each, conservation and Sleep PASS. Provisional navigation ends in
 lost-home scanning; not full LW reproduction. B1 must port goal/landmark recovery.

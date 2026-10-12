@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia 基本ループ B1a](../../experiments/julia_migration/lw_loop/report.md)：FINITE IMPLEMENTED。目的H・方法H・結果評価・再選択を共通化。2条件×連続3日、66検査PASS。全候補未解消時の再検討、翌日の備蓄食事を確認。目印／経路学習と一般Sleepの移植は未完了。
+
 - [Julia LW生活周期 B0](../../experiments/julia_migration/lw_day/report.md)：連続1日×2条件、3個体の資源収支・Sleep確認、10検査PASS。LW全面再現は未完了。暫定帰還が見回しに留まるため、次は既存LWの目標／目印M_B・帰還探索を接続。
 
 - [Julia軽量記録経路](../../experiments/julia_migration/compact_run/report.md)：FINITE ADOPTION CANDIDATE。毎step全状態snapshotを省略し、遷移・夜間・終端を保存。代表2条件の短区間全体時間21〜30%減、13検査PASS。昼間全状態の再生は不可、本線LWへの適用は未実施。
