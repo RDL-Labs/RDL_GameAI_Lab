@@ -1,0 +1,12 @@
+{
+  "baseline": "52a94225484f7e1771c4b4c3703c3eb9eef39730",
+  "source_git_blob": "5661b417c85219c5fd28aaf7e25e1da2dbea9c5d",
+  "seed": 20261012,
+  "boundaries": 40,
+  "generated": 1000,
+  "hashes": {
+    "geometry_expected.jsonl": "e4925f3abb898222cd6377061f8829d6f78413fe9903218ca682b6e2ffcfd5f4",
+    "geometry_inputs.jsonl": "8848ea16ec22021d58953273c0ecddeb8e5ec24160bf8edb2e92260227136507",
+    "groups.jsonl": "6d8be37429527a7abf45337faedaaf783ebdb34c1350a7fd32695aa8a625cbe9"
+  }
+}

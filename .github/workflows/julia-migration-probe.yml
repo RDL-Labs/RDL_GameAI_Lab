@@ -1,0 +1,46 @@
+name: Julia migration J0-J2 only
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: '0'
+      RDL_LW_TIME_PROFILE: human_scale_v1
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      JULIA_PROBE_OUTPUT: outputs/julia_migration/run/correctness
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - name: Python fixed-fixture tests
+        run: python -m unittest experiments.julia_migration.python.test_reference
+      - name: J0 repeated baseline and separate worker profile
+        run: python -m experiments.julia_migration.python.profile_baseline outputs/julia_migration/run
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Resolve and preserve independent environment
+        run: |
+          julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl > outputs/julia_migration/run/setup.txt 2>&1
+          cp experiments/julia_migration/julia/*toml outputs/julia_migration/run/
+      - name: Restore lock in an empty depot
+        run: |
+          JULIA_DEPOT_PATH="$RUNNER_TEMP/julia-clean-depot" julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl > outputs/julia_migration/run/restore.txt 2>&1
+          cmp experiments/julia_migration/julia/Manifest.toml outputs/julia_migration/run/Manifest.toml
+          JULIA_DEPOT_PATH="$RUNNER_TEMP/julia-clean-depot" julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/test/runtests.jl
+      - name: Three independent kernel timing series
+        run: python -m experiments.julia_migration.python.measure outputs/julia_migration/run/benchmark
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-migration-j0-j2
+          path: outputs/julia_migration
+          retention-days: 14
