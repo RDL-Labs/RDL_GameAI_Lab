@@ -119,7 +119,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false)
                             end
                             # Direct currently observed goal wins over remembered detours.
                             if target===nothing
-                                append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,source))
+                                append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
                             end
                         end
                         plan=choose_method!(s,candidates,source)
