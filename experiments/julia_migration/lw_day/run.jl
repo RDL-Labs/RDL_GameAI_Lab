@@ -1,5 +1,6 @@
 using Test
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
+include(joinpath(@__DIR__,"basic_loop.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
 function home_observation(w,a,yaw,home)
@@ -12,7 +13,8 @@ function home_observation(w,a,yaw,home)
     nothing
 end
 
-function lw_day(spec,clock)
+function lw_day(spec,clock;days=1,basic_loop=false)
+    check(days isa Int && 1<=days<=3,"lw_days")
     w=moving_world(spec);w.capacity=100_000
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
@@ -20,10 +22,16 @@ function lw_day(spec,clock)
     answered=Dict(a=>Set{String}() for a in IDS);learning=Dict(a=>sleeper(0) for a in IDS)
     counts=Dict(a=>Dict{String,Int}() for a in IDS);events=Any[];previous=Dict{String,Any}()
     distance=Dict(a=>0. for a in IDS)
+    loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security") for f in ("food","home")) for a in IDS)
+    pending=Dict{String,Any}();daily=Any[];day_starts=Any[]
+    physical()=D(a=>D("position"=>collect(w.positions[a]),"yaw"=>yaw[a],"body"=>bodydict(w.bodies[a]),
+        "inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
+        "social_model"=>deepcopy(states[a]["model"]),"loops"=>D(f=>loop_snapshot(s) for (f,s) in loops[a])) for a in IDS)
     for (i,a) in enumerate(IDS)
         w.inventory[a]=spec.initial_inventory[i];w.bodies[a]=Body(10.,0.,spec.reserve[i],0.)
+        hasproperty(spec,:initial_personal_stock) && (stores[a]=spec.initial_personal_stock[i])
     end
-    initial=sum(stock)+sum(values(w.inventory));bounds=Int.(clock.phase_boundaries_us)
+    initial=sum(stock)+sum(values(w.inventory))+sum(values(stores));bounds=Int.(clock.phase_boundaries_us)
     integrate(a,now,obs)=begin
         before=length(states[a]["records"])
         if states[a]["pending"]!==nothing
@@ -32,9 +40,16 @@ function lw_day(spec,clock)
         end
         pressure_poll!(live[a],states[a]["records"],before)
     end
-    for sec in 0:div(clock.day_us,1_000_000)-1
+    for sec in 0:days*div(clock.day_us,1_000_000)-1
         now=sec*1_000_000;w.seconds=sec
-        phase=now<bounds[1] ? "orientation" : now<bounds[2] ? "exploration" : now<bounds[3] ? "return" : "night"
+        day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
+        if local_us==0
+            push!(day_starts,physical())
+            if day>0
+                learning=Dict(a=>sleeper(day) for a in IDS)
+            end
+        end
+        phase=local_us<bounds[1] ? "orientation" : local_us<bounds[2] ? "exploration" : local_us<bounds[3] ? "return" : "night"
         obs=Dict(a=>observe(w,a) for a in IDS)
         moves=Dict(a=>movement_observation(w,a,yaw,spec.food,stock) for a in IDS)
         homes=Dict(a=>home_observation(w,a,yaw,spec.home) for a in IDS)
@@ -42,6 +57,16 @@ function lw_day(spec,clock)
         for a in IDS
             integrate(a,now,obs[a]);o=obs[a];plan=nothing;home=homes[a]
             at_home=home!==nothing && home["distance"]<=1.25
+            if basic_loop && haskey(pending,a)
+                t=pop!(pending,a);s=loops[a][t.family]
+                target=t.family=="home" ? home : isempty(moves[a]["visible"]) ? nothing : first(moves[a]["visible"])
+                same=target!==nothing && (t.family=="home" || t.ref===nothing || target["ref"]==t.ref)
+                value=t.question=="acquired" ? t.status=="picked_up" : t.question=="home_confirmed" ? at_home && t.status=="performed" : t.question=="target_observed" ? target!==nothing :
+                    same ? target["distance"]<t.distance : nothing
+                # No move/turn result is credited as acquired food or confirmed home.
+                goal=t.family=="home" ? at_home : t.status=="picked_up"
+                resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing)
+            end
             messages=[m for m in reverse(o["messages"]) if !(m["id"] in answered[a]) && m["kind"] in ("request","warn","reach")]
             if !isempty(messages)
                 m=first(messages);act,t,r=response(merge(copy(o),D("messages"=>[m])),a!="npc_b")
@@ -50,7 +75,7 @@ function lw_day(spec,clock)
                 plan=D("action"=>"eat")
             elseif at_home && w.bodies[a].reserve<80 && stores[a]>0
                 plan=D("action"=>"retrieve")
-            elseif phase=="night" && now>=clock.quiet_night_us
+            elseif phase=="night" && local_us>=clock.quiet_night_us
                 plan=D("action"=>"rest")
             elseif states[a]["pending"]!==nothing
                 plan=D("action"=>"rest")
@@ -72,6 +97,18 @@ function lw_day(spec,clock)
                     plan=D("action"=>"rest")
                 elseif w.bodies[a].strain>=.8 || w.bodies[a].reserve<=0
                     plan=D("action"=>"rest")
+                elseif basic_loop
+                    family=returning ? "home" : "food"
+                    visible=moves[a]["visible"];target=returning ? home : isempty(visible) ? nothing : first(visible)
+                    if !returning && target!==nothing && target["distance"]<=1.25
+                        plan=D("action"=>"pickup","food_ref"=>target["ref"])
+                    else
+                        s=loops[a][family];source="op:$now:$a"
+                        plan=choose_method!(s,search_candidates(moves[a],target,s),source)
+                        pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
+                            distance=target===nothing ? nothing : target["distance"],
+                            ref=target===nothing || returning ? nothing : target["ref"],status="unexecuted")
+                    end
                 elseif returning && home===nothing
                     plan=D("action"=>"scan")
                 else
@@ -92,6 +129,13 @@ function lw_day(spec,clock)
                         end
                     end
                 end
+            end
+            if basic_loop && !haskey(pending,a) && (plan["action"] in ("pickup","deposit") || (at_home && plan["action"]=="rest" && loops[a]["home"].H>0))
+                family=plan["action"]=="pickup" ? "food" : "home"
+                question=family=="food" ? "acquired" : "home_confirmed"
+                source="op:$now:$a"
+                plan=choose_method!(loops[a][family],[merge(plan,D("method"=>"work","priority"=>5.,"question"=>question))],source)
+                pending[a]=(family=family,source=source,phase=phase,question=question,distance=nothing,ref=nothing,status="unexecuted")
             end
             plans[a]=plan
         end
@@ -134,27 +178,41 @@ function lw_day(spec,clock)
             if phase=="night"
                 receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status)
             end
+            if haskey(pending,a)
+                pending[a]=merge(pending[a],(status=status,))
+            end
             counts[a][action]=get(counts[a],action,0)+1
-            sig=(phase,action,get(plan,"target",nothing),status)
+            sig=(phase,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing))
             if get(previous,a,nothing)!=sig
-                push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing)))
+                push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing),
+                    "method"=>get(plan,"method",nothing),"direction"=>get(plan,"direction",nothing)))
                 previous[a]=sig
             end
         end
         @assert sum(stock)+sum(values(w.inventory))+sum(values(stores))+w.consumed==initial
+        if mod(now+1_000_000,clock.day_us)==0
+            for a in IDS
+                integrate(a,now+1_000_000,observe(w,a))
+                cycle=learning[a]["sleep"]["cycle"]
+                states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>now+1_000_000)),a)
+            end
+            push!(daily,D("physical"=>physical(),"sleep"=>deepcopy(learning),"counts"=>deepcopy(counts),
+                "ground"=>sum(stock),"consumed"=>w.consumed))
+        end
     end
     terminal=D()
     for a in IDS
-        integrate(a,Int(clock.day_us),observe(w,a))
+        integrate(a,Int(days*clock.day_us),observe(w,a))
         cycle=learning[a]["sleep"]["cycle"]
-        states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>Int(clock.day_us))),a)
+        states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>Int(days*clock.day_us))),a)
         terminal[a]=D("position"=>collect(w.positions[a]),"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
             "personal_stock"=>stores[a],"sleep"=>learning[a],"social"=>states[a],"aid"=>pressure_snapshot(live[a]),"distance"=>distance[a])
     end
-    D("ended_us"=>clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
-        "counts"=>counts,"events"=>events,"final_agents"=>terminal)
+    D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+        "counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
 
+if abspath(PROGRAM_FILE)==@__FILE__
 input=JSON3.read(read(ARGS[1],String));report=D("scenes"=>D(),"clock"=>input.clock)
 @testset "LW day lifecycle" begin
     for spec in input.scenes
@@ -168,3 +226,4 @@ input=JSON3.read(read(ARGS[1],String));report=D("scenes"=>D(),"clock"=>input.clo
     end
 end
 open(ARGS[2],"w") do io;JSON3.write(io,report);end
+end
