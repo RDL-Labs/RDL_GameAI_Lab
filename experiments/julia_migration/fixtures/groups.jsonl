@@ -2,3 +2,5 @@
 {"indices": [0, 3], "nearest": null}
 {"indices": [], "nearest": null}
 {"indices": [12, 6, 6], "nearest": null}
+{"indices": [2, 2, 5], "nearest": 0}
+{"indices": [5, 2, 2], "nearest": 1}

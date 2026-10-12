@@ -13,8 +13,9 @@ function main()
         return
     end
     measurements = Any[]
-    for n in (23,1024)
-        qs=queries[1:n]
+    for n in (23,100,1024)
+        qs=n==100 ? queries[[r.label=="observed-world-cast" for r in parse_result.value]] : queries[1:n]
+        @assert length(qs)==n
         trial=@benchmark batch($qs) seconds=1 samples=200 evals=1
         push!(measurements,Dict("n"=>n,"times_ns"=>trial.times,"gc_times_ns"=>trial.gctimes,
             "allocated_bytes"=>trial.memory,"allocations"=>trial.allocs))

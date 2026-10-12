@@ -16,8 +16,9 @@ def main(output):
     if output=='cold':
         print(json.dumps(dict(valid=len(first)==len(queries),python=sys.version)));return
     measurements=[]
-    for n in (23,1024):
-        qs=queries[:n];times=[]
+    for n in (23,100,1024):
+        qs=([q for q,r in zip(queries,rows) if r['label']=='observed-world-cast'] if n==100 else queries[:n]);times=[]
+        assert len(qs)==n
         batch(qs)
         before=gc.get_stats()
         for _ in range(200):

@@ -3,10 +3,17 @@ import hashlib
 import json
 from pathlib import Path
 import unittest
+import subprocess
 from .reference import prepare,batch,nearest
 
 
 class ReferenceTests(unittest.TestCase):
+    def test_maintenance_preserves_original_prefix(self):
+        root=Path('experiments/julia_migration/fixtures')
+        for name in ('geometry_inputs.jsonl','geometry_expected.jsonl','groups.jsonl'):
+            original=subprocess.check_output(['git','show',f'315f864:{root.as_posix()}/{name}'])
+            self.assertTrue((root/name).read_bytes().startswith(original),name)
+
     def test_frozen_inputs_and_outputs(self):
         root=Path('experiments/julia_migration/fixtures')
         meta=json.loads((root/'hashes.json').read_text())

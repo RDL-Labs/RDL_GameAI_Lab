@@ -8,7 +8,7 @@ Run from repository root on Linux with Python 3.12.15 and Julia 1.13.1:
 
 ```sh
 export PYTHONHASHSEED=0 RDL_LW_TIME_PROFILE=human_scale_v1 JULIA_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
-python -m experiments.julia_migration.python.export_fixture
+python -m experiments.julia_migration.python.export_fixture --maintenance
 python -m experiments.julia_migration.python.profile_baseline outputs/julia_migration/run
 julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
 julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/test/runtests.jl

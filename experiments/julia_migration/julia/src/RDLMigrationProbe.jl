@@ -17,7 +17,8 @@ end
 function prepare(row)
     row.kind in ("ray", "segment") || throw(ArgumentError("kind"))
     length(row.start)==2 && length(row.vector)==2 && length(row.circle)==3 || throw(ArgumentError("shape"))
-    values = [row.start..., row.vector..., row.circle..., row.margin]
+    # A tuple preserves input types: concatenating numeric arrays promotes Bool.
+    values = (row.start..., row.vector..., row.circle..., row.margin)
     all(x -> x isa Real && !(x isa Bool) && isfinite(x) && abs(x)<=10000, values) || throw(ArgumentError("domain"))
     row.circle[3]>=0 && row.margin>=0 || throw(ArgumentError("negative"))
     row.kind=="ray" && abs(hypot(row.vector...)-1)>1e-12 && throw(ArgumentError("direction"))

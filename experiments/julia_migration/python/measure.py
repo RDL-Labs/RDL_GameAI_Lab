@@ -29,13 +29,13 @@ def main(root):
                 (root/'process_timings.json').write_text(json.dumps(records,indent=2))
     medians={}
     for lang in commands:
-        for n in (23,1024):
+        for n in (23,100,1024):
             vals=[]
             for series in range(3):
                 data=json.loads((root/f'{lang}-{series}-warm.json').read_text())
                 vals.append(statistics.median(next(m['times_ns'] for m in data['measurements'] if m['n']==n)))
             medians[f'{lang}_{n}']=vals
-    comparison=dict(series_medians_ns=medians,speedup={str(n):statistics.median(medians[f'python_{n}'])/statistics.median(medians[f'julia_{n}']) for n in (23,1024)},
+    comparison=dict(series_medians_ns=medians,speedup={str(n):statistics.median(medians[f'python_{n}'])/statistics.median(medians[f'julia_{n}']) for n in (23,100,1024)},
         limitation='kernel only; no Python-Julia bridge; process wall includes imports of benchmark tools; no production speedup claim')
     (root/'timing_comparison.json').write_text(json.dumps(comparison,indent=2))
     print(json.dumps(comparison,indent=2))
