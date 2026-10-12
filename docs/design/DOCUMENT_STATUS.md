@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia巡航更新の費用](../../experiments/julia_migration/typed_models/cruise_report.md)：DIAGNOSTIC COMPLETE。3/16/64件について新規0/1件の時間・割当・入力走査数を分離計測。コピー方式や行動の変更なし。共有化・部分更新は未実装。
+
 - [Julia局所モデルの型整理](../../experiments/julia_migration/typed_models/report.md)：FINITE REFACTOR / PARITY PASS。目的・相手別Hを型付き状態へ変更。証拠辞書とdeepcopyは維持、過去状態不変性をJuliaで検査。局所測定のみでLW全体高速化は未検証。
 
 - [Julia A2 移動・社会接触・Sleep](../../experiments/julia_migration/moving_social/report.md)：FINITE PARITY COMPLETE。6条件×3fixture日、4,860行一致。距離・遮蔽・実行時接触を検査。A1/A0回帰PASS。Sleep採用による今回の行動差0、通常LW全面移植は未完了。

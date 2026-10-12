@@ -1,5 +1,6 @@
 # RDL Game AI Lab
 
+- [Julia巡航更新の費用](experiments/julia_migration/typed_models/cruise_report.md)：新規根拠0件でも64件全走査、単発更新約0.360ms・累積割当462KB。新規1件は約1.054ms。コピー方式は未変更、所有検査60 PASS、A1/A2/A0回帰PASS。
 - [Julia局所モデルの型整理](experiments/julia_migration/typed_models/report.md)：GoalState/AidPressureへ整理、A1/A2・夜間終端・A0回帰一致。Julia所有検査12 PASS。局所計測は約1.03〜1.25倍、割当減少。LW全体の速度効果ではない。
 - [Julia移行実験 J0〜J2](experiments/julia_migration/report.md)：独立幾何1146件一致、100物体の準備後計算は約17倍。[J3接続比較](experiments/julia_migration/j3/report.md)では178,005問い合わせ一致。ただし転送・詰め直し込みでPythonの1.93〜1.99倍の時間。本線Python維持、J4未着手。
 - [ALL Julia最小ループ A0](experiments/julia_migration/all_loop/report.md)：9,000ステップ一致、準備後7.44〜10.19倍。起動込みはほぼ同時間、メモリ増大あり。M_B・Sleep・社会関係を含むLW統合版の全面移植ではない。

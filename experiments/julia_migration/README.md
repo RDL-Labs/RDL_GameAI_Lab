@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Cruise-cost diagnostic](typed_models/cruise_report.md): unchanged-history versus
+one-new-record updates at 3/16/64 accepted records. Zero-new still scans all input
+and allocates an independent state. Sixty ownership assertions pass. No copy-policy
+change or full-loop speed claim.
+
 [Typed goal/aid state](typed_models/report.md): GoalState and AidPressure preserve
 A1/A2 parity, including overnight/final physical state. Twelve Julia-native
 ownership/parity assertions pass. Paired local measurements show 1.03–1.25x speed
