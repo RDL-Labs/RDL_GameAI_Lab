@@ -9,6 +9,9 @@ A0の身体・局所食料観測・5方向energy選択に、A1の相手別H・�
 6条件×3fixture日×90昼間step×3個体、**4,860行の観測・候補・行動・結果・状態**が一致した。
 それぞれ初期状態から再実行して再現性も検査した。
 
+追補: 夜間・最終身体状態の比較を`e4a3fd1`で追加した。初回実行では夜終端はSleep・社会状態が
+対象であり、最後の夜の身体値は比較外だった。追補の検証範囲と実行は下記を参照。
+
 ## 条件と権限
 
 [固定契約](contract.md)に従う。各日は90秒の昼間と2,880秒の夜間実休息。
@@ -85,6 +88,29 @@ specのSHA-256は`cd5ecd96ebf165d58da9f063802066e3762f1bacc8619a5ae8f23873d57253
 `moving-social/report.json`に参照Pythonソースのhash、同階層の`python.json`と
 `julia.json`に照合した全昼間記録・夜終端記録を保存。
 ローカル取得先は`outputs/julia_migration/cloud-38228920779/`（Git管理外）。
+
+## 追補: 夜間終端・最終個体状態
+
+実行コード`e4a3fd1f11df2477bd8ba8d442bd00868368816a`、
+[クラウド再検証](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38230978375)は全step成功。
+各夜の個体記録へposition（x/z/yaw）、body、inventoryを追加し、シナリオ終端にも
+`final_agents`として同じ項目を保存した。夜間終端**54個体状態**と最終**18個体状態**が
+Python/Juliaで一致した。昼間4,860行、A1/A0回帰もPASS。
+
+追加2テストでは、夜間／最終のreserve・位置・携行数を変更すると比較が失敗すること、
+最終記録や後日の記録を書き換えても以前のsnapshotが変化しないことを検査した。
+既存11テストと合わせて13テストPASS。専用テストはhuman_scale_v1限定で、
+後続のテスト設定で旧時間profileでは明示skipとした。ローカルで両profileの扱いを確認済み。
+
+enabled最終値はAのreserve約88.350556、B/C約98.351667、全員burst=10、strain=0、damage=0。
+携行はA=10/B=18/C=15。休息中もreserveを消費する現行身体規則をそのまま使う。
+最終個体状態と最終夜記録の一致も監査する。全夜内中間状態の逐次比較を追加したものではない。
+
+新項目を除いたPython出力を初回保存記録と照合し、6条件すべて不変だった。
+行動・係数・Sleep成立条件は変更していない。
+取得artifact ZIPのSHA-256:
+`422ce7c20b8f48b20ae5a0315d360d42232d59aee04872518a8a3490afa2b9bf`。
+ローカル保存先は`outputs/julia_migration/cloud-38230978375/`（Git管理外）。
 
 ## 次の境界
 

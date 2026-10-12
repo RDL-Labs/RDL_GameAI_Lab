@@ -3,8 +3,10 @@ import unittest
 from copy import deepcopy
 from experiments.julia_migration.moving_social.reference import SPECS,scenario
 from experiments.julia_migration.moving_social.measure import compare,audit
+from runtime.lw_time import SCALED
 
 
+@unittest.skipUnless(SCALED,'A2 requires human_scale_v1; exercised by julia-moving-social workflow')
 class TerminalSnapshotTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
