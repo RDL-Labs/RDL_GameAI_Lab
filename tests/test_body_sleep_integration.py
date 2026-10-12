@@ -52,13 +52,15 @@ class BodySleepIntegrationTests(unittest.TestCase):
                        return_completion_mode='enabled',orientation_mode='enabled',skyline_subrays=True,seed=20261002)
             report=audit(path)
         self.assertEqual(result['pickups'],36)
-        self.assertEqual(sum(len(r['pickups']) for r in result['returns']),12)
+        # Confirmed turn->step commitment enables two actual return receipts.
+        # Isolating pre-9ce3f5f review restores 12 returned / 24 carried.
+        self.assertEqual(sum(len(r['pickups']) for r in result['returns']),24)
         self.assertEqual(report['duplicate_effects'],0);self.assertTrue(report['body_continuity'])
         self.assertEqual(report['body_sleep_sources']['climb'],3)
         self.assertEqual(report['body_sleep_sources']['pickup'],3)
         self.assertEqual(len(report['night_cycles']),9)
         self.assertTrue(all(n['status']=='completed' and n['rest_us']==1_000_000 for n in report['night_cycles']))
-        self.assertEqual(sum(s['carried'] for s in result['agents'].values()),24)
+        self.assertEqual(sum(s['carried'] for s in result['agents'].values()),12)
 
     def test_saved_logs_audit_and_source_provenance(self):
         root=Path('tests/fixtures/body_sleep')

@@ -14,6 +14,31 @@ RULE = 'harvest-night-consolidation-v1'
 from .lw_time import SLEEP_REST_US as REST_US
 
 
+def consolidate(agent, learning, model, cycle, p, completed_us=None):
+    completed_us=p["capture_us"] if completed_us is None else completed_us
+    cycle['relation_review'] = inspect(cycle['relation_materials'])
+    if getattr(agent, 'sleep_auto_adopt', False):
+        from .sleep_auto_model import adopt
+        learning['sleep_auto_model'] = adopt(learning.get('sleep_auto_model'),
+            cycle['relation_review'], agent.run_id, agent.agent_id, completed_us,
+            capacity=getattr(agent,'sleep_model_capacity',192))
+        cycle['auto_model_ref'] = learning['sleep_auto_model']['model_ref']
+    if model is not None:
+        outcome = dict(status='MODEL_ALREADY_PRESENT')
+    elif len(cycle['records']) < 5:
+        outcome = dict(status='INSUFFICIENT_EVIDENCE')
+    elif learning['admission'] and learning['admission']['status'] == 'REJECT':
+        outcome = dict(status='PREVIOUSLY_REJECTED')
+    else:
+        model, outcome = build_admission(agent.run_id, agent.agent_id,
+            cycle['records'], [*agent.observations.values(), p])
+        learning['admission'] = outcome
+    cycle.update(status='completed', result=dict(status=outcome['status'],
+        reason=outcome.get('reason'), model_ref=model.model_ref if model else None),
+        completed_us=completed_us)
+    return model
+
+
 def review(agent, p, decision):
     learning, model = agent._prospective
     state = dict(learning.get('sleep', dict(rule=RULE, cycle=None, completed=[])))
@@ -42,7 +67,7 @@ def review(agent, p, decision):
         cycle = dict(day=day, status='pending', rest_us=0, window=window,
             records=records, source=p['observation_id'], result=None,
             relation_materials=prepare(agent, p), relation_review=None)
-    if cycle is not None and cycle['status'] == 'pending':
+    if cycle is not None and cycle['status'] == 'pending' and not getattr(agent,'sleep_receipt_intake',False):
         linked = (night and prior is not None and prior['day_cycle']['phase'] == 'night'
             and previous['capture_us'] // DAY_US == day
             and agent.commands[previous['observation_id']]['kind'] == 'wait'
@@ -55,26 +80,7 @@ def review(agent, p, decision):
                   min(250_000, p['capture_us'] - result['executed_us']) if linked else 0)
         cycle['rest_us'] = cycle['rest_us'] + credit if linked else 0
         if cycle['rest_us'] >= REST_US:
-            cycle['relation_review'] = inspect(cycle['relation_materials'])
-            if getattr(agent, 'sleep_auto_adopt', False):
-                from .sleep_auto_model import adopt
-                learning['sleep_auto_model'] = adopt(learning.get('sleep_auto_model'),
-                    cycle['relation_review'], agent.run_id, agent.agent_id, p['capture_us'],
-                    capacity=getattr(agent,'sleep_model_capacity',192))
-                cycle['auto_model_ref'] = learning['sleep_auto_model']['model_ref']
-            if model is not None:
-                outcome = dict(status='MODEL_ALREADY_PRESENT')
-            elif len(cycle['records']) < 5:
-                outcome = dict(status='INSUFFICIENT_EVIDENCE')
-            elif learning['admission'] and learning['admission']['status'] == 'REJECT':
-                outcome = dict(status='PREVIOUSLY_REJECTED')
-            else:
-                model, outcome = build_admission(agent.run_id, agent.agent_id,
-                    cycle['records'], [*agent.observations.values(), p])
-                learning['admission'] = outcome
-            cycle.update(status='completed', result=dict(status=outcome['status'],
-                reason=outcome.get('reason'), model_ref=model.model_ref if model else None),
-                completed_us=p['capture_us'])
+            model = consolidate(agent, learning, model, cycle, p)
     state['cycle'] = cycle
     learning['sleep'] = state
     agent._prospective = learning, model
@@ -84,3 +90,31 @@ def review(agent, p, decision):
         result=cycle['result']['status'] if cycle and cycle['result'] else None)
     decision['model_ref'] = model.model_ref if model else None
     return decision
+
+
+def accept_rest_result(agent, packet, command, result):
+    """Consume an already accepted body result once, before day/run closure."""
+    if not getattr(agent, 'sleep_receipt_intake', False):return False
+    if agent.results.get(command['operation_id']) != result:
+        raise ValueError('sleep_result_not_accepted')
+    current=agent.learning.get('sleep')
+    if not current or not current['cycle'] or current['cycle']['status']!='pending':return False
+    state=deepcopy(current)
+    cycle=state['cycle'];op=command['operation_id']
+    if result['executed_us']<=cycle.get('last_rest_executed_us',-1):return False
+    prior=agent.decisions[packet['observation_id']]
+    if cycle['day']!=packet['capture_us']//DAY_US or prior['day_cycle']['phase']!='night':return False
+    valid=(command['kind']=='wait' and result['status']=='waited' and
+        result['after_pose_ref']==packet['pose_ref'] and result['after_revision']==packet['body_revision'] and
+        packet['capture_us'] < result['executed_us'] <= (cycle['day']+1)*DAY_US)
+    cycle['last_rest_operation']=op
+    cycle['last_rest_executed_us']=result['executed_us']
+    cycle['rest_us']=cycle['rest_us']+agent.sleep_rest_credit(packet,result,packet) if valid else 0
+    learning=deepcopy(agent.learning);model=agent.model
+    if cycle['rest_us']>=REST_US:
+        # Consolidation uses original accepted observation as evidence; only the
+        # formation time comes from the accepted completion receipt.
+        model=consolidate(agent,learning,model,cycle,packet,completed_us=result['executed_us'])
+    learning['sleep']=state
+    agent.learning=learning;agent.model=model
+    return True

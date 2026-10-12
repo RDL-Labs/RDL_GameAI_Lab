@@ -9,6 +9,9 @@ from .world import segment_hit
 
 class RescueWorld(EnergyWorld):
     contact_distance=.6
+    # This finite rescue fixture was calibrated on unit-resistance ground.
+    # Integrated landscape defaults must not change its exhaustion experiment.
+    ordinary_resistance=1.
     def __init__(self,run_id='voice-rescue'):
         super().__init__(run_id)
         self.seconds=0;self.calls=[];self.rescue_receipts={};self.rescue_lock=RLock()

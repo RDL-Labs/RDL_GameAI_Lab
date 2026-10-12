@@ -376,6 +376,7 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
         agent.energy_apply=energy_mode=="enabled"
         agent.sleep_auto_adopt=sleep_auto_adopt
         agent.sleep_learning=sleep_learning
+        agent.sleep_receipt_intake=sleep_learning and body_mode=="enabled"
         agent.continuous_selection=selection_mode=="continuous"
         agent.movement_inertia=movement_inertia
         agent.hazard_mode=hazard_mode
@@ -418,6 +419,9 @@ def run(path,days=30,skyline_subrays=False,inexhaustible=False,stop_after_return
             loop.configure(dict(w.context(aid),schema=loop.schema,clock_id='world-sim-v1',selection_profile='steady',mb_field_mode=mb_field_mode,teaching=dict(statement_id=aid+':teaching',source='god_statue',sample_observation=aid+':sample',appearance='brown_capped_ovoid',predicate='food_after_known_processing')))
         def complete(p,c,r):
             loop.result(r)
+            if sleep_learning and body_mode=="enabled":
+                from runtime.harvest_sleep import accept_rest_result
+                accept_rest_result(loop.agents[c["agent_id"]],p,c,r)
             if social_mode=='enabled' and c['operation_id'] in w.social_log:
                 emit(dict(type='social_effect',**w.social_log[c['operation_id']]))
             for returned in w.returns:
