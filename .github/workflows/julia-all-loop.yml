@@ -1,0 +1,36 @@
+name: Julia standalone ALL-loop A0
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiment:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      RDL_LW_TIME_PROFILE: human_scale_v1
+      PYTHONHASHSEED: '0'
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Restore locked Julia
+        run: |
+          julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
+          git diff --exit-code -- experiments/julia_migration/julia/Manifest.toml
+      - name: Compare standalone loops and five timing series
+        run: python -m experiments.julia_migration.all_loop.measure outputs/julia_migration/all-loop
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-all-loop
+          path: outputs/julia_migration/all-loop
+          retention-days: 14
