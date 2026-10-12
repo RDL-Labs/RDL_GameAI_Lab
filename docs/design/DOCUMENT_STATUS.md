@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia 目印・経路接続 B1b](../../experiments/julia_migration/lw_landmarks/report.md)：FINITE IMPLEMENTED。現在観測の色・角域と実持帰りに基づく有限経路を基本ループへ接続。39検査PASS、2配置×有効無効×連続3日。疎配置で経路形成・選択成立。複数目印の角度拘束合成、一般採取Sleepは未接続。
+
 - [Julia 基本ループ B1a](../../experiments/julia_migration/lw_loop/report.md)：FINITE IMPLEMENTED。目的H・方法H・結果評価・再選択を共通化。2条件×連続3日、66検査PASS。全候補未解消時の再検討、翌日の備蓄食事を確認。目印／経路学習と一般Sleepの移植は未完了。
 
 - [Julia LW生活周期 B0](../../experiments/julia_migration/lw_day/report.md)：連続1日×2条件、3個体の資源収支・Sleep確認、10検査PASS。LW全面再現は未完了。暫定帰還が見回しに留まるため、次は既存LWの目標／目印M_B・帰還探索を接続。

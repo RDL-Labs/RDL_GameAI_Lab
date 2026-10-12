@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Observed landmarks and routes B1b](lw_landmarks/report.md): finite reconnection.
+39 assertions PASS; two scenes, enabled/disabled, three continuous days each.
+Current visual landmarks and actual delivery-supported color routes affect movement.
+Full navigation and general harvest Sleep integration remain incomplete.
+
 [Reusable goal/method loop B1a](lw_loop/report.md): finite implementation,
 66 assertions PASS, two continuous three-day scenes. Goal and method H separated;
 unresolved-method reconsideration and private stock carry-over exercised.
