@@ -11,15 +11,24 @@ mutable struct ContactWorld
     answered::Set{Tuple{String,String}}
     seconds::Float64
     consumed::Int
+    positions::Dict{String,Tuple{Float64,Float64}}
+    obstacles::Vector{RDLMigrationProbe.Circle}
+    capacity::Int
 end
 function world(hearing)
     ContactWorld(Dict(a=>(a=="npc_a" ? 0 : 12) for a in IDS),
         Dict(a=>Body(10.,0.,50.,0.) for a in IDS),Dict(a=>Any[] for a in IDS),
-        Dict(a=>(a!="npc_b" || hearing) for a in IDS),D(),Set{Tuple{String,String}}(),0.,0)
+        Dict(a=>(a!="npc_b" || hearing) for a in IDS),D(),Set{Tuple{String,String}}(),0.,0,
+        Dict(a=>((i-1)*.4,0.) for (i,a) in enumerate(IDS)),RDLMigrationProbe.Circle[],256)
+end
+function contact(w,a,b)
+    b in IDS && b!=a || return false
+    p,q=w.positions[a],w.positions[b]
+    hypot(q[1]-p[1],q[2]-p[2])<=1.25 && !any(o->segment_hit(p,q,o,0.),w.obstacles)
 end
 function observe(w,a)
     D("self_id"=>a,"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
-      "others"=>[D("ref"=>b,"holding_food"=>w.inventory[b]>0) for b in IDS if b!=a],
+      "others"=>[D("ref"=>b,"holding_food"=>w.inventory[b]>0) for b in IDS if contact(w,a,b)],
       "messages"=>deepcopy([m for m in w.inbox[a] if 0<=w.seconds-m["time"]<3]))
 end
 function communicate!(w,a,op,action,target=nothing,reply=nothing)
@@ -27,7 +36,7 @@ function communicate!(w,a,op,action,target=nothing,reply=nothing)
     if haskey(w.receipts,key)
         old,result=w.receipts[key];check(old==request,"communication_conflict");return deepcopy(result)
     end
-    check(a in IDS && !isempty(op),"identity");check(length(w.receipts)<256,"capacity")
+    check(a in IDS && !isempty(op),"identity");check(length(w.receipts)<w.capacity,"capacity")
     check(action in ("request","give","refuse","reach","warn","withdraw","eat","wait"),"action")
     check(target===nothing || (target in IDS && target!=a),"target")
     messages=observe(w,a)["messages"]
@@ -43,7 +52,7 @@ function communicate!(w,a,op,action,target=nothing,reply=nothing)
         else
             status="no_food"
         end
-    elseif target!==nothing # A1 fixed positions 0/.4/.8, contact radius1.25, unobstructed
+    elseif target!==nothing && contact(w,a,target)
         if action in ("request","reach")
             kind=action;status="expressed"
         elseif action in ("give","refuse") && antecedent!==nothing && antecedent["kind"]=="request" && !((a,reply) in w.answered)
@@ -167,12 +176,14 @@ function boundaries()
     out["errors"]=errors;out
 end
 
-specs=JSON3.read(read(ARGS[1],String))
-report=D("boundaries"=>boundaries(),"scenarios"=>D())
-for spec in specs
-    value=scenario(spec);@assert value==scenario(spec)
-    report["scenarios"][spec.name]=value
-end
-open(ARGS[2],"w") do io
-    JSON3.write(io,report)
+if abspath(PROGRAM_FILE) == @__FILE__
+    specs=JSON3.read(read(ARGS[1],String))
+    report=D("boundaries"=>boundaries(),"scenarios"=>D())
+    for spec in specs
+        value=scenario(spec);@assert value==scenario(spec)
+        report["scenarios"][spec.name]=value
+    end
+    open(ARGS[2],"w") do io
+        JSON3.write(io,report)
+    end
 end

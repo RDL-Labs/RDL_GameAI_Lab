@@ -1,0 +1,42 @@
+name: Julia A2 moving contact and Sleep parity
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      RDL_LW_TIME_PROFILE: human_scale_v1
+      PYTHONHASHSEED: '0'
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - name: Existing accepted Sleep and goal boundaries
+        run: python -m unittest tests.test_goal_difference tests.test_sleep_receipt_boundary
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Restore locked Julia
+        run: |
+          julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
+          git diff --exit-code -- experiments/julia_migration/julia/Manifest.toml
+      - name: A2 moving contact parity
+        run: python -m experiments.julia_migration.moving_social.measure outputs/julia_migration/moving-social
+      - name: A1 social Sleep regression
+        run: python -m experiments.julia_migration.social_loop.measure outputs/julia_migration/a1-regression
+      - name: A0 movement regression
+        run: python -m experiments.julia_migration.all_loop.measure outputs/julia_migration/a0-regression
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-moving-social
+          path: outputs/julia_migration
+          retention-days: 14
