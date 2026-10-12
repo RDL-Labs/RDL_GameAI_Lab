@@ -68,7 +68,7 @@ function search_candidates(move,target,loop)
             index=parse(Int,row["ref"]);angle=deg2rad(Float64(ANGLES[index+1]))
             alignment=target===nothing ? 0. : cos(atan(target["right"],target["forward"])-angle)
             push!(candidates,D("method"=>"step_$(ANGLES[index+1])","action"=>"walk","direction"=>index,
-                "priority"=>target===nothing ? 1.5 : 3.+alignment,
+                "priority"=>target===nothing ? 1.5 : 3.0 + alignment,
                 "question"=>target===nothing ? "target_observed" : "target_nearer"))
         end
     end
