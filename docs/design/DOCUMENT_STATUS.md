@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [RDL用語と実装と可視化の対応](RDL_Implementation_Visualization_Mapping.md)：DESIGN ONLY。Bを境界として保ち、Core／GameAI局所近似／World・身体値を分離。植物・地形への拡張、B・ρ・更新周期の区別を記録。共通スキーマ・UI・JuliaのM_B移植は未実装。
+
 - [獣道型選択](../experiment-contracts/LW_selection_trail.md)：FINITE IMPLEMENTED。親/context/method/action結合への使用定着と期限なし親成功。任意M_B階層の一般化・計算省略は未実装。
 
 - [親Hによる拘束強化](../experiment-contracts/LW_bundle_credit.md)：FINITE IMPLEMENTED。親の成功確認で選択時Hを有限creditへ。自然30日で成功強化0、子独自H・失敗減衰・汎用親子選択は未実装。
