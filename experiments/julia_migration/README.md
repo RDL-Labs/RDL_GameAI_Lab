@@ -1,6 +1,9 @@
 # Julia migration probe J0–J2
 
 Independent experiment; Python remains the only production backend.
+[J0–J2 results](report.md): 1146 equivalent cases, three timing series,
+roughly 17x warm 100-object kernel speed, substantial startup/RSS overhead.
+J3 and production adoption are not implemented.
 Baseline: `52a94225484f7e1771c4b4c3703c3eb9eef39730`.
 No runtime, World rules, H, rho, observation cadence or test expectations changed.
 
@@ -17,7 +20,7 @@ python -m experiments.julia_migration.python.measure outputs/julia_migration/run
 
 The manual workflow automates this, records the resolved Project/Manifest and
 restores them in a second empty Julia depot. Initial dependency installation is
-separate from timing. After the first run the actual lockfile is checked in.
+separate from timing. The actual lockfile from the first run is checked in.
 No JuliaCall or production dependency is added. Stop after J2 review.
 
 User plans: `contracts/plan.md` and `contracts/first_experiment.md` preserve the

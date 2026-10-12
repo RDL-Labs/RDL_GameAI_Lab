@@ -1,5 +1,7 @@
 # RDL Game AI Lab
 
+- [Julia移行実験 J0〜J2](experiments/julia_migration/report.md)：独立幾何1146件一致、100物体の準備後計算は約17倍。起動・メモリ負荷も記録。本線Python維持、J3未着手。
+
 - [LWの距離・時間尺度](docs/design/LW_Time_Distance_Profile.md)：human_scale_v1。一日17280秒、身体消耗・Sleep・資源再生・道の回復を同じ時計へ接続。[1日実行](docs/experiment-evidence/LW_human_scale_v1_full_day.md)：採取7・持帰り0、全員Sleep完了。旋回と帰還は残課題。
 - [移動候補と身体試行の分離](docs/experiment-evidence/LW_movement_commitment.md)：旋回→一歩を保持し、旋回だけで移動Hを解消しない。
 - [その場の左右振動の調査](docs/experiment-evidence/LW_stationary_rotation_diagnostic.md)：1,800秒の保存ログでCの最大交互旋回列1178→3。総旋回回数とは分離して評価。
