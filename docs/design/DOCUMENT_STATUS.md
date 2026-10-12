@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia 採取Sleep接続 B1c](../../experiments/julia_migration/lw_harvest/report.md)：FINITE IMPLEMENTED。実採取と次観測→夜間3形成＋2検査→局所モデル→翌日解釈。37検査PASS。疎配置で3個体が形成、Bが3日目に20観測で適用。行動権限・canonical T1・一般相互作用Sleepは未接続。
+
 - [Julia 目印・経路接続 B1b](../../experiments/julia_migration/lw_landmarks/report.md)：FINITE IMPLEMENTED。現在観測の色・角域と実持帰りに基づく有限経路を基本ループへ接続。39検査PASS、2配置×有効無効×連続3日。疎配置で経路形成・選択成立。複数目印の角度拘束合成、一般採取Sleepは未接続。
 
 - [Julia 基本ループ B1a](../../experiments/julia_migration/lw_loop/report.md)：FINITE IMPLEMENTED。目的H・方法H・結果評価・再選択を共通化。2条件×連続3日、66検査PASS。全候補未解消時の再検討、翌日の備蓄食事を確認。目印／経路学習と一般Sleepの移植は未完了。

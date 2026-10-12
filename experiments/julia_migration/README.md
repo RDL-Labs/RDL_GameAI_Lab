@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Harvest Sleep intake B1c](lw_harvest/report.md): 37 assertions PASS.
+Actual pickup and subsequent observations feed a frozen three-formation/two-validation
+night inspection. Local models persist and B uses one on day3 in the sparse scene.
+No new action authority; canonical T1 and general cross-action Sleep remain unported.
+
 [Observed landmarks and routes B1b](lw_landmarks/report.md): finite reconnection.
 39 assertions PASS; two scenes, enabled/disabled, three continuous days each.
 Current visual landmarks and actual delivery-supported color routes affect movement.
