@@ -519,3 +519,33 @@ checkpoint state. This source audit supersedes any empty-site interpretation.
 Riparian validation38368026817 completed54 checks with exact replay; see its
 report for measured time/allocation/RSS. Shared stores/global periodic regrowth
 are now connected in3bc7555, [verification pending](../../experiments/julia_migration/lw_integrated/storage_report.md). This supersedes the absent-code entries, not the outstanding acceptance gate.
+
+
+## Current audit overlay (2026-10-13, runtime bf938f5)
+
+The dated entries above are history, not the current unresolved list. The following
+accepted reports supersede their earlier pending labels:
+
+- Shared stores and periodic regrowth: storage_report.md, Actions38370227210,
+  58 assertions, including inherited shared stock and replay.
+- Return-purpose unresolved repositioning: reposition_report.md,
+  Actions38371971848,63 assertions and three-day life comparison.
+- Sleep evaluation of existing run/climb/rest candidates: sleep_action_report.md,
+  Actions38371144577,57 assertions. Live run/climb learning is not demonstrated
+  merely by local method tests.
+- Composed latest-feature three-day run: latest_campaign_report.md,
+  Actions38373033395, two seeds and frozen replay; independent daily and terminal
+  conservation audit passed. Actual reactivation remains unobserved there.
+
+Latest-feature thirty-day run38376126204 is still executing; it is not acceptance
+until artifacts and invariant results are inspected. The old long baseline does
+not replace it. See RDL_Julia_LW_Completion_Audit.md for the open completion gates.
+
+Source audit also identifies two optional Python configuration differences:
+`timed_harvest.run(goal_switch_threshold=...)` accepts integers1..30, and
+`lateral_side` applies composed_lateral_bias to eligible near-tied terrain rows.
+Equivalent native configuration has not been established. In particular, generic
+candidate priority or a fixed method threshold is not evidence of migrating the
+left/right near-tie contract. These remain explicit coverage decisions/work,
+not silently satisfied by the current long campaign. Adding them would require
+its own source/test evidence; the current run's frozen configuration stays fixed.
