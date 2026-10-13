@@ -430,3 +430,6 @@ Exploration horizon is now connected (`29135ca`): [41 checks and three-day livin
 
 
 Experience conjunction formation/use and completed-Sleep dormancy/wake are connected (`dd23ff5`): [46 checks and four-day report](../../experiments/julia_migration/lw_integrated/bundle_report.md). Six living selection changes and64 dormancies; live waking remains unobserved. Parent credit and selection trails remain open. This supersedes the blanket unported conjunction entry, not the full remaining scope.
+
+
+Parent-trial bundle credit connected (`8161368`): [61 checks and four-day comparison](../../experiments/julia_migration/lw_integrated/credit_report.md). Five living parent comparisons,zero reinforcement; positive allocation is locally verified. Selection trails and successful live reinforcement remain open.
