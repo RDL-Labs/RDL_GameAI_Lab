@@ -69,3 +69,20 @@ the runner. Invariants check time, operation count, food ledger and finite body 
 
 The B1d reported sum is corrected to105 (A99+B1+C5), checked against saved
 run38257579564. This arithmetic correction does not alter B1g's33 changes.
+
+## Common-entry verification
+
+Code baseline: `e9360f7`. GitHub Actions run
+[38331924163](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38331924163)
+completed successfully with days=4, seed=20261004, renewable food and full learning.
+The four invariant assertions passed. All three agents completed four Sleep cycles
+and executed 69,120 operations each (207,360 total). Final private stocks were
+A=101, B=77, C=107; carried food was zero. Food conservation was
+100 initial + 197 replenished = 6 ground + 285 stored + 6 consumed.
+All three agents used a replacement harvest model.
+
+The downloaded `result.json` was compared structurally with run38327891851's
+`scenes.lw_sparse.enabled`: exact equality. This diagnoses that the common entry
+preserved this existing B1g case; exact historical trace equality remains optional
+under the behavioral-fidelity policy. This is one four-day configuration, not full
+LW acceptance, a performance comparison, or a rerun of the repository-wide suite.
