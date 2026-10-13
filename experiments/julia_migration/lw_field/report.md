@@ -23,8 +23,8 @@ All three agents completed Sleep on every night and ended within home contact.
 Day-start state equals preceding night end; one action per simulated second
 and per-operation resource conservation remain checked.
 
-There are3977 applied decisions and106 different selections relative to a
-temporary same-state no-field selector. These are not106 independent trials or
+There are3977 applied decisions and105 different selections relative to a
+temporary same-state no-field selector. These are not105 independent trials or
 the number of all differences between the diverging whole runs. Model/H/live
 authority are not mutated by the diagnostic selector, nor does it execute.
 At most8 examples per agent retain source/model/contribution details.

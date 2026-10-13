@@ -1,12 +1,14 @@
 # Design Document Status
 
+- [LW-Julia統合対応表・共通起動口](RDL_Julia_LW_Integration_Status.md)：B1gの機能を一つのCLIへ接続。日数・seed・資源条件・採取学習を明示し、manifestと短いsummaryを出力。未接続領域を棚卸しし、次は観測された危険への対応を優先。Python本線の置換ではない。
+
 - [Julia 補充世界での再学習 B1g](../../experiments/julia_migration/lw_renewal/report.md)：FINITE WORLD ACCEPTANCE。36検査PASS。毎朝の資源補充を別条件で追加し、疎配置3個体のSleep置換と新モデルによる33選択差を確認。追加食料を収支計上。1 seed・与えた候補形式に限定、一般再構成は未実装。
 
 - [Julia 独立材料による限定再学習 B1f](../../experiments/julia_migration/lw_relearn/report.md)：FINITE IMPLEMENTED / WORLD MATERIAL INSUFFICIENT。30検査PASS。局所試験で採取のみの候補へSleep置換と再検査成立。4日生活では新材料A3/B4/C0件で置換なし。元の成功記録は再利用せず、canonical再構成・一般候補発明は未実装。
 
 - [Julia 後続採取比較 B1e](../../experiments/julia_migration/lw_review/report.md)：FINITE IMPLEMENTED。操作前予測→受理済み結果＋次観測→差の記録→局所モデル利用停止。65検査PASS。疎配置3個体で持続性反例・失効後の生活継続を確認。再学習・canonical再構成は未接続。
 
-- [Julia 学習モデル移動寄与 B1d](../../experiments/julia_migration/lw_field/report.md)：FINITE IMPLEMENTED。Sleepで形成した局所採取モデル→現在観測への最大0.5寄与→既存移動選択。24検査PASS、2配置×有効無効×3日。疎配置で同状態比較106選択差、備蓄63→82。1 seed限定、後続反例によるモデル失効・canonical T1は未接続。
+- [Julia 学習モデル移動寄与 B1d](../../experiments/julia_migration/lw_field/report.md)：FINITE IMPLEMENTED。Sleepで形成した局所採取モデル→現在観測への最大0.5寄与→既存移動選択。24検査PASS、2配置×有効無効×3日。疎配置で同状態比較105選択差、備蓄63→82。1 seed限定、後続反例によるモデル失効・canonical T1は未接続。
 
 - [Julia 採取Sleep接続 B1c](../../experiments/julia_migration/lw_harvest/report.md)：FINITE IMPLEMENTED。実採取と次観測→夜間3形成＋2検査→局所モデル→翌日解釈。37検査PASS。疎配置で3個体が形成、Bが3日目に20観測で適用。行動権限・canonical T1・一般相互作用Sleepは未接続。
 

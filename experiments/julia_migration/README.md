@@ -1,5 +1,9 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[LW-Julia common entry and integration map](../../docs/design/RDL_Julia_LW_Integration_Status.md):
+use `python -m experiments.julia_migration.lw_integrated.run OUTPUT` with explicit
+days/seed/food/learning options. Experimental B1g subset, not full production LW.
+
 [Renewable World replacement B1g](lw_renewal/report.md):36 assertions PASS.
 Separate dawn top-up condition yields natural Sleep replacement for all three
 sparse-scene agents and33 later new-model selection changes. Added food is audited;
@@ -17,7 +21,7 @@ Replacement learning and canonical reconstruction remain unported.
 
 [Learned movement appraisal B1d](lw_field/report.md): 24 assertions PASS.
 Sleep-formed local harvest models bias current feasible food movement candidates.
-Three-day sparse scene:106 same-state selection changes, stock63->82 (one seed).
+Three-day sparse scene:105 same-state selection changes, stock63->82 (one seed).
 Canonical T1/general Sleep and later model invalidation remain unported.
 
 [Harvest Sleep intake B1c](lw_harvest/report.md): 37 assertions PASS.
