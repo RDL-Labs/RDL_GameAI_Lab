@@ -67,3 +67,14 @@ function ground_proposals(s,move)
  end
  out
 end
+
+# Lack of current support is not evidence that following the band failed.
+# Mirrors continuous_selection.review ground_extension's three-valued result.
+function ground_extension_result(state,method,status,moved)
+    state===nothing && return nothing
+    index=findfirst(m->m["model_ref"]==method,state["models"])
+    index===nothing && return nothing
+    model=state["models"][index]
+    model["status"]=="observed" || return nothing
+    status=="performed" && moved && model["extended"]
+end

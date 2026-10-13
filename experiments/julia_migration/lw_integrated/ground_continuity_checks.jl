@@ -34,6 +34,30 @@ link(before,after;forward=0.,yaw=0.)=D("actor"=>"a","source"=>"ob:$before:a","be
  resolve_method!(loop,"trial",false,false)
  @test loop.methods[plan["method"]].H==1 && loop.H==1
 end
+@testset "unsupported ground is not failure" begin
+ model=D("model_ref"=>"ground_1","status"=>"observed","extended"=>true)
+ state=D("models"=>[model])
+ @test ground_extension_result(state,"ground_1","performed",true)===true
+ @test ground_extension_result(state,"ground_1","performed",false)===false
+ @test ground_extension_result(state,"ground_1","blocked",false)===false
+ model["extended"]=false
+ @test ground_extension_result(state,"ground_1","performed",true)===false
+ for status in ("not_currently_supported","observed_context_changed")
+    model["status"]=status
+    @test ground_extension_result(state,"ground_1","performed",true)===nothing
+ end
+ @test ground_extension_result(state,"retired","performed",true)===nothing
+ @test ground_extension_result(nothing,"ground_1","performed",true)===nothing
+ loop=BasicLoop("food")
+ candidate=D("method"=>"ground_1","priority"=>1.,"question"=>"ground_extension","action"=>"walk")
+ choose_method!(loop,[candidate],"first");resolve_method!(loop,"first",false,false)
+ choose_method!(loop,[candidate],"second")
+ value=ground_extension_result(state,"ground_1","performed",true)
+ resolve_method!(loop,"second",value,false)
+ @test loop.methods["ground_1"].H==1 && loop.H==2
+ @test last(loop.events).E===nothing && last(loop.events).goal_E==1
+ @test !resolve_method!(loop,"second",value,false)
+end
 out=ARGS[1]
 for mode in ("off","on")
  dir=joinpath(out,mode)
