@@ -5,6 +5,7 @@ include(joinpath(@__DIR__,"world_hazards.jl"))
 include(joinpath(@__DIR__,"ground.jl"))
 include(joinpath(@__DIR__,"reposition.jl"))
 include(joinpath(@__DIR__,"skyline.jl"))
+include(joinpath(@__DIR__,"landscape.jl"))
 include(joinpath(@__DIR__,"ground_wear.jl"))
 include(joinpath(@__DIR__,"ground_pattern.jl"))
 include(joinpath(@__DIR__,"ground_continuity.jl"))
@@ -60,6 +61,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     if history!==nothing
         check(history.rule=="native-cohort-world-v1" && history.day_us==clock.day_us,"world_history_rule")
         check(history.renewable==renewable_food && history.hazard_mode==dynamic_hazard_mode && history.dropping==dropping && history.wear_enabled==ground_wear,"world_history_modes")
+        check(get(spec,:landscape,nothing)==get(history,:landscape,nothing),"world_history_landscape")
         check(spec.obstacles==history.obstacles && spec.food==history.renewal_targets && spec.ground_patches==history.ground_patches,"world_history_geometry")
         check(world_offset>=0 && mod(world_offset,clock.day_us)==0,"world_history_clock")
         check((history.ground!==nothing)==ground_wear,"world_history_ground")
@@ -119,8 +121,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     wear=inherited_ground===nothing ? GroundWear(Int(clock.day_us)) : restore_wear(inherited_ground,Int(clock.day_us))
     wear_offset=wear.now
     ground_views=Dict(a=>D("observations"=>0,"counts"=>D(),"records"=>Any[]) for a in IDS)
-    base_resistance_at=p->ground_resistance(p,patches)
-    resistance_at=p->1+(base_resistance_at(p)-1)*(ground_wear ? wear_factor(wear,p) : 1.)
+    land=get(spec,:landscape,nothing)
+    if land!==nothing
+        check(land.rule=="lw-riparian-base-v1" && isfinite(land.phase) && -.4<=land.phase<=.4,"landscape_rule")
+    end
+    dry=p->land===nothing || landscape_material(land,p)!="water"
+    base_resistance_at=p->land===nothing ? ground_resistance(p,patches) : landscape_resistance(land,p)
+    resistance_at=p->1+(base_resistance_at(p)-1)*(ground_wear && dry(p) ? wear_factor(wear,p) : 1.)
     ground_stats=Dict(a=>D("walks"=>0,"high_resistance_walks"=>0,"projection_decisions"=>0,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     food=Any[f for f in spec.food];dropped=cargo_ground()
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in food]
@@ -179,7 +186,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
         if ground_perception
             for a in IDS
-                view=ground_appearance(w,a,yaw,wear,now)
+                view=ground_appearance(w,a,yaw,wear,now;dry=dry)
                 record_ground_patterns!(ground_views[a],view)
                 ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing))
             end
@@ -539,7 +546,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             end
             if ground_wear && action=="walk" && status=="performed"
-                tread!(wear,op,a,p,w.positions[a],wear_offset+now)
+                tread!(wear,op,a,p,w.positions[a],wear_offset+now;walkable=dry)
             end
             if ground_continuity
                 dx=w.positions[a][1]-p[1];dz=w.positions[a][2]-p[2];sn,cs=sincosd(before_yaw)
@@ -638,7 +645,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
     environment=D("rule"=>"native-cohort-world-v1","day_us"=>clock.day_us,"next_us"=>world_offset+days*clock.day_us,
-        "obstacles"=>spec.obstacles,"renewal_targets"=>spec.food,"ground_patches"=>spec.ground_patches,
+        "landscape"=>land,"obstacles"=>spec.obstacles,"renewal_targets"=>spec.food,"ground_patches"=>spec.ground_patches,
         "renewable"=>renewable_food,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
         "food"=>deepcopy(food),"stock"=>copy(stock),"ground"=>ground_wear ? wear_snapshot(wear) : nothing,
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,

@@ -1,5 +1,5 @@
 # Fifteen actor-relative samples; no map, road identity or destination authority.
-function ground_appearance(w,a,yaw,g,now)
+function ground_appearance(w,a,yaw,g,now;dry=p->true)
     p=w.positions[a];cells=Any[]
     for angle in ANGLES, distance in (1,2,4)
         sn,cs=sincos(deg2rad(yaw[a]+angle));q=(p[1]+sn*distance,p[2]+cs*distance)
@@ -7,7 +7,7 @@ function ground_appearance(w,a,yaw,g,now)
         c=blocked ? nothing : wear_cell!(g,(floor(Int,q[1]),floor(Int,q[2])))
         wear=c===nothing ? 0. : c["wear"]
         push!(cells,D("angle"=>angle,"distance"=>distance,"status"=>blocked ? "occluded" : "sampled",
-            "appearance"=>blocked ? nothing : wear>=10 ? "bare_ground" : wear>0 ? "trampled_grass" : "grass"))
+            "appearance"=>blocked ? nothing : !dry(q) ? "water" : wear>=10 ? "bare_ground" : wear>0 ? "trampled_grass" : "grass"))
     end
     D("source"=>D("actor"=>a,"observation"=>"ob:$now:$a","capture_us"=>now),
       "coverage"=>any(c->c["status"]=="occluded",cells) ? "partial" : "complete","cells"=>cells)

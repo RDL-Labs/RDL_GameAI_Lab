@@ -28,3 +28,32 @@ function native_scene(seed::Int)
      ground_patches=[(x=0.,z=5.,radius=3.,resistance=4.),(x=12.,z=12.,radius=6.,resistance=3.)],
      hazards=[(x=0.,z=8.,vx=.05,vz=0.,start=60,stop=180)])
 end
+
+
+# Same finite placement conditions as Python base landscape, Julia random stream.
+function native_landscape_scene(seed)
+    base=native_scene(seed);rng=MersenneTwister(seed)
+    land=(rule="lw-riparian-base-v1",seed=seed,phase=-.4+.8rand(rng),extent=[-64,64,-58,70],camp=[0.,6.])
+    objects=[(x=0.,z=8.,radius=.3,height=12.,color="ochre",solid=true)]
+    for _ in 1:1800
+        length(objects)>=100 && break
+        x,z=-60+120rand(rng),-54+120rand(rng);m=landscape_material(land,(x,z))
+        probability=m=="forest" ? .75 : m=="bank" ? .10 : m=="grassland" ? .035 : m=="rockland" ? .65 : 0.
+        (rand(rng)>probability || hypot(x,z-6)<5) && continue
+        radius=m=="rockland" ? .4+.5rand(rng) : .6
+        any(hypot(x-o.x,z-o.z)<radius+o.radius+1 for o in objects) && continue
+        push!(objects,(x=x,z=z,radius=radius,height=m=="rockland" ? rand(rng,[.4,2.,3.]) : 5+4rand(rng),color=m=="rockland" ? "gray" : "brown",solid=true))
+    end
+    food=Any[]
+    for o in objects
+        x,z=o.x+1.5,o.z
+        (o.color!="brown" || landscape_material(land,(o.x,o.z))!="forest" || hypot(x,z-6)<16) && continue
+        landscape_material(land,(x,z))=="water" && continue
+        any(hypot(x-q.x,z-q.z)<q.radius+.5 for q in objects) && continue
+        push!(food,(x=x,z=z,stock=12))
+        length(food)==10 && break
+    end
+    length(food)==10 || error("landscape_resource_placement")
+    merge(base,(name="julia_lw_riparian",landscape=land,home=[0.,6.],food=food,
+        obstacles=[o for o in objects if o.height>.6],low_obstacles=[o for o in objects if o.height<=.6],ground_patches=Any[]))
+end

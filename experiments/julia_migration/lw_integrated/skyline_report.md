@@ -29,5 +29,13 @@ than Python's angle/in-reach-only packet. Horizontal exploration remains its exi
 fan. This is the elevated home-search migration, not full visual parity, new sight
 at night, or general recognition. Latest-feature thirty-day acceptance is pending.
 
-Actions38366944659 is running the local sensory/memory tests and three-day
-seed20261005 off/rays/subrays comparison, with frozen subrays replay. Results pending.
+Actions38366944659 completed:57 assertions PASS. Three-day seed20261005
+home-skyline selections: rays A365/B93/C518(total976), subrays A1317/B448/C302
+(total2067). All nine Sleeps completed in each arm. Food balances:
+off100+107=ground72+private/carried129+consumed6;
+rays100+96=54+136+6; subrays100+84=36+142+6.
+Frozen subrays replay is byte-identical. Saved balances and selection counts were
+independently rechecked. Supply differs, so this is not a food-efficiency claim.
+Call seconds were38.10(off, first compilation),40.27(rays),68.12(subrays),72.43
+(subrays replay); different behavior and first compilation prevent a language speed
+comparison. Main sampling and subray sampling have a visible cost.

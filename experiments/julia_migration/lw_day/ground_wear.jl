@@ -27,7 +27,7 @@ function wear_factor(g,p)
     c=wear_cell!(g,(floor(Int,p[1]),floor(Int,p[2])))
     c===nothing ? 1. : 1-.5*min(1.,c["wear"]/10)
 end
-function tread!(g,op,agent,start,finish,now)
+function tread!(g,op,agent,start,finish,now;walkable=p->true)
     now==g.now || error("ground_receipt_clock")
     source=(op,start,finish)
     if haskey(g.receipts,agent)
@@ -40,7 +40,9 @@ function tread!(g,op,agent,start,finish,now)
     n=max(1,ceil(Int,d/.1))
     for i in 0:n-1
         t=(i+.5)/n
-        key=(floor(Int,start[1]+t*(finish[1]-start[1])),floor(Int,start[2]+t*(finish[2]-start[2])))
+        point=(start[1]+t*(finish[1]-start[1]),start[2]+t*(finish[2]-start[2]))
+        walkable(point) || continue
+        key=(floor(Int,point[1]),floor(Int,point[2]))
         c=wear_cell!(g,key)
         if c===nothing
             c=D("distance"=>0.,"wear"=>0.,"last_walk_us"=>now,"anchor_wear"=>0.,"agents"=>D())
