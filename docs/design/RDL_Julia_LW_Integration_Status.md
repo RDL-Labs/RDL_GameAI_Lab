@@ -26,7 +26,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; finite per-record dormancy/reactivation connected; full vocabulary/context and conjunction bundles unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
-| Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; shared walking wear/recovery verified; appearance/pattern recognition still unported |
+| Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; shared walking wear/recovery verified; local appearance/sampled shape recognition verified; body-linked ground continuity and following remain unported |
 | Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
 | Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
 | Transport | production observation/results receipts | local same-process scaffold, no Luanti/HTTP integration |
@@ -323,3 +323,9 @@ agent route memory nor evidence that an agent knows where a path leads.
 Ground wear: [report](../../experiments/julia_migration/lw_integrated/ground_wear_report.md),
 41 assertions PASS,1248 touched cells/432 road-threshold cells after three days.
 Appearance/pattern recognition and30-day full integration remain outstanding.
+
+Ground appearance/patterns: [report](../../experiments/julia_migration/lw_integrated/ground_pattern_report.md),
+36 checks PASS. Local15-point ground samples and structural grouping match Python
+reference cases. Three-day perception-only comparison preserves all other output.
+Ground recovery now uses an absolute last-walk anchor to avoid read-frequency
+rounding effects. Body-linked continuity and exploration proposals are next.
