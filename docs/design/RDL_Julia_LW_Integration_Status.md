@@ -358,9 +358,9 @@ Code `37dd390` started the all-connected-options 30-day comparison for seeds
 initial crossing sources rather than current territorial/patrol sources.
 `4f82823` shares the same actor-local current hazard observation between safety
 and Sleep, with regression checks for visible, departed and incomplete views.
-The initial campaign is diagnostic only. Corrected acceptance is pending in
+The initial campaign is diagnostic only. The corrected baseline completed in
 [run 38352087950](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38352087950).
-No long-run success or backend-switch readiness is claimed before results.
+See the long-run baseline report below; this does not establish backend-switch readiness.
 
 
 ## Explicit remaining native migration work
@@ -377,7 +377,7 @@ and the additional connected options in `timed_harvest.run` (2026-10-13):
   selection-trail lifecycle and richer social response/aid are not fully covered.
 * World/sensors: local ground and fixed hazards exist; expanded landscape and
   finite coverage semantics still differ from Python.
-* Thirty-day all-connected-feature campaign remains live, not certified. Its
+* Thirty-day baseline completed with frozen replay for both seeds. Its
   code predates the later limited-clearance and return-route fixes; keep source
   manifests distinct and rerun final acceptance after remaining integrations.
 
@@ -402,3 +402,25 @@ the existing response-side relation field without asserting intent knowledge.
 Body candidate field: [160 checks and living comparison](../../experiments/julia_migration/lw_integrated/body_field_report.md). Movement continuation: [51 checks and living comparison](../../experiments/julia_migration/lw_integrated/inertia_report.md). These supersede the pending movement-continuation item above; rest reactivation remains open.
 
 The previously pending corrected thirty-day run completed: [baseline report](../../experiments/julia_migration/lw_integrated/long_run_report.md). Both seeds replay exactly, but its older source is not latest-feature acceptance. Full migration and backend switching remain NOT READY.
+
+
+## Entry-point scope audit (2026-10-13)
+
+Reference: `integrations/lightweight/integrated_social_campaign.py::OPTIONS`
+and `integrations/lightweight/timed_harvest.py::run`, not every experimental
+class in `runtime/`.
+
+`runtime/rest_reactivation.py` is a separate RestResourceExploration adapter;
+no `reactivation_mode` / `Reactivating` connection exists in the current
+`integrations/lightweight` entry points. It remains an external experimental
+asset, not a newly required LW migration prerequisite. Do not add a new living
+loop to make this separate experiment look ported.
+
+Actual remaining connected LW options include exploration_horizon (cross-day
+acquisition pressure), repositioning, experience bundles, bundle Sleep/credit,
+selection trails, inherited World checkpoints and expanded landscape/coverage.
+These remain migration work. Current per-record Sleep dormancy does not replace
+conjunction bundles. The ground-extension correspondence fix `fb96c5e` restores
+three-valued evidence: unavailable current model support preserves method H;
+observed non-extension is failure; observed extension after actual movement is
+success. Parent food/home evaluation remains independent.

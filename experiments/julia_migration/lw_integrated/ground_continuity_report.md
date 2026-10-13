@@ -44,3 +44,24 @@ Follow-up run38349924115 passed42 assertions. Independent old/new saved-result
 comparison, removing only ground method-node maps, is exactly equal in both
 conditions. Final food method nodes are A18/B15/C14, previously3037/3042/2755.
 Per-night ground nodes are bounded by8. No general performance claim.
+
+
+## Current-support evidence correction
+
+`fb96c5e` aligns the ground-extension comparison with Python continuous_selection:
+unobserved, context-changed, missing or retired model support returns null, not
+false. Observed non-extension or no actual movement returns false; a current
+extension plus performed displacement returns true. Method H therefore remains
+unchanged when comparison is unavailable; parent food/home evidence stays separate.
+
+[Run 38359535766](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38359535766)
+passed 57 assertions, including 11 explicit three-valued/H/replay checks.
+Three days per condition, seed20261005,155520 operations each. Independent saved
+summary conservation checks:
+
+* off: food 100+95=60+stock129+carried0+consumed6; Sleep 9/9.
+* on: food 100+108=42+stock160+carried0+consumed6; Sleep 9/9.
+
+This deliberately changes unsupported-evidence behavior; historical on results
+above remain historical, not updated to pretend exact equivalence. No efficiency
+improvement or full-backend readiness claim.
