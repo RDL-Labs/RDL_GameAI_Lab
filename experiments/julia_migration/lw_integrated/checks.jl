@@ -35,7 +35,7 @@ function validate_integrated(r,input)
 @testset "LW-Julia integrated invariants" begin
     @test r["ended_us"]==cfg.days*input.clock.day_us
     @test all(sum(values(r["counts"][a]))==cfg.days*17_280 for a in IDS)
-    @test r["initial_food"]+r["replenished_food"]==r["ground"]+r["consumed"]+sum(s["inventory"]+s["personal_stock"] for s in values(r["final_agents"]))
+    @test r["initial_food"]+r["replenished_food"]==r["ground"]+get(r,"shared_stock",0)+r["consumed"]+sum(s["inventory"]+s["personal_stock"] for s in values(r["final_agents"]))
     @test all(isfinite(v) for s in values(r["final_agents"]) for v in values(s["body"]) if v isa Number)
 end
 

@@ -42,15 +42,15 @@ function home_observation(w,a,yaw,home;visual_obstacles=w.obstacles,range=60)
     nothing
 end
 
-function replenish_food!(stock,food)
+function replenish_food!(stock,food;capacity=0)
     added=0
     for (i,f) in enumerate(food)
-        amount=max(0,Int(f.stock)-stock[i]);stock[i]+=amount;added+=amount
+        amount=max(0,(capacity>0 ? capacity : Int(f.stock))-stock[i]);stock[i]+=amount;added+=amount
     end
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off")
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0)
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -140,6 +140,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             stock[index]==0 && (dropped["empty_at"][index]=0)
         end
     end
+    check(regrowth_days isa Integer && regrowth_days>=1 && regrowth_capacity isa Integer && regrowth_capacity>=0,"regrowth_config")
+    shared=history===nothing ? get(spec,:initial_shared_stock,0) : get(history,:shared_stock,0)
+    check(shared isa Integer && !(shared isa Bool) && shared>=0 && (shared_stores || shared==0),"shared_stock")
+    history!==nothing && check(get(history,:shared_stores,false)==shared_stores && get(history,:regrowth_days,1)==regrowth_days && get(history,:regrowth_capacity,0)==regrowth_capacity,"world_history_store_regrowth")
+    storage_stats=D("deposited"=>0,"taken"=>0,"records"=>Any[])
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
     live=Dict(a=>live_aid(a) for a in IDS);results=Dict(a=>D() for a in IDS)
     answered=Dict(a=>Set{String}() for a in IDS);learning=Dict(a=>sleeper(0) for a in IDS)
@@ -171,7 +176,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         append!(cargo[a],fill(nothing,w.inventory[a]))
         hasproperty(spec,:initial_personal_stock) && (stores[a]=spec.initial_personal_stock[i])
     end
-    initial=sum(stock)+sum(values(w.inventory))+sum(values(stores));bounds=Int.(clock.phase_boundaries_us)
+    check(!shared_stores || all(v==0 for v in values(stores)),"shared_personal_conflict")
+    initial=shared+sum(stock)+sum(values(w.inventory))+sum(values(stores));bounds=Int.(clock.phase_boundaries_us)
     replenished=0;replenishments=Any[]
     integrate(a,now,obs)=begin
         before=length(states[a]["records"])
@@ -196,8 +202,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             push!(day_starts,physical())
             if day>0 || world_offset>0
                 day>0 && (learning=Dict(a=>sleeper(day) for a in IDS))
-                if renewable_food
-                    added=replenish_food!(stock,spec.food);replenished+=added
+                if renewable_food && mod(div(world_offset,clock.day_us)+day,regrowth_days)==0
+                    added=replenish_food!(stock,spec.food;capacity=regrowth_capacity);replenished+=added
                     push!(replenishments,D("day"=>day,"us"=>now,"added"=>added))
                 end
             end
@@ -303,7 +309,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=D("action"=>act,"target"=>t,"reply_to"=>r);push!(answered[a],m["id"])
             elseif (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && w.inventory[a]>0
                 plan=D("action"=>"eat")
-            elseif at_home && (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && stores[a]>0
+            elseif at_home && (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && (shared_stores ? shared : stores[a])>0
                 plan=D("action"=>"retrieve")
             elseif phase=="night" && local_us>=clock.quiet_night_us
                 plan=D("action"=>"rest")
@@ -536,14 +542,28 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     legal=hypot(p[1]-spec.home[1],p[2]-spec.home[2])<=1.25
                     if legal && action=="deposit"
                         delivered=String[id for id in cargo[a] if id!==nothing];empty!(cargo[a])
-                        stores[a]+=w.inventory[a];w.inventory[a]=0
-                    elseif legal && stores[a]>0
-                        stores[a]-=1;w.inventory[a]+=1
+                        if shared_stores
+                            shared+=w.inventory[a];storage_stats["deposited"]+=w.inventory[a]
+                        else
+                            stores[a]+=w.inventory[a]
+                        end
+                        w.inventory[a]=0
+                    elseif legal && (shared_stores ? shared : stores[a])>0
+                        if shared_stores
+                            shared-=1;storage_stats["taken"]+=1
+                        else
+                            stores[a]-=1
+                        end
+                        w.inventory[a]+=1
                         push!(cargo[a],nothing)
                     else
                         status="unavailable"
                     end
                 end
+            end
+            if shared_stores && action in ("deposit","retrieve")
+                push!(storage_stats["records"],D("actor"=>a,"operation"=>op,"action"=>action,"status"=>status,"stock_after"=>shared))
+                length(storage_stats["records"])>32 && popfirst!(storage_stats["records"])
             end
             if ground_wear && action=="walk" && status=="performed"
                 tread!(wear,op,a,p,w.positions[a],wear_offset+now;walkable=dry)
@@ -630,7 +650,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>now+1_000_000)),a)
             end
             push!(daily,D("physical"=>physical(),"sleep"=>deepcopy(learning),"counts"=>deepcopy(counts),
-                "ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
+                "shared_stock"=>shared,"ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
         end
     end
     ground_wear && advance_wear!(wear,wear_offset+Int(days*clock.day_us))
@@ -645,12 +665,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
     environment=D("rule"=>"native-cohort-world-v1","day_us"=>clock.day_us,"next_us"=>world_offset+days*clock.day_us,
-        "landscape"=>land,"obstacles"=>spec.obstacles,"renewal_targets"=>spec.food,"ground_patches"=>spec.ground_patches,
+        "shared_stores"=>shared_stores,"shared_stock"=>shared,"regrowth_days"=>regrowth_days,"regrowth_capacity"=>regrowth_capacity,"landscape"=>land,"obstacles"=>spec.obstacles,"renewal_targets"=>spec.food,"ground_patches"=>spec.ground_patches,
         "renewable"=>renewable_food,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
         "food"=>deepcopy(food),"stock"=>copy(stock),"ground"=>ground_wear ? wear_snapshot(wear) : nothing,
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
-    D("skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    D("shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end

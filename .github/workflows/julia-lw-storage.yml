@@ -1,0 +1,27 @@
+name: Julia LW Shared stores and regrowth integration
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Locked Julia environment
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
+      - name: Shared stores and regrowth and life
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/storage_checks.jl outputs/julia-lw-storage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-lw-storage
+          path: outputs/julia-lw-storage
+          retention-days: 14
