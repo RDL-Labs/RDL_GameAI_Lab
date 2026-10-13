@@ -23,11 +23,15 @@ function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,run_re
     end
     food_coverage=length(visible)>5 ? "partial" : "complete"
     sort!(visible,by=v->(v["distance"],v["ref"]));resize!(visible,min(5,length(visible)))
-    target=isempty(visible) ? nothing : visible[1];rows=Any[];chosen=nothing;best=Inf
+    target=isempty(visible) ? nothing : visible[1];rows=Any[];surface=Any[];chosen=nothing;best=Inf
     b=w.bodies[actor]
     for (j,angle) in enumerate(ANGLES)
         theta=deg2rad(yaw[actor]+angle);endpoint=(origin[1]+sin(theta),origin[2]+cos(theta))
         clear=!any(o->segment_hit(origin,endpoint,o,.2),w.obstacles)
+        # Physical surface correspondence is independent of body feasibility.
+        # All five scheduled rays are acquired, including an observed blockage.
+        push!(surface,D("direction_deg"=>angle,"status"=>clear ? "sampled" : "blocked",
+            "height_delta"=>clear ? 0. : nothing))
         goal=target===nothing ? 1.0+abs(angle)/90 : min(10.,hypot(target["forward"]-cos(deg2rad(Float64(angle))),target["right"]-sin(deg2rad(Float64(angle)))))
         midpoint=(origin[1]+sin(theta)*.25*(1-b.damage),origin[2]+cos(theta)*.25*(1-b.damage))
         resistance=resistance_at(midpoint)
@@ -53,7 +57,9 @@ function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,run_re
                 "distance"=>d,"expected_delta"=>delta))
         end
     end
-    D("food_coverage"=>food_coverage,"run_rows"=>run_rows,"visible"=>visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
+    D("movement_surface"=>D("schema"=>"l15a-current-surface-rays-v1",
+        "ground"=>D("coverage"=>"complete","output_limited"=>false,"samples"=>surface)),
+      "food_coverage"=>food_coverage,"run_rows"=>run_rows,"visible"=>visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
         "action"=>chosen===nothing ? "rest" : "walk","status"=>chosen===nothing ? "no_feasible_observed_move" : "selected"))
 end
 
