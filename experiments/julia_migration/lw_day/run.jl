@@ -4,6 +4,7 @@ include(joinpath(@__DIR__,"orientation.jl"))
 include(joinpath(@__DIR__,"world_hazards.jl"))
 include(joinpath(@__DIR__,"ground.jl"))
 include(joinpath(@__DIR__,"reposition.jl"))
+include(joinpath(@__DIR__,"skyline.jl"))
 include(joinpath(@__DIR__,"ground_wear.jl"))
 include(joinpath(@__DIR__,"ground_pattern.jl"))
 include(joinpath(@__DIR__,"ground_continuity.jl"))
@@ -30,11 +31,11 @@ include(joinpath(@__DIR__,"harvest_review.jl"))
 include(joinpath(@__DIR__,"harvest_relearn.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
-function home_observation(w,a,yaw,home;visual_obstacles=w.obstacles)
+function home_observation(w,a,yaw,home;visual_obstacles=w.obstacles,range=60)
     p=w.positions[a];dx,dz=home[1]-p[1],home[2]-p[2]
     s,c=sincos(deg2rad(yaw[a]));f,r=dx*s+dz*c,dx*c-dz*s
     d=hypot(dx,dz)
-    if d<=60 && (f>=0 || d<=1.25) && !any(o->segment_hit(p,(Float64(home[1]),Float64(home[2])),o,0.),visual_obstacles)
+    if d<=range && (f>=0 || d<=1.25) && !any(o->segment_hit(p,(Float64(home[1]),Float64(home[2])),o,0.),visual_obstacles)
         return D("forward"=>f,"right"=>r,"distance"=>d)
     end
     nothing
@@ -48,7 +49,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -109,6 +110,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     check(!ground_continuity || ground_perception,"ground_continuity_requires_perception")
+    check(skyline_mode in ("off","rays","subrays"),"skyline_mode")
+    skyline_states=Dict(a=>skyline_state() for a in IDS)
     reposition_states=Dict(a=>reposition_state(a) for a in IDS)
     ground_models=Dict(a=>ground_memory(a) for a in IDS);ground_receipts=Dict{String,Any}()
     inherited_ground=history===nothing ? get(spec,:ground_history,nothing) : history.ground
@@ -209,7 +212,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         obs=Dict(a=>observe(w,a) for a in IDS)
         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
-        homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high) for a in IDS)
+        homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
         if harvest_sleep
             for a in IDS
@@ -236,6 +239,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         landmarks=landmark_routes ? Dict(a=>landmark_fan(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
+        skyline_views=skyline_mode=="off" ? nothing : Dict(a=>skyline_fan(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a";subrays=skyline_mode=="subrays") for a in IDS)
+        if skyline_views!==nothing
+            for a in IDS;record_skyline!(skyline_states[a],skyline_views[a]);end
+        end
         climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in IDS) : nothing
         # Safety and learning share the same current, actor-local observation.
         hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high) for a in IDS) : nothing
@@ -333,6 +340,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             plan=choose_method!(s,[rolling],source)
                         else
                         candidates=search_candidates(moves[a],target,s)
+                        if skyline_views!==nothing && returning && target===nothing
+                            append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
+                        end
                         reposition && append!(candidates,reposition_candidates!(reposition_states[a],a,moves[a],now;purpose=family,linked=s.receipt!==nothing && s.receipt.source=="op:$(now-1_000_000):$a"))
                         body_field && push!(candidates,D("method"=>"rest","action"=>"rest","priority"=>1.,"question"=>"rested"))
                         climbing && append!(candidates,climb_candidates(climbs[a],moves[a],target,s))
@@ -378,6 +388,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         bundle_trace=experience_bundles ? project_bundles!(bundles[a],candidates,s,bundle_contexts[a],phase,now;credit=bundle_credit) : nothing
                         trail_trace=selection_trails ? project_trails!(trails[a],candidates,s,bundle_contexts[a],phase) : nothing
                         plan=choose_method!(s,candidates,source)
+                        skyline_mode!="off" && plan["method"]=="skyline_home" && (skyline_states[a]["selections"]+=1)
                         reposition && startswith(plan["method"],"reposition_") && (reposition_states[a]["selected"]+=1)
                         selection_trails && (plan["trail_trace"]=trail_trace)
                         experience_bundles && (plan["bundle_trace"]=bundle_trace)
@@ -632,7 +643,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "food"=>deepcopy(food),"stock"=>copy(stock),"ground"=>ground_wear ? wear_snapshot(wear) : nothing,
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
-    D("reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    D("skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
