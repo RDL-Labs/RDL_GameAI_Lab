@@ -4,7 +4,7 @@ include(joinpath(@__DIR__,"world.jl"))
 using SHA
 
 function native_options(args)
-    isempty(args) && error("usage: native.jl OUTPUT [--days 1..4 --seed N --food finite|renewable --learning off|full --hazards off|crossing --ground-perception off|on --ground-wear off|on --ground flat|shadow|patches --running off|on --climbing off|on --sleep-maintenance off|on --sleep-retention recent|strata --general-sleep off|review|apply --social-response legacy|experience --dropping off|on --low-obstacles off|on --spec FILE]")
+    isempty(args) && error("usage: native.jl OUTPUT [--days 1..30 --seed N --food finite|renewable --learning off|full --hazards off|crossing --ground-perception off|on --ground-wear off|on --ground flat|shadow|patches --running off|on --climbing off|on --sleep-maintenance off|on --sleep-retention recent|strata --general-sleep off|review|apply --social-response legacy|experience --dropping off|on --low-obstacles off|on --spec FILE]")
     out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","ground-wear"=>"off","ground-perception"=>"off","ground-continuity"=>"off","food-body"=>"off","safety-methods"=>"legacy","running"=>"off","climbing"=>"off","sleep-maintenance"=>"off","sleep-retention"=>"recent","general-sleep"=>"off","social-response"=>"legacy","dropping"=>"off","low-obstacles"=>"off","spec"=>"")
     iseven(length(args)-1) || error("option requires a value")
     for i in 2:2:length(args)
@@ -29,7 +29,7 @@ function native_main(args)
         bytes=read(opts["spec"])
     end
     input=JSON3.read(bytes);cfg=input.config
-    1<=cfg.days<=4 && cfg.days isa Integer || error("days must be 1..4")
+    1<=cfg.days<=30 && cfg.days isa Integer || error("days must be 1..30")
     cfg.food in ("finite","renewable") || error("food mode")
     cfg.learning in ("off","full") || error("learning mode")
     cfg.hazards in ("off","crossing","territorial","mixed") || error("hazard mode")
@@ -61,7 +61,9 @@ function native_main(args)
         "scope"=>"finite LW subset; not full Python LW parity",
         "python_required"=>false)
     open(joinpath(out,"manifest.json"),"w") do io;JSON3.write(io,manifest);end
-    elapsed=@elapsed r,summary=run_integrated(input)
+    measured=@timed run_integrated(input)
+    r,summary=measured.value;elapsed=measured.time
+    summary["measurement"]=D("call_seconds"=>elapsed,"allocated_bytes"=>measured.bytes,"gc_seconds"=>measured.gctime,"process_peak_rss_bytes"=>Sys.maxrss(),"compilation_included"=>true)
     summary["elapsed_seconds_including_compilation"]=elapsed
     for (name,data) in (("result.json",r),("summary.json",summary))
         open(joinpath(out,name),"w") do io;JSON3.write(io,data);end

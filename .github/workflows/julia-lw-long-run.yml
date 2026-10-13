@@ -1,0 +1,31 @@
+name: Julia LW thirty-day integrated campaign
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        seed: [20261004, 20261005]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Locked Julia environment
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
+      - name: Thirty days and frozen replay
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/long_run_checks.jl outputs/julia-lw-long-${{ matrix.seed }} ${{ matrix.seed }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-lw-long-${{ matrix.seed }}
+          path: outputs/julia-lw-long-${{ matrix.seed }}
+          retention-days: 14
