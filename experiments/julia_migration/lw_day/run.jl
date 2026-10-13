@@ -60,6 +60,16 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         check(history.renewable==renewable_food && history.hazard_mode==dynamic_hazard_mode && history.dropping==dropping && history.wear_enabled==ground_wear,"world_history_modes")
         check(spec.obstacles==history.obstacles && spec.food==history.renewal_targets && spec.ground_patches==history.ground_patches,"world_history_geometry")
         check(world_offset>=0 && mod(world_offset,clock.day_us)==0,"world_history_clock")
+        check((history.ground!==nothing)==ground_wear,"world_history_ground")
+        ground_wear && check(history.ground.now_us==world_offset,"world_history_ground_clock")
+        check((history.hazards!==nothing)==(dynamic_hazard_mode!="off"),"world_history_hazards")
+        dynamic_hazard_mode!="off" && check(world_offset-1_000_000<=history.hazards.last_us<=world_offset,"world_history_hazard_clock")
+        check(length(history.food)>=length(spec.food) && length(history.food)==length(history.stock),"world_history_food")
+        check(all(x->x isa Integer && !(x isa Bool) && x>=0,history.stock),"world_history_stock")
+        check(all(history.food[i]==spec.food[i] for i in eachindex(spec.food)),"world_history_resource_geometry")
+        cargo_ids=[Int(item.index) for item in history.cargo]
+        check(length(cargo_ids)<=256 && length(unique(cargo_ids))==length(cargo_ids) && sort(cargo_ids)==collect(length(spec.food)+1:length(history.food)),"world_history_cargo_indices")
+        check(dropping || isempty(cargo_ids),"world_history_cargo_mode")
     end
     w=moving_world(spec);w.capacity=100_000
     high=copy(w.obstacles);low=low_obstacles ? spec.low_obstacles : Any[]
@@ -114,7 +124,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         check(length(food)==length(stock) && all(>=(0),stock),"world_history_food")
         for item in history.cargo
             index=Int(item.index);check(1<=index<=length(stock),"world_history_cargo")
-            dropped["origins"][index]=(source=item.source.source,dropper="inherited/"*String(item.source.dropper),drop_operation=item.source.drop_operation)
+            dropped["origins"][index]=(source=item.source.source,dropper=occursin('/',String(item.source.dropper)) ? String(item.source.dropper) : "inherited/"*String(item.source.dropper),drop_operation=item.source.drop_operation)
             stock[index]==0 && (dropped["empty_at"][index]=0)
         end
     end
