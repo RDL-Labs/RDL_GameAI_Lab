@@ -439,3 +439,6 @@ Selection trails connected (`ebf94c4`): [45 checks and four-day living compariso
 
 
 Ground history restoration connected (`a5a02ba`): [42 checks and inherited-surface living replay](../../experiments/julia_migration/lw_integrated/ground_history_report.md). Full cohort_world transfer still requires resource/regrowth/hazard/shared-state restoration. Incomplete-view repositioning requires the missing surface-coverage adapter first; do not map body-limited or blocked to acquisition_incomplete.
+
+
+Resource/hazard cohort transfer connected (`276a595`): [39 checks and inherited World replay](../../experiments/julia_migration/lw_integrated/world_history_report.md). Remaining checkpoint verification includes nonempty cargo,old-target release and mismatch rejection; shared-stock semantics remain a difference. This is not same-agent process resume.
