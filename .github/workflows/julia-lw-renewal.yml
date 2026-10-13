@@ -1,0 +1,38 @@
+name: Julia LW renewable harvest relearning experiment
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiment:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      RDL_LW_TIME_PROFILE: human_scale_v1
+      PYTHONHASHSEED: '0'
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.15'
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Locked Julia environment
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
+      - name: Local behavior integration and cost
+        run: python -m experiments.julia_migration.lw_renewal.run outputs/julia_migration/lw-renewal
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-lw-renewal
+          path: outputs/julia_migration/lw-renewal
+          retention-days: 14
+
+
+
+

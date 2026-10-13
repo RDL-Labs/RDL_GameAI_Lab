@@ -18,7 +18,15 @@ function home_observation(w,a,yaw,home)
     nothing
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false)
+function replenish_food!(stock,food)
+    added=0
+    for (i,f) in enumerate(food)
+        amount=max(0,Int(f.stock)-stock[i]);stock[i]+=amount;added+=amount
+    end
+    added
+end
+
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -34,7 +42,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     routes=Dict(a=>route_memory() for a in IDS)
     harvest=Dict(a=>harvest_state(a) for a in IDS);harvest_pending=Dict{String,Any}()
     model_relearn && foreach(a->(harvest[a]["relearn_enabled"]=true),IDS)
-    field_stats=Dict(a=>D("applied"=>0,"selection_changes"=>0,"examples"=>Any[]) for a in IDS)
+    field_stats=Dict(a=>D("applied"=>0,"selection_changes"=>0,"examples"=>Any[],"by_model"=>D()) for a in IDS)
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security") for f in ("food","home")) for a in IDS)
@@ -50,6 +58,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         hasproperty(spec,:initial_personal_stock) && (stores[a]=spec.initial_personal_stock[i])
     end
     initial=sum(stock)+sum(values(w.inventory))+sum(values(stores));bounds=Int.(clock.phase_boundaries_us)
+    replenished=0;replenishments=Any[]
     integrate(a,now,obs)=begin
         before=length(states[a]["records"])
         if states[a]["pending"]!==nothing
@@ -65,6 +74,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             push!(day_starts,physical())
             if day>0
                 learning=Dict(a=>sleeper(day) for a in IDS)
+                if renewable_food
+                    added=replenish_food!(stock,spec.food);replenished+=added
+                    push!(replenishments,D("day"=>day,"us"=>now,"added"=>added))
+                end
             end
         end
         phase=local_us<bounds[1] ? "orientation" : local_us<bounds[2] ? "exploration" : local_us<bounds[3] ? "return" : "night"
@@ -87,6 +100,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
                 prediction=harvest_predict(harvest[a],sections[a])
                 harvest[a]["prediction_counts"][prediction["status"]]+=1
+                if prediction["status"]=="known"
+                    bymodel=get!(harvest[a],"prediction_by_model",D());ref=prediction["model_ref"]
+                    bymodel[ref]=get(bymodel,ref,0)+1
+                end
                 if prediction["status"]=="known" && harvest[a]["first_known"]===nothing
                     harvest[a]["first_known"]=merge(prediction,D("capture_us"=>now))
                 end
@@ -160,11 +177,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             if field_trace["applied"]
                                 counterfactual=choose_method!(deepcopy(s),candidates,source)
                                 candidates=projected;field_stats[a]["applied"]+=1
+                                m=get!(field_stats[a]["by_model"],field_trace["model_ref"],D("applied"=>0,"selection_changes"=>0))
+                                m["applied"]+=1
                             end
                         end
                         plan=choose_method!(s,candidates,source)
                         if counterfactual!==nothing && counterfactual["method"]!=plan["method"]
                             field_stats[a]["selection_changes"]+=1
+                            field_stats[a]["by_model"][field_trace["model_ref"]]["selection_changes"]+=1
                             if length(field_stats[a]["examples"])<8
                                 push!(field_stats[a]["examples"],D("source"=>"ob:$now:$a","without"=>counterfactual["method"],
                                     "with"=>plan["method"],"field"=>field_trace))
@@ -279,7 +299,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 previous[a]=sig
             end
         end
-        @assert sum(stock)+sum(values(w.inventory))+sum(values(stores))+w.consumed==initial
+        @assert sum(stock)+sum(values(w.inventory))+sum(values(stores))+w.consumed==initial+replenished
         if mod(now+1_000_000,clock.day_us)==0
             for a in IDS
                 integrate(a,now+1_000_000,observe(w,a))
@@ -287,7 +307,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>now+1_000_000)),a)
             end
             push!(daily,D("physical"=>physical(),"sleep"=>deepcopy(learning),"counts"=>deepcopy(counts),
-                "ground"=>sum(stock),"consumed"=>w.consumed))
+                "ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
         end
     end
     terminal=D()
@@ -301,6 +321,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
     D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+        "replenished_food"=>replenished,"replenishments"=>replenishments,
         "counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
 
