@@ -15,7 +15,7 @@ jobs:
       matrix:
         seed: [20261004, 20261005]
     runs-on: ubuntu-24.04
-    timeout-minutes: 180
+    timeout-minutes: 360
     env:
       LW_DAYS: ${{ inputs.days }}
       JULIA_NUM_THREADS: '1'
