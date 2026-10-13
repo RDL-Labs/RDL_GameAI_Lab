@@ -19,7 +19,7 @@ include(joinpath(@__DIR__,"checks.jl"))
     @test safety_plan!(safety_state(),seen,m)["action"]=="walk"
     @test safety_plan!(safety_state(),seen,m;running=true)["action"]=="run"
     @test m["run_rows"][3]["expected_delta"]==delta
-    push!(w.obstacles,RDLMigrationProbe.Circle(0.,1.2,.1))
+    push!(w.obstacles,RDLMigrationProbe.Circle(0.,1.4,.05))
     m=movement_observation(w,"a",yaw,Any[],Int[];running=true)
     @test m["energy"]["rows"][3]["cost"]!==nothing
     @test m["run_rows"][3]["cost"]===nothing
