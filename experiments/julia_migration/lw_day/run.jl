@@ -325,13 +325,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=choose_method!(loops[a][family],[merge(plan,D("method"=>"work","priority"=>5.,"question"=>question))],source)
                 pending[a]=(family=family,source=source,phase=phase,question=question,distance=nothing,ref=nothing,status="unexecuted")
             end
+            plan["purpose_family"]=returning ? "home" : "food"
             plans[a]=plan
         end
         w.seconds=sec+1
         for a in IDS
             plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];before_yaw=yaw[a];status="performed"
             frozen_prediction=harvest_sleep && action=="pickup" ? harvest_predict(harvest[a],sections[a]) : nothing
-            leg=phase in ("return","night") || w.inventory[a]>=6 ? "home" : "food"
+            leg=plan["purpose_family"] # Frozen selection-time parent, not post-drop load.
             delivered=String[]
             # Exactly one body update per simulated second, including non-movement actions.
             if action=="climb"
@@ -459,9 +460,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 pending[a]=merge(pending[a],(status=status,))
             end
             counts[a][action]=get(counts[a],action,0)+1
-            sig=(phase,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))
+            sig=(phase,leg,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))
             if get(previous,a,nothing)!=sig
-                push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing),
+                push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"purpose_family"=>leg,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing),
                     "method"=>get(plan,"method",nothing),"direction"=>get(plan,"direction",nothing),"selection_mode"=>get(plan,"selection_mode",nothing),
                     "route"=>get(plan,"route",nothing),"landmark_color"=>get(plan,"landmark_color",nothing)))
                 previous[a]=sig

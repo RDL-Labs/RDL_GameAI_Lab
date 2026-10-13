@@ -62,6 +62,12 @@ native_main([joinpath(out,"controlled"),"--spec",f])
 r=JSON3.read(read(joinpath(out,"controlled","result.json"),String))
 @testset "drop in common living loop" begin
     @test r.dropped_cargo.dropped>=1
+    own=[e for e in r.events if e.actor=="npc_a"]
+    drop=findfirst(e->e.action=="drop" && e.status=="dropped",own)
+    deposit=findfirst(e->e.action=="deposit" && e.status=="performed",own)
+    @test drop!==nothing && deposit!==nothing && drop<deposit
+    @test all(e.purpose_family=="home" for e in own[drop:deposit])
+    @test !any(e.action in ("pickup","recover") for e in own[drop:deposit])
     @test any(parse(Int,split(x.source,':')[2])<8_640_000_000 && x.load==5 for x in r.climbing.npc_a.records)
     @test r.climbing.npc_a.performed>=1
     @test r.final_agents.npc_a.personal_stock>=5
