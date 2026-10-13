@@ -1,6 +1,11 @@
 name: Julia LW thirty-day integrated campaign
 on:
   workflow_dispatch:
+    inputs:
+      days:
+        type: choice
+        default: '30'
+        options: ['3', '30']
 permissions:
   contents: read
 jobs:
@@ -10,8 +15,9 @@ jobs:
       matrix:
         seed: [20261004, 20261005]
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 180
     env:
+      LW_DAYS: ${{ inputs.days }}
       JULIA_NUM_THREADS: '1'
       OPENBLAS_NUM_THREADS: '1'
     steps:

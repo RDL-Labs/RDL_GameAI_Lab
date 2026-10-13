@@ -42,3 +42,19 @@ Actions38366040129 completed: 56 assertions PASS on the final code. Saved food
 balances, six overflow offers with zero selections, and exact replay were
 independently rechecked.
 Full return-search and broader channel coverage remain pending.
+
+
+## Return-search connection, source633679b
+
+Actions38371971848 passed63 assertions (20 baseline,24 local,16 life invariants,
+2 offer checks,1 exact replay). Return-purpose H at threshold plus absent current
+home target allows the same bounded release, linked to the immediately preceding
+accepted method receipt. Goal changes reset local residual, and home uncertainty
+is not inferred from food coverage. All candidates still require observed surface
+and executable body cost. Native combined heading/step differs from Python's
+turn-then-step and its diagnostic vocabulary; no command parity is claimed.
+
+Three days seed05 with skyline subrays: enabled A/B/C offers102/416/984 and
+selections44/11/159. Disabled balance100+84=36+142+6; enabled100+65=48+111+6
+(ground,held,consumed). Thus no efficiency improvement claim. Overflow balance
+76=0+72+4; replay bytes match. This updates the historical food-only limitation.

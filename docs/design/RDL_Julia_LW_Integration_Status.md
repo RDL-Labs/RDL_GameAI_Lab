@@ -28,7 +28,7 @@ behavioral acceptance criterion is satisfied.
 | Food / stores | social_life, personal_food | personal/shared stores and global regrowth period/capacity connected;58 assertions, four-day comparison, cross-actor retrieval and nonempty cohort transfer verified |
 | Surface / food observation | World.packet, ground_appearance | bounded food, body-independent five-ray surface and sampled ground appearance; complete/partial distinguished; full appearance terrain gate remains different |
 | Elevated sight | World.cast, local_return | finite0/15/30-degree rays/subrays, observed home-color memory and local6-unit dock adapter connected; native dock still exposes relative distance |
-| Incomplete-view release | incomplete_reposition | food-purpose residual candidate release connected; return-search trigger vocabulary unported; observed six offers,zero selections in finite fixture |
+| Incomplete-view release | incomplete_reposition | food and unresolved-home residual release connected; native H/receipt trigger adapts Python reason vocabulary; return selections verified in three-day life |
 | Goal / method H | continuous_selection, nested models | shared BasicLoop, persistent return purpose, movement continuation, body field, cross-day exploration horizon; native finite hierarchy, not canonical arbitrary nesting |
 | Routes | directional_routes, relational_movement | bounded color sequences, angular relation field and result-linked route H connected; native route vocabulary remains narrower |
 | Harvest learning | harvest_sleep, model_movement_field | formation/use/invalidation/one replacement verified in life; supplied model schemas, not canonical T1 |
