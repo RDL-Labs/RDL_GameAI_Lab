@@ -26,7 +26,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; finite per-record dormancy/reactivation connected; full vocabulary/context and conjunction bundles unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
-| Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; no wear or recognized paths |
+| Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; shared walking wear/recovery verified; appearance/pattern recognition still unported |
 | Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
 | Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
 | Transport | production observation/results receipts | local same-process scaffold, no Luanti/HTTP integration |
@@ -296,3 +296,30 @@ Sleep maintenance: [report](../../experiments/julia_migration/lw_integrated/slee
 41 checks passed. Four-day native run produces14 dormant records, no live wake
 event, unchanged food/choice counters. Reactivation is verified locally; this is
 per-record lifecycle adaptation, not full conjunction-bundle migration.
+
+
+## Completion gates for the full LW migration (2026-10-13)
+
+The active objective is full major-function LW migration, not completion of each
+small experiment in isolation. Current evidence does NOT satisfy this objective.
+
+| Gate | Current evidence / remaining work |
+|---|---|
+| Native generation through saving | Implemented and frozen-spec replay tested |
+| Body and cargo | Local walk/run/climb/drop; basal metabolism and broader body-driven selection still need mapping |
+| Sensing and navigation | Beacon/fan only; ground patterns, full landmarks/relative route composition remain |
+| Shared World history | Walking wear/recovery verified in three-day living comparison; local appearance and recognized patterns next |
+| Danger/social | Finite crossing and request/refusal; territory, fuller safety methods and food-retention/social constraints remain |
+| Sleep/model lifecycle | Local adoption/use/replacement/dormancy; full action/context/bundle coverage and live reactivation evidence remain |
+| 30 days / multiple seeds | NOT RUN; four-day guard, model/receipt capacity and history costs must be audited before raising it |
+| Conservation/parent continuity | Covered in finite runs; must recheck in full-feature long campaign |
+| Performance/memory | Local historical measurements only; integrated warmed runtime and peak memory outstanding |
+| Backend switch decision | NOT READY; Python remains reference/production path |
+
+Do not certify full parity from isolated fixture success. Preserve explicit local
+GameAI versus canonical T1 boundaries. Ground wear is World state; it is neither
+agent route memory nor evidence that an agent knows where a path leads.
+
+Ground wear: [report](../../experiments/julia_migration/lw_integrated/ground_wear_report.md),
+41 assertions PASS,1248 touched cells/432 road-threshold cells after three days.
+Appearance/pattern recognition and30-day full integration remain outstanding.
