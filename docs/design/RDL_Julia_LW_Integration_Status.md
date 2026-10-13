@@ -395,3 +395,10 @@ Angular relation field: [report](../../experiments/julia_migration/lw_integrated
 Repeat aid requests now use explicit refusal experience (`fd7ef5e`,53 checks),
 with observed withholding in the common-loop contact scenario. This complements
 the existing response-side relation field without asserting intent knowledge.
+
+
+## Latest finite connections and long baseline
+
+Body candidate field: [160 checks and living comparison](../../experiments/julia_migration/lw_integrated/body_field_report.md). Movement continuation: [51 checks and living comparison](../../experiments/julia_migration/lw_integrated/inertia_report.md). These supersede the pending movement-continuation item above; rest reactivation remains open.
+
+The previously pending corrected thirty-day run completed: [baseline report](../../experiments/julia_migration/lw_integrated/long_run_report.md). Both seeds replay exactly, but its older source is not latest-feature acceptance. Full migration and backend switching remain NOT READY.
