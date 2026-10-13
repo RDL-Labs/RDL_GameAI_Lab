@@ -1,13 +1,13 @@
 # Native adaptation of incomplete_reposition.py: retained response opens only
 # acquired, currently executable steps. The existing method loop owns selection.
 reposition_state(actor)=D("actor"=>actor,"last_us"=>nothing,"residual"=>0.,"offered"=>0,"selected"=>0,"records"=>Any[])
-function reposition_candidates!(s,actor,movement,now;linked=false)
+function reposition_candidates!(s,actor,movement,now;linked=false,purpose="food")
     check(s["actor"]==actor,"reposition_actor")
     previous=s["last_us"]
     previous!==nothing && now<=previous && return Any[]
     dt=previous===nothing ? 0. : (now-previous)/1e6
     s["last_us"]=now;s["residual"]=max(0.,s["residual"]-.5dt)
-    movement["food_coverage"]=="partial" && linked || return Any[]
+    purpose=="food" && movement["food_coverage"]=="partial" && linked || return Any[]
     s["residual"]=min(8.,s["residual"]+1.)
     ground=movement["movement_surface"]["ground"]
     ground["output_limited"] && return Any[]

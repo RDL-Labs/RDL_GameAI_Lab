@@ -27,6 +27,8 @@ include(joinpath(@__DIR__,"checks.jl"))
  complete=deepcopy(m);complete["food_coverage"]="complete"
  @test isempty(reposition_candidates!(s,"a",complete,30_000_000;linked=true))
  @test s["residual"]==0
+ @test isempty(reposition_candidates!(s,"a",m,31_000_000;linked=true,purpose="home"))
+ @test s["residual"]==0
 end
 root=ARGS[1]
 for mode in ("off","on")
