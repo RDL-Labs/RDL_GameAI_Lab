@@ -20,6 +20,21 @@ BasicLoop(goal;parent=nothing,threshold=2)=begin
     BasicLoop(goal,parent,0,threshold,Dict{String,MethodNode}(),0,nothing,nothing,Any[])
 end
 
+# Read-only comparison for diagnostics and composing fields; no snapshot needed.
+function method_choice(s::BasicLoop,candidates)
+    isempty(candidates) && return nothing
+    names=[c["method"] for c in candidates]
+    node(name)=haskey(s.methods,name) ? s.methods[name] : MethodNode(0,s.threshold,0)
+    # Once all current methods are unresolved, bounded penalties alone would
+    # restore the original priority forever. Reconsider the least recent method.
+    reconsider=all(node(name).H>=node(name).threshold for name in names)
+    first(sort(candidates,by=c->begin
+        n=node(c["method"])
+        reconsider ? (Float64(n.last_selected),-c["priority"],c["method"]) :
+            (-c["priority"]+min(2.,n.H/n.threshold),Float64(n.last_selected),c["method"])
+    end))
+end
+
 function choose_method!(s::BasicLoop,candidates,source)
     check(s.trial===nothing,"loop_active_trial")
     isempty(candidates) && return nothing # Unknown/blocked is not made feasible here.
@@ -29,14 +44,8 @@ function choose_method!(s::BasicLoop,candidates,source)
     for name in names
         get!(s.methods,name,MethodNode(0,s.threshold,0))
     end
-    # Once all current methods are unresolved, bounded penalties alone would
-    # restore the original priority forever. Reconsider the least recent method.
     reconsider=all(s.methods[name].H>=s.methods[name].threshold for name in names)
-    selected=first(sort(candidates,by=c->begin
-        n=s.methods[c["method"]]
-        reconsider ? (Float64(n.last_selected),-c["priority"],c["method"]) :
-            (-c["priority"]+min(2.,n.H/n.threshold),Float64(n.last_selected),c["method"])
-    end))
+    selected=method_choice(s,candidates)
     s.sequence+=1;s.methods[selected["method"]].last_selected=s.sequence
     s.trial=(source=source,method=selected["method"],question=selected["question"])
     merge(copy(selected),D("selection_mode"=>reconsider ? "reconsider_unresolved" : "weighted"))

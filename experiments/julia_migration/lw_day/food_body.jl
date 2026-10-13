@@ -23,3 +23,18 @@ function retention_cost(obs,h)
     reserve=obs["body"]["reserve"]
     scarcity*(1+2*max(0.,(80-reserve)/80)+(reserve<=80 ? min(1.,h["H"]/h["threshold"]) : 0.))
 end
+
+# Existing feasible methods only. Reserve depletion is not resolved by rest.
+function project_body_methods!(candidates,h,body,phase)
+    phase in ("exploration","return") || return false
+    urgency=h["intensity"]*(1+min(1.,h["H"]/h["threshold"]))
+    fatigue=body.strain;recoverable=min(1.,body.reserve/20);applied=false
+    for c in candidates
+        get(c,"record_trial",true) || continue
+        action=c["action"]
+        delta=action=="rest" ? fatigue*recoverable-.5*urgency : action in ("walk","scan") ? .5*urgency-.5*fatigue : nothing
+        delta===nothing && continue
+        c["priority"]+=delta;applied|=delta!=0
+    end
+    applied
+end
