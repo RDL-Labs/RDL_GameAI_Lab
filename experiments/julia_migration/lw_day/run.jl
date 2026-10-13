@@ -5,6 +5,7 @@ include(joinpath(@__DIR__,"climbing.jl"))
 include(joinpath(@__DIR__,"dropped_cargo.jl"))
 include(joinpath(@__DIR__,"return_purpose.jl"))
 include(joinpath(@__DIR__,"social_response.jl"))
+include(joinpath(@__DIR__,"general_sleep.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -32,7 +33,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -63,6 +64,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security") for f in ("food","home")) for a in IDS)
+    general=Dict(a=>general_sleep_state() for a in IDS)
     purposes=Dict(a=>return_purpose() for a in IDS)
     pending=Dict{String,Any}();daily=Any[];day_starts=Any[]
     physical()=D(a=>D("position"=>collect(w.positions[a]),"yaw"=>yaw[a],"body"=>bodydict(w.bodies[a]),
@@ -364,9 +366,16 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if phase=="night"
                 cycle=learning[a]["sleep"]["cycle"]
                 harvest_sleep && action=="rest" && freeze_harvest!(harvest[a],cycle,now)
-                callback=harvest_sleep ? ((c,t)->consolidate_harvest!(harvest[a],c,t)) : nothing
+                if general_sleep && cycle["status"]=="pending" && cycle["rest_us"]==0 && action=="rest"
+                    freeze_general!(general[a],a,now)
+                end
+                callback=(harvest_sleep || general_sleep) ? ((c,t)->begin
+                    harvest_sleep && consolidate_harvest!(harvest[a],c,t)
+                    general_sleep && review_general!(general[a],a,day,t)
+                end) : nothing
                 receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
             end
+            general_sleep && remember_general!(general[a],a,op,action,status,get(plan,"target",nothing),phase,now+1_000_000)
             if harvest_sleep && action=="pickup"
                 harvest_pending[a]=(op=op,before=deepcopy(sections[a]),status=status,executed=now+1_000_000,
                     prediction=frozen_prediction,position=p,yaw=yaw[a])
@@ -404,7 +413,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
-    D("social_response"=>social_response ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    D("general_sleep"=>general_sleep ? general : nothing,"social_response"=>social_response ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
