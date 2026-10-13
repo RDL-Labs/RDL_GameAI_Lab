@@ -1,6 +1,7 @@
 using Test
 include(joinpath(@__DIR__,"hazard.jl"))
 include(joinpath(@__DIR__,"ground.jl"))
+include(joinpath(@__DIR__,"climbing.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -10,11 +11,11 @@ include(joinpath(@__DIR__,"harvest_review.jl"))
 include(joinpath(@__DIR__,"harvest_relearn.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
-function home_observation(w,a,yaw,home)
+function home_observation(w,a,yaw,home;visual_obstacles=w.obstacles)
     p=w.positions[a];dx,dz=home[1]-p[1],home[2]-p[2]
     s,c=sincos(deg2rad(yaw[a]));f,r=dx*s+dz*c,dx*c-dz*s
     d=hypot(dx,dz)
-    if d<=60 && (f>=0 || d<=1.25) && !any(o->segment_hit(p,(Float64(home[1]),Float64(home[2])),o,0.),w.obstacles)
+    if d<=60 && (f>=0 || d<=1.25) && !any(o->segment_hit(p,(Float64(home[1]),Float64(home[2])),o,0.),visual_obstacles)
         return D("forward"=>f,"right"=>r,"distance"=>d)
     end
     nothing
@@ -28,13 +29,16 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
     check(!model_relearn || model_review,"harvest_relearn_requires_review")
     w=moving_world(spec);w.capacity=100_000
+    high=copy(w.obstacles);low=low_obstacles ? spec.low_obstacles : Any[]
+    append!(w.obstacles,[RDLMigrationProbe.Circle(o.x,o.z,o.radius) for o in low])
+    climb_stats=Dict(a=>D("attempts"=>0,"performed"=>0,"distance"=>0.,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     safety=Dict(a=>safety_state() for a in IDS)
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
@@ -90,8 +94,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         phase=local_us<bounds[1] ? "orientation" : local_us<bounds[2] ? "exploration" : local_us<bounds[3] ? "return" : "night"
         obs=Dict(a=>observe(w,a) for a in IDS)
-        moves=Dict(a=>movement_observation(w,a,yaw,spec.food,stock;resistance_at=resistance_at,running=running) for a in IDS)
-        homes=Dict(a=>home_observation(w,a,yaw,spec.home) for a in IDS)
+        moves=Dict(a=>movement_observation(w,a,yaw,spec.food,stock;resistance_at=resistance_at,running=running,visual_obstacles=high) for a in IDS)
+        homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
         if harvest_sleep
             for a in IDS
@@ -118,6 +122,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         landmarks=landmark_routes ? Dict(a=>landmark_fan(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
+        climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,resistance_at) for i in 0:4] for a in IDS) : nothing
         plans=D()
         for a in IDS
             integrate(a,now,obs[a]);o=obs[a];plan=nothing;home=homes[a]
@@ -134,7 +139,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             messages=[m for m in reverse(o["messages"]) if !(m["id"] in answered[a]) && m["kind"] in ("request","warn","reach")]
             if hazard_mode
-                plan=safety_plan!(safety[a],hazard_observation(w,a,yaw, spec.hazards,sec),moves[a];running=running)
+                plan=safety_plan!(safety[a],hazard_observation(w,a,yaw, spec.hazards,sec;visual_obstacles=high),moves[a];running=running)
             end
             if plan!==nothing
                 # Safety has authority before social, food and night priorities.
@@ -175,6 +180,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     else
                         s=loops[a][family];source="op:$now:$a"
                         candidates=search_candidates(moves[a],target,s)
+                        climbing && append!(candidates,climb_candidates(climbs[a],moves[a],target,s))
                         if landmark_routes
                             if routes[a]["day"]!=day
                                 empty!(routes[a]["cursors"]);routes[a]["day"]=day
@@ -249,7 +255,21 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             leg=phase in ("return","night") || w.inventory[a]>=6 ? "home" : "food"
             delivered=String[]
             # Exactly one body update per simulated second, including non-movement actions.
-            if action in ("walk","run")
+            if action=="climb"
+                actual=climb_sample(w,a,yaw[a],plan["direction"],low,high,resistance_at)
+                expected=climbs[a][plan["direction"]+1]
+                yaw[a]=mod(yaw[a]+ANGLES[plan["direction"]+1]+180,360)-180
+                s,c=sincos(deg2rad(yaw[a]))
+                w.bodies[a],status,d,delta=step(w.bodies[a],"climb",w.inventory[a],actual["resistance"],actual["clear"])
+                w.positions[a]=(p[1]+s*d,p[2]+c*d);distance[a]+=d
+                g=climb_stats[a];g["attempts"]+=1;g["distance"]+=d
+                status=="performed" && (g["performed"]+=1)
+                comparable=expected["load"]==w.inventory[a] && expected["clear"]==actual["clear"]
+                comparable && expected["expected_delta"]!=delta && (g["delta_mismatches"]+=1)
+                push!(g["records"],D("source"=>op,"status"=>status,"height"=>actual["height"],"capacity"=>actual["capacity"],
+                    "load"=>w.inventory[a],"resistance"=>actual["resistance"],"distance"=>d,"expected_delta"=>expected["expected_delta"],"actual_delta"=>delta))
+                length(g["records"])>32 && popfirst!(g["records"])
+            elseif action in ("walk","run")
                 yaw[a]=mod(yaw[a]+ANGLES[plan["direction"]+1]+180,360)-180
                 s,c=sincos(deg2rad(yaw[a]))
                 span=action=="run" ? 1.5*(1-w.bodies[a].damage) : .5
@@ -366,7 +386,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
-        "running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
+        "climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
 
 if abspath(PROGRAM_FILE)==@__FILE__

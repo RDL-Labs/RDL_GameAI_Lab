@@ -11,12 +11,12 @@ function moving_world(spec)
     w
 end
 
-function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,running=false)
+function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,running=false,visual_obstacles=w.obstacles)
     origin=w.positions[actor];s,c=sincos(deg2rad(yaw[actor]));visible=Any[]
     for (j,f) in enumerate(food)
         dx,dz=f.x-origin[1],f.z-origin[2];forward,right=dx*s+dz*c,dx*c-dz*s
         distance=hypot(forward,right)
-        if stock[j]>0 && distance<=12 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),w.obstacles)
+        if stock[j]>0 && distance<=12 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),visual_obstacles)
             push!(visible,D("ref"=>j-1,"forward"=>forward,"right"=>right,"distance"=>distance,
                 "appearance"=>hasproperty(f,:appearance) ? f.appearance : "brown_capped_ovoid"))
         end
