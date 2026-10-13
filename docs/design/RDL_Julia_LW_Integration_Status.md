@@ -436,3 +436,6 @@ Parent-trial bundle credit connected (`8161368`): [61 checks and four-day compar
 
 
 Selection trails connected (`ebf94c4`): [45 checks and four-day living comparison](../../experiments/julia_migration/lw_integrated/trail_report.md). Actual use and whole-episode parent success are separately recorded. This supersedes the unported trail entry; broader sensing/repositioning and inherited World remain open.
+
+
+Ground history restoration connected (`a5a02ba`): [42 checks and inherited-surface living replay](../../experiments/julia_migration/lw_integrated/ground_history_report.md). Full cohort_world transfer still requires resource/regrowth/hazard/shared-state restoration. Incomplete-view repositioning requires the missing surface-coverage adapter first; do not map body-limited or blocked to acquisition_incomplete.
