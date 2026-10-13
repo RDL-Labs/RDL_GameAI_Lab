@@ -26,7 +26,7 @@ function climb_candidates(samples,movement,target,loop)
         angle=deg2rad(Float64(ANGLES[i+1]))
         alignment=target===nothing ? 0. : cos(atan(target["right"],target["forward"])-angle)
         push!(out,D("method"=>"climb_$(ANGLES[i+1])","action"=>"climb","direction"=>i,
-          "priority"=>(target===nothing ? 1.5 : 3.+alignment)-.1*row["resistance"]*(1+.1*row["load"]),
+          "priority"=>(target===nothing ? 1.5 : 3.0 + alignment)-.1*row["resistance"]*(1+.1*row["load"]),
           "question"=>target===nothing ? "target_observed" : "target_nearer"))
     end
     out
