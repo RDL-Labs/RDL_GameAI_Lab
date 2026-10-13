@@ -79,7 +79,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     check(!ground_continuity || ground_perception,"ground_continuity_requires_perception")
     ground_models=Dict(a=>ground_memory(a) for a in IDS);ground_receipts=Dict{String,Any}()
-    wear=GroundWear(Int(clock.day_us))
+    inherited_ground=get(spec,:ground_history,nothing)
+    check(inherited_ground===nothing || ground_wear,"ground_history_requires_wear")
+    wear=inherited_ground===nothing ? GroundWear(Int(clock.day_us)) : restore_wear(inherited_ground,Int(clock.day_us))
+    wear_offset=wear.now
     ground_views=Dict(a=>D("observations"=>0,"counts"=>D(),"records"=>Any[]) for a in IDS)
     base_resistance_at=p->ground_resistance(p,patches)
     resistance_at=p->1+(base_resistance_at(p)-1)*(ground_wear ? wear_factor(wear,p) : 1.)
@@ -129,7 +132,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     for sec in 0:days*div(clock.day_us,1_000_000)-1
         now=sec*1_000_000;w.seconds=sec
-        (ground_wear || ground_perception) && advance_wear!(wear,now)
+        (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
         if ground_perception
             for a in IDS
                 view=ground_appearance(w,a,yaw,wear,now)
@@ -482,7 +485,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             end
             if ground_wear && action=="walk" && status=="performed"
-                tread!(wear,op,a,p,w.positions[a],now)
+                tread!(wear,op,a,p,w.positions[a],wear_offset+now)
             end
             if ground_continuity
                 dx=w.positions[a][1]-p[1];dz=w.positions[a][2]-p[2];sn,cs=sincosd(before_yaw)
@@ -569,7 +572,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 "ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
         end
     end
-    ground_wear && advance_wear!(wear,Int(days*clock.day_us))
+    ground_wear && advance_wear!(wear,wear_offset+Int(days*clock.day_us))
     terminal=D()
     for a in IDS
         integrate(a,Int(days*clock.day_us),observe(w,a))

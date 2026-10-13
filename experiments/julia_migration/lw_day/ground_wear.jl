@@ -60,3 +60,21 @@ function wear_snapshot(g)
       "grace_us"=>g.day,"recovery_per_day"=>2,"cell_size"=>1.,"road_distance"=>10.,
       "operations"=>g.operations,"cells"=>cells)
 end
+
+# Environmental transfer only: no agent memory/body restoration.
+function restore_wear(snapshot,day)
+    snapshot.rule=="world-ground-recovery-v1" && snapshot.grace_us==day && snapshot.cell_size==1 && snapshot.recovery_per_day==2 || error("ground_history_rule")
+    snapshot.now_us>=0 || error("ground_history_clock")
+    g=GroundWear(day;recovery=Bool(snapshot.recovery_enabled));g.now=Int(snapshot.now_us);g.operations=Int(snapshot.operations)
+    for (key,v) in pairs(snapshot.cells)
+        coords=parse.(Int,split(String(key),','));length(coords)==2 || error("ground_history_cell")
+        isfinite(v.wear) && isfinite(v.distance) && 0<=v.wear<=v.distance+1e-8 && 0<=v.last_walk_us<=g.now || error("ground_history_value")
+        # Snapshot wear is already decayed; reconstruct an anchor to avoid applying
+        # the past interval twice on the first new-cohort observation.
+        elapsed=g.recovery ? max(0,g.now-Int(v.last_walk_us)-day) : 0
+        agents=D((occursin('/',String(a)) ? String(a) : "inherited/"*String(a))=>Float64(d) for (a,d) in pairs(v.agents))
+        all(isfinite(d) && d>=0 for d in values(agents)) || error("ground_history_agents")
+        g.cells[(coords[1],coords[2])]=D("distance"=>Float64(v.distance),"wear"=>Float64(v.wear),"anchor_wear"=>Float64(v.wear)+2*elapsed/day,"last_walk_us"=>Int(v.last_walk_us),"agents"=>agents)
+    end
+    g
+end
