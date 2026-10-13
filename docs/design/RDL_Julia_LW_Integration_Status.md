@@ -25,7 +25,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Routes | directional_routes, relational_movement | bounded observed color sequences; no full angular relation composition or route failure completion |
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | unported beyond harvest and local social expectation |
-| Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; response generosity still fixture-fixed |
+| Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
 | Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; no wear or recognized paths |
 | Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
 | Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
@@ -266,3 +266,9 @@ Parent-purpose follow-up: [report](../../experiments/julia_migration/lw_integrat
 at62s. B recovers the discarded unit at64s. The previously observed drop/recovery
 loop is resolved in this case by retaining return across load changes. General
 high-level purpose abandonment is not implemented.
+
+
+Social response: [finite port report](../../experiments/julia_migration/lw_integrated/social_response_report.md).
+39 checks passed. Controlled living run produced three gives/one refusal and a
+Sleep-formed expectation of2/3. Prior-refusal response influence remains locally
+tested only; general Sleep and food-retention projection are still unported.
