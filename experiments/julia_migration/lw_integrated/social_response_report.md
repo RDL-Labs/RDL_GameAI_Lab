@@ -51,3 +51,31 @@ also check lower probability under hunger, empty inventory, owner rejection,
 repeatability and no-response exclusion. Downloaded summary food ledgers were
 recomputed locally. Execution times include differing compilation states and
 are not a speed comparison.
+
+
+## Repeat-request path (2026-10-13)
+
+`fd7ef5e` connects the other half of `refusal_relation_field.choose`: after the
+existing expectation/method-pressure target selection, own explicit-refusal
+records can reduce the chance of requesting again. Current observed contact and
+holding-food feasibility are mandatory. A withheld request returns to the
+existing activity; it neither creates a pending request nor forces rest.
+No-response observations are not rewritten as explicit refusal or hostile intent.
+Default legacy behavior remains, while `social-response=experience` uses both
+request and response paths. Probability uses the existing deterministic SHA draw.
+
+[Run 38353681453](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38353681453)
+passed 53 assertions (20 common,17 evidence/body/request,12 living invariants,
+4 living request/response). Repeat notification/owner, unavailable contact/food,
+probability reduction and no-response distinction are covered locally.
+
+Three-day ordinary life: A made one request decision with no prior refusal;
+no claimed learned difference there. Controlled one-day common-loop contact:
+A made6 decisions, sent4 requests and withheld2. B gave3/refused1. The latter
+four A decisions used explicit-refusal weight0.6; two continued the existing
+activity. Baseline stochastic withholding is also possible, so these two events
+alone do not establish a counterfactual causal effect. Food20=stock17+consumed3.
+The local same-seed probability checks separately verify the experience effect.
+
+This is local use of received experience, not inferred intent, arbitrary social
+ontology, learned affiliation or canonical T1. Other migration gaps remain.

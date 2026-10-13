@@ -368,10 +368,9 @@ No long-run success or backend-switch readiness is claimed before results.
 Audited against `integrations/lightweight/integrated_social_campaign.py::OPTIONS`
 and the additional connected options in `timed_harvest.run` (2026-10-13):
 
-* Angular relation field: current Julia routes contain single color points;
-  Python retains multi-landmark scenes and compares pairwise angular relations.
-  Port scene capture/comparison and body-relative candidate composition, rather
-  than claiming color-route support is the full field.
+* Angular relation field: scene capture, pairwise comparison and current feasible
+  proposals are connected (`90d15f8`, 139 checks and three-day life). Full sensing
+  and broader exploratory continuity remain separate requirements.
 * Exploration/body continuity: broader horizon/reposition choices, persistent
   movement and rest reactivation still require correspondence review/integration.
 * Sleep/social: per-record dormancy is connected; experience conjunction bundles,
@@ -389,3 +388,10 @@ invent bearings and the ability conveys neither home location nor destination.
 
 Orientation: [report](../../experiments/julia_migration/lw_integrated/orientation_report.md),
 97 ordinary surveys used the adapter over three days; not a home-position oracle.
+
+Angular relation field: [report](../../experiments/julia_migration/lw_integrated/relation_report.md),
+970 living method selections across three actors, food conserved and nine Sleeps.
+
+Repeat aid requests now use explicit refusal experience (`fd7ef5e`,53 checks),
+with observed withholding in the common-loop contact scenario. This complements
+the existing response-side relation field without asserting intent knowledge.
