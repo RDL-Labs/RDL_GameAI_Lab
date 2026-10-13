@@ -642,7 +642,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 metabolism[a]+=before-w.bodies[a].reserve
             end
         end
-        @assert sum(stock)+sum(values(w.inventory))+sum(values(stores))+w.consumed==initial+replenished
+        @assert shared+sum(stock)+sum(values(w.inventory))+sum(values(stores))+w.consumed==initial+replenished
         if mod(now+1_000_000,clock.day_us)==0
             for a in IDS
                 integrate(a,now+1_000_000,observe(w,a))
