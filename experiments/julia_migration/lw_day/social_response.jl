@@ -15,7 +15,7 @@ function experienced_response(obs,records,pressure,owner,seed)
         push!(sources,id);weight=max(weight,min(2.,.6*evidence["H_after"]))
     end
     reserve=obs["body"]["reserve"];need=max(0.,(80-reserve)/40)
-    score=1.-need-weight
+    score=1.0 - need - weight
     probability=obs["inventory"]>0 ? exp(score)/(1+exp(score)) : 0.
     digest=sha256(seed);bits=foldl((x,b)->(x<<8)|UInt64(b),digest[1:8];init=UInt64(0))
     draw=Float64(bits)/18446744073709551616.0
@@ -25,3 +25,4 @@ function experienced_response(obs,records,pressure,owner,seed)
         "authority"=>"local response use rule; not inferred intent")
     (action,other,m["id"]),trace
 end
+
