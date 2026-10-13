@@ -18,7 +18,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Area | Python reference | Julia status / explicit gap |
 |---|---|---|
 | Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–4 days; sequential per-second actions |
-| Body / load / eating | layered_body, body_exploration | walk/rest/eat with inventory load; optional danger-running connected; no climb/drop, separate basal metabolism not fully ported |
+| Body / load / eating | layered_body, body_exploration | walk/rest/eat, optional danger-running and low-obstacle climbing; no drop, separate basal metabolism not fully ported |
 | Food / stock | social_life, timed_harvest | acquisition, personal stock, retrieve/eat, fixed dawn top-up option; no full cargo World objects |
 | Observation | World.cast, skyline/ground adapters | horizontal color fan and visible food; provisional home beacon, no full OBS coverage/skyline |
 | Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods; not arbitrary canonical nested M_B |
@@ -115,6 +115,26 @@ candidate yet; urgency, learned running preference and safety-method H are futur
 work. Completed running does not certify safety, fulfill food/home goals, or earn
 route support. Each executed run retains bounded source/body delta diagnostics.
 
+`--low-obstacles on` adds three narrow height0.4 barriers at x=-2/0/2,z=4.5,
+radius0.15. Default off. `--climbing on` independently enables current feasible
+climb candidates; obstacle-on/climb-off is a same-World control. Low barriers are
+physical blockers but not food/home/hazard sight blockers in this finite adapter.
+This is not general vertical occlusion; other existing contact/communication
+geometry retains its conservative physical blocker rule.
+
+Climb distance is1*(1-damage), maximum height0.6*(1-damage)/(1+0.1*load), with
+1e-12 height comparison tolerance. Full crossed low-obstacle height, high obstacle
+intersection, and clear landing are checked. Burst4*effort, reserve0.4*effort*RS,
+strain0.15*effort*SS match the Python body coefficients. Candidate height/effort is
+current local evidence; obstacle identities and map centers stay World-side.
+
+Climb methods enter existing food/home BasicLoops only for directions whose walk
+candidate is unavailable. Fixed alignment-minus-effort priority competes with
+walking/scan; execution is rechecked using current load. Progress may resolve the
+climb method's question without resolving food/home goal H. Danger-climbing,
+learned climbing preferences and route reinforcement from climb are not added.
+Ground priority projection remains walk-only; climb has its own effort term.
+
 From repository root, with Python dependencies and the locked Julia environment:
 
 ```powershell
@@ -202,3 +222,7 @@ did not improve. Flat-mode historical result is preserved.
 
 Running evidence: [finite danger-running report](../../experiments/julia_migration/lw_integrated/running_report.md),
 42 checks passed;24 actual runs in a three-day living comparison. Climb/drop remain next.
+
+Climbing evidence: [load-limited climbing report](../../experiments/julia_migration/lw_integrated/climbing_report.md),
+43 checks passed; seven actual crossings in the three-day native comparison.
+Prior two-seed behavior remains unchanged with low obstacles and climbing off.
