@@ -167,6 +167,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 goal=t.family=="home" ? at_home : t.status in ("picked_up","recovered")
                 resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing)
             end
+            if ground_continuity
+                active=Set(m["model_ref"] for m in ground_models[a]["models"])
+                for loop in values(loops[a])
+                    filter!(kv->!startswith(first(kv),"ground_") || first(kv) in active,loop.methods)
+                end
+            end
             messages=[m for m in reverse(o["messages"]) if !(m["id"] in answered[a]) && m["kind"] in ("request","warn","reach")]
             if hazard_mode
                 plan=safety_plan!(safety[a],hazard_observation(w,a,yaw, spec.hazards,sec;visual_obstacles=high),moves[a];running=running)

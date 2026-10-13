@@ -43,6 +43,7 @@ for mode in ("off","on")
   @testset "living continuity" begin
    @test all(s.linked_updates==51839 for s in values(r.ground_continuity))
    @test all(length(s.models)<=8 for s in values(r.ground_continuity))
+   @test all(count(k->startswith(String(k),"ground_"),keys(l.methods))<=8 for day in r.daily for a in values(day.physical) for l in values(a.loops))
    @test sum(s.selections for s in values(r.ground_continuity))>0
   end
  end
