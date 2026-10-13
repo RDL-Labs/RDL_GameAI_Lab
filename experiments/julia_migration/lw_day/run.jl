@@ -18,6 +18,7 @@ include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"safety_methods.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
+include(joinpath(@__DIR__,"relation_field.jl"))
 include(joinpath(@__DIR__,"harvest_learning.jl"))
 include(joinpath(@__DIR__,"harvest_field.jl"))
 include(joinpath(@__DIR__,"harvest_review.jl"))
@@ -42,7 +43,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false)
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -77,6 +78,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     distance=Dict(a=>0. for a in IDS)
     run_stats=Dict(a=>D("attempts"=>0,"performed"=>0,"distance"=>0.,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     routes=Dict(a=>route_memory() for a in IDS)
+    relation_fields=Dict(a=>relation_field_state() for a in IDS)
+    check(!relation_field || landmark_routes,"relation_requires_routes")
     harvest=Dict(a=>harvest_state(a) for a in IDS);harvest_pending=Dict{String,Any}()
     model_relearn && foreach(a->(harvest[a]["relearn_enabled"]=true),IDS)
     field_stats=Dict(a=>D("applied"=>0,"selection_changes"=>0,"examples"=>Any[],"by_model"=>D()) for a in IDS)
@@ -261,7 +264,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             end
                             # Direct currently observed goal wins over remembered detours.
                             if target===nothing
-                                append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
+                                append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"];include_routes=!relation_field))
+                                relation_field && append!(candidates,relation_candidates!(relation_fields[a],moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
                             end
                         end
                         if ground_continuity && phase=="exploration" && !returning && target===nothing
@@ -285,6 +289,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         sleep_without=sleep_actions ? choose_method!(deepcopy(s),candidates,source) : nothing
                         sleep_applied=sleep_actions && project_sleep_actions!(action_models[a],candidates,contexts[a],a,now)
                         plan=choose_method!(s,candidates,source)
+                        relation_field && startswith(plan["method"],"relation:") && (relation_fields[a]["selections"]+=1)
                         ground_continuity && startswith(plan["method"],"ground_") && (ground_models[a]["selections"]+=1)
                         sleep_maintenance && (plan["sleep_changed"]=sleep_applied && sleep_without["method"]!=plan["method"])
                         sleep_applied && sleep_without["method"]!=plan["method"] && (action_models[a]["selection_changes"]+=1)
@@ -442,7 +447,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             max_radius[a]=max(max_radius[a],hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2]))
             if landmark_routes && !get(plan,"safety",false)
                 near=homes[a]!==nothing && homes[a]["distance"]<=1.25
-                route_result!(routes[a],landmarks[a],op,action,status,leg,near,get(plan,"route",nothing);delivered=delivered)
+                route_result!(routes[a],landmarks[a],op,action,status,leg,near,get(plan,"route",nothing);delivered=delivered,relational=relation_field)
             end
             if phase=="night"
                 cycle=learning[a]["sleep"]["cycle"]
@@ -504,7 +509,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
-    D("orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    D("relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end

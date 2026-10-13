@@ -38,7 +38,7 @@ trail()=D("points"=>Any[],"overflow"=>false)
 route_memory()=D("routes"=>D(),"outbound"=>trail(),"trip"=>nothing,"at_home"=>false,
     "cursors"=>Dict{String,Int}(),"day"=>-1,"selections"=>0,"admissions"=>0,"blocked"=>0)
 
-function record_landmark!(t,obs,operation)
+function record_landmark!(t,obs,operation;relational=false)
     if obs["coverage"]!="complete";t["overflow"]=true;return;end
     t["overflow"] && return
     candidates=Any[]
@@ -54,15 +54,18 @@ function record_landmark!(t,obs,operation)
     color=candidates[1][2]
     !isempty(t["points"]) && t["points"][end]["color"]==color && return
     if length(t["points"])>=8;t["overflow"]=true;return;end
-    push!(t["points"],D("color"=>color,"source"=>obs["source"],"result"=>operation))
+    point=D("color"=>color,"source"=>obs["source"],"result"=>operation)
+    relational && (point["scene"]=something(relation_scene(obs),Any[]))
+    push!(t["points"],point)
 end
 
-function admit_route!(memory,goal,t,receipt)
+function admit_route!(memory,goal,t,receipt;relational=false)
     (t["overflow"] || isempty(t["points"])) && return
     for reverse in (false,true)
         g=reverse ? (goal=="food" ? "home" : "food") : goal
         points=reverse ? Base.reverse(t["points"]) : t["points"]
         key=g*":"*join([p["color"] for p in points],",")
+        relational && (key*="/"*bytes2hex(sha256(JSON3.write(relation_signature(points))))[1:16])
         if !haskey(memory["routes"],key)
             length(memory["routes"])>=16 && continue
             memory["routes"][key]=D("goal"=>g,"points"=>deepcopy(points),"support"=>0,"H"=>0,"receipts"=>String[],"proposals"=>String[])
@@ -75,13 +78,13 @@ function admit_route!(memory,goal,t,receipt)
     end
 end
 
-function route_result!(m,obs,operation,action,status,goal,at_home,selected_route=nothing;delivered=String[])
+function route_result!(m,obs,operation,action,status,goal,at_home,selected_route=nothing;delivered=String[],relational=false)
     at_home && m["trip"]===nothing && (m["at_home"]=true)
     if action=="walk" && status=="performed"
         if goal=="food" && m["at_home"] && m["trip"]===nothing
-            record_landmark!(m["outbound"],obs,operation)
+            record_landmark!(m["outbound"],obs,operation;relational=relational)
         elseif goal=="home" && m["trip"]!==nothing
-            record_landmark!(m["trip"]["inbound"],obs,operation)
+            record_landmark!(m["trip"]["inbound"],obs,operation;relational=relational)
         end
     end
     if action=="pickup" && status=="picked_up" && m["trip"]===nothing
@@ -90,7 +93,7 @@ function route_result!(m,obs,operation,action,status,goal,at_home,selected_route
     elseif action=="deposit" && status=="performed"
         if m["trip"]!==nothing && m["trip"]["pickup"] in delivered
             for (g,t) in (("food",m["trip"]["outbound"]),("home",m["trip"]["inbound"]))
-                t!==nothing && admit_route!(m,g,t,operation)
+                t!==nothing && admit_route!(m,g,t,operation;relational=relational)
             end
         end
         m["trip"]=nothing;m["at_home"]=true;m["outbound"]=trail();empty!(m["cursors"])
@@ -100,7 +103,7 @@ function route_result!(m,obs,operation,action,status,goal,at_home,selected_route
     end
 end
 
-function landmark_candidates(move,obs,m,goal,source)
+function landmark_candidates(move,obs,m,goal,source;include_routes=true)
     obs["coverage"]=="complete" || return Any[]
     targets=Any[]
     for color in sort(unique([f["color"] for f in obs["features"]]))
@@ -110,6 +113,7 @@ function landmark_candidates(move,obs,m,goal,source)
         end
     end
     for key in sort(collect(keys(m["routes"])))
+        include_routes || continue
         n=m["routes"][key];n["goal"]==goal || continue
         goal=="food" && !m["at_home"] && continue
         cursor=get(m["cursors"],key,1)
