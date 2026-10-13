@@ -356,7 +356,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         if skyline_views!==nothing && returning && target===nothing
                             append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
                         end
-                        reposition && append!(candidates,reposition_candidates!(reposition_states[a],a,moves[a],now;purpose=family,linked=s.receipt!==nothing && s.receipt.source=="op:$(now-1_000_000):$a"))
+                        reposition && append!(candidates,reposition_candidates!(reposition_states[a],a,moves[a],now;purpose=family,home_unresolved=returning && target===nothing && s.H>=s.threshold,linked=s.receipt!==nothing && s.receipt.source=="op:$(now-1_000_000):$a"))
                         body_field && push!(candidates,D("method"=>"rest","action"=>"rest","priority"=>1.,"question"=>"rested"))
                         climbing && append!(candidates,climb_candidates(climbs[a],moves[a],target,s))
                         dropping && climbing && append!(candidates,drop_candidates(climbs[a],w.bodies[a],w.inventory[a],target))

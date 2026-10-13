@@ -29,10 +29,21 @@ include(joinpath(@__DIR__,"checks.jl"))
  @test s["residual"]==0
  @test isempty(reposition_candidates!(s,"a",m,31_000_000;linked=true,purpose="home"))
  @test s["residual"]==0
+ # Home release uses unresolved return evidence, independent of food coverage.
+ for t in 32:35
+  cs=reposition_candidates!(s,"a",complete,t*1_000_000;linked=true,purpose="home",home_unresolved=true)
+ end
+ @test !isempty(cs)
+ @test all(c["action"]=="walk" for c in cs)
+ @test last(s["records"])["purpose"]=="home"
+ @test isempty(reposition_candidates!(s,"a",complete,36_000_000;linked=true,purpose="home"))
+ @test isempty(reposition_candidates!(s,"a",exhausted,37_000_000;linked=true,purpose="home",home_unresolved=true))
+ @test isempty(reposition_candidates!(s,"a",m,38_000_000;linked=true,purpose="food"))
+ @test s["residual"]==1
 end
 root=ARGS[1]
 for mode in ("off","on")
- native_main([joinpath(root,mode),"--days","3","--seed","20261005","--food","renewable","--reposition",mode])
+ native_main([joinpath(root,mode),"--days","3","--seed","20261005","--food","renewable","--reposition",mode,"--skyline","subrays"])
  r=JSON3.read(read(joinpath(root,mode,"result.json"),String));input=JSON3.read(read(joinpath(root,mode,"spec.json"),String))
  validate_integrated(r,input)
 end
