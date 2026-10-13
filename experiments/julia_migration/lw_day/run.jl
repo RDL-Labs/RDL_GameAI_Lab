@@ -59,7 +59,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     safety=Dict(a=>safety_state() for a in IDS)
     hunger=Dict(a=>hunger_state(a) for a in IDS)
     metabolism=Dict(a=>0. for a in IDS)
-    response_stats=Dict(a=>D("decisions"=>0,"give"=>0,"refuse"=>0,"experienced"=>0,"records"=>Any[]) for a in IDS)
+    response_stats=Dict(a=>D("decisions"=>0,"request_decisions"=>0,"requests"=>0,"withheld"=>0,"give"=>0,"refuse"=>0,"experienced"=>0,"records"=>Any[]) for a in IDS)
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     check(!ground_continuity || ground_perception,"ground_continuity_requires_perception")
@@ -231,7 +231,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             elseif food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80
                 targets=[x["ref"] for x in o["others"] if x["holding_food"]]
                 target,_=select_target(targets,states[a]["model"],live[a].state)
-                if target!==nothing
+                request_allowed=target!==nothing
+                if request_allowed && social_response
+                    request_allowed,trace=experienced_request(o,states[a]["records"],live[a].state,a,target,"request:$now:$a:$target")
+                    rs=response_stats[a];rs["request_decisions"]+=1;rs[request_allowed ? "requests" : "withheld"]+=1
+                    push!(rs["records"],trace);length(rs["records"])>32 && popfirst!(rs["records"])
+                end
+                if request_allowed
                     op="op:$now:$a"
                     states[a]["pending"]=D("message_id"=>a*":"*op,"target"=>target,"deadline"=>now+5_000_000,
                         "request_observation_id"=>"ob:$now:$a","operation_id"=>op)

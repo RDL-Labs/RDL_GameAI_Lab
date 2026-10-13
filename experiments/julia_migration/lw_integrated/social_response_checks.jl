@@ -7,6 +7,8 @@ include(joinpath(@__DIR__,"checks.jl"))
     records=Records();p=pressure_update(nothing,records,"a")
     _,base=experienced_response(obs,records,p,"a","fixed")
     @test base["weight"]==0
+    _,request_base=experienced_request(obs,records,p,"a","b","fixed")
+    @test request_base["weight"]==0
     for i in 1:3
         records["r$i"]=D("agent_id"=>"a","target"=>"b","outcome"=>"refuse",
             "request_observation_id"=>"start$i","source_observation_id"=>"end$i")
@@ -16,6 +18,15 @@ include(joinpath(@__DIR__,"checks.jl"))
     @test t["weight"]==1.8 || isapprox(t["weight"],1.8)
     @test t["give_probability"]<base["give_probability"]
     @test length(t["sources"])==3
+    q,request=experienced_request(obs,records,p,"a","b","fixed")
+    @test request["request_probability"]<request_base["request_probability"]
+    @test length(request["sources"])==3
+    @test experienced_request(obs,records,p,"a","b","fixed")== (q,request)
+    @test_throws Exception experienced_request(obs,records,p,"a","unseen","fixed")
+    @test_throws Exception experienced_request(obs,records,p,"wrong","b","fixed")
+    obs["others"][1]["holding_food"]=false
+    @test !experienced_request(obs,records,p,"a","b","fixed")[1]
+    obs["others"][1]["holding_food"]=true
     @test experienced_response(obs,records,p,"a","fixed")== (d,t)
     obs["body"]["reserve"]=20.
     _,hungry=experienced_response(obs,records,p,"a","fixed")
@@ -26,6 +37,7 @@ include(joinpath(@__DIR__,"checks.jl"))
     for r in values(records);r["outcome"]="no_response_observed";end
     p=pressure_update(nothing,records,"a")
     @test experienced_response(obs,records,p,"a","fixed")[2]["weight"]==0
+    @test experienced_request(obs,records,p,"a","b","fixed")[2]["weight"]==0
 end
 out=ARGS[1]
 for mode in ("legacy","experience")
@@ -40,6 +52,8 @@ native_main([joinpath(out,"controlled"),"--spec",f])
 r=JSON3.read(read(joinpath(out,"controlled","result.json"),String))
 @testset "response in native life" begin
     @test sum(s.decisions for s in values(r.social_response))>0
+    @test sum(s.request_decisions for s in values(r.social_response))>0
+    @test all(s.requests+s.withheld==s.request_decisions for s in values(r.social_response))
     @test all(length(s.records)<=32 for s in values(r.social_response))
 end
 validate_integrated(r,JSON3.read(read(f,String)))
