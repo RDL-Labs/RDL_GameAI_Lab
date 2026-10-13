@@ -32,8 +32,8 @@ function review_general!(s,owner,day,executed)
         "records"=>deepcopy(records),"pairs"=>pairs,"status"=>isempty(pairs) ? "insufficient_records" : "compared",
         "authority"=>"reported local relations; no causal inference or model admission"))
 end
-function remember_general!(s,owner,op,action,status,target,phase,executed)
+function remember_general!(s,owner,op,action,status,target,phase,executed;context=nothing,direction=nothing)
     push!(s["history"],D("actor"=>owner,"id"=>op,"action"=>action,"outcome"=>status,
-        "target"=>target,"phase"=>phase,"executed_us"=>executed))
+        "context"=>deepcopy(context),"direction"=>direction,"target"=>target,"phase"=>phase,"executed_us"=>executed))
     length(s["history"])>64 && popfirst!(s["history"])
 end

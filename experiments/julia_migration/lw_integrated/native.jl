@@ -4,7 +4,7 @@ include(joinpath(@__DIR__,"world.jl"))
 using SHA
 
 function native_options(args)
-    isempty(args) && error("usage: native.jl OUTPUT [--days 1..4 --seed N --food finite|renewable --learning off|full --hazards off|crossing --ground flat|shadow|patches --running off|on --climbing off|on --general-sleep off|review --social-response legacy|experience --dropping off|on --low-obstacles off|on --spec FILE]")
+    isempty(args) && error("usage: native.jl OUTPUT [--days 1..4 --seed N --food finite|renewable --learning off|full --hazards off|crossing --ground flat|shadow|patches --running off|on --climbing off|on --general-sleep off|review|apply --social-response legacy|experience --dropping off|on --low-obstacles off|on --spec FILE]")
     out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","running"=>"off","climbing"=>"off","general-sleep"=>"off","social-response"=>"legacy","dropping"=>"off","low-obstacles"=>"off","spec"=>"")
     iseven(length(args)-1) || error("option requires a value")
     for i in 2:2:length(args)
@@ -41,7 +41,7 @@ function native_main(args)
     get(cfg,:low_obstacles,"off") in ("off","on") || error("low obstacle mode")
     get(cfg,:dropping,"off") in ("off","on") || error("dropping mode")
     get(cfg,:social_response,"legacy") in ("legacy","experience") || error("social response mode")
-    get(cfg,:general_sleep,"off") in ("off","review") || error("general sleep mode")
+    get(cfg,:general_sleep,"off") in ("off","review","apply") || error("general sleep mode")
     mkpath(out);write(joinpath(out,"spec.json"),bytes)
     root=normpath(joinpath(@__DIR__,".."));sources=Dict{String,String}()
     for (dir,_,files) in walkdir(root), f in files

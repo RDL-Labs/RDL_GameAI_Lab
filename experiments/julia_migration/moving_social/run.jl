@@ -21,6 +21,7 @@ function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,runnin
                 "appearance"=>hasproperty(f,:appearance) ? f.appearance : "brown_capped_ovoid"))
         end
     end
+    food_coverage=length(visible)>5 ? "partial" : "complete"
     sort!(visible,by=v->(v["distance"],v["ref"]));resize!(visible,min(5,length(visible)))
     target=isempty(visible) ? nothing : visible[1];rows=Any[];chosen=nothing;best=Inf
     b=w.bodies[actor]
@@ -52,7 +53,7 @@ function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,runnin
                 "distance"=>d,"expected_delta"=>delta))
         end
     end
-    D("run_rows"=>run_rows,"visible"=>visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
+    D("food_coverage"=>food_coverage,"run_rows"=>run_rows,"visible"=>visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
         "action"=>chosen===nothing ? "rest" : "walk","status"=>chosen===nothing ? "no_feasible_observed_move" : "selected"))
 end
 
