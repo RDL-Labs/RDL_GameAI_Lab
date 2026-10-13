@@ -32,7 +32,7 @@ function native_main(args)
     1<=cfg.days<=4 && cfg.days isa Integer || error("days must be 1..4")
     cfg.food in ("finite","renewable") || error("food mode")
     cfg.learning in ("off","full") || error("learning mode")
-    cfg.hazards in ("off","crossing") || error("hazard mode")
+    cfg.hazards in ("off","crossing","territorial","mixed") || error("hazard mode")
     Dict(pairs(input.clock))==Dict(pairs(JSON3.read(JSON3.write(native_clock())))) ||
         error("native entry requires the calibrated human_scale_v1 clock")
     get(cfg,:ground,"flat") in ("flat","patches","shadow") || error("ground mode")
