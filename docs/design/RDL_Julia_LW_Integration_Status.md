@@ -237,3 +237,10 @@ Drop execution: [report](../../experiments/julia_migration/lw_integrated/drop_re
 52 checks passed. Native three-day case selected no drops. Controlled case exposed
 4,290 drop/recovery cycles before return time; physical transfer works, parent-purpose
 persistence across load changes remains unresolved.
+
+
+Parent-purpose follow-up: [report](../../experiments/julia_migration/lw_integrated/return_purpose_report.md).
+64 checks passed; the same controlled case now drops at60s, climbs at61s and deposits
+at62s. B recovers the discarded unit at64s. The previously observed drop/recovery
+loop is resolved in this case by retaining return across load changes. General
+high-level purpose abandonment is not implemented.

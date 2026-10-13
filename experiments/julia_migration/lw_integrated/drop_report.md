@@ -45,3 +45,7 @@ separate. The run does not validate emergency dropping, ownership negotiations,
 or long-term cargo storage. Execution times include differing compilation states
 and are not a performance comparison. Downloaded summaries were independently
 checked for final food conservation; previous off-mode output was compared locally.
+
+
+Follow-up: [parent purpose repair](return_purpose_report.md) resolves this observed
+loop in the same controlled configuration; the evidence above remains historical.
