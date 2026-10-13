@@ -132,7 +132,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     food=Any[f for f in spec.food];dropped=cargo_ground()
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in food]
     if history!==nothing
-        food=Any[f for f in history.food];stock=Int.(history.stock)
+        food=Any[f for f in history.food];stock=Int[v for v in history.stock]
         check(length(food)==length(stock) && all(>=(0),stock),"world_history_food")
         for item in history.cargo
             index=Int(item.index);check(1<=index<=length(stock),"world_history_cargo")

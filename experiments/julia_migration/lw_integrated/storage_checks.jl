@@ -19,18 +19,19 @@ end
 x=JSON3.read(read(joinpath(root,"shared","spec.json"),String),Dict{String,Any})
 x["config"]["days"]=1;x["config"]["food"]="finite"
 x["scene"]["positions"]=[[0.,4.],[0.,4.],[0.,4.]]
-x["scene"]["initial_inventory"]=[6,0,0];x["scene"]["reserve"]=[100,30,30]
+x["scene"]["initial_inventory"]=[18,0,0];x["scene"]["reserve"]=[100,30,30]
 x["scene"]["food"]=Any[];x["scene"]["obstacles"]=Any[]
 p=joinpath(root,"sharing-input.json");write(p,JSON3.write(x))
 for name in ("sharing","replay")
  native_main([joinpath(root,name),"--spec",p])
  r=JSON3.read(read(joinpath(root,name,"result.json"),String));validate_integrated(r,JSON3.read(read(p,String)))
- @test r.shared_storage.deposited>=6
+ @test r.shared_storage.deposited>=18
  @test r.shared_storage.taken>0
  @test any(t.actor!="npc_a" && t.action=="retrieve" && t.status=="performed" for t in r.shared_storage.records)
 end
 @test read(joinpath(root,"sharing","result.json"))==read(joinpath(root,"replay","result.json"))
 r=JSON3.read(read(joinpath(root,"sharing","result.json"),String))
+@test r.shared_stock>0
 x["scene"]["world_history"]=r.world_checkpoint;x["scene"]["initial_inventory"]=[0,0,0]
 p=joinpath(root,"inherited-input.json");write(p,JSON3.write(x))
 native_main([joinpath(root,"inherited"),"--spec",p])
