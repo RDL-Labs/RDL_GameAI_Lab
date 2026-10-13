@@ -1,8 +1,9 @@
-# LW Julia completion audit — open
+# LW Julia completion audit — completed for standalone major-function migration
 
 Reference: Python integrations/lightweight/integrated_social_campaign.py and
 its timed_harvest.run implementation; native source bf938f5. Full trace parity
-is not the contract. This is a completion checklist, not a completion declaration.
+is not the contract. Final decision: [standalone backend ready](RDL_Julia_LW_Backend_Decision.md).
+See the decision for evidence, reproduction commands and explicit differences.
 
 | Required outcome | Evidence / remaining verification |
 |---|---|
@@ -14,7 +15,7 @@ is not the contract. This is a completion checklist, not a completion declaratio
 | Dormancy/reactivation | OBSERVED: seed04 Sleep models woken=3 (B); experience bundles woken=87 seed04 /71 seed05. These are counters, not independent causal-effect counts |
 | Parent goal persistence | return-purpose/drop tests plus completed<=entries bound passed in latest campaign; this bound alone is not proof of every interruption behavior |
 | Time/memory | measured: optimized initial calls1519.862s /1084.617s; allocated361.993GB /348.016GB; peakRSS1.383GB /1.546GB (seed04/05) |
-| Differences | matrix and source reports; final backend-switch decision remains NOT READY |
+| Differences | matrix and source reports; READY for standalone LW experiments; see Backend_Decision |
 
 ## Configuration contracts
 
@@ -44,7 +45,7 @@ constitute a global map, general relation invention, or canonical T1 adoption.
 
 Luanti/HTTP integration is outside standalone LW migration. Existing Python
 experimental rest-reactivation is not called by production LW and is not a new
-migration prerequisite. Production backend switch remains pending this audit.
+migration prerequisite. The standalone Julia entry is ready under the declared adapters; the Python entry is retained.
 
 ## 2026-10-14: resumed completion review
 
@@ -60,3 +61,10 @@ This closes the pending long-run evidence, not the entire migration goal.
 The feature correspondence matrix, outstanding local changes and backend-switch
 packaging still need review. Unrelated goal-threshold edits were excluded from
 these experiments. No canonical T1 claim or complete Python trace parity is made.
+
+
+Final2026-10-14 audit: runtime72ff1d5 adds validated threshold/handedness adapters
+and stable entry. Parent-purpose71-assertion regression passed on this source.
+All requested deliverables are linked in Backend_Decision and Integration_Status.
+Earlier pending notes are historical; GitHub main publication is separate from
+this local code/behavior acceptance. No generic-kernel restructuring was performed.

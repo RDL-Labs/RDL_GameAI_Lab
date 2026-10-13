@@ -1,3 +1,6 @@
+> Julia単独LWの主要機能移植: **完了（宣言した機能差あり）**。
+> [起動手順](integrations/lightweight_julia/README.md) / [切替判定・検証手順](docs/design/RDL_Julia_LW_Backend_Decision.md) / [30日・性能結果](experiments/julia_migration/lw_integrated/optimized_long_report.md)。以下の過去更新は各時点の記録です。
+
 - [Julia軽量記録の実測](experiments/julia_migration/compact_run/report.md)：短区間全体21〜30%短縮、保存JSON約99.4〜99.5%減。実験経路限定。
 
 # RDL Game AI Lab

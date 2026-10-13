@@ -7,8 +7,8 @@ cycle baseline. Historical experiment reports retain their historical limitation
 ## Execution identity
 
 Python production LW: integrations/lightweight/integrated_social_campaign.py
-configures timed_harvest.run and its layered World/agent adapters. Julia is still
-an experimental subset, not a replacement production backend.
+configures timed_harvest.run and its layered World/agent adapters. Julia now has a validated standalone entry. See RDL_Julia_LW_Backend_Decision.md
+for the accepted major-function scope and differences; Python remains available.
 
 Native entry: experiments/julia_migration/lw_integrated/native.jl -> run_integrated
 -> lw_day. Julia generates the World and clock, executes the living loop and writes
@@ -47,18 +47,17 @@ bundle-credit modes. Julia now also rejects that combination. The long campaign
 uses trails on and bundle credit off; separate bundle-credit acceptance remains
 required evidence, not a reason to combine mutually exclusive modes.
 
-## Outstanding completion gates
+## Completed release gates
 
 The30-day run, conservation, measured performance and observed reactivation gates
 are now satisfied; see optimized_long_report.md. Goal threshold and lateral-side
 options have local checks and short-life regressions; they were not silently
 included in the prior30-day configurations.
 
-Remaining release work: record the final source revision, preserve runnable
-checks for the new configuration adapters, and publish the backend-switch
-assessment with the declared differences below. The stable Julia entry delegates
-to native.jl and reproduced an existing51,840-operation run byte-for-byte.
-Do not confuse release packaging with another required new simulation feature.
+Runtime72ff1d5, stable-entry exact replay, parent-purpose71-assertion regression,
+optional configuration checks and the final Backend_Decision close this review.
+The standalone backend is READY under declared adapters. GitHub main deployment
+is separate; this document does not claim every Python experiment was migrated.
 
 ## Historical implementation sequence (not the current work queue)
 
