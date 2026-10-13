@@ -34,7 +34,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -375,7 +375,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 cycle=learning[a]["sleep"]["cycle"]
                 harvest_sleep && action=="rest" && freeze_harvest!(harvest[a],cycle,now)
                 if general_sleep && cycle["status"]=="pending" && cycle["rest_us"]==0 && action=="rest"
-                    freeze_general!(general[a],a,now)
+                    freeze_general!(general[a],a,now;retained=sleep_retention)
                 end
                 callback=(harvest_sleep || general_sleep) ? ((c,t)->begin
                     harvest_sleep && consolidate_harvest!(harvest[a],c,t)
@@ -384,7 +384,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end) : nothing
                 receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
             end
-            general_sleep && remember_general!(general[a],a,op,action,status,get(plan,"target",nothing),phase,now+1_000_000;context=contexts[a],direction=get(plan,"direction",nothing))
+            general_sleep && remember_general!(general[a],a,op,action,status,get(plan,"target",nothing),phase,now+1_000_000;context=contexts[a],direction=get(plan,"direction",nothing),retain=sleep_retention)
             if harvest_sleep && action=="pickup"
                 harvest_pending[a]=(op=op,before=deepcopy(sections[a]),status=status,executed=now+1_000_000,
                     prediction=frozen_prediction,position=p,yaw=yaw[a])

@@ -1,8 +1,8 @@
 # Finite adaptation of sleep_relation_review.py. Reported relations only.
-general_sleep_state()=D("history"=>Any[],"frozen"=>Any[],"formation_us"=>nothing,"reviews"=>Any[])
-function freeze_general!(s,owner,now)
+general_sleep_state()=D("history"=>Any[],"retained"=>Any[],"evictions"=>0,"frozen"=>Any[],"formation_us"=>nothing,"reviews"=>Any[])
+function freeze_general!(s,owner,now;retained=false)
     selected=Any[];seen=Set{Tuple{String,String}}()
-    for r in reverse(s["history"])
+    for r in reverse(retained ? s["retained"] : s["history"])
         check(r["actor"]==owner && r["executed_us"]<=now,"general_sleep_source")
         key=(r["action"],r["outcome"]);key in seen && continue
         push!(seen,key);push!(selected,deepcopy(r));length(selected)==6 && break
@@ -32,8 +32,17 @@ function review_general!(s,owner,day,executed)
         "records"=>deepcopy(records),"pairs"=>pairs,"status"=>isempty(pairs) ? "insufficient_records" : "compared",
         "authority"=>"reported local relations; no causal inference or model admission"))
 end
-function remember_general!(s,owner,op,action,status,target,phase,executed;context=nothing,direction=nothing)
+function remember_general!(s,owner,op,action,status,target,phase,executed;context=nothing,direction=nothing,retain=false)
     push!(s["history"],D("actor"=>owner,"id"=>op,"action"=>action,"outcome"=>status,
         "context"=>deepcopy(context),"direction"=>direction,"target"=>target,"phase"=>phase,"executed_us"=>executed))
     length(s["history"])>64 && popfirst!(s["history"])
+    if retain
+        key(r)=(r["action"],r["outcome"])
+        current=last(s["history"])
+        filter!(r->key(r)!=key(current),s["retained"])
+        push!(s["retained"],deepcopy(current))
+        if length(s["retained"])>32
+            popfirst!(s["retained"]);s["evictions"]+=1
+        end
+    end
 end

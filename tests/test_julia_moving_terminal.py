@@ -1,9 +1,12 @@
 """Terminal snapshots remain owned and participate in cross-language comparison."""
 import unittest
 from copy import deepcopy
-from experiments.julia_migration.moving_social.reference import SPECS,scenario
-from experiments.julia_migration.moving_social.measure import compare,audit
 from runtime.lw_time import SCALED
+
+# Do not load the historical Git blob when this entire fixture is out of scope.
+if SCALED:
+    from experiments.julia_migration.moving_social.reference import SPECS,scenario
+    from experiments.julia_migration.moving_social.measure import compare,audit
 
 
 @unittest.skipUnless(SCALED,'A2 requires human_scale_v1; exercised by julia-moving-social workflow')
