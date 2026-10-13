@@ -2,6 +2,8 @@
 
 # RDL Game AI Lab
 
+- [Julia危険対応の走行](experiments/julia_migration/lw_integrated/running_report.md)：身体・荷重・地面と走行候補を接続。3日比較、24実走行、42検査PASS。効率改善・全身体操作移植の主張ではない。
+
 - [Julia局所地面抵抗の接続](experiments/julia_migration/lw_integrated/ground_report.md)：同じ生活ループで地面・荷重・選択・実消耗を統合。3条件各3日、48検査PASS。効率改善の主張ではない。
 
 - [Julia単独のLW実行](docs/design/RDL_Julia_LW_Integration_Status.md)：World生成・時計・生活ループ・結果保存をJulia内で完結する入口を追加。保存specの再実行も可能。有限なLW部分集合であり、Python本線全機能の移植完了ではない。

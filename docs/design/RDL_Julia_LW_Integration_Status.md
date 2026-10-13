@@ -18,7 +18,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Area | Python reference | Julia status / explicit gap |
 |---|---|---|
 | Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–4 days; sequential per-second actions |
-| Body / load / eating | layered_body, body_exploration | walk/rest/eat with inventory load; no run/climb/drop, separate basal metabolism not fully ported |
+| Body / load / eating | layered_body, body_exploration | walk/rest/eat with inventory load; optional danger-running connected; no climb/drop, separate basal metabolism not fully ported |
 | Food / stock | social_life, timed_harvest | acquisition, personal stock, retrieve/eat, fixed dawn top-up option; no full cargo World objects |
 | Observation | World.cast, skyline/ground adapters | horizontal color fan and visible food; provisional home beacon, no full OBS coverage/skyline |
 | Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods; not arbitrary canonical nested M_B |
@@ -100,6 +100,20 @@ Ground-dependent generalized Sleep learning remains unported.
 
 Dedicated testsets are now in checks.jl and explicit validation entry points;
 normal native startup no longer runs them. Runtime conservation assertions remain.
+
+`--running off|on` defaults to off. On adds five run samples only for danger
+response. Run distance is1.5*(1-damage) per second, with reserve cost
+0.5*effort*RS, burst3*effort and strain0.18*effort*SS, where
+effort=(1+0.1*load)*resistance. Existing Python layered_body coefficients are used.
+Body feasibility and clearance across the entire run segment are checked before
+selection and again at execution. Resistance uses that segment's midpoint.
+
+Safety ranks currently feasible away-facing walk/run choices by projected
+separation minus0.05*effort*(run ? 5 : 1), rather than always commanding run.
+No feasible run leaves walk/scan available. Running is not an ordinary exploration
+candidate yet; urgency, learned running preference and safety-method H are future
+work. Completed running does not certify safety, fulfill food/home goals, or earn
+route support. Each executed run retains bounded source/body delta diagnostics.
 
 From repository root, with Python dependencies and the locked Julia environment:
 
@@ -185,3 +199,6 @@ unported capabilities in this map remain unported.
 Ground integration evidence: [three-condition report](../../experiments/julia_migration/lw_integrated/ground_report.md),
 48 assertions passed. High-resistance traversal attempts changed, but food storage
 did not improve. Flat-mode historical result is preserved.
+
+Running evidence: [finite danger-running report](../../experiments/julia_migration/lw_integrated/running_report.md),
+42 checks passed;24 actual runs in a three-day living comparison. Climb/drop remain next.
