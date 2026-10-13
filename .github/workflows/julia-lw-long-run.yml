@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
         if: inputs.days == '10'
         with:
-          ref: 08a569d
+          ref: 08a569dbcc640ae27bf4923006ab971664c5dcce
           path: baseline
       - uses: julia-actions/setup-julia@v2
         with:
