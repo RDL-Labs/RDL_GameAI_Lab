@@ -8,7 +8,7 @@ is not the contract. This is a completion checklist, not a completion declaratio
 |---|---|
 | Native generation/run/save | native.jl -> run_integrated -> lw_day; native_report and frozen-spec replay |
 | Major function coverage | Integration_Status matrix, source-specific reports; functional adaptations below |
-| Latest 30 days, multiple seeds | NOT YET: old long_run_report predates current features; new three-day matrix38373033395 running |
+| Latest 30 days, multiple seeds | NOT YET: old long_run_report predates current features; three-day matrix38373033395 passed both seeds and independent saved audit; latest30-day run pending |
 | Food/cargo conservation | per-operation invariant plus daily/terminal audit; latest all-feature campaign pending |
 | Learning/Sleep/use/invalidation | harvest renewal B1g and Sleep body-method reports; current campaign state coverage pending |
 | Dormancy/reactivation | live source paths in sleep_maintenance and experience_bundles; need extract actual campaign counters, do not equate enabled with observed |
