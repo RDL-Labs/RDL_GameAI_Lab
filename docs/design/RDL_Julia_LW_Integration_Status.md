@@ -284,3 +284,9 @@ Sleep action use: [report](../../experiments/julia_migration/lw_integrated/sleep
 41 checks passed. B had5054 real candidate-evaluation applications, zero changed
 selections; A/C only rest sources. Full context/action vocabulary and bundle Sleep
 remain gaps. This is unvalidated local use, not canonical adoption.
+
+
+Daytime retention: [report](../../experiments/julia_migration/lw_integrated/sleep_retention_report.md),
+38 checks passed. Opt-in32 action/outcome strata preserve daytime records into
+Sleep; live three-day run has161 local selection differences, not a general
+efficiency claim. Full conjunction bundles/dormancy remain unported.
