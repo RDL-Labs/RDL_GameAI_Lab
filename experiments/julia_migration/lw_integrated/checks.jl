@@ -40,3 +40,18 @@ function validate_integrated(r,input)
 end
 
 end
+
+@testset "Sleep uses current dynamic hazard observation" begin
+    w=(positions=Dict("a"=>(0.,0.)),obstacles=Any[])
+    yaw=Dict("a"=>0.)
+    state=dynamic_hazards()
+    state["territory"]["position"]=(0.,2.)
+    movement=D("food_coverage"=>"complete","visible"=>Any[],"energy"=>D("rows"=>Any[]))
+    view=hazard_observation(w,"a",yaw,dynamic_hazard_sources(state,20;patrol=false),20)
+    @test sleep_context(movement,view)[2]===true
+    state["territory"]["position"]=(0.,20.)
+    nextview=hazard_observation(w,"a",yaw,dynamic_hazard_sources(state,21;patrol=false),21)
+    @test sleep_context(movement,nextview)[2]===false
+    @test sleep_context(movement,view)[2]===true
+    @test sleep_context(movement,D("coverage"=>"partial","features"=>Any[]))===nothing
+end

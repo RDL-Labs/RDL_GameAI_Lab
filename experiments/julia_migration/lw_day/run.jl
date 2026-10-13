@@ -168,7 +168,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         landmarks=landmark_routes ? Dict(a=>landmark_fan(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
         climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in IDS) : nothing
-        contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_observation(w,a,yaw,hazard_mode ? spec.hazards : Any[],sec;visual_obstacles=high)) for a in IDS) : nothing
+        # Safety and learning share the same current, actor-local observation.
+        hazard_views=(hazard_mode || general_sleep) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec;visual_obstacles=high) for a in IDS) : nothing
+        contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a]) for a in IDS) : nothing
         plans=D()
         for a in IDS
             integrate(a,now,obs[a]);o=obs[a];plan=nothing;home=homes[a]
@@ -191,7 +193,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             messages=[m for m in reverse(o["messages"]) if !(m["id"] in answered[a]) && m["kind"] in ("request","warn","reach")]
             if hazard_mode
-                hazard_view=hazard_observation(w,a,yaw,hazard_sources,sec;visual_obstacles=high)
+                hazard_view=hazard_views[a]
                 plan=continuous_safety ? safety_methods!(safety[a],safety_loops[a],hazard_view,moves[a],"op:$now:$a";running=running) : safety_plan!(safety[a],hazard_view,moves[a];running=running)
             end
             if plan!==nothing
