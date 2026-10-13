@@ -1,6 +1,8 @@
+- [Julia単独LW実行](../../experiments/julia_migration/lw_integrated/native_report.md)：有限実装・クラウド42検査PASS。World生成から結果保存までPython不要。2seed各3日＋保存spec再現。CのSleep未完了も結果として保持。全LW移植ではない。
+
 # Design Document Status
 
-- [LW-Julia統合対応表・共通起動口](RDL_Julia_LW_Integration_Status.md)：B1gの機能を一つのCLIへ接続。日数・seed・資源条件・採取学習を明示し、manifestと短いsummaryを出力。未接続領域を棚卸しし、次は観測された危険への対応を優先。Python本線の置換ではない。
+- [LW-Julia統合対応表・共通起動口](RDL_Julia_LW_Integration_Status.md)：B1gの機能を一つのCLIへ接続。日数・seed・資源条件・採取学習を明示し、manifestと短いsummaryを出力。未接続領域を棚卸しし、有限な危険割込み・解除を接続済み。Julia単独のWorld生成・時計・実行・保存入口も追加。Python本線の置換ではない。
 
 - [Julia 補充世界での再学習 B1g](../../experiments/julia_migration/lw_renewal/report.md)：FINITE WORLD ACCEPTANCE。36検査PASS。毎朝の資源補充を別条件で追加し、疎配置3個体のSleep置換と新モデルによる33選択差を確認。追加食料を収支計上。1 seed・与えた候補形式に限定、一般再構成は未実装。
 

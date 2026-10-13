@@ -10,9 +10,10 @@ Python production LW: integrations/lightweight/integrated_social_campaign.py
 configures timed_harvest.run and its layered World/agent adapters. Julia is still
 an experimental subset, not a replacement production backend.
 
-New common entry: experiments/julia_migration/lw_integrated/run.py -> run.jl ->
-existing lw_day/run.jl. It composes B1g capabilities and an optional finite hazard
-adapter. Python exports geometry/clock; Julia owns the living loop.
+Native entry: experiments/julia_migration/lw_integrated/native.jl -> run_integrated
+-> lw_day. Julia generates the World and clock, executes the living loop and writes
+results. The run.py export entry remains for historical Python-generated layouts.
+Both compose the same B1g capabilities and optional finite hazard adapter.
 
 | Area | Python reference | Julia status / explicit gap |
 |---|---|---|
@@ -47,6 +48,33 @@ new sensory modality, universal relation discovery, or performance optimization
 is added by this status update.
 
 ## Use
+
+Julia-only (no Python environment or pre-generated input required):
+
+```powershell
+julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
+julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/native.jl outputs/lw-native --days 3 --seed 20261004 --food renewable --hazards crossing
+```
+
+`--learning off|full` defaults to full. All defaults otherwise match the previous
+entry. To reproduce a saved input without configuration overrides:
+
+```powershell
+julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/native.jl outputs/lw-replay --spec outputs/lw-native/spec.json
+```
+
+Native generation is versioned `julia-lw-sparse-mt-v1`, using MersenneTwister in
+locked Julia 1.13.1. It preserves the finite layout recipe (22 generated objects,
+6 retained solids, 8 resource sites with 12 units each, three initial agents),
+not Python's random sequence. Equal numeric seeds across the two generators do
+not mean equal terrain. Use frozen specs for equal-World comparisons. No rejection
+sampling guarantees accessible resources or successful return.
+
+The native manifest records generator, Julia version, spec hash and Julia source
+hashes. The calibrated human_scale_v1 clock is checked explicitly; other clock
+profiles remain unsupported because body/Sleep rules share that calibration.
+The workflow `julia-lw-native.yml` installs/runs Julia only. This removes Python
+from this finite runtime path, not from the repository's reference tests/tools.
 
 From repository root, with Python dependencies and the locked Julia environment:
 
@@ -121,3 +149,10 @@ The downloaded `result.json` was compared structurally with run38327891851's
 preserved this existing B1g case; exact historical trace equality remains optional
 under the behavioral-fidelity policy. This is one four-day configuration, not full
 LW acceptance, a performance comparison, or a rerun of the repository-wide suite.
+
+## Native-entry evidence
+
+See [native execution report](../../experiments/julia_migration/lw_integrated/native_report.md):
+two native seeds, three days each, frozen-input replay, 42 checks passed; existing
+exported-layout regression preserved. Generation and all execution are Julia;
+unported capabilities in this map remain unported.

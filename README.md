@@ -2,6 +2,8 @@
 
 # RDL Game AI Lab
 
+- [Julia単独のLW実行](docs/design/RDL_Julia_LW_Integration_Status.md)：World生成・時計・生活ループ・結果保存をJulia内で完結する入口を追加。保存specの再実行も可能。有限なLW部分集合であり、Python本線全機能の移植完了ではない。
+
 - [Juliaの新評価方針](docs/design/RDL_Julia_Behavioral_Fidelity_Policy.md)：今後の再設計は完全同値を診断用とし、関係応答と費用で評価。[増分援助実験](experiments/julia_migration/incremental_aid/report.md)は採用候補。通常更新と明示snapshotを分離、40検査PASS。毎回snapshotする費用も別測定。過去Evidenceは維持。
 - [Julia巡航更新の費用](experiments/julia_migration/typed_models/cruise_report.md)：新規根拠0件でも64件全走査、単発更新約0.360ms・累積割当462KB。新規1件は約1.054ms。コピー方式は未変更、所有検査60 PASS、A1/A2/A0回帰PASS。
 - [Julia局所モデルの型整理](experiments/julia_migration/typed_models/report.md)：GoalState/AidPressureへ整理、A1/A2・夜間終端・A0回帰一致。Julia所有検査12 PASS。局所計測は約1.03〜1.25倍、割当減少。LW全体の速度効果ではない。
