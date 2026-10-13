@@ -18,10 +18,9 @@ function wear_cell!(g,key)
     c=get(g.cells,key,nothing)
     c===nothing && return nothing
     if g.recovery
-        elapsed=max(0,g.now-max(c["updated"],c["last_walk_us"]+g.day))
-        c["wear"]=max(0.,c["wear"]-2*elapsed/g.day)
+        elapsed=max(0,g.now-c["last_walk_us"]-g.day)
+        c["wear"]=max(0.,c["anchor_wear"]-2*elapsed/g.day)
     end
-    c["updated"]=g.now
     c
 end
 function wear_factor(g,p)
@@ -44,17 +43,17 @@ function tread!(g,op,agent,start,finish,now)
         key=(floor(Int,start[1]+t*(finish[1]-start[1])),floor(Int,start[2]+t*(finish[2]-start[2])))
         c=wear_cell!(g,key)
         if c===nothing
-            c=D("distance"=>0.,"wear"=>0.,"last_walk_us"=>now,"updated"=>now,"agents"=>D())
+            c=D("distance"=>0.,"wear"=>0.,"last_walk_us"=>now,"anchor_wear"=>0.,"agents"=>D())
             g.cells[key]=c
         end
-        c["distance"]+=d/n;c["wear"]+=d/n;c["last_walk_us"]=now
+        c["distance"]+=d/n;c["wear"]+=d/n;c["anchor_wear"]=c["wear"];c["last_walk_us"]=now
         c["agents"][agent]=get(c["agents"],agent,0.)+d/n
     end
 end
 function wear_snapshot(g)
     cells=D()
     for key in sort(collect(keys(g.cells)))
-        c=deepcopy(wear_cell!(g,key));delete!(c,"updated")
+        c=deepcopy(wear_cell!(g,key));delete!(c,"anchor_wear")
         cells["$(key[1]),$(key[2])"]=c
     end
     D("rule"=>"world-ground-recovery-v1","now_us"=>g.now,"recovery_enabled"=>g.recovery,

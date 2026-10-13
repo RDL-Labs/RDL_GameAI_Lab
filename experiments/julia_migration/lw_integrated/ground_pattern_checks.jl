@@ -14,6 +14,11 @@ include(joinpath(@__DIR__,"checks.jl"))
  @test v["coverage"]=="partial"
  @test v["cells"][8]["appearance"]===nothing
  @test !haskey(v["source"],"position")
+ once=GroundWear(100);often=GroundWear(100)
+ for state in (once,often);tread!(state,"op","a",(.1,.1),(.6,.1),0);end
+ for t in 101:120;advance_wear!(often,t);wear_factor(often,(.2,.2));end
+ advance_wear!(once,120)
+ @test wear_snapshot(once)==wear_snapshot(often)
 end
 out=ARGS[1]
 for mode in ("off","on")
