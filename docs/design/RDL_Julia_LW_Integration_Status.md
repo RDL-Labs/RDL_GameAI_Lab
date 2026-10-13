@@ -424,3 +424,6 @@ conjunction bundles. The ground-extension correspondence fix `fb96c5e` restores
 three-valued evidence: unavailable current model support preserves method H;
 observed non-extension is failure; observed extension after actual movement is
 success. Parent food/home evaluation remains independent.
+
+
+Exploration horizon is now connected (`29135ca`): [41 checks and three-day living comparison](../../experiments/julia_migration/lw_integrated/horizon_report.md). This supersedes its unported entry above; experience bundles, selection trails, broader sensing and inherited World remain open.
