@@ -32,7 +32,7 @@ function wake_bundles!(s,context,phase)
     end
     s["dormant"]=keep
 end
-function project_bundles!(s,candidates,loop,context,phase,now)
+function project_bundles!(s,candidates,loop,context,phase,now;credit=false)
     phase in ("exploration","return") || return nothing
     matches=[(b["model_ref"],r) for b in s["active"] for r in b["sources"] if b["formed_us"]<now && r["context"]==context && r["phase"]==phase]
     isempty(matches) && return nothing
@@ -42,7 +42,8 @@ function project_bundles!(s,candidates,loop,context,phase,now)
         get(c,"record_trial",true) || continue
         evidence=[ref for (ref,r) in matches if r["action"]==c["action"]]
         isempty(evidence) && continue
-        c["priority"]-=.75*length(evidence)/length(matches);union!(contributors,evidence)
+        strength=credit ? get!(s,"parent_credit",bundle_credit_state())["strength"] : D()
+        c["priority"]-=.75*sum(1+min(8.,get(strength,ref,0.))*.125 for ref in evidence)/length(matches);union!(contributors,evidence)
     end
     selected=method_choice(loop,candidates)["method"];s["matched"]+=1
     D("changed"=>baseline!=selected,"selected"=>selected,"refs"=>sort(collect(refs)),"contributors"=>sort(collect(contributors)))
@@ -70,3 +71,30 @@ function sleep_bundles!(s,day,formation)
     s["active"]=active;push!(s["cycles"],day);push!(s["reviews"],D("day"=>day,"decisions"=>decisions))
 end
 bundle_snapshot(s)=D(k=>(k=="used" ? sort(collect(v)) : deepcopy(v)) for (k,v) in s)
+
+# One finite budget per five-second parent trial, shared across bundle contributors.
+bundle_credit_state()=D("strength"=>D(),"pending"=>D(),"records"=>D())
+function admit_bundle_credit!(s,trace,method,status,parent,op)
+    trace===nothing && return
+    trace["changed"] && method==trace["selected"] && !(status in ("stale","expired","unexecuted")) || return
+    parent["actor"]==s["actor"] || error("credit_parent")
+    parent["due"]===nothing && return
+    c=get!(s,"parent_credit",bundle_credit_state());trial=string(parent["due"])
+    haskey(c["pending"],trial) || haskey(c["records"],trial) ? (return) : nothing
+    refs=trace["contributors"];isempty(refs) && return
+    known=Set(b["model_ref"] for b in vcat(s["active"],s["dormant"]))
+    all(ref in known for ref in refs) || error("credit_sources")
+    c["pending"][trial]=D("H"=>parent["H"],"refs"=>copy(refs),"operation"=>op)
+end
+function resolve_bundle_credit!(s,h)
+    h["actor"]==s["actor"] || error("credit_parent")
+    c=get!(s,"parent_credit",bundle_credit_state())
+    for r in h["records"]
+        trial=string(r["trial_due_us"]);haskey(c["pending"],trial) || continue
+        use=pop!(c["pending"],trial);total=r["E"]==0 ? min(8.,use["H"]) : 0.
+        for ref in use["refs"]
+            c["strength"][ref]=min(8.,get(c["strength"],ref,0.)+total/length(use["refs"]))
+        end
+        c["records"][trial]=D("use"=>use,"comparison"=>deepcopy(r),"credit"=>total,"status"=>total>0 ? "reinforced" : "not_reinforced")
+    end
+end

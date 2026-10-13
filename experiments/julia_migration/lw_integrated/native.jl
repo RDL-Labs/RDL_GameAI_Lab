@@ -5,7 +5,7 @@ using SHA
 
 function native_options(args)
     isempty(args) && error("usage: native.jl OUTPUT [--days 1..30 --seed N --food finite|renewable --learning off|full --hazards off|crossing|territorial|mixed --orientation off|on --relation-field off|on --safety-methods legacy|continuous --food-body off|on --ground-continuity off|on --ground-perception off|on --ground-wear off|on --ground flat|shadow|patches --running off|on --climbing off|on --sleep-maintenance off|on --sleep-retention recent|strata --general-sleep off|review|apply --social-response legacy|experience --dropping off|on --low-obstacles off|on --spec FILE]")
-    out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","ground-wear"=>"off","ground-perception"=>"off","ground-continuity"=>"off","experience-bundles"=>"off","exploration-horizon"=>"off","movement-inertia"=>"off","body-field"=>"off","relation-field"=>"off","orientation"=>"off","food-body"=>"off","safety-methods"=>"legacy","running"=>"off","climbing"=>"off","sleep-maintenance"=>"off","sleep-retention"=>"recent","general-sleep"=>"off","social-response"=>"legacy","dropping"=>"off","low-obstacles"=>"off","spec"=>"")
+    out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","ground-wear"=>"off","ground-perception"=>"off","ground-continuity"=>"off","bundle-credit"=>"off","experience-bundles"=>"off","exploration-horizon"=>"off","movement-inertia"=>"off","body-field"=>"off","relation-field"=>"off","orientation"=>"off","food-body"=>"off","safety-methods"=>"legacy","running"=>"off","climbing"=>"off","sleep-maintenance"=>"off","sleep-retention"=>"recent","general-sleep"=>"off","social-response"=>"legacy","dropping"=>"off","low-obstacles"=>"off","spec"=>"")
     iseven(length(args)-1) || error("option requires a value")
     for i in 2:2:length(args)
         startswith(args[i],"--") || error("invalid option")
@@ -20,7 +20,7 @@ function native_main(args)
     generated=isempty(opts["spec"])
     if generated
         cfg=(days=parse(Int,opts["days"]),seed=parse(Int,opts["seed"]),food=opts["food"],
-             learning=opts["learning"],hazards=opts["hazards"],ground=opts["ground"],ground_wear=opts["ground-wear"],ground_perception=opts["ground-perception"],ground_continuity=opts["ground-continuity"],experience_bundles=opts["experience-bundles"],exploration_horizon=opts["exploration-horizon"],movement_inertia=opts["movement-inertia"],body_field=opts["body-field"],relation_field=opts["relation-field"],orientation=opts["orientation"],food_body=opts["food-body"],safety_methods=opts["safety-methods"],running=opts["running"],climbing=opts["climbing"],sleep_maintenance=opts["sleep-maintenance"],sleep_retention=opts["sleep-retention"],general_sleep=opts["general-sleep"],social_response=opts["social-response"],dropping=opts["dropping"],low_obstacles=opts["low-obstacles"])
+             learning=opts["learning"],hazards=opts["hazards"],ground=opts["ground"],ground_wear=opts["ground-wear"],ground_perception=opts["ground-perception"],ground_continuity=opts["ground-continuity"],bundle_credit=opts["bundle-credit"],experience_bundles=opts["experience-bundles"],exploration_horizon=opts["exploration-horizon"],movement_inertia=opts["movement-inertia"],body_field=opts["body-field"],relation_field=opts["relation-field"],orientation=opts["orientation"],food_body=opts["food-body"],safety_methods=opts["safety-methods"],running=opts["running"],climbing=opts["climbing"],sleep_maintenance=opts["sleep-maintenance"],sleep_retention=opts["sleep-retention"],general_sleep=opts["general-sleep"],social_response=opts["social-response"],dropping=opts["dropping"],low_obstacles=opts["low-obstacles"])
         input=(scene=native_scene(cfg.seed),clock=native_clock(),config=cfg)
         bytes=Vector{UInt8}(codeunits(JSON3.write(input)))
     else
@@ -47,6 +47,7 @@ function native_main(args)
     get(cfg,:ground_wear,"off") in ("off","on") || error("ground wear mode")
     get(cfg,:ground_perception,"off") in ("off","on") || error("ground perception mode")
     get(cfg,:ground_continuity,"off") in ("off","on") || error("ground continuity mode")
+    get(cfg,:bundle_credit,"off") in ("off","on") || error("bundle credit mode")
     get(cfg,:experience_bundles,"off") in ("off","on") || error("experience bundles mode")
     get(cfg,:exploration_horizon,"off") in ("off","on") || error("exploration horizon mode")
     get(cfg,:movement_inertia,"off") in ("off","on") || error("movement inertia mode")

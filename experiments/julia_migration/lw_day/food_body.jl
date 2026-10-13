@@ -9,7 +9,7 @@ function hunger_update!(h,actor,now,reserve)
     h["actor"]==actor && now>=h["last_us"] && 0<=reserve<=100 || error("hunger_binding")
     if h["due"]!==nothing && now>=h["due"]
         before=h["H"];h["H"]=reserve>80 ? 0 : before+1;h["comparisons"]+=1
-        push!(h["records"],D("source"=>"ob:$now:$actor","reserve"=>reserve,"E"=>Int(reserve<=80),"H_before"=>before,"H_after"=>h["H"]))
+        push!(h["records"],D("trial_due_us"=>h["due"],"source"=>"ob:$now:$actor","reserve"=>reserve,"E"=>Int(reserve<=80),"H_before"=>before,"H_after"=>h["H"]))
         length(h["records"])>32 && popfirst!(h["records"]);h["due"]=nothing
     end
     h["due"]===nothing && reserve<=80 && (h["due"]=now+5_000_000)

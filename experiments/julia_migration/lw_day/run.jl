@@ -46,7 +46,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false)
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -65,6 +65,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     inertia=Dict(a=>inertia_state(a) for a in IDS)
     check(!movement_inertia || landmark_routes,"inertia_requires_observed_fan")
     check(!experience_bundles || (food_body && general_sleep),"bundles_require_hunger_sleep")
+    check(!bundle_credit || experience_bundles,"credit_requires_bundles")
     bundles=Dict(a=>bundle_state(a) for a in IDS)
     hunger=Dict(a=>hunger_state(a) for a in IDS)
     metabolism=Dict(a=>0. for a in IDS)
@@ -148,6 +149,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         if food_body
             for a in IDS
                 hunger_update!(hunger[a],a,now,w.bodies[a].reserve)
+                bundle_credit && resolve_bundle_credit!(bundles[a],hunger[a])
             end
         end
         if dynamic_hazard_mode!="off"
@@ -324,7 +326,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         body_before=body_field ? method_choice(s,candidates)["method"] : nothing
                         body_applied=body_field && project_body_methods!(candidates,hunger[a],w.bodies[a],phase)
                         body_selected=body_field ? method_choice(s,candidates)["method"] : nothing
-                        bundle_trace=experience_bundles ? project_bundles!(bundles[a],candidates,s,bundle_contexts[a],phase,now) : nothing
+                        bundle_trace=experience_bundles ? project_bundles!(bundles[a],candidates,s,bundle_contexts[a],phase,now;credit=bundle_credit) : nothing
                         plan=choose_method!(s,candidates,source)
                         experience_bundles && (plan["bundle_trace"]=bundle_trace)
                         if body_applied
@@ -380,6 +382,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan["scan_angle"]=orientation_scan!(sky[a],clock)
             end
             plan["purpose_family"]=returning ? "home" : "food"
+            bundle_credit && (plan["bundle_parent"]=D("actor"=>a,"due"=>hunger[a]["due"],"H"=>hunger[a]["H"]))
             plans[a]=plan
         end
         w.seconds=sec+1
@@ -525,6 +528,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if experience_bundles
                 use_bundles!(bundles[a],get(plan,"bundle_trace",nothing),get(plan,"method",nothing),status)
+                bundle_credit && admit_bundle_credit!(bundles[a],get(plan,"bundle_trace",nothing),get(plan,"method",nothing),status,plan["bundle_parent"],op)
                 remember_bundle!(bundles[a],D("actor"=>a,"operation"=>op,"capture_us"=>now,"executed_us"=>now+1_000_000,
                     "context"=>bundle_contexts[a],"phase"=>phase,"action"=>action,"outcome"=>status,"method"=>get(plan,"method",nothing)))
             end
