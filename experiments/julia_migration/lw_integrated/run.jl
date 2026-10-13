@@ -29,7 +29,8 @@ include(joinpath(@__DIR__,"../lw_day/run.jl"))
     yaw["a"]=180.
     @test isempty(hazard_observation(w,"a",yaw,hs,1)["features"])
 end
-input=JSON3.read(read(ARGS[1],String));cfg=input.config
+function run_integrated(input)
+cfg=input.config
 enabled=cfg.learning=="full"
 @assert cfg.learning in ("off","full") && cfg.food in ("finite","renewable")
 r=lw_day(input.scene,input.clock;days=Int(cfg.days),basic_loop=true,landmark_routes=true,
@@ -52,5 +53,11 @@ for a in IDS
         "model_ref"=>h===nothing || h["model"]===nothing ? nothing : h["model"]["model_ref"],
         "replacement_used"=>h===nothing ? false : get(h,"replacement_used",false),"model_field"=>s["model_field"])
 end
-open(ARGS[2],"w") do io;JSON3.write(io,r);end
-open(ARGS[3],"w") do io;JSON3.write(io,summary);end
+return r,summary
+end
+
+if abspath(PROGRAM_FILE)==@__FILE__
+    r,summary=run_integrated(JSON3.read(read(ARGS[1],String)))
+    open(ARGS[2],"w") do io;JSON3.write(io,r);end
+    open(ARGS[3],"w") do io;JSON3.write(io,summary);end
+end
