@@ -306,14 +306,14 @@ small experiment in isolation. Current evidence does NOT satisfy this objective.
 | Gate | Current evidence / remaining work |
 |---|---|
 | Native generation through saving | Implemented and frozen-spec replay tested |
-| Body and cargo | Local walk/run/climb/drop; basal metabolism and broader body-driven selection still need mapping |
-| Sensing and navigation | Beacon/fan only; ground patterns, full landmarks/relative route composition remain |
-| Shared World history | Walking wear/recovery verified in three-day living comparison; local appearance and recognized patterns next |
-| Danger/social | Finite crossing and request/refusal; territory, fuller safety methods and richer social constraints remain |
+| Body and cargo | Walk/run/climb/drop, basal metabolism and hunger/food retention connected; fuller body-driven selection still needs mapping |
+| Sensing and navigation | Beacon/fan and local ground patterns/continuity connected; full landmarks/relative route composition remain |
+| Shared World history | Walking wear/recovery, local appearance and recognized patterns verified in three-day comparisons |
+| Danger/social | Crossing/territory/patrol, local safety methods and request/refusal connected; full coverage/release and richer social constraints remain |
 | Sleep/model lifecycle | Local adoption/use/replacement/dormancy; full action/context/bundle coverage and live reactivation evidence remain |
-| 30 days / multiple seeds | NOT RUN; four-day guard, model/receipt capacity and history costs must be audited before raising it |
+| 30 days / multiple seeds | 30-day two-seed campaign with frozen replay dispatched; results pending, no long-run acceptance yet |
 | Conservation/parent continuity | Covered in finite runs; must recheck in full-feature long campaign |
-| Performance/memory | Local historical measurements only; integrated warmed runtime and peak memory outstanding |
+| Performance/memory | Campaign records call time, allocations, GC and process peak RSS; interpretation pending |
 | Backend switch decision | NOT READY; Python remains reference/production path |
 
 Do not certify full parity from isolated fixture success. Preserve explicit local
@@ -349,3 +349,15 @@ Continuous safety methods: [report](../../experiments/julia_migration/lw_integra
 38 checks PASS. Local wait/survey/walk/run method H competes under worst-visible
 directional pressure. Three-day live selections and resource conservation verified.
 Not proof of safe escape, canonical H or full sensing parity.
+
+
+## Combined campaign: in progress
+
+Code `37dd390` started the all-connected-options 30-day comparison for seeds
+20261004 and 20261005. During integration review, Sleep context was found to use
+initial crossing sources rather than current territorial/patrol sources.
+`4f82823` shares the same actor-local current hazard observation between safety
+and Sleep, with regression checks for visible, departed and incomplete views.
+The initial campaign is diagnostic only. Corrected acceptance is pending in
+[run 38352087950](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38352087950).
+No long-run success or backend-switch readiness is claimed before results.
