@@ -442,3 +442,6 @@ Ground history restoration connected (`a5a02ba`): [42 checks and inherited-surfa
 
 
 Resource/hazard cohort transfer connected (`276a595`): [39 checks and inherited World replay](../../experiments/julia_migration/lw_integrated/world_history_report.md). Remaining checkpoint verification includes nonempty cargo,old-target release and mismatch rejection; shared-stock semantics remain a difference. This is not same-agent process resume.
+
+
+Inherited World follow-up (`bdbdc5c`): [57 checks](../../experiments/julia_migration/lw_integrated/world_history_report.md) now cover nonempty cargo recovery (three units), departed-target release at the endpoint, eight incompatible inputs and exact frozen replay. This supersedes the checkpoint verification list immediately above. Shared stock, richer coverage/repositioning and latest-feature thirty-day acceptance remain open; native backend switching remains NOT READY.

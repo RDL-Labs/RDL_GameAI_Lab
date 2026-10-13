@@ -19,12 +19,34 @@ Final next balance56+44=ground60+private/carried37+consumed3.
 Saved next/replay result.json independently verified byte-identical. Both loop
 invariants and time/replenishment transfer tests passed.
 
-No dropped items were required by this natural scenario: the restored cargo branch
-still needs a dedicated nonempty transfer test. Mode/geometry rejection and old
-target release need explicit fault scenarios before checkpoint acceptance is full.
+No dropped items were required by the initial natural scenario. The follow-up
+below covers nonempty cargo transfer and incompatible input rejection.
 Static crossing clock uses world offset; local body/learning observations use new
 cohort local time. Per-run diagnostic hazard counters start fresh.
 
 This is environmental cohort transfer, not arbitrary process resume or same-agent
 checkpointing. Python shared stock has no native counterpart yet (native stores
 are private). Full LW migration and final30-day all-feature acceptance remain open.
+
+
+## Follow-up: inherited cargo and input rejection
+
+Source `bdbdc5c`, [Actions 38363996101](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38363996101): 57 assertions PASS.
+The eight incompatible-input cases reject changed resource geometry, resource
+mode mismatch, fractional/negative stock, invalid whole-day time, ground/hazard
+clock mismatch and a resource site mislabelled as dropped cargo.
+
+A dedicated fixture supplies three old-cohort loose-food units, zero resource
+stock and no replenishment, using the same native living entry point. A recovers
+one and B recovers two. All three retain `inherited/old_actor` provenance; no
+old item is duplicated. Final food balance is 7 = ground 0 + private/carried 6
++ consumed 1. The departed territorial target is absent at the final endpoint.
+This is a constructed transfer test, not spontaneous cargo production by the
+preceding cohort. It does not establish a complete life cycle: this fixture's
+Sleep endpoints remain pending.
+
+The ordinary next-cohort run and frozen replay remain byte-identical, independently
+checked from saved result files. Their balance is 56 + 44 = 60 + 37 + 3.
+These checks close the listed cargo/target/mismatch test gaps, not arbitrary
+checkpoint compatibility or same-agent resume. Latest-feature multi-seed thirty-day
+acceptance and shared-stock semantics remain outstanding.
