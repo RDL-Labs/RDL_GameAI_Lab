@@ -226,3 +226,8 @@ Running evidence: [finite danger-running report](../../experiments/julia_migrati
 Climbing evidence: [load-limited climbing report](../../experiments/julia_migration/lw_integrated/climbing_report.md),
 43 checks passed; seven actual crossings in the three-day native comparison.
 Prior two-seed behavior remains unchanged with low obstacles and climbing off.
+
+
+Dropped cargo implementation is now present locally, but cloud acceptance is pending.
+See [scope and pending verification](../../experiments/julia_migration/lw_integrated/drop_plan.md).
+Do not read the unverified implementation as completed LW acceptance.
