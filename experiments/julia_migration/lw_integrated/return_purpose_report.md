@@ -51,3 +51,17 @@ Seed20261005, renewable food, climbing/low-obstacles on, dropping off/on. Each h
 Both result files match their corresponding prior run38339954972 after recursively
 removing the added `return_purpose` diagnostics. Food ledgers were independently
 recomputed from downloaded summaries. No efficiency or speed generalization is made.
+
+
+## Route attribution correction (2026-10-13)
+
+`f7006e5` freezes the selected parent family into each plan and uses it for
+route-result recording. Previously selection retained the return purpose after
+a drop, but route recording recomputed the family from current load and phase,
+mislabeling below-six-load daytime return movement as food exploration.
+
+[Run 38352577186](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38352577186)
+passed 71 assertions, including the controlled first drop-to-deposit interval:
+every transition retains home purpose and no pickup/recover intervenes. Ordinary
+three-day drop on/off and one-day controlled runs conserve resources. This does
+not implement deferred multi-unit cargo-loss versus detour planning.

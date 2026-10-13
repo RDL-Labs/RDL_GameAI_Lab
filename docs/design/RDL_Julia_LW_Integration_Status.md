@@ -17,7 +17,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 
 | Area | Python reference | Julia status / explicit gap |
 |---|---|---|
-| Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–4 days; sequential per-second actions |
+| Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–30 days; sequential per-second actions |
 | Body / load / eating | layered_body, body_exploration | walk/rest/eat, optional danger-running, low-obstacle climbing and finite one-unit drop/recovery; opt-in basal metabolism/hunger/provision and giving-retention connected |
 | Food / stock | social_life, timed_harvest | acquisition, personal stock, retrieve/eat, fixed dawn top-up option; bounded dropped-food objects with provenance, no general cargo planning |
 | Observation | World.cast, skyline/ground adapters | horizontal color fan and visible food; provisional home beacon, no full OBS coverage/skyline |
@@ -27,7 +27,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; finite per-record dormancy/reactivation connected; full vocabulary/context and conjunction bundles unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
 | Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; shared walking wear/recovery verified; local appearance/sampled shape recognition verified; body-linked ground continuity and exploration following verified |
-| Danger | moving_hazard, patrol_hazard, territorial_hazard | crossing plus fixed territorial/patrol World response connected; relative sensing/override/release; continuous minimax method H now connected; full scan-release adapter and damage remain separate |
+| Danger | moving_hazard, patrol_hazard, territorial_hazard | crossing plus fixed territorial/patrol World response connected; relative sensing/override/release; continuous minimax method H now connected; accepted scan/far-observation limited release verified; full sensor coverage remains separate |
 | Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
 | Transport | production observation/results receipts | local same-process scaffold, no Luanti/HTTP integration |
 
@@ -361,3 +361,31 @@ and Sleep, with regression checks for visible, departed and incomplete views.
 The initial campaign is diagnostic only. Corrected acceptance is pending in
 [run 38352087950](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38352087950).
 No long-run success or backend-switch readiness is claimed before results.
+
+
+## Explicit remaining native migration work
+
+Audited against `integrations/lightweight/integrated_social_campaign.py::OPTIONS`
+and the additional connected options in `timed_harvest.run` (2026-10-13):
+
+* Angular relation field: current Julia routes contain single color points;
+  Python retains multi-landmark scenes and compares pairwise angular relations.
+  Port scene capture/comparison and body-relative candidate composition, rather
+  than claiming color-route support is the full field.
+* Exploration/body continuity: broader horizon/reposition choices, persistent
+  movement and rest reactivation still require correspondence review/integration.
+* Sleep/social: per-record dormancy is connected; experience conjunction bundles,
+  selection-trail lifecycle and richer social response/aid are not fully covered.
+* World/sensors: local ground and fixed hazards exist; expanded landscape and
+  finite coverage semantics still differ from Python.
+* Thirty-day all-connected-feature campaign remains live, not certified. Its
+  code predates the later limited-clearance and return-route fixes; keep source
+  manifests distinct and rerun final acceptance after remaining integrations.
+
+Observed clearance: [report](../../experiments/julia_migration/lw_integrated/safety_clearance_report.md),
+61 assertions PASS. Return route attribution: `f7006e5`, 71 assertions PASS.
+Initial orientation adapter passed 863 checks and three-day life; unavailable views do not
+invent bearings and the ability conveys neither home location nor destination.
+
+Orientation: [report](../../experiments/julia_migration/lw_integrated/orientation_report.md),
+97 ordinary surveys used the adapter over three days; not a home-position oracle.
