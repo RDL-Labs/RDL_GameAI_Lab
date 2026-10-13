@@ -17,10 +17,19 @@ def audit_result(r, spec):
     require(r['ended_us'] == days * day_us, 'duration')
     require(len(r['daily']) == days, 'daily_count')
     require(len(r['day_starts']) == days, 'start_count')
+    scene = spec['scene']
+    history = scene.get('world_history')
+    ground = sum(history['stock']) if history else sum(x['stock'] for x in scene['food'])
+    shared = history.get('shared_stock', 0) if history else scene.get('initial_shared_stock', 0)
+    require(r['initial_food'] == ground + shared + sum(scene['initial_inventory']) +
+            sum(scene.get('initial_personal_stock', [])), 'initial_food')
     actors = set(r['final_agents'])
     require(actors == set(r['counts']), 'actors')
     for i, d in enumerate(r['daily'], 1):
         require(set(d['physical']) == actors, 'daily_actors')
+        quantities = [d['ground'], d.get('shared_stock', 0), d['consumed'], d['replenished_food']]
+        quantities += [v for a in d['physical'].values() for v in (a['inventory'], a['personal_stock'])]
+        require(all(type(v) is int and v >= 0 for v in quantities), 'nonnegative_food')
         held = sum(a['inventory'] + a['personal_stock'] for a in d['physical'].values())
         require(r['initial_food'] + d['replenished_food'] ==
                 d['ground'] + d.get('shared_stock', 0) + d['consumed'] + held, 'daily_food')
