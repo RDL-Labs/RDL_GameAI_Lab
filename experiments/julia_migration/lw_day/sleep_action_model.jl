@@ -28,10 +28,14 @@ function project_sleep_actions!(s,candidates,context,owner,now)
     applied=false
     for c in candidates
         c["action"] in ("walk","scan") || continue
-        group=[r for r in values(s["records"]) if get(r,"context",nothing)==context &&
+        group=[r for r in values(s["records"]) if (!haskey(s,"maintenance") || !s["maintenance"]["usage"][r["id"]]["dormant"]) && get(r,"context",nothing)==context &&
             r["action"]==c["action"] && get(r,"direction",nothing)==get(c,"direction",nothing) &&
             r["outcome"] in ("performed","blocked")]
         isempty(group) && continue
+        if haskey(s,"maintenance")
+            c["sleep_sources"]=[r["id"] for r in group]
+            for r in group;s["maintenance"]["usage"][r["id"]]["opportunities"]+=1;end
+        end
         rate=count(r->r["outcome"]=="performed",group)/length(group)
         c["priority"]+=.75*(2*rate-1);applied=true
     end

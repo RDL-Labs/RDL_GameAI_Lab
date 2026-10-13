@@ -7,6 +7,7 @@ include(joinpath(@__DIR__,"return_purpose.jl"))
 include(joinpath(@__DIR__,"social_response.jl"))
 include(joinpath(@__DIR__,"general_sleep.jl"))
 include(joinpath(@__DIR__,"sleep_action_model.jl"))
+include(joinpath(@__DIR__,"sleep_maintenance.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -34,7 +35,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -65,6 +66,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security") for f in ("food","home")) for a in IDS)
+    check(!sleep_maintenance || sleep_actions,"maintenance_needs_sleep_actions")
     check(!sleep_actions || general_sleep,"sleep_actions_need_review")
     action_models=Dict(a=>sleep_action_state(a) for a in IDS)
     general=Dict(a=>general_sleep_state() for a in IDS)
@@ -228,9 +230,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 m["applied"]+=1
                             end
                         end
+                        sleep_maintenance && wake_sleep_usage!(action_models[a],contexts[a],phase)
                         sleep_without=sleep_actions ? choose_method!(deepcopy(s),candidates,source) : nothing
                         sleep_applied=sleep_actions && project_sleep_actions!(action_models[a],candidates,contexts[a],a,now)
                         plan=choose_method!(s,candidates,source)
+                        sleep_maintenance && (plan["sleep_changed"]=sleep_applied && sleep_without["method"]!=plan["method"])
                         sleep_applied && sleep_without["method"]!=plan["method"] && (action_models[a]["selection_changes"]+=1)
                         field_selected=sleep_actions ? sleep_without : plan
                         if counterfactual!==nothing && counterfactual["method"]!=field_selected["method"]
@@ -365,6 +369,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     end
                 end
             end
+            sleep_maintenance && record_sleep_use!(action_models[a],plan,op,status)
             @assert all(length(cargo[x])==w.inventory[x] for x in IDS)
             max_radius[a]=max(max_radius[a],hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2]))
             if landmark_routes && !get(plan,"safety",false)
@@ -380,7 +385,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 callback=(harvest_sleep || general_sleep) ? ((c,t)->begin
                     harvest_sleep && consolidate_harvest!(harvest[a],c,t)
                     general_sleep && review_general!(general[a],a,day,t)
+                    sleep_maintenance && review_sleep_usage!(action_models[a],day,general[a]["formation_us"])
                     sleep_actions && adopt_sleep_actions!(action_models[a],last(general[a]["reviews"]),a,t)
+                    sleep_maintenance && enroll_sleep_usage!(action_models[a],t)
                 end) : nothing
                 receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
             end
