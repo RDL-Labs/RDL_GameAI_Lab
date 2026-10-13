@@ -11,11 +11,12 @@ args=[joinpath(out,"first"),"--days",string(days),"--seed",seed,"--food","renewa
  "--regrowth-days","3","--regrowth-capacity","12","--skyline","subrays",
  "--reposition","on","--orientation","on","--relation-field","on",
  "--body-field","on","--movement-inertia","on","--exploration-horizon","on",
- "--experience-bundles","on","--bundle-credit","on","--selection-trails","on"]
+ "--experience-bundles","on","--bundle-credit","off","--selection-trails","on"]
 native_main(args)
 input=JSON3.read(read(joinpath(out,"first","spec.json"),String))
 r=JSON3.read(read(joinpath(out,"first","result.json"),String))
 validate_integrated(r,input)
+@test_throws ErrorException lw_day(input.scene,input.clock;days=1,selection_trails=true,bundle_credit=true,experience_bundles=true,food_body=true,general_sleep=true)
 @testset "latest integrated campaign bounds" begin
  @test length(r.daily)==days && length(r.day_starts)==days
  @test all(r.initial_food+d.replenished_food==d.ground+d.shared_stock+d.consumed+sum(a.inventory+a.personal_stock for a in values(d.physical)) for d in r.daily)

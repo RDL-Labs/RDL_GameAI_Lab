@@ -42,6 +42,11 @@ behavioral acceptance criterion is satisfied.
 | Rest reactivation | rest_reactivation | separate Python experimental adapter, not connected to current production LW entry; not an added migration prerequisite |
 | Transport | Luanti/HTTP adapters | outside standalone Python LW execution contract; no Julia Luanti/HTTP claim |
 
+Native contract correction: Python timed_harvest rejects simultaneous trail and
+bundle-credit modes. Julia now also rejects that combination. The long campaign
+uses trails on and bundle credit off; separate bundle-credit acceptance remains
+required evidence, not a reason to combine mutually exclusive modes.
+
 ## Outstanding completion gates
 
 1. Shared-store/regrowth finite acceptance completed; include these configurations

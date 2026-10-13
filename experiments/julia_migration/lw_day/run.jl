@@ -102,6 +102,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!experience_bundles || (food_body && general_sleep),"bundles_require_hunger_sleep")
     check(!bundle_credit || experience_bundles,"credit_requires_bundles")
     check(!selection_trails || food_body,"trails_require_food_body")
+    check(!(selection_trails && bundle_credit),"trail_bundle_credit_conflict")
     trails=Dict(a=>selection_trail_state(a) for a in IDS)
     bundles=Dict(a=>bundle_state(a) for a in IDS)
     hunger=Dict(a=>hunger_state(a) for a in IDS)
