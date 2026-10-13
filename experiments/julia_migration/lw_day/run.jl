@@ -424,7 +424,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 ground_receipts[a]=D("actor"=>a,"source"=>"ob:$now:$a","operation"=>op,
                     "before_us"=>now,"after_us"=>now+1_000_000,"forward"=>dx*sn+dz*cs,"right"=>dx*cs-dz*sn,"yaw"=>yaw[a]-before_yaw)
             end
-            continuous_safety && get(plan,"safety",false) && (safety[a]["accepted"]=true)
+            if continuous_safety && get(plan,"safety",false)
+                safety[a]["accepted"]=true
+                safety[a]["body_result"]=(action=action,status=status,yaw=mod(yaw[a]-before_yaw+180,360)-180)
+            end
             sleep_maintenance && record_sleep_use!(action_models[a],plan,op,status)
             @assert all(length(cargo[x])==w.inventory[x] for x in IDS)
             max_radius[a]=max(max_radius[a],hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2]))

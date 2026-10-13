@@ -27,6 +27,34 @@ include(joinpath(@__DIR__,"checks.jl"))
  @test l.H==0
  @test length(l.methods)<=8
 end
+@testset "limited clearance uses actual observations and body results" begin
+ clear=D("coverage"=>"complete","features"=>Any[])
+ partial=D("coverage"=>"partial","features"=>Any[])
+ far=D("coverage"=>"complete","features"=>[D("distance"=>10.,"forward"=>10.,"right"=>0.)])
+ near=D("coverage"=>"complete","features"=>[D("distance"=>2.,"forward"=>2.,"right"=>0.)])
+ fresh()=merge(safety_state(),D("active"=>true,"accepted"=>true,"body_result"=>(action="scan",status="performed",yaw=90.)))
+ s=fresh()
+ for i in 1:3;@test !limited_clearance!(s,clear);end
+ @test limited_clearance!(s,clear)
+ @test !s["active"] && s["release_reason"]=="limited_clearance"
+ s=fresh()
+ for angle in (90.,-90.,90.,-90.,90.,-90.)
+    s["body_result"]=(action="scan",status="performed",yaw=angle)
+    @test !limited_clearance!(s,clear)
+ end
+ @test s["clear_yaw"]==0
+ s=fresh();limited_clearance!(s,clear)
+ @test !limited_clearance!(s,partial) && s["clear_yaw"]==0
+ s=fresh();s["accepted"]=false
+ @test !limited_clearance!(s,clear) && s["clear_yaw"]==0
+ s=fresh()
+ @test !limited_clearance!(s,far)
+ @test !limited_clearance!(s,near) && s["far_count"]==0
+ @test !limited_clearance!(s,far)
+ @test limited_clearance!(s,far)
+ s=fresh();s["body_result"]=(action="scan",status="performed",yaw=60.)
+ @test !limited_clearance!(s,clear) && s["clear_yaw"]==0
+end
 out=ARGS[1]
 for mode in ("legacy","continuous")
  dir=joinpath(out,mode)
