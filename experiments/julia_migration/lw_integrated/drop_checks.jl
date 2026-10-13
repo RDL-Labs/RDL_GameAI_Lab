@@ -37,6 +37,18 @@ end
     @test climb_sample(w,"a",0.,2,low,RDLMigrationProbe.Circle[],p->1.5)["status"]=="performed"
     @test isempty(drop_candidates(rows,w.bodies["a"],6,nothing))
 end
+@testset "parent return purpose survives child and day changes" begin
+    s=return_purpose()
+    @test returning!(s,"exploration",6,false,0)
+    @test returning!(s,"exploration",5,false,1) # successful drop
+    @test returning!(s,"orientation",0,false,2) # empty-handed and next day: still away
+    @test s["entries"]==1 && s["completed"]==0
+    @test !returning!(s,"exploration",0,true,3)
+    @test s["completed"]==1
+    @test !returning!(s,"exploration",0,true,4)
+    @test s["completed"]==1
+    @test returning!(s,"return",0,false,5)
+end
 out=ARGS[1]
 for mode in ("off","on")
     dir=joinpath(out,mode)
@@ -49,7 +61,10 @@ mkpath(out);f=joinpath(out,"controlled.json");write(f,JSON3.write((scene=scene,c
 native_main([joinpath(out,"controlled"),"--spec",f])
 r=JSON3.read(read(joinpath(out,"controlled","result.json"),String))
 @testset "drop in common living loop" begin
-    @test r.dropped_cargo.dropped>0
+    @test r.dropped_cargo.dropped>=1
+    @test any(parse(Int,split(x.source,':')[2])<8_640_000_000 && x.load==5 for x in r.climbing.npc_a.records)
+    @test r.climbing.npc_a.performed>=1
+    @test r.final_agents.npc_a.personal_stock>=5
     @test length(r.dropped_cargo.records)<=32
     @test length(r.dropped_cargo.sites)<=256
 end

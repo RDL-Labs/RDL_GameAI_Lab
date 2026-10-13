@@ -3,6 +3,7 @@ include(joinpath(@__DIR__,"hazard.jl"))
 include(joinpath(@__DIR__,"ground.jl"))
 include(joinpath(@__DIR__,"climbing.jl"))
 include(joinpath(@__DIR__,"dropped_cargo.jl"))
+include(joinpath(@__DIR__,"return_purpose.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -60,9 +61,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security") for f in ("food","home")) for a in IDS)
+    purposes=Dict(a=>return_purpose() for a in IDS)
     pending=Dict{String,Any}();daily=Any[];day_starts=Any[]
     physical()=D(a=>D("position"=>collect(w.positions[a]),"yaw"=>yaw[a],"body"=>bodydict(w.bodies[a]),
-        "inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
+        "return_purpose"=>deepcopy(purposes[a]),"inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
         "social_model"=>deepcopy(states[a]["model"]),"loops"=>D(f=>loop_snapshot(s) for (f,s) in loops[a]),
         "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
         "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing) for a in IDS)
@@ -166,7 +168,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     plan=D("action"=>"request","target"=>target)
                 end
             end
-            returning=phase in ("return","night") || w.inventory[a]>=6
+            returning=returning!(purposes[a],phase,w.inventory[a],at_home,now)
             if plan===nothing
                 if returning && at_home
                     plan=D("action"=>w.inventory[a]>0 ? "deposit" : "rest")
@@ -384,7 +386,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         integrate(a,Int(days*clock.day_us),observe(w,a))
         cycle=learning[a]["sleep"]["cycle"]
         states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>Int(days*clock.day_us))),a)
-        terminal[a]=D("position"=>collect(w.positions[a]),"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
+        terminal[a]=D("return_purpose"=>deepcopy(purposes[a]),"position"=>collect(w.positions[a]),"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
             "personal_stock"=>stores[a],"sleep"=>learning[a],"social"=>states[a],"aid"=>pressure_snapshot(live[a]),"distance"=>distance[a],
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
