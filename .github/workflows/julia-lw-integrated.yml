@@ -26,6 +26,8 @@ jobs:
         run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
       - name: Local behavior integration and cost
         run: python -m experiments.julia_migration.lw_integrated.run outputs/julia_migration/lw-integrated --days 4 --food renewable --learning full
+      - name: Fixed moving hazard integration
+        run: python -m experiments.julia_migration.lw_integrated.run outputs/julia_migration/lw-integrated/hazard --days 1 --food renewable --learning full --hazards crossing
       - uses: actions/upload-artifact@v4
         if: always()
         with:

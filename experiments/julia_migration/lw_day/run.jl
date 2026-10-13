@@ -1,4 +1,5 @@
 using Test
+include(joinpath(@__DIR__,"hazard.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -26,13 +27,14 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
     check(!model_relearn || model_review,"harvest_relearn_requires_review")
     w=moving_world(spec);w.capacity=100_000
+    safety=Dict(a=>safety_state() for a in IDS)
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
     live=Dict(a=>live_aid(a) for a in IDS);results=Dict(a=>D() for a in IDS)
@@ -125,7 +127,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing)
             end
             messages=[m for m in reverse(o["messages"]) if !(m["id"] in answered[a]) && m["kind"] in ("request","warn","reach")]
-            if !isempty(messages)
+            if hazard_mode
+                plan=safety_plan!(safety[a],hazard_observation(w,a,yaw, spec.hazards,sec),moves[a])
+            end
+            if plan!==nothing
+                # Safety has authority before social, food and night priorities.
+            elseif !isempty(messages)
                 m=first(messages);act,t,r=response(merge(copy(o),D("messages"=>[m])),a!="npc_b")
                 plan=D("action"=>act,"target"=>t,"reply_to"=>r);push!(answered[a],m["id"])
             elseif w.bodies[a].reserve<80 && w.inventory[a]>0
@@ -273,7 +280,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             @assert all(length(cargo[x])==w.inventory[x] for x in IDS)
             max_radius[a]=max(max_radius[a],hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2]))
-            if landmark_routes
+            if landmark_routes && !get(plan,"safety",false)
                 near=homes[a]!==nothing && homes[a]["distance"]<=1.25
                 route_result!(routes[a],landmarks[a],op,action,status,leg,near,get(plan,"route",nothing);delivered=delivered)
             end
@@ -322,7 +329,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
-        "counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
+        "safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
 
 if abspath(PROGRAM_FILE)==@__FILE__
