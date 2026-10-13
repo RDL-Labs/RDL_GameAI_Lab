@@ -39,9 +39,9 @@ for mode in ("flat","shadow","patches")
     validate_integrated(r,JSON3.read(read(joinpath(dir,"spec.json"),String)))
     if mode!="flat"
         @testset "ground execution correspondence $mode" begin
-            @test sum(s.high_resistance_walks for s in values(r.ground))>0
-            @test all(s.delta_mismatches==0 for s in values(r.ground))
-            @test all(length(s.records)<=32 for s in values(r.ground))
+            @test sum(s.high_resistance_walks for s in values(r.ground_effects))>0
+            @test all(s.delta_mismatches==0 for s in values(r.ground_effects))
+            @test all(length(s.records)<=32 for s in values(r.ground_effects))
         end
     end
 end

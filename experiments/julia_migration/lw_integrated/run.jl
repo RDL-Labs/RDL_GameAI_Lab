@@ -8,7 +8,7 @@ r=lw_day(input.scene,input.clock;days=Int(cfg.days),basic_loop=true,landmark_rou
     renewable_food=cfg.food=="renewable",hazard_mode=cfg.hazards=="crossing",ground_mode=get(cfg,:ground,"flat"))
 summary=D("name"=>"LW-Julia integrated experiment v1","config"=>cfg,"ended_us"=>r["ended_us"],
     "food"=>D("initial"=>r["initial_food"],"added"=>r["replenished_food"],"ground"=>r["ground"],"consumed"=>r["consumed"]),
-    "ground"=>r["ground"],"safety"=>r["safety"],"agents"=>D())
+    "ground_effects"=>r["ground_effects"],"safety"=>r["safety"],"agents"=>D())
 for a in IDS
     s=r["final_agents"][a];h=s["harvest"]
     summary["agents"][a]=D("position"=>s["position"],"body"=>s["body"],"inventory"=>s["inventory"],
