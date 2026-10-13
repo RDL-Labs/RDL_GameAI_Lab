@@ -27,7 +27,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; finite per-record dormancy/reactivation connected; full vocabulary/context and conjunction bundles unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
 | Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; shared walking wear/recovery verified; local appearance/sampled shape recognition verified; body-linked ground continuity and exploration following verified |
-| Danger | moving_hazard, patrol_hazard, territorial_hazard | crossing plus fixed territorial/patrol World response connected; relative sensing/override/release; damage and full safety-method selection unported |
+| Danger | moving_hazard, patrol_hazard, territorial_hazard | crossing plus fixed territorial/patrol World response connected; relative sensing/override/release; continuous minimax method H now connected; full scan-release adapter and damage remain separate |
 | Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
 | Transport | production observation/results receipts | local same-process scaffold, no Luanti/HTTP integration |
 
@@ -344,3 +344,8 @@ World hazard: [report](../../experiments/julia_migration/lw_integrated/world_haz
 753 assertions PASS, including Python fixed-trajectory comparison and3-day life.
 Territory/patrol interact with existing food/body/Sleep. Multi-threat method H
 and full warning selection remain unported; attack/damage are not added.
+
+Continuous safety methods: [report](../../experiments/julia_migration/lw_integrated/safety_method_report.md),
+38 checks PASS. Local wait/survey/walk/run method H competes under worst-visible
+directional pressure. Three-day live selections and resource conservation verified.
+Not proof of safe escape, canonical H or full sensing parity.
