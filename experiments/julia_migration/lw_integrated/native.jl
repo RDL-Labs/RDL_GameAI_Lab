@@ -4,8 +4,8 @@ include(joinpath(@__DIR__,"world.jl"))
 using SHA
 
 function native_options(args)
-    isempty(args) && error("usage: native.jl OUTPUT [--days 1..4 --seed N --food finite|renewable --learning off|full --hazards off|crossing --ground flat|shadow|patches --running off|on --climbing off|on --low-obstacles off|on --spec FILE]")
-    out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","running"=>"off","climbing"=>"off","low-obstacles"=>"off","spec"=>"")
+    isempty(args) && error("usage: native.jl OUTPUT [--days 1..4 --seed N --food finite|renewable --learning off|full --hazards off|crossing --ground flat|shadow|patches --running off|on --climbing off|on --dropping off|on --low-obstacles off|on --spec FILE]")
+    out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","running"=>"off","climbing"=>"off","dropping"=>"off","low-obstacles"=>"off","spec"=>"")
     iseven(length(args)-1) || error("option requires a value")
     for i in 2:2:length(args)
         startswith(args[i],"--") || error("invalid option")
@@ -20,7 +20,7 @@ function native_main(args)
     generated=isempty(opts["spec"])
     if generated
         cfg=(days=parse(Int,opts["days"]),seed=parse(Int,opts["seed"]),food=opts["food"],
-             learning=opts["learning"],hazards=opts["hazards"],ground=opts["ground"],running=opts["running"],climbing=opts["climbing"],low_obstacles=opts["low-obstacles"])
+             learning=opts["learning"],hazards=opts["hazards"],ground=opts["ground"],running=opts["running"],climbing=opts["climbing"],dropping=opts["dropping"],low_obstacles=opts["low-obstacles"])
         input=(scene=native_scene(cfg.seed),clock=native_clock(),config=cfg)
         bytes=Vector{UInt8}(codeunits(JSON3.write(input)))
     else
@@ -39,6 +39,7 @@ function native_main(args)
     get(cfg,:running,"off") in ("off","on") || error("running mode")
     get(cfg,:climbing,"off") in ("off","on") || error("climbing mode")
     get(cfg,:low_obstacles,"off") in ("off","on") || error("low obstacle mode")
+    get(cfg,:dropping,"off") in ("off","on") || error("dropping mode")
     mkpath(out);write(joinpath(out,"spec.json"),bytes)
     root=normpath(joinpath(@__DIR__,".."));sources=Dict{String,String}()
     for (dir,_,files) in walkdir(root), f in files

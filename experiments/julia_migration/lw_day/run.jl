@@ -2,6 +2,7 @@ using Test
 include(joinpath(@__DIR__,"hazard.jl"))
 include(joinpath(@__DIR__,"ground.jl"))
 include(joinpath(@__DIR__,"climbing.jl"))
+include(joinpath(@__DIR__,"dropped_cargo.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -29,7 +30,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -44,7 +45,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     resistance_at=p->ground_resistance(p,patches)
     ground_stats=Dict(a=>D("walks"=>0,"high_resistance_walks"=>0,"projection_decisions"=>0,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
-    yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
+    food=Any[f for f in spec.food];dropped=cargo_ground()
+    yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in food]
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
     live=Dict(a=>live_aid(a) for a in IDS);results=Dict(a=>D() for a in IDS)
     answered=Dict(a=>Set{String}() for a in IDS);learning=Dict(a=>sleeper(0) for a in IDS)
@@ -94,7 +96,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         phase=local_us<bounds[1] ? "orientation" : local_us<bounds[2] ? "exploration" : local_us<bounds[3] ? "return" : "night"
         obs=Dict(a=>observe(w,a) for a in IDS)
-        moves=Dict(a=>movement_observation(w,a,yaw,spec.food,stock;resistance_at=resistance_at,running=running,visual_obstacles=high) for a in IDS)
+        moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,running=running,visual_obstacles=high) for a in IDS)
         homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
         if harvest_sleep
@@ -131,10 +133,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 t=pop!(pending,a);s=loops[a][t.family]
                 target=t.family=="home" ? home : isempty(moves[a]["visible"]) ? nothing : first(moves[a]["visible"])
                 same=target!==nothing && (t.family=="home" || t.ref===nothing || target["ref"]==t.ref)
-                value=t.question=="landmark_progress" ? t.status=="performed" : t.question=="acquired" ? t.status=="picked_up" : t.question=="home_confirmed" ? at_home && t.status=="performed" : t.question=="target_observed" ? target!==nothing :
+                value=t.question=="load_reduced" ? t.status=="dropped" : t.question=="recovered" ? t.status=="recovered" : t.question=="landmark_progress" ? t.status=="performed" : t.question=="acquired" ? t.status=="picked_up" : t.question=="home_confirmed" ? at_home && t.status=="performed" : t.question=="target_observed" ? target!==nothing :
                     same ? target["distance"]<t.distance : nothing
                 # No move/turn result is credited as acquired food or confirmed home.
-                goal=t.family=="home" ? at_home : t.status=="picked_up"
+                goal=t.family=="home" ? at_home : t.status in ("picked_up","recovered")
                 resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing)
             end
             messages=[m for m in reverse(o["messages"]) if !(m["id"] in answered[a]) && m["kind"] in ("request","warn","reach")]
@@ -176,11 +178,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     family=returning ? "home" : "food"
                     visible=moves[a]["visible"];target=returning ? home : isempty(visible) ? nothing : first(visible)
                     if !returning && target!==nothing && target["distance"]<=1.25
-                        plan=D("action"=>"pickup","food_ref"=>target["ref"])
+                        plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
                     else
                         s=loops[a][family];source="op:$now:$a"
                         candidates=search_candidates(moves[a],target,s)
                         climbing && append!(candidates,climb_candidates(climbs[a],moves[a],target,s))
+                        dropping && climbing && append!(candidates,drop_candidates(climbs[a],w.bodies[a],w.inventory[a],target))
                         if landmark_routes
                             if routes[a]["day"]!=day
                                 empty!(routes[a]["cursors"]);routes[a]["day"]=day
@@ -223,7 +226,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 else
                     visible=moves[a]["visible"];target=returning ? home : isempty(visible) ? nothing : first(visible)
                     if !returning && target!==nothing && target["distance"]<=1.25
-                        plan=D("action"=>"pickup","food_ref"=>target["ref"])
+                        plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
                     else
                         scored=[r for r in moves[a]["energy"]["rows"] if r["cost"]!==nothing]
                         if isempty(scored)
@@ -239,9 +242,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     end
                 end
             end
-            if basic_loop && !haskey(pending,a) && (plan["action"] in ("pickup","deposit") || (at_home && plan["action"]=="rest" && loops[a]["home"].H>0))
-                family=plan["action"]=="pickup" ? "food" : "home"
-                question=family=="food" ? "acquired" : "home_confirmed"
+            if basic_loop && !haskey(pending,a) && (plan["action"] in ("pickup","recover","deposit") || (at_home && plan["action"]=="rest" && loops[a]["home"].H>0))
+                family=plan["action"] in ("pickup","recover") ? "food" : "home"
+                question=plan["action"]=="recover" ? "recovered" : family=="food" ? "acquired" : "home_confirmed"
                 source="op:$now:$a"
                 plan=choose_method!(loops[a][family],[merge(plan,D("method"=>"work","priority"=>5.,"question"=>question))],source)
                 pending[a]=(family=family,source=source,phase=phase,question=question,distance=nothing,ref=nothing,status="unexecuted")
@@ -315,10 +318,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             else
                 w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
-                if action=="scan"
+                if action in ("drop","recover")
+                    status=cargo_transfer!(dropped,w,cargo,food,stock,a,op,now,action;index=action=="recover" ? plan["food_ref"]+1 : 0)
+                elseif action=="scan"
                     yaw[a]=mod(yaw[a]+60+180,360)-180
                 elseif action=="pickup"
-                    j=plan["food_ref"]+1;f=spec.food[j]
+                    j=plan["food_ref"]+1;f=food[j]
                     legal=stock[j]>0 && hypot(f.x-p[1],f.z-p[2])<=1.25 && !any(o->segment_hit(p,(Float64(f.x),Float64(f.z)),o,0.),w.obstacles)
                     if legal;stock[j]-=1;w.inventory[a]+=1;push!(cargo[a],op);end
                     status=legal ? "picked_up" : "not_found"
@@ -386,7 +391,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
-        "climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
+        "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
 
 if abspath(PROGRAM_FILE)==@__FILE__
