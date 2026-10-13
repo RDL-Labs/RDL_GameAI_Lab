@@ -467,7 +467,7 @@ body-independent samples and an acquired physical blockage. Existing three-day
 flat/shadow/patches integrations run in the same job.
 
 
-Native incomplete-view candidate release (`19ba05a`) is connected opt-in through
+Native incomplete-view candidate release (`88bd18c`,56 assertions PASS) is connected opt-in through
 `--reposition on`. [Contract and evidence](../../experiments/julia_migration/lw_integrated/reposition_report.md).
 This migrates partial food-view release into the existing method loop. It does not
 claim full skyline/appearance coverage or all Python return-search reasons.

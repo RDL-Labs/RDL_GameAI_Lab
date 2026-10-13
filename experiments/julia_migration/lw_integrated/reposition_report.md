@@ -38,5 +38,7 @@ no escape or efficiency improvement is claimed. Frozen overflow replay matches
 byte-for-byte; conservation was independently checked from saved outputs.
 
 Follow-up88bd18c binds the trigger to food purpose explicitly and adds two tests.
-Actions38366040129 is running the same local and living checks for this final code.
+Actions38366040129 completed: 56 assertions PASS on the final code. Saved food
+balances, six overflow offers with zero selections, and exact replay were
+independently rechecked.
 Full return-search and broader channel coverage remain pending.
