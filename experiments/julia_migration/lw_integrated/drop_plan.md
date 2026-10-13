@@ -1,7 +1,8 @@
 # Julia LW dropped cargo: implementation awaiting execution
 
 Baseline: `b9d3a921`; implementation: `02318d3` plus this documentation.
-Status: IMPLEMENTED LOCALLY / CLOUD ACCEPTANCE NOT RUN.
+Status: EXECUTED / physical checks passed; purpose-persistence loop remains.
+See [execution report](drop_report.md).
 
 The existing native entry accepts `--dropping on` (default off). With climbing
 also enabled, a visible target and a locally observed low obstacle can produce
@@ -26,9 +27,8 @@ cost for an operation, not a new lifting physiology model.
 
 The dedicated `julia-lw-drop.yml` workflow contains transfer/provenance and
 load/method tests, the existing safety tests, a native three-day off/on comparison,
-and a controlled one-day case through the same living loop. It has NOT run yet:
-automatic approval review rejected the direct push to main. Julia is unavailable
-locally. No PASS, actual drop count, or performance claim is made.
+and a controlled one-day case through the same living loop. It subsequently ran after explicit push authorization: 52 checks passed.
+Julia is unavailable locally; evidence is from the cloud run linked above.
 
 Observe drop/recovery cycles rather than suppressing them with a hidden ban.
 No safety drop, property permission, ground-cargo decay, or general cargo planning
