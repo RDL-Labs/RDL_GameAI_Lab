@@ -24,7 +24,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods and persistent return purpose across load changes; not arbitrary canonical nested M_B |
 | Routes | directional_routes, relational_movement | bounded observed color sequences; no full angular relation composition or route failure completion |
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
-| General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | unported beyond harvest and local social expectation |
+| General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | optional bounded cross-action review connected; automatic action models and bundle sleep still unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
 | Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; no wear or recognized paths |
 | Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
@@ -272,3 +272,9 @@ Social response: [finite port report](../../experiments/julia_migration/lw_integ
 39 checks passed. Controlled living run produced three gives/one refusal and a
 Sleep-formed expectation of2/3. Prior-refusal response influence remains locally
 tested only; general Sleep and food-retention projection are still unported.
+
+
+General Sleep comparison entrance: [report](../../experiments/julia_migration/lw_integrated/general_sleep_report.md),
+45 checks passed. Nine completed reviews:two comparisons and seven insufficient
+windows. Behavior unchanged. Automatic adoption/use and richer retained experiences
+remain separate unported boundaries.
