@@ -25,6 +25,16 @@ consistent with current native obstacle integration. General3D dynamics are abse
 Landscape metadata is preserved and checked in environmental checkpoints, so a
 continued World cannot silently change river phase. Same-agent resume remains absent.
 
-Actions38368026817 pending: material/placement/water checks, two seeds each one day,
-local ground effort correspondence, skyline and climbing connected, frozen replay.
+Actions38368026817 passed54 assertions: material/placement/water checks, two seeds
+each one day, local ground effort correspondence, skyline/climbing and frozen replay.
+All three Sleeps completed in both seeds. Seed04 balance124=ground114+private/carried7+
+consumed3; seed05 balance124=ground120+private/carried2+consumed2. Frozen seed05 replay
+is byte-identical, independently checked with the saved balances.
+
+Whole-call time (serialization excluded) was154.92 seconds(first call),135.40 seconds
+(seed05) and130.36 seconds(replay). Process peak RSS998,404,096 bytes is cumulative
+within the process. Allocated totals were122.11/121.09 GB for the first two runs;
+these are allocation volume, not simultaneously held memory. This expanded
+observation workload is materially more expensive than the sparse World. No
+Python speed ratio or long-run efficiency claim follows from this comparison.
 No long-term living success or full LW parity is claimed by this addition.

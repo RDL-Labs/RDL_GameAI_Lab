@@ -25,7 +25,7 @@ behavioral acceptance criterion is satisfied.
 |---|---|---|
 | Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–30 days, integer per-second schedule; latest-feature30-day validation pending |
 | Body / load | layered_body, body_exploration | walk/run/climb/rest/eat, unit cargo weight, drop/recovery, basal metabolism/hunger, body candidate field connected |
-| Food / stores | social_life, personal_food | personal stores and retrieve/eat connected; shared stock is still absent; dawn top-up lacks Python's configurable global regrowth period/capacity |
+| Food / stores | social_life, personal_food | personal stores connected; shared stock and global regrowth period/capacity added in3bc7555, verification38369218616 pending |
 | Surface / food observation | World.packet, ground_appearance | bounded food, body-independent five-ray surface and sampled ground appearance; complete/partial distinguished; full appearance terrain gate remains different |
 | Elevated sight | World.cast, local_return | finite0/15/30-degree rays/subrays, observed home-color memory and local6-unit dock adapter connected; native dock still exposes relative distance |
 | Incomplete-view release | incomplete_reposition | food-purpose residual candidate release connected; return-search trigger vocabulary unported; observed six offers,zero selections in finite fixture |
@@ -36,7 +36,7 @@ behavioral acceptance criterion is satisfied.
 | Experience conjunctions | experience_bundle, bundle_sleep/credit | finite formation/use/Sleep dormancy/wake and parent credit connected; live bundle wake and positive bundle parent credit not observed yet |
 | Selection trails | selection_trails | actual method use and parent-episode success separately accumulated; native method descriptors differ from Python commands |
 | Social | social_life, social_sleep, aid_pressure | request/give/refuse, pressure, refusal history, body-conditioned response, night expectations connected; social observation/schema remains finite adaptation |
-| Ground / landscape | energy_exploration, base_landscape | resistance patches, wear/recovery, appearance grouping, continuity connected; riparian materials/water/placement added, validation38368026817 pending |
+| Ground / landscape | energy_exploration, base_landscape | resistance patches, wear/recovery, appearance grouping, continuity connected; riparian materials/water/placement verified by54 checks, two seeds and replay |
 | Danger | moving/patrol/territorial_hazard | dynamic territorial/patrol/crossing, current relative observation, method H and bounded observation release connected |
 | Environmental transfer | cohort_world | resources/regrowth targets, cargo provenance, wear and hazard state restored; mismatch checks and exact replay verified; shared stock and same-agent resume absent |
 | Rest reactivation | rest_reactivation | separate Python experimental adapter, not connected to current production LW entry; not an added migration prerequisite |
@@ -509,3 +509,8 @@ Regrowth scope correction: `resource_regrowth.py::advance` compares the global
 It is not an empty-site elapsed-time timer. Native dawn top-up already shares the
 basic floor operation, but currently lacks configurable period/capacity and their
 checkpoint state. This source audit supersedes any empty-site interpretation.
+
+
+Riparian validation38368026817 completed54 checks with exact replay; see its
+report for measured time/allocation/RSS. Shared stores/global periodic regrowth
+are now connected in3bc7555, [verification pending](../../experiments/julia_migration/lw_integrated/storage_report.md). This supersedes the absent-code entries, not the outstanding acceptance gate.
