@@ -3,6 +3,7 @@ include(joinpath(@__DIR__,"hazard.jl"))
 include(joinpath(@__DIR__,"ground.jl"))
 include(joinpath(@__DIR__,"ground_wear.jl"))
 include(joinpath(@__DIR__,"ground_pattern.jl"))
+include(joinpath(@__DIR__,"ground_continuity.jl"))
 include(joinpath(@__DIR__,"climbing.jl"))
 include(joinpath(@__DIR__,"dropped_cargo.jl"))
 include(joinpath(@__DIR__,"return_purpose.jl"))
@@ -37,7 +38,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -51,6 +52,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     response_stats=Dict(a=>D("decisions"=>0,"give"=>0,"refuse"=>0,"experienced"=>0,"records"=>Any[]) for a in IDS)
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
+    check(!ground_continuity || ground_perception,"ground_continuity_requires_perception")
+    ground_models=Dict(a=>ground_memory(a) for a in IDS);ground_receipts=Dict{String,Any}()
     wear=GroundWear(Int(clock.day_us))
     ground_views=Dict(a=>D("observations"=>0,"counts"=>D(),"records"=>Any[]) for a in IDS)
     base_resistance_at=p->ground_resistance(p,patches)
@@ -100,7 +103,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     for sec in 0:days*div(clock.day_us,1_000_000)-1
         now=sec*1_000_000;w.seconds=sec
         (ground_wear || ground_perception) && advance_wear!(wear,now)
-        ground_perception && foreach(a->record_ground_patterns!(ground_views[a],ground_appearance(w,a,yaw,wear,now)),IDS)
+        if ground_perception
+            for a in IDS
+                view=ground_appearance(w,a,yaw,wear,now)
+                record_ground_patterns!(ground_views[a],view)
+                ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing))
+            end
+        end
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
         if local_us==0
             push!(day_starts,physical())
@@ -152,7 +161,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 t=pop!(pending,a);s=loops[a][t.family]
                 target=t.family=="home" ? home : isempty(moves[a]["visible"]) ? nothing : first(moves[a]["visible"])
                 same=target!==nothing && (t.family=="home" || t.ref===nothing || target["ref"]==t.ref)
-                value=t.question=="load_reduced" ? t.status=="dropped" : t.question=="recovered" ? t.status=="recovered" : t.question=="landmark_progress" ? t.status=="performed" : t.question=="acquired" ? t.status=="picked_up" : t.question=="home_confirmed" ? at_home && t.status=="performed" : t.question=="target_observed" ? target!==nothing :
+                value=t.question=="ground_extension" ? t.status=="performed" && any(m->m["model_ref"]==loops[a][t.family].trial.method && m["status"]=="observed" && m["extended"],ground_models[a]["models"]) : t.question=="load_reduced" ? t.status=="dropped" : t.question=="recovered" ? t.status=="recovered" : t.question=="landmark_progress" ? t.status=="performed" : t.question=="acquired" ? t.status=="picked_up" : t.question=="home_confirmed" ? at_home && t.status=="performed" : t.question=="target_observed" ? target!==nothing :
                     same ? target["distance"]<t.distance : nothing
                 # No move/turn result is credited as acquired food or confirmed home.
                 goal=t.family=="home" ? at_home : t.status in ("picked_up","recovered")
@@ -223,6 +232,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
                             end
                         end
+                        if ground_continuity && phase=="exploration" && !returning && target===nothing
+                            append!(candidates,ground_proposals(ground_models[a],moves[a]))
+                        end
                         if ground_mode=="patches"
                             candidates=ground_candidates(candidates,moves[a],w.inventory[a])
                             ground_stats[a]["projection_decisions"]+=1
@@ -241,6 +253,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         sleep_without=sleep_actions ? choose_method!(deepcopy(s),candidates,source) : nothing
                         sleep_applied=sleep_actions && project_sleep_actions!(action_models[a],candidates,contexts[a],a,now)
                         plan=choose_method!(s,candidates,source)
+                        ground_continuity && startswith(plan["method"],"ground_") && (ground_models[a]["selections"]+=1)
                         sleep_maintenance && (plan["sleep_changed"]=sleep_applied && sleep_without["method"]!=plan["method"])
                         sleep_applied && sleep_without["method"]!=plan["method"] && (action_models[a]["selection_changes"]+=1)
                         field_selected=sleep_actions ? sleep_without : plan
@@ -289,7 +302,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         w.seconds=sec+1
         for a in IDS
-            plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];status="performed"
+            plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];before_yaw=yaw[a];status="performed"
             frozen_prediction=harvest_sleep && action=="pickup" ? harvest_predict(harvest[a],sections[a]) : nothing
             leg=phase in ("return","night") || w.inventory[a]>=6 ? "home" : "food"
             delivered=String[]
@@ -379,6 +392,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if ground_wear && action=="walk" && status=="performed"
                 tread!(wear,op,a,p,w.positions[a],now)
             end
+            if ground_continuity
+                dx=w.positions[a][1]-p[1];dz=w.positions[a][2]-p[2];sn,cs=sincosd(before_yaw)
+                ground_receipts[a]=D("actor"=>a,"source"=>"ob:$now:$a","operation"=>op,
+                    "before_us"=>now,"after_us"=>now+1_000_000,"forward"=>dx*sn+dz*cs,"right"=>dx*cs-dz*sn,"yaw"=>yaw[a]-before_yaw)
+            end
             sleep_maintenance && record_sleep_use!(action_models[a],plan,op,status)
             @assert all(length(cargo[x])==w.inventory[x] for x in IDS)
             max_radius[a]=max(max_radius[a],hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2]))
@@ -440,7 +458,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
-    D("ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>social_response ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    D("ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>social_response ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
