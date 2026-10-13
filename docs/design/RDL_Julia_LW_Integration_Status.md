@@ -427,3 +427,6 @@ success. Parent food/home evaluation remains independent.
 
 
 Exploration horizon is now connected (`29135ca`): [41 checks and three-day living comparison](../../experiments/julia_migration/lw_integrated/horizon_report.md). This supersedes its unported entry above; experience bundles, selection trails, broader sensing and inherited World remain open.
+
+
+Experience conjunction formation/use and completed-Sleep dormancy/wake are connected (`dd23ff5`): [46 checks and four-day report](../../experiments/julia_migration/lw_integrated/bundle_report.md). Six living selection changes and64 dormancies; live waking remains unobserved. Parent credit and selection trails remain open. This supersedes the blanket unported conjunction entry, not the full remaining scope.
