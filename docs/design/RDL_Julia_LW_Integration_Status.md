@@ -24,7 +24,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods and persistent return purpose across load changes; not arbitrary canonical nested M_B |
 | Routes | directional_routes, relational_movement | bounded observed color sequences; no full angular relation composition or route failure completion |
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
-| General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | optional bounded cross-action review connected; automatic action models and bundle sleep still unported |
+| General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; full vocabulary/context and bundle sleep unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
 | Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; no wear or recognized paths |
 | Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
@@ -278,3 +278,9 @@ General Sleep comparison entrance: [report](../../experiments/julia_migration/lw
 45 checks passed. Nine completed reviews:two comparisons and seven insufficient
 windows. Behavior unchanged. Automatic adoption/use and richer retained experiences
 remain separate unported boundaries.
+
+
+Sleep action use: [report](../../experiments/julia_migration/lw_integrated/sleep_action_report.md),
+41 checks passed. B had5054 real candidate-evaluation applications, zero changed
+selections; A/C only rest sources. Full context/action vocabulary and bundle Sleep
+remain gaps. This is unvalidated local use, not canonical adoption.
