@@ -5,23 +5,28 @@ prepare_skyline_objects(objects) = [(x=Float64(o.x),z=Float64(o.z),
 
 # Python LW World.cast / finite-elevated-fan-v1, bounded current sensory evidence.
 function skyline_fan(objects,position,yaw,source;subrays=false)
-    features=Any[]
-    for elevation in (0,15,30), angle in -90:15:90
-        best=Inf;hit=nothing
+    features=Any[];best=fill(Inf,3,13);hits=zeros(Int,3,13)
+    for (ai,angle) in enumerate(-90:15:90)
         for delta in (subrays ? (-5,0,5) : (0,))
             -90<=angle+delta<=90 || continue
             sn,cs=sincos(deg2rad(yaw+angle+delta))
-            for o in objects
+            for (oi,o) in enumerate(objects)
                 d=RDLMigrationProbe.ray_hit(position,(sn,cs),RDLMigrationProbe.Circle(o.x,o.z,o.radius))
-                if d!==nothing && d<=48 && 1+d*tand(elevation)<=o.height && d<best
-                    best=d;hit=o
+                (d===nothing || d>48) && continue
+                for (ei,elevation) in enumerate((0,15,30))
+                    if 1+d*tand(elevation)<=o.height && d<best[ei,ai]
+                        best[ei,ai]=d;hits[ei,ai]=oi
+                    end
                 end
             end
         end
-        hit===nothing && continue
+    end
+    for (ei,elevation) in enumerate((0,15,30)), (ai,angle) in enumerate(-90:15:90)
+        oi=hits[ei,ai];oi==0 && continue
+        hit=objects[oi];distance=best[ei,ai]
         push!(features,D("ref"=>"ray:$elevation:$angle","color"=>String(hit.color),
             "azimuth"=>[max(-90,angle-7.5),min(90,angle+7.5)],"elevation"=>elevation,
-            "range_band"=>best<=8 ? "near" : best<=24 ? "mid" : "far"))
+            "range_band"=>distance<=8 ? "near" : distance<=24 ? "mid" : "far"))
     end
     D("model"=>"finite-elevated-fan-v1","source"=>source,"coverage"=>"complete","features"=>features)
 end

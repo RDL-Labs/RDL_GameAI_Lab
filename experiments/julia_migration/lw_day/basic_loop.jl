@@ -23,16 +23,25 @@ end
 # Read-only comparison for diagnostics and composing fields; no snapshot needed.
 function method_choice(s::BasicLoop,candidates)
     isempty(candidates) && return nothing
-    names=[c["method"] for c in candidates]
-    node(name)=haskey(s.methods,name) ? s.methods[name] : MethodNode(0,s.threshold,0)
+    node(name)=get(s.methods,name,nothing)
     # Once all current methods are unresolved, bounded penalties alone would
     # restore the original priority forever. Reconsider the least recent method.
-    reconsider=all(node(name).H>=node(name).threshold for name in names)
-    first(sort(candidates,by=c->begin
+    reconsider=all(c->begin
+        n=node(c["method"]);n!==nothing && n.H>=n.threshold
+    end,candidates)
+    key(c)=begin
         n=node(c["method"])
-        reconsider ? (Float64(n.last_selected),-c["priority"],c["method"]) :
-            (-c["priority"]+min(2.,n.H/n.threshold),Float64(n.last_selected),c["method"])
-    end))
+        h=n===nothing ? 0 : n.H;t=n===nothing ? s.threshold : n.threshold
+        last=n===nothing ? 0 : n.last_selected
+        reconsider ? (Float64(last),-c["priority"],c["method"]) :
+            (-c["priority"]+min(2.,h/t),Float64(last),c["method"])
+    end
+    selected=first(candidates);best=key(selected)
+    for c in Iterators.drop(candidates,1)
+        k=key(c)
+        if isless(k,best);selected=c;best=k;end
+    end
+    selected
 end
 
 function choose_method!(s::BasicLoop,candidates,source)
@@ -42,13 +51,15 @@ function choose_method!(s::BasicLoop,candidates,source)
     check(length(names)==length(unique(names)),"loop_duplicate_candidate")
     check(all(isfinite(c["priority"]) for c in candidates),"loop_score")
     for name in names
-        get!(s.methods,name,MethodNode(0,s.threshold,0))
+        get!(s.methods,name) do
+            MethodNode(0,s.threshold,0)
+        end
     end
     reconsider=all(s.methods[name].H>=s.methods[name].threshold for name in names)
     selected=method_choice(s,candidates)
     s.sequence+=1;s.methods[selected["method"]].last_selected=s.sequence
     s.trial=(source=source,method=selected["method"],question=selected["question"])
-    merge(copy(selected),D("selection_mode"=>reconsider ? "reconsider_unresolved" : "weighted"))
+    out=copy(selected);out["selection_mode"]=reconsider ? "reconsider_unresolved" : "weighted";out
 end
 
 function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true)

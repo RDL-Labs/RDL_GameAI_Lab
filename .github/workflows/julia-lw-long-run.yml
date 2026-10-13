@@ -5,7 +5,7 @@ on:
       days:
         type: choice
         default: '30'
-        options: ['3', '30']
+        options: ['3', '10', '30']
 permissions:
   contents: read
 jobs:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        seed: [20261004, 20261005]
+        seed: ${{ fromJSON(inputs.days == '10' && '[20261005]' || '[20261004,20261005]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     env:
@@ -22,13 +22,22 @@ jobs:
       OPENBLAS_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        if: inputs.days == '10'
+        with:
+          ref: 08a569d
+          path: baseline
       - uses: julia-actions/setup-julia@v2
         with:
           version: '1.13.1'
       - name: Locked Julia environment
         run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
       - name: Thirty days and frozen replay
+        if: inputs.days != '10'
         run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/long_run_checks.jl outputs/julia-lw-long-${{ matrix.seed }} ${{ matrix.seed }}
+      - name: Ten-day optimization comparison
+        if: inputs.days == '10'
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/optimization/quick_checks.jl baseline outputs/julia-lw-long-${{ matrix.seed }} experiments/julia_migration/optimization/ten_day_spec.json 10
       - uses: actions/upload-artifact@v4
         if: always()
         with:

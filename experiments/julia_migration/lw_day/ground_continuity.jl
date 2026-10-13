@@ -5,7 +5,7 @@ function ground_memory(actor)
  D("actor"=>actor,"sequence"=>0,"models"=>Any[],"source"=>nothing,"capture_us"=>-1,
    "events"=>Any[],"selections"=>0,"linked_updates"=>0)
 end
-function update_ground!(s,v,result)
+function update_ground!(s,v,result,patterns=nothing)
  source=v["source"];source["actor"]==s["actor"] || error("ground_model_binding")
  source["observation"]==s["source"] && return s
  linked=result!==nothing && result["actor"]==s["actor"] && result["source"]==s["source"] &&
@@ -23,7 +23,7 @@ function update_ground!(s,v,result)
     end
  end
  filter!(m->source["capture_us"]-m["last_seen_us"]<=8_000_000,s["models"])
- patterns=ground_patterns(v)
+ patterns===nothing && (patterns=ground_patterns(v))
  groups=[g for g in patterns["groups"] if g["appearance"] in ("trampled_grass","bare_ground") && g["shape"]=="sampled_band_candidate"]
  observed=[ground_points(v,g) for g in groups]
  choices=[[i for (i,m) in enumerate(s["models"]) if count(p->any(q->point_near(p,q,.6),m["points"]),ps)>=2] for ps in observed]

@@ -50,8 +50,8 @@ function ground_patterns(v)
     D("source"=>copy(v["source"]),"coverage"=>v["coverage"],"status"=>isempty(groups) ? "unavailable" : "patterns_available",
       "groups"=>groups,"authority"=>"descriptive sampled grouping; no road identity or action authority")
 end
-function record_ground_patterns!(s,v)
-    patterns=ground_patterns(v);s["observations"]+=1
+function record_ground_patterns!(s,v,patterns=ground_patterns(v))
+    s["observations"]+=1
     for g in patterns["groups"]
         key=g["appearance"]*":"*g["shape"]
         s["counts"][key]=get(s["counts"],key,0)+1

@@ -11,6 +11,24 @@ struct Body
     reserve::Float64
     damage::Float64
 end
+"Immutable four-component body change; dictionary-compatible at record boundaries."
+struct BodyDelta <: AbstractDict{String,Float64}
+    burst::Float64
+    strain::Float64
+    reserve::Float64
+    damage::Float64
+end
+Base.length(::BodyDelta)=4
+Base.iterate(d::BodyDelta,i=1)=i>4 ? nothing : ((fieldname(BodyDelta,i)|>String)=>getfield(d,i),i+1)
+function Base.getindex(d::BodyDelta,k::String)
+    k=="burst" && return d.burst
+    k=="strain" && return d.strain
+    k=="reserve" && return d.reserve
+    k=="damage" && return d.damage
+    throw(KeyError(k))
+end
+Base.haskey(::BodyDelta,k)=k in ("burst","strain","reserve","damage")
+Base.get(d::BodyDelta,k,default)=haskey(d,k) ? d[k] : default
 mutable struct Agent
     x::Float64
     z::Float64
@@ -65,8 +83,8 @@ function step(b::Body, action, load, resistance=1.0, clear=true)
     end
     out=Body(min(burst,10*integrity),strain,reserve,b.damage)
     @assert 0<=out.reserve<=100 && 0<=out.strain<=1 && 0<=out.burst<=10
-    delta=Dict("burst"=>out.burst-b.burst,"strain"=>out.strain-b.strain,
-               "reserve"=>out.reserve-b.reserve,"damage"=>out.damage-b.damage)
+    delta=BodyDelta(out.burst-b.burst,out.strain-b.strain,
+                    out.reserve-b.reserve,out.damage-b.damage)
     out,status,distance,delta
 end
 

@@ -200,8 +200,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         if ground_perception
             for a in IDS
                 view=ground_appearance(w,a,yaw,wear,now;dry=dry)
-                record_ground_patterns!(ground_views[a],view)
-                ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing))
+                patterns=ground_patterns(view)
+                record_ground_patterns!(ground_views[a],view,patterns)
+                ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing),patterns)
             end
         end
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
