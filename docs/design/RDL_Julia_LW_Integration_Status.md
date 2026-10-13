@@ -24,7 +24,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods and persistent return purpose across load changes; not arbitrary canonical nested M_B |
 | Routes | directional_routes, relational_movement | bounded observed color sequences; no full angular relation composition or route failure completion |
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
-| General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; full vocabulary/context and bundle sleep unported |
+| General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; finite per-record dormancy/reactivation connected; full vocabulary/context and conjunction bundles unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
 | Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; no wear or recognized paths |
 | Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
@@ -290,3 +290,9 @@ Daytime retention: [report](../../experiments/julia_migration/lw_integrated/slee
 38 checks passed. Opt-in32 action/outcome strata preserve daytime records into
 Sleep; live three-day run has161 local selection differences, not a general
 efficiency claim. Full conjunction bundles/dormancy remain unported.
+
+
+Sleep maintenance: [report](../../experiments/julia_migration/lw_integrated/sleep_maintenance_report.md),
+41 checks passed. Four-day native run produces14 dormant records, no live wake
+event, unchanged food/choice counters. Reactivation is verified locally; this is
+per-record lifecycle adaptation, not full conjunction-bundle migration.
