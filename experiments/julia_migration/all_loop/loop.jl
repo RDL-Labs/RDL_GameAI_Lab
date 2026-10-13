@@ -36,6 +36,15 @@ function step(b::Body, action, load, resistance=1.0, clear=true)
             status="performed";distance=.5*integrity
             reserve-=.1*effort*RS;strain=min(1,strain+.03*effort*SS)
         end
+    elseif action=="run"
+        if !(reserve>=.5*effort*RS && burst>=3*effort && strain<=.8 && integrity>0)
+            status="body_limited"
+        elseif !clear
+            status="blocked";reserve=max(0,reserve-.05*effort*RS)
+        else
+            status="performed";distance=1.5*integrity
+            burst-=3*effort;reserve-=.5*effort*RS;strain=min(1,strain+.18*effort*SS)
+        end
     elseif action=="eat"
         status="ate";reserve=min(100,reserve+20)
     elseif action=="rest"

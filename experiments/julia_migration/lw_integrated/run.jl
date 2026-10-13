@@ -5,10 +5,10 @@ enabled=cfg.learning=="full"
 @assert cfg.learning in ("off","full") && cfg.food in ("finite","renewable")
 r=lw_day(input.scene,input.clock;days=Int(cfg.days),basic_loop=true,landmark_routes=true,
     harvest_sleep=enabled,model_field=enabled,model_review=enabled,model_relearn=enabled,
-    renewable_food=cfg.food=="renewable",hazard_mode=cfg.hazards=="crossing",ground_mode=get(cfg,:ground,"flat"))
+    renewable_food=cfg.food=="renewable",hazard_mode=cfg.hazards=="crossing",ground_mode=get(cfg,:ground,"flat"),running=get(cfg,:running,"off")=="on")
 summary=D("name"=>"LW-Julia integrated experiment v1","config"=>cfg,"ended_us"=>r["ended_us"],
     "food"=>D("initial"=>r["initial_food"],"added"=>r["replenished_food"],"ground"=>r["ground"],"consumed"=>r["consumed"]),
-    "ground_effects"=>r["ground_effects"],"safety"=>r["safety"],"agents"=>D())
+    "running"=>r["running"],"ground_effects"=>r["ground_effects"],"safety"=>r["safety"],"agents"=>D())
 for a in IDS
     s=r["final_agents"][a];h=s["harvest"]
     summary["agents"][a]=D("position"=>s["position"],"body"=>s["body"],"inventory"=>s["inventory"],

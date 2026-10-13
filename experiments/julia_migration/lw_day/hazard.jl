@@ -13,7 +13,7 @@ function hazard_observation(w,a,yaw,hazards,sec)
 end
 
 safety_state()=D("active"=>false,"H"=>0,"threshold"=>8,"entries"=>0,"releases"=>0,"overrides"=>0)
-function safety_plan!(s,ob,movement)
+function safety_plan!(s,ob,movement;running=false)
     features=ob["features"]
     if !isempty(features)
         !s["active"] && (s["entries"]+=1)
@@ -35,10 +35,12 @@ function safety_plan!(s,ob,movement)
             angle=deg2rad(ANGLES[parse(Int,r["ref"])+1])
             -(h["forward"]*cos(angle)+h["right"]*sin(angle))
         end
+        running && append!(rows,[r for r in movement["run_rows"] if r["cost"]!==nothing])
         rows=filter(r->away(r)>0,rows)
         if !isempty(rows)
-            r=rows[argmax(away.(rows))]
-            return D("action"=>"walk","direction"=>parse(Int,r["ref"]),"safety"=>true)
+            score(r)=running ? away(r)/max(h["distance"],.001)*(get(r,"action","walk")=="run" ? r["distance"] : .5) - .05*r["resistance"]*(1+.1*r["load"])*(get(r,"action","walk")=="run" ? 5 : 1) : away(r)
+            r=rows[argmax(score.(rows))]
+            return D("action"=>get(r,"action","walk"),"direction"=>parse(Int,r["ref"]),"safety"=>true)
         end
     end
     D("action"=>"scan","safety"=>true)

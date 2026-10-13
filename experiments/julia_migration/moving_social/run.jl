@@ -11,7 +11,7 @@ function moving_world(spec)
     w
 end
 
-function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5)
+function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,running=false)
     origin=w.positions[actor];s,c=sincos(deg2rad(yaw[actor]));visible=Any[]
     for (j,f) in enumerate(food)
         dx,dz=f.x-origin[1],f.z-origin[2];forward,right=dx*s+dz*c,dx*c-dz*s
@@ -38,7 +38,21 @@ function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5)
         push!(rows,D("ref"=>string(j-1),"action"=>"walk","clear"=>clear,"resistance"=>resistance,"load"=>w.inventory[actor],"goal_cost"=>goal,
             "status"=>status,"cost"=>cost,"expected_delta"=>delta))
     end
-    D("visible"=>visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
+    run_rows=Any[]
+    if running
+        for (j,angle) in enumerate(ANGLES)
+            theta=deg2rad(yaw[actor]+angle);distance=1.5*(1-b.damage)
+            endpoint=(origin[1]+sin(theta)*distance,origin[2]+cos(theta)*distance)
+            midpoint=((origin[1]+endpoint[1])/2,(origin[2]+endpoint[2])/2)
+            clear=!any(o->segment_hit(origin,endpoint,o,.2),w.obstacles)
+            resistance=resistance_at(midpoint)
+            _,status,d,delta=step(b,"run",w.inventory[actor],resistance,clear)
+            push!(run_rows,D("ref"=>string(j-1),"action"=>"run","clear"=>clear,"resistance"=>resistance,
+                "load"=>w.inventory[actor],"status"=>status,"cost"=>status=="performed" ? -delta["reserve"] : nothing,
+                "distance"=>d,"expected_delta"=>delta))
+        end
+    end
+    D("run_rows"=>run_rows,"visible"=>visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
         "action"=>chosen===nothing ? "rest" : "walk","status"=>chosen===nothing ? "no_feasible_observed_move" : "selected"))
 end
 
