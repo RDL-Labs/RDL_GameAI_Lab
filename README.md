@@ -2,6 +2,8 @@
 
 # RDL Game AI Lab
 
+- [Julia局所地面抵抗の接続](experiments/julia_migration/lw_integrated/ground_report.md)：同じ生活ループで地面・荷重・選択・実消耗を統合。3条件各3日、48検査PASS。効率改善の主張ではない。
+
 - [Julia単独のLW実行](docs/design/RDL_Julia_LW_Integration_Status.md)：World生成・時計・生活ループ・結果保存をJulia内で完結する入口を追加。保存specの再実行も可能。有限なLW部分集合であり、Python本線全機能の移植完了ではない。
 
 - [Juliaの新評価方針](docs/design/RDL_Julia_Behavioral_Fidelity_Policy.md)：今後の再設計は完全同値を診断用とし、関係応答と費用で評価。[増分援助実験](experiments/julia_migration/incremental_aid/report.md)は採用候補。通常更新と明示snapshotを分離、40検査PASS。毎回snapshotする費用も別測定。過去Evidenceは維持。

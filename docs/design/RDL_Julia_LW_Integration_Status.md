@@ -26,7 +26,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | unported beyond harvest and local social expectation |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; response generosity still fixture-fixed |
-| Ground | energy_exploration, ground_wear/appearance | constant resistance1.5; no spatial resistance, wear, recognized paths |
+| Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; no wear or recognized paths |
 | Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
 | Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
 | Transport | production observation/results receipts | local same-process scaffold, no Luanti/HTTP integration |
@@ -75,6 +75,31 @@ hashes. The calibrated human_scale_v1 clock is checked explicitly; other clock
 profiles remain unsupported because body/Sleep rules share that calibration.
 The workflow `julia-lw-native.yml` installs/runs Julia only. This removes Python
 from this finite runtime path, not from the repository's reference tests/tools.
+
+`--ground flat|shadow|patches` defaults to flat. Shadow and patches use the same
+two World-owned resistance regions (0,5,radius3,resistance4 and
+12,12,radius6,resistance3); only patches applies extra effort to candidate ranking.
+The agent sees five immediate samples, not region centers or a global cost map.
+Each sample evaluates the midpoint of the actual half-unit, damage-scaled step.
+Execution samples that same World point again. Overlap uses maximum resistance;
+outside regions the baseline remains 1.5. This is a discrete local approximation,
+not a continuous path integral or learned terrain map.
+
+Ordinary movement candidates receive priority minus
+`0.25 * max(0, resistance - 1.5) * (1 + 0.1 * load)`, the calibrated reserve-effort
+excess over flat ground. Existing method identity and feasible candidate set remain
+unchanged. Safety retains its own priority. If no move is feasible, the existing
+survey method stays separate; no movement method is relabeled as successful rest.
+
+Accepted movement diagnostics retain at most32 source-bound records per agent:
+load, resistance, expected/actual body deltas and status. Counters retain totals.
+The existing one-unit observed clearance and half-unit execution horizon differ;
+delta equality is evaluated only with matching clearance and load. These records
+are experience material/diagnostics, not a newly adopted Sleep or terrain M_B.
+Ground-dependent generalized Sleep learning remains unported.
+
+Dedicated testsets are now in checks.jl and explicit validation entry points;
+normal native startup no longer runs them. Runtime conservation assertions remain.
 
 From repository root, with Python dependencies and the locked Julia environment:
 
@@ -156,3 +181,7 @@ See [native execution report](../../experiments/julia_migration/lw_integrated/na
 two native seeds, three days each, frozen-input replay, 42 checks passed; existing
 exported-layout regression preserved. Generation and all execution are Julia;
 unported capabilities in this map remain unported.
+
+Ground integration evidence: [three-condition report](../../experiments/julia_migration/lw_integrated/ground_report.md),
+48 assertions passed. High-resistance traversal attempts changed, but food storage
+did not improve. Flat-mode historical result is preserved.

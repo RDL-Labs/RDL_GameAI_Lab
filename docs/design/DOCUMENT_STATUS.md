@@ -1,3 +1,5 @@
+- [Julia局所地面抵抗](../../experiments/julia_migration/lw_integrated/ground_report.md)：有限接続・48検査PASS。観測5方向→荷重付き予想消耗→候補順位→実消耗。3条件各3日、抵抗付き条件の比較可能な消耗不一致0。備蓄改善は未成立。通常起動から専用検査を分離。
+
 - [Julia単独LW実行](../../experiments/julia_migration/lw_integrated/native_report.md)：有限実装・クラウド42検査PASS。World生成から結果保存までPython不要。2seed各3日＋保存spec再現。CのSleep未完了も結果として保持。全LW移植ではない。
 
 # Design Document Status
