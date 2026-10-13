@@ -18,10 +18,10 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Area | Python reference | Julia status / explicit gap |
 |---|---|---|
 | Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–4 days; sequential per-second actions |
-| Body / load / eating | layered_body, body_exploration | walk/rest/eat, optional danger-running and low-obstacle climbing; no drop, separate basal metabolism not fully ported |
-| Food / stock | social_life, timed_harvest | acquisition, personal stock, retrieve/eat, fixed dawn top-up option; no full cargo World objects |
+| Body / load / eating | layered_body, body_exploration | walk/rest/eat, optional danger-running, low-obstacle climbing and finite one-unit drop/recovery; separate basal metabolism not fully ported |
+| Food / stock | social_life, timed_harvest | acquisition, personal stock, retrieve/eat, fixed dawn top-up option; bounded dropped-food objects with provenance, no general cargo planning |
 | Observation | World.cast, skyline/ground adapters | horizontal color fan and visible food; provisional home beacon, no full OBS coverage/skyline |
-| Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods; not arbitrary canonical nested M_B |
+| Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods and persistent return purpose across load changes; not arbitrary canonical nested M_B |
 | Routes | directional_routes, relational_movement | bounded observed color sequences; no full angular relation composition or route failure completion |
 | Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | unported beyond harvest and local social expectation |
@@ -46,6 +46,28 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 No requirement to finish all possible harvest refinements first. No campfire,
 new sensory modality, universal relation discovery, or performance optimization
 is added by this status update.
+
+## Deferred idea: cargo loss versus alternative methods
+
+2026-10-13 / after `19b88b9`. DESIGN ONLY; explicitly deferred by the user.
+Prioritize Julia LW integration and the existing Python LW capabilities. Do not
+expand drop planning or reorganize generic/specialized layers as a prerequisite.
+The next planned integration area remains broader social response and general
+Sleep, followed by route/ground history in the same native living loop.
+
+A future return-purpose comparison may weigh how much food would be left behind
+against retaining the cargo through a detour, another crossing, or recovery rest.
+Leaving one unit may favor climbing; leaving most of the load may favor another
+method. This is not a fixed item-count rule: body cost, danger, observed route
+experience and method H may change the balance. Dropped cargo is not necessarily
+lost permanently; another individual may recover it. Do not assume unseen routes
+are feasible or grant the agent the complete World map.
+
+Current implementation only proposes a one-unit drop when it makes a locally
+observed low obstacle climbable. Multi-unit drop planning and explicit cargo-loss
+valuation are unimplemented. Return-purpose continuity is already implemented;
+that does not imply this future comparison exists. This note changes no behavior,
+coefficients, observations or test acceptance criteria.
 
 ## Use
 
