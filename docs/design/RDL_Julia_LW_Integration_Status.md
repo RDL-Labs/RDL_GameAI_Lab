@@ -462,7 +462,12 @@ is a waiting decision with incomplete acquisition (or specified return reasons),
 not merely body exhaustion. The Julia follow-up must preserve that distinction
 and connect to the existing method selection, with priority interrupts retained.
 
-Dedicated ground workflow 38364933616 was dispatched for source 5a05eca; results
-are pending, not acceptance. The new eight assertions cover five-ray acquisition,
+Dedicated ground workflow 38364933616 was dispatched for source 5a05eca; the job completed successfully with 60 assertions PASS. The new eight assertions cover five-ray acquisition,
 body-independent samples and an acquired physical blockage. Existing three-day
 flat/shadow/patches integrations run in the same job.
+
+
+Native incomplete-view candidate release (`19ba05a`) is connected opt-in through
+`--reposition on`. [Contract and evidence](../../experiments/julia_migration/lw_integrated/reposition_report.md).
+This migrates partial food-view release into the existing method loop. It does not
+claim full skyline/appearance coverage or all Python return-search reasons.
