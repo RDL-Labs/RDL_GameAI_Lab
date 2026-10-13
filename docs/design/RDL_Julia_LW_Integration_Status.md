@@ -433,3 +433,6 @@ Experience conjunction formation/use and completed-Sleep dormancy/wake are conne
 
 
 Parent-trial bundle credit connected (`8161368`): [61 checks and four-day comparison](../../experiments/julia_migration/lw_integrated/credit_report.md). Five living parent comparisons,zero reinforcement; positive allocation is locally verified. Selection trails and successful live reinforcement remain open.
+
+
+Selection trails connected (`ebf94c4`): [45 checks and four-day living comparison](../../experiments/julia_migration/lw_integrated/trail_report.md). Actual use and whole-episode parent success are separately recorded. This supersedes the unported trail entry; broader sensing/repositioning and inherited World remain open.
