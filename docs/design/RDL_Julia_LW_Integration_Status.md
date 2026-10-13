@@ -471,3 +471,6 @@ Native incomplete-view candidate release (`88bd18c`,56 assertions PASS) is conne
 `--reposition on`. [Contract and evidence](../../experiments/julia_migration/lw_integrated/reposition_report.md).
 This migrates partial food-view release into the existing method loop. It does not
 claim full skyline/appearance coverage or all Python return-search reasons.
+
+
+Elevated home-search observation connected opt-in (`9e966c6`): [contract/report](../../experiments/julia_migration/lw_integrated/skyline_report.md). It uses the first observed near elevated color and current finite skyline, with a six-unit local-home sensor. Actions38366944659 pending; no acceptance yet. Expanded landscape and broader appearance/return-release remain open.
