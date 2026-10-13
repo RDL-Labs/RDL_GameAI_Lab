@@ -1,4 +1,5 @@
 include(joinpath(@__DIR__,"native.jl"))
+include(joinpath(@__DIR__,"checks.jl"))
 @testset "native World and configuration" begin
     a=native_scene(20261004);b=native_scene(20261004);c=native_scene(20261005)
     @test a==b
@@ -22,4 +23,8 @@ native_main([joinpath(out,"seed05"),"--days","3","--seed","20261005","--food","r
 @testset "native frozen-input replay" begin
     @test JSON3.read(read(joinpath(out,"seed04","result.json"),String))==JSON3.read(read(joinpath(out,"replay","result.json"),String))
     @test read(joinpath(out,"seed04","spec.json"))==read(joinpath(out,"replay","spec.json"))
+end
+
+for name in ("seed04","replay","seed05")
+    validate_integrated(JSON3.read(read(joinpath(out,name,"result.json"),String)),JSON3.read(read(joinpath(out,name,"spec.json"),String)))
 end

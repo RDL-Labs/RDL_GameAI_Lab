@@ -24,5 +24,6 @@ function native_scene(seed::Int)
     (name="julia_lw_sparse",positions=[[-2.,4.],[0.,4.],[2.,4.]],food=food,
      obstacles=objects[[1,2,5,8,11,15]],initial_inventory=[0,2,2],
      reserve=[30,90,90],home=[0,4],hearing=true,
+     ground_patches=[(x=0.,z=5.,radius=3.,resistance=4.),(x=12.,z=12.,radius=6.,resistance=3.)],
      hazards=[(x=0.,z=8.,vx=.05,vz=0.,start=60,stop=180)])
 end

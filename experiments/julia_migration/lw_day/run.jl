@@ -1,5 +1,6 @@
 using Test
 include(joinpath(@__DIR__,"hazard.jl"))
+include(joinpath(@__DIR__,"ground.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -27,7 +28,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat")
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -35,6 +36,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!model_relearn || model_review,"harvest_relearn_requires_review")
     w=moving_world(spec);w.capacity=100_000
     safety=Dict(a=>safety_state() for a in IDS)
+    check(ground_mode in ("flat","patches","shadow"),"ground_mode")
+    patches=ground_mode=="flat" ? Any[] : spec.ground_patches
+    resistance_at=p->ground_resistance(p,patches)
+    ground_stats=Dict(a=>D("walks"=>0,"high_resistance_walks"=>0,"projection_decisions"=>0,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in spec.food]
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
     live=Dict(a=>live_aid(a) for a in IDS);results=Dict(a=>D() for a in IDS)
@@ -84,7 +89,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         phase=local_us<bounds[1] ? "orientation" : local_us<bounds[2] ? "exploration" : local_us<bounds[3] ? "return" : "night"
         obs=Dict(a=>observe(w,a) for a in IDS)
-        moves=Dict(a=>movement_observation(w,a,yaw,spec.food,stock) for a in IDS)
+        moves=Dict(a=>movement_observation(w,a,yaw,spec.food,stock;resistance_at=resistance_at) for a in IDS)
         homes=Dict(a=>home_observation(w,a,yaw,spec.home) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
         if harvest_sleep
@@ -178,6 +183,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
                             end
                         end
+                        if ground_mode=="patches"
+                            candidates=ground_candidates(candidates,moves[a],w.inventory[a])
+                            ground_stats[a]["projection_decisions"]+=1
+                        end
                         counterfactual=nothing;field_trace=nothing
                         if model_field && family=="food"
                             projected,field_trace=harvest_field(candidates,moves[a],harvest[a],a,now;enabled=true)
@@ -243,7 +252,23 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 yaw[a]=mod(yaw[a]+ANGLES[plan["direction"]+1]+180,360)-180
                 s,c=sincos(deg2rad(yaw[a]));q=(p[1]+s*.5,p[2]+c*.5)
                 clear=!any(o->segment_hit(p,q,o,.2),w.obstacles)
-                w.bodies[a],status,d,_=step(w.bodies[a],"walk",w.inventory[a],1.5,clear)
+                midpoint=(p[1]+s*.25*(1-w.bodies[a].damage),p[2]+c*.25*(1-w.bodies[a].damage))
+                resistance=resistance_at(midpoint)
+                expected=moves[a]["energy"]["rows"][plan["direction"]+1]
+                w.bodies[a],status,d,delta=step(w.bodies[a],"walk",w.inventory[a],resistance,clear)
+                if ground_mode!="flat"
+                    g=ground_stats[a];g["walks"]+=1
+                    resistance>1.5 && (g["high_resistance_walks"]+=1)
+                    # The observed clearance horizon is 1 unit, execution is at most .5.
+                    # Compare matching clearance only; distinguish that geometric boundary.
+                    comparable=expected["clear"]==clear && expected["load"]==w.inventory[a]
+                    match=comparable && expected["expected_delta"]==delta && expected["resistance"]==resistance
+                    comparable && !match && (g["delta_mismatches"]+=1)
+                    push!(g["records"],D("source"=>op,"load"=>w.inventory[a],"resistance"=>resistance,
+                        "status"=>status,"expected_delta"=>deepcopy(expected["expected_delta"]),"actual_delta"=>delta,
+                        "comparable"=>comparable,"matches"=>match))
+                    length(g["records"])>32 && popfirst!(g["records"])
+                end
                 w.positions[a]=(p[1]+s*d,p[2]+c*d);distance[a]+=d
             elseif action in ("eat","request","give","refuse","warn","withdraw","wait")
                 r=communicate!(w,a,op,action,get(plan,"target",nothing),get(plan,"reply_to",nothing));status=r["status"]
@@ -329,7 +354,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
-        "safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
+        "ground"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
 
 if abspath(PROGRAM_FILE)==@__FILE__

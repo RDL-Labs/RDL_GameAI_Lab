@@ -5,7 +5,7 @@ using SHA
 
 function native_options(args)
     isempty(args) && error("usage: native.jl OUTPUT [--days 1..4 --seed N --food finite|renewable --learning off|full --hazards off|crossing --spec FILE]")
-    out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","spec"=>"")
+    out=args[1];opts=Dict("days"=>"3","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","spec"=>"")
     iseven(length(args)-1) || error("option requires a value")
     for i in 2:2:length(args)
         startswith(args[i],"--") || error("invalid option")
@@ -20,7 +20,7 @@ function native_main(args)
     generated=isempty(opts["spec"])
     if generated
         cfg=(days=parse(Int,opts["days"]),seed=parse(Int,opts["seed"]),food=opts["food"],
-             learning=opts["learning"],hazards=opts["hazards"])
+             learning=opts["learning"],hazards=opts["hazards"],ground=opts["ground"])
         input=(scene=native_scene(cfg.seed),clock=native_clock(),config=cfg)
         bytes=Vector{UInt8}(codeunits(JSON3.write(input)))
     else
@@ -35,6 +35,7 @@ function native_main(args)
     cfg.hazards in ("off","crossing") || error("hazard mode")
     Dict(pairs(input.clock))==Dict(pairs(JSON3.read(JSON3.write(native_clock())))) ||
         error("native entry requires the calibrated human_scale_v1 clock")
+    get(cfg,:ground,"flat") in ("flat","patches","shadow") || error("ground mode")
     mkpath(out);write(joinpath(out,"spec.json"),bytes)
     root=normpath(joinpath(@__DIR__,".."));sources=Dict{String,String}()
     for (dir,_,files) in walkdir(root), f in files
