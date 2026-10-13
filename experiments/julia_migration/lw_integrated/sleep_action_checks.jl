@@ -45,7 +45,7 @@ end
 out=ARGS[1]
 for mode in ("review","apply")
  dir=joinpath(out,mode)
- native_main([dir,"--days","3","--seed","20261005","--food","renewable","--general-sleep",mode,"--sleep-retention","strata","--running","on","--climbing","on","--low-obstacles","on","--body-field","on"])
+ native_main([dir,"--days","3","--seed","20261005","--food","renewable","--general-sleep",mode,"--sleep-retention","strata","--running","on","--climbing","on","--low-obstacles","on","--body-field","on","--food-body","on"])
  r=JSON3.read(read(joinpath(dir,"result.json"),String))
  validate_integrated(r,JSON3.read(read(joinpath(dir,"spec.json"),String)))
  if mode=="apply"
