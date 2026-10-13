@@ -1,3 +1,8 @@
+# Static World geometry prepared once; observations retain the existing bounded output.
+prepare_landmark_objects(objects) = [(x=Float64(o.x),z=Float64(o.z),
+    radius=Float64(o.radius),height=Float64(o.height),
+    color=hasproperty(o,:color) ? String(o.color) : "ochre") for o in objects]
+
 # Port of the finite LW horizontal fan / directional color route roles.
 # World geometry is consumed only here; policy receives color/angle/band/source.
 function landmark_fan(objects,position,yaw,source)

@@ -8,12 +8,12 @@ is not the contract. This is a completion checklist, not a completion declaratio
 |---|---|
 | Native generation/run/save | native.jl -> run_integrated -> lw_day; native_report and frozen-spec replay |
 | Major function coverage | Integration_Status matrix, source-specific reports; functional adaptations below |
-| Latest 30 days, multiple seeds | NOT YET: old long_run_report predates current features; three-day matrix38373033395 passed both seeds and independent saved audit; latest30-day run pending |
-| Food/cargo conservation | per-operation invariant plus daily/terminal audit; latest all-feature campaign pending |
-| Learning/Sleep/use/invalidation | harvest renewal B1g and Sleep body-method reports; current campaign state coverage pending |
-| Dormancy/reactivation | live source paths in sleep_maintenance and experience_bundles; need extract actual campaign counters, do not equate enabled with observed |
-| Parent goal persistence | return-purpose/drop tests and bound in campaign; latest combined behavior pending |
-| Time/memory | native @timed allocations/GC and process peak RSS; final campaign measurement pending |
+| Latest 30 days, multiple seeds | PASS: campaigns38376126204 (reference) and38423218244 (typed geometry), seeds20261004/05, 30 days plus frozen replay; independent saved audits passed |
+| Food/cargo conservation | per-operation invariant plus daily/terminal saved audit passed in both30-day campaigns |
+| Learning/Sleep/use/invalidation | harvest renewal B1g and Sleep body-method reports;30-day Sleep model applications and selection changes observed in both seeds |
+| Dormancy/reactivation | OBSERVED: seed04 Sleep models woken=3 (B); experience bundles woken=87 seed04 /71 seed05. These are counters, not independent causal-effect counts |
+| Parent goal persistence | return-purpose/drop tests plus completed<=entries bound passed in latest campaign; this bound alone is not proof of every interruption behavior |
+| Time/memory | measured: optimized initial calls1519.862s /1084.617s; allocated361.993GB /348.016GB; peakRSS1.383GB /1.546GB (seed04/05) |
 | Differences | matrix and source reports; final backend-switch decision remains NOT READY |
 
 ## Configuration contracts
@@ -45,3 +45,18 @@ constitute a global map, general relation invention, or canonical T1 adoption.
 Luanti/HTTP integration is outside standalone LW migration. Existing Python
 experimental rest-reactivation is not called by production LW and is not a new
 migration prerequisite. Production backend switch remains pending this audit.
+
+## 2026-10-14: resumed completion review
+
+The optimized cloud campaign38423218244 ran commit966949d on an experimental
+branch, not main. Both frozen specs and result.json files were byte-identical
+to reference campaign38376126204. Each campaign case executed1,555,200 operations.
+Independent audits are saved under outputs/julia_migration/cloud-38423218244.
+Timing is a cross-job comparison, not a controlled repeated benchmark: initial
+calls decreased from8284.235s to1519.862s (seed04), and9274.310s to1084.617s
+(seed05). Workflow wall time also includes frozen replay and setup.
+
+This closes the pending long-run evidence, not the entire migration goal.
+The feature correspondence matrix, outstanding local changes and backend-switch
+packaging still need review. Unrelated goal-threshold edits were excluded from
+these experiments. No canonical T1 claim or complete Python trace parity is made.

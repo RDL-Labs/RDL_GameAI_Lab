@@ -1,3 +1,8 @@
+# Per-World immutable geometry values; only the sensory adapter consumes these.
+# Objects are static in the current LW. A future geometry mutation must rebuild.
+prepare_skyline_objects(objects) = [(x=Float64(o.x),z=Float64(o.z),
+    radius=Float64(o.radius),height=Float64(o.height),color=String(o.color)) for o in objects]
+
 # Python LW World.cast / finite-elevated-fan-v1, bounded current sensory evidence.
 function skyline_fan(objects,position,yaw,source;subrays=false)
     features=Any[]

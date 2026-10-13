@@ -15,7 +15,7 @@ Native entry: experiments/julia_migration/lw_integrated/native.jl -> run_integra
 results. The run.py export entry remains for historical Python-generated layouts.
 Both compose the same B1g capabilities and optional finite hazard adapter.
 
-## Current migration matrix (2026-10-13, source 2c82bac)
+## Current migration matrix (2026-10-14, local completion review)
 
 This matrix supersedes the historical incremental notes below. Connected means
 implemented in the common native life loop; it does not mean every long-run or
@@ -23,7 +23,7 @@ behavioral acceptance criterion is satisfied.
 
 | Area | Python reference | Current native connection / remaining gap |
 |---|---|---|
-| Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–30 days, integer per-second schedule; latest-feature30-day validation pending |
+| Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–30 days, integer per-second schedule; two seeds30 days plus replay accepted; optimized results match reference |
 | Body / load | layered_body, body_exploration | walk/run/climb/rest/eat, unit cargo weight, drop/recovery, basal metabolism/hunger, body candidate field connected |
 | Food / stores | social_life, personal_food | personal/shared stores and global regrowth period/capacity connected;58 assertions, four-day comparison, cross-actor retrieval and nonempty cohort transfer verified |
 | Surface / food observation | World.packet, ground_appearance | bounded food, body-independent five-ray surface and sampled ground appearance; complete/partial distinguished; full appearance terrain gate remains different |
@@ -33,7 +33,7 @@ behavioral acceptance criterion is satisfied.
 | Routes | directional_routes, relational_movement | bounded color sequences, angular relation field and result-linked route H connected; native route vocabulary remains narrower |
 | Harvest learning | harvest_sleep, model_movement_field | formation/use/invalidation/one replacement verified in life; supplied model schemas, not canonical T1 |
 | General Sleep | sleep_relation_review, sleep_auto_model | review, action-model use, retention strata, per-record dormancy/reactivation connected; walk/scan/run/climb/rest projection and observed body capability context verified57 checks; fixed pickup/social/night authority remains upstream, not a new candidate generator |
-| Experience conjunctions | experience_bundle, bundle_sleep/credit | finite formation/use/Sleep dormancy/wake and parent credit connected; live bundle wake and positive bundle parent credit not observed yet |
+| Experience conjunctions | experience_bundle, bundle_sleep/credit | finite formation/use/Sleep dormancy/wake and parent credit connected; live bundle waking observed in both30-day seeds; positive parent credit remains locally verified, not witnessed in the separate life fixture |
 | Selection trails | selection_trails | actual method use and parent-episode success separately accumulated; native method descriptors differ from Python commands |
 | Social | social_life, social_sleep, aid_pressure | request/give/refuse, pressure, refusal history, body-conditioned response, night expectations connected; social observation/schema remains finite adaptation |
 | Ground / landscape | energy_exploration, base_landscape | resistance patches, wear/recovery, appearance grouping, continuity connected; riparian materials/water/placement verified by54 checks, two seeds and replay |
@@ -49,17 +49,16 @@ required evidence, not a reason to combine mutually exclusive modes.
 
 ## Outstanding completion gates
 
-1. Shared-store/regrowth finite acceptance completed; include these configurations
-   in the latest-feature integrated long-run checks.
-2. Finish observation/return-release and general Sleep vocabulary mapping from the
-   actual Python entry. Declare functional adaptations instead of equating flags.
-3. Verify all required learning states through living runs, including dormant-model
-   reactivation. Distinguish currently connected code from witnessed life outcomes.
-4. Run latest integrated features for30 days, multiple seeds and frozen replay;
-   include food/cargo conservation and parent-purpose invariants.
-5. Measure whole-call time, allocations and peak RSS with explicit feature/config
-   identity. Earlier Python/Julia microbenchmarks are not whole-LW speed evidence.
-6. Publish final differences and backend-switch decision. Current decision: NOT READY.
+The30-day run, conservation, measured performance and observed reactivation gates
+are now satisfied; see optimized_long_report.md. Goal threshold and lateral-side
+options have local checks and short-life regressions; they were not silently
+included in the prior30-day configurations.
+
+Remaining release work: record the final source revision, preserve runnable
+checks for the new configuration adapters, and publish the backend-switch
+assessment with the declared differences below. The stable Julia entry delegates
+to native.jl and reproduced an existing51,840-operation run byte-for-byte.
+Do not confuse release packaging with another required new simulation feature.
 
 ## Historical implementation sequence (not the current work queue)
 
@@ -549,3 +548,32 @@ candidate priority or a fixed method threshold is not evidence of migrating the
 left/right near-tie contract. These remain explicit coverage decisions/work,
 not silently satisfied by the current long campaign. Adding them would require
 its own source/test evidence; the current run's frozen configuration stays fixed.
+
+
+## Current audit overlay (2026-10-14)
+
+The latest thirty-day pending labels above are now superseded by
+[optimized long-run evidence](../../experiments/julia_migration/lw_integrated/optimized_long_report.md).
+Two cloud seeds, frozen replay, reference/optimized exact results and independent
+conservation/terminal audits passed. Local optimized seed05 also completed and
+matches the cloud result. Actual Sleep-model and bundle reactivation is observed.
+
+The separate native goal_switch_threshold option now validates integers1..30,
+binds food/home BasicLoop thresholds, and retains2 for old frozen specs. Local
+checks completed successfully:9 bounds/alternative assertions,1 living binding,
+exact frozen replay and decoded full-result legacy compatibility (12 assertions).
+Legacy JSON key order is not a behavior contract. This change is not included in
+the already completed cloud campaign. Lateral near-tie remains open; the Python
+adapter checks each physical/food/obstacle/model component before applying bias,
+whereas current Julia candidate priorities do not expose the same terrain rows.
+Do not silently substitute a generic left/right priority offset.
+
+
+## Stable entry verification
+
+integrations/lightweight_julia/run.jl delegates to the same native function.
+Local frozen one-day replay with left handedness matched the previous direct
+entry result bytes; independent food/terminal audit passed51,840 operations.
+Right handedness plus threshold3 and compatible compound features passed one-day
+replay and30 checks. See lateral_report.md. This supersedes the earlier optional
+configuration gaps; the exact terrain/priority adapter differences remain stated.
