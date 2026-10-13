@@ -4,6 +4,7 @@ include(joinpath(@__DIR__,"ground.jl"))
 include(joinpath(@__DIR__,"climbing.jl"))
 include(joinpath(@__DIR__,"dropped_cargo.jl"))
 include(joinpath(@__DIR__,"return_purpose.jl"))
+include(joinpath(@__DIR__,"social_response.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"landmark_routes.jl"))
@@ -31,7 +32,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -42,6 +43,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     append!(w.obstacles,[RDLMigrationProbe.Circle(o.x,o.z,o.radius) for o in low])
     climb_stats=Dict(a=>D("attempts"=>0,"performed"=>0,"distance"=>0.,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     safety=Dict(a=>safety_state() for a in IDS)
+    response_stats=Dict(a=>D("decisions"=>0,"give"=>0,"refuse"=>0,"experienced"=>0,"records"=>Any[]) for a in IDS)
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     resistance_at=p->ground_resistance(p,patches)
@@ -148,7 +150,18 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if plan!==nothing
                 # Safety has authority before social, food and night priorities.
             elseif !isempty(messages)
-                m=first(messages);act,t,r=response(merge(copy(o),D("messages"=>[m])),a!="npc_b")
+                m=first(messages);current=merge(copy(o),D("messages"=>[m]))
+                if social_response
+                    decision,trace=experienced_response(current,states[a]["records"],live[a].state,a,"respond:$now:$a:$(m["id"])")
+                    act,t,r=decision
+                    if trace!==nothing
+                        rs=response_stats[a];rs["decisions"]+=1;rs[act]+=1
+                        trace["weight"]>0 && (rs["experienced"]+=1)
+                        push!(rs["records"],trace);length(rs["records"])>32 && popfirst!(rs["records"])
+                    end
+                else
+                    act,t,r=response(current,a!="npc_b")
+                end
                 plan=D("action"=>act,"target"=>t,"reply_to"=>r);push!(answered[a],m["id"])
             elseif w.bodies[a].reserve<80 && w.inventory[a]>0
                 plan=D("action"=>"eat")
@@ -391,7 +404,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
-    D("ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    D("social_response"=>social_response ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
