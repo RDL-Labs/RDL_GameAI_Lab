@@ -27,7 +27,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; finite per-record dormancy/reactivation connected; full vocabulary/context and conjunction bundles unported |
 | Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
 | Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; shared walking wear/recovery verified; local appearance/sampled shape recognition verified; body-linked ground continuity and exploration following verified |
-| Danger | moving_hazard, patrol_hazard, territorial_hazard | finite optional crossing/relative sensing/override/release connected; damage, territory and full safety-method selection unported |
+| Danger | moving_hazard, patrol_hazard, territorial_hazard | crossing plus fixed territorial/patrol World response connected; relative sensing/override/release; damage and full safety-method selection unported |
 | Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
 | Transport | production observation/results receipts | local same-process scaffold, no Luanti/HTTP integration |
 
@@ -339,3 +339,8 @@ Food/body: [report](../../experiments/julia_migration/lw_integrated/food_body_re
 40 checks PASS. Existing basal metabolism,hunger H,food bands/provisioned rest and
 own-food retention in giving now connected. Three-day live comparison conserves
 food and completes9 Sleeps; full integrated long-run acceptance remains open.
+
+World hazard: [report](../../experiments/julia_migration/lw_integrated/world_hazard_report.md),
+753 assertions PASS, including Python fixed-trajectory comparison and3-day life.
+Territory/patrol interact with existing food/body/Sleep. Multi-threat method H
+and full warning selection remain unported; attack/damage are not added.
