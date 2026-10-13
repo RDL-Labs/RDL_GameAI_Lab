@@ -32,7 +32,7 @@ behavioral acceptance criterion is satisfied.
 | Goal / method H | continuous_selection, nested models | shared BasicLoop, persistent return purpose, movement continuation, body field, cross-day exploration horizon; native finite hierarchy, not canonical arbitrary nesting |
 | Routes | directional_routes, relational_movement | bounded color sequences, angular relation field and result-linked route H connected; native route vocabulary remains narrower |
 | Harvest learning | harvest_sleep, model_movement_field | formation/use/invalidation/one replacement verified in life; supplied model schemas, not canonical T1 |
-| General Sleep | sleep_relation_review, sleep_auto_model | review, action-model use, retention strata, per-record dormancy/reactivation connected; broader Python vocabulary/context still needs explicit mapping |
+| General Sleep | sleep_relation_review, sleep_auto_model | review, action-model use, retention strata, per-record dormancy/reactivation connected; walk/scan/run/climb/rest projection and observed body capability context verified57 checks; fixed pickup/social/night authority remains upstream, not a new candidate generator |
 | Experience conjunctions | experience_bundle, bundle_sleep/credit | finite formation/use/Sleep dormancy/wake and parent credit connected; live bundle wake and positive bundle parent credit not observed yet |
 | Selection trails | selection_trails | actual method use and parent-episode success separately accumulated; native method descriptors differ from Python commands |
 | Social | social_life, social_sleep, aid_pressure | request/give/refuse, pressure, refusal history, body-conditioned response, night expectations connected; social observation/schema remains finite adaptation |

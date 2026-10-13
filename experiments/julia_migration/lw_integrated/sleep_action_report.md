@@ -56,3 +56,37 @@ Still unported: full automatic action vocabulary, rich body/social contexts,
 bundle dormancy/reactivation, general candidate formation and canonical adoption.
 The bounded recent history often contains only rest; no broader experience retention
 or successful-experience injection is introduced in this increment.
+
+## Body-method integration (2026-10-13)
+
+Source77f8e35 expands projection to existing run/climb/rest candidates in addition
+to walk/scan. It does not synthesize actions or bypass physical eligibility.
+Fixed pickup/deposit/social/night choices remain upstream authorities rather than
+being introduced as competing candidates. Python uses its native action/amount
+vocabulary; Julia uses native action/direction, with one-second execution units.
+This is functional adaptation, not command-level parity or canonical T1.
+
+Context additionally records observed run feasibility/load/resistance and, when
+climbing is enabled, five climb heights/capacities, statuses, load/resistance,
+path and landing clearance. Prior context remains a detached value snapshot.
+Changed capability therefore prevents reuse of a physically different cell;
+unknown food/hazard coverage still prevents any projection. There is no global
+terrain, hidden resource count or target World identity in this context.
+
+Cloud38370828676 passed45 local checks but rejected the life fixture because
+body-field lacked its required food-body flag. Test configuration3abcdd9 supplies
+that prerequisite. Replacement [run38371144577](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38371144577) succeeded57 assertions:45 local,8 life invariants,3 model-use and1 frozen replay.
+
+Both modes ran3 days,3 actors,155520 operations. Review-only:
+100+9=ground90+private/carried8+consumed11. Apply:
+100+9=ground93+private/carried5+consumed11. Saved results independently satisfy
+conservation; apply/replay result bytes match, including terminal states.
+
+A/B/C retained15/17/11 records; applications8584/16/8581 and same-state selection
+changes8581/0/0. This is influence, not efficiency improvement or independent
+causal trials. The loop admitted rest/walk/scan plus fixed-operation records;
+run/climb sources did not occur in this life fixture. Run/climb projection is
+therefore verified locally, not claimed as witnessed learned use in this run.
+Exact context matching remains narrow, and automatic execution-success bias can
+favor unhelpful behavior. No coefficient tuning was performed to force improvement.
+Latest-feature30-day and repository-wide tests remain separate pending gates.
