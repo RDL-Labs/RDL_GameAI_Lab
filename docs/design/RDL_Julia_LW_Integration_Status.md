@@ -18,7 +18,7 @@ Both compose the same B1g capabilities and optional finite hazard adapter.
 | Area | Python reference | Julia status / explicit gap |
 |---|---|---|
 | Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–4 days; sequential per-second actions |
-| Body / load / eating | layered_body, body_exploration | walk/rest/eat, optional danger-running, low-obstacle climbing and finite one-unit drop/recovery; separate basal metabolism not fully ported |
+| Body / load / eating | layered_body, body_exploration | walk/rest/eat, optional danger-running, low-obstacle climbing and finite one-unit drop/recovery; opt-in basal metabolism/hunger/provision and giving-retention connected |
 | Food / stock | social_life, timed_harvest | acquisition, personal stock, retrieve/eat, fixed dawn top-up option; bounded dropped-food objects with provenance, no general cargo planning |
 | Observation | World.cast, skyline/ground adapters | horizontal color fan and visible food; provisional home beacon, no full OBS coverage/skyline |
 | Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods and persistent return purpose across load changes; not arbitrary canonical nested M_B |
@@ -309,7 +309,7 @@ small experiment in isolation. Current evidence does NOT satisfy this objective.
 | Body and cargo | Local walk/run/climb/drop; basal metabolism and broader body-driven selection still need mapping |
 | Sensing and navigation | Beacon/fan only; ground patterns, full landmarks/relative route composition remain |
 | Shared World history | Walking wear/recovery verified in three-day living comparison; local appearance and recognized patterns next |
-| Danger/social | Finite crossing and request/refusal; territory, fuller safety methods and food-retention/social constraints remain |
+| Danger/social | Finite crossing and request/refusal; territory, fuller safety methods and richer social constraints remain |
 | Sleep/model lifecycle | Local adoption/use/replacement/dormancy; full action/context/bundle coverage and live reactivation evidence remain |
 | 30 days / multiple seeds | NOT RUN; four-day guard, model/receipt capacity and history costs must be audited before raising it |
 | Conservation/parent continuity | Covered in finite runs; must recheck in full-feature long campaign |
@@ -334,3 +334,8 @@ Ground continuity: [report](../../experiments/julia_migration/lw_integrated/grou
 42 checks PASS. Three-day living run selects ground methods5649 times.
 Retired never-reused method nodes are pruned after result resolution, preserving
 all saved behavior except obsolete node maps. Full landscape parity remains open.
+
+Food/body: [report](../../experiments/julia_migration/lw_integrated/food_body_report.md),
+40 checks PASS. Existing basal metabolism,hunger H,food bands/provisioned rest and
+own-food retention in giving now connected. Three-day live comparison conserves
+food and completes9 Sleeps; full integrated long-run acceptance remains open.
