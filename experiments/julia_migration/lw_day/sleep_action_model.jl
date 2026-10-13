@@ -1,10 +1,17 @@
 # Finite unvalidated action-outcome model, adapted from sleep_auto_model.py.
 sleep_action_state(owner)=D("owner"=>owner,"records"=>D(),"adopted_us"=>nothing,"applications"=>0,"selection_changes"=>0)
-function sleep_context(move,hazard)
+function sleep_context(move,hazard;climbs=nothing)
     get(move,"food_coverage",nothing)=="complete" && hazard["coverage"]=="complete" || return nothing
     rows=move["energy"]["rows"]
-    Any[!isempty(move["visible"]),!isempty(hazard["features"]),
+    context=Any[!isempty(move["visible"]),!isempty(hazard["features"]),
         Any[Any[r["ref"],r["load"],r["status"],r["resistance"]] for r in rows]]
+    if haskey(move,"run_rows")
+        push!(context,Any["run",Any[Any[r["status"],r["load"],r["resistance"]] for r in move["run_rows"]]])
+    end
+    if climbs!==nothing
+        push!(context,Any["climb",Any[Any[r["direction"],r["height"],r["capacity"],r["status"],r["load"],r["resistance"],r["path_clear"],r["landing_clear"]] for r in climbs]])
+    end
+    context
 end
 function adopt_sleep_actions!(s,review,owner,now)
     check(s["owner"]==owner,"sleep_action_owner")
@@ -27,7 +34,7 @@ function project_sleep_actions!(s,candidates,context,owner,now)
     s["adopted_us"]>=now && return false
     applied=false
     for c in candidates
-        c["action"] in ("walk","scan") || continue
+        c["action"] in ("walk","scan","run","climb","rest") || continue
         group=[r for r in values(s["records"]) if (!haskey(s,"maintenance") || !s["maintenance"]["usage"][r["id"]]["dormant"]) && get(r,"context",nothing)==context &&
             r["action"]==c["action"] && get(r,"direction",nothing)==get(c,"direction",nothing) &&
             r["outcome"] in ("performed","blocked")]

@@ -259,7 +259,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in IDS) : nothing
         # Safety and learning share the same current, actor-local observation.
         hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high) for a in IDS) : nothing
-        contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a]) for a in IDS) : nothing
+        contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a];climbs=climbs===nothing ? nothing : climbs[a]) for a in IDS) : nothing
         bundle_contexts=(experience_bundles || selection_trails) ? Dict(a=>bundle_context(w.inventory[a],w.bodies[a],moves[a],hazard_views[a]) for a in IDS) : nothing
         plans=D()
         for a in IDS
