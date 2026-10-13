@@ -1,5 +1,10 @@
 # Julia migration probes J0–J3 and standalone loops
 
+[Renewable World replacement B1g](lw_renewal/report.md):36 assertions PASS.
+Separate dawn top-up condition yields natural Sleep replacement for all three
+sparse-scene agents and33 later new-model selection changes. Added food is audited;
+resource totals differ endogenously, so no isolated efficiency claim.
+
 [Independent narrower replacement B1f](lw_relearn/report.md): 30 assertions PASS.
 Provided acquired-only schema passes native Sleep replacement/review tests.
 Four-day living has only3/4/0 new attempts: no natural replacement formed.

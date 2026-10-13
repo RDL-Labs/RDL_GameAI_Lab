@@ -1,5 +1,7 @@
 # Design Document Status
 
+- [Julia 補充世界での再学習 B1g](../../experiments/julia_migration/lw_renewal/report.md)：FINITE WORLD ACCEPTANCE。36検査PASS。毎朝の資源補充を別条件で追加し、疎配置3個体のSleep置換と新モデルによる33選択差を確認。追加食料を収支計上。1 seed・与えた候補形式に限定、一般再構成は未実装。
+
 - [Julia 独立材料による限定再学習 B1f](../../experiments/julia_migration/lw_relearn/report.md)：FINITE IMPLEMENTED / WORLD MATERIAL INSUFFICIENT。30検査PASS。局所試験で採取のみの候補へSleep置換と再検査成立。4日生活では新材料A3/B4/C0件で置換なし。元の成功記録は再利用せず、canonical再構成・一般候補発明は未実装。
 
 - [Julia 後続採取比較 B1e](../../experiments/julia_migration/lw_review/report.md)：FINITE IMPLEMENTED。操作前予測→受理済み結果＋次観測→差の記録→局所モデル利用停止。65検査PASS。疎配置3個体で持続性反例・失効後の生活継続を確認。再学習・canonical再構成は未接続。
