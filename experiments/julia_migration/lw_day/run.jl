@@ -53,11 +53,31 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
     check(!model_relearn || model_review,"harvest_relearn_requires_review")
+    history=get(spec,:world_history,nothing)
+    world_offset=history===nothing ? 0 : Int(history.next_us)
+    if history!==nothing
+        check(history.rule=="native-cohort-world-v1" && history.day_us==clock.day_us,"world_history_rule")
+        check(history.renewable==renewable_food && history.hazard_mode==dynamic_hazard_mode && history.dropping==dropping && history.wear_enabled==ground_wear,"world_history_modes")
+        check(spec.obstacles==history.obstacles && spec.food==history.renewal_targets && spec.ground_patches==history.ground_patches,"world_history_geometry")
+        check(world_offset>=0 && mod(world_offset,clock.day_us)==0,"world_history_clock")
+    end
     w=moving_world(spec);w.capacity=100_000
     high=copy(w.obstacles);low=low_obstacles ? spec.low_obstacles : Any[]
     append!(w.obstacles,[RDLMigrationProbe.Circle(o.x,o.z,o.radius) for o in low])
     climb_stats=Dict(a=>D("attempts"=>0,"performed"=>0,"distance"=>0.,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     hazard_world=dynamic_hazards()
+    if history!==nothing && dynamic_hazard_mode!="off"
+        old=history.hazards
+        for key in ("territory","patrol")
+            for (k,v) in pairs(getproperty(old,Symbol(key)))
+                hazard_world[key][String(k)]=k in (:position,:home,:center) ? Tuple(Float64.(v)) : v
+            end
+        end
+        hazard_world["last_us"]=Int(old.last_us)
+        if hazard_world["territory"]["target"]!==nothing
+            hazard_world["territory"]["target"]=nothing;hazard_world["territory"]["mode"]="returning"
+        end
+    end
     sky=Dict(a=>orientation_state(a) for a in IDS)
     safety_loops=Dict(a=>BasicLoop(a*":safety";parent=a*":life") for a in IDS)
     safety=Dict(a=>safety_state() for a in IDS)
@@ -79,7 +99,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     check(!ground_continuity || ground_perception,"ground_continuity_requires_perception")
     ground_models=Dict(a=>ground_memory(a) for a in IDS);ground_receipts=Dict{String,Any}()
-    inherited_ground=get(spec,:ground_history,nothing)
+    inherited_ground=history===nothing ? get(spec,:ground_history,nothing) : history.ground
     check(inherited_ground===nothing || ground_wear,"ground_history_requires_wear")
     wear=inherited_ground===nothing ? GroundWear(Int(clock.day_us)) : restore_wear(inherited_ground,Int(clock.day_us))
     wear_offset=wear.now
@@ -89,6 +109,15 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     ground_stats=Dict(a=>D("walks"=>0,"high_resistance_walks"=>0,"projection_decisions"=>0,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     food=Any[f for f in spec.food];dropped=cargo_ground()
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in food]
+    if history!==nothing
+        food=Any[f for f in history.food];stock=Int.(history.stock)
+        check(length(food)==length(stock) && all(>=(0),stock),"world_history_food")
+        for item in history.cargo
+            index=Int(item.index);check(1<=index<=length(stock),"world_history_cargo")
+            dropped["origins"][index]=(source=item.source.source,dropper="inherited/"*String(item.source.dropper),drop_operation=item.source.drop_operation)
+            stock[index]==0 && (dropped["empty_at"][index]=0)
+        end
+    end
     stores=Dict(a=>0 for a in IDS);states=Dict(a=>social_initial() for a in IDS)
     live=Dict(a=>live_aid(a) for a in IDS);results=Dict(a=>D() for a in IDS)
     answered=Dict(a=>Set{String}() for a in IDS);learning=Dict(a=>sleeper(0) for a in IDS)
@@ -143,8 +172,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
         if local_us==0
             push!(day_starts,physical())
-            if day>0
-                learning=Dict(a=>sleeper(day) for a in IDS)
+            if day>0 || world_offset>0
+                day>0 && (learning=Dict(a=>sleeper(day) for a in IDS))
                 if renewable_food
                     added=replenish_food!(stock,spec.food);replenished+=added
                     push!(replenishments,D("day"=>day,"us"=>now,"added"=>added))
@@ -160,9 +189,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         if dynamic_hazard_mode!="off"
-            advance_hazards!(hazard_world,now,w.positions,w.obstacles;patrol=dynamic_hazard_mode=="mixed")
+            advance_hazards!(hazard_world,world_offset+now,w.positions,w.obstacles;patrol=dynamic_hazard_mode=="mixed")
         end
-        hazard_sources=dynamic_hazard_mode=="off" ? spec.hazards : dynamic_hazard_sources(hazard_world,sec;patrol=dynamic_hazard_mode=="mixed")
+        hazard_sources=dynamic_hazard_mode=="off" ? spec.hazards : dynamic_hazard_sources(hazard_world,sec+div(world_offset,1_000_000);patrol=dynamic_hazard_mode=="mixed")
         if orientation
             for a in IDS;observe_sky!(sky[a],sky_sample(a,"ob:$now:$a",now,yaw[a],clock));end
         end
@@ -197,7 +226,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         landmarks=landmark_routes ? Dict(a=>landmark_fan(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
         climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in IDS) : nothing
         # Safety and learning share the same current, actor-local observation.
-        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec;visual_obstacles=high) for a in IDS) : nothing
+        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high) for a in IDS) : nothing
         contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a]) for a in IDS) : nothing
         bundle_contexts=(experience_bundles || selection_trails) ? Dict(a=>bundle_context(w.inventory[a],w.bodies[a],moves[a],hazard_views[a]) for a in IDS) : nothing
         plans=D()
@@ -583,7 +612,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
-    D("selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    environment=D("rule"=>"native-cohort-world-v1","day_us"=>clock.day_us,"next_us"=>world_offset+days*clock.day_us,
+        "obstacles"=>spec.obstacles,"renewal_targets"=>spec.food,"ground_patches"=>spec.ground_patches,
+        "renewable"=>renewable_food,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
+        "food"=>deepcopy(food),"stock"=>copy(stock),"ground"=>ground_wear ? wear_snapshot(wear) : nothing,
+        "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
+        "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
+    D("world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
