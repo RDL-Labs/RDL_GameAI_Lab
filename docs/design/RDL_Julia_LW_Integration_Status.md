@@ -445,3 +445,24 @@ Resource/hazard cohort transfer connected (`276a595`): [39 checks and inherited 
 
 
 Inherited World follow-up (`bdbdc5c`): [57 checks](../../experiments/julia_migration/lw_integrated/world_history_report.md) now cover nonempty cargo recovery (three units), departed-target release at the endpoint, eight incompatible inputs and exact frozen replay. This supersedes the checkpoint verification list immediately above. Shared stock, richer coverage/repositioning and latest-feature thirty-day acceptance remain open; native backend switching remains NOT READY.
+
+
+## Surface correspondence dependency (5a05eca)
+
+Native movement observations now expose the five scheduled local ground samples
+separately from energy feasibility. A blocked ray remains an acquired result;
+a body-limited walk does not change sampled ground to unknown. Coverage is complete
+for the existing planar five-ray sensor, with no output truncation. This descriptor
+does not introduce unobserved ground or implement incomplete-view release yet.
+
+Reference `integrations/lightweight/world.py::packet` emits distinct appearance
+and movement-surface channels; `runtime/incomplete_reposition.py::review` uses only
+current acquired, level ground directions after a linked body result. Its trigger
+is a waiting decision with incomplete acquisition (or specified return reasons),
+not merely body exhaustion. The Julia follow-up must preserve that distinction
+and connect to the existing method selection, with priority interrupts retained.
+
+Dedicated ground workflow 38364933616 was dispatched for source 5a05eca; results
+are pending, not acceptance. The new eight assertions cover five-ray acquisition,
+body-independent samples and an acquired physical blockage. Existing three-day
+flat/shadow/patches integrations run in the same job.
