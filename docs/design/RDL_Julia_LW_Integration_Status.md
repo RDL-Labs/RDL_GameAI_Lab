@@ -15,23 +15,48 @@ Native entry: experiments/julia_migration/lw_integrated/native.jl -> run_integra
 results. The run.py export entry remains for historical Python-generated layouts.
 Both compose the same B1g capabilities and optional finite hazard adapter.
 
-| Area | Python reference | Julia status / explicit gap |
-|---|---|---|
-| Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–30 days; sequential per-second actions |
-| Body / load / eating | layered_body, body_exploration | walk/rest/eat, optional danger-running, low-obstacle climbing and finite one-unit drop/recovery; opt-in basal metabolism/hunger/provision and giving-retention connected |
-| Food / stock | social_life, timed_harvest | acquisition, personal stock, retrieve/eat, fixed dawn top-up option; bounded dropped-food objects with provenance, no general cargo planning |
-| Observation | World.cast, skyline/ground adapters | horizontal color fan and visible food; provisional home beacon, no full OBS coverage/skyline |
-| Goal / method H | continuous_selection, nested models | shared BasicLoop food/home methods and persistent return purpose across load changes; not arbitrary canonical nested M_B |
-| Routes | directional_routes, relational_movement | bounded observed color sequences; no full angular relation composition or route failure completion |
-| Learned harvest | harvest_sleep/predictability, model_movement_field | B1g finite formation/use/difference/one replacement; local supplied schema, no canonical T1 |
-| General Sleep | sleep_relation_review, sleep_auto_model, bundle_sleep | bounded review and opt-in walk/scan action-model use connected; finite per-record dormancy/reactivation connected; full vocabulary/context and conjunction bundles unported |
-| Social | social_life, social_sleep, aid_pressure | current contact/request/give/refuse, actor-specific pressure and night expectation; optional own-refusal/body-conditioned response; legacy generosity remains fixture-fixed |
-| Ground | energy_exploration, ground_wear/appearance | optional finite resistance patches, local five-direction effort and candidate contribution; shared walking wear/recovery verified; local appearance/sampled shape recognition verified; body-linked ground continuity and exploration following verified |
-| Danger | moving_hazard, patrol_hazard, territorial_hazard | crossing plus fixed territorial/patrol World response connected; relative sensing/override/release; continuous minimax method H now connected; accepted scan/far-observation limited release verified; full sensor coverage remains separate |
-| Rest cognition | rest_reactivation, movement rest | bodily rest present; episodic reactivation/mode switching unported |
-| Transport | production observation/results receipts | local same-process scaffold, no Luanti/HTTP integration |
+## Current migration matrix (2026-10-13, source 89982b7)
 
-## Prioritized next boundaries
+This matrix supersedes the historical incremental notes below. Connected means
+implemented in the common native life loop; it does not mean every long-run or
+behavioral acceptance criterion is satisfied.
+
+| Area | Python reference | Current native connection / remaining gap |
+|---|---|---|
+| Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–30 days, integer per-second schedule; latest-feature30-day validation pending |
+| Body / load | layered_body, body_exploration | walk/run/climb/rest/eat, unit cargo weight, drop/recovery, basal metabolism/hunger, body candidate field connected |
+| Food / stores | social_life, personal_food | personal stores and retrieve/eat connected; shared stock is still absent; dawn top-up lacks Python's configurable global regrowth period/capacity |
+| Surface / food observation | World.packet, ground_appearance | bounded food, body-independent five-ray surface and sampled ground appearance; complete/partial distinguished; full appearance terrain gate remains different |
+| Elevated sight | World.cast, local_return | finite0/15/30-degree rays/subrays, observed home-color memory and local6-unit dock adapter connected; native dock still exposes relative distance |
+| Incomplete-view release | incomplete_reposition | food-purpose residual candidate release connected; return-search trigger vocabulary unported; observed six offers,zero selections in finite fixture |
+| Goal / method H | continuous_selection, nested models | shared BasicLoop, persistent return purpose, movement continuation, body field, cross-day exploration horizon; native finite hierarchy, not canonical arbitrary nesting |
+| Routes | directional_routes, relational_movement | bounded color sequences, angular relation field and result-linked route H connected; native route vocabulary remains narrower |
+| Harvest learning | harvest_sleep, model_movement_field | formation/use/invalidation/one replacement verified in life; supplied model schemas, not canonical T1 |
+| General Sleep | sleep_relation_review, sleep_auto_model | review, action-model use, retention strata, per-record dormancy/reactivation connected; broader Python vocabulary/context still needs explicit mapping |
+| Experience conjunctions | experience_bundle, bundle_sleep/credit | finite formation/use/Sleep dormancy/wake and parent credit connected; live bundle wake and positive bundle parent credit not observed yet |
+| Selection trails | selection_trails | actual method use and parent-episode success separately accumulated; native method descriptors differ from Python commands |
+| Social | social_life, social_sleep, aid_pressure | request/give/refuse, pressure, refusal history, body-conditioned response, night expectations connected; social observation/schema remains finite adaptation |
+| Ground / landscape | energy_exploration, base_landscape | resistance patches, wear/recovery, appearance grouping, continuity connected; riparian materials/water/placement added, validation38368026817 pending |
+| Danger | moving/patrol/territorial_hazard | dynamic territorial/patrol/crossing, current relative observation, method H and bounded observation release connected |
+| Environmental transfer | cohort_world | resources/regrowth targets, cargo provenance, wear and hazard state restored; mismatch checks and exact replay verified; shared stock and same-agent resume absent |
+| Rest reactivation | rest_reactivation | separate Python experimental adapter, not connected to current production LW entry; not an added migration prerequisite |
+| Transport | Luanti/HTTP adapters | outside standalone Python LW execution contract; no Julia Luanti/HTTP claim |
+
+## Outstanding completion gates
+
+1. Implement shared-store behavior and matching conservation, including environmental
+   transfer; add Python's global epoch-based regrowth period/capacity (not a per-site empty timer).
+2. Finish observation/return-release and general Sleep vocabulary mapping from the
+   actual Python entry. Declare functional adaptations instead of equating flags.
+3. Verify all required learning states through living runs, including dormant-model
+   reactivation. Distinguish currently connected code from witnessed life outcomes.
+4. Run latest integrated features for30 days, multiple seeds and frozen replay;
+   include food/cargo conservation and parent-purpose invariants.
+5. Measure whole-call time, allocations and peak RSS with explicit feature/config
+   identity. Earlier Python/Julia microbenchmarks are not whole-LW speed evidence.
+6. Publish final differences and backend-switch decision. Current decision: NOT READY.
+
+## Historical implementation sequence (not the current work queue)
 
 1. Common execution entry (this update): explicit seed/days/resource/learning
    switches, source manifest, compact result and short summary. Preserve B1g.
@@ -477,3 +502,10 @@ Elevated home-search observation connected opt-in (`9e966c6`): [contract/report]
 
 
 Native riparian landscape (`128bc68`) connects the Python base-landscape placement/material/water roles: [contract](../../experiments/julia_migration/lw_integrated/landscape_report.md). Actions38368026817 pending; two-seed life and replay not yet accepted. Julia random geometry differs from Python; same frozen spec defines replay. Shared stock, broader observation/return-release and final latest-feature long acceptance remain open.
+
+
+Regrowth scope correction: `resource_regrowth.py::advance` compares the global
+`now // period` epoch and sets every original resource to max(stock,capacity).
+It is not an empty-site elapsed-time timer. Native dawn top-up already shares the
+basic floor operation, but currently lacks configurable period/capacity and their
+checkpoint state. This source audit supersedes any empty-site interpretation.
