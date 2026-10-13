@@ -15,7 +15,7 @@ Native entry: experiments/julia_migration/lw_integrated/native.jl -> run_integra
 results. The run.py export entry remains for historical Python-generated layouts.
 Both compose the same B1g capabilities and optional finite hazard adapter.
 
-## Current migration matrix (2026-10-13, source 89982b7)
+## Current migration matrix (2026-10-13, source 2c82bac)
 
 This matrix supersedes the historical incremental notes below. Connected means
 implemented in the common native life loop; it does not mean every long-run or
@@ -25,7 +25,7 @@ behavioral acceptance criterion is satisfied.
 |---|---|---|
 | Clock / repeated days | lw_time, timed_harvest | Continuous human_scale_v1, 1–30 days, integer per-second schedule; latest-feature30-day validation pending |
 | Body / load | layered_body, body_exploration | walk/run/climb/rest/eat, unit cargo weight, drop/recovery, basal metabolism/hunger, body candidate field connected |
-| Food / stores | social_life, personal_food | personal stores connected; shared stock and global regrowth period/capacity added in3bc7555, verification38369218616 pending |
+| Food / stores | social_life, personal_food | personal/shared stores and global regrowth period/capacity connected;58 assertions, four-day comparison, cross-actor retrieval and nonempty cohort transfer verified |
 | Surface / food observation | World.packet, ground_appearance | bounded food, body-independent five-ray surface and sampled ground appearance; complete/partial distinguished; full appearance terrain gate remains different |
 | Elevated sight | World.cast, local_return | finite0/15/30-degree rays/subrays, observed home-color memory and local6-unit dock adapter connected; native dock still exposes relative distance |
 | Incomplete-view release | incomplete_reposition | food-purpose residual candidate release connected; return-search trigger vocabulary unported; observed six offers,zero selections in finite fixture |
@@ -38,14 +38,14 @@ behavioral acceptance criterion is satisfied.
 | Social | social_life, social_sleep, aid_pressure | request/give/refuse, pressure, refusal history, body-conditioned response, night expectations connected; social observation/schema remains finite adaptation |
 | Ground / landscape | energy_exploration, base_landscape | resistance patches, wear/recovery, appearance grouping, continuity connected; riparian materials/water/placement verified by54 checks, two seeds and replay |
 | Danger | moving/patrol/territorial_hazard | dynamic territorial/patrol/crossing, current relative observation, method H and bounded observation release connected |
-| Environmental transfer | cohort_world | resources/regrowth targets, cargo provenance, wear and hazard state restored; mismatch checks and exact replay verified; shared stock and same-agent resume absent |
+| Environmental transfer | cohort_world | resources/regrowth targets, cargo provenance, wear and hazard state restored; mismatch checks and exact replay verified; shared stock transfer verified; same-agent resume absent |
 | Rest reactivation | rest_reactivation | separate Python experimental adapter, not connected to current production LW entry; not an added migration prerequisite |
 | Transport | Luanti/HTTP adapters | outside standalone Python LW execution contract; no Julia Luanti/HTTP claim |
 
 ## Outstanding completion gates
 
-1. Implement shared-store behavior and matching conservation, including environmental
-   transfer; add Python's global epoch-based regrowth period/capacity (not a per-site empty timer).
+1. Shared-store/regrowth finite acceptance completed; include these configurations
+   in the latest-feature integrated long-run checks.
 2. Finish observation/return-release and general Sleep vocabulary mapping from the
    actual Python entry. Declare functional adaptations instead of equating flags.
 3. Verify all required learning states through living runs, including dormant-model
