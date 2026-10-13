@@ -40,5 +40,7 @@ Model sequence IDs never recur, so these nodes have no future candidate authorit
 Active model H and bounded diagnostic events remain. This storage-lifecycle
 adaptation differs from Python's indefinitely retained method dictionary; it is
 explicitly for long-run capacity, not forgetting an active failed alternative.
-Follow-up run38349924115 pending; old/new behavior will be compared separately
-from obsolete-node diagnostics.
+Follow-up run38349924115 passed42 assertions. Independent old/new saved-result
+comparison, removing only ground method-node maps, is exactly equal in both
+conditions. Final food method nodes are A18/B15/C14, previously3037/3042/2755.
+Per-night ground nodes are bounded by8. No general performance claim.
