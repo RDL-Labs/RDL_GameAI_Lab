@@ -5,10 +5,10 @@ enabled=cfg.learning=="full"
 @assert cfg.learning in ("off","full") && cfg.food in ("finite","renewable")
 r=lw_day(input.scene,input.clock;days=Int(cfg.days),basic_loop=true,landmark_routes=true,
     harvest_sleep=enabled,model_field=enabled,model_review=enabled,model_relearn=enabled,
-    renewable_food=cfg.food=="renewable",hazard_mode=cfg.hazards=="crossing",ground_mode=get(cfg,:ground,"flat"),running=get(cfg,:running,"off")=="on",climbing=get(cfg,:climbing,"off")=="on",low_obstacles=get(cfg,:low_obstacles,"off")=="on",dropping=get(cfg,:dropping,"off")=="on",social_response=get(cfg,:social_response,"legacy")=="experience",general_sleep=get(cfg,:general_sleep,"off") in ("review","apply"),sleep_actions=get(cfg,:general_sleep,"off")=="apply",sleep_retention=get(cfg,:sleep_retention,"recent")=="strata",sleep_maintenance=get(cfg,:sleep_maintenance,"off")=="on")
+    renewable_food=cfg.food=="renewable",hazard_mode=cfg.hazards=="crossing",ground_mode=get(cfg,:ground,"flat"),ground_wear=get(cfg,:ground_wear,"off")=="on",running=get(cfg,:running,"off")=="on",climbing=get(cfg,:climbing,"off")=="on",low_obstacles=get(cfg,:low_obstacles,"off")=="on",dropping=get(cfg,:dropping,"off")=="on",social_response=get(cfg,:social_response,"legacy")=="experience",general_sleep=get(cfg,:general_sleep,"off") in ("review","apply"),sleep_actions=get(cfg,:general_sleep,"off")=="apply",sleep_retention=get(cfg,:sleep_retention,"recent")=="strata",sleep_maintenance=get(cfg,:sleep_maintenance,"off")=="on")
 summary=D("name"=>"LW-Julia integrated experiment v1","config"=>cfg,"ended_us"=>r["ended_us"],
     "food"=>D("initial"=>r["initial_food"],"added"=>r["replenished_food"],"ground"=>r["ground"],"consumed"=>r["consumed"]),
-    "sleep_action_models"=>r["sleep_action_models"],"general_sleep"=>r["general_sleep"],"social_response"=>r["social_response"],"dropped_cargo"=>r["dropped_cargo"],"climbing"=>r["climbing"],"running"=>r["running"],"ground_effects"=>r["ground_effects"],"safety"=>r["safety"],"agents"=>D())
+    "ground_wear"=>r["ground_wear"],"sleep_action_models"=>r["sleep_action_models"],"general_sleep"=>r["general_sleep"],"social_response"=>r["social_response"],"dropped_cargo"=>r["dropped_cargo"],"climbing"=>r["climbing"],"running"=>r["running"],"ground_effects"=>r["ground_effects"],"safety"=>r["safety"],"agents"=>D())
 for a in IDS
     s=r["final_agents"][a];h=s["harvest"]
     summary["agents"][a]=D("position"=>s["position"],"body"=>s["body"],"inventory"=>s["inventory"],

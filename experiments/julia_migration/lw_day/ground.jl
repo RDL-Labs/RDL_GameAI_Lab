@@ -18,7 +18,7 @@ function ground_candidates(candidates,movement,load)
         row["cost"]===nothing && error("infeasible ground candidate")
         # Reserve effort above the flat-ground baseline, in fixed priority units.
         # No new direction, feasibility, or method identity is introduced.
-        c["priority"]-=.25*max(0.,row["resistance"]-1.5)*(1+.1*load)
+        c["priority"]-=.25*(row["resistance"]-1.5)*(1+.1*load)
     end
     out
 end

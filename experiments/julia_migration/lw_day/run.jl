@@ -1,6 +1,7 @@
 using Test
 include(joinpath(@__DIR__,"hazard.jl"))
 include(joinpath(@__DIR__,"ground.jl"))
+include(joinpath(@__DIR__,"ground_wear.jl"))
 include(joinpath(@__DIR__,"climbing.jl"))
 include(joinpath(@__DIR__,"dropped_cargo.jl"))
 include(joinpath(@__DIR__,"return_purpose.jl"))
@@ -35,7 +36,7 @@ function replenish_food!(stock,food)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false)
     check(days isa Int && 1<=days<=4,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -49,7 +50,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     response_stats=Dict(a=>D("decisions"=>0,"give"=>0,"refuse"=>0,"experienced"=>0,"records"=>Any[]) for a in IDS)
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
-    resistance_at=p->ground_resistance(p,patches)
+    wear=GroundWear(Int(clock.day_us))
+    resistance_at=p->ground_resistance(p,patches)*(ground_wear ? wear_factor(wear,p) : 1.)
     ground_stats=Dict(a=>D("walks"=>0,"high_resistance_walks"=>0,"projection_decisions"=>0,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     food=Any[f for f in spec.food];dropped=cargo_ground()
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in food]
@@ -94,6 +96,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     for sec in 0:days*div(clock.day_us,1_000_000)-1
         now=sec*1_000_000;w.seconds=sec
+        ground_wear && advance_wear!(wear,now)
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
         if local_us==0
             push!(day_starts,physical())
@@ -296,7 +299,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 w.positions[a]=(p[1]+s*d,p[2]+c*d);distance[a]+=d
                 g=climb_stats[a];g["attempts"]+=1;g["distance"]+=d
                 status=="performed" && (g["performed"]+=1)
-                comparable=expected["load"]==w.inventory[a] && expected["clear"]==actual["clear"]
+                comparable=expected["load"]==w.inventory[a] && expected["clear"]==actual["clear"] && expected["resistance"]==actual["resistance"]
                 comparable && expected["expected_delta"]!=delta && (g["delta_mismatches"]+=1)
                 push!(g["records"],D("source"=>op,"status"=>status,"height"=>actual["height"],"capacity"=>actual["capacity"],
                     "load"=>w.inventory[a],"resistance"=>actual["resistance"],"distance"=>d,"expected_delta"=>expected["expected_delta"],"actual_delta"=>delta))
@@ -315,7 +318,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 if action=="run"
                     g=run_stats[a];g["attempts"]+=1;g["distance"]+=d
                     status=="performed" && (g["performed"]+=1)
-                    comparable=expected["load"]==w.inventory[a] && expected["clear"]==clear
+                    comparable=expected["load"]==w.inventory[a] && expected["clear"]==clear && expected["resistance"]==resistance
                     comparable && expected["expected_delta"]!=delta && (g["delta_mismatches"]+=1)
                     push!(g["records"],D("source"=>op,"status"=>status,"load"=>w.inventory[a],"resistance"=>resistance,
                         "distance"=>d,"expected_delta"=>deepcopy(expected["expected_delta"]),"actual_delta"=>delta,"comparable"=>comparable))
@@ -325,7 +328,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     resistance>1.5 && (g["high_resistance_walks"]+=1)
                     # The observed clearance horizon is 1 unit, execution is at most .5.
                     # Compare matching clearance only; distinguish that geometric boundary.
-                    comparable=expected["clear"]==clear && expected["load"]==w.inventory[a]
+                    comparable=expected["clear"]==clear && expected["load"]==w.inventory[a] && expected["resistance"]==resistance
                     match=comparable && expected["expected_delta"]==delta && expected["resistance"]==resistance
                     comparable && !match && (g["delta_mismatches"]+=1)
                     push!(g["records"],D("source"=>op,"load"=>w.inventory[a],"resistance"=>resistance,
@@ -368,6 +371,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         status="unavailable"
                     end
                 end
+            end
+            if ground_wear && action in ("walk","run") && status=="performed"
+                tread!(wear,op,a,p,w.positions[a],now)
             end
             sleep_maintenance && record_sleep_use!(action_models[a],plan,op,status)
             @assert all(length(cargo[x])==w.inventory[x] for x in IDS)
@@ -419,6 +425,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 "ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
         end
     end
+    ground_wear && advance_wear!(wear,Int(days*clock.day_us))
     terminal=D()
     for a in IDS
         integrate(a,Int(days*clock.day_us),observe(w,a))
@@ -429,7 +436,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
-    D("sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>social_response ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    D("ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>social_response ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts)
 end
