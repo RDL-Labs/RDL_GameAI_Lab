@@ -11,7 +11,7 @@ function moving_world(spec)
     w
 end
 
-function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,running=false,visual_obstacles=w.obstacles)
+function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,run_resistance_at=resistance_at,running=false,visual_obstacles=w.obstacles)
     origin=w.positions[actor];s,c=sincos(deg2rad(yaw[actor]));visible=Any[]
     for (j,f) in enumerate(food)
         dx,dz=f.x-origin[1],f.z-origin[2];forward,right=dx*s+dz*c,dx*c-dz*s
@@ -46,7 +46,7 @@ function movement_observation(w,actor,yaw,food,stock;resistance_at=p->1.5,runnin
             endpoint=(origin[1]+sin(theta)*distance,origin[2]+cos(theta)*distance)
             midpoint=((origin[1]+endpoint[1])/2,(origin[2]+endpoint[2])/2)
             clear=!any(o->segment_hit(origin,endpoint,o,.2),w.obstacles)
-            resistance=resistance_at(midpoint)
+            resistance=run_resistance_at(midpoint)
             _,status,d,delta=step(b,"run",w.inventory[actor],resistance,clear)
             push!(run_rows,D("ref"=>string(j-1),"action"=>"run","clear"=>clear,"resistance"=>resistance,
                 "load"=>w.inventory[actor],"status"=>status,"cost"=>status=="performed" ? -delta["reserve"] : nothing,

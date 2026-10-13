@@ -51,7 +51,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     wear=GroundWear(Int(clock.day_us))
-    resistance_at=p->ground_resistance(p,patches)*(ground_wear ? wear_factor(wear,p) : 1.)
+    base_resistance_at=p->ground_resistance(p,patches)
+    resistance_at=p->1+(base_resistance_at(p)-1)*(ground_wear ? wear_factor(wear,p) : 1.)
     ground_stats=Dict(a=>D("walks"=>0,"high_resistance_walks"=>0,"projection_decisions"=>0,"delta_mismatches"=>0,"records"=>Any[]) for a in IDS)
     food=Any[f for f in spec.food];dropped=cargo_ground()
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in food]
@@ -110,7 +111,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         phase=local_us<bounds[1] ? "orientation" : local_us<bounds[2] ? "exploration" : local_us<bounds[3] ? "return" : "night"
         obs=Dict(a=>observe(w,a) for a in IDS)
-        moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,running=running,visual_obstacles=high) for a in IDS)
+        moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
         homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
         if harvest_sleep
@@ -138,7 +139,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         landmarks=landmark_routes ? Dict(a=>landmark_fan(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
-        climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,resistance_at) for i in 0:4] for a in IDS) : nothing
+        climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in IDS) : nothing
         contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_observation(w,a,yaw,hazard_mode ? spec.hazards : Any[],sec;visual_obstacles=high)) for a in IDS) : nothing
         plans=D()
         for a in IDS
@@ -291,7 +292,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             delivered=String[]
             # Exactly one body update per simulated second, including non-movement actions.
             if action=="climb"
-                actual=climb_sample(w,a,yaw[a],plan["direction"],low,high,resistance_at)
+                actual=climb_sample(w,a,yaw[a],plan["direction"],low,high,base_resistance_at)
                 expected=climbs[a][plan["direction"]+1]
                 yaw[a]=mod(yaw[a]+ANGLES[plan["direction"]+1]+180,360)-180
                 s,c=sincos(deg2rad(yaw[a]))
@@ -312,7 +313,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 clear=!any(o->segment_hit(p,q,o,.2),w.obstacles)
                 sample_span=(action=="run" ? 1.5 : .5)*(1-w.bodies[a].damage)
                 midpoint=(p[1]+s*sample_span/2,p[2]+c*sample_span/2)
-                resistance=resistance_at(midpoint)
+                resistance=(action=="run" ? base_resistance_at : resistance_at)(midpoint)
                 expected=(action=="run" ? moves[a]["run_rows"] : moves[a]["energy"]["rows"])[plan["direction"]+1]
                 w.bodies[a],status,d,delta=step(w.bodies[a],action,w.inventory[a],resistance,clear)
                 if action=="run"
@@ -372,7 +373,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     end
                 end
             end
-            if ground_wear && action in ("walk","run") && status=="performed"
+            if ground_wear && action=="walk" && status=="performed"
                 tread!(wear,op,a,p,w.positions[a],now)
             end
             sleep_maintenance && record_sleep_use!(action_models[a],plan,op,status)
