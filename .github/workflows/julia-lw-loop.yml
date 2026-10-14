@@ -26,6 +26,8 @@ jobs:
         run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
       - name: Local behavior integration and cost
         run: python -m experiments.julia_migration.lw_loop.run outputs/julia_migration/lw-loop
+      - name: Parent H candidate breadth contract
+        run: julia --startup-file=no experiments/julia_migration/lw_integrated/parent_breadth_checks.jl
       - uses: actions/upload-artifact@v4
         if: always()
         with:

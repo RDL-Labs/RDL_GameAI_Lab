@@ -21,6 +21,27 @@ BasicLoop(goal;parent=nothing,threshold=2)=begin
 end
 
 # Read-only comparison for diagnostics and composing fields; no snapshot needed.
+"Finite parent-H admission before expensive fields; never invents feasible methods."
+function parent_candidates(s::BasicLoop,candidates)
+    # Saturated parent H must still expose every method even with a high threshold.
+    level=s.H>=32 ? 2 : min(2,fld(s.H,s.threshold))
+    limit=level==0 ? 2 : level==1 ? 4 : length(candidates)
+    length(candidates)<=limit && return candidates
+    uses=Dict{String,Int}()
+    for event in s.events # already bounded to 32 accepted results
+        uses[event.method]=get(uses,event.method,0)+1
+    end
+    # Familiar methods first, then current proposal priority and deterministic ID.
+    key(c)=(-get(uses,c["method"],0),-c["priority"],c["method"])
+    admitted=Any[]
+    for c in candidates
+        push!(admitted,c)
+        sort!(admitted;by=key)
+        length(admitted)>limit && pop!(admitted)
+    end
+    admitted
+end
+
 function method_choice(s::BasicLoop,candidates)
     isempty(candidates) && return nothing
     node(name)=get(s.methods,name,nothing)
