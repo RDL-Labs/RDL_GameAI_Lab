@@ -1,0 +1,40 @@
+name: Julia LW adaptive approach thirty days
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiment:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Locked Julia environment
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
+      - name: Approach contract
+        run: julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/approach_checks.jl
+      - name: Thirty days each, parent breadth off and on
+        shell: bash
+        run: |
+          mkdir -p outputs/approach-cloud-logs
+          set -o pipefail
+          julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/easy_food_experiment.jl experiments/julia_migration/lw_integrated/approach_spec.json outputs/approach-cloud-results 30 on 2>&1 | tee outputs/approach-cloud-logs/run.log
+      - name: Daily conservation and continuity
+        shell: bash
+        run: |
+          set -o pipefail
+          julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/lw_integrated/easy_food_audit.jl outputs/approach-cloud-results 2>&1 | tee outputs/approach-cloud-logs/audit.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: julia-lw-approach-thirty-day
+          path: |
+            outputs/approach-cloud-results
+            outputs/approach-cloud-logs
+          retention-days: 14

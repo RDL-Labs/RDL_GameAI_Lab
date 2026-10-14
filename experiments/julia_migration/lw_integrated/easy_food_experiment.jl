@@ -4,7 +4,7 @@ length(ARGS) in (2,4) || error("SPEC OUTPUT [DAYS REPETITION_MODE]")
 spec,out=ARGS[1:2]
 days=length(ARGS)==4 ? parse(Int,ARGS[3]) : 3
 repetition=length(ARGS)==4 ? ARGS[4] : "off"
-1<=days<=10 || error("finite_days")
+1<=days<=30 || error("finite_days")
 repetition in ("off","on") || error("repetition_mode")
 isdir(out) && error("fresh output required")
 mkpath(out)
@@ -15,12 +15,13 @@ scene=input["scene"];pop!(scene,"landscape",nothing)
 scene["name"]="easy-hidden-near-food"
 scene["home"]=[0.,4.];scene["positions"]=[[-2.,4.],[0.,4.],[2.,4.]]
 scene["reserve"]=[90.,90.,90.];scene["initial_inventory"]=[2,2,2]
-scene["food"]=[D("x"=>0.,"z"=>17.,"stock"=>1_000_000)]
+supply=days<=10 ? 1_000_000 : 2_000_000
+scene["food"]=[D("x"=>0.,"z"=>17.,"stock"=>supply)]
 scene["obstacles"]=[D("x"=>-4.,"z"=>4.,"radius"=>.3,"height"=>12.,"color"=>"ochre","solid"=>true)]
 scene["low_obstacles"]=Any[];scene["ground_patches"]=Any[];scene["hazards"]=Any[]
 @test all(hypot(p[1],17-p[2])>12 for p in scene["positions"])
 @test hypot(scene["home"][1],17-scene["home"][2])>12
-@test 1_000_000>3*days*17_280 # even pickup on every operation cannot exhaust supply
+@test supply>3*days*17_280 # even pickup on every operation cannot exhaust supply
 for mode in ("off","on")
     cfg["parent_breadth"]=mode
     write(joinpath(out,"$mode-spec.json"),JSON3.write(input))

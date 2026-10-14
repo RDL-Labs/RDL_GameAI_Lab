@@ -1,0 +1,109 @@
+{
+  "clock": {
+    "real_seconds_per_world_second": 5,
+    "profile": "human_scale_v1",
+    "phase_boundaries_us": [
+      60000000,
+      8640000000,
+      11520000000,
+      17280000000
+    ],
+    "reserve_rate_scale": 0.003703703703703704,
+    "strain_rate_scale": 0.016666666666666666,
+    "real_m_per_world_m": 10,
+    "sleep_rest_us": 2880000000,
+    "authority": "simulation calibration, not human physiology",
+    "day_us": 17280000000,
+    "quiet_night_us": 14400000000
+  },
+  "scene": {
+    "name": "easy-hidden-near-food",
+    "low_obstacles": [],
+    "positions": [
+      [
+        -2.0,
+        4.0
+      ],
+      [
+        0.0,
+        4.0
+      ],
+      [
+        2.0,
+        4.0
+      ]
+    ],
+    "ground_patches": [],
+    "reserve": [
+      90.0,
+      90.0,
+      90.0
+    ],
+    "food": [
+      {
+        "stock": 2000000,
+        "z": 17.0,
+        "x": 0.0
+      }
+    ],
+    "initial_inventory": [
+      2,
+      2,
+      2
+    ],
+    "hearing": true,
+    "hazards": [],
+    "obstacles": [
+      {
+        "height": 12.0,
+        "solid": true,
+        "radius": 0.3,
+        "z": 4.0,
+        "color": "ochre",
+        "x": -4.0
+      }
+    ],
+    "home": [
+      0.0,
+      4.0
+    ]
+  },
+  "config": {
+    "exploration_horizon": "on",
+    "experience_bundles": "on",
+    "regrowth_days": 3,
+    "sleep_retention": "strata",
+    "bundle_credit": "off",
+    "low_obstacles": "off",
+    "dropping": "on",
+    "ground_wear": "on",
+    "running": "on",
+    "safety_methods": "continuous",
+    "stores": "shared",
+    "days": 30,
+    "seed": 20261005,
+    "regrowth_capacity": 12,
+    "movement_inertia": "on",
+    "sleep_maintenance": "on",
+    "food": "finite",
+    "orientation": "on",
+    "ground": "flat",
+    "layout": "riparian",
+    "learning": "full",
+    "ground_continuity": "on",
+    "reposition": "on",
+    "relation_field": "on",
+    "ground_perception": "on",
+    "hazards": "off",
+    "food_body": "on",
+    "repetition_pressure": "on",
+    "selection_trails": "on",
+    "general_sleep": "apply",
+    "social_response": "experience",
+    "skyline": "off",
+    "body_field": "on",
+    "climbing": "on",
+    "parent_breadth": "on",
+    "adaptive_approach": "on"
+  }
+}

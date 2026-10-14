@@ -21,6 +21,7 @@ include(joinpath(@__DIR__,"sleep_action_model.jl"))
 include(joinpath(@__DIR__,"sleep_maintenance.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
+include(joinpath(@__DIR__,"approach.jl"))
 include(joinpath(@__DIR__,"repetition_pressure.jl"))
 include(joinpath(@__DIR__,"safety_methods.jl"))
 include(joinpath(@__DIR__,"movement_inertia.jl"))
@@ -52,7 +53,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -360,7 +361,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
                     else
                         s=loops[a][family];source="op:$now:$a"
-                        rolling=movement_inertia ? inertia_candidate!(inertia[a],moves[a],hazard_views[a],phase,family,s.methods,source) : nothing
+                        rolling=movement_inertia && !(adaptive_approach && near_target(target)) ? inertia_candidate!(inertia[a],moves[a],hazard_views[a],phase,family,s.methods,source) : nothing
                         if rolling!==nothing
                             plan=choose_method!(s,[rolling],source)
                         else
@@ -453,6 +454,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         end
                         end
                         landmark_routes && get(plan,"route",nothing)!==nothing && (routes[a]["selections"]+=1)
+                        adaptive_approach && refine_approach!(plan,target,w,a,yaw,resistance_at)
                         pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
                             distance=target===nothing ? nothing : target["distance"],
                             ref=target===nothing || returning ? nothing : target["ref"],status="unexecuted")
@@ -516,12 +518,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     "load"=>w.inventory[a],"resistance"=>actual["resistance"],"distance"=>d,"expected_delta"=>expected["expected_delta"],"actual_delta"=>delta))
                 length(g["records"])>32 && popfirst!(g["records"])
             elseif action in ("walk","run")
-                yaw[a]=mod(yaw[a]+ANGLES[plan["direction"]+1]+180,360)-180
+                yaw[a]=mod(yaw[a]+get(plan,"approach_angle",ANGLES[plan["direction"]+1])+180,360)-180
                 s,c=sincos(deg2rad(yaw[a]))
-                span=action=="run" ? 1.5*(1-w.bodies[a].damage) : .5
+                span=get(plan,"approach_span",action=="run" ? 1.5*(1-w.bodies[a].damage) : .5)
                 q=(p[1]+s*span,p[2]+c*span)
                 clear=!any(o->segment_hit(p,q,o,.2),w.obstacles)
-                sample_span=(action=="run" ? 1.5 : .5)*(1-w.bodies[a].damage)
+                sample_span=get(plan,"approach_span",(action=="run" ? 1.5 : .5)*(1-w.bodies[a].damage))
                 midpoint=(p[1]+s*sample_span/2,p[2]+c*sample_span/2)
                 resistance=(action=="run" ? base_resistance_at : resistance_at)(midpoint)
                 expected=(action=="run" ? moves[a]["run_rows"] : moves[a]["energy"]["rows"])[plan["direction"]+1]
@@ -539,7 +541,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     resistance>1.5 && (g["high_resistance_walks"]+=1)
                     # The observed clearance horizon is 1 unit, execution is at most .5.
                     # Compare matching clearance only; distinguish that geometric boundary.
-                    comparable=expected["clear"]==clear && expected["load"]==w.inventory[a] && expected["resistance"]==resistance
+                    comparable=!haskey(plan,"approach_angle") && expected["clear"]==clear && expected["load"]==w.inventory[a] && expected["resistance"]==resistance
                     match=comparable && expected["expected_delta"]==delta && expected["resistance"]==resistance
                     comparable && !match && (g["delta_mismatches"]+=1)
                     push!(g["records"],D("source"=>op,"load"=>w.inventory[a],"resistance"=>resistance,
@@ -547,6 +549,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         "comparable"=>comparable,"matches"=>match))
                     length(g["records"])>32 && popfirst!(g["records"])
                 end
+                d=min(d,get(plan,"approach_span",d))
                 w.positions[a]=(p[1]+s*d,p[2]+c*d);distance[a]+=d
             elseif action in ("eat","request","give","refuse","warn","withdraw","wait")
                 r=communicate!(w,a,op,action,get(plan,"target",nothing),get(plan,"reply_to",nothing));status=r["status"]
