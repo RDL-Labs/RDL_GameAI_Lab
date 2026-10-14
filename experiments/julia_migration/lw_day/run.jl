@@ -22,6 +22,7 @@ include(joinpath(@__DIR__,"sleep_maintenance.jl"))
 include(joinpath(@__DIR__,"../moving_social/run.jl"))
 include(joinpath(@__DIR__,"basic_loop.jl"))
 include(joinpath(@__DIR__,"approach.jl"))
+include(joinpath(@__DIR__,"local_descent.jl"))
 include(joinpath(@__DIR__,"repetition_pressure.jl"))
 include(joinpath(@__DIR__,"safety_methods.jl"))
 include(joinpath(@__DIR__,"movement_inertia.jl"))
@@ -53,7 +54,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -263,7 +264,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             end
         end
-        lateral_views=lateral_side=="off" ? nothing : Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS)
+        lateral_views=lateral_side=="off" && !continuous_descent ? nothing : Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS)
         landmarks=landmark_routes ? Dict(a=>landmark_fan(landmark_objects,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
         skyline_views=skyline_mode=="off" ? nothing : Dict(a=>skyline_fan(skyline_objects,w.positions[a],yaw[a],"ob:$now:$a";subrays=skyline_mode=="subrays") for a in IDS)
         if skyline_views!==nothing
@@ -291,6 +292,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     same ? target["distance"]<t.distance : nothing
                 # No move/turn result is credited as acquired food or confirmed home.
                 goal=t.family=="home" ? at_home : t.status in ("picked_up","recovered")
+                if reposition && t.phase==phase
+                    search_review_result!(reposition_states[a],t.family,s.trial.method,target!==nothing,t.status=="performed")
+                end
                 resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing)
             end
             if ground_continuity
@@ -361,7 +365,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
                     else
                         s=loops[a][family];source="op:$now:$a"
-                        rolling=movement_inertia && !(adaptive_approach && near_target(target)) ? inertia_candidate!(inertia[a],moves[a],hazard_views[a],phase,family,s.methods,source) : nothing
+                        rolling=movement_inertia && !((adaptive_approach && near_target(target)) || (continuous_descent && target!==nothing)) ? inertia_candidate!(inertia[a],moves[a],hazard_views[a],phase,family,s.methods,source) : nothing
                         if rolling!==nothing
                             plan=choose_method!(s,[rolling],source)
                         else
@@ -389,6 +393,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         if exploration_horizon && phase=="exploration" && !returning && target===nothing
                             append!(candidates,horizon_candidates(horizons[a],landmarks[a],moves[a]))
                         end
+                        reposition && project_search_review!(reposition_states[a],candidates,s,target,family)
                         if parent_breadth
                             before=length(candidates)
                             candidates=parent_candidates(s,candidates)
@@ -411,7 +416,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 m["applied"]+=1
                             end
                         end
-                        if lateral_views!==nothing
+                        if lateral_side!="off" && lateral_views!==nothing
                             lateral_trace=project_lateral!(candidates,moves[a],lateral_views[a],lateral_side,field_trace)
                             ls=lateral_stats[a];ls["evaluations"]+=1;ls["applied"]+=Int(lateral_trace["applied"])
                             push!(ls["records"],merge(lateral_trace,D("source"=>source)));length(ls["records"])>32 && popfirst!(ls["records"])
@@ -454,7 +459,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         end
                         end
                         landmark_routes && get(plan,"route",nothing)!==nothing && (routes[a]["selections"]+=1)
-                        adaptive_approach && refine_approach!(plan,target,w,a,yaw,resistance_at)
+                        if continuous_descent
+                            steer_local_descent!(plan,target,lateral_views[a],w,a,yaw,resistance_at)
+                        elseif adaptive_approach
+                            refine_approach!(plan,target,w,a,yaw,resistance_at)
+                        end
                         pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
                             distance=target===nothing ? nothing : target["distance"],
                             ref=target===nothing || returning ? nothing : target["ref"],status="unexecuted")

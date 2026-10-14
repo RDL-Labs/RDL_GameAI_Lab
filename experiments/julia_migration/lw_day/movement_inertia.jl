@@ -22,6 +22,7 @@ function inertia_candidate!(s,move,hazard,phase,family,methods,source)
         move["energy"]["rows"][3]["cost"]===nothing ? "surface_or_body_unavailable" :
         s["H"]>=s["threshold"] ? "repetition_threshold" :
         r.action!="walk" || r.status!="performed" || !r.moved || r.method===nothing ? "no_confirmed_move" :
+        startswith(r.method,"reposition_") ? "search_requires_review" :
         !haskey(methods,r.method) ? "method_unavailable" : nothing
     if reason!==nothing
         s["interrupts"][reason]=get(s["interrupts"],reason,0)+1

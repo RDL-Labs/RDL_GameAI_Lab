@@ -33,3 +33,23 @@ See docs/design/RDL_Julia_LW_Completion_Audit.md for remaining release gates and
 experiments/julia_migration/lw_integrated/optimized_long_report.md for30-day
 performance and replay evidence. Native geometry, action cadence, local schemas
 and method vocabulary are adaptations; canonical T1 is not claimed.
+
+## Continuous movement direction
+
+New runs through this stable entry default to `--continuous-descent on`.
+Observed food/home targets contribute an attraction vector; nearby observed
+obstacle hits contribute repulsion. For an ordinary selected `step_*` walk,
+the resultant supplies a continuous heading, with collision and body checks.
+Arrival, parent-goal completion, resource accounting and Sleep are unchanged.
+This does not replace running, climbing, route methods or hidden-target search.
+Use `--continuous-descent off` for a discrete-direction control.
+
+Saved `--spec` files remain authoritative: missing `continuous_descent` means
+legacy off. To adopt in a saved campaign, create a new spec with
+`config.continuous_descent = "on"`; retain the original for comparison.
+
+The easy-food (5,16) ten-day run completed in 212.26 seconds: each agent picked
+up 28 units, deposited ten times and completed ten Sleeps. Shared stock was60;
+daily continuity/conservation checks59 passed. This is a benign-world result,
+not a general navigation guarantee. See
+[descent report](../../experiments/julia_migration/lw_integrated/descent_report.md).
