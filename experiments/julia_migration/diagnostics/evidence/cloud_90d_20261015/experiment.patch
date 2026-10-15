@@ -1,0 +1,85 @@
+--- original/experiments/julia_migration/lw_day/run.jl
++++ experiment/experiments/julia_migration/lw_day/run.jl
+@@ -56,7 +56,7 @@
+ 
+ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false)
+     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
+-    check(days isa Int && 1<=days<=30,"lw_days")
++    check(days isa Int && 1<=days<=90,"lw_days")
+     check(!landmark_routes || basic_loop,"landmark_loop_required")
+     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
+     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
+@@ -199,7 +199,17 @@
+         end
+         pressure_poll!(live[a],states[a]["records"],before)
+     end
++    progress_path=get(ENV,"LW_PROGRESS_PATH","")
++    progress_io=isempty(progress_path) ? nothing : open(progress_path,"a")
++    progress_started=time_ns()
++    function emit_progress(sec,stage)
++        progress_io===nothing && return
++        completed=sum(sum(values(counts[a])) for a in IDS)
++        println(progress_io, time(), '\t', (time_ns()-progress_started)/1e9, '\t', sec, '\t', div(sec,div(clock.day_us,1_000_000))+1, '\t', completed, '\t', stage, '\t', Sys.maxrss())
++        flush(progress_io)
++    end
+     for sec in 0:days*div(clock.day_us,1_000_000)-1
++        sec%60==0 && emit_progress(sec,"tick_begin")
+         now=sec*1_000_000;w.seconds=sec
+         (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
+         if ground_perception
+@@ -236,6 +246,7 @@
+         if orientation
+             for a in IDS;observe_sky!(sky[a],sky_sample(a,"ob:$now:$a",now,yaw[a],clock));end
+         end
++        sec%60==0 && emit_progress(sec,"observation_begin")
+         obs=Dict(a=>observe(w,a) for a in IDS)
+         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
+         homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6) for a in IDS)
+@@ -504,6 +515,7 @@
+             selection_trails && (plan["trail_parent"]=(reserve=w.bodies[a].reserve,H=hunger[a]["H"]))
+             plans[a]=plan
+         end
++        sec%60==0 && emit_progress(sec,"execution_begin")
+         w.seconds=sec+1
+         for a in IDS
+             plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];before_yaw=yaw[a];status="performed"
+@@ -706,6 +718,8 @@
+                 "shared_stock"=>shared,"ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
+         end
+     end
++    emit_progress(days*div(clock.day_us,1_000_000),"loop_complete")
++    progress_io===nothing || close(progress_io)
+     ground_wear && advance_wear!(wear,wear_offset+Int(days*clock.day_us))
+     terminal=D()
+     for a in IDS
+--- original/experiments/julia_migration/lw_integrated/native.jl
++++ experiment/experiments/julia_migration/lw_integrated/native.jl
+@@ -4,7 +4,7 @@
+ using SHA
+ 
+ function native_options(args)
+-    isempty(args) && error("usage: native.jl OUTPUT [--continuous-descent on|off --repetition-pressure off|on --parent-breadth off|on --days 1..30 --goal-switch-threshold 1..30 --lateral-side off|left|right --seed N --food finite|renewable --learning off|full --hazards off|crossing|territorial|mixed --orientation off|on --relation-field off|on --safety-methods legacy|continuous --food-body off|on --ground-continuity off|on --ground-perception off|on --ground-wear off|on --ground flat|shadow|patches --running off|on --climbing off|on --sleep-maintenance off|on --sleep-retention recent|strata --general-sleep off|review|apply --social-response legacy|experience --dropping off|on --low-obstacles off|on --spec FILE]")
++    isempty(args) && error("usage: native.jl OUTPUT [--continuous-descent on|off --repetition-pressure off|on --parent-breadth off|on --days 1..90 --goal-switch-threshold 1..30 --lateral-side off|left|right --seed N --food finite|renewable --learning off|full --hazards off|crossing|territorial|mixed --orientation off|on --relation-field off|on --safety-methods legacy|continuous --food-body off|on --ground-continuity off|on --ground-perception off|on --ground-wear off|on --ground flat|shadow|patches --running off|on --climbing off|on --sleep-maintenance off|on --sleep-retention recent|strata --general-sleep off|review|apply --social-response legacy|experience --dropping off|on --low-obstacles off|on --spec FILE]")
+     out=args[1];opts=Dict("continuous-descent"=>"on","repetition-pressure"=>"off","parent-breadth"=>"off","days"=>"3","lateral-side"=>"off","goal-switch-threshold"=>"2","seed"=>"20261004","food"=>"finite","learning"=>"full","hazards"=>"off","ground"=>"flat","ground-wear"=>"off","ground-perception"=>"off","ground-continuity"=>"off","stores"=>"personal","regrowth-days"=>"1","regrowth-capacity"=>"0","layout"=>"sparse","skyline"=>"off","reposition"=>"off","selection-trails"=>"off","bundle-credit"=>"off","experience-bundles"=>"off","exploration-horizon"=>"off","movement-inertia"=>"off","body-field"=>"off","relation-field"=>"off","orientation"=>"off","food-body"=>"off","safety-methods"=>"legacy","running"=>"off","climbing"=>"off","sleep-maintenance"=>"off","sleep-retention"=>"recent","general-sleep"=>"off","social-response"=>"legacy","dropping"=>"off","low-obstacles"=>"off","spec"=>"")
+     iseven(length(args)-1) || error("option requires a value")
+     for i in 2:2:length(args)
+@@ -31,7 +31,7 @@
+         bytes=read(opts["spec"])
+     end
+     input=JSON3.read(bytes);cfg=input.config
+-    1<=cfg.days<=30 && cfg.days isa Integer || error("days must be 1..30")
++    1<=cfg.days<=90 && cfg.days isa Integer || error("days must be 1..90")
+     get(cfg,:lateral_side,"off") in ("off","left","right") || error("lateral_side")
+     threshold=get(cfg,:goal_switch_threshold,2)
+     threshold isa Integer && !(threshold isa Bool) && 1<=threshold<=30 || error("goal_switch_threshold")
+--- original/experiments/julia_migration/lw_integrated/search_review_spec.json
++++ experiment/experiments/julia_migration/lw_integrated/search_review_spec.json
+@@ -935,7 +935,7 @@
+     "repetition_pressure": "off",
+     "parent_breadth": "on",
+     "lateral_side": "off",
+-    "days": 30,
++    "days": 90,
+     "goal_switch_threshold": 2,
+     "seed": 20261005,
+     "food": "renewable",

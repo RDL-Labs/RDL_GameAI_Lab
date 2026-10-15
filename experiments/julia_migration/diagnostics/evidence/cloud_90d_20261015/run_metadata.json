@@ -1,0 +1,17 @@
+{
+  "source_commit": "5b09a58c3009f59044cc08d2a551f939a3fa7790",
+  "checkout_commit": "a1840954c49a25a2253643148fd70860f92fecfb",
+  "julia_version": "1.13.1",
+  "julia_threads": 1,
+  "openblas_threads": 1,
+  "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+  "host_logical_cpus": 5,
+  "host_memory_bytes": 35843661824,
+  "swap_bytes": 0,
+  "completed_operations": 4665600,
+  "finished_jst": "2026-10-15T09:48:09+09:00",
+  "validation_passes": 473,
+  "exit_code": 0,
+  "wall_seconds_excluding_setup": 30437,
+  "loop_wall_seconds": 30152.162105256
+}

@@ -1,0 +1,9 @@
+Test Summary:           | Pass  Total  Time
+finite safety selection |   16     16  4.3s
+Test Summary:                                 | Pass  Total  Time
+Sleep uses current dynamic hazard observation |    4      4  2.6s
+{"food":{"initial":124,"consumed":225,"ground":99,"added":398,"shared":198},"config":{"continuous_descent":"on","repetition_pressure":"off","parent_breadth":"on","lateral_side":"off","days":90,"goal_switch_threshold":2,"seed":20261005,"food":"renewable","learning":"full","hazards":"mixed","ground":"patches","ground_wear":"on","ground_perception":"on","ground_continuity":"on","stores":"shared","regrowth_days":3,"regrowth_capacity":12,"layout":"riparian","skyline":"subrays","reposition":"on","selection_trails":"on","bundle_credit":"off","experience_bundles":"on","exploration_horizon":"on","movement_inertia":"on","body_field":"on","relation_field":"on","orientation":"on","food_body":"on","safety_methods":"continuous","running":"on","climbing":"on","sleep_maintenance":"on","sleep_retention":"strata","general_sleep":"apply","social_response":"experience","dropping":"on","low_obstacles":"on"},"elapsed_seconds_including_compilation":30278.8964748,"output":"/workspace/RDL_GameAI_Lab/outputs/cloud-julia-90d-20261015-01"}
+Test Summary:                  | Pass  Total  Time
+LW-Julia integrated invariants |    4      4  1.5s
+Test Summary:                    | Pass  Total  Time
+daily conservation and carryover |  449    449  1.9s

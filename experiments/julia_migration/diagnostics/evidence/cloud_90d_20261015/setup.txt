@@ -1,0 +1,21 @@
+Precompiling packages...
+   5.3 s  ✓ Unicode
+   7.1 s  ✓ Statistics
+   7.2 s  ✓ Mmap
+   7.9 s  ✓ CompilerSupportLibraries_jll
+   2.8 s  ✓ StructTypes
+   3.5 s  ✓ Compat
+   1.2 s  ✓ Compat → CompatLinearAlgebraExt
+   5.7 s  ✓ Preferences
+  10.6 s  ✓ StructUtils
+  10.4 s  ✓ PrecompileTools
+  45.7 s  ✓ Parsers
+  71.6 s  ✓ Profile
+  44.8 s  ✓ JSON
+  52.3 s  ✓ JSON3
+  45.6 s  ✓ BenchmarkTools
+  15 dependencies successfully precompiled in 159 seconds. 6 already precompiled.
+Status `/workspace/RDL_GameAI_Lab/outputs/cloud-julia-90d-20261015-01/source/experiments/julia_migration/julia/Project.toml`
+  [6e4b80f9] BenchmarkTools v1.8.0
+  [0f8b85d8] JSON3 v1.14.3 [deprecated]
+Info Packages marked with [deprecated] are no longer maintained. Use `status --deprecated` to see more information.
