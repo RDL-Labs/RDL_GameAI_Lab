@@ -1,0 +1,25 @@
+name: Julia ecology smoke checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ecology:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Dependencies
+        run: julia --startup-file=no --project=experiments/numeric_ecology -e 'using Pkg; Pkg.instantiate()'
+      - name: Root entry help
+        run: julia --startup-file=no run.jl --help
+      - name: Herbivore and predator checks
+        run: |
+          julia --startup-file=no --project=experiments/numeric_ecology experiments/numeric_ecology/predator-cpu/checks.jl
+          julia --startup-file=no --project=experiments/numeric_ecology experiments/numeric_ecology/predator-cpu/predator_checks.jl

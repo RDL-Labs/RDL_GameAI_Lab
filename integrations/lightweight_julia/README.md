@@ -1,8 +1,11 @@
 # Julia Lightweight World entry
 
 This entry delegates to the existing native -> run_integrated -> lw_day path;
-it does not add another simulation loop. Migration completion review is ongoing.
-The Python entry remains available and is not automatically replaced.
+it does not add another simulation loop. Julia is the primary repository entry
+for standalone LW work; the declared major-function migration is complete.
+Python remains available for reference and integrations outside that scope.
+See [backend decision](../../docs/design/RDL_Julia_LW_Backend_Decision.md).
+The root shortcut is `julia run.jl lw OUTPUT [options]` after dependency setup.
 
 From repository root (Julia1.13.1):
 
