@@ -1,0 +1,758 @@
+[
+  {
+    "mode": "grass",
+    "cells": [
+      {
+        "angle": -90,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -90,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -90,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 0,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 0,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 0,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      }
+    ],
+    "coverage": "complete",
+    "groups": [
+      {
+        "appearance": "grass",
+        "sample_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "sample_links": [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            10
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            9,
+            10
+          ],
+          [
+            10,
+            13
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            14
+          ],
+          [
+            12,
+            13
+          ],
+          [
+            13,
+            14
+          ]
+        ],
+        "shape": "sampled_patch",
+        "angular_extent": [
+          -90,
+          90
+        ],
+        "distance_extent": [
+          1,
+          4
+        ],
+        "unknown_neighbor_indices": [],
+        "touches_sampling_boundary": true,
+        "continuity": "between_samples_unverified"
+      }
+    ]
+  },
+  {
+    "mode": "band",
+    "cells": [
+      {
+        "angle": -90,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -90,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -90,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 0,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "bare_ground"
+      },
+      {
+        "angle": 0,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "bare_ground"
+      },
+      {
+        "angle": 0,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "bare_ground"
+      },
+      {
+        "angle": 45,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      }
+    ],
+    "coverage": "complete",
+    "groups": [
+      {
+        "appearance": "grass",
+        "sample_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sample_links": [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "shape": "sampled_patch",
+        "angular_extent": [
+          -90,
+          -45
+        ],
+        "distance_extent": [
+          1,
+          4
+        ],
+        "unknown_neighbor_indices": [],
+        "touches_sampling_boundary": true,
+        "continuity": "between_samples_unverified"
+      },
+      {
+        "appearance": "bare_ground",
+        "sample_indices": [
+          6,
+          7,
+          8
+        ],
+        "sample_links": [
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "shape": "sampled_band_candidate",
+        "angular_extent": [
+          0,
+          0
+        ],
+        "distance_extent": [
+          1,
+          4
+        ],
+        "unknown_neighbor_indices": [],
+        "touches_sampling_boundary": true,
+        "continuity": "between_samples_unverified"
+      },
+      {
+        "appearance": "grass",
+        "sample_indices": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "sample_links": [
+          [
+            9,
+            12
+          ],
+          [
+            9,
+            10
+          ],
+          [
+            10,
+            13
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            14
+          ],
+          [
+            12,
+            13
+          ],
+          [
+            13,
+            14
+          ]
+        ],
+        "shape": "sampled_patch",
+        "angular_extent": [
+          45,
+          90
+        ],
+        "distance_extent": [
+          1,
+          4
+        ],
+        "unknown_neighbor_indices": [],
+        "touches_sampling_boundary": true,
+        "continuity": "between_samples_unverified"
+      }
+    ]
+  },
+  {
+    "mode": "occluded",
+    "cells": [
+      {
+        "angle": -90,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -90,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -90,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": -45,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 0,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 0,
+        "distance": 2,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 0,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 45,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 1,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 2,
+        "status": "sampled",
+        "appearance": "grass"
+      },
+      {
+        "angle": 90,
+        "distance": 4,
+        "status": "sampled",
+        "appearance": "grass"
+      }
+    ],
+    "coverage": "partial",
+    "groups": [
+      {
+        "appearance": "grass",
+        "sample_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "sample_links": [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            9,
+            12
+          ],
+          [
+            9,
+            10
+          ],
+          [
+            10,
+            13
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            14
+          ],
+          [
+            12,
+            13
+          ],
+          [
+            13,
+            14
+          ]
+        ],
+        "shape": "sampled_patch",
+        "angular_extent": [
+          -90,
+          90
+        ],
+        "distance_extent": [
+          1,
+          4
+        ],
+        "unknown_neighbor_indices": [
+          7
+        ],
+        "touches_sampling_boundary": true,
+        "continuity": "between_samples_unverified"
+      }
+    ]
+  },
+  {
+    "mode": "missing",
+    "cells": [
+      {
+        "angle": -90,
+        "distance": 1,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": -90,
+        "distance": 2,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": -90,
+        "distance": 4,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": -45,
+        "distance": 1,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": -45,
+        "distance": 2,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": -45,
+        "distance": 4,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 0,
+        "distance": 1,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 0,
+        "distance": 2,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 0,
+        "distance": 4,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 45,
+        "distance": 1,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 45,
+        "distance": 2,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 45,
+        "distance": 4,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 90,
+        "distance": 1,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 90,
+        "distance": 2,
+        "status": "occluded",
+        "appearance": null
+      },
+      {
+        "angle": 90,
+        "distance": 4,
+        "status": "occluded",
+        "appearance": null
+      }
+    ],
+    "coverage": "partial",
+    "groups": []
+  }
+]

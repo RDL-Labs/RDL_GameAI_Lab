@@ -1,0 +1,37 @@
+{
+  "core_checks_passed": 31,
+  "invariant_checks_passed_per_scenario": 24,
+  "parity_differences": {
+    "three_agents_one_day": 0,
+    "fresh_process_numeric_snapshot": 0,
+    "thirty_agents_first_day": 0,
+    "thirty_agents_initial_state": 0
+  },
+  "three_agents": {
+    "seconds": 73.4095866,
+    "allocated_bytes": 16952596658,
+    "agents": 3,
+    "days": 1,
+    "live_state_strings": [
+      0
+    ],
+    "output_strings": 0,
+    "registry_entries": 316925,
+    "registry_bytes": 7495888
+  },
+  "thirty_agents": {
+    "seconds": 366.657075,
+    "allocated_bytes": 143756619960,
+    "agents": 30,
+    "days": 1,
+    "live_state_strings": [
+      0
+    ],
+    "output_strings": 0,
+    "registry_entries": 3332794,
+    "registry_bytes": 88827737
+  },
+  "thirty_agents_peak_working_set_bytes": 4173377536,
+  "scope": "All categorical string data in the integrated runtime are numeric IDs; CPU dictionaries and variable length storage remain.",
+  "limitation": "Registry grows with generated IDs. Not a GPU-ready layout or a demonstrated speedup. Timings include compilation and overlapping verification work."
+}

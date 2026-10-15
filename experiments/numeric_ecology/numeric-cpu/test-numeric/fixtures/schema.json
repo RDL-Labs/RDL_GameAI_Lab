@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Frozen geometry query; unit ray direction additionally validated by wrapper",
+  "type": "object",
+  "required": ["id", "kind", "start", "vector", "circle", "margin", "label"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "integer", "minimum": 0},
+    "kind": {"enum": ["ray", "segment"]},
+    "start": {"$ref": "#/$defs/pair"},
+    "vector": {"$ref": "#/$defs/pair"},
+    "circle": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "prefixItems": [
+        {"$ref": "#/$defs/coordinate"}, {"$ref": "#/$defs/coordinate"},
+        {"type": "number", "minimum": 0, "maximum": 10000}
+      ]
+    },
+    "margin": {"type": "number", "minimum": 0, "maximum": 10000},
+    "label": {"type": "string"}
+  },
+  "$defs": {
+    "coordinate": {"type": "number", "minimum": -10000, "maximum": 10000},
+    "pair": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/coordinate"}}
+  }
+}

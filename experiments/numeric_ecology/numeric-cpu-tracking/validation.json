@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "three_agents_on_off_full_result": true,
+    "three_agents_original_full_result": true,
+    "off_snapshot_fresh_process": true,
+    "thirty_agents_on_off_full_result": true,
+    "three_days_daily_records": true,
+    "three_days_day_starts": true
+  },
+  "core_and_tracking_checks_passed": 42,
+  "invariant_checks_passed_per_scenario": 24,
+  "on_3": {
+    "seconds": 60.9215515,
+    "allocated_bytes": 17333950975,
+    "agents": 3,
+    "days": 1,
+    "live_state_strings": [
+      0
+    ],
+    "output_strings": 0,
+    "registry_entries": 316927,
+    "registry_bytes": 7495909,
+    "id_tracking": "on",
+    "registry_live_entries": 316927,
+    "collections": 0,
+    "reclaimed": 0
+  },
+  "off_3": {
+    "seconds": 59.0352947,
+    "allocated_bytes": 17445635896,
+    "agents": 3,
+    "days": 1,
+    "live_state_strings": [
+      0
+    ],
+    "output_strings": 0,
+    "registry_entries": 17701,
+    "registry_bytes": 254301,
+    "id_tracking": "off",
+    "registry_live_entries": 12154,
+    "collections": 28,
+    "reclaimed": 307481
+  },
+  "off_3_days": {
+    "seconds": 155.2907334,
+    "allocated_bytes": 47614812657,
+    "agents": 3,
+    "days": 3,
+    "live_state_strings": [
+      0
+    ],
+    "output_strings": 0,
+    "registry_entries": 20500,
+    "registry_bytes": 250949,
+    "id_tracking": "off",
+    "registry_live_entries": 11937,
+    "collections": 86,
+    "reclaimed": 962520
+  },
+  "on_30_previous_version": {
+    "seconds": 366.657075,
+    "allocated_bytes": 143756619960,
+    "agents": 30,
+    "days": 1,
+    "live_state_strings": [
+      0
+    ],
+    "output_strings": 0,
+    "registry_entries": 3332794,
+    "registry_bytes": 88827737
+  },
+  "off_30": {
+    "seconds": 346.2505038,
+    "allocated_bytes": 144211757691,
+    "agents": 30,
+    "days": 1,
+    "live_state_strings": [
+      0
+    ],
+    "output_strings": 0,
+    "registry_entries": 159667,
+    "registry_bytes": 2877387,
+    "id_tracking": "off",
+    "registry_live_entries": 111935,
+    "collections": 28,
+    "reclaimed": 3228004
+  },
+  "on_30_peak_bytes": 4173377536,
+  "off_30_peak_bytes": 2468323328,
+  "peak_reduction_percent": 40.85549877268521,
+  "scope": "OFF reclaims unreachable registry identities. Functional references and reachable output history remain.",
+  "timing_limit": "Single runs include compilation and some overlapping verification work. No controlled speedup claim."
+}

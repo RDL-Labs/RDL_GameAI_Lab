@@ -1,0 +1,16 @@
+{
+  "byte_identical": true,
+  "sha256": "6A1C64E7C2B91F329F59EF1D9B25818D6279D367C7EC77CB892278D9B7649DD1",
+  "parity_agents": 3,
+  "parity_days": 1,
+  "storage_test_agents": 30,
+  "storage_tests_passed": 179,
+  "baseline_invariant_tests_passed": 24,
+  "numeric_invariant_tests_passed": 24,
+  "baseline_seconds": 50.5782937,
+  "numeric_seconds": 51.6917459,
+  "baseline_allocated_bytes": 27943453643,
+  "numeric_allocated_bytes": 28068479586,
+  "timing_note": "Single runs including compilation; not a controlled performance benchmark",
+  "full_numeric_conversion": false
+}

@@ -5,6 +5,8 @@
 
 # RDL Game AI Lab
 
+- [数値CPU・生態系の独立実験](experiments/numeric_ecology/README.md)：数値ID管理、兎と捕食者の状態機械、動き・視野の比較、3,000体の過採食試験。本線未統合・繁殖未実装。
+
 - [Julia荷重付き乗り越え](experiments/julia_migration/lw_integrated/climbing_report.md)：既存生活ループの目的・方法選択へ接続。3日比較と43検査PASS。歩行不可と視認可能を分離、荷下ろしは次段階。
 
 - [Julia危険対応の走行](experiments/julia_migration/lw_integrated/running_report.md)：身体・荷重・地面と走行候補を接続。3日比較、24実走行、42検査PASS。効率改善・全身体操作移植の主張ではない。
