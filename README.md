@@ -55,6 +55,8 @@ julia --startup-file=no run.jl lw outputs/lw-replay --spec path/to/spec.json
 
 ## 検証と記録
 
+- [味・満腹・遅延消化のLW接続実験](experiments/digestion_taste/README.md)：味と栄養を分離。狩猟・味による探索選択は未接続。
+
 - [Julia LWの検証・切替判定](docs/design/RDL_Julia_LW_Backend_Decision.md)
 - [数値CPU・生態系の検証](experiments/numeric_ecology/README.md)
 - [過去のREADME・更新履歴](docs/history/README-before-julia-primary-20261016.md)
