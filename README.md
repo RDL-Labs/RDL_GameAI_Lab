@@ -53,7 +53,7 @@ julia --startup-file=no run.jl lw outputs/lw-replay --spec path/to/spec.json
 | `gui-p5` / `start_workbench.bat` | Pythonで配信する既存観測用UI |
 | `godot` / `integrations/luanti` | 外部エンジン連携。Julia生態系との接続は別作業 |
 
-Juliaの階層化を進めています。移動済みの実装は`src`を正本とし、旧パスには互換入口を残しています。[計画・進捗](docs/JULIA_REFACTOR_PLAN.md)と[リポジトリ案内](docs/REPOSITORY_GUIDE.md)を参照してください。
+Juliaの構造整理を実施しました。現役実装は`src`を正本とし、旧パスには互換入口を残しています。[計画と検証結果](docs/JULIA_REFACTOR_PLAN.md)、[責任境界と更新順序](docs/JULIA_LAYERS.md)、[リポジトリ案内](docs/REPOSITORY_GUIDE.md)を参照してください。
 
 ## 検証と記録
 

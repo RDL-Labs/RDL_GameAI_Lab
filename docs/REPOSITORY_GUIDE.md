@@ -1,6 +1,6 @@
 # Julia中心のリポジトリ案内
 
-2026-10-21：Julia実装の階層化を進行中。移行済みの実装はsrcを正本とし、旧パスは互換入口。進捗と未完範囲は[JULIA_REFACTOR_PLAN.md](JULIA_REFACTOR_PLAN.md)を参照。
+2026-10-21：Julia実装の構造整理を実施。現役実装はsrcを正本とし、旧パスは互換入口。実施範囲と検証結果は[JULIA_REFACTOR_PLAN.md](JULIA_REFACTOR_PLAN.md)を参照。
 
 ## 開発先
 
