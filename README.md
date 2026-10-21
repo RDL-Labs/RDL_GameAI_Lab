@@ -8,8 +8,7 @@ Juliaを主な実行・開発環境とする、RDLの生活・学習・生態系
 Julia **1.13.1**を用意し、リポジトリルートで依存関係を準備します。
 
 ```sh
-julia --startup-file=no --project=experiments/julia_migration/julia experiments/julia_migration/julia/setup.jl
-julia --startup-file=no --project=experiments/numeric_ecology -e 'using Pkg; Pkg.instantiate()'
+julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
 ```
 
 共通入口：
@@ -43,15 +42,18 @@ julia --startup-file=no run.jl lw outputs/lw-replay --spec path/to/spec.json
 | 場所 | 役割 |
 |---|---|
 | `run.jl` / `start_julia.bat` | Juliaの共通起動入口 |
+| `Project.toml` / `Manifest.toml` | 現役Julia共通環境 |
+| `src` | 身体・幾何・LW各層・兎の共通実装 |
+| `test` | Julia階層化の回帰・境界テスト |
 | `integrations/lightweight_julia` | 既存Julia LWの安定入口 |
-| `experiments/julia_migration` | Julia LW実装、固定環境、移行・回帰・性能の証拠 |
+| `experiments/julia_migration` | 互換入口、旧固定環境、移行・回帰・性能の証拠 |
 | `experiments/numeric_ecology` | 数値化と生態系の独立実験・保存結果 |
 | `docs` / `notes` | 設計・契約・検証記録 |
 | `runtime` / `tests` / `integrations/lightweight` | Pythonの比較基準・旧経路・回帰検証 |
 | `gui-p5` / `start_workbench.bat` | Pythonで配信する既存観測用UI |
 | `godot` / `integrations/luanti` | 外部エンジン連携。Julia生態系との接続は別作業 |
 
-実装の物理移動は行わず、既存のinclude・ワークフロー・履歴からの参照を維持しています。詳しくは[リポジトリ案内](docs/REPOSITORY_GUIDE.md)。
+Juliaの階層化を進めています。移動済みの実装は`src`を正本とし、旧パスには互換入口を残しています。[計画・進捗](docs/JULIA_REFACTOR_PLAN.md)と[リポジトリ案内](docs/REPOSITORY_GUIDE.md)を参照してください。
 
 ## 検証と記録
 

@@ -1,11 +1,12 @@
 # Julia中心のリポジトリ案内
 
-2026-10-16：起動と案内をJulia中心に整理。コードの移動・削除やシミュレーション挙動の変更は行わない。
+2026-10-21：Julia実装の階層化を進行中。移行済みの実装はsrcを正本とし、旧パスは互換入口。進捗と未完範囲は[JULIA_REFACTOR_PLAN.md](JULIA_REFACTOR_PLAN.md)を参照。
 
 ## 開発先
 
-- 既存の生活・学習系：`integrations/lightweight_julia/run.jl`が`experiments/julia_migration/lw_integrated/native.jl`へ委譲し、既存の生活ループを使う。`julia_migration`という名前は来歴であり、現在も実行コードを含む。
-- 簡易生態系：`experiments/numeric_ecology`。各版を証拠として独立保存。新しい比較は対象版と対照条件を明記する。
+- 生活・学習系：`src/lw`のworld/perception/decision/learning/simulation。CLIと出力は`integrations/lightweight_julia`。新規の実装を旧実験フォルダへ追加しない。
+- 簡易生態系：基本の兎は`src/ecology/herbivore`、捕食・視覚・過放牧の各変種も`src/ecology`。`experiments/numeric_ecology`に条件・比較・保存結果と互換入口を残す。数値化の歴史的スナップショットは変更対象外。
+- 共通の身体・幾何は`src/body`と`src/geometry`。ルートProject/Manifestが現役の共通環境。
 - 数値化：同ディレクトリの`numeric-cpu*`。生態系の状態機械とは別系統。
 
 ## Python・外部連携の扱い

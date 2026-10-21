@@ -16,10 +16,17 @@ jobs:
         with:
           version: '1.13.1'
       - name: Dependencies
-        run: julia --startup-file=no --project=experiments/numeric_ecology -e 'using Pkg; Pkg.instantiate()'
+        run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Julia layer boundaries
+        run: |
+          julia --startup-file=no --project=. test/herbivore_policy.jl
+          julia --startup-file=no --project=. test/lw_policy.jl
+          julia --startup-file=no --project=. test/memory_blocks.jl
+          julia --startup-file=no --project=. test/layer_dependencies.jl
+          julia --startup-file=no --project=. test/shared_world_policies.jl
       - name: Root entry help
         run: julia --startup-file=no run.jl --help
       - name: Herbivore and predator checks
         run: |
-          julia --startup-file=no --project=experiments/numeric_ecology experiments/numeric_ecology/predator-cpu/checks.jl
-          julia --startup-file=no --project=experiments/numeric_ecology experiments/numeric_ecology/predator-cpu/predator_checks.jl
+          julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/checks.jl
+          julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/predator_checks.jl

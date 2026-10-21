@@ -65,4 +65,6 @@ rows=Any[]
 end
 report=(julia=string(VERSION),threads=Threads.nthreads(),cpu=Sys.CPU_NAME,
     ticks=ticks,repetitions=repetitions,peak_process_rss_bytes=Sys.maxrss(),rows=rows)
-write(joinpath(@__DIR__,"benchmark-results.json"),JSON3.write(report))
+output=isempty(ARGS) ? joinpath(@__DIR__,"benchmark-results.json") : abspath(only(ARGS))
+mkpath(dirname(output))
+write(output,JSON3.write(report))

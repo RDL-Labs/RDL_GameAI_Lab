@@ -1,4 +1,4 @@
-# Stable router only: simulation implementations stay at their existing paths.
+# Stable router; shared Julia environment and layered implementation.
 if isempty(ARGS) || ARGS[1] in ("--help", "-h")
     println("""
     RDL Game AI Lab — Julia entry
@@ -15,8 +15,7 @@ else
     route in ("lw", "ecology") || error("Unknown route: $route. Use --help.")
     isempty(ARGS) && error("$route requires an output path or experiment name. Use --help.")
     using Pkg
-    project=route=="lw" ? "experiments/julia_migration/julia" : "experiments/numeric_ecology"
-    Pkg.activate(joinpath(@__DIR__,project))
+    Pkg.activate(@__DIR__)
     if route=="lw"
         include(joinpath(@__DIR__,"integrations/lightweight_julia/run.jl"))
         native_main(ARGS)
