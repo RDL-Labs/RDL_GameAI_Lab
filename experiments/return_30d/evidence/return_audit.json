@@ -1,0 +1,239 @@
+[
+  {
+    "actor": "npc_a",
+    "final_distance": 44.95698489311414,
+    "final_reserve": 78.49483900767999,
+    "final_return_active": true,
+    "final_active_age_days": 0.45578703703703705,
+    "final_home_H": 32,
+    "completed_return_count": 1531,
+    "recorded_completed_episodes": 1531,
+    "max_observed_return_days": 3.011863425925926,
+    "zero_reserve_day_ends": [],
+    "all_rest_days": [],
+    "prolonged_episodes": [
+      {
+        "first_observed_sec": 118197,
+        "zero_reserve_ticks": 0,
+        "ticks": 34242,
+        "last_distance": 1.109556693912773,
+        "start_distance": 1.5773264300910543,
+        "completed": true,
+        "min_distance": 1.109556693912773,
+        "started_us": 118197000000,
+        "actor": "npc_a",
+        "completed_observed_sec": 152439
+      },
+      {
+        "first_observed_sec": 290852,
+        "zero_reserve_ticks": 0,
+        "ticks": 29319,
+        "last_distance": 1.168631662357037,
+        "start_distance": 1.8859648471937396,
+        "completed": true,
+        "min_distance": 1.168631662357037,
+        "started_us": 290852000000,
+        "actor": "npc_a",
+        "completed_observed_sec": 320171
+      },
+      {
+        "first_observed_sec": 371520,
+        "zero_reserve_ticks": 0,
+        "ticks": 52045,
+        "last_distance": 1.221898669254205,
+        "start_distance": 65.95982801043685,
+        "completed": true,
+        "min_distance": 1.221898669254205,
+        "started_us": 371520000000,
+        "actor": "npc_a",
+        "completed_observed_sec": 423565
+      },
+      {
+        "first_observed_sec": 423625,
+        "zero_reserve_ticks": 0,
+        "ticks": 36236,
+        "last_distance": 1.0040377910672886,
+        "start_distance": 2.8298575209114114,
+        "completed": true,
+        "min_distance": 1.0040377910672886,
+        "started_us": 423625000000,
+        "actor": "npc_a",
+        "completed_observed_sec": 459861
+      },
+      {
+        "first_observed_sec": 475892,
+        "zero_reserve_ticks": 0,
+        "ticks": 19754,
+        "last_distance": 0.9999999999999997,
+        "start_distance": 1.7337160171641466,
+        "completed": true,
+        "min_distance": 0.9999999999999997,
+        "started_us": 475892000000,
+        "actor": "npc_a",
+        "completed_observed_sec": 495646
+      }
+    ]
+  },
+  {
+    "actor": "npc_b",
+    "final_distance": 53.86908859317096,
+    "final_reserve": 74.00604817137962,
+    "final_return_active": true,
+    "final_active_age_days": 0.5,
+    "final_home_H": 32,
+    "completed_return_count": 1645,
+    "recorded_completed_episodes": 1645,
+    "max_observed_return_days": 3.5653935185185186,
+    "zero_reserve_day_ends": [],
+    "all_rest_days": [],
+    "prolonged_episodes": [
+      {
+        "first_observed_sec": 14371,
+        "zero_reserve_ticks": 0,
+        "ticks": 21488,
+        "last_distance": 1.229047459642688,
+        "start_distance": 1.9061288584127816,
+        "completed": true,
+        "min_distance": 1.229047459642688,
+        "started_us": 14371000000,
+        "actor": "npc_b",
+        "completed_observed_sec": 35859
+      },
+      {
+        "first_observed_sec": 77760,
+        "zero_reserve_ticks": 0,
+        "ticks": 17908,
+        "last_distance": 1.0,
+        "start_distance": 52.27315553223202,
+        "completed": true,
+        "min_distance": 1.0,
+        "started_us": 77760000000,
+        "actor": "npc_b",
+        "completed_observed_sec": 95668
+      },
+      {
+        "first_observed_sec": 109669,
+        "zero_reserve_ticks": 0,
+        "ticks": 55078,
+        "last_distance": 0.9999999999999999,
+        "start_distance": 16.993941664054024,
+        "completed": true,
+        "min_distance": 0.9999999999999999,
+        "started_us": 109669000000,
+        "actor": "npc_b",
+        "completed_observed_sec": 164747
+      },
+      {
+        "first_observed_sec": 164763,
+        "zero_reserve_ticks": 0,
+        "ticks": 42942,
+        "last_distance": 1.0735300484241659,
+        "start_distance": 2.061552812808831,
+        "completed": true,
+        "min_distance": 1.0735300484241659,
+        "started_us": 164763000000,
+        "actor": "npc_b",
+        "completed_observed_sec": 207705
+      },
+      {
+        "first_observed_sec": 224893,
+        "zero_reserve_ticks": 0,
+        "ticks": 61610,
+        "last_distance": 1.2150001025765234,
+        "start_distance": 35.77223337301214,
+        "completed": true,
+        "min_distance": 1.2150001025765234,
+        "started_us": 224893000000,
+        "actor": "npc_b",
+        "completed_observed_sec": 286503
+      },
+      {
+        "first_observed_sec": 319680,
+        "zero_reserve_ticks": 0,
+        "ticks": 19891,
+        "last_distance": 1.0000000000000002,
+        "start_distance": 53.255714874887076,
+        "completed": true,
+        "min_distance": 1.0000000000000002,
+        "started_us": 319680000000,
+        "actor": "npc_b",
+        "completed_observed_sec": 339571
+      },
+      {
+        "first_observed_sec": 388800,
+        "zero_reserve_ticks": 0,
+        "ticks": 17527,
+        "last_distance": 1.0,
+        "start_distance": 16.848471654417658,
+        "completed": true,
+        "min_distance": 1.0,
+        "started_us": 388800000000,
+        "actor": "npc_b",
+        "completed_observed_sec": 406327
+      }
+    ]
+  },
+  {
+    "actor": "npc_c",
+    "final_distance": 6.8763847603427335,
+    "final_reserve": 84.35135902321525,
+    "final_return_active": true,
+    "final_active_age_days": 0.16828703703703704,
+    "final_home_H": 1,
+    "completed_return_count": 1553,
+    "recorded_completed_episodes": 1553,
+    "max_observed_return_days": 3.7611689814814815,
+    "zero_reserve_day_ends": [],
+    "all_rest_days": [],
+    "prolonged_episodes": [
+      {
+        "first_observed_sec": 112320,
+        "zero_reserve_ticks": 0,
+        "ticks": 39064,
+        "last_distance": 1.2271114272605452,
+        "start_distance": 77.05200000514742,
+        "completed": true,
+        "min_distance": 1.2271114272605452,
+        "started_us": 112320000000,
+        "actor": "npc_c",
+        "completed_observed_sec": 151384
+      },
+      {
+        "first_observed_sec": 163079,
+        "zero_reserve_ticks": 0,
+        "ticks": 38591,
+        "last_distance": 1.000019257438588,
+        "start_distance": 49.605142359628886,
+        "completed": true,
+        "min_distance": 1.000019257438588,
+        "started_us": 163079000000,
+        "actor": "npc_c",
+        "completed_observed_sec": 201670
+      },
+      {
+        "first_observed_sec": 370372,
+        "zero_reserve_ticks": 0,
+        "ticks": 33083,
+        "last_distance": 1.0000137247836522,
+        "start_distance": 49.604804244089664,
+        "completed": true,
+        "min_distance": 1.0000137247836522,
+        "started_us": 370372000000,
+        "actor": "npc_c",
+        "completed_observed_sec": 403455
+      },
+      {
+        "first_observed_sec": 445892,
+        "zero_reserve_ticks": 0,
+        "ticks": 64993,
+        "last_distance": 0.9408667503458671,
+        "start_distance": 1.499999311432415,
+        "completed": true,
+        "min_distance": 0.9408667503458671,
+        "started_us": 445892000000,
+        "actor": "npc_c",
+        "completed_observed_sec": 510885
+      }
+    ]
+  }
+]

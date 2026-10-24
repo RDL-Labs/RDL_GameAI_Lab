@@ -1,0 +1,6 @@
+{
+  "agent_days": 90,
+  "fields": "position,reserve,home_H,10 action counts",
+  "differences": [],
+  "exact_match": true
+}
