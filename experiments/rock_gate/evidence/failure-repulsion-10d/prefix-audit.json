@@ -1,0 +1,260 @@
+{
+  "prefix_days": 3,
+  "prefix_daily_exact": true,
+  "prefix_events_exact": true,
+  "days": 10,
+  "actors": {
+    "npc_b": {
+      "outward": 1,
+      "inward": 1,
+      "reserve": 0,
+      "counts": {
+        "rest": 142730,
+        "walk": 25153,
+        "give": 3,
+        "refuse": 3,
+        "scan": 4911
+      },
+      "return_purpose": {
+        "completed": 3,
+        "active": true,
+        "started_us": 77760000000,
+        "entries": 4
+      },
+      "max_radius": 5.136439223083418,
+      "food_H": 32,
+      "food_reward": 0,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 69.23058805243474,
+          "return_active": false,
+          "return_completed": 1
+        },
+        {
+          "day": 2,
+          "reserve": 48.51099129314333,
+          "return_active": false,
+          "return_completed": 2
+        },
+        {
+          "day": 3,
+          "reserve": 27.800607959773277,
+          "return_active": false,
+          "return_completed": 3
+        },
+        {
+          "day": 4,
+          "reserve": 7.737035490910878,
+          "return_active": false,
+          "return_completed": 3
+        },
+        {
+          "day": 5,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 3
+        },
+        {
+          "day": 6,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 3
+        },
+        {
+          "day": 7,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 3
+        },
+        {
+          "day": 8,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 3
+        },
+        {
+          "day": 9,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 3
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 3
+        }
+      ]
+    },
+    "npc_a": {
+      "outward": 1,
+      "inward": 0,
+      "reserve": 0,
+      "counts": {
+        "request": 8,
+        "rest": 71363,
+        "walk": 90147,
+        "eat": 9,
+        "pickup": 6,
+        "scan": 9687,
+        "run": 1580
+      },
+      "return_purpose": {
+        "completed": 0,
+        "active": true,
+        "started_us": 8453000000,
+        "entries": 1
+      },
+      "max_radius": 34.4929991560773,
+      "food_H": 0,
+      "food_reward": 32,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 87.46353574929077,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 2,
+          "reserve": 82.12740248458209,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 3,
+          "reserve": 97.62297757435134,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 4,
+          "reserve": 93.6532378478073,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 5,
+          "reserve": 89.52309451426265,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 6,
+          "reserve": 66.02908402450566,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 7,
+          "reserve": 42.95000483273361,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 8,
+          "reserve": 19.73981652284783,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 9,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        }
+      ]
+    },
+    "npc_c": {
+      "outward": 0,
+      "inward": 0,
+      "reserve": 0,
+      "counts": {
+        "rest": 136832,
+        "walk": 30106,
+        "give": 1,
+        "eat": 1,
+        "refuse": 1,
+        "scan": 5859
+      },
+      "return_purpose": {
+        "completed": 4,
+        "active": true,
+        "started_us": 95040000000,
+        "entries": 5
+      },
+      "max_radius": 4.476192754156592,
+      "food_H": 32,
+      "food_reward": 0,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 89.02244293011387,
+          "return_active": false,
+          "return_completed": 1
+        },
+        {
+          "day": 2,
+          "reserve": 68.31259694244778,
+          "return_active": false,
+          "return_completed": 2
+        },
+        {
+          "day": 3,
+          "reserve": 47.59865759056079,
+          "return_active": false,
+          "return_completed": 3
+        },
+        {
+          "day": 4,
+          "reserve": 26.89476870163802,
+          "return_active": false,
+          "return_completed": 3
+        },
+        {
+          "day": 5,
+          "reserve": 6.910590991725939,
+          "return_active": false,
+          "return_completed": 4
+        },
+        {
+          "day": 6,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 4
+        },
+        {
+          "day": 7,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 4
+        },
+        {
+          "day": 8,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 4
+        },
+        {
+          "day": 9,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 4
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 4
+        }
+      ]
+    }
+  }
+}

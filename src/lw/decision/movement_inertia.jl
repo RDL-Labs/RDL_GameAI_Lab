@@ -12,24 +12,11 @@ function observe_inertia!(s,actor,now,view)
     s["H"]=s["view"]!==nothing && s["view"]==view ? min(32,s["H"]+1) : 0
     s["view"]=view;s["last_us"]=now
 end
-function inertia_candidate!(s,move,hazard,phase,family,methods,source)
-    r=s["receipt"]
-    reason=r===nothing || r.actor!=s["actor"] || r.executed_us!=s["last_us"] ? "body_unlinked" :
-        !(phase in ("exploration","return")) ? "protected_phase" :
-        r.phase!=phase || r.family!=family ? "phase_changed" :
-        hazard["coverage"]!="complete" || !isempty(hazard["features"]) ? "hazard_or_unknown" :
-        !isempty(move["visible"]) ? "food_observed" :
-        move["energy"]["rows"][3]["cost"]===nothing ? "surface_or_body_unavailable" :
-        s["H"]>=s["threshold"] ? "repetition_threshold" :
-        r.action!="walk" || r.status!="performed" || !r.moved || r.method===nothing ? "no_confirmed_move" :
-        startswith(r.method,"reposition_") ? "search_requires_review" :
-        !haskey(methods,r.method) ? "method_unavailable" : nothing
-    if reason!==nothing
-        s["interrupts"][reason]=get(s["interrupts"],reason,0)+1
-        return nothing
-    end
-    s["continued"]+=1
-    push!(s["records"],D("source"=>source,"previous"=>r.source,"method"=>r.method,"H"=>s["H"]))
+function record_continuation!(s,plan,loop,source)
+    s["continued"]+=Int(get(plan,"inertial",false))
+    push!(s["records"],D("source"=>source,"method"=>plan["method"],"H"=>loop.H,
+        "probability"=>get(plan,"selection_probability",nothing),
+        "candidate_count"=>get(plan,"candidate_count",0),"continued"=>get(plan,"inertial",false)))
     length(s["records"])>32 && popfirst!(s["records"])
-    D("method"=>r.method,"action"=>"walk","direction"=>2,"priority"=>10.,"question"=>"movement_progress","route"=>r.route,"inertial"=>true)
+    nothing
 end

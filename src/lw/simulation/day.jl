@@ -8,6 +8,8 @@ include(joinpath(@__DIR__, "../perception/skyline.jl"))
 include(joinpath(@__DIR__, "../world/landscape.jl"))
 include(joinpath(@__DIR__, "../world/ground_wear.jl"))
 include(joinpath(@__DIR__, "../perception/ground_pattern.jl"))
+include(joinpath(@__DIR__, "../perception/local_structures.jl"))
+include(joinpath(@__DIR__, "../perception/rho_map.jl"))
 include(joinpath(@__DIR__, "../perception/ground_continuity.jl"))
 include(joinpath(@__DIR__, "../decision/climbing.jl"))
 include(joinpath(@__DIR__, "../world/dropped_cargo.jl"))
@@ -55,7 +57,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,digestion_mode="off")
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -105,7 +107,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
     end
     sky=Dict(a=>orientation_state(a) for a in IDS)
-    safety_loops=Dict(a=>BasicLoop(a*":safety";parent=a*":life") for a in IDS)
+    safety_loops=Dict(a=>BasicLoop(a*":safety";parent=a*":life",probabilistic=true,seed=choice_seed) for a in IDS)
     safety=Dict(a=>safety_state() for a in IDS)
     horizons=Dict(a=>horizon_state(a) for a in IDS)
     check(!exploration_horizon || landmark_routes,"horizon_requires_observed_fan")
@@ -128,6 +130,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     check(!ground_continuity || ground_perception,"ground_continuity_requires_perception")
+    check(rho_profile in ("off","coarse","fine"),"rho_profile")
+    check(rho_profile=="off" || (ground_continuity && continuous_descent),"rho_requires_structure_and_descent")
     check(skyline_mode in ("off","rays","subrays"),"skyline_mode")
     skyline_states=Dict(a=>skyline_state() for a in IDS)
     reposition_states=Dict(a=>reposition_state(a) for a in IDS)
@@ -135,6 +139,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     inherited_ground=history===nothing ? get(spec,:ground_history,nothing) : history.ground
     check(inherited_ground===nothing || ground_wear,"ground_history_requires_wear")
     wear=inherited_ground===nothing ? GroundWear(Int(clock.day_us)) : restore_wear(inherited_ground,Int(clock.day_us))
+    artificial_roads=get(spec,:artificial_roads,Any[])
+    check(isempty(artificial_roads) || ground_wear,"artificial_roads_require_ground_wear")
+    # An inherited world already owns its aged roads; never rebuild on resume.
+    inherited_ground===nothing && place_roads!(wear,artificial_roads)
     wear_offset=wear.now
     ground_views=Dict(a=>D("observations"=>0,"counts"=>D(),"records"=>Any[]) for a in IDS)
     land=get(spec,:landscape,nothing)
@@ -175,7 +183,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     field_stats=Dict(a=>D("applied"=>0,"selection_changes"=>0,"examples"=>Any[],"by_model"=>D()) for a in IDS)
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
-    loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security",threshold=Int(goal_switch_threshold)) for f in ("food","home")) for a in IDS)
+    loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*":food-security",threshold=Int(goal_switch_threshold),probabilistic=true,seed=choice_seed) for f in ("food","home")) for a in IDS)
     check(!sleep_maintenance || sleep_actions,"maintenance_needs_sleep_actions")
     check(!sleep_actions || general_sleep,"sleep_actions_need_review")
     action_models=Dict(a=>sleep_action_state(a) for a in IDS)
@@ -207,12 +215,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     for sec in 0:days*div(clock.day_us,1_000_000)-1
         now=sec*1_000_000;w.seconds=sec
         (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
+        lateral_views=lateral_side!="off" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
         if ground_perception
             for a in IDS
                 view=ground_appearance(w,a,yaw,wear,now;dry=dry)
                 patterns=ground_patterns(view)
                 record_ground_patterns!(ground_views[a],view,patterns)
                 ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing),patterns)
+                ground_continuity && update_structures!(ground_models[a]["structures"],(rho_profile=="off" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],rho_profile)),get(ground_receipts,a,nothing))
             end
         end
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
@@ -269,8 +279,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             end
         end
-        lateral_views=lateral_side=="off" && !continuous_descent ? nothing : Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS)
-        landmarks=landmark_routes ? Dict(a=>landmark_fan(landmark_objects,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
+        landmarks=landmark_routes ? Dict(a=>landmark_fan(landmark_objects,w.positions[a],yaw[a],"ob:$now:$a";night=phase=="night") for a in IDS) : nothing
         skyline_views=skyline_mode=="off" ? nothing : Dict(a=>skyline_fan(skyline_objects,w.positions[a],yaw[a],"ob:$now:$a";subrays=skyline_mode=="subrays") for a in IDS)
         if skyline_views!==nothing
             for a in IDS;record_skyline!(skyline_states[a],skyline_views[a]);end
@@ -301,7 +310,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 if reposition && t.phase==phase
                     search_review_result!(reposition_states[a],t.family,s.trial.method,target!==nothing,t.status=="performed")
                 end
-                resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing)
+                resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing;
+                    creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true))
             end
             if ground_continuity
                 active=Set(m["model_ref"] for m in ground_models[a]["models"])
@@ -371,10 +381,6 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
                     else
                         s=loops[a][family];source="op:$now:$a"
-                        rolling=movement_inertia && !((adaptive_approach && near_target(target)) || (continuous_descent && target!==nothing)) ? inertia_candidate!(inertia[a],moves[a],hazard_views[a],phase,family,s.methods,source) : nothing
-                        if rolling!==nothing
-                            plan=choose_method!(s,[rolling],source)
-                        else
                         candidates=search_candidates(moves[a],target,s)
                         if skyline_views!==nothing && returning && target===nothing
                             append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
@@ -393,8 +399,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 relation_field && append!(candidates,relation_candidates!(relation_fields[a],moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
                             end
                         end
-                        if ground_continuity && phase=="exploration" && !returning && target===nothing
+                        # Local paths are movement options for either purpose, even with a visible goal.
+                        if ground_continuity
                             append!(candidates,ground_proposals(ground_models[a],moves[a]))
+                            if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
+                                append!(candidates,rho_opening_candidates(ground_models[a]["structures"]["observation"],moves[a]))
+                            end
                         end
                         if exploration_horizon && phase=="exploration" && !returning && target===nothing
                             append!(candidates,horizon_candidates(horizons[a],landmarks[a],moves[a]))
@@ -443,7 +453,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             after_choice=method_choice(s,candidates)
                             repetitions[a]["changes"]+=Int(prior_choice!==nothing && after_choice!==nothing && prior_choice["method"]!=after_choice["method"])
                         end
+                        if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
+                            project_rho_affordance!(candidates,ground_models[a]["structures"]["observation"])
+                        end
                         plan=choose_method!(s,candidates,source)
+                        movement_inertia && record_continuation!(inertia[a],plan,s,source)
                         skyline_mode!="off" && plan["method"]=="skyline_home" && (skyline_states[a]["selections"]+=1)
                         reposition && startswith(plan["method"],"reposition_") && (reposition_states[a]["selected"]+=1)
                         selection_trails && (plan["trail_trace"]=trail_trace)
@@ -463,11 +477,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                     "with"=>field_selected["method"],"field"=>field_trace))
                             end
                         end
-                        end
                         landmark_routes && get(plan,"route",nothing)!==nothing && (routes[a]["selections"]+=1)
-                        if continuous_descent
-                            steer_local_descent!(plan,target,lateral_views[a],w,a,yaw,resistance_at)
-                        elseif adaptive_approach
+                        if !continuous_descent && adaptive_approach
                             refine_approach!(plan,target,w,a,yaw,resistance_at)
                         end
                         pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
@@ -506,6 +517,23 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan["scan_angle"]=orientation_scan!(sky[a],clock)
             end
             plan["purpose_family"]=returning ? "home" : "food"
+            if continuous_descent && plan["action"] in ("walk","run")
+                visible=moves[a]["visible"]
+                goal=returning ? home : isempty(visible) ? nothing : first(visible)
+                structure_state=ground_continuity ? ground_models[a]["structures"] : nothing
+                applied=steer_structure!(plan,goal,lateral_views[a],structure_state,w,a,yaw,
+                    plan["action"]=="run" ? base_resistance_at : resistance_at)
+                gs=ground_stats[a]
+                gs["steering_attempts"]=get(gs,"steering_attempts",0)+1
+                gs["steering_applied"]=get(gs,"steering_applied",0)+Int(applied)
+                gs["steering_structured"]=get(gs,"steering_structured",0)+Int(applied && get(plan,"structure_groups",0)>0)
+                if haskey(plan,"rho_profile")
+                    gs["rho_profile"]=plan["rho_profile"]
+                    gs["rho_applied"]=get(gs,"rho_applied",0)+1
+                    gs["rho_last_potential"]=plan["potential"]
+                    gs["rho_last_source"]=plan["rho_source"]
+                end
+            end
             bundle_credit && (plan["bundle_parent"]=D("actor"=>a,"due"=>hunger[a]["due"],"H"=>hunger[a]["H"]))
             selection_trails && (plan["trail_parent"]=(reserve=w.bodies[a].reserve,H=hunger[a]["H"]))
             plans[a]=plan

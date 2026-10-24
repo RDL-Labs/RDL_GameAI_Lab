@@ -1,0 +1,313 @@
+{
+  "actors": {
+    "npc_a": {
+      "events_identical": false,
+      "baseline_events": 13019,
+      "reversed_events": 7537,
+      "first_difference": {
+        "baseline": {
+          "landmark_color": null,
+          "method": null,
+          "selection_mode": null,
+          "us": 66000000,
+          "route": null,
+          "status": "expressed",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "request",
+          "actor": "npc_a",
+          "phase": "exploration",
+          "target": "npc_b"
+        },
+        "reversed": {
+          "landmark_color": null,
+          "method": null,
+          "selection_mode": null,
+          "us": 66000000,
+          "route": null,
+          "status": "unavailable",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "request",
+          "actor": "npc_a",
+          "phase": "exploration",
+          "target": "npc_b"
+        }
+      },
+      "final_position_identical": false,
+      "baseline_position": [
+        1.0895100469397374,
+        -1.6342529984297942
+      ],
+      "reversed_position": [
+        0.7747453462095261,
+        5.099064552222383
+      ],
+      "baseline_max_radius": 27.98389085870871,
+      "reversed_max_radius": 4.477532279435308,
+      "baseline_counts": {
+        "request": 8,
+        "rest": 5282,
+        "walk": 10660,
+        "eat": 2,
+        "scan": 1307,
+        "run": 21
+      },
+      "reversed_counts": {
+        "request": 9,
+        "rest": 10511,
+        "walk": 5726,
+        "eat": 2,
+        "scan": 1032
+      },
+      "initial": {
+        "personal_stock": 0,
+        "position": [
+          -2,
+          4
+        ],
+        "return_purpose": {
+          "completed": 0,
+          "active": false,
+          "started_us": null,
+          "entries": 0
+        },
+        "yaw": 0,
+        "inventory": 0,
+        "max_radius_observer_only": 0,
+        "routes": {
+          "selections": 0,
+          "at_home": false,
+          "routes": {},
+          "outbound": {
+            "points": [],
+            "overflow": false
+          },
+          "trip": null,
+          "cursors": {},
+          "blocked": 0,
+          "admissions": 0,
+          "day": -1
+        },
+        "body": {
+          "rule": "layered-body-human-scale-v1",
+          "strain": 0,
+          "damage": 0,
+          "burst": 10,
+          "reserve": 30
+        },
+        "social_count": 0
+      },
+      "failed_resource_events": []
+    },
+    "npc_b": {
+      "events_identical": false,
+      "baseline_events": 13057,
+      "reversed_events": 7524,
+      "first_difference": {
+        "baseline": {
+          "landmark_color": null,
+          "method": null,
+          "selection_mode": null,
+          "us": 67000000,
+          "route": null,
+          "status": "unavailable",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "give",
+          "actor": "npc_b",
+          "phase": "exploration",
+          "target": "npc_a"
+        },
+        "reversed": {
+          "landmark_color": null,
+          "method": "rest",
+          "selection_mode": "probabilistic_H",
+          "us": 67000000,
+          "route": null,
+          "status": "performed",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "rest",
+          "actor": "npc_b",
+          "phase": "exploration",
+          "target": null
+        }
+      },
+      "final_position_identical": false,
+      "baseline_position": [
+        -10.612661793545382,
+        10.262806080354613
+      ],
+      "reversed_position": [
+        0.5008663547078145,
+        5.1344753644628565
+      ],
+      "baseline_max_radius": 44.07943928891123,
+      "reversed_max_radius": 4.983133714631979,
+      "baseline_counts": {
+        "rest": 5486,
+        "walk": 10486,
+        "give": 1,
+        "eat": 1,
+        "refuse": 3,
+        "scan": 1285,
+        "run": 18
+      },
+      "reversed_counts": {
+        "rest": 10476,
+        "walk": 5815,
+        "eat": 1,
+        "give": 1,
+        "refuse": 4,
+        "scan": 983
+      },
+      "initial": {
+        "personal_stock": 0,
+        "position": [
+          0,
+          4
+        ],
+        "return_purpose": {
+          "completed": 0,
+          "active": false,
+          "started_us": null,
+          "entries": 0
+        },
+        "yaw": 0,
+        "inventory": 2,
+        "max_radius_observer_only": 0,
+        "routes": {
+          "selections": 0,
+          "at_home": false,
+          "routes": {},
+          "outbound": {
+            "points": [],
+            "overflow": false
+          },
+          "trip": null,
+          "cursors": {},
+          "blocked": 0,
+          "admissions": 0,
+          "day": -1
+        },
+        "body": {
+          "rule": "layered-body-human-scale-v1",
+          "strain": 0,
+          "damage": 0,
+          "burst": 10,
+          "reserve": 90
+        },
+        "social_count": 0
+      },
+      "failed_resource_events": [
+        {
+          "us": 67000000,
+          "action": "give",
+          "status": "unavailable"
+        }
+      ]
+    },
+    "npc_c": {
+      "events_identical": false,
+      "baseline_events": 7526,
+      "reversed_events": 7532,
+      "first_difference": {
+        "baseline": {
+          "landmark_color": null,
+          "method": "step_90",
+          "selection_mode": "probabilistic_H",
+          "us": 164000000,
+          "route": null,
+          "status": "performed",
+          "purpose_family": "food",
+          "direction": 4,
+          "action": "walk",
+          "actor": "npc_c",
+          "phase": "exploration",
+          "target": null
+        },
+        "reversed": {
+          "landmark_color": null,
+          "method": "step_45",
+          "selection_mode": "probabilistic_H",
+          "us": 164000000,
+          "route": null,
+          "status": "performed",
+          "purpose_family": "food",
+          "direction": 3,
+          "action": "walk",
+          "actor": "npc_c",
+          "phase": "exploration",
+          "target": null
+        }
+      },
+      "final_position_identical": false,
+      "baseline_position": [
+        0.6043530833007553,
+        5.203283393730951
+      ],
+      "reversed_position": [
+        0.6889856212457194,
+        5.24133213577276
+      ],
+      "baseline_max_radius": 4.713642389848743,
+      "reversed_max_radius": 5.272922588525368,
+      "baseline_counts": {
+        "rest": 10539,
+        "walk": 5736,
+        "give": 2,
+        "refuse": 2,
+        "scan": 1001
+      },
+      "reversed_counts": {
+        "request": 2,
+        "rest": 10614,
+        "walk": 5665,
+        "give": 2,
+        "eat": 1,
+        "refuse": 2,
+        "scan": 994
+      },
+      "initial": {
+        "personal_stock": 0,
+        "position": [
+          2,
+          4
+        ],
+        "return_purpose": {
+          "completed": 0,
+          "active": false,
+          "started_us": null,
+          "entries": 0
+        },
+        "yaw": 0,
+        "inventory": 2,
+        "max_radius_observer_only": 0,
+        "routes": {
+          "selections": 0,
+          "at_home": false,
+          "routes": {},
+          "outbound": {
+            "points": [],
+            "overflow": false
+          },
+          "trip": null,
+          "cursors": {},
+          "blocked": 0,
+          "admissions": 0,
+          "day": -1
+        },
+        "body": {
+          "rule": "layered-body-human-scale-v1",
+          "strain": 0,
+          "damage": 0,
+          "burst": 10,
+          "reserve": 90
+        },
+        "social_count": 0
+      },
+      "failed_resource_events": []
+    }
+  }
+}

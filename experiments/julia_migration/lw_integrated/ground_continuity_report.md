@@ -18,15 +18,23 @@ Neither provides a current proposal. Current supported endpoints only, no unseen
 path extrapolation. Native integer observation references differ from Python hash
 references without changing this relationship contract.
 
-Exploration with no current food target and no active return purpose may add the
-existing2.25-priority ground method, using only currently feasible walk directions.
-Danger, eating, pickup, return and rest gates still run first. Ground methods enter
+As of 2026-10-22, ordinary movement selection may add the existing2.25-priority
+ground method for both food and home purposes, including when a target is visible.
+There is no exploration/return phase restriction. Only currently feasible walk
+directions are proposed. Danger, eating, pickup, at-home deposit and rest gates
+still run first; an accepted movement-inertia continuation retains its existing
+fast path. A path is an option, not a guarantee of reaching the current goal.
+Ground methods enter
 the existing BasicLoop with their own H. Successful extension requires actual
 performed movement and a current same-model extension; it does not resolve the
 parent food goal. Native walking combines turn and step, unlike Python's separate
 commands, using the measured combined transform.
 
 This is tentative local M_B use, not a canonical T1 adoption or a map to food.
+The 2026-10-22 shared local structure model adds a current-component check before
+path proposals: disconnected sampled components are not followed as one band.
+See [structure_report.md](structure_report.md) for ground/water/obstacle grouping,
+sampled breaks, unknown intervals and the remaining movement-integration boundary.
 Initial cloud verification38349527774:41 checks PASS. Three days,seed20261005,
 renewable food,wear/patches/perception,155520 operations per condition,all9 Sleep
 cycles. Off stores A35/B59/C35; on A72/B83/C29. On ledger100+126=36+184+6.

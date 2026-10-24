@@ -460,3 +460,15 @@ FINITE IMPLEMENTED。[契約・Evidence](../experiment-evidence/LW_warning_mode_
 ### 2026-10-03 — 縄張り内採取場の増加
 
 FINITE EXPERIMENT COMPLETE。[Evidence](../experiment-evidence/LW_territory_resource_density.md)。1→3地点、総量一定、危険なし/ありの2×2比較。4run・関連41 tests PASS。可視威嚇が続く状況で退避方法の予算切れが残る。内部方法Hによる再選択は今回未追加。
+
+### 2026-10-23 — ρ選択による観測・思考・行動の共通化
+
+DESIGN ONLY。[設計仮説](RDL_GameAI_Rho_SILN_Common_Selection.md)。RDL_Coreの原文をcommit 86a0d4f3b83c0d08cd8bd6eba0b1ea70a637bd33で確認。B・ρによる局所近似、規則性、相転移の認識を整理し、観測・思考・行動の候補選択を共通化する案を記録。Core定義とGameAI固有のH報酬・確率選択を区別。runtime変更なし。
+
+### 2026-10-23 — LW固定ρ近似地図とポテンシャル
+
+FINITE IMPLEMENTED。[導入レポート](../../experiments/julia_migration/lw_integrated/rho_map_report.md)。同一観測を粗・細の連結profileでまとめ、目的方向・身体状態・障害・道から局所コストを構築。既存確率選択後の有限方向補正として導入。比較用の既定値はoff。動的ρ選択、追加観測、思考への統合は未実装。
+
+### 2026-10-23 — 狭い拠点の初回外出
+
+FINITE IMPLEMENTED。[検証レポート](../../experiments/rock_gate/exit_opening_report.md)。観測された隙間候補と現在の視覚log priorを粗ρモードへ接続。同一地形・6seed・3体で、3,000tick以内の外出5/18→18/18。追加確認3seedも全員通過。帰還・地形の一般化は未解決/未検証。rho_openings=offで比較可能。

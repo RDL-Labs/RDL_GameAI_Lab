@@ -34,7 +34,7 @@ end
 
 # Seven finite rays, matching LW World.packet's obstacle-point observation.
 function lateral_obstacles(objects,position,yaw,source)
-    items=Any[]
+    items=Any[];samples=Any[]
     for (i,angle) in enumerate(-90:30:90)
         sn,cs=sincos(deg2rad(yaw+angle));best=Inf
         for o in objects
@@ -44,8 +44,9 @@ function lateral_obstacles(objects,position,yaw,source)
         end
         isfinite(best) && push!(items,Dict("ref"=>"$source:ray:$(i-1)",
             "forward"=>max(0.,best*cosd(angle)),"right"=>best*sind(angle)))
+        push!(samples,D("angle"=>angle,"distance"=>isfinite(best) ? best : 12.,"status"=>isfinite(best) ? "hit" : "clear"))
     end
-    Dict("source"=>source,"coverage"=>"complete","output_limited"=>false,"items"=>items)
+    Dict("source"=>source,"coverage"=>"complete","output_limited"=>false,"items"=>items,"samples"=>samples)
 end
 
 function lateral_terrain(move,obstacles;model_cost=Dict{Int,Float64}())

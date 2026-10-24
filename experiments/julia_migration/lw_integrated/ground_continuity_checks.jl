@@ -58,6 +58,19 @@ end
  @test last(loop.events).E===nothing && last(loop.events).goal_E==1
  @test !resolve_method!(loop,"second",value,false)
 end
+@testset "paths compete for either movement purpose" begin
+ s=ground_memory("a");update_ground!(s,band_view(0),nothing)
+ move=D("energy"=>D("rows"=>[D("ref"=>string(i),"cost"=>1.) for i in 0:4]))
+ for family in ("food","home")
+  loop=BasicLoop(family)
+  candidates=vcat(search_candidates(move,nothing,loop),ground_proposals(s,move))
+  @test startswith(method_choice(loop,candidates)["method"],"ground_")
+  target=D("right"=>0.,"forward"=>4.)
+  candidates=vcat(search_candidates(move,target,loop),ground_proposals(s,move))
+  @test any(c->startswith(c["method"],"ground_"),candidates)
+  @test method_choice(loop,candidates)["question"]=="target_nearer"
+ end
+end
 out=ARGS[1]
 for mode in ("off","on")
  dir=joinpath(out,mode)

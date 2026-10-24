@@ -1,0 +1,20 @@
+[
+  {
+    "actor": "npc_a",
+    "light_events": 145,
+    "out": 1,
+    "in": 0
+  },
+  {
+    "actor": "npc_b",
+    "light_events": 123,
+    "out": 1,
+    "in": 0
+  },
+  {
+    "actor": "npc_c",
+    "light_events": 0,
+    "out": 0,
+    "in": 0
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "actor": "npc_a",
+    "out": 0,
+    "in": 0,
+    "radius": 4.230127212919137,
+    "reserve": 7.9786587841683545,
+    "walk": 18116,
+    "scan": 3817,
+    "foodH": 32,
+    "foodReward": 0.0,
+    "foodFailures": 20577.0,
+    "homeReward": 9.25,
+    "returnCompleted": 3
+  },
+  {
+    "actor": "npc_b",
+    "out": 0,
+    "in": 0,
+    "radius": 4.463857553505664,
+    "reserve": 47.389433522681664,
+    "walk": 18017,
+    "scan": 3854,
+    "foodH": 32,
+    "foodReward": 0.0,
+    "foodFailures": 20547.0,
+    "homeReward": 0.0,
+    "returnCompleted": 1
+  },
+  {
+    "actor": "npc_c",
+    "out": 0,
+    "in": 0,
+    "radius": 4.4464260108917735,
+    "reserve": 46.85657890349396,
+    "walk": 18170,
+    "scan": 3711,
+    "foodH": 32,
+    "foodReward": 0.0,
+    "foodFailures": 20502.0,
+    "homeReward": 4.0,
+    "returnCompleted": 3
+  }
+]

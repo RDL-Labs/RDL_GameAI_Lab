@@ -1,0 +1,20 @@
+[
+  {
+    "actor": "npc_b",
+    "attempts": 4573,
+    "applied": 4573,
+    "structured": 3670
+  },
+  {
+    "actor": "npc_a",
+    "attempts": 785,
+    "applied": 785,
+    "structured": 644
+  },
+  {
+    "actor": "npc_c",
+    "attempts": 8348,
+    "applied": 8348,
+    "structured": 6791
+  }
+]

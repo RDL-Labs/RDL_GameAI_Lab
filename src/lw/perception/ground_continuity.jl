@@ -3,7 +3,7 @@ ground_points(v,g)=[(v["cells"][i+1]["distance"]*sind(v["cells"][i+1]["angle"]),
 point_near(p,q,r)=hypot(p[1]-q[1],p[2]-q[2])<=r
 function ground_memory(actor)
  D("actor"=>actor,"sequence"=>0,"models"=>Any[],"source"=>nothing,"capture_us"=>-1,
-   "events"=>Any[],"selections"=>0,"linked_updates"=>0)
+   "events"=>Any[],"selections"=>0,"linked_updates"=>0,"structures"=>structure_memory(actor))
 end
 function update_ground!(s,v,result,patterns=nothing)
  source=v["source"];source["actor"]==s["actor"] || error("ground_model_binding")
@@ -58,12 +58,23 @@ function ground_proposals(s,move)
  out=Any[]
  for m in s["models"]
     m["status"]=="observed" || continue
-    x,z=last(sort(m["current_points"],by=q->(hypot(q...),q[2],q[1])))
+    points=m["current_points"]
+    structures=s["structures"]
+    if structures["source"]!==nothing
+        structures["source"]==s["source"] || continue
+        groups=[g for g in structures["observation"]["groups"] if g["kind"]=="worn_ground" &&
+            any(p->any(q->point_near(p,q,1e-8),g["points"]),points)]
+        # No single path proposal spanning multiple disconnected sampled components.
+        length(groups)==1 || continue
+        points=[p for p in points if any(q->point_near(p,q,1e-8),only(groups)["points"])]
+        length(points)>=2 || continue
+    end
+    x,z=last(sort(points,by=q->(hypot(q...),q[2],q[1])))
     angle=rad2deg(atan(x,z))
     safe=[i for i in 1:5 if move["energy"]["rows"][i]["cost"]!==nothing && abs(ANGLES[i]-angle)<=22.5]
     isempty(safe) && continue
     i=first(sort(safe,by=i->abs(ANGLES[i]-angle)))
-    push!(out,D("method"=>m["model_ref"],"action"=>"walk","direction"=>i-1,"priority"=>2.25,"question"=>"ground_extension"))
+    push!(out,D("method"=>m["model_ref"],"action"=>"walk","direction"=>i-1,"steering_angle"=>angle,"priority"=>2.25,"question"=>"ground_extension"))
  end
  out
 end

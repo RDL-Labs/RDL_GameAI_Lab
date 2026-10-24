@@ -1,0 +1,22 @@
+[
+  {
+    "path": "src/lw/perception/rho_map.jl",
+    "sha256": "a25ee75e14ad9f2e62065798ac47cd675d2f8a3a722a638cf30ba021bfd4fd79"
+  },
+  {
+    "path": "src/lw/decision/basic_loop.jl",
+    "sha256": "99cb33fb17273db3f1c1bd7392e00531cc9a72305523f28dec118552b09363b4"
+  },
+  {
+    "path": "src/lw/simulation/day.jl",
+    "sha256": "606bf97575adce100ab7efb1b012949a753624574f47017552890461027c52cf"
+  },
+  {
+    "path": "src/lw/simulation/integrated.jl",
+    "sha256": "102c316990a48b5acd430f6f953ab25c377aff45f0d1f0163191b72fcf8a1924"
+  },
+  {
+    "path": "integrations/lightweight_julia/native.jl",
+    "sha256": "a22d98b5d6c78d3a3bf56de80320badcdc4040d1927e9ea5f7b6b372f752e4a2"
+  }
+]

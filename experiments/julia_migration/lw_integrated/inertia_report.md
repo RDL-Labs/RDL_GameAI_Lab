@@ -1,5 +1,7 @@
 # Julia LW inertia living comparison
 
+> Historical forced-continuation experiment. Superseded by [H-based probabilistic selection](probabilistic_report.md) on 2026-10-22.
+
 Source: 213c9e5. [Actions](https://github.com/RDL-Labs/RDL_GameAI_Lab/actions/runs/38358869722): 51 assertions PASS.
 
 A confirmed actual move may continue the same method in the current forward direction. Current food, hazard/unknown coverage, unavailable body/surface, purpose change, stale receipt or retired method interrupt it. Repeated subjective views accumulate separate local H; threshold returns control to normal selection. No physical momentum or permanent goal lock is claimed.

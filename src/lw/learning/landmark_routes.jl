@@ -1,11 +1,39 @@
 # Static World geometry prepared once; observations retain the existing bounded output.
 prepare_landmark_objects(objects) = [(x=Float64(o.x),z=Float64(o.z),
     radius=Float64(o.radius),height=Float64(o.height),
-    color=hasproperty(o,:color) ? String(o.color) : "ochre") for o in objects]
+    color=hasproperty(o,:color) ? String(o.color) : "ochre",
+    light_source=hasproperty(o,:light_source) ? Float64(o.light_source) : 0.) for o in objects]
+
+# Point-light visibility is independent of whether a sparse shape ray hits it.
+# Only bearing and coarse apparent brightness reach policy, never emitter IDs/positions.
+function light_fan(objects,position,yaw;night=false)
+    lights=Any[]
+    for (i,o) in enumerate(objects)
+        intensity=hasproperty(o,:light_source) ? Float64(o.light_source) : 0.
+        check(isfinite(intensity) && intensity>=0,"light_source_intensity")
+        intensity==0 && continue
+        dx=o.x-position[1];dz=o.z-position[2];d=hypot(dx,dz)
+        0<d<=min(512.,(night ? 144. : 48.)*sqrt(intensity)) || continue
+        angle=mod(rad2deg(atan(dx,dz))-yaw+180,360)-180
+        abs(angle)<=90 || continue
+        blocked=any(enumerate(objects)) do pair
+            j,b=pair
+            j==i && return false
+            b.height<1 && return false
+            hit=RDLMigrationProbe.ray_hit(position,(dx/d,dz/d),RDLMigrationProbe.Circle(b.x,b.z,b.radius))
+            hit!==nothing && hit<max(0.,d-o.radius)
+        end
+        blocked && continue
+        brightness=intensity/max(1.,d*d)
+        push!(lights,D("azimuth"=>[max(-90.,angle-7.5),min(90.,angle+7.5)],
+            "brightness"=>brightness>=1/64 ? "bright" : brightness>=1/2304 ? "dim" : "faint"))
+    end
+    lights
+end
 
 # Port of the finite LW horizontal fan / directional color route roles.
 # World geometry is consumed only here; policy receives color/angle/band/source.
-function landmark_fan(objects,position,yaw,source)
+function landmark_fan(objects,position,yaw,source;night=false)
     features=Any[]
     for angle in -90:15:90
         s,c=sincos(deg2rad(yaw+angle));best=Inf;hit=nothing
@@ -18,10 +46,10 @@ function landmark_fan(objects,position,yaw,source)
         color=hit===nothing ? nothing : hasproperty(hit,:color) ? String(hit.color) : "ochre"
         if color!==nothing && color!="ochre"
             push!(features,D("color"=>color,"azimuth"=>[max(-90.,angle-7.5),min(90.,angle+7.5)],
-                "range_band"=>best<=8 ? "near" : best<=24 ? "mid" : "far"))
+                "range_band"=>best<=8 ? "near" : best<=24 ? "mid" : "far","distance"=>best))
         end
     end
-    D("coverage"=>"complete","features"=>features,"source"=>source)
+    D("coverage"=>"complete","features"=>features,"source"=>source,"lights"=>light_fan(objects,position,yaw;night=night))
 end
 
 function landmark_patches(observed,color)
@@ -33,11 +61,13 @@ function landmark_patches(observed,color)
         if !isempty(groups) && lo<=groups[end]["hi"]
             groups[end]["hi"]=max(hi,groups[end]["hi"])
             groups[end]["near"]|=f["range_band"]=="near"
+            d=get(f,"distance",nothing)
+            d!==nothing && (groups[end]["distance"]=min(something(groups[end]["distance"],Inf),d))
         else
-            push!(groups,D("lo"=>lo,"hi"=>hi,"near"=>f["range_band"]=="near"))
+            push!(groups,D("lo"=>lo,"hi"=>hi,"near"=>f["range_band"]=="near","distance"=>get(f,"distance",nothing)))
         end
     end
-    [D("angle"=>(g["lo"]+g["hi"])/2,"near"=>g["near"],"width"=>g["hi"]-g["lo"]) for g in groups]
+    [D("angle"=>(g["lo"]+g["hi"])/2,"near"=>g["near"],"width"=>g["hi"]-g["lo"],"distance"=>g["distance"]) for g in groups]
 end
 trail()=D("points"=>Any[],"overflow"=>false)
 route_memory()=D("routes"=>D(),"outbound"=>trail(),"trip"=>nothing,"at_home"=>false,
@@ -111,9 +141,23 @@ end
 function landmark_candidates(move,obs,m,goal,source;include_routes=true)
     obs["coverage"]=="complete" || return Any[]
     targets=Any[]
+    # Angular bins are candidate directions, not identities of remembered lamps.
+    light_bins=Dict{Int,Float64}()
+    for light in get(obs,"lights",Any[])
+        light["brightness"]=="bright" && continue # nearby recognition takes over; do not walk into a light
+        angle=sum(light["azimuth"])/2
+        bin=round(Int,angle/15)
+        get!(light_bins,bin,15.0*bin)
+    end
+    for bin in sort(collect(keys(light_bins)))
+        push!(targets,D("name"=>"light:$bin","color"=>nothing,"angle"=>light_bins[bin],"priority"=>2.5,"route"=>nothing))
+    end
     for color in sort(unique([f["color"] for f in obs["features"]]))
         ps=landmark_patches(obs,color)
-        if length(ps)==1 && !ps[1]["near"] && ps[1]["width"]<=45
+        # Near landmarks remain visible goals; stop at a stand-off distance,
+        # rather than discarding the entire <=8 band (including entrance posts).
+        if length(ps)==1 && ps[1]["width"]<=45 &&
+            (!ps[1]["near"] || (ps[1]["distance"]!==nothing && ps[1]["distance"]>2.))
             push!(targets,D("name"=>"landmark:"*color,"color"=>color,"angle"=>ps[1]["angle"],"priority"=>2.5,"route"=>nothing))
         end
     end
@@ -144,7 +188,7 @@ function landmark_candidates(move,obs,m,goal,source;include_routes=true)
         sort!(rows,by=r->(abs(ANGLES[parse(Int,r["ref"])+1]-t["angle"]),r["cost"],r["ref"]))
         index=parse(Int,first(rows)["ref"])
         push!(out,D("method"=>t["name"],"action"=>"walk","direction"=>index,"priority"=>t["priority"],
-            "question"=>"landmark_progress","landmark_color"=>t["color"],"route"=>t["route"],"observation_source"=>source))
+            "question"=>"landmark_progress","steering_angle"=>t["angle"],"landmark_color"=>t["color"],"route"=>t["route"],"observation_source"=>source))
     end
     out
 end
