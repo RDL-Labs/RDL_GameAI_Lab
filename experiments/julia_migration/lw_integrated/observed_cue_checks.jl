@@ -19,6 +19,9 @@ using Test
     @test all(c["tier"]==1 for c in pool.items if c["label"]=="gray")
     sets=Any[]
     for H in (0,2,4)
+        lazy=observed_cues(ob,sky,structures,move,hazard,"s";level=min(2,H÷2))
+        @test lazy.items==filter(c->c["tier"]<=min(2,H÷2),pool.items)
+        @test cue_candidates!(cue_stats(),lazy,move,H,2)==cue_candidates!(cue_stats(),pool,move,H,2)
         stats=cue_stats();cs=cue_candidates!(stats,pool,move,H,2);push!(sets,Set(c["method"] for c in cs))
         @test all(c["cue_tier"]<=min(2,H÷2) for c in cs)
         @test all(c["cue_uncertain"]==(c["cue_tier"]>0) for c in cs)

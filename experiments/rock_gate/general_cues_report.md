@@ -37,3 +37,21 @@ node experiments/rock_gate/compare_general_cues.cjs outputs/food-roads-general-c
 ```
 
 証拠: [日別集計](evidence/general-cues-three-day/summary.json)、[候補と比較](evidence/general-cues-three-day/cue-comparison.json)、[個体別結果](evidence/general-cues-three-day/report.json)、[通過イベント](evidence/general-cues-three-day/crossings.jsonl)、[ソースhash](evidence/general-cues-three-day/manifest.json)。provenanceのcommitは実行開始時の親コミットで、変更済みソースはmanifestのhashと本コミットで対応づける。day.jlの実行コピーには読み取り専用の通過記録フックを挿入している。
+
+## Hで生成を省略して再試験（2026-10-25）
+
+低Hでは追加候補の生成処理を省略する変更を加え、同じ初期状態から再び3日実行した（前回末尾からの継続ではない）。出力 `outputs/food-roads-lazy-cues-3d-20261025`。上記コマンドの出力先だけ変更して再現可能。
+
+3日正常完走。日別状態・日開始状態・イベントは前回3日と完全一致。B/C各1回帰還、Cが2個搬入、A未帰還、Cの再帰還未解決。候補上限による切り捨て0。追加チェック34＋実行時チェック69、計103項目PASS。
+
+| 個体 | 段階0生成回数 | 段階1生成回数 | 段階2生成回数 |
+| --- | ---: | ---: | ---: |
+| A | 4 | 4 | 34176 |
+| B | 4 | 4 | 34003 |
+| C | 8 | 8 | 24099 |
+
+候補生成呼び出し92310回中92278回（99.97%）が段階2で、低Hの省略機会は32回のみ。実行255.58秒（コンパイル込み、全体約260秒）、前回238.90秒に対して約7%長く、速度改善は確認できなかった。単発測定なので変更が遅延の原因とも断定しない。今回の未解決状態では高Hが続くため、遅延生成の利点は小さい。学習によって少数候補で目的を解決できる状態を作れるかが別の課題。
+
+候補生成以外の知覚・安全処理は省略しない。思考に対する身体エネルギー消費も追加していない。候補全生成時との一致を確認した範囲は今回の観測と単体チェックであり、候補上限に達する任意の観測での同値性は保証しない。
+
+[日別集計](evidence/lazy-cues-three-day/summary.json)、[3日一致監査](evidence/lazy-cues-three-day/prefix-audit.json)、[生成統計](evidence/lazy-cues-three-day/cues.json)、[manifest](evidence/lazy-cues-three-day/manifest.json)。実行コピー作成後、コミット側はBOMと末尾空行のみ正規化したためソースhashに差がある。実行day.jlには従来同様の通過記録フックがある。

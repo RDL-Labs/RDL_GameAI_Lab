@@ -488,3 +488,7 @@ FINITE EXPERIMENT COMPLETE。[30日結果](../../experiments/rock_gate/food_road
 ### 2026-10-25 — Hによる観測目印候補の拡張
 
 FINITE IMPLEMENTED / 3-DAY EXPERIMENT COMPLETE。[設計](LW_Observed_Cues.md)、[試験](../../experiments/rock_gate/general_cues_report.md)。色・輪郭・光・地面などの候補を共通化、Hで曖昧な候補まで拡張。不確実性は維持。既定off、同一分岐道でonを3日検証。B/C各1回帰還、Cが2個搬入、A未帰還。scan増加、安定往復と対象の再同定は未解決。計236項目PASS、約239秒。
+
+### 2026-10-25 — Hに応じた目印候補の遅延生成
+
+FINITE IMPLEMENTED / 3-DAY EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/general_cues_report.md)。低Hで追加カテゴリの生成を省略。同一初期条件から3日再実行、日別状態・イベントが前回と完全一致。生成の99.97%が高Hで省略機会は限定的。約256秒（前回239秒）、高速化は未確認。103項目PASS。思考の身体消費は未導入。

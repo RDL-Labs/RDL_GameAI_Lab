@@ -414,7 +414,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         end
                         if general_landmarks && target===nothing
                             structure_view=ground_continuity ? ground_models[a]["structures"]["observation"] : nothing
-                            pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a")
+                            pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,fld(s.H,s.threshold)))
                             append!(candidates,cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold))
                         end
                         reposition && project_search_review!(reposition_states[a],candidates,s,target,family)
