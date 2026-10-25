@@ -19,12 +19,12 @@ include("mb_map_checks.jl")
  @test length(s["sleep"]["reviews"])==1
  mb_observe!(s,sceneview(4_000_000,("far","far")),4_000_000)
  p=mb_sleep_candidates!(s,move,"home",4,2,90.,0.,4_000_000)
- @test length(p)==1 && only(p)["mb_depth"]==2
+ @test !isempty(p) && first(p)["mb_depth"]==2
  waking=mb_simulate!(s,move,"home",4,2,90.,0.,4_000_000)
- @test only(p)["method"]==only(waking)["method"] && only(p)["priority"]==only(waking)["priority"]
+ @test first(p)["method"]==first(waking)["method"] && first(p)["priority"]==first(waking)["priority"]
  @test isempty(mb_sleep_candidates!(s,move,"home",0,2,90.,0.,4_000_000))
  @test isempty(mb_sleep_candidates!(s,move,"home",4,2,10.,0.,4_000_000))
- mb_record!(s,only(p),"performed",.02,4_000_000)
+ mb_record!(s,first(p),"performed",.02,4_000_000)
  mb_observe!(s,sceneview(5_000_000,("mid","far")),5_000_000)
  @test s["sleep"]["selected"]==1 && s["prediction_match"]==1 && s["chunk_reward"]==0
  empty!(s["edges"])

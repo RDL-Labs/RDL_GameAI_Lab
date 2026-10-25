@@ -537,3 +537,7 @@ DIAGNOSIS COMPLETE WITH BOUNDED COVERAGE。[調査](../../experiments/rock_gate/
 ### 2026-10-25 — 初日を強制見回しにした4日試験
 
 FINITE CONFIGURED PATH。[設計](LW_Initial_Home_Observation.md)、[結果](../../experiments/rock_gate/home_observation_report.md)。初日を開始位置近傍の旋回・小移動に固定し、2日目から通常探索。初日入口通過0、全員翌日外出。初日末4〜6ノード/1辺に留まり、4日末まで候補・まとまり・帰還0。全員生存、Aは初日30→11まで低下後に回復。116項目PASSと追加監査。観察材料の追加試験であり、拠点構造の学習やρ階層化の完成ではない。
+
+### 2026-10-25 — 不確実なMB対応付けと睡眠での整理
+
+FINITE PROTOTYPE。[設計](LW_Probabilistic_MB_Recognition.md)、[3日動作確認](../../experiments/rock_gate/probabilistic_mb_report.md)。完全一致を共通特徴と経験支持による対応候補へ置換し、既存の確率行動選択で試す。実行失敗と認識/遷移不一致を分離。MB経路の鮮度期限を撤廃、容量整理を睡眠へ移動。1特徴観測も保持。実配置で134選択（睡眠11・まとまり121・詳細探索2）、まとまり5件。不一致3・unknown131・一致確認0で、精度向上や安定帰還は未証明。166項目PASS。構造全体の認識・多階層ρ・0特徴区間の追跡は残る。

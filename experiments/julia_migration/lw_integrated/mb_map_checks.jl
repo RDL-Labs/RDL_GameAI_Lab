@@ -23,7 +23,7 @@ walk=D("action"=>"walk","direction"=>0)
  @test isempty(mb_simulate!(s,move,"home",4,2,10.,0.,3_000_000))
  @test isempty(mb_simulate!(s,move,"home",4,2,90.,.9,3_000_000))
  cs=mb_simulate!(s,move,"home",4,2,90.,0.,3_000_000)
- @test length(cs)==1 && cs[1]["mb_depth"]==2
+ @test !isempty(cs) && cs[1]["mb_depth"]==2
  @test cs[1]["question"]=="target_observed"
  @test s["expanded"]<=64
  @test isempty(mb_simulate!(s,move,"home",4,2,90.,0.,4_000_000))
@@ -69,7 +69,7 @@ end
   if i==139; @test length(s["nodes"])==140 && s["evictions"]==0; end
  end
  @test length(s["nodes"])==1280
- @test length(s["edges"])<=5120 && s["evictions"]>0
+ @test length(s["edges"])<=5120 && s["evictions"]==0 && s["recognition"]["admission_blocked"]>0
  @test all(haskey(s["nodes"],e["from"]) && haskey(s["nodes"],e["to"]) for e in values(s["edges"]))
  @test isempty(mb_simulate!(s,move,"home",32,2,90.,0.,200_000_000)) # stale observation
  @test s["searches"]==0
@@ -87,6 +87,6 @@ end
   if count==513; @test length(s["edges"])==513 && s["evictions"]==0; end
  end
  @test length(s["edges"])==5120
- @test s["evictions"]==5
+ @test s["evictions"]==0 && s["recognition"]["admission_blocked"]==5
  @test all(haskey(s["nodes"],e["from"]) && haskey(s["nodes"],e["to"]) for e in values(s["edges"]))
 end

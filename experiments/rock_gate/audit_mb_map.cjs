@@ -6,6 +6,8 @@ const input=read(path.join(run,'narrow/input.json'));
 assert.equal(input.config.mb_simulation,'on');
 const actors=Object.fromEntries(Object.entries(summary.mb_map).map(([a,m])=>{
  const nodes=Object.values(m.nodes),edges=Object.values(m.edges);
+ const recognition=m.recognition??null;
+ if(recognition){assert.ok(Object.keys(recognition.associations).length<=2048);assert.ok(recognition.feedback.length<=64);assert.ok(recognition.matches+recognition.mismatches+recognition.execution_failures+recognition.unknown<=recognition.selected);}
  const sleep=m.sleep??{reviews:[],hypotheses:{},proposals:0,selected:0};
  assert.ok(Object.keys(sleep.hypotheses).length<=64);
  assert.equal(new Set(sleep.reviews.map(r=>r.day)).size,sleep.reviews.length);
@@ -20,6 +22,7 @@ const actors=Object.fromEntries(Object.entries(summary.mb_map).map(([a,m])=>{
  for(const r of m.records){assert.ok(r.expanded<=64 && r.path.length<=4);}
  return [a,{nodes:nodes.length,edges:edges.length,home_nodes:nodes.filter(n=>n.home).length,food_nodes:nodes.filter(n=>n.food).length,
   sleep:{reviews:sleep.reviews,hypotheses:Object.keys(sleep.hypotheses).length,proposals:sleep.proposals,selected:sleep.selected},
+  recognition:recognition?{...recognition,associations:Object.keys(recognition.associations).length}:null,
   observations:m.observations,searches:m.searches,expanded:m.expanded,mean_expanded:m.searches?m.expanded/m.searches:0,
   proposals:m.proposals,selected:m.selected,prediction_match:m.prediction_match,prediction_miss:m.prediction_miss,prediction_unknown:m.prediction_unknown,
   evictions:m.evictions,chunks:chunks.length,chunk_formations:m.chunk_formations??0,chunk_goal_credits:m.chunk_goal_credits??0,chunk_reward:m.chunk_reward??0,chunk_proposals:m.chunk_proposals??0,chunk_selected:m.chunk_selected??0,chunk_records:m.chunk_records??[],search_records:m.records}];

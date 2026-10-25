@@ -1,3 +1,5 @@
+> 2026-10-25更新：MBの完全一致・鮮度期限・古さ順整理は[確率的対応付けの設計](LW_Probabilistic_MB_Recognition.md)で置換。以下は導入時の設計記録を含む。
+
 # 目的成功によるMB経路のまとまり
 
 2026-10-25。`--mb-chunks on`。`mb_simulation=on`が必要、既定off。実装は `src/lw/learning/mb_chunks.jl`。観測から形成された遷移の列を、実際の目的解決に基づいてひとまとまりとして保存する。

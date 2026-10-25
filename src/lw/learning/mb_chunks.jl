@@ -41,13 +41,9 @@ function mb_chunk_prediction!(s,receipt,frame,now)
     id=get(receipt,"chunk",nothing)
     (id===nothing || !haskey(s["chunks"],id)) && return
     c=s["chunks"][id];key=receipt["predicted"]
-    if frame===nothing || now!=receipt["now"]+1_000_000 || !haskey(s["edges"],key)
-        c["unknown"]+=1
-    elseif receipt["status"]=="performed" && frame.key==s["edges"][key]["to"]
-        c["matches"]+=1
-    else
-        c["misses"]+=1
-    end
+    outcome=mb_prediction_outcome(s,receipt,frame,now)
+    field=outcome=="match" ? "matches" : outcome=="mismatch" ? "misses" : outcome=="execution_failure" ? "execution_failures" : "unknown"
+    c[field]=get(c,field,0)+1
 end
 function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now)
     s["chunks_enabled"] || return false
@@ -66,8 +62,7 @@ function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now)
     key=goal*":"*bytes2hex(sha256(join(path,"|")))[1:16]
     if !haskey(s["chunks"],key)
         if length(s["chunks"])>=MB_CHUNK_LIMIT
-            oldest=first(sort(collect(keys(s["chunks"])),by=k->(s["chunks"][k]["last_success_us"],k)))
-            delete!(s["chunks"],oldest)
+            s["recognition"]["admission_blocked"]+=1;return false
         end
         s["chunks"][key]=D("goal"=>goal,"edges"=>path,"from"=>s["edges"][first(path)]["from"],
             "to"=>frame.key,"successes"=>0,"reward"=>0.,"matches"=>0,"misses"=>0,"unknown"=>0,"last_success_us"=>now)
@@ -84,24 +79,24 @@ function mb_chunk_candidates!(s,move,goal,reserve,strain,now)
     frame=s["current"]
     (!s["chunks_enabled"] || frame===nothing || s["current_us"]!=now || reserve<=20 || strain>=.8) && return Any[]
     out=Any[]
-    for id in sort(collect(keys(s["chunks"])))
-        c=s["chunks"][id];c["goal"]==goal || continue
-        c["misses"]>=c["successes"]+c["matches"] && continue # Unreliable chunks yield to detailed search.
-        now-c["last_success_us"]<=17_280_000_000 || continue
-        all(k->haskey(s["edges"],k) && now-s["edges"][k]["seen"]<=17_280_000_000,c["edges"]) || continue
-        indices=findall(k->s["edges"][k]["from"]==frame.key,c["edges"])
+    targets=unique([s["edges"][k]["from"] for c in values(s["chunks"]) for k in c["edges"] if haskey(s["edges"],k)])
+    matches=mb_correspondences(s,targets,now;scope="chunk")
+    for match in matches, id in sort(collect(keys(s["chunks"])))
+        c=s["chunks"][id];c["goal"]==goal || (mb_reject!(s,"chunk","goal_mismatch");continue)
+        all(k->haskey(s["edges"],k),c["edges"]) || (mb_reject!(s,"chunk","missing_edge");continue)
+        indices=findall(k->s["edges"][k]["from"]==match["key"],c["edges"])
         length(indices)==1 || continue # Ambiguous repeated scenes are not a cursor.
-        index=only(indices);edge=c["edges"][index];p=mb_first_action(s["edges"][edge],frame,move)
-        p===nothing && continue
+        index=only(indices);edge=c["edges"][index];p=mb_first_action(s["edges"][edge],(anchor=match["anchor"],),move)
+        p===nothing && (mb_reject!(s,"chunk","infeasible_action");continue)
         support=log1p(c["successes"])+log1p(c["reward"])
         confidence=1/(1+c["misses"])
         merge!(p,D("method"=>"mb_chunk:"*id,"action"=>p["action"],"priority"=>3.0+confidence*min(2.,support),
             "question"=>"target_observed","mb_edge"=>edge,"mb_expected"=>s["edges"][edge]["to"],
             "mb_chunk"=>id,"mb_chunk_index"=>index,"mb_depth"=>length(c["edges"])-index+1))
-        push!(out,p)
+        mb_attach_correspondence!(p,s,match);push!(out,p)
     end
     sort!(out,by=p->(-p["priority"],p["method"]))
-    length(out)>4 && resize!(out,4)
+    unique!(p->p["method"],out);length(out)>4 && resize!(out,4)
     s["chunk_proposals"]+=length(out)
     out
 end

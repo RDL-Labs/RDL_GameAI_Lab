@@ -1,3 +1,5 @@
+> 2026-10-25更新：MBの完全一致・鮮度期限・古さ順整理は[確率的対応付けの設計](LW_Probabilistic_MB_Recognition.md)で置換。以下は導入時の設計記録を含む。
+
 # 睡眠と覚醒のMB探索共通化
 
 2026-10-25。`--mb-sleep on`（既定off）はmb_simulationとgeneral_sleepを必要とする。最初の有限実装であり、多階層ρや睡眠全般の統合は未完了。

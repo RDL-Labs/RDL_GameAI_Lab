@@ -1,0 +1,63 @@
+{
+  "input_equal_except_days": true,
+  "total": {
+    "selected": 134,
+    "sleep_selected": 11,
+    "chunk_selected": 121,
+    "formations": 5,
+    "matches": 0,
+    "mismatches": 3,
+    "unknown": 131,
+    "execution_failures": 0
+  },
+  "first_day": {
+    "npc_b": {
+      "before": {
+        "home_nodes": 2,
+        "nodes": 6,
+        "chunks": 0,
+        "edges": 1
+      },
+      "after": {
+        "home_nodes": 3,
+        "nodes": 9,
+        "chunks": 0,
+        "edges": 24
+      },
+      "valid_before": 3294,
+      "valid_after": 13395
+    },
+    "npc_a": {
+      "before": {
+        "home_nodes": 0,
+        "nodes": 4,
+        "chunks": 0,
+        "edges": 1
+      },
+      "after": {
+        "home_nodes": 0,
+        "nodes": 7,
+        "chunks": 0,
+        "edges": 26
+      },
+      "valid_before": 2210,
+      "valid_after": 14961
+    },
+    "npc_c": {
+      "before": {
+        "home_nodes": 0,
+        "nodes": 5,
+        "chunks": 0,
+        "edges": 1
+      },
+      "after": {
+        "home_nodes": 0,
+        "nodes": 8,
+        "chunks": 0,
+        "edges": 18
+      },
+      "valid_before": 909,
+      "valid_after": 14853
+    }
+  }
+}

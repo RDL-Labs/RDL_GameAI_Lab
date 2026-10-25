@@ -44,7 +44,7 @@ end
  @test length(cs2)==1 && cs2[1]["mb_chunk_index"]==2
  mb_record!(s,merge(cs2[1],D("purpose_family"=>"home")),"blocked",.01,10_000_000)
  mb_observe!(s,chunk_view(11_000_000,"mid"),11_000_000)
- @test c["misses"]==1 && c["reward"]==12 && isempty(s["route_trace"])
+ @test c["misses"]==0 && c["execution_failures"]==1 && c["reward"]==12 && isempty(s["route_trace"])
  mb_forget_node!(s,c["from"])
  @test isempty(s["chunks"])
 end
