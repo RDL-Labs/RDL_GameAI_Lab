@@ -1,0 +1,8 @@
+{
+  "baseline": "outputs/body-parent-30d-20261025",
+  "days": 3,
+  "daily_exact": true,
+  "day_starts_exact": true,
+  "events_exact": true,
+  "input_equal_except_days_and_mb_simulation": true
+}
