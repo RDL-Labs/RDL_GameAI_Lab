@@ -1,0 +1,111 @@
+{
+  "first_day_no_gate_crossings": true,
+  "actors": {
+    "npc_b": {
+      "max_displacement": 0.7999999999999998,
+      "ticks": 17280,
+      "keys": 6,
+      "completed": true,
+      "valid_views": 3294,
+      "actions": {
+        "rest": 2880,
+        "walk": 223,
+        "eat": 1,
+        "scan": 14176
+      },
+      "map_at_end": {
+        "home_nodes": 2,
+        "nodes": 6,
+        "chunks": 0,
+        "edges": 1
+      },
+      "origin": [
+        0,
+        4
+      ],
+      "configured_events": 140,
+      "day1_reserve": 90.72138729292415,
+      "first_outward_seconds": 35488,
+      "final_nodes": 391,
+      "final_edges": 1520,
+      "sleep_reviews": 5,
+      "sleep_found": 0,
+      "sleep_proposals": 0,
+      "sleep_selected": 0,
+      "wake_proposals": 0,
+      "selected": 0,
+      "chunk_formations": 0
+    },
+    "npc_a": {
+      "max_displacement": 0.7999999999999998,
+      "ticks": 17280,
+      "keys": 4,
+      "completed": true,
+      "valid_views": 2210,
+      "actions": {
+        "rest": 2880,
+        "eat": 4,
+        "walk": 224,
+        "pickup": 4,
+        "scan": 14168
+      },
+      "map_at_end": {
+        "home_nodes": 0,
+        "nodes": 4,
+        "chunks": 0,
+        "edges": 1
+      },
+      "origin": [
+        -2,
+        4
+      ],
+      "configured_events": 142,
+      "day1_reserve": 90.73608035847515,
+      "first_outward_seconds": 34890,
+      "final_nodes": 398,
+      "final_edges": 1373,
+      "sleep_reviews": 8,
+      "sleep_found": 0,
+      "sleep_proposals": 0,
+      "sleep_selected": 0,
+      "wake_proposals": 0,
+      "selected": 0,
+      "chunk_formations": 0
+    },
+    "npc_c": {
+      "max_displacement": 0.7999999999999998,
+      "ticks": 17280,
+      "keys": 5,
+      "completed": true,
+      "valid_views": 909,
+      "actions": {
+        "rest": 2880,
+        "walk": 224,
+        "eat": 1,
+        "scan": 14175
+      },
+      "map_at_end": {
+        "home_nodes": 0,
+        "nodes": 5,
+        "chunks": 0,
+        "edges": 1
+      },
+      "origin": [
+        2,
+        4
+      ],
+      "configured_events": 141,
+      "day1_reserve": 90.71896244409969,
+      "first_outward_seconds": 34749,
+      "final_nodes": 415,
+      "final_edges": 2156,
+      "sleep_reviews": 9,
+      "sleep_found": 1,
+      "sleep_proposals": 0,
+      "sleep_selected": 0,
+      "wake_proposals": 0,
+      "selected": 0,
+      "chunk_formations": 0
+    }
+  }
+}

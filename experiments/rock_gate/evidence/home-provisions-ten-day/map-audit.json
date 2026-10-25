@@ -1,0 +1,984 @@
+{
+  "days": 10,
+  "measurement": {
+    "gc_seconds": 50.0427283,
+    "process_peak_rss_bytes": 1528631296,
+    "compilation_included": true,
+    "call_seconds": 754.2170694,
+    "allocated_bytes": 478179967563
+  },
+  "limits": {
+    "nodes": 1280,
+    "edges": 5120,
+    "depth": 4,
+    "expansions": 64
+  },
+  "actors": {
+    "npc_b": {
+      "nodes": 391,
+      "edges": 1520,
+      "home_nodes": 4,
+      "food_nodes": 0,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 14,
+            "completed_us": 17280000000,
+            "retained": 0,
+            "searches": 12,
+            "formation_us": 14400000000,
+            "found": 0,
+            "day": 0
+          },
+          {
+            "expanded": 12,
+            "completed_us": 31680000000,
+            "retained": 0,
+            "searches": 12,
+            "formation_us": 28800000000,
+            "found": 0,
+            "day": 1
+          },
+          {
+            "expanded": 360,
+            "completed_us": 48960000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 46080000000,
+            "found": 0,
+            "day": 2
+          },
+          {
+            "expanded": 1024,
+            "completed_us": 69120000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 66240000000,
+            "found": 0,
+            "day": 3
+          },
+          {
+            "expanded": 474,
+            "completed_us": 103679000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 100799000000,
+            "found": 0,
+            "day": 5
+          }
+        ],
+        "hypotheses": 0,
+        "proposals": 0,
+        "selected": 0
+      },
+      "observations": 172800,
+      "searches": 1028,
+      "expanded": 19496,
+      "mean_expanded": 18.964980544747082,
+      "proposals": 0,
+      "selected": 0,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 0,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 1,
+          "source": "ob:170137000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:170222000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:170290000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:170355000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:170425000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:170498000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 3,
+          "source": "ob:170576000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:170642000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 4,
+          "source": "ob:170711000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:170791000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 5,
+          "source": "ob:170862000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:170970000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 25,
+          "source": "ob:171046000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:171110000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:171174000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 6,
+          "source": "ob:171251000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:171331000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:171404000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:171487000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:171596000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:171666000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:171733000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 12,
+          "source": "ob:171801000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 3,
+          "source": "ob:171893000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:172145000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:172262000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:172370000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:172436000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 3,
+          "source": "ob:172502000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 3,
+          "source": "ob:172587000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 9,
+          "source": "ob:172657000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        },
+        {
+          "expanded": 10,
+          "source": "ob:172765000000:npc_b",
+          "path": [],
+          "goal": "food",
+          "cost": null
+        }
+      ]
+    },
+    "npc_a": {
+      "nodes": 398,
+      "edges": 1373,
+      "home_nodes": 1,
+      "food_nodes": 0,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 10,
+            "completed_us": 17280000000,
+            "retained": 0,
+            "searches": 8,
+            "formation_us": 14400000000,
+            "found": 0,
+            "day": 0
+          },
+          {
+            "expanded": 8,
+            "completed_us": 31680000000,
+            "retained": 0,
+            "searches": 8,
+            "formation_us": 28800000000,
+            "found": 0,
+            "day": 1
+          },
+          {
+            "expanded": 354,
+            "completed_us": 51840000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 0,
+            "day": 2
+          },
+          {
+            "expanded": 648,
+            "completed_us": 69120000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 66240000000,
+            "found": 0,
+            "day": 3
+          },
+          {
+            "expanded": 774,
+            "completed_us": 86400000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 83520000000,
+            "found": 0,
+            "day": 4
+          },
+          {
+            "expanded": 20,
+            "completed_us": 103680000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 100800000000,
+            "found": 0,
+            "day": 5
+          },
+          {
+            "expanded": 304,
+            "completed_us": 155520000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 152640000000,
+            "found": 0,
+            "day": 8
+          },
+          {
+            "expanded": 18,
+            "completed_us": 172800000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 169920000000,
+            "found": 0,
+            "day": 9
+          }
+        ],
+        "hypotheses": 0,
+        "proposals": 0,
+        "selected": 0
+      },
+      "observations": 172800,
+      "searches": 1133,
+      "expanded": 22111,
+      "mean_expanded": 19.515445719329215,
+      "proposals": 0,
+      "selected": 0,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 0,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 64,
+          "source": "ob:166883000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:166971000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 31,
+          "source": "ob:167063000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 36,
+          "source": "ob:167131000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 58,
+          "source": "ob:167199000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 50,
+          "source": "ob:167320000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:167479000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:167595000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:167703000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 52,
+          "source": "ob:167798000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 41,
+          "source": "ob:167873000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 32,
+          "source": "ob:167937000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168017000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 48,
+          "source": "ob:168113000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 32,
+          "source": "ob:168195000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168267000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 21,
+          "source": "ob:168340000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 55,
+          "source": "ob:168429000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 13,
+          "source": "ob:168534000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 38,
+          "source": "ob:168598000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 28,
+          "source": "ob:168680000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168760000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168828000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168944000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169011000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169086000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 17,
+          "source": "ob:169191000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169364000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169437000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169599000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169664000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169902000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        }
+      ]
+    },
+    "npc_c": {
+      "nodes": 415,
+      "edges": 2156,
+      "home_nodes": 3,
+      "food_nodes": 0,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 12,
+            "completed_us": 17280000000,
+            "retained": 1,
+            "searches": 10,
+            "formation_us": 14400000000,
+            "found": 1,
+            "day": 0
+          },
+          {
+            "expanded": 10,
+            "completed_us": 31680000000,
+            "retained": 1,
+            "searches": 10,
+            "formation_us": 28800000000,
+            "found": 0,
+            "day": 1
+          },
+          {
+            "expanded": 306,
+            "completed_us": 51840000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 0,
+            "day": 2
+          },
+          {
+            "expanded": 898,
+            "completed_us": 69120000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 66240000000,
+            "found": 0,
+            "day": 3
+          },
+          {
+            "expanded": 442,
+            "completed_us": 86400000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 83520000000,
+            "found": 0,
+            "day": 4
+          },
+          {
+            "expanded": 608,
+            "completed_us": 103680000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 100800000000,
+            "found": 0,
+            "day": 5
+          },
+          {
+            "expanded": 524,
+            "completed_us": 120960000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 118080000000,
+            "found": 0,
+            "day": 6
+          },
+          {
+            "expanded": 150,
+            "completed_us": 135431000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 132551000000,
+            "found": 0,
+            "day": 7
+          },
+          {
+            "expanded": 174,
+            "completed_us": 172800000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 169920000000,
+            "found": 0,
+            "day": 9
+          }
+        ],
+        "hypotheses": 0,
+        "proposals": 0,
+        "selected": 0
+      },
+      "observations": 172800,
+      "searches": 1091,
+      "expanded": 32703,
+      "mean_expanded": 29.97525206232814,
+      "proposals": 0,
+      "selected": 0,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 0,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 64,
+          "source": "ob:166832000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:167048000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:167116000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:167481000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:167547000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:167623000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:167708000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:167774000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:167838000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:167954000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168018000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 50,
+          "source": "ob:168090000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:168155000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:168219000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 4,
+          "source": "ob:168297000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:168402000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:168466000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168546000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:168622000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:168693000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 3,
+          "source": "ob:168825000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:168922000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169130000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 4,
+          "source": "ob:169260000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:169324000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:169391000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 3,
+          "source": "ob:169502000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169573000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:169654000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:169723000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 15,
+          "source": "ob:169790000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 18,
+          "source": "ob:169874000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        }
+      ]
+    }
+  }
+}
