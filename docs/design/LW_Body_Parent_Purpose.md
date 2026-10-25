@@ -26,7 +26,7 @@
 
 `experiments/julia_migration/lw_integrated/body_purpose_checks.jl`：帰還保留・空腹時の切り替え・在庫がある/ない拠点・回復後の帰還再開・個体の整合を検証。600tickの夜間診断で消費はoff=3/on=5。時間を短縮した診断用clockであり、通常の1日や長期生存率の改善を意味しない。
 
-既存の統合設定（光源、地形、危険、睡眠、経験束、目印、粗ρ）とも600tickで接続を確認する。長期の12日全滅相当シナリオを修正後に再実行した結果はまだない。
+既存の統合設定（光源、地形、危険、睡眠、経験束、目印、粗ρ）とも600tickで接続を確認する。同じ狭い拠点で最大30日の再試験も完了した。結果は末尾の30日試験と実験レポートを参照。
 
 再現：
 
@@ -38,3 +38,7 @@ julia --startup-file=no --project=. experiments/rock_gate/run.jl outputs/body-pa
 ## 実装の分離
 
 固定処理の実装は [configured_paths/body_maintenance.jl](../../src/lw/configured_paths/body_maintenance.jl)。目的選択、即時補給の優先、待機・定時休息の解除を同じ場所に集約し、day.jlは返された選択と例外指定を適用する。旧decision/body_purpose.jlは移設した。CLIと保存結果の名前は維持する。
+
+## 30日試験（2026-10-25追記）
+
+[同じ狭い拠点での実験](../../experiments/rock_gate/body_parent_report.md)を完了。OFFは12日末に全員停止相当、ONは30日上限まで完走し全員の日末reserve>0。12日目消費23→42、30日末reserveはA92/B89/C69。設定経路込みの効果であり、上位選択の学習成功ではない。目印候補生成は約99.98%が高Hのまま。

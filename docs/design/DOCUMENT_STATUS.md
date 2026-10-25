@@ -506,3 +506,7 @@ FINITE IMPLEMENTED。[設計と検証](LW_Body_Parent_Purpose.md)。body_purpose
 ### 2026-10-25 — 設定経路のコード分離
 
 STRUCTURAL REFACTOR。[配置](../../src/lw/configured_paths/README.md)。身体維持の固定切り替えと優先例外をconfigured_pathsへ移設し、configured_関数名で明示。CLI・保存結果は互換維持。600tick統合試験のON/OFF両方で結果全体が変更前と完全一致、身体維持21項目PASS。[照合記録](../../experiments/julia_migration/lw_integrated/evidence/configured_paths/parity.json)。他の既存固定処理の棚卸しは未完了。
+
+### 2026-10-25 — 身体要求の設定経路ONで30日試験
+
+FINITE EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/body_parent_report.md)。body_purpose以外の入力は前回と一致。前回12日末の全員停止に対し、今回は30日完走・全日末全員reserve>0。12日目消費23→42、30日末A92/B89/C69。倉庫搬入0。目印候補生成は約99.98%が高H。設定経路の効果であり自律学習の成功とは区別。204項目PASS、約56分。

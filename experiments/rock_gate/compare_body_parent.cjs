@@ -1,0 +1,22 @@
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const [run,baseline,dest]=process.argv.slice(2);
+if(!dest)throw Error('usage: compare_body_parent.cjs RUN BASELINE DEST');
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,''));
+const input=read(path.join(run,'narrow/input.json')),old=read(path.join(baseline,'narrow/input.json'));
+assert.equal(input.config.body_purpose,'on');assert.equal(old.config.body_purpose??'off','off');
+delete input.config.body_purpose;delete old.config.body_purpose;assert.deepEqual(input,old);
+const r=read(path.join(run,'narrow/run/result.json'));
+const s=read(path.join(run,'narrow/run/summary.json'));
+assert.deepEqual(r.body_purpose,s.body_purpose);
+const actors=Object.fromEntries(Object.entries(r.body_purpose).map(([a,p])=>{
+ const snapshots=r.daily.map((d,i)=>{const prev=i?r.daily[i-1].physical[a].body_purpose:null;const state=d.physical[a].body_purpose;
+ return {day:i+1,selected:state.selected,replenishing:state.replenishing,decisions:state.decisions-(prev?.decisions??0),food_overrides:state.food_overrides-(prev?.food_overrides??0),switches:state.switches-(prev?.switches??0),reserve:d.physical[a].body.reserve,food_H:d.physical[a].loops.food.H,home_H:d.physical[a].loops.home.H};});
+ assert.equal(p.decisions,r.ended_us/1e6);assert.ok(p.records.length<=32);
+ return [a,{...p,daily:snapshots}];
+}));
+const oldResult=read(path.join(baseline,'narrow/run/result.json'));
+const commonDays=Math.min(r.daily.length,oldResult.daily.length);
+const atDay=result=>{const d=result.daily[commonDays-1];return {consumed:d.consumed,ground:d.ground,shared:d.shared_stock,actors:Object.fromEntries(Object.entries(d.physical).map(([a,p])=>[a,{reserve:p.body.reserve,return_completed:p.return_purpose.completed,actions:d.counts[a]}]))};};
+const out={input_equal_except_body_purpose:true,baseline,run,comparison_at_day:commonDays,aligned:{off:atDay(oldResult),on:atDay(r)},actors,cues:s.observed_cues};
+fs.writeFileSync(dest,JSON.stringify(out,null,2));
+console.log(JSON.stringify(Object.fromEntries(Object.entries(actors).map(([a,p])=>[a,{decisions:p.decisions,food_overrides:p.food_overrides,switches:p.switches}]))));

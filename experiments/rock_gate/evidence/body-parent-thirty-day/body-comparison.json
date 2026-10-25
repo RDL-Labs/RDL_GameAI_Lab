@@ -1,0 +1,2877 @@
+{
+  "input_equal_except_body_purpose": true,
+  "baseline": "outputs/food-roads-lazy-cues-30d-20261025",
+  "run": "outputs/body-parent-30d-20261025",
+  "comparison_at_day": 12,
+  "aligned": {
+    "off": {
+      "consumed": 23,
+      "ground": 54,
+      "shared": 1,
+      "actors": {
+        "npc_b": {
+          "reserve": 0,
+          "return_completed": 1,
+          "actions": {
+            "request": 2,
+            "rest": 78903,
+            "walk": 83182,
+            "give": 5,
+            "eat": 7,
+            "pickup": 9,
+            "refuse": 2,
+            "scan": 44352,
+            "run": 898
+          }
+        },
+        "npc_a": {
+          "reserve": 0,
+          "return_completed": 0,
+          "actions": {
+            "request": 8,
+            "rest": 88459,
+            "walk": 77483,
+            "eat": 9,
+            "pickup": 3,
+            "scan": 40271,
+            "run": 1127
+          }
+        },
+        "npc_c": {
+          "reserve": 0,
+          "return_completed": 2,
+          "actions": {
+            "rest": 88818,
+            "walk": 77097,
+            "give": 2,
+            "eat": 7,
+            "pickup": 8,
+            "deposit": 1,
+            "retrieve": 1,
+            "scan": 39877,
+            "refuse": 1,
+            "run": 1548
+          }
+        }
+      }
+    },
+    "on": {
+      "consumed": 42,
+      "ground": 37,
+      "shared": 0,
+      "actors": {
+        "npc_b": {
+          "reserve": 76.89876284909296,
+          "return_completed": 1,
+          "actions": {
+            "request": 6,
+            "rest": 43726,
+            "give": 5,
+            "walk": 106774,
+            "eat": 13,
+            "pickup": 15,
+            "refuse": 4,
+            "scan": 55593,
+            "run": 1224
+          }
+        },
+        "npc_a": {
+          "reserve": 80.21290043012033,
+          "return_completed": 4,
+          "actions": {
+            "request": 7,
+            "rest": 52307,
+            "walk": 100611,
+            "eat": 16,
+            "give": 3,
+            "pickup": 17,
+            "refuse": 5,
+            "scan": 53103,
+            "run": 1291
+          }
+        },
+        "npc_c": {
+          "reserve": 79.28972874884036,
+          "return_completed": 0,
+          "actions": {
+            "request": 6,
+            "rest": 42809,
+            "give": 1,
+            "walk": 106750,
+            "eat": 13,
+            "pickup": 8,
+            "scan": 56463,
+            "run": 1310
+          }
+        }
+      }
+    }
+  },
+  "actors": {
+    "npc_b": {
+      "parent": "npc_b:life",
+      "records": [
+        {
+          "from": "home",
+          "source": "ob:205000000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05007386718138758,
+          "reserve": 79.99377960577789,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:256981000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 90.5080366121554,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:265400000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05009337813038614,
+          "reserve": 79.9921365784938,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:289040000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 88.44956029889936,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:295874000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05008255435859071,
+          "reserve": 79.99304805401341,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:306035000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 86.38898481028762,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:311406000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05009626813324906,
+          "reserve": 79.99189320983166,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:325479000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 81.21750484393148,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:326580000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05006921331169574,
+          "reserve": 79.99417151059404,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:326582000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.992134473557,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:335223000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 89.25489960041358,
+          "to": "food",
+          "return_pending": false
+        },
+        {
+          "from": "food",
+          "source": "ob:336960000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 87.30128602726487,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:342115000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05008017525001453,
+          "reserve": 79.99324839999878,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:342116000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99232247407285,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:356980000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.0500839479447061,
+          "reserve": 79.99293069939317,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:356981000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99200477346724,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:372266000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.050095321178609306,
+          "reserve": 79.99197295338027,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:372267000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99104702745434,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:388056000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05008054676328258,
+          "reserve": 79.99321711467094,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:394179000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 91.89843967126184,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:403558000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05007604919349605,
+          "reserve": 79.9935958573898,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:426112000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 89.9684272048995,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:434068000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05009149866894122,
+          "reserve": 79.99229484893127,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:441545000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 89.81157001934115,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:449578000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.050083883992604696,
+          "reserve": 79.99293608483329,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:466197000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 97.81546682729387,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:479982000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.0500989450023734,
+          "reserve": 79.99166778927382,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:483085000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 95.93194556705518,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:495170000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.05008503532882087,
+          "reserve": 79.99283913020456,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:501224000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 91.9903506206932,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:510304000000:npc_b",
+          "replenishing": true,
+          "hunger_pressure": 0.050097039295077264,
+          "reserve": 79.99182826988823,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:517173000000:npc_b",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 90.66315495191274,
+          "to": "home",
+          "return_pending": true
+        }
+      ],
+      "goal": "energy_maintenance",
+      "id": "npc_b:energy-maintenance",
+      "replenishing": false,
+      "selected": "home",
+      "decisions": 518400,
+      "switches": 54,
+      "actor": "npc_b",
+      "food_overrides": 236595,
+      "daily": [
+        {
+          "day": 1,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 89.03149159747873,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 2,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 85.66499520991144,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 3,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 83.96532447022386,
+          "food_H": 0,
+          "home_H": 0
+        },
+        {
+          "day": 4,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 81.03417066240786,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 5,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2,
+          "switches": 4,
+          "reserve": 97.85674655378602,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 6,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 4013,
+          "switches": 1,
+          "reserve": 74.76557237888235,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 7,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 17280,
+          "switches": 0,
+          "reserve": 51.75653343532699,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 8,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 8968,
+          "switches": 1,
+          "reserve": 89.1195172958357,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 9,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 10585,
+          "switches": 1,
+          "reserve": 65.94926715546684,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 10,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 17280,
+          "switches": 0,
+          "reserve": 42.5087654960457,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 11,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 5375,
+          "switches": 2,
+          "reserve": 79.79123939468853,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 12,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 6789,
+          "switches": 2,
+          "reserve": 76.89876284909296,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 13,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 17280,
+          "switches": 0,
+          "reserve": 53.91078303084446,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 14,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 17280,
+          "switches": 0,
+          "reserve": 30.74141451549403,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 15,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 15061,
+          "switches": 1,
+          "reserve": 88.04248105659157,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 16,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 11080,
+          "switches": 1,
+          "reserve": 65.30176078439757,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 17,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 12560,
+          "switches": 1,
+          "reserve": 82.83438451234429,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 18,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 10161,
+          "switches": 2,
+          "reserve": 80.45883765427588,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 19,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 14075,
+          "switches": 4,
+          "reserve": 98.06102336243941,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 20,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 95.93210025184109,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 21,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 92.74292144011528,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 22,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 90.3607639114251,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 23,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 6123,
+          "switches": 2,
+          "reserve": 88.18851161162374,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 24,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 11162,
+          "switches": 1,
+          "reserve": 65.27564551661236,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 25,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 11392,
+          "switches": 1,
+          "reserve": 82.77670054915899,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 26,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 7477,
+          "switches": 2,
+          "reserve": 80.36977774078326,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 27,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 16619,
+          "switches": 2,
+          "reserve": 97.41213349395919,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 28,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 3103,
+          "switches": 2,
+          "reserve": 95.09305667816348,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 29,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 5950,
+          "switches": 1,
+          "reserve": 72.13414691698925,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 30,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 6973,
+          "switches": 3,
+          "reserve": 89.29982161857484,
+          "food_H": 0,
+          "home_H": 32
+        }
+      ]
+    },
+    "npc_a": {
+      "parent": "npc_a:life",
+      "records": [
+        {
+          "from": "home",
+          "source": "ob:286171000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05008520349515329,
+          "reserve": 79.9928249688292,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:286172000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99189904290327,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:301469000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05007789328596638,
+          "reserve": 79.9934405653923,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:305666000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 94.47399865331737,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:317009000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05008496959871066,
+          "reserve": 79.99284466537173,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:322145000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 93.12279535982226,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:332732000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05008434676573308,
+          "reserve": 79.99289711446458,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:334623000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 97.43220180411168,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:348131000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05007741717523751,
+          "reserve": 79.99348065892737,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:355467000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 90.08035564929564,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:363485000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05008880920782445,
+          "reserve": 79.99252132986742,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:375158000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 84.26542214435828,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:378527000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05007118542370914,
+          "reserve": 79.99400543800344,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:396314000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 96.36118961903507,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:408413000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05009202521287077,
+          "reserve": 79.99225050838983,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:411296000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 96.12566785986046,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:423933000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05007405853578109,
+          "reserve": 79.9937634917237,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:427685000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 95.03651535108212,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:439666000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.0500895578464556,
+          "reserve": 79.99245828661427,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:446609000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 90.8559889086222,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:451888000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 84.57011541342185,
+          "to": "food",
+          "return_pending": false
+        },
+        {
+          "from": "food",
+          "source": "ob:455882000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0.05005231473708621,
+          "reserve": 79.9955945484559,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:455884000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05007870362597519,
+          "reserve": 79.99337232623367,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:455885000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99244640030774,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:469908000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05010873229136979,
+          "reserve": 79.99084359651623,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:469909000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.9899176705903,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:483954000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05008195378791059,
+          "reserve": 79.99309862838648,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:483955000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99217270246055,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:497725000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.050084396921679375,
+          "reserve": 79.99289289080595,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:497726000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99196696488002,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:512315000000:npc_a",
+          "replenishing": true,
+          "hunger_pressure": 0.05009360758152637,
+          "reserve": 79.99211725629252,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:512316000000:npc_a",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99119133036659,
+          "to": "home",
+          "return_pending": true
+        }
+      ],
+      "goal": "energy_maintenance",
+      "id": "npc_a:energy-maintenance",
+      "replenishing": false,
+      "selected": "home",
+      "decisions": 518400,
+      "switches": 70,
+      "actor": "npc_a",
+      "food_overrides": 143680,
+      "daily": [
+        {
+          "day": 1,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 89.20219336674042,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 2,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 86.13028395281128,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 3,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 83.38611576393177,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 4,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2918,
+          "switches": 2,
+          "reserve": 80.73012938105015,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 5,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 14405,
+          "switches": 3,
+          "reserve": 78.06911192387628,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 6,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 10643,
+          "switches": 3,
+          "reserve": 96.2752420507488,
+          "food_H": 0,
+          "home_H": 0
+        },
+        {
+          "day": 7,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 658,
+          "switches": 2,
+          "reserve": 93.97377991171793,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 8,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 6708,
+          "switches": 1,
+          "reserve": 71.05951230114704,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 9,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 15192,
+          "switches": 1,
+          "reserve": 88.19607366047218,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 10,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 4537,
+          "switches": 2,
+          "reserve": 85.71525308582643,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 11,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 10153,
+          "switches": 2,
+          "reserve": 83.0436573200126,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 12,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 80.21290043012033,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 13,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 75,
+          "switches": 4,
+          "reserve": 98.1502782512943,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 14,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 3618,
+          "switches": 1,
+          "reserve": 75.23393995559684,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 15,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 13087,
+          "switches": 1,
+          "reserve": 92.81933715424073,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 16,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 78,
+          "switches": 2,
+          "reserve": 91.10221112663007,
+          "food_H": 0,
+          "home_H": 0
+        },
+        {
+          "day": 17,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 90.36341308316932,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 18,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 4197,
+          "switches": 2,
+          "reserve": 87.93912120857253,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 19,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 5136,
+          "switches": 2,
+          "reserve": 85.65177300021315,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 20,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1891,
+          "switches": 2,
+          "reserve": 83.29918682961869,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 21,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 7336,
+          "switches": 2,
+          "reserve": 80.7797435520886,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 22,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 13306,
+          "switches": 3,
+          "reserve": 77.84353649831921,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 23,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 16154,
+          "switches": 1,
+          "reserve": 95.11007850791977,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 24,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2883,
+          "switches": 2,
+          "reserve": 92.21278335624957,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 25,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 3752,
+          "switches": 2,
+          "reserve": 90.02948707925415,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 26,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 6943,
+          "switches": 2,
+          "reserve": 87.88821113083446,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 27,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 85.13101914983405,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 28,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 80.1401356654237,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 29,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2,
+          "switches": 4,
+          "reserve": 96.05789667423205,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 30,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 92.33273134620822,
+          "food_H": 0,
+          "home_H": 32
+        }
+      ]
+    },
+    "npc_c": {
+      "parent": "npc_c:life",
+      "records": [
+        {
+          "from": "food",
+          "source": "ob:290526000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 91.2034966893408,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:299371000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.050088869346005205,
+          "reserve": 79.99251626559956,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:303852000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 93.99908437232205,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:311040000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 85.93055192858928,
+          "to": "food",
+          "return_pending": false
+        },
+        {
+          "from": "food",
+          "source": "ob:316255000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0.05004594082704859,
+          "reserve": 79.99613129877486,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:316257000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05007893575944802,
+          "reserve": 79.99335277815175,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:316258000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99242685222582,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:330686000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05011086905021954,
+          "reserve": 79.99066365892888,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:330687000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.98973773300295,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:344986000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05006795808271039,
+          "reserve": 79.99427721408755,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:344987000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99335128816162,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:359369000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05008665134216776,
+          "reserve": 79.99270304487008,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:359370000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99177711894416,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:374399000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05009183086206158,
+          "reserve": 79.99226687477376,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:374400000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99134094884784,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:389764000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05008776860708094,
+          "reserve": 79.99260895940371,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:410219000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 92.52379337040335,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:414720000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 87.3293047901585,
+          "to": "food",
+          "return_pending": false
+        },
+        {
+          "from": "food",
+          "source": "ob:421305000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0.05004468932017655,
+          "reserve": 79.99623668882724,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:421307000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.050084296156351134,
+          "reserve": 79.99290137630727,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:421308000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99197545038135,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:435460000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05009842263068742,
+          "reserve": 79.99171177846843,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:435461000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.9907858525425,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:449679000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.050096472966425096,
+          "reserve": 79.9918759607221,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:449680000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99095003479617,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:464249000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05007766954562434,
+          "reserve": 79.99345940668427,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:464250000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99253348075834,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:479076000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.050079541907415,
+          "reserve": 79.99330173411242,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:479077000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.9923758081865,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:494450000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.05008877328590036,
+          "reserve": 79.99252435487155,
+          "to": "food",
+          "return_pending": true
+        },
+        {
+          "from": "food",
+          "source": "ob:494451000000:npc_c",
+          "replenishing": false,
+          "hunger_pressure": 0,
+          "reserve": 99.99159842894562,
+          "to": "home",
+          "return_pending": true
+        },
+        {
+          "from": "home",
+          "source": "ob:509963000000:npc_c",
+          "replenishing": true,
+          "hunger_pressure": 0.050088378815073345,
+          "reserve": 79.99255757346751,
+          "to": "food",
+          "return_pending": true
+        }
+      ],
+      "goal": "energy_maintenance",
+      "id": "npc_c:energy-maintenance",
+      "replenishing": true,
+      "selected": "food",
+      "decisions": 518400,
+      "switches": 67,
+      "actor": "npc_c",
+      "food_overrides": 138746,
+      "daily": [
+        {
+          "day": 1,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 89.17012829253734,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 2,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 86.52623838986611,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 3,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 83.66351092521825,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 4,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2792,
+          "switches": 2,
+          "reserve": 81.23785341248296,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 5,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 1415,
+          "switches": 3,
+          "reserve": 78.56805089947059,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 6,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 9462,
+          "switches": 2,
+          "reserve": 75.55000256956632,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 7,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 17173,
+          "switches": 2,
+          "reserve": 72.54429124657062,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 8,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 14390,
+          "switches": 1,
+          "reserve": 90.04370103166082,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 9,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 9071,
+          "switches": 2,
+          "reserve": 87.14888398266139,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 10,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 6105,
+          "switches": 2,
+          "reserve": 84.89101621773989,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 11,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 13570,
+          "switches": 1,
+          "reserve": 61.95343232501342,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 12,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 3626,
+          "switches": 2,
+          "reserve": 79.28972874884036,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 13,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2336,
+          "switches": 3,
+          "reserve": 96.38935205562176,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 14,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 3804,
+          "switches": 2,
+          "reserve": 93.9675304869268,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 15,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 93.04797184365503,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 16,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 7568,
+          "switches": 1,
+          "reserve": 70.0897961717423,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 17,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 14046,
+          "switches": 1,
+          "reserve": 87.51010949475767,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 18,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 4481,
+          "switches": 2,
+          "reserve": 85.93055192858928,
+          "food_H": 0,
+          "home_H": 0
+        },
+        {
+          "day": 19,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 83.2796940435515,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 20,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2,
+          "switches": 4,
+          "reserve": 99.31224017704822,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 21,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 95.90150218066016,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 22,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 92.86801409913237,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 23,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 7676,
+          "switches": 1,
+          "reserve": 69.74414896991416,
+          "food_H": 32,
+          "home_H": 32
+        },
+        {
+          "day": 24,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 12779,
+          "switches": 1,
+          "reserve": 87.3293047901585,
+          "food_H": 0,
+          "home_H": 0
+        },
+        {
+          "day": 25,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 4,
+          "reserve": 85.21852069051155,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 26,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 80.5720981829467,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 27,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 2,
+          "switches": 4,
+          "reserve": 97.42586681408307,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 28,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 94.17020373962657,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 29,
+          "selected": "home",
+          "replenishing": false,
+          "decisions": 17280,
+          "food_overrides": 1,
+          "switches": 2,
+          "reserve": 91.79673819995449,
+          "food_H": 0,
+          "home_H": 32
+        },
+        {
+          "day": 30,
+          "selected": "food",
+          "replenishing": true,
+          "decisions": 17280,
+          "food_overrides": 8437,
+          "switches": 1,
+          "reserve": 68.93920619594698,
+          "food_H": 32,
+          "home_H": 32
+        }
+      ]
+    }
+  },
+  "cues": {
+    "npc_b": {
+      "records": [
+        {
+          "method": "cue:shape:gray:-2",
+          "source": "ob:517072000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:brown:-6",
+          "source": "ob:517074000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:brown:-4",
+          "source": "ob:517077000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:-2",
+          "source": "ob:517078000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:water:-6",
+          "source": "ob:517082000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:2",
+          "source": "ob:517083000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:grass:-3",
+          "source": "ob:517086000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:grass:0",
+          "source": "ob:517087000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:grass:-6",
+          "source": "ob:517089000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:water:-6",
+          "source": "ob:517091000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:worn_ground:3",
+          "source": "ob:517092000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:gray:4",
+          "source": "ob:517094000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:obstacle:2",
+          "source": "ob:517095000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:6",
+          "source": "ob:517097000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:2",
+          "source": "ob:517098000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:shape-gray/sky-brown/3:2",
+          "source": "ob:517099000000:npc_b",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:light:dim:-4",
+          "source": "ob:517100000000:npc_b",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:arrangement:shape-gray/shape-gray/4:3",
+          "source": "ob:517102000000:npc_b",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:water:-3",
+          "source": "ob:517104000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:6",
+          "source": "ob:517107000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:shape-orange/sky-gray/2:0",
+          "source": "ob:517108000000:npc_b",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:gray:4",
+          "source": "ob:517110000000:npc_b",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:water:-6",
+          "source": "ob:517111000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:shape-gray/shape-gray/4:0",
+          "source": "ob:517115000000:npc_b",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:-6",
+          "source": "ob:517117000000:npc_b",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:arrangement:shape-brown/shape-brown/5:-3",
+          "source": "ob:517147000000:npc_b",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:light:dim:-6",
+          "source": "ob:517148000000:npc_b",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:obstacle:-6",
+          "source": "ob:517155000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:0",
+          "source": "ob:517156000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:water:3",
+          "source": "ob:517157000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:light:dim:-1",
+          "source": "ob:517159000000:npc_b",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:gray:-4",
+          "source": "ob:517160000000:npc_b",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        }
+      ],
+      "generated": 6067517,
+      "offered": [
+        644923,
+        3761379,
+        1661215
+      ],
+      "capacity_dropped": 0,
+      "tower_observations": 73922,
+      "observations": 437598,
+      "generation_levels": [
+        38,
+        38,
+        437522
+      ],
+      "selected": [
+        25354,
+        132972,
+        61091
+      ],
+      "kinds": {
+        "sky": 56372,
+        "moving": 455,
+        "food": 925,
+        "shape": 55513,
+        "light": 2952,
+        "arrangement": 60636,
+        "surface": 42564
+      }
+    },
+    "npc_a": {
+      "records": [
+        {
+          "method": "cue:sky:brown:0",
+          "source": "ob:515432000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:3",
+          "source": "ob:515433000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:brown:3",
+          "source": "ob:515434000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:5",
+          "source": "ob:515435000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:6",
+          "source": "ob:515440000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:worn_ground:0",
+          "source": "ob:515441000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:6",
+          "source": "ob:515446000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:arrangement:shape-brown/shape-brown/2:3",
+          "source": "ob:515447000000:npc_a",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:-2",
+          "source": "ob:515454000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:shape-brown/shape-brown/4:1",
+          "source": "ob:515455000000:npc_a",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:-6",
+          "source": "ob:515456000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:arrangement:sky-brown/sky-brown/3:3",
+          "source": "ob:515457000000:npc_a",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:-1",
+          "source": "ob:515458000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:worn_ground:-1",
+          "source": "ob:515465000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:gray:1",
+          "source": "ob:515467000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:5",
+          "source": "ob:515468000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:obstacle:-6",
+          "source": "ob:515476000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:2",
+          "source": "ob:515477000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:4",
+          "source": "ob:515481000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:-6",
+          "source": "ob:515488000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:brown:4",
+          "source": "ob:515489000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:0",
+          "source": "ob:515493000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:6",
+          "source": "ob:515496000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:gray:3",
+          "source": "ob:515499000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:gray:2",
+          "source": "ob:515501000000:npc_a",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:ochre:0",
+          "source": "ob:515502000000:npc_a",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:obstacle:-6",
+          "source": "ob:515503000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:gray:0",
+          "source": "ob:515505000000:npc_a",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:6",
+          "source": "ob:515507000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:sky-brown/sky-brown/3:-4",
+          "source": "ob:515509000000:npc_a",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:6",
+          "source": "ob:515511000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:4",
+          "source": "ob:515518000000:npc_a",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        }
+      ],
+      "generated": 5498298,
+      "offered": [
+        602166,
+        3413374,
+        1482758
+      ],
+      "capacity_dropped": 0,
+      "tower_observations": 67793,
+      "observations": 397410,
+      "generation_levels": [
+        52,
+        52,
+        397306
+      ],
+      "selected": [
+        23668,
+        118922,
+        53373
+      ],
+      "kinds": {
+        "sky": 50280,
+        "moving": 482,
+        "food": 998,
+        "shape": 48382,
+        "light": 3074,
+        "arrangement": 52891,
+        "surface": 39856
+      }
+    },
+    "npc_c": {
+      "records": [
+        {
+          "method": "cue:surface:grass:-3",
+          "source": "ob:518334000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:-6",
+          "source": "ob:518337000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:sky:brown:-2",
+          "source": "ob:518338000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:-2",
+          "source": "ob:518339000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:1",
+          "source": "ob:518340000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:shape-brown/sky-brown/2:0",
+          "source": "ob:518342000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:worn_ground:4",
+          "source": "ob:518343000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:gray:6",
+          "source": "ob:518345000000:npc_c",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:-2",
+          "source": "ob:518346000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:arrangement:shape-brown/shape-brown/6:2",
+          "source": "ob:518347000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:gray:4",
+          "source": "ob:518359000000:npc_c",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:-2",
+          "source": "ob:518362000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:gray:-4",
+          "source": "ob:518363000000:npc_c",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:obstacle:-5",
+          "source": "ob:518364000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:grass:0",
+          "source": "ob:518366000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:brown:2",
+          "source": "ob:518367000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:water:5",
+          "source": "ob:518368000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:obstacle:-6",
+          "source": "ob:518369000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:sky-brown/sky-brown/3:-2",
+          "source": "ob:518370000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:surface:water:6",
+          "source": "ob:518371000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:2",
+          "source": "ob:518374000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:shape-brown/shape-brown/2:2",
+          "source": "ob:518375000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:shape:gray:0",
+          "source": "ob:518376000000:npc_c",
+          "H": 32,
+          "tier": 0,
+          "uncertain": false,
+          "action": "walk"
+        },
+        {
+          "method": "cue:shape:brown:4",
+          "source": "ob:518377000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:arrangement:sky-brown/sky-brown/4:0",
+          "source": "ob:518378000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:2",
+          "source": "ob:518379000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:-6",
+          "source": "ob:518384000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:sky-brown/sky-gray/4:0",
+          "source": "ob:518386000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:sky-brown/sky-brown/4:3",
+          "source": "ob:518387000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:arrangement:shape-brown/shape-brown/2:-1",
+          "source": "ob:518388000000:npc_c",
+          "H": 32,
+          "tier": 2,
+          "uncertain": true,
+          "action": "scan"
+        },
+        {
+          "method": "cue:sky:brown:-1",
+          "source": "ob:518389000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "walk"
+        },
+        {
+          "method": "cue:surface:worn_ground:0",
+          "source": "ob:518392000000:npc_c",
+          "H": 32,
+          "tier": 1,
+          "uncertain": true,
+          "action": "scan"
+        }
+      ],
+      "generated": 5646499,
+      "offered": [
+        642035,
+        3468503,
+        1535961
+      ],
+      "capacity_dropped": 0,
+      "tower_observations": 70508,
+      "observations": 411562,
+      "generation_levels": [
+        36,
+        36,
+        411490
+      ],
+      "selected": [
+        25805,
+        122755,
+        57201
+      ],
+      "kinds": {
+        "sky": 53112,
+        "moving": 418,
+        "food": 1079,
+        "shape": 51131,
+        "light": 3328,
+        "arrangement": 56783,
+        "surface": 39910
+      }
+    }
+  }
+}
