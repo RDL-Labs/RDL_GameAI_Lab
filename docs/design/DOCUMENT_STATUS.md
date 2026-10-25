@@ -510,3 +510,7 @@ STRUCTURAL REFACTOR。[配置](../../src/lw/configured_paths/README.md)。身体
 ### 2026-10-25 — 身体要求の設定経路ONで30日試験
 
 FINITE EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/body_parent_report.md)。body_purpose以外の入力は前回と一致。前回12日末の全員停止に対し、今回は30日完走・全日末全員reserve>0。12日目消費23→42、30日末A92/B89/C69。倉庫搬入0。目印候補生成は約99.98%が高H。設定経路の効果であり自律学習の成功とは区別。204項目PASS、約56分。
+
+### 2026-10-25 — 観測MB地図からの有限シミュレーション
+
+FINITE PROTOTYPE。[設計](LW_MB_Map_Simulation.md)、[1日試験](../../experiments/rock_gate/mb_map_report.md)。実行と次観測から有向関係を記録し、H・身体条件で最大4段/64展開を実施。予測不一致で辺の評価を下げる。単体で2段経路を提案、実配置1日ではグラフ形成・探索のみで提案0。再認識・接続・上限の課題が残る。142項目PASS。長期改善・多階層ρ・思考の身体消費は未検証/未実装。

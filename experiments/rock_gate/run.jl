@@ -67,6 +67,9 @@ base["config"]["general_landmarks"]=cue_arg===nothing ? "off" : ARGS[cue_arg+1]
 body_arg=findfirst(==("--body-purpose"),ARGS)
 base["config"]["body_purpose"]=body_arg===nothing ? "off" : ARGS[body_arg+1]
 @assert base["config"]["body_purpose"] in ("off","on")
+mb_arg=findfirst(==("--mb-simulation"),ARGS)
+base["config"]["mb_simulation"]=mb_arg===nothing ? "off" : ARGS[mb_arg+1]
+@assert base["config"]["mb_simulation"] in ("off","on")
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue
