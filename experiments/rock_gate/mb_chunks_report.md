@@ -1,5 +1,29 @@
 # 目的Hの解消で経験をまとめる：3日試験
 
+## 追試：30日（2026-10-25）
+
+37f19efの実装、同じseed・設定で日数を30へ延長。全員reserve=0かつ終日休息なら停止する条件を追加したが、発火せず30日を完走。20:52に集計まで正常終了。実行3128.61秒（約52分9秒、コンパイル込み）、ピークRSS 2,908,037,120 bytes（約2.91GB）。道19・岩壁33・生活保存則152、計204項目PASS。グラフ監査・日別集計もexit=0。
+
+| 個体 | 日末reserve | 帰還完了 | ノード / 辺 | 探索候補 / 選択 | まとまり形成 / 再利用選択 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| A | 96.17 | 5 | 543 / 5120 | 8 / 2 | 0 / 0 |
+| B | 69.07 | 3 | 562 / 5120 | 0 / 0 | 0 / 0 |
+| C | 91.74 | 2 | 527 / 5120 | 0 / 0 | 0 / 0 |
+
+全日末で全員reserve>0。食料初期76＋再生63＝消費104＋地上35、携行・倉庫0。帰還完了数は入口通過数とは異なる。
+
+内部探索は合計13413回、349627展開。Aで候補の選択が2回発生したが、その後の予測照合は2回ともunknownで、一致・不一致を判定できていない。これを成功した経路利用とは数えない。まとまり形成・報酬付与・再利用候補は全員0で、30日でも形成条件を満たさなかった。成功経験が皆無という説明では足りず、目的達成時の有効経路長や観測・目的変更による記録の切断を分けて診断する必要がある。
+
+全員辺上限5120に到達し、容量削除A369/B95/C82。期間延長で容量制約も顕在化したが、形成0の原因とは断定できない。同じ30日・同じコードのmb_chunks=off対照は未実施であり、生存や帰還の改善を本機能の効果とは主張しない。
+
+```powershell
+julia --startup-file=no --project=. experiments/rock_gate/run.jl outputs/mb-chunks-30d-20261025 --narrow-only --days 30 --stop-exhausted --rho coarse --rho-openings on --food-roads on --general-landmarks on --body-purpose on --mb-simulation on --mb-chunks on
+```
+
+証拠：[日別集計](evidence/mb-chunks-thirty-day/summary.json)、[地図監査](evidence/mb-chunks-thirty-day/map-audit.json)、[manifest](evidence/mb-chunks-thirty-day/manifest.json)、[provenance](evidence/mb-chunks-thirty-day/provenance.json)。
+
+## 最初の3日試験
+
 2026-10-25。実装範囲は[設計](../../docs/design/LW_MB_Reward_Chunks.md)。予測一致は関係の信頼度、目的達成によるH減少は成功経路の報酬として別に扱う。実際に観測した連続する2辺以上を仮のまとまりにし、同じ経路の成功で支持と報酬を増やす。内部の辺は残し、再認識できた地点から候補として再利用する。固定した行動継続ではない。
 
 ## 条件と結果
