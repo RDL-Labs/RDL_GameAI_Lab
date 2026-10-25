@@ -1,0 +1,107 @@
+# Goal-credited, removable experience chunks; not preconfigured routes.
+const MB_CHUNK_LIMIT=64
+const MB_TRACE_LIMIT=32
+function mb_trace_reset!(s)
+    empty!(s["route_trace"]);s["trace_goal"]=nothing
+end
+function mb_prune_chunks!(s)
+    filter!(p->all(k->haskey(s["edges"],k),p.second["edges"]),s["chunks"])
+    all(k->haskey(s["edges"],k),s["route_trace"]) || mb_trace_reset!(s)
+end
+function mb_trace_observation!(s,receipt,frame,now)
+    s["chunks_enabled"] || return
+    s["last_chunk_operation"]=nothing
+    receipt===nothing && return
+    valid=frame!==nothing && now==receipt["now"]+1_000_000
+    valid && (s["last_chunk_operation"]="op:$(receipt["now"]):$(s["actor"])")
+    goal=get(receipt,"goal",nothing)
+    if !valid || !(goal in ("home","food")) || !(receipt["status"] in ("performed","picked_up","recovered"))
+        mb_trace_reset!(s);return
+    end
+    if s["trace_goal"]!=goal
+        mb_trace_reset!(s);s["trace_goal"]=goal
+    end
+    if !isempty(s["route_trace"])
+        last_edge=get(s["edges"],last(s["route_trace"]),nothing)
+        if last_edge===nothing || last_edge["to"]!=receipt["from"]
+            mb_trace_reset!(s);s["trace_goal"]=goal
+        end
+    end
+    # An unexplained scene change cannot bridge a remembered path.
+    if receipt["from"]!=frame.key && !(receipt["action"] in ("walk","run","scan"))
+        mb_trace_reset!(s)
+    end
+end
+function mb_trace_edge!(s,key)
+    s["chunks_enabled"] && s["trace_goal"]!==nothing || return
+    push!(s["route_trace"],key)
+    length(s["route_trace"])>MB_TRACE_LIMIT && popfirst!(s["route_trace"])
+end
+function mb_chunk_prediction!(s,receipt,frame,now)
+    id=get(receipt,"chunk",nothing)
+    (id===nothing || !haskey(s["chunks"],id)) && return
+    c=s["chunks"][id];key=receipt["predicted"]
+    if frame===nothing || now!=receipt["now"]+1_000_000 || !haskey(s["edges"],key)
+        c["unknown"]+=1
+    elseif receipt["status"]=="performed" && frame.key==s["edges"][key]["to"]
+        c["matches"]+=1
+    else
+        c["misses"]+=1
+    end
+end
+function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now)
+    s["chunks_enabled"] || return false
+    resolved===true || return false
+    s["last_chunk_operation"]===nothing && return false
+    source==s["last_chunk_operation"] || error("mb_chunk_result_binding")
+    source==s["last_chunk_credit"] && return false
+    s["last_chunk_credit"]=source
+    path=copy(s["route_trace"]);family=s["trace_goal"];mb_trace_reset!(s)
+    reward=Float64(max(0,H_before-H_after))
+    reward>0 && H_after==0 && family==goal && length(path)>=2 || return false
+    all(k->haskey(s["edges"],k),path) || return false
+    all(s["edges"][path[i]]["to"]==s["edges"][path[i+1]]["from"] for i in 1:length(path)-1) || return false
+    frame=s["current"]
+    frame!==nothing && s["current_us"]==now && s["edges"][last(path)]["to"]==frame.key || return false
+    key=goal*":"*bytes2hex(sha256(join(path,"|")))[1:16]
+    if !haskey(s["chunks"],key)
+        if length(s["chunks"])>=MB_CHUNK_LIMIT
+            oldest=first(sort(collect(keys(s["chunks"])),by=k->(s["chunks"][k]["last_success_us"],k)))
+            delete!(s["chunks"],oldest)
+        end
+        s["chunks"][key]=D("goal"=>goal,"edges"=>path,"from"=>s["edges"][first(path)]["from"],
+            "to"=>frame.key,"successes"=>0,"reward"=>0.,"matches"=>0,"misses"=>0,"unknown"=>0,"last_success_us"=>now)
+        s["chunk_formations"]+=1
+    end
+    c=s["chunks"][key];c["successes"]+=1;c["reward"]+=reward;c["last_success_us"]=now
+    s["chunk_goal_credits"]+=1;s["chunk_reward"]+=reward
+    push!(s["chunk_records"],D("chunk"=>key,"source"=>source,"goal"=>goal,"H_before"=>H_before,"H_after"=>H_after,
+        "reward"=>reward,"edges"=>length(path),"successes"=>c["successes"],"tentative"=>c["successes"]==1))
+    length(s["chunk_records"])>32 && popfirst!(s["chunk_records"])
+    true
+end
+function mb_chunk_candidates!(s,move,goal,reserve,strain,now)
+    frame=s["current"]
+    (!s["chunks_enabled"] || frame===nothing || s["current_us"]!=now || reserve<=20 || strain>=.8) && return Any[]
+    out=Any[]
+    for id in sort(collect(keys(s["chunks"])))
+        c=s["chunks"][id];c["goal"]==goal || continue
+        c["misses"]>=c["successes"]+c["matches"] && continue # Unreliable chunks yield to detailed search.
+        now-c["last_success_us"]<=17_280_000_000 || continue
+        all(k->haskey(s["edges"],k) && now-s["edges"][k]["seen"]<=17_280_000_000,c["edges"]) || continue
+        indices=findall(k->s["edges"][k]["from"]==frame.key,c["edges"])
+        length(indices)==1 || continue # Ambiguous repeated scenes are not a cursor.
+        index=only(indices);edge=c["edges"][index];p=mb_first_action(s["edges"][edge],frame,move)
+        p===nothing && continue
+        support=log1p(c["successes"])+log1p(c["reward"])
+        confidence=1/(1+c["misses"])
+        merge!(p,D("method"=>"mb_chunk:"*id,"action"=>p["action"],"priority"=>3.0+confidence*min(2.,support),
+            "question"=>"target_observed","mb_edge"=>edge,"mb_expected"=>s["edges"][edge]["to"],
+            "mb_chunk"=>id,"mb_chunk_index"=>index,"mb_depth"=>length(c["edges"])-index+1))
+        push!(out,p)
+    end
+    sort!(out,by=p->(-p["priority"],p["method"]))
+    length(out)>4 && resize!(out,4)
+    s["chunk_proposals"]+=length(out)
+    out
+end

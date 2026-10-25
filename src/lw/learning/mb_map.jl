@@ -1,7 +1,9 @@
 # Observed MB transition graph. No World positions, object IDs or reverse-edge invention.
 const MB_MAP_NODE_LIMIT=1280
 const MB_MAP_EDGE_LIMIT=5120
-mb_map_state(actor)=D("actor"=>actor,"nodes"=>D(),"edges"=>D(),"current"=>nothing,"current_us"=>nothing,"receipt"=>nothing,
+mb_map_state(actor;chunks=false)=D("chunks_enabled"=>chunks,"chunks"=>D(),"route_trace"=>String[],"trace_goal"=>nothing,
+    "last_chunk_operation"=>nothing,"last_chunk_credit"=>nothing,"chunk_formations"=>0,"chunk_goal_credits"=>0,"chunk_reward"=>0.,
+    "chunk_proposals"=>0,"chunk_selected"=>0,"chunk_records"=>Any[],"actor"=>actor,"nodes"=>D(),"edges"=>D(),"current"=>nothing,"current_us"=>nothing,"receipt"=>nothing,
     "next_search_us"=>0,"observations"=>0,"searches"=>0,"expanded"=>0,"proposals"=>0,
     "selected"=>0,"prediction_match"=>0,"prediction_miss"=>0,"prediction_unknown"=>0,
     "evictions"=>0,"records"=>Any[])
@@ -16,6 +18,7 @@ function mb_forget_node!(s,key)
     delete!(s["nodes"],key)
     filter!(p->p.second["from"]!=key && p.second["to"]!=key,s["edges"])
     s["evictions"]+=1
+    mb_prune_chunks!(s)
 end
 function mb_observe!(s,obs,now;home=false,food=false)
     obs["source"]=="ob:$now:$(s["actor"])" || error("mb_observation_binding")
@@ -31,7 +34,9 @@ function mb_observe!(s,obs,now;home=false,food=false)
         end
         n=s["nodes"][frame.key];n["seen"]=now;n["home"]=home;n["food"]=food
     end
+    mb_trace_observation!(s,receipt,frame,now)
     receipt===nothing && return
+    mb_chunk_prediction!(s,receipt,frame,now)
     predicted=receipt["predicted"]
     if predicted!==nothing && haskey(s["edges"],predicted)
         e=s["edges"][predicted]
@@ -50,23 +55,25 @@ function mb_observe!(s,obs,now;home=false,food=false)
     if !haskey(s["edges"],key)
         if length(s["edges"])>=MB_MAP_EDGE_LIMIT
             oldest=first(sort(collect(keys(s["edges"])),by=k->(s["edges"][k]["seen"],k)))
-            delete!(s["edges"],oldest);s["evictions"]+=1
+            delete!(s["edges"],oldest);s["evictions"]+=1;mb_prune_chunks!(s)
         end
         s["edges"][key]=D("from"=>receipt["from"],"to"=>frame.key,"action"=>receipt["action"],
             "offset"=>receipt["offset"],"distance"=>receipt["distance"],"samples"=>0,"energy_sum"=>0.,"matches"=>0,"misses"=>0,"seen"=>now)
     end
     e=s["edges"][key];e["samples"]+=1;e["energy_sum"]+=receipt["energy"];e["seen"]=now
+    mb_trace_edge!(s,key)
 end
 function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
     frame=s["current"];predicted=get(plan,"mb_edge",nothing)
+    haskey(plan,"mb_chunk") && (s["chunk_selected"]+=1)
     predicted!==nothing && (s["selected"]+=1)
     if frame===nothing;s["receipt"]=nothing;return;end
     action=plan["action"]
     angle=turn===nothing ? (action=="scan" ? get(plan,"scan_angle",60.) : get(plan,"approach_angle",ANGLES[get(plan,"direction",0)+1])) : turn
     s["receipt"]=D("from"=>frame.key,"action"=>action,"offset"=>action=="scan" ? angle : wrap_angle(angle-frame.anchor),
-        "distance"=>distance,"status"=>status,"energy"=>max(0.,energy),"now"=>now,"predicted"=>predicted)
+        "distance"=>distance,"status"=>status,"energy"=>max(0.,energy),"now"=>now,"predicted"=>predicted,"goal"=>get(plan,"purpose_family",nothing),"chunk"=>get(plan,"mb_chunk",nothing))
 end
-mb_edge_cost(e)=1.0+e["energy_sum"]/max(1,e["samples"])+2/(1+e["samples"])+2log1p(e["misses"])
+mb_edge_cost(e)=1.0+e["energy_sum"]/max(1,e["samples"])+2/(1+e["samples"]+e["matches"])+2log1p(e["misses"])
 function mb_first_action(e,frame,move)
     if e["action"]=="scan"
         return D("action"=>"scan","scan_angle"=>e["offset"])

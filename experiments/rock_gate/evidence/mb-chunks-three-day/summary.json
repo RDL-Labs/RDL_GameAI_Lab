@@ -1,0 +1,276 @@
+{
+  "termination": {
+    "limit_days": 3,
+    "completed_days": 3,
+    "reason": "day_limit",
+    "stop_exhausted": false
+  },
+  "days": 3,
+  "seed": 20261005,
+  "measurement": {
+    "gc_seconds": 14.2158196,
+    "process_peak_rss_bytes": 1379581952,
+    "compilation_included": true,
+    "call_seconds": 258.6248529,
+    "allocated_bytes": 142758733610
+  },
+  "initial_food": 76,
+  "replenished_food": 0,
+  "replenishments": [],
+  "consumed": 12,
+  "remaining_by_site": [
+    24,
+    24,
+    16
+  ],
+  "shared_storage": {
+    "records": [],
+    "taken": 0,
+    "deposited": 0
+  },
+  "dropped_cargo": {
+    "records": [],
+    "dropped": 0,
+    "cross_actor": 0,
+    "sites": [],
+    "recovered": 0
+  },
+  "actors": {
+    "npc_a": {
+      "outward": 1,
+      "inward": 0,
+      "return_completed": 0,
+      "final_reserve": 83.38611576393177,
+      "zero_reserve_day_ends": [],
+      "all_rest_days": []
+    },
+    "npc_b": {
+      "outward": 2,
+      "inward": 2,
+      "return_completed": 1,
+      "final_reserve": 83.96532447022386,
+      "zero_reserve_day_ends": [],
+      "all_rest_days": []
+    },
+    "npc_c": {
+      "outward": 1,
+      "inward": 0,
+      "return_completed": 0,
+      "final_reserve": 83.66351092521825,
+      "zero_reserve_day_ends": [],
+      "all_rest_days": []
+    }
+  },
+  "daily": [
+    {
+      "day": 1,
+      "ground": 64,
+      "replenished": 0,
+      "consumed": 6,
+      "shared": 0,
+      "carried": 6,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.20219336674042,
+          "position": [
+            -10.39958656460171,
+            2.0276994941301703
+          ],
+          "inventory": 2,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "request": 3,
+            "rest": 11322,
+            "walk": 3574,
+            "eat": 4,
+            "pickup": 3,
+            "scan": 2353,
+            "run": 21
+          }
+        },
+        "npc_b": {
+          "reserve": 89.03149159747873,
+          "position": [
+            -31.40379434993928,
+            20.218096096594742
+          ],
+          "inventory": 2,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "rest": 11485,
+            "give": 2,
+            "walk": 3405,
+            "eat": 1,
+            "pickup": 3,
+            "scan": 2372,
+            "run": 12
+          }
+        },
+        "npc_c": {
+          "reserve": 89.17012829253734,
+          "position": [
+            -16.18805321203473,
+            10.002016577405481
+          ],
+          "inventory": 2,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "rest": 11627,
+            "give": 1,
+            "walk": 3421,
+            "eat": 1,
+            "pickup": 2,
+            "scan": 2222,
+            "run": 6
+          }
+        }
+      }
+    },
+    {
+      "day": 2,
+      "ground": 64,
+      "replenished": 0,
+      "consumed": 9,
+      "shared": 0,
+      "carried": 3,
+      "actors": {
+        "npc_a": {
+          "reserve": 86.13028395281128,
+          "position": [
+            -21.112522774875988,
+            14.288351389562916
+          ],
+          "inventory": 1,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "request": 0,
+            "rest": 3757,
+            "walk": 8721,
+            "eat": 1,
+            "pickup": 0,
+            "scan": 4687,
+            "run": 114
+          }
+        },
+        "npc_b": {
+          "reserve": 85.66499520991144,
+          "position": [
+            6.595075821667354,
+            8.137779882088662
+          ],
+          "inventory": 1,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "rest": 3753,
+            "give": 0,
+            "walk": 8860,
+            "eat": 1,
+            "pickup": 0,
+            "scan": 4570,
+            "run": 96
+          }
+        },
+        "npc_c": {
+          "reserve": 86.52623838986611,
+          "position": [
+            3.7943948961193654,
+            -2.700552202978906
+          ],
+          "inventory": 1,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "rest": 3831,
+            "give": 0,
+            "walk": 8624,
+            "eat": 1,
+            "pickup": 0,
+            "scan": 4785,
+            "run": 39
+          }
+        }
+      }
+    },
+    {
+      "day": 3,
+      "ground": 64,
+      "replenished": 0,
+      "consumed": 12,
+      "shared": 0,
+      "carried": 0,
+      "actors": {
+        "npc_a": {
+          "reserve": 83.38611576393177,
+          "position": [
+            -23.976384182273218,
+            33.951804937277586
+          ],
+          "inventory": 0,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "request": 0,
+            "rest": 3731,
+            "walk": 9042,
+            "eat": 1,
+            "pickup": 0,
+            "scan": 4409,
+            "run": 97
+          }
+        },
+        "npc_b": {
+          "reserve": 83.96532447022386,
+          "position": [
+            -0.32690269084720186,
+            4.971795242316243
+          ],
+          "inventory": 0,
+          "return_active": false,
+          "return_completed": 1,
+          "home_H": 0,
+          "actions": {
+            "rest": 5762,
+            "give": 0,
+            "walk": 7294,
+            "eat": 1,
+            "pickup": 0,
+            "scan": 4151,
+            "run": 72
+          }
+        },
+        "npc_c": {
+          "reserve": 83.66351092521825,
+          "position": [
+            -8.651861512705565,
+            9.94863391099905
+          ],
+          "inventory": 0,
+          "return_active": true,
+          "return_completed": 0,
+          "home_H": 32,
+          "actions": {
+            "rest": 3805,
+            "give": 0,
+            "walk": 8923,
+            "eat": 1,
+            "pickup": 0,
+            "scan": 4410,
+            "run": 141
+          }
+        }
+      }
+    }
+  ]
+}

@@ -35,6 +35,7 @@ include(joinpath(@__DIR__, "../learning/landmark_routes.jl"))
 include(joinpath(@__DIR__, "../perception/observed_cues.jl"))
 include(joinpath(@__DIR__, "../decision/relation_field.jl"))
 include(joinpath(@__DIR__, "../learning/mb_map.jl"))
+include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
 include(joinpath(@__DIR__, "../decision/lateral_bias.jl"))
 include(joinpath(@__DIR__, "../learning/harvest_learning.jl"))
 include(joinpath(@__DIR__, "../learning/harvest_field.jl"))
@@ -60,13 +61,14 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!general_landmarks || landmark_routes,"general_landmarks_requires_routes")
     check(!mb_simulation || (basic_loop && landmark_routes),"mb_simulation_requires_observed_loop")
-    mb_maps=Dict(a=>mb_map_state(a) for a in IDS)
+    check(!mb_chunks || mb_simulation,"mb_chunks_require_map")
+    mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks) for a in IDS)
     cue_states=Dict(a=>cue_stats() for a in IDS)
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
@@ -330,8 +332,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 if reposition && t.phase==phase
                     search_review_result!(reposition_states[a],t.family,s.trial.method,target!==nothing,t.status=="performed")
                 end
+                mb_parent_H=s.H
                 resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing;
                     creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true))
+                mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
             end
             if ground_continuity
                 active=Set(m["model_ref"] for m in ground_models[a]["models"])
@@ -437,7 +441,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             append!(candidates,cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold))
                         end
                         if mb_simulation && target===nothing
-                            append!(candidates,mb_simulate!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                            chunk_candidates=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now)
+                            if isempty(chunk_candidates)
+                                append!(candidates,mb_simulate!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                            else
+                                append!(candidates,chunk_candidates)
+                            end
+                            filter!(p->!startswith(first(p),"mb_chunk:") || haskey(mb_maps[a]["chunks"],first(p)[10:end]),s.methods)
                             filter!(p->!startswith(first(p),"mb_sim:") || haskey(mb_maps[a]["edges"],first(p)[8:end]),s.methods)
                         end
                         reposition && project_search_review!(reposition_states[a],candidates,s,target,family)

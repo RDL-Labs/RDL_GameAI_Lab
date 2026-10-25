@@ -1,0 +1,9 @@
+{
+  "baseline": "outputs/mb-map-3d-cap10-20261025/",
+  "input_equal_except_mb_chunks": true,
+  "behavior": {
+    "daily": true,
+    "day_starts": true,
+    "events": true
+  }
+}

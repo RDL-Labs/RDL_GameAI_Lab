@@ -70,6 +70,9 @@ base["config"]["body_purpose"]=body_arg===nothing ? "off" : ARGS[body_arg+1]
 mb_arg=findfirst(==("--mb-simulation"),ARGS)
 base["config"]["mb_simulation"]=mb_arg===nothing ? "off" : ARGS[mb_arg+1]
 @assert base["config"]["mb_simulation"] in ("off","on")
+chunk_arg=findfirst(==("--mb-chunks"),ARGS)
+base["config"]["mb_chunks"]=chunk_arg===nothing ? "off" : ARGS[chunk_arg+1]
+@assert base["config"]["mb_chunks"] in ("off","on")
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue
