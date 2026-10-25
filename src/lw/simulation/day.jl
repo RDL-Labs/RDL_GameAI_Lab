@@ -57,6 +57,7 @@ end
 function replenish_food!(stock,food;capacity=0)
     added=0
     for (i,f) in enumerate(food)
+        get(f,:renewable,true) || continue # Finite placed provisions are not vegetation.
         amount=max(0,(capacity>0 ? capacity : Int(f.stock))-stock[i]);stock[i]+=amount;added+=amount
     end
     added
@@ -399,7 +400,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
 
             if observing && plan===nothing
-                plan=configured_observation_plan(observation_states[a],w.positions[a],yaw[a],sec,local_us,clock,w.bodies[a].reserve,w.bodies[a].strain)
+                plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
+                plan===nothing && (plan=configured_observation_plan(observation_states[a],w.positions[a],yaw[a],sec,local_us,clock,w.bodies[a].reserve,w.bodies[a].strain))
             end
             if plan===nothing
                 if returning && at_home

@@ -3,6 +3,9 @@ const root=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(out)
 const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
+const provisions_arg=findfirst(==("--camp-provisions"),ARGS)
+const camp_provisions=provisions_arg===nothing ? 0 : parse(Int,ARGS[provisions_arg+1])
+@assert 0<=camp_provisions<=100
 const days_arg=findfirst(==("--days"),ARGS)
 const run_days=days_arg===nothing ? 3 : parse(Int,ARGS[days_arg+1])
 @assert 1<=run_days<=30
@@ -106,6 +109,12 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     input["scene"]["name"]="riparian-rock-gate-"*label
     food_layout=food_roads_mode=="unchanged" ? nothing : food_road_layout!(input;enabled=food_roads_mode=="on")
     food_layout!==nothing && check_food_roads(input,food_layout)
+    # Finite piles beside initial observation positions; normal pickup/eat physics.
+    if camp_provisions>0
+        for p in input["scene"]["positions"]
+            push!(input["scene"]["food"],D("x"=>p[1],"z"=>p[2],"stock"=>camp_provisions,"renewable"=>false))
+        end
+    end
     spec=JSON3.read(JSON3.write(input))
     walls=[RDLMigrationProbe.Circle(s["x"],s["z"],s["radius"]) for s in stones]
     allhigh=[RDLMigrationProbe.Circle(s.x,s.z,s.radius) for s in spec.scene.obstacles]

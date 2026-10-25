@@ -1,4 +1,10 @@
 # Temporary first-day observation schedule, not a learned route or a supplied camp map.
+function configured_observation_food(move,replenishing,inventory)
+    replenishing && inventory==0 || return nothing
+    nearby=[f for f in move["visible"] if f["distance"]<=1.25]
+    isempty(nearby) && return nothing
+    D("action"=>"pickup","food_ref"=>first(nearby)["ref"])
+end
 configured_observation_state(position)=D("origin"=>collect(position),"ticks"=>0,"valid_views"=>0,"keys"=>String[],
     "actions"=>D(),"max_displacement"=>0.,"completed"=>false,"map_at_end"=>nothing)
 function configured_observation_plan(state,position,yaw,sec,local_us,clock,reserve,strain)

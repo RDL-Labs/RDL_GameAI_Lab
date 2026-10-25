@@ -3,7 +3,7 @@ const run=process.argv[2];if(!run)throw Error('usage: audit_home_observation.cjs
 const read=p=>JSON.parse(fs.readFileSync(path.join(run,p),'utf8'));
 const r=read('narrow/run/result.json'),summary=read('narrow/run/summary.json'),input=read('narrow/input.json');
 const day=input.clock.day_us;
-assert.equal(input.config.home_observation,'on');assert.equal(r.daily.length,4);
+assert.equal(input.config.home_observation,'on');assert.equal(r.daily.length,input.config.days);
 assert.deepEqual(summary.home_observation,r.home_observation);
 const crossings=fs.readFileSync(path.join(run,'narrow/crossings.jsonl'),'utf8').trim().split('\n').filter(Boolean).map(x=>JSON.parse(x));
 assert.equal(crossings.filter(e=>e.sec<=day/1e6).length,0);
