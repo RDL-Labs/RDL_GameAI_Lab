@@ -1,7 +1,7 @@
 # Observed MB transition graph. No World positions, object IDs or reverse-edge invention.
 const MB_MAP_NODE_LIMIT=1280
 const MB_MAP_EDGE_LIMIT=5120
-mb_map_state(actor;chunks=false)=D("chunks_enabled"=>chunks,"chunks"=>D(),"route_trace"=>String[],"trace_goal"=>nothing,
+mb_map_state(actor;chunks=false)=D("sleep"=>D("frozen"=>nothing,"reviews"=>Any[],"hypotheses"=>D(),"proposals"=>0,"selected"=>0),"chunks_enabled"=>chunks,"chunks"=>D(),"route_trace"=>String[],"trace_goal"=>nothing,
     "last_chunk_operation"=>nothing,"last_chunk_credit"=>nothing,"chunk_formations"=>0,"chunk_goal_credits"=>0,"chunk_reward"=>0.,
     "chunk_proposals"=>0,"chunk_selected"=>0,"chunk_records"=>Any[],"actor"=>actor,"nodes"=>D(),"edges"=>D(),"current"=>nothing,"current_us"=>nothing,"receipt"=>nothing,
     "next_search_us"=>0,"observations"=>0,"searches"=>0,"expanded"=>0,"proposals"=>0,
@@ -65,6 +65,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
 end
 function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
     frame=s["current"];predicted=get(plan,"mb_edge",nothing)
+    haskey(plan,"mb_sleep") && (s["sleep"]["selected"]+=1)
     haskey(plan,"mb_chunk") && (s["chunk_selected"]+=1)
     predicted!==nothing && (s["selected"]+=1)
     if frame===nothing;s["receipt"]=nothing;return;end
@@ -85,13 +86,10 @@ function mb_first_action(e,frame,move)
     sort!(rows,by=r->(abs(ANGLES[parse(Int,r["ref"])+1]-angle),r["ref"]))
     D("action"=>"walk","direction"=>parse(Int,first(rows)["ref"]),"steering_angle"=>angle,"approach_angle"=>angle,"approach_span"=>e["distance"])
 end
-function mb_simulate!(s,move,goal,H,threshold,reserve,strain,now;max_depth=4,max_expansions=64)
+function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=e->true)
     goal in ("home","food") || error("mb_goal")
     1<=max_depth<=4 && 1<=max_expansions<=64 || error("mb_search_budget")
-    frame=s["current"]
-    (frame===nothing || s["current_us"]!=now || H<threshold || reserve<=20 || strain>=.8 || now<s["next_search_us"]) && return Any[]
-    s["next_search_us"]=now+64_000_000;s["searches"]+=1
-    queue=[(node=frame.key,path=String[],cost=0.,visited=Set([frame.key]))]
+    queue=[(node=start,path=String[],cost=0.,visited=Set([start]))]
     expanded=0;solution=nothing
     while !isempty(queue) && expanded<max_expansions
         sort!(queue,by=x->(x.cost,join(x.path,"/")));item=popfirst!(queue);expanded+=1
@@ -104,11 +102,21 @@ function mb_simulate!(s,move,goal,H,threshold,reserve,strain,now;max_depth=4,max
             e["action"] in ("walk","scan") && now-e["seen"]<=17_280_000_000],by=k->(mb_edge_cost(s["edges"][k]),k))
         for key in Iterators.take(edges,8)
             e=s["edges"][key]
-            isempty(item.path) && mb_first_action(e,frame,move)===nothing && continue
+            isempty(item.path) && !first_allowed(e) && continue
             push!(queue,(node=e["to"],path=vcat(item.path,[key]),cost=item.cost+mb_edge_cost(e),visited=union(item.visited,Set([e["to"]]))))
         end
         sort!(queue,by=x->(x.cost,join(x.path,"/")));length(queue)>64 && resize!(queue,64)
     end
+    (solution=solution,expanded=expanded)
+end
+function mb_simulate!(s,move,goal,H,threshold,reserve,strain,now;max_depth=4,max_expansions=64)
+    goal in ("home","food") || error("mb_goal")
+    1<=max_depth<=4 && 1<=max_expansions<=64 || error("mb_search_budget")
+    frame=s["current"]
+    (frame===nothing || s["current_us"]!=now || H<threshold || reserve<=20 || strain>=.8 || now<s["next_search_us"]) && return Any[]
+    s["next_search_us"]=now+64_000_000;s["searches"]+=1
+    search=mb_search(s,frame.key,goal,now;max_depth=max_depth,max_expansions=max_expansions,first_allowed=e->mb_first_action(e,frame,move)!==nothing)
+    solution=search.solution;expanded=search.expanded
     s["expanded"]+=expanded
     push!(s["records"],D("source"=>"ob:$now:$(s["actor"])","goal"=>goal,"expanded"=>expanded,
         "path"=>solution===nothing ? String[] : solution.path,"cost"=>solution===nothing ? nothing : solution.cost))

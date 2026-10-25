@@ -36,6 +36,7 @@ include(joinpath(@__DIR__, "../perception/observed_cues.jl"))
 include(joinpath(@__DIR__, "../decision/relation_field.jl"))
 include(joinpath(@__DIR__, "../learning/mb_map.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
+include(joinpath(@__DIR__, "../learning/mb_sleep.jl"))
 include(joinpath(@__DIR__, "../decision/lateral_bias.jl"))
 include(joinpath(@__DIR__, "../learning/harvest_learning.jl"))
 include(joinpath(@__DIR__, "../learning/harvest_field.jl"))
@@ -61,12 +62,15 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!general_landmarks || landmark_routes,"general_landmarks_requires_routes")
     check(!mb_simulation || (basic_loop && landmark_routes),"mb_simulation_requires_observed_loop")
+    check(!mb_sleep || (mb_simulation && general_sleep),"mb_sleep_requires_map_and_sleep")
+    # Shared MB search replaces the old local performed/blocked priority model in this mode.
+    if mb_sleep;sleep_actions=false;sleep_maintenance=false;end
     check(!mb_chunks || mb_simulation,"mb_chunks_require_map")
     mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks) for a in IDS)
     cue_states=Dict(a=>cue_stats() for a in IDS)
@@ -442,6 +446,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         end
                         if mb_simulation && target===nothing
                             chunk_candidates=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now)
+                            mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
                             if isempty(chunk_candidates)
                                 append!(candidates,mb_simulate!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
                             else
@@ -715,10 +720,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 harvest_sleep && action=="rest" && freeze_harvest!(harvest[a],cycle,now)
                 if general_sleep && cycle["status"]=="pending" && cycle["rest_us"]==0 && action=="rest"
                     freeze_general!(general[a],a,now;retained=sleep_retention)
+                    mb_sleep && mb_sleep_freeze!(mb_maps[a],now)
                 end
                 callback=(harvest_sleep || general_sleep) ? ((c,t)->begin
                     harvest_sleep && consolidate_harvest!(harvest[a],c,t)
                     general_sleep && review_general!(general[a],a,day,t)
+                    mb_sleep && mb_sleep_review!(mb_maps[a],day,t)
                     experience_bundles && sleep_bundles!(bundles[a],day,general[a]["formation_us"])
                     sleep_maintenance && review_sleep_usage!(action_models[a],day,general[a]["formation_us"])
                     sleep_actions && adopt_sleep_actions!(action_models[a],last(general[a]["reviews"]),a,t)

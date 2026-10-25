@@ -525,3 +525,7 @@ FUNCTIONAL RUN COMPLETE。[試験](../../experiments/rock_gate/mb_map_report.md)
 ### 2026-10-25 — 目的H報酬による経験経路のまとまり
 
 FINITE PROTOTYPE。[設計](LW_MB_Reward_Chunks.md)、[3日試験](../../experiments/rock_gate/mb_chunks_report.md)。予測の信頼度と目的H報酬を分離。成功した観測経路を保持し、反復成功で強化、途中地点から再利用候補化。単体で形成・強化・候補化を確認したが実配置3日では形成0、行動は前回と完全一致。169項目PASS、約259秒。形成条件の診断と実環境での効果検証は未完了。
+
+### 2026-10-25 — 睡眠と覚醒のMB探索を共通化
+
+FINITE PROTOTYPE。[設計](LW_MB_Shared_Sleep.md)、[3日試験](../../experiments/rock_gate/mb_sleep_report.md)。mb_sleep=onで同じ探索本体から睡眠仮説を生成し、覚醒時に再検証して候補化。旧睡眠の実行可否による優先度補正を置換。睡眠7回・112探索が稼働したが仮説/まとまり0、全員生存・帰還0。139項目PASSと追加監査、約252秒。実環境での再利用効果、成功痕跡再生、多階層ρは未確認/未実装。

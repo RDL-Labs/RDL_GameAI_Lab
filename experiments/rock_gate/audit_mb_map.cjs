@@ -6,6 +6,11 @@ const input=read(path.join(run,'narrow/input.json'));
 assert.equal(input.config.mb_simulation,'on');
 const actors=Object.fromEntries(Object.entries(summary.mb_map).map(([a,m])=>{
  const nodes=Object.values(m.nodes),edges=Object.values(m.edges);
+ const sleep=m.sleep??{reviews:[],hypotheses:{},proposals:0,selected:0};
+ assert.ok(Object.keys(sleep.hypotheses).length<=64);
+ assert.equal(new Set(sleep.reviews.map(r=>r.day)).size,sleep.reviews.length);
+ for(const r of sleep.reviews){assert.ok(r.searches<=16 && r.expanded<=64*r.searches && r.formation_us<r.completed_us);}
+ for(const h of Object.values(sleep.hypotheses)){assert.ok(h.edges.length>=1 && h.edges.length<=4 && ['home','food'].includes(h.goal));}
  const chunks=Object.values(m.chunks??{});assert.ok(chunks.length<=64);
  for(const c of chunks){assert.ok(c.edges.length>=2 && c.edges.length<=32 && c.successes>=1 && c.reward>0);c.edges.forEach(k=>assert.ok(m.edges[k]));for(let i=1;i<c.edges.length;i++)assert.equal(m.edges[c.edges[i-1]].to,m.edges[c.edges[i]].from);assert.equal(c.from,m.edges[c.edges[0]].from);assert.equal(c.to,m.edges[c.edges.at(-1)].to);}
  assert.ok(nodes.length<=1280 && edges.length<=5120 && m.records.length<=32);
@@ -14,6 +19,7 @@ const actors=Object.fromEntries(Object.entries(summary.mb_map).map(([a,m])=>{
  for(const e of edges){assert.ok(m.nodes[e.from] && m.nodes[e.to]);assert.ok(e.samples>0 && e.energy_sum>=0 && Number.isFinite(e.energy_sum));}
  for(const r of m.records){assert.ok(r.expanded<=64 && r.path.length<=4);}
  return [a,{nodes:nodes.length,edges:edges.length,home_nodes:nodes.filter(n=>n.home).length,food_nodes:nodes.filter(n=>n.food).length,
+  sleep:{reviews:sleep.reviews,hypotheses:Object.keys(sleep.hypotheses).length,proposals:sleep.proposals,selected:sleep.selected},
   observations:m.observations,searches:m.searches,expanded:m.expanded,mean_expanded:m.searches?m.expanded/m.searches:0,
   proposals:m.proposals,selected:m.selected,prediction_match:m.prediction_match,prediction_miss:m.prediction_miss,prediction_unknown:m.prediction_unknown,
   evictions:m.evictions,chunks:chunks.length,chunk_formations:m.chunk_formations??0,chunk_goal_credits:m.chunk_goal_credits??0,chunk_reward:m.chunk_reward??0,chunk_proposals:m.chunk_proposals??0,chunk_selected:m.chunk_selected??0,chunk_records:m.chunk_records??[],search_records:m.records}];

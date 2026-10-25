@@ -1,0 +1,46 @@
+{
+  "input_equal_except_mb_sleep": true,
+  "old_sleep_priority_disabled": true,
+  "actors": {
+    "npc_b": {
+      "reviews": 3,
+      "searches": 48,
+      "expanded": 136,
+      "found": 0,
+      "hypotheses": 0,
+      "proposals": 0,
+      "selected": 0,
+      "chunk_formations": 0,
+      "chunk_reward": 0
+    },
+    "npc_a": {
+      "reviews": 2,
+      "searches": 32,
+      "expanded": 1242,
+      "found": 0,
+      "hypotheses": 0,
+      "proposals": 0,
+      "selected": 0,
+      "chunk_formations": 0,
+      "chunk_reward": 0
+    },
+    "npc_c": {
+      "reviews": 2,
+      "searches": 32,
+      "expanded": 746,
+      "found": 0,
+      "hypotheses": 0,
+      "proposals": 0,
+      "selected": 0,
+      "chunk_formations": 0,
+      "chunk_reward": 0
+    }
+  },
+  "behavior_equal": {
+    "daily": false,
+    "day_starts": false,
+    "events": false
+  },
+  "seconds": 251.9101848,
+  "baseline_seconds": 258.6248529
+}
