@@ -1,20 +1,20 @@
 include(joinpath(@__DIR__,"native.jl"))
 using Test
 @testset "body parent purpose" begin
-    h=hunger_state("a");s=body_purpose_state("a");p=return_purpose()
+    h=hunger_state("a");s=configured_body_state("a");p=return_purpose()
     returning!(p,"return",0,false,0)
     hunger_update!(h,"a",0,90.)
-    @test body_purpose!(s,h,90.,true,false,0,0).returning
+    @test configured_body_purpose!(s,h,90.,true,false,0,0).returning
     hunger_update!(h,"a",1_000_000,50.)
-    @test !body_purpose!(s,h,50.,true,false,0,1_000_000).returning
+    @test !configured_body_purpose!(s,h,50.,true,false,0,1_000_000).returning
     @test p["active"] && p["completed"]==0
-    @test body_purpose!(s,h,50.,true,true,2,2_000_000).returning
-    @test !body_purpose!(s,h,50.,true,true,0,3_000_000).returning
+    @test configured_body_purpose!(s,h,50.,true,true,2,2_000_000).returning
+    @test !configured_body_purpose!(s,h,50.,true,true,0,3_000_000).returning
     hunger_update!(h,"a",6_000_000,90.)
-    @test body_purpose!(s,h,90.,true,false,0,6_000_000).returning
+    @test configured_body_purpose!(s,h,90.,true,false,0,6_000_000).returning
     @test !s["replenishing"]
     @test p["active"] && p["entries"]==1
-    @test_throws ErrorException body_purpose!(s,hunger_state("b"),50.,true,false,0,7_000_000)
+    @test_throws ErrorException configured_body_purpose!(s,hunger_state("b"),50.,true,false,0,7_000_000)
 end
 @testset "night hunger interrupts return and acquires food" begin
     scene=merge(native_scene(42),(positions=[[-8.,0.],[0.,0.],[8.,0.]],home=[0.,-30.],

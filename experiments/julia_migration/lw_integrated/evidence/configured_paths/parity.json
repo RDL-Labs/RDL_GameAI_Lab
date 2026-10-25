@@ -1,0 +1,17 @@
+{
+  "baseline_commit": "9bbf675",
+  "scope": "600 ticks; search_review_spec with reserve 60, coarse rho, general landmarks; body purpose off/on",
+  "checks": 21,
+  "cases": {
+    "off": {
+      "complete_result_equal": true,
+      "before_sha256": "11ff784e4de248a211114f2d2afc853174c21e394f5ea9791352bb0c3d302914",
+      "after_sha256": "11ff784e4de248a211114f2d2afc853174c21e394f5ea9791352bb0c3d302914"
+    },
+    "on": {
+      "complete_result_equal": true,
+      "before_sha256": "c9b6428fb4e635e0595eeafe58b9f80b957a0e3ca6344451f1105120ef84e225",
+      "after_sha256": "c9b6428fb4e635e0595eeafe58b9f80b957a0e3ca6344451f1105120ef84e225"
+    }
+  }
+}

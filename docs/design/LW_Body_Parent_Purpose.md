@@ -34,3 +34,7 @@
 julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/body_purpose_checks.jl
 julia --startup-file=no --project=. experiments/rock_gate/run.jl outputs/body-parent-trial --narrow-only --days 30 --rho coarse --rho-openings on --food-roads on --general-landmarks on --body-purpose on --stop-exhausted
 ```
+
+## 実装の分離
+
+固定処理の実装は [configured_paths/body_maintenance.jl](../../src/lw/configured_paths/body_maintenance.jl)。目的選択、即時補給の優先、待機・定時休息の解除を同じ場所に集約し、day.jlは返された選択と例外指定を適用する。旧decision/body_purpose.jlは移設した。CLIと保存結果の名前は維持する。

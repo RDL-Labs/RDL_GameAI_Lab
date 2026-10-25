@@ -502,3 +502,7 @@ FINITE EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/general_cues_r
 ### 2026-10-25 — 身体維持を上位MBにした目的切り替え
 
 FINITE IMPLEMENTED。[設計と検証](LW_Body_Parent_Purpose.md)。body_purpose=onでfood/homeをenergy-maintenance配下に接続。空腹で帰還を保留して採食、回復後に帰還を再開。拠点で確認できる在庫は利用、安全・疲労制約を維持。夜間診断で消費3→5。追加21＋既存193＝214項目PASS。上位選択の学習と長期生存改善は未検証。
+
+### 2026-10-25 — 設定経路のコード分離
+
+STRUCTURAL REFACTOR。[配置](../../src/lw/configured_paths/README.md)。身体維持の固定切り替えと優先例外をconfigured_pathsへ移設し、configured_関数名で明示。CLI・保存結果は互換維持。600tick統合試験のON/OFF両方で結果全体が変更前と完全一致、身体維持21項目PASS。[照合記録](../../experiments/julia_migration/lw_integrated/evidence/configured_paths/parity.json)。他の既存固定処理の棚卸しは未完了。
