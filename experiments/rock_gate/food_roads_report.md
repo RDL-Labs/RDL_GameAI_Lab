@@ -69,3 +69,42 @@ Aはtick 42020に帰還目的を持って入口から内側へ入り、帰還完
 3日試験は正常終了。実行225.02秒（コンパイル込み、全処理は約230秒）。道構造19項目・岩壁33項目・生活保存則17項目の計69項目PASSと、1日prefix一致を確認。1seedの結果であり、道の効果や安定した往復行動の成立はまだ確認できない。
 
 証拠: [集計](evidence/food_roads/three-day/summary.json)、[個体別結果](evidence/food_roads/three-day/report.json)、[1日prefix照合](evidence/food_roads/three-day/prefix-audit.json)、[通過イベント](evidence/food_roads/three-day/crossings.jsonl)。元出力は `outputs/food-roads-on-3d-20261025/`。
+
+## 道ありで30日（2026-10-25）
+
+同じ初期状態・seed・配置で30日を完走。個体の判断・移動コードは変更していない。前回3日分のdaily・day_starts・eventsは完全一致。実行1605.18秒（コンパイル込み、約26分45秒）、全体約1610秒。道構造19項目・岩壁33項目・30日の生活保存則152項目、計204項目PASS。
+
+```powershell
+julia --startup-file=no --project=. experiments/rock_gate/run.jl outputs/food-roads-on-30d-20261025 --narrow-only --days 30 --rho coarse --rho-openings on --food-roads on
+node experiments/rock_gate/compare_prefix.cjs outputs/food-roads-on-30d-20261025 outputs/food-roads-on-3d-20261025
+node experiments/rock_gate/summarize_food_days.cjs outputs/food-roads-on-30d-20261025 outputs/food-roads-on-30d-20261025/daily-summary.json
+```
+
+**計算は正常終了したが、自立的な採食・往復の維持はできなかった。** 全員がreserve 0となり、その翌日以降は終日休息になった。これはシミュレーション内の行動停止で、プロセスのクラッシュではない。reserveは身体のエネルギー指標であり、今回の結果を死亡判定とは呼ばない。
+
+| 個体 | 外出/入場 | 帰還完了カウンタ | 初めてreserve 0で日を終えた日 | 終日休息 |
+| --- | --- | ---: | ---: | --- |
+| A | 6 / 5 | 6 | 18日目 | 19〜30日目 |
+| B | 3 / 2 | 0 | 10日目 | 11〜30日目 |
+| C | 2 / 1 | 0 | 8日目 | 9〜30日目 |
+
+帰還完了カウンタは `active && at_home && load==0` で増える目的単位の値であり、壁の通過回数と一対一ではない。Aの6回を「外から拠点への6往復」とは解釈しない。B/Cは壁の内側に入ることがあっても帰還目的を解決していない。
+
+| 日末 | A reserve | B reserve | C reserve | 地上食料 |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 88.71 | 88.62 | 88.85 | 64 |
+| 3 | 81.79 | 81.78 | 82.75 | 61 |
+| 5 | 76.32 | 76.11 | 56.83 | 58 |
+| 8 | 88.79 | 27.50 | 0 | 54 |
+| 10 | 81.80 | 0 | 0 | 51 |
+| 15 | 66.46 | 0 | 0 | 48 |
+| 18 | 0 | 0 | 0 | 48 |
+| 30 | 0 | 0 | 0 | 48 |
+
+Aによる倉庫への搬入は計4、取り出しは計2、最終倉庫在庫は2。地上食料は左12 / 中央21 / 右15、合計48残った。初期総量76＋再生3＝消費29＋地上48＋倉庫2を保存し、最終携行・個人倉庫は0。drop/recoverは0であり、地上からの採取総量は初期地上72＋再生3−最終地上48＝27。
+
+再生は3日間隔で判定し、今回の追加量は10日目開始時の3のみ。他の判定では各地点の残量が補充上限を満たしていたため追加0。食料が世界全体から枯渇した結果ではない。
+
+道と食料があっても、帰還未解決の間に補給へ切り替えることや、拠点まで到達することが十分に機能していない可能性がある。ただしこの試験だけで、経路認識・目的優先順位・局所的な停滞のどれが主因かは分離できない。次の診断対象はB/Cの帰還未解決区間と、Aが最後の補給後にreserveを失った区間。今回は観測と集計のみで修正していない。
+
+証拠: [日別集計](evidence/food_roads/thirty-day/summary.json)、[個体別結果](evidence/food_roads/thirty-day/report.json)、[3日prefix照合](evidence/food_roads/thirty-day/prefix-audit.json)、[通過イベント](evidence/food_roads/thirty-day/crossings.jsonl)、[manifest](evidence/food_roads/thirty-day/manifest.json)。元出力は `outputs/food-roads-on-30d-20261025/`。

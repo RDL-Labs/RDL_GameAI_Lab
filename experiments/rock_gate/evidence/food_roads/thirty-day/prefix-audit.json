@@ -1,0 +1,630 @@
+{
+  "prefix_days": 3,
+  "prefix_daily_exact": true,
+  "prefix_events_exact": true,
+  "days": 30,
+  "actors": {
+    "npc_b": {
+      "outward": 3,
+      "inward": 2,
+      "reserve": 0,
+      "counts": {
+        "request": 11,
+        "rest": 412791,
+        "walk": 95257,
+        "give": 2,
+        "eat": 6,
+        "pickup": 3,
+        "scan": 9014,
+        "run": 1316
+      },
+      "return_purpose": {
+        "completed": 0,
+        "active": true,
+        "started_us": 8640000000,
+        "entries": 1
+      },
+      "max_radius": 36.544625727607865,
+      "food_H": 0,
+      "food_reward": 32,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.61706503783977,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 2,
+          "reserve": 84.7759597050747,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 3,
+          "reserve": 81.77746693614375,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 4,
+          "reserve": 79.1942644680034,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 5,
+          "reserve": 76.11016179579526,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 6,
+          "reserve": 53.126777377283865,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 7,
+          "reserve": 50.0970959947859,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 8,
+          "reserve": 27.496624905698777,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 9,
+          "reserve": 5.16243841974665,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 11,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 12,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 13,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 14,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 15,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 16,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 17,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 18,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 19,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 20,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 21,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 22,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 23,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 24,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 25,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 26,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 27,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 28,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 29,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 30,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        }
+      ]
+    },
+    "npc_a": {
+      "outward": 6,
+      "inward": 5,
+      "reserve": 0,
+      "counts": {
+        "request": 4,
+        "rest": 332810,
+        "pickup": 22,
+        "refuse": 9,
+        "scan": 16145,
+        "run": 2081,
+        "eat": 19,
+        "give": 4,
+        "retrieve": 2,
+        "deposit": 2,
+        "walk": 167302
+      },
+      "return_purpose": {
+        "completed": 6,
+        "active": true,
+        "started_us": 198720000000,
+        "entries": 7
+      },
+      "max_radius": 38.712334469536,
+      "food_H": 0,
+      "food_reward": 185.85098039215683,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.70603852984017,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 2,
+          "reserve": 85.16904924757776,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 3,
+          "reserve": 81.79292981641869,
+          "return_active": true,
+          "return_completed": 1
+        },
+        {
+          "day": 4,
+          "reserve": 99.61977126439024,
+          "return_active": true,
+          "return_completed": 2
+        },
+        {
+          "day": 5,
+          "reserve": 76.31575323160828,
+          "return_active": true,
+          "return_completed": 2
+        },
+        {
+          "day": 6,
+          "reserve": 53.43549646588498,
+          "return_active": true,
+          "return_completed": 2
+        },
+        {
+          "day": 7,
+          "reserve": 92.11695657949122,
+          "return_active": true,
+          "return_completed": 3
+        },
+        {
+          "day": 8,
+          "reserve": 88.79232311987678,
+          "return_active": true,
+          "return_completed": 3
+        },
+        {
+          "day": 9,
+          "reserve": 86.6346027059903,
+          "return_active": true,
+          "return_completed": 4
+        },
+        {
+          "day": 10,
+          "reserve": 81.79644554633141,
+          "return_active": true,
+          "return_completed": 4
+        },
+        {
+          "day": 11,
+          "reserve": 97.64644985633907,
+          "return_active": false,
+          "return_completed": 6
+        },
+        {
+          "day": 12,
+          "reserve": 96.47657023769706,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 13,
+          "reserve": 92.70659834247719,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 14,
+          "reserve": 89.46786211803536,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 15,
+          "reserve": 66.46270224109827,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 16,
+          "reserve": 43.32149297742958,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 17,
+          "reserve": 20.687753158045954,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 18,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 19,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 20,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 21,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 22,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 23,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 24,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 25,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 26,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 27,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 28,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 29,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        },
+        {
+          "day": 30,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 6
+        }
+      ]
+    },
+    "npc_c": {
+      "outward": 2,
+      "inward": 1,
+      "reserve": 0,
+      "counts": {
+        "request": 7,
+        "rest": 433427,
+        "walk": 76997,
+        "give": 1,
+        "eat": 4,
+        "pickup": 2,
+        "refuse": 1,
+        "scan": 7183,
+        "run": 778
+      },
+      "return_purpose": {
+        "completed": 0,
+        "active": true,
+        "started_us": 8640000000,
+        "entries": 1
+      },
+      "max_radius": 47.620998505948,
+      "food_H": 0,
+      "food_reward": 29.866666666666664,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.84940137296493,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 2,
+          "reserve": 85.4349984743536,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 3,
+          "reserve": 82.75111798776507,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 4,
+          "reserve": 79.79430117990215,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 5,
+          "reserve": 56.82603717744045,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 6,
+          "reserve": 34.12089102749739,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 7,
+          "reserve": 11.38709736416834,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 8,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 9,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 11,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 12,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 13,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 14,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 15,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 16,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 17,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 18,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 19,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 20,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 21,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 22,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 23,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 24,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 25,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 26,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 27,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 28,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 29,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        },
+        {
+          "day": 30,
+          "reserve": 0,
+          "return_active": true,
+          "return_completed": 0
+        }
+      ]
+    }
+  }
+}

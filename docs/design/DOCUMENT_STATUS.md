@@ -480,3 +480,7 @@ FINITE EXPERIMENT COMPLETE。[配置と比較](../../experiments/rock_gate/food_
 ### 2026-10-25 — 分岐道の3日継続
 
 FINITE EXPERIMENT COMPLETE。[3日結果](../../experiments/rock_gate/food_roads_report.md)。道あり・同一seedで3日再実行、既存1日prefix完全一致。左5/中央3/右3を採取、Aのみ帰還1回、食料depositなし。全個体のreserveは約82、終了時は全員帰還未解決。構造・保存則69項目PASS。実行約225秒、コード変更なし。
+
+### 2026-10-25 — 分岐道の30日試験
+
+FINITE EXPERIMENT COMPLETE。[30日結果](../../experiments/rock_gate/food_roads_report.md)。同一配置・seed、3日prefix完全一致、計算は正常完走。Cは8日末、Bは10日末、Aは18日末にreserve 0、翌日以降終日休息。Aの帰還完了カウンタ6、搬入4、最終地上食料48/倉庫2。安定した補給・往復は未成立。構造・保存則204項目PASS、約26分45秒。判断コード変更なし。
