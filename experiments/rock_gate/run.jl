@@ -64,6 +64,9 @@ food_roads_mode=food_roads_arg===nothing ? "unchanged" : ARGS[food_roads_arg+1]
 cue_arg=findfirst(==("--general-landmarks"),ARGS)
 base["config"]["general_landmarks"]=cue_arg===nothing ? "off" : ARGS[cue_arg+1]
 @assert base["config"]["general_landmarks"] in ("off","on")
+body_arg=findfirst(==("--body-purpose"),ARGS)
+base["config"]["body_purpose"]=body_arg===nothing ? "off" : ARGS[body_arg+1]
+@assert base["config"]["body_purpose"] in ("off","on")
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue

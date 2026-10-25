@@ -496,3 +496,7 @@ FINITE IMPLEMENTED / 3-DAY EXPERIMENT COMPLETE。[結果](../../experiments/rock
 ### 2026-10-25 — 最大30日・全員継続不能までの試験
 
 FINITE EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/general_cues_report.md)。全員reserve 0＋終日休息を条件に12日末で正常終了。Aは10日末、B/Cは11日末にreserve 0。地上54・倉庫1残存、帰還完了A0/B1/C2。目印候補生成の99.987%が高H、長期学習による検討省略は確認できず。3日prefix一致、119項目PASS。約21分。死亡フラグは未実装。
+
+### 2026-10-25 — 身体維持を上位MBにした目的切り替え
+
+FINITE IMPLEMENTED。[設計と検証](LW_Body_Parent_Purpose.md)。body_purpose=onでfood/homeをenergy-maintenance配下に接続。空腹で帰還を保留して採食、回復後に帰還を再開。拠点で確認できる在庫は利用、安全・疲労制約を維持。夜間診断で消費3→5。追加21＋既存193＝214項目PASS。上位選択の学習と長期生存改善は未検証。
