@@ -8,6 +8,8 @@
 
 # Design Document Status
 
+- [設定経路・埋め込みMB・学習経路](RDL_Configured_Paths.md)：共通の用語。設定経路は撤去予定のテスト用固定処理で、埋め込みMBとは別。身体維持の直書き切り替えも設定経路に分類。
+
 - [LW-Julia統合対応表・共通起動口](RDL_Julia_LW_Integration_Status.md)：B1gの機能を一つのCLIへ接続。日数・seed・資源条件・採取学習を明示し、manifestと短いsummaryを出力。未接続領域を棚卸しし、有限な危険割込み・解除を接続済み。Julia単独のWorld生成・時計・実行・保存入口も追加。Python本線の置換ではない。
 
 - [Julia 補充世界での再学習 B1g](../../experiments/julia_migration/lw_renewal/report.md)：FINITE WORLD ACCEPTANCE。36検査PASS。毎朝の資源補充を別条件で追加し、疎配置3個体のSleep置換と新モデルによる33選択差を確認。追加食料を収支計上。1 seed・与えた候補形式に限定、一般再構成は未実装。
