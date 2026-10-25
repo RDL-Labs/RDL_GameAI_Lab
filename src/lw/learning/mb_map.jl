@@ -1,7 +1,7 @@
 # Observed MB transition graph. No World positions, object IDs or reverse-edge invention.
 const MB_MAP_NODE_LIMIT=1280
 const MB_MAP_EDGE_LIMIT=5120
-mb_map_state(actor;chunks=false)=D("recognition"=>mb_recognition_state(),"sleep"=>D("frozen"=>nothing,"reviews"=>Any[],"hypotheses"=>D(),"proposals"=>0,"selected"=>0),"chunks_enabled"=>chunks,"chunks"=>D(),"route_trace"=>String[],"trace_goal"=>nothing,
+mb_map_state(actor;chunks=false)=D("routes"=>mb_route_state(),"recognition"=>mb_recognition_state(),"sleep"=>D("frozen"=>nothing,"reviews"=>Any[],"hypotheses"=>D(),"proposals"=>0,"selected"=>0),"chunks_enabled"=>chunks,"chunks"=>D(),"route_trace"=>String[],"trace_goal"=>nothing,
     "last_chunk_operation"=>nothing,"last_chunk_credit"=>nothing,"chunk_formations"=>0,"chunk_goal_credits"=>0,"chunk_reward"=>0.,
     "chunk_proposals"=>0,"chunk_selected"=>0,"chunk_records"=>Any[],"actor"=>actor,"nodes"=>D(),"edges"=>D(),"current"=>nothing,"current_us"=>nothing,"receipt"=>nothing,
     "next_search_us"=>0,"observations"=>0,"searches"=>0,"expanded"=>0,"proposals"=>0,
@@ -36,6 +36,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
             n=s["nodes"][frame.key];n["seen"]=now;n["home"]=home;n["food"]=food
         end
     end
+    mb_route_observe!(s,receipt,frame,now)
     mb_trace_observation!(s,receipt,frame,now)
     receipt===nothing && return
     mb_recognition_feedback!(s,receipt,frame,now)
@@ -69,6 +70,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
     mb_trace_edge!(s,key)
 end
 function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
+    mb_route_record!(s,plan,status,now)
     frame=s["current"];predicted=get(plan,"mb_edge",nothing)
     haskey(plan,"mb_association") && (s["recognition"]["selected"]+=1)
     haskey(plan,"mb_sleep") && (s["sleep"]["selected"]+=1)
@@ -78,7 +80,7 @@ function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
     action=plan["action"]
     angle=turn===nothing ? (action=="scan" ? get(plan,"scan_angle",60.) : get(plan,"approach_angle",ANGLES[get(plan,"direction",0)+1])) : turn
     s["receipt"]=D("from"=>frame.key,"action"=>action,"offset"=>action=="scan" ? angle : wrap_angle(angle-frame.anchor),
-        "distance"=>distance,"status"=>status,"energy"=>max(0.,energy),"now"=>now,"predicted"=>predicted,"goal"=>get(plan,"purpose_family",nothing),"chunk"=>get(plan,"mb_chunk",nothing),"association"=>get(plan,"mb_association",nothing))
+        "distance"=>distance,"status"=>status,"energy"=>max(0.,energy),"now"=>now,"predicted"=>predicted,"goal"=>get(plan,"purpose_family",nothing),"route"=>get(plan,"mb_route",nothing),"chunk"=>get(plan,"mb_chunk",nothing),"association"=>get(plan,"mb_association",nothing))
 end
 mb_edge_cost(e)=1.0+e["energy_sum"]/max(1,e["samples"])+2/(1+e["samples"]+e["matches"])+2log1p(e["misses"])+log1p(get(e,"execution_failures",0))
 function mb_first_action(e,frame,move)
@@ -135,7 +137,7 @@ function mb_simulate!(s,move,goal,H,threshold,reserve,strain,now;max_depth=4,max
             if p!==nothing
                 merge!(p,D("method"=>"mb_sim:"*key,"priority"=>3.0+1/(1+solution.cost),"question"=>"target_observed",
                     "mb_edge"=>key,"mb_expected"=>s["edges"][key]["to"],"mb_depth"=>length(solution.path)))
-                mb_attach_correspondence!(p,s,match);push!(out,p)
+                mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,solution.path,goal,"wake");push!(out,p)
             end
         else
             mb_reject!(s,"wake","no_path")

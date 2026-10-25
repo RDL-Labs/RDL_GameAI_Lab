@@ -1,0 +1,677 @@
+{
+  "measurement": {
+    "gc_seconds": 11.4411865,
+    "process_peak_rss_bytes": 1399009280,
+    "compilation_included": true,
+    "call_seconds": 177.2583615,
+    "allocated_bytes": 121720257845
+  },
+  "actors": {
+    "npc_b": {
+      "started": 34,
+      "outcomes": {
+        "mismatch": 4,
+        "lost": 15,
+        "blocked": 3,
+        "unresolved": 4,
+        "interrupted": 8
+      },
+      "active": null,
+      "stats": {
+        "food:3947a43425a465ca": {
+          "lost": 2,
+          "reward": 0,
+          "starts": 2
+        },
+        "food:e9194b54c421d0ad": {
+          "mismatch": 1,
+          "reward": 0,
+          "starts": 2,
+          "unresolved": 1
+        },
+        "food:0a7ea2e24026843b": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:d43fc0a13f8a411d": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:c5543ffd7d99e238": {
+          "lost": 7,
+          "reward": 0,
+          "starts": 10,
+          "interrupted": 3
+        },
+        "home:17c836eba5b76e33": {
+          "mismatch": 3,
+          "lost": 4,
+          "blocked": 3,
+          "reward": 0,
+          "starts": 14,
+          "interrupted": 4
+        },
+        "food:d69931ed528ec20d": {
+          "lost": 2,
+          "reward": 0,
+          "starts": 4,
+          "unresolved": 1,
+          "interrupted": 1
+        }
+      },
+      "events": [
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:3947a43425a465ca",
+          "ended_us": 34624000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 34623000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:3947a43425a465ca",
+          "ended_us": 34633000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 34632000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:e9194b54c421d0ad",
+          "ended_us": 34638000000,
+          "length": 1,
+          "outcome": "unresolved",
+          "started_us": 34637000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:d69931ed528ec20d",
+          "ended_us": 34641000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 34640000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:d69931ed528ec20d",
+          "ended_us": 34646000000,
+          "length": 2,
+          "outcome": "unresolved",
+          "started_us": 34644000000,
+          "steps": 2,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:0a7ea2e24026843b",
+          "ended_us": 34648000000,
+          "length": 1,
+          "outcome": "unresolved",
+          "started_us": 34647000000,
+          "steps": 1,
+          "verified_steps": 1,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:d43fc0a13f8a411d",
+          "ended_us": 34651000000,
+          "length": 1,
+          "outcome": "unresolved",
+          "started_us": 34650000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 34670000000,
+          "length": 2,
+          "outcome": "interrupted",
+          "started_us": 34669000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:e9194b54c421d0ad",
+          "ended_us": 34673000000,
+          "length": 1,
+          "outcome": "mismatch",
+          "started_us": 34672000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:d69931ed528ec20d",
+          "ended_us": 34729000000,
+          "length": 2,
+          "outcome": "interrupted",
+          "started_us": 34728000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:d69931ed528ec20d",
+          "ended_us": 34754000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 34753000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 34815000000,
+          "length": 2,
+          "outcome": "interrupted",
+          "started_us": 34814000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 34911000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 34910000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 35134000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 35133000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 35275000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 35274000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 35287000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 35286000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 35332000000,
+          "length": 2,
+          "outcome": "interrupted",
+          "started_us": 35331000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 35578000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 35577000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 35658000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 35657000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5543ffd7d99e238",
+          "ended_us": 35681000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 35680000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43206000000,
+          "length": 3,
+          "outcome": "interrupted",
+          "started_us": 43205000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43291000000,
+          "length": 3,
+          "outcome": "mismatch",
+          "started_us": 43290000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43306000000,
+          "length": 3,
+          "outcome": "mismatch",
+          "started_us": 43305000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43347000000,
+          "length": 3,
+          "outcome": "lost",
+          "started_us": 43346000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43460000000,
+          "length": 3,
+          "outcome": "blocked",
+          "started_us": 43459000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43541000000,
+          "length": 3,
+          "outcome": "lost",
+          "started_us": 43540000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43580000000,
+          "length": 3,
+          "outcome": "interrupted",
+          "started_us": 43579000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43624000000,
+          "length": 3,
+          "outcome": "mismatch",
+          "started_us": 43623000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43715000000,
+          "length": 3,
+          "outcome": "interrupted",
+          "started_us": 43714000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43904000000,
+          "length": 3,
+          "outcome": "interrupted",
+          "started_us": 43903000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 43968000000,
+          "length": 3,
+          "outcome": "lost",
+          "started_us": 43967000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 44073000000,
+          "length": 3,
+          "outcome": "lost",
+          "started_us": 44072000000,
+          "steps": 0,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 44245000000,
+          "length": 3,
+          "outcome": "blocked",
+          "started_us": 44244000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "home",
+          "id": "home:17c836eba5b76e33",
+          "ended_us": 44424000000,
+          "length": 3,
+          "outcome": "blocked",
+          "started_us": 44423000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        }
+      ]
+    },
+    "npc_a": {
+      "started": 6,
+      "outcomes": {
+        "blocked": 1,
+        "lost": 1,
+        "unresolved": 2,
+        "interrupted": 2
+      },
+      "active": null,
+      "stats": {
+        "food:0a7ea2e24026843b": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "home:5fe28838fa38e7cf": {
+          "lost": 1,
+          "reward": 0,
+          "starts": 1
+        },
+        "food:13b8d8db2cdec98e": {
+          "blocked": 1,
+          "reward": 0,
+          "starts": 3,
+          "interrupted": 2
+        },
+        "food:e58a777330f83fed": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        }
+      },
+      "events": [
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:13b8d8db2cdec98e",
+          "ended_us": 34631000000,
+          "length": 2,
+          "outcome": "blocked",
+          "started_us": 34630000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:0a7ea2e24026843b",
+          "ended_us": 34648000000,
+          "length": 1,
+          "outcome": "unresolved",
+          "started_us": 34647000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:e58a777330f83fed",
+          "ended_us": 34649000000,
+          "length": 1,
+          "outcome": "unresolved",
+          "started_us": 34648000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:13b8d8db2cdec98e",
+          "ended_us": 34750000000,
+          "length": 2,
+          "outcome": "interrupted",
+          "started_us": 34749000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:13b8d8db2cdec98e",
+          "ended_us": 35074000000,
+          "length": 2,
+          "outcome": "interrupted",
+          "started_us": 35073000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "wake",
+          "goal": "home",
+          "id": "home:5fe28838fa38e7cf",
+          "ended_us": 44102000000,
+          "length": 3,
+          "outcome": "lost",
+          "started_us": 44100000000,
+          "steps": 2,
+          "verified_steps": 0,
+          "reward": 0
+        }
+      ]
+    },
+    "npc_c": {
+      "started": 5,
+      "outcomes": {
+        "blocked": 1,
+        "lost": 2,
+        "unresolved": 2
+      },
+      "active": null,
+      "stats": {
+        "food:d43fc0a13f8a411d": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:c5ee746c64c28761": {
+          "blocked": 1,
+          "lost": 1,
+          "reward": 0,
+          "starts": 2
+        },
+        "food:062e0ba5160ef22d": {
+          "lost": 1,
+          "reward": 0,
+          "starts": 1
+        },
+        "food:c38e5c0d672a6f33": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        }
+      },
+      "events": [
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:c38e5c0d672a6f33",
+          "ended_us": 34625000000,
+          "length": 1,
+          "outcome": "unresolved",
+          "started_us": 34624000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5ee746c64c28761",
+          "ended_us": 34651000000,
+          "length": 2,
+          "outcome": "blocked",
+          "started_us": 34650000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:062e0ba5160ef22d",
+          "ended_us": 34654000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 34653000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        },
+        {
+          "kind": "sleep",
+          "goal": "food",
+          "id": "food:d43fc0a13f8a411d",
+          "ended_us": 34665000000,
+          "length": 1,
+          "outcome": "unresolved",
+          "started_us": 34664000000,
+          "steps": 1,
+          "verified_steps": 1,
+          "reward": 0
+        },
+        {
+          "kind": "chunk",
+          "goal": "food",
+          "id": "food:c5ee746c64c28761",
+          "ended_us": 34748000000,
+          "length": 2,
+          "outcome": "lost",
+          "started_us": 34747000000,
+          "steps": 1,
+          "verified_steps": 0,
+          "reward": 0
+        }
+      ]
+    }
+  }
+}

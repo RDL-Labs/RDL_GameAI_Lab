@@ -40,7 +40,7 @@ end
  mb_observe!(s,chunk_view(10_000_000,"mid"),10_000_000)
  @test c["matches"]==1 && e["matches"]==1 && mb_edge_cost(e)<before
  @test c["reward"]==12 # Prediction success is not purpose reward.
- cs2=mb_chunk_candidates!(s,move,"home",90.,0.,10_000_000)
+ cs2=mb_route_candidates!(s,move,"home",90.,0.,10_000_000)
  @test length(cs2)==1 && cs2[1]["mb_chunk_index"]==2
  mb_record!(s,merge(cs2[1],D("purpose_family"=>"home")),"blocked",.01,10_000_000)
  mb_observe!(s,chunk_view(11_000_000,"mid"),11_000_000)

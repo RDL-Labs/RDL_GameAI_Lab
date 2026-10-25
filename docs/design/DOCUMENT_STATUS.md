@@ -541,3 +541,7 @@ FINITE CONFIGURED PATH。[設計](LW_Initial_Home_Observation.md)、[結果](../
 ### 2026-10-25 — 不確実なMB対応付けと睡眠での整理
 
 FINITE PROTOTYPE。[設計](LW_Probabilistic_MB_Recognition.md)、[3日動作確認](../../experiments/rock_gate/probabilistic_mb_report.md)。完全一致を共通特徴と経験支持による対応候補へ置換し、既存の確率行動選択で試す。実行失敗と認識/遷移不一致を分離。MB経路の鮮度期限を撤廃、容量整理を睡眠へ移動。1特徴観測も保持。実配置で134選択（睡眠11・まとまり121・詳細探索2）、まとまり5件。不一致3・unknown131・一致確認0で、精度向上や安定帰還は未証明。166項目PASS。構造全体の認識・多階層ρ・0特徴区間の追跡は残る。
+
+### 2026-10-26 — 経路全体を共有のMB試行として実行
+
+FINITE PROTOTYPE。[設計](LW_Whole_Route_MB.md)、[3日確認](../../experiments/rock_gate/whole_route_report.md)。チャンク・睡眠・詳細探索の経路ID/辺列/カーソル/親目的評価を共通化。中間辺の毎回検索をやめ、開始点から選択する。強制継続なし、身体要求等で中断可能。3日45試行、終端未解決8・目的達成0、全員reserve約90、再入場0。経路途中への継続は確認したが、有効な長距離経路学習は未確認。197項目PASSと追加監査。

@@ -45,7 +45,7 @@ function mb_sleep_candidates!(s,move,goal,H,threshold,reserve,strain,now)
         # Same method and scoring as waking search: no duplicate vote or imagined support.
         merge!(p,D("method"=>"mb_sim:"*key,"priority"=>3.0+1/(1+cost),"question"=>"target_observed",
             "mb_edge"=>key,"mb_expected"=>edge["to"],"mb_depth"=>length(h["edges"]),"mb_sleep"=>id))
-        mb_attach_correspondence!(p,s,match);push!(out,p)
+        mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,h["edges"],goal,"sleep");push!(out,p)
     end
     sort!(out,by=p->(-p["priority"],p["method"]))
     unique!(p->p["method"],out);length(out)>4 && resize!(out,4)

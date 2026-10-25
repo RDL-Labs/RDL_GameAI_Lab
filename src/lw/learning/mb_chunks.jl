@@ -79,21 +79,20 @@ function mb_chunk_candidates!(s,move,goal,reserve,strain,now)
     frame=s["current"]
     (!s["chunks_enabled"] || frame===nothing || s["current_us"]!=now || reserve<=20 || strain>=.8) && return Any[]
     out=Any[]
-    targets=unique([s["edges"][k]["from"] for c in values(s["chunks"]) for k in c["edges"] if haskey(s["edges"],k)])
+    targets=unique([c["from"] for c in values(s["chunks"])])
     matches=mb_correspondences(s,targets,now;scope="chunk")
     for match in matches, id in sort(collect(keys(s["chunks"])))
         c=s["chunks"][id];c["goal"]==goal || (mb_reject!(s,"chunk","goal_mismatch");continue)
         all(k->haskey(s["edges"],k),c["edges"]) || (mb_reject!(s,"chunk","missing_edge");continue)
-        indices=findall(k->s["edges"][k]["from"]==match["key"],c["edges"])
-        length(indices)==1 || continue # Ambiguous repeated scenes are not a cursor.
-        index=only(indices);edge=c["edges"][index];p=mb_first_action(s["edges"][edge],(anchor=match["anchor"],),move)
+        c["from"]==match["key"] || continue
+        index=1;edge=c["edges"][index];p=mb_first_action(s["edges"][edge],(anchor=match["anchor"],),move)
         p===nothing && (mb_reject!(s,"chunk","infeasible_action");continue)
         support=log1p(c["successes"])+log1p(c["reward"])
         confidence=1/(1+c["misses"])
         merge!(p,D("method"=>"mb_chunk:"*id,"action"=>p["action"],"priority"=>3.0+confidence*min(2.,support),
             "question"=>"target_observed","mb_edge"=>edge,"mb_expected"=>s["edges"][edge]["to"],
             "mb_chunk"=>id,"mb_chunk_index"=>index,"mb_depth"=>length(c["edges"])-index+1))
-        mb_attach_correspondence!(p,s,match);push!(out,p)
+        mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,c["edges"],goal,"chunk");push!(out,p)
     end
     sort!(out,by=p->(-p["priority"],p["method"]))
     unique!(p->p["method"],out);length(out)>4 && resize!(out,4)

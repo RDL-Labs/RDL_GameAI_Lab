@@ -36,6 +36,7 @@ include(joinpath(@__DIR__, "../perception/observed_cues.jl"))
 include(joinpath(@__DIR__, "../decision/relation_field.jl"))
 include(joinpath(@__DIR__, "../learning/mb_recognition.jl"))
 include(joinpath(@__DIR__, "../learning/mb_map.jl"))
+include(joinpath(@__DIR__, "../learning/mb_routes.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
 include(joinpath(@__DIR__, "../learning/mb_sleep.jl"))
 include(joinpath(@__DIR__, "../decision/lateral_bias.jl"))
@@ -344,6 +345,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 mb_parent_H=s.H
                 resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing;
                     creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true))
+                mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
                 mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
             end
             if ground_continuity
@@ -454,13 +456,15 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             append!(candidates,cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold))
                         end
                         if mb_simulation && target===nothing
-                            chunk_candidates=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now)
-                            mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                            active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now)
+                            chunk_candidates=isempty(active_candidates) ? mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now) : active_candidates
+                            isempty(active_candidates) && mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
                             if isempty(chunk_candidates)
                                 append!(candidates,mb_simulate!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
                             else
                                 append!(candidates,chunk_candidates)
                             end
+                            filter!(p->!startswith(first(p),"mb_route:") || (mb_maps[a]["routes"]["active"]!==nothing && first(p)=="mb_route:"*mb_maps[a]["routes"]["active"]["id"]),s.methods)
                             filter!(p->!startswith(first(p),"mb_chunk:") || haskey(mb_maps[a]["chunks"],first(p)[10:end]),s.methods)
                             filter!(p->!startswith(first(p),"mb_sim:") || haskey(mb_maps[a]["edges"],first(p)[8:end]),s.methods)
                         end
