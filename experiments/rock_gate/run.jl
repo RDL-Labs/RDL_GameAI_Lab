@@ -38,12 +38,16 @@ function gate_probe!(sec,w,purposes,counts,home)
     end
 end
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
+include(joinpath(@__DIR__,"food_roads.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
 base["config"]["days"]=run_days
 rho_arg=findfirst(==("--rho"),ARGS)
 base["config"]["rho_profile"]=rho_arg===nothing ? "off" : ARGS[rho_arg+1]
 openings_arg=findfirst(==("--rho-openings"),ARGS)
 base["config"]["rho_openings"]=openings_arg===nothing ? "on" : ARGS[openings_arg+1]
+food_roads_arg=findfirst(==("--food-roads"),ARGS)
+food_roads_mode=food_roads_arg===nothing ? "unchanged" : ARGS[food_roads_arg+1]
+@assert food_roads_mode in ("unchanged","off","on")
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue
@@ -63,6 +67,8 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
         all(hypot(o["x"]-clamp(o["x"],x,x+1),o["z"]-clamp(o["z"],z,z+1))>o["radius"] for o in input["scene"]["obstacles"])]
     input["scene"]["artificial_roads"]=[D("cells"=>road_cells,"lifetime_days"=>3650)]
     input["scene"]["name"]="riparian-rock-gate-"*label
+    food_layout=food_roads_mode=="unchanged" ? nothing : food_road_layout!(input;enabled=food_roads_mode=="on")
+    food_layout!==nothing && check_food_roads(input,food_layout)
     spec=JSON3.read(JSON3.write(input))
     walls=[RDLMigrationProbe.Circle(s["x"],s["z"],s["radius"]) for s in stones]
     allhigh=[RDLMigrationProbe.Circle(s.x,s.z,s.radius) for s in spec.scene.obstacles]
@@ -73,7 +79,7 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
         pavement=GroundWear(Int(spec.clock.day_us))
         place_roads!(pavement,spec.scene.artificial_roads)
         @test all(wear_factor(pavement,(c[1]+.5,c[2]+.5))==.5 for c in road_cells)
-        @test wear_factor(pavement,(home[1],home[2]-5.5))==1.
+        @test wear_factor(pavement,(home[1],home[2]-5.5))==(food_roads_mode=="on" ? .5 : 1.)
         objects=prepare_landmark_objects(spec.scene.obstacles)
         for (position,yaw) in (((home[1],home[2]-3),180.),((home[1],home[2]-8),0.))
             seen=landmark_fan(objects,position,yaw,"gate-marker-check")
@@ -91,6 +97,10 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     end
     caseout=joinpath(out,label);mkpath(caseout)
     specpath=joinpath(caseout,"input.json");write(specpath,JSON3.write(input))
+    if food_layout!==nothing
+        write(joinpath(caseout,"food-roads.json"),JSON3.write(food_layout))
+        render_food_roads(joinpath(caseout,"food-roads.svg"),input,food_layout)
+    end
     if prepare_only
         println("PREPARED $label: $(length(road_cells)) artificial-road cells")
         continue

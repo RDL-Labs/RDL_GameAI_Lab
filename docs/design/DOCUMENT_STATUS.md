@@ -472,3 +472,7 @@ FINITE IMPLEMENTED。[導入レポート](../../experiments/julia_migration/lw_i
 ### 2026-10-23 — 狭い拠点の初回外出
 
 FINITE IMPLEMENTED。[検証レポート](../../experiments/rock_gate/exit_opening_report.md)。観測された隙間候補と現在の視覚log priorを粗ρモードへ接続。同一地形・6seed・3体で、3,000tick以内の外出5/18→18/18。追加確認3seedも全員通過。帰還・地形の一般化は未解決/未検証。rho_openings=offで比較可能。
+
+### 2026-10-25 — 拠点から食料へつながる分岐道
+
+FINITE EXPERIMENT COMPLETE。[配置と比較](../../experiments/rock_gate/food_roads_report.md)。入口から3分岐、各終点に食料24、人工道寿命3650日。World配置のみ変更。同じ3食料地点で道あり/なしを1日比較し、両条件3体とも外出。道ありは左右から採取、中央未採取、帰還改善は確認できず。構造・保存則・入力比較127項目PASS。
