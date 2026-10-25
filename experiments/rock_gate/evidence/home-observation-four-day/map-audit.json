@@ -1,0 +1,885 @@
+{
+  "days": 4,
+  "measurement": {
+    "gc_seconds": 18.3353841,
+    "process_peak_rss_bytes": 1281609728,
+    "compilation_included": true,
+    "call_seconds": 314.9215427,
+    "allocated_bytes": 178680161159
+  },
+  "limits": {
+    "nodes": 1280,
+    "edges": 5120,
+    "depth": 4,
+    "expansions": 64
+  },
+  "actors": {
+    "npc_b": {
+      "nodes": 309,
+      "edges": 855,
+      "home_nodes": 1,
+      "food_nodes": 0,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 14,
+            "completed_us": 17280000000,
+            "retained": 0,
+            "searches": 12,
+            "formation_us": 14400000000,
+            "found": 0,
+            "day": 0
+          },
+          {
+            "expanded": 232,
+            "completed_us": 34560000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 31680000000,
+            "found": 0,
+            "day": 1
+          },
+          {
+            "expanded": 230,
+            "completed_us": 51840000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 0,
+            "day": 2
+          },
+          {
+            "expanded": 556,
+            "completed_us": 69120000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 66240000000,
+            "found": 0,
+            "day": 3
+          }
+        ],
+        "hypotheses": 0,
+        "proposals": 0,
+        "selected": 0
+      },
+      "observations": 69120,
+      "searches": 423,
+      "expanded": 11303,
+      "mean_expanded": 26.721040189125297,
+      "proposals": 0,
+      "selected": 0,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 0,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 1,
+          "source": "ob:63710000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:63791000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 31,
+          "source": "ob:63876000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 28,
+          "source": "ob:63950000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 14,
+          "source": "ob:64029000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 29,
+          "source": "ob:64099000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64167000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64232000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64296000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:64360000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64440000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64511000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 52,
+          "source": "ob:64629000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64703000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64843000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64952000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:65022000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65120000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:65202000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65270000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:65364000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65457000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65544000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65608000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65689000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 56,
+          "source": "ob:65759000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:65824000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:65893000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:65969000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:66035000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:66108000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 16,
+          "source": "ob:66191000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        }
+      ]
+    },
+    "npc_a": {
+      "nodes": 333,
+      "edges": 1106,
+      "home_nodes": 1,
+      "food_nodes": 0,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 10,
+            "completed_us": 17280000000,
+            "retained": 0,
+            "searches": 8,
+            "formation_us": 14400000000,
+            "found": 0,
+            "day": 0
+          },
+          {
+            "expanded": 520,
+            "completed_us": 34560000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 31680000000,
+            "found": 0,
+            "day": 1
+          },
+          {
+            "expanded": 122,
+            "completed_us": 51840000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 0,
+            "day": 2
+          },
+          {
+            "expanded": 468,
+            "completed_us": 69120000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 66240000000,
+            "found": 0,
+            "day": 3
+          }
+        ],
+        "hypotheses": 0,
+        "proposals": 0,
+        "selected": 0
+      },
+      "observations": 69120,
+      "searches": 453,
+      "expanded": 14900,
+      "mean_expanded": 32.89183222958057,
+      "proposals": 0,
+      "selected": 0,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 0,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 23,
+          "source": "ob:64008000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 20,
+          "source": "ob:64105000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 37,
+          "source": "ob:64169000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 21,
+          "source": "ob:64236000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:64304000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 24,
+          "source": "ob:64373000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 32,
+          "source": "ob:64459000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 51,
+          "source": "ob:64528000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 35,
+          "source": "ob:64594000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64661000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64733000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 41,
+          "source": "ob:64797000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64864000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64932000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 33,
+          "source": "ob:64999000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65083000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65162000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 10,
+          "source": "ob:65226000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65309000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65374000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65447000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:65526000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 17,
+          "source": "ob:65600000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65672000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65736000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65808000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:65882000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65947000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:66016000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:66081000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:66150000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 30,
+          "source": "ob:66214000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        }
+      ]
+    },
+    "npc_c": {
+      "nodes": 219,
+      "edges": 448,
+      "home_nodes": 2,
+      "food_nodes": 0,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 12,
+            "completed_us": 17280000000,
+            "retained": 0,
+            "searches": 10,
+            "formation_us": 14400000000,
+            "found": 0,
+            "day": 0
+          },
+          {
+            "expanded": 774,
+            "completed_us": 34560000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 31680000000,
+            "found": 0,
+            "day": 1
+          },
+          {
+            "expanded": 266,
+            "completed_us": 51840000000,
+            "retained": 0,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 0,
+            "day": 2
+          }
+        ],
+        "hypotheses": 0,
+        "proposals": 0,
+        "selected": 0
+      },
+      "observations": 69120,
+      "searches": 395,
+      "expanded": 7459,
+      "mean_expanded": 18.883544303797468,
+      "proposals": 0,
+      "selected": 0,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 0,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 19,
+          "source": "ob:63586000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:63655000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:63721000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:63828000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 22,
+          "source": "ob:63921000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 3,
+          "source": "ob:63988000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64058000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64140000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 14,
+          "source": "ob:64225000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 14,
+          "source": "ob:64300000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:64367000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 16,
+          "source": "ob:64468000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 14,
+          "source": "ob:64537000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64602000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 45,
+          "source": "ob:64667000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64749000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:64813000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:64882000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 12,
+          "source": "ob:64951000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65023000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:65105000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 23,
+          "source": "ob:65191000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65259000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65380000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65504000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:65625000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:65772000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:65865000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:65958000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 64,
+          "source": "ob:66022000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 2,
+          "source": "ob:66100000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        },
+        {
+          "expanded": 1,
+          "source": "ob:66167000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null
+        }
+      ]
+    }
+  }
+}

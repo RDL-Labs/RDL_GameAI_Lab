@@ -81,6 +81,9 @@ base["config"]["mb_chunks"]=chunk_arg===nothing ? "off" : ARGS[chunk_arg+1]
 sleep_arg=findfirst(==("--mb-sleep"),ARGS)
 base["config"]["mb_sleep"]=sleep_arg===nothing ? "off" : ARGS[sleep_arg+1]
 @assert base["config"]["mb_sleep"] in ("off","on")
+observation_arg=findfirst(==("--home-observation"),ARGS)
+base["config"]["home_observation"]=observation_arg===nothing ? "off" : ARGS[observation_arg+1]
+@assert base["config"]["home_observation"] in ("off","on")
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue
