@@ -1,0 +1,7 @@
+{
+  "days": 5,
+  "input_equal_except_days": true,
+  "daily_equal": true,
+  "day_starts_equal": true,
+  "events_equal": true
+}

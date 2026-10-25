@@ -1,0 +1,3708 @@
+{
+  "actors": {
+    "npc_a": {
+      "observations": 86400,
+      "valid": 9157,
+      "reasons": {
+        "fewer_than_two_unique_colors": 77243,
+        "valid": 9157
+      },
+      "resets": {
+        "none": 81108,
+        "invalid_next_observation": 3963,
+        "goal_change": 1328,
+        "status": 1
+      },
+      "trace_loss": {
+        "invalid_next_observation": 761
+      },
+      "valid_to_invalid": 3963,
+      "valid_key_changes": 1090,
+      "stationary_key_changes": 430,
+      "stationary_same_yaw_key_changes": 0,
+      "home_entries": [
+        {
+          "us": 331000000,
+          "key": "102fa61010a0962c",
+          "reason": "valid",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 319000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "scan",
+              "goal": "food"
+            },
+            {
+              "us": 320000000,
+              "key": "fc019a9552236aa9",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 321000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "walk",
+              "goal": "food"
+            },
+            {
+              "us": 322000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 323000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 324000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 325000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 326000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 327000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 328000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 329000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 330000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        }
+      ],
+      "home_observations": 7,
+      "home_valid": 2,
+      "physical_bins": {
+        "revisited_bins": 990,
+        "multiple_keys": 915,
+        "max_keys": 9
+      },
+      "view_bins": {
+        "revisited_bins": 625,
+        "multiple_keys": 356,
+        "max_keys": 4
+      },
+      "key_spatial": {
+        "keys": 317,
+        "spread_over_5m": 137,
+        "max_distance": 37.893262414259084,
+        "home_keys_also_away": 2
+      }
+    },
+    "npc_b": {
+      "observations": 86400,
+      "valid": 7835,
+      "reasons": {
+        "fewer_than_two_unique_colors": 78565,
+        "valid": 7835
+      },
+      "resets": {
+        "none": 81909,
+        "invalid_next_observation": 3386,
+        "goal_change": 1102,
+        "status": 3
+      },
+      "trace_loss": {
+        "invalid_next_observation": 624
+      },
+      "valid_to_invalid": 3386,
+      "valid_key_changes": 1000,
+      "stationary_key_changes": 442,
+      "stationary_same_yaw_key_changes": 0,
+      "home_entries": [
+        {
+          "us": 62000000,
+          "key": null,
+          "reason": "fewer_than_two_unique_colors",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 50000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 51000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 52000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 53000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 54000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 55000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 56000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 57000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 58000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 59000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 60000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 61000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        },
+        {
+          "us": 144000000,
+          "key": null,
+          "reason": "fewer_than_two_unique_colors",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 132000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "scan",
+              "goal": "food"
+            },
+            {
+              "us": 133000000,
+              "key": "2939c59398a2828b",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 134000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "walk",
+              "goal": "food"
+            },
+            {
+              "us": 135000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 136000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 137000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 138000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 139000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 140000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 141000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 142000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 143000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        }
+      ],
+      "home_observations": 11,
+      "home_valid": 1,
+      "physical_bins": {
+        "revisited_bins": 890,
+        "multiple_keys": 816,
+        "max_keys": 14
+      },
+      "view_bins": {
+        "revisited_bins": 648,
+        "multiple_keys": 407,
+        "max_keys": 4
+      },
+      "key_spatial": {
+        "keys": 306,
+        "spread_over_5m": 130,
+        "max_distance": 41.99275512824151,
+        "home_keys_also_away": 0
+      }
+    },
+    "npc_c": {
+      "observations": 86400,
+      "valid": 7610,
+      "reasons": {
+        "fewer_than_two_unique_colors": 78790,
+        "valid": 7610
+      },
+      "resets": {
+        "none": 80413,
+        "invalid_next_observation": 4370,
+        "goal_change": 1617
+      },
+      "trace_loss": {
+        "invalid_next_observation": 1014
+      },
+      "valid_to_invalid": 4370,
+      "valid_key_changes": 1687,
+      "stationary_key_changes": 724,
+      "stationary_same_yaw_key_changes": 0,
+      "home_entries": [
+        {
+          "us": 136000000,
+          "key": null,
+          "reason": "fewer_than_two_unique_colors",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 124000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 125000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 126000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 127000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 128000000,
+              "key": "2939c59398a2828b",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 129000000,
+              "key": "2939c59398a2828b",
+              "reason": "valid",
+              "reset": "goal_change",
+              "trace": 0,
+              "action": "rest",
+              "goal": "food"
+            },
+            {
+              "us": 130000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "walk",
+              "goal": "food"
+            },
+            {
+              "us": 131000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 132000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 133000000,
+              "key": "6e4b5b9648d0fdcc",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 134000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "scan",
+              "goal": "food"
+            },
+            {
+              "us": 135000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        },
+        {
+          "us": 158000000,
+          "key": "102fa61010a0962c",
+          "reason": "valid",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 146000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 147000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 148000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 149000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 150000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 151000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 152000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 153000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 154000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 155000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 156000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 157000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        },
+        {
+          "us": 168000000,
+          "key": "102fa61010a0962c",
+          "reason": "valid",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 156000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 157000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 158000000,
+              "key": "102fa61010a0962c",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 159000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "walk",
+              "goal": "food"
+            },
+            {
+              "us": 160000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 161000000,
+              "key": "70af7d5f97cca15f",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 162000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "scan",
+              "goal": "food"
+            },
+            {
+              "us": 163000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 164000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 165000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 166000000,
+              "key": "102fa61010a0962c",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 167000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "scan",
+              "goal": "food"
+            }
+          ]
+        },
+        {
+          "us": 188000000,
+          "key": "05d85ff7c575fa18",
+          "reason": "valid",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 176000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 177000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 178000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 179000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 180000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 181000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 182000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 183000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 184000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 185000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 186000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 187000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        },
+        {
+          "us": 76021000000,
+          "key": null,
+          "reason": "fewer_than_two_unique_colors",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 76009000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76010000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76011000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76012000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76013000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76014000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76015000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76016000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76017000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76018000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76019000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76020000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        },
+        {
+          "us": 76133000000,
+          "key": null,
+          "reason": "fewer_than_two_unique_colors",
+          "trace_before": 0,
+          "trace_after": 0,
+          "preceding": [
+            {
+              "us": 76121000000,
+              "key": "fafe0dd8477d7ea6",
+              "reason": "valid",
+              "reset": "goal_change",
+              "trace": 1,
+              "action": "walk",
+              "goal": "food"
+            },
+            {
+              "us": 76122000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "scan",
+              "goal": "food"
+            },
+            {
+              "us": 76123000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76124000000,
+              "key": "102fa61010a0962c",
+              "reason": "valid",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76125000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "invalid_next_observation",
+              "trace": 0,
+              "action": "walk",
+              "goal": "food"
+            },
+            {
+              "us": 76126000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76127000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76128000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76129000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76130000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76131000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            },
+            {
+              "us": 76132000000,
+              "key": null,
+              "reason": "fewer_than_two_unique_colors",
+              "reset": "none",
+              "trace": 0
+            }
+          ]
+        }
+      ],
+      "home_observations": 76,
+      "home_valid": 11,
+      "physical_bins": {
+        "revisited_bins": 1031,
+        "multiple_keys": 977,
+        "max_keys": 16
+      },
+      "view_bins": {
+        "revisited_bins": 984,
+        "multiple_keys": 670,
+        "max_keys": 6
+      },
+      "key_spatial": {
+        "keys": 352,
+        "spread_over_5m": 146,
+        "max_distance": 39.88831953059841,
+        "home_keys_also_away": 3
+      }
+    }
+  },
+  "goalSummary": {
+    "npc_c": {
+      "count": 8,
+      "reasons": {
+        "no_bound_observation": 8
+      },
+      "positive_H": [
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "no_bound_observation",
+          "us": 274000000,
+          "H_after": 0,
+          "actor": "npc_c",
+          "trace_goal": null
+        },
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "no_bound_observation",
+          "us": 65874000000,
+          "H_after": 0,
+          "actor": "npc_c",
+          "trace_goal": null
+        },
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "no_bound_observation",
+          "us": 69939000000,
+          "H_after": 0,
+          "actor": "npc_c",
+          "trace_goal": null
+        },
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "home",
+          "reason": "no_bound_observation",
+          "us": 76021000000,
+          "H_after": 0,
+          "actor": "npc_c",
+          "trace_goal": null
+        },
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "no_bound_observation",
+          "us": 76269000000,
+          "H_after": 0,
+          "actor": "npc_c",
+          "trace_goal": null
+        }
+      ]
+    },
+    "npc_b": {
+      "count": 6,
+      "reasons": {
+        "no_bound_observation": 3,
+        "short_trace": 1,
+        "no_H_reduction": 2
+      },
+      "positive_H": [
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "no_bound_observation",
+          "us": 368000000,
+          "H_after": 0,
+          "actor": "npc_b",
+          "trace_goal": null
+        },
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "short_trace",
+          "us": 84012000000,
+          "H_after": 0,
+          "actor": "npc_b",
+          "trace_goal": "food"
+        }
+      ]
+    },
+    "npc_a": {
+      "count": 5,
+      "reasons": {
+        "no_bound_observation": 5
+      },
+      "positive_H": [
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "no_bound_observation",
+          "us": 508000000,
+          "H_after": 0,
+          "actor": "npc_a",
+          "trace_goal": null
+        },
+        {
+          "H_before": 32,
+          "path": [],
+          "goal": "food",
+          "reason": "no_bound_observation",
+          "us": 79199000000,
+          "H_after": 0,
+          "actor": "npc_a",
+          "trace_goal": null
+        }
+      ]
+    }
+  },
+  "aggregate": {
+    "sleep": {
+      "requests": 128,
+      "no_targets": 64,
+      "no_fresh_targets": 104,
+      "actual": 0,
+      "fresh_depth4_no_budget": 0,
+      "all_age_depth4": 0,
+      "fresh_any_depth": 0,
+      "all_age_any_depth": 0,
+      "all_age_any_depth_no_first_gate": 0,
+      "including_run": 0,
+      "undirected": 0,
+      "historical_goal": 0
+    },
+    "wake": {
+      "requests": 23,
+      "no_targets": 9,
+      "no_fresh_targets": 17,
+      "actual": 0,
+      "fresh_depth4_no_budget": 0,
+      "all_age_depth4": 0,
+      "fresh_any_depth": 0,
+      "all_age_any_depth": 0,
+      "all_age_any_depth_no_first_gate": 0,
+      "including_run": 0,
+      "undirected": 0,
+      "historical_goal": 0
+    }
+  },
+  "snapshots": [
+    {
+      "file": "npc_a-17280000000-sleep.json",
+      "actor": "npc_a",
+      "now": 17280000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "d38f2de6d8c9b04d",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d38f2de6d8c9b04d",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "90121b09dc19cc50",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "90121b09dc19cc50",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d1bc88740e80a982",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d1bc88740e80a982",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "3f991167988b6f10",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "3f991167988b6f10",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e842824e30fd63fe",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e842824e30fd63fe",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "f966dbb2951a7979",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "f966dbb2951a7979",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "ed122ed55ce065bb",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "ed122ed55ce065bb",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "1c7aefb1ed714a67",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "1c7aefb1ed714a67",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-17342000000-wake_home.json",
+      "actor": "npc_a",
+      "now": 17342000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "d38f2de6d8c9b04d",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-3000000-wake_food.json",
+      "actor": "npc_a",
+      "now": 3000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "05d85ff7c575fa18",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-34560000000-sleep.json",
+      "actor": "npc_a",
+      "now": 34560000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "f3e4e471465d7200",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "f3e4e471465d7200",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e4c6c8c0fee728a7",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e4c6c8c0fee728a7",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "f020548ae26c2303",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "f020548ae26c2303",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "ad5fa57f23b3695a",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "ad5fa57f23b3695a",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "8c93965313fd5cdf",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "8c93965313fd5cdf",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "a24438b1cb3af07b",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "a24438b1cb3af07b",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d38f2de6d8c9b04d",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d38f2de6d8c9b04d",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-34640000000-wake_home.json",
+      "actor": "npc_a",
+      "now": 34640000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "d813def314a0641c",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-51900000000-wake_home.json",
+      "actor": "npc_a",
+      "now": 51900000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "ad5fa57f23b3695a",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-54011000000-wake_food.json",
+      "actor": "npc_a",
+      "now": 54011000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "86aa09a89a1f4afe",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-69138000000-wake_food.json",
+      "actor": "npc_a",
+      "now": 69138000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "e4c6c8c0fee728a7",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-79214000000-wake_home.json",
+      "actor": "npc_a",
+      "now": 79214000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "62b6fd1994277940",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_a-8649000000-wake_home.json",
+      "actor": "npc_a",
+      "now": 8649000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "19c36a511e3d3697",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-17280000000-sleep.json",
+      "actor": "npc_b",
+      "now": 17280000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "e11d0756efadbcec",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e11d0756efadbcec",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2cccdd097be8bd0f",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2cccdd097be8bd0f",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "b9947c72a1f56e77",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "b9947c72a1f56e77",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "ad5fa57f23b3695a",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "ad5fa57f23b3695a",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d741c1c13335a74c",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d741c1c13335a74c",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e126760baa5031e4",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e126760baa5031e4",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "aa33dea15c60085d",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "aa33dea15c60085d",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-17365000000-wake_home.json",
+      "actor": "npc_b",
+      "now": 17365000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "0ec2ba6aafe5bac2",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-34560000000-sleep.json",
+      "actor": "npc_b",
+      "now": 34560000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "9db74da926131b5e",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "9db74da926131b5e",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "8b11b16936c6f488",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "8b11b16936c6f488",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c27230688ce23333",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c27230688ce23333",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "02705f558fc55df4",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "02705f558fc55df4",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "116fc9b68d6af90f",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "116fc9b68d6af90f",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2cccdd097be8bd0f",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2cccdd097be8bd0f",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e126760baa5031e4",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e126760baa5031e4",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "aa33dea15c60085d",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "aa33dea15c60085d",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-34621000000-wake_home.json",
+      "actor": "npc_b",
+      "now": 34621000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "4160d7182272f29d",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-51840000000-sleep.json",
+      "actor": "npc_b",
+      "now": 51840000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "d741c1c13335a74c",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d741c1c13335a74c",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e5129077568a74b2",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e5129077568a74b2",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c6bde5c0a0c31894",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c6bde5c0a0c31894",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "bac5f3172e282a51",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "bac5f3172e282a51",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "9ddda17cfce23c30",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "9ddda17cfce23c30",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c632c975c4dd6d12",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c632c975c4dd6d12",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2cccdd097be8bd0f",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2cccdd097be8bd0f",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "b9947c72a1f56e77",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "b9947c72a1f56e77",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-52029000000-wake_home.json",
+      "actor": "npc_b",
+      "now": 52029000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "6ecdb7a025147098",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-54232000000-wake_food.json",
+      "actor": "npc_b",
+      "now": 54232000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "e3283d52edd25a26",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-66000000-wake_food.json",
+      "actor": "npc_b",
+      "now": 66000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "05d85ff7c575fa18",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-69132000000-wake_food.json",
+      "actor": "npc_b",
+      "now": 69132000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "5dc369d1e1345598",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_b-8643000000-wake_home.json",
+      "actor": "npc_b",
+      "now": 8643000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "d1bc88740e80a982",
+          "goal": "home",
+          "targets": 1,
+          "fresh_targets": 1,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-17280000000-sleep.json",
+      "actor": "npc_c",
+      "now": 17280000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "5dc369d1e1345598",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "5dc369d1e1345598",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "811343f4fe29f05f",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "811343f4fe29f05f",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "5b38fde33a09993f",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "5b38fde33a09993f",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "b9947c72a1f56e77",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "b9947c72a1f56e77",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "8c93965313fd5cdf",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "8c93965313fd5cdf",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e126760baa5031e4",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "e126760baa5031e4",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "7cc243f6d630c283",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "7cc243f6d630c283",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-17344000000-wake_home.json",
+      "actor": "npc_c",
+      "now": 17344000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "8d88b1e9a36b13d1",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-34560000000-sleep.json",
+      "actor": "npc_c",
+      "now": 34560000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "5dc369d1e1345598",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "5dc369d1e1345598",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "aff032e13afceb4a",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "aff032e13afceb4a",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "65d904e155950817",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "65d904e155950817",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d1331ca943b00ffb",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d1331ca943b00ffb",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d38f2de6d8c9b04d",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d38f2de6d8c9b04d",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d1a29e88a7f01706",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "d1a29e88a7f01706",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "2441e28a26f6f509",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "dda62d3459a3092f",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "dda62d3459a3092f",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-34624000000-wake_home.json",
+      "actor": "npc_c",
+      "now": 34624000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "e126760baa5031e4",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-51930000000-wake_home.json",
+      "actor": "npc_c",
+      "now": 51930000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "e126760baa5031e4",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-54398000000-wake_food.json",
+      "actor": "npc_c",
+      "now": 54398000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "d741c1c13335a74c",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-63000000-wake_food.json",
+      "actor": "npc_c",
+      "now": 63000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "3d5bf2c8a8341ac4",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-69120000000-sleep.json",
+      "actor": "npc_c",
+      "now": 69120000000,
+      "kind": "sleep",
+      "results": [
+        {
+          "start": "283ac638711b9af2",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "283ac638711b9af2",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "82a067fb5ed6e09d",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "82a067fb5ed6e09d",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c276f446c019577d",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "c276f446c019577d",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "6914cef98d291e82",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "6914cef98d291e82",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "5c0ee6bbf2b76889",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "5c0ee6bbf2b76889",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "90ea482b9a3e4f75",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "90ea482b9a3e4f75",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "65d904e155950817",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "65d904e155950817",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "565bb4c1a768cebd",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        },
+        {
+          "start": "565bb4c1a768cebd",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-69190000000-wake_home.json",
+      "actor": "npc_c",
+      "now": 69190000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "1f77a132c3d949c7",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-69852000000-wake_food.json",
+      "actor": "npc_c",
+      "now": 69852000000,
+      "kind": "wake_food",
+      "results": [
+        {
+          "start": "ba62f21e45d78633",
+          "goal": "food",
+          "targets": 0,
+          "fresh_targets": 0,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    },
+    {
+      "file": "npc_c-8642000000-wake_home.json",
+      "actor": "npc_c",
+      "now": 8642000000,
+      "kind": "wake_home",
+      "results": [
+        {
+          "start": "82a067fb5ed6e09d",
+          "goal": "home",
+          "targets": 3,
+          "fresh_targets": 3,
+          "historical_goal": null,
+          "actual": null,
+          "fresh_depth4_no_budget": null,
+          "all_age_depth4": null,
+          "fresh_any_depth": null,
+          "all_age_any_depth": null,
+          "all_age_any_depth_no_first_gate": null,
+          "including_run": null,
+          "undirected": null
+        }
+      ]
+    }
+  ],
+  "final10": {
+    "npc_b": {
+      "home": {
+        "starts": 425,
+        "targets": 1,
+        "fresh4": 0,
+        "allAge4": 0,
+        "freshAny": 0,
+        "allAgeAny": 0
+      },
+      "food": {
+        "starts": 426,
+        "targets": 0,
+        "fresh4": 0,
+        "allAge4": 0,
+        "freshAny": 0,
+        "allAgeAny": 0
+      }
+    },
+    "npc_a": {
+      "home": {
+        "starts": 380,
+        "targets": 1,
+        "fresh4": 0,
+        "allAge4": 0,
+        "freshAny": 0,
+        "allAgeAny": 0
+      },
+      "food": {
+        "starts": 381,
+        "targets": 0,
+        "fresh4": 0,
+        "allAge4": 0,
+        "freshAny": 0,
+        "allAgeAny": 0
+      }
+    },
+    "npc_c": {
+      "home": {
+        "starts": 461,
+        "targets": 2,
+        "fresh4": 4,
+        "allAge4": 42,
+        "freshAny": 4,
+        "allAgeAny": 313
+      },
+      "food": {
+        "starts": 463,
+        "targets": 0,
+        "fresh4": 0,
+        "allAge4": 0,
+        "freshAny": 0,
+        "allAgeAny": 0
+      }
+    }
+  }
+}

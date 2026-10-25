@@ -19,6 +19,11 @@ if stop_exhausted
     @assert count(daily_anchor,patched)==1
     patched=replace(patched,daily_anchor=>daily_anchor*"\n            if Main.cohort_exhausted(daily,clock.day_us)\n                days=length(daily)\n                Main.stop_day[]=days\n                break\n            end")
 end
+if "--mb-diagnostics" in ARGS
+    include(joinpath(@__DIR__,"mb_diagnostics.jl"))
+    patched=instrument_mb_day(patched)
+    instrument_mb_files(snapshot)
+end
 write(path,patched)
 const stop_day=Ref(0)
 function cohort_exhausted(daily,day_us)

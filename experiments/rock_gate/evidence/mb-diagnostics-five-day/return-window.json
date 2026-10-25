@@ -1,0 +1,460 @@
+[
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "brown",
+        "far"
+      ],
+      [
+        "ochre",
+        "near"
+      ],
+      [
+        "orange",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      0.2808986049131741,
+      0.2278799409653975
+    ],
+    "yaw": 43.46107897624404,
+    "us": 76005000000,
+    "reset": "goal_change",
+    "reason": "valid",
+    "key": "55b5b4110dd1d7e8",
+    "receipt": {
+      "from": "55b5b4110dd1d7e8",
+      "goal": "home",
+      "status": "performed",
+      "action": "rest"
+    },
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "brown",
+        "far"
+      ],
+      [
+        "ochre",
+        "near"
+      ],
+      [
+        "orange",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      0.2808986049131741,
+      0.2278799409653975
+    ],
+    "yaw": 43.46107897624404,
+    "us": 76006000000,
+    "reset": "none",
+    "reason": "valid",
+    "key": "55b5b4110dd1d7e8",
+    "receipt": {
+      "from": "55b5b4110dd1d7e8",
+      "goal": "home",
+      "status": "performed",
+      "action": "rest"
+    },
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ],
+      [
+        "orange",
+        "near"
+      ]
+    ],
+    "trace_after": 1,
+    "position": [
+      -0.08202229653029752,
+      0.5718107760114253
+    ],
+    "yaw": -46.53892102375596,
+    "us": 76007000000,
+    "reset": "none",
+    "reason": "valid",
+    "key": "2939c59398a2828b",
+    "receipt": {
+      "from": "55b5b4110dd1d7e8",
+      "goal": "home",
+      "status": "performed",
+      "action": "walk"
+    },
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 1,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.07446794176578,
+      1.0717537044783572
+    ],
+    "yaw": 0.8656982279701424,
+    "us": 76008000000,
+    "reset": "invalid_next_observation",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": {
+      "from": "2939c59398a2828b",
+      "goal": "home",
+      "status": "performed",
+      "action": "walk"
+    },
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.07446794176578,
+      1.0717537044783572
+    ],
+    "yaw": 0.8656982279701424,
+    "us": 76009000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.06691358700126249,
+      1.571696632945289
+    ],
+    "yaw": 0.8656982279701424,
+    "us": 76010000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.05935923223674521,
+      2.071639561412221
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76011000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.051804877472227936,
+      2.571582489879153
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76012000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.04425052270771066,
+      3.071525418346085
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76013000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.04425052270771066,
+      3.071525418346085
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76014000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.036696167943193386,
+      3.5714683468130173
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76015000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.036696167943193386,
+      3.5714683468130173
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76016000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.036696167943193386,
+      3.5714683468130173
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76017000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.029141813178675865,
+      4.071411275279949
+    ],
+    "yaw": 0.8656982279701424,
+    "us": 76018000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.029141813178675865,
+      4.071411275279949
+    ],
+    "yaw": 0.8656982279701424,
+    "us": 76019000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.021587458414158593,
+      4.571354203746881
+    ],
+    "yaw": 0.865698227970114,
+    "us": 76020000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": false,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.015108709529034803,
+      5.000114143066136
+    ],
+    "yaw": 0.8656982279701424,
+    "us": 76021000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": true,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.007554354764517283,
+      5.500057071533067
+    ],
+    "yaw": 0.8656982279701424,
+    "us": 76022000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": true,
+    "actor": "npc_c"
+  },
+  {
+    "trace_before": 0,
+    "scene": [
+      [
+        "ochre",
+        "near"
+      ]
+    ],
+    "trace_after": 0,
+    "position": [
+      -0.0976791817128344,
+      5.991867518318753
+    ],
+    "yaw": -10.384301772029858,
+    "us": 76023000000,
+    "reset": "none",
+    "reason": "fewer_than_two_unique_colors",
+    "key": null,
+    "receipt": null,
+    "home": true,
+    "actor": "npc_c"
+  }
+]
