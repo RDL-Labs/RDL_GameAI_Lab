@@ -1,0 +1,62 @@
+{
+  "days": 3,
+  "seed": 20261005,
+  "measurement": {
+    "gc_seconds": 12.0668356,
+    "process_peak_rss_bytes": 1188093952,
+    "compilation_included": true,
+    "call_seconds": 225.0162362,
+    "allocated_bytes": 116516084572
+  },
+  "remaining_by_site": [
+    19,
+    21,
+    21
+  ],
+  "harvested_by_site": [
+    5,
+    3,
+    3
+  ],
+  "replenished": 0,
+  "shared_storage": {
+    "records": [],
+    "taken": 0,
+    "deposited": 0
+  },
+  "daily": [
+    {
+      "day": 1,
+      "ground": 64,
+      "consumed": 6,
+      "shared": 0,
+      "reserves": {
+        "C": 88.84940137296493,
+        "B": 88.61706503783977,
+        "A": 88.70603852984017
+      }
+    },
+    {
+      "day": 2,
+      "ground": 64,
+      "consumed": 9,
+      "shared": 0,
+      "reserves": {
+        "C": 85.4349984743536,
+        "B": 84.7759597050747,
+        "A": 85.16904924757776
+      }
+    },
+    {
+      "day": 3,
+      "ground": 61,
+      "consumed": 12,
+      "shared": 0,
+      "reserves": {
+        "C": 82.75111798776507,
+        "B": 81.77746693614375,
+        "A": 81.79292981641869
+      }
+    }
+  ]
+}

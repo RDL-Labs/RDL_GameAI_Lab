@@ -46,3 +46,26 @@ julia --startup-file=no --project=. experiments/rock_gate/compare_food_roads.jl
 証拠: [比較結果](evidence/food_roads/comparison.json)、[入力](evidence/food_roads/input.json)、[配置](evidence/food_roads/layout.json)、[実験コードhash](evidence/food_roads/source_hashes.json)。各runのmanifestとreportも同じディレクトリへ保存。
 
 ![拠点と3つの食料地点をつなぐ道](evidence/food_roads/layout.png)
+
+## 道ありで3日継続（2026-10-25）
+
+同じ初期状態・seed 20261005から、実行日数だけ3日にして再実行。前回の1日目のdaily・day_starts・eventsが完全一致することを既存の `compare_prefix.cjs` で確認した。途中状態からの再開ではない。判断コードと道の配置は変更していない。
+
+```powershell
+julia --startup-file=no --project=. experiments/rock_gate/run.jl outputs/food-roads-on-3d-20261025 --narrow-only --days 3 --rho coarse --rho-openings on --food-roads on
+node experiments/rock_gate/compare_prefix.cjs outputs/food-roads-on-3d-20261025 outputs/food-roads-on-20261025
+```
+
+| 個体 | 1日末のreserve | 2日末 | 3日末 | 3日間の帰還完了 |
+| --- | ---: | ---: | ---: | --- |
+| A | 88.71 | 85.17 | 81.79 | 1回。その後再外出し、次の帰還は未完了 |
+| B | 88.62 | 84.78 | 81.78 | 0回 |
+| C | 88.85 | 85.43 | 82.75 | 0回 |
+
+全地点で採取が発生した。累計は左5 / 中央3 / 右3、残量は19 / 21 / 21。1日目に未採取だった中央の食料は3日目に採取された（2日末まで総残量64、3日末61）。消費食料は12、最終携行3、共有倉庫0で、初期総量76を保存。3日目終了までの追加再生量は0。
+
+Aはtick 42020に帰還目的を持って入口から内側へ入り、帰還完了を1回記録。その後tick 42257に再外出した。共有倉庫へのdepositは0であり、帰還1回を食料搬入の成功とはみなさない。B/Cは初日の外出後に入口を戻っていない。終了時は3体とも帰還目的が有効。
+
+3日試験は正常終了。実行225.02秒（コンパイル込み、全処理は約230秒）。道構造19項目・岩壁33項目・生活保存則17項目の計69項目PASSと、1日prefix一致を確認。1seedの結果であり、道の効果や安定した往復行動の成立はまだ確認できない。
+
+証拠: [集計](evidence/food_roads/three-day/summary.json)、[個体別結果](evidence/food_roads/three-day/report.json)、[1日prefix照合](evidence/food_roads/three-day/prefix-audit.json)、[通過イベント](evidence/food_roads/three-day/crossings.jsonl)。元出力は `outputs/food-roads-on-3d-20261025/`。

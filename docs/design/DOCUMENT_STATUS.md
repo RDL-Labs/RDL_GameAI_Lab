@@ -476,3 +476,7 @@ FINITE IMPLEMENTED。[検証レポート](../../experiments/rock_gate/exit_openi
 ### 2026-10-25 — 拠点から食料へつながる分岐道
 
 FINITE EXPERIMENT COMPLETE。[配置と比較](../../experiments/rock_gate/food_roads_report.md)。入口から3分岐、各終点に食料24、人工道寿命3650日。World配置のみ変更。同じ3食料地点で道あり/なしを1日比較し、両条件3体とも外出。道ありは左右から採取、中央未採取、帰還改善は確認できず。構造・保存則・入力比較127項目PASS。
+
+### 2026-10-25 — 分岐道の3日継続
+
+FINITE EXPERIMENT COMPLETE。[3日結果](../../experiments/rock_gate/food_roads_report.md)。道あり・同一seedで3日再実行、既存1日prefix完全一致。左5/中央3/右3を採取、Aのみ帰還1回、食料depositなし。全個体のreserveは約82、終了時は全員帰還未解決。構造・保存則69項目PASS。実行約225秒、コード変更なし。
