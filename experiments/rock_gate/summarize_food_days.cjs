@@ -8,7 +8,20 @@ const summary=read(path.join(run,'narrow/run/summary.json'));
 const report=read(path.join(run,'narrow/report.json'));
 const input=read(path.join(run,'narrow/input.json'));
 const actors=Object.keys(result.final_agents).sort(),ticksPerDay=input.clock.day_us/1e6;
-assert.equal(result.daily.length,input.config.days);
+const terminationPath=path.join(run,'narrow/termination.json');
+const termination=fs.existsSync(terminationPath)?read(terminationPath):null;
+assert.equal(result.daily.length,termination?.completed_days??input.config.days);
+assert.ok(result.daily.length<=input.config.days);
+assert.equal(result.ended_us,result.daily.length*input.clock.day_us);
+if(result.daily.length<input.config.days) {
+  assert.equal(termination.reason,'all_zero_reserve_and_full_day_rest');
+  assert.equal(termination.stop_exhausted,true);
+  const last=result.daily.at(-1),prev=result.daily.at(-2);
+  for(const a of actors) {
+    assert.ok(last.physical[a].body.reserve<=0);
+    assert.equal(last.counts[a].rest-(prev?.counts[a].rest??0),ticksPerDay);
+  }
+}
 const daily=result.daily.map((d,i)=>{
   const previous=i?result.daily[i-1]:null;
   const physical=d.physical;
@@ -33,7 +46,7 @@ const audit=Object.fromEntries(actors.map(a=>[a,{
   zero_reserve_day_ends:daily.filter(d=>d.actors[a].reserve<=0).map(d=>d.day),
   all_rest_days:daily.filter(d=>d.actors[a].actions.rest===ticksPerDay).map(d=>d.day)
 }]));
-const out={days:daily.length,seed:input.config.seed,measurement:summary.measurement,
+const out={termination,days:daily.length,seed:input.config.seed,measurement:summary.measurement,
   initial_food:result.initial_food,replenished_food:result.replenished_food,
   replenishments:result.replenishments,consumed:result.consumed,
   remaining_by_site:result.world_checkpoint.stock,

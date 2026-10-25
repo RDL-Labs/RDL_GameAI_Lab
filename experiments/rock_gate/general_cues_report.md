@@ -55,3 +55,39 @@ node experiments/rock_gate/compare_general_cues.cjs outputs/food-roads-general-c
 候補生成以外の知覚・安全処理は省略しない。思考に対する身体エネルギー消費も追加していない。候補全生成時との一致を確認した範囲は今回の観測と単体チェックであり、候補上限に達する任意の観測での同値性は保証しない。
 
 [日別集計](evidence/lazy-cues-three-day/summary.json)、[3日一致監査](evidence/lazy-cues-three-day/prefix-audit.json)、[生成統計](evidence/lazy-cues-three-day/cues.json)、[manifest](evidence/lazy-cues-three-day/manifest.json)。実行コピー作成後、コミット側はBOMと末尾空行のみ正規化したためソースhashに差がある。実行day.jlには従来同様の通過記録フックがある。
+
+## 最大30日・全員継続不能で停止（2026-10-25）
+
+同じ初期状態・seedから再実行し、**12日末に自動終了**。死亡フラグはないため、停止条件は「日末に全員reserve 0、かつその1日全員の行動が休息のみ」とした。30日上限。途中でプロセスを強制終了せず、日末集計と最終状態を書き出して正常終了する。判断・身体消費のルールは変更していない。停止処理は実験コピーへのフックで、通常のLW実行には影響しない。
+
+最初の3日の日別状態・日開始状態・イベントは直前の3日試験と完全一致。実行1256.46秒（約20分56秒、コンパイル込み）、全体約1261秒。途中の実時間変動があり、速度の厳密な比較には使用しない。
+
+| 個体 | 初めてreserve 0で終えた日 | 終日休息開始 | 帰還完了 | 外出/入場 |
+| --- | ---: | ---: | ---: | --- |
+| A | 10 | 11 | 0 | 1 / 0 |
+| B | 11 | 12 | 1 | 3 / 2 |
+| C | 11 | 12 | 2 | 3 / 2 |
+
+Cは1日目に食料2個搬入、5日目に再帰還して倉庫から1個を取り出した。その後は全員が補給・往復を維持できずにエネルギー切れとなった。入口の往復通過と目的の帰還完了は別カウンタ。
+
+最終地上食料は左18 / 中央24 / 右12＝54、倉庫1、携行0。初期76＋再生2＝消費23＋地上54＋倉庫1を保存。採取総量20。世界の食料枯渇ではない。
+
+| 個体 | 段階0生成回数 | 段階1生成回数 | 段階2生成回数 |
+| --- | ---: | ---: | ---: |
+| A | 4 | 4 | 121529 |
+| B | 8 | 8 | 132584 |
+| C | 12 | 12 | 118421 |
+
+候補生成372582回のうち低い段階は48回のみ。段階2が**99.987%**で、長期化しても低Hで省略する機会は増えていない。これは目印候補を生成する判断場面での統計であり、全生活時間のH分布ではない。後半の計算時間短縮を学習効率化とは解釈しない。全員が行動停止へ向かったためである。
+
+目印拡張前の30日試験では全員reserve 0が18日末だったのに対し、今回11日末。3日だけで見えた帰還・搬入の改善は、今回のseedで長期の維持には結びつかなかった。ただし候補拡張・色観測・選択系列の違いを含む比較で、原因を単一要素には帰属できない。今後の診断対象は、目的未解決のHが上限近くで続く理由と、補給へ切り替えられない区間。
+
+停止判定5項目、道構造19、岩壁33、12日生活保存則62、計119項目PASS。集計時にも停止理由・実行日数・最終日の全員休息・reserve 0・食料保存を検査した。
+
+```powershell
+julia --startup-file=no --project=. experiments/rock_gate/run.jl outputs/food-roads-lazy-cues-30d-20261025 --narrow-only --days 30 --rho coarse --rho-openings on --food-roads on --general-landmarks on --stop-exhausted
+node experiments/rock_gate/summarize_food_days.cjs outputs/food-roads-lazy-cues-30d-20261025 outputs/food-roads-lazy-cues-30d-20261025/daily-summary.json
+node experiments/rock_gate/compare_prefix.cjs outputs/food-roads-lazy-cues-30d-20261025 outputs/food-roads-lazy-cues-3d-20261025
+```
+
+[日別集計](evidence/lazy-cues-until-exhausted/summary.json)、[停止理由](evidence/lazy-cues-until-exhausted/termination.json)、[3日一致](evidence/lazy-cues-until-exhausted/prefix-audit.json)、[候補統計](evidence/lazy-cues-until-exhausted/cues.json)、[manifest](evidence/lazy-cues-until-exhausted/manifest.json)。config.days=30は上限、実行日数はtermination.completed_days=12、ended_usは12日分。manifestのday.jlには観測フックと日末停止フックを含む。

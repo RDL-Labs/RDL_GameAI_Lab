@@ -1,6 +1,7 @@
 using JSON3, Test, SHA
 const root=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(out)
+const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
 const days_arg=findfirst(==("--days"),ARGS)
 const run_days=days_arg===nothing ? 3 : parse(Int,ARGS[days_arg+1])
@@ -12,7 +13,19 @@ const path=joinpath(snapshot,"src/lw/simulation/day.jl")
 const original=read(path,String)
 const anchor="        advance_physiology!(w,metabolism,guts,food_body)"
 @assert count(anchor,original)==1
-write(path,replace(original,anchor=>anchor*"\n        Main.gate_probe!(sec,w,purposes,counts,spec.home)"))
+patched=replace(original,anchor=>anchor*"\n        Main.gate_probe!(sec,w,purposes,counts,spec.home)")
+if stop_exhausted
+    daily_anchor="\"shared_stock\"=>shared,\"ground\"=>sum(stock),\"consumed\"=>w.consumed,\"replenished_food\"=>replenished))"
+    @assert count(daily_anchor,patched)==1
+    patched=replace(patched,daily_anchor=>daily_anchor*"\n            if Main.cohort_exhausted(daily,clock.day_us)\n                days=length(daily)\n                Main.stop_day[]=days\n                break\n            end")
+end
+write(path,patched)
+const stop_day=Ref(0)
+function cohort_exhausted(daily,day_us)
+    last=daily[end];previous=length(daily)>1 ? daily[end-1]["counts"] : nothing
+    all(a->last["physical"][a]["body"]["reserve"]<=0 &&
+        get(last["counts"][a],"rest",0)-(previous===nothing ? 0 : get(previous[a],"rest",0))==div(day_us,1_000_000),keys(last["physical"]))
+end
 const current=Ref("")
 const logref=Ref{IO}()
 const prev=Dict{String,Tuple{Float64,Float64}}()
@@ -54,6 +67,7 @@ base["config"]["general_landmarks"]=cue_arg===nothing ? "off" : ARGS[cue_arg+1]
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue
+    stop_day[]=0
     current[]=label;empty!(prev);empty!(crossings);empty!(maxradius);empty!(positions)
     input=deepcopy(base);home=input["scene"]["home"]
     stones=[D("x"=>home[1]+5sin(2pi*i/24),"z"=>home[2]-5cos(2pi*i/24),"radius"=>.8,"height"=>3.,"color"=>"gray","solid"=>true) for i in 0:23 if !(i in omitted)]
@@ -117,7 +131,7 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     end
     r=JSON3.read(read(joinpath(caseout,"run/result.json"),String))
     @testset "$label life invariants" begin
-        @test length(r.daily)==run_days
+        @test length(r.daily)==(stop_day[]>0 ? stop_day[] : run_days)
         for (i,d) in enumerate(r.daily)
             @test r.initial_food+d.replenished_food==d.ground+d.shared_stock+d.consumed+sum(s.inventory+s.personal_stock for s in values(d.physical))
             i>1 && (@test r.day_starts[i]==r.daily[i-1].physical)
@@ -130,6 +144,7 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
         # All observed wall crossings must use the southern opening, including its arc shoulders.
         @test all(e.from[2]<home[2] && e.to[2]<home[2] for e in crossings)
     end
+    write(joinpath(caseout,"termination.json"),JSON3.write((limit_days=run_days,completed_days=length(r.daily),reason=stop_day[]>0 ? "all_zero_reserve_and_full_day_rest" : "day_limit",stop_exhausted=stop_exhausted)))
     report=(case=label,rocks=length(stones),entrance_markers=torches,gap_width=label=="wide" ? 3.4 : 10sin(pi/12)-1.6,
         food=(initial=r.initial_food,ground=r.ground,shared=r.shared_stock,consumed=r.consumed),
         actors=Dict(a=>(outward=count(e->e.actor==a && e.direction=="out",crossings),

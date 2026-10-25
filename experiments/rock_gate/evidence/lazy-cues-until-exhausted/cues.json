@@ -1,0 +1,866 @@
+{
+  "npc_b": {
+    "records": [
+      {
+        "method": "cue:shape:brown:-1",
+        "source": "ob:176195000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:brown:-4",
+        "source": "ob:176206000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/2:-1",
+        "source": "ob:176218000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:0",
+        "source": "ob:176219000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:-4",
+        "source": "ob:176220000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:sky:brown:-3",
+        "source": "ob:176230000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:-2",
+        "source": "ob:176231000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/4:2",
+        "source": "ob:176242000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-gray/2:3",
+        "source": "ob:176255000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:4",
+        "source": "ob:176256000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-gray/6:1",
+        "source": "ob:176257000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:gray:1",
+        "source": "ob:176258000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:brown:0",
+        "source": "ob:176267000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:gray:-5",
+        "source": "ob:176268000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/3:2",
+        "source": "ob:176294000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/3:-4",
+        "source": "ob:176295000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/3:-4",
+        "source": "ob:176296000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:4",
+        "source": "ob:176297000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:brown:3",
+        "source": "ob:176336000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:brown:-5",
+        "source": "ob:176351000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/3:0",
+        "source": "ob:176399000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:-2",
+        "source": "ob:176400000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:gray:-2",
+        "source": "ob:176454000000:npc_b",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:brown:6",
+        "source": "ob:176473000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:gray:-5",
+        "source": "ob:176496000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:brown:-3",
+        "source": "ob:176542000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:sky-brown/sky-brown/4:2",
+        "source": "ob:176543000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:2",
+        "source": "ob:176544000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:surface:obstacle:6",
+        "source": "ob:176601000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:2",
+        "source": "ob:176602000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/2:3",
+        "source": "ob:176637000000:npc_b",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:-2",
+        "source": "ob:176638000000:npc_b",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      }
+    ],
+    "generated": 1846420,
+    "offered": [
+      209030,
+      1141849,
+      495541
+    ],
+    "capacity_dropped": 0,
+    "tower_observations": 24347,
+    "observations": 132600,
+    "generation_levels": [
+      8,
+      8,
+      132584
+    ],
+    "selected": [
+      8281,
+      39619,
+      18431
+    ],
+    "kinds": {
+      "sky": 16772,
+      "moving": 165,
+      "food": 263,
+      "shape": 16155,
+      "light": 1124,
+      "arrangement": 18266,
+      "surface": 13586
+    }
+  },
+  "npc_a": {
+    "records": [
+      {
+        "method": "cue:sky:gray:4",
+        "source": "ob:162150000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:grass:6",
+        "source": "ob:162151000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:-4",
+        "source": "ob:162161000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/3:-2",
+        "source": "ob:162162000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:6",
+        "source": "ob:162163000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:sky-brown/sky-gray/4:1",
+        "source": "ob:162183000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:sky-brown/sky-gray/3:-2",
+        "source": "ob:162186000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-gray/sky-brown/6:2",
+        "source": "ob:162207000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:gray:4",
+        "source": "ob:162219000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:-3",
+        "source": "ob:162220000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:surface:worn_ground:-2",
+        "source": "ob:162231000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:0",
+        "source": "ob:162232000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:sky-brown/sky-brown/4:-1",
+        "source": "ob:162245000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/4:-3",
+        "source": "ob:162257000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:0",
+        "source": "ob:162258000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/sky-brown/4:-1",
+        "source": "ob:162259000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-gray/shape-gray/5:-2",
+        "source": "ob:162261000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:gray:1",
+        "source": "ob:162263000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:gray:0",
+        "source": "ob:162299000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:gray:5",
+        "source": "ob:162300000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:gray:-3",
+        "source": "ob:162330000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:gray:2",
+        "source": "ob:162346000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:shape:gray:5",
+        "source": "ob:162382000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:gray:0",
+        "source": "ob:162400000000:npc_a",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:brown:4",
+        "source": "ob:162443000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:surface:obstacle:2",
+        "source": "ob:162468000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:0",
+        "source": "ob:162469000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:-1",
+        "source": "ob:162494000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:sky:brown:-5",
+        "source": "ob:162495000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:sky-gray/sky-ochre/1:5",
+        "source": "ob:162526000000:npc_a",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:1",
+        "source": "ob:162528000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:-2",
+        "source": "ob:162627000000:npc_a",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      }
+    ],
+    "generated": 1652899,
+    "offered": [
+      176607,
+      1030681,
+      445611
+    ],
+    "capacity_dropped": 0,
+    "tower_observations": 21167,
+    "observations": 121537,
+    "generation_levels": [
+      4,
+      4,
+      121529
+    ],
+    "selected": [
+      7209,
+      36448,
+      16680
+    ],
+    "kinds": {
+      "sky": 15346,
+      "moving": 150,
+      "food": 175,
+      "shape": 14846,
+      "light": 826,
+      "arrangement": 16530,
+      "surface": 12464
+    }
+  },
+  "npc_c": {
+    "records": [
+      {
+        "method": "cue:arrangement:shape-brown/shape-brown/4:-3",
+        "source": "ob:178395000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:sky:gray:5",
+        "source": "ob:178397000000:npc_c",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:sky-brown/sky-brown/2:-1",
+        "source": "ob:178410000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-brown/shape-gray/2:4",
+        "source": "ob:178419000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:sky:brown:-2",
+        "source": "ob:178420000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:surface:obstacle:6",
+        "source": "ob:178427000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:0",
+        "source": "ob:178428000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:-2",
+        "source": "ob:178429000000:npc_c",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:ochre:2",
+        "source": "ob:178437000000:npc_c",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:arrangement:sky-brown/sky-brown/4:-3",
+        "source": "ob:178445000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:shape-gray/sky-brown/2:-3",
+        "source": "ob:178523000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:sky-gray/sky-ochre/5:2",
+        "source": "ob:178524000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:-6",
+        "source": "ob:178526000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:-6",
+        "source": "ob:178527000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:0",
+        "source": "ob:178528000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:worn_ground:0",
+        "source": "ob:178529000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:-4",
+        "source": "ob:178530000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:sky:gray:-4",
+        "source": "ob:178533000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:sky:brown:-6",
+        "source": "ob:178543000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:surface:obstacle:6",
+        "source": "ob:178576000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:sky-brown/sky-gray/2:3",
+        "source": "ob:178577000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:2",
+        "source": "ob:178587000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:shape:brown:-5",
+        "source": "ob:178635000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:gray:-4",
+        "source": "ob:178703000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:sky:ochre:-2",
+        "source": "ob:178704000000:npc_c",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:ochre:0",
+        "source": "ob:178718000000:npc_c",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:sky:ochre:0",
+        "source": "ob:178734000000:npc_c",
+        "H": 32,
+        "tier": 0,
+        "uncertain": false,
+        "action": "walk"
+      },
+      {
+        "method": "cue:surface:obstacle:4",
+        "source": "ob:178749000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:sky-gray/sky-gray/2:5",
+        "source": "ob:178750000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:arrangement:sky-gray/sky-gray/5:-1",
+        "source": "ob:178751000000:npc_c",
+        "H": 32,
+        "tier": 2,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:-3",
+        "source": "ob:178752000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      },
+      {
+        "method": "cue:surface:obstacle:-5",
+        "source": "ob:178962000000:npc_c",
+        "H": 32,
+        "tier": 1,
+        "uncertain": true,
+        "action": "scan"
+      }
+    ],
+    "generated": 1633921,
+    "offered": [
+      198898,
+      1002196,
+      432827
+    ],
+    "capacity_dropped": 0,
+    "tower_observations": 22975,
+    "observations": 118445,
+    "generation_levels": [
+      12,
+      12,
+      118421
+    ],
+    "selected": [
+      7593,
+      35390,
+      16122
+    ],
+    "kinds": {
+      "sky": 15136,
+      "moving": 177,
+      "food": 415,
+      "shape": 13884,
+      "light": 1182,
+      "arrangement": 15945,
+      "surface": 12366
+    }
+  }
+}

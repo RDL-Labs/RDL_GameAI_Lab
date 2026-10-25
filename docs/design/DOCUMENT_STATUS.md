@@ -492,3 +492,7 @@ FINITE IMPLEMENTED / 3-DAY EXPERIMENT COMPLETE。[設計](LW_Observed_Cues.md)�
 ### 2026-10-25 — Hに応じた目印候補の遅延生成
 
 FINITE IMPLEMENTED / 3-DAY EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/general_cues_report.md)。低Hで追加カテゴリの生成を省略。同一初期条件から3日再実行、日別状態・イベントが前回と完全一致。生成の99.97%が高Hで省略機会は限定的。約256秒（前回239秒）、高速化は未確認。103項目PASS。思考の身体消費は未導入。
+
+### 2026-10-25 — 最大30日・全員継続不能までの試験
+
+FINITE EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/general_cues_report.md)。全員reserve 0＋終日休息を条件に12日末で正常終了。Aは10日末、B/Cは11日末にreserve 0。地上54・倉庫1残存、帰還完了A0/B1/C2。目印候補生成の99.987%が高H、長期学習による検討省略は確認できず。3日prefix一致、119項目PASS。約21分。死亡フラグは未実装。
