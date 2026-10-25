@@ -1,4 +1,6 @@
 # Observed MB transition graph. No World positions, object IDs or reverse-edge invention.
+const MB_MAP_NODE_LIMIT=1280
+const MB_MAP_EDGE_LIMIT=5120
 mb_map_state(actor)=D("actor"=>actor,"nodes"=>D(),"edges"=>D(),"current"=>nothing,"current_us"=>nothing,"receipt"=>nothing,
     "next_search_us"=>0,"observations"=>0,"searches"=>0,"expanded"=>0,"proposals"=>0,
     "selected"=>0,"prediction_match"=>0,"prediction_miss"=>0,"prediction_unknown"=>0,
@@ -21,7 +23,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
     receipt=s["receipt"];s["receipt"]=nothing
     if frame!==nothing
         if !haskey(s["nodes"],frame.key)
-            if length(s["nodes"])>=128
+            if length(s["nodes"])>=MB_MAP_NODE_LIMIT
                 keys_by_age=sort(collect(keys(s["nodes"])),by=k->(s["nodes"][k]["home"] || s["nodes"][k]["food"],s["nodes"][k]["seen"],k))
                 mb_forget_node!(s,first(keys_by_age))
             end
@@ -46,7 +48,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
         !haskey(s["nodes"],receipt["from"])) && return
     key="$(receipt["from"]):$(receipt["action"]):$(round(Int,receipt["offset"]/15)):$(round(Int,receipt["distance"]*10)):$(frame.key)"
     if !haskey(s["edges"],key)
-        if length(s["edges"])>=512
+        if length(s["edges"])>=MB_MAP_EDGE_LIMIT
             oldest=first(sort(collect(keys(s["edges"])),by=k->(s["edges"][k]["seen"],k)))
             delete!(s["edges"],oldest);s["evictions"]+=1
         end

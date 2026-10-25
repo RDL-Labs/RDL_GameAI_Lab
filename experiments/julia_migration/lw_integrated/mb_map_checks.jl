@@ -54,7 +54,7 @@ end
  input["clock"]["quiet_night_us"]=400_000_000
  r,summary=run_integrated(JSON3.read(JSON3.write(input)))
  @test r["mb_map"]==summary["mb_map"]
- @test all(m["observations"]==600 && length(m["nodes"])<=128 && length(m["edges"])<=512 && length(m["records"])<=32 for m in values(r["mb_map"]))
+ @test all(m["observations"]==600 && length(m["nodes"])<=1280 && length(m["edges"])<=5120 && length(m["records"])<=32 for m in values(r["mb_map"]))
  @test sum(length(m["edges"]) for m in values(r["mb_map"]))>0
  @test all(m["expanded"]<=64*m["searches"] for m in values(r["mb_map"]))
  @test r["initial_food"]+r["replenished_food"]==r["ground"]+r["shared_stock"]+r["consumed"]+sum(s["inventory"]+s["personal_stock"] for s in values(r["final_agents"]))
@@ -62,14 +62,31 @@ end
 end
 @testset "bounded memory and missing evidence" begin
  s=mb_map_state("a")
- for i in 0:139
+ for i in 0:1399
   ob=sceneview(i*1_000_000,("far","mid"));ob["features"][2]["color"]="gray$i"
   mb_observe!(s,ob,i*1_000_000)
   mb_record!(s,walk,"performed",.01,i*1_000_000)
+  if i==139; @test length(s["nodes"])==140 && s["evictions"]==0; end
  end
- @test length(s["nodes"])==128
- @test length(s["edges"])<=512 && s["evictions"]>0
+ @test length(s["nodes"])==1280
+ @test length(s["edges"])<=5120 && s["evictions"]>0
  @test all(haskey(s["nodes"],e["from"]) && haskey(s["nodes"],e["to"]) for e in values(s["edges"]))
  @test isempty(mb_simulate!(s,move,"home",32,2,90.,0.,200_000_000)) # stale observation
  @test s["searches"]==0
+end
+
+@testset "expanded edge capacity" begin
+ s=mb_map_state("a");now=0;count=0
+ for from in 1:80,to in 1:80
+  from==to && continue
+  count+=1;count>5125 && break
+  ob=sceneview(now,("far","mid"));ob["features"][2]["color"]="gray$from"
+  mb_observe!(s,ob,now);mb_record!(s,walk,"performed",.01,now);now+=1_000_000
+  ob=sceneview(now,("far","mid"));ob["features"][2]["color"]="gray$to"
+  mb_observe!(s,ob,now);now+=1_000_000
+  if count==513; @test length(s["edges"])==513 && s["evictions"]==0; end
+ end
+ @test length(s["edges"])==5120
+ @test s["evictions"]==5
+ @test all(haskey(s["nodes"],e["from"]) && haskey(s["nodes"],e["to"]) for e in values(s["edges"]))
 end

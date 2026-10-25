@@ -514,3 +514,7 @@ FINITE EXPERIMENT COMPLETE。[結果](../../experiments/rock_gate/body_parent_re
 ### 2026-10-25 — 観測MB地図からの有限シミュレーション
 
 FINITE PROTOTYPE。[設計](LW_MB_Map_Simulation.md)、[1日試験](../../experiments/rock_gate/mb_map_report.md)。実行と次観測から有向関係を記録し、H・身体条件で最大4段/64展開を実施。予測不一致で辺の評価を下げる。単体で2段経路を提案、実配置1日ではグラフ形成・探索のみで提案0。再認識・接続・上限の課題が残る。142項目PASS。長期改善・多階層ρ・思考の身体消費は未検証/未実装。
+
+### 2026-10-25 — MB観測地図の容量を10倍へ
+
+LIMIT UPDATE。ノード128→1,280、辺512→5,120。旧上限超過時の保持、新上限での削除と参照整合、統合動作を検査して33項目PASS。最大4段/64展開・鮮度1日相当は変更なし。新容量での長期試験は未実施。[設計](LW_MB_Map_Simulation.md)。
