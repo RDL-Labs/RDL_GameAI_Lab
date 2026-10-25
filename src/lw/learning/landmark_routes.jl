@@ -33,7 +33,7 @@ end
 
 # Port of the finite LW horizontal fan / directional color route roles.
 # World geometry is consumed only here; policy receives color/angle/band/source.
-function landmark_fan(objects,position,yaw,source;night=false)
+function landmark_fan(objects,position,yaw,source;night=false,all_colors=false)
     features=Any[]
     for angle in -90:15:90
         s,c=sincos(deg2rad(yaw+angle));best=Inf;hit=nothing
@@ -44,7 +44,7 @@ function landmark_fan(objects,position,yaw,source;night=false)
             end
         end
         color=hit===nothing ? nothing : hasproperty(hit,:color) ? String(hit.color) : "ochre"
-        if color!==nothing && color!="ochre"
+        if color!==nothing && (all_colors || color!="ochre")
             push!(features,D("color"=>color,"azimuth"=>[max(-90.,angle-7.5),min(90.,angle+7.5)],
                 "range_band"=>best<=8 ? "near" : best<=24 ? "mid" : "far","distance"=>best))
         end
@@ -138,7 +138,7 @@ function route_result!(m,obs,operation,action,status,goal,at_home,selected_route
     end
 end
 
-function landmark_candidates(move,obs,m,goal,source;include_routes=true)
+function landmark_candidates(move,obs,m,goal,source;include_routes=true,include_observed=true)
     obs["coverage"]=="complete" || return Any[]
     targets=Any[]
     # Angular bins are candidate directions, not identities of remembered lamps.
@@ -161,6 +161,7 @@ function landmark_candidates(move,obs,m,goal,source;include_routes=true)
             push!(targets,D("name"=>"landmark:"*color,"color"=>color,"angle"=>ps[1]["angle"],"priority"=>2.5,"route"=>nothing))
         end
     end
+    include_observed || empty!(targets)
     for key in sort(collect(keys(m["routes"])))
         include_routes || continue
         n=m["routes"][key];n["goal"]==goal || continue

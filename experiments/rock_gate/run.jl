@@ -48,6 +48,9 @@ base["config"]["rho_openings"]=openings_arg===nothing ? "on" : ARGS[openings_arg
 food_roads_arg=findfirst(==("--food-roads"),ARGS)
 food_roads_mode=food_roads_arg===nothing ? "unchanged" : ARGS[food_roads_arg+1]
 @assert food_roads_mode in ("unchanged","off","on")
+cue_arg=findfirst(==("--general-landmarks"),ARGS)
+base["config"]["general_landmarks"]=cue_arg===nothing ? "off" : ARGS[cue_arg+1]
+@assert base["config"]["general_landmarks"] in ("off","on")
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue

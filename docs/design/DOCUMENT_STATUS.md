@@ -484,3 +484,7 @@ FINITE EXPERIMENT COMPLETE。[3日結果](../../experiments/rock_gate/food_roads
 ### 2026-10-25 — 分岐道の30日試験
 
 FINITE EXPERIMENT COMPLETE。[30日結果](../../experiments/rock_gate/food_roads_report.md)。同一配置・seed、3日prefix完全一致、計算は正常完走。Cは8日末、Bは10日末、Aは18日末にreserve 0、翌日以降終日休息。Aの帰還完了カウンタ6、搬入4、最終地上食料48/倉庫2。安定した補給・往復は未成立。構造・保存則204項目PASS、約26分45秒。判断コード変更なし。
+
+### 2026-10-25 — Hによる観測目印候補の拡張
+
+FINITE IMPLEMENTED / 3-DAY EXPERIMENT COMPLETE。[設計](LW_Observed_Cues.md)、[試験](../../experiments/rock_gate/general_cues_report.md)。色・輪郭・光・地面などの候補を共通化、Hで曖昧な候補まで拡張。不確実性は維持。既定off、同一分岐道でonを3日検証。B/C各1回帰還、Cが2個搬入、A未帰還。scan増加、安定往復と対象の再同定は未解決。計236項目PASS、約239秒。
