@@ -22,8 +22,8 @@ function native_main(args)
     if generated
         cfg=(home_observation=opts["home-observation"],mb_sleep=opts["mb-sleep"],mb_chunks=opts["mb-chunks"],mb_simulation=opts["mb-simulation"],body_purpose=opts["body-purpose"],general_landmarks=opts["general-landmarks"],rho_openings=opts["rho-openings"],rho_profile=opts["rho-profile"],continuous_descent=opts["continuous-descent"],repetition_pressure=opts["repetition-pressure"],parent_breadth=opts["parent-breadth"],lateral_side=opts["lateral-side"],days=parse(Int,opts["days"]),goal_switch_threshold=parse(Int,opts["goal-switch-threshold"]),seed=parse(Int,opts["seed"]),food=opts["food"],
              learning=opts["learning"],hazards=opts["hazards"],ground=opts["ground"],ground_wear=opts["ground-wear"],ground_perception=opts["ground-perception"],ground_continuity=opts["ground-continuity"],stores=opts["stores"],regrowth_days=parse(Int,opts["regrowth-days"]),regrowth_capacity=parse(Int,opts["regrowth-capacity"]),layout=opts["layout"],skyline=opts["skyline"],reposition=opts["reposition"],selection_trails=opts["selection-trails"],bundle_credit=opts["bundle-credit"],experience_bundles=opts["experience-bundles"],exploration_horizon=opts["exploration-horizon"],movement_inertia=opts["movement-inertia"],body_field=opts["body-field"],relation_field=opts["relation-field"],orientation=opts["orientation"],food_body=opts["food-body"],safety_methods=opts["safety-methods"],running=opts["running"],climbing=opts["climbing"],sleep_maintenance=opts["sleep-maintenance"],sleep_retention=opts["sleep-retention"],general_sleep=opts["general-sleep"],social_response=opts["social-response"],dropping=opts["dropping"],low_obstacles=opts["low-obstacles"])
-        cfg.layout in ("sparse","riparian") || error("layout mode")
-        input=(scene=cfg.layout=="riparian" ? native_landscape_scene(cfg.seed) : native_scene(cfg.seed),clock=native_clock(),config=cfg)
+        cfg.layout in ("sparse","riparian","rich-riparian") || error("layout mode")
+        input=(scene=cfg.layout=="rich-riparian" ? rich_landscape_scene(cfg.seed) : cfg.layout=="riparian" ? native_landscape_scene(cfg.seed) : native_scene(cfg.seed),clock=native_clock(),config=cfg)
         bytes=Vector{UInt8}(codeunits(JSON3.write(input)))
     else
         # Frozen input owns configuration; do not silently override it with CLI defaults.
@@ -85,7 +85,7 @@ function native_main(args)
         end
     end
     manifest=Dict("entry"=>"native-julia-lw-v1","julia_version"=>string(VERSION),
-        "generator"=>generated ? (get(cfg,:layout,"sparse")=="riparian" ? "julia-lw-riparian-mt-v1" : WORLD_GENERATOR) : "frozen-spec",
+        "generator"=>generated ? (get(cfg,:layout,"sparse")=="rich-riparian" ? "julia-lw-rich-riparian-v1" : get(cfg,:layout,"sparse")=="riparian" ? "julia-lw-riparian-mt-v1" : WORLD_GENERATOR) : "frozen-spec",
         "config"=>cfg,"spec_sha256"=>bytes2hex(sha256(bytes)),"sources"=>sources,
         "scope"=>"finite LW subset; not full Python LW parity",
         "python_required"=>false)

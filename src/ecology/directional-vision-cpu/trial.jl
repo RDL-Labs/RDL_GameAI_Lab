@@ -12,7 +12,7 @@ function reaction(d,closing,recent)
 end
 function perceive!(w,a,p,alive,aw,t,motion,p_moved,overrides,positions;gaze=nothing)
     fill!(overrides,0)
-    k=H.cell(w,p.x,p.z); cover=w.capacity[k]>0 ? H.grass!(w,k,t)/w.capacity[k] : 0.
+    k=H.cell(w,p.x,p.z); cover=H.grass_cover!(w,k,t;body_height=.9)
     for i in eachindex(alive)
         alive[i] || continue
         recent=t-aw.last_seen[i]<=20
@@ -41,8 +41,8 @@ function perceive!(w,a,p,alive,aw,t,motion,p_moved,overrides,positions;gaze=noth
         positions[i]=(aw.x[i],aw.z[i])
     end
 end
-function trial(spec;seed=20261005,motion=false,days=3,directional=false)
-    w,a=H.build(spec;seed); a.counts=zeros(Int,length(a.x),6)
+function trial(spec;seed=20261005,motion=false,days=3,directional=false,rich=false)
+    w,a=H.build(spec;seed,rich); a.counts=zeros(Int,length(a.x),6)
     p=P.spawn(w); alive=trues(length(a.x)); aw=Awareness(length(alive))
     rng=MersenneTwister(seed+1); moved=falses(length(alive)); p_moved=false
     oldx=similar(a.x); oldz=similar(a.z)

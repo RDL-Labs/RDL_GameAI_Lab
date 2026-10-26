@@ -57,3 +57,6 @@ function native_landscape_scene(seed)
     merge(base,(name="julia_lw_riparian",landscape=land,home=[0.,6.],food=food,
         obstacles=[o for o in objects if o.height>.6],low_obstacles=[o for o in objects if o.height<=.6],ground_patches=Any[]))
 end
+
+include("../../world_features.jl")
+rich_landscape_scene(seed)=WorldFeatures.enrich_scene(native_landscape_scene(seed);seed)

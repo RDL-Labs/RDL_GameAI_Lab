@@ -581,3 +581,7 @@ FINITE PROTOTYPE。[実装](LW_Continuous_H_Sensitivity.md)。親・経路の残
 ### 2026-10-26 — 連続Hの数値ゼロ判定を修正
 
 [修正・再試験](../../experiments/rock_gate/zero_residual_report.md)。0.0を見積もり内と判定せず方法Hを増やす統合分岐を修正。216項目と実配置69項目、親・経路監査PASS。同条件3日で全員reserve正、再入場0。修正前30日実行は中止し、結果を区別する。
+
+### 2026-10-26 — 木・岩・草群落の色と大きさ
+
+FINITE PROTOTYPE。[設計](World_Color_Size_Patches.md)、[試験](../../experiments/world_features/report.md)。木/岩の固定個体差、既存食料サイトを使う実の量差、2m小区画・最大8m群落区画の草の色/高さ/密度。生態系では草の採食・回復が遮蔽へ作用。専用31・草食21・捕食16項目PASS、兎30体3日と捕食者あり3日、LW1日完走。動的ρ、隠れ場所の学習、LW人間側への草遮蔽統合は未実装。opt-in。

@@ -1,5 +1,5 @@
-function simulate(spec;days=3,seed=20261005,grass_scale=1.,out=nothing,policy=StateMachinePolicy())
-    w,a=build(spec;seed,grass_scale); n=length(a.x)
+function simulate(spec;days=3,seed=20261005,grass_scale=1.,rich=false,out=nothing,policy=StateMachinePolicy())
+    w,a=build(spec;seed,grass_scale,rich); n=length(a.x)
     demand=zeros(length(w.grass)); ratio=similar(demand); requests=zeros(n); active=Int[]
     initial=copy(w.grass); rows=Any[]; samples=Any[]
     ticks=days*div(Int(spec.clock.day_us),1_000_000)

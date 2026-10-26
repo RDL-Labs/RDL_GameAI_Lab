@@ -4,6 +4,8 @@ mutable struct World
     material::Vector{UInt8}; walkable::BitVector
     grass::Vector{Float64}; capacity::Vector{Float64}; updated::Vector{Int}
     obstacles::Vector{RDLMigrationProbe.Circle}
+    features::Vector{NamedTuple}
+    traits::Union{Nothing,WorldFeatures.GrassTraits}
     grown::Float64; eaten::Float64; initial::Float64
 end
 mutable struct Animals

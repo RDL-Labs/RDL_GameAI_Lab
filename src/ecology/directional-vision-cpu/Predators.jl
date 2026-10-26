@@ -27,7 +27,7 @@ end
 los(w,p,q)=!any(o->H.RDLMigrationProbe.segment_hit(p,q,o,0.),w.obstacles)
 function visible(w,p,a,i,t; motion=false, moved=true, gaze=nothing)
     k=H.cell(w,a.x[i],a.z[i])
-    cover=w.capacity[k]>0 ? H.grass!(w,k,t)/w.capacity[k] : 0.
+    cover=H.grass_cover!(w,k,t;body_height=.4)
     tracked=p.target==i && t<p.expires
     hypot(a.x[i]-p.x,a.z[i]-p.z)<=16/(1+.8cover)*vision_factor(motion,moved,tracked)*(gaze===nothing ? 1. : field_factor(atan(a.z[i]-p.z,a.x[i]-p.x)-gaze,false)) && los(w,(p.x,p.z),(a.x[i],a.z[i]))
 end

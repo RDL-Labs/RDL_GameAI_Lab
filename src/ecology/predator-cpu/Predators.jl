@@ -20,7 +20,7 @@ end
 los(w,p,q)=!any(o->H.RDLMigrationProbe.segment_hit(p,q,o,0.),w.obstacles)
 function visible(w,p,a,i,t)
     k=H.cell(w,a.x[i],a.z[i])
-    cover=w.capacity[k]>0 ? H.grass!(w,k,t)/w.capacity[k] : 0.
+    cover=H.grass_cover!(w,k,t;body_height=.4)
     hypot(a.x[i]-p.x,a.z[i]-p.z)<=16/(1+.8cover) && los(w,(p.x,p.z),(a.x[i],a.z[i]))
 end
 function recover!(p)

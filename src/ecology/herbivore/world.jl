@@ -13,11 +13,11 @@ function clear(w,p,q)
     material(w.phase,q...)!=WATER && material(w.phase,(p[1]+q[1])/2,(p[2]+q[2])/2)!=WATER || return false
     !any(o->RDLMigrationProbe.segment_hit(p,q,o,.25),w.obstacles)
 end
-function build(spec; seed=20261005, grass_scale=1.)
-    s=spec.scene; land=s.landscape; xmin,xmax,zmin,zmax=Float64.(land.extent)
+function build(spec; seed=20261005, grass_scale=1.,rich=false)
+    s=rich && !hasproperty(spec.scene,:world_features) ? WorldFeatures.enrich_scene(spec.scene;seed) : spec.scene; land=s.landscape; xmin,xmax,zmin,zmax=Float64.(land.extent)
     nx=round(Int,(xmax-xmin)/2); nz=round(Int,(zmax-zmin)/2); n=nx*nz
     objects=[RDLMigrationProbe.Circle(Float64(o.x),Float64(o.z),Float64(o.radius)) for o in vcat(collect(s.obstacles),collect(s.low_obstacles)) if !hasproperty(o,:solid) || o.solid]
-    w=World(xmin,zmin,xmax,zmax,2.,nx,nz,land.phase,zeros(UInt8,n),falses(n),zeros(n),zeros(n),zeros(Int,n),objects,0.,0.,0.)
+    w=World(xmin,zmin,xmax,zmax,2.,nx,nz,land.phase,zeros(UInt8,n),falses(n),zeros(n),zeros(n),zeros(Int,n),objects,rich ? NamedTuple[(x=Float64(o.x),z=Float64(o.z),radius=Float64(o.radius),height=Float64(o.height),color=UInt8(something(findfirst(==(o.color),WorldFeatures.COLORS),0)),kind=o.kind) for o in vcat(collect(s.obstacles),collect(s.low_obstacles))] : NamedTuple[],rich ? WorldFeatures.grass_traits(nx,nz;seed) : nothing,0.,0.,0.)
     rng=MersenneTwister(seed)
     for k in 1:n
         p=center(w,k); m=material(w.phase,p...); w.material[k]=m
@@ -25,6 +25,7 @@ function build(spec; seed=20261005, grass_scale=1.)
         cap=m==GRASSLAND ? 6. : m==BANK ? 5. : m==FOREST ? 2. : 0.
         w.capacity[k]=w.walkable[k] ? grass_scale*cap*(.75+.5rand(rng)) : 0.
     end
+    if rich;w.capacity .*= w.traits.density;end
     w.grass.=w.capacity; w.initial=sum(w.grass)
     n=length(s.positions)
     a=Animals([Float64(p[1]) for p in s.positions],[Float64(p[2]) for p in s.positions],2pi.*rand(rng,n),fill(70.,n),zeros(n),[.5*(i-1)/max(n-1,1) for i in 1:n],fill(SEARCH,n),zeros(Int32,n),zeros(Int32,n),zeros(Int32,n),zeros(Int,n),zeros(n),zeros(n),zeros(n),zeros(Int,n),zeros(Int,n),zeros(Int,n,5))
