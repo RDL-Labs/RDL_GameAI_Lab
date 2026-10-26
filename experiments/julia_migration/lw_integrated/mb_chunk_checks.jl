@@ -28,8 +28,8 @@ end
  @test mb_goal_result!(s,"home","op:4000000:a",true,4,0,5_000_000)
  @test c["successes"]==2 && c["reward"]==12 && length(s["chunks"])==1
  chunk_trip!(s,6_000_000)
- @test !mb_goal_result!(s,"home","op:7000000:a",true,0,0,8_000_000)
- @test c["reward"]==12
+ @test mb_goal_result!(s,"home","op:7000000:a",true,0,0,8_000_000)
+ @test c["reward"]==12 && c["successes"]==3
  mb_observe!(s,chunk_view(9_000_000,"far"),9_000_000)
  cs=mb_chunk_candidates!(s,move,"home",90.,0.,9_000_000)
  @test length(cs)==1 && cs[1]["mb_depth"]==2 && s["searches"]==0

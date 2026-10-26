@@ -45,7 +45,7 @@ function mb_chunk_prediction!(s,receipt,frame,now)
     field=outcome=="match" ? "matches" : outcome=="mismatch" ? "misses" : outcome=="execution_failure" ? "execution_failures" : "unknown"
     c[field]=get(c,field,0)+1
 end
-function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now)
+function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now;completion_reward=nothing)
     s["chunks_enabled"] || return false
     resolved===true || return false
     s["last_chunk_operation"]===nothing && return false
@@ -53,8 +53,8 @@ function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now)
     source==s["last_chunk_credit"] && return false
     s["last_chunk_credit"]=source
     path=copy(s["route_trace"]);family=s["trace_goal"];mb_trace_reset!(s)
-    reward=Float64(max(0,H_before-H_after))
-    reward>0 && H_after==0 && family==goal && length(path)>=2 || return false
+    reward=Float64(completion_reward===nothing ? max(0,H_before-H_after) : completion_reward)
+    family==goal && length(path)>=2 || return false
     all(k->haskey(s["edges"],k),path) || return false
     all(s["edges"][path[i]]["to"]==s["edges"][path[i+1]]["from"] for i in 1:length(path)-1) || return false
     frame=s["current"]

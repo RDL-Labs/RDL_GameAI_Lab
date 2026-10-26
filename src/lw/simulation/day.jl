@@ -351,12 +351,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 forecast_increment=mb_simulation ? mb_parent_H_increment!(mb_maps[a],t.family,t.source,goal,now;
                     child_increment=child_increment===nothing ? 0 : child_increment) : nothing
                 forecast_increment===nothing && (forecast_increment=child_increment)
+                completion_reward=mb_simulation ? mb_parent_reward(mb_maps[a],t.family,t.source,now) : nothing
                 method_evidence=forecast_method_evidence(forecast_increment,goal,t.phase==phase,value)
                 resolve_method!(s,t.source,method_evidence,forecast_increment!==nothing ? goal : (t.phase==phase || goal ? goal : nothing);
                     creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true),
-                    goal_H_increment=forecast_increment===nothing ? 1 : forecast_increment)
-                mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
-                mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
+                    goal_H_increment=forecast_increment===nothing ? 1 : forecast_increment,completion_reward=completion_reward)
+                mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)
+                mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)
             end
             if ground_continuity
                 active=Set(m["model_ref"] for m in ground_models[a]["models"])

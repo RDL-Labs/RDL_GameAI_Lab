@@ -26,6 +26,10 @@ jobs:
           julia --startup-file=no --project=. test/shared_world_policies.jl
       - name: Root entry help
         run: julia --startup-file=no run.jl --help
+      - name: LW completion prediction reward
+        run: |
+          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_completion_reward_checks.jl
+          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/h_reward_checks.jl
       - name: Herbivore and predator checks
         run: |
           julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/checks.jl

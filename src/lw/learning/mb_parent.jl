@@ -45,8 +45,32 @@ function mb_parent_estimate!(s,p,goal,target)
       "mean_is_lower_bound"=>tail_mass>0,"baseline_actions"=>baseline,
       "expected_result"=>goal=="food" ? "acquired_food" : "confirmed_home",
       "expected_actions"=>center,"upper_actions"=>upper,"active_seconds"=>upper,
+      "expected_energy"=>center*rate,
       "energy"=>upper*rate,"energy_quantum"=>max(.01,upper*rate),
       "progress_window"=>max(8,cld(upper,4)),"expected_new_scenes"=>mode=="search" ? 1 : 0)
+end
+
+# Experimental achievement value plus bounded, signed prediction advantage.
+# Evaluate the frozen episode estimate, never the model updated by this outcome.
+function mb_completion_reward(e,actions,energy)
+    expected_energy=get(e,"expected_energy",e["energy"]*e["expected_actions"]/e["upper_actions"])
+    time_scale=max(1.,e["expected_actions"],e["upper_actions"]-e["expected_actions"])
+    energy_scale=max(.01,expected_energy,e["energy"]-expected_energy)
+    time_delta=(e["expected_actions"]-actions)/time_scale
+    energy_delta=(expected_energy-energy)/energy_scale
+    response(x)=tanh(sign(x)*max(0.,abs(x)-.1))
+    advantage=.5*(response(time_delta)+response(energy_delta))
+    D("value"=>1.0 + .75advantage,"achievement"=>1.,"advantage"=>advantage,
+      "time_delta"=>time_delta,"energy_delta"=>energy_delta,
+      "time_scale"=>time_scale,"energy_scale"=>energy_scale,"tolerance"=>.1)
+end
+
+function mb_parent_reward(s,goal,source,now)
+    records=s["parent_mb"]["records"]
+    isempty(records) && return nothing
+    r=last(records)
+    get(r,"evaluated_us",nothing)==now && r["source"]==source && r["goal"]==goal && r["resolved"]===true || return nothing
+    r["completion_reward"]["value"]
 end
 function mb_parent_candidates!(s,candidates,goal,target)
     for p in candidates
@@ -105,9 +129,10 @@ function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
     increment=resolved===true ? 0 : max(0,debt-a["charged"])
     a["charged"]=max(a["charged"],debt);a["last_increment"]=increment
     state["evaluated"]+=1;state["within_estimate"]+=Int(debt==0 && resolved!==true);state["H_requested"]+=increment
-    record=D("source"=>source,"goal"=>goal,"estimate"=>copy(e),"actions"=>a["actions"],"energy"=>a["energy"],
+    record=D("source"=>source,"goal"=>goal,"evaluated_us"=>now,"estimate"=>copy(e),"actions"=>a["actions"],"energy"=>a["energy"],
         "sensitivity"=>copy(s["sensitivity"]),"scenes"=>length(a["scenes"]),"delay"=>delay,"stagnation"=>stagnation,"energy_excess"=>excess,
         "child_debt"=>a["child_debt"],"increment"=>increment,"resolved"=>resolved)
+    record["completion_reward"]=resolved===true ? mb_completion_reward(e,a["actions"],a["energy"]) : nothing
     push!(state["records"],record);length(state["records"])>64 && popfirst!(state["records"])
     if resolved!==true && a["actions"]>=max(32,2a["learned_actions"])
         mb_parent_learn!(s,goal,a,false,"unfinished")

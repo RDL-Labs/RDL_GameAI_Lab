@@ -9,11 +9,11 @@ include("../julia_migration/lw_integrated/mb_chunk_checks.jl")
  inc=mb_parent_H_increment!(s,"home","op:0:a",false,1_000_000)
  @test inc==0 && a["charged"]==4
  @test forecast_method_evidence(inc,false,true,false)===nothing
- # 2. A verified goal with zero pressure cannot form an experience chunk.
+ # 2. Fixed: verified achievement forms a chunk even with zero pressure/reward.
  s=mb_map_state("a";chunks=true);chunk_trip!(s,0)
  @test length(s["route_trace"])==2
- @test !mb_goal_result!(s,"home","op:1000000:a",true,0.,0.,2_000_000)
- @test isempty(s["chunks"]) && isempty(s["route_trace"])
+ @test mb_goal_result!(s,"home","op:1000000:a",true,0.,0.,2_000_000)
+ @test length(s["chunks"])==1 && isempty(s["route_trace"])
  # 3. Even a known usable path is not considered below the H threshold.
  s=mb_map_state("a";chunks=true);chunk_trip!(s,0)
  origin=mb_scene(chunk_view(0,"far")).key

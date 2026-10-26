@@ -134,11 +134,12 @@ function choose_method!(s::BasicLoop,candidates,source)
     s.last_method=selected["method"];out
 end
 
-function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true,creditable=method_value===true,goal_H_increment=1)
+function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true,creditable=method_value===true,goal_H_increment=1,completion_reward=nothing)
     check(accepted,"loop_unaccepted_result")
     check(all(v===nothing || v isa Bool for v in (method_value,goal_value)),"loop_evidence")
     check(goal_H_increment isa Real && !(goal_H_increment isa Bool) && isfinite(goal_H_increment) && goal_H_increment>=0,"loop_goal_increment")
-    evidence=(source=source,method_value=method_value,goal_value=goal_value,creditable=creditable,goal_H_increment=goal_H_increment)
+    check(completion_reward===nothing || (goal_value===true && completion_reward isa Real && !(completion_reward isa Bool) && isfinite(completion_reward) && completion_reward>=0),"loop_completion_reward")
+    evidence=(source=source,method_value=method_value,goal_value=goal_value,creditable=creditable,goal_H_increment=goal_H_increment,completion_reward=completion_reward)
     if s.receipt!==nothing && s.receipt.source==source
         check(s.receipt==evidence,"loop_result_conflict");return false
     end
@@ -153,7 +154,7 @@ function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=tr
         push!(s.credit_path,s.trial.method)
         length(s.credit_path)>32 && popfirst!(s.credit_path)
     end
-    reward=goal_value===true ? Float64(max(0,parent_before-s.H)) : 0.
+    reward=goal_value===true ? Float64(completion_reward===nothing ? max(0,parent_before-s.H) : completion_reward) : 0.
     credit=Dict{String,Float64}()
     failed=goal_value===false && method_value===false && goal_H_increment>0
     if failed

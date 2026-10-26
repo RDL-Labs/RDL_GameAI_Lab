@@ -1,0 +1,65 @@
+{
+  "measurement": {
+    "gc_seconds": 12.9004918,
+    "process_peak_rss_bytes": 1296719872,
+    "compilation_included": true,
+    "call_seconds": 240.0863699,
+    "allocated_bytes": 126761831733
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 90.37762834422966,
+      "out": 1,
+      "in": 0,
+      "routeStarted": 0,
+      "outcomes": {},
+      "chunks": 0,
+      "chunkCredits": 0,
+      "chunkReward": 0,
+      "chunkRecords": [],
+      "parentSuccesses": 7,
+      "completionRecords": []
+    },
+    "npc_a": {
+      "reserve": 90.26231980043711,
+      "out": 1,
+      "in": 0,
+      "routeStarted": 33,
+      "outcomes": {
+        "abandoned": 12,
+        "interrupted": 21
+      },
+      "chunks": 1,
+      "chunkCredits": 1,
+      "chunkReward": 1.2697401345376722,
+      "chunkRecords": [
+        {
+          "source": "op:17342000000:npc_a",
+          "H_before": 0,
+          "goal": "food",
+          "chunk": "food:7ecf33de4d5b12e8",
+          "H_after": 0,
+          "reward": 1.2697401345376722,
+          "edges": 2,
+          "successes": 1,
+          "tentative": true
+        }
+      ],
+      "parentSuccesses": 12,
+      "completionRecords": []
+    },
+    "npc_c": {
+      "reserve": 90.40331053620385,
+      "out": 1,
+      "in": 0,
+      "routeStarted": 0,
+      "outcomes": {},
+      "chunks": 0,
+      "chunkCredits": 0,
+      "chunkReward": 0,
+      "chunkRecords": [],
+      "parentSuccesses": 7,
+      "completionRecords": []
+    }
+  }
+}

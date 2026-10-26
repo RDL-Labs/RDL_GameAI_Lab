@@ -105,11 +105,11 @@ function mb_route_observe!(s,receipt,frame,now)
     a["cursor"]+=1;a["verified"]+=Int(outcome=="match")
     a["uncertain"]=false;a["pending_edge"]=nothing
 end
-function mb_route_goal!(s,goal,source,resolved,H_before,H_after,now)
+function mb_route_goal!(s,goal,source,resolved,H_before,H_after,now;completion_reward=nothing)
     a=s["routes"]["active"];a===nothing && return
     a["goal"]==goal && source=="op:$(a["last_us"]):$(s["actor"])" || return
-    if resolved===true && H_after==0
-        mb_route_finish!(s,"success",now;reward=Float64(max(0,H_before-H_after)))
+    if resolved===true
+        mb_route_finish!(s,"success",now;reward=Float64(completion_reward===nothing ? max(0,H_before-H_after) : completion_reward))
 
     end
 end
