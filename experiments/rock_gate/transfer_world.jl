@@ -1,5 +1,6 @@
 function far_transfer_world!(input)
     s=input["scene"];hx,hz=Float64.(s["home"])
+    s["positions"]=[[2hx-p[1],2hz-p[2]] for p in s["positions"]]
     # Rotate authored objects/resources/roads by 180 degrees around camp.
     for key in ("obstacles","low_obstacles"),o in get(s,key,Any[])
         o["x"]=2hx-o["x"];o["z"]=2hz-o["z"]
@@ -17,6 +18,9 @@ function far_transfer_world!(input)
     obstacles=[RDLMigrationProbe.Circle(o.x,o.z,o.radius) for o in spec.obstacles]
     @testset "new transfer world access" begin
         @test length(spec.food)==3
+        for p in spec.positions
+            @test all(hypot(p[1]-o.x,p[2]-o.z)>o.radius+.2 for o in obstacles)
+        end
         for f in spec.food
             @test hypot(f.x-hx,f.z-hz)>18
             points=[(hx,hz),(hx,hz+10),(Float64(f.x),hz+10),(Float64(f.x),Float64(f.z))]

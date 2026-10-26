@@ -1,0 +1,305 @@
+{
+  "measurement": {
+    "gc_seconds": 335.3299026,
+    "process_peak_rss_bytes": 3309244416,
+    "compilation_included": true,
+    "call_seconds": 2165.5539924,
+    "allocated_bytes": 2735465529081
+  },
+  "stock": [
+    12,
+    11,
+    11
+  ],
+  "storage": {
+    "taken": 4,
+    "deposited": 30,
+    "remaining": 26
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 0,
+      "distance": 2,
+      "transfer": {
+        "nodes": 975,
+        "source_ended_us": 518400000000,
+        "chunks": 1,
+        "edges": 4380,
+        "mode": "new-world-learned-state-only"
+      },
+      "delivery": {
+        "records": [],
+        "completions": 0,
+        "completed": false,
+        "known_stock": 0,
+        "stay_requests": 0,
+        "food_exceptions": 0,
+        "day": 9
+      },
+      "restReward": 0,
+      "counts": {
+        "rest": 121245,
+        "walk": 841,
+        "scan": 50714
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 70.72212962956398
+        },
+        {
+          "day": 2,
+          "reserve": 51.52212962949959
+        },
+        {
+          "day": 3,
+          "reserve": 32.322129629435196
+        },
+        {
+          "day": 4,
+          "reserve": 13.315491772463387
+        },
+        {
+          "day": 5,
+          "reserve": 0
+        },
+        {
+          "day": 6,
+          "reserve": 0
+        },
+        {
+          "day": 7,
+          "reserve": 0
+        },
+        {
+          "day": 8,
+          "reserve": 0
+        },
+        {
+          "day": 9,
+          "reserve": 0
+        },
+        {
+          "day": 10,
+          "reserve": 0
+        }
+      ]
+    },
+    "npc_a": {
+      "reserve": 90.36728630625488,
+      "distance": 15.345262937614958,
+      "transfer": {
+        "nodes": 960,
+        "source_ended_us": 518400000000,
+        "chunks": 0,
+        "edges": 3762,
+        "mode": "new-world-learned-state-only"
+      },
+      "delivery": {
+        "records": [
+          {
+            "delivered": 2,
+            "us": 30999000000,
+            "day": 1
+          },
+          {
+            "delivered": 2,
+            "us": 61893000000,
+            "day": 3
+          },
+          {
+            "delivered": 2,
+            "us": 97264000000,
+            "day": 5
+          },
+          {
+            "delivered": 2,
+            "us": 113958000000,
+            "day": 6
+          },
+          {
+            "delivered": 2,
+            "us": 133223000000,
+            "day": 7
+          },
+          {
+            "delivered": 2,
+            "us": 148966000000,
+            "day": 8
+          }
+        ],
+        "completions": 6,
+        "completed": false,
+        "known_stock": 24,
+        "stay_requests": 35771,
+        "food_exceptions": 0,
+        "day": 9
+      },
+      "restReward": 45,
+      "counts": {
+        "rest": 133618,
+        "walk": 21158,
+        "eat": 10,
+        "pickup": 21,
+        "deposit": 6,
+        "retrieve": 1,
+        "scan": 17986
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 70.73533961775937
+        },
+        {
+          "day": 2,
+          "reserve": 91.29767140924227
+        },
+        {
+          "day": 3,
+          "reserve": 90.76025179796534
+        },
+        {
+          "day": 4,
+          "reserve": 90.44414583395562
+        },
+        {
+          "day": 5,
+          "reserve": 89.84606377291804
+        },
+        {
+          "day": 6,
+          "reserve": 90.46353365136811
+        },
+        {
+          "day": 7,
+          "reserve": 90.73543629285474
+        },
+        {
+          "day": 8,
+          "reserve": 90.32613845345394
+        },
+        {
+          "day": 9,
+          "reserve": 90.94838855954957
+        },
+        {
+          "day": 10,
+          "reserve": 90.36728630625488
+        }
+      ]
+    },
+    "npc_c": {
+      "reserve": 94.1008982421835,
+      "distance": 0.9162744978637353,
+      "transfer": {
+        "nodes": 960,
+        "source_ended_us": 518400000000,
+        "chunks": 0,
+        "edges": 3804,
+        "mode": "new-world-learned-state-only"
+      },
+      "delivery": {
+        "records": [
+          {
+            "delivered": 2,
+            "us": 29852000000,
+            "day": 1
+          },
+          {
+            "delivered": 2,
+            "us": 47025000000,
+            "day": 2
+          },
+          {
+            "delivered": 2,
+            "us": 63655000000,
+            "day": 3
+          },
+          {
+            "delivered": 3,
+            "us": 78187000000,
+            "day": 4
+          },
+          {
+            "delivered": 2,
+            "us": 97557000000,
+            "day": 5
+          },
+          {
+            "delivered": 2,
+            "us": 121190000000,
+            "day": 7
+          },
+          {
+            "delivered": 2,
+            "us": 152011000000,
+            "day": 8
+          },
+          {
+            "delivered": 3,
+            "us": 165672000000,
+            "day": 9
+          }
+        ],
+        "completions": 8,
+        "completed": true,
+        "known_stock": 26,
+        "stay_requests": 57003,
+        "food_exceptions": 0,
+        "day": 9
+      },
+      "restReward": 45,
+      "counts": {
+        "rest": 146754,
+        "walk": 10334,
+        "eat": 10,
+        "pickup": 25,
+        "deposit": 8,
+        "retrieve": 3,
+        "scan": 15666
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 70.73605451837501
+        },
+        {
+          "day": 2,
+          "reserve": 91.21519149825994
+        },
+        {
+          "day": 3,
+          "reserve": 90.64562871926299
+        },
+        {
+          "day": 4,
+          "reserve": 91.34916264409556
+        },
+        {
+          "day": 5,
+          "reserve": 91.58409978965659
+        },
+        {
+          "day": 6,
+          "reserve": 91.69636153405644
+        },
+        {
+          "day": 7,
+          "reserve": 92.12157221512815
+        },
+        {
+          "day": 8,
+          "reserve": 92.88416751601494
+        },
+        {
+          "day": 9,
+          "reserve": 93.56432583567215
+        },
+        {
+          "day": 10,
+          "reserve": 94.1008982421835
+        }
+      ]
+    }
+  }
+}
