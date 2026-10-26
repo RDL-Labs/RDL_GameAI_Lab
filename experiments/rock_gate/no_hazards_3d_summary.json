@@ -1,0 +1,226 @@
+{
+  "measurement": {
+    "gc_seconds": 8.8570428,
+    "process_peak_rss_bytes": 1315778560,
+    "compilation_included": true,
+    "call_seconds": 157.558966,
+    "allocated_bytes": 96424069190
+  },
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:17343000000:npc_b",
+        "stock_after": 1,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17354000000:npc_c",
+        "stock_after": 2,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17363000000:npc_a",
+        "stock_after": 3,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26930000000:npc_c",
+        "stock_after": 2,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26934000000:npc_b",
+        "stock_after": 1,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26947000000:npc_a",
+        "stock_after": 0,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:41805000000:npc_b",
+        "stock_after": 3,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:43200000000:npc_a",
+        "stock_after": 6,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:43203000000:npc_c",
+        "stock_after": 9,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:44927000000:npc_c",
+        "stock_after": 8,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:44932000000:npc_b",
+        "stock_after": 7,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:44947000000:npc_a",
+        "stock_after": 6,
+        "action": "retrieve",
+        "actor": "npc_a"
+      }
+    ],
+    "taken": 6,
+    "deposited": 12
+  },
+  "nearbyStock": [
+    9,
+    12,
+    12
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 92.31897972595145,
+      "distance": 1,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17343000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 41805000000,
+            "day": 2
+          }
+        ],
+        "completions": 2,
+        "completed": true,
+        "known_stock": 6,
+        "stay_requests": 27250,
+        "food_exceptions": 0,
+        "day": 2
+      },
+      "restReward": 10,
+      "counts": {
+        "rest": 37423,
+        "walk": 231,
+        "eat": 3,
+        "retrieve": 2,
+        "deposit": 2,
+        "pickup": 3,
+        "scan": 14176
+      },
+      "day3": {
+        "pickup": 3,
+        "deposit": 1,
+        "retrieve": 1,
+        "eat": 1
+      }
+    },
+    "npc_a": {
+      "reserve": 92.3350618398279,
+      "distance": 1.149724460396255,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17363000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 43200000000,
+            "day": 2
+          }
+        ],
+        "completions": 2,
+        "completed": true,
+        "known_stock": 6,
+        "stay_requests": 25835,
+        "food_exceptions": 0,
+        "day": 2
+      },
+      "restReward": 10,
+      "counts": {
+        "rest": 37425,
+        "eat": 6,
+        "walk": 229,
+        "pickup": 8,
+        "deposit": 2,
+        "retrieve": 2,
+        "scan": 14168
+      },
+      "day3": {
+        "pickup": 3,
+        "deposit": 1,
+        "retrieve": 1,
+        "eat": 1
+      }
+    },
+    "npc_c": {
+      "reserve": 92.31252649726586,
+      "distance": 1.0521858212281603,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17354000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 43203000000,
+            "day": 2
+          }
+        ],
+        "completions": 2,
+        "completed": true,
+        "known_stock": 6,
+        "stay_requests": 25841,
+        "food_exceptions": 0,
+        "day": 2
+      },
+      "restReward": 10,
+      "counts": {
+        "rest": 37403,
+        "walk": 245,
+        "eat": 3,
+        "retrieve": 2,
+        "deposit": 2,
+        "pickup": 3,
+        "scan": 14182
+      },
+      "day3": {
+        "pickup": 3,
+        "deposit": 1,
+        "retrieve": 1,
+        "eat": 1
+      }
+    }
+  }
+}
