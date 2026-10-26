@@ -130,6 +130,11 @@ if safe_arg!==nothing
     @assert ARGS[safe_arg+1] in ("on","off")
     base["config"]["camp_safe_zone"]=ARGS[safe_arg+1]
 end
+hazards_arg=findfirst(==("--hazards"),ARGS)
+if hazards_arg!==nothing
+    @assert ARGS[hazards_arg+1] in ("off","mixed","territorial")
+    base["config"]["hazards"]=ARGS[hazards_arg+1]
+end
 const reports=Any[]
 for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set([0,1,23])),("narrow",Set([0]))))
     "--narrow-only" in ARGS && label!="narrow" && continue
