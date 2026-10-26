@@ -397,7 +397,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             messages=[m for m in reverse(o["messages"]) if !(m["id"] in answered[a]) && m["kind"] in ("request","warn","reach")]
             if hazard_mode
                 hazard_view=hazard_views[a]
-                plan=continuous_safety ? safety_methods!(safety[a],safety_loops[a],hazard_view,moves[a],"op:$now:$a";running=running) : safety_plan!(safety[a],hazard_view,moves[a];running=running)
+                plan=continuous_safety ? safety_methods!(safety[a],safety_loops[a],hazard_view,moves[a],"op:$now:$a";running=running,home=camp_safe_zone ? home : nothing) : safety_plan!(safety[a],hazard_view,moves[a];running=running)
             end
             if plan!==nothing
                 # Safety has authority before social, food and night priorities.

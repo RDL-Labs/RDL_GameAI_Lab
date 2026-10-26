@@ -22,7 +22,30 @@ function limited_clearance!(state,ob)
  end
  false
 end
-function safety_methods!(state,loop,ob,movement,source;running=false)
+function refuge_candidates(home,rows,features)
+ home===nothing && return Any[]
+ d=home["distance"]
+ 1.25<d<=6 || return Any[]
+ hf,hr=home["forward"],home["right"]
+ candidates=Any[]
+ for row in rows
+    row["cost"]===nothing && continue
+    i=parse(Int,row["ref"]);angle=deg2rad(ANGLES[i+1])
+    step=get(row,"distance",.5);f,r=step*cos(angle),step*sin(angle)
+    remaining=hypot(hf-f,hr-r);gain=d-remaining
+    gain>0 || continue
+    # Reject a visible hazard crossed before reaching the protected area.
+    exposed=any(t->hypot(hf-t*f,hr-t*r)>1.25 &&
+        any(h->hypot(h["forward"]-t*f,h["right"]-t*r)<.5,features),.1:.1:1.)
+    exposed && continue
+    action=get(row,"action","walk")
+    score=8+4gain/max(step,.001)+2/(1+remaining)
+    push!(candidates,D("method"=>"refuge_$(action)_$(ANGLES[i+1])","action"=>action,
+        "direction"=>i,"priority"=>score,"question"=>"clearance_evidence","refuge"=>true))
+ end
+ candidates
+end
+function safety_methods!(state,loop,ob,movement,source;running=false,home=nothing)
  if get(ob,"safe_zone",false)
     loop.trial!==nothing && resolve_method!(loop,loop.trial.source,nothing,nothing)
     release_safe_zone!(state);return nothing
@@ -69,7 +92,11 @@ function safety_methods!(state,loop,ob,movement,source;running=false)
     score=2-1.5*pressure-.05*effort*(action=="run" ? 5 : 1)
     push!(candidates,D("method"=>action*"_$(ANGLES[i+1])","action"=>action,"direction"=>i,"priority"=>score,"question"=>"clearance_evidence"))
  end
+ refuges=refuge_candidates(home,rows,fs)
+ append!(candidates,refuges)
+ !isempty(refuges) && (state["refuge_available"]=get(state,"refuge_available",0)+1)
  plan=choose_method!(loop,candidates,source);plan["safety"]=true
+ get(plan,"refuge",false) && (state["refuge_selected"]=get(state,"refuge_selected",0)+1)
  state["trial_band"]=band;state["accepted"]=false;state["overrides"]+=1
  plan
 end
