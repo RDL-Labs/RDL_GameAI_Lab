@@ -1,0 +1,2085 @@
+{
+  "measurement": {
+    "gc_seconds": 28.1016571,
+    "process_peak_rss_bytes": 1382109184,
+    "compilation_included": true,
+    "call_seconds": 480.287522,
+    "allocated_bytes": 279082122668
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 63.78740347700959,
+      "returnPurpose": {
+        "completed": 24,
+        "active": true,
+        "started_us": 29211000000,
+        "entries": 25
+      },
+      "inward": 108,
+      "outward": 109,
+      "embedded": {
+        "records": [
+          {
+            "scheduled": false,
+            "probability": 0.9868135741573342,
+            "us": 47744000000,
+            "replenishing": true,
+            "food_pressure": 0.18078446915606486,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.98670496325939,
+            "us": 47808000000,
+            "replenishing": true,
+            "food_pressure": 0.1821699526951593,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9865981383138582,
+            "us": 47872000000,
+            "replenishing": true,
+            "food_pressure": 0.18352180454701142,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9864830608826284,
+            "us": 47936000000,
+            "replenishing": true,
+            "food_pressure": 0.18496624899145406,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9863699969018181,
+            "us": 48000000000,
+            "replenishing": true,
+            "food_pressure": 0.18637365639886053,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.986257506401822,
+            "us": 48064000000,
+            "replenishing": true,
+            "food_pressure": 0.18776254528774886,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9861380263793621,
+            "us": 48128000000,
+            "replenishing": true,
+            "food_pressure": 0.1892255082507096,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9860205857403395,
+            "us": 48192000000,
+            "replenishing": true,
+            "food_pressure": 0.19065143417663416,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9859062820064981,
+            "us": 48256000000,
+            "replenishing": true,
+            "food_pressure": 0.19202797738651042,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9857920946495429,
+            "us": 48320000000,
+            "replenishing": true,
+            "food_pressure": 0.19339217491737462,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9856763162577261,
+            "us": 48384000000,
+            "replenishing": true,
+            "food_pressure": 0.1947643919955638,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9855555485039924,
+            "us": 48448000000,
+            "replenishing": true,
+            "food_pressure": 0.19618414508198231,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.985432182584198,
+            "us": 48512000000,
+            "replenishing": true,
+            "food_pressure": 0.19762241668691896,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9853109953604857,
+            "us": 48576000000,
+            "replenishing": true,
+            "food_pressure": 0.19902365125481936,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9851888151530638,
+            "us": 48640000000,
+            "replenishing": true,
+            "food_pressure": 0.20042488582271975,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.985067268582892,
+            "us": 48704000000,
+            "replenishing": true,
+            "food_pressure": 0.20180760187210206,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9849469364669305,
+            "us": 48768000000,
+            "replenishing": true,
+            "food_pressure": 0.2031656265634602,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9848256496183677,
+            "us": 48832000000,
+            "replenishing": true,
+            "food_pressure": 0.2045236512548184,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9846994950910951,
+            "us": 48896000000,
+            "replenishing": true,
+            "food_pressure": 0.20592488582271878,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9845728707573931,
+            "us": 48960000000,
+            "replenishing": true,
+            "food_pressure": 0.20731994755111316,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.984445215056058,
+            "us": 49024000000,
+            "replenishing": true,
+            "food_pressure": 0.20871500927950754,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9843147735168168,
+            "us": 49088000000,
+            "replenishing": true,
+            "food_pressure": 0.2101289238885601,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9841861693413997,
+            "us": 49152000000,
+            "replenishing": true,
+            "food_pressure": 0.21151163993794242,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9840551123248683,
+            "us": 49216000000,
+            "replenishing": true,
+            "food_pressure": 0.2129093919955551,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9839185239159419,
+            "us": 49280000000,
+            "replenishing": true,
+            "food_pressure": 0.21435416051407188,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9837825772443547,
+            "us": 49344000000,
+            "replenishing": true,
+            "food_pressure": 0.2157802047527537,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9836490863625567,
+            "us": 49408000000,
+            "replenishing": true,
+            "food_pressure": 0.21716909364164205,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9835077720291033,
+            "us": 49472000000,
+            "replenishing": true,
+            "food_pressure": 0.2186272829420517,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9833750851448483,
+            "us": 49536000000,
+            "replenishing": true,
+            "food_pressure": 0.21998530763340984,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9832443675574337,
+            "us": 49600000000,
+            "replenishing": true,
+            "food_pressure": 0.22131279734534506,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9831034467245116,
+            "us": 49664000000,
+            "replenishing": true,
+            "food_pressure": 0.22273255043176357,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.98297066336354,
+            "us": 49728000000,
+            "replenishing": true,
+            "food_pressure": 0.22405971092559157,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.982829355975773,
+            "us": 49792000000,
+            "replenishing": true,
+            "food_pressure": 0.22546094549349197,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9826818549719886,
+            "us": 49856000000,
+            "replenishing": true,
+            "food_pressure": 0.22691156277744065,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9825489928650288,
+            "us": 49920000000,
+            "replenishing": true,
+            "food_pressure": 0.22820785907373847,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9824020546259237,
+            "us": 49984000000,
+            "replenishing": true,
+            "food_pressure": 0.22963025104904608,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9822625682089314,
+            "us": 50048000000,
+            "replenishing": true,
+            "food_pressure": 0.23096975722188612,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9821095207030899,
+            "us": 50112000000,
+            "replenishing": true,
+            "food_pressure": 0.23242764302435337,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9819638228097423,
+            "us": 50176000000,
+            "replenishing": true,
+            "food_pressure": 0.23380418623422963,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.981816299126036,
+            "us": 50240000000,
+            "replenishing": true,
+            "food_pressure": 0.23518690228361194,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.981663591712881,
+            "us": 50304000000,
+            "replenishing": true,
+            "food_pressure": 0.23660665537003045,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9815129865390443,
+            "us": 50368000000,
+            "replenishing": true,
+            "food_pressure": 0.2379955442589188,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9813611678638072,
+            "us": 50432000000,
+            "replenishing": true,
+            "food_pressure": 0.23938443314780714,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9812088092007225,
+            "us": 50496000000,
+            "replenishing": true,
+            "food_pressure": 0.24076714919718942,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9810621115885387,
+            "us": 50560000000,
+            "replenishing": true,
+            "food_pressure": 0.24208813685151137,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9809066622750541,
+            "us": 50624000000,
+            "replenishing": true,
+            "food_pressure": 0.2434770257403997,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9807443672969258,
+            "us": 50688000000,
+            "replenishing": true,
+            "food_pressure": 0.24491529734533632,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9805849512503498,
+            "us": 50752000000,
+            "replenishing": true,
+            "food_pressure": 0.24631653191323674,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9804235309048639,
+            "us": 50816000000,
+            "replenishing": true,
+            "food_pressure": 0.24772393932064318,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9802600788331073,
+            "us": 50880000000,
+            "replenishing": true,
+            "food_pressure": 0.24913751956755567,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9801010692169606,
+            "us": 50944000000,
+            "replenishing": true,
+            "food_pressure": 0.25050171709841984,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9799342516291673,
+            "us": 51008000000,
+            "replenishing": true,
+            "food_pressure": 0.25192147018483835,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9797690011976662,
+            "us": 51072000000,
+            "replenishing": true,
+            "food_pressure": 0.2533165319132327,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9796015418140607,
+            "us": 51136000000,
+            "replenishing": true,
+            "food_pressure": 0.25471890331240893,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.979435846912184,
+            "us": 51200000000,
+            "replenishing": true,
+            "food_pressure": 0.25609544652228516,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9792665787391683,
+            "us": 51264000000,
+            "replenishing": true,
+            "food_pressure": 0.25749050825067954,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9790952710890413,
+            "us": 51328000000,
+            "replenishing": true,
+            "food_pressure": 0.2588910740943007,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9789228644258366,
+            "us": 51392000000,
+            "replenishing": true,
+            "food_pressure": 0.26028933026714185,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9787470573310842,
+            "us": 51456000000,
+            "replenishing": true,
+            "food_pressure": 0.26170368726302606,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9785737430941003,
+            "us": 51520000000,
+            "replenishing": true,
+            "food_pressure": 0.2630868301242517,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.978394447552617,
+            "us": 51584000000,
+            "replenishing": true,
+            "food_pressure": 0.26450623834613013,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9782128516290366,
+            "us": 51648000000,
+            "replenishing": true,
+            "food_pressure": 0.2659321642720547,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9780353338100413,
+            "us": 51712000000,
+            "replenishing": true,
+            "food_pressure": 0.26731488032143874,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9778459743066709,
+            "us": 51776000000,
+            "replenishing": true,
+            "food_pressure": 0.26877784328440485,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          }
+        ],
+        "place": "home",
+        "probability": 0.9776614914926177,
+        "rested": 0,
+        "window": 0,
+        "awake_seconds": 14455,
+        "experience": [],
+        "selections": 14038,
+        "requested": false,
+        "place_value": 0.8,
+        "decisions": 34560,
+        "last_us": 51839000000,
+        "need": 1,
+        "food_blocks": 12155
+      },
+      "restReward": {
+        "records": [],
+        "seconds": 0,
+        "arrival": null,
+        "reward_total": 0,
+        "awarded": false,
+        "last_us": 51839000000,
+        "day": 2
+      },
+      "routeOutcomes": {
+        "abandoned": 240,
+        "interrupted": 62
+      },
+      "chunkFormations": 3,
+      "counts": {
+        "rest": 14852,
+        "walk": 16473,
+        "eat": 2,
+        "pickup": 9,
+        "deposit": 3,
+        "scan": 19721,
+        "run": 780
+      }
+    },
+    "npc_a": {
+      "reserve": 65.45497309788641,
+      "returnPurpose": {
+        "completed": 16,
+        "active": true,
+        "started_us": 26659000000,
+        "entries": 17
+      },
+      "inward": 71,
+      "outward": 72,
+      "embedded": {
+        "records": [
+          {
+            "scheduled": false,
+            "probability": 0.9883604725882025,
+            "us": 47744000000,
+            "replenishing": true,
+            "food_pressure": 0.15972655985237622,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9882892204433722,
+            "us": 47808000000,
+            "replenishing": true,
+            "food_pressure": 0.1607557265190416,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9882206095539149,
+            "us": 47872000000,
+            "replenishing": true,
+            "food_pressure": 0.1617409117042265,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.98814841775186,
+            "us": 47936000000,
+            "replenishing": true,
+            "food_pressure": 0.16277141247583019,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9880783702008009,
+            "us": 48000000000,
+            "replenishing": true,
+            "food_pressure": 0.16376539395731116,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9880049096459649,
+            "us": 48064000000,
+            "replenishing": true,
+            "food_pressure": 0.16480162698200118,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9879365405292162,
+            "us": 48128000000,
+            "replenishing": true,
+            "food_pressure": 0.16576042327829776,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9878703164211137,
+            "us": 48192000000,
+            "replenishing": true,
+            "food_pressure": 0.16668403438940996,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9878018255832415,
+            "us": 48256000000,
+            "replenishing": true,
+            "food_pressure": 0.16763403438941044,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9877319935457115,
+            "us": 48320000000,
+            "replenishing": true,
+            "food_pressure": 0.16859722883385508,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.987660801965211,
+            "us": 48384000000,
+            "replenishing": true,
+            "food_pressure": 0.16957361772274387,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9875930896269312,
+            "us": 48448000000,
+            "replenishing": true,
+            "food_pressure": 0.17049714087089324,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.987523533577781,
+            "us": 48512000000,
+            "replenishing": true,
+            "food_pressure": 0.1714406426070053,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9874494008504172,
+            "us": 48576000000,
+            "replenishing": true,
+            "food_pressure": 0.17244052493725176,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9873795241733694,
+            "us": 48640000000,
+            "replenishing": true,
+            "food_pressure": 0.17337767867953663,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9872824851214568,
+            "us": 48704000000,
+            "replenishing": true,
+            "food_pressure": 0.1746706605599326,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9871755503528892,
+            "us": 48768000000,
+            "replenishing": true,
+            "food_pressure": 0.17608426524100504,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9870695915106112,
+            "us": 48832000000,
+            "replenishing": true,
+            "food_pressure": 0.1774735399323627,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9869641551064542,
+            "us": 48896000000,
+            "replenishing": true,
+            "food_pressure": 0.1788448568047907,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9868564589063331,
+            "us": 48960000000,
+            "replenishing": true,
+            "food_pressure": 0.18023431153730057,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9867459919193895,
+            "us": 49024000000,
+            "replenishing": true,
+            "food_pressure": 0.18164789178421306,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9866375391428659,
+            "us": 49088000000,
+            "replenishing": true,
+            "food_pressure": 0.18302443499408932,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.986531164132845,
+            "us": 49152000000,
+            "replenishing": true,
+            "food_pressure": 0.1843639411669294,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9864199854577583,
+            "us": 49216000000,
+            "replenishing": true,
+            "food_pressure": 0.18575283005581772,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9863104024252559,
+            "us": 49280000000,
+            "replenishing": true,
+            "food_pressure": 0.18711085474717587,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9862024675621444,
+            "us": 49344000000,
+            "replenishing": true,
+            "food_pressure": 0.18843801524100384,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9860901380414718,
+            "us": 49408000000,
+            "replenishing": true,
+            "food_pressure": 0.1898083856113741,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9859758828007327,
+            "us": 49472000000,
+            "replenishing": true,
+            "food_pressure": 0.1911911016607564,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9858580013033682,
+            "us": 49536000000,
+            "replenishing": true,
+            "food_pressure": 0.19260611194882127,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9857417263189004,
+            "us": 49600000000,
+            "replenishing": true,
+            "food_pressure": 0.19399049466487028,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9856251757109341,
+            "us": 49664000000,
+            "replenishing": true,
+            "food_pressure": 0.19536703787474655,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9855013373438216,
+            "us": 49728000000,
+            "replenishing": true,
+            "food_pressure": 0.19681765515869523,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.985385431276387,
+            "us": 49792000000,
+            "replenishing": true,
+            "food_pressure": 0.1981643372574612,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.985264398682784,
+            "us": 49856000000,
+            "replenishing": true,
+            "food_pressure": 0.19955939898585556,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9851402441593337,
+            "us": 49920000000,
+            "replenishing": true,
+            "food_pressure": 0.2009787662698052,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9850188516120966,
+            "us": 49984000000,
+            "replenishing": true,
+            "food_pressure": 0.20235530947968147,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9848997878753256,
+            "us": 50048000000,
+            "replenishing": true,
+            "food_pressure": 0.20369481565252154,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.984774795500818,
+            "us": 50112000000,
+            "replenishing": true,
+            "food_pressure": 0.2050898773809159,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9846543819743041,
+            "us": 50176000000,
+            "replenishing": true,
+            "food_pressure": 0.20642321071424993,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9845268259556583,
+            "us": 50240000000,
+            "replenishing": true,
+            "food_pressure": 0.20782444528215033,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9843965198882845,
+            "us": 50304000000,
+            "replenishing": true,
+            "food_pressure": 0.20924419836856883,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9842657075899299,
+            "us": 50368000000,
+            "replenishing": true,
+            "food_pressure": 0.21065777861548132,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9841367076032513,
+            "us": 50432000000,
+            "replenishing": true,
+            "food_pressure": 0.21204049466486363,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9840089984970923,
+            "us": 50496000000,
+            "replenishing": true,
+            "food_pressure": 0.21339851935622178,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9838802780957286,
+            "us": 50560000000,
+            "replenishing": true,
+            "food_pressure": 0.21475654404757993,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9837422478492999,
+            "us": 50624000000,
+            "replenishing": true,
+            "food_pressure": 0.2162009884920226,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9836074646259717,
+            "us": 50688000000,
+            "replenishing": true,
+            "food_pressure": 0.2175998619488124,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9834755663344493,
+            "us": 50752000000,
+            "replenishing": true,
+            "food_pressure": 0.21895788664017057,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9833426247303262,
+            "us": 50816000000,
+            "replenishing": true,
+            "food_pressure": 0.22031591133152872,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.983203127825467,
+            "us": 50880000000,
+            "replenishing": true,
+            "food_pressure": 0.2217294915784412,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9830643327995455,
+            "us": 50944000000,
+            "replenishing": true,
+            "food_pressure": 0.2231245533068356,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9829194370555133,
+            "us": 51008000000,
+            "replenishing": true,
+            "food_pressure": 0.22456899775127823,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9827846063371007,
+            "us": 51072000000,
+            "replenishing": true,
+            "food_pressure": 0.22590233108461225,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9826434279330711,
+            "us": 51136000000,
+            "replenishing": true,
+            "food_pressure": 0.22728748540559968,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9825026373695396,
+            "us": 51200000000,
+            "replenishing": true,
+            "food_pressure": 0.2286578557759699,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9823575160621237,
+            "us": 51264000000,
+            "replenishing": true,
+            "food_pressure": 0.23005909034387031,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9822105657904417,
+            "us": 51328000000,
+            "replenishing": true,
+            "food_pressure": 0.23146649775127676,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9820695892796316,
+            "us": 51392000000,
+            "replenishing": true,
+            "food_pressure": 0.2328060039241168,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9819301449539074,
+            "us": 51456000000,
+            "replenishing": true,
+            "food_pressure": 0.2341208187389327,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9817850004726935,
+            "us": 51520000000,
+            "replenishing": true,
+            "food_pressure": 0.23547884343029088,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9816380443590845,
+            "us": 51584000000,
+            "replenishing": true,
+            "food_pressure": 0.23684304096115508,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9814858873332605,
+            "us": 51648000000,
+            "replenishing": true,
+            "food_pressure": 0.23824427552905547,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9813304578731639,
+            "us": 51712000000,
+            "replenishing": true,
+            "food_pressure": 0.23966402861547398,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.9811792209352104,
+            "us": 51776000000,
+            "replenishing": true,
+            "food_pressure": 0.24103439898584422,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          }
+        ],
+        "place": "home",
+        "probability": 0.9810274719211596,
+        "rested": 0,
+        "window": 0,
+        "awake_seconds": 14750,
+        "experience": [],
+        "selections": 14893,
+        "requested": false,
+        "place_value": 0.8,
+        "decisions": 34560,
+        "last_us": 51839000000,
+        "need": 1,
+        "food_blocks": 11117
+      },
+      "restReward": {
+        "records": [],
+        "seconds": 0,
+        "arrival": null,
+        "reward_total": 0,
+        "awarded": false,
+        "last_us": 51839000000,
+        "day": 2
+      },
+      "routeOutcomes": {
+        "abandoned": 370,
+        "success": 1,
+        "interrupted": 203
+      },
+      "chunkFormations": 9,
+      "counts": {
+        "rest": 15261,
+        "eat": 5,
+        "walk": 14020,
+        "pickup": 8,
+        "deposit": 1,
+        "scan": 21881,
+        "run": 664
+      }
+    },
+    "npc_c": {
+      "reserve": 41.791511876644165,
+      "returnPurpose": {
+        "completed": 0,
+        "active": true,
+        "started_us": 25920000000,
+        "entries": 1
+      },
+      "inward": 106,
+      "outward": 107,
+      "embedded": {
+        "records": [
+          {
+            "scheduled": false,
+            "probability": 0.892990367626663,
+            "us": 47744000000,
+            "replenishing": true,
+            "food_pressure": 0.5463905097174735,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8921060331170446,
+            "us": 47808000000,
+            "replenishing": true,
+            "food_pressure": 0.5479273266684932,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8912977127930978,
+            "us": 47872000000,
+            "replenishing": true,
+            "food_pressure": 0.5493223883968916,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8904913037629485,
+            "us": 47936000000,
+            "replenishing": true,
+            "food_pressure": 0.5507051044462777,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8896760176157316,
+            "us": 48000000000,
+            "replenishing": true,
+            "food_pressure": 0.55209399333517,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.888862736966729,
+            "us": 48064000000,
+            "replenishing": true,
+            "food_pressure": 0.5534705365450499,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8880405331212764,
+            "us": 48128000000,
+            "replenishing": true,
+            "food_pressure": 0.554853252594436,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8872093121642565,
+            "us": 48192000000,
+            "replenishing": true,
+            "food_pressure": 0.5562421414833282,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.886335401989955,
+            "us": 48256000000,
+            "replenishing": true,
+            "food_pressure": 0.557692758767282,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8854518383953589,
+            "us": 48320000000,
+            "replenishing": true,
+            "food_pressure": 0.559149548890742,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8845925529347465,
+            "us": 48384000000,
+            "replenishing": true,
+            "food_pressure": 0.5605569562981526,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8837259998078778,
+            "us": 48448000000,
+            "replenishing": true,
+            "food_pressure": 0.56196706946688,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8828478196496038,
+            "us": 48512000000,
+            "replenishing": true,
+            "food_pressure": 0.5633868225533031,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8819831698510254,
+            "us": 48576000000,
+            "replenishing": true,
+            "food_pressure": 0.5647757114421953,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8810897174215472,
+            "us": 48640000000,
+            "replenishing": true,
+            "food_pressure": 0.5662016373681245,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.880206042003599,
+            "us": 48704000000,
+            "replenishing": true,
+            "food_pressure": 0.567602871936029,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8793284895678992,
+            "us": 48768000000,
+            "replenishing": true,
+            "food_pressure": 0.5689855879854151,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8784761875733688,
+            "us": 48832000000,
+            "replenishing": true,
+            "food_pressure": 0.5703202381911799,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8775317360295165,
+            "us": 48896000000,
+            "replenishing": true,
+            "food_pressure": 0.5717898009483846,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8765958899038787,
+            "us": 48960000000,
+            "replenishing": true,
+            "food_pressure": 0.5732363864536459,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8756794987930497,
+            "us": 49024000000,
+            "replenishing": true,
+            "food_pressure": 0.5746437938610567,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8747491593285386,
+            "us": 49088000000,
+            "replenishing": true,
+            "food_pressure": 0.5760635469474796,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8738251120585862,
+            "us": 49152000000,
+            "replenishing": true,
+            "food_pressure": 0.5774647815153843,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8729116741358198,
+            "us": 49216000000,
+            "replenishing": true,
+            "food_pressure": 0.5788413247252642,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8719677853001788,
+            "us": 49280000000,
+            "replenishing": true,
+            "food_pressure": 0.580254904972181,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8710137610103483,
+            "us": 49344000000,
+            "replenishing": true,
+            "food_pressure": 0.5816746580586041,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8700536872740345,
+            "us": 49408000000,
+            "replenishing": true,
+            "food_pressure": 0.583094411145027,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.869100182615189,
+            "us": 49472000000,
+            "replenishing": true,
+            "food_pressure": 0.5844956457129317,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8681153013945474,
+            "us": 49536000000,
+            "replenishing": true,
+            "food_pressure": 0.5859339173178731,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8671546447797908,
+            "us": 49600000000,
+            "replenishing": true,
+            "food_pressure": 0.5873280634084114,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8661831396061649,
+            "us": 49664000000,
+            "replenishing": true,
+            "food_pressure": 0.5887292979763159,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8651624339148669,
+            "us": 49728000000,
+            "replenishing": true,
+            "food_pressure": 0.590192260939282,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8641829886673749,
+            "us": 49792000000,
+            "replenishing": true,
+            "food_pressure": 0.5915873226676803,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8631975538194961,
+            "us": 49856000000,
+            "replenishing": true,
+            "food_pressure": 0.5929823843960788,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8621576992123444,
+            "us": 49920000000,
+            "replenishing": true,
+            "food_pressure": 0.5944453473590449,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8611289296705731,
+            "us": 49984000000,
+            "replenishing": true,
+            "food_pressure": 0.5958836189639863,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8600981846904917,
+            "us": 50048000000,
+            "replenishing": true,
+            "food_pressure": 0.5973157177294216,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8590608769141209,
+            "us": 50112000000,
+            "replenishing": true,
+            "food_pressure": 0.5987480428323055,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8580714482626302,
+            "us": 50176000000,
+            "replenishing": true,
+            "food_pressure": 0.600106067523667,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.857035392147759,
+            "us": 50240000000,
+            "replenishing": true,
+            "food_pressure": 0.6015196477705839,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8560021730571336,
+            "us": 50304000000,
+            "replenishing": true,
+            "food_pressure": 0.6029208823384884,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8549719355226499,
+            "us": 50368000000,
+            "replenishing": true,
+            "food_pressure": 0.6043097712273807,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8539448238376126,
+            "us": 50432000000,
+            "replenishing": true,
+            "food_pressure": 0.6056863144372606,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8528878129657481,
+            "us": 50496000000,
+            "replenishing": true,
+            "food_pressure": 0.6070945757541363,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8518241486648329,
+            "us": 50560000000,
+            "replenishing": true,
+            "food_pressure": 0.6085032743138103,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8507598257265045,
+            "us": 50624000000,
+            "replenishing": true,
+            "food_pressure": 0.609904508881715,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8497033972005082,
+            "us": 50688000000,
+            "replenishing": true,
+            "food_pressure": 0.611287224931101,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8486452452832562,
+            "us": 50752000000,
+            "replenishing": true,
+            "food_pressure": 0.6126642002397464,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8475621749681829,
+            "us": 50816000000,
+            "replenishing": true,
+            "food_pressure": 0.614065434807651,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8464631298038523,
+            "us": 50880000000,
+            "replenishing": true,
+            "food_pressure": 0.6154790150545678,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8453479226960394,
+            "us": 50944000000,
+            "replenishing": true,
+            "food_pressure": 0.616904940980497,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8442114934191437,
+            "us": 51008000000,
+            "replenishing": true,
+            "food_pressure": 0.6183493854249446,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8430927627976702,
+            "us": 51072000000,
+            "replenishing": true,
+            "food_pressure": 0.6197629656718615,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.84203648326929,
+            "us": 51136000000,
+            "replenishing": true,
+            "food_pressure": 0.6210901261656921,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8408794560890837,
+            "us": 51200000000,
+            "replenishing": true,
+            "food_pressure": 0.6225356228506518,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8397762270181504,
+            "us": 51264000000,
+            "replenishing": true,
+            "food_pressure": 0.6239059932210256,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8386467703367698,
+            "us": 51328000000,
+            "replenishing": true,
+            "food_pressure": 0.6253010549494239,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8374207677675743,
+            "us": 51392000000,
+            "replenishing": true,
+            "food_pressure": 0.6268064687225746,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8362627304342511,
+            "us": 51456000000,
+            "replenishing": true,
+            "food_pressure": 0.6282200489694916,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.835123568925759,
+            "us": 51520000000,
+            "replenishing": true,
+            "food_pressure": 0.6296027650188776,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8339626705410232,
+            "us": 51584000000,
+            "replenishing": true,
+            "food_pressure": 0.6310039995867822,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8327591305158547,
+            "us": 51648000000,
+            "replenishing": true,
+            "food_pressure": 0.6324484440312298,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8315590043574055,
+            "us": 51712000000,
+            "replenishing": true,
+            "food_pressure": 0.6338805427966652,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          },
+          {
+            "scheduled": false,
+            "probability": 0.8302998409539823,
+            "us": 51776000000,
+            "replenishing": true,
+            "food_pressure": 0.635374369957162,
+            "place_value": 0.8,
+            "chosen": false,
+            "need": 1
+          }
+        ],
+        "place": "home",
+        "probability": 0.829105263952695,
+        "rested": 0,
+        "window": 0,
+        "awake_seconds": 17280,
+        "experience": [],
+        "selections": 2980,
+        "requested": false,
+        "place_value": 0.8,
+        "decisions": 34560,
+        "last_us": 51839000000,
+        "need": 1,
+        "food_blocks": 28489
+      },
+      "restReward": {
+        "records": [],
+        "seconds": 0,
+        "arrival": null,
+        "reward_total": 0,
+        "awarded": false,
+        "last_us": 51839000000,
+        "day": 2
+      },
+      "routeOutcomes": {
+        "abandoned": 219,
+        "interrupted": 68
+      },
+      "chunkFormations": 3,
+      "counts": {
+        "rest": 4466,
+        "walk": 23134,
+        "eat": 1,
+        "pickup": 3,
+        "deposit": 2,
+        "scan": 23744,
+        "run": 490
+      }
+    }
+  }
+}

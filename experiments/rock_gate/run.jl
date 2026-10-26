@@ -107,6 +107,11 @@ if rest_reward_arg!==nothing
     @assert ARGS[rest_reward_arg+1] in ("on","off")
     base["config"]["home_rest_reward"]=ARGS[rest_reward_arg+1]
 end
+embedded_rest_arg=findfirst(==("--embedded-rest"),ARGS)
+if embedded_rest_arg!==nothing
+    @assert ARGS[embedded_rest_arg+1] in ("on","off")
+    base["config"]["embedded_rest"]=ARGS[embedded_rest_arg+1]
+end
 const reports=Any[]
 for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set([0,1,23])),("narrow",Set([0]))))
     "--narrow-only" in ARGS && label!="narrow" && continue
