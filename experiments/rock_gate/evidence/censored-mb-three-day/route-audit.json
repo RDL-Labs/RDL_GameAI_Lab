@@ -1,0 +1,5153 @@
+{
+  "measurement": {
+    "gc_seconds": 12.6048595,
+    "process_peak_rss_bytes": 1418514432,
+    "compilation_included": true,
+    "call_seconds": 213.2238726,
+    "allocated_bytes": 125445469530
+  },
+  "actors": {
+    "npc_b": {
+      "started": 189,
+      "outcomes": {
+        "unresolved": 3,
+        "interrupted": 186
+      },
+      "active": null,
+      "forecast": {
+        "records": [
+          {
+            "source": "op:48092000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48131000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48132000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48133000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48134000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48135000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48165000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48178000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48212000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48237000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48253000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48254000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48255000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48256000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48257000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48258000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48259000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 3,
+            "resolved": false,
+            "progress": 1,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48267000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48268000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48269000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48270000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48271000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48333000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48334000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48386000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48448000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48463000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48464000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48479000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48515000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48517000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48518000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48548000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:37a8db44e062b15d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48549000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:37a8db44e062b15d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48550000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:37a8db44e062b15d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48551000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:37a8db44e062b15d",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48552000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:37a8db44e062b15d",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48553000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:37a8db44e062b15d",
+            "lag": 3,
+            "resolved": false,
+            "progress": 1,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48636000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48644000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48645000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48680000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48707000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48708000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48709000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48710000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48711000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48712000000:npc_b",
+            "increment": 1,
+            "contradictions": 1,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 3,
+            "resolved": false,
+            "progress": 1,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48714000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48715000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48716000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48717000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48718000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48719000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 3,
+            "resolved": false,
+            "progress": 1,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48720000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 4,
+            "resolved": false,
+            "progress": 1,
+            "actions": 7,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48764000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48765000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48806000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48807000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48826000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:37a8db44e062b15d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48829000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:05e1c128e98d118a",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48885000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48927000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48953000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:24dba0f1b127e1a7",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          }
+        ],
+        "within_estimate": 309,
+        "H_requested": 70,
+        "evaluated": 379
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 9,
+        "infeasible_action": 1,
+        "recognition_mismatch": 1,
+        "no_observation": 41,
+        "no_correspondence": 258,
+        "reacquired": 1
+      },
+      "controls": {
+        "recheck": 188,
+        "continue": 2,
+        "change": 188
+      },
+      "decisions": [
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48093000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5862741263500162,
+            "change": 0.41372587364998387
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48132000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.546949123018844,
+            "change": 0.4530508769811561
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48133000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5445402703439001,
+            "change": 0.4554597296561002
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48134000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5455463863587795,
+            "change": 0.4544536136412205
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48135000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5445402703439001,
+            "change": 0.4554597296561002
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48136000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5455463863587795,
+            "change": 0.4544536136412205
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48166000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5460274370587358,
+            "change": 0.45397256294126415
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48179000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5513314620218808,
+            "change": 0.4486685379781194
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48213000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.553326668221753,
+            "change": 0.4466733317782471
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48238000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.39558535563543773,
+            "change": 0.604414644364562
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48254000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5213242765344461,
+            "continue": 0.0274925919568668,
+            "change": 0.4511831315086871
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48255000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5169326469014711,
+            "continue": 0.02726099468246462,
+            "change": 0.45580635841606415
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48256000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.549464613058572,
+            "change": 0.45053538694142786
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48257000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5169326469014711,
+            "continue": 0.02726099468246462,
+            "change": 0.45580635841606415
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48258000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.549464613058572,
+            "change": 0.45053538694142786
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48259000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.4582642925601391,
+            "continue": 0.030571832571776085,
+            "change": 0.5111638748680849
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48260000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4908557869107097,
+            "change": 0.5091442130892905
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48268000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5456792659801957,
+            "change": 0.45432073401980455
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48269000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5453342310067928,
+            "change": 0.4546657689932071
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48270000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5456792659801957,
+            "change": 0.45432073401980455
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48271000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5477260472243701,
+            "change": 0.4522739527756298
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48272000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5456792659801957,
+            "change": 0.45432073401980455
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48334000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.32612585894847934,
+            "change": 0.6738741410515204
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48335000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.35516697725336527,
+            "change": 0.6448330227466347
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48387000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.544365309260757,
+            "change": 0.45563469073924295
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48449000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5511275733532796,
+            "change": 0.44887242664672045
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48464000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.547974186922254,
+            "change": 0.452025813077746
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48465000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.32607680507800774,
+            "change": 0.6739231949219923
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48480000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5594087932392555,
+            "change": 0.4405912067607445
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48516000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5569239342038814,
+            "change": 0.44307606579611863
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48518000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5631564671007493,
+            "change": 0.43684353289925076
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48519000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5695890255715504,
+            "change": 0.4304109744284495
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:37a8db44e062b15d",
+          "us": 48549000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5530249122475555,
+            "change": 0.44697508775244443
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:37a8db44e062b15d",
+          "us": 48550000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5588294368504796,
+            "change": 0.4411705631495204
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:37a8db44e062b15d",
+          "us": 48551000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5593037557723588,
+            "change": 0.4406962442276413
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:37a8db44e062b15d",
+          "us": 48552000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5588294368504796,
+            "change": 0.4411705631495204
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:37a8db44e062b15d",
+          "us": 48553000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5593037557723588,
+            "change": 0.4406962442276413
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:37a8db44e062b15d",
+          "us": 48554000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5588294368504796,
+            "change": 0.4411705631495204
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48637000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5495889119174987,
+            "change": 0.45041108808250113
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48645000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5448568619944527,
+            "change": 0.4551431380055474
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48646000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4321183478693669,
+            "change": 0.5678816521306329
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48681000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.2887846696399279,
+            "change": 0.7112153303600719
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48708000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.530176368880712,
+            "continue": 0.024856194295999366,
+            "change": 0.4449674368232888
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48709000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4121607017657452,
+            "change": 0.5878392982342552
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48710000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.530176368880712,
+            "continue": 0.024856194295999366,
+            "change": 0.4449674368232888
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48711000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.35660526494022615,
+            "change": 0.6433947350597738
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48712000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.47147193518823843,
+            "continue": 0.02796197423818845,
+            "change": 0.5005660905735732
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48713000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.2938786736745966,
+            "change": 0.7061213263254034
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48715000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5639606920091795,
+            "change": 0.43603930799082047
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48716000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5596428659239635,
+            "change": 0.44035713407603655
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48717000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5639606920091795,
+            "change": 0.43603930799082047
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48718000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5596428659239635,
+            "change": 0.44035713407603655
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48719000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5639606920091795,
+            "change": 0.43603930799082047
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48720000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5596428659239635,
+            "change": 0.44035713407603655
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48721000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5639606920091795,
+            "change": 0.43603930799082047
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48765000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5481753552372038,
+            "change": 0.4518246447627964
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48766000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5513901364507129,
+            "change": 0.4486098635492872
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48807000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.554461970805074,
+            "change": 0.445538029194926
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48808000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5493822833986048,
+            "change": 0.45061771660139527
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:37a8db44e062b15d",
+          "us": 48827000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.2958582434858604,
+            "change": 0.7041417565141392
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:05e1c128e98d118a",
+          "us": 48830000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5184443206189407,
+            "change": 0.48155567938105914
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48886000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4722992825152309,
+            "change": 0.5277007174847691
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48928000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5304921028721284,
+            "change": 0.4695078971278718
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:24dba0f1b127e1a7",
+          "us": 48954000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5358289583190959,
+            "change": 0.4641710416809043
+          }
+        }
+      ],
+      "stats": {
+        "home:dfe1de1f5859268a": {
+          "reward": 0,
+          "starts": 14,
+          "interrupted": 14
+        },
+        "home:37a8db44e062b15d": {
+          "reward": 0,
+          "starts": 9,
+          "interrupted": 9
+        },
+        "home:d0dc6dd5bf4af326": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:05e1c128e98d118a": {
+          "reward": 0,
+          "starts": 75,
+          "unresolved": 1,
+          "interrupted": 74
+        },
+        "home:24dba0f1b127e1a7": {
+          "reward": 0,
+          "starts": 64,
+          "interrupted": 64
+        },
+        "home:e7e77d7f5d121744": {
+          "reward": 0,
+          "starts": 18,
+          "interrupted": 18
+        },
+        "home:dd653451b80cbdb3": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:94b4146d29a08649": {
+          "reward": 0,
+          "starts": 4,
+          "unresolved": 2,
+          "interrupted": 2
+        },
+        "home:8646aaf25bd59e00": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:86fd08609504f588": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:d3efd934de1df7d1": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        }
+      },
+      "events": [
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47334000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47332000000,
+          "effort": {
+            "last_evaluated": "op:47333000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47353000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47350000000,
+          "effort": {
+            "last_evaluated": "op:47352000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47373000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47372000000,
+          "effort": {
+            "last_evaluated": "op:47372000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47393000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47389000000,
+          "effort": {
+            "last_evaluated": "op:47392000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47402000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47401000000,
+          "effort": {
+            "last_evaluated": "op:47401000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47427000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47426000000,
+          "effort": {
+            "last_evaluated": "op:47426000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47493000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:e7e77d7f5d121744",
+          "started_us": 47492000000,
+          "effort": {
+            "last_evaluated": "op:47492000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47502000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47500000000,
+          "effort": {
+            "last_evaluated": "op:47501000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47517000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47516000000,
+          "effort": {
+            "last_evaluated": "op:47516000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47526000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47525000000,
+          "effort": {
+            "last_evaluated": "op:47525000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47564000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:dfe1de1f5859268a",
+          "started_us": 47563000000,
+          "effort": {
+            "last_evaluated": "op:47563000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47570000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47568000000,
+          "effort": {
+            "last_evaluated": "op:47569000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47578000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47574000000,
+          "effort": {
+            "last_evaluated": "op:47577000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47621000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47620000000,
+          "effort": {
+            "last_evaluated": "op:47620000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47648000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47645000000,
+          "effort": {
+            "last_evaluated": "op:47647000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47677000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47675000000,
+          "effort": {
+            "last_evaluated": "op:47676000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47702000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47698000000,
+          "effort": {
+            "last_evaluated": "op:47701000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47725000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47723000000,
+          "effort": {
+            "last_evaluated": "op:47724000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47733000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47732000000,
+          "effort": {
+            "last_evaluated": "op:47732000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47760000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47759000000,
+          "effort": {
+            "last_evaluated": "op:47759000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47794000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47793000000,
+          "effort": {
+            "last_evaluated": "op:47793000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47842000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47841000000,
+          "effort": {
+            "last_evaluated": "op:47841000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47899000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47896000000,
+          "effort": {
+            "last_evaluated": "op:47898000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47913000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47912000000,
+          "effort": {
+            "last_evaluated": "op:47912000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47955000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47954000000,
+          "effort": {
+            "last_evaluated": "op:47954000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47960000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47959000000,
+          "effort": {
+            "last_evaluated": "op:47959000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47967000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:e7e77d7f5d121744",
+          "started_us": 47963000000,
+          "effort": {
+            "last_evaluated": "op:47966000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47975000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47974000000,
+          "effort": {
+            "last_evaluated": "op:47974000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47984000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 47983000000,
+          "effort": {
+            "last_evaluated": "op:47983000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47995000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 47991000000,
+          "effort": {
+            "last_evaluated": "op:47994000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48011000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48009000000,
+          "effort": {
+            "last_evaluated": "op:48010000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48014000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48013000000,
+          "effort": {
+            "last_evaluated": "op:48013000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48038000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48037000000,
+          "effort": {
+            "last_evaluated": "op:48037000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48089000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48088000000,
+          "effort": {
+            "last_evaluated": "op:48088000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48093000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48091000000,
+          "effort": {
+            "last_evaluated": "op:48092000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48136000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48131000000,
+          "effort": {
+            "last_evaluated": "op:48135000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48166000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48165000000,
+          "effort": {
+            "last_evaluated": "op:48165000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48179000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48178000000,
+          "effort": {
+            "last_evaluated": "op:48178000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48213000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48212000000,
+          "effort": {
+            "last_evaluated": "op:48212000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48238000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48237000000,
+          "effort": {
+            "last_evaluated": "op:48237000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48254000000,
+          "reason": "H_route_change",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48253000000,
+          "effort": {
+            "last_evaluated": "op:48253000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48260000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48254000000,
+          "effort": {
+            "last_evaluated": "op:48259000000:npc_b",
+            "contradictions": 0,
+            "charged": 3,
+            "last_increment": 1,
+            "energy": 0.0011111111111290484,
+            "actions": 6
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48272000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48267000000,
+          "effort": {
+            "last_evaluated": "op:48271000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48335000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48333000000,
+          "effort": {
+            "last_evaluated": "op:48334000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48387000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48386000000,
+          "effort": {
+            "last_evaluated": "op:48386000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48449000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48448000000,
+          "effort": {
+            "last_evaluated": "op:48448000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48465000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48463000000,
+          "effort": {
+            "last_evaluated": "op:48464000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48480000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48479000000,
+          "effort": {
+            "last_evaluated": "op:48479000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48516000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48515000000,
+          "effort": {
+            "last_evaluated": "op:48515000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48519000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48517000000,
+          "effort": {
+            "last_evaluated": "op:48518000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48554000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:37a8db44e062b15d",
+          "started_us": 48548000000,
+          "effort": {
+            "last_evaluated": "op:48553000000:npc_b",
+            "contradictions": 0,
+            "charged": 3,
+            "last_increment": 1,
+            "energy": 0.0011111111111290484,
+            "actions": 6
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48637000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48636000000,
+          "effort": {
+            "last_evaluated": "op:48636000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48646000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48644000000,
+          "effort": {
+            "last_evaluated": "op:48645000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48681000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48680000000,
+          "effort": {
+            "last_evaluated": "op:48680000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48713000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48707000000,
+          "effort": {
+            "last_evaluated": "op:48712000000:npc_b",
+            "contradictions": 1,
+            "charged": 3,
+            "last_increment": 1,
+            "energy": 0.0011111111111290484,
+            "actions": 6
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48721000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48714000000,
+          "effort": {
+            "last_evaluated": "op:48720000000:npc_b",
+            "contradictions": 0,
+            "charged": 4,
+            "last_increment": 1,
+            "energy": 0.001296296296317223,
+            "actions": 7
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48765000000,
+          "reason": "H_route_change",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48764000000,
+          "effort": {
+            "last_evaluated": "op:48764000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48766000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48765000000,
+          "effort": {
+            "last_evaluated": "op:48765000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48808000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48806000000,
+          "effort": {
+            "last_evaluated": "op:48807000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48827000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:37a8db44e062b15d",
+          "started_us": 48826000000,
+          "effort": {
+            "last_evaluated": "op:48826000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48830000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:05e1c128e98d118a",
+          "started_us": 48829000000,
+          "effort": {
+            "last_evaluated": "op:48829000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48886000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48885000000,
+          "effort": {
+            "last_evaluated": "op:48885000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48928000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48927000000,
+          "effort": {
+            "last_evaluated": "op:48927000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48954000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "home:24dba0f1b127e1a7",
+          "started_us": 48953000000,
+          "effort": {
+            "last_evaluated": "op:48953000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        }
+      ]
+    },
+    "npc_a": {
+      "started": 19,
+      "outcomes": {
+        "unresolved": 1,
+        "interrupted": 18
+      },
+      "active": null,
+      "forecast": {
+        "records": [
+          {
+            "source": "op:43204000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43205000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43206000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 1,
+            "resolved": false,
+            "progress": 0,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43213000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43214000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43215000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 1,
+            "resolved": false,
+            "progress": 0,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43425000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43426000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43427000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43428000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 1,
+            "resolved": false,
+            "progress": 2,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43429000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 2,
+            "resolved": false,
+            "progress": 2,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43813000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43814000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43815000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43816000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43936000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43937000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43938000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 1,
+            "resolved": false,
+            "progress": 0,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43997000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:43998000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44000000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44001000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44095000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44096000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44136000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44151000000:npc_a",
+            "increment": 1,
+            "contradictions": 1,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44204000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44412000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44602000000:npc_a",
+            "increment": 1,
+            "contradictions": 1,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44603000000:npc_a",
+            "increment": 0,
+            "contradictions": 1,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44644000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:e875df995a1934f5",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44645000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:e875df995a1934f5",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44712000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44853000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:44902000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:0d36bb3ec0646341",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46531000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:a003031778e1b52c",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48648000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48649000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:426d132e6863eefd",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          }
+        ],
+        "within_estimate": 29,
+        "H_requested": 8,
+        "evaluated": 38
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 4,
+        "infeasible_action": 3,
+        "recognition_mismatch": 2,
+        "no_observation": 6,
+        "no_correspondence": 7,
+        "reacquired": 1
+      },
+      "controls": {
+        "recheck": 18,
+        "continue": 1,
+        "change": 19
+      },
+      "decisions": [
+        {
+          "H": 0,
+          "id": "home:426d132e6863eefd",
+          "us": 43205000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.9999990629144743,
+            "change": 9.370855256706159e-7
+          }
+        },
+        {
+          "H": 0,
+          "id": "home:426d132e6863eefd",
+          "us": 43206000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.999999370171064,
+            "change": 6.298289360185437e-7
+          }
+        },
+        {
+          "H": 1,
+          "id": "home:426d132e6863eefd",
+          "us": 43207000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.7191115733051219,
+            "change": 0.280888426694878
+          }
+        },
+        {
+          "H": 1,
+          "id": "home:426d132e6863eefd",
+          "us": 43214000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.7695057051065921,
+            "change": 0.23049429489340778
+          }
+        },
+        {
+          "H": 1,
+          "id": "home:426d132e6863eefd",
+          "us": 43215000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.8067500103104652,
+            "change": 0.19324998968953483
+          }
+        },
+        {
+          "H": 2,
+          "id": "home:426d132e6863eefd",
+          "us": 43216000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5448137403460712,
+            "change": 0.4551862596539288
+          }
+        },
+        {
+          "H": 2,
+          "id": "home:426d132e6863eefd",
+          "us": 43426000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.4753880984136279,
+            "continue": 0.3030280608725835,
+            "change": 0.22158384071378853
+          }
+        },
+        {
+          "H": 2,
+          "id": "home:426d132e6863eefd",
+          "us": 43427000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.8147956679333507,
+            "change": 0.18520433206664938
+          }
+        },
+        {
+          "H": 2,
+          "id": "home:426d132e6863eefd",
+          "us": 43428000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.8162295109151723,
+            "change": 0.1837704890848279
+          }
+        },
+        {
+          "H": 3,
+          "id": "home:426d132e6863eefd",
+          "us": 43429000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6235211698429073,
+            "change": 0.37647883015709266
+          }
+        },
+        {
+          "H": 4,
+          "id": "home:426d132e6863eefd",
+          "us": 43430000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5146652101508898,
+            "change": 0.4853347898491106
+          }
+        },
+        {
+          "H": 6,
+          "id": "home:426d132e6863eefd",
+          "us": 43814000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5425122779321807,
+            "continue": 0.0542855257024629,
+            "change": 0.4032021963653565
+          }
+        },
+        {
+          "H": 6,
+          "id": "home:426d132e6863eefd",
+          "us": 43815000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6463734611061702,
+            "change": 0.3536265388938298
+          }
+        },
+        {
+          "H": 6,
+          "id": "home:426d132e6863eefd",
+          "us": 43816000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5424766945577049,
+            "continue": 0.054290447335121235,
+            "change": 0.403232858107174
+          }
+        },
+        {
+          "H": 6,
+          "id": "home:426d132e6863eefd",
+          "us": 43817000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.650471843387141,
+            "change": 0.3495281566128588
+          }
+        },
+        {
+          "H": 8,
+          "id": "home:426d132e6863eefd",
+          "us": 43937000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6248861342983406,
+            "change": 0.37511386570165933
+          }
+        },
+        {
+          "H": 8,
+          "id": "home:426d132e6863eefd",
+          "us": 43938000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6216966411757927,
+            "change": 0.3783033588242072
+          }
+        },
+        {
+          "H": 8,
+          "id": "home:426d132e6863eefd",
+          "us": 43939000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.626247282284081,
+            "change": 0.37375271771591906
+          }
+        },
+        {
+          "H": 9,
+          "id": "home:426d132e6863eefd",
+          "us": 43998000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6827718378446802,
+            "change": 0.3172281621553198
+          }
+        },
+        {
+          "H": 9,
+          "id": "home:426d132e6863eefd",
+          "us": 43999000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.580446707884488,
+            "continue": 0.04902818669637966,
+            "change": 0.3705251054191324
+          }
+        },
+        {
+          "H": 9,
+          "id": "home:426d132e6863eefd",
+          "us": 44001000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.615778767858035,
+            "change": 0.3842212321419649
+          }
+        },
+        {
+          "H": 9,
+          "id": "home:426d132e6863eefd",
+          "us": 44002000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5237174945944004,
+            "continue": 0.10024792563519057,
+            "change": 0.3760345797704087
+          }
+        },
+        {
+          "H": 10,
+          "id": "home:426d132e6863eefd",
+          "us": 44096000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6101760648390154,
+            "change": 0.3898239351609846
+          }
+        },
+        {
+          "H": 10,
+          "id": "home:426d132e6863eefd",
+          "us": 44097000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6123189347332927,
+            "change": 0.3876810652667073
+          }
+        },
+        {
+          "H": 11,
+          "id": "home:426d132e6863eefd",
+          "us": 44137000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5357883098391474,
+            "continue": 0.04645004703986344,
+            "change": 0.41776164312098923
+          }
+        },
+        {
+          "H": 11,
+          "id": "home:426d132e6863eefd",
+          "us": 44152000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5973691860111536,
+            "change": 0.40263081398884626
+          }
+        },
+        {
+          "H": 12,
+          "id": "home:426d132e6863eefd",
+          "us": 44205000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.49249178719693865,
+            "change": 0.5075082128030615
+          }
+        },
+        {
+          "H": 15,
+          "id": "home:426d132e6863eefd",
+          "us": 44413000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.4552548277320707,
+            "continue": 0.034283811663081504,
+            "change": 0.5104613606048479
+          }
+        },
+        {
+          "H": 18,
+          "id": "home:426d132e6863eefd",
+          "us": 44603000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5485372252713485,
+            "change": 0.45146277472865143
+          }
+        },
+        {
+          "H": 18,
+          "id": "home:426d132e6863eefd",
+          "us": 44604000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5492558810077739,
+            "change": 0.4507441189922263
+          }
+        },
+        {
+          "H": 19,
+          "id": "home:e875df995a1934f5",
+          "us": 44645000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5530390967604717,
+            "change": 0.44696090323952825
+          }
+        },
+        {
+          "H": 19,
+          "id": "home:e875df995a1934f5",
+          "us": 44646000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5569961308314701,
+            "change": 0.4430038691685298
+          }
+        },
+        {
+          "H": 20,
+          "id": "home:426d132e6863eefd",
+          "us": 44713000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5404787620879334,
+            "change": 0.45952123791206656
+          }
+        },
+        {
+          "H": 22,
+          "id": "home:426d132e6863eefd",
+          "us": 44854000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5094341059391219,
+            "change": 0.49056589406087814
+          }
+        },
+        {
+          "H": 23,
+          "id": "home:0d36bb3ec0646341",
+          "us": 44903000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5184171842158538,
+            "continue": 0.041984033953529586,
+            "change": 0.4395987818306165
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:a003031778e1b52c",
+          "us": 46532000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.548830604950664,
+            "change": 0.45116939504933573
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:426d132e6863eefd",
+          "us": 48649000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5004084890629327,
+            "change": 0.4995915109370672
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:426d132e6863eefd",
+          "us": 48650000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5020968364009738,
+            "change": 0.4979031635990263
+          }
+        }
+      ],
+      "stats": {
+        "home:0d36bb3ec0646341": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:a003031778e1b52c": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:e875df995a1934f5": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:426d132e6863eefd": {
+          "reward": 0,
+          "starts": 16,
+          "unresolved": 1,
+          "interrupted": 15
+        }
+      },
+      "events": [
+        {
+          "goal": "home",
+          "H": 1,
+          "ended_us": 43207000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 43204000000,
+          "effort": {
+            "last_evaluated": "op:43206000000:npc_a",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0009723046753151721,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 2,
+          "ended_us": 43216000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 43213000000,
+          "effort": {
+            "last_evaluated": "op:43215000000:npc_a",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0009723046924960954,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 4,
+          "ended_us": 43430000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 43425000000,
+          "effort": {
+            "last_evaluated": "op:43429000000:npc_a",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0019879629629713236,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 6,
+          "ended_us": 43817000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 43813000000,
+          "effort": {
+            "last_evaluated": "op:43816000000:npc_a",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0011111111111148375,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 8,
+          "ended_us": 43939000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 43936000000,
+          "effort": {
+            "last_evaluated": "op:43938000000:npc_a",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0009259259259266628,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 9,
+          "ended_us": 43999000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 43997000000,
+          "effort": {
+            "last_evaluated": "op:43998000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0007408182482890879,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 9,
+          "ended_us": 44002000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44000000000,
+          "effort": {
+            "last_evaluated": "op:44001000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0007408182535755259,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 10,
+          "ended_us": 44097000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44095000000,
+          "effort": {
+            "last_evaluated": "op:44096000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0007407407407384881,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 11,
+          "ended_us": 44137000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44136000000,
+          "effort": {
+            "last_evaluated": "op:44136000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555503133,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 11,
+          "ended_us": 44152000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44151000000,
+          "effort": {
+            "last_evaluated": "op:44151000000:npc_a",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0005555555555503133,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 12,
+          "ended_us": 44205000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44204000000,
+          "effort": {
+            "last_evaluated": "op:44204000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005556334277514452,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 15,
+          "ended_us": 44413000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44412000000,
+          "effort": {
+            "last_evaluated": "op:44412000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006220370370328965,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 18,
+          "ended_us": 44604000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44602000000,
+          "effort": {
+            "last_evaluated": "op:44603000000:npc_a",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 0,
+            "energy": 0.0007407407407384881,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 19,
+          "ended_us": 44646000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005555555555503133,
+              0.0007407407407384881
+            ],
+            "active_seconds": 2,
+            "energy": 0.0007407407407384881,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 2,
+          "id": "home:e875df995a1934f5",
+          "started_us": 44644000000,
+          "effort": {
+            "last_evaluated": "op:44645000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0007407407407384881,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 20,
+          "ended_us": 44713000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44712000000,
+          "effort": {
+            "last_evaluated": "op:44712000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555503133,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 22,
+          "ended_us": 44854000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 44853000000,
+          "effort": {
+            "last_evaluated": "op:44853000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555503133,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 23,
+          "ended_us": 44903000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 2,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 2,
+          "id": "home:0d36bb3ec0646341",
+          "started_us": 44902000000,
+          "effort": {
+            "last_evaluated": "op:44902000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46532000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005509259259213195,
+              0.0010886316872339799,
+              0.0012738168724221546
+            ],
+            "active_seconds": 3,
+            "energy": 0.0012738168724221546,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:a003031778e1b52c",
+          "started_us": 46531000000,
+          "effort": {
+            "last_evaluated": "op:46531000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006951851851795254,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48650000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0006019013343916413,
+              0.001203802670701748
+            ],
+            "active_seconds": 2,
+            "energy": 0.001203802670701748,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "home:426d132e6863eefd",
+          "started_us": 48648000000,
+          "effort": {
+            "last_evaluated": "op:48649000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0008774074074153759,
+            "actions": 2
+          },
+          "reward": 0
+        }
+      ]
+    },
+    "npc_c": {
+      "started": 0,
+      "outcomes": {},
+      "active": null,
+      "forecast": {
+        "records": [],
+        "within_estimate": 0,
+        "H_requested": 0,
+        "evaluated": 0
+      },
+      "uncertainty": {},
+      "controls": {},
+      "decisions": [],
+      "stats": {},
+      "events": []
+    }
+  }
+}

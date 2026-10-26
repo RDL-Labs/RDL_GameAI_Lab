@@ -1,10 +1,10 @@
 # Parent MB estimates: bounded learned episodes, bootstrapped only when experience is absent.
-mb_parent_state()=D("models"=>D(),"active"=>D(),"records"=>Any[],"evaluated"=>0,"within_estimate"=>0,"H_requested"=>0,"successes"=>0)
+mb_parent_state()=D("models"=>D(),"active"=>D(),"records"=>Any[],"evaluated"=>0,"within_estimate"=>0,"H_requested"=>0,"successes"=>0,"last_goal"=>nothing)
 function mb_parent_model!(s,goal,mode)
     key=goal*":"*mode
     get!(s["parent_mb"]["models"],key) do
         D("id"=>key,"samples"=>0,"actions_mean"=>mode=="search" ? 128. : 16.,"actions_m2"=>0.,
-          "energy_rate"=>.01,"completed"=>0)
+          "energy_rate"=>.01,"completed"=>0,"observations"=>Any[],"censored_updates"=>0,"forecast"=>nothing)
     end
 end
 function mb_parent_estimate!(s,p,goal,target)
@@ -12,13 +12,27 @@ function mb_parent_estimate!(s,p,goal,target)
     model=mb_parent_model!(s,goal,mode);n=model["samples"]
     # Child route and current observed distance are evidence, not hidden world coordinates.
     center=mode=="route" ? Float64(length(p["mb_path"])+(goal=="food" ? 1 : 0)) :
-        mode=="approach" ? max(1.,ceil(max(0.,target["distance"]-1.)/.5)+1.) : model["actions_mean"]
-    n>0 && mode=="search" && (center=model["actions_mean"])
-    spread=n<2 ? max(mode=="search" ? 128. : 4.,center) : max(4.,sqrt(model["actions_m2"]/(n-1)))
-    upper=clamp(ceil(Int,center+spread),2,4096)
+        mode=="approach" ? max(1.,ceil(max(0.,target["distance"]-1.)/.5)+1.) : 128.
+    baseline=center
+    survival=mb_parent_survival!(model,mode)
+    prior_weight=1.;tail_mass=0.;evidence_count=0
+    if survival===nothing
+        spread=max(mode=="search" ? 128. : 4.,center)
+        upper=max(2,ceil(Int,center+spread))
+    else
+        scale=mode=="search" ? 1. : baseline
+        center=max(1.,survival["restricted_mean"]*scale)
+        prior_weight=survival["prior_weight"];tail_mass=survival["tail_mass"];evidence_count=survival["evidence_count"]
+        q=survival["q80"]
+        # If the 80% quantile is unidentified, keep the unobserved tail explicit and plan beyond the bound.
+        horizon=q===nothing ? survival["last_observed"]*scale+max(4.,.25survival["last_observed"]*scale) : q*scale
+        upper=max(2,ceil(Int,max(center,horizon)))
+    end
     rate=max(.0001,model["energy_rate"])
-    D("model"=>model["id"],"mode"=>mode,"source"=>n==0 ? "bootstrap" : "experience",
-      "samples"=>n,"expected_result"=>goal=="food" ? "acquired_food" : "confirmed_home",
+    D("model"=>model["id"],"mode"=>mode,"source"=>evidence_count==0 ? "bootstrap" : "experience",
+      "samples"=>n,"evidence_count"=>evidence_count,"prior_weight"=>prior_weight,"tail_mass"=>tail_mass,
+      "mean_is_lower_bound"=>tail_mass>0,"baseline_actions"=>baseline,
+      "expected_result"=>goal=="food" ? "acquired_food" : "confirmed_home",
       "expected_actions"=>center,"upper_actions"=>upper,"active_seconds"=>upper,
       "energy"=>upper*rate,"energy_quantum"=>max(.01,upper*rate),
       "progress_window"=>max(8,cld(upper,4)),"expected_new_scenes"=>mode=="search" ? 1 : 0)
@@ -37,16 +51,30 @@ function mb_parent_begin!(s,p,goal,target,now)
     estimate=get(p,"mb_parent_estimate",nothing)
     estimate===nothing && (estimate=mb_parent_estimate!(s,p,goal,target))
     state=s["parent_mb"]
+    previous=state["last_goal"]
+    if previous!==nothing && previous!=goal && haskey(state["active"],previous)
+        mb_parent_learn!(s,previous,state["active"][previous],false,"purpose_switch")
+    end
+    state["last_goal"]=goal
     if !haskey(state["active"],goal)
         frame=s["current"]
         state["active"][goal]=D("estimate"=>deepcopy(estimate),"started_us"=>now,"last_us"=>now,
             "actions"=>0,"energy"=>0.,"scenes"=>frame===nothing ? String[] : [frame.key],
-            "child_debt"=>0,"charged"=>0,"last_source"=>nothing,"last_increment"=>0)
+            "learned_actions"=>0,"paused"=>false,"child_debt"=>0,"charged"=>0,"last_source"=>nothing,"last_increment"=>0)
     end
 end
 function mb_parent_record!(s,p,energy,now)
-    goal=get(p,"mb_parent_goal",nothing);goal===nothing && return
+    goal=get(p,"mb_parent_goal",nothing)
+    if goal===nothing
+        previous=s["parent_mb"]["last_goal"]
+        a=previous===nothing ? nothing : get(s["parent_mb"]["active"],previous,nothing)
+        if a!==nothing && !a["paused"]
+            mb_parent_learn!(s,previous,a,false,"pause");a["paused"]=true
+        end
+        return
+    end
     a=get(s["parent_mb"]["active"],goal,nothing);a===nothing && return
+    a["paused"]=false
     a["actions"]+=1;a["energy"]+=max(0.,energy);a["last_us"]=now
 end
 function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
@@ -70,12 +98,15 @@ function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
         "scenes"=>length(a["scenes"]),"delay"=>delay,"stagnation"=>stagnation,"energy_excess"=>excess,
         "child_debt"=>a["child_debt"],"increment"=>increment,"resolved"=>resolved)
     push!(state["records"],record);length(state["records"])>64 && popfirst!(state["records"])
+    if resolved!==true && a["actions"]>=max(32,2a["learned_actions"])
+        mb_parent_learn!(s,goal,a,false,"unfinished")
+    end
     if resolved===true
+        mb_parent_learn!(s,goal,a,true,"completed")
         model=state["models"][e["model"]];model["completed"]+=1
         # Learn only completed episodes; unresolved episodes are not fictitious arrival times.
         model["samples"]+=1;n=model["samples"];delta=a["actions"]-model["actions_mean"]
         model["actions_mean"]+=delta/n;model["actions_m2"]+=delta*(a["actions"]-model["actions_mean"])
-        rate=a["energy"]/max(1,a["actions"]);model["energy_rate"]+=(rate-model["energy_rate"])/n
         state["successes"]+=1;delete!(state["active"],goal)
     end
     increment

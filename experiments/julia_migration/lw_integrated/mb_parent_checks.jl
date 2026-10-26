@@ -20,7 +20,7 @@ include(joinpath(@__DIR__,"mb_estimate_checks.jl"))
  model=s["parent_mb"]["models"]["food:search"]
  @test model["samples"]==1 && model["actions_mean"]==33
  next=mb_parent_estimate!(s,D(),"food",nothing)
- @test next["source"]=="experience" && next["expected_actions"]==33
+ @test next["source"]=="experience" && next["expected_actions"]==80.5 && next["prior_weight"]==.5
  @test initial["expected_actions"]==128
 end
 @testset "parent child residual is composed not added twice" begin

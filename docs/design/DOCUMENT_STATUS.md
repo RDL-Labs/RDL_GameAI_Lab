@@ -557,3 +557,7 @@ FINITE PROTOTYPE。[設計](LW_Whole_Route_MB.md)、[3日試験](../../experimen
 ### 2026-10-26 — 親MBの経験から見積もって行動
 
 FINITE PROTOTYPE。[設計](LW_Parent_MB_Estimation.md)、[3日試験](../../experiments/rock_gate/parent_mb_report.md)。food/home親の通常探索・接近・経路で固定見積もりと経験学習を導入。候補の予測コストと既存学習で行動を選び、子と親の残差は重複加算しない。26目的達成から予測更新、全員生存、再入場0・経路目的達成0。初期/学習見積もりと実環境の所要時間が大きく異なる例が残る。448項目PASSと追加監査。
+
+### 2026-10-26 — 未達・中断を打切り観測として学習
+
+FINITE PROTOTYPE。[設計更新](LW_Parent_MB_Estimation.md)、[実装と3日確認](../../experiments/rock_gate/censored_mb_report.md)。1試行1観測で未達の下限・消費を更新し、後の達成で置換。初期値の影響は経験数で低下。現試行の見積もりは固定。達成26件/未達3件保持、Aの5632操作未達から次回上限7040を計算（実際の次回達成ではない）。全員生存、再入場0、経路目的達成0。311項目PASSと追加監査。

@@ -1,0 +1,78 @@
+{
+  "input_identical": true,
+  "measurement": {
+    "gc_seconds": 12.6048595,
+    "process_peak_rss_bytes": 1418514432,
+    "compilation_included": true,
+    "call_seconds": 213.2238726,
+    "allocated_bytes": 125445469530
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 90.48411015879898,
+      "out": 1,
+      "in": 0,
+      "completed": 7,
+      "censored_updates": 23,
+      "retained_completed": 7,
+      "retained_unfinished": 1,
+      "unfinished": [
+        {
+          "reason": "pause",
+          "id": "43200000000:home",
+          "baseline": 128,
+          "energy": 2.791034519164185,
+          "completed": false,
+          "actions": 5690
+        }
+      ],
+      "route_outcomes": {
+        "unresolved": 3,
+        "interrupted": 186
+      }
+    },
+    "npc_a": {
+      "reserve": 88.90751812601796,
+      "out": 1,
+      "in": 0,
+      "completed": 12,
+      "censored_updates": 65,
+      "retained_completed": 12,
+      "retained_unfinished": 1,
+      "unfinished": [
+        {
+          "reason": "pause",
+          "id": "43200000000:home",
+          "baseline": 128,
+          "energy": 2.7724086666670047,
+          "completed": false,
+          "actions": 5632
+        }
+      ],
+      "route_outcomes": {
+        "unresolved": 1,
+        "interrupted": 18
+      }
+    },
+    "npc_c": {
+      "reserve": 90.56004161684547,
+      "out": 1,
+      "in": 0,
+      "completed": 7,
+      "censored_updates": 66,
+      "retained_completed": 7,
+      "retained_unfinished": 1,
+      "unfinished": [
+        {
+          "reason": "pause",
+          "id": "43200000000:home",
+          "baseline": 128,
+          "energy": 2.508034933593592,
+          "completed": false,
+          "actions": 5419
+        }
+      ],
+      "route_outcomes": {}
+    }
+  }
+}
