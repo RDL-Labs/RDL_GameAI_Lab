@@ -1,0 +1,4032 @@
+{
+  "measurement": {
+    "gc_seconds": 292.2622241,
+    "process_peak_rss_bytes": 1844625408,
+    "compilation_included": true,
+    "call_seconds": 2471.2438631,
+    "allocated_bytes": 2772631577286
+  },
+  "actors": {
+    "npc_b": {
+      "fear": {
+        "requests": 4743,
+        "records": [
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1664,
+            "threat": 0,
+            "H": 2.8159709362378016,
+            "relief": 0,
+            "residual": 2.8296296296296295,
+            "us": 168704000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.8296296296296295
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1728,
+            "threat": 0,
+            "H": 2.8456005658674313,
+            "relief": 0,
+            "residual": 2.859259259259259,
+            "us": 168768000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.859259259259259
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1792,
+            "threat": 0,
+            "H": 2.875230195497061,
+            "relief": 0,
+            "residual": 2.888888888888889,
+            "us": 168832000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.888888888888889
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1856,
+            "threat": 0,
+            "H": 2.9048598251266906,
+            "relief": 0,
+            "residual": 2.9185185185185185,
+            "us": 168896000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.9185185185185185
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1920,
+            "threat": 0,
+            "H": 2.9344894547563203,
+            "relief": 0,
+            "residual": 2.948148148148148,
+            "us": 168960000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.948148148148148
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1984,
+            "threat": 0,
+            "H": 2.96411908438595,
+            "relief": 0,
+            "residual": 2.977777777777778,
+            "us": 169024000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.977777777777778
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2048,
+            "threat": 0,
+            "H": 2.9937487140155796,
+            "relief": 0,
+            "residual": 3.0074074074074075,
+            "us": 169088000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.0074074074074075
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2112,
+            "threat": 0,
+            "H": 3.0233783436452093,
+            "relief": 0,
+            "residual": 3.037037037037037,
+            "us": 169152000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.037037037037037
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2176,
+            "threat": 0,
+            "H": 3.053007973274839,
+            "relief": 0,
+            "residual": 3.066666666666667,
+            "us": 169216000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.066666666666667
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2240,
+            "threat": 0,
+            "H": 3.082637602904468,
+            "relief": 0,
+            "residual": 3.096296296296296,
+            "us": 169280000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.096296296296296
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2304,
+            "threat": 0,
+            "H": 3.112267232534098,
+            "relief": 0,
+            "residual": 3.1259259259259258,
+            "us": 169344000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1259259259259258
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2368,
+            "threat": 0,
+            "H": 3.1418968621637275,
+            "relief": 0,
+            "residual": 3.1555555555555554,
+            "us": 169408000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1555555555555554
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2432,
+            "threat": 0,
+            "H": 3.171526491793357,
+            "relief": 0,
+            "residual": 3.185185185185185,
+            "us": 169472000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.185185185185185
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2496,
+            "threat": 0,
+            "H": 3.201156121422987,
+            "relief": 0,
+            "residual": 3.214814814814815,
+            "us": 169536000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.214814814814815
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2560,
+            "threat": 0,
+            "H": 3.2307857510526166,
+            "relief": 0,
+            "residual": 3.2444444444444445,
+            "us": 169600000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.2444444444444445
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2624,
+            "threat": 0,
+            "H": 3.2604153806822462,
+            "relief": 0,
+            "residual": 3.274074074074074,
+            "us": 169664000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.274074074074074
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2688,
+            "threat": 0,
+            "H": 3.290045010311876,
+            "relief": 0,
+            "residual": 3.303703703703704,
+            "us": 169728000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.303703703703704
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2752,
+            "threat": 0,
+            "H": 3.3196746399415056,
+            "relief": 0,
+            "residual": 3.3333333333333335,
+            "us": 169792000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.3333333333333335
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2816,
+            "threat": 0,
+            "H": 3.3493042695711353,
+            "relief": 0,
+            "residual": 3.362962962962963,
+            "us": 169856000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.362962962962963
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2880,
+            "threat": 0,
+            "H": 3.3789338992007645,
+            "relief": 0,
+            "residual": 3.3925925925925924,
+            "us": 169920000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.3925925925925924
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2944,
+            "threat": 0,
+            "H": 3.408563528830394,
+            "relief": 0,
+            "residual": 3.422222222222222,
+            "us": 169984000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.422222222222222
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3008,
+            "threat": 0,
+            "H": 3.438193158460024,
+            "relief": 0,
+            "residual": 3.4518518518518517,
+            "us": 170048000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4518518518518517
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3072,
+            "threat": 0,
+            "H": 3.4678227880896535,
+            "relief": 0,
+            "residual": 3.4814814814814814,
+            "us": 170112000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4814814814814814
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3136,
+            "threat": 0,
+            "H": 3.497452417719283,
+            "relief": 0,
+            "residual": 3.511111111111111,
+            "us": 170176000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.511111111111111
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3200,
+            "threat": 0,
+            "H": 3.527082047348913,
+            "relief": 0,
+            "residual": 3.5407407407407407,
+            "us": 170240000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.5407407407407407
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3264,
+            "threat": 0,
+            "H": 3.5567116769785425,
+            "relief": 0,
+            "residual": 3.5703703703703704,
+            "us": 170304000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.5703703703703704
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3328,
+            "threat": 0,
+            "H": 3.586341306608172,
+            "relief": 0,
+            "residual": 3.6,
+            "us": 170368000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3392,
+            "threat": 0,
+            "H": 3.615970936237802,
+            "relief": 0,
+            "residual": 3.6296296296296298,
+            "us": 170432000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6296296296296298
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -3456,
+            "threat": 0,
+            "H": 3.6456005658674315,
+            "relief": 0,
+            "residual": 3.6592592592592594,
+            "us": 170496000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6592592592592594
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -3520,
+            "threat": 0,
+            "H": 3.675230195497061,
+            "relief": 0,
+            "residual": 3.688888888888889,
+            "us": 170560000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.688888888888889
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3584,
+            "threat": 0,
+            "H": 3.7048598251266904,
+            "relief": 0,
+            "residual": 3.7185185185185183,
+            "us": 170624000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.7185185185185183
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3648,
+            "threat": 0,
+            "H": 3.73448945475632,
+            "relief": 0,
+            "residual": 3.748148148148148,
+            "us": 170688000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.748148148148148
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3712,
+            "threat": 0,
+            "H": 3.7641190843859498,
+            "relief": 0,
+            "residual": 3.7777777777777777,
+            "us": 170752000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.7777777777777777
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3776,
+            "threat": 0,
+            "H": 3.7937487140155794,
+            "relief": 0,
+            "residual": 3.8074074074074074,
+            "us": 170816000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8074074074074074
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3840,
+            "threat": 0,
+            "H": 3.823378343645209,
+            "relief": 0,
+            "residual": 3.837037037037037,
+            "us": 170880000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.837037037037037
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3904,
+            "threat": 0,
+            "H": 3.853007973274839,
+            "relief": 0,
+            "residual": 3.8666666666666667,
+            "us": 170944000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8666666666666667
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3968,
+            "threat": 0,
+            "H": 3.8826376029044685,
+            "relief": 0,
+            "residual": 3.8962962962962964,
+            "us": 171008000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8962962962962964
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -4032,
+            "threat": 0,
+            "H": 3.912267232534098,
+            "relief": 0,
+            "residual": 3.925925925925926,
+            "us": 171072000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.925925925925926
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4096,
+            "threat": 0,
+            "H": 3.941896862163728,
+            "relief": 0,
+            "residual": 3.9555555555555557,
+            "us": 171136000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9555555555555557
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4160,
+            "threat": 0,
+            "H": 3.9715264917933575,
+            "relief": 0,
+            "residual": 3.9851851851851854,
+            "us": 171200000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9851851851851854
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4224,
+            "threat": 0,
+            "H": 4.001156121422988,
+            "relief": 0,
+            "residual": 4.014814814814815,
+            "us": 171264000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.014814814814815
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4288,
+            "threat": 0,
+            "H": 4.030785751052623,
+            "relief": 0,
+            "residual": 4.044444444444444,
+            "us": 171328000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.044444444444444
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4352,
+            "threat": 0,
+            "H": 4.060415380682253,
+            "relief": 0,
+            "residual": 4.074074074074074,
+            "us": 171392000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.074074074074074
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4416,
+            "threat": 0,
+            "H": 4.090045010311882,
+            "relief": 0,
+            "residual": 4.103703703703704,
+            "us": 171456000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.103703703703704
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4480,
+            "threat": 0,
+            "H": 4.119674639941512,
+            "relief": 0,
+            "residual": 4.133333333333334,
+            "us": 171520000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.133333333333334
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4544,
+            "threat": 0,
+            "H": 4.149304269571141,
+            "relief": 0,
+            "residual": 4.162962962962963,
+            "us": 171584000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.162962962962963
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4608,
+            "threat": 0,
+            "H": 4.1789338992007705,
+            "relief": 0,
+            "residual": 4.192592592592592,
+            "us": 171648000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.192592592592592
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4672,
+            "threat": 0,
+            "H": 4.208563528830401,
+            "relief": 0,
+            "residual": 4.222222222222222,
+            "us": 171712000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.222222222222222
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4736,
+            "threat": 0,
+            "H": 4.23819315846003,
+            "relief": 0,
+            "residual": 4.2518518518518515,
+            "us": 171776000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.2518518518518515
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4800,
+            "threat": 0,
+            "H": 4.26782278808966,
+            "relief": 0,
+            "residual": 4.281481481481482,
+            "us": 171840000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.281481481481482
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4864,
+            "threat": 0,
+            "H": 4.297452417719289,
+            "relief": 0,
+            "residual": 4.311111111111111,
+            "us": 171904000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.311111111111111
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4928,
+            "threat": 0,
+            "H": 4.327082047348919,
+            "relief": 0,
+            "residual": 4.340740740740741,
+            "us": 171968000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.340740740740741
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4992,
+            "threat": 0,
+            "H": 4.3567116769785486,
+            "relief": 0,
+            "residual": 4.37037037037037,
+            "us": 172032000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.37037037037037
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5056,
+            "threat": 0,
+            "H": 4.386341306608179,
+            "relief": 0,
+            "residual": 4.4,
+            "us": 172096000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.4
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5120,
+            "threat": 0,
+            "H": 4.415970936237808,
+            "relief": 0,
+            "residual": 4.42962962962963,
+            "us": 172160000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.42962962962963
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5184,
+            "threat": 0,
+            "H": 4.445600565867438,
+            "relief": 0,
+            "residual": 4.45925925925926,
+            "us": 172224000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.45925925925926
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5248,
+            "threat": 0,
+            "H": 4.475230195497067,
+            "relief": 0,
+            "residual": 4.488888888888889,
+            "us": 172288000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.488888888888889
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5312,
+            "threat": 0,
+            "H": 4.5048598251266965,
+            "relief": 0,
+            "residual": 4.518518518518518,
+            "us": 172352000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.518518518518518
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5376,
+            "threat": 0,
+            "H": 4.534489454756327,
+            "relief": 0,
+            "residual": 4.548148148148148,
+            "us": 172416000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.548148148148148
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5440,
+            "threat": 0,
+            "H": 4.564119084385956,
+            "relief": 0,
+            "residual": 4.5777777777777775,
+            "us": 172480000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.5777777777777775
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5504,
+            "threat": 0,
+            "H": 4.593748714015586,
+            "relief": 0,
+            "residual": 4.607407407407408,
+            "us": 172544000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.607407407407408
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5568,
+            "threat": 0,
+            "H": 4.623378343645215,
+            "relief": 0,
+            "residual": 4.637037037037037,
+            "us": 172608000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.637037037037037
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5632,
+            "threat": 0,
+            "H": 4.653007973274845,
+            "relief": 0,
+            "residual": 4.666666666666667,
+            "us": 172672000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.666666666666667
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5696,
+            "threat": 0,
+            "H": 4.6826376029044745,
+            "relief": 0,
+            "residual": 4.696296296296296,
+            "us": 172736000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 128,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.696296296296296
+          }
+        ],
+        "next_estimate_us": 172836000000,
+        "H": 4.711804269571141,
+        "anticipatory_evaluations": 39686,
+        "estimate": {
+          "model": "home:search",
+          "seconds": 128,
+          "margin": 4320,
+          "kind": "unconfirmed",
+          "source": "experience"
+        },
+        "last_request_us": 172799000000,
+        "requested": false,
+        "evaluations": 172800,
+        "last_us": 172799000000,
+        "food_blocks": 144355,
+        "peak_H": 4.771063528830401
+      },
+      "reserve": 0,
+      "returnPurpose": {
+        "completed": 5,
+        "active": true,
+        "started_us": 78500000000,
+        "entries": 6
+      },
+      "inward": 83,
+      "routeOutcomes": {
+        "abandoned": 91,
+        "success": 1,
+        "interrupted": 121
+      },
+      "restReward": 0,
+      "counts": {
+        "rest": 86347,
+        "walk": 52702,
+        "eat": 5,
+        "pickup": 6,
+        "deposit": 3,
+        "scan": 33067,
+        "run": 670
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.39302382686594,
+          "position": [
+            13.321749695815683,
+            11.467145415271567
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": false,
+            "started_us": null,
+            "entries": 0
+          }
+        },
+        {
+          "day": 2,
+          "reserve": 64.85099368909972,
+          "position": [
+            -31.92443396152269,
+            23.372094233353696
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        },
+        {
+          "day": 3,
+          "reserve": 41.53321477529998,
+          "position": [
+            -17.33745239350504,
+            19.004788307844894
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        },
+        {
+          "day": 4,
+          "reserve": 18.27209274947118,
+          "position": [
+            -26.912433152605956,
+            26.11604941282275
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        },
+        {
+          "day": 5,
+          "reserve": 75.90047432151033,
+          "position": [
+            -15.469889265029845,
+            14.27345642933654
+          ],
+          "return_purpose": {
+            "completed": 5,
+            "active": true,
+            "started_us": 78500000000,
+            "entries": 6
+          }
+        },
+        {
+          "day": 6,
+          "reserve": 56.020176879542774,
+          "position": [
+            -19.183172666639955,
+            26.295027177975513
+          ],
+          "return_purpose": {
+            "completed": 5,
+            "active": true,
+            "started_us": 78500000000,
+            "entries": 6
+          }
+        },
+        {
+          "day": 7,
+          "reserve": 36.26938378963144,
+          "position": [
+            -9.911667211832375,
+            31.363014283155355
+          ],
+          "return_purpose": {
+            "completed": 5,
+            "active": true,
+            "started_us": 78500000000,
+            "entries": 6
+          }
+        },
+        {
+          "day": 8,
+          "reserve": 16.049781228025182,
+          "position": [
+            -17.64017011656485,
+            16.286439630096297
+          ],
+          "return_purpose": {
+            "completed": 5,
+            "active": true,
+            "started_us": 78500000000,
+            "entries": 6
+          }
+        },
+        {
+          "day": 9,
+          "reserve": 0,
+          "position": [
+            -16.991828455240533,
+            17.511194440371266
+          ],
+          "return_purpose": {
+            "completed": 5,
+            "active": true,
+            "started_us": 78500000000,
+            "entries": 6
+          }
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "position": [
+            -16.991828455240533,
+            17.511194440371266
+          ],
+          "return_purpose": {
+            "completed": 5,
+            "active": true,
+            "started_us": 78500000000,
+            "entries": 6
+          }
+        }
+      ]
+    },
+    "npc_a": {
+      "fear": {
+        "requests": 11223,
+        "records": [
+          {
+            "increment": 0,
+            "until_night": -1664,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.620833333333334,
+            "us": 168704000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -1728,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.650462962962964,
+            "us": 168768000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -1792,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.680092592592592,
+            "us": 168832000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -1856,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.709722222222222,
+            "us": 168896000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -1920,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.739351851851852,
+            "us": 168960000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -1984,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.76898148148148,
+            "us": 169024000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2048,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.79861111111111,
+            "us": 169088000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2112,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.82824074074074,
+            "us": 169152000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2176,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.857870370370371,
+            "us": 169216000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2240,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.8875,
+            "us": 169280000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2304,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.91712962962963,
+            "us": 169344000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2368,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.94675925925926,
+            "us": 169408000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2432,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 8.97638888888889,
+            "us": 169472000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2496,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.006018518518518,
+            "us": 169536000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2560,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.035648148148148,
+            "us": 169600000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2624,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.065277777777778,
+            "us": 169664000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2688,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.094907407407407,
+            "us": 169728000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2752,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.124537037037037,
+            "us": 169792000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2816,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.154166666666667,
+            "us": 169856000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2880,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.183796296296297,
+            "us": 169920000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -2944,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.213425925925925,
+            "us": 169984000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3008,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.243055555555555,
+            "us": 170048000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3072,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.272685185185185,
+            "us": 170112000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3136,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.302314814814816,
+            "us": 170176000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3200,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.331944444444444,
+            "us": 170240000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3264,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.361574074074074,
+            "us": 170304000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3328,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.391203703703704,
+            "us": 170368000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3392,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.420833333333333,
+            "us": 170432000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3456,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.450462962962963,
+            "us": 170496000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3520,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.480092592592593,
+            "us": 170560000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3584,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.509722222222223,
+            "us": 170624000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3648,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.539351851851851,
+            "us": 170688000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3712,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.568981481481481,
+            "us": 170752000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3776,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.598611111111111,
+            "us": 170816000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3840,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.628240740740742,
+            "us": 170880000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3904,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.65787037037037,
+            "us": 170944000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -3968,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.6875,
+            "us": 171008000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4032,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.71712962962963,
+            "us": 171072000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4096,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.746759259259258,
+            "us": 171136000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4160,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.776388888888889,
+            "us": 171200000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4224,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.806018518518519,
+            "us": 171264000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4288,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.835648148148149,
+            "us": 171328000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4352,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.865277777777777,
+            "us": 171392000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4416,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.894907407407407,
+            "us": 171456000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4480,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.924537037037037,
+            "us": 171520000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4544,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.954166666666667,
+            "us": 171584000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4608,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 9.983796296296296,
+            "us": 171648000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4672,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.013425925925926,
+            "us": 171712000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4736,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.043055555555556,
+            "us": 171776000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4800,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.072685185185184,
+            "us": 171840000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4864,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.102314814814815,
+            "us": 171904000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4928,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.131944444444445,
+            "us": 171968000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -4992,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.161574074074075,
+            "us": 172032000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5056,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.191203703703703,
+            "us": 172096000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5120,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.220833333333333,
+            "us": 172160000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5184,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.250462962962963,
+            "us": 172224000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5248,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.280092592592593,
+            "us": 172288000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5312,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.309722222222222,
+            "us": 172352000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5376,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.339351851851852,
+            "us": 172416000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5440,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.368981481481482,
+            "us": 172480000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5504,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.39861111111111,
+            "us": 172544000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5568,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.42824074074074,
+            "us": 172608000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5632,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.45787037037037,
+            "us": 172672000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          },
+          {
+            "increment": 0,
+            "until_night": -5696,
+            "threat": 0,
+            "H": 7.999999999999987,
+            "relief": 0,
+            "residual": 10.4875,
+            "us": 172736000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 12637,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 8
+          }
+        ],
+        "next_estimate_us": 172836000000,
+        "H": 7.999999999999987,
+        "anticipatory_evaluations": 77198,
+        "estimate": {
+          "model": "home:search",
+          "seconds": 12637,
+          "margin": 4320,
+          "kind": "unconfirmed",
+          "source": "experience"
+        },
+        "last_request_us": 172799000000,
+        "requested": false,
+        "evaluations": 172800,
+        "last_us": 172799000000,
+        "food_blocks": 132192,
+        "peak_H": 7.999999999999987
+      },
+      "reserve": 0,
+      "returnPurpose": {
+        "completed": 9,
+        "active": true,
+        "started_us": 27428000000,
+        "entries": 10
+      },
+      "inward": 72,
+      "routeOutcomes": {
+        "abandoned": 858,
+        "success": 1,
+        "unresolved": 2,
+        "interrupted": 334
+      },
+      "restReward": 0,
+      "counts": {
+        "rest": 89380,
+        "eat": 5,
+        "walk": 41221,
+        "pickup": 8,
+        "deposit": 1,
+        "scan": 41480,
+        "run": 705
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.67216892246559,
+          "position": [
+            -3.044188447839437,
+            -17.65317837609997
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": false,
+            "started_us": null,
+            "entries": 0
+          }
+        },
+        {
+          "day": 2,
+          "reserve": 87.85274031439383,
+          "position": [
+            -26.661482985896267,
+            21.942683853213435
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 3,
+          "reserve": 65.4004159209638,
+          "position": [
+            -30.623392688115658,
+            20.097358608071577
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 4,
+          "reserve": 42.68841456846284,
+          "position": [
+            -25.53066398917646,
+            27.687630011120802
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 5,
+          "reserve": 19.999368368595807,
+          "position": [
+            -22.87948667204594,
+            19.732873123525504
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 6,
+          "reserve": 0,
+          "position": [
+            -24.667857066435445,
+            28.227118616861606
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 7,
+          "reserve": 0,
+          "position": [
+            -24.667857066435445,
+            28.227118616861606
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 8,
+          "reserve": 0,
+          "position": [
+            -24.667857066435445,
+            28.227118616861606
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 9,
+          "reserve": 0,
+          "position": [
+            -24.667857066435445,
+            28.227118616861606
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "position": [
+            -24.667857066435445,
+            28.227118616861606
+          ],
+          "return_purpose": {
+            "completed": 9,
+            "active": true,
+            "started_us": 27428000000,
+            "entries": 10
+          }
+        }
+      ]
+    },
+    "npc_c": {
+      "fear": {
+        "requests": 5570,
+        "records": [
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1664,
+            "threat": 0,
+            "H": 3.063193158460024,
+            "relief": 0,
+            "residual": 3.0768518518518517,
+            "us": 168704000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.0768518518518517
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1728,
+            "threat": 0,
+            "H": 3.0928227880896535,
+            "relief": 0,
+            "residual": 3.1064814814814814,
+            "us": 168768000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1064814814814814
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1792,
+            "threat": 0,
+            "H": 3.122452417719283,
+            "relief": 0,
+            "residual": 3.136111111111111,
+            "us": 168832000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.136111111111111
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1856,
+            "threat": 0,
+            "H": 3.152082047348913,
+            "relief": 0,
+            "residual": 3.1657407407407407,
+            "us": 168896000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1657407407407407
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1920,
+            "threat": 0,
+            "H": 3.1817116769785425,
+            "relief": 0,
+            "residual": 3.1953703703703704,
+            "us": 168960000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1953703703703704
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -1984,
+            "threat": 0,
+            "H": 3.211341306608172,
+            "relief": 0,
+            "residual": 3.225,
+            "us": 169024000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.225
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2048,
+            "threat": 0,
+            "H": 3.240970936237802,
+            "relief": 0,
+            "residual": 3.2546296296296298,
+            "us": 169088000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.2546296296296298
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2112,
+            "threat": 0,
+            "H": 3.2706005658674315,
+            "relief": 0,
+            "residual": 3.2842592592592594,
+            "us": 169152000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.2842592592592594
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2176,
+            "threat": 0,
+            "H": 3.300230195497061,
+            "relief": 0,
+            "residual": 3.313888888888889,
+            "us": 169216000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.313888888888889
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2240,
+            "threat": 0,
+            "H": 3.3298598251266904,
+            "relief": 0,
+            "residual": 3.3435185185185183,
+            "us": 169280000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.3435185185185183
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2304,
+            "threat": 0,
+            "H": 3.35948945475632,
+            "relief": 0,
+            "residual": 3.373148148148148,
+            "us": 169344000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.373148148148148
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2368,
+            "threat": 0,
+            "H": 3.3891190843859498,
+            "relief": 0,
+            "residual": 3.4027777777777777,
+            "us": 169408000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4027777777777777
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2432,
+            "threat": 0,
+            "H": 3.4187487140155794,
+            "relief": 0,
+            "residual": 3.4324074074074074,
+            "us": 169472000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4324074074074074
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2496,
+            "threat": 0,
+            "H": 3.448378343645209,
+            "relief": 0,
+            "residual": 3.462037037037037,
+            "us": 169536000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.462037037037037
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2560,
+            "threat": 0,
+            "H": 3.478007973274839,
+            "relief": 0,
+            "residual": 3.4916666666666667,
+            "us": 169600000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4916666666666667
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2624,
+            "threat": 0,
+            "H": 3.5076376029044685,
+            "relief": 0,
+            "residual": 3.5212962962962964,
+            "us": 169664000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.5212962962962964
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2688,
+            "threat": 0,
+            "H": 3.537267232534098,
+            "relief": 0,
+            "residual": 3.550925925925926,
+            "us": 169728000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.550925925925926
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2752,
+            "threat": 0,
+            "H": 3.566896862163728,
+            "relief": 0,
+            "residual": 3.5805555555555557,
+            "us": 169792000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.5805555555555557
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -2816,
+            "threat": 0,
+            "H": 3.5965264917933575,
+            "relief": 0,
+            "residual": 3.6101851851851854,
+            "us": 169856000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6101851851851854
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2880,
+            "threat": 0,
+            "H": 3.6261561214229867,
+            "relief": 0,
+            "residual": 3.6398148148148146,
+            "us": 169920000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6398148148148146
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -2944,
+            "threat": 0,
+            "H": 3.6557857510526164,
+            "relief": 0,
+            "residual": 3.6694444444444443,
+            "us": 169984000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6694444444444443
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3008,
+            "threat": 0,
+            "H": 3.685415380682246,
+            "relief": 0,
+            "residual": 3.699074074074074,
+            "us": 170048000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.699074074074074
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3072,
+            "threat": 0,
+            "H": 3.7150450103118757,
+            "relief": 0,
+            "residual": 3.7287037037037036,
+            "us": 170112000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.7287037037037036
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3136,
+            "threat": 0,
+            "H": 3.7446746399415054,
+            "relief": 0,
+            "residual": 3.7583333333333333,
+            "us": 170176000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.7583333333333333
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3200,
+            "threat": 0,
+            "H": 3.774304269571135,
+            "relief": 0,
+            "residual": 3.787962962962963,
+            "us": 170240000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.787962962962963
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3264,
+            "threat": 0,
+            "H": 3.8039338992007647,
+            "relief": 0,
+            "residual": 3.8175925925925926,
+            "us": 170304000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8175925925925926
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3328,
+            "threat": 0,
+            "H": 3.8335635288303944,
+            "relief": 0,
+            "residual": 3.8472222222222223,
+            "us": 170368000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8472222222222223
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3392,
+            "threat": 0,
+            "H": 3.863193158460024,
+            "relief": 0,
+            "residual": 3.876851851851852,
+            "us": 170432000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.876851851851852
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -3456,
+            "threat": 0,
+            "H": 3.8928227880896538,
+            "relief": 0,
+            "residual": 3.9064814814814817,
+            "us": 170496000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9064814814814817
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3520,
+            "threat": 0,
+            "H": 3.922452417719283,
+            "relief": 0,
+            "residual": 3.936111111111111,
+            "us": 170560000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.936111111111111
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3584,
+            "threat": 0,
+            "H": 3.9520820473489127,
+            "relief": 0,
+            "residual": 3.9657407407407406,
+            "us": 170624000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9657407407407406
+          },
+          {
+            "increment": 0.0004629629629628873,
+            "until_night": -3648,
+            "threat": 0,
+            "H": 3.9817116769785423,
+            "relief": 0,
+            "residual": 3.9953703703703702,
+            "us": 170688000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9953703703703702
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -3712,
+            "threat": 0,
+            "H": 4.011341306608179,
+            "relief": 0,
+            "residual": 4.025,
+            "us": 170752000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.025
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -3776,
+            "threat": 0,
+            "H": 4.040970936237808,
+            "relief": 0,
+            "residual": 4.05462962962963,
+            "us": 170816000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.05462962962963
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -3840,
+            "threat": 0,
+            "H": 4.070600565867438,
+            "relief": 0,
+            "residual": 4.08425925925926,
+            "us": 170880000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.08425925925926
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -3904,
+            "threat": 0,
+            "H": 4.100230195497067,
+            "relief": 0,
+            "residual": 4.113888888888889,
+            "us": 170944000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.113888888888889
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -3968,
+            "threat": 0,
+            "H": 4.1298598251266965,
+            "relief": 0,
+            "residual": 4.143518518518518,
+            "us": 171008000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.143518518518518
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4032,
+            "threat": 0,
+            "H": 4.159489454756327,
+            "relief": 0,
+            "residual": 4.173148148148148,
+            "us": 171072000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.173148148148148
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4096,
+            "threat": 0,
+            "H": 4.189119084385956,
+            "relief": 0,
+            "residual": 4.2027777777777775,
+            "us": 171136000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.2027777777777775
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4160,
+            "threat": 0,
+            "H": 4.218748714015586,
+            "relief": 0,
+            "residual": 4.232407407407408,
+            "us": 171200000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.232407407407408
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4224,
+            "threat": 0,
+            "H": 4.248378343645215,
+            "relief": 0,
+            "residual": 4.262037037037037,
+            "us": 171264000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.262037037037037
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4288,
+            "threat": 0,
+            "H": 4.278007973274845,
+            "relief": 0,
+            "residual": 4.291666666666667,
+            "us": 171328000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.291666666666667
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4352,
+            "threat": 0,
+            "H": 4.3076376029044745,
+            "relief": 0,
+            "residual": 4.321296296296296,
+            "us": 171392000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.321296296296296
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4416,
+            "threat": 0,
+            "H": 4.337267232534105,
+            "relief": 0,
+            "residual": 4.350925925925926,
+            "us": 171456000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.350925925925926
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4480,
+            "threat": 0,
+            "H": 4.366896862163734,
+            "relief": 0,
+            "residual": 4.3805555555555555,
+            "us": 171520000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.3805555555555555
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4544,
+            "threat": 0,
+            "H": 4.396526491793363,
+            "relief": 0,
+            "residual": 4.410185185185185,
+            "us": 171584000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.410185185185185
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4608,
+            "threat": 0,
+            "H": 4.426156121422993,
+            "relief": 0,
+            "residual": 4.439814814814815,
+            "us": 171648000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.439814814814815
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4672,
+            "threat": 0,
+            "H": 4.455785751052622,
+            "relief": 0,
+            "residual": 4.469444444444444,
+            "us": 171712000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.469444444444444
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4736,
+            "threat": 0,
+            "H": 4.4854153806822525,
+            "relief": 0,
+            "residual": 4.499074074074074,
+            "us": 171776000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.499074074074074
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4800,
+            "threat": 0,
+            "H": 4.515045010311882,
+            "relief": 0,
+            "residual": 4.5287037037037035,
+            "us": 171840000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.5287037037037035
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4864,
+            "threat": 0,
+            "H": 4.544674639941512,
+            "relief": 0,
+            "residual": 4.558333333333334,
+            "us": 171904000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.558333333333334
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -4928,
+            "threat": 0,
+            "H": 4.574304269571141,
+            "relief": 0,
+            "residual": 4.587962962962963,
+            "us": 171968000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.587962962962963
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -4992,
+            "threat": 0,
+            "H": 4.603933899200771,
+            "relief": 0,
+            "residual": 4.617592592592593,
+            "us": 172032000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.617592592592593
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5056,
+            "threat": 0,
+            "H": 4.6335635288304005,
+            "relief": 0,
+            "residual": 4.647222222222222,
+            "us": 172096000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.647222222222222
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5120,
+            "threat": 0,
+            "H": 4.663193158460031,
+            "relief": 0,
+            "residual": 4.676851851851852,
+            "us": 172160000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.676851851851852
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5184,
+            "threat": 0,
+            "H": 4.69282278808966,
+            "relief": 0,
+            "residual": 4.7064814814814815,
+            "us": 172224000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.7064814814814815
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5248,
+            "threat": 0,
+            "H": 4.722452417719289,
+            "relief": 0,
+            "residual": 4.736111111111111,
+            "us": 172288000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.736111111111111
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5312,
+            "threat": 0,
+            "H": 4.752082047348919,
+            "relief": 0,
+            "residual": 4.765740740740741,
+            "us": 172352000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.765740740740741
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5376,
+            "threat": 0,
+            "H": 4.781711676978548,
+            "relief": 0,
+            "residual": 4.79537037037037,
+            "us": 172416000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.79537037037037
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5440,
+            "threat": 0,
+            "H": 4.8113413066081785,
+            "relief": 0,
+            "residual": 4.825,
+            "us": 172480000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.825
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5504,
+            "threat": 0,
+            "H": 4.840970936237808,
+            "relief": 0,
+            "residual": 4.854629629629629,
+            "us": 172544000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.854629629629629
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5568,
+            "threat": 0,
+            "H": 4.870600565867438,
+            "relief": 0,
+            "residual": 4.8842592592592595,
+            "us": 172608000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.8842592592592595
+          },
+          {
+            "increment": 0.0004629629629624432,
+            "until_night": -5632,
+            "threat": 0,
+            "H": 4.900230195497067,
+            "relief": 0,
+            "residual": 4.913888888888889,
+            "us": 172672000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.913888888888889
+          },
+          {
+            "increment": 0.0004629629629633314,
+            "until_night": -5696,
+            "threat": 0,
+            "H": 4.929859825126697,
+            "relief": 0,
+            "residual": 4.943518518518519,
+            "us": 172736000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 662,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.943518518518519
+          }
+        ],
+        "next_estimate_us": 172812000000,
+        "H": 4.959026491793363,
+        "anticipatory_evaluations": 40566,
+        "estimate": {
+          "model": "home:search",
+          "seconds": 662,
+          "margin": 4320,
+          "kind": "unconfirmed",
+          "source": "experience"
+        },
+        "last_request_us": 172799000000,
+        "requested": false,
+        "evaluations": 172800,
+        "last_us": 172799000000,
+        "food_blocks": 141078,
+        "peak_H": 4.959026491793363
+      },
+      "reserve": 0,
+      "returnPurpose": {
+        "completed": 1,
+        "active": true,
+        "started_us": 43200000000,
+        "entries": 2
+      },
+      "inward": 100,
+      "routeOutcomes": {
+        "abandoned": 355,
+        "success": 2,
+        "interrupted": 216
+      },
+      "restReward": 0,
+      "counts": {
+        "rest": 91677,
+        "walk": 45591,
+        "eat": 2,
+        "pickup": 7,
+        "deposit": 7,
+        "scan": 34757,
+        "run": 759
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.56095204275712,
+          "position": [
+            2.31999701647493,
+            18.5304692084483
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": false,
+            "started_us": null,
+            "entries": 0
+          }
+        },
+        {
+          "day": 2,
+          "reserve": 85.39452532058468,
+          "position": [
+            8.919508289172919,
+            -6.401637948660987
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        },
+        {
+          "day": 3,
+          "reserve": 63.621412928917835,
+          "position": [
+            -26.551580091048812,
+            21.51865650112664
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        },
+        {
+          "day": 4,
+          "reserve": 40.485210208958655,
+          "position": [
+            -22.567627353168504,
+            24.275079369017597
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        },
+        {
+          "day": 5,
+          "reserve": 17.35104760141787,
+          "position": [
+            -23.481506626190274,
+            18.818813779468048
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        },
+        {
+          "day": 6,
+          "reserve": 0,
+          "position": [
+            -26.092054236694153,
+            31.144298274055593
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        },
+        {
+          "day": 7,
+          "reserve": 0,
+          "position": [
+            -26.092054236694153,
+            31.144298274055593
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        },
+        {
+          "day": 8,
+          "reserve": 0,
+          "position": [
+            -26.092054236694153,
+            31.144298274055593
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        },
+        {
+          "day": 9,
+          "reserve": 0,
+          "position": [
+            -26.092054236694153,
+            31.144298274055593
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        },
+        {
+          "day": 10,
+          "reserve": 0,
+          "position": [
+            -26.092054236694153,
+            31.144298274055593
+          ],
+          "return_purpose": {
+            "completed": 1,
+            "active": true,
+            "started_us": 43200000000,
+            "entries": 2
+          }
+        }
+      ]
+    }
+  }
+}
