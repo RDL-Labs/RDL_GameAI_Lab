@@ -15,3 +15,5 @@
 再現はrun.jlの既存3日条件に --mb-sensitivities experiments/rock_gate/sensitivity_spread.json を追加する。追加した引数は個体名と感度を検証し、実行input/manifestへ保存する。
 
 [設定](sensitivity_spread.json)、[経路監査](evidence/sensitivity-spread-three-day/route-audit.json)、[結果](evidence/sensitivity-spread-three-day/report.json)、[manifest](evidence/sensitivity-spread-three-day/manifest.json)。
+
+訂正注記（2026-10-26）: 本試験には0.0の見積もり内判定漏れが含まれる。感度効果の評価には[修正後の同条件再試験](zero_residual_report.md)も参照する。

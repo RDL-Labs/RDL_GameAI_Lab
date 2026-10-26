@@ -577,3 +577,7 @@ FINITE PROTOTYPE。[実装](LW_Continuous_H_Sensitivity.md)。親・経路の残
 ### 2026-10-26 — 固定個性値として感度を分ける3日試験
 
 [試験](../../experiments/rock_gate/sensitivity_spread_report.md)。感度は学習させず、A=0.5/B=1.0/C=2.0に固定。全員3日完走、最終エネルギー約91、再入場0。Aは局所修正増・H破棄減。単一seed・共有環境のため因果や最適値は未確定。69項目と監査PASS。
+
+### 2026-10-26 — 連続Hの数値ゼロ判定を修正
+
+[修正・再試験](../../experiments/rock_gate/zero_residual_report.md)。0.0を見積もり内と判定せず方法Hを増やす統合分岐を修正。216項目と実配置69項目、親・経路監査PASS。同条件3日で全員reserve正、再入場0。修正前30日実行は中止し、結果を区別する。

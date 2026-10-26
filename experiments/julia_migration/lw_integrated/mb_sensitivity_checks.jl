@@ -34,3 +34,21 @@ include(joinpath(@__DIR__,"mb_local_repair_checks.jl"))
  mb_observe!(s,chunk_view(4_000_000,"mid"),4_000_000)
  @test mb_route_H_increment!(s,"home","op:3000000:a",false,4_000_000)≈.25
 end
+
+@testset "integrated forecast handoff preserves zero residual" begin
+ for increment in (0,0.0,-0.0)
+  loop=BasicLoop("home";probabilistic=true);loop.H=2.5
+  c=[D("method"=>"walk","priority"=>1.,"question"=>"target_observed")]
+  choose_method!(loop,c,"within")
+  loop.methods["walk"].H=.5
+  evidence=forecast_method_evidence(increment,false,true,false)
+  @test evidence===nothing
+  resolve_method!(loop,"within",evidence,false;goal_H_increment=increment)
+  @test loop.H==2.5 && loop.methods["walk"].H==.5
+  @test loop.methods["walk"].failure_count==0 && loop.methods["walk"].reward==0
+ end
+ @test forecast_method_evidence(nothing,false,true,false)===false
+ @test forecast_method_evidence(.01,false,true,false)===false
+ @test forecast_method_evidence(.01,false,false,false)===nothing
+ @test forecast_method_evidence(0.,true,true,true)===true
+end

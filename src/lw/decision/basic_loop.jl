@@ -200,3 +200,9 @@ function search_candidates(move,target,loop)
     end
     candidates
 end
+
+# Shared by the integrated observation-to-loop handoff and its regression checks.
+function forecast_method_evidence(increment,goal,same_phase,value)
+    within_estimate=increment!==nothing && iszero(increment) && !goal
+    within_estimate ? nothing : (same_phase || value===true ? value : nothing)
+end
