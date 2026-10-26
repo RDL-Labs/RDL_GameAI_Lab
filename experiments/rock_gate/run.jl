@@ -4,6 +4,8 @@ const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(
 const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
 const ordinary_only="--ordinary-only" in ARGS
+const nearby_food="--nearby-food" in ARGS
+@assert !nearby_food || ordinary_only "nearby food requires the ordinary open camp"
 @assert !(ordinary_only && "--narrow-only" in ARGS)
 const provisions_arg=findfirst(==("--camp-provisions"),ARGS)
 const camp_provisions=provisions_arg===nothing ? 0 : parse(Int,ARGS[provisions_arg+1])
@@ -62,6 +64,7 @@ function gate_probe!(sec,w,purposes,counts,home)
 end
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 include(joinpath(@__DIR__,"food_roads.jl"))
+include(joinpath(@__DIR__,"nearby_food.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
 base["config"]["days"]=run_days
 rho_arg=findfirst(==("--rho"),ARGS)
@@ -166,6 +169,7 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
             push!(input["scene"]["food"],D("x"=>p[1],"z"=>p[2],"stock"=>camp_provisions,"renewable"=>false))
         end
     end
+    nearby_food && nearby_food_layout!(input)
     spec=JSON3.read(JSON3.write(input))
     walls=[RDLMigrationProbe.Circle(s["x"],s["z"],s["radius"]) for s in stones]
     allhigh=[RDLMigrationProbe.Circle(s.x,s.z,s.radius) for s in spec.scene.obstacles]
