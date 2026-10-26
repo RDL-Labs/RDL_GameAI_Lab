@@ -1,0 +1,63 @@
+{
+  "run": "outputs/zero-residual-spread-30d-20261026/",
+  "sourceCommit": "b5984dedcce8aaa5eb0fdfef57faec921583b225",
+  "measurement": {
+    "gc_seconds": 187.8243483,
+    "process_peak_rss_bytes": 2234380288,
+    "compilation_included": true,
+    "call_seconds": 2927.61838,
+    "allocated_bytes": 1562874809220
+  },
+  "actors": {
+    "npc_b": {
+      "sensitivity": 1,
+      "reserve": 0,
+      "minReserve": 0,
+      "firstZeroDay": 26,
+      "outward": 1,
+      "inward": 0,
+      "started": 11431,
+      "local_repairs": 71283,
+      "local_rejoins": 3512,
+      "outcomes": {
+        "abandoned": 6273,
+        "success": 1,
+        "interrupted": 5157
+      },
+      "parentSuccesses": 24
+    },
+    "npc_a": {
+      "sensitivity": 0.5,
+      "reserve": 0,
+      "minReserve": 0,
+      "firstZeroDay": 16,
+      "outward": 5,
+      "inward": 4,
+      "started": 1556,
+      "local_repairs": 11608,
+      "local_rejoins": 1522,
+      "outcomes": {
+        "abandoned": 734,
+        "unresolved": 1,
+        "interrupted": 821
+      },
+      "parentSuccesses": 26
+    },
+    "npc_c": {
+      "sensitivity": 2,
+      "reserve": 93.44372099135002,
+      "minReserve": 31.559364720985766,
+      "firstZeroDay": null,
+      "outward": 4,
+      "inward": 3,
+      "started": 1465,
+      "local_repairs": 7914,
+      "local_rejoins": 240,
+      "outcomes": {
+        "abandoned": 1169,
+        "interrupted": 296
+      },
+      "parentSuccesses": 30
+    }
+  }
+}
