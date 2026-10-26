@@ -1,4 +1,5 @@
 include("physiology.jl")
+include(joinpath(@__DIR__, "../configured_paths/daily_delivery.jl"))
 include(joinpath(@__DIR__, "../perception/hazard.jl"))
 include(joinpath(@__DIR__, "../perception/orientation.jl"))
 include(joinpath(@__DIR__, "../world/world_hazards.jl"))
@@ -71,7 +72,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,mb_sensitivities=D(),mb_similarity_learning=true)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,daily_delivery_enabled=false,mb_sensitivities=D(),mb_similarity_learning=true)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -149,6 +150,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     trails=Dict(a=>selection_trail_state(a) for a in IDS)
     bundles=Dict(a=>bundle_state(a) for a in IDS)
     check(!body_purpose || food_body,"body_purpose_requires_hunger")
+    check(!daily_delivery_enabled || (mb_simulation && basic_loop),"daily_delivery_requires_mb_loop")
+    if daily_delivery_enabled
+        for a in IDS;mb_maps[a]["configured_daily_delivery"]=configured_daily_delivery_state();end
+    end
     configured_body_states=Dict(a=>configured_body_state(a) for a in IDS)
     hunger=Dict(a=>hunger_state(a) for a in IDS)
     check(digestion_mode in ("off","ordinary","meat"),"digestion_mode")
@@ -348,6 +353,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             configured_action=configured_body_action(replenishing,w.inventory[a],guts===nothing || can_ingest(guts[a]),
                 at_home,at_home ? (shared_stores ? shared : stores[a]) : 0)
             night_fear_enabled && !observing && (returning=night_fear_request!(mb_maps[a]["night_fear"],returning,replenishing,now,loops[a]["home"].rng))
+            if daily_delivery_enabled && !observing
+                returning=configured_daily_delivery_request!(mb_maps[a]["configured_daily_delivery"],returning,replenishing,w.inventory[a],at_home,at_home ? (shared_stores ? shared : stores[a]) : 0,now,clock.day_us)
+            end
             if experience_bundles
                 form_bundle!(bundles[a],hunger[a],now)
                 wake_bundles!(bundles[a],bundle_contexts[a],phase)
@@ -736,6 +744,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 elseif action in ("deposit","retrieve")
                     legal=hypot(p[1]-spec.home[1],p[2]-spec.home[2])<=1.25
                     if legal && action=="deposit"
+                        daily_delivery_enabled && configured_daily_delivery_deposit!(mb_maps[a]["configured_daily_delivery"],w.inventory[a],now,clock.day_us)
                         delivered=String[id for id in cargo[a] if id!==nothing];empty!(cargo[a])
                         if shared_stores
                             shared+=w.inventory[a];storage_stats["deposited"]+=w.inventory[a]

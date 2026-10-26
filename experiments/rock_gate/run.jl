@@ -120,6 +120,11 @@ if night_fear_arg!==nothing
     @assert ARGS[night_fear_arg+1] in ("on","off")
     base["config"]["night_fear"]=ARGS[night_fear_arg+1]
 end
+daily_delivery_arg=findfirst(==("--daily-delivery"),ARGS)
+if daily_delivery_arg!==nothing
+    @assert ARGS[daily_delivery_arg+1] in ("on","off")
+    base["config"]["daily_delivery"]=ARGS[daily_delivery_arg+1]
+end
 const reports=Any[]
 for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set([0,1,23])),("narrow",Set([0]))))
     "--narrow-only" in ARGS && label!="narrow" && continue
