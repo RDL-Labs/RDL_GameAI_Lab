@@ -565,3 +565,7 @@ FINITE PROTOTYPE。[設計更新](LW_Parent_MB_Estimation.md)、[実装と3日�
 ### 2026-10-26 — 経路の局所修正と全体破棄を分離
 
 FINITE PROTOTYPE。[設計](LW_Local_Route_Repair.md)、[3日確認](../../experiments/rock_gate/local_repair_report.md)。同目的の局所修正は経路と固定見積もりを保持。現在の辺の両端へ暫定再接続し、追加実績の見積もり残差から全体変更を選ぶ。局所修正1602回/再接続301回、全員生存、再入場0・経路目的達成0。330項目PASSと監査。帰還改善は未確認。
+
+### 2026-10-26 — ρ・感度・経験更新の共通設計
+
+DESIGN ONLY。[設計](RDL_GameAI_Rho_Sensitivity_Experience.md)。区別する粒度ρ、差への感度、経験上の変動幅、未吸収の圧Hを分離。目的に応じた関係認識と、経験によるMBの適用条件・分割・統合、個体差、計算コスト、連続応答の検証案を記録。runtime変更なし。進行中の局所修正版30日試験は本案の実装検証ではない。
