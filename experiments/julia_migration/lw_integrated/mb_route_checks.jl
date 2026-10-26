@@ -103,8 +103,8 @@ end
  loop=BasicLoop("home";probabilistic=true)
  low=mb_route_control!(s,deepcopy(Any[q,alt]),loop,"home",4_000_000)
  lowmass=last(s["routes"]["decisions"])["mass"]
- @test lowmass["continue"]>.99 && lowmass["change"]>0
- loop.H=8
+ @test lowmass["continue"]+lowmass["repair"]>.99 && lowmass["change"]>0
+ loop.H=8;s["routes"]["active"]["effort"]["charged"]=8
  high=mb_route_control!(s,deepcopy(Any[q,alt]),loop,"home",4_000_000)
  highmass=last(s["routes"]["decisions"])["mass"]
  @test highmass["change"]>lowmass["change"] && highmass["recheck"]>lowmass["recheck"]
@@ -117,7 +117,7 @@ end
  @test s["routes"]["active"]["cursor"]==2
  mb_record!(s,only(filter(p->p["mb_control"]=="change",high)),"performed",0.,5_000_000)
  @test s["routes"]["active"]===nothing
- @test last(s["routes"]["events"])["reason"]=="H_choice"
+ @test last(s["routes"]["events"])["reason"]=="H_abandon"
  @test last(s["routes"]["events"])["H"]==8
 end
 @testset "missing observation retains route and reacquires tentatively" begin
@@ -127,8 +127,8 @@ end
  @test isempty(mb_route_candidates!(s,move,"home",90.,0.,4_000_000;H=2))
  loop=BasicLoop("home";probabilistic=true);loop.H=2
  plans=mb_route_control!(s,Any[],loop,"home",4_000_000)
- @test only(plans)["mb_control"]=="recheck"
- mb_record!(s,only(plans),"performed",0.,4_000_000)
+ @test count(p->p["mb_control"]=="recheck",plans)==1
+ mb_record!(s,only(filter(p->p["mb_control"]=="recheck",plans)),"performed",0.,4_000_000)
  mb_observe!(s,chunk_view(5_000_000,"mid"),5_000_000)
  q=only(mb_route_candidates!(s,move,"home",90.,0.,5_000_000;H=3))
  @test q["mb_route_index"]==2 && s["routes"]["active"]["verified"]==0

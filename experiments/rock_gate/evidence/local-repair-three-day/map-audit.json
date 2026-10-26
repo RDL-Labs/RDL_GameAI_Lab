@@ -1,0 +1,2069 @@
+{
+  "days": 3,
+  "measurement": {
+    "gc_seconds": 11.80636,
+    "process_peak_rss_bytes": 1275674624,
+    "compilation_included": true,
+    "call_seconds": 189.9038119,
+    "allocated_bytes": 126257798841
+  },
+  "limits": {
+    "nodes": 1280,
+    "edges": 5120,
+    "depth": 4,
+    "expansions": 64
+  },
+  "actors": {
+    "npc_b": {
+      "nodes": 196,
+      "edges": 1729,
+      "home_nodes": 3,
+      "food_nodes": 2,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 64,
+            "completed_us": 17280000000,
+            "retained": 16,
+            "searches": 16,
+            "formation_us": 14400000000,
+            "found": 16,
+            "day": 0
+          },
+          {
+            "expanded": 100,
+            "completed_us": 31680000000,
+            "retained": 25,
+            "searches": 16,
+            "formation_us": 28800000000,
+            "found": 16,
+            "day": 1
+          },
+          {
+            "expanded": 248,
+            "completed_us": 51840000000,
+            "retained": 38,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 15,
+            "day": 2
+          }
+        ],
+        "hypotheses": 38,
+        "proposals": 9708,
+        "selected": 231
+      },
+      "recognition": {
+        "rejections": {
+          "wake:no_path": 118,
+          "sleep:goal_not_supported": 7202,
+          "sleep:H_or_body_gate": 196,
+          "route:no_shared_features": 306,
+          "sleep:no_current_observation": 1526,
+          "route:no_observation": 60,
+          "chunk:no_shared_features": 4295,
+          "sleep:goal_mismatch": 227910,
+          "wake:no_current_observation": 1526,
+          "wake:H_or_body_gate": 196,
+          "sleep:no_shared_features": 816,
+          "wake:search_cooldown": 737
+        },
+        "feedback": [
+          {
+            "source": "op:47839000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5c0ee6bbf2b76889:102fa61010a0962c"
+          },
+          {
+            "source": "op:47849000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5c0ee6bbf2b76889:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:47865000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:5409adbbd3839381"
+          },
+          {
+            "source": "op:47874000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "ba62f21e45d78633:102fa61010a0962c"
+          },
+          {
+            "source": "op:47907000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "e76704378d13de3c:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:47927000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:102fa61010a0962c"
+          },
+          {
+            "source": "op:47937000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "934e125f60621b15:5409adbbd3839381"
+          },
+          {
+            "source": "op:47964000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "934e125f60621b15:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:47980000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "934e125f60621b15:5409adbbd3839381"
+          },
+          {
+            "source": "op:47991000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48007000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:2939c59398a2828b"
+          },
+          {
+            "source": "op:48034000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "323b7071ace1c01b:2939c59398a2828b"
+          },
+          {
+            "source": "op:48049000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48068000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "323b7071ace1c01b:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48080000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "e199cd9798c647aa:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48085000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:2939c59398a2828b"
+          },
+          {
+            "source": "op:48090000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "323b7071ace1c01b:102fa61010a0962c"
+          },
+          {
+            "source": "op:48104000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "c7bf6ceb7874bc11:2939c59398a2828b"
+          },
+          {
+            "source": "op:48112000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "c335cd470545abee:102fa61010a0962c"
+          },
+          {
+            "source": "op:48128000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "e5ce417529bd9c81:2939c59398a2828b"
+          },
+          {
+            "source": "op:48143000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "283ac638711b9af2:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48203000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "dbef825ad1c5c4cd:102fa61010a0962c"
+          },
+          {
+            "source": "op:48226000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:5409adbbd3839381"
+          },
+          {
+            "source": "op:48256000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:102fa61010a0962c"
+          },
+          {
+            "source": "op:48277000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48286000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "599e7be88397e7cf:2939c59398a2828b"
+          },
+          {
+            "source": "op:48294000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "ffe747a18dc7bc9b:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48321000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48334000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:2939c59398a2828b"
+          },
+          {
+            "source": "op:48346000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "934e125f60621b15:5409adbbd3839381"
+          },
+          {
+            "source": "op:48357000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "eadd129357f56fd1:2939c59398a2828b"
+          },
+          {
+            "source": "op:48387000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48404000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:2939c59398a2828b"
+          },
+          {
+            "source": "op:48426000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "bea842be53c85244:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48433000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "3ed338926abb7021:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48437000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "8d88b1e9a36b13d1:5409adbbd3839381"
+          },
+          {
+            "source": "op:48445000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "c276f446c019577d:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48477000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "e5ce417529bd9c81:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48493000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48521000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48528000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48535000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "b1b4b1d300c80151:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48551000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48579000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "934e125f60621b15:5409adbbd3839381"
+          },
+          {
+            "source": "op:48605000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "mismatch",
+            "cause": "recognition_or_transition_unresolved",
+            "association": "323b7071ace1c01b:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48638000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:2939c59398a2828b"
+          },
+          {
+            "source": "op:48648000000:npc_b",
+            "edge": "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "b97a96e8884f1630:02733a47b344eb7d"
+          },
+          {
+            "source": "op:48654000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "fcbd00f1d1064d04:2939c59398a2828b"
+          },
+          {
+            "source": "op:48671000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "3184b07aa7699d4c:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48692000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "3dc858e3a43e61b0:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48700000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "934e125f60621b15:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48717000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:102fa61010a0962c"
+          },
+          {
+            "source": "op:48763000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48771000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "e0904fed3d70da96:5409adbbd3839381"
+          },
+          {
+            "source": "op:48778000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "4d449db9b4c66a6c:2939c59398a2828b"
+          },
+          {
+            "source": "op:48836000000:npc_b",
+            "edge": "102fa61010a0962c:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:102fa61010a0962c"
+          },
+          {
+            "source": "op:48871000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:5409adbbd3839381"
+          },
+          {
+            "source": "op:48886000000:npc_b",
+            "edge": "5196a7c7b9956e0d:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "9ccf6d73f32141af:5196a7c7b9956e0d"
+          },
+          {
+            "source": "op:48891000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48908000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "mismatch",
+            "cause": "recognition_or_transition_unresolved",
+            "association": "820eb5ba206d1e1e:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48922000000:npc_b",
+            "edge": "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "934e125f60621b15:5409adbbd3839381"
+          },
+          {
+            "source": "op:48938000000:npc_b",
+            "edge": "2939c59398a2828b:scan:2:0:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "bcfe79e40cef4626:2939c59398a2828b"
+          },
+          {
+            "source": "op:48946000000:npc_b",
+            "edge": "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48953000000:npc_b",
+            "edge": "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "bea842be53c85244:05d85ff7c575fa18"
+          }
+        ],
+        "execution_failures": 0,
+        "unknown": 233,
+        "mismatches": 12,
+        "associations": 114,
+        "admission_blocked": 0,
+        "selected": 245,
+        "sleep_reviews": [
+          {
+            "us": 17280000000,
+            "before": {
+              "nodes": 9,
+              "edges": 24,
+              "chunks": 0,
+              "associations": 0
+            },
+            "nodes": 9,
+            "edges": 24,
+            "day": 0
+          },
+          {
+            "us": 31680000000,
+            "before": {
+              "nodes": 9,
+              "edges": 27,
+              "chunks": 0,
+              "associations": 0
+            },
+            "nodes": 9,
+            "edges": 27,
+            "day": 1
+          },
+          {
+            "us": 51840000000,
+            "before": {
+              "nodes": 196,
+              "edges": 1729,
+              "chunks": 0,
+              "associations": 114
+            },
+            "nodes": 196,
+            "edges": 1729,
+            "day": 2
+          }
+        ],
+        "matches": 0
+      },
+      "observations": 51840,
+      "searches": 76,
+      "expanded": 4864,
+      "mean_expanded": 64,
+      "proposals": 277,
+      "selected": 245,
+      "prediction_match": 0,
+      "prediction_miss": 12,
+      "prediction_unknown": 233,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 32,
+          "source": "ob:48370000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:-7:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.2306850811485734,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 23,
+          "source": "ob:48370000000:npc_b",
+          "path": [
+            "028704b5e6b2868e:scan:-3:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 6,
+          "source": "ob:48370000000:npc_b",
+          "path": [
+            "07c46d77b4c4b194:scan:6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "07c46d77b4c4b194"
+        },
+        {
+          "expanded": 3,
+          "source": "ob:48370000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0b3cefe8bcafcc9e"
+        },
+        {
+          "expanded": 43,
+          "source": "ob:48434000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.230638784852269,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 21,
+          "source": "ob:48434000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 43,
+          "source": "ob:48501000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.230638784852269,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 21,
+          "source": "ob:48501000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 28,
+          "source": "ob:48583000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.230638784852269,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 23,
+          "source": "ob:48583000000:npc_b",
+          "path": [
+            "028704b5e6b2868e:scan:-3:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 6,
+          "source": "ob:48583000000:npc_b",
+          "path": [
+            "07c46d77b4c4b194:scan:6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "07c46d77b4c4b194"
+        },
+        {
+          "expanded": 7,
+          "source": "ob:48583000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0b3cefe8bcafcc9e"
+        },
+        {
+          "expanded": 43,
+          "source": "ob:48648000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.230638784852269,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 21,
+          "source": "ob:48648000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 28,
+          "source": "ob:48727000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.230638784852269,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 23,
+          "source": "ob:48727000000:npc_b",
+          "path": [
+            "028704b5e6b2868e:scan:-3:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 6,
+          "source": "ob:48727000000:npc_b",
+          "path": [
+            "07c46d77b4c4b194:scan:6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "07c46d77b4c4b194"
+        },
+        {
+          "expanded": 7,
+          "source": "ob:48727000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0b3cefe8bcafcc9e"
+        },
+        {
+          "expanded": 43,
+          "source": "ob:48802000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.230638784852269,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 21,
+          "source": "ob:48802000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 22,
+          "source": "ob:48867000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "047a89d0781cda69"
+        },
+        {
+          "expanded": 14,
+          "source": "ob:48867000000:npc_b",
+          "path": [
+            "103cbdcc30fbafd7:scan:2:0:5409adbbd3839381",
+            "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.7699509541644463,
+          "probability": 0.125,
+          "recognized": "103cbdcc30fbafd7"
+        },
+        {
+          "expanded": 14,
+          "source": "ob:48867000000:npc_b",
+          "path": [
+            "12dc76bcb8933584:walk:1:5:5409adbbd3839381",
+            "5409adbbd3839381:scan:2:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.103654657868142,
+          "probability": 0.125,
+          "recognized": "12dc76bcb8933584"
+        },
+        {
+          "expanded": 5,
+          "source": "ob:48867000000:npc_b",
+          "path": [
+            "1f77a132c3d949c7:scan:6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "1f77a132c3d949c7"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48867000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "232ce5fdbff8eaae"
+        },
+        {
+          "expanded": 6,
+          "source": "ob:48867000000:npc_b",
+          "path": [
+            "341a9a6cf543b9d5:scan:1:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "341a9a6cf543b9d5"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48867000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "387676899429b6ee"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48867000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "4ddfd8d6d4c13701"
+        },
+        {
+          "expanded": 28,
+          "source": "ob:48945000000:npc_b",
+          "path": [
+            "02733a47b344eb7d:walk:4:5:b97a96e8884f1630",
+            "b97a96e8884f1630:scan:-6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 4.230638784852269,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 23,
+          "source": "ob:48945000000:npc_b",
+          "path": [
+            "028704b5e6b2868e:scan:-3:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 6,
+          "source": "ob:48945000000:npc_b",
+          "path": [
+            "07c46d77b4c4b194:scan:6:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:5196a7c7b9956e0d"
+          ],
+          "goal": "home",
+          "cost": 3.007861007074496,
+          "probability": 0.125,
+          "recognized": "07c46d77b4c4b194"
+        },
+        {
+          "expanded": 7,
+          "source": "ob:48945000000:npc_b",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0b3cefe8bcafcc9e"
+        }
+      ]
+    },
+    "npc_a": {
+      "nodes": 234,
+      "edges": 2307,
+      "home_nodes": 2,
+      "food_nodes": 0,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 878,
+            "completed_us": 17280000000,
+            "retained": 0,
+            "searches": 14,
+            "formation_us": 14400000000,
+            "found": 0,
+            "day": 0
+          },
+          {
+            "expanded": 549,
+            "completed_us": 31680000000,
+            "retained": 6,
+            "searches": 14,
+            "formation_us": 28800000000,
+            "found": 6,
+            "day": 1
+          },
+          {
+            "expanded": 674,
+            "completed_us": 51840000000,
+            "retained": 13,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 7,
+            "day": 2
+          }
+        ],
+        "hypotheses": 13,
+        "proposals": 0,
+        "selected": 0
+      },
+      "recognition": {
+        "rejections": {
+          "chunk:infeasible_action": 540,
+          "wake:no_path": 265,
+          "sleep:goal_not_supported": 14553,
+          "sleep:H_or_body_gate": 221,
+          "route:no_shared_features": 18,
+          "sleep:no_current_observation": 4124,
+          "route:no_observation": 16,
+          "chunk:no_shared_features": 5831,
+          "sleep:goal_mismatch": 58572,
+          "wake:no_current_observation": 4124,
+          "wake:H_or_body_gate": 220,
+          "sleep:no_shared_features": 1314,
+          "wake:search_cooldown": 6066,
+          "chunk:goal_mismatch": 177
+        },
+        "feedback": [
+          {
+            "source": "op:43204000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "62b6fd1994277940:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:43320000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "565bb4c1a768cebd:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:43354000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5c0ee6bbf2b76889:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:43621000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "565bb4c1a768cebd:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:43918000000:npc_a",
+            "edge": "e3283d52edd25a26:walk:0:5:5409adbbd3839381",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "e4c6c8c0fee728a7:e3283d52edd25a26"
+          },
+          {
+            "source": "op:44481000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:44489000000:npc_a",
+            "edge": "05d85ff7c575fa18:walk:-2:5:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "283ac638711b9af2:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:44500000000:npc_a",
+            "edge": "05d85ff7c575fa18:walk:-2:5:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "30683d118ffd21c7:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:44852000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45027000000:npc_a",
+            "edge": "02733a47b344eb7d:scan:3:0:b97a96e8884f1630",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "317faaa81d5c4ab8:02733a47b344eb7d"
+          },
+          {
+            "source": "op:45102000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45147000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "191e732ec8eb8822:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45210000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "820eb5ba206d1e1e:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45298000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "eee0e2161cc8f2e5:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45320000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5c0ee6bbf2b76889:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45497000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45754000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "820eb5ba206d1e1e:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:45874000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:46034000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "323b7071ace1c01b:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:46040000000:npc_a",
+            "edge": "05d85ff7c575fa18:walk:-2:5:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:46463000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "7c6af9fc4f78f925:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:46512000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "323b7071ace1c01b:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:46550000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "820eb5ba206d1e1e:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:46627000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:47640000000:npc_a",
+            "edge": "02c9f6b4ba869fd9:walk:0:5:786472818701dd81",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "bea842be53c85244:02c9f6b4ba869fd9"
+          },
+          {
+            "source": "op:48032000000:npc_a",
+            "edge": "02733a47b344eb7d:scan:3:0:b97a96e8884f1630",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "b97a96e8884f1630:02733a47b344eb7d"
+          },
+          {
+            "source": "op:48236000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48263000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "30683d118ffd21c7:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48288000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48456000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "ec1af78ebda6d344:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48461000000:npc_a",
+            "edge": "05d85ff7c575fa18:walk:-2:5:e4bbb7a162d2772a",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "5409adbbd3839381:05d85ff7c575fa18"
+          },
+          {
+            "source": "op:48496000000:npc_a",
+            "edge": "0647a1814a59a87f:walk:0:5:205315d3cd5c4eb8",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "bea842be53c85244:0647a1814a59a87f"
+          },
+          {
+            "source": "op:48759000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "205315d3cd5c4eb8:205315d3cd5c4eb8"
+          },
+          {
+            "source": "op:48811000000:npc_a",
+            "edge": "205315d3cd5c4eb8:walk:7:5:05d85ff7c575fa18",
+            "outcome": "unknown",
+            "cause": "unknown",
+            "association": "323b7071ace1c01b:205315d3cd5c4eb8"
+          }
+        ],
+        "execution_failures": 0,
+        "unknown": 34,
+        "mismatches": 0,
+        "associations": 19,
+        "admission_blocked": 0,
+        "selected": 34,
+        "sleep_reviews": [
+          {
+            "us": 17280000000,
+            "before": {
+              "nodes": 7,
+              "edges": 26,
+              "chunks": 0,
+              "associations": 0
+            },
+            "nodes": 7,
+            "edges": 26,
+            "day": 0
+          },
+          {
+            "us": 31680000000,
+            "before": {
+              "nodes": 7,
+              "edges": 30,
+              "chunks": 1,
+              "associations": 0
+            },
+            "nodes": 7,
+            "edges": 30,
+            "day": 1
+          },
+          {
+            "us": 51840000000,
+            "before": {
+              "nodes": 234,
+              "edges": 2307,
+              "chunks": 1,
+              "associations": 19
+            },
+            "nodes": 234,
+            "edges": 2307,
+            "day": 2
+          }
+        ],
+        "matches": 0
+      },
+      "observations": 51840,
+      "searches": 176,
+      "expanded": 11264,
+      "mean_expanded": 64,
+      "proposals": 147,
+      "selected": 34,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 34,
+      "evictions": 0,
+      "chunks": 1,
+      "chunk_formations": 1,
+      "chunk_goal_credits": 1,
+      "chunk_reward": 1,
+      "chunk_proposals": 789,
+      "chunk_selected": 29,
+      "chunk_records": [
+        {
+          "source": "op:25933000000:npc_a",
+          "H_before": 1,
+          "goal": "home",
+          "chunk": "home:426d132e6863eefd",
+          "H_after": 0,
+          "reward": 1,
+          "edges": 2,
+          "successes": 1,
+          "tentative": true
+        }
+      ],
+      "search_records": [
+        {
+          "expanded": 12,
+          "source": "ob:48496000000:npc_a",
+          "path": [
+            "0647a1814a59a87f:walk:0:5:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 4.009793101849203,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48496000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "08829bf821479cdf"
+        },
+        {
+          "expanded": 31,
+          "source": "ob:48496000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0a4c6f74b3b9ad92"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48564000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 18,
+          "source": "ob:48564000000:npc_a",
+          "path": [
+            "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 3.012709685724979,
+          "probability": 0.125,
+          "recognized": "05d85ff7c575fa18"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48564000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "09c67a8ca500953b"
+        },
+        {
+          "expanded": 44,
+          "source": "ob:48564000000:npc_a",
+          "path": [
+            "0a5e40b1d59533ee:scan:3:0:323b7071ace1c01b",
+            "323b7071ace1c01b:walk:-2:5:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 5.343276146609891,
+          "probability": 0.125,
+          "recognized": "0a5e40b1d59533ee"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48629000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 18,
+          "source": "ob:48629000000:npc_a",
+          "path": [
+            "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 3.012709685724979,
+          "probability": 0.125,
+          "recognized": "05d85ff7c575fa18"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48629000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "09c67a8ca500953b"
+        },
+        {
+          "expanded": 44,
+          "source": "ob:48629000000:npc_a",
+          "path": [
+            "0a5e40b1d59533ee:scan:3:0:323b7071ace1c01b",
+            "323b7071ace1c01b:walk:-2:5:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 5.343276146609891,
+          "probability": 0.125,
+          "recognized": "0a5e40b1d59533ee"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48693000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 18,
+          "source": "ob:48693000000:npc_a",
+          "path": [
+            "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 3.012709685724979,
+          "probability": 0.125,
+          "recognized": "05d85ff7c575fa18"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48693000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "09c67a8ca500953b"
+        },
+        {
+          "expanded": 44,
+          "source": "ob:48693000000:npc_a",
+          "path": [
+            "0a5e40b1d59533ee:scan:3:0:323b7071ace1c01b",
+            "323b7071ace1c01b:walk:-2:5:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 5.343276146609891,
+          "probability": 0.125,
+          "recognized": "0a5e40b1d59533ee"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48757000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 18,
+          "source": "ob:48757000000:npc_a",
+          "path": [
+            "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 3.012709685724979,
+          "probability": 0.125,
+          "recognized": "05d85ff7c575fa18"
+        },
+        {
+          "expanded": 5,
+          "source": "ob:48757000000:npc_a",
+          "path": [
+            "09c67a8ca500953b:walk:6:5:5409adbbd3839381",
+            "5409adbbd3839381:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 3.0960610582010664,
+          "probability": 0.125,
+          "recognized": "09c67a8ca500953b"
+        },
+        {
+          "expanded": 40,
+          "source": "ob:48757000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0a5e40b1d59533ee"
+        },
+        {
+          "expanded": 24,
+          "source": "ob:48821000000:npc_a",
+          "path": [
+            "02705f558fc55df4:scan:3:0:934e125f60621b15",
+            "934e125f60621b15:scan:-6:0:5409adbbd3839381",
+            "5409adbbd3839381:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 4.318015873015883,
+          "probability": 0.125,
+          "recognized": "02705f558fc55df4"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48821000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "03d94c623e35baba"
+        },
+        {
+          "expanded": 21,
+          "source": "ob:48821000000:npc_a",
+          "path": [
+            "0ef28444d5ee3fe3:scan:3:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:2:0:6e4b5b9648d0fdcc",
+            "6e4b5b9648d0fdcc:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 4.009376352391646,
+          "probability": 0.125,
+          "recognized": "0ef28444d5ee3fe3"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48821000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "11ade5709af0953b"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48821000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "177840abc17eb009"
+        },
+        {
+          "expanded": 16,
+          "source": "ob:48821000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "2cdb93aab06f3cf8"
+        },
+        {
+          "expanded": 60,
+          "source": "ob:48886000000:npc_a",
+          "path": [
+            "02733a47b344eb7d:scan:3:0:b97a96e8884f1630",
+            "b97a96e8884f1630:walk:0:5:5409adbbd3839381",
+            "5409adbbd3839381:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 4.250064362252978,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48886000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48886000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "03d94c623e35baba"
+        },
+        {
+          "expanded": 2,
+          "source": "ob:48886000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0b3cefe8bcafcc9e"
+        },
+        {
+          "expanded": 60,
+          "source": "ob:48951000000:npc_a",
+          "path": [
+            "02733a47b344eb7d:scan:3:0:b97a96e8884f1630",
+            "b97a96e8884f1630:walk:0:5:5409adbbd3839381",
+            "5409adbbd3839381:scan:2:0:70af7d5f97cca15f"
+          ],
+          "goal": "home",
+          "cost": 4.250064362252978,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48951000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "02c9f6b4ba869fd9"
+        },
+        {
+          "expanded": 3,
+          "source": "ob:48951000000:npc_a",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "08829bf821479cdf"
+        }
+      ]
+    },
+    "npc_c": {
+      "nodes": 178,
+      "edges": 1342,
+      "home_nodes": 1,
+      "food_nodes": 1,
+      "sleep": {
+        "reviews": [
+          {
+            "expanded": 192,
+            "completed_us": 17280000000,
+            "retained": 8,
+            "searches": 16,
+            "formation_us": 14400000000,
+            "found": 8,
+            "day": 0
+          },
+          {
+            "expanded": 77,
+            "completed_us": 31680000000,
+            "retained": 19,
+            "searches": 16,
+            "formation_us": 28800000000,
+            "found": 15,
+            "day": 1
+          },
+          {
+            "expanded": 917,
+            "completed_us": 51840000000,
+            "retained": 23,
+            "searches": 16,
+            "formation_us": 48960000000,
+            "found": 4,
+            "day": 2
+          }
+        ],
+        "hypotheses": 23,
+        "proposals": 0,
+        "selected": 0
+      },
+      "recognition": {
+        "rejections": {
+          "wake:no_path": 94,
+          "sleep:no_current_observation": 1993,
+          "wake:no_current_observation": 1993,
+          "wake:H_or_body_gate": 353,
+          "sleep:no_shared_features": 656,
+          "wake:search_cooldown": 3249,
+          "sleep:H_or_body_gate": 353,
+          "chunk:no_shared_features": 3686,
+          "sleep:goal_not_supported": 12046,
+          "sleep:goal_mismatch": 144984
+        },
+        "feedback": [],
+        "execution_failures": 0,
+        "unknown": 0,
+        "mismatches": 0,
+        "associations": 0,
+        "admission_blocked": 0,
+        "selected": 0,
+        "sleep_reviews": [
+          {
+            "us": 17280000000,
+            "before": {
+              "nodes": 8,
+              "edges": 18,
+              "chunks": 0,
+              "associations": 0
+            },
+            "nodes": 8,
+            "edges": 18,
+            "day": 0
+          },
+          {
+            "us": 31680000000,
+            "before": {
+              "nodes": 8,
+              "edges": 23,
+              "chunks": 0,
+              "associations": 0
+            },
+            "nodes": 8,
+            "edges": 23,
+            "day": 1
+          },
+          {
+            "us": 51840000000,
+            "before": {
+              "nodes": 178,
+              "edges": 1342,
+              "chunks": 0,
+              "associations": 0
+            },
+            "nodes": 178,
+            "edges": 1342,
+            "day": 2
+          }
+        ],
+        "matches": 0
+      },
+      "observations": 51840,
+      "searches": 84,
+      "expanded": 5376,
+      "mean_expanded": 64,
+      "proposals": 0,
+      "selected": 0,
+      "prediction_match": 0,
+      "prediction_miss": 0,
+      "prediction_unknown": 0,
+      "evictions": 0,
+      "chunks": 0,
+      "chunk_formations": 0,
+      "chunk_goal_credits": 0,
+      "chunk_reward": 0,
+      "chunk_proposals": 0,
+      "chunk_selected": 0,
+      "chunk_records": [],
+      "search_records": [
+        {
+          "expanded": 64,
+          "source": "ob:47082000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47146000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47210000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:47276000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 63,
+          "source": "ob:47276000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47345000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47409000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0a4c6f74b3b9ad92"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47473000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47540000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47605000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47672000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.1990089617670946,
+          "recognized": "0a4c6f74b3b9ad92"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:47737000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 63,
+          "source": "ob:47737000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47801000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47865000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "103cbdcc30fbafd7"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:47929000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48000000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48065000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48129000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48193000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "103cbdcc30fbafd7"
+        },
+        {
+          "expanded": 1,
+          "source": "ob:48261000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "02733a47b344eb7d"
+        },
+        {
+          "expanded": 63,
+          "source": "ob:48261000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "028704b5e6b2868e"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48335000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "103cbdcc30fbafd7"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48399000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48476000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.20218818023593596,
+          "recognized": "2cccdd097be8bd0f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48540000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "103cbdcc30fbafd7"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48605000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48670000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "0647a1814a59a87f"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48738000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48805000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48871000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        },
+        {
+          "expanded": 64,
+          "source": "ob:48935000000:npc_c",
+          "path": [],
+          "goal": "home",
+          "cost": null,
+          "probability": 0.125,
+          "recognized": "1ac4785504963227"
+        }
+      ]
+    }
+  }
+}

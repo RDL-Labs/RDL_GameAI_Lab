@@ -36,6 +36,7 @@ include(joinpath(@__DIR__, "../perception/observed_cues.jl"))
 include(joinpath(@__DIR__, "../decision/relation_field.jl"))
 include(joinpath(@__DIR__, "../learning/mb_recognition.jl"))
 include(joinpath(@__DIR__, "../learning/mb_map.jl"))
+include(joinpath(@__DIR__, "../learning/mb_local_repair.jl"))
 include(joinpath(@__DIR__, "../learning/mb_routes.jl"))
 include(joinpath(@__DIR__, "../learning/mb_censored.jl"))
 include(joinpath(@__DIR__, "../learning/mb_parent.jl"))
@@ -482,7 +483,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             else
                                 append!(candidates,chunk_candidates)
                             end
-                            filter!(p->!(startswith(first(p),"mb_route:") || startswith(first(p),"mb_recheck:")) || (mb_maps[a]["routes"]["active"]!==nothing && (first(p)=="mb_route:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_recheck:"*mb_maps[a]["routes"]["active"]["id"])),s.methods)
+                            filter!(p->!(startswith(first(p),"mb_route:") || startswith(first(p),"mb_recheck:") || startswith(first(p),"mb_abandon:")) || (mb_maps[a]["routes"]["active"]!==nothing && (first(p)=="mb_route:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_recheck:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_abandon:"*mb_maps[a]["routes"]["active"]["id"])),s.methods)
                             filter!(p->!startswith(first(p),"mb_chunk:") || haskey(mb_maps[a]["chunks"],first(p)[10:end]),s.methods)
                             filter!(p->!startswith(first(p),"mb_sim:") || haskey(mb_maps[a]["edges"],first(p)[8:end]),s.methods)
                         end

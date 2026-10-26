@@ -561,3 +561,7 @@ FINITE PROTOTYPE。[設計](LW_Parent_MB_Estimation.md)、[3日試験](../../exp
 ### 2026-10-26 — 未達・中断を打切り観測として学習
 
 FINITE PROTOTYPE。[設計更新](LW_Parent_MB_Estimation.md)、[実装と3日確認](../../experiments/rock_gate/censored_mb_report.md)。1試行1観測で未達の下限・消費を更新し、後の達成で置換。初期値の影響は経験数で低下。現試行の見積もりは固定。達成26件/未達3件保持、Aの5632操作未達から次回上限7040を計算（実際の次回達成ではない）。全員生存、再入場0、経路目的達成0。311項目PASSと追加監査。
+
+### 2026-10-26 — 経路の局所修正と全体破棄を分離
+
+FINITE PROTOTYPE。[設計](LW_Local_Route_Repair.md)、[3日確認](../../experiments/rock_gate/local_repair_report.md)。同目的の局所修正は経路と固定見積もりを保持。現在の辺の両端へ暫定再接続し、追加実績の見積もり残差から全体変更を選ぶ。局所修正1602回/再接続301回、全員生存、再入場0・経路目的達成0。330項目PASSと監査。帰還改善は未確認。
