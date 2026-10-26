@@ -92,7 +92,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     if inherited_mb!==nothing
         check(mb_simulation && basic_loop,"transfer_requires_mb_loop")
         inherited_mb=JSON3.read(JSON3.write(inherited_mb),Dict{String,Any})
-        for a in IDS;mb_transfer!(mb_maps[a],inherited_mb["maps"][a],inherited_mb["ended_us"]);end
+        check(all(a->a in IDS,keys(inherited_mb["maps"])),"transfer_roster")
+        for a in keys(inherited_mb["maps"]);mb_transfer!(mb_maps[a],inherited_mb["maps"][a],inherited_mb["ended_us"]);end
     end
     embedded_rest_enabled && foreach(m->m["embedded_rest"]=embedded_rest_state(),values(mb_maps))
     night_fear_enabled && foreach(m->m["night_fear"]=night_fear_state(),values(mb_maps))
@@ -229,7 +230,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*(body_purpose ? ":energy-maintenance" : ":food-security"),threshold=Int(goal_switch_threshold),probabilistic=true,seed=choice_seed) for f in ("food","home")) for a in IDS)
     if inherited_mb!==nothing
-        for a in IDS,f in ("food","home");mb_transfer_methods!(loops[a][f],inherited_mb["methods"][a][f]);end
+        for a in keys(inherited_mb["maps"]),f in ("food","home");mb_transfer_methods!(loops[a][f],inherited_mb["methods"][a][f]);end
     end
     check(!sleep_maintenance || sleep_actions,"maintenance_needs_sleep_actions")
     check(!sleep_actions || general_sleep,"sleep_actions_need_review")

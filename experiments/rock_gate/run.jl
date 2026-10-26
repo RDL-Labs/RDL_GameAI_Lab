@@ -3,6 +3,7 @@ const root=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(out)
 const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
+const mixed_transfer="--mixed-transfer" in ARGS
 const ordinary_only="--ordinary-only" in ARGS
 const staged_food="--staged-food" in ARGS
 const distinctive_world="--distinctive-landmarks" in ARGS
@@ -20,6 +21,10 @@ const run_days=days_arg===nothing ? 3 : parse(Int,ARGS[days_arg+1])
 const snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(root,"src"),joinpath(snapshot,"src"))
 cp(joinpath(root,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
+if mixed_transfer
+    @assert ordinary_only && "--far-transfer-map" in ARGS && "--transfer-from" in ARGS
+    write(joinpath(snapshot,"src/data/lw_actor_ids.jl"),"# Isolated six-actor experiment, interleaved cohorts.\nconst IDS=(\"npc_a\",\"npc_d\",\"npc_b\",\"npc_e\",\"npc_c\",\"npc_f\")\n")
+end
 const path=joinpath(snapshot,"src/lw/simulation/day.jl")
 const original=read(path,String)
 const anchor="        advance_physiology!(w,metabolism,guts,food_body)"
@@ -71,6 +76,7 @@ include(joinpath(@__DIR__,"food_roads.jl"))
 include(joinpath(@__DIR__,"nearby_food.jl"))
 include(joinpath(@__DIR__,"staged_world.jl"))
 include(joinpath(@__DIR__,"transfer_world.jl"))
+include(joinpath(@__DIR__,"mixed_transfer.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
 base["config"]["days"]=run_days
 rho_arg=findfirst(==("--rho"),ARGS)
@@ -234,9 +240,10 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
     if transfer_arg!==nothing
         learned=JSON3.read(read(ARGS[transfer_arg+1],String),Dict{String,Any})
         input["scene"]["learned_mb_transfer"]=D("maps"=>learned["mb_map"],"ended_us"=>learned["ended_us"],
-            "methods"=>D(a=>last(learned["daily"])["physical"][a]["loops"] for a in IDS),
+            "methods"=>D(a=>last(learned["daily"])["physical"][a]["loops"] for a in keys(learned["mb_map"])),
             "source_sha256"=>bytes2hex(sha256(read(ARGS[transfer_arg+1]))))
     end
+    mixed_transfer && mixed_transfer_population!(input)
     spec=JSON3.read(JSON3.write(input))
     caseout=joinpath(out,label);mkpath(caseout)
     specpath=joinpath(caseout,"input.json");write(specpath,JSON3.write(input))
