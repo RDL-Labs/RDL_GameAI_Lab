@@ -589,3 +589,7 @@ FINITE PROTOTYPE。[設計](World_Color_Size_Patches.md)、[試験](../../experi
 ### 2026-10-26 — 新世界特徴のLW接続試験
 
 [3日結果](../../experiments/rock_gate/rich_connected_report.md)。固定感度・入口形状・道を維持し、色/背景寸法/食料量を変更。B再入場1、全員reserve約90。greenがMBへ入り、場面数は729〜960へ増加。ただし経路MB選択は全員0で、再利用改善は未確認。草遮蔽はこのLW試験に未接続。69項目と親・経路監査PASS。
+
+### 2026-10-26 — 類似基準の経験更新
+
+FINITE PROTOTYPE。[設計](LW_Learned_Similarity.md)、[3日結果](../../experiments/rock_gate/learned_similarity_report.md)。実行済みの同種操作と前後観測から距離帯/相対配置の重みを更新。教師は固定した次観測の照合で、実行不能/観測不足は除外。固定個性感度は独立。3156経験ペア更新、経路MB選択0、行動軌跡は前回と一致。324項目と監査PASS。色対応・サイズ・動的ρ・自動統合は未学習。

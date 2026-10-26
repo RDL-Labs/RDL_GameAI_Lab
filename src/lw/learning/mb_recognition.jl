@@ -1,5 +1,6 @@
+include("mb_similarity_learning.jl")
 # Shared uncertain correspondence. Raw observation keys remain distinct records.
-mb_recognition_state()=D("associations"=>D(),"rejections"=>D(),"feedback"=>Any[],"selected"=>0,"matches"=>0,"mismatches"=>0,"execution_failures"=>0,"unknown"=>0,"admission_blocked"=>0,"sleep_reviews"=>Any[])
+mb_recognition_state()=D("metric"=>mb_metric_state(),"associations"=>D(),"rejections"=>D(),"feedback"=>Any[],"selected"=>0,"matches"=>0,"mismatches"=>0,"execution_failures"=>0,"unknown"=>0,"admission_blocked"=>0,"sleep_reviews"=>Any[])
 function mb_reject!(s,scope,reason)
     key=scope*":"*reason;r=s["recognition"]["rejections"];r[key]=get(r,key,0)+1
     nothing
@@ -12,25 +13,26 @@ function mb_features(signature)
     end
     out
 end
-function mb_similarity(frame,node)
+function mb_similarity(frame,node;metric=nothing)
     observed=hasproperty(frame,:features) ? frame.features : mb_features(frame.signature)
     memory=get!(() -> mb_features(node["signature"]),node,"features")
     common=sort(collect(intersect(keys(observed),keys(memory))))
     isempty(common) && return nothing
     anchor=first(common);shift=wrap_angle(observed[anchor].angle-memory[anchor].angle)
     bands=D("near"=>0,"mid"=>1,"far"=>2)
-    agreement=sum(exp(-2abs(get(bands,observed[k].band,3)-get(bands,memory[k].band,3))) *
-        exp(-abs(wrap_angle(observed[k].angle-memory[k].angle-shift))/30) for k in common)/length(common)
+    parts=[(Float64(abs(get(bands,observed[k].band,3)-get(bands,memory[k].band,3))),abs(wrap_angle(observed[k].angle-memory[k].angle-shift))/30) for k in common]
+    weights=metric===nothing || !metric["enabled"] ? (2.,1.) : metric["weights"]
+    agreement=sum(exp(-weights[1]*x[1]-weights[2]*x[2]) for x in parts)/length(parts)
     # Missing features are unknown, not contradictions. One feature is weak evidence.
     confidence=agreement*min(1.,length(common)/2)
-    (confidence=confidence,agreement=agreement,common=length(common),anchor=wrap_angle(frame.anchor+shift))
+    (parts=parts,confidence=confidence,agreement=agreement,common=length(common),anchor=wrap_angle(frame.anchor+shift))
 end
 function mb_correspondences(s,targets,now;scope="wake",H=0)
     frame=s["current"];out=Any[]
     frame===nothing && (mb_reject!(s,scope,"no_observation");return out)
     for key in sort(unique(collect(targets)))
         node=get(s["nodes"],key,nothing);node===nothing && continue
-        fit=mb_similarity(frame,node);fit===nothing && continue
+        fit=mb_similarity(frame,node;metric=s["recognition"]["metric"]);fit===nothing && continue
         id=frame.key*":"*key
         a=get(s["recognition"]["associations"],id,nothing)
         support=a===nothing ? .5 : (1+a["matches"])/(2+a["matches"]+a["mismatches"])

@@ -150,7 +150,7 @@ function mb_route_reacquire!(s,now)
     frame=s["current"];(frame===nothing || s["current_us"]!=now) && return
     edge=get(s["edges"],key,nothing);edge===nothing && return
     node=get(s["nodes"],edge["to"],nothing);node===nothing && return
-    fit=mb_similarity(frame,node)
+    fit=mb_similarity(frame,node;metric=s["recognition"]["metric"])
     (fit===nothing || fit.agreement<.65) && return
     a["cursor"]+=1;a["pending_edge"]=nothing;a["uncertain"]=false
     # Recovery after a gap is tentative, not a verified transition or purpose success.

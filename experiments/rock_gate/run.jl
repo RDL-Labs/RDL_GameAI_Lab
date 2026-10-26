@@ -95,6 +95,11 @@ if sensitivity_arg!==nothing
     for profile in values(profiles);mb_sensitivity(profile);end
     base["config"]["mb_sensitivities"]=profiles
 end
+similarity_arg=findfirst(==("--similarity-learning"),ARGS)
+if similarity_arg!==nothing
+    @assert ARGS[similarity_arg+1] in ("on","off")
+    base["config"]["mb_similarity_learning"]=ARGS[similarity_arg+1]
+end
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue

@@ -68,7 +68,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,mb_sensitivities=D())
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,mb_sensitivities=D(),mb_similarity_learning=true)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -80,6 +80,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!mb_chunks || mb_simulation,"mb_chunks_require_map")
     check(!configured_observation_enabled || mb_simulation,"observation_requires_mb_map")
     mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks,sensitivity=get(mb_sensitivities,a,D())) for a in IDS)
+    for m in values(mb_maps);m["recognition"]["metric"]["enabled"]=mb_similarity_learning;end
     cue_states=Dict(a=>cue_stats() for a in IDS)
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")

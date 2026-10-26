@@ -40,6 +40,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
     mb_trace_observation!(s,receipt,frame,now)
     receipt===nothing && return
     mb_recognition_feedback!(s,receipt,frame,now)
+    mb_metric_observe!(s,receipt,frame,now)
     mb_chunk_prediction!(s,receipt,frame,now)
     predicted=receipt["predicted"]
     if predicted!==nothing && haskey(s["edges"],predicted)

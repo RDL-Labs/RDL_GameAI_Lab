@@ -18,7 +18,7 @@ function mb_route_rejoin!(s,frame,now)
     fits=Any[]
     for (side,key) in (("from",edge["from"]),("to",edge["to"]))
         node=get(s["nodes"],key,nothing);node===nothing && continue
-        fit=mb_similarity(frame,node)
+        fit=mb_similarity(frame,node;metric=s["recognition"]["metric"])
         fit===nothing || fit.agreement<.65 || push!(fits,(side=side,score=fit.confidence))
     end
     isempty(fits) && return
