@@ -4,6 +4,10 @@ const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(
 const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
 const ordinary_only="--ordinary-only" in ARGS
+const staged_food="--staged-food" in ARGS
+const distinctive_world="--distinctive-landmarks" in ARGS
+@assert !(staged_food && "--nearby-food" in ARGS)
+@assert !(staged_food || distinctive_world) || ordinary_only
 const nearby_food="--nearby-food" in ARGS
 @assert !nearby_food || ordinary_only "nearby food requires the ordinary open camp"
 @assert !(ordinary_only && "--narrow-only" in ARGS)
@@ -65,6 +69,7 @@ end
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 include(joinpath(@__DIR__,"food_roads.jl"))
 include(joinpath(@__DIR__,"nearby_food.jl"))
+include(joinpath(@__DIR__,"staged_world.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
 base["config"]["days"]=run_days
 rho_arg=findfirst(==("--rho"),ARGS)
@@ -178,6 +183,9 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         filter!(o->!any(o["x"]==s["x"] && o["z"]==s["z"] for s in stones),input["scene"]["obstacles"])
         empty!(stones)
     end
+    staged_food && staged_food_layout!(input)
+    distinctive_world && distinctive_landmarks!(input)
+    staged_food && check_staged_world(input)
     # Finite piles beside initial observation positions; normal pickup/eat physics.
     if camp_provisions>0
         for p in input["scene"]["positions"]
