@@ -1,0 +1,1723 @@
+{
+  "measurement": {
+    "gc_seconds": 1068.5966578,
+    "process_peak_rss_bytes": 2849267712,
+    "compilation_included": true,
+    "call_seconds": 7215.7492069,
+    "allocated_bytes": 7312303156654
+  },
+  "storage": {
+    "taken": 33,
+    "deposited": 72,
+    "remaining": 39
+  },
+  "stock": [
+    10,
+    11,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 93.1053785705678,
+      "distance": 1.0000000000000002,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17343000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 41805000000,
+            "day": 2
+          },
+          {
+            "delivered": 3,
+            "us": 60487000000,
+            "day": 3
+          },
+          {
+            "delivered": 3,
+            "us": 77769000000,
+            "day": 4
+          },
+          {
+            "delivered": 3,
+            "us": 95048000000,
+            "day": 5
+          },
+          {
+            "delivered": 1,
+            "us": 105435000000,
+            "day": 6
+          },
+          {
+            "delivered": 3,
+            "us": 131719000000,
+            "day": 7
+          },
+          {
+            "delivered": 2,
+            "us": 155995000000,
+            "day": 9
+          },
+          {
+            "delivered": 2,
+            "us": 203366000000,
+            "day": 11
+          },
+          {
+            "delivered": 3,
+            "us": 373371000000,
+            "day": 21
+          },
+          {
+            "delivered": 2,
+            "us": 408320000000,
+            "day": 23
+          },
+          {
+            "delivered": 2,
+            "us": 443159000000,
+            "day": 25
+          }
+        ],
+        "completions": 12,
+        "completed": false,
+        "known_stock": 39,
+        "stay_requests": 115291,
+        "food_exceptions": 0,
+        "day": 29
+      },
+      "restReward": 130,
+      "counts": {
+        "request": 1,
+        "rest": 360525,
+        "pickup": 61,
+        "refuse": 5,
+        "scan": 61858,
+        "eat": 31,
+        "give": 20,
+        "retrieve": 13,
+        "deposit": 12,
+        "walk": 95872,
+        "climb": 2
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 90.72138729292415,
+          "counts": {
+            "rest": 2880,
+            "walk": 223,
+            "eat": 1,
+            "scan": 14176
+          },
+          "shared": 0,
+          "ground": 114
+        },
+        {
+          "day": 2,
+          "reserve": 91.52060025582273,
+          "counts": {
+            "rest": 20154,
+            "walk": 226,
+            "eat": 2,
+            "retrieve": 1,
+            "deposit": 1,
+            "scan": 14176
+          },
+          "shared": 0,
+          "ground": 113
+        },
+        {
+          "day": 3,
+          "reserve": 92.31897972595145,
+          "counts": {
+            "rest": 37423,
+            "walk": 231,
+            "eat": 3,
+            "retrieve": 2,
+            "deposit": 2,
+            "pickup": 3,
+            "scan": 14176
+          },
+          "shared": 6,
+          "ground": 104
+        },
+        {
+          "day": 4,
+          "reserve": 93.11416353271326,
+          "counts": {
+            "rest": 54682,
+            "walk": 246,
+            "eat": 4,
+            "retrieve": 3,
+            "deposit": 3,
+            "pickup": 6,
+            "scan": 14176
+          },
+          "shared": 12,
+          "ground": 95
+        },
+        {
+          "day": 5,
+          "reserve": 93.90656906354089,
+          "counts": {
+            "rest": 71934,
+            "walk": 267,
+            "eat": 5,
+            "retrieve": 4,
+            "deposit": 4,
+            "pickup": 9,
+            "scan": 14177
+          },
+          "shared": 18,
+          "ground": 86
+        },
+        {
+          "day": 6,
+          "reserve": 94.70177279650562,
+          "counts": {
+            "rest": 89193,
+            "walk": 281,
+            "eat": 6,
+            "retrieve": 5,
+            "deposit": 5,
+            "pickup": 12,
+            "scan": 14178
+          },
+          "shared": 24,
+          "ground": 77
+        },
+        {
+          "day": 7,
+          "reserve": 95.21347266423864,
+          "counts": {
+            "rest": 104821,
+            "walk": 1032,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 13,
+            "scan": 15075
+          },
+          "shared": 28,
+          "ground": 70
+        },
+        {
+          "day": 8,
+          "reserve": 94.98666966480972,
+          "counts": {
+            "rest": 116049,
+            "walk": 3944,
+            "eat": 8,
+            "retrieve": 7,
+            "deposit": 7,
+            "pickup": 16,
+            "scan": 18209
+          },
+          "shared": 29,
+          "ground": 67
+        },
+        {
+          "day": 9,
+          "reserve": 94.36531760817867,
+          "counts": {
+            "rest": 127270,
+            "walk": 6668,
+            "eat": 9,
+            "retrieve": 7,
+            "deposit": 7,
+            "pickup": 19,
+            "scan": 21540
+          },
+          "shared": 29,
+          "ground": 64
+        },
+        {
+          "day": 10,
+          "reserve": 95.0778993638832,
+          "counts": {
+            "rest": 144158,
+            "walk": 6894,
+            "eat": 10,
+            "retrieve": 8,
+            "deposit": 8,
+            "pickup": 19,
+            "scan": 21703
+          },
+          "shared": 30,
+          "ground": 64
+        },
+        {
+          "day": 11,
+          "reserve": 92.6613674952849,
+          "counts": {
+            "rest": 148802,
+            "walk": 15560,
+            "eat": 11,
+            "retrieve": 8,
+            "deposit": 8,
+            "pickup": 20,
+            "scan": 25671
+          },
+          "shared": 30,
+          "ground": 63
+        },
+        {
+          "day": 12,
+          "reserve": 91.25011688077173,
+          "counts": {
+            "rest": 160142,
+            "walk": 19779,
+            "eat": 12,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 23,
+            "scan": 27387
+          },
+          "shared": 32,
+          "ground": 60
+        },
+        {
+          "day": 13,
+          "reserve": 89.28256958769985,
+          "counts": {
+            "rest": 168725,
+            "walk": 27424,
+            "eat": 13,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 24,
+            "scan": 28437
+          },
+          "shared": 32,
+          "ground": 59
+        },
+        {
+          "day": 14,
+          "reserve": 88.21586488361525,
+          "counts": {
+            "rest": 181316,
+            "walk": 30454,
+            "eat": 14,
+            "give": 5,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 30,
+            "scan": 30084
+          },
+          "shared": 32,
+          "ground": 53
+        },
+        {
+          "day": 15,
+          "reserve": 86.64268118678174,
+          "counts": {
+            "rest": 189170,
+            "walk": 36155,
+            "eat": 15,
+            "give": 11,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 36,
+            "scan": 33793,
+            "refuse": 3
+          },
+          "shared": 32,
+          "ground": 44
+        },
+        {
+          "day": 16,
+          "reserve": 84.1387292899251,
+          "counts": {
+            "request": 1,
+            "rest": 192618,
+            "walk": 44936,
+            "eat": 16,
+            "give": 11,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 36,
+            "scan": 38842,
+            "refuse": 3
+          },
+          "shared": 32,
+          "ground": 44
+        },
+        {
+          "day": 17,
+          "reserve": 82.51683843106917,
+          "counts": {
+            "request": 1,
+            "rest": 200468,
+            "walk": 50646,
+            "eat": 17,
+            "give": 14,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 40,
+            "scan": 42553,
+            "refuse": 4
+          },
+          "shared": 32,
+          "ground": 40
+        },
+        {
+          "day": 18,
+          "reserve": 80.8740778856655,
+          "counts": {
+            "request": 1,
+            "rest": 210150,
+            "walk": 57301,
+            "eat": 18,
+            "give": 14,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 41,
+            "scan": 43494,
+            "refuse": 4
+          },
+          "shared": 32,
+          "ground": 38
+        },
+        {
+          "day": 19,
+          "reserve": 80.51741678114601,
+          "counts": {
+            "request": 1,
+            "rest": 224721,
+            "walk": 59382,
+            "eat": 19,
+            "give": 15,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 46,
+            "scan": 44115,
+            "refuse": 4
+          },
+          "shared": 34,
+          "ground": 32
+        },
+        {
+          "day": 20,
+          "reserve": 99.1071753235451,
+          "counts": {
+            "request": 1,
+            "rest": 234079,
+            "walk": 64415,
+            "eat": 21,
+            "give": 18,
+            "retrieve": 8,
+            "deposit": 9,
+            "pickup": 47,
+            "scan": 46998,
+            "refuse": 4
+          },
+          "shared": 34,
+          "ground": 27
+        },
+        {
+          "day": 21,
+          "reserve": 96.9911070130281,
+          "counts": {
+            "request": 1,
+            "rest": 240927,
+            "pickup": 47,
+            "refuse": 4,
+            "scan": 50492,
+            "eat": 22,
+            "give": 18,
+            "retrieve": 9,
+            "deposit": 9,
+            "walk": 71349,
+            "climb": 2
+          },
+          "shared": 32,
+          "ground": 27
+        },
+        {
+          "day": 22,
+          "reserve": 97.61047999966512,
+          "counts": {
+            "request": 1,
+            "rest": 257551,
+            "pickup": 50,
+            "refuse": 4,
+            "scan": 50781,
+            "eat": 23,
+            "give": 18,
+            "retrieve": 10,
+            "deposit": 10,
+            "walk": 71710,
+            "climb": 2
+          },
+          "shared": 34,
+          "ground": 34
+        },
+        {
+          "day": 23,
+          "reserve": 98.28438057490075,
+          "counts": {
+            "request": 1,
+            "rest": 274555,
+            "pickup": 53,
+            "refuse": 4,
+            "scan": 50783,
+            "eat": 24,
+            "give": 18,
+            "retrieve": 10,
+            "deposit": 10,
+            "walk": 71980,
+            "climb": 2
+          },
+          "shared": 32,
+          "ground": 30
+        },
+        {
+          "day": 24,
+          "reserve": 96.56165160524304,
+          "counts": {
+            "request": 1,
+            "rest": 285020,
+            "pickup": 53,
+            "refuse": 4,
+            "scan": 53066,
+            "eat": 25,
+            "give": 18,
+            "retrieve": 11,
+            "deposit": 11,
+            "walk": 76509,
+            "climb": 2
+          },
+          "shared": 33,
+          "ground": 24
+        },
+        {
+          "day": 25,
+          "reserve": 97.28051379367432,
+          "counts": {
+            "request": 1,
+            "rest": 302048,
+            "pickup": 56,
+            "refuse": 4,
+            "scan": 53067,
+            "eat": 26,
+            "give": 18,
+            "retrieve": 11,
+            "deposit": 11,
+            "walk": 76756,
+            "climb": 2
+          },
+          "shared": 37,
+          "ground": 33
+        },
+        {
+          "day": 26,
+          "reserve": 95.83622708883043,
+          "counts": {
+            "request": 1,
+            "rest": 312593,
+            "pickup": 56,
+            "refuse": 4,
+            "scan": 55475,
+            "eat": 27,
+            "give": 18,
+            "retrieve": 12,
+            "deposit": 12,
+            "walk": 81080,
+            "climb": 2
+          },
+          "shared": 37,
+          "ground": 29
+        },
+        {
+          "day": 27,
+          "reserve": 95.7356776148168,
+          "counts": {
+            "request": 1,
+            "rest": 327589,
+            "pickup": 57,
+            "refuse": 4,
+            "scan": 55624,
+            "eat": 28,
+            "give": 18,
+            "retrieve": 12,
+            "deposit": 12,
+            "walk": 83213,
+            "climb": 2
+          },
+          "shared": 40,
+          "ground": 24
+        },
+        {
+          "day": 28,
+          "reserve": 94.66902557110411,
+          "counts": {
+            "request": 1,
+            "rest": 338269,
+            "pickup": 57,
+            "refuse": 4,
+            "scan": 57705,
+            "eat": 29,
+            "give": 18,
+            "retrieve": 13,
+            "deposit": 12,
+            "walk": 87730,
+            "climb": 2
+          },
+          "shared": 39,
+          "ground": 35
+        },
+        {
+          "day": 29,
+          "reserve": 94.88996192724471,
+          "counts": {
+            "request": 1,
+            "rest": 354211,
+            "pickup": 60,
+            "refuse": 4,
+            "scan": 57851,
+            "eat": 30,
+            "give": 18,
+            "retrieve": 13,
+            "deposit": 12,
+            "walk": 88918,
+            "climb": 2
+          },
+          "shared": 39,
+          "ground": 32
+        },
+        {
+          "day": 30,
+          "reserve": 93.1053785705678,
+          "counts": {
+            "request": 1,
+            "rest": 360525,
+            "pickup": 61,
+            "refuse": 5,
+            "scan": 61858,
+            "eat": 31,
+            "give": 20,
+            "retrieve": 13,
+            "deposit": 12,
+            "walk": 95872,
+            "climb": 2
+          },
+          "shared": 39,
+          "ground": 30
+        }
+      ]
+    },
+    "npc_a": {
+      "reserve": 85.84770755935438,
+      "distance": 25.874278994684136,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17363000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 43200000000,
+            "day": 2
+          },
+          {
+            "delivered": 3,
+            "us": 60480000000,
+            "day": 3
+          },
+          {
+            "delivered": 3,
+            "us": 77766000000,
+            "day": 4
+          },
+          {
+            "delivered": 3,
+            "us": 93741000000,
+            "day": 5
+          },
+          {
+            "delivered": 3,
+            "us": 112325000000,
+            "day": 6
+          },
+          {
+            "delivered": 4,
+            "us": 425585000000,
+            "day": 24
+          },
+          {
+            "delivered": 3,
+            "us": 442615000000,
+            "day": 25
+          },
+          {
+            "delivered": 3,
+            "us": 458292000000,
+            "day": 26
+          }
+        ],
+        "completions": 9,
+        "completed": false,
+        "known_stock": 39,
+        "stay_requests": 83024,
+        "food_exceptions": 0,
+        "day": 29
+      },
+      "restReward": 85,
+      "counts": {
+        "request": 19,
+        "rest": 279270,
+        "eat": 32,
+        "walk": 135126,
+        "pickup": 36,
+        "deposit": 9,
+        "retrieve": 10,
+        "scan": 103894,
+        "refuse": 3,
+        "climb": 1
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 90.73608035847515,
+          "counts": {
+            "rest": 2880,
+            "eat": 4,
+            "walk": 224,
+            "pickup": 4,
+            "scan": 14168
+          },
+          "shared": 0,
+          "ground": 114
+        },
+        {
+          "day": 2,
+          "reserve": 91.5348766547071,
+          "counts": {
+            "rest": 20151,
+            "eat": 5,
+            "walk": 229,
+            "pickup": 5,
+            "deposit": 1,
+            "retrieve": 1,
+            "scan": 14168
+          },
+          "shared": 0,
+          "ground": 113
+        },
+        {
+          "day": 3,
+          "reserve": 92.3350618398279,
+          "counts": {
+            "rest": 37425,
+            "eat": 6,
+            "walk": 229,
+            "pickup": 8,
+            "deposit": 2,
+            "retrieve": 2,
+            "scan": 14168
+          },
+          "shared": 6,
+          "ground": 104
+        },
+        {
+          "day": 4,
+          "reserve": 93.13029239494566,
+          "counts": {
+            "rest": 54685,
+            "eat": 7,
+            "walk": 243,
+            "pickup": 11,
+            "deposit": 3,
+            "retrieve": 3,
+            "scan": 14168
+          },
+          "shared": 12,
+          "ground": 95
+        },
+        {
+          "day": 5,
+          "reserve": 93.92644949760167,
+          "counts": {
+            "rest": 71945,
+            "eat": 8,
+            "walk": 255,
+            "pickup": 14,
+            "deposit": 4,
+            "retrieve": 4,
+            "scan": 14170
+          },
+          "shared": 18,
+          "ground": 86
+        },
+        {
+          "day": 6,
+          "reserve": 94.71779013519516,
+          "counts": {
+            "rest": 89178,
+            "eat": 9,
+            "walk": 280,
+            "pickup": 17,
+            "deposit": 5,
+            "retrieve": 5,
+            "scan": 14186
+          },
+          "shared": 24,
+          "ground": 77
+        },
+        {
+          "day": 7,
+          "reserve": 95.51464021573825,
+          "counts": {
+            "rest": 106441,
+            "eat": 10,
+            "walk": 290,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 6,
+            "scan": 14187
+          },
+          "shared": 28,
+          "ground": 70
+        },
+        {
+          "day": 8,
+          "reserve": 94.5348916816707,
+          "counts": {
+            "rest": 113928,
+            "eat": 11,
+            "walk": 5315,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 18953
+          },
+          "shared": 29,
+          "ground": 67
+        },
+        {
+          "day": 9,
+          "reserve": 72.04708369843462,
+          "counts": {
+            "rest": 114660,
+            "eat": 11,
+            "walk": 13992,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 26824
+          },
+          "shared": 29,
+          "ground": 64
+        },
+        {
+          "day": 10,
+          "reserve": 49.813080931340814,
+          "counts": {
+            "rest": 115198,
+            "eat": 11,
+            "walk": 22095,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 35463
+          },
+          "shared": 30,
+          "ground": 64
+        },
+        {
+          "day": 11,
+          "reserve": 27.55988105132559,
+          "counts": {
+            "rest": 115685,
+            "eat": 11,
+            "walk": 30276,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 44075
+          },
+          "shared": 30,
+          "ground": 63
+        },
+        {
+          "day": 12,
+          "reserve": 5.037943604036875,
+          "counts": {
+            "rest": 116320,
+            "eat": 11,
+            "walk": 40162,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 50834
+          },
+          "shared": 32,
+          "ground": 60
+        },
+        {
+          "day": 13,
+          "reserve": 0,
+          "counts": {
+            "rest": 131322,
+            "eat": 11,
+            "walk": 41719,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 51555
+          },
+          "shared": 32,
+          "ground": 59
+        },
+        {
+          "day": 14,
+          "reserve": 0,
+          "counts": {
+            "rest": 148602,
+            "eat": 11,
+            "walk": 41719,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 51555
+          },
+          "shared": 32,
+          "ground": 53
+        },
+        {
+          "day": 15,
+          "reserve": 90.29004431838297,
+          "counts": {
+            "request": 9,
+            "rest": 161084,
+            "eat": 16,
+            "walk": 44475,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 53583
+          },
+          "shared": 32,
+          "ground": 44
+        },
+        {
+          "day": 16,
+          "reserve": 87.79881879326942,
+          "counts": {
+            "request": 11,
+            "rest": 164579,
+            "eat": 17,
+            "walk": 53343,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 58497
+          },
+          "shared": 32,
+          "ground": 44
+        },
+        {
+          "day": 17,
+          "reserve": 85.36469553474178,
+          "counts": {
+            "request": 12,
+            "rest": 168050,
+            "eat": 18,
+            "walk": 62115,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 63532
+          },
+          "shared": 32,
+          "ground": 40
+        },
+        {
+          "day": 18,
+          "reserve": 62.233858611317004,
+          "counts": {
+            "request": 12,
+            "rest": 168863,
+            "eat": 18,
+            "walk": 72661,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 69453
+          },
+          "shared": 32,
+          "ground": 38
+        },
+        {
+          "day": 19,
+          "reserve": 39.076878237893936,
+          "counts": {
+            "request": 12,
+            "rest": 169601,
+            "eat": 18,
+            "walk": 83304,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 75352
+          },
+          "shared": 34,
+          "ground": 32
+        },
+        {
+          "day": 20,
+          "reserve": 55.904773899735154,
+          "counts": {
+            "request": 15,
+            "rest": 170363,
+            "eat": 20,
+            "walk": 93991,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 7,
+            "scan": 81178
+          },
+          "shared": 34,
+          "ground": 27
+        },
+        {
+          "day": 21,
+          "reserve": 94.99629807235364,
+          "counts": {
+            "request": 17,
+            "rest": 180852,
+            "eat": 23,
+            "walk": 98569,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 8,
+            "scan": 83385
+          },
+          "shared": 32,
+          "ground": 27
+        },
+        {
+          "day": 22,
+          "reserve": 71.956717881326,
+          "counts": {
+            "request": 17,
+            "rest": 181780,
+            "eat": 23,
+            "walk": 109107,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 8,
+            "scan": 89199
+          },
+          "shared": 34,
+          "ground": 34
+        },
+        {
+          "day": 23,
+          "reserve": 89.8532180570525,
+          "counts": {
+            "request": 17,
+            "rest": 187243,
+            "eat": 25,
+            "walk": 116951,
+            "pickup": 20,
+            "deposit": 6,
+            "retrieve": 10,
+            "scan": 93168
+          },
+          "shared": 32,
+          "ground": 30
+        },
+        {
+          "day": 24,
+          "reserve": 87.54013285553833,
+          "counts": {
+            "request": 17,
+            "rest": 195688,
+            "eat": 26,
+            "walk": 122504,
+            "pickup": 26,
+            "deposit": 6,
+            "retrieve": 10,
+            "scan": 96443
+          },
+          "shared": 33,
+          "ground": 24
+        },
+        {
+          "day": 25,
+          "reserve": 84.28628425429562,
+          "counts": {
+            "request": 17,
+            "rest": 202622,
+            "eat": 27,
+            "walk": 129029,
+            "pickup": 26,
+            "deposit": 7,
+            "retrieve": 10,
+            "scan": 100259,
+            "refuse": 3
+          },
+          "shared": 37,
+          "ground": 33
+        },
+        {
+          "day": 26,
+          "reserve": 84.99196318050043,
+          "counts": {
+            "request": 17,
+            "rest": 219615,
+            "eat": 28,
+            "walk": 129243,
+            "pickup": 30,
+            "deposit": 8,
+            "retrieve": 10,
+            "scan": 100326,
+            "refuse": 3
+          },
+          "shared": 37,
+          "ground": 29
+        },
+        {
+          "day": 27,
+          "reserve": 85.63134342461775,
+          "counts": {
+            "request": 17,
+            "rest": 236266,
+            "eat": 29,
+            "walk": 129705,
+            "pickup": 34,
+            "deposit": 9,
+            "retrieve": 10,
+            "scan": 100487,
+            "refuse": 3
+          },
+          "shared": 40,
+          "ground": 24
+        },
+        {
+          "day": 28,
+          "reserve": 85.77549691158326,
+          "counts": {
+            "request": 17,
+            "rest": 250042,
+            "eat": 30,
+            "walk": 131498,
+            "pickup": 35,
+            "deposit": 9,
+            "retrieve": 10,
+            "scan": 102196,
+            "refuse": 3
+          },
+          "shared": 39,
+          "ground": 35
+        },
+        {
+          "day": 29,
+          "reserve": 66.19618961557427,
+          "counts": {
+            "request": 17,
+            "rest": 266259,
+            "eat": 30,
+            "walk": 132559,
+            "pickup": 35,
+            "deposit": 9,
+            "retrieve": 10,
+            "scan": 102198,
+            "refuse": 3
+          },
+          "shared": 39,
+          "ground": 32
+        },
+        {
+          "day": 30,
+          "reserve": 85.84770755935438,
+          "counts": {
+            "request": 19,
+            "rest": 279270,
+            "eat": 32,
+            "walk": 135126,
+            "pickup": 36,
+            "deposit": 9,
+            "retrieve": 10,
+            "scan": 103894,
+            "refuse": 3,
+            "climb": 1
+          },
+          "shared": 39,
+          "ground": 30
+        }
+      ]
+    },
+    "npc_c": {
+      "reserve": 20.10712936082106,
+      "distance": 22.215282984690287,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17354000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 43203000000,
+            "day": 2
+          },
+          {
+            "delivered": 3,
+            "us": 60512000000,
+            "day": 3
+          },
+          {
+            "delivered": 3,
+            "us": 77882000000,
+            "day": 4
+          },
+          {
+            "delivered": 3,
+            "us": 95044000000,
+            "day": 5
+          },
+          {
+            "delivered": 3,
+            "us": 112329000000,
+            "day": 6
+          },
+          {
+            "delivered": 2,
+            "us": 314896000000,
+            "day": 18
+          }
+        ],
+        "completions": 7,
+        "completed": false,
+        "known_stock": 37,
+        "stay_requests": 73653,
+        "food_exceptions": 0,
+        "day": 29
+      },
+      "restReward": 65,
+      "counts": {
+        "request": 14,
+        "rest": 234871,
+        "walk": 159683,
+        "eat": 26,
+        "give": 4,
+        "retrieve": 10,
+        "deposit": 7,
+        "pickup": 27,
+        "scan": 123757,
+        "refuse": 1
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 90.71896244409969,
+          "counts": {
+            "rest": 2880,
+            "walk": 224,
+            "eat": 1,
+            "scan": 14175
+          },
+          "shared": 0,
+          "ground": 114
+        },
+        {
+          "day": 2,
+          "reserve": 91.51623093453134,
+          "counts": {
+            "rest": 20143,
+            "walk": 233,
+            "eat": 2,
+            "retrieve": 1,
+            "deposit": 1,
+            "scan": 14180
+          },
+          "shared": 0,
+          "ground": 113
+        },
+        {
+          "day": 3,
+          "reserve": 92.31252649726586,
+          "counts": {
+            "rest": 37403,
+            "walk": 245,
+            "eat": 3,
+            "retrieve": 2,
+            "deposit": 2,
+            "pickup": 3,
+            "scan": 14182
+          },
+          "shared": 6,
+          "ground": 104
+        },
+        {
+          "day": 4,
+          "reserve": 93.10465485926368,
+          "counts": {
+            "rest": 54638,
+            "walk": 267,
+            "eat": 4,
+            "retrieve": 3,
+            "deposit": 3,
+            "pickup": 6,
+            "scan": 14199
+          },
+          "shared": 12,
+          "ground": 95
+        },
+        {
+          "day": 5,
+          "reserve": 93.88292101604516,
+          "counts": {
+            "rest": 71788,
+            "walk": 316,
+            "eat": 5,
+            "retrieve": 4,
+            "deposit": 4,
+            "pickup": 9,
+            "scan": 14274
+          },
+          "shared": 18,
+          "ground": 86
+        },
+        {
+          "day": 6,
+          "reserve": 94.67629851300332,
+          "counts": {
+            "rest": 89040,
+            "walk": 337,
+            "eat": 6,
+            "retrieve": 5,
+            "deposit": 5,
+            "pickup": 12,
+            "scan": 14275
+          },
+          "shared": 24,
+          "ground": 77
+        },
+        {
+          "day": 7,
+          "reserve": 95.47231483146426,
+          "counts": {
+            "rest": 106299,
+            "walk": 349,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 14278
+          },
+          "shared": 28,
+          "ground": 70
+        },
+        {
+          "day": 8,
+          "reserve": 72.64519934892587,
+          "counts": {
+            "rest": 106879,
+            "walk": 9143,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 22184
+          },
+          "shared": 29,
+          "ground": 67
+        },
+        {
+          "day": 9,
+          "reserve": 50.109412618355755,
+          "counts": {
+            "rest": 107360,
+            "walk": 17846,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 30280
+          },
+          "shared": 29,
+          "ground": 64
+        },
+        {
+          "day": 10,
+          "reserve": 27.695133052984144,
+          "counts": {
+            "rest": 107853,
+            "walk": 26476,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 38437
+          },
+          "shared": 30,
+          "ground": 64
+        },
+        {
+          "day": 11,
+          "reserve": 5.069162106116578,
+          "counts": {
+            "rest": 108536,
+            "walk": 36517,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 44993
+          },
+          "shared": 30,
+          "ground": 63
+        },
+        {
+          "day": 12,
+          "reserve": 0,
+          "counts": {
+            "rest": 123453,
+            "walk": 38131,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 45742
+          },
+          "shared": 32,
+          "ground": 60
+        },
+        {
+          "day": 13,
+          "reserve": 0,
+          "counts": {
+            "rest": 140733,
+            "walk": 38131,
+            "eat": 7,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 45742
+          },
+          "shared": 32,
+          "ground": 59
+        },
+        {
+          "day": 14,
+          "reserve": 95.03622223078595,
+          "counts": {
+            "request": 5,
+            "rest": 156736,
+            "walk": 38910,
+            "eat": 12,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 15,
+            "scan": 46230
+          },
+          "shared": 32,
+          "ground": 53
+        },
+        {
+          "day": 15,
+          "reserve": 92.15560183683363,
+          "counts": {
+            "request": 5,
+            "rest": 163564,
+            "walk": 45575,
+            "eat": 13,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 18,
+            "scan": 50013
+          },
+          "shared": 32,
+          "ground": 44
+        },
+        {
+          "day": 16,
+          "reserve": 68.7951965251984,
+          "counts": {
+            "request": 5,
+            "rest": 164457,
+            "walk": 55500,
+            "eat": 13,
+            "give": 2,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 18,
+            "scan": 56472,
+            "refuse": 1
+          },
+          "shared": 32,
+          "ground": 44
+        },
+        {
+          "day": 17,
+          "reserve": 86.57690663897012,
+          "counts": {
+            "request": 9,
+            "rest": 167916,
+            "walk": 63740,
+            "eat": 15,
+            "give": 2,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 18,
+            "scan": 62047,
+            "refuse": 1
+          },
+          "shared": 32,
+          "ground": 40
+        },
+        {
+          "day": 18,
+          "reserve": 84.28528620772148,
+          "counts": {
+            "request": 9,
+            "rest": 172564,
+            "walk": 71584,
+            "eat": 16,
+            "give": 2,
+            "retrieve": 6,
+            "deposit": 6,
+            "pickup": 19,
+            "scan": 66833,
+            "refuse": 1
+          },
+          "shared": 32,
+          "ground": 38
+        },
+        {
+          "day": 19,
+          "reserve": 84.3249649485835,
+          "counts": {
+            "request": 10,
+            "rest": 186483,
+            "walk": 73518,
+            "eat": 17,
+            "give": 2,
+            "retrieve": 6,
+            "deposit": 7,
+            "pickup": 21,
+            "scan": 68255,
+            "refuse": 1
+          },
+          "shared": 34,
+          "ground": 32
+        },
+        {
+          "day": 20,
+          "reserve": 83.20584761404052,
+          "counts": {
+            "request": 10,
+            "rest": 199061,
+            "walk": 77276,
+            "eat": 18,
+            "give": 2,
+            "retrieve": 6,
+            "deposit": 7,
+            "pickup": 25,
+            "scan": 69194,
+            "refuse": 1
+          },
+          "shared": 34,
+          "ground": 27
+        },
+        {
+          "day": 21,
+          "reserve": 80.01994075511399,
+          "counts": {
+            "request": 10,
+            "rest": 202824,
+            "walk": 86443,
+            "eat": 19,
+            "give": 4,
+            "retrieve": 6,
+            "deposit": 7,
+            "pickup": 25,
+            "scan": 73541,
+            "refuse": 1
+          },
+          "shared": 32,
+          "ground": 27
+        },
+        {
+          "day": 22,
+          "reserve": 80.13858127621653,
+          "counts": {
+            "request": 10,
+            "rest": 218242,
+            "walk": 88280,
+            "eat": 20,
+            "give": 4,
+            "retrieve": 6,
+            "deposit": 7,
+            "pickup": 26,
+            "scan": 73564,
+            "refuse": 1
+          },
+          "shared": 34,
+          "ground": 34
+        },
+        {
+          "day": 23,
+          "reserve": 78.02008995740594,
+          "counts": {
+            "request": 10,
+            "rest": 223734,
+            "walk": 96363,
+            "eat": 21,
+            "give": 4,
+            "retrieve": 6,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 77267,
+            "refuse": 1
+          },
+          "shared": 32,
+          "ground": 30
+        },
+        {
+          "day": 24,
+          "reserve": 56.182145410052996,
+          "counts": {
+            "request": 10,
+            "rest": 228326,
+            "walk": 103486,
+            "eat": 21,
+            "give": 4,
+            "retrieve": 6,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 82832,
+            "refuse": 1
+          },
+          "shared": 33,
+          "ground": 24
+        },
+        {
+          "day": 25,
+          "reserve": 33.44807717011611,
+          "counts": {
+            "request": 13,
+            "rest": 228974,
+            "walk": 112989,
+            "eat": 21,
+            "give": 4,
+            "retrieve": 6,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 89958,
+            "refuse": 1
+          },
+          "shared": 37,
+          "ground": 33
+        },
+        {
+          "day": 26,
+          "reserve": 91.2673182556416,
+          "counts": {
+            "request": 13,
+            "rest": 231975,
+            "walk": 121409,
+            "eat": 25,
+            "give": 4,
+            "retrieve": 10,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 95809,
+            "refuse": 1
+          },
+          "shared": 37,
+          "ground": 29
+        },
+        {
+          "day": 27,
+          "reserve": 68.26061300123872,
+          "counts": {
+            "request": 13,
+            "rest": 232856,
+            "walk": 131237,
+            "eat": 25,
+            "give": 4,
+            "retrieve": 10,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 102380,
+            "refuse": 1
+          },
+          "shared": 40,
+          "ground": 24
+        },
+        {
+          "day": 28,
+          "reserve": 45.61899303163324,
+          "counts": {
+            "request": 13,
+            "rest": 233541,
+            "walk": 140523,
+            "eat": 25,
+            "give": 4,
+            "retrieve": 10,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 109689,
+            "refuse": 1
+          },
+          "shared": 39,
+          "ground": 35
+        },
+        {
+          "day": 29,
+          "reserve": 22.89912038714285,
+          "counts": {
+            "request": 13,
+            "rest": 234208,
+            "walk": 150010,
+            "eat": 25,
+            "give": 4,
+            "retrieve": 10,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 116815,
+            "refuse": 1
+          },
+          "shared": 39,
+          "ground": 32
+        },
+        {
+          "day": 30,
+          "reserve": 20.10712936082106,
+          "counts": {
+            "request": 14,
+            "rest": 234871,
+            "walk": 159683,
+            "eat": 26,
+            "give": 4,
+            "retrieve": 10,
+            "deposit": 7,
+            "pickup": 27,
+            "scan": 123757,
+            "refuse": 1
+          },
+          "shared": 39,
+          "ground": 30
+        }
+      ]
+    }
+  }
+}
