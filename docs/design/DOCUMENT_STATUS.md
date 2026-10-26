@@ -573,3 +573,7 @@ DESIGN ONLY。[設計](RDL_GameAI_Rho_Sensitivity_Experience.md)。区別する�
 ### 2026-10-26 — 連続Hと残差別感度
 
 FINITE PROTOTYPE。[実装](LW_Continuous_H_Sensitivity.md)。親・経路の残差から整数丸めを除去し、BasicLoopのHをFloat64化。遅延・停滞・消費・矛盾の固定感度を個体別に設定可能。親子の重複加算防止と固定見積もりを維持。感度自動学習・動的ρは未実装。
+
+### 2026-10-26 — 固定個性値として感度を分ける3日試験
+
+[試験](../../experiments/rock_gate/sensitivity_spread_report.md)。感度は学習させず、A=0.5/B=1.0/C=2.0に固定。全員3日完走、最終エネルギー約91、再入場0。Aは局所修正増・H破棄減。単一seed・共有環境のため因果や最適値は未確定。69項目と監査PASS。

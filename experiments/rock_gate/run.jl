@@ -87,6 +87,14 @@ base["config"]["mb_sleep"]=sleep_arg===nothing ? "off" : ARGS[sleep_arg+1]
 observation_arg=findfirst(==("--home-observation"),ARGS)
 base["config"]["home_observation"]=observation_arg===nothing ? "off" : ARGS[observation_arg+1]
 @assert base["config"]["home_observation"] in ("off","on")
+# Fixed per-actor personality gains, loaded into the recorded experiment input.
+sensitivity_arg=findfirst(==("--mb-sensitivities"),ARGS)
+if sensitivity_arg!==nothing
+    profiles=JSON3.read(read(ARGS[sensitivity_arg+1],String),Dict{String,Any})
+    @assert all(k in IDS for k in keys(profiles))
+    for profile in values(profiles);mb_sensitivity(profile);end
+    base["config"]["mb_sensitivities"]=profiles
+end
 const reports=Any[]
 for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     "--narrow-only" in ARGS && label!="narrow" && continue
