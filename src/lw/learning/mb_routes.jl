@@ -208,16 +208,16 @@ function mb_route_H_increment!(s,goal,source,resolved,now)
     progress=min(a["cursor"]-1,estimate["steps"])
     # The current attempted step and a terminal acquisition have their own allowance.
     allowed=min(estimate["actions"],progress+1)+estimate["action_slack"]
-    lag=max(0,e["actions"]-allowed)
+    lag=mb_response(s,"delay",e["actions"]-allowed)
     prefix=min(estimate["steps"],progress+1)
     budget=prefix==0 ? 0. : estimate["energy_prefix"][prefix]
-    excess=max(0,floor(Int,(e["energy"]-budget)/estimate["energy_quantum"])-1)
-    debt=max(lag,excess,e["contradictions"])
+    excess=mb_response(s,"energy",(e["energy"]-budget)/estimate["energy_quantum"]-1)
+    debt=max(lag,excess,mb_response(s,"contradiction",e["contradictions"]))
     increment=resolved===true ? 0 : max(0,debt-e["charged"])
     e["charged"]=max(e["charged"],debt);e["last_increment"]=increment
     f=s["routes"]["forecast"];f["evaluated"]+=1;f["within_estimate"]+=Int(debt==0 && resolved!==true);f["H_requested"]+=increment
     push!(f["records"],D("source"=>source,"id"=>a["id"],"progress"=>progress,"actions"=>e["actions"],
-        "lag"=>lag,"energy_excess"=>excess,"contradictions"=>e["contradictions"],"increment"=>increment,"resolved"=>resolved))
+        "sensitivity"=>copy(s["sensitivity"]),"lag"=>lag,"energy_excess"=>excess,"contradictions"=>e["contradictions"],"increment"=>increment,"resolved"=>resolved))
     length(f["records"])>64 && popfirst!(f["records"])
     increment
 end

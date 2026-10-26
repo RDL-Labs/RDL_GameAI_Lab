@@ -569,3 +569,7 @@ FINITE PROTOTYPE。[設計](LW_Local_Route_Repair.md)、[3日確認](../../exper
 ### 2026-10-26 — ρ・感度・経験更新の共通設計
 
 DESIGN ONLY。[設計](RDL_GameAI_Rho_Sensitivity_Experience.md)。区別する粒度ρ、差への感度、経験上の変動幅、未吸収の圧Hを分離。目的に応じた関係認識と、経験によるMBの適用条件・分割・統合、個体差、計算コスト、連続応答の検証案を記録。runtime変更なし。進行中の局所修正版30日試験は本案の実装検証ではない。
+
+### 2026-10-26 — 連続Hと残差別感度
+
+FINITE PROTOTYPE。[実装](LW_Continuous_H_Sensitivity.md)。親・経路の残差から整数丸めを除去し、BasicLoopのHをFloat64化。遅延・停滞・消費・矛盾の固定感度を個体別に設定可能。親子の重複加算防止と固定見積もりを維持。感度自動学習・動的ρは未実装。

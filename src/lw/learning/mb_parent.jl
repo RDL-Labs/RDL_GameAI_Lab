@@ -1,3 +1,14 @@
+# Sensitivity is independent of rho; actor-specific fixed gains, not learned yet.
+function mb_sensitivity(values=D())
+    out=D(k=>1. for k in ("delay","stagnation","energy","contradiction"))
+    for (k,v) in pairs(values)
+        check(haskey(out,k) && v isa Real && !(v isa Bool) && isfinite(v) && 0<v<=16,"mb_sensitivity")
+        out[k]=Float64(v)
+    end
+    out
+end
+mb_response(s,key,residual)=s["sensitivity"][key]*max(0.,Float64(residual))
+
 # Parent MB estimates: bounded learned episodes, bootstrapped only when experience is absent.
 mb_parent_state()=D("models"=>D(),"active"=>D(),"records"=>Any[],"evaluated"=>0,"within_estimate"=>0,"H_requested"=>0,"successes"=>0,"last_goal"=>nothing)
 function mb_parent_model!(s,goal,mode)
@@ -86,16 +97,16 @@ function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
         push!(a["scenes"],frame.key)
     end
     window=e["progress_window"]
-    delay=max(0,cld(a["actions"]-e["upper_actions"],window))
-    stagnation=e["expected_new_scenes"]>0 && length(a["scenes"])<2 ? max(0,fld(a["actions"],window)-1) : 0
-    excess=max(0,floor(Int,(a["energy"]-e["energy"])/e["energy_quantum"]))
+    delay=mb_response(s,"delay",(a["actions"]-e["upper_actions"])/window)
+    stagnation=e["expected_new_scenes"]>0 && length(a["scenes"])<2 ? mb_response(s,"stagnation",a["actions"]/window-1) : 0
+    excess=mb_response(s,"energy",(a["energy"]-e["energy"])/e["energy_quantum"])
     a["child_debt"]+=max(0,child_increment)
     debt=max(delay,stagnation,excess,a["child_debt"])
     increment=resolved===true ? 0 : max(0,debt-a["charged"])
     a["charged"]=max(a["charged"],debt);a["last_increment"]=increment
     state["evaluated"]+=1;state["within_estimate"]+=Int(debt==0 && resolved!==true);state["H_requested"]+=increment
     record=D("source"=>source,"goal"=>goal,"estimate"=>copy(e),"actions"=>a["actions"],"energy"=>a["energy"],
-        "scenes"=>length(a["scenes"]),"delay"=>delay,"stagnation"=>stagnation,"energy_excess"=>excess,
+        "sensitivity"=>copy(s["sensitivity"]),"scenes"=>length(a["scenes"]),"delay"=>delay,"stagnation"=>stagnation,"energy_excess"=>excess,
         "child_debt"=>a["child_debt"],"increment"=>increment,"resolved"=>resolved)
     push!(state["records"],record);length(state["records"])>64 && popfirst!(state["records"])
     if resolved!==true && a["actions"]>=max(32,2a["learned_actions"])

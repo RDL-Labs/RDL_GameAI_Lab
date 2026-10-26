@@ -34,7 +34,7 @@ end
  @test mb_parent_H_increment!(s,"food","op:0:a",false,1_000_000;child_increment=1)==1
  @test a["child_debt"]==1 && s["parent_mb"]["H_requested"]==1
  mb_parent_record!(s,p,0.,1_000_000)
- @test mb_parent_H_increment!(s,"food","op:1000000:a",false,2_000_000)==0
+ @test mb_parent_H_increment!(s,"food","op:1000000:a",false,2_000_000)≈1/64
  @test mb_parent_H_increment!(s,"home","op:1000000:a",false,2_000_000)===nothing
  # A late episode cannot change its own learned estimate while running.
  @test s["parent_mb"]["models"]["food:search"]["samples"]==0

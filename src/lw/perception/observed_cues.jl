@@ -67,7 +67,7 @@ function observed_cues(obs,sky,structures,move,hazard,source;level=2)
 end
 
 function cue_candidates!(stats,pool,move,H,threshold)
-    level=min(2,fld(H,threshold));stats["observations"]+=1
+    level=min(2,floor(Int,H/threshold));stats["observations"]+=1
     stats["generation_levels"][level+1]+=1;stats["generated"]+=length(pool.items)
     stats["capacity_dropped"]+=pool.dropped
     stats["tower_observations"]+=Int(any(c->c["label"]=="ochre",pool.items))

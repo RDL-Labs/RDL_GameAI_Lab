@@ -17,6 +17,7 @@ using Test
     @test length(unique(c["key"] for c in pool.items))==length(pool.items)
     @test all(!haskey(c,"x") && !haskey(c,"object_id") for c in pool.items)
     @test all(c["tier"]==1 for c in pool.items if c["label"]=="gray")
+    @test cue_candidates!(cue_stats(),pool,move,.25,2.)==cue_candidates!(cue_stats(),pool,move,0,2)
     sets=Any[]
     for H in (0,2,4)
         lazy=observed_cues(ob,sky,structures,move,hazard,"s";level=min(2,H÷2))

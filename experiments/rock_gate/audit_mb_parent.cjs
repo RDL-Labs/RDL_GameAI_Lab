@@ -8,7 +8,7 @@ for(const [actor,m] of Object.entries(s.mb_map)){
  assert.equal(Object.values(p.models).reduce((x,m)=>x+m.completed,0),p.successes);
  for(const model of Object.values(p.models)){assert.equal(model.samples,model.completed);if(model.observations){assert.ok(model.observations.length<=128);assert.equal(new Set(model.observations.map(x=>x.id)).size,model.observations.length);assert.ok(model.observations.every(x=>x.actions>0&&x.energy>=0));}assert.ok(model.actions_mean>=0&&model.energy_rate>=0);}
  for(const a of Object.values(p.active)){assert.ok(a.scenes.length<=64);assert.ok(Number.isFinite(a.estimate.upper_actions)&&a.estimate.upper_actions>=2);assert.ok(a.actions>=0&&a.energy>=0);}
- for(const r of p.records){assert.ok(r.increment>=0&&Number.isInteger(r.increment));if(r.resolved)assert.equal(r.increment,0);}
+ for(const r of p.records){assert.ok(r.increment>=0&&Number.isFinite(r.increment));if(r.resolved)assert.equal(r.increment,0);}
  result.actors[actor]=p;
 }
 fs.writeFileSync(dest,JSON.stringify(result,null,2));

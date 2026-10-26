@@ -68,7 +68,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,mb_sensitivities=D())
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -79,7 +79,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     if mb_sleep;sleep_actions=false;sleep_maintenance=false;end
     check(!mb_chunks || mb_simulation,"mb_chunks_require_map")
     check(!configured_observation_enabled || mb_simulation,"observation_requires_mb_map")
-    mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks) for a in IDS)
+    mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks,sensitivity=get(mb_sensitivities,a,D())) for a in IDS)
     cue_states=Dict(a=>cue_stats() for a in IDS)
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
@@ -461,7 +461,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         end
                         if general_landmarks && target===nothing
                             structure_view=ground_continuity ? ground_models[a]["structures"]["observation"] : nothing
-                            pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,fld(s.H,s.threshold)))
+                            pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,floor(Int,s.H/s.threshold)))
                             append!(candidates,cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold))
                         end
                         if mb_simulation && (target===nothing || mb_maps[a]["routes"]["active"]!==nothing)
@@ -493,7 +493,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             candidates=parent_candidates(s,candidates)
                             bs=breadth_stats[a];bs["decisions"]+=1;bs["offered"]+=before
                             bs["admitted"]+=length(candidates);bs["restricted"]+=Int(length(candidates)<before)
-                            level=s.H>=32 ? 2 : min(2,fld(s.H,s.threshold))
+                            level=s.H>=32 ? 2 : min(2,floor(Int,s.H/s.threshold))
                             bs["levels"][level+1]+=1
                         end
                         if ground_mode=="patches"

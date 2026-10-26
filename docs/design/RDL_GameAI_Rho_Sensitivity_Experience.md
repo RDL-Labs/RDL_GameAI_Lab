@@ -76,3 +76,5 @@ Juliaで、まず同じ凍結観測・目的に対するρと感度を独立に�
 - [個性・探索の将来計画](RDL_GameAI_Neural_Individuality_Exploration_Future_Roadmap.md): error sensitivityとρの区別。
 - [親MBの見積もり](LW_Parent_MB_Estimation.md): 固定した試行予測と経験更新。
 - [局所修正と経路保持](LW_Local_Route_Repair.md): 微修正と全体破棄の分離。
+
+実装追記（2026-10-26）: [連続Hと固定感度](LW_Continuous_H_Sensitivity.md)を有限実装。残差の連続評価と個体別感度の設定に限定し、本書の経験による感度更新・動的ρ・自動抽象化は引き続き設計段階。

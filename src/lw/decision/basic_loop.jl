@@ -1,19 +1,19 @@
 # GameAI-local reusable selection loop. Candidate generation/evaluation are adapters.
 using Random
 mutable struct MethodNode
-    H::Int
-    threshold::Int
+    H::Float64
+    threshold::Float64
     last_selected::Int
     reward::Float64
     failure_count::Int
-    failure_H_total::Int
+    failure_H_total::Float64
 end
 MethodNode(H,threshold,last_selected)=MethodNode(H,threshold,last_selected,0.,0,0)
 mutable struct BasicLoop
     goal::String
     parent::Union{Nothing,String}
-    H::Int
-    threshold::Int
+    H::Float64
+    threshold::Float64
     methods::Dict{String,MethodNode}
     sequence::Int
     trial::Any
@@ -137,7 +137,7 @@ end
 function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true,creditable=method_value===true,goal_H_increment=1)
     check(accepted,"loop_unaccepted_result")
     check(all(v===nothing || v isa Bool for v in (method_value,goal_value)),"loop_evidence")
-    check(goal_H_increment isa Integer && goal_H_increment>=0,"loop_goal_increment")
+    check(goal_H_increment isa Real && !(goal_H_increment isa Bool) && isfinite(goal_H_increment) && goal_H_increment>=0,"loop_goal_increment")
     evidence=(source=source,method_value=method_value,goal_value=goal_value,creditable=creditable,goal_H_increment=goal_H_increment)
     if s.receipt!==nothing && s.receipt.source==source
         check(s.receipt==evidence,"loop_result_conflict");return false
