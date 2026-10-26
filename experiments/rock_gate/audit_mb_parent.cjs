@@ -1,6 +1,6 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
-const [run,dest]=process.argv.slice(2);if(!dest)throw Error('usage: audit_mb_parent.cjs RUN DEST');
-const s=JSON.parse(fs.readFileSync(path.join(run,'narrow/run/summary.json'),'utf8'));
+const [run,dest,caseName='narrow']=process.argv.slice(2);if(!dest)throw Error('usage: audit_mb_parent.cjs RUN DEST [CASE]');
+const s=JSON.parse(fs.readFileSync(path.join(run,caseName,'run/summary.json'),'utf8'));
 const result={measurement:s.measurement,actors:{}};
 for(const [actor,m] of Object.entries(s.mb_map)){
  const p=m.parent_mb;assert.ok(Object.keys(p.models).length<=6);assert.ok(Object.keys(p.active).length<=2);assert.ok(p.records.length<=64);

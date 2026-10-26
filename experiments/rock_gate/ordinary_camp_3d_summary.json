@@ -1,0 +1,1496 @@
+{
+  "measurement": {
+    "gc_seconds": 18.4762046,
+    "process_peak_rss_bytes": 1375739904,
+    "compilation_included": true,
+    "call_seconds": 381.0624166,
+    "allocated_bytes": 180973794934
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 64.3007482629596,
+      "out": 99,
+      "in": 98,
+      "evaluated": 1697,
+      "builds": 48,
+      "knownCandidates": 4123,
+      "unknownCandidates": 44688,
+      "returnLinkSelected": 18,
+      "cachedNodes": 256,
+      "routeStarted": 469,
+      "outcomes": {
+        "abandoned": 261,
+        "success": 9,
+        "interrupted": 199
+      },
+      "chunks": 38,
+      "parentSuccesses": 51,
+      "records": [
+        {
+          "known": 2,
+          "unknown": 28,
+          "us": 43074000000,
+          "reserve": 75.99951554690672,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 30,
+          "us": 43076000000,
+          "reserve": 75.99641091727709,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 4,
+          "unknown": 21,
+          "us": 43077000000,
+          "reserve": 75.99492943579561,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 31,
+          "us": 43078000000,
+          "reserve": 75.99344795431414,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 32,
+          "us": 43080000000,
+          "reserve": 75.99048499135118,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 29,
+          "us": 43082000000,
+          "reserve": 75.98789239875859,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 6,
+          "unknown": 32,
+          "us": 43083000000,
+          "reserve": 75.98641091727711,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 25,
+          "us": 43086000000,
+          "reserve": 75.98196647283268,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 25,
+          "us": 43087000000,
+          "reserve": 75.98085536172157,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 27,
+          "us": 43088000000,
+          "reserve": 75.97937388024009,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 12,
+          "unknown": 18,
+          "us": 43090000000,
+          "reserve": 75.97641091727714,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 26,
+          "us": 43091000000,
+          "reserve": 75.97492943579566,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 28,
+          "us": 43092000000,
+          "reserve": 75.97344795431418,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 5,
+          "unknown": 25,
+          "us": 43093000000,
+          "reserve": 75.97233684320307,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 8,
+          "unknown": 23,
+          "us": 43094000000,
+          "reserve": 75.97085536172159,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 3,
+          "unknown": 22,
+          "us": 43096000000,
+          "reserve": 75.968262769129,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 1,
+          "unknown": 25,
+          "us": 43097000000,
+          "reserve": 75.96678128764752,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 22,
+          "us": 43098000000,
+          "reserve": 75.9656701765364,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 8,
+          "unknown": 26,
+          "us": 43100000000,
+          "reserve": 75.96307758394381,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 19,
+          "us": 43101000000,
+          "reserve": 75.9619664728327,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 21,
+          "us": 43102000000,
+          "reserve": 75.96085536172158,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 19,
+          "us": 43103000000,
+          "reserve": 75.95974425061047,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 21,
+          "us": 43104000000,
+          "reserve": 75.95863313949936,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 21,
+          "us": 43105000000,
+          "reserve": 75.95752202838824,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 22,
+          "us": 43106000000,
+          "reserve": 75.95641091727713,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 25,
+          "us": 43107000000,
+          "reserve": 75.95492943579565,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 29,
+          "us": 43109000000,
+          "reserve": 75.95233684320306,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 24,
+          "us": 43110000000,
+          "reserve": 75.95122573209194,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 30,
+          "us": 43111000000,
+          "reserve": 75.94974425061046,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 7,
+          "unknown": 19,
+          "us": 43112000000,
+          "reserve": 75.94826276912899,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 32,
+          "us": 43116000000,
+          "reserve": 75.94233684320308,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 27,
+          "us": 43118000000,
+          "reserve": 75.94011462098085,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 1,
+          "unknown": 32,
+          "us": 43124000000,
+          "reserve": 75.93122573209199,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 29,
+          "us": 43125000000,
+          "reserve": 75.92974425061051,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 30,
+          "us": 43126000000,
+          "reserve": 75.92826276912903,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 28,
+          "us": 43127000000,
+          "reserve": 75.92715165801792,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 32,
+          "us": 43128000000,
+          "reserve": 75.9260405469068,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 25,
+          "us": 43133000000,
+          "reserve": 75.91900350986978,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 31,
+          "us": 43140000000,
+          "reserve": 75.9090035098698,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 28,
+          "us": 43143000000,
+          "reserve": 75.90483190493153,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 1,
+          "unknown": 37,
+          "us": 43146000000,
+          "reserve": 75.90075783085746,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 37,
+          "us": 43147000000,
+          "reserve": 75.89964671974634,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 6,
+          "unknown": 31,
+          "us": 43148000000,
+          "reserve": 75.89816523826487,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 6,
+          "unknown": 30,
+          "us": 43149000000,
+          "reserve": 75.89705412715375,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 5,
+          "unknown": 34,
+          "us": 43150000000,
+          "reserve": 75.89594301604264,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 34,
+          "us": 43158000000,
+          "reserve": 75.88557264567227,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 5,
+          "unknown": 19,
+          "us": 43159000000,
+          "reserve": 75.88401029999325,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 21,
+          "us": 43160000000,
+          "reserve": 75.88289918888213,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 5,
+          "unknown": 23,
+          "us": 43162000000,
+          "reserve": 75.88030659628954,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 34,
+          "us": 43165000000,
+          "reserve": 75.87623252221547,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 34,
+          "us": 43166000000,
+          "reserve": 75.87512141110436,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 39,
+          "us": 43167000000,
+          "reserve": 75.87363992962288,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 34,
+          "us": 43168000000,
+          "reserve": 75.8721584481414,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 1,
+          "unknown": 37,
+          "us": 43169000000,
+          "reserve": 75.87067696665993,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 30,
+          "us": 43170000000,
+          "reserve": 75.86919548517845,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 19,
+          "us": 43171000000,
+          "reserve": 75.86808437406734,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 29,
+          "us": 43172000000,
+          "reserve": 75.86660289258586,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 27,
+          "us": 43173000000,
+          "reserve": 75.86549178147474,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 29,
+          "us": 43174000000,
+          "reserve": 75.86438067036363,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 28,
+          "us": 43179000000,
+          "reserve": 75.85808437406733,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 28,
+          "us": 43180000000,
+          "reserve": 75.85697326295622,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 6,
+          "unknown": 24,
+          "us": 43185000000,
+          "reserve": 75.8499362259192,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 6,
+          "unknown": 19,
+          "us": 43190000000,
+          "reserve": 75.84326955925253,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 1,
+          "unknown": 30,
+          "us": 43199000000,
+          "reserve": 75.83178807777105,
+          "current_status": "unconfirmed"
+        }
+      ],
+      "homeRouteSuccesses": 9,
+      "inwardByDay": [
+        71,
+        27,
+        0
+      ],
+      "returnPurpose": {
+        "completed": 62,
+        "active": true,
+        "started_us": 29396000000,
+        "entries": 63
+      },
+      "completedByDay": [
+        0,
+        62,
+        62
+      ],
+      "counts": {
+        "rest": 16189,
+        "walk": 14774,
+        "eat": 2,
+        "pickup": 3,
+        "deposit": 1,
+        "scan": 20091,
+        "run": 780
+      }
+    },
+    "npc_a": {
+      "reserve": 85.1960341242268,
+      "out": 112,
+      "in": 111,
+      "evaluated": 1791,
+      "builds": 49,
+      "knownCandidates": 4945,
+      "unknownCandidates": 45080,
+      "returnLinkSelected": 15,
+      "cachedNodes": 256,
+      "routeStarted": 525,
+      "outcomes": {
+        "abandoned": 295,
+        "success": 4,
+        "interrupted": 225
+      },
+      "chunks": 13,
+      "parentSuccesses": 47,
+      "records": [
+        {
+          "known": 3,
+          "unknown": 35,
+          "us": 43099000000,
+          "reserve": 76.27864377771849,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 21,
+          "us": 43101000000,
+          "reserve": 76.27559007401479,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 22,
+          "us": 43102000000,
+          "reserve": 76.27410859253331,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 6,
+          "unknown": 24,
+          "us": 43104000000,
+          "reserve": 76.27151599994072,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 10,
+          "unknown": 24,
+          "us": 43105000000,
+          "reserve": 76.2704048888296,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 15,
+          "unknown": 16,
+          "us": 43106000000,
+          "reserve": 76.26929377771849,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 35,
+          "us": 43107000000,
+          "reserve": 76.26781229623701,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 22,
+          "us": 43108000000,
+          "reserve": 76.26633081475553,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 3,
+          "unknown": 22,
+          "us": 43109000000,
+          "reserve": 76.26521970364442,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 3,
+          "unknown": 28,
+          "us": 43110000000,
+          "reserve": 76.2641085925333,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 27,
+          "us": 43111000000,
+          "reserve": 76.26262711105183,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 35,
+          "us": 43112000000,
+          "reserve": 76.26151599994071,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 30,
+          "us": 43113000000,
+          "reserve": 76.2604048888296,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 33,
+          "us": 43120000000,
+          "reserve": 76.25151599994071,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 35,
+          "us": 43127000000,
+          "reserve": 76.24176970364442,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 34,
+          "us": 43128000000,
+          "reserve": 76.24028822216295,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 30,
+          "us": 43130000000,
+          "reserve": 76.23732525919999,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 4,
+          "unknown": 34,
+          "us": 43131000000,
+          "reserve": 76.23584377771851,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 32,
+          "us": 43132000000,
+          "reserve": 76.2347326666074,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 8,
+          "unknown": 28,
+          "us": 43133000000,
+          "reserve": 76.23362155549628,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 5,
+          "unknown": 26,
+          "us": 43134000000,
+          "reserve": 76.23251044438517,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 24,
+          "us": 43136000000,
+          "reserve": 76.22991785179258,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 26,
+          "us": 43137000000,
+          "reserve": 76.2284363703111,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 29,
+          "us": 43139000000,
+          "reserve": 76.22621414808887,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 3,
+          "unknown": 31,
+          "us": 43140000000,
+          "reserve": 76.2247326666074,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 13,
+          "unknown": 16,
+          "us": 43141000000,
+          "reserve": 76.22362155549628,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 13,
+          "unknown": 16,
+          "us": 43142000000,
+          "reserve": 76.22251044438516,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 39,
+          "us": 43143000000,
+          "reserve": 76.22139933327405,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 28,
+          "us": 43149000000,
+          "reserve": 76.21314069129875,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 27,
+          "us": 43150000000,
+          "reserve": 76.21202958018763,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 27,
+          "us": 43151000000,
+          "reserve": 76.21091846907652,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 34,
+          "us": 43153000000,
+          "reserve": 76.20795550611356,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 33,
+          "us": 43154000000,
+          "reserve": 76.20647402463209,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 35,
+          "us": 43156000000,
+          "reserve": 76.20347680240987,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 38,
+          "us": 43157000000,
+          "reserve": 76.2019913085827,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 37,
+          "us": 43158000000,
+          "reserve": 76.20088019747159,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 32,
+          "us": 43159000000,
+          "reserve": 76.19976908636048,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 31,
+          "us": 43160000000,
+          "reserve": 76.19865797524936,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 36,
+          "us": 43161000000,
+          "reserve": 76.19754686413825,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 31,
+          "us": 43162000000,
+          "reserve": 76.19643575302713,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 36,
+          "us": 43163000000,
+          "reserve": 76.19532464191602,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 32,
+          "us": 43164000000,
+          "reserve": 76.1942135308049,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 32,
+          "us": 43165000000,
+          "reserve": 76.19273204932342,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 36,
+          "us": 43166000000,
+          "reserve": 76.19162093821231,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 6,
+          "unknown": 23,
+          "us": 43167000000,
+          "reserve": 76.19013945673083,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 3,
+          "unknown": 27,
+          "us": 43168000000,
+          "reserve": 76.18902834561972,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 31,
+          "us": 43169000000,
+          "reserve": 76.1879172345086,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 31,
+          "us": 43170000000,
+          "reserve": 76.18680612339749,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 10,
+          "unknown": 27,
+          "us": 43171000000,
+          "reserve": 76.18532464191601,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 10,
+          "unknown": 25,
+          "us": 43172000000,
+          "reserve": 76.1842135308049,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 37,
+          "us": 43173000000,
+          "reserve": 76.18273204932342,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 26,
+          "us": 43176000000,
+          "reserve": 76.17902834561971,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 36,
+          "us": 43181000000,
+          "reserve": 76.17199130858269,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 33,
+          "us": 43184000000,
+          "reserve": 76.16754686413826,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 34,
+          "us": 43185000000,
+          "reserve": 76.16606538265678,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 33,
+          "us": 43187000000,
+          "reserve": 76.16310241969383,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 5,
+          "unknown": 26,
+          "us": 43188000000,
+          "reserve": 76.16162093821235,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 26,
+          "us": 43189000000,
+          "reserve": 76.16013945673087,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 25,
+          "us": 43190000000,
+          "reserve": 76.1586579752494,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 27,
+          "us": 43191000000,
+          "reserve": 76.15717649376792,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 6,
+          "unknown": 22,
+          "us": 43194000000,
+          "reserve": 76.15273204932349,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 5,
+          "unknown": 23,
+          "us": 43195000000,
+          "reserve": 76.15125056784201,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 28,
+          "us": 43198000000,
+          "reserve": 76.14717649376794,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 31,
+          "us": 43199000000,
+          "reserve": 76.14564624685437,
+          "current_status": "observed_chain"
+        }
+      ],
+      "homeRouteSuccesses": 4,
+      "inwardByDay": [
+        67,
+        35,
+        9
+      ],
+      "returnPurpose": {
+        "completed": 43,
+        "active": true,
+        "started_us": 30072000000,
+        "entries": 44
+      },
+      "completedByDay": [
+        0,
+        43,
+        43
+      ],
+      "counts": {
+        "rest": 18511,
+        "eat": 6,
+        "walk": 12313,
+        "pickup": 14,
+        "deposit": 2,
+        "scan": 20030,
+        "run": 964
+      }
+    },
+    "npc_c": {
+      "reserve": 84.39289425509145,
+      "out": 123,
+      "in": 122,
+      "evaluated": 120,
+      "builds": 5,
+      "knownCandidates": 137,
+      "unknownCandidates": 1181,
+      "returnLinkSelected": 1,
+      "cachedNodes": 256,
+      "routeStarted": 593,
+      "outcomes": {
+        "abandoned": 327,
+        "success": 3,
+        "interrupted": 263
+      },
+      "chunks": 31,
+      "parentSuccesses": 47,
+      "records": [
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17402000000,
+          "reserve": 88.40083568473216,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17403000000,
+          "reserve": 88.39930968164573,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 8,
+          "us": 17414000000,
+          "reserve": 88.37803029892967,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17415000000,
+          "reserve": 88.3765187248556,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 8,
+          "us": 17416000000,
+          "reserve": 88.37501224337412,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 8,
+          "us": 17417000000,
+          "reserve": 88.37357705818893,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 8,
+          "us": 17418000000,
+          "reserve": 88.37214187300374,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 8,
+          "us": 17419000000,
+          "reserve": 88.37070668781855,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17420000000,
+          "reserve": 88.36927150263337,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17421000000,
+          "reserve": 88.36783631744818,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17422000000,
+          "reserve": 88.366401132263,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17423000000,
+          "reserve": 88.3649659470778,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 17424000000,
+          "reserve": 88.36353076189262,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 5,
+          "us": 17426000000,
+          "reserve": 88.36098446559632,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 17427000000,
+          "reserve": 88.35950298411484,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 17428000000,
+          "reserve": 88.35802150263336,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 17429000000,
+          "reserve": 88.35654002115189,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 21,
+          "us": 24886000000,
+          "reserve": 79.99996144087726,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 7,
+          "us": 24887000000,
+          "reserve": 79.99843366309948,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 24888000000,
+          "reserve": 79.9969058853217,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 24889000000,
+          "reserve": 79.99537810754391,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 24890000000,
+          "reserve": 79.99385032976613,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 4,
+          "unknown": 10,
+          "us": 24903000000,
+          "reserve": 99.9706558853217,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 5,
+          "us": 24904000000,
+          "reserve": 99.96917440384023,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 24906000000,
+          "reserve": 99.96621144087727,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 4,
+          "us": 24907000000,
+          "reserve": 99.9647299593958,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 16,
+          "us": 39751000000,
+          "reserve": 79.95491667298282,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 18,
+          "us": 39766000000,
+          "reserve": 79.9320722285384,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 1,
+          "unknown": 7,
+          "us": 39771000000,
+          "reserve": 79.92410648779767,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 7,
+          "us": 39772000000,
+          "reserve": 79.9225324137236,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 9,
+          "us": 39773000000,
+          "reserve": 79.92095833964953,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 6,
+          "us": 39774000000,
+          "reserve": 79.91984722853842,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39775000000,
+          "reserve": 79.91827315446434,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39776000000,
+          "reserve": 79.91669908039027,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39777000000,
+          "reserve": 79.9151250063162,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 7,
+          "us": 39778000000,
+          "reserve": 79.91355093224213,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 8,
+          "us": 39779000000,
+          "reserve": 79.91197685816806,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 11,
+          "us": 39780000000,
+          "reserve": 79.91040278409399,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 11,
+          "us": 39781000000,
+          "reserve": 79.90929167298287,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 1,
+          "unknown": 8,
+          "us": 39783000000,
+          "reserve": 79.90614352483473,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39784000000,
+          "reserve": 79.90455648779769,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39785000000,
+          "reserve": 79.90316759890881,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39789000000,
+          "reserve": 79.89753704335327,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39790000000,
+          "reserve": 79.89607593224216,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39806000000,
+          "reserve": 79.86823232584638,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39807000000,
+          "reserve": 79.86677630732785,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39808000000,
+          "reserve": 79.86532491843896,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39809000000,
+          "reserve": 79.86386010362415,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 5,
+          "us": 39814000000,
+          "reserve": 79.85701792536052,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39815000000,
+          "reserve": 79.85559841326442,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39816000000,
+          "reserve": 79.85413745647429,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 3,
+          "unknown": 6,
+          "us": 39817000000,
+          "reserve": 79.85268020338788,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39818000000,
+          "reserve": 79.85122757993109,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39819000000,
+          "reserve": 79.84980288857307,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39820000000,
+          "reserve": 79.84838190091874,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39821000000,
+          "reserve": 79.846928660178,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39822000000,
+          "reserve": 79.84551955523972,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39823000000,
+          "reserve": 79.8444084441286,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 7,
+          "us": 39824000000,
+          "reserve": 79.84300211696811,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39825000000,
+          "reserve": 79.84156662314095,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39826000000,
+          "reserve": 79.84017773425207,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 0,
+          "unknown": 7,
+          "us": 39827000000,
+          "reserve": 79.83875551202985,
+          "current_status": "unconfirmed"
+        },
+        {
+          "known": 2,
+          "unknown": 6,
+          "us": 39828000000,
+          "reserve": 79.8373360675854,
+          "current_status": "observed_chain"
+        },
+        {
+          "known": 3,
+          "unknown": 5,
+          "us": 39829000000,
+          "reserve": 79.83592125277058,
+          "current_status": "observed_chain"
+        }
+      ],
+      "homeRouteSuccesses": 3,
+      "inwardByDay": [
+        81,
+        41,
+        0
+      ],
+      "returnPurpose": {
+        "completed": 58,
+        "active": true,
+        "started_us": 30357000000,
+        "entries": 59
+      },
+      "completedByDay": [
+        0,
+        58,
+        58
+      ],
+      "counts": {
+        "rest": 18901,
+        "walk": 12856,
+        "eat": 3,
+        "pickup": 4,
+        "deposit": 1,
+        "scan": 19230,
+        "run": 845
+      }
+    }
+  }
+}

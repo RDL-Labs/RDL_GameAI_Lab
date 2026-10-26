@@ -3,6 +3,8 @@ const root=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(out)
 const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
+const ordinary_only="--ordinary-only" in ARGS
+@assert !(ordinary_only && "--narrow-only" in ARGS)
 const provisions_arg=findfirst(==("--camp-provisions"),ARGS)
 const camp_provisions=provisions_arg===nothing ? 0 : parse(Int,ARGS[provisions_arg+1])
 @assert 0<=camp_provisions<=100
@@ -101,7 +103,7 @@ if similarity_arg!==nothing
     base["config"]["mb_similarity_learning"]=ARGS[similarity_arg+1]
 end
 const reports=Any[]
-for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
+for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set([0,1,23])),("narrow",Set([0]))))
     "--narrow-only" in ARGS && label!="narrow" && continue
     stop_day[]=0
     current[]=label;empty!(prev);empty!(crossings);empty!(maxradius);empty!(positions)
@@ -137,6 +139,12 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
             input["config"]["world_features"]="color-size-patches-v1"
         end
     end
+    if ordinary_only
+        # Remove only the benchmark enclosure AFTER enrichment, preserving its RNG
+        # sequence and therefore the same background features and food stocks.
+        filter!(o->!any(o["x"]==s["x"] && o["z"]==s["z"] for s in stones),input["scene"]["obstacles"])
+        empty!(stones)
+    end
     # Finite piles beside initial observation positions; normal pickup/eat physics.
     if camp_provisions>0
         for p in input["scene"]["positions"]
@@ -163,7 +171,13 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
         @test all(!any(o->hypot(p[1]-o.x,p[2]-o.z)<=o.radius+.2,walls) for p in spec.scene.positions)
         @test all(!segment_hit((0.,3.),(0.,-1.),o,.2) for o in allhigh)
         @test all(!segment_hit((0.,-1.),(0.,3.),o,.2) for o in allhigh)
-        @test any(o->segment_hit((3.,6.),(7.,6.),o,.2),walls)
+        if ordinary_only
+            @test isempty(walls)
+            @test all(!segment_hit((3.,6.),(7.,6.),o,.2) for o in allhigh)
+            @test all(!segment_hit((-3.,6.),(-7.,6.),o,.2) for o in allhigh)
+        else
+            @test any(o->segment_hit((3.,6.),(7.,6.),o,.2),walls)
+        end
         # Adjacent non-gate stones overlap; there are no unintended gaps elsewhere.
         for i in 1:length(walls)-1
             @test hypot(walls[i].x-walls[i+1].x,walls[i].z-walls[i+1].z)<1.6
@@ -199,10 +213,10 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
         end
         @test all(isfinite(v) for s in values(r.final_agents) for v in values(s.body) if v isa Number)
         # All observed wall crossings must use the southern opening, including its arc shoulders.
-        @test all(e.from[2]<home[2] && e.to[2]<home[2] for e in crossings)
+        !ordinary_only && (@test all(e.from[2]<home[2] && e.to[2]<home[2] for e in crossings))
     end
     write(joinpath(caseout,"termination.json"),JSON3.write((limit_days=run_days,completed_days=length(r.daily),reason=stop_day[]>0 ? "all_zero_reserve_and_full_day_rest" : "day_limit",stop_exhausted=stop_exhausted)))
-    report=(case=label,rocks=length(stones),entrance_markers=torches,gap_width=label=="wide" ? 3.4 : 10sin(pi/12)-1.6,
+    report=(case=label,rocks=length(stones),entrance_markers=torches,gap_width=ordinary_only ? nothing : label=="wide" ? 3.4 : 10sin(pi/12)-1.6,
         food=(initial=r.initial_food,ground=r.ground,shared=r.shared_stock,consumed=r.consumed),
         actors=Dict(a=>(outward=count(e->e.actor==a && e.direction=="out",crossings),
             inward=count(e->e.actor==a && e.direction=="in",crossings),max_radius=maxradius[a],
@@ -215,5 +229,5 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     println("CASE COMPLETE $label");flush(stdout)
 end
 !prepare_only && write(joinpath(out,"comparison.json"),JSON3.write(reports))
-write(joinpath(out,"provenance.json"),JSON3.write((commit=strip(read(`git -C $root rev-parse HEAD`,String)),julia=string(VERSION),source_day_sha256=bytes2hex(sha256(original)),scope="same LW; circular rock wall, paved interior and orange entrance post; read-only observer",prepared_only=prepare_only)))
+write(joinpath(out,"provenance.json"),JSON3.write((commit=strip(read(`git -C $root rev-parse HEAD`,String)),julia=string(VERSION),source_day_sha256=bytes2hex(sha256(original)),scope=ordinary_only ? "same LW; open camp without benchmark rock enclosure; same roads, lights and food; read-only radius-5 observer" : "same LW; circular rock wall, paved interior and orange entrance post; read-only observer",prepared_only=prepare_only)))
 println(prepare_only ? "COMPLETE rock gate preparation" : "COMPLETE rock gate comparison")

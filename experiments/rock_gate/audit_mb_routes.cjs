@@ -1,6 +1,6 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
-const [run,dest]=process.argv.slice(2);if(!dest)throw Error('usage: audit_mb_routes.cjs RUN DEST');
-const s=JSON.parse(fs.readFileSync(path.join(run,'narrow/run/summary.json'),'utf8'));
+const [run,dest,caseName='narrow']=process.argv.slice(2);if(!dest)throw Error('usage: audit_mb_routes.cjs RUN DEST [CASE]');
+const s=JSON.parse(fs.readFileSync(path.join(run,caseName,'run/summary.json'),'utf8'));
 const result={measurement:s.measurement,actors:{}};
 for(const [actor,m] of Object.entries(s.mb_map)){
  const r=m.routes;assert.ok(r.events.length<=64);assert.ok(Object.keys(r.stats).length<=256);
