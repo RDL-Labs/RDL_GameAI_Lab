@@ -1,0 +1,6049 @@
+{
+  "measurement": {
+    "gc_seconds": 11.9719925,
+    "process_peak_rss_bytes": 1421783040,
+    "compilation_included": true,
+    "call_seconds": 197.8137434,
+    "allocated_bytes": 122341974361
+  },
+  "actors": {
+    "npc_b": {
+      "started": 65,
+      "outcomes": {
+        "unresolved": 4,
+        "interrupted": 61
+      },
+      "active": null,
+      "forecast": {
+        "records": [
+          {
+            "source": "op:45804000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45805000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45817000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45818000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45819000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 1,
+            "resolved": false,
+            "progress": 0,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45820000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45821000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45828000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45915000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45916000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45917000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45953000000:npc_b",
+            "increment": 1,
+            "contradictions": 1,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45954000000:npc_b",
+            "increment": 0,
+            "contradictions": 1,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:45955000000:npc_b",
+            "increment": 0,
+            "contradictions": 1,
+            "id": "home:17c836eba5b76e33",
+            "lag": 1,
+            "resolved": false,
+            "progress": 0,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46425000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46436000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46456000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46457000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46748000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46749000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46750000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46777000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46884000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46934000000:npc_b",
+            "increment": 1,
+            "contradictions": 1,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46987000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46988000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46989000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46990000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:46991000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 1,
+            "resolved": false,
+            "progress": 2,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47116000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47117000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47118000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47131000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47132000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47133000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47134000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47135000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47136000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 3,
+            "resolved": false,
+            "progress": 1,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47137000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 4,
+            "resolved": false,
+            "progress": 1,
+            "actions": 7,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47142000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47161000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47162000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47243000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47244000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47245000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47315000000:npc_b",
+            "increment": 1,
+            "contradictions": 1,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47425000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47443000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47444000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47723000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47910000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:47967000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48263000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48264000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48273000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48274000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48275000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48276000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48277000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 1,
+            "resolved": false,
+            "progress": 2,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48278000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 2,
+            "resolved": false,
+            "progress": 2,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48279000000:npc_b",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 3,
+            "resolved": false,
+            "progress": 2,
+            "actions": 7,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48406000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48407000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:48408000000:npc_b",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "home:17c836eba5b76e33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          }
+        ],
+        "within_estimate": 118,
+        "H_requested": 38,
+        "evaluated": 162
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 15,
+        "infeasible_action": 20,
+        "recognition_mismatch": 7,
+        "no_observation": 6,
+        "no_correspondence": 35,
+        "reacquired": 3
+      },
+      "controls": {
+        "recheck": 94,
+        "continue": 3,
+        "change": 65
+      },
+      "decisions": [
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45805000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5933162720646363,
+            "continue": 0.03178627621606174,
+            "change": 0.37489745171930206
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45806000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5883877033395852,
+            "continue": 0.03546029820112861,
+            "change": 0.3761519984592862
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45818000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6223951433088623,
+            "change": 0.37760485669113764
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45819000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6284952512321222,
+            "change": 0.37150474876787765
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45820000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5235978727639212,
+            "continue": 0.03991939636873881,
+            "change": 0.43648273086734
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45821000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.572162146050611,
+            "change": 0.4278378539493891
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45822000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5062933243663084,
+            "continue": 0.041369404853113204,
+            "change": 0.4523372707805783
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45829000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5959657302747937,
+            "continue": 0.03193127017597431,
+            "change": 0.3721029995492318
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45916000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6307361982750209,
+            "change": 0.36926380172497913
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45917000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5892513243826532,
+            "continue": 0.029235441234864153,
+            "change": 0.3815132343824827
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45918000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6307361982750209,
+            "change": 0.36926380172497913
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45954000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6055681706162294,
+            "change": 0.39443182938377064
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45955000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6194949676296976,
+            "change": 0.3805050323703025
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45956000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6055681706162294,
+            "change": 0.39443182938377064
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46426000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5913054603684282,
+            "continue": 0.03502763068627696,
+            "change": 0.3736669089452948
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46437000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5918222906958003,
+            "continue": 0.035526146818576215,
+            "change": 0.3726515624856236
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46457000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.6066709655782303,
+            "continue": 0.028897125853947943,
+            "change": 0.3644319085678218
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46458000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6183615272437321,
+            "change": 0.38163847275626805
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46749000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5904780544034036,
+            "continue": 0.03558706216310589,
+            "change": 0.37393488343349046
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46750000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.585059683261031,
+            "continue": 0.02786773104124237,
+            "change": 0.3870725856977267
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46751000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5889865017777077,
+            "continue": 0.035497168939108245,
+            "change": 0.37551632928318385
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46778000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6547893460466018,
+            "change": 0.3452106539533981
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46885000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5892819576474976,
+            "continue": 0.035462786017756105,
+            "change": 0.37525525633474643
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46935000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6177288548909416,
+            "change": 0.3822711451090582
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46988000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.6072323458866028,
+            "continue": 0.017155320316958777,
+            "change": 0.37561233379643844
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46989000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5852507817810215,
+            "continue": 0.027850608824083207,
+            "change": 0.38689860939489523
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46990000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5975270078158674,
+            "continue": 0.03580238263703786,
+            "change": 0.36667060954709463
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46991000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5953734945324737,
+            "continue": 0.028359001465006067,
+            "change": 0.37626750400252024
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 46992000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.562594112324728,
+            "change": 0.4374058876752719
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47117000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6341691413965848,
+            "change": 0.36583085860341535
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47118000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5916489566330176,
+            "continue": 0.03564869668787749,
+            "change": 0.37270234667910496
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47119000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6341691413965848,
+            "change": 0.36583085860341535
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47132000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6315111322650009,
+            "change": 0.368488867734999
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47133000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5865459809766088,
+            "continue": 0.03545126095721411,
+            "change": 0.37800275806617706
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47134000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5960300257581019,
+            "continue": 0.028390273549101838,
+            "change": 0.3755797006927963
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47135000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5286226913002574,
+            "continue": 0.04041784384995525,
+            "change": 0.43095946484978737
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47136000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5211310979997336,
+            "continue": 0.03365403368767393,
+            "change": 0.44521486831259255
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47137000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.49809221306450835,
+            "continue": 0.04303565357312751,
+            "change": 0.45887213336236415
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47138000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.49635809286845645,
+            "continue": 0.03539503533917071,
+            "change": 0.46824687179237273
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47143000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5948245439750968,
+            "continue": 0.028332853694230536,
+            "change": 0.37684260233067274
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47162000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6370239362874008,
+            "change": 0.3629760637125991
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47163000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6250012472233015,
+            "change": 0.37499875277669875
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47244000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5878551176534498,
+            "continue": 0.03542898243012615,
+            "change": 0.37671589991642407
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47245000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6268208176209717,
+            "change": 0.3731791823790283
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47246000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5878551176534498,
+            "continue": 0.03542898243012615,
+            "change": 0.37671589991642407
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47316000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6253597581098047,
+            "change": 0.3746402418901953
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47426000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.6003273333156475,
+            "continue": 0.032154792472419286,
+            "change": 0.3675178742119332
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47444000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5863770775110692,
+            "continue": 0.035937913974632564,
+            "change": 0.37768500851429804
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47445000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5876090880189297,
+            "continue": 0.031548345262460614,
+            "change": 0.3808425667186096
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47724000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6243877933508805,
+            "change": 0.3756122066491195
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47911000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6268882687733635,
+            "change": 0.3731117312266365
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 47968000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6175746837610868,
+            "change": 0.38242531623891307
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48264000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6229148357176543,
+            "change": 0.37708516428234573
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48265000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6200855450209645,
+            "change": 0.3799144549790356
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48274000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6364270509904645,
+            "change": 0.3635729490095357
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48275000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.6032489036325676,
+            "continue": 0.032922610311503925,
+            "change": 0.36382848605592855
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48276000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.639289272939235,
+            "change": 0.360710727060765
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48277000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5967239817134222,
+            "continue": 0.035963493093587234,
+            "change": 0.3673125251929905
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48278000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5835082753167347,
+            "change": 0.4164917246832654
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48279000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5218505007065862,
+            "continue": 0.042640587180468134,
+            "change": 0.4355089121129456
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48280000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5535302567459116,
+            "change": 0.44646974325408834
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48407000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6238114376954235,
+            "change": 0.37618856230457676
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48408000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6241399194144408,
+            "change": 0.37586008058555925
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 48409000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6238114376954235,
+            "change": 0.37618856230457676
+          }
+        }
+      ],
+      "stats": {
+        "food:3947a43425a465ca": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "food:e9194b54c421d0ad": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:0a7ea2e24026843b": {
+          "reward": 0,
+          "starts": 2,
+          "unresolved": 2
+        },
+        "food:c5543ffd7d99e238": {
+          "reward": 0,
+          "starts": 6,
+          "interrupted": 6
+        },
+        "home:17c836eba5b76e33": {
+          "reward": 0,
+          "starts": 54,
+          "interrupted": 54
+        },
+        "food:d69931ed528ec20d": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        }
+      },
+      "events": [
+        {
+          "goal": "food",
+          "H": 15,
+          "ended_us": 34642000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:d69931ed528ec20d",
+          "started_us": 34632000000,
+          "effort": {
+            "last_evaluated": "op:34641000000:npc_b",
+            "contradictions": 0,
+            "charged": 6,
+            "last_increment": 1,
+            "energy": 0.0018518518518817473,
+            "actions": 10
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 24,
+          "ended_us": 34652000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005092592592603751,
+              0.0010185185185207501
+            ],
+            "active_seconds": 3,
+            "energy": 0.0010185185185207501,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 34651000000,
+          "effort": {
+            "last_evaluated": "op:34651000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00046301383221702963,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 28,
+          "ended_us": 34659000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473
+            ],
+            "active_seconds": 2,
+            "energy": 0.00018518518518817473,
+            "energy_quantum": 0.01,
+            "steps": 1,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:e9194b54c421d0ad",
+          "started_us": 34656000000,
+          "effort": {
+            "last_evaluated": "op:34658000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 30,
+          "ended_us": 34662000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473
+            ],
+            "active_seconds": 2,
+            "energy": 0.00018518518518817473,
+            "energy_quantum": 0.01,
+            "steps": 1,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:0a7ea2e24026843b",
+          "started_us": 34661000000,
+          "effort": {
+            "last_evaluated": "op:34661000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34706000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005092592592603751,
+              0.0010185185185207501
+            ],
+            "active_seconds": 3,
+            "energy": 0.0010185185185207501,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 34705000000,
+          "effort": {
+            "last_evaluated": "op:34705000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0004630139114993881,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34718000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473
+            ],
+            "active_seconds": 2,
+            "energy": 0.00018518518518817473,
+            "energy_quantum": 0.01,
+            "steps": 1,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 1,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:0a7ea2e24026843b",
+          "started_us": 34714000000,
+          "effort": {
+            "last_evaluated": "op:34717000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34754000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005092592592603751,
+              0.0010185185185207501
+            ],
+            "active_seconds": 3,
+            "energy": 0.0010185185185207501,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 34753000000,
+          "effort": {
+            "last_evaluated": "op:34753000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00046296296295622597,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34966000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005092592592603751,
+              0.0010185185185207501
+            ],
+            "active_seconds": 3,
+            "energy": 0.0010185185185207501,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 34965000000,
+          "effort": {
+            "last_evaluated": "op:34965000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00046296296295622597,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35175000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005092592592603751,
+              0.0010185185185207501
+            ],
+            "active_seconds": 3,
+            "energy": 0.0010185185185207501,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 35173000000,
+          "effort": {
+            "last_evaluated": "op:35174000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006481481481444007,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35319000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005092592592603751,
+              0.0010185185185207501
+            ],
+            "active_seconds": 3,
+            "energy": 0.0010185185185207501,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 35318000000,
+          "effort": {
+            "last_evaluated": "op:35318000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0004630148114159738,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43265000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43261000000,
+          "effort": {
+            "last_evaluated": "op:43264000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43287000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43282000000,
+          "effort": {
+            "last_evaluated": "op:43286000000:npc_b",
+            "contradictions": 1,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43464000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43459000000,
+          "effort": {
+            "last_evaluated": "op:43463000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43716000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43714000000,
+          "effort": {
+            "last_evaluated": "op:43715000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43739000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43735000000,
+          "effort": {
+            "last_evaluated": "op:43738000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43747000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43745000000,
+          "effort": {
+            "last_evaluated": "op:43746000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43860000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43856000000,
+          "effort": {
+            "last_evaluated": "op:43859000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44023000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44022000000,
+          "effort": {
+            "last_evaluated": "op:44022000000:npc_b",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44048000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44047000000,
+          "effort": {
+            "last_evaluated": "op:44047000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44075000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44072000000,
+          "effort": {
+            "last_evaluated": "op:44074000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44134000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44133000000,
+          "effort": {
+            "last_evaluated": "op:44133000000:npc_b",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44286000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44284000000,
+          "effort": {
+            "last_evaluated": "op:44285000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44301000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44298000000,
+          "effort": {
+            "last_evaluated": "op:44300000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44469000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44468000000,
+          "effort": {
+            "last_evaluated": "op:44468000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44515000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44513000000,
+          "effort": {
+            "last_evaluated": "op:44514000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44605000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44601000000,
+          "effort": {
+            "last_evaluated": "op:44604000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44677000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44673000000,
+          "effort": {
+            "last_evaluated": "op:44676000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44780000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44779000000,
+          "effort": {
+            "last_evaluated": "op:44779000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44787000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44782000000,
+          "effort": {
+            "last_evaluated": "op:44786000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44927000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44925000000,
+          "effort": {
+            "last_evaluated": "op:44926000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45034000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45033000000,
+          "effort": {
+            "last_evaluated": "op:45033000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45224000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45222000000,
+          "effort": {
+            "last_evaluated": "op:45223000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45384000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45383000000,
+          "effort": {
+            "last_evaluated": "op:45383000000:npc_b",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45420000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45418000000,
+          "effort": {
+            "last_evaluated": "op:45419000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45541000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45540000000,
+          "effort": {
+            "last_evaluated": "op:45540000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45548000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45547000000,
+          "effort": {
+            "last_evaluated": "op:45547000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45600000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45595000000,
+          "effort": {
+            "last_evaluated": "op:45599000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45806000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45804000000,
+          "effort": {
+            "last_evaluated": "op:45805000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45822000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45817000000,
+          "effort": {
+            "last_evaluated": "op:45821000000:npc_b",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45829000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45828000000,
+          "effort": {
+            "last_evaluated": "op:45828000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45918000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45915000000,
+          "effort": {
+            "last_evaluated": "op:45917000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45956000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45953000000,
+          "effort": {
+            "last_evaluated": "op:45955000000:npc_b",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46426000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46425000000,
+          "effort": {
+            "last_evaluated": "op:46425000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46437000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46436000000,
+          "effort": {
+            "last_evaluated": "op:46436000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46458000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46456000000,
+          "effort": {
+            "last_evaluated": "op:46457000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46751000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46748000000,
+          "effort": {
+            "last_evaluated": "op:46750000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46778000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46777000000,
+          "effort": {
+            "last_evaluated": "op:46777000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46885000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46884000000,
+          "effort": {
+            "last_evaluated": "op:46884000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46935000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46934000000,
+          "effort": {
+            "last_evaluated": "op:46934000000:npc_b",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46992000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46987000000,
+          "effort": {
+            "last_evaluated": "op:46991000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0013200000000068712,
+            "actions": 5
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47119000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47116000000,
+          "effort": {
+            "last_evaluated": "op:47118000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47138000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47131000000,
+          "effort": {
+            "last_evaluated": "op:47137000000:npc_b",
+            "contradictions": 0,
+            "charged": 4,
+            "last_increment": 1,
+            "energy": 0.001296296296317223,
+            "actions": 7
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47143000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47142000000,
+          "effort": {
+            "last_evaluated": "op:47142000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47163000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47161000000,
+          "effort": {
+            "last_evaluated": "op:47162000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47246000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47243000000,
+          "effort": {
+            "last_evaluated": "op:47245000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47316000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47315000000,
+          "effort": {
+            "last_evaluated": "op:47315000000:npc_b",
+            "contradictions": 1,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47426000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47425000000,
+          "effort": {
+            "last_evaluated": "op:47425000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47445000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47443000000,
+          "effort": {
+            "last_evaluated": "op:47444000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47724000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47723000000,
+          "effort": {
+            "last_evaluated": "op:47723000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47911000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47910000000,
+          "effort": {
+            "last_evaluated": "op:47910000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47968000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 47967000000,
+          "effort": {
+            "last_evaluated": "op:47967000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48265000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 48263000000,
+          "effort": {
+            "last_evaluated": "op:48264000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48280000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 48273000000,
+          "effort": {
+            "last_evaluated": "op:48279000000:npc_b",
+            "contradictions": 0,
+            "charged": 3,
+            "last_increment": 1,
+            "energy": 0.0016666666666793617,
+            "actions": 7
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48409000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 48406000000,
+          "effort": {
+            "last_evaluated": "op:48408000000:npc_b",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        }
+      ]
+    },
+    "npc_a": {
+      "started": 10,
+      "outcomes": {
+        "unresolved": 2,
+        "interrupted": 8
+      },
+      "active": null,
+      "forecast": {
+        "records": [
+          {
+            "source": "op:34630000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34647000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:e58a777330f83fed",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34648000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:e58a777330f83fed",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34686000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34705000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34706000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34726000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34728000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34729000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34749000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34750000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34751000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34752000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34821000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34822000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34823000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34824000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34826000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34827000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34828000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34829000000:npc_a",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34899000000:npc_a",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:13b8d8db2cdec98e",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          }
+        ],
+        "within_estimate": 20,
+        "H_requested": 2,
+        "evaluated": 22
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 5,
+        "infeasible_action": 4,
+        "no_correspondence": 6
+      },
+      "controls": {
+        "recheck": 11,
+        "continue": 1,
+        "change": 10
+      },
+      "decisions": [
+        {
+          "H": 7,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34631000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6820387123284052,
+            "change": 0.31796128767159487
+          }
+        },
+        {
+          "H": 23,
+          "id": "food:e58a777330f83fed",
+          "us": 34648000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5641186961914073,
+            "change": 0.4358813038085927
+          }
+        },
+        {
+          "H": 23,
+          "id": "food:e58a777330f83fed",
+          "us": 34649000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5598714589105827,
+            "change": 0.4401285410894175
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34687000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5768581933924993,
+            "change": 0.4231418066075006
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34706000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5472888316119896,
+            "continue": 0.03297059338780708,
+            "change": 0.4197405750002035
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34707000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.545398138478757,
+            "continue": 0.032858020281797656,
+            "change": 0.4217438412394454
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34727000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5945259935881874,
+            "change": 0.40547400641181264
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34729000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5486351798489182,
+            "continue": 0.03305244407174864,
+            "change": 0.4183123760793332
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34730000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.3560863018369913,
+            "change": 0.6439136981630086
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34750000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.585681034446078,
+            "change": 0.41431896555392195
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34751000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5833894799464555,
+            "continue": 0.01213458452293885,
+            "change": 0.40447593553060546
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34752000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5856772148477107,
+            "change": 0.41432278515228926
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34753000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5253818047808092,
+            "continue": 0.013824169885555786,
+            "change": 0.4607940253336348
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34822000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5587806063426068,
+            "continue": 0.03366357860567625,
+            "change": 0.40755581505171695
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34823000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6112012810334797,
+            "change": 0.3887987189665201
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34824000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5515233675347745,
+            "change": 0.4484766324652254
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34825000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5317569357987159,
+            "change": 0.4682430642012839
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34827000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5827434206746713,
+            "continue": 0.0077445496025424585,
+            "change": 0.4095120297227863
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34828000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5657918546767622,
+            "change": 0.43420814532323804
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34829000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5815139938044653,
+            "change": 0.4184860061955346
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34830000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.507402850483292,
+            "change": 0.49259714951670786
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34900000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.595807796207163,
+            "change": 0.40419220379283705
+          }
+        }
+      ],
+      "stats": {
+        "food:13b8d8db2cdec98e": {
+          "reward": 0,
+          "starts": 9,
+          "unresolved": 1,
+          "interrupted": 8
+        },
+        "food:e58a777330f83fed": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        }
+      },
+      "events": [
+        {
+          "goal": "food",
+          "H": 7,
+          "ended_us": 34631000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34630000000,
+          "effort": {
+            "last_evaluated": "op:34630000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005093151815316332,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 23,
+          "ended_us": 34649000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597
+            ],
+            "active_seconds": 2,
+            "energy": 0.00046296296295622597,
+            "energy_quantum": 0.01,
+            "steps": 1,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:e58a777330f83fed",
+          "started_us": 34647000000,
+          "effort": {
+            "last_evaluated": "op:34648000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006945003941751793,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34687000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34686000000,
+          "effort": {
+            "last_evaluated": "op:34686000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005092592592603751,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34707000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34705000000,
+          "effort": {
+            "last_evaluated": "op:34706000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006945004878389227,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34727000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34726000000,
+          "effort": {
+            "last_evaluated": "op:34726000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005092592592603751,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34730000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34728000000,
+          "effort": {
+            "last_evaluated": "op:34729000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006944444444485498,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34753000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34749000000,
+          "effort": {
+            "last_evaluated": "op:34752000000:npc_a",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0010648709292695457,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34825000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34821000000,
+          "effort": {
+            "last_evaluated": "op:34824000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.001388945121220786,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34830000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34826000000,
+          "effort": {
+            "last_evaluated": "op:34829000000:npc_a",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0010648148148248993,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34900000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34899000000,
+          "effort": {
+            "last_evaluated": "op:34899000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006111111111124501,
+            "actions": 1
+          },
+          "reward": 0
+        }
+      ]
+    },
+    "npc_c": {
+      "started": 17,
+      "outcomes": {
+        "unresolved": 4,
+        "interrupted": 13
+      },
+      "active": null,
+      "forecast": {
+        "records": [
+          {
+            "source": "op:34624000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c38e5c0d672a6f33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34625000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c38e5c0d672a6f33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34626000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c38e5c0d672a6f33",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34643000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34644000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34645000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34653000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34654000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34655000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34656000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34678000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34679000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 2,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34717000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:191eb3544c9ec303",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34726000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34727000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34728000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34729000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34730000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34731000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 3,
+            "resolved": false,
+            "progress": 1,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34732000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 4,
+            "resolved": false,
+            "progress": 1,
+            "actions": 7,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34747000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:191eb3544c9ec303",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34755000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34765000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34766000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34775000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34776000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34777000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 1,
+            "resolved": false,
+            "progress": 0,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34778000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 2,
+            "resolved": false,
+            "progress": 0,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34779000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 3,
+            "resolved": false,
+            "progress": 0,
+            "actions": 5,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34780000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 4,
+            "resolved": false,
+            "progress": 0,
+            "actions": 6,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34812000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:062e0ba5160ef22d",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34818000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34819000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:34821000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:3fbe7cb3bff744dc",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35027000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35088000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35089000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 0,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35144000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 1,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35145000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 2,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35146000000:npc_c",
+            "increment": 0,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 0,
+            "resolved": false,
+            "progress": 1,
+            "actions": 3,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35147000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 1,
+            "resolved": false,
+            "progress": 1,
+            "actions": 4,
+            "energy_excess": 0
+          },
+          {
+            "source": "op:35148000000:npc_c",
+            "increment": 1,
+            "contradictions": 0,
+            "id": "food:c5ee746c64c28761",
+            "lag": 2,
+            "resolved": false,
+            "progress": 1,
+            "actions": 5,
+            "energy_excess": 0
+          }
+        ],
+        "within_estimate": 31,
+        "H_requested": 11,
+        "evaluated": 42
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 6,
+        "infeasible_action": 1,
+        "no_observation": 3,
+        "no_correspondence": 21
+      },
+      "controls": {
+        "recheck": 24,
+        "continue": 1,
+        "change": 17
+      },
+      "decisions": [
+        {
+          "H": 4,
+          "id": "food:c38e5c0d672a6f33",
+          "us": 34625000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6650897801177804,
+            "change": 0.3349102198822196
+          }
+        },
+        {
+          "H": 4,
+          "id": "food:c38e5c0d672a6f33",
+          "us": 34626000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6726858830286476,
+            "change": 0.3273141169713525
+          }
+        },
+        {
+          "H": 4,
+          "id": "food:c38e5c0d672a6f33",
+          "us": 34627000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6684134109126951,
+            "change": 0.33158658908730465
+          }
+        },
+        {
+          "H": 20,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34644000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5406452368459124,
+            "change": 0.4593547631540876
+          }
+        },
+        {
+          "H": 20,
+          "id": "food:c5ee746c64c28761",
+          "us": 34645000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5536618495861305,
+            "continue": 0.04195133634884611,
+            "change": 0.4043868140650232
+          }
+        },
+        {
+          "H": 20,
+          "id": "food:c5ee746c64c28761",
+          "us": 34646000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.580346730824306,
+            "change": 0.41965326917569407
+          }
+        },
+        {
+          "H": 27,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34654000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.426066896005346,
+            "change": 0.5739331039946539
+          }
+        },
+        {
+          "H": 27,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34655000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5475011623427318,
+            "change": 0.452498837657268
+          }
+        },
+        {
+          "H": 27,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34656000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.42089967330405315,
+            "change": 0.5791003266959468
+          }
+        },
+        {
+          "H": 28,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34657000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.48257828410495635,
+            "change": 0.5174217158950437
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34679000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5314893803403816,
+            "continue": 0.03189091366839315,
+            "change": 0.43661970599122535
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34680000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5685282565881383,
+            "change": 0.43147174341186173
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:191eb3544c9ec303",
+          "us": 34718000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5650668255212586,
+            "change": 0.4349331744787413
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34727000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5552654938453734,
+            "change": 0.4447345061546267
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34728000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5699770004434103,
+            "change": 0.4300229995565897
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34729000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5744965663655328,
+            "change": 0.4255034336344671
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34730000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5116548533883879,
+            "change": 0.48834514661161216
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34731000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4989613467821025,
+            "change": 0.5010386532178974
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34732000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.48110415345610963,
+            "change": 0.5188958465438903
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34733000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4741986198973017,
+            "change": 0.5258013801026984
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:191eb3544c9ec303",
+          "us": 34748000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.545982590428028,
+            "change": 0.4540174095719718
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34756000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5145512612356896,
+            "continue": 0.03091092150464313,
+            "change": 0.45453781725966724
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34766000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5676807324661937,
+            "change": 0.4323192675338064
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34767000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5596809240738769,
+            "change": 0.44031907592612307
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34776000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5566984732901505,
+            "change": 0.4433015267098496
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34777000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5546091914471091,
+            "change": 0.44539080855289104
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34778000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.49817122989508283,
+            "change": 0.5018287701049172
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34779000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.47874678052456154,
+            "change": 0.5212532194754386
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34780000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4676546409972649,
+            "change": 0.5323453590027352
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34781000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.45407808184136944,
+            "change": 0.5459219181586308
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34813000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4760315872003409,
+            "change": 0.5239684127996592
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34819000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.49743266026622945,
+            "change": 0.5025673397337704
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34820000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5028385056668199,
+            "change": 0.4971614943331801
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34822000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.537924916260858,
+            "change": 0.4620750837391421
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35028000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6201808915174718,
+            "change": 0.37981910848252837
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35089000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6256888398117121,
+            "change": 0.3743111601882879
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35090000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.627706278552653,
+            "change": 0.3722937214473471
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35145000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.585788035450654,
+            "change": 0.41421196454934583
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35146000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.6036292399351108,
+            "continue": 0.021932133941189088,
+            "change": 0.3744386261237001
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35147000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6570645009945304,
+            "change": 0.34293549900546966
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35148000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5462477918998656,
+            "continue": 0.025107185509009356,
+            "change": 0.4286450225911252
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35149000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.585614272797315,
+            "change": 0.4143857272026852
+          }
+        }
+      ],
+      "stats": {
+        "food:062e0ba5160ef22d": {
+          "reward": 0,
+          "starts": 6,
+          "unresolved": 1,
+          "interrupted": 5
+        },
+        "food:c5ee746c64c28761": {
+          "reward": 0,
+          "starts": 4,
+          "interrupted": 4
+        },
+        "food:3fbe7cb3bff744dc": {
+          "reward": 0,
+          "starts": 4,
+          "interrupted": 4
+        },
+        "food:c38e5c0d672a6f33": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:191eb3544c9ec303": {
+          "reward": 0,
+          "starts": 2,
+          "unresolved": 2
+        }
+      },
+      "events": [
+        {
+          "goal": "food",
+          "H": 4,
+          "ended_us": 34627000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473
+            ],
+            "active_seconds": 2,
+            "energy": 0.00018518518518817473,
+            "energy_quantum": 0.01,
+            "steps": 1,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:c38e5c0d672a6f33",
+          "started_us": 34624000000,
+          "effort": {
+            "last_evaluated": "op:34626000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 20,
+          "ended_us": 34644000000,
+          "reason": "H_route_change",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34643000000,
+          "effort": {
+            "last_evaluated": "op:34643000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 20,
+          "ended_us": 34646000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0006944444444485498
+            ],
+            "active_seconds": 3,
+            "energy": 0.0006944444444485498,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5ee746c64c28761",
+          "started_us": 34644000000,
+          "effort": {
+            "last_evaluated": "op:34645000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 28,
+          "ended_us": 34657000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34653000000,
+          "effort": {
+            "last_evaluated": "op:34656000000:npc_c",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0007407407407526989,
+            "actions": 4
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34680000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34678000000,
+          "effort": {
+            "last_evaluated": "op:34679000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34718000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473
+            ],
+            "active_seconds": 2,
+            "energy": 0.00018518518518817473,
+            "energy_quantum": 0.01,
+            "steps": 1,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:191eb3544c9ec303",
+          "started_us": 34717000000,
+          "effort": {
+            "last_evaluated": "op:34717000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34733000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005390316984669344,
+              0.0007242168836551091
+            ],
+            "active_seconds": 3,
+            "energy": 0.0007242168836551091,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3fbe7cb3bff744dc",
+          "started_us": 34726000000,
+          "effort": {
+            "last_evaluated": "op:34732000000:npc_c",
+            "contradictions": 0,
+            "charged": 4,
+            "last_increment": 1,
+            "energy": 0.0015741250534517803,
+            "actions": 7
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34748000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473
+            ],
+            "active_seconds": 2,
+            "energy": 0.00018518518518817473,
+            "energy_quantum": 0.01,
+            "steps": 1,
+            "actions": 2,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:191eb3544c9ec303",
+          "started_us": 34747000000,
+          "effort": {
+            "last_evaluated": "op:34747000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34756000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34755000000,
+          "effort": {
+            "last_evaluated": "op:34755000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34767000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005390316984669344,
+              0.0007242168836551091
+            ],
+            "active_seconds": 3,
+            "energy": 0.0007242168836551091,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3fbe7cb3bff744dc",
+          "started_us": 34765000000,
+          "effort": {
+            "last_evaluated": "op:34766000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006481481481444007,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34781000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34775000000,
+          "effort": {
+            "last_evaluated": "op:34780000000:npc_c",
+            "contradictions": 0,
+            "charged": 4,
+            "last_increment": 1,
+            "energy": 0.0011111111111290484,
+            "actions": 6
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34813000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34812000000,
+          "effort": {
+            "last_evaluated": "op:34812000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34820000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005390316984669344,
+              0.0007242168836551091
+            ],
+            "active_seconds": 3,
+            "energy": 0.0007242168836551091,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3fbe7cb3bff744dc",
+          "started_us": 34818000000,
+          "effort": {
+            "last_evaluated": "op:34819000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0006481481481444007,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34822000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.0005390316984669344,
+              0.0007242168836551091
+            ],
+            "active_seconds": 3,
+            "energy": 0.0007242168836551091,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3fbe7cb3bff744dc",
+          "started_us": 34821000000,
+          "effort": {
+            "last_evaluated": "op:34821000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00046301408178806014,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35028000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0006713218447060854
+            ],
+            "active_seconds": 3,
+            "energy": 0.0006713218447060854,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5ee746c64c28761",
+          "started_us": 35027000000,
+          "effort": {
+            "last_evaluated": "op:35027000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00018518518518817473,
+            "actions": 1
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35090000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0006635972791855238
+            ],
+            "active_seconds": 3,
+            "energy": 0.0006635972791855238,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5ee746c64c28761",
+          "started_us": 35088000000,
+          "effort": {
+            "last_evaluated": "op:35089000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35149000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0006635972791855238
+            ],
+            "active_seconds": 3,
+            "energy": 0.0006635972791855238,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5ee746c64c28761",
+          "started_us": 35144000000,
+          "effort": {
+            "last_evaluated": "op:35148000000:npc_c",
+            "contradictions": 0,
+            "charged": 2,
+            "last_increment": 1,
+            "energy": 0.0009259259259408736,
+            "actions": 5
+          },
+          "reward": 0
+        }
+      ]
+    }
+  }
+}

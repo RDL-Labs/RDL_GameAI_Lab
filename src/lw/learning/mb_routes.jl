@@ -1,5 +1,5 @@
 # A selected path is one attempt, shared by chunks, sleep and waking search.
-mb_route_state()=D("active"=>nothing,"stats"=>D(),"events"=>Any[],"started"=>0,"outcomes"=>D(),"uncertainty"=>D(),"controls"=>D(),"decisions"=>Any[])
+mb_route_state()=D("active"=>nothing,"stats"=>D(),"events"=>Any[],"started"=>0,"outcomes"=>D(),"uncertainty"=>D(),"controls"=>D(),"decisions"=>Any[],"forecast"=>D("evaluated"=>0,"within_estimate"=>0,"H_requested"=>0,"records"=>Any[]))
 function mb_route_finish!(s,outcome,now;reward=0.)
     r=s["routes"];a=r["active"];a===nothing && return
     st=get(r["stats"],a["id"],nothing)
@@ -8,7 +8,7 @@ function mb_route_finish!(s,outcome,now;reward=0.)
     end
     r["outcomes"][outcome]=get(r["outcomes"],outcome,0)+1
     push!(r["events"],D("id"=>a["id"],"kind"=>a["kind"],"goal"=>a["goal"],"started_us"=>a["started_us"],"ended_us"=>now,
-        "steps"=>a["cursor"]-1,"length"=>length(a["path"]),"verified_steps"=>a["verified"],"outcome"=>outcome,"reward"=>reward,"H"=>get(a,"H",nothing),"reason"=>get(a,"reason",outcome)))
+        "steps"=>a["cursor"]-1,"length"=>length(a["path"]),"verified_steps"=>a["verified"],"outcome"=>outcome,"reward"=>reward,"H"=>get(a,"H",nothing),"reason"=>get(a,"reason",outcome),"estimate"=>get(a,"estimate",nothing),"effort"=>get(a,"effort",nothing)))
     length(r["events"])>64 && popfirst!(r["events"])
     r["active"]=nothing
 end
@@ -22,7 +22,7 @@ function mb_route_attach!(p,s,path,goal,kind;chunk=nothing,sleep=nothing)
     end
     p
 end
-function mb_route_record!(s,p,status,now)
+function mb_route_record!(s,p,status,now;energy=0.)
     r=s["routes"];a=r["active"];id=get(p,"mb_route",nothing)
     if a!==nothing
         a["H"]=get(p,"mb_control_H",get(a,"H",0))
@@ -31,13 +31,13 @@ function mb_route_record!(s,p,status,now)
             r["controls"][control]=get(r["controls"],control,0)+1
         end
         if get(p,"mb_recheck",nothing)==a["id"]
-            a["last_us"]=now;return
+            a["last_us"]=now;mb_route_effort!(a,energy);return
         end
     end
     if id===nothing
         # Endpoint acquisition may resolve the parent on the following tick.
         if a!==nothing && a["cursor"]>length(a["path"]) && status in ("picked_up","recovered")
-            a["last_us"]=now;return
+            a["last_us"]=now;mb_route_effort!(a,energy);return
         end
         if a!==nothing
             if get(p,"purpose_family",a["goal"])==a["goal"] && p["action"] in ("rest","eat","request") && !haskey(p,"mb_control")
@@ -61,9 +61,11 @@ function mb_route_record!(s,p,status,now)
         a=D("id"=>id,"path"=>copy(path),"goal"=>p["mb_route_goal"],"kind"=>p["mb_route_kind"],
             "chunk"=>get(p,"mb_chunk",nothing),"sleep"=>get(p,"mb_sleep",nothing),"cursor"=>1,"verified"=>0,
             "started_us"=>now,"last_us"=>now,"priority"=>p["priority"],"uncertain"=>false,"pending_edge"=>nothing,"H"=>get(p,"mb_control_H",0))
+        a["estimate"]=mb_route_estimate(s,path,a["goal"])
+        a["effort"]=D("actions"=>0,"energy"=>0.,"contradictions"=>0,"charged"=>0,"last_evaluated"=>nothing)
         r["active"]=a;r["started"]+=1
     end
-    a["last_us"]=now
+    a["last_us"]=now;mb_route_effort!(a,energy)
     status=="performed" || mb_route_uncertain!(s,"execution_blocked")
 end
 function mb_route_uncertain!(s,reason;pending=nothing)
@@ -83,6 +85,7 @@ function mb_route_observe!(s,receipt,frame,now)
         mb_route_uncertain!(s,"execution_blocked");return
     end
     if outcome=="mismatch"
+        a["effort"]["contradictions"]+=1
         mb_route_uncertain!(s,"recognition_mismatch";pending=receipt["predicted"]);return
     end
     if frame===nothing || now!=receipt["now"]+1_000_000
@@ -94,8 +97,8 @@ end
 function mb_route_goal!(s,goal,source,resolved,H_before,H_after,now)
     a=s["routes"]["active"];a===nothing && return
     a["goal"]==goal && source=="op:$(a["last_us"]):$(s["actor"])" || return
-    if resolved===true && H_after==0 && H_before>H_after
-        mb_route_finish!(s,"success",now;reward=Float64(H_before-H_after))
+    if resolved===true && H_after==0
+        mb_route_finish!(s,"success",now;reward=Float64(max(0,H_before-H_after)))
 
     end
 end
@@ -163,4 +166,38 @@ function mb_route_control!(s,candidates,loop,goal,now)
     r=s["routes"];push!(r["decisions"],D("us"=>now,"id"=>a["id"],"H"=>loop.H,"uncertain"=>a["uncertain"],"mass"=>mass))
     length(r["decisions"])>64 && popfirst!(r["decisions"])
     out
+end
+
+# Freeze estimates before execution; later graph updates cannot move this attempt's goalposts.
+function mb_route_estimate(s,path,goal)
+    costs=[max(0.,s["edges"][k]["energy_sum"]/max(1,s["edges"][k]["samples"])) for k in path]
+    terminal=goal=="food" ? 1 : 0 # One explicit acquisition operation after reaching food.
+    D("steps"=>length(path),"actions"=>length(path)+terminal,"active_seconds"=>length(path)+terminal,
+      "energy_prefix"=>cumsum(costs),"energy"=>sum(costs),"action_slack"=>1,
+      "energy_quantum"=>max(.01,isempty(costs) ? 0. : sum(costs)/length(costs)))
+end
+function mb_route_effort!(a,energy)
+    e=a["effort"];e["actions"]+=1;e["energy"]+=max(0.,energy)
+end
+function mb_route_H_increment!(s,goal,source,resolved,now)
+    a=s["routes"]["active"]
+    (a===nothing || a["goal"]!=goal || source!="op:$(a["last_us"]):$(s["actor"])" || now!=a["last_us"]+1_000_000) && return nothing
+    e=a["effort"];estimate=a["estimate"]
+    e["last_evaluated"]==source && return e["last_increment"]
+    e["last_evaluated"]=source
+    progress=min(a["cursor"]-1,estimate["steps"])
+    # The current attempted step and a terminal acquisition have their own allowance.
+    allowed=min(estimate["actions"],progress+1)+estimate["action_slack"]
+    lag=max(0,e["actions"]-allowed)
+    prefix=min(estimate["steps"],progress+1)
+    budget=prefix==0 ? 0. : estimate["energy_prefix"][prefix]
+    excess=max(0,floor(Int,(e["energy"]-budget)/estimate["energy_quantum"])-1)
+    debt=max(lag,excess,e["contradictions"])
+    increment=resolved===true ? 0 : max(0,debt-e["charged"])
+    e["charged"]=max(e["charged"],debt);e["last_increment"]=increment
+    f=s["routes"]["forecast"];f["evaluated"]+=1;f["within_estimate"]+=Int(debt==0 && resolved!==true);f["H_requested"]+=increment
+    push!(f["records"],D("source"=>source,"id"=>a["id"],"progress"=>progress,"actions"=>e["actions"],
+        "lag"=>lag,"energy_excess"=>excess,"contradictions"=>e["contradictions"],"increment"=>increment,"resolved"=>resolved))
+    length(f["records"])>64 && popfirst!(f["records"])
+    increment
 end

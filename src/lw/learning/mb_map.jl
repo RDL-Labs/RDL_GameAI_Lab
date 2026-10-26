@@ -70,7 +70,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
     mb_trace_edge!(s,key)
 end
 function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
-    mb_route_record!(s,plan,status,now)
+    mb_route_record!(s,plan,status,now;energy=max(0.,energy))
     frame=s["current"];predicted=get(plan,"mb_edge",nothing)
     haskey(plan,"mb_association") && (s["recognition"]["selected"]+=1)
     haskey(plan,"mb_sleep") && (s["sleep"]["selected"]+=1)

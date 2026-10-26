@@ -549,3 +549,7 @@ FINITE PROTOTYPE。[設計](LW_Whole_Route_MB.md)、[3日確認](../../experimen
 ### 2026-10-26 — Hで経路継続・再確認・変更を選ぶ
 
 FINITE PROTOTYPE。[設計追記](LW_Whole_Route_MB.md)、[3日試験](../../experiments/rock_gate/h_route_report.md)。親Hで候補群の重みを変え、候補数による変更票の水増しを補正。観測不足は不確実な状態として保持し、見回して再対応。3日87試行、再確認110回、仮の再対応7回、目的達成0。終了時H32が77試行で、長い継続には至らず。全員reserve約90、再入場0。213項目PASSと追加監査。
+
+### 2026-10-26 — 経路の見積もり残差を親Hに反映
+
+FINITE PROTOTYPE。[設計](LW_Whole_Route_MB.md)、[3日試験](../../experiments/rock_gate/estimate_route_report.md)。開始時の固定操作数/消費見積もりと実績の差・矛盾を用い、見積内の途中経路ではHを加算しない。226評価中169回が見積内、H加算要求量51。全員生存、B再入場1、経路MB目的達成0。開始前に蓄積したHは残り、高Hでの変更が依然多い。393項目PASSと追加監査。

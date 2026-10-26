@@ -343,8 +343,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     search_review_result!(reposition_states[a],t.family,s.trial.method,target!==nothing,t.status=="performed")
                 end
                 mb_parent_H=s.H
-                resolve_method!(s,t.source,t.phase==phase || value===true ? value : nothing,t.phase==phase || goal ? goal : nothing;
-                    creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true))
+                forecast_increment=mb_simulation ? mb_route_H_increment!(mb_maps[a],t.family,t.source,goal,now) : nothing
+                method_evidence=forecast_increment===0 && !goal ? nothing : (t.phase==phase || value===true ? value : nothing)
+                resolve_method!(s,t.source,method_evidence,t.phase==phase || goal ? goal : nothing;
+                    creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true),
+                    goal_H_increment=forecast_increment===nothing ? 1 : forecast_increment)
                 mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
                 mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
             end

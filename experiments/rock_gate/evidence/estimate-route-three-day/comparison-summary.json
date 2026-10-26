@@ -1,0 +1,240 @@
+{
+  "input_identical": true,
+  "measurement": {
+    "gc_seconds": 11.9719925,
+    "process_peak_rss_bytes": 1421783040,
+    "compilation_included": true,
+    "call_seconds": 197.8137434,
+    "allocated_bytes": 122341974361
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 90.95126597410923,
+      "out": 2,
+      "in": 1,
+      "started": 65,
+      "outcomes": {
+        "unresolved": 4,
+        "interrupted": 61
+      },
+      "controls": {
+        "recheck": 94,
+        "continue": 3,
+        "change": 65
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 15,
+        "infeasible_action": 20,
+        "recognition_mismatch": 7,
+        "no_observation": 6,
+        "no_correspondence": 35,
+        "reacquired": 3
+      },
+      "forecast": {
+        "within_estimate": 118,
+        "H_requested": 38,
+        "evaluated": 162
+      },
+      "event_count": 64,
+      "H32_events": 60,
+      "examples": [
+        {
+          "goal": "food",
+          "H": 15,
+          "ended_us": 34642000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:d69931ed528ec20d",
+          "started_us": 34632000000,
+          "effort": {
+            "last_evaluated": "op:34641000000:npc_b",
+            "contradictions": 0,
+            "charged": 6,
+            "last_increment": 1,
+            "energy": 0.0018518518518817473,
+            "actions": 10
+          },
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46992000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.0007870370370426372,
+              0.0013194699517526942
+            ],
+            "active_seconds": 3,
+            "energy": 0.0013194699517526942,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 46987000000,
+          "effort": {
+            "last_evaluated": "op:46991000000:npc_b",
+            "contradictions": 0,
+            "charged": 1,
+            "last_increment": 1,
+            "energy": 0.0013200000000068712,
+            "actions": 5
+          },
+          "reward": 0
+        }
+      ]
+    },
+    "npc_a": {
+      "reserve": 90.34448047779901,
+      "out": 1,
+      "in": 0,
+      "started": 10,
+      "outcomes": {
+        "unresolved": 2,
+        "interrupted": 8
+      },
+      "controls": {
+        "recheck": 11,
+        "continue": 1,
+        "change": 10
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 5,
+        "infeasible_action": 4,
+        "no_correspondence": 6
+      },
+      "forecast": {
+        "within_estimate": 20,
+        "H_requested": 2,
+        "evaluated": 22
+      },
+      "event_count": 10,
+      "H32_events": 8,
+      "examples": [
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34825000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00046296296295622597,
+              0.0009259259259124519
+            ],
+            "active_seconds": 3,
+            "energy": 0.0009259259259124519,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34821000000,
+          "effort": {
+            "last_evaluated": "op:34824000000:npc_a",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.001388945121220786,
+            "actions": 4
+          },
+          "reward": 0
+        }
+      ]
+    },
+    "npc_c": {
+      "reserve": 90.50817811535958,
+      "out": 1,
+      "in": 0,
+      "started": 17,
+      "outcomes": {
+        "unresolved": 4,
+        "interrupted": 13
+      },
+      "controls": {
+        "recheck": 24,
+        "continue": 1,
+        "change": 17
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 6,
+        "infeasible_action": 1,
+        "no_observation": 3,
+        "no_correspondence": 21
+      },
+      "forecast": {
+        "within_estimate": 31,
+        "H_requested": 11,
+        "evaluated": 42
+      },
+      "event_count": 17,
+      "H32_events": 13,
+      "examples": [
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34680000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946
+            ],
+            "active_seconds": 3,
+            "energy": 0.00037037037037634946,
+            "energy_quantum": 0.01,
+            "steps": 2,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34678000000,
+          "effort": {
+            "last_evaluated": "op:34679000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.00037037037037634946,
+            "actions": 2
+          },
+          "reward": 0
+        }
+      ]
+    }
+  }
+}

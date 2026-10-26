@@ -134,17 +134,18 @@ function choose_method!(s::BasicLoop,candidates,source)
     s.last_method=selected["method"];out
 end
 
-function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true,creditable=method_value===true)
+function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true,creditable=method_value===true,goal_H_increment=1)
     check(accepted,"loop_unaccepted_result")
     check(all(v===nothing || v isa Bool for v in (method_value,goal_value)),"loop_evidence")
-    evidence=(source=source,method_value=method_value,goal_value=goal_value,creditable=creditable)
+    check(goal_H_increment isa Integer && goal_H_increment>=0,"loop_goal_increment")
+    evidence=(source=source,method_value=method_value,goal_value=goal_value,creditable=creditable,goal_H_increment=goal_H_increment)
     if s.receipt!==nothing && s.receipt.source==source
         check(s.receipt==evidence,"loop_result_conflict");return false
     end
     check(s.trial!==nothing && s.trial.source==source,"loop_result_binding")
     n=s.methods[s.trial.method];before=n.H;parent_before=s.H
     method_value!==nothing && (n.H=method_value ? 0 : min(32,n.H+1))
-    goal_value!==nothing && (s.H=goal_value ? 0 : min(32,s.H+1))
+    goal_value!==nothing && (s.H=goal_value ? 0 : min(32,s.H+goal_H_increment))
     # Keep distinct executed methods, not repetition counts. Credit is delayed
     # until this parent purpose is actually resolved, never for movement alone.
     if creditable || goal_value===true
@@ -154,7 +155,7 @@ function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=tr
     end
     reward=goal_value===true ? Float64(max(0,parent_before-s.H)) : 0.
     credit=Dict{String,Float64}()
-    failed=goal_value===false && method_value===false
+    failed=goal_value===false && method_value===false && goal_H_increment>0
     if failed
         # Retain failure evidence separately; successful experience is not erased.
         n.failure_count+=1;n.failure_H_total+=parent_before
@@ -172,7 +173,7 @@ function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=tr
     end
     push!(s.events,(source=source,method=s.trial.method,question=s.trial.question,
         E=method_value===nothing ? nothing : Int(!method_value),H_before=before,H_after=n.H,
-        goal_E=goal_value===nothing ? nothing : Int(!goal_value),goal_H_before=parent_before,goal_H_after=s.H,
+        goal_E=goal_value===nothing ? nothing : Int(!goal_value),goal_H_before=parent_before,goal_H_after=s.H,goal_H_increment=goal_H_increment,
         reward=reward,credit=credit,failed=failed,failure_H=failed ? parent_before : nothing))
     length(s.events)>32 && popfirst!(s.events)
     s.receipt=evidence;s.trial=nothing;true
