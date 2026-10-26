@@ -30,6 +30,7 @@ jobs:
         run: |
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_return_outlook_checks.jl
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/h_reward_checks.jl
+          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/home_rest_reward_checks.jl
       - name: Herbivore and predator checks
         run: |
           julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/checks.jl

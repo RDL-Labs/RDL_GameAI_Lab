@@ -1,0 +1,80 @@
+{
+  "measurement": {
+    "gc_seconds": 17.9726531,
+    "process_peak_rss_bytes": 1356939264,
+    "compilation_included": true,
+    "call_seconds": 376.3574684,
+    "allocated_bytes": 181011746737
+  },
+  "actors": {
+    "npc_b": {
+      "rest": {
+        "records": [],
+        "seconds": 0,
+        "arrival": null,
+        "reward_total": 0,
+        "awarded": false,
+        "last_us": 51839000000,
+        "day": 2
+      },
+      "reserve": 64.3007482629596,
+      "routeOutcomes": {
+        "abandoned": 261,
+        "success": 9,
+        "interrupted": 199
+      },
+      "returnPurpose": {
+        "completed": 62,
+        "active": true,
+        "started_us": 29396000000,
+        "entries": 63
+      }
+    },
+    "npc_a": {
+      "rest": {
+        "records": [],
+        "seconds": 0,
+        "arrival": null,
+        "reward_total": 0,
+        "awarded": false,
+        "last_us": 51839000000,
+        "day": 2
+      },
+      "reserve": 85.1960341242268,
+      "routeOutcomes": {
+        "abandoned": 295,
+        "success": 4,
+        "interrupted": 225
+      },
+      "returnPurpose": {
+        "completed": 43,
+        "active": true,
+        "started_us": 30072000000,
+        "entries": 44
+      }
+    },
+    "npc_c": {
+      "rest": {
+        "records": [],
+        "seconds": 0,
+        "arrival": null,
+        "reward_total": 0,
+        "awarded": false,
+        "last_us": 51839000000,
+        "day": 2
+      },
+      "reserve": 84.39289425509145,
+      "routeOutcomes": {
+        "abandoned": 327,
+        "success": 3,
+        "interrupted": 263
+      },
+      "returnPurpose": {
+        "completed": 58,
+        "active": true,
+        "started_us": 30357000000,
+        "entries": 59
+      }
+    }
+  }
+}
