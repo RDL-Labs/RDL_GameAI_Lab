@@ -1,0 +1,68 @@
+{
+  "measurement": {
+    "gc_seconds": 12.9210814,
+    "process_peak_rss_bytes": 1291481088,
+    "compilation_included": true,
+    "call_seconds": 229.1793579,
+    "allocated_bytes": 125368162644
+  },
+  "actors": {
+    "npc_b": {
+      "started": 0,
+      "outcomes": {},
+      "active": null,
+      "local_repairs": 0,
+      "local_rejoins": 0,
+      "repair_records": [],
+      "forecast": {
+        "records": [],
+        "within_estimate": 0,
+        "H_requested": 0,
+        "evaluated": 0
+      },
+      "uncertainty": {},
+      "controls": {},
+      "decisions": [],
+      "stats": {},
+      "events": []
+    },
+    "npc_a": {
+      "started": 0,
+      "outcomes": {},
+      "active": null,
+      "local_repairs": 0,
+      "local_rejoins": 0,
+      "repair_records": [],
+      "forecast": {
+        "records": [],
+        "within_estimate": 0,
+        "H_requested": 0,
+        "evaluated": 0
+      },
+      "uncertainty": {},
+      "controls": {},
+      "decisions": [],
+      "stats": {},
+      "events": []
+    },
+    "npc_c": {
+      "started": 0,
+      "outcomes": {},
+      "active": null,
+      "local_repairs": 0,
+      "local_rejoins": 0,
+      "repair_records": [],
+      "forecast": {
+        "records": [],
+        "within_estimate": 0,
+        "H_requested": 0,
+        "evaluated": 0
+      },
+      "uncertainty": {},
+      "controls": {},
+      "decisions": [],
+      "stats": {},
+      "events": []
+    }
+  }
+}

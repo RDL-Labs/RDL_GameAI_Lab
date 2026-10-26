@@ -1,0 +1,200 @@
+{
+  "zero-residual-spread-3d-20261026": {
+    "measurement": {
+      "gc_seconds": 12.707567,
+      "process_peak_rss_bytes": 1446801408,
+      "compilation_included": true,
+      "call_seconds": 217.5380327,
+      "allocated_bytes": 127918722911
+    },
+    "actors": {
+      "npc_b": {
+        "nodes": 181,
+        "colors": [
+          "brown",
+          "orange",
+          "gray",
+          "ochre"
+        ],
+        "selected": 235,
+        "chunkSelected": 0,
+        "sleepSelected": 232,
+        "routeStarted": 230,
+        "matches": 0,
+        "mismatches": 8,
+        "unknown": 227,
+        "rejections": {
+          "wake:no_path": 90,
+          "sleep:goal_not_supported": 7071,
+          "sleep:H_or_body_gate": 231,
+          "route:no_shared_features": 312,
+          "sleep:no_current_observation": 1435,
+          "route:no_observation": 56,
+          "chunk:no_shared_features": 4201,
+          "sleep:goal_mismatch": 214410,
+          "wake:no_current_observation": 1435,
+          "wake:H_or_body_gate": 231,
+          "sleep:no_shared_features": 762,
+          "wake:search_cooldown": 678
+        }
+      },
+      "npc_a": {
+        "nodes": 168,
+        "colors": [
+          "brown",
+          "orange",
+          "gray",
+          "ochre"
+        ],
+        "selected": 10,
+        "chunkSelected": 7,
+        "sleepSelected": 0,
+        "routeStarted": 9,
+        "matches": 0,
+        "mismatches": 0,
+        "unknown": 10,
+        "rejections": {
+          "chunk:infeasible_action": 112,
+          "wake:no_path": 325,
+          "sleep:goal_not_supported": 2796,
+          "sleep:H_or_body_gate": 555,
+          "route:no_shared_features": 4,
+          "sleep:no_current_observation": 6908,
+          "route:no_observation": 8,
+          "chunk:no_shared_features": 6771,
+          "sleep:goal_mismatch": 122352,
+          "wake:no_current_observation": 6908,
+          "wake:H_or_body_gate": 549,
+          "sleep:no_shared_features": 946,
+          "wake:search_cooldown": 6271,
+          "chunk:goal_mismatch": 173
+        }
+      },
+      "npc_c": {
+        "nodes": 194,
+        "colors": [
+          "brown",
+          "orange",
+          "gray",
+          "ochre"
+        ],
+        "selected": 0,
+        "chunkSelected": 0,
+        "sleepSelected": 0,
+        "routeStarted": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unknown": 0,
+        "rejections": {
+          "wake:no_path": 96,
+          "sleep:no_current_observation": 1431,
+          "wake:no_current_observation": 1431,
+          "wake:H_or_body_gate": 365,
+          "sleep:no_shared_features": 748,
+          "sleep:goal_not_supported": 16202,
+          "sleep:H_or_body_gate": 365,
+          "chunk:no_shared_features": 4417,
+          "wake:search_cooldown": 3967,
+          "sleep:goal_mismatch": 195588
+        }
+      }
+    }
+  },
+  "rich-connected-3d-20261026": {
+    "measurement": {
+      "gc_seconds": 12.9210814,
+      "process_peak_rss_bytes": 1291481088,
+      "compilation_included": true,
+      "call_seconds": 229.1793579,
+      "allocated_bytes": 125368162644
+    },
+    "actors": {
+      "npc_b": {
+        "nodes": 960,
+        "colors": [
+          "green",
+          "brown",
+          "ochre",
+          "gray",
+          "orange"
+        ],
+        "selected": 0,
+        "chunkSelected": 0,
+        "sleepSelected": 0,
+        "routeStarted": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unknown": 0,
+        "rejections": {
+          "wake:no_path": 159,
+          "sleep:goal_not_supported": 6983,
+          "sleep:H_or_body_gate": 384,
+          "sleep:no_current_observation": 1090,
+          "chunk:no_shared_features": 711,
+          "sleep:goal_mismatch": 46270,
+          "wake:no_current_observation": 1090,
+          "wake:H_or_body_gate": 384,
+          "sleep:no_shared_features": 2241,
+          "wake:search_cooldown": 4425,
+          "chunk:goal_mismatch": 4185
+        }
+      },
+      "npc_a": {
+        "nodes": 729,
+        "colors": [
+          "green",
+          "brown",
+          "ochre",
+          "gray",
+          "orange"
+        ],
+        "selected": 0,
+        "chunkSelected": 0,
+        "sleepSelected": 0,
+        "routeStarted": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unknown": 0,
+        "rejections": {
+          "wake:no_path": 119,
+          "sleep:no_current_observation": 1714,
+          "wake:no_current_observation": 1714,
+          "wake:H_or_body_gate": 484,
+          "sleep:no_shared_features": 961,
+          "wake:search_cooldown": 3552,
+          "sleep:H_or_body_gate": 484,
+          "chunk:no_shared_features": 4118,
+          "sleep:goal_mismatch": 76461
+        }
+      },
+      "npc_c": {
+        "nodes": 848,
+        "colors": [
+          "green",
+          "brown",
+          "ochre",
+          "gray",
+          "orange"
+        ],
+        "selected": 0,
+        "chunkSelected": 0,
+        "sleepSelected": 0,
+        "routeStarted": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unknown": 0,
+        "rejections": {
+          "wake:no_path": 186,
+          "sleep:no_current_observation": 1573,
+          "wake:no_current_observation": 1573,
+          "wake:H_or_body_gate": 181,
+          "sleep:no_shared_features": 2484,
+          "wake:search_cooldown": 3948,
+          "sleep:H_or_body_gate": 181,
+          "chunk:no_shared_features": 4216,
+          "sleep:goal_mismatch": 38745
+        }
+      }
+    }
+  }
+}

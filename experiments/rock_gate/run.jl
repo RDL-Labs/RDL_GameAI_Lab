@@ -117,6 +117,21 @@ for (label,omitted) in (("wide",Set([0,1,23])),("narrow",Set([0])))
     input["scene"]["name"]="riparian-rock-gate-"*label
     food_layout=food_roads_mode=="unchanged" ? nothing : food_road_layout!(input;enabled=food_roads_mode=="on")
     food_layout!==nothing && check_food_roads(input,food_layout)
+    if "--world-features" in ARGS
+        idx=findfirst(==("--world-features"),ARGS)
+        @assert ARGS[idx+1] in ("off","on")
+        if ARGS[idx+1]=="on"
+            enriched=WorldFeatures.enrich_scene(JSON3.read(JSON3.write(input["scene"]));seed=input["config"]["seed"])
+            input["scene"]=JSON3.read(JSON3.write(enriched),Dict{String,Any})
+            # Keep the benchmark wall and entrance geometry; only background objects vary in size.
+            for o in input["scene"]["obstacles"], stone in stones
+                if o["x"]==stone["x"] && o["z"]==stone["z"]
+                    o["radius"]=stone["radius"];o["height"]=stone["height"]
+                end
+            end
+            input["config"]["world_features"]="color-size-patches-v1"
+        end
+    end
     # Finite piles beside initial observation positions; normal pickup/eat physics.
     if camp_provisions>0
         for p in input["scene"]["positions"]

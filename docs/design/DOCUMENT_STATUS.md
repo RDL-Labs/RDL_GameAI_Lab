@@ -585,3 +585,7 @@ FINITE PROTOTYPE。[実装](LW_Continuous_H_Sensitivity.md)。親・経路の残
 ### 2026-10-26 — 木・岩・草群落の色と大きさ
 
 FINITE PROTOTYPE。[設計](World_Color_Size_Patches.md)、[試験](../../experiments/world_features/report.md)。木/岩の固定個体差、既存食料サイトを使う実の量差、2m小区画・最大8m群落区画の草の色/高さ/密度。生態系では草の採食・回復が遮蔽へ作用。専用31・草食21・捕食16項目PASS、兎30体3日と捕食者あり3日、LW1日完走。動的ρ、隠れ場所の学習、LW人間側への草遮蔽統合は未実装。opt-in。
+
+### 2026-10-26 — 新世界特徴のLW接続試験
+
+[3日結果](../../experiments/rock_gate/rich_connected_report.md)。固定感度・入口形状・道を維持し、色/背景寸法/食料量を変更。B再入場1、全員reserve約90。greenがMBへ入り、場面数は729〜960へ増加。ただし経路MB選択は全員0で、再利用改善は未確認。草遮蔽はこのLW試験に未接続。69項目と親・経路監査PASS。
