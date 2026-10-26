@@ -1,0 +1,3737 @@
+{
+  "measurement": {
+    "gc_seconds": 80.8088743,
+    "process_peak_rss_bytes": 1510203392,
+    "compilation_included": true,
+    "call_seconds": 795.3165243,
+    "allocated_bytes": 825537689045
+  },
+  "actors": {
+    "npc_b": {
+      "fear": {
+        "requests": 684,
+        "records": [
+          {
+            "increment": 0.0005043413379937078,
+            "until_night": -1664,
+            "threat": 0,
+            "H": 2.8226205296069655,
+            "relief": 0,
+            "residual": 2.8375,
+            "us": 47744000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.8375
+          },
+          {
+            "increment": 0.000467863893383047,
+            "until_night": -1728,
+            "threat": 0,
+            "H": 2.8533263451769653,
+            "relief": 0,
+            "residual": 2.8671296296296296,
+            "us": 47808000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.8671296296296296
+          },
+          {
+            "increment": 0.0004635434381259351,
+            "until_night": -1792,
+            "threat": 0,
+            "H": 2.8830834402377308,
+            "relief": 0,
+            "residual": 2.8967592592592593,
+            "us": 47872000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.8967592592592593
+          },
+          {
+            "increment": 0.0004630317155029928,
+            "until_night": -1856,
+            "threat": 0,
+            "H": 2.9127281671061596,
+            "relief": 0,
+            "residual": 2.926388888888889,
+            "us": 47936000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.926388888888889
+          },
+          {
+            "increment": 0.00046297110613968684,
+            "until_night": -1920,
+            "threat": 0,
+            "H": 2.9423595848803674,
+            "relief": 0,
+            "residual": 2.9560185185185186,
+            "us": 48000000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.9560185185185186
+          },
+          {
+            "increment": 0.00046296392745581727,
+            "until_night": -1984,
+            "threat": 0,
+            "H": 2.971989426301111,
+            "relief": 0,
+            "residual": 2.9856481481481483,
+            "us": 48064000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.9856481481481483
+          },
+          {
+            "increment": 0.0004629630771990634,
+            "until_night": -2048,
+            "threat": 0,
+            "H": 3.001619081015666,
+            "relief": 0,
+            "residual": 3.015277777777778,
+            "us": 48128000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.015277777777778
+          },
+          {
+            "increment": 0,
+            "until_night": -2112,
+            "threat": 0,
+            "H": 2.3342458991065493,
+            "relief": 0.007984500098147773,
+            "residual": 1.3800925925925926,
+            "us": 48192000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.3800925925925926
+          },
+          {
+            "increment": 0.0033907664933834347,
+            "until_night": -2176,
+            "threat": 0,
+            "H": 2.974500006860831,
+            "relief": 0,
+            "residual": 3.074537037037037,
+            "us": 48256000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.074537037037037
+          },
+          {
+            "increment": 0,
+            "until_night": -2240,
+            "threat": 0,
+            "H": 2.344082769355262,
+            "relief": 0.007570926024451641,
+            "residual": 1.4393518518518518,
+            "us": 48320000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.4393518518518518
+          },
+          {
+            "increment": 0.003594200379241741,
+            "until_night": -2304,
+            "threat": 0,
+            "H": 3.0277574014036066,
+            "relief": 0,
+            "residual": 3.133796296296296,
+            "us": 48384000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.133796296296296
+          },
+          {
+            "increment": 0,
+            "until_night": -2368,
+            "threat": 0,
+            "H": 2.3999079904583906,
+            "relief": 0.007542189470474803,
+            "residual": 1.4986111111111111,
+            "us": 48448000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.4986111111111111
+          },
+          {
+            "increment": 0,
+            "until_night": -2432,
+            "threat": 0,
+            "H": 2.0341145996014487,
+            "relief": 0.004233229448714848,
+            "residual": 1.5282407407407408,
+            "us": 48512000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.5282407407407408
+          },
+          {
+            "increment": 0.005235987491645666,
+            "until_night": -2496,
+            "threat": 0,
+            "H": 3.0682090100412758,
+            "relief": 0,
+            "residual": 3.222685185185185,
+            "us": 48576000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.222685185185185
+          },
+          {
+            "increment": 0.0010282887180679268,
+            "until_night": -2560,
+            "threat": 0,
+            "H": 3.2219774413271556,
+            "relief": 0,
+            "residual": 3.252314814814815,
+            "us": 48640000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.252314814814815
+          },
+          {
+            "increment": 0,
+            "until_night": -2624,
+            "threat": 0,
+            "H": 2.5617400332334395,
+            "relief": 0.007904643634094377,
+            "residual": 1.6171296296296296,
+            "us": 48704000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.6171296296296296
+          },
+          {
+            "increment": 0,
+            "until_night": -2688,
+            "threat": 0,
+            "H": 2.178042833378717,
+            "relief": 0.004445861813548113,
+            "residual": 1.6467592592592593,
+            "us": 48768000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.6467592592592593
+          },
+          {
+            "increment": 0,
+            "until_night": -2752,
+            "threat": 0,
+            "H": 1.9651958410692847,
+            "relief": 0.002416780534414409,
+            "residual": 1.676388888888889,
+            "us": 48832000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.676388888888889
+          },
+          {
+            "increment": 0,
+            "until_night": -2816,
+            "threat": 0,
+            "H": 1.8525774771187995,
+            "relief": 0.0012264276729321288,
+            "residual": 1.7060185185185186,
+            "us": 48896000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.7060185185185186
+          },
+          {
+            "increment": 0.0067150100130213275,
+            "until_night": -2880,
+            "threat": 0,
+            "H": 3.202351515118657,
+            "relief": 0,
+            "residual": 3.400462962962963,
+            "us": 48960000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.400462962962963
+          },
+          {
+            "increment": 0,
+            "until_night": -2944,
+            "threat": 0,
+            "H": 2.6138942528001174,
+            "relief": 0.00710135182873417,
+            "residual": 1.7652777777777777,
+            "us": 49024000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.7652777777777777
+          },
+          {
+            "increment": 0.0038251802916913213,
+            "until_night": -3008,
+            "threat": 0,
+            "H": 3.3468687783132856,
+            "relief": 0,
+            "residual": 3.459722222222222,
+            "us": 49088000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.459722222222222
+          },
+          {
+            "increment": 0,
+            "until_night": -3072,
+            "threat": 0,
+            "H": 2.7219348912572885,
+            "relief": 0.007509561834751377,
+            "residual": 1.824537037037037,
+            "us": 49152000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.824537037037037
+          },
+          {
+            "increment": 0.003624384949207027,
+            "until_night": -3136,
+            "threat": 0,
+            "H": 3.412052057930341,
+            "relief": 0,
+            "residual": 3.5189814814814815,
+            "us": 49216000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.5189814814814815
+          },
+          {
+            "increment": 0.0008374075652981539,
+            "until_night": -3200,
+            "threat": 0,
+            "H": 3.5239052618457656,
+            "relief": 0,
+            "residual": 3.548611111111111,
+            "us": 49280000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.548611111111111
+          },
+          {
+            "increment": 0.0005073128665280535,
+            "until_night": -3264,
+            "threat": 0,
+            "H": 3.5632736020018574,
+            "relief": 0,
+            "residual": 3.578240740740741,
+            "us": 49344000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.578240740740741
+          },
+          {
+            "increment": 0.00046821584665757143,
+            "until_night": -3328,
+            "threat": 0,
+            "H": 3.594056702318477,
+            "relief": 0,
+            "residual": 3.6078703703703705,
+            "us": 49408000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6078703703703705
+          },
+          {
+            "increment": 0.0004635851241152622,
+            "until_night": -3392,
+            "threat": 0,
+            "H": 3.623822951125988,
+            "relief": 0,
+            "residual": 3.6375,
+            "us": 49472000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6375
+          },
+          {
+            "increment": 0,
+            "until_night": -3456,
+            "threat": 0,
+            "H": 2.95645762095006,
+            "relief": 0.0079844122293804,
+            "residual": 2.002314814814815,
+            "us": 49536000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.002314814814815
+          },
+          {
+            "increment": 0.003390809715349885,
+            "until_night": -3520,
+            "threat": 0,
+            "H": 3.5967209539149825,
+            "relief": 0,
+            "residual": 3.696759259259259,
+            "us": 49600000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.696759259259259
+          },
+          {
+            "increment": 0.0008097424873878545,
+            "until_night": -3584,
+            "threat": 0,
+            "H": 3.7024992362679146,
+            "relief": 0,
+            "residual": 3.7263888888888888,
+            "us": 49664000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.7263888888888888
+          },
+          {
+            "increment": 0.0005040361641004409,
+            "until_night": -3648,
+            "threat": 0,
+            "H": 3.741148051603029,
+            "relief": 0,
+            "residual": 3.7560185185185184,
+            "us": 49728000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.7560185185185184
+          },
+          {
+            "increment": 0.0004678277480292259,
+            "until_night": -3712,
+            "threat": 0,
+            "H": 3.7718459300838316,
+            "relief": 0,
+            "residual": 3.785648148148148,
+            "us": 49792000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.785648148148148
+          },
+          {
+            "increment": 0.00046353915700381165,
+            "until_night": -3776,
+            "threat": 0,
+            "H": 3.801602085061236,
+            "relief": 0,
+            "residual": 3.8152777777777778,
+            "us": 49856000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8152777777777778
+          },
+          {
+            "increment": 0.0004630312084388244,
+            "until_night": -3840,
+            "threat": 0,
+            "H": 3.8312467005844724,
+            "relief": 0,
+            "residual": 3.8449074074074074,
+            "us": 49920000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8449074074074074
+          },
+          {
+            "increment": 0,
+            "until_night": -3904,
+            "threat": 0,
+            "H": 3.163874378656015,
+            "relief": 0.007984490474101769,
+            "residual": 2.209722222222222,
+            "us": 49984000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.209722222222222
+          },
+          {
+            "increment": 0,
+            "until_night": -3968,
+            "threat": 0,
+            "H": 2.776233059196517,
+            "relief": 0.004492703660377906,
+            "residual": 2.239351851851852,
+            "us": 50048000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.239351851851852
+          },
+          {
+            "increment": 0.005108354135214377,
+            "until_night": -4032,
+            "threat": 0,
+            "H": 3.783085659697638,
+            "relief": 0,
+            "residual": 3.9337962962962965,
+            "us": 50112000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9337962962962965
+          },
+          {
+            "increment": 0.0010131715898888949,
+            "until_night": -4096,
+            "threat": 0,
+            "H": 3.9335345497107888,
+            "relief": 0,
+            "residual": 3.963425925925926,
+            "us": 50176000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.963425925925926
+          },
+          {
+            "increment": 0,
+            "until_night": -4160,
+            "threat": 0,
+            "H": 3.27405180067283,
+            "relief": 0.007895320186296129,
+            "residual": 2.3305555555555557,
+            "us": 50240000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 10,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.3305555555555557
+          },
+          {
+            "increment": 0,
+            "until_night": -4224,
+            "threat": 0,
+            "H": 2.8898696687469863,
+            "relief": 0.00445185110307067,
+            "residual": 2.3578703703703705,
+            "us": 50304000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.3578703703703705
+          },
+          {
+            "increment": 0,
+            "until_night": -4288,
+            "threat": 0,
+            "H": 2.6767268291100685,
+            "relief": 0.002420294128470335,
+            "residual": 2.3875,
+            "us": 50368000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.3875
+          },
+          {
+            "increment": 0,
+            "until_night": -4352,
+            "threat": 0,
+            "H": 2.563934907443362,
+            "relief": 0.0012284889096019214,
+            "residual": 2.41712962962963,
+            "us": 50432000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.41712962962963
+          },
+          {
+            "increment": 0,
+            "until_night": -4416,
+            "threat": 0,
+            "H": 2.5100134724282426,
+            "relief": 0.0005293208835603913,
+            "residual": 2.446759259259259,
+            "us": 50496000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.446759259259259
+          },
+          {
+            "increment": 0.007057911447225784,
+            "until_night": -4480,
+            "threat": 0,
+            "H": 3.9329757110640173,
+            "relief": 0,
+            "residual": 4.141203703703703,
+            "us": 50560000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.141203703703703
+          },
+          {
+            "increment": 0.0012440807236906437,
+            "until_night": -4544,
+            "threat": 0,
+            "H": 4.13412949626866,
+            "relief": 0,
+            "residual": 4.170833333333333,
+            "us": 50624000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.170833333333333
+          },
+          {
+            "increment": 0.0005554799792184539,
+            "until_night": -4608,
+            "threat": 0,
+            "H": 4.184074760604642,
+            "relief": 0,
+            "residual": 4.200462962962963,
+            "us": 50688000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.200462962962963
+          },
+          {
+            "increment": 0.0004739208475834644,
+            "until_night": -4672,
+            "threat": 0,
+            "H": 4.216110611166468,
+            "relief": 0,
+            "residual": 4.230092592592593,
+            "us": 50752000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.230092592592593
+          },
+          {
+            "increment": 0.000464260834859509,
+            "until_night": -4736,
+            "threat": 0,
+            "H": 4.246025238004317,
+            "relief": 0,
+            "residual": 4.259722222222222,
+            "us": 50816000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.259722222222222
+          },
+          {
+            "increment": 0.00046311668528442596,
+            "until_night": -4800,
+            "threat": 0,
+            "H": 4.2756886232245535,
+            "relief": 0,
+            "residual": 4.289351851851852,
+            "us": 50880000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.289351851851852
+          },
+          {
+            "increment": 0.0004629811701155617,
+            "until_night": -4864,
+            "threat": 0,
+            "H": 4.305322250928074,
+            "relief": 0,
+            "residual": 4.318981481481481,
+            "us": 50944000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.318981481481481
+          },
+          {
+            "increment": 0.00046296511945165264,
+            "until_night": -4928,
+            "threat": 0,
+            "H": 4.334952354096887,
+            "relief": 0,
+            "residual": 4.348611111111111,
+            "us": 51008000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.348611111111111
+          },
+          {
+            "increment": 0.00046296321838124044,
+            "until_night": -4992,
+            "threat": 0,
+            "H": 4.364582039813364,
+            "relief": 0,
+            "residual": 4.378240740740741,
+            "us": 51072000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.378240740740741
+          },
+          {
+            "increment": 0,
+            "until_night": -5056,
+            "threat": 0,
+            "H": 3.6972088596863046,
+            "relief": 0.007984500078204615,
+            "residual": 2.7430555555555554,
+            "us": 51136000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 5,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.7430555555555554
+          },
+          {
+            "increment": 0.0033907665031929213,
+            "until_night": -5120,
+            "threat": 0,
+            "H": 4.337462969534377,
+            "relief": 0,
+            "residual": 4.4375,
+            "us": 51200000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.4375
+          },
+          {
+            "increment": 0.0008097373692610432,
+            "until_night": -5184,
+            "threat": 0,
+            "H": 4.4432401280076155,
+            "relief": 0,
+            "residual": 4.467129629629629,
+            "us": 51264000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.467129629629629
+          },
+          {
+            "increment": 0,
+            "until_night": -5248,
+            "threat": 0,
+            "H": 3.7811895481836975,
+            "relief": 0.007924056787561362,
+            "residual": 2.8342592592592593,
+            "us": 51328000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 10,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.8342592592592593
+          },
+          {
+            "increment": 0.003410890047131687,
+            "until_night": -5312,
+            "threat": 0,
+            "H": 4.425758157979369,
+            "relief": 0,
+            "residual": 4.526388888888889,
+            "us": 51392000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.526388888888889
+          },
+          {
+            "increment": 0.0008121208386109302,
+            "until_night": -5376,
+            "threat": 0,
+            "H": 4.532058697930043,
+            "relief": 0,
+            "residual": 4.556018518518519,
+            "us": 51456000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.556018518518519
+          },
+          {
+            "increment": 0.0005043178603694187,
+            "until_night": -5440,
+            "threat": 0,
+            "H": 4.5707693704102486,
+            "relief": 0,
+            "residual": 4.585648148148148,
+            "us": 51520000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.585648148148148
+          },
+          {
+            "increment": 0,
+            "until_night": -5504,
+            "threat": 0,
+            "H": 3.9048636593545116,
+            "relief": 0.007967199571595529,
+            "residual": 2.952777777777778,
+            "us": 51584000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 10,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.952777777777778
+          },
+          {
+            "increment": 0.003389668445583638,
+            "until_night": -5568,
+            "threat": 0,
+            "H": 4.54490277269137,
+            "relief": 0,
+            "residual": 4.644907407407407,
+            "us": 51648000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.644907407407407
+          },
+          {
+            "increment": 0.0008096073133092574,
+            "until_night": -5632,
+            "threat": 0,
+            "H": 4.6506513724268554,
+            "relief": 0,
+            "residual": 4.674537037037037,
+            "us": 51712000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.674537037037037
+          },
+          {
+            "increment": 0.0005040201538353273,
+            "until_night": -5696,
+            "threat": 0,
+            "H": 4.689296672098472,
+            "relief": 0,
+            "residual": 4.704166666666667,
+            "us": 51776000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 145,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.704166666666667
+          }
+        ],
+        "next_estimate_us": 51842000000,
+        "H": 4.030420430054055,
+        "anticipatory_evaluations": 9452,
+        "estimate": {
+          "model": "home:route",
+          "seconds": 5,
+          "margin": 864,
+          "kind": "observed_chain",
+          "source": "experience"
+        },
+        "last_request_us": 51839000000,
+        "requested": false,
+        "evaluations": 51840,
+        "last_us": 51839000000,
+        "food_blocks": 28195,
+        "peak_H": 4.6897993462374865
+      },
+      "reserve": 42.520707072069136,
+      "returnPurpose": {
+        "completed": 0,
+        "active": true,
+        "started_us": 25920000000,
+        "entries": 1
+      },
+      "inward": 54,
+      "routeOutcomes": {
+        "abandoned": 278,
+        "success": 2,
+        "unresolved": 3,
+        "interrupted": 217
+      },
+      "restReward": 0,
+      "counts": {
+        "rest": 4567,
+        "walk": 22199,
+        "eat": 1,
+        "pickup": 10,
+        "deposit": 5,
+        "scan": 24586,
+        "run": 472
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.81372781388215,
+          "position": [
+            -4.48684826238191,
+            -16.64061088094481
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": false,
+            "started_us": null,
+            "entries": 0
+          }
+        },
+        {
+          "day": 2,
+          "reserve": 65.55446352251839,
+          "position": [
+            -26.606346138304875,
+            24.56685883537178
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        },
+        {
+          "day": 3,
+          "reserve": 42.520707072069136,
+          "position": [
+            -26.937035582056193,
+            19.87278069539614
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        }
+      ]
+    },
+    "npc_a": {
+      "fear": {
+        "requests": 601,
+        "records": [
+          {
+            "increment": 0,
+            "until_night": -1664,
+            "threat": 0,
+            "H": 2.573783405367494,
+            "relief": 0.011716854874987526,
+            "residual": 1.1736111111111112,
+            "us": 47744000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 7,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.1736111111111112
+          },
+          {
+            "increment": 0,
+            "until_night": -1728,
+            "threat": 0,
+            "H": 2.0015745941154903,
+            "relief": 0.006692201631019135,
+            "residual": 1.201851851851852,
+            "us": 47808000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.201851851851852
+          },
+          {
+            "increment": 0.02077615790776166,
+            "until_night": -1792,
+            "threat": 0,
+            "H": 2.293527112721474,
+            "relief": 0,
+            "residual": 2.9064814814814817,
+            "us": 47872000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.9064814814814817
+          },
+          {
+            "increment": 0.0028688949253390383,
+            "until_night": -1856,
+            "threat": 0,
+            "H": 2.851470741808617,
+            "relief": 0,
+            "residual": 2.936111111111111,
+            "us": 47936000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.936111111111111
+          },
+          {
+            "increment": 0.0007479259450695608,
+            "until_night": -1920,
+            "threat": 0,
+            "H": 2.9436748478275923,
+            "relief": 0,
+            "residual": 2.9657407407407406,
+            "us": 48000000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.9657407407407406
+          },
+          {
+            "increment": 0,
+            "until_night": -1984,
+            "threat": 0,
+            "H": 2.7287308974036835,
+            "relief": 0.011785375253174912,
+            "residual": 1.3203703703703704,
+            "us": 48064000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.3203703703703704
+          },
+          {
+            "increment": 0,
+            "until_night": -2048,
+            "threat": 0,
+            "H": 2.1533408308266866,
+            "relief": 0.006722478346814498,
+            "residual": 1.35,
+            "us": 48128000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.35
+          },
+          {
+            "increment": 0,
+            "until_night": -2112,
+            "threat": 0,
+            "H": 1.8280379429475913,
+            "relief": 0.003752349016929335,
+            "residual": 1.3796296296296295,
+            "us": 48192000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.3796296296296295
+          },
+          {
+            "increment": 0.025120454597183706,
+            "until_night": -2176,
+            "threat": 0,
+            "H": 2.343136070893957,
+            "relief": 0,
+            "residual": 3.0842592592592593,
+            "us": 48256000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.0842592592592593
+          },
+          {
+            "increment": 0,
+            "until_night": -2240,
+            "threat": 0,
+            "H": 2.7105039187490316,
+            "relief": 0.010629445685525596,
+            "residual": 1.4402777777777778,
+            "us": 48320000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 7,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.4402777777777778
+          },
+          {
+            "increment": 0.014933000792678452,
+            "until_night": -2304,
+            "threat": 0,
+            "H": 2.702953515344882,
+            "relief": 0,
+            "residual": 3.1435185185185186,
+            "us": 48384000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1435185185185186
+          },
+          {
+            "increment": 0.002176820709413274,
+            "until_night": -2368,
+            "threat": 0,
+            "H": 3.108925890608234,
+            "relief": 0,
+            "residual": 3.1731481481481483,
+            "us": 48448000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1731481481481483
+          },
+          {
+            "increment": 0.0006659554091221764,
+            "until_night": -2432,
+            "threat": 0,
+            "H": 3.1831302433667976,
+            "relief": 0,
+            "residual": 3.202777777777778,
+            "us": 48512000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.202777777777778
+          },
+          {
+            "increment": 0.00048700575956184267,
+            "until_night": -2496,
+            "threat": 0,
+            "H": 3.218039384731602,
+            "relief": 0,
+            "residual": 3.2324074074074076,
+            "us": 48576000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.2324074074074076
+          },
+          {
+            "increment": 0,
+            "until_night": -2560,
+            "threat": 0,
+            "H": 2.9970670523911034,
+            "relief": 0.011787723351929902,
+            "residual": 1.588425925925926,
+            "us": 48640000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 7,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.588425925925926
+          },
+          {
+            "increment": 0.013221383751920168,
+            "until_night": -2624,
+            "threat": 0,
+            "H": 2.901599120599135,
+            "relief": 0,
+            "residual": 3.2916666666666665,
+            "us": 48704000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.2916666666666665
+          },
+          {
+            "increment": 0.00197409365653467,
+            "until_night": -2688,
+            "threat": 0,
+            "H": 3.2630550499365745,
+            "relief": 0,
+            "residual": 3.321296296296296,
+            "us": 48768000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.321296296296296
+          },
+          {
+            "increment": 0.0006419440461886694,
+            "until_night": -2752,
+            "threat": 0,
+            "H": 3.33198679341848,
+            "relief": 0,
+            "residual": 3.350925925925926,
+            "us": 48832000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.350925925925926
+          },
+          {
+            "increment": 0.0004841618098190281,
+            "until_night": -2816,
+            "threat": 0.13665637513999274,
+            "H": 3.366271437296881,
+            "relief": 0,
+            "residual": 3.3805555555555555,
+            "us": 48896000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.3805555555555555
+          },
+          {
+            "increment": 0,
+            "until_night": -2880,
+            "threat": 0,
+            "H": 3.145027799002008,
+            "relief": 0.01179777758096412,
+            "residual": 1.7351851851851852,
+            "us": 48960000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.7351851851851852
+          },
+          {
+            "increment": 0,
+            "until_night": -2944,
+            "threat": 0,
+            "H": 2.569025106250032,
+            "relief": 0.0067297541255251225,
+            "residual": 1.7648148148148148,
+            "us": 49024000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.7648148148148148
+          },
+          {
+            "increment": 0.020720665609684996,
+            "until_night": -3008,
+            "threat": 0,
+            "H": 2.8581272526201187,
+            "relief": 0,
+            "residual": 3.4694444444444446,
+            "us": 49088000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4694444444444446
+          },
+          {
+            "increment": 0.002862322316058652,
+            "until_night": -3072,
+            "threat": 0,
+            "H": 3.414627615002262,
+            "relief": 0,
+            "residual": 3.4990740740740742,
+            "us": 49152000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4990740740740742
+          },
+          {
+            "increment": 0.0007471474732048122,
+            "until_night": -3136,
+            "threat": 0,
+            "H": 3.5066607778729417,
+            "relief": 0,
+            "residual": 3.528703703703704,
+            "us": 49216000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.528703703703704
+          },
+          {
+            "increment": 0,
+            "until_night": -3200,
+            "threat": 0,
+            "H": 3.291698234588565,
+            "relief": 0.01178541185732973,
+            "residual": 1.8833333333333333,
+            "us": 49280000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.8833333333333333
+          },
+          {
+            "increment": 0.013249788654198014,
+            "until_night": -3264,
+            "threat": 0,
+            "H": 3.1970573933771917,
+            "relief": 0,
+            "residual": 3.587962962962963,
+            "us": 49344000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.587962962962963
+          },
+          {
+            "increment": 0.0019774579851135066,
+            "until_night": -3328,
+            "threat": 0,
+            "H": 3.559252089194614,
+            "relief": 0,
+            "residual": 3.6175925925925925,
+            "us": 49408000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6175925925925925
+          },
+          {
+            "increment": 0,
+            "until_night": -3392,
+            "threat": 0,
+            "H": 3.373674026867175,
+            "relief": 0.011727562012670223,
+            "residual": 1.9722222222222223,
+            "us": 49472000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.9722222222222223
+          },
+          {
+            "increment": 0,
+            "until_night": -3456,
+            "threat": 0,
+            "H": 2.801139706807763,
+            "relief": 0.006688562427834999,
+            "residual": 2.001851851851852,
+            "us": 49536000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.001851851851852
+          },
+          {
+            "increment": 0,
+            "until_night": -3520,
+            "threat": 0,
+            "H": 2.4777155134759683,
+            "relief": 0.0037225318662512663,
+            "residual": 2.0328703703703703,
+            "us": 49600000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 7,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.0328703703703703
+          },
+          {
+            "increment": 0.025139527029875097,
+            "until_night": -3584,
+            "threat": 0,
+            "H": 2.994425233003416,
+            "relief": 0,
+            "residual": 3.736111111111111,
+            "us": 49664000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.736111111111111
+          },
+          {
+            "increment": 0.0033857003448245493,
+            "until_night": -3648,
+            "threat": 0,
+            "H": 3.665853176019399,
+            "relief": 0,
+            "residual": 3.765740740740741,
+            "us": 49728000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.765740740740741
+          },
+          {
+            "increment": 0.0008091373241976285,
+            "until_night": -3712,
+            "threat": 0,
+            "H": 3.7714985717444827,
+            "relief": 0,
+            "residual": 3.7953703703703705,
+            "us": 49792000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.7953703703703705
+          },
+          {
+            "increment": 0,
+            "until_night": -3776,
+            "threat": 0,
+            "H": 3.55801658119731,
+            "relief": 0.011782497062068131,
+            "residual": 2.15,
+            "us": 49856000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.15
+          },
+          {
+            "increment": 0,
+            "until_night": -3840,
+            "threat": 0,
+            "H": 2.982768685931908,
+            "relief": 0.006720789866882626,
+            "residual": 2.1796296296296296,
+            "us": 49920000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.1796296296296296
+          },
+          {
+            "increment": 0.020733912327890014,
+            "until_night": -3904,
+            "threat": 0,
+            "H": 3.2725512524521263,
+            "relief": 0,
+            "residual": 3.884259259259259,
+            "us": 49984000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.884259259259259
+          },
+          {
+            "increment": 0.0028638912815912576,
+            "until_night": -3968,
+            "threat": 0,
+            "H": 3.829396140975707,
+            "relief": 0,
+            "residual": 3.9138888888888888,
+            "us": 50048000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9138888888888888
+          },
+          {
+            "increment": 0.0007473333043521713,
+            "until_night": -4032,
+            "threat": 0,
+            "H": 3.9214701101527214,
+            "relief": 0,
+            "residual": 3.9435185185185184,
+            "us": 50112000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.9435185185185184
+          },
+          {
+            "increment": 0,
+            "until_night": -4096,
+            "threat": 0,
+            "H": 3.7065120052209037,
+            "relief": 0.011785403119452198,
+            "residual": 2.2981481481481483,
+            "us": 50176000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.2981481481481483
+          },
+          {
+            "increment": 0.013249801566387553,
+            "until_night": -4160,
+            "threat": 0,
+            "H": 3.6118718272465506,
+            "relief": 0,
+            "residual": 4.002777777777778,
+            "us": 50240000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.002777777777778
+          },
+          {
+            "increment": 0.0019774595144568252,
+            "until_night": -4224,
+            "threat": 0,
+            "H": 3.9740668588895525,
+            "relief": 0,
+            "residual": 4.032407407407407,
+            "us": 50304000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.032407407407407
+          },
+          {
+            "increment": 0.0006423427045572083,
+            "until_night": -4288,
+            "threat": 0,
+            "H": 4.043086143000354,
+            "relief": 0,
+            "residual": 4.062037037037037,
+            "us": 50368000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.062037037037037
+          },
+          {
+            "increment": 0.00048420902764512164,
+            "until_night": -4352,
+            "threat": 0,
+            "H": 4.077381155350958,
+            "relief": 0,
+            "residual": 4.091666666666667,
+            "us": 50432000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.091666666666667
+          },
+          {
+            "increment": 0,
+            "until_night": -4416,
+            "threat": 0,
+            "H": 3.8561386447968484,
+            "relief": 0.011797775360757434,
+            "residual": 2.446296296296296,
+            "us": 50496000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.446296296296296
+          },
+          {
+            "increment": 0,
+            "until_night": -4480,
+            "threat": 0,
+            "H": 3.2803394433632382,
+            "relief": 0.006719832318021535,
+            "residual": 2.477314814814815,
+            "us": 50560000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 7,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.477314814814815
+          },
+          {
+            "increment": 0.02071033817618062,
+            "until_night": -4544,
+            "threat": 0,
+            "H": 3.569543051706386,
+            "relief": 0,
+            "residual": 4.180555555555555,
+            "us": 50624000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.180555555555555
+          },
+          {
+            "increment": 0.0028610991159450094,
+            "until_night": -4608,
+            "threat": 0,
+            "H": 4.125774813914428,
+            "relief": 0,
+            "residual": 4.2101851851851855,
+            "us": 50688000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.2101851851851855
+          },
+          {
+            "increment": 0.0007470025951459291,
+            "until_night": -4672,
+            "threat": 0,
+            "H": 4.217776163289214,
+            "relief": 0,
+            "residual": 4.239814814814815,
+            "us": 50752000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.239814814814815
+          },
+          {
+            "increment": 0.0004966051365116186,
+            "until_night": -4736,
+            "threat": 0,
+            "H": 4.254793213484198,
+            "relief": 0,
+            "residual": 4.269444444444445,
+            "us": 50816000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.269444444444445
+          },
+          {
+            "increment": 0,
+            "until_night": -4800,
+            "threat": 0,
+            "H": 4.033846769021845,
+            "relief": 0.01179719248922595,
+            "residual": 2.6240740740740742,
+            "us": 50880000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.6240740740740742
+          },
+          {
+            "increment": 0,
+            "until_night": -4864,
+            "threat": 0,
+            "H": 3.4578729774987194,
+            "relief": 0.0067294108836688515,
+            "residual": 2.653703703703704,
+            "us": 50944000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.653703703703704
+          },
+          {
+            "increment": 0,
+            "until_night": -4928,
+            "threat": 0,
+            "H": 3.132227649586744,
+            "relief": 0.0037564159634664307,
+            "residual": 2.683333333333333,
+            "us": 51008000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.683333333333333
+          },
+          {
+            "increment": 0.025114444764482435,
+            "until_night": -4992,
+            "threat": 0,
+            "H": 3.647017081356019,
+            "relief": 0,
+            "residual": 4.387962962962963,
+            "us": 51072000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.387962962962963
+          },
+          {
+            "increment": 0.003382729555435837,
+            "until_night": -5056,
+            "threat": 0,
+            "H": 4.317792674410263,
+            "relief": 0,
+            "residual": 4.417592592592593,
+            "us": 51136000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.417592592592593
+          },
+          {
+            "increment": 0.0008087854584690746,
+            "until_night": -5120,
+            "threat": 0,
+            "H": 4.423360804612722,
+            "relief": 0,
+            "residual": 4.447222222222222,
+            "us": 51200000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.447222222222222
+          },
+          {
+            "increment": 0.0005039228118448591,
+            "until_night": -5184,
+            "threat": 0,
+            "H": 4.461984729142764,
+            "relief": 0,
+            "residual": 4.476851851851852,
+            "us": 51264000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.476851851851852
+          },
+          {
+            "increment": 0,
+            "until_night": -5248,
+            "threat": 0,
+            "H": 4.2412130585195404,
+            "relief": 0.011796848408298644,
+            "residual": 2.8314814814814815,
+            "us": 51328000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.8314814814814815
+          },
+          {
+            "increment": 0.013232888565304357,
+            "until_night": -5312,
+            "threat": 0,
+            "H": 4.145704141091527,
+            "relief": 0,
+            "residual": 4.536111111111111,
+            "us": 51392000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.536111111111111
+          },
+          {
+            "increment": 0,
+            "until_night": -5376,
+            "threat": 0,
+            "H": 4.228948447056041,
+            "relief": 0.01119832577162505,
+            "residual": 2.890740740740741,
+            "us": 51456000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.890740740740741
+          },
+          {
+            "increment": 0.01411734103635176,
+            "until_night": -5440,
+            "threat": 0,
+            "H": 4.178869595687971,
+            "relief": 0,
+            "residual": 4.595370370370371,
+            "us": 51520000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.595370370370371
+          },
+          {
+            "increment": 0,
+            "until_night": -5504,
+            "threat": 0,
+            "H": 4.2832379809326735,
+            "relief": 0.011156738353193418,
+            "residual": 2.95,
+            "us": 51584000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.95
+          },
+          {
+            "increment": 0,
+            "until_night": -5568,
+            "threat": 0,
+            "H": 3.7391034844352884,
+            "relief": 0.006343770380969005,
+            "residual": 2.9810185185185185,
+            "us": 51648000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 7,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.9810185185185185
+          },
+          {
+            "increment": 0,
+            "until_night": -5632,
+            "threat": 0,
+            "H": 3.4323038977571674,
+            "relief": 0.0035401019254948096,
+            "residual": 3.009259259259259,
+            "us": 51712000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 4,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 3.009259259259259
+          },
+          {
+            "increment": 0.025434097645899545,
+            "until_night": -5696,
+            "threat": 0,
+            "H": 3.963512359371916,
+            "relief": 0,
+            "residual": 4.713888888888889,
+            "us": 51776000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 166,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.713888888888889
+          }
+        ],
+        "next_estimate_us": 51886000000,
+        "H": 4.639181027321581,
+        "anticipatory_evaluations": 10170,
+        "estimate": {
+          "model": "home:search",
+          "seconds": 166,
+          "margin": 4320,
+          "kind": "unconfirmed",
+          "source": "experience"
+        },
+        "last_request_us": 51839000000,
+        "requested": false,
+        "evaluations": 51840,
+        "last_us": 51839000000,
+        "food_blocks": 28377,
+        "peak_H": 4.771063528830401
+      },
+      "reserve": 41.82871317446665,
+      "returnPurpose": {
+        "completed": 0,
+        "active": true,
+        "started_us": 25920000000,
+        "entries": 1
+      },
+      "inward": 103,
+      "routeOutcomes": {
+        "abandoned": 26,
+        "success": 1,
+        "interrupted": 145
+      },
+      "restReward": 0,
+      "counts": {
+        "rest": 4581,
+        "eat": 4,
+        "walk": 23550,
+        "pickup": 19,
+        "deposit": 10,
+        "scan": 23018,
+        "run": 658
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.56514487206063,
+          "position": [
+            -1.6119712489083988,
+            1.3323824056206608
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": false,
+            "started_us": null,
+            "entries": 0
+          }
+        },
+        {
+          "day": 2,
+          "reserve": 65.09961891118262,
+          "position": [
+            -18.004288997107036,
+            27.109296589741536
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        },
+        {
+          "day": 3,
+          "reserve": 41.82871317446665,
+          "position": [
+            -27.948558708742386,
+            22.954147941771645
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        }
+      ]
+    },
+    "npc_c": {
+      "fear": {
+        "requests": 501,
+        "records": [
+          {
+            "increment": 0,
+            "until_night": -1664,
+            "threat": 0,
+            "H": 2.5694983049723135,
+            "relief": 0.011626758479089894,
+            "residual": 1.1800925925925927,
+            "us": 47744000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.1800925925925927
+          },
+          {
+            "increment": 0.01473369220727383,
+            "until_night": -1728,
+            "threat": 0,
+            "H": 2.519481820387172,
+            "relief": 0,
+            "residual": 2.9541666666666666,
+            "us": 47808000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.9541666666666666
+          },
+          {
+            "increment": 0.0021532142360198847,
+            "until_night": -1792,
+            "threat": 0,
+            "H": 2.920270495293812,
+            "relief": 0,
+            "residual": 2.9837962962962963,
+            "us": 47872000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 2.9837962962962963
+          },
+          {
+            "increment": 0.0006631594152368692,
+            "until_night": -1856,
+            "threat": 0,
+            "H": 2.9938608811010683,
+            "relief": 0,
+            "residual": 3.013425925925926,
+            "us": 47936000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.013425925925926
+          },
+          {
+            "increment": 0,
+            "until_night": -1920,
+            "threat": 0,
+            "H": 2.766723302024992,
+            "relief": 0.012285386271175813,
+            "residual": 1.2986111111111112,
+            "us": 48000000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.2986111111111112
+          },
+          {
+            "increment": 0.013760420784411753,
+            "until_night": -1984,
+            "threat": 0,
+            "H": 2.6667145493617967,
+            "relief": 0,
+            "residual": 3.0726851851851853,
+            "us": 48064000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.0726851851851853
+          },
+          {
+            "increment": 0.0020379381885691217,
+            "until_night": -2048,
+            "threat": 0,
+            "H": 3.04218997741744,
+            "relief": 0,
+            "residual": 3.102314814814815,
+            "us": 48128000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.102314814814815
+          },
+          {
+            "increment": 0.0006495059093349909,
+            "until_night": -2112,
+            "threat": 0,
+            "H": 3.1127822159693848,
+            "relief": 0,
+            "residual": 3.1319444444444446,
+            "us": 48192000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.1319444444444446
+          },
+          {
+            "increment": 0.000485057450720916,
+            "until_night": -2176,
+            "threat": 0,
+            "H": 3.14726353192095,
+            "relief": 0,
+            "residual": 3.161574074074074,
+            "us": 48256000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.161574074074074
+          },
+          {
+            "increment": 0,
+            "until_night": -2240,
+            "threat": 0,
+            "H": 2.915872202483441,
+            "relief": 0.012293760718830704,
+            "residual": 1.4467592592592593,
+            "us": 48320000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.4467592592592593
+          },
+          {
+            "increment": 0,
+            "until_night": -2304,
+            "threat": 0,
+            "H": 2.3153698950000483,
+            "relief": 0.007020720758295074,
+            "residual": 1.476388888888889,
+            "us": 48384000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.476388888888889
+          },
+          {
+            "increment": 0,
+            "until_night": -2368,
+            "threat": 0,
+            "H": 1.9753350059297896,
+            "relief": 0.003927311800121958,
+            "residual": 1.5060185185185184,
+            "us": 48448000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.5060185185185184
+          },
+          {
+            "increment": 0.026111364869337184,
+            "until_night": -2432,
+            "threat": 0,
+            "H": 2.5097347987212104,
+            "relief": 0,
+            "residual": 3.2800925925925926,
+            "us": 48512000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.2800925925925926
+          },
+          {
+            "increment": 0.003500806596035133,
+            "until_night": -2496,
+            "threat": 0,
+            "H": 3.206438703356501,
+            "relief": 0,
+            "residual": 3.3097222222222222,
+            "us": 48576000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.3097222222222222
+          },
+          {
+            "increment": 0.0008227707191221789,
+            "until_night": -2560,
+            "threat": 0,
+            "H": 3.315077830205857,
+            "relief": 0,
+            "residual": 3.339351851851852,
+            "us": 48640000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.339351851851852
+          },
+          {
+            "increment": 0.0005055792516959201,
+            "until_night": -2624,
+            "threat": 0,
+            "H": 3.3540654891956523,
+            "relief": 0,
+            "residual": 3.3689814814814816,
+            "us": 48704000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.3689814814814816
+          },
+          {
+            "increment": 0.00046801051414613326,
+            "until_night": -2688,
+            "threat": 0,
+            "H": 3.3848035009386646,
+            "relief": 0,
+            "residual": 3.3986111111111112,
+            "us": 48768000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.3986111111111112
+          },
+          {
+            "increment": 0,
+            "until_night": -2752,
+            "threat": 0,
+            "H": 3.1523270871759186,
+            "relief": 0.01232763062480835,
+            "residual": 1.6791666666666667,
+            "us": 48832000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 11,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.6791666666666667
+          },
+          {
+            "increment": 0.013781292359284159,
+            "until_night": -2816,
+            "threat": 0,
+            "H": 3.0512839651127135,
+            "relief": 0,
+            "residual": 3.45787037037037,
+            "us": 48896000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.45787037037037
+          },
+          {
+            "increment": 0.002040410256071379,
+            "until_night": -2880,
+            "threat": 0,
+            "H": 3.427302229744578,
+            "relief": 0,
+            "residual": 3.4875,
+            "us": 48960000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.4875
+          },
+          {
+            "increment": 0,
+            "until_night": -2944,
+            "threat": 0,
+            "H": 3.233058623949002,
+            "relief": 0.012220627215288271,
+            "residual": 1.7726851851851853,
+            "us": 49024000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.7726851851851853
+          },
+          {
+            "increment": 0,
+            "until_night": -3008,
+            "threat": 0,
+            "H": 2.6361688236739127,
+            "relief": 0.006977817264922859,
+            "residual": 1.802314814814815,
+            "us": 49088000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.802314814814815
+          },
+          {
+            "increment": 0,
+            "until_night": -3072,
+            "threat": 0,
+            "H": 2.297575259470752,
+            "relief": 0.003935210978022408,
+            "residual": 1.8273148148148148,
+            "us": 49152000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 11,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.8273148148148148
+          },
+          {
+            "increment": 0,
+            "until_night": -3136,
+            "threat": 0,
+            "H": 2.1106303472519996,
+            "relief": 0.0020841408021725627,
+            "residual": 1.861574074074074,
+            "us": 49216000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 1.861574074074074
+          },
+          {
+            "increment": 0.028835066603925874,
+            "until_night": -3200,
+            "threat": 0,
+            "H": 2.7849335874083545,
+            "relief": 0,
+            "residual": 3.635648148148148,
+            "us": 49280000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.635648148148148
+          },
+          {
+            "increment": 0.0038234068111679953,
+            "until_night": -3264,
+            "threat": 0,
+            "H": 3.552476656470525,
+            "relief": 0,
+            "residual": 3.665277777777778,
+            "us": 49344000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.665277777777778
+          },
+          {
+            "increment": 0.0008609800786425481,
+            "until_night": -3328,
+            "threat": 0,
+            "H": 3.669506103520412,
+            "relief": 0,
+            "residual": 3.6949074074074075,
+            "us": 49408000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.6949074074074075
+          },
+          {
+            "increment": 0.0005101048381228601,
+            "until_night": -3392,
+            "threat": 0,
+            "H": 3.7094875273807677,
+            "relief": 0,
+            "residual": 3.724537037037037,
+            "us": 49472000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.724537037037037
+          },
+          {
+            "increment": 0.0004685465328799765,
+            "until_night": -3456,
+            "threat": 0,
+            "H": 3.74034324245266,
+            "relief": 0,
+            "residual": 3.754166666666667,
+            "us": 49536000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.754166666666667
+          },
+          {
+            "increment": 0,
+            "until_night": -3520,
+            "threat": 0,
+            "H": 3.5085575696797253,
+            "relief": 0.012294537070834721,
+            "residual": 2.0393518518518516,
+            "us": 49600000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.0393518518518516
+          },
+          {
+            "increment": 0.01374689840969312,
+            "until_night": -3584,
+            "threat": 0,
+            "H": 3.4078542377181926,
+            "relief": 0,
+            "residual": 3.8134259259259258,
+            "us": 49664000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8134259259259258
+          },
+          {
+            "increment": 0.0020363365737749994,
+            "until_night": -3648,
+            "threat": 0,
+            "H": 3.7829779702434587,
+            "relief": 0,
+            "residual": 3.8430555555555554,
+            "us": 49728000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.8430555555555554
+          },
+          {
+            "increment": 0,
+            "until_night": -3712,
+            "threat": 0,
+            "H": 3.588637069465266,
+            "relief": 0.012220818761963681,
+            "residual": 2.1282407407407407,
+            "us": 49792000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.1282407407407407
+          },
+          {
+            "increment": 0.01385583387252698,
+            "until_night": -3776,
+            "threat": 0,
+            "H": 3.4935292278605696,
+            "relief": 0,
+            "residual": 3.902314814814815,
+            "us": 49856000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.902314814814815
+          },
+          {
+            "increment": 0,
+            "until_night": -3840,
+            "threat": 0,
+            "H": 3.5808048089978097,
+            "relief": 0.011698128158466048,
+            "residual": 2.1828703703703702,
+            "us": 49920000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 11,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.1828703703703702
+          },
+          {
+            "increment": 0,
+            "until_night": -3904,
+            "threat": 0,
+            "H": 3.01040234430871,
+            "relief": 0.006638226818449056,
+            "residual": 2.2171296296296297,
+            "us": 49984000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.2171296296296297
+          },
+          {
+            "increment": 0.02210537522108691,
+            "until_night": -3968,
+            "threat": 0,
+            "H": 3.3390337319986587,
+            "relief": 0,
+            "residual": 3.991203703703704,
+            "us": 50048000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 3.991203703703704
+          },
+          {
+            "increment": 0.0030263298550861073,
+            "until_night": -4032,
+            "threat": 0,
+            "H": 3.93154819629215,
+            "relief": 0,
+            "residual": 4.020833333333333,
+            "us": 50112000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.020833333333333
+          },
+          {
+            "increment": 0.0007665728260999316,
+            "until_night": -4096,
+            "threat": 0,
+            "H": 4.027846935263499,
+            "relief": 0,
+            "residual": 4.050462962962963,
+            "us": 50176000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.050462962962963
+          },
+          {
+            "increment": 0,
+            "until_night": -4160,
+            "threat": 0,
+            "H": 3.803179260632501,
+            "relief": 0.012280523718433134,
+            "residual": 2.3356481481481484,
+            "us": 50240000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.3356481481481484
+          },
+          {
+            "increment": 0,
+            "until_night": -4224,
+            "threat": 0,
+            "H": 3.203330808865512,
+            "relief": 0.0070129553220543706,
+            "residual": 2.3652777777777776,
+            "us": 50304000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.3652777777777776
+          },
+          {
+            "increment": 0.021551629162579466,
+            "until_night": -4288,
+            "threat": 0,
+            "H": 3.5035189270277822,
+            "relief": 0,
+            "residual": 4.139351851851852,
+            "us": 50368000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.139351851851852
+          },
+          {
+            "increment": 0.0029607431591074374,
+            "until_night": -4352,
+            "threat": 0,
+            "H": 4.081631334153564,
+            "relief": 0,
+            "residual": 4.168981481481482,
+            "us": 50432000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.168981481481482
+          },
+          {
+            "increment": 0.0007588046178685914,
+            "until_night": -4416,
+            "threat": 0,
+            "H": 4.176224267132411,
+            "relief": 0,
+            "residual": 4.198611111111111,
+            "us": 50496000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.198611111111111
+          },
+          {
+            "increment": 0.0004980029896684002,
+            "until_night": -4480,
+            "threat": 0,
+            "H": 4.213548269229499,
+            "relief": 0,
+            "residual": 4.22824074074074,
+            "us": 50560000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.22824074074074
+          },
+          {
+            "increment": 0.00046711316781422596,
+            "until_night": -4544,
+            "threat": 0,
+            "H": 4.244089234407288,
+            "relief": 0,
+            "residual": 4.25787037037037,
+            "us": 50624000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.25787037037037
+          },
+          {
+            "increment": 0.0004634545208164198,
+            "until_night": -4608,
+            "threat": 0,
+            "H": 4.273826804286086,
+            "relief": 0,
+            "residual": 4.2875,
+            "us": 50688000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.2875
+          },
+          {
+            "increment": 0.0004630211839744547,
+            "until_night": -4672,
+            "threat": 0,
+            "H": 4.303469218556253,
+            "relief": 0,
+            "residual": 4.31712962962963,
+            "us": 50752000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.31712962962963
+          },
+          {
+            "increment": 0.0004629698587663711,
+            "until_night": -4736,
+            "threat": 0,
+            "H": 4.333100362422092,
+            "relief": 0,
+            "residual": 4.346759259259259,
+            "us": 50816000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.346759259259259
+          },
+          {
+            "increment": 0.0004629637797144426,
+            "until_night": -4800,
+            "threat": 0,
+            "H": 4.362730171400627,
+            "relief": 0,
+            "residual": 4.376388888888889,
+            "us": 50880000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.376388888888889
+          },
+          {
+            "increment": 0,
+            "until_night": -4864,
+            "threat": 0,
+            "H": 4.130811161309598,
+            "relief": 0.012294799574812387,
+            "residual": 2.661574074074074,
+            "us": 50944000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.661574074074074
+          },
+          {
+            "increment": 0.013746510500736164,
+            "until_night": -4928,
+            "threat": 0,
+            "H": 4.030087904332159,
+            "relief": 0,
+            "residual": 4.4356481481481485,
+            "us": 51008000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.4356481481481485
+          },
+          {
+            "increment": 0,
+            "until_night": -4992,
+            "threat": 0,
+            "H": 4.115430367573518,
+            "relief": 0.011670200250575746,
+            "residual": 2.720833333333333,
+            "us": 51072000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.720833333333333
+          },
+          {
+            "increment": 0,
+            "until_night": -5056,
+            "threat": 0,
+            "H": 3.545051553945702,
+            "relief": 0.006687979717049153,
+            "residual": 2.745833333333333,
+            "us": 51136000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 11,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.745833333333333
+          },
+          {
+            "increment": 0.022115151223722318,
+            "until_night": -5120,
+            "threat": 0,
+            "H": 3.8720786460991823,
+            "relief": 0,
+            "residual": 4.524537037037037,
+            "us": 51200000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.524537037037037
+          },
+          {
+            "increment": 0,
+            "until_night": -5184,
+            "threat": 0,
+            "H": 4.156618048909385,
+            "relief": 0.01130977073069861,
+            "residual": 2.8050925925925925,
+            "us": 51264000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 11,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.8050925925925925
+          },
+          {
+            "increment": 0.015285410404890953,
+            "until_night": -5248,
+            "threat": 0,
+            "H": 4.132834230664921,
+            "relief": 0,
+            "residual": 4.583796296296296,
+            "us": 51328000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.583796296296296
+          },
+          {
+            "increment": 0,
+            "until_night": -5312,
+            "threat": 0,
+            "H": 4.2549314598703205,
+            "relief": 0.011597840371066148,
+            "residual": 2.8689814814814816,
+            "us": 51392000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.8689814814814816
+          },
+          {
+            "increment": 0,
+            "until_night": -5376,
+            "threat": 0,
+            "H": 3.688126939468765,
+            "relief": 0.006645530067290295,
+            "residual": 2.8939814814814815,
+            "us": 51456000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 11,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.8939814814814815
+          },
+          {
+            "increment": 0,
+            "until_night": -5440,
+            "threat": 0,
+            "H": 3.367302932545457,
+            "relief": 0.0036741392495569514,
+            "residual": 2.928240740740741,
+            "us": 51520000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 2.928240740740741
+          },
+          {
+            "increment": 0.026485484533703918,
+            "until_night": -5504,
+            "threat": 0,
+            "H": 3.9209194516425683,
+            "relief": 0,
+            "residual": 4.702314814814815,
+            "us": 51584000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.702314814814815
+          },
+          {
+            "increment": 0.003545118013352777,
+            "until_night": -5568,
+            "threat": 0,
+            "H": 4.6273536156828605,
+            "relief": 0,
+            "residual": 4.731944444444444,
+            "us": 51648000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.731944444444444
+          },
+          {
+            "increment": 0,
+            "until_night": -5632,
+            "threat": 0,
+            "H": 4.469048137710801,
+            "relief": 0.012149875068432792,
+            "residual": 3.0171296296296295,
+            "us": 51712000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:route",
+              "seconds": 21,
+              "margin": 864,
+              "kind": "observed_chain",
+              "source": "experience"
+            },
+            "target": 3.0171296296296295
+          },
+          {
+            "increment": 0.01396066921408945,
+            "until_night": -5696,
+            "threat": 0,
+            "H": 4.379325182969469,
+            "relief": 0,
+            "residual": 4.791203703703704,
+            "us": 51776000000,
+            "at_home": false,
+            "estimate": {
+              "model": "home:search",
+              "seconds": 333,
+              "margin": 4320,
+              "kind": "unconfirmed",
+              "source": "experience"
+            },
+            "target": 4.791203703703704
+          }
+        ],
+        "next_estimate_us": 51886000000,
+        "H": 4.757947099262676,
+        "anticipatory_evaluations": 9171,
+        "estimate": {
+          "model": "home:search",
+          "seconds": 333,
+          "margin": 4320,
+          "kind": "unconfirmed",
+          "source": "experience"
+        },
+        "last_request_us": 51839000000,
+        "requested": false,
+        "evaluations": 51840,
+        "last_us": 51839000000,
+        "food_blocks": 28308,
+        "peak_H": 4.757947099262676
+      },
+      "reserve": 42.79623741828456,
+      "returnPurpose": {
+        "completed": 0,
+        "active": true,
+        "started_us": 25920000000,
+        "entries": 1
+      },
+      "inward": 89,
+      "routeOutcomes": {
+        "abandoned": 553,
+        "interrupted": 388
+      },
+      "restReward": 0,
+      "counts": {
+        "rest": 4237,
+        "walk": 21227,
+        "eat": 1,
+        "pickup": 19,
+        "deposit": 9,
+        "scan": 25888,
+        "run": 459
+      },
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 88.67933580303868,
+          "position": [
+            -3.927819236969863,
+            1.3724778686568064
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": false,
+            "started_us": null,
+            "entries": 0
+          }
+        },
+        {
+          "day": 2,
+          "reserve": 65.51139429419086,
+          "position": [
+            -23.44211958735098,
+            20.281532863170334
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        },
+        {
+          "day": 3,
+          "reserve": 42.79623741828456,
+          "position": [
+            -25.096373881840556,
+            19.31616265710446
+          ],
+          "return_purpose": {
+            "completed": 0,
+            "active": true,
+            "started_us": 25920000000,
+            "entries": 1
+          }
+        }
+      ]
+    }
+  }
+}

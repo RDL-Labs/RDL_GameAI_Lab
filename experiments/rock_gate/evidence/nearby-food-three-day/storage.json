@@ -1,0 +1,339 @@
+{
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:17390000000:npc_a",
+        "stock_after": 1,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17525000000:npc_b",
+        "stock_after": 2,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17535000000:npc_c",
+        "stock_after": 5,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17561000000:npc_a",
+        "stock_after": 6,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17565000000:npc_a",
+        "stock_after": 7,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17572000000:npc_a",
+        "stock_after": 8,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17574000000:npc_b",
+        "stock_after": 9,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17580000000:npc_c",
+        "stock_after": 10,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17607000000:npc_a",
+        "stock_after": 13,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17617000000:npc_c",
+        "stock_after": 15,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17636000000:npc_b",
+        "stock_after": 18,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17657000000:npc_a",
+        "stock_after": 19,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17703000000:npc_a",
+        "stock_after": 22,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17709000000:npc_c",
+        "stock_after": 25,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17767000000:npc_c",
+        "stock_after": 28,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17842000000:npc_c",
+        "stock_after": 31,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17854000000:npc_a",
+        "stock_after": 32,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17868000000:npc_b",
+        "stock_after": 35,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17871000000:npc_c",
+        "stock_after": 37,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17906000000:npc_c",
+        "stock_after": 38,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17910000000:npc_a",
+        "stock_after": 40,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17918000000:npc_b",
+        "stock_after": 43,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17938000000:npc_a",
+        "stock_after": 44,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17955000000:npc_c",
+        "stock_after": 46,
+        "action": "deposit",
+        "actor": "npc_c"
+      }
+    ],
+    "taken": 0,
+    "deposited": 46
+  },
+  "food": [
+    {
+      "stock": 31,
+      "z": -12,
+      "x": -8
+    },
+    {
+      "stock": 12,
+      "z": -18,
+      "x": 0
+    },
+    {
+      "stock": 27,
+      "z": -12,
+      "x": 6
+    },
+    {
+      "renewable": false,
+      "stock": 4,
+      "z": 4,
+      "x": -2
+    },
+    {
+      "renewable": false,
+      "stock": 4,
+      "z": 4,
+      "x": 0
+    },
+    {
+      "renewable": false,
+      "stock": 4,
+      "z": 4,
+      "x": 2
+    },
+    {
+      "renewable": false,
+      "stock": 12,
+      "z": 6,
+      "x": -4
+    },
+    {
+      "renewable": false,
+      "stock": 12,
+      "z": 6,
+      "x": 4
+    },
+    {
+      "renewable": false,
+      "stock": 12,
+      "z": 2,
+      "x": 0
+    }
+  ],
+  "stock": [
+    31,
+    12,
+    27,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "daily": [
+    {
+      "ground": 114,
+      "shared": 0,
+      "consumed": 6,
+      "counts": {
+        "npc_b": {
+          "rest": 2925,
+          "walk": 2071,
+          "eat": 1,
+          "scan": 11917,
+          "run": 366
+        },
+        "npc_a": {
+          "rest": 2842,
+          "eat": 4,
+          "walk": 2492,
+          "pickup": 4,
+          "scan": 11379,
+          "run": 559
+        },
+        "npc_c": {
+          "rest": 2911,
+          "walk": 2465,
+          "eat": 1,
+          "scan": 11516,
+          "run": 387
+        }
+      }
+    },
+    {
+      "ground": 70,
+      "shared": 46,
+      "consumed": 6,
+      "counts": {
+        "npc_b": {
+          "rest": 3866,
+          "walk": 12051,
+          "eat": 1,
+          "pickup": 10,
+          "deposit": 5,
+          "scan": 18166,
+          "run": 461
+        },
+        "npc_a": {
+          "rest": 3758,
+          "eat": 4,
+          "walk": 12871,
+          "pickup": 19,
+          "deposit": 10,
+          "scan": 17263,
+          "run": 635
+        },
+        "npc_c": {
+          "rest": 3645,
+          "walk": 11905,
+          "eat": 1,
+          "pickup": 19,
+          "deposit": 9,
+          "scan": 18522,
+          "run": 459
+        }
+      }
+    },
+    {
+      "ground": 70,
+      "shared": 46,
+      "consumed": 6,
+      "counts": {
+        "npc_b": {
+          "rest": 4567,
+          "walk": 22199,
+          "eat": 1,
+          "pickup": 10,
+          "deposit": 5,
+          "scan": 24586,
+          "run": 472
+        },
+        "npc_a": {
+          "rest": 4581,
+          "eat": 4,
+          "walk": 23550,
+          "pickup": 19,
+          "deposit": 10,
+          "scan": 23018,
+          "run": 658
+        },
+        "npc_c": {
+          "rest": 4237,
+          "walk": 21227,
+          "eat": 1,
+          "pickup": 19,
+          "deposit": 9,
+          "scan": 25888,
+          "run": 459
+        }
+      }
+    }
+  ]
+}
