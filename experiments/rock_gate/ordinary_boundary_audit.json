@@ -1,0 +1,322 @@
+{
+  "note": "Carry forward per-actor event signature, which is logged whenever it changes. Radius 5 is observer-only; arrival is visible home within 1.25.",
+  "actors": {
+    "npc_b": {
+      "inward": 98,
+      "outward": 99,
+      "byMethodGroup": {
+        "safety": 142,
+        "configured_observation": 28,
+        "other": 22,
+        "MB": 5
+      },
+      "observation": {
+        "origin": [
+          0,
+          4
+        ],
+        "maxDisplacement": 19.12817761237754,
+        "actions": {
+          "rest": 2926,
+          "walk": 2528,
+          "eat": 1,
+          "scan": 11357,
+          "run": 468
+        }
+      },
+      "outsideIntervalSummary": {
+        "count": 98,
+        "atMost10Seconds": 45,
+        "medianSeconds": 24,
+        "maxSeconds": 7273
+      },
+      "safety": {
+        "entries": 452,
+        "overrides": 4366
+      }
+    },
+    "npc_a": {
+      "inward": 111,
+      "outward": 112,
+      "byMethodGroup": {
+        "safety": 147,
+        "configured_observation": 25,
+        "other": 43,
+        "MB": 8
+      },
+      "observation": {
+        "origin": [
+          -2,
+          4
+        ],
+        "maxDisplacement": 22.150978691031604,
+        "actions": {
+          "rest": 2901,
+          "eat": 4,
+          "walk": 2119,
+          "pickup": 4,
+          "scan": 11686,
+          "run": 566
+        }
+      },
+      "outsideIntervalSummary": {
+        "count": 111,
+        "atMost10Seconds": 41,
+        "medianSeconds": 23,
+        "maxSeconds": 16126
+      },
+      "safety": {
+        "entries": 498,
+        "overrides": 4464
+      }
+    },
+    "npc_c": {
+      "inward": 122,
+      "outward": 123,
+      "byMethodGroup": {
+        "safety": 183,
+        "configured_observation": 26,
+        "other": 33,
+        "MB": 3
+      },
+      "observation": {
+        "origin": [
+          2,
+          4
+        ],
+        "maxDisplacement": 15.258911415497447,
+        "actions": {
+          "rest": 2929,
+          "walk": 2529,
+          "eat": 1,
+          "scan": 11417,
+          "run": 404
+        }
+      },
+      "outsideIntervalSummary": {
+        "count": 122,
+        "atMost10Seconds": 55,
+        "medianSeconds": 16,
+        "maxSeconds": 7092
+      },
+      "safety": {
+        "entries": 529,
+        "overrides": 5045
+      }
+    }
+  },
+  "days": {
+    "1": {
+      "crossings": 441,
+      "inward": 219,
+      "byMethodGroup": {
+        "safety": 362,
+        "configured_observation": 79
+      },
+      "returnActive": 0
+    },
+    "2": {
+      "crossings": 206,
+      "inward": 103,
+      "byMethodGroup": {
+        "other": 91,
+        "safety": 99,
+        "MB": 16
+      },
+      "returnActive": 173
+    },
+    "3": {
+      "crossings": 18,
+      "inward": 9,
+      "byMethodGroup": {
+        "safety": 11,
+        "other": 7
+      },
+      "returnActive": 18
+    }
+  },
+  "examples": [
+    {
+      "actor": "npc_b",
+      "day": 1,
+      "sec": 127,
+      "direction": "out",
+      "group": "safety",
+      "method": "run_-45",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 3.77145169593287,
+      "toRadius": 5.267407684454326
+    },
+    {
+      "actor": "npc_b",
+      "day": 1,
+      "sec": 246,
+      "direction": "in",
+      "group": "configured_observation",
+      "method": "configured_observation",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 5.239747809075251,
+      "toRadius": 4.994725266674202
+    },
+    {
+      "actor": "npc_b",
+      "day": 1,
+      "sec": 358,
+      "direction": "out",
+      "group": "safety",
+      "method": "walk_-90",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 4.849134488273886,
+      "toRadius": 5.345253960496162
+    },
+    {
+      "actor": "npc_b",
+      "day": 1,
+      "sec": 489,
+      "direction": "in",
+      "group": "configured_observation",
+      "method": "configured_observation",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 5.048811541409692,
+      "toRadius": 4.81566145484098
+    },
+    {
+      "actor": "npc_b",
+      "day": 2,
+      "sec": 17373,
+      "direction": "in",
+      "group": "other",
+      "method": "step_90",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 5.1027511904048675,
+      "toRadius": 4.690745629771734
+    },
+    {
+      "actor": "npc_b",
+      "day": 2,
+      "sec": 17503,
+      "direction": "out",
+      "group": "safety",
+      "method": "walk_-90",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 4.757919601136885,
+      "toRadius": 5.257587749836061
+    },
+    {
+      "actor": "npc_b",
+      "day": 2,
+      "sec": 24776,
+      "direction": "in",
+      "group": "other",
+      "method": "step_45",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 5.308520187062824,
+      "toRadius": 4.841990642864943
+    },
+    {
+      "actor": "npc_b",
+      "day": 2,
+      "sec": 24900,
+      "direction": "out",
+      "group": "safety",
+      "method": "run_90",
+      "phase": "exploration",
+      "purpose": "food",
+      "returnActive": false,
+      "fromRadius": 3.8477862457126335,
+      "toRadius": 5.34680748604239
+    },
+    {
+      "actor": "npc_b",
+      "day": 2,
+      "sec": 27263,
+      "direction": "in",
+      "group": "MB",
+      "method": "mb_chunk:home:e2c0330f99fad3d7",
+      "phase": "return",
+      "purpose": "home",
+      "returnActive": true,
+      "fromRadius": 5.397240036657043,
+      "toRadius": 4.901609645788158
+    },
+    {
+      "actor": "npc_b",
+      "day": 2,
+      "sec": 27638,
+      "direction": "out",
+      "group": "MB",
+      "method": "mb_chunk:home:ff34e674eb7cbe7c",
+      "phase": "return",
+      "purpose": "home",
+      "returnActive": true,
+      "fromRadius": 4.935041878249855,
+      "toRadius": 5.2247087493295075
+    },
+    {
+      "actor": "npc_a",
+      "day": 3,
+      "sec": 47742,
+      "direction": "in",
+      "group": "safety",
+      "method": "run_-90",
+      "phase": "night",
+      "purpose": "food",
+      "returnActive": true,
+      "fromRadius": 5.937383969019225,
+      "toRadius": 4.914165502173522
+    },
+    {
+      "actor": "npc_a",
+      "day": 3,
+      "sec": 47746,
+      "direction": "out",
+      "group": "other",
+      "method": "cue:shape:brown:-6",
+      "phase": "night",
+      "purpose": "food",
+      "returnActive": true,
+      "fromRadius": 4.588878298535304,
+      "toRadius": 5.0857302654886105
+    },
+    {
+      "actor": "npc_a",
+      "day": 3,
+      "sec": 47748,
+      "direction": "in",
+      "group": "safety",
+      "method": "walk_90",
+      "phase": "night",
+      "purpose": "food",
+      "returnActive": true,
+      "fromRadius": 5.162934193806712,
+      "toRadius": 4.6742957966992185
+    },
+    {
+      "actor": "npc_a",
+      "day": 3,
+      "sec": 47885,
+      "direction": "out",
+      "group": "other",
+      "method": "step_90",
+      "phase": "night",
+      "purpose": "food",
+      "returnActive": true,
+      "fromRadius": 4.661670422340336,
+      "toRadius": 5.13841771074854
+    }
+  ]
+}
