@@ -1,0 +1,11 @@
+# 学習済みMB・別マップ遠方食料10日試験
+
+元データはstaged-world-ordinary-30d-20261026/ordinary/run/result.json。--transfer-fromで学習状態を読み、入力に元ファイルSHA256と取り込み内容を保存。scene.learned_mb_transferを使用し、world_historyは使用しない。
+
+持ち越す：MB場面ノード・有向遷移・chunks、親目的の見積もりモデル、類似性metric/associations/rejections、food/homeの方法報酬・失敗統計。方法評価は最終日のphysical.loopsから復元。旧home/foodラベルは記憶の仮説として残り、新観測で再照合される。正しい新経路として事前登録しない。
+
+リセット：現在位置・身体・手持ち・備蓄・日次達成、H、実行中試行・receipt・route trace・帰還探索キャッシュ・睡眠の保留候補。旧見積もり観測のop/ob識別子は別名前空間へ移し衝突を避ける。地形記憶・社会学習・睡眠行動モデルなど全学習系の完全移植ではなく、今回の対象はMBとfood/home方法評価。
+
+新世界は--far-transfer-mapで物体・道・遠方食料を拠点中心に180度回転。川等の地形場は維持するため完全な回転対称世界ではない。近・中距離食料と初日備蓄なし、遠方3地点各24食・再生あり。身体reserve90、手持ち0、危険OFF。初日の設定観察・日次持ち帰り等は維持。
+
+実保存データの復元検査24項目、新マップ通行22項目PASS。初回はJSON化した特徴キャッシュのDict/NamedTuple不整合で開始直後に停止。派生キャッシュを再生成し、metric例のcontextもTupleに復元する修正を行った。専用回帰検査11項目、層依存503項目PASS。再試験はoutputs/mb-transfer-far-10d-20261027-r2。未学習の対照群は未実行のため、結果だけから転移学習の効果は断定しない。

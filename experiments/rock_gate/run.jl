@@ -70,6 +70,7 @@ include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 include(joinpath(@__DIR__,"food_roads.jl"))
 include(joinpath(@__DIR__,"nearby_food.jl"))
 include(joinpath(@__DIR__,"staged_world.jl"))
+include(joinpath(@__DIR__,"transfer_world.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
 base["config"]["days"]=run_days
 rho_arg=findfirst(==("--rho"),ARGS)
@@ -225,9 +226,21 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
             @test hypot(walls[i].x-walls[i+1].x,walls[i].z-walls[i+1].z)<1.6
         end
     end
+    if "--far-transfer-map" in ARGS
+        @assert ordinary_only && staged_food && camp_provisions==0
+        far_transfer_world!(input)
+    end
+    transfer_arg=findfirst(==("--transfer-from"),ARGS)
+    if transfer_arg!==nothing
+        learned=JSON3.read(read(ARGS[transfer_arg+1],String),Dict{String,Any})
+        input["scene"]["learned_mb_transfer"]=D("maps"=>learned["mb_map"],"ended_us"=>learned["ended_us"],
+            "methods"=>D(a=>last(learned["daily"])["physical"][a]["loops"] for a in IDS),
+            "source_sha256"=>bytes2hex(sha256(read(ARGS[transfer_arg+1]))))
+    end
+    spec=JSON3.read(JSON3.write(input))
     caseout=joinpath(out,label);mkpath(caseout)
     specpath=joinpath(caseout,"input.json");write(specpath,JSON3.write(input))
-    if food_layout!==nothing
+    if food_layout!==nothing && !("--far-transfer-map" in ARGS)
         write(joinpath(caseout,"food-roads.json"),JSON3.write(food_layout))
         render_food_roads(joinpath(caseout,"food-roads.svg"),input,food_layout)
     end

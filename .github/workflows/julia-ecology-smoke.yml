@@ -35,6 +35,7 @@ jobs:
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/night_fear_checks.jl
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/daily_delivery_checks.jl
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/camp_safe_zone_checks.jl
+          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_transfer_checks.jl
       - name: Herbivore and predator checks
         run: |
           julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/checks.jl

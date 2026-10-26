@@ -39,6 +39,7 @@ include(joinpath(@__DIR__, "../perception/observed_cues.jl"))
 include(joinpath(@__DIR__, "../decision/relation_field.jl"))
 include(joinpath(@__DIR__, "../learning/mb_recognition.jl"))
 include(joinpath(@__DIR__, "../learning/mb_map.jl"))
+include(joinpath(@__DIR__, "../learning/mb_transfer.jl"))
 include(joinpath(@__DIR__, "../learning/mb_local_repair.jl"))
 include(joinpath(@__DIR__, "../learning/mb_routes.jl"))
 include(joinpath(@__DIR__, "../learning/mb_censored.jl"))
@@ -87,6 +88,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!embedded_rest_enabled || (mb_simulation && basic_loop),"embedded_rest_requires_mb_loop")
     check(!night_fear_enabled || (mb_simulation && basic_loop),"night_fear_requires_mb_loop")
     mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks,sensitivity=get(mb_sensitivities,a,D())) for a in IDS)
+    inherited_mb=get(spec,:learned_mb_transfer,nothing)
+    if inherited_mb!==nothing
+        check(mb_simulation && basic_loop,"transfer_requires_mb_loop")
+        inherited_mb=JSON3.read(JSON3.write(inherited_mb),Dict{String,Any})
+        for a in IDS;mb_transfer!(mb_maps[a],inherited_mb["maps"][a],inherited_mb["ended_us"]);end
+    end
     embedded_rest_enabled && foreach(m->m["embedded_rest"]=embedded_rest_state(),values(mb_maps))
     night_fear_enabled && foreach(m->m["night_fear"]=night_fear_state(),values(mb_maps))
     for m in values(mb_maps);m["recognition"]["metric"]["enabled"]=mb_similarity_learning;end
@@ -221,6 +228,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     cargo=Dict(a=>Union{Nothing,String}[] for a in IDS)
     max_radius=Dict(a=>0. for a in IDS)
     loops=Dict(a=>Dict(f=>BasicLoop(a*":"*f;parent=a*(body_purpose ? ":energy-maintenance" : ":food-security"),threshold=Int(goal_switch_threshold),probabilistic=true,seed=choice_seed) for f in ("food","home")) for a in IDS)
+    if inherited_mb!==nothing
+        for a in IDS,f in ("food","home");mb_transfer_methods!(loops[a][f],inherited_mb["methods"][a][f]);end
+    end
     check(!sleep_maintenance || sleep_actions,"maintenance_needs_sleep_actions")
     check(!sleep_actions || general_sleep,"sleep_actions_need_review")
     action_models=Dict(a=>sleep_action_state(a) for a in IDS)
