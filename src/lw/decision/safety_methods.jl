@@ -23,6 +23,10 @@ function limited_clearance!(state,ob)
  false
 end
 function safety_methods!(state,loop,ob,movement,source;running=false)
+ if get(ob,"safe_zone",false)
+    loop.trial!==nothing && resolve_method!(loop,loop.trial.source,nothing,nothing)
+    release_safe_zone!(state);return nothing
+ end
  fs=ob["features"];band=threat_band(fs)
  if loop.trial!==nothing
     prior=state["trial_band"]

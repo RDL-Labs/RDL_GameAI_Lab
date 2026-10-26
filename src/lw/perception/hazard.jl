@@ -1,5 +1,5 @@
 # Finite adapter: World trajectory stays in the sensor; policy sees relative features only.
-function hazard_observation(w,a,yaw,hazards,sec;visual_obstacles=w.obstacles)
+function hazard_observation(w,a,yaw,hazards,sec;visual_obstacles=w.obstacles,safe_home=nothing)
     features=Any[];p=w.positions[a];s,c=sincos(deg2rad(yaw[a]))
     for h in hazards
         h.start<=sec<h.stop || continue
@@ -9,11 +9,15 @@ function hazard_observation(w,a,yaw,hazards,sec;visual_obstacles=w.obstacles)
             push!(features,D("forward"=>f,"right"=>r,"distance"=>d))
         end
     end
-    D("coverage"=>"complete","features"=>features)
+    safe=safe_home!==nothing && hypot(p[1]-safe_home[1],p[2]-safe_home[2])<=1.25
+    safe ? D("coverage"=>"complete","features"=>Any[],"safe_zone"=>true,"observed_hazards"=>features) : D("coverage"=>"complete","features"=>features)
 end
 
 safety_state()=D("active"=>false,"H"=>0,"threshold"=>8,"entries"=>0,"releases"=>0,"overrides"=>0)
 function safety_plan!(s,ob,movement;running=false)
+    if get(ob,"safe_zone",false)
+        release_safe_zone!(s);return nothing
+    end
     features=ob["features"]
     if !isempty(features)
         !s["active"] && (s["entries"]+=1)
@@ -44,4 +48,11 @@ function safety_plan!(s,ob,movement;running=false)
         end
     end
     D("action"=>"scan","safety"=>true)
+end
+
+# Explicit world protection, not an inference from missing hazards.
+function release_safe_zone!(s)
+    s["active"] && (s["releases"]+=1)
+    s["active"]=false;s["H"]=0;s["clear_yaw"]=0.;s["far_count"]=0
+    s["accepted"]=false;s["body_result"]=nothing;s["release_reason"]="camp_safe_zone"
 end

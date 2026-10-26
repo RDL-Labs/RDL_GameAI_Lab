@@ -72,7 +72,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,daily_delivery_enabled=false,mb_sensitivities=D(),mb_similarity_learning=true)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,daily_delivery_enabled=false,camp_safe_zone=false,mb_sensitivities=D(),mb_similarity_learning=true)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -323,7 +323,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in IDS) : nothing
         # Safety and learning share the same current, actor-local observation.
-        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails || night_fear_enabled) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high) for a in IDS) : nothing
+        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails || night_fear_enabled) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high,safe_home=camp_safe_zone ? spec.home : nothing) for a in IDS) : nothing
         contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a];climbs=climbs===nothing ? nothing : climbs[a]) for a in IDS) : nothing
         bundle_contexts=(experience_bundles || selection_trails) ? Dict(a=>bundle_context(w.inventory[a],w.bodies[a],moves[a],hazard_views[a]) for a in IDS) : nothing
         # Every actor plans from observations acquired before any actor acts.
@@ -335,8 +335,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             observing=configured_observation_enabled && now<clock.day_us
             if night_fear_enabled
                 fear=mb_maps[a]["night_fear"]
-                estimate=night_return_estimate!(mb_maps[a],fear,home,at_home,now,clock.day_us)
-                night_fear_update!(fear,estimate,at_home,hazard_views[a],now,clock.day_us,clock.phase_boundaries_us[3])
+                protected_home=at_home || get(hazard_views[a],"safe_zone",false)
+                estimate=night_return_estimate!(mb_maps[a],fear,home,protected_home,now,clock.day_us)
+                night_fear_update!(fear,estimate,protected_home,hazard_views[a],now,clock.day_us,clock.phase_boundaries_us[3])
             end
             returning=observing ? false : returning!(purposes[a],phase,w.inventory[a],at_home,now)
             replenishing=false
