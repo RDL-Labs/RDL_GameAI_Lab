@@ -1,0 +1,465 @@
+{
+  "measurement": {
+    "gc_seconds": 582.7307897,
+    "process_peak_rss_bytes": 2008752128,
+    "compilation_included": true,
+    "call_seconds": 4572.4467372,
+    "allocated_bytes": 5174018967632
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    12,
+    2,
+    0,
+    0,
+    0
+  ],
+  "added": 55,
+  "storage": {
+    "taken": 63,
+    "deposited": 209,
+    "remaining": 146
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 83.93461370107202,
+      "distance": 1,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17343000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 41843000000,
+            "day": 2
+          },
+          {
+            "delivered": 3,
+            "us": 59178000000,
+            "day": 3
+          },
+          {
+            "delivered": 3,
+            "us": 77764000000,
+            "day": 4
+          },
+          {
+            "delivered": 3,
+            "us": 95858000000,
+            "day": 5
+          },
+          {
+            "delivered": 3,
+            "us": 112341000000,
+            "day": 6
+          },
+          {
+            "delivered": 3,
+            "us": 128392000000,
+            "day": 7
+          },
+          {
+            "delivered": 3,
+            "us": 150377000000,
+            "day": 8
+          },
+          {
+            "delivered": 3,
+            "us": 165136000000,
+            "day": 9
+          },
+          {
+            "delivered": 3,
+            "us": 186676000000,
+            "day": 10
+          },
+          {
+            "delivered": 3,
+            "us": 199577000000,
+            "day": 11
+          },
+          {
+            "delivered": 3,
+            "us": 219524000000,
+            "day": 12
+          },
+          {
+            "delivered": 2,
+            "us": 253160000000,
+            "day": 14
+          },
+          {
+            "delivered": 3,
+            "us": 268378000000,
+            "day": 15
+          },
+          {
+            "delivered": 3,
+            "us": 288599000000,
+            "day": 16
+          },
+          {
+            "delivered": 3,
+            "us": 307438000000,
+            "day": 17
+          },
+          {
+            "delivered": 3,
+            "us": 318632000000,
+            "day": 18
+          },
+          {
+            "delivered": 3,
+            "us": 342493000000,
+            "day": 19
+          },
+          {
+            "delivered": 2,
+            "us": 364092000000,
+            "day": 21
+          },
+          {
+            "delivered": 3,
+            "us": 393485000000,
+            "day": 22
+          },
+          {
+            "delivered": 3,
+            "us": 401498000000,
+            "day": 23
+          },
+          {
+            "delivered": 2,
+            "us": 437072000000,
+            "day": 25
+          },
+          {
+            "delivered": 2,
+            "us": 472498000000,
+            "day": 27
+          },
+          {
+            "delivered": 3,
+            "us": 501499000000,
+            "day": 29
+          }
+        ],
+        "completions": 24,
+        "completed": true,
+        "known_stock": 146,
+        "stay_requests": 210563,
+        "food_exceptions": 0,
+        "day": 29
+      },
+      "restReward": 145,
+      "minDailyReserve": 80.23856752928418,
+      "zeroDays": [],
+      "day30": {
+        "pickup": 0,
+        "deposit": 1,
+        "retrieve": 1,
+        "eat": 1
+      }
+    },
+    "npc_a": {
+      "reserve": 81.46418835630607,
+      "distance": 0.9999999999999999,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17363000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 43200000000,
+            "day": 2
+          },
+          {
+            "delivered": 3,
+            "us": 59190000000,
+            "day": 3
+          },
+          {
+            "delivered": 3,
+            "us": 77016000000,
+            "day": 4
+          },
+          {
+            "delivered": 3,
+            "us": 94234000000,
+            "day": 5
+          },
+          {
+            "delivered": 3,
+            "us": 110952000000,
+            "day": 6
+          },
+          {
+            "delivered": 3,
+            "us": 129780000000,
+            "day": 7
+          },
+          {
+            "delivered": 3,
+            "us": 147141000000,
+            "day": 8
+          },
+          {
+            "delivered": 3,
+            "us": 163775000000,
+            "day": 9
+          },
+          {
+            "delivered": 3,
+            "us": 183200000000,
+            "day": 10
+          },
+          {
+            "delivered": 3,
+            "us": 198774000000,
+            "day": 11
+          },
+          {
+            "delivered": 2,
+            "us": 225583000000,
+            "day": 13
+          },
+          {
+            "delivered": 3,
+            "us": 252306000000,
+            "day": 14
+          },
+          {
+            "delivered": 3,
+            "us": 269487000000,
+            "day": 15
+          },
+          {
+            "delivered": 5,
+            "us": 278267000000,
+            "day": 16
+          },
+          {
+            "delivered": 3,
+            "us": 305837000000,
+            "day": 17
+          },
+          {
+            "delivered": 3,
+            "us": 341458000000,
+            "day": 19
+          },
+          {
+            "delivered": 3,
+            "us": 358378000000,
+            "day": 20
+          },
+          {
+            "delivered": 2,
+            "us": 381572000000,
+            "day": 22
+          },
+          {
+            "delivered": 2,
+            "us": 418323000000,
+            "day": 24
+          },
+          {
+            "delivered": 2,
+            "us": 452267000000,
+            "day": 26
+          },
+          {
+            "delivered": 5,
+            "us": 470457000000,
+            "day": 27
+          },
+          {
+            "delivered": 1,
+            "us": 506256000000,
+            "day": 29
+          }
+        ],
+        "completions": 23,
+        "completed": true,
+        "known_stock": 146,
+        "stay_requests": 234841,
+        "food_exceptions": 0,
+        "day": 29
+      },
+      "restReward": 145,
+      "minDailyReserve": 80.45174180634395,
+      "zeroDays": [],
+      "day30": {
+        "pickup": 1,
+        "deposit": 1,
+        "retrieve": 0,
+        "eat": 1
+      }
+    },
+    "npc_c": {
+      "reserve": 97.26444671474256,
+      "distance": 0.9999999999999998,
+      "delivery": {
+        "records": [
+          {
+            "delivered": 1,
+            "us": 17356000000,
+            "day": 1
+          },
+          {
+            "delivered": 3,
+            "us": 43203000000,
+            "day": 2
+          },
+          {
+            "delivered": 3,
+            "us": 59337000000,
+            "day": 3
+          },
+          {
+            "delivered": 3,
+            "us": 77760000000,
+            "day": 4
+          },
+          {
+            "delivered": 3,
+            "us": 94060000000,
+            "day": 5
+          },
+          {
+            "delivered": 3,
+            "us": 110987000000,
+            "day": 6
+          },
+          {
+            "delivered": 3,
+            "us": 128455000000,
+            "day": 7
+          },
+          {
+            "delivered": 3,
+            "us": 147094000000,
+            "day": 8
+          },
+          {
+            "delivered": 3,
+            "us": 165593000000,
+            "day": 9
+          },
+          {
+            "delivered": 3,
+            "us": 180207000000,
+            "day": 10
+          },
+          {
+            "delivered": 3,
+            "us": 199708000000,
+            "day": 11
+          },
+          {
+            "delivered": 3,
+            "us": 216550000000,
+            "day": 12
+          },
+          {
+            "delivered": 3,
+            "us": 234518000000,
+            "day": 13
+          },
+          {
+            "delivered": 3,
+            "us": 251517000000,
+            "day": 14
+          },
+          {
+            "delivered": 5,
+            "us": 262562000000,
+            "day": 15
+          },
+          {
+            "delivered": 3,
+            "us": 303547000000,
+            "day": 17
+          },
+          {
+            "delivered": 3,
+            "us": 322660000000,
+            "day": 18
+          },
+          {
+            "delivered": 3,
+            "us": 340102000000,
+            "day": 19
+          },
+          {
+            "delivered": 3,
+            "us": 372765000000,
+            "day": 21
+          },
+          {
+            "delivered": 3,
+            "us": 389317000000,
+            "day": 22
+          },
+          {
+            "delivered": 3,
+            "us": 425995000000,
+            "day": 24
+          },
+          {
+            "delivered": 3,
+            "us": 444985000000,
+            "day": 25
+          },
+          {
+            "delivered": 3,
+            "us": 461908000000,
+            "day": 26
+          },
+          {
+            "delivered": 3,
+            "us": 479059000000,
+            "day": 27
+          },
+          {
+            "delivered": 3,
+            "us": 493725000000,
+            "day": 28
+          },
+          {
+            "delivered": 3,
+            "us": 512100000000,
+            "day": 29
+          }
+        ],
+        "completions": 26,
+        "completed": true,
+        "known_stock": 146,
+        "stay_requests": 211464,
+        "food_exceptions": 0,
+        "day": 29
+      },
+      "restReward": 145,
+      "minDailyReserve": 80.51236584322713,
+      "zeroDays": [],
+      "day30": {
+        "pickup": 3,
+        "deposit": 1,
+        "retrieve": 1,
+        "eat": 1
+      }
+    }
+  }
+}
