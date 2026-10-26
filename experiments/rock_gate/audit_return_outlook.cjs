@@ -7,7 +7,8 @@ const result={measurement:s.measurement,actors:{}};
 for(const [a,m] of Object.entries(s.mb_map)){
  const r=m.return_outlook;assert.ok(r && r.evaluated>0);
  assert.ok(Object.keys(r.paths).length<=256 && r.records.length<=64);
- assert.ok(r.selected<=r.evaluated && r.builds<=r.evaluated);
+ // Anticipatory night fear also refreshes this shared map without projecting food candidates.
+ assert.ok(r.selected<=r.evaluated && r.builds<=r.evaluated+(m.night_fear?.evaluations||0));
  for(const p of Object.values(r.paths)){
   assert.ok(p.path.length<=32 && p.energy>=0 && Number.isFinite(p.energy));
   // Cached paths may have been pruned since the last rebuild; lookup rejects these.

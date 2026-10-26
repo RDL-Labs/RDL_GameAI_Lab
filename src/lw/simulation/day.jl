@@ -17,6 +17,7 @@ include(joinpath(@__DIR__, "../decision/return_purpose.jl"))
 include(joinpath(@__DIR__, "../decision/social_response.jl"))
 include(joinpath(@__DIR__, "../decision/food_body.jl"))
 include(joinpath(@__DIR__, "../decision/embedded_rest.jl"))
+include(joinpath(@__DIR__, "../decision/night_fear.jl"))
 include(joinpath(@__DIR__, "../configured_paths/include.jl"))
 include(joinpath(@__DIR__, "../learning/experience_bundles.jl"))
 include(joinpath(@__DIR__, "../learning/selection_trail.jl"))
@@ -70,7 +71,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,mb_sensitivities=D(),mb_similarity_learning=true)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,mb_sensitivities=D(),mb_similarity_learning=true)
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -83,8 +84,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!configured_observation_enabled || mb_simulation,"observation_requires_mb_map")
     check(!configured_home_rest_enabled || (mb_simulation && basic_loop),"home_rest_requires_mb_loop")
     check(!embedded_rest_enabled || (mb_simulation && basic_loop),"embedded_rest_requires_mb_loop")
+    check(!night_fear_enabled || (mb_simulation && basic_loop),"night_fear_requires_mb_loop")
     mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks,sensitivity=get(mb_sensitivities,a,D())) for a in IDS)
     embedded_rest_enabled && foreach(m->m["embedded_rest"]=embedded_rest_state(),values(mb_maps))
+    night_fear_enabled && foreach(m->m["night_fear"]=night_fear_state(),values(mb_maps))
     for m in values(mb_maps);m["recognition"]["metric"]["enabled"]=mb_similarity_learning;end
     cue_states=Dict(a=>cue_stats() for a in IDS)
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
@@ -315,7 +318,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in IDS) : nothing
         # Safety and learning share the same current, actor-local observation.
-        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high) for a in IDS) : nothing
+        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails || night_fear_enabled) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high) for a in IDS) : nothing
         contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a];climbs=climbs===nothing ? nothing : climbs[a]) for a in IDS) : nothing
         bundle_contexts=(experience_bundles || selection_trails) ? Dict(a=>bundle_context(w.inventory[a],w.bodies[a],moves[a],hazard_views[a]) for a in IDS) : nothing
         # Every actor plans from observations acquired before any actor acts.
@@ -325,6 +328,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             at_home=home!==nothing && home["distance"]<=1.25
             mb_simulation && mb_observe!(mb_maps[a],landmarks[a],now;home=at_home,food=any(f->f["distance"]<=1.25,moves[a]["visible"]))
             observing=configured_observation_enabled && now<clock.day_us
+            if night_fear_enabled
+                fear=mb_maps[a]["night_fear"]
+                estimate=night_return_estimate!(mb_maps[a],fear,home,at_home,now,clock.day_us)
+                night_fear_update!(fear,estimate,at_home,hazard_views[a],now,clock.day_us,clock.phase_boundaries_us[3])
+            end
             returning=observing ? false : returning!(purposes[a],phase,w.inventory[a],at_home,now)
             replenishing=false
             if body_purpose
@@ -339,6 +347,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             configured_action=configured_body_action(replenishing,w.inventory[a],guts===nothing || can_ingest(guts[a]),
                 at_home,at_home ? (shared_stores ? shared : stores[a]) : 0)
+            night_fear_enabled && !observing && (returning=night_fear_request!(mb_maps[a]["night_fear"],returning,replenishing,now,loops[a]["home"].rng))
             if experience_bundles
                 form_bundle!(bundles[a],hunger[a],now)
                 wake_bundles!(bundles[a],bundle_contexts[a],phase)
@@ -444,6 +453,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
                     else
                         s=loops[a][family];source="op:$now:$a"
+                        navigation_H=night_fear_enabled && family=="home" ? max(s.H,mb_maps[a]["night_fear"]["H"]) : s.H
                         candidates=search_candidates(moves[a],target,s)
                         if skyline_views!==nothing && returning && target===nothing
                             append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
@@ -486,11 +496,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
                                 append!(chunk_candidates,fresh)
                             end
-                            mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                            mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
                             active=mb_maps[a]["routes"]["active"]
                             filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"] || startswith(p["method"],"mb_route:"),chunk_candidates)
                             if isempty(chunk_candidates)
-                                fresh=mb_simulate!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)
+                                fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)
                                 filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
                                 append!(candidates,fresh)
                             else
