@@ -19,3 +19,17 @@
     julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_similarity_learning_checks.jl
 
 実行は既存の新仕様3日条件に --similarity-learning on を追加。offで固定基準へ戻せる。[学習記録](evidence/learned-similarity-three-day/learning.json)、[結果](evidence/learned-similarity-three-day/report.json)、[manifest](evidence/learned-similarity-three-day/manifest.json)。
+
+## 10日延長結果（2026-10-26）
+
+同じ新仕様・固定感度・類似学習ONで期間のみ10日に変更。正常完走、26分41.17秒、ピークRSS1.78GB。生活整合52項目PASS、親・経路監査PASS。[集計](learned_similarity_10d_summary.json)。
+
+全員9日目末にreserve=0、10日目末も0。死亡判定とは区別する。5日目末は約84だったが、6日目以降約23/日の減少。採食数は最終A8/B5/C5で、3日以降のpickup累計は増えていない。食料再生追加0、地面には62残った。食料が世界全体から尽きた結果ではない。
+
+帰還はA0/B1/C0で、3日目から増加なし。Aは経路試行1150（H破棄817、他中断333）、局所修正12351、暫定再接続28。B/Cは経路試行0。経路目的達成は全員0。
+
+類似重みの経験ペア更新はA4033/B2548/C2461、計9042。最終距離/配置重みはA2.372/1.668、B2.380/1.808、C2.425/1.824で全員初期より厳しくなった。これだけで悪化原因とは断定できない。学習OFFの同じ新仕様10日対照は未実施。
+
+各個体の場面容量1280への到達を睡眠記録で確認。睡眠整理で960へ削減し、終了時も全員960。認識系の登録拒否累計はA20705/B20145/C20325（ノード・対応等の合算カウンタ）。特徴を増やした結果と、同等な場面を統合せず個別キーとして保持する現行設計の組合せが、保持と再利用の制約になっている可能性がある。容量を上げれば解決するという証拠ではない。
+
+構造的課題5件の診断中もruntimeを変更せず完走した結果である。単なる期間延長では生活維持・経路再利用は改善しなかった。

@@ -1,0 +1,80 @@
+{
+  "measurement": {
+    "gc_seconds": 86.2501984,
+    "process_peak_rss_bytes": 1779326976,
+    "compilation_included": true,
+    "call_seconds": 1601.1683565,
+    "allocated_bytes": 741288978165
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 0,
+      "minReserve": 0,
+      "out": 2,
+      "in": 1,
+      "nodes": 960,
+      "weights": [
+        2.380406748353108,
+        1.8084536884069125
+      ],
+      "updates": 2548,
+      "positive": 276,
+      "negative": 2272,
+      "routeStarted": 0,
+      "outcomes": {},
+      "repairs": 0,
+      "rejoins": 0,
+      "recognitionMatches": 0,
+      "recognitionMisses": 0,
+      "blocked": 20145,
+      "parentSuccesses": 7
+    },
+    "npc_a": {
+      "reserve": 0,
+      "minReserve": 0,
+      "out": 1,
+      "in": 0,
+      "nodes": 960,
+      "weights": [
+        2.3719829010910654,
+        1.6682719471042458
+      ],
+      "updates": 4033,
+      "positive": 1022,
+      "negative": 3011,
+      "routeStarted": 1150,
+      "outcomes": {
+        "abandoned": 817,
+        "interrupted": 333
+      },
+      "repairs": 12351,
+      "rejoins": 28,
+      "recognitionMatches": 0,
+      "recognitionMisses": 122,
+      "blocked": 20705,
+      "parentSuccesses": 12
+    },
+    "npc_c": {
+      "reserve": 0,
+      "minReserve": 0,
+      "out": 1,
+      "in": 0,
+      "nodes": 960,
+      "weights": [
+        2.4246903929209553,
+        1.8240861357741398
+      ],
+      "updates": 2461,
+      "positive": 226,
+      "negative": 2235,
+      "routeStarted": 0,
+      "outcomes": {},
+      "repairs": 0,
+      "rejoins": 0,
+      "recognitionMatches": 0,
+      "recognitionMisses": 0,
+      "blocked": 20325,
+      "parentSuccesses": 7
+    }
+  }
+}
