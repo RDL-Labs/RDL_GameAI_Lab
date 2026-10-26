@@ -545,3 +545,7 @@ FINITE PROTOTYPE。[設計](LW_Probabilistic_MB_Recognition.md)、[3日動作確
 ### 2026-10-26 — 経路全体を共有のMB試行として実行
 
 FINITE PROTOTYPE。[設計](LW_Whole_Route_MB.md)、[3日確認](../../experiments/rock_gate/whole_route_report.md)。チャンク・睡眠・詳細探索の経路ID/辺列/カーソル/親目的評価を共通化。中間辺の毎回検索をやめ、開始点から選択する。強制継続なし、身体要求等で中断可能。3日45試行、終端未解決8・目的達成0、全員reserve約90、再入場0。経路途中への継続は確認したが、有効な長距離経路学習は未確認。197項目PASSと追加監査。
+
+### 2026-10-26 — Hで経路継続・再確認・変更を選ぶ
+
+FINITE PROTOTYPE。[設計追記](LW_Whole_Route_MB.md)、[3日試験](../../experiments/rock_gate/h_route_report.md)。親Hで候補群の重みを変え、候補数による変更票の水増しを補正。観測不足は不確実な状態として保持し、見回して再対応。3日87試行、再確認110回、仮の再対応7回、目的達成0。終了時H32が77試行で、長い継続には至らず。全員reserve約90、再入場0。213項目PASSと追加監査。

@@ -1,0 +1,98 @@
+{
+  "input_identical": true,
+  "days": 3,
+  "measurement": {
+    "gc_seconds": 12.2114443,
+    "process_peak_rss_bytes": 1388957696,
+    "compilation_included": true,
+    "call_seconds": 203.3307329,
+    "allocated_bytes": 122097386588
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 90.4483039916405,
+      "outward": 1,
+      "inward": 0,
+      "started": 45,
+      "outcomes": {
+        "unresolved": 3,
+        "interrupted": 42
+      },
+      "controls": {
+        "recheck": 69,
+        "continue": 1,
+        "change": 45
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 6,
+        "infeasible_action": 17,
+        "recognition_mismatch": 9,
+        "no_observation": 3,
+        "no_correspondence": 36,
+        "reacquired": 5
+      },
+      "H32_events": 41,
+      "event_count": 45,
+      "recognition": {
+        "matches": 1,
+        "mismatches": 9,
+        "unknown": 36
+      }
+    },
+    "npc_a": {
+      "reserve": 90.55808705377507,
+      "outward": 1,
+      "inward": 0,
+      "started": 4,
+      "outcomes": {
+        "unresolved": 1,
+        "interrupted": 3
+      },
+      "controls": {
+        "recheck": 1,
+        "change": 4
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 2,
+        "infeasible_action": 1
+      },
+      "H32_events": 2,
+      "event_count": 4,
+      "recognition": {
+        "matches": 1,
+        "mismatches": 0,
+        "unknown": 3
+      }
+    },
+    "npc_c": {
+      "reserve": 90.58979806588094,
+      "outward": 1,
+      "inward": 0,
+      "started": 38,
+      "outcomes": {
+        "unresolved": 6,
+        "interrupted": 32
+      },
+      "controls": {
+        "recheck": 40,
+        "continue": 1,
+        "change": 38
+      },
+      "uncertainty": {
+        "endpoint_unresolved": 13,
+        "infeasible_action": 2,
+        "recognition_mismatch": 1,
+        "no_observation": 12,
+        "no_correspondence": 26,
+        "reacquired": 2
+      },
+      "H32_events": 34,
+      "event_count": 38,
+      "recognition": {
+        "matches": 0,
+        "mismatches": 1,
+        "unknown": 38
+      }
+    }
+  }
+}

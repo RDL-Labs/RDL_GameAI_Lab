@@ -40,8 +40,17 @@ end
    mb_observe!(s,chunk_view(5_000_000,"near"),5_000_000)
    @test isempty(mb_route_candidates!(s,move,"home",90.,0.,5_000_000))
   end
-  @test s["routes"]["active"]===nothing
-  @test s["routes"]["stats"][id][reason]==1
+  if reason=="blocked"
+   @test s["routes"]["active"]["uncertain"]
+   @test s["routes"]["uncertainty"]["execution_blocked"]==1
+  elseif reason=="unresolved"
+   @test s["routes"]["active"]["uncertain"]
+   mb_route_record!(s,D("action"=>"walk","mb_control"=>"change","mb_control_H"=>8),"performed",5_000_000)
+   @test s["routes"]["stats"][id][reason]==1
+  else
+   @test s["routes"]["active"]===nothing
+   @test s["routes"]["stats"][id][reason]==1
+  end
   @test s["routes"]["stats"][id]["reward"]==0
  end
 end
@@ -62,6 +71,7 @@ end
  mb_record!(s,q,"performed",.01,4_000_000)
  mb_observe!(s,chunk_view(5_000_000,"near"),5_000_000)
  mb_route_candidates!(s,move,"home",90.,0.,5_000_000)
+ mb_route_record!(s,D("action"=>"walk","mb_control"=>"change","mb_control_H"=>8),"performed",5_000_000)
  q=mb_route_attach!(D("priority"=>3.),s,p["mb_path"],"home","wake")
  @test q["priority"]<3
  @test s["routes"]["stats"][id]["unresolved"]==1
@@ -82,6 +92,53 @@ end
  s,p=route_fixture();mb_record!(s,p,"performed",.01,3_000_000)
  obs=chunk_view(4_000_000,"near");obs["features"][2]["range_band"]="near"
  mb_observe!(s,obs,4_000_000)
+ @test s["routes"]["active"]["uncertain"]
+ @test s["routes"]["uncertainty"]["recognition_mismatch"]==1
+end
+@testset "H controls route alternatives without a candidate-count vote" begin
+ s,p=route_fixture();mb_record!(s,p,"performed",.01,3_000_000)
+ mb_observe!(s,chunk_view(4_000_000,"mid"),4_000_000)
+ q=only(mb_route_candidates!(s,move,"home",90.,0.,4_000_000))
+ alt=D("method"=>"other","action"=>"walk","priority"=>q["priority"],"question"=>"target_observed")
+ loop=BasicLoop("home";probabilistic=true)
+ low=mb_route_control!(s,deepcopy(Any[q,alt]),loop,"home",4_000_000)
+ lowmass=last(s["routes"]["decisions"])["mass"]
+ @test lowmass["continue"]>.99 && lowmass["change"]>0
+ loop.H=8
+ high=mb_route_control!(s,deepcopy(Any[q,alt]),loop,"home",4_000_000)
+ highmass=last(s["routes"]["decisions"])["mass"]
+ @test highmass["change"]>lowmass["change"] && highmass["recheck"]>lowmass["recheck"]
+ many=Any[deepcopy(q)];append!(many,[merge(alt,D("method"=>"other$i")) for i in 1:20])
+ mb_route_control!(s,many,loop,"home",4_000_000)
+ @test last(s["routes"]["decisions"])["mass"]["change"]≈highmass["change"]
+ @test loop.H==8 && s["routes"]["active"]!==nothing
+ choice=only(filter(p->p["mb_control"]=="recheck",high))
+ mb_record!(s,choice,"performed",0.,4_000_000)
+ @test s["routes"]["active"]["cursor"]==2
+ mb_record!(s,only(filter(p->p["mb_control"]=="change",high)),"performed",0.,5_000_000)
  @test s["routes"]["active"]===nothing
- @test s["routes"]["stats"][p["mb_route"]]["mismatch"]==1
+ @test last(s["routes"]["events"])["reason"]=="H_choice"
+ @test last(s["routes"]["events"])["H"]==8
+end
+@testset "missing observation retains route and reacquires tentatively" begin
+ s,p=route_fixture();mb_record!(s,p,"performed",.01,3_000_000)
+ mb_observe!(s,chunk_view(4_000_000,"mid";partial=true),4_000_000)
+ @test s["routes"]["active"]["uncertain"] && s["routes"]["active"]["cursor"]==1
+ @test isempty(mb_route_candidates!(s,move,"home",90.,0.,4_000_000;H=2))
+ loop=BasicLoop("home";probabilistic=true);loop.H=2
+ plans=mb_route_control!(s,Any[],loop,"home",4_000_000)
+ @test only(plans)["mb_control"]=="recheck"
+ mb_record!(s,only(plans),"performed",0.,4_000_000)
+ mb_observe!(s,chunk_view(5_000_000,"mid"),5_000_000)
+ q=only(mb_route_candidates!(s,move,"home",90.,0.,5_000_000;H=3))
+ @test q["mb_route_index"]==2 && s["routes"]["active"]["verified"]==0
+ @test s["routes"]["uncertainty"]["reacquired"]==1
+ @test s["routes"]["stats"][p["mb_route"]]["reward"]==0
+ mb_record!(s,D("action"=>"rest","purpose_family"=>"home"),"performed",0.,5_000_000)
+ @test s["routes"]["active"]!==nothing
+ # Ordinary movement evidence must not resolve parent H.
+ probe=BasicLoop("home";probabilistic=true);probe.H=3
+ choose_method!(probe,[D("method"=>"walk","priority"=>1.,"question"=>"movement_progress")],"op:test")
+ resolve_method!(probe,"op:test",true,false)
+ @test probe.H==4 && probe.methods["walk"].reward==0
 end

@@ -1,5 +1,5 @@
 # A selected path is one attempt, shared by chunks, sleep and waking search.
-mb_route_state()=D("active"=>nothing,"stats"=>D(),"events"=>Any[],"started"=>0,"outcomes"=>D())
+mb_route_state()=D("active"=>nothing,"stats"=>D(),"events"=>Any[],"started"=>0,"outcomes"=>D(),"uncertainty"=>D(),"controls"=>D(),"decisions"=>Any[])
 function mb_route_finish!(s,outcome,now;reward=0.)
     r=s["routes"];a=r["active"];a===nothing && return
     st=get(r["stats"],a["id"],nothing)
@@ -8,7 +8,7 @@ function mb_route_finish!(s,outcome,now;reward=0.)
     end
     r["outcomes"][outcome]=get(r["outcomes"],outcome,0)+1
     push!(r["events"],D("id"=>a["id"],"kind"=>a["kind"],"goal"=>a["goal"],"started_us"=>a["started_us"],"ended_us"=>now,
-        "steps"=>a["cursor"]-1,"length"=>length(a["path"]),"verified_steps"=>a["verified"],"outcome"=>outcome,"reward"=>reward))
+        "steps"=>a["cursor"]-1,"length"=>length(a["path"]),"verified_steps"=>a["verified"],"outcome"=>outcome,"reward"=>reward,"H"=>get(a,"H",nothing),"reason"=>get(a,"reason",outcome)))
     length(r["events"])>64 && popfirst!(r["events"])
     r["active"]=nothing
 end
@@ -24,16 +24,34 @@ function mb_route_attach!(p,s,path,goal,kind;chunk=nothing,sleep=nothing)
 end
 function mb_route_record!(s,p,status,now)
     r=s["routes"];a=r["active"];id=get(p,"mb_route",nothing)
+    if a!==nothing
+        a["H"]=get(p,"mb_control_H",get(a,"H",0))
+        control=get(p,"mb_control",nothing)
+        if control!==nothing
+            r["controls"][control]=get(r["controls"],control,0)+1
+        end
+        if get(p,"mb_recheck",nothing)==a["id"]
+            a["last_us"]=now;return
+        end
+    end
     if id===nothing
         # Endpoint acquisition may resolve the parent on the following tick.
         if a!==nothing && a["cursor"]>length(a["path"]) && status in ("picked_up","recovered")
             a["last_us"]=now;return
         end
-        a!==nothing && mb_route_finish!(s,a["cursor"]>length(a["path"]) ? "unresolved" : "interrupted",now)
+        if a!==nothing
+            if get(p,"purpose_family",a["goal"])==a["goal"] && p["action"] in ("rest","eat","request") && !haskey(p,"mb_control")
+                a["reason"]="body_or_schedule_pause";return
+            end
+            a["reason"]=get(p,"mb_control",nothing)=="change" ? "H_choice" : "purpose_or_safety_override"
+            mb_route_finish!(s,a["cursor"]>length(a["path"]) ? "unresolved" : "interrupted",now)
+        end
         return
     end
     if a===nothing || a["id"]!=id
-        a!==nothing && mb_route_finish!(s,"interrupted",now)
+        if a!==nothing
+            a["reason"]="H_route_change";mb_route_finish!(s,"interrupted",now)
+        end
         path=p["mb_path"]
         get(p,"mb_route_index",1)==1 || return
         if !haskey(r["stats"],id) && length(r["stats"])<256
@@ -42,50 +60,65 @@ function mb_route_record!(s,p,status,now)
         haskey(r["stats"],id) && (r["stats"][id]["starts"]+=1)
         a=D("id"=>id,"path"=>copy(path),"goal"=>p["mb_route_goal"],"kind"=>p["mb_route_kind"],
             "chunk"=>get(p,"mb_chunk",nothing),"sleep"=>get(p,"mb_sleep",nothing),"cursor"=>1,"verified"=>0,
-            "started_us"=>now,"last_us"=>now,"priority"=>p["priority"])
+            "started_us"=>now,"last_us"=>now,"priority"=>p["priority"],"uncertain"=>false,"pending_edge"=>nothing,"H"=>get(p,"mb_control_H",0))
         r["active"]=a;r["started"]+=1
     end
     a["last_us"]=now
-    status=="performed" || mb_route_finish!(s,"blocked",now)
+    status=="performed" || mb_route_uncertain!(s,"execution_blocked")
+end
+function mb_route_uncertain!(s,reason;pending=nothing)
+    a=s["routes"]["active"];a===nothing && return
+    a["uncertain"]=true;a["reason"]=reason
+    pending!==nothing && (a["pending_edge"]=pending)
+    r=s["routes"]["uncertainty"];r[reason]=get(r,reason,0)+1
 end
 function mb_route_observe!(s,receipt,frame,now)
     a=s["routes"]["active"];a===nothing && return
-    receipt===nothing && (mb_route_finish!(s,"lost",now);return)
+    receipt===nothing && return # Pauses do not erase the route.
     get(receipt,"route",nothing)==a["id"] || return
     i=a["cursor"]
     (i<=length(a["path"]) && receipt["predicted"]==a["path"][i]) || return
     outcome=mb_prediction_outcome(s,receipt,frame,now)
-    if outcome in ("mismatch","execution_failure")
-        mb_route_finish!(s,outcome=="mismatch" ? "mismatch" : "blocked",now);return
+    if outcome=="execution_failure"
+        mb_route_uncertain!(s,"execution_blocked");return
     end
-    (frame===nothing || now!=receipt["now"]+1_000_000) && (mb_route_finish!(s,"lost",now);return)
-    # Unknown is tentative execution progress, never a verified transition or reward.
+    if outcome=="mismatch"
+        mb_route_uncertain!(s,"recognition_mismatch";pending=receipt["predicted"]);return
+    end
+    if frame===nothing || now!=receipt["now"]+1_000_000
+        mb_route_uncertain!(s,frame===nothing ? "no_observation" : "observation_gap";pending=receipt["predicted"]);return
+    end
     a["cursor"]+=1;a["verified"]+=Int(outcome=="match")
+    a["uncertain"]=false;a["pending_edge"]=nothing
 end
 function mb_route_goal!(s,goal,source,resolved,H_before,H_after,now)
     a=s["routes"]["active"];a===nothing && return
     a["goal"]==goal && source=="op:$(a["last_us"]):$(s["actor"])" || return
     if resolved===true && H_after==0 && H_before>H_after
         mb_route_finish!(s,"success",now;reward=Float64(H_before-H_after))
-    elseif a["cursor"]>length(a["path"]) && now>a["last_us"]+1_000_000
-        mb_route_finish!(s,"unresolved",now)
+
     end
 end
-function mb_route_candidates!(s,move,goal,reserve,strain,now)
+function mb_route_candidates!(s,move,goal,reserve,strain,now;H=0)
     a=s["routes"]["active"];a===nothing && return Any[]
-    if a["goal"]!=goal || reserve<=20 || strain>=.8
-        mb_route_finish!(s,"interrupted",now);return Any[]
+    a["H"]=H
+    if a["goal"]!=goal
+        a["reason"]="parent_purpose_changed";mb_route_finish!(s,"interrupted",now);return Any[]
     end
+    (reserve<=20 || strain>=.8) && return Any[]
+    mb_route_reacquire!(s,now)
     i=a["cursor"]
     if i>length(a["path"])
-        mb_route_finish!(s,"unresolved",now);return Any[]
+        mb_route_uncertain!(s,"endpoint_unresolved");return Any[]
     end
-    all(k->haskey(s["edges"],k),a["path"]) || (mb_route_finish!(s,"lost",now);return Any[])
+    all(k->haskey(s["edges"],k),a["path"]) || (mb_route_uncertain!(s,"missing_edge");return Any[])
+    a["pending_edge"]!==nothing && return Any[]
     edge=a["path"][i];e=s["edges"][edge]
     matches=mb_correspondences(s,[e["from"]],now;scope="route")
-    isempty(matches) && (mb_route_finish!(s,"lost",now);return Any[])
+    isempty(matches) && (mb_route_uncertain!(s,"no_correspondence");return Any[])
     match=first(matches);p=mb_first_action(e,(anchor=match["anchor"],),move)
-    p===nothing && (mb_route_finish!(s,"blocked",now);return Any[])
+    p===nothing && (mb_route_uncertain!(s,"infeasible_action");return Any[])
+    a["uncertain"]=false
     merge!(p,D("method"=>"mb_route:"*a["id"],"priority"=>a["priority"],"question"=>"target_observed",
         "mb_edge"=>edge,"mb_expected"=>e["to"],"mb_depth"=>length(a["path"])-i+1,
         "mb_path"=>a["path"],"mb_route"=>a["id"],"mb_route_kind"=>a["kind"],"mb_route_index"=>i,"mb_route_goal"=>goal))
@@ -93,4 +126,41 @@ function mb_route_candidates!(s,move,goal,reserve,strain,now)
     a["sleep"]!==nothing && (p["mb_sleep"]=a["sleep"])
     mb_attach_correspondence!(p,s,match)
     Any[p]
+end
+
+# Re-observe the expected endpoint of an executed step; never execute it twice blindly.
+function mb_route_reacquire!(s,now)
+    a=s["routes"]["active"];key=a["pending_edge"];key===nothing && return
+    frame=s["current"];(frame===nothing || s["current_us"]!=now) && return
+    edge=get(s["edges"],key,nothing);edge===nothing && return
+    node=get(s["nodes"],edge["to"],nothing);node===nothing && return
+    fit=mb_similarity(frame,node)
+    (fit===nothing || fit.agreement<.65) && return
+    a["cursor"]+=1;a["pending_edge"]=nothing;a["uncertain"]=false
+    # Recovery after a gap is tentative, not a verified transition or purpose success.
+    r=s["routes"]["uncertainty"];r["reacquired"]=get(r,"reacquired",0)+1
+end
+# Parent H gates whole-route alternatives. Group size must not multiply change votes.
+function mb_route_control!(s,candidates,loop,goal,now)
+    a=s["routes"]["active"];a===nothing && return candidates
+    if a["goal"]!=goal
+        a["reason"]="parent_purpose_changed";mb_route_finish!(s,"interrupted",now);return candidates
+    end
+    a["H"]=loop.H
+    out=copy(candidates)
+    push!(out,D("method"=>"mb_recheck:"*a["id"],"action"=>"scan","scan_angle"=>60.,"priority"=>a["priority"],
+        "question"=>"target_observed","mb_recheck"=>a["id"]))
+    group(p)=get(p,"mb_recheck",nothing)==a["id"] ? "recheck" : get(p,"mb_route",nothing)==a["id"] ? "continue" : "change"
+    counts=D();for p in out;g=group(p);counts[g]=get(counts,g,0)+1;end
+    h=max(1e-6,Float64(loop.H)/loop.threshold)
+    gates=D("continue"=>1.,"recheck"=>(a["uncertain"] ? 1.0+h : h),"change"=>h)
+    for p in out
+        g=group(p);p["mb_control"]=g;p["mb_control_H"]=loop.H
+        p["observation_log_prior"]=get(p,"observation_log_prior",0.)+log(gates[g]/counts[g])
+    end
+    probs=method_distribution(loop,out);mass=D(g=>0. for g in keys(counts))
+    for (p,prob) in zip(out,probs);mass[group(p)]+=prob;end
+    r=s["routes"];push!(r["decisions"],D("us"=>now,"id"=>a["id"],"H"=>loop.H,"uncertain"=>a["uncertain"],"mass"=>mass))
+    length(r["decisions"])>64 && popfirst!(r["decisions"])
+    out
 end

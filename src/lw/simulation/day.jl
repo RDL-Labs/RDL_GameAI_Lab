@@ -455,16 +455,26 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,fld(s.H,s.threshold)))
                             append!(candidates,cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold))
                         end
-                        if mb_simulation && target===nothing
-                            active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now)
-                            chunk_candidates=isempty(active_candidates) ? mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now) : active_candidates
-                            isempty(active_candidates) && mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                        if mb_simulation && (target===nothing || mb_maps[a]["routes"]["active"]!==nothing)
+                            active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
+                            chunk_candidates=copy(active_candidates)
+                            if isempty(active_candidates) || s.H>=s.threshold
+                                fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now)
+                                active=mb_maps[a]["routes"]["active"]
+                                filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
+                                append!(chunk_candidates,fresh)
+                            end
+                            mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                            active=mb_maps[a]["routes"]["active"]
+                            filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"] || startswith(p["method"],"mb_route:"),chunk_candidates)
                             if isempty(chunk_candidates)
-                                append!(candidates,mb_simulate!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                                fresh=mb_simulate!(mb_maps[a],moves[a],family,s.H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)
+                                filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
+                                append!(candidates,fresh)
                             else
                                 append!(candidates,chunk_candidates)
                             end
-                            filter!(p->!startswith(first(p),"mb_route:") || (mb_maps[a]["routes"]["active"]!==nothing && first(p)=="mb_route:"*mb_maps[a]["routes"]["active"]["id"]),s.methods)
+                            filter!(p->!(startswith(first(p),"mb_route:") || startswith(first(p),"mb_recheck:")) || (mb_maps[a]["routes"]["active"]!==nothing && (first(p)=="mb_route:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_recheck:"*mb_maps[a]["routes"]["active"]["id"])),s.methods)
                             filter!(p->!startswith(first(p),"mb_chunk:") || haskey(mb_maps[a]["chunks"],first(p)[10:end]),s.methods)
                             filter!(p->!startswith(first(p),"mb_sim:") || haskey(mb_maps[a]["edges"],first(p)[8:end]),s.methods)
                         end
@@ -515,6 +525,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
                             project_rho_affordance!(candidates,ground_models[a]["structures"]["observation"])
                         end
+                        mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
                         plan=choose_method!(s,candidates,source)
                         general_landmarks && record_cue_selection!(cue_states[a],plan,s.H)
                         movement_inertia && record_continuation!(inertia[a],plan,s,source)

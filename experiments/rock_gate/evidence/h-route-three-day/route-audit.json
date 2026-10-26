@@ -1,0 +1,2876 @@
+{
+  "measurement": {
+    "gc_seconds": 12.2114443,
+    "process_peak_rss_bytes": 1388957696,
+    "compilation_included": true,
+    "call_seconds": 203.3307329,
+    "allocated_bytes": 122097386588
+  },
+  "actors": {
+    "npc_b": {
+      "started": 45,
+      "outcomes": {
+        "unresolved": 3,
+        "interrupted": 42
+      },
+      "active": null,
+      "uncertainty": {
+        "endpoint_unresolved": 6,
+        "infeasible_action": 17,
+        "recognition_mismatch": 9,
+        "no_observation": 3,
+        "no_correspondence": 36,
+        "reacquired": 5
+      },
+      "controls": {
+        "recheck": 69,
+        "continue": 1,
+        "change": 45
+      },
+      "decisions": [
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43485000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.46550018904303536,
+            "change": 0.5344998109569647
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43494000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5552165765626075,
+            "continue": 0.03331779931341789,
+            "change": 0.41146562412397475
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:fc2b06ec2e5b8923",
+          "us": 43597000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5913284974500856,
+            "change": 0.40867150254991436
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:fc2b06ec2e5b8923",
+          "us": 43598000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.540761047557086,
+            "change": 0.4592389524429139
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:fc2b06ec2e5b8923",
+          "us": 43599000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5209840458626966,
+            "change": 0.47901595413730325
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:fc2b06ec2e5b8923",
+          "us": 43600000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4964360380633365,
+            "change": 0.5035639619366636
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:fc2b06ec2e5b8923",
+          "us": 43601000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4962107876050492,
+            "change": 0.5037892123949507
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43686000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6213600156731608,
+            "change": 0.3786399843268395
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43687000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5353335644209346,
+            "change": 0.46466643557906545
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8d657e8dad611bde",
+          "us": 43736000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5801435174337278,
+            "continue": 0.03481030386328353,
+            "change": 0.3850461787029886
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8d657e8dad611bde",
+          "us": 43737000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5189238284357806,
+            "continue": 0.03938888621135763,
+            "change": 0.4416872853528617
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8d657e8dad611bde",
+          "us": 43738000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.48856795727801894,
+            "continue": 0.03974532451610783,
+            "change": 0.4716867182058732
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8d657e8dad611bde",
+          "us": 43739000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.4883731533934708,
+            "continue": 0.04189027192540991,
+            "change": 0.4697365746811193
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43746000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6224530604333072,
+            "change": 0.3775469395666927
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43747000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5092437182640681,
+            "continue": 0.03883930408615223,
+            "change": 0.4519169776497796
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43904000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5849444129867478,
+            "change": 0.4150555870132522
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43905000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5521059126641459,
+            "change": 0.4478940873358541
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43906000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5096760225924928,
+            "change": 0.4903239774075073
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 43907000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5217202835104331,
+            "change": 0.4782797164895669
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44023000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5919102168501921,
+            "change": 0.4080897831498079
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44048000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5540516180477347,
+            "change": 0.4459483819522652
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:bbb3849d41147725",
+          "us": 44266000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5755363148113536,
+            "continue": 0.034529299227141215,
+            "change": 0.3899343859615052
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44325000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5682327792869701,
+            "continue": 0.02699214847007215,
+            "change": 0.4047750722429577
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44326000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.551425151202086,
+            "change": 0.4485748487979139
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:5d556ac00baf2bd5",
+          "us": 44469000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5749340669303113,
+            "continue": 0.03466122140879399,
+            "change": 0.3904047116608947
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:cc6f85f9a2c25d54",
+          "us": 44602000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6044504017468583,
+            "change": 0.3955495982531417
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:cc6f85f9a2c25d54",
+          "us": 44603000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5159340498261935,
+            "continue": 0.03915722093548552,
+            "change": 0.4449087292383211
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:cc6f85f9a2c25d54",
+          "us": 44604000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5298504436919174,
+            "change": 0.47014955630808264
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:cc6f85f9a2c25d54",
+          "us": 44605000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.4853548479608396,
+            "continue": 0.04163137637710159,
+            "change": 0.47301377566205877
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44754000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6030134038845405,
+            "change": 0.3969865961154595
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44780000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.633254542119737,
+            "change": 0.366745457880263
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44841000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.600376025657569,
+            "change": 0.39962397434243113
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:30a38aa0baf723f7",
+          "us": 44863000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6385725949775495,
+            "change": 0.36142740502245047
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:30a38aa0baf723f7",
+          "us": 44864000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5611136606954976,
+            "change": 0.43888633930450227
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:30a38aa0baf723f7",
+          "us": 44865000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5658110581653765,
+            "change": 0.4341889418346235
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:30a38aa0baf723f7",
+          "us": 44866000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5392413157799609,
+            "change": 0.46075868422003907
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:30a38aa0baf723f7",
+          "us": 44867000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5413150234060412,
+            "change": 0.4586849765939587
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44873000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6161930241879835,
+            "change": 0.3838069758120165
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44874000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5416310763494692,
+            "change": 0.458368923650531
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44875000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5421531422198232,
+            "change": 0.4578468577801768
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44876000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5111640114300292,
+            "change": 0.4888359885699708
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44877000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5174606720976517,
+            "change": 0.4825393279023482
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44878000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4963616169368779,
+            "change": 0.5036383830631221
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44879000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5115410514757188,
+            "change": 0.4884589485242812
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44890000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6142805030722894,
+            "change": 0.38571949692771057
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44891000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5625711504335291,
+            "change": 0.43742884956647093
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44892000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.54015472052239,
+            "change": 0.4598452794776101
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 44893000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5322940542760256,
+            "change": 0.4677059457239743
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8573c858b69665c4",
+          "us": 44991000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5882257521050506,
+            "continue": 0.03530616321744406,
+            "change": 0.37646808467750537
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8573c858b69665c4",
+          "us": 44992000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5320902914568778,
+            "continue": 0.03591667077548234,
+            "change": 0.4319930377676398
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45043000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6103168231971802,
+            "change": 0.3896831768028197
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45044000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5570111042744676,
+            "change": 0.4429888957255323
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45045000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.48872913300848936,
+            "continue": 0.039934102800755863,
+            "change": 0.4713367641907548
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45184000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5943163973585773,
+            "change": 0.4056836026414228
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45185000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5674254431300886,
+            "change": 0.4325745568699114
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8646aaf25bd59e00",
+          "us": 45190000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5767855824230467,
+            "continue": 0.034602774672807465,
+            "change": 0.3886116429041457
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45196000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6068015180331434,
+            "change": 0.3931984819668565
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:1e1f3572d209b399",
+          "us": 45386000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6200277528151823,
+            "change": 0.3799722471848177
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:1e1f3572d209b399",
+          "us": 45387000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5150944850225285,
+            "continue": 0.03909822009871551,
+            "change": 0.4458072948787558
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:17c836eba5b76e33",
+          "us": 45827000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5668434019988284,
+            "continue": 0.026922930158981586,
+            "change": 0.4062336678421898
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:595baa82949c430a",
+          "us": 46561000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6298642844783655,
+            "change": 0.3701357155216343
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:595baa82949c430a",
+          "us": 48286000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.634909369594016,
+            "change": 0.3650906304059839
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:27859796f6aae1ee",
+          "us": 48480000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.606963924944574,
+            "continue": 0.028783812240096716,
+            "change": 0.36425226281532935
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:27859796f6aae1ee",
+          "us": 48481000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5725391548040202,
+            "change": 0.42746084519597993
+          }
+        }
+      ],
+      "stats": {
+        "food:0a7ea2e24026843b": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "home:bbb3849d41147725": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:8d657e8dad611bde": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:595baa82949c430a": {
+          "reward": 0,
+          "starts": 2,
+          "interrupted": 2
+        },
+        "home:1e1f3572d209b399": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:fc2b06ec2e5b8923": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "food:c5543ffd7d99e238": {
+          "reward": 0,
+          "starts": 5,
+          "interrupted": 5
+        },
+        "home:17c836eba5b76e33": {
+          "reward": 0,
+          "starts": 23,
+          "interrupted": 23
+        },
+        "food:9126163e0fcf61e7": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:3947a43425a465ca": {
+          "reward": 0,
+          "starts": 2,
+          "interrupted": 2
+        },
+        "home:5d556ac00baf2bd5": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:cc6f85f9a2c25d54": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:8646aaf25bd59e00": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:27859796f6aae1ee": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "food:e9194b54c421d0ad": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "home:30a38aa0baf723f7": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:8573c858b69665c4": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        }
+      },
+      "events": [
+        {
+          "goal": "food",
+          "H": 7,
+          "ended_us": 34627000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3947a43425a465ca",
+          "started_us": 34623000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 22,
+          "ended_us": 34642000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 1,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:e9194b54c421d0ad",
+          "started_us": 34640000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 26,
+          "ended_us": 34646000000,
+          "reason": "H_route_change",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3947a43425a465ca",
+          "started_us": 34644000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 28,
+          "ended_us": 34648000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:9126163e0fcf61e7",
+          "started_us": 34646000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34652000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:0a7ea2e24026843b",
+          "started_us": 34650000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34957000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 34955000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34966000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 34965000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35055000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 35047000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35160000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 35159000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35272000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5543ffd7d99e238",
+          "started_us": 35270000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43265000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43261000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43293000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43290000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43351000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 2,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43346000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43384000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43381000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43417000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43416000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43464000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43459000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43485000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43480000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43494000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43493000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43601000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 2,
+          "id": "home:fc2b06ec2e5b8923",
+          "started_us": 43596000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43687000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43685000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43739000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:8d657e8dad611bde",
+          "started_us": 43735000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43747000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43745000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43907000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 43903000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44023000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44022000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44048000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44047000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44266000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:bbb3849d41147725",
+          "started_us": 44265000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44326000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44324000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44469000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:5d556ac00baf2bd5",
+          "started_us": 44468000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44605000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:cc6f85f9a2c25d54",
+          "started_us": 44601000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44754000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44753000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44780000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44779000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44841000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44840000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44867000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 2,
+          "id": "home:30a38aa0baf723f7",
+          "started_us": 44862000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44879000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44872000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44893000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 44889000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44992000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:8573c858b69665c4",
+          "started_us": 44990000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45045000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45042000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45185000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45183000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45190000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:8646aaf25bd59e00",
+          "started_us": 45189000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45196000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45195000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45387000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:1e1f3572d209b399",
+          "started_us": 45385000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45827000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:17c836eba5b76e33",
+          "started_us": 45826000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46561000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:595baa82949c430a",
+          "started_us": 46560000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48286000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:595baa82949c430a",
+          "started_us": 48285000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48481000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:27859796f6aae1ee",
+          "started_us": 48479000000,
+          "reward": 0
+        }
+      ]
+    },
+    "npc_a": {
+      "started": 4,
+      "outcomes": {
+        "unresolved": 1,
+        "interrupted": 3
+      },
+      "active": null,
+      "uncertainty": {
+        "endpoint_unresolved": 2,
+        "infeasible_action": 1
+      },
+      "controls": {
+        "recheck": 1,
+        "change": 4
+      },
+      "decisions": [
+        {
+          "H": 8,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34631000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6647236847046635,
+            "change": 0.33527631529533636
+          }
+        },
+        {
+          "H": 25,
+          "id": "food:0a7ea2e24026843b",
+          "us": 34648000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5896731014666224,
+            "change": 0.41032689853337767
+          }
+        },
+        {
+          "H": 26,
+          "id": "food:0a7ea2e24026843b",
+          "us": 34649000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.48633921678673875,
+            "change": 0.5136607832132611
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34694000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5438506673237535,
+            "continue": 0.03276420175983834,
+            "change": 0.42338513091640795
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:13b8d8db2cdec98e",
+          "us": 34724000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5430010465266898,
+            "continue": 0.034074401800690914,
+            "change": 0.4229245516726192
+          }
+        }
+      ],
+      "stats": {
+        "food:0a7ea2e24026843b": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:13b8d8db2cdec98e": {
+          "reward": 0,
+          "starts": 3,
+          "interrupted": 3
+        }
+      },
+      "events": [
+        {
+          "goal": "food",
+          "H": 8,
+          "ended_us": 34631000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34630000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 26,
+          "ended_us": 34649000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:0a7ea2e24026843b",
+          "started_us": 34647000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34694000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34693000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34724000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 1,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:13b8d8db2cdec98e",
+          "started_us": 34723000000,
+          "reward": 0
+        }
+      ]
+    },
+    "npc_c": {
+      "started": 38,
+      "outcomes": {
+        "unresolved": 6,
+        "interrupted": 32
+      },
+      "active": null,
+      "uncertainty": {
+        "endpoint_unresolved": 13,
+        "infeasible_action": 2,
+        "recognition_mismatch": 1,
+        "no_observation": 12,
+        "no_correspondence": 26,
+        "reacquired": 2
+      },
+      "controls": {
+        "recheck": 40,
+        "continue": 1,
+        "change": 38
+      },
+      "decisions": [
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34680000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5657307732348646,
+            "change": 0.4342692267651356
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34730000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5084827321650118,
+            "change": 0.49151726783498834
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34731000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5254937919908097,
+            "change": 0.47450620800919047
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34732000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.43279870153850253,
+            "change": 0.5672012984614975
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34733000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5044277260079304,
+            "change": 0.49557227399206966
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:191eb3544c9ec303",
+          "us": 34748000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.568186949848025,
+            "change": 0.4318130501519749
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 34766000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6295990261878084,
+            "change": 0.3704009738121915
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 34767000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.48565161442299337,
+            "change": 0.5143483855770066
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34776000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5539231650366979,
+            "change": 0.4460768349633022
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34777000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5208828521202329,
+            "change": 0.4791171478797671
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34778000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4780499501825301,
+            "change": 0.5219500498174698
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34779000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.49033439666176776,
+            "change": 0.5096656033382325
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34780000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4533859264733755,
+            "change": 0.5466140735266245
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34781000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5345026617531092,
+            "change": 0.4654973382468909
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34782000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5317345170360007,
+            "change": 0.4682654829639992
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:191eb3544c9ec303",
+          "us": 34813000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.578628475675538,
+            "change": 0.421371524324462
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:191eb3544c9ec303",
+          "us": 34814000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.4327922163509067,
+            "change": 0.5672077836490934
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34819000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5068211678718486,
+            "change": 0.4931788321281513
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34820000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5390668227520804,
+            "change": 0.46093317724791955
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34868000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5490966292959258,
+            "continue": 0.03294739998241802,
+            "change": 0.4179559707216562
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:3fbe7cb3bff744dc",
+          "us": 34870000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5532393037254584,
+            "continue": 0.03319536232174266,
+            "change": 0.41356533395279915
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:062e0ba5160ef22d",
+          "us": 34877000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5425660953468603,
+            "continue": 0.03255554888984344,
+            "change": 0.4248783557632963
+          }
+        },
+        {
+          "H": 32,
+          "id": "food:c5ee746c64c28761",
+          "us": 35028000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.56460339544055,
+            "continue": 0.019999167800645774,
+            "change": 0.4153974367588042
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:79b661c98f154201",
+          "us": 43523000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5885319825308389,
+            "change": 0.41146801746916073
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:5b4fbd03f200f8e4",
+          "us": 43669000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6142019774181962,
+            "change": 0.38579802258180407
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:20bc69205e7353e3",
+          "us": 43715000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6013523802701218,
+            "change": 0.39864761972987817
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:20bc69205e7353e3",
+          "us": 43716000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.4889124625871982,
+            "continue": 0.03710803631040269,
+            "change": 0.473979501102399
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:1950c7a2855d838f",
+          "us": 43779000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5900848588588185,
+            "change": 0.4099151411411815
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:5b4fbd03f200f8e4",
+          "us": 43857000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6045152027761296,
+            "change": 0.3954847972238703
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:5b4fbd03f200f8e4",
+          "us": 43858000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.512343596454906,
+            "continue": 0.03835309486116651,
+            "change": 0.4493033086839274
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:5b4fbd03f200f8e4",
+          "us": 43929000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6257937370638718,
+            "change": 0.3742062629361282
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:5b4fbd03f200f8e4",
+          "us": 43930000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5000887088928343,
+            "continue": 0.038139311596962995,
+            "change": 0.46177197951020255
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:5b4fbd03f200f8e4",
+          "us": 43931000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5256669085066423,
+            "change": 0.4743330914933578
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:e41755793bb7d9bb",
+          "us": 44422000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.558054251053531,
+            "continue": 0.029767305370877746,
+            "change": 0.41217844357559136
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:81e5a91c0ada9c3b",
+          "us": 44945000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6189849924146652,
+            "change": 0.381015007585335
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:81e5a91c0ada9c3b",
+          "us": 44946000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5622071046607608,
+            "change": 0.43779289533923915
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:81e5a91c0ada9c3b",
+          "us": 44947000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.546885934306762,
+            "change": 0.4531140656932381
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:a9be828e9a7797e5",
+          "us": 45079000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6240760783406061,
+            "change": 0.3759239216593939
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:a9be828e9a7797e5",
+          "us": 45080000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5693836473212673,
+            "change": 0.43061635267873277
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:2150d19ee9f48e37",
+          "us": 45341000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.47901266459834574,
+            "change": 0.5209873354016542
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:2150d19ee9f48e37",
+          "us": 45342000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.536711963504712,
+            "continue": 0.04091922202412928,
+            "change": 0.42236881447115887
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:2150d19ee9f48e37",
+          "us": 45343000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.41563956649673356,
+            "change": 0.5843604335032664
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:2150d19ee9f48e37",
+          "us": 45344000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5062160147936368,
+            "continue": 0.043612731024674396,
+            "change": 0.4501712541816889
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:2150d19ee9f48e37",
+          "us": 45345000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5336991301614455,
+            "change": 0.4663008698385543
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:c38e5c0d672a6f33",
+          "us": 45792000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.628682105182128,
+            "change": 0.3713178948178718
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:c38e5c0d672a6f33",
+          "us": 45793000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.576826568352771,
+            "change": 0.42317343164722904
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:c38e5c0d672a6f33",
+          "us": 45794000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5681733995485235,
+            "change": 0.4318266004514766
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:c38e5c0d672a6f33",
+          "us": 46317000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.630488691572692,
+            "change": 0.36951130842730795
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:c38e5c0d672a6f33",
+          "us": 46318000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5772987671549105,
+            "change": 0.4227012328450895
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:9ecc7955e02b0254",
+          "us": 46705000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.6276277939471968,
+            "continue": 0.037659499009811824,
+            "change": 0.33471270704299133
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:9ecc7955e02b0254",
+          "us": 46706000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5574979474577691,
+            "continue": 0.04231685270971724,
+            "change": 0.40018519983251366
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8d6dc93cc72524c6",
+          "us": 47032000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6387865807505149,
+            "change": 0.3612134192494852
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:8d6dc93cc72524c6",
+          "us": 47033000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5712761595145264,
+            "change": 0.4287238404854737
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:aea98ef61ee7515c",
+          "us": 47354000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.632155613620764,
+            "change": 0.3678443863792361
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:aea98ef61ee7515c",
+          "us": 47355000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5318555555321409,
+            "continue": 0.04010478257561066,
+            "change": 0.42803966189224846
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:aea98ef61ee7515c",
+          "us": 47356000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5480377291667092,
+            "change": 0.4519622708332909
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:876f638301836a67",
+          "us": 47419000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6281796028329709,
+            "change": 0.37182039716702897
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:876f638301836a67",
+          "us": 47420000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5734240521225988,
+            "change": 0.42657594787740116
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:d5851e6453abe15a",
+          "us": 47483000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.59872022849346,
+            "continue": 0.03592496073238069,
+            "change": 0.36535481077415943
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:d5851e6453abe15a",
+          "us": 47484000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5806906144554506,
+            "change": 0.4193093855445493
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:d5851e6453abe15a",
+          "us": 47485000000,
+          "uncertain": false,
+          "mass": {
+            "recheck": 0.5140746293835896,
+            "continue": 0.04182030906034591,
+            "change": 0.4441050615560645
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:d5851e6453abe15a",
+          "us": 47486000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.5506659613786221,
+            "change": 0.44933403862137794
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:48828216836b1457",
+          "us": 47676000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6370736911671921,
+            "change": 0.3629263088328079
+          }
+        },
+        {
+          "H": 32,
+          "id": "home:aea98ef61ee7515c",
+          "us": 48067000000,
+          "uncertain": true,
+          "mass": {
+            "recheck": 0.6397459873527456,
+            "change": 0.3602540126472545
+          }
+        }
+      ],
+      "stats": {
+        "home:79b661c98f154201": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:9ecc7955e02b0254": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "food:c5ee746c64c28761": {
+          "reward": 0,
+          "starts": 3,
+          "interrupted": 3
+        },
+        "food:3fbe7cb3bff744dc": {
+          "reward": 0,
+          "starts": 2,
+          "interrupted": 2
+        },
+        "home:2150d19ee9f48e37": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:d5851e6453abe15a": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:aea98ef61ee7515c": {
+          "reward": 0,
+          "starts": 2,
+          "interrupted": 2
+        },
+        "home:8d6dc93cc72524c6": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "food:062e0ba5160ef22d": {
+          "reward": 0,
+          "starts": 7,
+          "interrupted": 7
+        },
+        "food:c38e5c0d672a6f33": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "food:191eb3544c9ec303": {
+          "reward": 0,
+          "starts": 3,
+          "unresolved": 3
+        },
+        "home:e41755793bb7d9bb": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:5b4fbd03f200f8e4": {
+          "reward": 0,
+          "starts": 3,
+          "interrupted": 3
+        },
+        "home:81e5a91c0ada9c3b": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:a9be828e9a7797e5": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:48828216836b1457": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:20bc69205e7353e3": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "food:8ac72d1d4910beb4": {
+          "reward": 0,
+          "starts": 1,
+          "unresolved": 1
+        },
+        "home:1950c7a2855d838f": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:876f638301836a67": {
+          "reward": 0,
+          "starts": 1,
+          "interrupted": 1
+        },
+        "home:c38e5c0d672a6f33": {
+          "reward": 0,
+          "starts": 2,
+          "unresolved": 1,
+          "interrupted": 1
+        },
+        "food:bfb19e4872566e3b": {
+          "reward": 0,
+          "starts": 2,
+          "interrupted": 2
+        }
+      },
+      "events": [
+        {
+          "goal": "food",
+          "H": 7,
+          "ended_us": 34627000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:c38e5c0d672a6f33",
+          "started_us": 34624000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 13,
+          "ended_us": 34633000000,
+          "reason": "H_route_change",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5ee746c64c28761",
+          "started_us": 34632000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 15,
+          "ended_us": 34635000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:191eb3544c9ec303",
+          "started_us": 34633000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 24,
+          "ended_us": 34644000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:bfb19e4872566e3b",
+          "started_us": 34643000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34657000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34653000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34667000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:8ac72d1d4910beb4",
+          "started_us": 34664000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34679000000,
+          "reason": "H_route_change",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:bfb19e4872566e3b",
+          "started_us": 34678000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34680000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34679000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34733000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34729000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34748000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:191eb3544c9ec303",
+          "started_us": 34747000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34767000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5ee746c64c28761",
+          "started_us": 34765000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34780000000,
+          "reason": "H_route_change",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3fbe7cb3bff744dc",
+          "started_us": 34775000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34782000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34780000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34814000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 1,
+          "id": "food:191eb3544c9ec303",
+          "started_us": 34812000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34820000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34818000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34868000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34867000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34870000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:3fbe7cb3bff744dc",
+          "started_us": 34869000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 34877000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "sleep",
+          "length": 2,
+          "id": "food:062e0ba5160ef22d",
+          "started_us": 34876000000,
+          "reward": 0
+        },
+        {
+          "goal": "food",
+          "H": 32,
+          "ended_us": 35028000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 2,
+          "id": "food:c5ee746c64c28761",
+          "started_us": 35027000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43523000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 2,
+          "id": "home:79b661c98f154201",
+          "started_us": 43522000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43669000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:5b4fbd03f200f8e4",
+          "started_us": 43668000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43716000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:20bc69205e7353e3",
+          "started_us": 43714000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43779000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:1950c7a2855d838f",
+          "started_us": 43778000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43858000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:5b4fbd03f200f8e4",
+          "started_us": 43856000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 43931000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "chunk",
+          "length": 3,
+          "id": "home:5b4fbd03f200f8e4",
+          "started_us": 43928000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44422000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:e41755793bb7d9bb",
+          "started_us": 44421000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 44947000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:81e5a91c0ada9c3b",
+          "started_us": 44944000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45080000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:a9be828e9a7797e5",
+          "started_us": 45078000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45345000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:2150d19ee9f48e37",
+          "started_us": 45340000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 45794000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 1,
+          "id": "home:c38e5c0d672a6f33",
+          "started_us": 45791000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46318000000,
+          "reason": "H_choice",
+          "outcome": "unresolved",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 1,
+          "id": "home:c38e5c0d672a6f33",
+          "started_us": 46316000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 46706000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:9ecc7955e02b0254",
+          "started_us": 46704000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47033000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 3,
+          "id": "home:8d6dc93cc72524c6",
+          "started_us": 47031000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47356000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:aea98ef61ee7515c",
+          "started_us": 47353000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47420000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:876f638301836a67",
+          "started_us": 47418000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47486000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 1,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 2,
+          "id": "home:d5851e6453abe15a",
+          "started_us": 47482000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 47676000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:48828216836b1457",
+          "started_us": 47675000000,
+          "reward": 0
+        },
+        {
+          "goal": "home",
+          "H": 32,
+          "ended_us": 48067000000,
+          "reason": "H_choice",
+          "outcome": "interrupted",
+          "steps": 0,
+          "verified_steps": 0,
+          "kind": "wake",
+          "length": 4,
+          "id": "home:aea98ef61ee7515c",
+          "started_us": 48066000000,
+          "reward": 0
+        }
+      ]
+    }
+  }
+}
