@@ -37,6 +37,7 @@ include(joinpath(@__DIR__, "../decision/relation_field.jl"))
 include(joinpath(@__DIR__, "../learning/mb_recognition.jl"))
 include(joinpath(@__DIR__, "../learning/mb_map.jl"))
 include(joinpath(@__DIR__, "../learning/mb_routes.jl"))
+include(joinpath(@__DIR__, "../learning/mb_parent.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
 include(joinpath(@__DIR__, "../learning/mb_sleep.jl"))
 include(joinpath(@__DIR__, "../decision/lateral_bias.jl"))
@@ -343,9 +344,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     search_review_result!(reposition_states[a],t.family,s.trial.method,target!==nothing,t.status=="performed")
                 end
                 mb_parent_H=s.H
-                forecast_increment=mb_simulation ? mb_route_H_increment!(mb_maps[a],t.family,t.source,goal,now) : nothing
+                child_increment=mb_simulation ? mb_route_H_increment!(mb_maps[a],t.family,t.source,goal,now) : nothing
+                forecast_increment=mb_simulation ? mb_parent_H_increment!(mb_maps[a],t.family,t.source,goal,now;
+                    child_increment=child_increment===nothing ? 0 : child_increment) : nothing
+                forecast_increment===nothing && (forecast_increment=child_increment)
                 method_evidence=forecast_increment===0 && !goal ? nothing : (t.phase==phase || value===true ? value : nothing)
-                resolve_method!(s,t.source,method_evidence,t.phase==phase || goal ? goal : nothing;
+                resolve_method!(s,t.source,method_evidence,forecast_increment!==nothing ? goal : (t.phase==phase || goal ? goal : nothing);
                     creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true),
                     goal_H_increment=forecast_increment===nothing ? 1 : forecast_increment)
                 mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now)
@@ -528,6 +532,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
                             project_rho_affordance!(candidates,ground_models[a]["structures"]["observation"])
                         end
+                        mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))
                         mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
                         plan=choose_method!(s,candidates,source)
                         general_landmarks && record_cue_selection!(cue_states[a],plan,s.H)
@@ -591,6 +596,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan["scan_angle"]=orientation_scan!(sky[a],clock)
             end
             plan["purpose_family"]=returning ? "home" : "food"
+            if mb_simulation && haskey(pending,a) && !get(plan,"configured_observation",false)
+                parent_family=pending[a].family
+                parent_target=parent_family=="home" ? home : isempty(moves[a]["visible"]) ? nothing : first(moves[a]["visible"])
+                mb_parent_begin!(mb_maps[a],plan,parent_family,parent_target,now)
+            end
             if continuous_descent && !get(plan,"configured_observation",false) && plan["action"] in ("walk","run")
                 visible=moves[a]["visible"]
                 goal=returning ? home : isempty(visible) ? nothing : first(visible)

@@ -553,3 +553,7 @@ FINITE PROTOTYPE。[設計追記](LW_Whole_Route_MB.md)、[3日試験](../../exp
 ### 2026-10-26 — 経路の見積もり残差を親Hに反映
 
 FINITE PROTOTYPE。[設計](LW_Whole_Route_MB.md)、[3日試験](../../experiments/rock_gate/estimate_route_report.md)。開始時の固定操作数/消費見積もりと実績の差・矛盾を用い、見積内の途中経路ではHを加算しない。226評価中169回が見積内、H加算要求量51。全員生存、B再入場1、経路MB目的達成0。開始前に蓄積したHは残り、高Hでの変更が依然多い。393項目PASSと追加監査。
+
+### 2026-10-26 — 親MBの経験から見積もって行動
+
+FINITE PROTOTYPE。[設計](LW_Parent_MB_Estimation.md)、[3日試験](../../experiments/rock_gate/parent_mb_report.md)。food/home親の通常探索・接近・経路で固定見積もりと経験学習を導入。候補の予測コストと既存学習で行動を選び、子と親の残差は重複加算しない。26目的達成から予測更新、全員生存、再入場0・経路目的達成0。初期/学習見積もりと実環境の所要時間が大きく異なる例が残る。448項目PASSと追加監査。

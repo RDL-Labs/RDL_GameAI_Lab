@@ -1,7 +1,7 @@
 # Observed MB transition graph. No World positions, object IDs or reverse-edge invention.
 const MB_MAP_NODE_LIMIT=1280
 const MB_MAP_EDGE_LIMIT=5120
-mb_map_state(actor;chunks=false)=D("routes"=>mb_route_state(),"recognition"=>mb_recognition_state(),"sleep"=>D("frozen"=>nothing,"reviews"=>Any[],"hypotheses"=>D(),"proposals"=>0,"selected"=>0),"chunks_enabled"=>chunks,"chunks"=>D(),"route_trace"=>String[],"trace_goal"=>nothing,
+mb_map_state(actor;chunks=false)=D("parent_mb"=>mb_parent_state(),"routes"=>mb_route_state(),"recognition"=>mb_recognition_state(),"sleep"=>D("frozen"=>nothing,"reviews"=>Any[],"hypotheses"=>D(),"proposals"=>0,"selected"=>0),"chunks_enabled"=>chunks,"chunks"=>D(),"route_trace"=>String[],"trace_goal"=>nothing,
     "last_chunk_operation"=>nothing,"last_chunk_credit"=>nothing,"chunk_formations"=>0,"chunk_goal_credits"=>0,"chunk_reward"=>0.,
     "chunk_proposals"=>0,"chunk_selected"=>0,"chunk_records"=>Any[],"actor"=>actor,"nodes"=>D(),"edges"=>D(),"current"=>nothing,"current_us"=>nothing,"receipt"=>nothing,
     "next_search_us"=>0,"observations"=>0,"searches"=>0,"expanded"=>0,"proposals"=>0,
@@ -70,6 +70,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
     mb_trace_edge!(s,key)
 end
 function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
+    mb_parent_record!(s,plan,energy,now)
     mb_route_record!(s,plan,status,now;energy=max(0.,energy))
     frame=s["current"];predicted=get(plan,"mb_edge",nothing)
     haskey(plan,"mb_association") && (s["recognition"]["selected"]+=1)

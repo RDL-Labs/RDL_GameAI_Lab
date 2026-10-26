@@ -1,0 +1,134 @@
+{
+  "input_identical": true,
+  "measurement": {
+    "gc_seconds": 12.518323,
+    "process_peak_rss_bytes": 1435824128,
+    "compilation_included": true,
+    "call_seconds": 211.5583585,
+    "allocated_bytes": 125248538427
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 90.84660611894279,
+      "out": 1,
+      "in": 0,
+      "parent": {
+        "evaluated": 5749,
+        "within_estimate": 266,
+        "H_requested": 162,
+        "successes": 7
+      },
+      "route": {
+        "started": 228,
+        "outcomes": {
+          "unresolved": 5,
+          "interrupted": 223
+        },
+        "controls": {
+          "recheck": 276,
+          "continue": 4,
+          "change": 228
+        },
+        "active": null,
+        "H32_events": 64,
+        "retained_events": 64
+      },
+      "chunk_formations": 0
+    },
+    "npc_a": {
+      "reserve": 89.01137454546134,
+      "out": 1,
+      "in": 0,
+      "parent": {
+        "evaluated": 11252,
+        "within_estimate": 272,
+        "H_requested": 169,
+        "successes": 12
+      },
+      "route": {
+        "started": 8,
+        "outcomes": {
+          "unresolved": 1,
+          "interrupted": 7
+        },
+        "controls": {
+          "recheck": 9,
+          "continue": 1,
+          "change": 8
+        },
+        "active": null,
+        "H32_events": 1,
+        "retained_events": 8
+      },
+      "chunk_formations": 2
+    },
+    "npc_c": {
+      "reserve": 90.674406334907,
+      "out": 1,
+      "in": 0,
+      "parent": {
+        "evaluated": 5769,
+        "within_estimate": 271,
+        "H_requested": 113,
+        "successes": 7
+      },
+      "route": {
+        "started": 252,
+        "outcomes": {
+          "unresolved": 35,
+          "interrupted": 216
+        },
+        "controls": {
+          "recheck": 277,
+          "continue": 5,
+          "change": 249
+        },
+        "active": {
+          "path": [
+            "1e314e9bd2b9129a:scan:2:0:05d85ff7c575fa18",
+            "05d85ff7c575fa18:scan:2:0:205315d3cd5c4eb8",
+            "205315d3cd5c4eb8:scan:-6:0:e4bbb7a162d2772a"
+          ],
+          "goal": "home",
+          "H": 32,
+          "pending_edge": null,
+          "reason": "body_or_schedule_pause",
+          "estimate": {
+            "energy_prefix": [
+              0.00018518518518817473,
+              0.00037037037037634946,
+              0.0005555555555645242
+            ],
+            "active_seconds": 3,
+            "energy": 0.0005555555555645242,
+            "energy_quantum": 0.01,
+            "steps": 3,
+            "actions": 3,
+            "action_slack": 1
+          },
+          "sleep": "home:1de93b7cdeedc8e3",
+          "verified": 0,
+          "kind": "sleep",
+          "id": "home:1de93b7cdeedc8e3",
+          "cursor": 2,
+          "uncertain": true,
+          "priority": 0.21597589698932532,
+          "chunk": null,
+          "started_us": 48957000000,
+          "last_us": 48959000000,
+          "effort": {
+            "last_evaluated": "op:48959000000:npc_c",
+            "contradictions": 0,
+            "charged": 0,
+            "last_increment": 0,
+            "energy": 0.0005555555555645242,
+            "actions": 3
+          }
+        },
+        "H32_events": 64,
+        "retained_events": 64
+      },
+      "chunk_formations": 0
+    }
+  }
+}
