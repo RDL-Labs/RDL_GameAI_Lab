@@ -1,0 +1,448 @@
+{
+  "measurement": {
+    "gc_seconds": 39.2112077,
+    "process_peak_rss_bytes": 1325748224,
+    "compilation_included": true,
+    "call_seconds": 423.1079624,
+    "allocated_bytes": 394541096655
+  },
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:17733000000:npc_a",
+        "stock_after": 3,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26873000000:npc_a",
+        "stock_after": 2,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:44905000000:npc_a",
+        "stock_after": 4,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:46914000000:npc_c",
+        "stock_after": 5,
+        "action": "deposit",
+        "actor": "npc_c"
+      }
+    ],
+    "taken": 1,
+    "deposited": 6
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    24,
+    24,
+    21
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 86.90337305830415,
+      "distance": 10.597600366168239,
+      "inventory": 1,
+      "deliveries": [],
+      "place": {
+        "records": [
+          {
+            "kind": "configured_episode_reward",
+            "members": 14,
+            "us": 159000000,
+            "links": 17,
+            "reward": 20
+          }
+        ],
+        "initial_reward": 20,
+        "last_rest_us": 158000000,
+        "signature": "orange-large-tall-light",
+        "estimate": {
+          "right": 8.66071872014968,
+          "known": true,
+          "profile": "coarse",
+          "reason": "far_or_unknown",
+          "check_remaining": 0,
+          "checking": false,
+          "confirmed": 0,
+          "near": false,
+          "scan_selected": 0,
+          "receipt": "op:51838000000:npc_b",
+          "anchors": 10403,
+          "fine_ticks": 36594,
+          "checks": 30,
+          "cooldown": 252,
+          "forward": 6.107461401555672,
+          "coarse_ticks": 14945,
+          "unresolved": 30,
+          "uncertainty": 235.28013656523416
+        },
+        "offers": 20683,
+        "method": "mb_place:camp",
+        "rest_ticks": 60,
+        "complete": true,
+        "visible": false,
+        "id": "camp",
+        "reward_count": 1,
+        "memory_selected": 620,
+        "active": true,
+        "selected": 648,
+        "recalls": 58,
+        "members": 14,
+        "links": 17,
+        "sequenceLength": 24
+      },
+      "landmark": {
+        "records": [
+          {
+            "kind": "observed_home_pair",
+            "us": 8000000,
+            "signature": "orange-large-tall-light"
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 1,
+            "signature": "orange-large-tall-light",
+            "sec": 10
+          },
+          {
+            "angle": 0,
+            "distance": 5.5,
+            "kind": "entrance_view",
+            "stage": 2,
+            "signature": "orange-large-tall-light",
+            "sec": 29
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 3,
+            "signature": "orange-large-tall-light",
+            "sec": 42
+          },
+          {
+            "angle": 0,
+            "distance": 2.2125184994530476,
+            "kind": "entrance_view",
+            "stage": 4,
+            "signature": "orange-large-tall-light",
+            "sec": 63
+          },
+          {
+            "angle": 0,
+            "distance": 2.23606797749979,
+            "kind": "entrance_view",
+            "stage": 5,
+            "signature": "orange-large-tall-light",
+            "sec": 86
+          },
+          {
+            "angle": 0,
+            "distance": 1,
+            "kind": "entrance_view",
+            "stage": 6,
+            "signature": "orange-large-tall-light",
+            "sec": 98
+          }
+        ],
+        "stage": 6,
+        "outside_checked": true,
+        "signature": "orange-large-tall-light",
+        "inside_checked": true,
+        "offered": 0,
+        "learned": true,
+        "tour_completed": true,
+        "stage_views": 0,
+        "observations": 10523,
+        "paired_home": 10087,
+        "selected": 0
+      },
+      "afterDayOne": {
+        "out": 4,
+        "in": 3
+      }
+    },
+    "npc_a": {
+      "reserve": 91.79020979447547,
+      "distance": 0.9999999999999999,
+      "inventory": 0,
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 17733000000,
+          "day": 1
+        },
+        {
+          "delivered": 2,
+          "us": 44905000000,
+          "day": 2
+        }
+      ],
+      "place": {
+        "records": [
+          {
+            "kind": "configured_episode_reward",
+            "members": 14,
+            "us": 169000000,
+            "links": 19,
+            "reward": 20
+          }
+        ],
+        "initial_reward": 20,
+        "last_rest_us": 168000000,
+        "signature": "orange-large-tall-light",
+        "estimate": {
+          "right": 4.96052408605672e-16,
+          "known": true,
+          "profile": "fine",
+          "reason": "near",
+          "check_remaining": 0,
+          "checking": false,
+          "confirmed": 1,
+          "near": true,
+          "scan_selected": 0,
+          "receipt": "op:51838000000:npc_a",
+          "anchors": 31501,
+          "fine_ticks": 18835,
+          "checks": 6,
+          "cooldown": 0,
+          "forward": 0.9999999999999998,
+          "coarse_ticks": 8741,
+          "unresolved": 4,
+          "uncertainty": 0.25
+        },
+        "offers": 2126,
+        "method": "mb_place:camp",
+        "rest_ticks": 60,
+        "complete": true,
+        "visible": true,
+        "id": "camp",
+        "reward_count": 1,
+        "memory_selected": 81,
+        "active": false,
+        "selected": 129,
+        "recalls": 23962,
+        "members": 14,
+        "links": 19,
+        "sequenceLength": 26
+      },
+      "landmark": {
+        "records": [
+          {
+            "kind": "observed_home_pair",
+            "us": 1000000,
+            "signature": "orange-large-tall-light"
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 1,
+            "signature": "orange-large-tall-light",
+            "sec": 19
+          },
+          {
+            "angle": 0,
+            "distance": 5.5,
+            "kind": "entrance_view",
+            "stage": 2,
+            "signature": "orange-large-tall-light",
+            "sec": 38
+          },
+          {
+            "angle": 1.1368683772161603e-13,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 3,
+            "signature": "orange-large-tall-light",
+            "sec": 51
+          },
+          {
+            "angle": 0,
+            "distance": 2.2125184994530476,
+            "kind": "entrance_view",
+            "stage": 4,
+            "signature": "orange-large-tall-light",
+            "sec": 73
+          },
+          {
+            "angle": 0,
+            "distance": 2.23606797749979,
+            "kind": "entrance_view",
+            "stage": 5,
+            "signature": "orange-large-tall-light",
+            "sec": 96
+          },
+          {
+            "angle": 0,
+            "distance": 1,
+            "kind": "entrance_view",
+            "stage": 6,
+            "signature": "orange-large-tall-light",
+            "sec": 108
+          }
+        ],
+        "stage": 6,
+        "outside_checked": true,
+        "signature": "orange-large-tall-light",
+        "inside_checked": true,
+        "offered": 0,
+        "learned": true,
+        "tour_completed": true,
+        "stage_views": 0,
+        "observations": 31626,
+        "paired_home": 7272,
+        "selected": 0
+      },
+      "afterDayOne": {
+        "out": 5,
+        "in": 5
+      }
+    },
+    "npc_c": {
+      "reserve": 87.61580993153243,
+      "distance": 1.0429657605895177,
+      "inventory": 0,
+      "deliveries": [
+        {
+          "delivered": 1,
+          "us": 46914000000,
+          "day": 2
+        }
+      ],
+      "place": {
+        "records": [
+          {
+            "kind": "configured_episode_reward",
+            "members": 15,
+            "us": 163000000,
+            "links": 17,
+            "reward": 20
+          }
+        ],
+        "initial_reward": 20,
+        "last_rest_us": 162000000,
+        "signature": "orange-large-tall-light",
+        "estimate": {
+          "right": 0.2982515173935021,
+          "known": true,
+          "profile": "fine",
+          "reason": "near",
+          "check_remaining": 0,
+          "checking": false,
+          "confirmed": 0,
+          "near": true,
+          "scan_selected": 0,
+          "receipt": "op:51838000000:npc_c",
+          "anchors": 15168,
+          "fine_ticks": 32533,
+          "checks": 32,
+          "cooldown": 279,
+          "forward": 0.9994116319788083,
+          "coarse_ticks": 13993,
+          "unresolved": 32,
+          "uncertainty": 0.25
+        },
+        "offers": 18146,
+        "method": "mb_place:camp",
+        "rest_ticks": 60,
+        "complete": true,
+        "visible": true,
+        "id": "camp",
+        "reward_count": 1,
+        "memory_selected": 440,
+        "active": false,
+        "selected": 464,
+        "recalls": 5026,
+        "members": 15,
+        "links": 17,
+        "sequenceLength": 26
+      },
+      "landmark": {
+        "records": [
+          {
+            "kind": "observed_home_pair",
+            "us": 1000000,
+            "signature": "orange-large-tall-light"
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 1,
+            "signature": "orange-large-tall-light",
+            "sec": 14
+          },
+          {
+            "angle": 0,
+            "distance": 5.5,
+            "kind": "entrance_view",
+            "stage": 2,
+            "signature": "orange-large-tall-light",
+            "sec": 33
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 3,
+            "signature": "orange-large-tall-light",
+            "sec": 46
+          },
+          {
+            "angle": 0,
+            "distance": 2.2125184994530476,
+            "kind": "entrance_view",
+            "stage": 4,
+            "signature": "orange-large-tall-light",
+            "sec": 67
+          },
+          {
+            "angle": 0,
+            "distance": 2.23606797749979,
+            "kind": "entrance_view",
+            "stage": 5,
+            "signature": "orange-large-tall-light",
+            "sec": 90
+          },
+          {
+            "angle": 0,
+            "distance": 1,
+            "kind": "entrance_view",
+            "stage": 6,
+            "signature": "orange-large-tall-light",
+            "sec": 102
+          }
+        ],
+        "stage": 6,
+        "outside_checked": true,
+        "signature": "orange-large-tall-light",
+        "inside_checked": true,
+        "offered": 0,
+        "learned": true,
+        "tour_completed": true,
+        "stage_views": 0,
+        "observations": 15292,
+        "paired_home": 10109,
+        "selected": 0
+      },
+      "afterDayOne": {
+        "out": 2,
+        "in": 2
+      }
+    }
+  }
+}
