@@ -29,6 +29,9 @@ function window(day)
     D("day"=>day+1,"seconds"=>elapsed[],"bytes"=>allocated[],"state_sha256"=>digest[])
 end
 results=D()
+# Optional pre-optimization method for checkpoints made by the optimized runtime.
+# Only this trusted method is overridden in memory; checkpoint hashes remain checked.
+length(ARGS)>=3 && include(abspath(ARGS[3]))
 for variant in ("before","after")
     if variant=="after"
         include(joinpath(@__DIR__,"../../src/lw/learning/mb_return_outlook.jl"))
