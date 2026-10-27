@@ -431,3 +431,13 @@ scene.goal_arrival=true（rock_gate runner --goal-arrival）で有効、既定of
 これは全目的に対する汎用的な問い形成の完成版ではなく、food/homeで共通の到達仮説・候補評価を接続した初期版。モードは日末保存対象。ρ自体は既存設定を継続し、モード切替による強制fineは追加しない。
 
 到達モード検証: 基本12項目（低一致拒否、高一致採用、視野外保持、自己移動更新、位置矛盾による棄却、再採用待機、方向評価、親H温度からの独立、期限超過棄却、実達成解除）、短縮時計600秒×2日のhome/food接続9項目、日末保存からの再開結果一致1項目、計22項目PASS。A food42/home14、B14/18、C19/16操作で到達モード候補を選択。初回検査でentry統計の加算漏れを検出し修正。検査中のソース変更によるcheckpoint hash不一致は最終ソース固定後に再実行してPASS。3日本試験は未実施。検査: goal_arrival_checks.jl。
+
+## 2026-10-27: parent MB arrival question and reversible location H
+
+`--goal-arrival` now connects the provisional goal hypothesis to the parent MB itself. The food/home purpose remains unchanged; its question changes from search to approach. The existing search episode is suspended, and a fresh approach forecast is frozen on the first action. Re-observation does not restart that forecast. Unknown target observations can use the retained egocentric goal estimate; no hidden world coordinates are supplied.
+
+Only search pressure attributable to delay/stagnation beyond energy and child-route debt is eligible for relief. Relief is bounded by current parent H and multiplied by recognition confidence. Other parent pressure and method failure records remain. Rejection or overdue approach restores the suspended search episode and the exact relieved amount (subject to the existing H cap of 32); new pressure is retained. Actual arrival discards suspended location debt and retains the existing actual-success handling. This does not yet decompose all historical parent H into independently persistent causal components. Search is never learned as a successful full journey merely because a candidate location was found.
+
+Parent state `parent_mb.modes[goal]` records the mode, suspended episode, relief and bounded transition events with before/after H. It is included in existing daily checkpoints. Tests cover partial relief, idempotence, unseen-goal approach estimation, restoration with intervening pressure, and actual-confirmation disposal, plus shortened simulation/resume equivalence.
+
+Three-day experiment conditions: inexperienced A/B/C; seed 20261005, world seed 20261027; minimum rock entrance about 0.988; central visual bonfire; first-day configured camp tour and rewarded place MB; finite near food 4 x 3 and renewable distant food; hazards off; no artificial roads; automatic home-distance rho and opening candidates; fixed sensitivities 0.5/1/2; body purpose, daily delivery, camp safe zone, MB simulation/chunks/sleep and similarity learning enabled. Daily checkpoints enabled. Output: `outputs/enclosed-parent-arrival-3d-20261027`.

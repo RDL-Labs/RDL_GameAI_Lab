@@ -26,6 +26,28 @@ include("../../integrations/lightweight_julia/native.jl")
     goal_arrival_update!(s,nothing,nothing,0.,9;completed=true)
     @test s["mode"]=="search" && s["target"]===nothing
 end
+@testset "parent question and reversible H" begin
+    g=goal_arrival_state();loop=BasicLoop("home");loop.H=10.
+    search=D("actions"=>0,"location_H"=>6.)
+    s=D("parent_mb"=>mb_parent_state(),"goal_arrival"=>D("home"=>g))
+    s["parent_mb"]["active"]["home"]=search
+    goal_arrival_update!(g,D("forward"=>5.,"right"=>0.),"home",.8,1)
+    mb_parent_arrival_sync!(s,loop,"home",1)
+    @test loop.H≈5.2
+    @test s["parent_mb"]["modes"]["home"]["mode"]=="approach"
+    mb_parent_arrival_sync!(s,loop,"home",2);@test loop.H≈5.2
+    @test mb_parent_estimate!(s,D(),"home",nothing)["mode"]=="approach"
+    loop.H+=2.;g["mode"]="search"
+    mb_parent_arrival_sync!(s,loop,"home",3)
+    @test loop.H≈12.
+    @test s["parent_mb"]["active"]["home"]===search
+    goal_arrival_update!(g,D("forward"=>5.,"right"=>0.),"home",1.,4)
+    mb_parent_arrival_sync!(s,loop,"home",4)
+    goal_arrival_update!(g,nothing,nothing,0.,5;completed=true)
+    mb_parent_arrival_sync!(s,loop,"home",5)
+    @test loop.H≈6. # Confirmed location does not restore the suspended search debt.
+    @test s["parent_mb"]["modes"]["home"]["suspended"]===nothing
+end
 input=JSON3.read(read(ARGS[1],String),Dict{String,Any});input["scene"]["goal_arrival"]=true
 input["config"]["days"]=2
 input["clock"]["day_us"]=600_000_000

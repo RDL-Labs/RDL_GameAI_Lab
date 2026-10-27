@@ -444,6 +444,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 configured_home_rest_enabled && t.family=="home" && goal && t.moved &&
                     configured_home_rest_arrival!(mb_maps[a],s,t.source,now)
             end
+            if goal_arrival_enabled
+                for g in ("home","food")
+                    mb_parent_arrival_sync!(mb_maps[a],loops[a][g],g,now)
+                end
+            end
             if ground_continuity
                 active=Set(m["model_ref"] for m in ground_models[a]["models"])
                 for loop in values(loops[a])
@@ -639,6 +644,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         mb_simulation && phase=="exploration" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))
                         mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
                         goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
+                        goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
                         plan=choose_method!(s,candidates,source)
                         get(plan,"goal_arrival",false) && (mb_maps[a]["goal_arrival"][family]["selected"]+=1)
                         get(plan,"configured_camp_landmark",false) && (observation_states[a]["camp_landmark"]["selected"]+=1)

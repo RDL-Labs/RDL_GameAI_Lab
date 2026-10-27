@@ -13,6 +13,7 @@ function goal_arrival_advance!(s,receipt)
 end
 function goal_arrival_update!(s,observed,id,confidence,now;completed=false)
     if completed
+        s["completed"]=get(s,"completed",0)+Int(s["mode"]=="approach")
         s["mode"]=="approach" && goal_arrival_event!(s,"completed_observed",now)
         s["mode"]="search";s["target"]=nothing;return
     end

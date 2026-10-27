@@ -11,6 +11,39 @@ mb_response(s,key,residual)=s["sensitivity"][key]*max(0.,Float64(residual))
 
 # Parent MB estimates: bounded learned episodes, bootstrapped only when experience is absent.
 mb_parent_state()=D("models"=>D(),"active"=>D(),"records"=>Any[],"evaluated"=>0,"within_estimate"=>0,"H_requested"=>0,"successes"=>0,"last_goal"=>nothing)
+# A parent retains its purpose, but changes the question and frozen forecast.
+# Suspended search debt is reversible; method penalties and energy debt stay intact.
+function mb_parent_arrival_sync!(s,loop,goal,now)
+    arrival=s["goal_arrival"][goal];parent=s["parent_mb"]
+    modes=get!(parent,"modes",D())
+    m=get!(modes,goal,D("mode"=>"search","entry"=>0,"completed"=>0,"relief"=>0.,"suspended"=>nothing,"events"=>Any[]))
+    completed=get(arrival,"completed",0)
+    finished=completed>m["completed"]
+    m["completed"]=completed
+    if m["mode"]=="approach" && (finished || arrival["mode"]!="approach" || arrival["entries"]!=m["entry"])
+        active=pop!(parent["active"],goal,nothing)
+        active!==nothing && mb_parent_learn!(s,goal,active,false,"arrival_mode_end")
+        before=loop.H
+        if !finished
+            loop.H=min(32.,loop.H+m["relief"])
+            m["suspended"]!==nothing && (parent["active"][goal]=m["suspended"])
+        elseif m["suspended"]!==nothing
+            # Finding a location is not evidence of completing the old full journey.
+            mb_parent_learn!(s,goal,m["suspended"],false,"location_confirmed")
+        end
+        push!(m["events"],D("us"=>now,"kind"=>finished ? "arrival_confirmed" : "search_restored","H_before"=>before,"H_after"=>loop.H,"relief"=>m["relief"]))
+        m["mode"]="search";m["suspended"]=nothing;m["relief"]=0.
+    end
+    if m["mode"]=="search" && arrival["mode"]=="approach"
+        active=pop!(parent["active"],goal,nothing)
+        before=loop.H
+        relief=active===nothing ? 0. : min(loop.H,get(active,"location_H",0.))*clamp(arrival["confidence"],0.,1.)
+        loop.H=max(0.,loop.H-relief)
+        m["mode"]="approach";m["entry"]=arrival["entries"];m["suspended"]=active;m["relief"]=relief
+        push!(m["events"],D("us"=>now,"kind"=>"arrival_question","H_before"=>before,"H_after"=>loop.H,"relief"=>relief))
+    end
+    while length(m["events"])>64;popfirst!(m["events"]);end
+end
 function mb_parent_model!(s,goal,mode)
     key=goal*":"*mode
     get!(s["parent_mb"]["models"],key) do
@@ -19,7 +52,12 @@ function mb_parent_model!(s,goal,mode)
     end
 end
 function mb_parent_estimate!(s,p,goal,target)
+    arrival=get(get(s,"goal_arrival",D()),goal,nothing)
+    if arrival!==nothing && arrival["mode"]=="approach"
+        target=D("distance"=>hypot(arrival["estimate"]["forward"],arrival["estimate"]["right"]))
+    end
     mode=haskey(p,"mb_path") ? "route" : target===nothing ? "search" : "approach"
+    arrival!==nothing && arrival["mode"]=="approach" && (mode="approach")
     model=mb_parent_model!(s,goal,mode);n=model["samples"]
     # Child route and current observed distance are evidence, not hidden world coordinates.
     center=mode=="route" ? Float64(length(p["mb_path"])+(goal=="food" ? 1 : 0)) :
@@ -127,6 +165,9 @@ function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
     a["child_debt"]+=max(0,child_increment)
     debt=max(delay,stagnation,excess,a["child_debt"])
     increment=resolved===true ? 0 : max(0,debt-a["charged"])
+    # Attribute only the search excess not already explained by energy/child debt.
+    location=e["mode"]=="search" ? max(0.,max(delay,stagnation)-max(excess,a["child_debt"])) : 0.
+    a["location_H"]=min(get(a,"location_H",0.)+increment,location)
     a["charged"]=max(a["charged"],debt);a["last_increment"]=increment
     state["evaluated"]+=1;state["within_estimate"]+=Int(debt==0 && resolved!==true);state["H_requested"]+=increment
     record=D("source"=>source,"goal"=>goal,"evaluated_us"=>now,"estimate"=>copy(e),"actions"=>a["actions"],"energy"=>a["energy"],
