@@ -15,4 +15,4 @@ for(const [a,m] of Object.entries(r.mb_map)){
    retained_parent_events:m.parent_mb.modes[g].events}]))};
 }
 fs.writeFileSync(dest,JSON.stringify(out,null,2));
-console.log(JSON.stringify({measurement:out.measurement,actors:Object.fromEntries(Object.entries(out.actors).map(([a,s])=>[a,{reserve:s.reserve,home_distance:s.home_distance,deliveries:s.deliveries,goals:Object.fromEntries(Object.entries(s.goals).map(([g,t])=>[g,{entries:t.entries,completed:t.completed,rejections:t.rejections,relief_events_retained:t.retained_parent_events.filter(e=>e.relief>0)}]))}]))},null,2));
+console.log(JSON.stringify({measurement:out.measurement,actors:Object.fromEntries(Object.entries(out.actors).map(([a,s])=>[a,{reserve:s.reserve,home_distance:s.home_distance,deliveries:s.deliveries,goals:Object.fromEntries(Object.entries(s.goals).map(([g,t])=>[g,{entries:t.entries,completed:t.completed,rejections:t.rejections,outcome_events_retained:t.retained_parent_events.filter(e=>typeof e.success==="boolean")}]))}]))},null,2));

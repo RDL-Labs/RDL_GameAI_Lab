@@ -26,27 +26,40 @@ include("../../integrations/lightweight_julia/native.jl")
     goal_arrival_update!(s,nothing,nothing,0.,9;completed=true)
     @test s["mode"]=="search" && s["target"]===nothing
 end
-@testset "parent question and reversible H" begin
+@testset "parent question outcome isolation" begin
     g=goal_arrival_state();loop=BasicLoop("home");loop.H=10.
-    search=D("actions"=>0,"location_H"=>6.)
+    search=D("actions"=>0)
     s=D("parent_mb"=>mb_parent_state(),"goal_arrival"=>D("home"=>g))
     s["parent_mb"]["active"]["home"]=search
     goal_arrival_update!(g,D("forward"=>5.,"right"=>0.),"home",.8,1)
     mb_parent_arrival_sync!(s,loop,"home",1)
-    @test loop.H≈5.2
+    @test loop.H==0.
     @test s["parent_mb"]["modes"]["home"]["mode"]=="approach"
-    mb_parent_arrival_sync!(s,loop,"home",2);@test loop.H≈5.2
+    mb_parent_arrival_sync!(s,loop,"home",2);@test loop.H==0.
     @test mb_parent_estimate!(s,D(),"home",nothing)["mode"]=="approach"
     loop.H+=2.;g["mode"]="search"
     mb_parent_arrival_sync!(s,loop,"home",3)
-    @test loop.H≈12.
+    @test loop.H==11.
     @test s["parent_mb"]["active"]["home"]===search
     goal_arrival_update!(g,D("forward"=>5.,"right"=>0.),"home",1.,4)
     mb_parent_arrival_sync!(s,loop,"home",4)
     goal_arrival_update!(g,nothing,nothing,0.,5;completed=true)
     mb_parent_arrival_sync!(s,loop,"home",5)
-    @test loop.H≈6. # Confirmed location does not restore the suspended search debt.
+    @test loop.H==0. # Actual success resolves the saved parent question.
     @test s["parent_mb"]["modes"]["home"]["suspended"]===nothing
+    for goal in ("home","food"), local_H in (0.,2.,32.)
+        child=goal_arrival_state();parent_loop=BasicLoop(goal);parent_loop.H=10.
+        map=D("parent_mb"=>mb_parent_state(),"goal_arrival"=>D(goal=>child))
+        goal_arrival_update!(child,D("forward"=>5.,"right"=>0.),goal,1.,1)
+        mb_parent_arrival_sync!(map,parent_loop,goal,1)
+        @test map["parent_mb"]["modes"][goal]["saved_H"]==10.
+        parent_loop.H=local_H;child["H"]=100.;child["mode"]="search"
+        mb_parent_arrival_sync!(map,parent_loop,goal,2)
+        @test parent_loop.H==11. # Neither local pressure is transferred.
+        mb_parent_arrival_sync!(map,parent_loop,goal,3)
+        @test parent_loop.H==11. # One failure, once.
+    end
+    @test goal_result_H(32.,false)==32.
 end
 input=JSON3.read(read(ARGS[1],String),Dict{String,Any});input["scene"]["goal_arrival"]=true
 input["config"]["days"]=2

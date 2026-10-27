@@ -1,5 +1,6 @@
 # GameAI-local reusable selection loop. Candidate generation/evaluation are adapters.
 using Random
+goal_result_H(H,success;increment=1.)=success ? 0. : min(32.,H+increment)
 mutable struct MethodNode
     H::Float64
     threshold::Float64
@@ -147,7 +148,7 @@ function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=tr
     check(s.trial!==nothing && s.trial.source==source,"loop_result_binding")
     n=s.methods[s.trial.method];before=n.H;parent_before=s.H
     method_value!==nothing && (n.H=method_value ? 0 : min(32,n.H+1))
-    goal_value!==nothing && (s.H=goal_value ? 0 : min(32,s.H+goal_H_increment))
+    goal_value!==nothing && (s.H=goal_result_H(s.H,goal_value;increment=goal_H_increment))
     # Keep distinct executed methods, not repetition counts. Credit is delayed
     # until this parent purpose is actually resolved, never for movement alone.
     if creditable || goal_value===true
