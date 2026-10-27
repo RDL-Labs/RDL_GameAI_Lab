@@ -10,6 +10,7 @@ for(const [a,m] of Object.entries(r.mb_map)){
   deliveries:m.configured_daily_delivery.records.map(x=>({...x,day:x.day+1})),
   goals:Object.fromEntries(Object.entries(m.goal_arrival).map(([g,s])=>[g,{
    mode:s.mode,entries:s.entries,rejections:s.rejections,selected:s.selected,completed:s.completed||0,
+   rho_fine_decisions:s.rho_fine_decisions||0,rho_baseline:s.rho_baseline,rho_effective:s.rho_effective,
    parent_mode:m.parent_mb.modes[g].mode,
    // Transition logs are bounded to the last 64, not whole-run event totals.
    retained_parent_events:m.parent_mb.modes[g].events}]))};
