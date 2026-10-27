@@ -1,0 +1,117 @@
+{
+  "measurement": {
+    "gc_seconds": 18.9130361,
+    "process_peak_rss_bytes": 1371283456,
+    "compilation_included": true,
+    "call_seconds": 340.4462787,
+    "allocated_bytes": 190700676574
+  },
+  "storage": {
+    "deposited": 6,
+    "taken": 1,
+    "remaining": 5
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 86.16532684931143,
+      "position": [
+        -22.658122115562076,
+        24.189631241376233
+      ],
+      "distance": 29.056035216473937,
+      "inventory": 1,
+      "delivery": 0,
+      "deliveryDays": [],
+      "outward": 1,
+      "inward": 0,
+      "counts": {
+        "rest": 16925,
+        "walk": 13708,
+        "eat": 3,
+        "pickup": 4,
+        "scan": 21200
+      },
+      "home_distance": {
+        "right": 3.3855987403248466,
+        "known": true,
+        "profile": "coarse",
+        "receipt": "op:51838000000:npc_b",
+        "anchors": 10078,
+        "fine_ticks": 17368,
+        "forward": -28.858116772762422,
+        "coarse_ticks": 34472,
+        "uncertainty": 871.1376283683376
+      }
+    },
+    "npc_a": {
+      "reserve": 90.61321527544241,
+      "position": [
+        0.06150809341315484,
+        7.210501418296882
+      ],
+      "distance": 1.21206308798432,
+      "inventory": 0,
+      "delivery": 2,
+      "deliveryDays": [
+        2,
+        3
+      ],
+      "outward": 2,
+      "inward": 2,
+      "counts": {
+        "rest": 31028,
+        "walk": 4406,
+        "eat": 3,
+        "pickup": 7,
+        "deposit": 2,
+        "retrieve": 1,
+        "scan": 16393
+      },
+      "home_distance": {
+        "right": -2.42861286636753e-16,
+        "known": true,
+        "profile": "fine",
+        "receipt": "op:51838000000:npc_a",
+        "anchors": 25825,
+        "fine_ticks": 37811,
+        "forward": 1.2120630879843197,
+        "coarse_ticks": 14029,
+        "uncertainty": 0.25
+      }
+    },
+    "npc_c": {
+      "reserve": 88.23980194228736,
+      "position": [
+        -0.040793166554250235,
+        6.9991676123466355
+      ],
+      "distance": 0.9999999999999997,
+      "inventory": 0,
+      "delivery": 1,
+      "deliveryDays": [
+        3
+      ],
+      "outward": 1,
+      "inward": 1,
+      "counts": {
+        "rest": 23142,
+        "walk": 9927,
+        "eat": 3,
+        "pickup": 4,
+        "deposit": 1,
+        "scan": 18763
+      },
+      "home_distance": {
+        "right": -7.494005416219807e-16,
+        "known": true,
+        "profile": "fine",
+        "receipt": "op:51838000000:npc_c",
+        "anchors": 19512,
+        "fine_ticks": 26882,
+        "forward": 0.9999999999999997,
+        "coarse_ticks": 24958,
+        "uncertainty": 0.25
+      }
+    }
+  }
+}
