@@ -1,5 +1,6 @@
 # World authoring only. Connectivity witnesses are not supplied to the agents.
-function complex_rocks!(input;natural=false,finite_food=false)
+function complex_rocks!(input;natural=false,finite_food=false,stock_per_site=12)
+    @assert stock_per_site isa Integer && 1<=stock_per_site<=10000
     s=input["scene"];hx,hz=Float64.(s["home"])
     nextid=maximum([get(o,"world_id",0) for o in vcat(s["obstacles"],get(s,"low_obstacles",Any[]))];init=0)
     added=Any[]
@@ -55,12 +56,12 @@ function complex_rocks!(input;natural=false,finite_food=false)
             idx=findfirst(valid,candidates);idx===nothing && error("no clear finite food site")
             x,z=candidates[idx];push!(s["food"],D("x"=>x,"z"=>z,"stock"=>12,"renewable"=>false))
         end
-        for f in s["food"];f["stock"]=12;f["renewable"]=false;end
-        s["finite_food_layout"]=D("version"=>"nine-scattered-sites-v1","stock_per_site"=>12)
+        for f in s["food"];f["stock"]=stock_per_site;f["renewable"]=false;end
+        s["finite_food_layout"]=D("version"=>"nine-scattered-sites-v1","stock_per_site"=>stock_per_site)
         foods=JSON3.read(JSON3.write(s["food"]))
         @testset "finite scattered food" begin
             @test length(foods)==9
-            @test sum(f.stock for f in foods)==108
+            @test sum(f.stock for f in foods)==9stock_per_site
             @test all(!f.renewable for f in foods)
             stocks=zeros(Int,length(foods));replenish_food!(stocks,foods;capacity=12)
             @test all(iszero,stocks)

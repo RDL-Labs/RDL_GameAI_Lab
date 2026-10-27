@@ -23,7 +23,7 @@ const camp_provisions=provisions_arg===nothing ? 0 : parse(Int,ARGS[provisions_a
 @assert 0<=camp_provisions<=100
 const days_arg=findfirst(==("--days"),ARGS)
 const run_days=days_arg===nothing ? 3 : parse(Int,ARGS[days_arg+1])
-@assert 1<=run_days<=30
+@assert 1<=run_days<=90
 const snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(root,"src"),joinpath(snapshot,"src"))
 cp(joinpath(root,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
@@ -372,7 +372,10 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
     if "--complex-rocks" in ARGS || "--natural-rocks" in ARGS
         @assert ordinary_only && !("--enclosed-camp" in ARGS) && "--far-transfer-map" in ARGS
         @assert !("--complex-rocks" in ARGS && "--natural-rocks" in ARGS)
-        complex_report=complex_rocks!(input;natural="--natural-rocks" in ARGS,finite_food="--finite-scattered-food" in ARGS)
+        stock_arg=findfirst(==("--finite-stock-per-site"),ARGS)
+        finite_stock=stock_arg===nothing ? 12 : parse(Int,ARGS[stock_arg+1])
+        @assert stock_arg===nothing || "--finite-scattered-food" in ARGS
+        complex_report=complex_rocks!(input;natural="--natural-rocks" in ARGS,finite_food="--finite-scattered-food" in ARGS,stock_per_site=finite_stock)
     end
     transfer_arg=findfirst(==("--transfer-from"),ARGS)
     if transfer_arg!==nothing
