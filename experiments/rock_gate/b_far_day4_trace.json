@@ -1,0 +1,505 @@
+{
+  "days": [
+    {
+      "day": 4,
+      "durations": {
+        "food:rest": 8437,
+        "food:scan": 1,
+        "food:walk": 36,
+        "food:pickup": 3,
+        "home:walk": 2642,
+        "home:rest": 3357,
+        "home:scan": 2803,
+        "food:eat": 1
+      },
+      "counts": {
+        "rest": 11794,
+        "scan": 2804,
+        "walk": 2678,
+        "pickup": 3,
+        "eat": 1
+      },
+      "nearest_gate": {
+        "sec": 55860,
+        "actor": "npc_b",
+        "position": [
+          -1.8827989962909109,
+          12.64269897130555
+        ],
+        "reserve": 86.9269191243756,
+        "return_active": false,
+        "distance": 2.6135817609185796
+      },
+      "end": [
+        30.172040095701615,
+        -4.486656404647831
+      ],
+      "inventory": 2,
+      "homeH": 32
+    },
+    {
+      "day": 5,
+      "durations": {
+        "home:rest": 3202,
+        "home:scan": 7708,
+        "home:walk": 6369,
+        "food:eat": 1
+      },
+      "counts": {
+        "rest": 3202,
+        "scan": 7708,
+        "walk": 6369,
+        "eat": 1
+      },
+      "nearest_gate": {
+        "sec": 81360,
+        "actor": "npc_b",
+        "position": [
+          0.2529071488886837,
+          12.63559370068123
+        ],
+        "reserve": 95.29275191450942,
+        "return_active": true,
+        "distance": 1.8232198545152867
+      },
+      "end": [
+        -10.683067023054347,
+        10.377862278623446
+      ],
+      "inventory": 1,
+      "homeH": 32
+    },
+    {
+      "day": 6,
+      "durations": {
+        "home:rest": 3307,
+        "home:scan": 7530,
+        "home:walk": 6442,
+        "food:eat": 1
+      },
+      "counts": {
+        "rest": 3307,
+        "scan": 7530,
+        "walk": 6442,
+        "eat": 1
+      },
+      "nearest_gate": {
+        "sec": 92220,
+        "actor": "npc_b",
+        "position": [
+          -0.6237240292402322,
+          13.55165388759069
+        ],
+        "reserve": 81.89083062332436,
+        "return_active": true,
+        "distance": 2.7922090803679422
+      },
+      "end": [
+        24.834256094097555,
+        -1.6150822283315835
+      ],
+      "inventory": 0,
+      "homeH": 32
+    },
+    {
+      "day": 7,
+      "durations": {
+        "home:rest": 3378,
+        "home:scan": 6950,
+        "home:walk": 6906,
+        "food:scan": 1,
+        "food:walk": 43,
+        "food:pickup": 1,
+        "food:eat": 1
+      },
+      "counts": {
+        "rest": 3378,
+        "scan": 6951,
+        "walk": 6949,
+        "pickup": 1,
+        "eat": 1
+      },
+      "nearest_gate": {
+        "sec": 115380,
+        "actor": "npc_b",
+        "position": [
+          -1.8858891314978181,
+          13.03595762169169
+        ],
+        "reserve": 92.91976084642819,
+        "return_active": true,
+        "distance": 2.9022106823938976
+      },
+      "end": [
+        16.759774434125006,
+        2.4705905573207794
+      ],
+      "inventory": 0,
+      "homeH": 32
+    },
+    {
+      "day": 8,
+      "durations": {
+        "home:rest": 3407,
+        "home:scan": 5681,
+        "home:walk": 8181,
+        "food:walk": 7,
+        "food:request": 3,
+        "food:eat": 1
+      },
+      "counts": {
+        "rest": 3407,
+        "scan": 5681,
+        "walk": 8188,
+        "request": 3,
+        "eat": 1
+      },
+      "nearest_gate": {
+        "sec": 125040,
+        "actor": "npc_b",
+        "position": [
+          0.10700093282914297,
+          13.189660138127913
+        ],
+        "reserve": 81.2257938138759,
+        "return_active": true,
+        "distance": 2.362084919535313
+      },
+      "end": [
+        23.294292498711624,
+        1.144712770334928
+      ],
+      "inventory": 0,
+      "homeH": 32
+    },
+    {
+      "day": 9,
+      "durations": {
+        "home:rest": 13339,
+        "home:scan": 1331,
+        "home:walk": 2517,
+        "food:walk": 89,
+        "food:pickup": 1,
+        "food:eat": 1,
+        "food:scan": 2
+      },
+      "counts": {
+        "rest": 13339,
+        "scan": 1333,
+        "walk": 2606,
+        "pickup": 1,
+        "eat": 1
+      },
+      "nearest_gate": {
+        "sec": 145920,
+        "actor": "npc_b",
+        "position": [
+          0.014427921977974788,
+          9.483484667499377
+        ],
+        "reserve": 95.21792322358496,
+        "return_active": false,
+        "distance": 1.3465926279286788
+      },
+      "end": [
+        0.27105937235509897,
+        7.080896114889434
+      ],
+      "inventory": 0,
+      "homeH": 0
+    },
+    {
+      "day": 10,
+      "durations": {
+        "food:rest": 60,
+        "food:scan": 4,
+        "food:walk": 38,
+        "home:rest": 16626,
+        "home:walk": 330,
+        "home:scan": 220,
+        "food:pickup": 1,
+        "food:eat": 1
+      },
+      "counts": {
+        "rest": 16686,
+        "scan": 224,
+        "walk": 368,
+        "pickup": 1,
+        "eat": 1
+      },
+      "nearest_gate": {
+        "sec": 166260,
+        "actor": "npc_b",
+        "position": [
+          -0.015076373924873265,
+          10.858872545336022
+        ],
+        "reserve": 92.51299538250632,
+        "return_active": true,
+        "distance": 0.03257178111346097
+      },
+      "end": [
+        -0.8026133990039326,
+        12.48258055681251
+      ],
+      "inventory": 0,
+      "homeH": 0
+    }
+  ],
+  "arrival": [
+    {
+      "confidence": 1,
+      "kind": "entered",
+      "H": 0,
+      "us": 142311000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "completed_observed",
+      "H": 0,
+      "us": 142322000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "entered",
+      "H": 0,
+      "us": 144920000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "completed_observed",
+      "H": 0,
+      "us": 144924000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "entered",
+      "H": 0,
+      "us": 145956000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "completed_observed",
+      "H": 0,
+      "us": 145960000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "entered",
+      "H": 0,
+      "us": 147099000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "completed_observed",
+      "H": 0,
+      "us": 147102000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "entered",
+      "H": 0,
+      "us": 157737000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "completed_observed",
+      "H": 0,
+      "us": 157743000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "entered",
+      "H": 0,
+      "us": 160154000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "completed_observed",
+      "H": 0,
+      "us": 160165000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "entered",
+      "H": 0,
+      "us": 161397000000,
+      "target": "home"
+    },
+    {
+      "confidence": 1,
+      "kind": "completed_observed",
+      "H": 0,
+      "us": 161403000000,
+      "target": "home"
+    }
+  ],
+  "food_events": [
+    {
+      "landmark_color": null,
+      "method": "work",
+      "selection_mode": "probabilistic_H",
+      "us": 51937000000,
+      "route": null,
+      "status": "picked_up",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "pickup",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": null,
+      "selection_mode": null,
+      "us": 61900000000,
+      "route": null,
+      "status": "ate",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "eat",
+      "actor": "npc_b",
+      "phase": "return",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": null,
+      "selection_mode": null,
+      "us": 77641000000,
+      "route": null,
+      "status": "ate",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "eat",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": null,
+      "selection_mode": null,
+      "us": 93698000000,
+      "route": null,
+      "status": "ate",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "eat",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": "work",
+      "selection_mode": "probabilistic_H",
+      "us": 109752000000,
+      "route": null,
+      "status": "picked_up",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "pickup",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": null,
+      "selection_mode": null,
+      "us": 109753000000,
+      "route": null,
+      "status": "ate",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "eat",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": null,
+      "selection_mode": null,
+      "us": 126017000000,
+      "route": null,
+      "status": "ate",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "eat",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": "work",
+      "selection_mode": "probabilistic_H",
+      "us": 141814000000,
+      "route": null,
+      "status": "picked_up",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "pickup",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": null,
+      "selection_mode": null,
+      "us": 141815000000,
+      "route": null,
+      "status": "ate",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "eat",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": "work",
+      "selection_mode": "probabilistic_H",
+      "us": 159644000000,
+      "route": null,
+      "status": "picked_up",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "pickup",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    },
+    {
+      "landmark_color": null,
+      "method": null,
+      "selection_mode": null,
+      "us": 159645000000,
+      "route": null,
+      "status": "ate",
+      "purpose_family": "food",
+      "direction": null,
+      "action": "eat",
+      "actor": "npc_b",
+      "phase": "exploration",
+      "target": null
+    }
+  ]
+}
