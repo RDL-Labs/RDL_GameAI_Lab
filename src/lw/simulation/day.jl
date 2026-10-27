@@ -1,3 +1,4 @@
+include("../perception/home_distance.jl")
 include("checkpoint.jl")
 include("physiology.jl")
 include(joinpath(@__DIR__, "../configured_paths/daily_delivery.jl"))
@@ -99,6 +100,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     embedded_rest_enabled && foreach(m->m["embedded_rest"]=embedded_rest_state(),values(mb_maps))
     night_fear_enabled && foreach(m->m["night_fear"]=night_fear_state(),values(mb_maps))
     for m in values(mb_maps);m["recognition"]["metric"]["enabled"]=mb_similarity_learning;end
+    rho_profile=="home-distance" && foreach(m->m["home_distance"]=home_distance_state(),values(mb_maps))
+    check(rho_profile!="home-distance" || mb_simulation,"home_distance_requires_mb")
     cue_states=Dict(a=>cue_stats() for a in IDS)
     check(!model_field || (harvest_sleep && basic_loop),"harvest_field_requires_learning_loop")
     check(!model_review || harvest_sleep,"harvest_review_requires_learning")
@@ -175,7 +178,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(ground_mode in ("flat","patches","shadow"),"ground_mode")
     patches=ground_mode=="flat" ? Any[] : spec.ground_patches
     check(!ground_continuity || ground_perception,"ground_continuity_requires_perception")
-    check(rho_profile in ("off","coarse","fine"),"rho_profile")
+    check(rho_profile in ("off","coarse","fine","home-distance"),"rho_profile")
     check(rho_profile=="off" || (ground_continuity && continuous_descent),"rho_requires_structure_and_descent")
     check(skyline_mode in ("off","rays","subrays"),"skyline_mode")
     skyline_states=Dict(a=>skyline_state() for a in IDS)
@@ -278,7 +281,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 patterns=ground_patterns(view)
                 record_ground_patterns!(ground_views[a],view,patterns)
                 ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing),patterns)
-                ground_continuity && update_structures!(ground_models[a]["structures"],(rho_profile=="off" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],rho_profile)),get(ground_receipts,a,nothing))
+                ground_continuity && update_structures!(ground_models[a]["structures"],(rho_profile=="off" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],rho_profile=="home-distance" ? home_distance_profile!(mb_maps[a]["home_distance"],get(ground_receipts,a,nothing)) : rho_profile)),get(ground_receipts,a,nothing))
             end
         end
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
@@ -349,6 +352,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         plans=D()
         for a in IDS
             integrate(a,now,obs[a]);o=obs[a];plan=nothing;home=homes[a]
+            rho_profile=="home-distance" && observe_home_distance!(mb_maps[a]["home_distance"],home)
             at_home=home!==nothing && home["distance"]<=1.25
             mb_simulation && mb_observe!(mb_maps[a],landmarks[a],now;home=at_home,food=any(f->f["distance"]<=1.25,moves[a]["visible"]))
             observing=configured_observation_enabled && now<clock.day_us
