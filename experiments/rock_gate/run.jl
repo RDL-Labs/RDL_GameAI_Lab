@@ -90,6 +90,12 @@ include(joinpath(@__DIR__,"staged_world.jl"))
 include(joinpath(@__DIR__,"transfer_world.jl"))
 include(joinpath(@__DIR__,"mixed_transfer.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
+const choice_seed_arg=findfirst(==("--choice-seed"),ARGS)
+if choice_seed_arg!==nothing
+    choice_seed=parse(Int,ARGS[choice_seed_arg+1])
+    @assert choice_seed>=0
+    base["config"]["seed"]=choice_seed
+end
 const world_seed_arg=findfirst(==("--world-seed"),ARGS)
 const world_seed=world_seed_arg===nothing ? nothing : parse(Int,ARGS[world_seed_arg+1])
 if world_seed!==nothing
