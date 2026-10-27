@@ -78,6 +78,13 @@ include(joinpath(@__DIR__,"staged_world.jl"))
 include(joinpath(@__DIR__,"transfer_world.jl"))
 include(joinpath(@__DIR__,"mixed_transfer.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
+const world_seed_arg=findfirst(==("--world-seed"),ARGS)
+const world_seed=world_seed_arg===nothing ? nothing : parse(Int,ARGS[world_seed_arg+1])
+if world_seed!==nothing
+    @assert ordinary_only && staged_food && world_seed>=0
+    base["scene"]=JSON3.read(JSON3.write(native_landscape_scene(world_seed)),Dict{String,Any})
+    base["scene"]["world_generation_seed"]=world_seed
+end
 base["config"]["days"]=run_days
 rho_arg=findfirst(==("--rho"),ARGS)
 base["config"]["rho_profile"]=rho_arg===nothing ? "off" : ARGS[rho_arg+1]
@@ -173,7 +180,7 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         idx=findfirst(==("--world-features"),ARGS)
         @assert ARGS[idx+1] in ("off","on")
         if ARGS[idx+1]=="on"
-            enriched=WorldFeatures.enrich_scene(JSON3.read(JSON3.write(input["scene"]));seed=input["config"]["seed"])
+            enriched=WorldFeatures.enrich_scene(JSON3.read(JSON3.write(input["scene"]));seed=world_seed===nothing ? input["config"]["seed"] : world_seed)
             input["scene"]=JSON3.read(JSON3.write(enriched),Dict{String,Any})
             # Keep the benchmark wall and entrance geometry; only background objects vary in size.
             for o in input["scene"]["obstacles"], stone in stones
