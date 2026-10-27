@@ -12,6 +12,8 @@ function finish!(state)
     throw(Finished())
 end
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
+# Optional shared overrides, applied to both variants (prior optimizations).
+foreach(p->include(abspath(p)),ARGS[5:end])
 const file=joinpath(snapshot,"src/lw/simulation/day.jl")
 text=replace(read(file,String),r"(?m)^include.*\r?\n"=>"");anchor="        Main.gate_probe!(sec,w,purposes,counts,spec.home)"
 @assert count(anchor,text)==1

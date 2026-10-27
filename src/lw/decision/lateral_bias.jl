@@ -35,11 +35,16 @@ end
 # Seven finite rays, matching LW World.packet's obstacle-point observation.
 function lateral_obstacles(objects,position,yaw,source)
     items=Any[];samples=Any[]
+    # Prepare concrete geometry once per observation, shared by the seven rays.
+    circles=RDLMigrationProbe.Circle[]
+    for o in objects
+        o.height>=1 || continue
+        push!(circles,RDLMigrationProbe.Circle(o.x,o.z,o.radius))
+    end
     for (i,angle) in enumerate(-90:30:90)
         sn,cs=sincos(deg2rad(yaw+angle));best=Inf
-        for o in objects
-            o.height>=1 || continue
-            d=RDLMigrationProbe.ray_hit(position,(sn,cs),RDLMigrationProbe.Circle(o.x,o.z,o.radius))
+        for circle in circles
+            d=RDLMigrationProbe.ray_hit(position,(sn,cs),circle)
             d!==nothing && d<=12 && (best=min(best,d))
         end
         isfinite(best) && push!(items,Dict("ref"=>"$source:ray:$(i-1)",

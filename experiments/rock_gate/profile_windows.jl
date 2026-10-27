@@ -17,6 +17,8 @@ function gate_probe!(sec,w,purposes,counts,home)
     end
 end
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
+# Optional trusted implementations for profiling incremental changes in memory.
+foreach(p->include(abspath(p)),ARGS[3:end])
 const input=JSON3.read(read(joinpath(run,"ordinary/input.json"),String))
 Profile.init(n=10_000_000,delay=.001)
 function window(day,kind)
