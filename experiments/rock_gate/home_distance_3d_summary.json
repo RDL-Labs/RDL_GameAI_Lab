@@ -1,0 +1,100 @@
+{
+  "measurement": {
+    "gc_seconds": 51.1343194,
+    "process_peak_rss_bytes": 1399406592,
+    "compilation_included": true,
+    "call_seconds": 518.0707394,
+    "allocated_bytes": 482683643392
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 86.94385573531463,
+      "position": [
+        0.6303587101880652,
+        16.147405538989712
+      ],
+      "inventory": 1,
+      "delivery": 0,
+      "outward": 1,
+      "inward": 0,
+      "counts": {
+        "request": 1,
+        "rest": 17027,
+        "walk": 13837,
+        "eat": 3,
+        "pickup": 4,
+        "scan": 20968
+      },
+      "home_distance": {
+        "right": -6.627305378951589,
+        "known": true,
+        "profile": "coarse",
+        "receipt": "op:51838000000:npc_b",
+        "anchors": 10077,
+        "fine_ticks": 17358,
+        "forward": 7.710124168284907,
+        "coarse_ticks": 34482,
+        "uncertainty": 893.100107682042
+      }
+    },
+    "npc_a": {
+      "reserve": 87.25212050100494,
+      "position": [
+        -6.4696422744910995,
+        0.9168116980093233
+      ],
+      "inventory": 1,
+      "delivery": 0,
+      "outward": 1,
+      "inward": 0,
+      "counts": {
+        "rest": 17403,
+        "walk": 13607,
+        "eat": 3,
+        "pickup": 4,
+        "scan": 20823
+      },
+      "home_distance": {
+        "right": -8.180288945064524,
+        "known": true,
+        "profile": "coarse",
+        "receipt": "op:51838000000:npc_a",
+        "anchors": 7265,
+        "fine_ticks": 17360,
+        "forward": -0.8820131793958161,
+        "coarse_ticks": 34480,
+        "uncertainty": 858.4655314599221
+      }
+    },
+    "npc_c": {
+      "reserve": 86.87187205360127,
+      "position": [
+        23.170203912558677,
+        -6.2992987679283665
+      ],
+      "inventory": 1,
+      "delivery": 0,
+      "outward": 1,
+      "inward": 0,
+      "counts": {
+        "rest": 16763,
+        "walk": 13962,
+        "eat": 3,
+        "pickup": 4,
+        "refuse": 1,
+        "scan": 21107
+      },
+      "home_distance": {
+        "right": -12.862958740101108,
+        "known": true,
+        "profile": "coarse",
+        "receipt": "op:51838000000:npc_c",
+        "anchors": 10070,
+        "fine_ticks": 17364,
+        "forward": 22.86209509171936,
+        "coarse_ticks": 34476,
+        "uncertainty": 879.614227939036
+      }
+    }
+  }
+}
