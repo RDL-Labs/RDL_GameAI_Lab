@@ -523,3 +523,11 @@ Call time397.98 s (~6 min38 s), peak RSS1.718 GB, cumulative allocation389.87 GB
 ## 2026-10-27: far-only ten-day trial started
 
 Output `outputs/enclosed-far-c1-seed20261006-10d`; source `f7eed7f`. Fresh inexperienced actors, A=.5/B=1/C=1, choice seed20261006, world seed20261027. Ten days; retain the minimum rock entrance, central bonfire, configured first-day camp observation/place learning, parent outcome switching and arrival fine rho. Hazards off, artificial roads off, daily checkpoints on. Initial reserve90/inventory0 and camp provisions0. Food ONLY (8,24),(0,30),(-6,24), each stock24 and renewable; remove all three finite near patches. Input JSON comparison confirms only config.days (3->10) and removal of near food differ from `enclosed-c1-seed20261006-3d`. Geometry checks passed. This entry records launch/conditions, not completed results. Log: `outputs/enclosed-far-c1-seed20261006-10d.log`.
+
+### Far-only ten-day result
+
+Completed all ten days and daily checkpoints. Call time1732.96 s (~28m53s), peak RSS1.490 GB, cumulative allocation1.626 TB (not resident memory). Life invariants51 PASS; route/parent MB/return-outlook audits PASS.
+
+A: deposits days2,3,4,7,8,10 (11 units); final home distance1.067/reserve91.43. C: deposits days2,3,4,5,6,8,10 (19 units); final distance1.221/reserve93.99. B: deposits days2,3 (5 units); no later delivery, but day9 final position is at home (distance~1.11), so this is not an uninterrupted failure to return; day10 final distance6.532/reserve85.25. All actors remain alive. Home-arrival hypothesis rejections A2/B0/C0; entries include initial tour and local returns and are not delivery totals.
+
+Storage deposited35, retrieved10, finalshared25. Food initial72+regrown23=ground40+consumed30+shared25 (final inventories all0). The result demonstrates repeated distant-food delivery for A/C under this one seed; B's later instability remains. Near-food removal changes stochastic trajectories and shared-food interaction, so this is not evidence that more distant food is intrinsically easier. Compact evidence: `far_c1_10d_summary.json`.
