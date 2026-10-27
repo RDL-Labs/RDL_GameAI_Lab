@@ -1,4 +1,5 @@
 include("../perception/home_distance.jl")
+include("../decision/goal_arrival.jl")
 include("checkpoint.jl")
 include("physiology.jl")
 include(joinpath(@__DIR__, "../configured_paths/daily_delivery.jl"))
@@ -208,6 +209,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     observation_states=Dict(a=>configured_observation_state(w.positions[a]) for a in IDS)
     configured_camp_landmark=get(spec,:configured_camp_landmark,false)
     configured_camp_experience=get(spec,:configured_camp_experience,false)
+    goal_arrival_enabled=get(spec,:goal_arrival,false)
+    check(!goal_arrival_enabled || mb_simulation,"goal_arrival_requires_mb")
+    goal_arrival_enabled && foreach(a->(mb_maps[a]["goal_arrival"]=D(g=>goal_arrival_state() for g in ("home","food"))),IDS)
     check(!configured_camp_experience || configured_camp_landmark,"camp_experience_requires_landmark")
     configured_camp_experience && foreach(a->(mb_maps[a]["place_mb"]=mb_place_state()),IDS)
     check(!configured_camp_landmark || (configured_observation_enabled && landmark_routes),"camp_landmark_requires_observation")
@@ -371,6 +375,20 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 observing && mb_place_collect!(mb_maps[a]["place_mb"],mb_maps[a],now)
                 mb_place_recall!(mb_maps[a]["place_mb"],camp_view,get(ground_receipts,a,nothing),at_home)
             end
+            if goal_arrival_enabled
+                for g in ("home","food")
+                    goal_arrival_advance!(mb_maps[a]["goal_arrival"][g],get(ground_receipts,a,nothing))
+                end
+                hs=mb_maps[a]["goal_arrival"]["home"]
+                confidence=home!==nothing ? 1. : configured_camp_experience ? goal_arrival_camp_match(mb_maps[a]["place_mb"],mb_maps[a]["current"]) : 0.
+                hypothesis=home!==nothing ? home : confidence>=.75 ? mb_maps[a]["place_mb"]["estimate"] : nothing
+                goal_arrival_update!(hs,hypothesis,"home",confidence,now;completed=at_home)
+                fs=mb_maps[a]["goal_arrival"]["food"]
+                available=moves[a]["visible"]
+                matching=fs["mode"]=="approach" ? filter(f->f["ref"]==fs["target"],available) : available
+                f=isempty(matching) ? nothing : first(matching)
+                goal_arrival_update!(fs,f,f===nothing ? fs["target"] : f["ref"],f===nothing ? 0. : 1.,now)
+            end
             if night_fear_enabled
                 fear=mb_maps[a]["night_fear"]
                 protected_home=at_home || get(hazard_views[a],"safe_zone",false)
@@ -500,6 +518,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 elseif basic_loop
                     family=returning ? "home" : "food"
                     visible=moves[a]["visible"];target=returning ? home : isempty(visible) ? nothing : first(visible)
+                    if goal_arrival_enabled && !returning && mb_maps[a]["goal_arrival"]["food"]["mode"]=="approach"
+                        held=filter(f->f["ref"]==mb_maps[a]["goal_arrival"]["food"]["target"],visible)
+                        target=isempty(held) ? nothing : first(held)
+                    end
                     if !returning && target!==nothing && target["distance"]<=1.25
                         plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
                     else
@@ -616,7 +638,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))
                         mb_simulation && phase=="exploration" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))
                         mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
+                        goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
                         plan=choose_method!(s,candidates,source)
+                        get(plan,"goal_arrival",false) && (mb_maps[a]["goal_arrival"][family]["selected"]+=1)
                         get(plan,"configured_camp_landmark",false) && (observation_states[a]["camp_landmark"]["selected"]+=1)
                         if haskey(plan,"mb_place")
                             mb_maps[a]["place_mb"]["selected"]+=1
@@ -680,7 +704,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=choose_method!(loops[a][family],[merge(plan,D("method"=>"work","priority"=>5.,"question"=>question))],source)
                 pending[a]=(family=family,source=source,phase=phase,question=question,distance=nothing,ref=nothing,status="unexecuted")
             end
-            if orientation && !get(plan,"configured_observation",false) && plan["action"]=="scan" && !get(plan,"safety",false) && !get(plan,"home_distance_confirm",false) && !haskey(plan,"mb_place") && !(general_landmarks && haskey(plan,"cue_kind")) && !haskey(plan,"mb_edge")
+            if orientation && !get(plan,"configured_observation",false) && plan["action"]=="scan" && !get(plan,"goal_arrival",false) && !get(plan,"safety",false) && !get(plan,"home_distance_confirm",false) && !haskey(plan,"mb_place") && !(general_landmarks && haskey(plan,"cue_kind")) && !haskey(plan,"mb_edge")
                 plan["scan_angle"]=orientation_scan!(sky[a],clock)
             end
             plan["purpose_family"]=returning ? "home" : "food"
@@ -909,6 +933,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 use_trail!(trails[a],a,op,get(plan,"trail_trace",nothing),get(plan,"method",nothing),status,plan["trail_parent"].reserve,plan["trail_parent"].H,refs)
             end
             configured_observation_enabled && now<clock.day_us && configured_observation_record!(observation_states[a],mb_maps[a],w.positions[a],action,now,clock.day_us)
+            goal_arrival_enabled && action in ("pickup","recover") && status in ("picked_up","recovered") && goal_arrival_update!(mb_maps[a]["goal_arrival"]["food"],nothing,nothing,0.,now+1_000_000;completed=true)
             configured_camp_experience && now<clock.day_us && configured_camp_place_rest!(mb_maps[a]["place_mb"],observation_states[a]["camp_landmark"],loops[a]["home"],plan,status,homes[a]!==nothing && homes[a]["distance"]<=1.25,now)
             counts[a][action]=get(counts[a],action,0)+1
             sig=(phase,leg,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))

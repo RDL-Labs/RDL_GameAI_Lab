@@ -88,7 +88,8 @@ function method_distribution(s::BasicLoop,candidates)
     scores=map(candidates) do c
         n=get(s.methods,c["method"],MethodNode(0,s.threshold,0))
         learned=log1p(n.reward)
-        (c["priority"]+learned-failure_repulsion(n)-min(2.,n.H/n.threshold))/temperature+get(c,"observation_log_prior",0.)
+        local_temperature=get(c,"goal_arrival",false) ? 1. : temperature
+        (c["priority"]+learned-failure_repulsion(n)-min(2.,n.H/n.threshold))/local_temperature+get(c,"observation_log_prior",0.)
     end
     weights=exp.(max.(-600.,scores.-maximum(scores)));weights./=sum(weights)
     weights

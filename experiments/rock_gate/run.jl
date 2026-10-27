@@ -219,6 +219,7 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         end
     end
     nearby_food && nearby_food_layout!(input)
+    "--goal-arrival" in ARGS && (input["scene"]["goal_arrival"]=true)
     spec=JSON3.read(JSON3.write(input))
     walls=[RDLMigrationProbe.Circle(s["x"],s["z"],s["radius"]) for s in stones]
     allhigh=[RDLMigrationProbe.Circle(s.x,s.z,s.radius) for s in spec.scene.obstacles]
