@@ -1,0 +1,149 @@
+{
+  "measurement": {
+    "gc_seconds": 16.2795406,
+    "process_peak_rss_bytes": 1637326848,
+    "compilation_included": true,
+    "call_seconds": 325.7794109,
+    "allocated_bytes": 167135076014
+  },
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:24826000000:npc_b",
+        "stock_after": 3,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26823000000:npc_b",
+        "stock_after": 2,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:27735000000:npc_c",
+        "stock_after": 4,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:44370000000:npc_a",
+        "stock_after": 5,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:48845000000:npc_c",
+        "stock_after": 7,
+        "action": "deposit",
+        "actor": "npc_c"
+      }
+    ],
+    "taken": 1,
+    "deposited": 8
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    21,
+    24,
+    21
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 90.28879955951409,
+      "position": [
+        19.71180212915468,
+        -3.240233974620117
+      ],
+      "distance": 21.77009570683305,
+      "inventory": 2,
+      "out": 3,
+      "in": 2,
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 24826000000,
+          "day": 1
+        }
+      ],
+      "closestSample": {
+        "sec": 24780,
+        "actor": "npc_b",
+        "position": [
+          -0.4774942512738989,
+          12.331764627566796
+        ],
+        "reserve": 82.2690091161795,
+        "return_active": false
+      }
+    },
+    "npc_a": {
+      "reserve": 87.87078764092931,
+      "position": [
+        -0.06011368051605759,
+        7.0488187717496285
+      ],
+      "distance": 1.0505400851750426,
+      "inventory": 0,
+      "out": 1,
+      "in": 1,
+      "deliveries": [
+        {
+          "delivered": 1,
+          "us": 44370000000,
+          "day": 2
+        }
+      ],
+      "closestSample": {
+        "sec": 28920,
+        "actor": "npc_a",
+        "position": [
+          -0.4186837440958915,
+          12.836214567582807
+        ],
+        "reserve": 96.51593431970478,
+        "return_active": true
+      }
+    },
+    "npc_c": {
+      "reserve": 89.9993151326687,
+      "position": [
+        -0.03266689371043903,
+        7.012172493029207
+      ],
+      "distance": 1.0126995021178047,
+      "inventory": 0,
+      "out": 3,
+      "in": 3,
+      "deliveries": [
+        {
+          "delivered": 2,
+          "us": 27735000000,
+          "day": 1
+        },
+        {
+          "delivered": 2,
+          "us": 48845000000,
+          "day": 2
+        }
+      ],
+      "closestSample": {
+        "sec": 27720,
+        "actor": "npc_c",
+        "position": [
+          -0.32247172852152883,
+          11.478789860149998
+        ],
+        "reserve": 97.74415792154542,
+        "return_active": true
+      }
+    }
+  }
+}
