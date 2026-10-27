@@ -78,14 +78,14 @@ function mb_parent_estimate!(s,p,goal,target)
         upper=max(2,ceil(Int,max(center,horizon)))
     end
     rate=max(.0001,model["energy_rate"])
-    D("model"=>model["id"],"mode"=>mode,"source"=>evidence_count==0 ? "bootstrap" : "experience",
+    D(Pair{String,Any}["model"=>model["id"],"mode"=>mode,"source"=>evidence_count==0 ? "bootstrap" : "experience",
       "samples"=>n,"evidence_count"=>evidence_count,"prior_weight"=>prior_weight,"tail_mass"=>tail_mass,
       "mean_is_lower_bound"=>tail_mass>0,"baseline_actions"=>baseline,
       "expected_result"=>goal=="food" ? "acquired_food" : "confirmed_home",
       "expected_actions"=>center,"upper_actions"=>upper,"active_seconds"=>upper,
       "expected_energy"=>center*rate,
       "energy"=>upper*rate,"energy_quantum"=>max(.01,upper*rate),
-      "progress_window"=>max(8,cld(upper,4)),"expected_new_scenes"=>mode=="search" ? 1 : 0)
+      "progress_window"=>max(8,cld(upper,4)),"expected_new_scenes"=>mode=="search" ? 1 : 0])
 end
 
 # Experimental achievement value plus bounded, signed prediction advantage.
