@@ -262,15 +262,18 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
             "kind"=>2,"world_id"=>nextid+i,"food_index"=>0) for i in 1:23 if !("--wide-enclosure" in ARGS && i in (1,23))]
         if "--medium-enclosure" in ARGS
             @assert "--wide-enclosure" in ARGS
+            width_arg=findfirst(==("--entrance-width"),ARGS)
+            entrance_width=width_arg===nothing ? 2.0 : parse(Float64,ARGS[width_arg+1])
+            @assert isfinite(entrance_width) && 0.5<=entrance_width<=3.4
             # Keep the wall connected: enlarge the two end rocks in place.
-            first(enclosure)["radius"]=1.5
-            last(enclosure)["radius"]=1.5
+            first(enclosure)["radius"]=(5.0-entrance_width)/2
+            last(enclosure)["radius"]=(5.0-entrance_width)/2
         end
         append!(s["obstacles"],enclosure)
         circles=[RDLMigrationProbe.Circle(o["x"],o["z"],o["radius"]) for o in s["obstacles"]]
         @testset "enclosed camp final geometry" begin
             @test length(enclosure)==("--wide-enclosure" in ARGS ? 21 : 23)
-            "--medium-enclosure" in ARGS && (@test last(enclosure)["x"]-first(enclosure)["x"]-3.0 ≈ 2.0)
+            "--medium-enclosure" in ARGS && (@test last(enclosure)["x"]-first(enclosure)["x"]-first(enclosure)["radius"]-last(enclosure)["radius"] ≈ entrance_width)
             @test all(!segment_hit((hx,hz),(hx,hz+10),o,.2) for o in circles)
             @test any(segment_hit((hx,hz),(hx+8,hz),o,.2) for o in circles)
             @test any(segment_hit((hx,hz),(hx-8,hz),o,.2) for o in circles)
