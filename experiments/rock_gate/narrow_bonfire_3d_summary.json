@@ -1,0 +1,123 @@
+{
+  "measurement": {
+    "gc_seconds": 20.5121539,
+    "process_peak_rss_bytes": 1643638784,
+    "compilation_included": true,
+    "call_seconds": 418.1504595,
+    "allocated_bytes": 199286549492
+  },
+  "storage": {
+    "records": [],
+    "taken": 0,
+    "deposited": 0
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    24,
+    24,
+    24
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 86.91839030094958,
+      "position": [
+        9.158771088725285,
+        6.827423020793212
+      ],
+      "distance": 9.196070721292257,
+      "inventory": 1,
+      "out": 1,
+      "in": 0,
+      "deliveries": [],
+      "closestSample": {
+        "sec": 45360,
+        "actor": "npc_b",
+        "position": [
+          -0.30766314284025126,
+          12.97608355910007
+        ],
+        "reserve": 94.92549354530998,
+        "return_active": true
+      },
+      "homeDistance": {
+        "right": 8.724910473117825,
+        "known": true,
+        "profile": "coarse",
+        "receipt": "op:51838000000:npc_b",
+        "anchors": 10074,
+        "fine_ticks": 17352,
+        "forward": 2.90579661144521,
+        "coarse_ticks": 34488,
+        "uncertainty": 894.3151205228398
+      }
+    },
+    "npc_a": {
+      "reserve": 86.98923568013173,
+      "position": [
+        -8.174408018893562,
+        4.556663967094191
+      ],
+      "distance": 8.300853291272869,
+      "inventory": 1,
+      "out": 1,
+      "in": 0,
+      "deliveries": [],
+      "closestSample": {
+        "sec": 27000,
+        "actor": "npc_a",
+        "position": [
+          0.04107011990264439,
+          12.535397928658906
+        ],
+        "reserve": 99.21672431592197,
+        "return_active": true
+      },
+      "homeDistance": {
+        "right": -8.253524600634538,
+        "known": true,
+        "profile": "coarse",
+        "receipt": "op:51838000000:npc_a",
+        "anchors": 7239,
+        "fine_ticks": 17345,
+        "forward": 0.8851536758949126,
+        "coarse_ticks": 34495,
+        "uncertainty": 915.7273987035653
+      }
+    },
+    "npc_c": {
+      "reserve": 86.58129658824228,
+      "position": [
+        17.87390585611153,
+        -0.6946374760089937
+      ],
+      "distance": 19.08650521935124,
+      "inventory": 1,
+      "out": 1,
+      "in": 0,
+      "deliveries": [],
+      "closestSample": {
+        "sec": 46680,
+        "actor": "npc_c",
+        "position": [
+          -0.06885648236320796,
+          12.94943341416106
+        ],
+        "reserve": 92.84522260454764,
+        "return_active": true
+      },
+      "homeDistance": {
+        "right": -9.870517061185726,
+        "known": true,
+        "profile": "coarse",
+        "receipt": "op:51838000000:npc_c",
+        "anchors": 10066,
+        "fine_ticks": 17391,
+        "forward": 16.336081979266424,
+        "coarse_ticks": 34449,
+        "uncertainty": 907.4889307051222
+      }
+    }
+  }
+}
