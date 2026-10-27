@@ -1,0 +1,438 @@
+{
+  "gate": [
+    0,
+    10.330127018922193
+  ],
+  "cases": [
+    {
+      "actor": "npc_a",
+      "sec": 138600,
+      "day": 9,
+      "counts": {
+        "rest": 8,
+        "scan": 51,
+        "walk": 61
+      },
+      "fam": {
+        "home": 120
+      },
+      "status": {
+        "performed": 120
+      },
+      "samples": [
+        {
+          "sec": 138600,
+          "actor": "npc_a",
+          "position": [
+            -0.08057106585227475,
+            12.03230441076596
+          ],
+          "reserve": 99.40512065358102,
+          "return_active": true
+        },
+        {
+          "sec": 138660,
+          "actor": "npc_a",
+          "position": [
+            0.2525147871984372,
+            23.56142564723587
+          ],
+          "reserve": 99.32928732024779,
+          "return_active": true
+        },
+        {
+          "sec": 138720,
+          "actor": "npc_a",
+          "position": [
+            -1.5962983720888502,
+            18.655312326151282
+          ],
+          "reserve": 99.25484287580339,
+          "return_active": true
+        }
+      ],
+      "firstActions": [
+        {
+          "offset": 0,
+          "action": "rest",
+          "method": "rest",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 2,
+          "action": "scan",
+          "method": "cue:shape:orange:4",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 3,
+          "action": "scan",
+          "method": "cue:arrangement:sky-gray/sky-gray/3:-4",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 4,
+          "action": "scan",
+          "method": "cue:sky:ochre:-1",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 5,
+          "action": "scan",
+          "method": "cue:sky:ochre:0",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 6,
+          "action": "scan",
+          "method": "cue:shape:orange:4",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 7,
+          "action": "scan",
+          "method": "cue:arrangement:shape-orange/sky-brown/3:3",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 8,
+          "action": "walk",
+          "method": "opening:0",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 9,
+          "action": "walk",
+          "method": "step_45",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 10,
+          "action": "walk",
+          "method": "cue:shape:ochre:5",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 11,
+          "action": "walk",
+          "method": "opening:-2",
+          "phase": "exploration",
+          "purpose": "home",
+          "status": "performed"
+        }
+      ]
+    },
+    {
+      "actor": "npc_b",
+      "sec": 27360,
+      "day": 2,
+      "counts": {
+        "scan": 48,
+        "rest": 5,
+        "walk": 67
+      },
+      "fam": {
+        "home": 120
+      },
+      "status": {
+        "performed": 120
+      },
+      "samples": [
+        {
+          "sec": 27360,
+          "actor": "npc_b",
+          "position": [
+            -0.22868997149901088,
+            12.70036075300669
+          ],
+          "reserve": 98.74809743202508,
+          "return_active": true
+        },
+        {
+          "sec": 27420,
+          "actor": "npc_b",
+          "position": [
+            0.8183788131522541,
+            13.566282701936146
+          ],
+          "reserve": 98.67201687646948,
+          "return_active": true
+        },
+        {
+          "sec": 27480,
+          "actor": "npc_b",
+          "position": [
+            -4.044218672375185,
+            15.71552335831389
+          ],
+          "reserve": 98.58979465424738,
+          "return_active": true
+        }
+      ],
+      "firstActions": [
+        {
+          "offset": 0,
+          "action": "scan",
+          "method": "cue:shape:gray:0",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 1,
+          "action": "scan",
+          "method": "cue:light:bright:3",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 2,
+          "action": "scan",
+          "method": "cue:sky:gray:-5",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 3,
+          "action": "rest",
+          "method": "rest",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 4,
+          "action": "scan",
+          "method": "cue:shape:gray:4",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 5,
+          "action": "scan",
+          "method": "cue:arrangement:shape-gray/shape-gray/4:-1",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 6,
+          "action": "scan",
+          "method": "cue:surface:grass:3",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 7,
+          "action": "scan",
+          "method": "cue:shape:gray:-1",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 8,
+          "action": "scan",
+          "method": "cue:light:bright:-1",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 9,
+          "action": "scan",
+          "method": "cue:sky:gray:-4",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 10,
+          "action": "scan",
+          "method": "survey",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 11,
+          "action": "walk",
+          "method": "cue:sky:brown:0",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        }
+      ]
+    },
+    {
+      "actor": "npc_c",
+      "sec": 132120,
+      "day": 8,
+      "counts": {
+        "walk": 55,
+        "scan": 59,
+        "rest": 6
+      },
+      "fam": {
+        "home": 120
+      },
+      "status": {
+        "performed": 120
+      },
+      "samples": [
+        {
+          "sec": 132120,
+          "actor": "npc_c",
+          "position": [
+            -0.06982387321226305,
+            11.678810781902843
+          ],
+          "reserve": 85.44429611302286,
+          "return_active": true
+        },
+        {
+          "sec": 132180,
+          "actor": "npc_c",
+          "position": [
+            -0.7329743146003873,
+            13.158271212061823
+          ],
+          "reserve": 85.37116339697347,
+          "return_active": true
+        },
+        {
+          "sec": 132240,
+          "actor": "npc_c",
+          "position": [
+            5.152827098435055,
+            14.074504156595397
+          ],
+          "reserve": 85.295607841418,
+          "return_active": true
+        }
+      ],
+      "firstActions": [
+        {
+          "offset": 0,
+          "action": "walk",
+          "method": "opening:0",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 1,
+          "action": "scan",
+          "method": "cue:shape:green:-6",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 2,
+          "action": "scan",
+          "method": "cue:surface:worn_ground:6",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 3,
+          "action": "walk",
+          "method": "cue:sky:gray:2",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 4,
+          "action": "rest",
+          "method": "rest",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 5,
+          "action": "scan",
+          "method": "cue:sky:gray:5",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 6,
+          "action": "scan",
+          "method": "cue:shape:gray:5",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 7,
+          "action": "scan",
+          "method": "cue:shape:ochre:-1",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 8,
+          "action": "walk",
+          "method": "reposition_-90",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 9,
+          "action": "scan",
+          "method": "cue:surface:worn_ground:6",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 10,
+          "action": "scan",
+          "method": "cue:surface:worn_ground:-3",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        },
+        {
+          "offset": 11,
+          "action": "walk",
+          "method": "step_-90",
+          "phase": "return",
+          "purpose": "home",
+          "status": "performed"
+        }
+      ]
+    }
+  ]
+}
