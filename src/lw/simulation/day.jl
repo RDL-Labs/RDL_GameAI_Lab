@@ -110,8 +110,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     repetitions=Dict(a=>repetition_state() for a in IDS)
     breadth_stats=Dict(a=>D("decisions"=>0,"offered"=>0,"admitted"=>0,"restricted"=>0,"levels"=>[0,0,0]) for a in IDS)
     lateral_stats=Dict(a=>D("evaluations"=>0,"applied"=>0,"records"=>Any[]) for a in IDS)
-    landmark_objects=landmark_routes ? prepare_landmark_objects(spec.obstacles) : nothing
-    skyline_objects=skyline_mode=="off" ? nothing : prepare_skyline_objects(spec.obstacles)
+    # Visual-only markers (e.g. flames) are perceived but do not block movement or home sightlines.
+    visual_objects=hasproperty(spec,:visual_landmarks) ? vcat(collect(spec.obstacles),collect(spec.visual_landmarks)) : spec.obstacles
+    landmark_objects=landmark_routes ? prepare_landmark_objects(visual_objects) : nothing
+    skyline_objects=skyline_mode=="off" ? nothing : prepare_skyline_objects(visual_objects)
     history=get(spec,:world_history,nothing)
     world_offset=history===nothing ? 0 : Int(history.next_us)
     if history!==nothing

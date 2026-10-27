@@ -327,6 +327,25 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
             end
         end
     end
+    if "--central-bonfire" in ARGS
+        @assert "--enclosed-camp" in ARGS
+        s=input["scene"];hx,hz=Float64.(s["home"])
+        s["visual_landmarks"]=[D("x"=>hx,"z"=>hz,"radius"=>1.2,"height"=>6.,
+            "color"=>"orange","solid"=>false,"light_source"=>16.)]
+        scene=JSON3.read(JSON3.write(s))
+        visual=prepare_landmark_objects(vcat(collect(scene.obstacles),collect(scene.visual_landmarks)))
+        @testset "central bonfire visual connection" begin
+            @test length(moving_world(scene).obstacles)==length(scene.obstacles)
+            for dz in (4.8,5.5,6.7),night in (false,true)
+                p=(hx,hz+dz)
+                before=light_fan(prepare_landmark_objects(scene.obstacles),p,180.;night=night)
+                after=light_fan(visual,p,180.;night=night)
+                @test length(after)==length(before)+1
+                @test after[end]["brightness"]=="bright"
+            end
+            @test any(f->f["color"]=="orange",landmark_fan(visual,(hx,hz+5.5),180.,"test";all_colors=true)["features"])
+        end
+    end
     transfer_arg=findfirst(==("--transfer-from"),ARGS)
     if transfer_arg!==nothing
         learned=JSON3.read(read(ARGS[transfer_arg+1],String),Dict{String,Any})
