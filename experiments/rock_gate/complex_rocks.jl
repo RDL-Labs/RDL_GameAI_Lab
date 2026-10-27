@@ -1,5 +1,5 @@
 # World authoring only. Connectivity witnesses are not supplied to the agents.
-function complex_rocks!(input;natural=false)
+function complex_rocks!(input;natural=false,finite_food=false)
     s=input["scene"];hx,hz=Float64.(s["home"])
     nextid=maximum([get(o,"world_id",0) for o in vcat(s["obstacles"],get(s,"low_obstacles",Any[]))];init=0)
     added=Any[]
@@ -42,6 +42,30 @@ function complex_rocks!(input;natural=false)
     end
     append!(s["obstacles"],added)
     s["complex_rocks"]=D("version"=>natural ? "irregular-clumps-v1" : "staggered-ridges-v1","added"=>length(added),"camp_clear_radius"=>8.)
+    if finite_food
+        @assert natural
+        # Add resources after rock authoring so this variant does not alter the terrain.
+        terrain=JSON3.read(JSON3.write(s))
+        for (dx,dz) in ((-5.,10.),(5.,10.),(-12.,4.),(14.,6.),(-14.,20.),(13.,23.))
+            candidates=[(hx+dx+.5i,hz+dz+.5j) for i in -6:6 for j in -6:6]
+            sort!(candidates;by=p->((p[1]-hx-dx)^2+(p[2]-hz-dz)^2,p))
+            valid=p->landscape_material(terrain.landscape,p)!="water" &&
+                all(hypot(p[1]-o["x"],p[2]-o["z"])>o["radius"]+1.5 for o in s["obstacles"]) &&
+                all(hypot(p[1]-f["x"],p[2]-f["z"])>3 for f in s["food"])
+            idx=findfirst(valid,candidates);idx===nothing && error("no clear finite food site")
+            x,z=candidates[idx];push!(s["food"],D("x"=>x,"z"=>z,"stock"=>12,"renewable"=>false))
+        end
+        for f in s["food"];f["stock"]=12;f["renewable"]=false;end
+        s["finite_food_layout"]=D("version"=>"nine-scattered-sites-v1","stock_per_site"=>12)
+        foods=JSON3.read(JSON3.write(s["food"]))
+        @testset "finite scattered food" begin
+            @test length(foods)==9
+            @test sum(f.stock for f in foods)==108
+            @test all(!f.renewable for f in foods)
+            stocks=zeros(Int,length(foods));replenish_food!(stocks,foods;capacity=12)
+            @test all(iszero,stocks)
+        end
+    end
     scene=JSON3.read(JSON3.write(s));circles=[RDLMigrationProbe.Circle(o.x,o.z,o.radius) for o in scene.obstacles]
     # Conservative half-unit grid and .3 body margin, including dry ground and clear edges.
     point(k)=(hx+.5k[1],hz+.5k[2])
