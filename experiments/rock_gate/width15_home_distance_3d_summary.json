@@ -1,0 +1,87 @@
+{
+  "measurement": {
+    "gc_seconds": 17.5865947,
+    "process_peak_rss_bytes": 1628504064,
+    "compilation_included": true,
+    "call_seconds": 355.6361084,
+    "allocated_bytes": 180967015642
+  },
+  "storage": {
+    "deposited": 4,
+    "taken": 2,
+    "remaining": 2
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 88.89082327662393,
+      "position": [
+        0.6721234986626563,
+        6.862150214912274
+      ],
+      "distance": 1.0931847924883564,
+      "inventory": 0,
+      "delivery": 1,
+      "deliveryDays": [
+        3
+      ],
+      "outward": 1,
+      "inward": 1,
+      "counts": {
+        "rest": 24666,
+        "walk": 8764,
+        "eat": 3,
+        "pickup": 4,
+        "deposit": 1,
+        "retrieve": 1,
+        "scan": 18401
+      },
+      "outlookEvaluated": 16
+    },
+    "npc_a": {
+      "reserve": 87.01020941279076,
+      "position": [
+        -1.9775589641774267,
+        13.349063477965515
+      ],
+      "distance": 7.6104844431852765,
+      "inventory": 1,
+      "delivery": 0,
+      "deliveryDays": [],
+      "outward": 2,
+      "inward": 1,
+      "counts": {
+        "rest": 16625,
+        "walk": 14593,
+        "eat": 3,
+        "pickup": 4,
+        "scan": 20615
+      },
+      "outlookEvaluated": 13
+    },
+    "npc_c": {
+      "reserve": 88.64909495362646,
+      "position": [
+        -0.014175642730136247,
+        7.008382200071919
+      ],
+      "distance": 1.0084818343771476,
+      "inventory": 0,
+      "delivery": 1,
+      "deliveryDays": [
+        3
+      ],
+      "outward": 2,
+      "inward": 2,
+      "counts": {
+        "rest": 24118,
+        "walk": 9271,
+        "eat": 3,
+        "pickup": 4,
+        "deposit": 1,
+        "retrieve": 1,
+        "scan": 18442
+      },
+      "outlookEvaluated": 20
+    }
+  }
+}
