@@ -67,6 +67,7 @@ function steer_structure!(plan,target,obstacles,structures,w,a,yaw,resistance_at
     if use_rho
         plan["rho_profile"]=map["rho"];plan["rho_source"]=map["source"]["observation"]
         plan["potential"]=v.potential
+        plan["rho_boundary_range"]=rho_boundary_range(map,clearance)
     end
     true
 end

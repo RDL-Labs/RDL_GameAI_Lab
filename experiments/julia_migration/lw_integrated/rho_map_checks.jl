@@ -49,3 +49,30 @@ include(joinpath(@__DIR__,"structure_checks.jl"))
     _,opts=native_options(["unused","--rho-profile","fine"])
     @test opts["rho-profile"]=="fine"
 end
+
+@testset "rho concentrates boundary repulsion without shrinking body" begin
+    coarse=D("rho"=>"coarse","coverage"=>"complete","output_limited"=>false,
+        "groups"=>[D("kind"=>"obstacle","points"=>[(.6,.5)]),D("kind"=>"obstacle","points"=>[(-.6,.5)])])
+    fine=merge(coarse,D("rho"=>"fine"))
+    @test rho_boundary_range(coarse,2.)==2.
+    @test rho_boundary_range(fine,2.)==.5
+    @test rho_boundary_range(fine,2.5)==1. # running/load additions retained
+    @test rho_boundary_range(fine,.2)>.2
+    @test_throws ErrorException rho_boundary_range(fine,0.)
+    @test rho_potential(coarse,(0.,.5),0.).repulsion≈4*(1-.6/2)^3
+    @test rho_potential(fine,(0.,.5),0.).repulsion==0.
+    @test rho_potential(fine,(.5,.5),0.).repulsion>1.
+    @test rho_descent(0.,fine).angle==0.
+    # Same scalar evaluator is used in upstream candidate scoring.
+    c=[D("action"=>"walk","direction"=>2)]
+    fine["nodes"]=Any[];fine["source"]=D("observation"=>"test")
+    project_rho_affordance!(c,fine)
+    @test c[1]["observation_log_prior"]==0.
+    # A fine map must not authorize crossing an actual solid obstacle.
+    world=(positions=Dict("a"=>(0.,0.)),bodies=Dict("a"=>Body(10.,0.,100.,0.)),
+        inventory=Dict("a"=>0),obstacles=[RDLMigrationProbe.Circle(0.,.4,.3)])
+    emptyfine=merge(fine,D("groups"=>Any[]))
+    plan=D("action"=>"walk","direction"=>2)
+    @test !steer_structure!(plan,nothing,D("source"=>"test"),D("source"=>"test","observation"=>emptyfine),world,"a",Dict("a"=>0.),p->1.)
+    @test !haskey(plan,"approach_angle")
+end

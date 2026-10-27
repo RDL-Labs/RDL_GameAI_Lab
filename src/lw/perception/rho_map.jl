@@ -68,7 +68,15 @@ function project_rho_affordance!(candidates,map)
 end
 
 # Scalar cost at an actor-relative candidate endpoint, not Core E or H.
+# Fine interpretation concentrates the field near observed boundary samples.
+# Preserve load/damage/running additions and the field amplitude; physical
+# clearance (body radius .2) is still checked independently by the world.
+function rho_boundary_range(map,clearance)
+    isfinite(clearance) && clearance>0 || error("invalid rho clearance")
+    get(map,"rho","coarse")=="fine" ? max(.35,clearance-1.5) : clearance
+end
 function rho_potential(map,point,heading;clearance=2.,water_weight=.35,road_weight=.15)
+    boundary_range=rho_boundary_range(map,clearance)
     x,z=point
     attraction=-(x*sind(heading)+z*cosd(heading))
     repulsion=0.;road=0.
@@ -77,7 +85,7 @@ function rho_potential(map,point,heading;clearance=2.,water_weight=.35,road_weig
         if g["kind"] in ("obstacle","water")
             d=minimum(hypot(x-p[1],z-p[2]) for p in points)
             weight=g["kind"]=="water" ? water_weight : 1.
-            repulsion+=weight*clearance*max(0.,1-d/clearance)^3
+            repulsion+=weight*clearance*max(0.,1-d/boundary_range)^3
         elseif g["kind"]=="worn_ground" && length(points)>=3
             # Only elongated observed groups supply an undirected road axis.
             mx=sum(p[1] for p in points)/length(points);mz=sum(p[2] for p in points)/length(points)
