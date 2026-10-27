@@ -1,0 +1,212 @@
+{
+  "measurement": {
+    "gc_seconds": 112.929604,
+    "process_peak_rss_bytes": 1747415040,
+    "compilation_included": true,
+    "call_seconds": 1833.6305419,
+    "allocated_bytes": 974586139796
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    10,
+    24,
+    12
+  ],
+  "storage": {
+    "deposited": 11,
+    "taken": 4,
+    "remaining": 7
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 83.30939799311639,
+      "distance": 1.0000000000000002,
+      "inventory": 0,
+      "deliveryDays": [
+        3,
+        4,
+        7
+      ],
+      "outward": 5,
+      "inward": 5,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 70.7300813748742,
+          "pickup": 0
+        },
+        {
+          "day": 2,
+          "reserve": 89.57068746905031,
+          "pickup": 4
+        },
+        {
+          "day": 3,
+          "reserve": 89.54877447054464,
+          "pickup": 0
+        },
+        {
+          "day": 4,
+          "reserve": 88.96750105421663,
+          "pickup": 3
+        },
+        {
+          "day": 5,
+          "reserve": 87.83263084669908,
+          "pickup": 6
+        },
+        {
+          "day": 6,
+          "reserve": 83.68342453247705,
+          "pickup": 0
+        },
+        {
+          "day": 7,
+          "reserve": 81.00981711044804,
+          "pickup": 0
+        },
+        {
+          "day": 8,
+          "reserve": 81.76879214408493,
+          "pickup": 3
+        },
+        {
+          "day": 9,
+          "reserve": 82.54869681073063,
+          "pickup": 0
+        },
+        {
+          "day": 10,
+          "reserve": 83.30939799311639,
+          "pickup": 1
+        }
+      ]
+    },
+    "npc_a": {
+      "reserve": 96.31736494259691,
+      "distance": 1.1413177394408316,
+      "inventory": 0,
+      "deliveryDays": [
+        2
+      ],
+      "outward": 6,
+      "inward": 6,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 70.72580918432034,
+          "pickup": 0
+        },
+        {
+          "day": 2,
+          "reserve": 90.46300822042335,
+          "pickup": 4
+        },
+        {
+          "day": 3,
+          "reserve": 89.87054559677048,
+          "pickup": 3
+        },
+        {
+          "day": 4,
+          "reserve": 87.50652962664316,
+          "pickup": 0
+        },
+        {
+          "day": 5,
+          "reserve": 85.44107848004957,
+          "pickup": 0
+        },
+        {
+          "day": 6,
+          "reserve": 83.70467070437337,
+          "pickup": 1
+        },
+        {
+          "day": 7,
+          "reserve": 81.77152289583788,
+          "pickup": 1
+        },
+        {
+          "day": 8,
+          "reserve": 79.86370952330127,
+          "pickup": 0
+        },
+        {
+          "day": 9,
+          "reserve": 77.39374281280135,
+          "pickup": 1
+        },
+        {
+          "day": 10,
+          "reserve": 96.31736494259691,
+          "pickup": 1
+        }
+      ]
+    },
+    "npc_c": {
+      "reserve": 94.1761967417576,
+      "distance": 15.264747109931374,
+      "inventory": 0,
+      "deliveryDays": [
+        4
+      ],
+      "outward": 5,
+      "inward": 4,
+      "daily": [
+        {
+          "day": 1,
+          "reserve": 70.7288547040095,
+          "pickup": 0
+        },
+        {
+          "day": 2,
+          "reserve": 89.46190998162753,
+          "pickup": 4
+        },
+        {
+          "day": 3,
+          "reserve": 86.81710325828877,
+          "pickup": 0
+        },
+        {
+          "day": 4,
+          "reserve": 87.38737402447245,
+          "pickup": 0
+        },
+        {
+          "day": 5,
+          "reserve": 84.43785952702245,
+          "pickup": 3
+        },
+        {
+          "day": 6,
+          "reserve": 81.87062095386096,
+          "pickup": 0
+        },
+        {
+          "day": 7,
+          "reserve": 99.90959735296681,
+          "pickup": 1
+        },
+        {
+          "day": 8,
+          "reserve": 98.03035174337691,
+          "pickup": 1
+        },
+        {
+          "day": 9,
+          "reserve": 96.03086976610365,
+          "pickup": 1
+        },
+        {
+          "day": 10,
+          "reserve": 94.1761967417576,
+          "pickup": 1
+        }
+      ]
+    }
+  }
+}
