@@ -1,0 +1,664 @@
+{
+  "gate": [
+    0,
+    10.82962913144534
+  ],
+  "actors": {
+    "npc_a": {
+      "qualifyingSamples": 0,
+      "day": 3,
+      "sec": 46440,
+      "counts": {
+        "scan": 23,
+        "walk": 68,
+        "rest": 29
+      },
+      "purposes": {
+        "home": 120
+      },
+      "status": {
+        "performed": 120
+      },
+      "methods": {
+        "cue:sky:green:-6": 1,
+        "cue:shape:green:-4": 1,
+        "cue:shape:brown:3": 2,
+        "rest": 29,
+        "cue:shape:brown:0": 1,
+        "reposition_90": 4,
+        "reposition_-90": 3,
+        "reposition_0": 6,
+        "cue:surface:worn_ground:0": 2,
+        "cue:shape:brown:-2": 1,
+        "cue:sky:brown:0": 1,
+        "cue:sky:green:-3": 2,
+        "cue:shape:green:-2": 1,
+        "home_distance_confirm": 1,
+        "cue:sky:orange:-3": 1,
+        "cue:surface:obstacle:4": 2,
+        "survey": 2,
+        "cue:sky:brown:-2": 1,
+        "cue:shape:green:-1": 1,
+        "cue:food:brown_capped_ovoid:3": 1,
+        "cue:shape:gray:4": 1,
+        "reposition_45": 1,
+        "cue:sky:gray:4": 1,
+        "cue:shape:green:5": 1,
+        "cue:surface:worn_ground:-3": 1,
+        "step_45": 2,
+        "cue:sky:green:4": 1,
+        "opening:0": 2,
+        "cue:shape:green:0": 2,
+        "cue:food:brown_capped_ovoid:4": 1,
+        "cue:shape:green:-3": 1,
+        "cue:sky:green:0": 1,
+        "cue:shape:ochre:6": 2,
+        "cue:food:brown_capped_ovoid:-3": 1,
+        "ground_726": 1,
+        "ground_727": 1,
+        "cue:sky:orange:4": 1,
+        "opening:4": 3,
+        "ground_729": 1,
+        "ground_730": 3,
+        "cue:shape:gray:-1": 1,
+        "cue:sky:gray:-2": 2,
+        "cue:food:brown_capped_ovoid:-5": 1,
+        "ground_732": 2,
+        "opening:-4": 1,
+        "cue:sky:gray:-5": 1,
+        "cue:shape:gray:0": 1,
+        "ground_733": 1,
+        "cue:shape:orange:3": 1,
+        "reposition_-45": 1,
+        "cue:light:bright:2": 2,
+        "cue:surface:worn_ground:3": 1,
+        "cue:sky:green:-2": 1,
+        "cue:sky:brown:4": 1,
+        "cue:shape:gray:2": 1,
+        "cue:food:brown_capped_ovoid:-4": 1,
+        "cue:shape:ochre:2": 1,
+        "opening:2": 1,
+        "cue:shape:ochre:4": 1,
+        "cue:light:bright:1": 2,
+        "cue:shape:green:3": 1,
+        "step_-90": 1,
+        "cue:shape:brown:2": 1,
+        "cue:shape:orange:-5": 1,
+        "cue:sky:ochre:-6": 1
+      },
+      "samples": [
+        {
+          "sec": 46440,
+          "actor": "npc_a",
+          "position": [
+            0.06739488537427468,
+            12.802113115512016
+          ],
+          "reserve": 97.2094849385465,
+          "return_active": true,
+          "gateDistance": 1.9736350062699428
+        },
+        {
+          "sec": 46500,
+          "actor": "npc_a",
+          "position": [
+            -4.381524699878207,
+            16.3919828704658
+          ],
+          "reserve": 97.12837382743548,
+          "return_active": true,
+          "gateDistance": 7.080786525071752
+        },
+        {
+          "sec": 46560,
+          "actor": "npc_a",
+          "position": [
+            -3.9178702569863435,
+            13.973274479026983
+          ],
+          "reserve": 97.05096642002809,
+          "return_active": true,
+          "gateDistance": 5.0231676681104265
+        }
+      ],
+      "firstActions": [
+        {
+          "sec": 46440,
+          "action": "scan",
+          "method": "cue:sky:green:-6",
+          "purpose": "home"
+        },
+        {
+          "sec": 46441,
+          "action": "walk",
+          "method": "cue:shape:green:-4",
+          "purpose": "home"
+        },
+        {
+          "sec": 46442,
+          "action": "walk",
+          "method": "cue:shape:brown:3",
+          "purpose": "home"
+        },
+        {
+          "sec": 46443,
+          "action": "rest",
+          "method": "rest",
+          "purpose": "home"
+        },
+        {
+          "sec": 46444,
+          "action": "rest",
+          "method": "rest",
+          "purpose": "home"
+        },
+        {
+          "sec": 46445,
+          "action": "walk",
+          "method": "cue:shape:brown:0",
+          "purpose": "home"
+        },
+        {
+          "sec": 46446,
+          "action": "walk",
+          "method": "reposition_90",
+          "purpose": "home"
+        },
+        {
+          "sec": 46447,
+          "action": "walk",
+          "method": "reposition_-90",
+          "purpose": "home"
+        },
+        {
+          "sec": 46448,
+          "action": "walk",
+          "method": "reposition_0",
+          "purpose": "home"
+        },
+        {
+          "sec": 46449,
+          "action": "scan",
+          "method": "cue:surface:worn_ground:0",
+          "purpose": "home"
+        },
+        {
+          "sec": 46450,
+          "action": "walk",
+          "method": "cue:shape:brown:-2",
+          "purpose": "home"
+        },
+        {
+          "sec": 46451,
+          "action": "walk",
+          "method": "cue:sky:brown:0",
+          "purpose": "home"
+        },
+        {
+          "sec": 46452,
+          "action": "rest",
+          "method": "rest",
+          "purpose": "home"
+        },
+        {
+          "sec": 46453,
+          "action": "rest",
+          "method": "rest",
+          "purpose": "home"
+        },
+        {
+          "sec": 46454,
+          "action": "scan",
+          "method": "cue:sky:green:-3",
+          "purpose": "home"
+        },
+        {
+          "sec": 46455,
+          "action": "rest",
+          "method": "rest",
+          "purpose": "home"
+        }
+      ]
+    },
+    "npc_b": {
+      "qualifyingSamples": 3,
+      "day": 3,
+      "sec": 39240,
+      "counts": {
+        "walk": 81,
+        "scan": 36,
+        "rest": 3
+      },
+      "purposes": {
+        "home": 120
+      },
+      "status": {
+        "performed": 120
+      },
+      "methods": {
+        "cue:shape:orange:0": 1,
+        "survey": 3,
+        "cue:surface:worn_ground:3": 2,
+        "cue:surface:worn_ground:0": 2,
+        "cue:shape:gray:3": 1,
+        "cue:light:bright:5": 1,
+        "cue:shape:ochre:-1": 1,
+        "reposition_45": 3,
+        "cue:shape:ochre:-2": 1,
+        "cue:surface:grass:6": 1,
+        "opening:-2": 1,
+        "reposition_-45": 3,
+        "cue:arrangement:shape-gray/shape-ochre/4:-1": 1,
+        "cue:surface:obstacle:0": 2,
+        "step_45": 2,
+        "step_0": 7,
+        "cue:sky:ochre:3": 1,
+        "cue:shape:ochre:0": 1,
+        "reposition_90": 2,
+        "step_-90": 3,
+        "opening:2": 2,
+        "cue:shape:ochre:-4": 2,
+        "cue:shape:brown:1": 2,
+        "cue:shape:ochre:1": 1,
+        "cue:shape:gray:4": 2,
+        "cue:shape:brown:-4": 1,
+        "reposition_0": 6,
+        "opening:0": 8,
+        "cue:surface:obstacle:4": 2,
+        "opening:-4": 1,
+        "rest": 3,
+        "cue:sky:ochre:-2": 1,
+        "cue:shape:gray:-4": 1,
+        "cue:sky:gray:-1": 1,
+        "cue:arrangement:sky-gray/sky-gray/4:1": 1,
+        "cue:surface:worn_ground:-3": 2,
+        "cue:shape:brown:-5": 1,
+        "cue:arrangement:sky-gray/sky-gray/4:2": 1,
+        "cue:arrangement:shape-ochre/shape-ochre/4:3": 1,
+        "cue:arrangement:shape-ochre/sky-brown/3:4": 1,
+        "cue:sky:green:3": 1,
+        "cue:arrangement:shape-brown/shape-brown/4:3": 1,
+        "cue:sky:brown:-1": 1,
+        "cue:shape:green:-1": 1,
+        "cue:shape:green:0": 1,
+        "cue:sky:brown:0": 3,
+        "cue:sky:gray:4": 1,
+        "reposition_-90": 3,
+        "cue:sky:brown:-2": 1,
+        "cue:shape:green:1": 2,
+        "cue:sky:green:0": 2,
+        "cue:shape:brown:-2": 2,
+        "cue:shape:green:-4": 1,
+        "cue:sky:green:-6": 1,
+        "cue:arrangement:shape-green/shape-ochre/3:-4": 1,
+        "opening:4": 1,
+        "cue:arrangement:sky-gray/sky-ochre/3:-2": 1,
+        "cue:sky:ochre:2": 1,
+        "cue:shape:ochre:5": 1,
+        "cue:arrangement:shape-brown/shape-gray/2:-4": 1,
+        "step_90": 1,
+        "cue:shape:ochre:-3": 1,
+        "cue:sky:brown:4": 1,
+        "cue:shape:brown:0": 1,
+        "cue:sky:brown:-3": 1,
+        "cue:surface:water:0": 1,
+        "cue:arrangement:shape-brown/shape-gray/5:3": 1,
+        "cue:surface:water:-6": 2,
+        "cue:arrangement:sky-gray/sky-green/3:-4": 1,
+        "cue:arrangement:sky-brown/sky-gray/6:1": 1,
+        "cue:sky:gray:-3": 1,
+        "cue:arrangement:sky-brown/sky-brown/2:-5": 1,
+        "ground_1537": 1
+      },
+      "samples": [
+        {
+          "sec": 39240,
+          "actor": "npc_b",
+          "position": [
+            -0.1394296981822973,
+            12.04400636179613
+          ],
+          "reserve": 83.15386915450259,
+          "return_active": true,
+          "gateDistance": 1.2223553895367998
+        },
+        {
+          "sec": 39300,
+          "actor": "npc_b",
+          "position": [
+            9.452543249889278,
+            8.342464135994442
+          ],
+          "reserve": 83.07287285820634,
+          "return_active": true,
+          "gateDistance": 9.774280720627152
+        },
+        {
+          "sec": 39360,
+          "actor": "npc_b",
+          "position": [
+            13.871847763350674,
+            3.0848454387548787
+          ],
+          "reserve": 82.98428026561379,
+          "return_active": true,
+          "gateDistance": 15.88741120560997
+        }
+      ],
+      "firstActions": [
+        {
+          "sec": 39240,
+          "action": "walk",
+          "method": "cue:shape:orange:0",
+          "purpose": "home"
+        },
+        {
+          "sec": 39241,
+          "action": "scan",
+          "method": "survey",
+          "purpose": "home"
+        },
+        {
+          "sec": 39242,
+          "action": "scan",
+          "method": "cue:surface:worn_ground:3",
+          "purpose": "home"
+        },
+        {
+          "sec": 39243,
+          "action": "scan",
+          "method": "cue:surface:worn_ground:0",
+          "purpose": "home"
+        },
+        {
+          "sec": 39244,
+          "action": "walk",
+          "method": "cue:shape:gray:3",
+          "purpose": "home"
+        },
+        {
+          "sec": 39245,
+          "action": "scan",
+          "method": "cue:light:bright:5",
+          "purpose": "home"
+        },
+        {
+          "sec": 39246,
+          "action": "walk",
+          "method": "cue:shape:ochre:-1",
+          "purpose": "home"
+        },
+        {
+          "sec": 39247,
+          "action": "walk",
+          "method": "reposition_45",
+          "purpose": "home"
+        },
+        {
+          "sec": 39248,
+          "action": "walk",
+          "method": "cue:shape:ochre:-2",
+          "purpose": "home"
+        },
+        {
+          "sec": 39249,
+          "action": "scan",
+          "method": "cue:surface:grass:6",
+          "purpose": "home"
+        },
+        {
+          "sec": 39250,
+          "action": "walk",
+          "method": "opening:-2",
+          "purpose": "home"
+        },
+        {
+          "sec": 39251,
+          "action": "walk",
+          "method": "reposition_-45",
+          "purpose": "home"
+        },
+        {
+          "sec": 39252,
+          "action": "scan",
+          "method": "cue:arrangement:shape-gray/shape-ochre/4:-1",
+          "purpose": "home"
+        },
+        {
+          "sec": 39253,
+          "action": "scan",
+          "method": "cue:surface:obstacle:0",
+          "purpose": "home"
+        },
+        {
+          "sec": 39254,
+          "action": "walk",
+          "method": "step_45",
+          "purpose": "home"
+        },
+        {
+          "sec": 39255,
+          "action": "walk",
+          "method": "step_0",
+          "purpose": "home"
+        }
+      ]
+    },
+    "npc_c": {
+      "qualifyingSamples": 4,
+      "day": 3,
+      "sec": 37380,
+      "counts": {
+        "walk": 79,
+        "scan": 38,
+        "rest": 3
+      },
+      "purposes": {
+        "home": 120
+      },
+      "status": {
+        "performed": 120
+      },
+      "methods": {
+        "reposition_-45": 5,
+        "cue:sky:ochre:3": 1,
+        "cue:sky:brown:-4": 2,
+        "survey": 6,
+        "cue:food:brown_capped_ovoid:-3": 2,
+        "cue:shape:gray:6": 1,
+        "cue:shape:ochre:4": 1,
+        "opening:4": 2,
+        "reposition_-90": 4,
+        "cue:shape:gray:-4": 1,
+        "cue:sky:gray:2": 2,
+        "cue:sky:gray:1": 1,
+        "step_0": 5,
+        "reposition_45": 2,
+        "cue:sky:brown:-1": 1,
+        "cue:shape:gray:-5": 3,
+        "reposition_0": 11,
+        "cue:arrangement:shape-gray/shape-gray/3:-2": 1,
+        "cue:surface:worn_ground:6": 3,
+        "cue:sky:brown:4": 1,
+        "opening:0": 6,
+        "cue:sky:green:-2": 1,
+        "cue:arrangement:shape-green/shape-green/6:2": 1,
+        "cue:shape:ochre:5": 2,
+        "cue:arrangement:shape-brown/shape-gray/6:0": 1,
+        "cue:shape:brown:0": 1,
+        "cue:sky:brown:0": 1,
+        "cue:sky:orange:0": 1,
+        "cue:arrangement:shape-ochre/shape-orange/3:0": 1,
+        "cue:surface:worn_ground:-6": 1,
+        "cue:sky:ochre:0": 2,
+        "cue:sky:orange:4": 1,
+        "cue:arrangement:shape-ochre/shape-orange/2:4": 1,
+        "cue:surface:worn_ground:3": 1,
+        "cue:surface:obstacle:0": 1,
+        "cue:surface:obstacle:2": 1,
+        "cue:arrangement:sky-gray/sky-green/4:-2": 1,
+        "cue:arrangement:shape-gray/shape-gray/3:-3": 1,
+        "step_45": 3,
+        "rest": 3,
+        "cue:arrangement:shape-orange/sky-brown/4:0": 1,
+        "cue:sky:green:2": 1,
+        "cue:sky:gray:-4": 3,
+        "cue:sky:orange:-6": 1,
+        "step_90": 2,
+        "opening:-2": 3,
+        "cue:surface:worn_ground:0": 3,
+        "cue:shape:brown:-1": 2,
+        "cue:shape:green:2": 1,
+        "cue:arrangement:shape-ochre/sky-gray/3:0": 1,
+        "cue:sky:gray:0": 3,
+        "cue:arrangement:sky-gray/sky-gray/5:3": 1,
+        "cue:sky:ochre:-5": 1,
+        "opening:2": 1,
+        "cue:shape:gray:-2": 1,
+        "cue:arrangement:shape-ochre/shape-ochre/4:-2": 1,
+        "cue:sky:green:1": 1,
+        "cue:sky:ochre:-2": 1,
+        "cue:food:brown_capped_ovoid:0": 1,
+        "cue:arrangement:shape-gray/shape-green/3:4": 1,
+        "ground_1029": 1,
+        "cue:shape:gray:0": 1,
+        "cue:sky:gray:3": 1,
+        "cue:arrangement:shape-gray/shape-green/5:3": 1
+      },
+      "samples": [
+        {
+          "sec": 37380,
+          "actor": "npc_c",
+          "position": [
+            -0.06761531830649248,
+            13.274032746658776
+          ],
+          "reserve": 85.06399476636551,
+          "return_active": true,
+          "gateDistance": 2.445338599322842
+        },
+        {
+          "sec": 37440,
+          "actor": "npc_c",
+          "position": [
+            -2.478658425917672,
+            13.14914082247156
+          ],
+          "reserve": 84.98436513673595,
+          "return_active": true,
+          "gateDistance": 3.39468438550331
+        },
+        {
+          "sec": 37500,
+          "actor": "npc_c",
+          "position": [
+            6.113910656667241,
+            17.475255319986896
+          ],
+          "reserve": 84.90035423395823,
+          "return_active": true,
+          "gateDistance": 9.030185543804658
+        }
+      ],
+      "firstActions": [
+        {
+          "sec": 37380,
+          "action": "walk",
+          "method": "reposition_-45",
+          "purpose": "home"
+        },
+        {
+          "sec": 37381,
+          "action": "scan",
+          "method": "cue:sky:ochre:3",
+          "purpose": "home"
+        },
+        {
+          "sec": 37382,
+          "action": "walk",
+          "method": "cue:sky:brown:-4",
+          "purpose": "home"
+        },
+        {
+          "sec": 37383,
+          "action": "scan",
+          "method": "survey",
+          "purpose": "home"
+        },
+        {
+          "sec": 37384,
+          "action": "walk",
+          "method": "cue:food:brown_capped_ovoid:-3",
+          "purpose": "home"
+        },
+        {
+          "sec": 37385,
+          "action": "walk",
+          "method": "cue:shape:gray:6",
+          "purpose": "home"
+        },
+        {
+          "sec": 37386,
+          "action": "walk",
+          "method": "cue:shape:ochre:4",
+          "purpose": "home"
+        },
+        {
+          "sec": 37387,
+          "action": "walk",
+          "method": "opening:4",
+          "purpose": "home"
+        },
+        {
+          "sec": 37388,
+          "action": "walk",
+          "method": "reposition_-90",
+          "purpose": "home"
+        },
+        {
+          "sec": 37389,
+          "action": "walk",
+          "method": "cue:shape:gray:-4",
+          "purpose": "home"
+        },
+        {
+          "sec": 37390,
+          "action": "walk",
+          "method": "cue:sky:gray:2",
+          "purpose": "home"
+        },
+        {
+          "sec": 37391,
+          "action": "walk",
+          "method": "cue:sky:gray:1",
+          "purpose": "home"
+        },
+        {
+          "sec": 37392,
+          "action": "scan",
+          "method": "survey",
+          "purpose": "home"
+        },
+        {
+          "sec": 37393,
+          "action": "walk",
+          "method": "step_0",
+          "purpose": "home"
+        },
+        {
+          "sec": 37394,
+          "action": "walk",
+          "method": "reposition_-45",
+          "purpose": "home"
+        },
+        {
+          "sec": 37395,
+          "action": "walk",
+          "method": "reposition_-45",
+          "purpose": "home"
+        }
+      ]
+    }
+  },
+  "note": "Positions sampled every 60s. Events are change-only, expanded with last known event. No per-step rho or yaw in these logs."
+}
