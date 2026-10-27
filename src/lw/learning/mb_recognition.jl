@@ -27,6 +27,9 @@ function mb_similarity(frame,node;metric=nothing)
     confidence=agreement*min(1.,length(common)/2)
     (parts=parts,confidence=confidence,agreement=agreement,common=length(common),anchor=wrap_angle(frame.anchor+shift))
 end
+# Experimental tolerance1, quadratic scale2. Floor avoids ceil's immediate 1->2 jump.
+mb_retrieval_width(H)=min(136.,1+(max(0.,clamp(Float64(H),0.,32.)-1)/2)^2)
+mb_retrieval_budget(H)=floor(Int,mb_retrieval_width(H))
 function mb_correspondences(s,targets,now;scope="wake",H=0)
     frame=s["current"];out=Any[]
     frame===nothing && (mb_reject!(s,scope,"no_observation");return out)
@@ -45,7 +48,7 @@ function mb_correspondences(s,targets,now;scope="wake",H=0)
     end
     sort!(ranked,by=x->(-x[1],x[2]))
     # Wider pressure opens weaker relations. Inadequate fit also opens the next batch.
-    batch=8+4floor(Int,clamp(Float64(H),0.,32.))
+    batch=mb_retrieval_budget(H)
     examined=0;best_weight=0.;batches=0
     for (_,key,support) in ranked
         if examined>0 && examined%batch==0
@@ -65,11 +68,11 @@ function mb_correspondences(s,targets,now;scope="wake",H=0)
     end
     stats["calls"]+=1;stats["eligible"]+=length(ranked);stats["examined"]+=examined
     stats["expanded"]+=max(0,batches-1)
-    push!(stats["records"],D("us"=>now,"scope"=>scope,"H"=>H,"batch"=>batch,
+    push!(stats["records"],D("us"=>now,"scope"=>scope,"H"=>H,"width"=>mb_retrieval_width(H),"batch"=>batch,
         "eligible"=>length(ranked),"examined"=>examined,"batches"=>batches,"best_weight"=>best_weight))
     length(stats["records"])>32 && popfirst!(stats["records"])
     sort!(out,by=x->(-x["weight"],x["key"]))
-    limit=H>=2 ? 8 : 4;length(out)>limit && resize!(out,limit)
+    limit=min(8,examined);length(out)>limit && resize!(out,limit)
     isempty(out) && (mb_reject!(s,scope,"no_shared_features");return out)
     total=sum(x["weight"] for x in out)
     for x in out;x["probability"]=x["weight"]/total;end
