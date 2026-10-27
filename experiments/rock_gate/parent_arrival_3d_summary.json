@@ -1,0 +1,664 @@
+{
+  "measurement": {
+    "gc_seconds": 30.0658689,
+    "process_peak_rss_bytes": 1456582656,
+    "compilation_included": true,
+    "call_seconds": 376.0623507,
+    "allocated_bytes": 291147035159
+  },
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:17480000000:npc_b",
+        "stock_after": 1,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17608000000:npc_a",
+        "stock_after": 4,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26856000000:npc_a",
+        "stock_after": 3,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26901000000:npc_b",
+        "stock_after": 2,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:41757000000:npc_c",
+        "stock_after": 4,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:41932000000:npc_c",
+        "stock_after": 3,
+        "action": "retrieve",
+        "actor": "npc_c"
+      }
+    ],
+    "taken": 3,
+    "deposited": 6
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    24,
+    24,
+    20
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 90.41980678257013,
+      "position": [
+        24.01043874198659,
+        -2.855047552311256
+      ],
+      "home_distance": 25.59126874026343,
+      "inventory": 2,
+      "deliveries": [
+        {
+          "delivered": 1,
+          "us": 17480000000,
+          "day": 2
+        }
+      ],
+      "goals": {
+        "food": {
+          "mode": "approach",
+          "entries": 6,
+          "rejections": 0,
+          "selected": 74,
+          "completed": 5,
+          "parent_mode": "approach",
+          "retained_parent_events": [
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 0,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17295000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17295000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17449000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17449000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 34638000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 34638000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 34639000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 34639000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 34661000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 34661000000,
+              "H_after": 0
+            }
+          ]
+        },
+        "home": {
+          "mode": "search",
+          "entries": 4,
+          "rejections": 0,
+          "selected": 28,
+          "completed": 4,
+          "parent_mode": "search",
+          "retained_parent_events": [
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 8000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 69000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 83000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 92000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 252000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17359000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17462000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17480000000,
+              "H_after": 0
+            }
+          ]
+        }
+      }
+    },
+    "npc_a": {
+      "reserve": 90.71218951184979,
+      "position": [
+        -4.732370441360824,
+        16.385478582750764
+      ],
+      "home_distance": 11.412865345172545,
+      "inventory": 2,
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 17608000000,
+          "day": 2
+        }
+      ],
+      "goals": {
+        "food": {
+          "mode": "approach",
+          "entries": 8,
+          "rejections": 0,
+          "selected": 101,
+          "completed": 7,
+          "parent_mode": "approach",
+          "retained_parent_events": [
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 2000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17302000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17302000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17341000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17341000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17468000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17468000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17542000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17542000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 34660000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 34660000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 34661000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 34661000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 34662000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 34662000000,
+              "H_after": 0
+            }
+          ]
+        },
+        "home": {
+          "mode": "search",
+          "entries": 3,
+          "rejections": 0,
+          "selected": 187,
+          "completed": 3,
+          "parent_mode": "search",
+          "retained_parent_events": [
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 1000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 79000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 93000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 102000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 255000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17608000000,
+              "H_after": 0
+            }
+          ]
+        }
+      }
+    },
+    "npc_c": {
+      "reserve": 88.98546780470836,
+      "position": [
+        0.050899534423485646,
+        7.166415826544265
+      ],
+      "home_distance": 1.1675258639608237,
+      "inventory": 0,
+      "deliveries": [
+        {
+          "delivered": 2,
+          "us": 41757000000,
+          "day": 3
+        }
+      ],
+      "goals": {
+        "food": {
+          "mode": "approach",
+          "entries": 5,
+          "rejections": 0,
+          "selected": 73,
+          "completed": 4,
+          "parent_mode": "approach",
+          "retained_parent_events": [
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 2000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17300000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17300000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17575000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17575000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17576000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17576000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17577000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17577000000,
+              "H_after": 0
+            }
+          ]
+        },
+        "home": {
+          "mode": "search",
+          "entries": 10,
+          "rejections": 0,
+          "selected": 67,
+          "completed": 10,
+          "parent_mode": "search",
+          "retained_parent_events": [
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 1000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 73000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 87000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 96000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 255000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17358000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17388000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17393000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17415000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17420000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17433000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17442000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17466000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17480000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17496000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17502000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 17508000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 17511000000,
+              "H_after": 0
+            },
+            {
+              "H_before": 32,
+              "relief": 0,
+              "kind": "arrival_question",
+              "us": 41743000000,
+              "H_after": 32
+            },
+            {
+              "H_before": 0,
+              "relief": 0,
+              "kind": "arrival_confirmed",
+              "us": 41757000000,
+              "H_after": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}
