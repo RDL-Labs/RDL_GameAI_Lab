@@ -359,9 +359,10 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         end
     end
     complex_report=nothing
-    if "--complex-rocks" in ARGS
+    if "--complex-rocks" in ARGS || "--natural-rocks" in ARGS
         @assert ordinary_only && !("--enclosed-camp" in ARGS) && "--far-transfer-map" in ARGS
-        complex_report=complex_rocks!(input)
+        @assert !("--complex-rocks" in ARGS && "--natural-rocks" in ARGS)
+        complex_report=complex_rocks!(input;natural="--natural-rocks" in ARGS)
     end
     transfer_arg=findfirst(==("--transfer-from"),ARGS)
     if transfer_arg!==nothing
