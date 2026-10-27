@@ -291,8 +291,12 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         @assert "--enclosed-camp" in ARGS
         s=input["scene"];hx,hz=Float64.(s["home"])
         @assert length(s["food"])==3
+        distant_food=deepcopy(s["food"])
         for (f,dx) in zip(s["food"],(-2.,0.,2.))
             f["x"]=hx+dx;f["z"]=hz+9.5
+            if "--finite-near-three-day" in ARGS
+                f["stock"]=4;f["renewable"]=false
+            end
         end
         scene=JSON3.read(JSON3.write(s));world=moving_world(scene)
         append!(world.obstacles,[RDLMigrationProbe.Circle(o.x,o.z,o.radius) for o in scene.low_obstacles])
@@ -309,6 +313,17 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
                     @test all(!segment_hit(p,q,o,.2) for o in world.obstacles)
                     @test all(landscape_material(scene.landscape,(p[1]+t*(q[1]-p[1]),p[2]+t*(q[2]-p[2])))!="water" for t in 0:.025:1)
                 end
+            end
+        end
+        if "--finite-near-three-day" in ARGS
+            append!(s["food"],distant_food)
+            @testset "finite near supplies and renewable distant food" begin
+                foods=JSON3.read(JSON3.write(s["food"]))
+                @test sum(f.stock for f in foods[1:3])==12
+                @test all(!f.renewable for f in foods[1:3])
+                @test all(f.renewable for f in foods[4:6])
+                stocks=zeros(Int,6);replenish_food!(stocks,foods;capacity=12)
+                @test stocks==[0,0,0,12,12,12]
             end
         end
     end
