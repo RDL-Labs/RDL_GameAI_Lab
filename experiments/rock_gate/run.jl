@@ -3,6 +3,10 @@ const root=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(out)
 const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
+const gate_diagnostics="--gate-diagnostics" in ARGS
+if gate_diagnostics
+    include(joinpath(@__DIR__,"gate_diagnostics.jl"))
+end
 const mixed_transfer="--mixed-transfer" in ARGS
 const ordinary_only="--ordinary-only" in ARGS
 const staged_food="--staged-food" in ARGS
@@ -40,6 +44,7 @@ if "--mb-diagnostics" in ARGS
     patched=instrument_mb_day(patched)
     instrument_mb_files(snapshot)
 end
+gate_diagnostics && (patched=instrument_gate_day(patched))
 write(path,patched)
 const stop_day=Ref(0)
 function cohort_exhausted(daily,day_us)
@@ -55,6 +60,11 @@ const maxradius=Dict{String,Float64}()
 const positions=Any[]
 const started=Ref(0.)
 function gate_probe!(sec,w,purposes,counts,home)
+    if gate_diagnostics && sec>=121681
+        write(joinpath(out,"diagnostic-stop.json"),JSON3.write((reason="requested_gate_snapshot",sec=sec,positions=w.positions)))
+        flush(gate_diag_io)
+        throw(GateDiagnosticStop())
+    end
     for a in keys(w.positions)
         p=w.positions[a];r=hypot(p[1]-home[1],p[2]-home[2]);maxradius[a]=max(get(maxradius,a,0.),r)
         if haskey(prev,a)
@@ -294,6 +304,13 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
     started[]=time()
     try
         native_main([joinpath(caseout,"run"),"--spec",specpath])
+    catch err
+        if gate_diagnostics && err isa GateDiagnosticStop
+            write(joinpath(caseout,"positions.json"),JSON3.write(positions))
+            println("COMPLETE requested gate diagnostic stop at 121681 seconds")
+            exit(0)
+        end
+        rethrow()
     finally
         close(logref[])
     end
