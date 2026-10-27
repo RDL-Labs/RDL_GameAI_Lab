@@ -1,0 +1,387 @@
+[
+  {
+    "k": "dynamic",
+    "measurement": {
+      "gc_seconds": 7.3335802,
+      "process_peak_rss_bytes": 1443368960,
+      "compilation_included": true,
+      "call_seconds": 174.7021021,
+      "allocated_bytes": 69356068952
+    },
+    "food": {
+      "ground": 89,
+      "shared": 10,
+      "consumed": 9
+    },
+    "actors": {
+      "npc_a": {
+        "reserve": 92.20757227217406,
+        "home_distance": 1.068361495709804,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 245,
+          "eligible": 777,
+          "examined": 527,
+          "expanded": 0
+        }
+      },
+      "npc_b": {
+        "reserve": 92.2794268718132,
+        "home_distance": 0.7811615901975936,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 1
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 98,
+          "eligible": 168,
+          "examined": 143,
+          "expanded": 0
+        }
+      },
+      "npc_c": {
+        "reserve": 92.24299409175481,
+        "home_distance": 1.1620545305781083,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 251,
+          "eligible": 870,
+          "examined": 761,
+          "expanded": 0
+        }
+      }
+    }
+  },
+  {
+    "k": 1,
+    "measurement": {
+      "gc_seconds": 7.1914844,
+      "process_peak_rss_bytes": 1805778944,
+      "compilation_included": true,
+      "call_seconds": 157.2394887,
+      "allocated_bytes": 69185576407
+    },
+    "food": {
+      "ground": 89,
+      "shared": 10,
+      "consumed": 9
+    },
+    "actors": {
+      "npc_a": {
+        "reserve": 92.22301855133881,
+        "home_distance": 1.0893347203078088,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 206,
+          "eligible": 550,
+          "examined": 163,
+          "expanded": 0
+        }
+      },
+      "npc_b": {
+        "reserve": 92.2799667208163,
+        "home_distance": 1.137193848942959,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 1
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 75,
+          "eligible": 42,
+          "examined": 34,
+          "expanded": 0
+        }
+      },
+      "npc_c": {
+        "reserve": 92.21614776697326,
+        "home_distance": 0.9736968021790559,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 286,
+          "eligible": 1289,
+          "examined": 257,
+          "expanded": 0
+        }
+      }
+    }
+  },
+  {
+    "k": 2,
+    "measurement": {
+      "gc_seconds": 6.8167946,
+      "process_peak_rss_bytes": 1796235264,
+      "compilation_included": true,
+      "call_seconds": 153.9274251,
+      "allocated_bytes": 69193897737
+    },
+    "food": {
+      "ground": 89,
+      "shared": 10,
+      "consumed": 9
+    },
+    "actors": {
+      "npc_a": {
+        "reserve": 92.25057734206203,
+        "home_distance": 1.081580185383121,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 93,
+          "eligible": 158,
+          "examined": 124,
+          "expanded": 0
+        }
+      },
+      "npc_b": {
+        "reserve": 92.27932901762892,
+        "home_distance": 0.7811615901975936,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 1
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 98,
+          "eligible": 168,
+          "examined": 84,
+          "expanded": 0
+        }
+      },
+      "npc_c": {
+        "reserve": 92.25064959981712,
+        "home_distance": 0.8284882600797062,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 159,
+          "eligible": 512,
+          "examined": 235,
+          "expanded": 0
+        }
+      }
+    }
+  },
+  {
+    "k": 4,
+    "measurement": {
+      "gc_seconds": 7.0761062,
+      "process_peak_rss_bytes": 1540591616,
+      "compilation_included": true,
+      "call_seconds": 153.7760696,
+      "allocated_bytes": 68941306218
+    },
+    "food": {
+      "ground": 89,
+      "shared": 10,
+      "consumed": 9
+    },
+    "actors": {
+      "npc_a": {
+        "reserve": 92.20757227217406,
+        "home_distance": 1.068361495709804,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 245,
+          "eligible": 777,
+          "examined": 487,
+          "expanded": 0
+        }
+      },
+      "npc_b": {
+        "reserve": 92.2643496290598,
+        "home_distance": 0.9522778571881326,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 1
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 116,
+          "eligible": 178,
+          "examined": 116,
+          "expanded": 0
+        }
+      },
+      "npc_c": {
+        "reserve": 92.24819734212191,
+        "home_distance": 0.8126978530480253,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 135,
+          "eligible": 377,
+          "examined": 270,
+          "expanded": 0
+        }
+      }
+    }
+  },
+  {
+    "k": 8,
+    "measurement": {
+      "gc_seconds": 6.7621056,
+      "process_peak_rss_bytes": 1724301312,
+      "compilation_included": true,
+      "call_seconds": 154.687264,
+      "allocated_bytes": 69354948044
+    },
+    "food": {
+      "ground": 89,
+      "shared": 10,
+      "consumed": 9
+    },
+    "actors": {
+      "npc_a": {
+        "reserve": 92.20757227217406,
+        "home_distance": 1.068361495709804,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 245,
+          "eligible": 777,
+          "examined": 503,
+          "expanded": 0
+        }
+      },
+      "npc_b": {
+        "reserve": 92.2794268718132,
+        "home_distance": 0.7811615901975936,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 1
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 98,
+          "eligible": 168,
+          "examined": 115,
+          "expanded": 0
+        }
+      },
+      "npc_c": {
+        "reserve": 92.24299409175481,
+        "home_distance": 1.1620545305781083,
+        "deliveries": [
+          {
+            "day": 2,
+            "amount": 3
+          },
+          {
+            "day": 3,
+            "amount": 3
+          }
+        ],
+        "retrieval": {
+          "calls": 251,
+          "eligible": 870,
+          "examined": 717,
+          "expanded": 0
+        }
+      }
+    }
+  }
+]
