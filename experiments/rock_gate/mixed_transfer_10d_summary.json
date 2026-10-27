@@ -1,0 +1,182 @@
+{
+  "measurement": {
+    "gc_seconds": 435.3126569,
+    "process_peak_rss_bytes": 3596500992,
+    "compilation_included": true,
+    "call_seconds": 3224.1530406,
+    "allocated_bytes": 3292321113775
+  },
+  "storage": {
+    "taken": 39,
+    "deposited": 113,
+    "remaining": 74
+  },
+  "actors": {
+    "npc_b": {
+      "cohort": "experienced",
+      "reserve": 94.78305700732875,
+      "distance": 1.0495904236625102,
+      "completions": 7,
+      "days": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "minDailyReserve": 70.7380550530187,
+      "counts": {
+        "rest": 144939,
+        "walk": 9849,
+        "eat": 10,
+        "pickup": 22,
+        "deposit": 7,
+        "retrieve": 7,
+        "scan": 17966
+      },
+      "receivedEvents": 0,
+      "givenEvents": 0
+    },
+    "npc_a": {
+      "cohort": "experienced",
+      "reserve": 92.70833544618554,
+      "distance": 1.1097086568979448,
+      "completions": 7,
+      "days": [
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ],
+      "minDailyReserve": 70.73729234685362,
+      "counts": {
+        "rest": 140427,
+        "walk": 14982,
+        "eat": 10,
+        "give": 1,
+        "retrieve": 5,
+        "pickup": 21,
+        "deposit": 7,
+        "scan": 17346,
+        "refuse": 1
+      },
+      "receivedEvents": 0,
+      "givenEvents": 1
+    },
+    "npc_d": {
+      "cohort": "naive",
+      "reserve": 93.11960162725123,
+      "distance": 1.2167127584670472,
+      "completions": 8,
+      "days": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "minDailyReserve": 70.73299250567104,
+      "counts": {
+        "rest": 137943,
+        "walk": 13996,
+        "eat": 10,
+        "pickup": 25,
+        "deposit": 8,
+        "retrieve": 7,
+        "scan": 20811
+      },
+      "receivedEvents": 0,
+      "givenEvents": 0
+    },
+    "npc_e": {
+      "cohort": "naive",
+      "reserve": 93.17022840347114,
+      "distance": 1,
+      "completions": 7,
+      "days": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        10
+      ],
+      "minDailyReserve": 70.738054797194,
+      "counts": {
+        "rest": 139447,
+        "walk": 14256,
+        "eat": 10,
+        "pickup": 22,
+        "deposit": 7,
+        "retrieve": 9,
+        "scan": 19049
+      },
+      "receivedEvents": 0,
+      "givenEvents": 0
+    },
+    "npc_f": {
+      "cohort": "naive",
+      "reserve": 92.11342745457178,
+      "distance": 1.0049308543350715,
+      "completions": 7,
+      "days": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "minDailyReserve": 70.73354151952162,
+      "counts": {
+        "rest": 135601,
+        "walk": 17675,
+        "eat": 10,
+        "pickup": 22,
+        "deposit": 7,
+        "retrieve": 9,
+        "scan": 19476
+      },
+      "receivedEvents": 0,
+      "givenEvents": 0
+    },
+    "npc_c": {
+      "cohort": "experienced",
+      "reserve": 90.78280792091658,
+      "distance": 1,
+      "completions": 7,
+      "days": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        10
+      ],
+      "minDailyReserve": 70.73714307696429,
+      "counts": {
+        "request": 2,
+        "rest": 134031,
+        "walk": 21491,
+        "eat": 10,
+        "pickup": 22,
+        "deposit": 7,
+        "retrieve": 2,
+        "scan": 17235
+      },
+      "receivedEvents": 1,
+      "givenEvents": 0
+    }
+  }
+}
