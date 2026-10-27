@@ -56,3 +56,8 @@ up 28 units, deposited ten times and completed ten Sleeps. Shared stock was60;
 daily continuity/conservation checks59 passed. This is a benign-world result,
 not a general navigation guarantee. See
 [descent report](../../experiments/julia_migration/lw_integrated/descent_report.md).
+
+### 日末保存・再開
+
+`--checkpoint-dir DIR` で日末の完全状態を保存し、`--resume-from DIR/day-005.jls` で6日目から再開できます。別の出力先を指定してください。最終日数以外の入力とJulia・ソースの版が一致する必要があります。
+詳しい条件と岩囲い実験での利用は [チェックポイント仕様](../../experiments/rock_gate/checkpoint_report.md) を参照してください。

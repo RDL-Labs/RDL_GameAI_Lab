@@ -16,6 +16,15 @@ function native_options(args)
 end
 
 function native_main(args)
+    args=copy(args)
+    runtime=Dict{String,String}()
+    for flag in ("--checkpoint-dir","--resume-from")
+        i=findfirst(==(flag),args)
+        if i!==nothing
+            i<length(args) || error("missing value for $flag")
+            runtime[flag]=args[i+1];deleteat!(args,i:i+1)
+        end
+    end
     out,opts=native_options(args)
     opts["continuous-descent"] in ("on","off") || error("continuous_descent")
     generated=isempty(opts["spec"])
@@ -77,6 +86,7 @@ function native_main(args)
     get(cfg,:orientation,"off") in ("off","on") || error("orientation mode")
     get(cfg,:food_body,"off") in ("off","on") || error("food body mode")
     get(cfg,:safety_methods,"legacy") in ("legacy","continuous") || error("safety method mode")
+    !isempty(runtime) && ispath(out) && error("checkpoint runs require a fresh output directory")
     mkpath(out);write(joinpath(out,"spec.json"),bytes)
     root=normpath(joinpath(@__DIR__,"../.."));sources=Dict{String,String}()
     for base in (joinpath(root,"src"),@__DIR__)
@@ -90,8 +100,12 @@ function native_main(args)
         "config"=>cfg,"spec_sha256"=>bytes2hex(sha256(bytes)),"sources"=>sources,
         "scope"=>"finite LW subset; not full Python LW parity",
         "python_required"=>false)
+    manifest["checkpoint_runtime"]=runtime
+    if haskey(runtime,"--resume-from")
+        manifest["resume_sha256"]=bytes2hex(sha256(read(runtime["--resume-from"])))
+    end
     open(joinpath(out,"manifest.json"),"w") do io;JSON3.write(io,manifest);end
-    measured=@timed run_integrated(input)
+    measured=@timed run_integrated(input;checkpoint_dir=get(runtime,"--checkpoint-dir",nothing),resume_from=get(runtime,"--resume-from",nothing))
     r,summary=measured.value;elapsed=measured.time
     summary["measurement"]=D("call_seconds"=>elapsed,"allocated_bytes"=>measured.bytes,"gc_seconds"=>measured.gctime,"process_peak_rss_bytes"=>Sys.maxrss(),"compilation_included"=>true)
     summary["elapsed_seconds_including_compilation"]=elapsed

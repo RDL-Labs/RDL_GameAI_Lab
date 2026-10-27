@@ -1,0 +1,24 @@
+name: Julia LW daily checkpoint
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checkpoint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Equivalence and validation
+        run: julia --startup-file=no --project=. experiments/rock_gate/checkpoint_checks.jl experiments/rock_gate/evidence/staged-world/input.json
+      - name: Save in separate process
+        run: julia --startup-file=no --project=. experiments/rock_gate/checkpoint_checks.jl experiments/rock_gate/evidence/staged-world/input.json save outputs/checkpoint-process
+      - name: Resume in separate process
+        run: julia --startup-file=no --project=. experiments/rock_gate/checkpoint_checks.jl experiments/rock_gate/evidence/staged-world/input.json resume outputs/checkpoint-process

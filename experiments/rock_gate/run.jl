@@ -303,7 +303,14 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
     logref[]=open(joinpath(caseout,"crossings.jsonl"),"w")
     started[]=time()
     try
-        native_main([joinpath(caseout,"run"),"--spec",specpath])
+        native_args=[joinpath(caseout,"run"),"--spec",specpath]
+        "--checkpoints" in ARGS && append!(native_args,["--checkpoint-dir",joinpath(caseout,"checkpoints")])
+        resume_arg=findfirst(==("--resume-from"),ARGS)
+        if resume_arg!==nothing
+            append!(native_args,["--resume-from",abspath(ARGS[resume_arg+1])])
+            write(joinpath(caseout,"observer-scope.json"),JSON3.write((scope="positions and crossings cover resumed interval only; result daily history covers full run",resume_from=abspath(ARGS[resume_arg+1]))))
+        end
+        native_main(native_args)
     catch err
         if gate_diagnostics && err isa GateDiagnosticStop
             write(joinpath(caseout,"positions.json"),JSON3.write(positions))

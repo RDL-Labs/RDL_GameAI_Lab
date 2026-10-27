@@ -1,3 +1,4 @@
+include("checkpoint.jl")
 include("physiology.jl")
 include(joinpath(@__DIR__, "../configured_paths/daily_delivery.jl"))
 include(joinpath(@__DIR__, "../perception/hazard.jl"))
@@ -73,7 +74,7 @@ function replenish_food!(stock,food;capacity=0)
     added
 end
 
-function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,daily_delivery_enabled=false,camp_safe_zone=false,mb_sensitivities=D(),mb_similarity_learning=true)
+function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,daily_delivery_enabled=false,camp_safe_zone=false,mb_sensitivities=D(),mb_similarity_learning=true,checkpoint_dir=nothing,resume_from=nothing,checkpoint_identity="")
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=30,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
@@ -260,7 +261,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         pressure_poll!(live[a],states[a]["records"],before)
     end
     # Tick phases: world/clock -> observations -> learning/decision -> actions -> physiology -> daily consolidation.
-    for sec in 0:days*div(clock.day_us,1_000_000)-1
+    checkpoint_code=(checkpoint_dir!==nothing || resume_from!==nothing) ? checkpoint_code_hash() : ""
+    start_sec=0
+    if resume_from!==nothing
+        saved=checkpoint_load(resume_from,checkpoint_identity,checkpoint_code,days)
+        @lw_restore saved.state
+        start_sec=saved.day*div(clock.day_us,1_000_000)
+    end
+    for sec in start_sec:days*div(clock.day_us,1_000_000)-1
         now=sec*1_000_000;w.seconds=sec
         (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
         lateral_views=lateral_side!="off" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
@@ -886,6 +894,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             push!(daily,D("physical"=>physical(),"sleep"=>deepcopy(learning),"counts"=>deepcopy(counts),
                 "shared_stock"=>shared,"ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
+            checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)
         end
     end
     ground_wear && advance_wear!(wear,wear_offset+Int(days*clock.day_us))
