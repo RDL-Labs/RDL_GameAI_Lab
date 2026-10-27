@@ -30,15 +30,44 @@ end
 function mb_correspondences(s,targets,now;scope="wake",H=0)
     frame=s["current"];out=Any[]
     frame===nothing && (mb_reject!(s,scope,"no_observation");return out)
+    # Cheap retrieval order, not a declaration of identity. Full geometry is evaluated lazily.
+    observed=hasproperty(frame,:features) ? frame.features : mb_features(frame.signature)
+    ranked=Tuple{Float64,String,Float64}[]
     for key in sort(unique(collect(targets)))
         node=get(s["nodes"],key,nothing);node===nothing && continue
-        fit=mb_similarity(frame,node;metric=s["recognition"]["metric"]);fit===nothing && continue
         id=frame.key*":"*key
         a=get(s["recognition"]["associations"],id,nothing)
         support=a===nothing ? .5 : (1+a["matches"])/(2+a["matches"]+a["mismatches"])
+        features=get!(() -> mb_features(node["signature"]),node,"features")
+        common=count(k->haskey(features,k),keys(observed))
+        common==0 && continue
+        push!(ranked,(support*min(1.,common/2),key,support))
+    end
+    sort!(ranked,by=x->(-x[1],x[2]))
+    # Wider pressure opens weaker relations. Inadequate fit also opens the next batch.
+    batch=8+4floor(Int,clamp(Float64(H),0.,32.))
+    examined=0;best_weight=0.;batches=0
+    for (_,key,support) in ranked
+        if examined>0 && examined%batch==0
+            best_weight>=.25 && break
+        end
+        examined%batch==0 && (batches+=1)
+        examined+=1
+        node=s["nodes"][key]
+        fit=mb_similarity(frame,node;metric=s["recognition"]["metric"]);fit===nothing && continue
+        id=frame.key*":"*key
         weight=max(1e-6,fit.confidence*support)
+        best_weight=max(best_weight,weight)
         push!(out,D("key"=>key,"association"=>id,"confidence"=>fit.confidence,"weight"=>weight,"anchor"=>fit.anchor))
     end
+    stats=get!(s["recognition"],"retrieval") do
+        D("calls"=>0,"eligible"=>0,"examined"=>0,"expanded"=>0,"records"=>Any[])
+    end
+    stats["calls"]+=1;stats["eligible"]+=length(ranked);stats["examined"]+=examined
+    stats["expanded"]+=max(0,batches-1)
+    push!(stats["records"],D("us"=>now,"scope"=>scope,"H"=>H,"batch"=>batch,
+        "eligible"=>length(ranked),"examined"=>examined,"batches"=>batches,"best_weight"=>best_weight))
+    length(stats["records"])>32 && popfirst!(stats["records"])
     sort!(out,by=x->(-x["weight"],x["key"]))
     limit=H>=2 ? 8 : 4;length(out)>limit && resize!(out,limit)
     isempty(out) && (mb_reject!(s,scope,"no_shared_features");return out)

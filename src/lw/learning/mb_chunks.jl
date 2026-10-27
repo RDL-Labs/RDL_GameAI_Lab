@@ -75,12 +75,12 @@ function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now;completion_
     length(s["chunk_records"])>32 && popfirst!(s["chunk_records"])
     true
 end
-function mb_chunk_candidates!(s,move,goal,reserve,strain,now)
+function mb_chunk_candidates!(s,move,goal,reserve,strain,now;H=0)
     frame=s["current"]
     (!s["chunks_enabled"] || frame===nothing || s["current_us"]!=now || reserve<=20 || strain>=.8) && return Any[]
     out=Any[]
     targets=unique([c["from"] for c in values(s["chunks"])])
-    matches=mb_correspondences(s,targets,now;scope="chunk")
+    matches=mb_correspondences(s,targets,now;scope="chunk",H=H)
     for match in matches, id in sort(collect(keys(s["chunks"])))
         c=s["chunks"][id];c["goal"]==goal || (mb_reject!(s,"chunk","goal_mismatch");continue)
         all(k->haskey(s["edges"],k),c["edges"]) || (mb_reject!(s,"chunk","missing_edge");continue)

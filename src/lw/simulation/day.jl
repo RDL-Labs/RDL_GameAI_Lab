@@ -585,7 +585,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
                             chunk_candidates=copy(active_candidates)
                             if isempty(active_candidates) || s.H>=s.threshold
-                                fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now)
+                                fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
                                 active=mb_maps[a]["routes"]["active"]
                                 filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
                                 append!(chunk_candidates,fresh)

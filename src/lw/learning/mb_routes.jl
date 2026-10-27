@@ -130,7 +130,7 @@ function mb_route_candidates!(s,move,goal,reserve,strain,now;H=0)
     all(k->haskey(s["edges"],k),a["path"]) || (mb_route_uncertain!(s,"missing_edge");return Any[])
     a["pending_edge"]!==nothing && return Any[]
     edge=a["path"][i];e=s["edges"][edge]
-    matches=mb_correspondences(s,[e["from"]],now;scope="route")
+    matches=mb_correspondences(s,[e["from"]],now;scope="route",H=H)
     isempty(matches) && (mb_route_uncertain!(s,"no_correspondence");return Any[])
     match=first(matches);p=mb_first_action(e,(anchor=match["anchor"],),move)
     p===nothing && (mb_route_uncertain!(s,"infeasible_action");return Any[])

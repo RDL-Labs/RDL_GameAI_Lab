@@ -1,0 +1,986 @@
+{
+  "npc_b": {
+    "expanded": 0,
+    "records": [
+      {
+        "batches": 0,
+        "batch": 8,
+        "H": 0.625,
+        "scope": "chunk",
+        "us": 34625000000,
+        "eligible": 0,
+        "examined": 0,
+        "best_weight": 0
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43200000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 0,
+        "batch": 8,
+        "H": 0,
+        "scope": "route",
+        "us": 43201000000,
+        "eligible": 0,
+        "examined": 0,
+        "best_weight": 0
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43201000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.27283688680109114
+      },
+      {
+        "batches": 0,
+        "batch": 8,
+        "H": 0,
+        "scope": "route",
+        "us": 43202000000,
+        "eligible": 0,
+        "examined": 0,
+        "best_weight": 0
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43202000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.13641844340054557
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43203000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.13641844340054557
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "route",
+        "us": 43204000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 12,
+        "H": 1,
+        "scope": "chunk",
+        "us": 43205000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.28971499932220335
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "chunk",
+        "us": 43206000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.28971499932220335
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "sleep",
+        "us": 43206000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43207000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.28971499932220335
+      },
+      {
+        "batches": 1,
+        "batch": 12,
+        "H": 1,
+        "scope": "chunk",
+        "us": 43208000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "chunk",
+        "us": 43209000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "sleep",
+        "us": 43209000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "chunk",
+        "us": 43210000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "sleep",
+        "us": 43210000000,
+        "eligible": 6,
+        "examined": 6,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 24,
+        "H": 4,
+        "scope": "chunk",
+        "us": 43211000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.13641844340054557
+      },
+      {
+        "batches": 1,
+        "batch": 24,
+        "H": 4,
+        "scope": "sleep",
+        "us": 43211000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 28,
+        "H": 5,
+        "scope": "chunk",
+        "us": 43212000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 28,
+        "H": 5,
+        "scope": "sleep",
+        "us": 43212000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "chunk",
+        "us": 43213000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.13641844340054557
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "sleep",
+        "us": 43213000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 0,
+        "batch": 36,
+        "H": 7,
+        "scope": "chunk",
+        "us": 43214000000,
+        "eligible": 0,
+        "examined": 0,
+        "best_weight": 0
+      },
+      {
+        "batches": 1,
+        "batch": 36,
+        "H": 7,
+        "scope": "sleep",
+        "us": 43214000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 36,
+        "H": 7,
+        "scope": "wake",
+        "us": 43214000000,
+        "eligible": 61,
+        "examined": 36,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 40,
+        "H": 8,
+        "scope": "chunk",
+        "us": 43215000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 40,
+        "H": 8,
+        "scope": "sleep",
+        "us": 43215000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 44,
+        "H": 9,
+        "scope": "chunk",
+        "us": 43216000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 44,
+        "H": 9,
+        "scope": "sleep",
+        "us": 43216000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 48,
+        "H": 10,
+        "scope": "chunk",
+        "us": 43217000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.3099230719819123
+      },
+      {
+        "batches": 1,
+        "batch": 48,
+        "H": 10,
+        "scope": "sleep",
+        "us": 43217000000,
+        "eligible": 6,
+        "examined": 6,
+        "best_weight": 0.25
+      }
+    ],
+    "eligible": 168,
+    "examined": 143,
+    "calls": 98
+  },
+  "npc_a": {
+    "expanded": 0,
+    "records": [
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43204000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43205000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.003472977062683074
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43206000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43207000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43208000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43209000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.003472977062683074
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43210000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.2971349798513585
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43211000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43212000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43213000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43214000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43215000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "route",
+        "us": 43217000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 12,
+        "H": 1,
+        "scope": "route",
+        "us": 43220000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 12,
+        "H": 1.5,
+        "scope": "chunk",
+        "us": 43221000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43222000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.25892088085569953
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43224000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.2500601325103612
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0.5,
+        "scope": "chunk",
+        "us": 43225000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0.5,
+        "scope": "route",
+        "us": 43226000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0.5,
+        "scope": "chunk",
+        "us": 43226000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0.5,
+        "scope": "chunk",
+        "us": 43228000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 12,
+        "H": 1,
+        "scope": "chunk",
+        "us": 43229000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.029465984892257862
+      },
+      {
+        "batches": 1,
+        "batch": 12,
+        "H": 1.5,
+        "scope": "chunk",
+        "us": 43230000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.02978431335322421
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "chunk",
+        "us": 43231000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.029465984892257862
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "sleep",
+        "us": 43231000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.029465984892257862
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2.5,
+        "scope": "chunk",
+        "us": 43232000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2.5,
+        "scope": "sleep",
+        "us": 43232000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "route",
+        "us": 43233000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "chunk",
+        "us": 43233000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.2516851617943862
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "sleep",
+        "us": 43233000000,
+        "eligible": 7,
+        "examined": 7,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3.5,
+        "scope": "chunk",
+        "us": 43234000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25892088085569953
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3.5,
+        "scope": "sleep",
+        "us": 43234000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      }
+    ],
+    "eligible": 777,
+    "examined": 527,
+    "calls": 245
+  },
+  "npc_c": {
+    "expanded": 0,
+    "records": [
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "chunk",
+        "us": 43251000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "sleep",
+        "us": 43251000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "route",
+        "us": 43252000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.021891589131219615
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "chunk",
+        "us": 43252000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "sleep",
+        "us": 43252000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "route",
+        "us": 43253000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.021891589131219615
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "chunk",
+        "us": 43253000000,
+        "eligible": 6,
+        "examined": 6,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "sleep",
+        "us": 43253000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "chunk",
+        "us": 43254000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.021891589131219615
+      },
+      {
+        "batches": 1,
+        "batch": 124,
+        "H": 29,
+        "scope": "sleep",
+        "us": 43254000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "chunk",
+        "us": 43255000000,
+        "eligible": 6,
+        "examined": 6,
+        "best_weight": 0.27189158913121964
+      },
+      {
+        "batches": 1,
+        "batch": 8,
+        "H": 0,
+        "scope": "route",
+        "us": 43256000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 12,
+        "H": 1,
+        "scope": "chunk",
+        "us": 43257000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.31169740081443986
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "chunk",
+        "us": 43258000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.31169740081443986
+      },
+      {
+        "batches": 1,
+        "batch": 16,
+        "H": 2,
+        "scope": "sleep",
+        "us": 43258000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "chunk",
+        "us": 43259000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.3333333333333333
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "sleep",
+        "us": 43259000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "route",
+        "us": 43260000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "chunk",
+        "us": 43260000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.27189158913121964
+      },
+      {
+        "batches": 1,
+        "batch": 20,
+        "H": 3,
+        "scope": "sleep",
+        "us": 43260000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 24,
+        "H": 4,
+        "scope": "chunk",
+        "us": 43261000000,
+        "eligible": 2,
+        "examined": 2,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 24,
+        "H": 4,
+        "scope": "sleep",
+        "us": 43261000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.25
+      },
+      {
+        "batches": 1,
+        "batch": 28,
+        "H": 5,
+        "scope": "chunk",
+        "us": 43262000000,
+        "eligible": 7,
+        "examined": 7,
+        "best_weight": 0.5
+      },
+      {
+        "batches": 1,
+        "batch": 28,
+        "H": 5,
+        "scope": "sleep",
+        "us": 43262000000,
+        "eligible": 5,
+        "examined": 5,
+        "best_weight": 0.5
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "chunk",
+        "us": 43263000000,
+        "eligible": 7,
+        "examined": 7,
+        "best_weight": 0.5
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "sleep",
+        "us": 43263000000,
+        "eligible": 4,
+        "examined": 4,
+        "best_weight": 0.31169740081443986
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "route",
+        "us": 43264000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.3116690712795223
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "chunk",
+        "us": 43264000000,
+        "eligible": 7,
+        "examined": 7,
+        "best_weight": 0.3116690712795223
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "sleep",
+        "us": 43264000000,
+        "eligible": 6,
+        "examined": 6,
+        "best_weight": 0.3116690712795223
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "route",
+        "us": 43265000000,
+        "eligible": 1,
+        "examined": 1,
+        "best_weight": 0.5
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "chunk",
+        "us": 43265000000,
+        "eligible": 6,
+        "examined": 6,
+        "best_weight": 0.5
+      },
+      {
+        "batches": 1,
+        "batch": 32,
+        "H": 6,
+        "scope": "sleep",
+        "us": 43265000000,
+        "eligible": 3,
+        "examined": 3,
+        "best_weight": 0.5
+      }
+    ],
+    "eligible": 870,
+    "examined": 761,
+    "calls": 251
+  }
+}
