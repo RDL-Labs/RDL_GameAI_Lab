@@ -277,6 +277,31 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
             @test length(ids)==length(unique(ids))
         end
     end
+    if "--exit-visible-food" in ARGS
+        @assert "--enclosed-camp" in ARGS
+        s=input["scene"];hx,hz=Float64.(s["home"])
+        @assert length(s["food"])==3
+        for (f,dx) in zip(s["food"],(-2.,0.,2.))
+            f["x"]=hx+dx;f["z"]=hz+9.5
+        end
+        scene=JSON3.read(JSON3.write(s));world=moving_world(scene)
+        append!(world.obstacles,[RDLMigrationProbe.Circle(o.x,o.z,o.radius) for o in scene.low_obstacles])
+        @testset "food visible immediately at north exit" begin
+            for dz in (4.8,5.,5.5),heading in (-10.,0.,10.)
+                world.positions[first(IDS)]=(hx,hz+dz)
+                view=perceive_movement(world,first(IDS),Dict(a=>heading for a in IDS),scene.food,[f.stock for f in scene.food])
+                @test length(view.visible)==3
+            end
+            for f in scene.food
+                route=[(hx,hz),(hx,hz+7.5),(Float64(f.x),Float64(f.z))]
+                for i in 1:2
+                    p,q=route[i],route[i+1]
+                    @test all(!segment_hit(p,q,o,.2) for o in world.obstacles)
+                    @test all(landscape_material(scene.landscape,(p[1]+t*(q[1]-p[1]),p[2]+t*(q[2]-p[2])))!="water" for t in 0:.025:1)
+                end
+            end
+        end
+    end
     transfer_arg=findfirst(==("--transfer-from"),ARGS)
     if transfer_arg!==nothing
         learned=JSON3.read(read(ARGS[transfer_arg+1],String),Dict{String,Any})
