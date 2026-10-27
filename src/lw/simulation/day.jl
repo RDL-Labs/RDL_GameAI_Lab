@@ -489,6 +489,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         s=loops[a][family];source="op:$now:$a"
                         navigation_H=night_fear_enabled && family=="home" ? max(s.H,mb_maps[a]["night_fear"]["H"]) : s.H
                         candidates=search_candidates(moves[a],target,s)
+                        rho_profile=="home-distance" && family=="home" && append!(candidates,home_distance_candidates(mb_maps[a]["home_distance"]))
                         if skyline_views!==nothing && returning && target===nothing
                             append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
                         end
@@ -653,7 +654,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=choose_method!(loops[a][family],[merge(plan,D("method"=>"work","priority"=>5.,"question"=>question))],source)
                 pending[a]=(family=family,source=source,phase=phase,question=question,distance=nothing,ref=nothing,status="unexecuted")
             end
-            if orientation && !get(plan,"configured_observation",false) && plan["action"]=="scan" && !get(plan,"safety",false) && !(general_landmarks && haskey(plan,"cue_kind")) && !haskey(plan,"mb_edge")
+            if orientation && !get(plan,"configured_observation",false) && plan["action"]=="scan" && !get(plan,"safety",false) && !get(plan,"home_distance_confirm",false) && !(general_landmarks && haskey(plan,"cue_kind")) && !haskey(plan,"mb_edge")
                 plan["scan_angle"]=orientation_scan!(sky[a],clock)
             end
             plan["purpose_family"]=returning ? "home" : "food"
@@ -762,6 +763,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     status=cargo_transfer!(dropped,w,cargo,food,stock,a,op,now,action;index=action=="recover" ? plan["food_ref"]+1 : 0)
                 elseif action=="scan"
                     yaw[a]=mod(yaw[a]+get(plan,"scan_angle",60)+180,360)-180
+                    get(plan,"home_distance_confirm",false) && (mb_maps[a]["home_distance"]["scan_selected"]+=1)
                 elseif action=="pickup"
                     j=plan["food_ref"]+1;f=food[j]
                     legal=stock[j]>0 && hypot(f.x-p[1],f.z-p[2])<=1.25 && !any(o->segment_hit(p,(Float64(f.x),Float64(f.z)),o,0.),w.obstacles)

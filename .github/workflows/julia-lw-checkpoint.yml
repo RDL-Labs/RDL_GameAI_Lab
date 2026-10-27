@@ -18,6 +18,8 @@ jobs:
       - run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
       - name: Equivalence and validation
         run: julia --startup-file=no --project=. experiments/rock_gate/checkpoint_checks.jl experiments/rock_gate/evidence/staged-world/input.json
+      - name: Uncertainty driven rho confirmation
+        run: julia --startup-file=no --project=. experiments/rock_gate/home_distance_checks.jl
       - name: Save in separate process
         run: julia --startup-file=no --project=. experiments/rock_gate/checkpoint_checks.jl experiments/rock_gate/evidence/staged-world/input.json save outputs/checkpoint-process
       - name: Resume in separate process
