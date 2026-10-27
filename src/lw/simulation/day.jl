@@ -288,13 +288,18 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         now=sec*1_000_000;w.seconds=sec
         (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
         lateral_views=lateral_side!="off" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in IDS) : nothing
+        rho_baselines=D()
         if ground_perception
             for a in IDS
                 view=ground_appearance(w,a,yaw,wear,now;dry=dry)
                 patterns=ground_patterns(view)
                 record_ground_patterns!(ground_views[a],view,patterns)
                 ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing),patterns)
-                ground_continuity && update_structures!(ground_models[a]["structures"],(rho_profile=="off" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],rho_profile=="home-distance" ? home_distance_profile!(mb_maps[a]["home_distance"],get(ground_receipts,a,nothing)) : rho_profile)),get(ground_receipts,a,nothing))
+                if ground_continuity && goal_arrival_enabled
+                    # Consume odometry before this tick's home observation anchors the estimate.
+                    rho_baselines[a]=rho_profile=="home-distance" ? home_distance_profile!(mb_maps[a]["home_distance"],get(ground_receipts,a,nothing)) : rho_profile
+                end
+                ground_continuity && !goal_arrival_enabled && update_structures!(ground_models[a]["structures"],(rho_profile=="off" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],rho_profile=="home-distance" ? home_distance_profile!(mb_maps[a]["home_distance"],get(ground_receipts,a,nothing)) : rho_profile)),get(ground_receipts,a,nothing))
             end
         end
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
@@ -447,6 +452,16 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if goal_arrival_enabled
                 for g in ("home","food")
                     mb_parent_arrival_sync!(mb_maps[a],loops[a][g],g,now)
+                end
+                if ground_perception && ground_continuity
+                    # Use this tick's recognition and selected purpose, not another goal's hypothesis.
+                    receipt=get(ground_receipts,a,nothing)
+                    baseline=rho_baselines[a]
+                    arrival=mb_maps[a]["goal_arrival"][returning ? "home" : "food"]
+                    effective=goal_arrival_rho_record!(arrival,baseline,goal_arrival_rho(arrival,baseline))
+                    view=last(ground_views[a]["records"])["observation"]
+                    structure=effective=="off" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],effective)
+                    update_structures!(ground_models[a]["structures"],structure,receipt)
                 end
             end
             if ground_continuity

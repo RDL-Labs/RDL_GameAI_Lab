@@ -1,5 +1,15 @@
 # Provisional goal hypotheses: observation -> approach -> actual completion elsewhere.
 # Only egocentric observations/receipts enter; never world positions.
+# Explicit rho-off remains an experiment ablation; all enabled profiles refine arrival.
+goal_arrival_rho(s,baseline)=baseline=="off" ? "off" : s["mode"]=="approach" ? "fine" : baseline
+
+function goal_arrival_rho_record!(s,baseline,effective)
+    s["rho_baseline"]=baseline;s["rho_effective"]=effective
+    if s["mode"]=="approach" && effective=="fine"
+        s["rho_fine_decisions"]=get(s,"rho_fine_decisions",0)+1
+    end
+    effective
+end
 goal_arrival_state()=D("mode"=>"search","target"=>nothing,"estimate"=>home_distance_state(),
     "ticks"=>0,"budget"=>0.,"H"=>0.,"residual"=>0.,"cooldown"=>0,"confidence"=>0.,
     "entries"=>0,"rejections"=>0,"selected"=>0,"records"=>Any[])

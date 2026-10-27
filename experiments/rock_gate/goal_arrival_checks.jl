@@ -62,6 +62,21 @@ end
     @test goal_result_H(32.,false)==32.
 end
 input=JSON3.read(read(ARGS[1],String),Dict{String,Any});input["scene"]["goal_arrival"]=true
+@testset "arrival rho follows question" begin
+    for goal in ("home","food")
+        s=goal_arrival_state()
+        @test goal_arrival_rho(s,"coarse")=="coarse"
+        goal_arrival_update!(s,D("forward"=>5.,"right"=>0.),goal,1.,0)
+        @test goal_arrival_rho(s,"coarse")=="fine"
+        @test goal_arrival_rho(s,"fine")=="fine"
+        @test goal_arrival_rho(s,"off")=="off"
+        goal_arrival_update!(s,D("forward"=>50.,"right"=>0.),goal,1.,1)
+        @test goal_arrival_rho(s,"coarse")=="coarse"
+        s["cooldown"]=0;goal_arrival_update!(s,D("forward"=>5.,"right"=>0.),goal,1.,2)
+        goal_arrival_update!(s,nothing,nothing,0.,3;completed=true)
+        @test goal_arrival_rho(s,"coarse")=="coarse"
+    end
+end
 input["config"]["days"]=2
 input["clock"]["day_us"]=600_000_000
 input["clock"]["phase_boundaries_us"]=[1_000_000,400_000_000,500_000_000,600_000_000]
@@ -77,6 +92,8 @@ mktempdir() do dir
             @test g["home"]["entries"]>0
             @test g["food"]["entries"]>0
             @test g["home"]["selected"]+g["food"]["selected"]>0
+            @test get(g["home"],"rho_fine_decisions",0)>0
+            @test get(g["food"],"rho_fine_decisions",0)>0
             println(a," ",JSON3.write(D(k=>D("entries"=>v["entries"],"selected"=>v["selected"],"rejections"=>v["rejections"]) for (k,v) in g)))
         end
     end

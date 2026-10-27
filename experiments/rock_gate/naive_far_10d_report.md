@@ -457,3 +457,13 @@ When arrival ends, only success/failure is applied to the saved parent pressure 
 Transition events now contain saved_parent_H, success (on outcome), local_H (diagnostic only), and H_after. Both food and home use the same switching function. Daily checkpoints retain the saved state. Historical three-day results above are for the prior implementation and must not be read as evidence for this revision. Validation uses the existing shortened 600-second/day, two-day integration scenario, plus save/resume equivalence and explicit tests that different local H values yield the same parent failure outcome.
 
 Validation completed: goal-arrival/outcome tests 49 PASS (including shortened simulation and checkpoint resume equality); existing mb_parent_checks.jl dependency suite 147 PASS. No new full three-day run was performed for this revision.
+
+## 2026-10-27: fine rho for the active arrival question
+
+With goal arrival enabled and rho enabled, the currently selected home/food purpose uses fine rho while its arrival hypothesis is active. The same tick's recognition chooses the structure map before candidates and steering consume it. Other purposes' retained hypotheses do not force refinement. Search restores the ordinary configured/distance-derived baseline on the next perception decision; explicit rho-off remains off. Fixed coarse is a baseline overridden during arrival; fixed fine remains fine. Expiry during candidate projection takes effect at the next perception decision.
+
+Ground observations are sampled once; body odometry updates the baseline before the current home observation anchors it. Structure tracking is updated once per tick using the final chosen resolution. This refines grouping/boundary potentials over existing rays, not visual sampling density or new world knowledge. Per-purpose rho_baseline, rho_effective and rho_fine_decisions expose the selection and persist with the goal state.
+
+Validation conditions: the existing camp-experience input, goal-arrival ON, shortened two days of 600 seconds/day, including daily checkpoint resume equivalence. Dedicated tests cover both food/home entry, failed hypothesis, actual success, coarse/fine baselines and explicit off.
+
+Final validation: 67 goal-arrival/rho/integration assertions PASS including checkpoint resume equality; 50 home-distance regression assertions PASS. Initial run was invalidated by a source edit during checkpoint verification (source mismatch); the final frozen-source rerun passed. No full three-day trial for this revision.
