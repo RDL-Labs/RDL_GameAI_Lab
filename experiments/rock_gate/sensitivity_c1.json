@@ -1,0 +1,5 @@
+{
+  "npc_a": {"delay": 0.5, "stagnation": 0.5, "energy": 0.5, "contradiction": 0.5},
+  "npc_b": {"delay": 1.0, "stagnation": 1.0, "energy": 1.0, "contradiction": 1.0},
+  "npc_c": {"delay": 1.0, "stagnation": 1.0, "energy": 1.0, "contradiction": 1.0}
+}
