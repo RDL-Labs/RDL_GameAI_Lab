@@ -99,13 +99,13 @@ end
 function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=e->true)
     goal in ("home","food") || error("mb_goal")
     1<=max_depth<=4 && 1<=max_expansions<=64 || error("mb_search_budget")
-    queue=[(node=start,path=String[],cost=0.,visited=Set([start]))]
+    queue=[(node=start,path=String[],cost=0.,visited=Set([start]),path_key="")]
     expanded=0;solution=nothing
     while !isempty(queue) && expanded<max_expansions
-        sort!(queue,by=x->(x.cost,join(x.path,"/")));item=popfirst!(queue);expanded+=1
+        sort!(queue,by=x->(x.cost,x.path_key));item=popfirst!(queue);expanded+=1
         n=get(s["nodes"],item.node,nothing)
         if !isempty(item.path) && n!==nothing && n[goal]
-            solution=item;break
+            solution=(node=item.node,path=item.path,cost=item.cost,visited=item.visited);break
         end
         length(item.path)>=max_depth && continue
         edges=sort([k for (k,e) in s["edges"] if e["from"]==item.node && !(e["to"] in item.visited) &&
@@ -113,9 +113,10 @@ function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=
         for key in Iterators.take(edges,8)
             e=s["edges"][key]
             isempty(item.path) && !first_allowed(e) && continue
-            push!(queue,(node=e["to"],path=vcat(item.path,[key]),cost=item.cost+mb_edge_cost(e),visited=union(item.visited,Set([e["to"]]))))
+            next_path=vcat(item.path,[key])
+            push!(queue,(node=e["to"],path=next_path,cost=item.cost+mb_edge_cost(e),visited=union(item.visited,Set([e["to"]])),path_key=join(next_path,"/")))
         end
-        sort!(queue,by=x->(x.cost,join(x.path,"/")));length(queue)>64 && resize!(queue,64)
+        sort!(queue,by=x->(x.cost,x.path_key));length(queue)>64 && resize!(queue,64)
     end
     (solution=solution,expanded=expanded)
 end

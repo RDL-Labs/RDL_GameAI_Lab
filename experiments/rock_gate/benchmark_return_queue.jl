@@ -34,7 +34,7 @@ results=D()
 length(ARGS)>=3 && include(abspath(ARGS[3]))
 for variant in ("before","after")
     if variant=="after"
-        include(joinpath(@__DIR__,"../../src/lw/learning/mb_return_outlook.jl"))
+        include(length(ARGS)>=4 ? abspath(ARGS[4]) : joinpath(@__DIR__,"../../src/lw/learning/mb_return_outlook.jl"))
     end
     rows=Any[]
     for day in (1,3)
