@@ -83,6 +83,16 @@ function gate_probe!(sec,w,purposes,counts,home)
         println("$(current[]) DAY $(div(sec+1,17280)) elapsed=$(round(time()-started[],digits=1))s");flush(stdout)
     end
 end
+retrieval_arg=findfirst(==("--retrieval-top-k"),ARGS)
+if retrieval_arg!==nothing
+    include(joinpath(@__DIR__,"retrieval_ablation.jl"))
+    k=parse(Int,ARGS[retrieval_arg+1])
+    recognition_path=joinpath(snapshot,"src/lw/learning/mb_recognition.jl")
+    write(recognition_path,restrict_retrieval_source(read(recognition_path,String),k))
+    write(joinpath(out,"retrieval-policy.json"),JSON3.write((mode="strict-top-k",top_k=k,
+        H_expansion=false,weak_fit_expansion=false,scope="MB correspondence retrieval only",
+        ranking="association support times shared-feature coverage; key breaks ties")))
+end
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 include(joinpath(@__DIR__,"food_roads.jl"))
 include(joinpath(@__DIR__,"nearby_food.jl"))
