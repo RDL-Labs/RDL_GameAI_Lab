@@ -1,0 +1,164 @@
+{
+  "measurement": {
+    "gc_seconds": 18.2709027,
+    "process_peak_rss_bytes": 1634394112,
+    "compilation_included": true,
+    "call_seconds": 366.3843739,
+    "allocated_bytes": 181549203529
+  },
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:27190000000:npc_a",
+        "stock_after": 2,
+        "action": "deposit",
+        "actor": "npc_a"
+      }
+    ],
+    "taken": 0,
+    "deposited": 2
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    24,
+    24,
+    21
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 86.68111511173451,
+      "position": [
+        -3.3885541572439593,
+        14.607702166123392
+      ],
+      "distance": 9.250666779063044,
+      "inventory": 1,
+      "out": 2,
+      "in": 1,
+      "deliveries": [],
+      "closestSample": {
+        "sec": 39240,
+        "actor": "npc_b",
+        "position": [
+          -0.1394296981822973,
+          12.04400636179613
+        ],
+        "reserve": 83.15386915450259,
+        "return_active": true
+      },
+      "homeDistance": {
+        "right": -1.523421721542293,
+        "known": true,
+        "profile": "fine",
+        "reason": "near",
+        "check_remaining": 0,
+        "checking": false,
+        "confirmed": 1,
+        "near": true,
+        "scan_selected": 12,
+        "receipt": "op:51838000000:npc_b",
+        "anchors": 10108,
+        "fine_ticks": 37651,
+        "checks": 38,
+        "cooldown": 66,
+        "forward": -9.124364203361841,
+        "coarse_ticks": 14189,
+        "unresolved": 37,
+        "uncertainty": 257.00569743099066
+      }
+    },
+    "npc_a": {
+      "reserve": 90.6693476448127,
+      "position": [
+        -9.205768221478769,
+        2.2271347049133925
+      ],
+      "distance": 9.948903511566353,
+      "inventory": 2,
+      "out": 2,
+      "in": 1,
+      "deliveries": [
+        {
+          "delivered": 2,
+          "us": 27190000000,
+          "day": 1
+        }
+      ],
+      "closestSample": {
+        "sec": 34680,
+        "actor": "npc_a",
+        "position": [
+          -0.19302983852294864,
+          11.966991558434291
+        ],
+        "reserve": 90.63253843213386,
+        "return_active": false
+      },
+      "homeDistance": {
+        "right": 8.991314726113522,
+        "known": true,
+        "profile": "fine",
+        "reason": "near",
+        "check_remaining": 0,
+        "checking": false,
+        "confirmed": 1,
+        "near": true,
+        "scan_selected": 14,
+        "receipt": "op:51838000000:npc_a",
+        "anchors": 14704,
+        "fine_ticks": 43883,
+        "checks": 25,
+        "cooldown": 505,
+        "forward": 4.258748710411248,
+        "coarse_ticks": 7957,
+        "unresolved": 24,
+        "uncertainty": 92.27555979849191
+      }
+    },
+    "npc_c": {
+      "reserve": 86.20204524925809,
+      "position": [
+        19.182247544013606,
+        -3.914905572190608
+      ],
+      "distance": 21.593146443843526,
+      "inventory": 1,
+      "out": 1,
+      "in": 0,
+      "deliveries": [],
+      "closestSample": {
+        "sec": 37380,
+        "actor": "npc_c",
+        "position": [
+          -0.06761531830649248,
+          13.274032746658776
+        ],
+        "reserve": 85.06399476636551,
+        "return_active": true
+      },
+      "homeDistance": {
+        "right": -17.775830622857626,
+        "known": true,
+        "profile": "coarse",
+        "reason": "far_or_unknown",
+        "check_remaining": 0,
+        "checking": false,
+        "confirmed": 1,
+        "near": false,
+        "scan_selected": 15,
+        "receipt": "op:51838000000:npc_c",
+        "anchors": 10066,
+        "fine_ticks": 26295,
+        "checks": 39,
+        "cooldown": 957,
+        "forward": 12.259030100813108,
+        "coarse_ticks": 25545,
+        "unresolved": 38,
+        "uncertainty": 568.8744991631297
+      }
+    }
+  }
+}
