@@ -260,10 +260,17 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         enclosure=[D("x"=>hx-5sin(2pi*i/24),"z"=>hz+5cos(2pi*i/24),
             "radius"=>.8,"height"=>3.,"color"=>"gray","solid"=>true,
             "kind"=>2,"world_id"=>nextid+i,"food_index"=>0) for i in 1:23 if !("--wide-enclosure" in ARGS && i in (1,23))]
+        if "--medium-enclosure" in ARGS
+            @assert "--wide-enclosure" in ARGS
+            # Keep the wall connected: enlarge the two end rocks in place.
+            first(enclosure)["radius"]=1.5
+            last(enclosure)["radius"]=1.5
+        end
         append!(s["obstacles"],enclosure)
         circles=[RDLMigrationProbe.Circle(o["x"],o["z"],o["radius"]) for o in s["obstacles"]]
         @testset "enclosed camp final geometry" begin
             @test length(enclosure)==("--wide-enclosure" in ARGS ? 21 : 23)
+            "--medium-enclosure" in ARGS && (@test last(enclosure)["x"]-first(enclosure)["x"]-3.0 ≈ 2.0)
             @test all(!segment_hit((hx,hz),(hx,hz+10),o,.2) for o in circles)
             @test any(segment_hit((hx,hz),(hx+8,hz),o,.2) for o in circles)
             @test any(segment_hit((hx,hz),(hx-8,hz),o,.2) for o in circles)
