@@ -1,0 +1,309 @@
+{
+  "measurement": {
+    "gc_seconds": 12.9119101,
+    "process_peak_rss_bytes": 1407508480,
+    "compilation_included": true,
+    "call_seconds": 221.162791,
+    "allocated_bytes": 129678051601
+  },
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:17533000000:npc_a",
+        "stock_after": 3,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17547000000:npc_b",
+        "stock_after": 6,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:17931000000:npc_c",
+        "stock_after": 9,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26857000000:npc_c",
+        "stock_after": 8,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26868000000:npc_a",
+        "stock_after": 7,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:26895000000:npc_b",
+        "stock_after": 6,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:42183000000:npc_a",
+        "stock_after": 9,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:42312000000:npc_c",
+        "stock_after": 12,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:44807000000:npc_c",
+        "stock_after": 11,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:44819000000:npc_a",
+        "stock_after": 10,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:48285000000:npc_b",
+        "stock_after": 12,
+        "action": "deposit",
+        "actor": "npc_b"
+      }
+    ],
+    "taken": 5,
+    "deposited": 17
+  },
+  "stock": [
+    0,
+    0,
+    0,
+    21,
+    24,
+    18
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 90.58657399661011,
+      "distance": 0.8044292140673327,
+      "inventory": 0,
+      "position": [
+        -0.047429531018549145,
+        6.803029762855865
+      ],
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 17547000000,
+          "day": 1
+        },
+        {
+          "delivered": 2,
+          "us": 48285000000,
+          "day": 2
+        }
+      ],
+      "landmark": {
+        "records": [
+          {
+            "kind": "observed_home_pair",
+            "us": 8000000,
+            "signature": "orange-large-tall-light"
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 1,
+            "signature": "orange-large-tall-light",
+            "sec": 10
+          },
+          {
+            "angle": 0,
+            "distance": 5.5,
+            "kind": "entrance_view",
+            "stage": 2,
+            "signature": "orange-large-tall-light",
+            "sec": 29
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 3,
+            "signature": "orange-large-tall-light",
+            "sec": 42
+          }
+        ],
+        "stage": 3,
+        "outside_checked": true,
+        "signature": "orange-large-tall-light",
+        "inside_checked": true,
+        "offered": 104,
+        "learned": true,
+        "tour_completed": true,
+        "stage_views": 0,
+        "observations": 31023,
+        "paired_home": 10067,
+        "selected": 57
+      },
+      "afterDayOne": {
+        "out": 3,
+        "in": 3
+      }
+    },
+    "npc_a": {
+      "reserve": 92.19319034062337,
+      "distance": 0.9586035718587366,
+      "inventory": 0,
+      "position": [
+        -0.041541363082311794,
+        6.957703045381809
+      ],
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 17533000000,
+          "day": 1
+        },
+        {
+          "delivered": 3,
+          "us": 42183000000,
+          "day": 2
+        }
+      ],
+      "landmark": {
+        "records": [
+          {
+            "kind": "observed_home_pair",
+            "us": 1000000,
+            "signature": "orange-large-tall-light"
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 1,
+            "signature": "orange-large-tall-light",
+            "sec": 19
+          },
+          {
+            "angle": 0,
+            "distance": 5.5,
+            "kind": "entrance_view",
+            "stage": 2,
+            "signature": "orange-large-tall-light",
+            "sec": 38
+          },
+          {
+            "angle": 1.1368683772161603e-13,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 3,
+            "signature": "orange-large-tall-light",
+            "sec": 51
+          }
+        ],
+        "stage": 3,
+        "outside_checked": true,
+        "signature": "orange-large-tall-light",
+        "inside_checked": true,
+        "offered": 68,
+        "learned": true,
+        "tour_completed": true,
+        "stage_views": 0,
+        "observations": 34173,
+        "paired_home": 7231,
+        "selected": 63
+      },
+      "afterDayOne": {
+        "out": 2,
+        "in": 2
+      }
+    },
+    "npc_c": {
+      "reserve": 92.17920709074382,
+      "distance": 1.1781132816466828,
+      "inventory": 0,
+      "position": [
+        0.09091322582608116,
+        7.174600225507476
+      ],
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 17931000000,
+          "day": 1
+        },
+        {
+          "delivered": 3,
+          "us": 42312000000,
+          "day": 2
+        }
+      ],
+      "landmark": {
+        "records": [
+          {
+            "kind": "observed_home_pair",
+            "us": 1000000,
+            "signature": "orange-large-tall-light"
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 1,
+            "signature": "orange-large-tall-light",
+            "sec": 14
+          },
+          {
+            "angle": 0,
+            "distance": 5.5,
+            "kind": "entrance_view",
+            "stage": 2,
+            "signature": "orange-large-tall-light",
+            "sec": 33
+          },
+          {
+            "angle": 0,
+            "distance": 3,
+            "kind": "entrance_view",
+            "stage": 3,
+            "signature": "orange-large-tall-light",
+            "sec": 46
+          }
+        ],
+        "stage": 3,
+        "outside_checked": true,
+        "signature": "orange-large-tall-light",
+        "inside_checked": true,
+        "offered": 51,
+        "learned": true,
+        "tour_completed": true,
+        "stage_views": 0,
+        "observations": 36549,
+        "paired_home": 10066,
+        "selected": 45
+      },
+      "afterDayOne": {
+        "out": 3,
+        "in": 3
+      }
+    }
+  }
+}
