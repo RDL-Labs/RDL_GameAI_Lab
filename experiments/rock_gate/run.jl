@@ -259,18 +259,18 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         nextid=maximum([get(o,"world_id",0) for o in vcat(s["obstacles"],get(s,"low_obstacles",Any[]))];init=0)
         enclosure=[D("x"=>hx-5sin(2pi*i/24),"z"=>hz+5cos(2pi*i/24),
             "radius"=>.8,"height"=>3.,"color"=>"gray","solid"=>true,
-            "kind"=>2,"world_id"=>nextid+i,"food_index"=>0) for i in 1:23]
+            "kind"=>2,"world_id"=>nextid+i,"food_index"=>0) for i in 1:23 if !("--wide-enclosure" in ARGS && i in (1,23))]
         append!(s["obstacles"],enclosure)
         circles=[RDLMigrationProbe.Circle(o["x"],o["z"],o["radius"]) for o in s["obstacles"]]
         @testset "enclosed camp final geometry" begin
-            @test length(enclosure)==23
+            @test length(enclosure)==("--wide-enclosure" in ARGS ? 21 : 23)
             @test all(!segment_hit((hx,hz),(hx,hz+10),o,.2) for o in circles)
             @test any(segment_hit((hx,hz),(hx+8,hz),o,.2) for o in circles)
             @test any(segment_hit((hx,hz),(hx-8,hz),o,.2) for o in circles)
             for p in s["positions"]
                 @test all(hypot(p[1]-o.x,p[2]-o.z)>o.radius+.2 for o in circles)
             end
-            for i in 1:22
+            for i in 1:length(enclosure)-1
                 @test hypot(enclosure[i]["x"]-enclosure[i+1]["x"],enclosure[i]["z"]-enclosure[i+1]["z"])<1.6
             end
             ids=[o["world_id"] for o in s["obstacles"]]
