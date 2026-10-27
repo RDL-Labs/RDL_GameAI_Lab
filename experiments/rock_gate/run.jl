@@ -251,6 +251,10 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
             "source_sha256"=>bytes2hex(sha256(read(ARGS[transfer_arg+1]))))
     end
     mixed_transfer && mixed_transfer_population!(input)
+    # Remove authored pavement only after layout checks; retain natural wear.
+    if "--no-artificial-roads" in ARGS
+        input["scene"]["artificial_roads"]=Any[]
+    end
     spec=JSON3.read(JSON3.write(input))
     caseout=joinpath(out,label);mkpath(caseout)
     specpath=joinpath(caseout,"input.json");write(specpath,JSON3.write(input))
