@@ -509,3 +509,13 @@ Natural failure-path evidence: C enters home arrival at 34,817 s, saved parent H
 Matched results for C: seed 20261005 sensitivity 2 -> no deliveries, end distance 33.99; same seed sensitivity 1 -> deliveries days 2/3, distance 1.13; seed 20261006 sensitivity 2 -> delivery day 2 only, distance 9.04. These three runs show variation with both sensitivity and stochastic trajectory; they do not establish a generally optimal sensitivity. Shared-world coupling and all-actor seed change remain part of this comparison.
 
 Call time 359.37 s (~5 min 59 s), peak RSS 1.480 GB, cumulative allocation 364.77 GB. Life invariants 16 PASS; route, parent MB and return-outlook audits PASS; all three daily checkpoints saved. Evidence: `arrival_c2_seed20261006_summary.json`. Input-equality check verified only config.seed differs from the prior sensitivity-2 baseline.
+
+## 2026-10-27: seed 20261006, C sensitivity 1 matched trial
+
+Run `outputs/enclosed-c1-seed20261006-3d`, source `50cdaaa`, simulation code unchanged. Same three-day conditions and seeds as the immediately preceding C=2 run; only C delay/stagnation/energy/contradiction change 2 -> 1. A=.5/B=1. Input JSON deep equality after restoring C profile confirms no other input difference.
+
+C again deposits one on day 2 at 17,359 s. On day 3 it picks up at 43,253 s and eats at 43,254 s, then returns empty-handed: arrival-mode entry at 47,234 s with saved parent H=32, confirmed home at 47,244 s (10 s later). Final home distance .967, reserve 89.67, inventory zero. No arrival rejection. Thus navigation improved relative to C=2/seed20261006 (failed arrival, final distance9.04), but day-3 food delivery did not improve: neither delivered on day3. Do not conflate actual return with delivery.
+
+A deposits on both days and finishes home (distance1.18); B deposits only day2 and finishes outside (distance9.06). B's sensitivity is unchanged, emphasizing shared-world interaction. Across the two tested seeds, C=1 finishes home in both, whereas C=2 finishes outside in both; these are only two shared-world trajectories, not a reliable success-rate or optimal-sensitivity estimate.
+
+Call time397.98 s (~6 min38 s), peak RSS1.718 GB, cumulative allocation389.87 GB. Life invariants16 PASS; route/parent MB/return-outlook audits PASS; all daily checkpoints saved. Evidence: `arrival_c1_seed20261006_summary.json`. No defaults or simulation implementation changed.
