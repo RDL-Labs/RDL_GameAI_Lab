@@ -1,0 +1,2342 @@
+{
+  "measurement": {
+    "gc_seconds": 44.3329278,
+    "process_peak_rss_bytes": 1479536640,
+    "compilation_included": true,
+    "call_seconds": 724.5527651,
+    "allocated_bytes": 463217090398
+  },
+  "storage": {
+    "records": [
+      {
+        "status": "performed",
+        "operation": "op:80632000000:npc_c",
+        "stock_after": 24,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:80712000000:npc_b",
+        "stock_after": 23,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:80779000000:npc_a",
+        "stock_after": 22,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:94054000000:npc_b",
+        "stock_after": 25,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:94069000000:npc_a",
+        "stock_after": 28,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:94884000000:npc_c",
+        "stock_after": 31,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:98527000000:npc_c",
+        "stock_after": 30,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:98681000000:npc_b",
+        "stock_after": 29,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:98719000000:npc_a",
+        "stock_after": 28,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:111239000000:npc_b",
+        "stock_after": 31,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:112881000000:npc_c",
+        "stock_after": 34,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:112969000000:npc_a",
+        "stock_after": 37,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:116331000000:npc_c",
+        "stock_after": 36,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:116436000000:npc_b",
+        "stock_after": 35,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:116557000000:npc_a",
+        "stock_after": 34,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:128087000000:npc_a",
+        "stock_after": 37,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:129855000000:npc_b",
+        "stock_after": 40,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:129866000000:npc_c",
+        "stock_after": 43,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:134143000000:npc_c",
+        "stock_after": 42,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:134357000000:npc_b",
+        "stock_after": 41,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:134504000000:npc_a",
+        "stock_after": 40,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:145737000000:npc_c",
+        "stock_after": 43,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:147138000000:npc_b",
+        "stock_after": 46,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:147352000000:npc_a",
+        "stock_after": 49,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:152017000000:npc_c",
+        "stock_after": 48,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:152275000000:npc_b",
+        "stock_after": 47,
+        "action": "retrieve",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:152367000000:npc_a",
+        "stock_after": 46,
+        "action": "retrieve",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:162838000000:npc_c",
+        "stock_after": 49,
+        "action": "deposit",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:164245000000:npc_a",
+        "stock_after": 52,
+        "action": "deposit",
+        "actor": "npc_a"
+      },
+      {
+        "status": "performed",
+        "operation": "op:169463000000:npc_b",
+        "stock_after": 54,
+        "action": "deposit",
+        "actor": "npc_b"
+      },
+      {
+        "status": "performed",
+        "operation": "op:169960000000:npc_c",
+        "stock_after": 53,
+        "action": "retrieve",
+        "actor": "npc_c"
+      },
+      {
+        "status": "performed",
+        "operation": "op:170318000000:npc_a",
+        "stock_after": 52,
+        "action": "retrieve",
+        "actor": "npc_a"
+      }
+    ],
+    "taken": 26,
+    "deposited": 78
+  },
+  "stock": [
+    0,
+    8,
+    0,
+    0,
+    0,
+    6,
+    0,
+    12,
+    0
+  ],
+  "actors": {
+    "npc_b": {
+      "reserve": 95.61004791859635,
+      "position": [
+        -0.76056399956445,
+        6.7611390072493105
+      ],
+      "home_distance": 1.0760065918896309,
+      "inventory": 0,
+      "deliveries": [
+        {
+          "delivered": 1,
+          "us": 17458000000,
+          "day": 2
+        },
+        {
+          "delivered": 3,
+          "us": 43218000000,
+          "day": 3
+        },
+        {
+          "delivered": 3,
+          "us": 60508000000,
+          "day": 4
+        },
+        {
+          "delivered": 3,
+          "us": 77881000000,
+          "day": 5
+        },
+        {
+          "delivered": 3,
+          "us": 94054000000,
+          "day": 6
+        },
+        {
+          "delivered": 3,
+          "us": 111239000000,
+          "day": 7
+        },
+        {
+          "delivered": 3,
+          "us": 129855000000,
+          "day": 8
+        },
+        {
+          "delivered": 3,
+          "us": 147138000000,
+          "day": 9
+        },
+        {
+          "delivered": 2,
+          "us": 169463000000,
+          "day": 10
+        }
+      ],
+      "goals": {
+        "food": {
+          "mode": "approach",
+          "entries": 29,
+          "rejections": 2,
+          "selected": 885,
+          "completed": 26,
+          "rho_fine_decisions": 83615,
+          "rho_baseline": "coarse",
+          "rho_effective": "fine",
+          "parent_mode": "approach",
+          "retained_parent_events": [
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 0,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17296000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17296000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17431000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17431000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34636000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34636000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34637000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34637000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34638000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34638000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 51921000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 51921000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 51922000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 51922000000,
+              "H_after": 0
+            },
+            {
+              "kind": "search_restored",
+              "saved_parent_H": 0,
+              "local_H": 32,
+              "us": 52222000000,
+              "success": false,
+              "H_after": 1
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 1,
+              "us": 52286000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 1,
+              "local_H": 0,
+              "us": 52299000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 52299000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69214000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69214000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69215000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69215000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69216000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69216000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86491000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86491000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86492000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86492000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86493000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86493000000,
+              "H_after": 0
+            },
+            {
+              "kind": "search_restored",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 104056000000,
+              "success": false,
+              "H_after": 1
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 104634000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 104659000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 104659000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 104660000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 104660000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 104661000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 104661000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121062000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121062000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121063000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121063000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121064000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121064000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 138340000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138340000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 138341000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138341000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 138342000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138342000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155621000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155621000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155622000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155622000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155623000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155623000000,
+              "H_after": 0
+            }
+          ]
+        },
+        "home": {
+          "mode": "search",
+          "entries": 14,
+          "rejections": 0,
+          "selected": 286,
+          "completed": 14,
+          "rho_fine_decisions": 327,
+          "rho_baseline": "fine",
+          "rho_effective": "fine",
+          "parent_mode": "search",
+          "retained_parent_events": [
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 8000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 83000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 92000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 252000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17357000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17376000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17378000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17396000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17398000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17436000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17457000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 3,
+              "us": 43207000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 3,
+              "local_H": 0,
+              "us": 43218000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 51953000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 60508000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 77858000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 77881000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 93997000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 94054000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 103900000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 111239000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 129842000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 129855000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 147113000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 147138000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 169416000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 169463000000,
+              "success": true,
+              "H_after": 0
+            }
+          ]
+        }
+      }
+    },
+    "npc_a": {
+      "reserve": 97.23586250770269,
+      "position": [
+        0.04342203650750466,
+        7.186218273991528
+      ],
+      "home_distance": 1.1870127492179263,
+      "inventory": 0,
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 17717000000,
+          "day": 2
+        },
+        {
+          "delivered": 3,
+          "us": 43235000000,
+          "day": 3
+        },
+        {
+          "delivered": 3,
+          "us": 60520000000,
+          "day": 4
+        },
+        {
+          "delivered": 3,
+          "us": 77820000000,
+          "day": 5
+        },
+        {
+          "delivered": 3,
+          "us": 94069000000,
+          "day": 6
+        },
+        {
+          "delivered": 3,
+          "us": 112969000000,
+          "day": 7
+        },
+        {
+          "delivered": 3,
+          "us": 128087000000,
+          "day": 8
+        },
+        {
+          "delivered": 3,
+          "us": 147352000000,
+          "day": 9
+        },
+        {
+          "delivered": 3,
+          "us": 164245000000,
+          "day": 10
+        }
+      ],
+      "goals": {
+        "food": {
+          "mode": "approach",
+          "entries": 29,
+          "rejections": 0,
+          "selected": 491,
+          "completed": 28,
+          "rho_fine_decisions": 83845,
+          "rho_baseline": "coarse",
+          "rho_effective": "fine",
+          "parent_mode": "approach",
+          "retained_parent_events": [
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 0,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17297000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17297000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17621000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17621000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17623000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17623000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17646000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17646000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34647000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34647000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34648000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34648000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34649000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34649000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 51921000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 51921000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 51922000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 51922000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 51923000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 51923000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69209000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69209000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69210000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69210000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69211000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69211000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86493000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86493000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86494000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86563000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86583000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86583000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 103780000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 103780000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 103781000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 103781000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 103794000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 103794000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121076000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121076000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121077000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121077000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121078000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121078000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 138354000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138354000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 138355000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 1.5,
+              "us": 138365000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 1.5,
+              "local_H": 0,
+              "us": 138388000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138388000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155640000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155640000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155641000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155641000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155642000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155642000000,
+              "H_after": 0
+            }
+          ]
+        },
+        "home": {
+          "mode": "search",
+          "entries": 16,
+          "rejections": 0,
+          "selected": 328,
+          "completed": 16,
+          "rho_fine_decisions": 369,
+          "rho_baseline": "fine",
+          "rho_effective": "fine",
+          "parent_mode": "search",
+          "retained_parent_events": [
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 1000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 79000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 93000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 102000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 255000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17363000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17393000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17399000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17416000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17419000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0.5,
+              "us": 17462000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0.5,
+              "local_H": 0,
+              "us": 17487000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17499000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17520000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17530000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17716000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 2,
+              "us": 43222000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 2,
+              "local_H": 0,
+              "us": 43235000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 3.5,
+              "us": 60499000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 3.5,
+              "local_H": 0,
+              "us": 60520000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 1,
+              "us": 77794000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 1,
+              "local_H": 0,
+              "us": 77820000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86516000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 94069000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 112944000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 112969000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 1,
+              "us": 128048000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 1,
+              "local_H": 0,
+              "us": 128079000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 147327000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 147352000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 6,
+              "us": 164205000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 6,
+              "local_H": 0,
+              "us": 164245000000,
+              "success": true,
+              "H_after": 0
+            }
+          ]
+        }
+      }
+    },
+    "npc_c": {
+      "reserve": 96.8387576375911,
+      "position": [
+        -0.6576786169626545,
+        6.4798064957125145
+      ],
+      "home_distance": 0.8140979281006883,
+      "inventory": 0,
+      "deliveries": [
+        {
+          "delivered": 3,
+          "us": 17546000000,
+          "day": 2
+        },
+        {
+          "delivered": 3,
+          "us": 43343000000,
+          "day": 3
+        },
+        {
+          "delivered": 3,
+          "us": 60521000000,
+          "day": 4
+        },
+        {
+          "delivered": 3,
+          "us": 78170000000,
+          "day": 5
+        },
+        {
+          "delivered": 3,
+          "us": 94884000000,
+          "day": 6
+        },
+        {
+          "delivered": 3,
+          "us": 112881000000,
+          "day": 7
+        },
+        {
+          "delivered": 3,
+          "us": 129866000000,
+          "day": 8
+        },
+        {
+          "delivered": 3,
+          "us": 145737000000,
+          "day": 9
+        },
+        {
+          "delivered": 3,
+          "us": 162838000000,
+          "day": 10
+        }
+      ],
+      "goals": {
+        "food": {
+          "mode": "approach",
+          "entries": 29,
+          "rejections": 3,
+          "selected": 1169,
+          "completed": 25,
+          "rho_fine_decisions": 82839,
+          "rho_baseline": "fine",
+          "rho_effective": "fine",
+          "parent_mode": "approach",
+          "retained_parent_events": [
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 0,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17293000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17293000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17504000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17504000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17506000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17506000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17511000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17511000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34635000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34635000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34636000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34636000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 34637000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 34637000000,
+              "H_after": 0
+            },
+            {
+              "kind": "search_restored",
+              "saved_parent_H": 0,
+              "local_H": 19.076923076923077,
+              "us": 52199000000,
+              "success": false,
+              "H_after": 1
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 18,
+              "us": 52259000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 18,
+              "local_H": 0,
+              "us": 52274000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 52274000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 52275000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 52275000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 52276000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 52276000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69221000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69221000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69222000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69222000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 69223000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 69223000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86501000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86501000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86502000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86502000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 86503000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 86503000000,
+              "H_after": 0
+            },
+            {
+              "kind": "search_restored",
+              "saved_parent_H": 0,
+              "local_H": 30,
+              "us": 104048000000,
+              "success": false,
+              "H_after": 1
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 104108000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121085000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121085000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121086000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121086000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 121087000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 121087000000,
+              "H_after": 0
+            },
+            {
+              "kind": "search_restored",
+              "saved_parent_H": 0,
+              "local_H": 32,
+              "us": 138609000000,
+              "success": false,
+              "H_after": 1
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 1,
+              "us": 138675000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 1,
+              "local_H": 0,
+              "us": 138698000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138698000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 138700000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138700000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 138701000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138701000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155610000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155610000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155611000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155611000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 155612000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 155612000000,
+              "H_after": 0
+            }
+          ]
+        },
+        "home": {
+          "mode": "search",
+          "entries": 16,
+          "rejections": 0,
+          "selected": 245,
+          "completed": 16,
+          "rho_fine_decisions": 289,
+          "rho_baseline": "fine",
+          "rho_effective": "fine",
+          "parent_mode": "search",
+          "retained_parent_events": [
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 1000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 73000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 87000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 96000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 255000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17356000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17382000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17389000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17415000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17420000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17435000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17443000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17464000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17474000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 17522000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 17545000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 43321000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 43343000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 51993000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 60521000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 78144000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 78170000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 5,
+              "us": 94867000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 5,
+              "local_H": 0,
+              "us": 94884000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 112864000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 112881000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 32,
+              "us": 129836000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 32,
+              "local_H": 0,
+              "us": 129866000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 0,
+              "us": 138613000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 0,
+              "local_H": 0,
+              "us": 145735000000,
+              "success": true,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_question",
+              "saved_parent_H": 4,
+              "us": 162811000000,
+              "H_after": 0
+            },
+            {
+              "kind": "arrival_confirmed",
+              "saved_parent_H": 4,
+              "local_H": 0,
+              "us": 162838000000,
+              "success": true,
+              "H_after": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}
