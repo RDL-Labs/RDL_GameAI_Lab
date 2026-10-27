@@ -1,0 +1,484 @@
+{
+  "trajectorySamplesMatched": 6084,
+  "atClosest": {
+    "sec": 121680,
+    "position": [
+      0.3318732415760133,
+      12.71213538331933
+    ],
+    "yaw": -166.7856008358571,
+    "returning": true,
+    "action": "scan",
+    "method": "cue:arrangement:shape-ochre/shape-orange/1:-5",
+    "question": "target_observed",
+    "energy": {
+      "rule": "finite-energy-field-v1",
+      "selected": "2",
+      "status": "selected",
+      "action": "walk",
+      "rows": [
+        {
+          "clear": true,
+          "expected_delta": {
+            "burst": 0,
+            "strain": 0.000625,
+            "reserve": -0.00046296296295622597,
+            "damage": 0
+          },
+          "cost": 2.0006297451652197,
+          "resistance": 1.25,
+          "ref": "0",
+          "status": "performed",
+          "action": "walk",
+          "goal_cost": 2,
+          "load": 0
+        },
+        {
+          "clear": false,
+          "expected_delta": {
+            "burst": 0,
+            "strain": 0,
+            "reserve": -0.00023148148147811298,
+            "damage": 0
+          },
+          "cost": null,
+          "resistance": 1.25,
+          "ref": "1",
+          "status": "blocked",
+          "action": "walk",
+          "goal_cost": 1.5,
+          "load": 0
+        },
+        {
+          "clear": true,
+          "expected_delta": {
+            "burst": 0,
+            "strain": 0.000625,
+            "reserve": -0.00046296296295622597,
+            "damage": 0
+          },
+          "cost": 1.0006297451652202,
+          "resistance": 1.25,
+          "ref": "2",
+          "status": "performed",
+          "action": "walk",
+          "goal_cost": 1,
+          "load": 0
+        },
+        {
+          "clear": true,
+          "expected_delta": {
+            "burst": 0,
+            "strain": 0.000625,
+            "reserve": -0.00046296296295622597,
+            "damage": 0
+          },
+          "cost": 1.5006297451652202,
+          "resistance": 1.25,
+          "ref": "3",
+          "status": "performed",
+          "action": "walk",
+          "goal_cost": 1.5,
+          "load": 0
+        },
+        {
+          "clear": true,
+          "expected_delta": {
+            "burst": 0,
+            "strain": 0.000625,
+            "reserve": -0.00046296296295622597,
+            "damage": 0
+          },
+          "cost": 2.0006297451652197,
+          "resistance": 1.25,
+          "ref": "4",
+          "status": "performed",
+          "action": "walk",
+          "goal_cost": 2,
+          "load": 0
+        }
+      ]
+    },
+    "obstacleGroups": [
+      {
+        "outside_observation": "unknown",
+        "samples": [
+          17,
+          18
+        ],
+        "points": [
+          [
+            -0.8884457578362687,
+            0.5129443974471508
+          ],
+          [
+            -0.6874421490156402,
+            1.190684729359424
+          ]
+        ],
+        "kind": "obstacle",
+        "boundaries": [
+          {
+            "samples": [
+              16,
+              17
+            ],
+            "status": "observed_transition"
+          },
+          {
+            "samples": [
+              18,
+              19
+            ],
+            "status": "unresolved_interval"
+          }
+        ],
+        "layer": "obstacle",
+        "links": [
+          {
+            "samples": [
+              17,
+              18
+            ],
+            "status": "sampled_continuity"
+          }
+        ],
+        "continuity": "between_samples_unverified"
+      },
+      {
+        "outside_observation": "unknown",
+        "samples": [
+          19
+        ],
+        "points": [
+          [
+            0,
+            10.631817592685081
+          ]
+        ],
+        "kind": "obstacle",
+        "boundaries": [
+          {
+            "samples": [
+              18,
+              19
+            ],
+            "status": "unresolved_interval"
+          },
+          {
+            "samples": [
+              19,
+              20
+            ],
+            "status": "unresolved_interval"
+          }
+        ],
+        "layer": "obstacle",
+        "links": [],
+        "continuity": "between_samples_unverified"
+      },
+      {
+        "outside_observation": "unknown",
+        "samples": [
+          20
+        ],
+        "points": [
+          [
+            0.8460519527242347,
+            1.4654049679612362
+          ]
+        ],
+        "kind": "obstacle",
+        "boundaries": [
+          {
+            "samples": [
+              19,
+              20
+            ],
+            "status": "unresolved_interval"
+          },
+          {
+            "samples": [
+              20,
+              21
+            ],
+            "status": "observed_transition"
+          }
+        ],
+        "layer": "obstacle",
+        "links": [],
+        "continuity": "between_samples_unverified"
+      }
+    ]
+  },
+  "sequence": [
+    {
+      "sec": 121665,
+      "position": [
+        0.21938414463851885,
+        14.339416316348888
+      ],
+      "yaw": 76.96439916414289,
+      "action": "scan",
+      "method": "survey",
+      "question": "target_observed"
+    },
+    {
+      "sec": 121666,
+      "position": [
+        0.21938414463851885,
+        14.339416316348888
+      ],
+      "yaw": -13.03560083585711,
+      "action": "walk",
+      "method": "step_90",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.5,
+        "attraction": -0.5,
+        "repulsion": 0,
+        "road": 0
+      },
+      "approach_angle": 90
+    },
+    {
+      "sec": 121667,
+      "position": [
+        0.7064991961184017,
+        14.452194535087044
+      ],
+      "yaw": 76.96439916414289,
+      "action": "walk",
+      "method": "reposition_-45",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.5000000000000001,
+        "attraction": -0.5000000000000001,
+        "repulsion": 0,
+        "road": 0
+      },
+      "approach_angle": -45
+    },
+    {
+      "sec": 121668,
+      "position": [
+        0.9711953089979721,
+        14.876383134446392
+      ],
+      "yaw": 31.96439916414289,
+      "action": "walk",
+      "method": "reposition_-90",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.5,
+        "attraction": -0.5,
+        "repulsion": 0,
+        "road": 0
+      },
+      "approach_angle": -90
+    },
+    {
+      "sec": 121669,
+      "position": [
+        0.5470067096386239,
+        15.141079247325964
+      ],
+      "yaw": -58.03560083585711,
+      "action": "walk",
+      "method": "cue:shape:orange:-6",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.49999999999999994,
+        "attraction": -0.49999999999999994,
+        "repulsion": 0,
+        "road": 0
+      },
+      "approach_angle": -86.25
+    },
+    {
+      "sec": 121670,
+      "position": [
+        0.255134069673319,
+        14.735110822396532
+      ],
+      "yaw": -144.2856008358571,
+      "action": "walk",
+      "method": "opening:-2",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.5217531992618777,
+        "attraction": -0.4903926402016152,
+        "repulsion": 0,
+        "road": 0.03136055906026244
+      },
+      "approach_angle": -41.25
+    },
+    {
+      "sec": 121671,
+      "position": [
+        0.3033661822734106,
+        14.23744259625171
+      ],
+      "yaw": 174.4643991641429,
+      "action": "scan",
+      "method": "cue:sky:orange:2",
+      "question": "target_observed"
+    },
+    {
+      "sec": 121672,
+      "position": [
+        0.3033661822734106,
+        14.23744259625171
+      ],
+      "yaw": -148.0356008358571,
+      "action": "walk",
+      "method": "cue:shape:orange:-4",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.5447060529713954,
+        "attraction": -0.49999999999999994,
+        "repulsion": 3.5394616599021807e-7,
+        "road": 0.04470640691756147
+      },
+      "approach_angle": -60
+    },
+    {
+      "sec": 121673,
+      "position": [
+        0.5383762288745606,
+        13.796114738535335
+      ],
+      "yaw": 151.9643991641429,
+      "action": "walk",
+      "method": "cue:sky:green:6",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.5544288998282803,
+        "attraction": -0.49999999999999994,
+        "repulsion": 0,
+        "road": 0.05442889982828025
+      },
+      "approach_angle": 86.25
+    },
+    {
+      "sec": 121674,
+      "position": [
+        0.1133636804267355,
+        13.532743643572571
+      ],
+      "yaw": -121.78560083585711,
+      "action": "walk",
+      "method": "cue:shape:gray:-4",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.46038324500307676,
+        "attraction": -0.4903926402016152,
+        "repulsion": 0.03000939519853844,
+        "road": 0
+      },
+      "approach_angle": -41.25
+    },
+    {
+      "sec": 121675,
+      "position": [
+        -0.03252504289240579,
+        13.05450052505615
+      ],
+      "yaw": -163.0356008358571,
+      "action": "scan",
+      "method": "cue:arrangement:shape-gray/shape-green/5:2",
+      "question": "target_observed"
+    },
+    {
+      "sec": 121676,
+      "position": [
+        -0.03252504289240579,
+        13.05450052505615
+      ],
+      "yaw": -140.5356008358571,
+      "action": "scan",
+      "method": "cue:surface:obstacle:0",
+      "question": "target_observed"
+    },
+    {
+      "sec": 121677,
+      "position": [
+        -0.03252504289240579,
+        13.05450052505615
+      ],
+      "yaw": -125.53560083585711,
+      "action": "walk",
+      "method": "reposition_-90",
+      "question": "target_observed",
+      "potential": {
+        "total": -0.40545946990031706,
+        "attraction": -0.4903926402016152,
+        "repulsion": 0.08493317030129816,
+        "road": 0
+      },
+      "approach_angle": -101.25
+    },
+    {
+      "sec": 121678,
+      "position": [
+        0.3318732415760133,
+        12.71213538331933
+      ],
+      "yaw": 133.2143991641429,
+      "action": "scan",
+      "method": "cue:arrangement:sky-brown/sky-brown/6:1",
+      "question": "target_observed"
+    },
+    {
+      "sec": 121679,
+      "position": [
+        0.3318732415760133,
+        12.71213538331933
+      ],
+      "yaw": 148.2143991641429,
+      "action": "scan",
+      "method": "cue:sky:orange:6",
+      "question": "target_observed"
+    },
+    {
+      "sec": 121680,
+      "position": [
+        0.3318732415760133,
+        12.71213538331933
+      ],
+      "yaw": -166.7856008358571,
+      "action": "scan",
+      "method": "cue:arrangement:shape-ochre/shape-orange/1:-5",
+      "question": "target_observed"
+    }
+  ],
+  "exit": [
+    {
+      "stage": "before_steering",
+      "position": [
+        -0.0337667504446206,
+        10.964543524288402
+      ],
+      "yaw": 5.752252963692456,
+      "action": "walk",
+      "method": "horizon_0"
+    },
+    {
+      "stage": "selected",
+      "position": [
+        -0.0337667504446206,
+        10.964543524288402
+      ],
+      "yaw": 5.752252963692456,
+      "action": "walk",
+      "method": "horizon_0",
+      "potential": {
+        "total": 0.6731048849417136,
+        "attraction": -0.4903926402016152,
+        "repulsion": 1.1634975251433288,
+        "road": 0
+      },
+      "approach_angle": -11.25
+    }
+  ]
+}
