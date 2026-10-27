@@ -39,10 +39,11 @@ function configured_camp_landmark_observe!(s,view,home,observing,now)
         isempty(s["records"]) && push!(s["records"],D("us"=>now,"kind"=>"observed_home_pair","signature"=>view["signature"]))
     end
 end
-function configured_camp_landmark_tour!(s,home,position,yaw,sec,view,reserve,strain,local_us,clock)
+function configured_camp_landmark_tour!(s,home,position,yaw,sec,view,reserve,strain,local_us,clock;experience=false)
     (s["tour_completed"] || sec>=1200 || reserve<=0 || strain>=.8 || local_us>=clock.quiet_night_us) && return nothing
     # Explicit scaffolding visits both sides of the known test entrance; never used after day one.
-    offsets=(3.,5.5,3.);stage=s["stage"];target=(Float64(home[1]),Float64(home[2])+offsets[stage])
+    offsets=experience ? ((0.,3.),(0.,5.5),(0.,3.),(-2.,1.),(2.,1.),(0.,1.)) : ((0.,3.),(0.,5.5),(0.,3.))
+    stage=s["stage"];offset=offsets[stage];target=(Float64(home[1])+offset[1],Float64(home[2])+offset[2])
     dx=target[1]-position[1];dz=target[2]-position[2];d=hypot(dx,dz)
     p=D("configured_observation"=>true,"method"=>"configured_camp_landmark_tour")
     if d>.15
@@ -58,7 +59,7 @@ function configured_camp_landmark_tour!(s,home,position,yaw,sec,view,reserve,str
         s[stage==2 ? "outside_checked" : "inside_checked"]=true
         push!(s["records"],D("sec"=>sec,"kind"=>"entrance_view","stage"=>stage,"signature"=>view["signature"],"angle"=>view["angle"],"distance"=>view["distance"]))
         s["stage_views"]=0
-        stage==3 ? (s["tour_completed"]=true) : (s["stage"]+=1)
+        stage==length(offsets) ? (s["tour_completed"]=true) : (s["stage"]+=1)
     end
     merge(p,D("action"=>"scan","scan_angle"=>0.))
 end

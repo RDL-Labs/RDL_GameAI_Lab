@@ -48,6 +48,7 @@ include(joinpath(@__DIR__, "../learning/mb_censored.jl"))
 include(joinpath(@__DIR__, "../learning/mb_parent.jl"))
 include(joinpath(@__DIR__, "../learning/mb_return_outlook.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
+include(joinpath(@__DIR__, "../learning/mb_place.jl"))
 include(joinpath(@__DIR__, "../learning/mb_sleep.jl"))
 include(joinpath(@__DIR__, "../decision/lateral_bias.jl"))
 include(joinpath(@__DIR__, "../learning/harvest_learning.jl"))
@@ -206,6 +207,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     food=Any[f for f in spec.food];dropped=cargo_ground()
     observation_states=Dict(a=>configured_observation_state(w.positions[a]) for a in IDS)
     configured_camp_landmark=get(spec,:configured_camp_landmark,false)
+    configured_camp_experience=get(spec,:configured_camp_experience,false)
+    check(!configured_camp_experience || configured_camp_landmark,"camp_experience_requires_landmark")
+    configured_camp_experience && foreach(a->(mb_maps[a]["place_mb"]=mb_place_state()),IDS)
     check(!configured_camp_landmark || (configured_observation_enabled && landmark_routes),"camp_landmark_requires_observation")
     configured_camp_landmark && foreach(a->(observation_states[a]["camp_landmark"]=configured_camp_landmark_state()),IDS)
     yaw=Dict(a=>0. for a in IDS);stock=Int[f.stock for f in food]
@@ -363,6 +367,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             observing=configured_observation_enabled && now<clock.day_us
             camp_view=configured_camp_landmark ? configured_camp_landmark_view(landmark_objects,w.positions[a],yaw[a];night=phase=="night") : nothing
             configured_camp_landmark && configured_camp_landmark_observe!(observation_states[a]["camp_landmark"],camp_view,home,observing,now)
+            if configured_camp_experience
+                observing && mb_place_collect!(mb_maps[a]["place_mb"],mb_maps[a],now)
+                mb_place_recall!(mb_maps[a]["place_mb"],camp_view,get(ground_receipts,a,nothing),at_home)
+            end
             if night_fear_enabled
                 fear=mb_maps[a]["night_fear"]
                 protected_home=at_home || get(hazard_views[a],"safe_zone",false)
@@ -474,7 +482,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
 
             if observing && plan===nothing
                 plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
-                plan===nothing && configured_camp_landmark && (plan=configured_camp_landmark_tour!(observation_states[a]["camp_landmark"],spec.home,w.positions[a],yaw[a],sec,camp_view,w.bodies[a].reserve,w.bodies[a].strain,local_us,clock))
+                plan===nothing && configured_camp_landmark && (plan=configured_camp_landmark_tour!(observation_states[a]["camp_landmark"],spec.home,w.positions[a],yaw[a],sec,camp_view,w.bodies[a].reserve,w.bodies[a].strain,local_us,clock;experience=configured_camp_experience))
+                if plan===nothing && configured_camp_experience && observation_states[a]["camp_landmark"]["tour_completed"] && !mb_maps[a]["place_mb"]["complete"] && at_home
+                    plan=D("action"=>"rest","method"=>"configured_camp_place_rest","configured_observation"=>true,"configured_place_rest"=>true)
+                end
                 plan===nothing && (plan=configured_observation_plan(observation_states[a],w.positions[a],yaw[a],sec,local_us,clock,w.bodies[a].reserve,w.bodies[a].strain))
             end
             if plan===nothing
@@ -599,7 +610,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             project_rho_affordance!(candidates,ground_models[a]["structures"]["observation"])
                         end
                         if configured_camp_landmark && family=="home"
-                            c=configured_camp_landmark_candidate!(observation_states[a]["camp_landmark"],camp_view,moves[a])
+                            c=configured_camp_experience ? mb_place_candidate!(mb_maps[a]["place_mb"],moves[a]) : configured_camp_landmark_candidate!(observation_states[a]["camp_landmark"],camp_view,moves[a])
                             c!==nothing && push!(candidates,c)
                         end
                         mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))
@@ -607,6 +618,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
                         plan=choose_method!(s,candidates,source)
                         get(plan,"configured_camp_landmark",false) && (observation_states[a]["camp_landmark"]["selected"]+=1)
+                        if haskey(plan,"mb_place")
+                            mb_maps[a]["place_mb"]["selected"]+=1
+                            get(plan,"mb_place_memory",false) && (mb_maps[a]["place_mb"]["memory_selected"]+=1)
+                        end
                         get(plan,"mb_return_link",false) && (mb_maps[a]["return_outlook"]["selected"]+=1)
                         general_landmarks && record_cue_selection!(cue_states[a],plan,s.H)
                         movement_inertia && record_continuation!(inertia[a],plan,s,source)
@@ -665,7 +680,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=choose_method!(loops[a][family],[merge(plan,D("method"=>"work","priority"=>5.,"question"=>question))],source)
                 pending[a]=(family=family,source=source,phase=phase,question=question,distance=nothing,ref=nothing,status="unexecuted")
             end
-            if orientation && !get(plan,"configured_observation",false) && plan["action"]=="scan" && !get(plan,"safety",false) && !get(plan,"home_distance_confirm",false) && !(general_landmarks && haskey(plan,"cue_kind")) && !haskey(plan,"mb_edge")
+            if orientation && !get(plan,"configured_observation",false) && plan["action"]=="scan" && !get(plan,"safety",false) && !get(plan,"home_distance_confirm",false) && !haskey(plan,"mb_place") && !(general_landmarks && haskey(plan,"cue_kind")) && !haskey(plan,"mb_edge")
                 plan["scan_angle"]=orientation_scan!(sky[a],clock)
             end
             plan["purpose_family"]=returning ? "home" : "food"
@@ -894,6 +909,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 use_trail!(trails[a],a,op,get(plan,"trail_trace",nothing),get(plan,"method",nothing),status,plan["trail_parent"].reserve,plan["trail_parent"].H,refs)
             end
             configured_observation_enabled && now<clock.day_us && configured_observation_record!(observation_states[a],mb_maps[a],w.positions[a],action,now,clock.day_us)
+            configured_camp_experience && now<clock.day_us && configured_camp_place_rest!(mb_maps[a]["place_mb"],observation_states[a]["camp_landmark"],loops[a]["home"],plan,status,homes[a]!==nothing && homes[a]["distance"]<=1.25,now)
             counts[a][action]=get(counts[a],action,0)+1
             sig=(phase,leg,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))
             if get(previous,a,nothing)!=sig
