@@ -1,0 +1,98 @@
+{
+  "run": "outputs/naive-far-3actors-10d-20261027/ordinary/",
+  "measurement": {
+    "gc_seconds": 141.4306159,
+    "process_peak_rss_bytes": 1441853440,
+    "compilation_included": true,
+    "call_seconds": 1440.2895685,
+    "allocated_bytes": 1287044413698
+  },
+  "storage": {
+    "deposited": 76,
+    "taken": 26,
+    "remaining": 50
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 94.44657663930238,
+      "distance": 1.1873337154038617,
+      "completions": 9,
+      "days": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "counts": {
+        "rest": 146166,
+        "walk": 9926,
+        "eat": 10,
+        "pickup": 24,
+        "deposit": 9,
+        "retrieve": 9,
+        "scan": 16656
+      },
+      "minDailyReserve": 70.73805418812928,
+      "transferred": false
+    },
+    "npc_a": {
+      "reserve": 96.3271456165252,
+      "distance": 1,
+      "completions": 9,
+      "days": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "counts": {
+        "rest": 151524,
+        "walk": 4862,
+        "eat": 10,
+        "pickup": 28,
+        "deposit": 9,
+        "retrieve": 9,
+        "scan": 16358
+      },
+      "minDailyReserve": 70.73587855725711,
+      "transferred": false
+    },
+    "npc_c": {
+      "reserve": 94.35566505473062,
+      "distance": 1.1212313396797742,
+      "completions": 9,
+      "days": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "counts": {
+        "rest": 143674,
+        "walk": 9613,
+        "eat": 10,
+        "pickup": 28,
+        "deposit": 9,
+        "retrieve": 8,
+        "scan": 19458
+      },
+      "minDailyReserve": 70.73582573931213,
+      "transferred": false
+    }
+  }
+}
