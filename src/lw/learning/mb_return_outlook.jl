@@ -17,21 +17,23 @@ function mb_return_outlook!(s,now)
     end
     queue=Any[]
     for key in sort([k for (k,n) in s["nodes"] if n["home"]])
-        push!(queue,(node=key,path=String[],cost=0.,energy=0.))
+        push!(queue,(node=key,path=String[],cost=0.,energy=0.,path_key=""))
     end
     expanded=0
     while !isempty(queue) && expanded<256
-        sort!(queue,by=x->(x.cost,x.node,join(x.path,"/")))
+        sort!(queue,by=x->(x.cost,x.node,x.path_key))
         item=popfirst!(queue);haskey(paths,item.node) && continue
         expanded+=1
         paths[item.node]=D("path"=>item.path,"cost"=>item.cost,"energy"=>item.energy)
         length(item.path)>=32 && continue
         for key in get(incoming,item.node,String[])
             e=s["edges"][key];haskey(paths,e["from"]) && continue
-            push!(queue,(node=e["from"],path=vcat([key],item.path),cost=item.cost+mb_edge_cost(e),
-                energy=item.energy+e["energy_sum"]/max(1,e["samples"])))
+            next_path=vcat([key],item.path)
+            # Cache the exact original tie-break key once, not on every comparison.
+            push!(queue,(node=e["from"],path=next_path,cost=item.cost+mb_edge_cost(e),
+                energy=item.energy+e["energy_sum"]/max(1,e["samples"]),path_key=join(next_path,"/")))
         end
-        sort!(queue,by=x->(x.cost,x.node,join(x.path,"/")));length(queue)>256 && resize!(queue,256)
+        sort!(queue,by=x->(x.cost,x.node,x.path_key));length(queue)>256 && resize!(queue,256)
     end
     state["paths"]=paths;state["outgoing"]=outgoing
     state
