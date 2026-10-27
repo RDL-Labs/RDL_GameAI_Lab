@@ -49,3 +49,10 @@ julia --startup-file=no --project=. integrations/lightweight_julia/run.jl NEW_OU
 - 通常時計・岩囲い入力の1日をnative CLIで実行。day-001.jls（727393 bytes）を生成、終了コード0。コンパイル込み116.65秒。これは再開の性能比較ではない。
 - 既存LW境界検査5項目PASS。git diff --check PASS。
 - GitHub Actionsの専用workflowを追加。リモートCI結果はこのローカル検証時点では未確認。
+
+## 岩囲い10日・日末保存付き本番（開始）
+
+出力: outputs/enclosed-checkpoints-10d-20261027
+実装基準: 2084a9f。未経験3体で初日から通算10日目まで。--checkpointsを追加し、ordinary/checkpoints/day-001.jlsから日末ごとに保存する。途中再開ではない。
+
+比較元outputs/enclosed-no-roads-10d-20261027のinput.jsonと、全項目の一致を確認。感度0.5/1/2、生成seed20261027、選択seed20261005、岩囲い・北側入口、遠方食料3箇所、初期備蓄0、危険OFF、人工道なし、自然踏み跡ON、初日観察・日次持ち帰り・身体要求・休息・夜間恐怖・MB/睡眠/類似性学習ONを維持。診断用途中停止は付けない。初期チェック135項目PASS。実行中につき日末ファイルと10日結果は未評価。
