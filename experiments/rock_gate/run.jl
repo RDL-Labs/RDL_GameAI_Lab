@@ -9,6 +9,7 @@ if gate_diagnostics
 end
 const mixed_transfer="--mixed-transfer" in ARGS
 const ordinary_only="--ordinary-only" in ARGS
+@assert !("--camp-landmark-shortcut" in ARGS) || "--central-bonfire" in ARGS
 const staged_food="--staged-food" in ARGS
 const distinctive_world="--distinctive-landmarks" in ARGS
 @assert !(staged_food && "--nearby-food" in ARGS)
@@ -332,6 +333,7 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         s=input["scene"];hx,hz=Float64.(s["home"])
         s["visual_landmarks"]=[D("x"=>hx,"z"=>hz,"radius"=>1.2,"height"=>6.,
             "color"=>"orange","solid"=>false,"light_source"=>16.)]
+        "--camp-landmark-shortcut" in ARGS && (s["configured_camp_landmark"]=true)
         scene=JSON3.read(JSON3.write(s))
         visual=prepare_landmark_objects(vcat(collect(scene.obstacles),collect(scene.visual_landmarks)))
         @testset "central bonfire visual connection" begin

@@ -2,4 +2,5 @@
 # Dependencies (D, hunger_select) are supplied by the LW host before this include.
 include(joinpath(@__DIR__, "body_maintenance.jl"))
 include(joinpath(@__DIR__, "home_observation.jl"))
+include(joinpath(@__DIR__, "camp_landmark.jl"))
 include(joinpath(@__DIR__, "home_rest_reward.jl"))
