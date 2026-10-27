@@ -3,7 +3,7 @@ const root=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required");mkpath(out)
 const stop_exhausted="--stop-exhausted" in ARGS
 const prepare_only="--prepare-only" in ARGS
-const gate_diagnostics="--gate-diagnostics" in ARGS
+const gate_diagnostics="--gate-diagnostics" in ARGS || "--departure-diagnostics" in ARGS
 if gate_diagnostics
     include(joinpath(@__DIR__,"gate_diagnostics.jl"))
 end
@@ -60,7 +60,7 @@ const maxradius=Dict{String,Float64}()
 const positions=Any[]
 const started=Ref(0.)
 function gate_probe!(sec,w,purposes,counts,home)
-    if gate_diagnostics && sec>=121681
+    if gate_diagnostics && sec>=gate_diag_stop
         write(joinpath(out,"diagnostic-stop.json"),JSON3.write((reason="requested_gate_snapshot",sec=sec,positions=w.positions)))
         flush(gate_diag_io)
         throw(GateDiagnosticStop())
@@ -383,7 +383,7 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
     catch err
         if gate_diagnostics && err isa GateDiagnosticStop
             write(joinpath(caseout,"positions.json"),JSON3.write(positions))
-            println("COMPLETE requested gate diagnostic stop at 121681 seconds")
+            println("COMPLETE requested gate diagnostic stop at $(gate_diag_stop) seconds")
             exit(0)
         end
         rethrow()
