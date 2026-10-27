@@ -1,0 +1,128 @@
+[
+  {
+    "day": 2,
+    "marks": [
+      {
+        "label": "① 近隣で3個取得",
+        "sec": 17580,
+        "actor": "npc_c",
+        "position": [
+          0.9662214924349154,
+          15.199243859696207
+        ],
+        "reserve": 90.32644818841875,
+        "return_active": false
+      },
+      {
+        "label": "② 長時間休息",
+        "sec": 22020,
+        "actor": "npc_c",
+        "position": [
+          5.695166902802286,
+          9.874128766267008
+        ],
+        "reserve": 85.36403186037377,
+        "return_active": false
+      },
+      {
+        "label": "③ 帰還継続",
+        "sec": 25920,
+        "actor": "npc_c",
+        "position": [
+          -2.520158961294209,
+          13.011020497662168
+        ],
+        "reserve": 80.90159748632604,
+        "return_active": false
+      },
+      {
+        "label": "④ 2日目終了",
+        "sec": 34560,
+        "actor": "npc_c",
+        "position": [
+          9.336702419336866,
+          8.320366666564464
+        ],
+        "reserve": 89.91255735431209,
+        "return_active": true
+      }
+    ],
+    "nearest_gate_sample": {
+      "sec": 25920,
+      "actor": "npc_c",
+      "position": [
+        -2.520158961294209,
+        13.011020497662168
+      ],
+      "reserve": 80.90159748632604,
+      "return_active": false
+    },
+    "durations": {
+      "food:walk": 59,
+      "food:request": 1,
+      "food:pickup": 4,
+      "food:eat": 2,
+      "home:rest": 3161,
+      "food:rest": 7809,
+      "home:scan": 2754,
+      "home:walk": 3476,
+      "food:scan": 14
+    },
+    "end_inventory": 2
+  },
+  {
+    "day": 3,
+    "marks": [
+      {
+        "label": "④ 開始",
+        "sec": 34560,
+        "actor": "npc_c",
+        "position": [
+          9.336702419336866,
+          8.320366666564464
+        ],
+        "reserve": 89.91255735431209,
+        "return_active": true
+      },
+      {
+        "label": "⑤ 北側へ",
+        "sec": 43200,
+        "actor": "npc_c",
+        "position": [
+          1.8322629966140787,
+          16.188080060415647
+        ],
+        "reserve": 98.31254777542452,
+        "return_active": true
+      },
+      {
+        "label": "⑥ 西で休息・終了",
+        "sec": 48960,
+        "actor": "npc_c",
+        "position": [
+          -30.636146144217243,
+          20.715940697947435
+        ],
+        "reserve": 90.63617522984312,
+        "return_active": true
+      }
+    ],
+    "nearest_gate_sample": {
+      "sec": 45960,
+      "actor": "npc_c",
+      "position": [
+        -1.0848893808746434,
+        13.775936189125137
+      ],
+      "reserve": 94.71854791878631,
+      "return_active": true
+    },
+    "durations": {
+      "home:rest": 3323,
+      "home:walk": 8077,
+      "home:scan": 5879,
+      "food:eat": 1
+    },
+    "end_inventory": 1
+  }
+]
