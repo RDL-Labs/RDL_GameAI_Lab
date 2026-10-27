@@ -88,6 +88,7 @@ include(joinpath(@__DIR__,"food_roads.jl"))
 include(joinpath(@__DIR__,"nearby_food.jl"))
 include(joinpath(@__DIR__,"staged_world.jl"))
 include(joinpath(@__DIR__,"transfer_world.jl"))
+include(joinpath(@__DIR__,"complex_rocks.jl"))
 include(joinpath(@__DIR__,"mixed_transfer.jl"))
 const base=JSON3.read(read(joinpath(root,"experiments/julia_migration/lw_integrated/search_review_spec.json"),String),Dict{String,Any})
 const choice_seed_arg=findfirst(==("--choice-seed"),ARGS)
@@ -337,7 +338,7 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
         end
     end
     if "--central-bonfire" in ARGS
-        @assert "--enclosed-camp" in ARGS
+        @assert ordinary_only || "--enclosed-camp" in ARGS
         s=input["scene"];hx,hz=Float64.(s["home"])
         s["visual_landmarks"]=[D("x"=>hx,"z"=>hz,"radius"=>1.2,"height"=>6.,
             "color"=>"orange","solid"=>false,"light_source"=>16.)]
@@ -357,6 +358,11 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
             @test any(f->f["color"]=="orange",landmark_fan(visual,(hx,hz+5.5),180.,"test";all_colors=true)["features"])
         end
     end
+    complex_report=nothing
+    if "--complex-rocks" in ARGS
+        @assert ordinary_only && !("--enclosed-camp" in ARGS) && "--far-transfer-map" in ARGS
+        complex_report=complex_rocks!(input)
+    end
     transfer_arg=findfirst(==("--transfer-from"),ARGS)
     if transfer_arg!==nothing
         learned=JSON3.read(read(ARGS[transfer_arg+1],String),Dict{String,Any})
@@ -371,6 +377,7 @@ for (label,omitted) in (ordinary_only ? (("ordinary",Set([0])),) : (("wide",Set(
     end
     spec=JSON3.read(JSON3.write(input))
     caseout=joinpath(out,label);mkpath(caseout)
+    complex_report!==nothing && write(joinpath(caseout,"complex-rocks-access.json"),JSON3.write(complex_report))
     specpath=joinpath(caseout,"input.json");write(specpath,JSON3.write(input))
     if food_layout!==nothing && !("--far-transfer-map" in ARGS)
         write(joinpath(caseout,"food-roads.json"),JSON3.write(food_layout))
