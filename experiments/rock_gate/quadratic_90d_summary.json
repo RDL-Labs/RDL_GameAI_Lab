@@ -1,0 +1,251 @@
+{
+  "measurement": {
+    "gc_seconds": 325.2312173,
+    "process_peak_rss_bytes": 2570092544,
+    "compilation_included": true,
+    "call_seconds": 7000.5441453,
+    "allocated_bytes": 2660770472484
+  },
+  "food": {
+    "initial": 1080,
+    "ground": 57,
+    "shared": 762,
+    "consumed": 261,
+    "stock": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      57,
+      0
+    ]
+  },
+  "actors": {
+    "npc_a": {
+      "reserve": 93.82201095494764,
+      "home_distance": 0.9907540785463451,
+      "inventory": 0,
+      "delivery_records": 32,
+      "min_reserve": 70.7089985413928,
+      "retrieval": {
+        "calls": 66037,
+        "eligible": 505379,
+        "examined": 288183,
+        "expanded": 24604
+      },
+      "nodes": 1115,
+      "edges": 3840,
+      "delivery_days_total": 88,
+      "retained_delivery_amount": 110,
+      "retained_delivery_days": [
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        87,
+        88,
+        89,
+        90
+      ]
+    },
+    "npc_b": {
+      "reserve": 87.63756070968424,
+      "home_distance": 1.1833334214954276,
+      "inventory": 0,
+      "delivery_records": 32,
+      "min_reserve": 70.71411232773518,
+      "retrieval": {
+        "calls": 167295,
+        "eligible": 1322704,
+        "examined": 593589,
+        "expanded": 40994
+      },
+      "nodes": 1022,
+      "edges": 4158,
+      "delivery_days_total": 78,
+      "retained_delivery_amount": 102,
+      "retained_delivery_days": [
+        48,
+        49,
+        50,
+        51,
+        52,
+        54,
+        55,
+        56,
+        57,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        68,
+        70,
+        71,
+        73,
+        75,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        88,
+        89,
+        90
+      ]
+    },
+    "npc_c": {
+      "reserve": 91.30132877039489,
+      "home_distance": 1.0477401314026047,
+      "inventory": 0,
+      "delivery_records": 32,
+      "min_reserve": 70.70788472868645,
+      "retrieval": {
+        "calls": 75187,
+        "eligible": 581656,
+        "examined": 305369,
+        "expanded": 21884
+      },
+      "nodes": 1025,
+      "edges": 4517,
+      "delivery_days_total": 87,
+      "retained_delivery_amount": 107,
+      "retained_delivery_days": [
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90
+      ]
+    }
+  },
+  "time_blocks": [
+    {
+      "days": [
+        1,
+        10
+      ],
+      "seconds": 538.4
+    },
+    {
+      "days": [
+        11,
+        20
+      ],
+      "seconds": 558.6999999999999
+    },
+    {
+      "days": [
+        21,
+        30
+      ],
+      "seconds": 605.8000000000002
+    },
+    {
+      "days": [
+        31,
+        40
+      ],
+      "seconds": 730.9000000000001
+    },
+    {
+      "days": [
+        41,
+        50
+      ],
+      "seconds": 775.1999999999998
+    },
+    {
+      "days": [
+        51,
+        60
+      ],
+      "seconds": 835.5
+    },
+    {
+      "days": [
+        61,
+        70
+      ],
+      "seconds": 975.1999999999998
+    },
+    {
+      "days": [
+        71,
+        80
+      ],
+      "seconds": 939.1999999999998
+    },
+    {
+      "days": [
+        81,
+        90
+      ],
+      "seconds": 1045.4000000000005
+    }
+  ],
+  "record_scope": "Delivery records retain last32 completions; total successful days uses lifetime completions. Minimum reserve is daily endpoint only.",
+  "storage": {
+    "deposited": 901,
+    "taken": 139
+  }
+}
