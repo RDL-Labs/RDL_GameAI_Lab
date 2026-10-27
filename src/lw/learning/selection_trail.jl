@@ -1,12 +1,19 @@
 # Actual-use trails, ported from runtime/selection_trail.py.
 selection_trail_state(actor)=D("actor"=>actor,"edges"=>D(),"episode"=>nothing,"completed"=>Any[],"cursor"=>nothing,"changes"=>0)
 trail_key(s,context,phase,c)=JSON3.write(Any[s["actor"]*":food-sufficiency",context,phase,c["method"],Any[c["action"],get(c,"direction",nothing),get(c,"scan_angle",nothing)]])
+trail_key_prefix(s,context,phase)=chop(JSON3.write(Any[s["actor"]*":food-sufficiency",context,phase]);tail=1)*","
+function trail_key_from_prefix(prefix,c)
+ suffix=JSON3.write(Any[c["method"],Any[c["action"],get(c,"direction",nothing),get(c,"scan_angle",nothing)]])
+ prefix*SubString(suffix,2)
+end
 function project_trails!(s,candidates,loop,context,phase)
  phase in ("exploration","return") || return nothing
- baseline=method_choice(loop,candidates)["method"];edges=D()
+ baseline=method_choice(loop,candidates)["method"];edges=D();prefix=nothing
  for c in candidates
     get(c,"record_trial",true) || continue
-    key=trail_key(s,context,phase,c);e=get(s["edges"],key,D())
+    # Context is identical for all candidates in this projection; keep exact JSON keys.
+    prefix===nothing && (prefix=trail_key_prefix(s,context,phase))
+    key=trail_key_from_prefix(prefix,c);e=get(s["edges"],key,D())
     c["priority"]+=min(1.,get(e,"uses",0)*.02)+min(1.,get(e,"success_credit",0.)*.125)
     edges[c["method"]]=key
  end
