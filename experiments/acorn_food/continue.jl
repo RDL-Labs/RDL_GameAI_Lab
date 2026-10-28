@@ -49,7 +49,7 @@ const evidence=(config=summary.config,measurement=summary.measurement,
     wildlife=(alive=r.wildlife.alive,starvation=r.wildlife.starvation_deaths),
     daily=[(day=i,food=d.food_resources,ground=d.ground,counts=d.counts,
         wildlife=(alive=d.wildlife.alive,starvation=d.wildlife.starvation_deaths),
-        humans=Dict(a=>(reserve=v.body.reserve,position=v.position,inventory=v.inventory) for (a,v) in pairs(d.physical)))
+        humans=Dict(a=>(reserve=v.body.reserve,position=v.position,inventory=v.inventory,personal_stock=v.personal_stock) for (a,v) in pairs(d.physical)))
         for (i,d) in enumerate(r.daily)],previous_days_identical=true)
 write(joinpath(out,"evidence.json"),JSON3.write(evidence))
 write(joinpath(out,"completed.json"),JSON3.write((days=final_day,continued_from=start_day,

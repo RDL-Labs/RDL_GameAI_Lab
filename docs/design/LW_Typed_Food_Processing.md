@@ -43,16 +43,30 @@
 
 食材の好みを探索中の地点選択へ学習する機構、味の値を経路MBの報酬へ加える機構、加工を予測・組立てするMBはまだない。取得目的の達成と、身体の空腹解消は区別されたまま。狩猟・肉の取得は今回追加しない。
 
+## 拠点の個人倉庫
+
+現在の食料シナリオ生成は`config.stores="personal"`を既定にする。各人は拠点内に本人専用の保管枠を持ち、持ち帰って荷下ろしした果実・生原料・加工食はその個体の倉庫へ入る。空腹時に見積もる利用可能な在庫と、取り出す食料も本人のものに限る。共有の初期在庫が残る入力は拒否する。
+
+まず既存の拠点利用範囲（中心から距離1.25以内）にある論理的な保管枠として表し、箱ごとの座標・容量制限は設けない。種類別在庫は`food_resources.personal[actor]`、総数は各人の`personal_stock`で保存し、集計にも個人別の備蓄数を含める。途中保存で保持する。
+
+他者とのやり取りは既存の依頼・譲渡を残す。本人が持っている食料を手渡せば受け手の所持品になり、受け手の倉庫へ保管できる。倉庫を直接他人に開放したり、自動的に配ったりする動作はない。地面に落とした食料は従来どおり他者も回収できる。
+
+これは世界側に与えた保管先・アクセスの制約であり、所有概念を学習した結果ではない。倉庫からの直接譲渡、盗み、交換条件の交渉は未接続。過去の共有試験は保持し、比較用には生成時に`shared`を指定できる。共有の途中状態を個人倉庫へ振り分ける移行はせず、新規初期状態で比較する。
+
+[個人倉庫の3日試験](../../experiments/personal_food/report.md)では倉庫A7/B8/C8、全員4食、共有0。取り出しの隔離、手渡し、加工、日末再開を検査した。
+
 ## 実行
 
 ```
 node experiments/acorn_food/prepare.cjs outputs/acorn-food-input.json
+# 以前の共有条件を再現するときだけ末尾に shared を指定
+node experiments/acorn_food/prepare.cjs outputs/acorn-food-shared-input.json shared
 julia --startup-file=no --project=. experiments/acorn_food/checks.jl
 julia --startup-file=no --project=. experiments/acorn_food/run.jl outputs/acorn-food-input.json outputs/acorn-food-3d
 julia --startup-file=no --project=. experiments/acorn_food/continue.jl outputs/acorn-food-3d 10 outputs/acorn-food-10d
 ```
 
-実験は人3体＋兎30体、3日、既存食料1080＋近隣ドングリ192、各人に原料1を所持、どちらも補充なし。加工の即時接続を確認するため拠点内から開始し、初日の見回し等の設定経路を維持。消化ON、腐敗OFF、標準の場面抽象度。入力・ソース・日末コピーと結果を保存する。[試験結果](../../experiments/acorn_food/report.md)。
+実験は人3体＋兎30体、3日、果実1080＋近隣ドングリ192、各人に原料1を所持、どちらも補充なし。加工の即時接続を確認するため拠点内から開始し、初日の見回し等の設定経路を維持。消化ON、腐敗OFF、標準の場面抽象度。入力・ソース・日末コピーと結果を保存する。[初回の共有条件の試験結果](../../experiments/acorn_food/report.md)。
 
 `continue.jl`は前の出力に保存したソースと最終日末コピーを使い、日数だけ変更して継続する。上の10は追加日数でなく通算10日目まで。最初の3日分の履歴はそのまま保持し、初期配置・初日見学をやり直さない。継続分の計測時間は読込・コンパイルを含む4〜10日分で、10日全体の時間とは区別する。新しい出力に継続中の日末コピーを保存する。
 

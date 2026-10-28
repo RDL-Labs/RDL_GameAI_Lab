@@ -31,6 +31,21 @@ f=r.food_resources
         @test all(a->a.body.reserve>0,values(d.physical))
     end
 end
+if get(summary.config,:stores,"personal")=="personal"
+    @testset "personal food ownership" begin
+        @test r.shared_stock==0
+        @test all(iszero,f.shared)
+        @test r.shared_storage===nothing
+        for a in keys(r.final_agents)
+            @test sum(f.personal[a])==r.final_agents[a].personal_stock
+            @test summary.food.personal[a]==r.final_agents[a].personal_stock
+        end
+        for d in r.daily
+            @test d.shared_stock==0 && all(iszero,d.food_resources.shared)
+            @test all(sum(d.food_resources.personal[a])==v.personal_stock for (a,v) in pairs(d.physical))
+        end
+    end
+end
 # Same source/input, uninterrupted whole run versus continuing from day 2.
 native_main([joinpath(out,"resumed"),"--spec",joinpath(out,"input.json"),
     "--resume-from",joinpath(out,"checkpoints/day-002.jls")])
@@ -40,7 +55,7 @@ resumed=JSON3.read(read(joinpath(out,"resumed/result.json"),String))
 end
 evidence=(config=summary.config,measurement=summary.measurement,food=summary.food,food_resources=f,
     humans=summary.agents,digestion=r.digestion,wildlife=(alive=r.wildlife.alive,starvation=r.wildlife.starvation_deaths),
-    daily=[(day=i,food=d.food_resources,humans=Dict(a=>(reserve=v.body.reserve,position=v.position,inventory=v.inventory) for (a,v) in pairs(d.physical))) for (i,d) in enumerate(r.daily)],
+    daily=[(day=i,food=d.food_resources,humans=Dict(a=>(reserve=v.body.reserve,position=v.position,inventory=v.inventory,personal_stock=v.personal_stock) for (a,v) in pairs(d.physical))) for (i,d) in enumerate(r.daily)],
     continuation_identical=true)
 write(joinpath(out,"evidence.json"),JSON3.write(evidence))
 write(joinpath(out,"completed.json"),JSON3.write((days=3,processed=f.processed_inputs[3],eaten=f.consumed[4])))
