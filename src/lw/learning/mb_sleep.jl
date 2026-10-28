@@ -8,7 +8,13 @@ function mb_sleep_review!(s,day,now)
     frozen=state["frozen"];frozen===nothing && return
     frozen["formation_us"]<now || error("mb_sleep_time")
     # Review connected observed origins; elapsed time is not a memory validity criterion.
-    starts=sort(collect(keys(frozen["nodes"])),by=k->(-count(e->e["from"]==k || e["to"]==k,values(frozen["edges"])),k))
+    degree=Dict{String,Int}()
+    for e in values(frozen["edges"])
+        from,to=e["from"],e["to"]
+        degree[from]=get(degree,from,0)+1
+        from!=to && (degree[to]=get(degree,to,0)+1)
+    end
+    starts=sort(collect(keys(frozen["nodes"])),by=k->(-get(degree,k,0),k))
     resize!(starts,min(8,length(starts)))
     searches=0;expanded=0;found=0
     for start in starts,goal in ("home","food")
