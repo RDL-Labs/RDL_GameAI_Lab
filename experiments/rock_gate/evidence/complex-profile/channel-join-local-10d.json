@@ -1,0 +1,75 @@
+{
+  "days": 10,
+  "measurement": {
+    "gc_seconds": 21.3820843,
+    "process_peak_rss_bytes": 1735266304,
+    "compilation_included": true,
+    "call_seconds": 472.2198034,
+    "allocated_bytes": 223423922481
+  },
+  "food": {
+    "initial": 1080,
+    "consumed": 30,
+    "ground": 996,
+    "added": 0,
+    "shared": 54
+  },
+  "joins": {
+    "npc_b": {
+      "join_proposals": 8,
+      "join_recognized": 0,
+      "remembered_edges_reused": 32
+    },
+    "npc_a": {
+      "join_proposals": 11,
+      "join_recognized": 0,
+      "remembered_edges_reused": 71
+    },
+    "npc_c": {
+      "join_proposals": 8,
+      "join_recognized": 0,
+      "remembered_edges_reused": 41
+    }
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 97.74887082730363,
+      "position": [
+        -0.6005720590719621,
+        7.0259151488057165
+      ],
+      "route_outcomes": {
+        "abandoned": 5,
+        "success": 11,
+        "unresolved": 4,
+        "interrupted": 38
+      }
+    },
+    "npc_a": {
+      "reserve": 97.62191631534503,
+      "position": [
+        0.7133822416583933,
+        6.549668523200064
+      ],
+      "route_outcomes": {
+        "abandoned": 5,
+        "success": 5,
+        "unresolved": 14,
+        "interrupted": 29
+      }
+    },
+    "npc_c": {
+      "reserve": 97.74741178457089,
+      "position": [
+        -0.5738003873771025,
+        6.978728812105811
+      ],
+      "route_outcomes": {
+        "abandoned": 5,
+        "success": 11,
+        "unresolved": 2,
+        "interrupted": 29
+      }
+    }
+  }
+}
