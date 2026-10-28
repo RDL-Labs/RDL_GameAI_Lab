@@ -80,6 +80,7 @@ function cue_candidates!(stats,pool,move,H,threshold)
         p=D("method"=>cue["key"],"action"=>can_walk ? "walk" : "scan",
             "priority"=>2.5-.5cue["tier"],"question"=>"target_observed",
             "cue_kind"=>cue["kind"],"cue_tier"=>cue["tier"],"cue_source"=>cue["source"],
+            "cue_label"=>cue["label"],"cue_angle"=>cue["angle"],"cue_distance"=>cue["distance"],
             "cue_uncertain"=>cue["tier"]>0)
         if can_walk
             sort!(rows,by=r->(abs(ANGLES[parse(Int,r["ref"])+1]-cue["angle"]),r["ref"]))

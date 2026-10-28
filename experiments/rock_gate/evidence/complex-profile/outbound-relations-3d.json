@@ -1,0 +1,219 @@
+{
+  "run": "outputs/natural-outbound-relations-3d-20261028",
+  "measurement": {
+    "gc_seconds": 10.7910799,
+    "process_peak_rss_bytes": 1470996480,
+    "compilation_included": true,
+    "call_seconds": 339.168763,
+    "allocated_bytes": 70605503848
+  },
+  "food": {
+    "initial": 1080,
+    "consumed": 9,
+    "ground": 1059,
+    "added": 0,
+    "shared": 12
+  },
+  "days": 3,
+  "actors": {
+    "npc_b": {
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0,
+        "damage": 0,
+        "burst": 10,
+        "reserve": 92.2298054481448
+      },
+      "position": [
+        -0.509554240372394,
+        6.860438537095191
+      ],
+      "deposit": 2,
+      "relations": {
+        "scenes": 85,
+        "links": 0,
+        "created": 0,
+        "selected": 0,
+        "observed": 0,
+        "missing": 0,
+        "blocked": 0,
+        "offered": 0,
+        "used": 0,
+        "supported": 0,
+        "approached": 0,
+        "maxArrival": 0,
+        "firstRecords": []
+      }
+    },
+    "npc_a": {
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0,
+        "damage": 0,
+        "burst": 10,
+        "reserve": 92.21298752764909
+      },
+      "position": [
+        0.48275135457798435,
+        6.603057845086356
+      ],
+      "deposit": 2,
+      "relations": {
+        "scenes": 90,
+        "links": 1,
+        "created": 1,
+        "selected": 1,
+        "observed": 1,
+        "missing": 0,
+        "blocked": 0,
+        "offered": 13,
+        "used": 0,
+        "supported": 1,
+        "approached": 0,
+        "maxArrival": 0.00001151097711503362,
+        "firstRecords": [
+          {
+            "predicted_strength": 0.49173572691080875,
+            "us": 34629000000,
+            "link": "bea842be53c85244:gray",
+            "status": "performed"
+          }
+        ]
+      }
+    },
+    "npc_c": {
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0,
+        "damage": 0,
+        "burst": 10,
+        "reserve": 92.24030898361875
+      },
+      "position": [
+        -0.006991352502768361,
+        7.197540995370683
+      ],
+      "deposit": 2,
+      "relations": {
+        "scenes": 56,
+        "links": 1,
+        "created": 1,
+        "selected": 1,
+        "observed": 0,
+        "missing": 0,
+        "blocked": 0,
+        "offered": 8,
+        "used": 0,
+        "supported": 0,
+        "approached": 0,
+        "maxArrival": 0,
+        "firstRecords": [
+          {
+            "predicted_strength": 0.497921000922555,
+            "us": 17473000000,
+            "link": "704405ef7c438ad8:ochre",
+            "status": "performed"
+          }
+        ]
+      }
+    }
+  },
+  "daily": [
+    {
+      "day": 1,
+      "ground": 1080,
+      "shared": 0,
+      "consumed": 0,
+      "actors": {
+        "npc_b": {
+          "reserve": 70.71411232773518,
+          "position": [
+            0.06966991411008894,
+            7.4696699141100895
+          ],
+          "deposit": 0
+        },
+        "npc_a": {
+          "reserve": 70.7089985413928,
+          "position": [
+            2.0696699141100896,
+            7.4696699141100895
+          ],
+          "deposit": 0
+        },
+        "npc_c": {
+          "reserve": 70.70788472868645,
+          "position": [
+            -1.9303300858899113,
+            7.4696699141100895
+          ],
+          "deposit": 0
+        }
+      }
+    },
+    {
+      "day": 2,
+      "ground": 1068,
+      "shared": 6,
+      "consumed": 6,
+      "actors": {
+        "npc_b": {
+          "reserve": 91.44336346426115,
+          "position": [
+            -0.5071389711940109,
+            6.875522089474375
+          ],
+          "deposit": 1
+        },
+        "npc_a": {
+          "reserve": 91.43782214939411,
+          "position": [
+            0.7806089432360951,
+            6.959060991987977
+          ],
+          "deposit": 1
+        },
+        "npc_c": {
+          "reserve": 91.45222380294474,
+          "position": [
+            -0.042578069333023175,
+            6.999093142810955
+          ],
+          "deposit": 1
+        }
+      }
+    },
+    {
+      "day": 3,
+      "ground": 1059,
+      "shared": 12,
+      "consumed": 9,
+      "actors": {
+        "npc_b": {
+          "reserve": 92.2298054481448,
+          "position": [
+            -0.509554240372394,
+            6.860438537095191
+          ],
+          "deposit": 2
+        },
+        "npc_a": {
+          "reserve": 92.21298752764909,
+          "position": [
+            0.48275135457798435,
+            6.603057845086356
+          ],
+          "deposit": 2
+        },
+        "npc_c": {
+          "reserve": 92.24030898361875,
+          "position": [
+            -0.006991352502768361,
+            7.197540995370683
+          ],
+          "deposit": 2
+        }
+      }
+    }
+  ]
+}

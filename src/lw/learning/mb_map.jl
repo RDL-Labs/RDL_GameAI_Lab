@@ -37,6 +37,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
         end
     end
     mb_route_observe!(s,receipt,frame,now)
+    mb_exploration_observe!(s,obs,receipt,now;home=home)
     mb_trace_observation!(s,receipt,frame,now)
     receipt===nothing && return
     mb_recognition_feedback!(s,receipt,frame,now)
@@ -71,6 +72,7 @@ function mb_observe!(s,obs,now;home=false,food=false)
     mb_trace_edge!(s,key)
 end
 function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
+    mb_exploration_record!(s,plan,status,now;turn=turn===nothing ? 0. : turn,distance=distance)
     mb_parent_record!(s,plan,energy,now)
     mb_route_record!(s,plan,status,now;energy=max(0.,energy))
     frame=s["current"];predicted=get(plan,"mb_edge",nothing)

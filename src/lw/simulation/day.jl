@@ -50,6 +50,7 @@ include(joinpath(@__DIR__, "../learning/mb_parent.jl"))
 include(joinpath(@__DIR__, "../learning/mb_return_outlook.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
 include(joinpath(@__DIR__, "../learning/mb_goal_cues.jl"))
+include(joinpath(@__DIR__, "../learning/mb_exploration_relations.jl"))
 include(joinpath(@__DIR__, "../learning/mb_place.jl"))
 include(joinpath(@__DIR__, "../learning/mb_sleep.jl"))
 include(joinpath(@__DIR__, "../decision/lateral_bias.jl"))
@@ -97,6 +98,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(navigation_mode in ("explicit_join","goal_cues"),"mb_navigation_mode")
     check(navigation_mode!="goal_cues" || (mb_simulation && mb_chunks && general_landmarks),"goal_cues_requires_observed_mb")
     for a in IDS;mb_maps[a]["navigation_mode"]=navigation_mode;end
+    exploration_relations=get(spec,:mb_exploration_relations,false)
+    check(!exploration_relations || (mb_simulation && general_landmarks),"exploration_relations_requires_mb")
+    for a in IDS;mb_maps[a]["exploration_relations_enabled"]=exploration_relations;end
     inherited_mb=get(spec,:learned_mb_transfer,nothing)
     if inherited_mb!==nothing
         check(mb_simulation && basic_loop,"transfer_requires_mb_loop")
@@ -586,6 +590,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,floor(Int,s.H/s.threshold)))
                             cue_options=cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold)
                             mb_simulation && mb_goal_cue_project!(mb_maps[a],cue_options,pool,family,s.H,now)
+                            mb_simulation && mb_exploration_project!(mb_maps[a],cue_options,family,s.H,now)
                             append!(candidates,cue_options)
                         end
                         if mb_simulation && (target===nothing || mb_maps[a]["routes"]["active"]!==nothing)
