@@ -32,10 +32,12 @@
 ## 再現
 
 1. `node experiments/rock_gate/prepare_abstraction_trials.cjs OUTPUT_ROOT`
-2. `experiments/rock_gate/run_abstraction_trials.ps1 -Julia JULIA_EXE -Root OUTPUT_ROOT`
+2. `experiments/rock_gate/run_abstraction_trials.ps1 -Julia JULIA_EXE -Root OUTPUT_ROOT -Days 3`（30/90も指定可能）
 3. `node experiments/rock_gate/summarize_abstraction_trials.cjs OUTPUT_ROOT SUMMARY.json`
 
 スクリプトは既存結果を上書きしない。日次checkpointと使用ソースを各条件の出力へ保存する。
+
+30日比較からはバッチ開始時にソース・runner・依存関係ファイルを一括固定する。待機中の条件へ後続のリポジトリ編集が混ざらないよう、全4条件がこの固定コピーを使用する。`batch.json` に基準コミット・日数・シード・順序を保存する。
 
 局所検査 `mb_scene_abstraction_checks.jl`：前提112＋専用13＝125項目PASS。粒度による同一視、細部の非保持、通常条件の互換、未観測の非生成、表現が異なる記憶の持ち越し拒否を確認。
 

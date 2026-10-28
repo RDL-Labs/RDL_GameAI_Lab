@@ -1,9 +1,12 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict');
 const root=process.argv[2],dest=process.argv[3],out={root,cases:{}};
+let duration;
 for(const mode of ['standard','angle60','distance2','colors']){
  const run=path.join(root,mode),r=JSON.parse(fs.readFileSync(path.join(run,'ordinary/run/result.json'))),
  s=JSON.parse(fs.readFileSync(path.join(run,'ordinary/run/summary.json')));
- assert.equal(r.daily.length,3);
+ assert.equal(r.daily.length,s.config.days);
+ duration??=r.daily.length;assert.equal(r.daily.length,duration);
+ out.days=duration;
  const actors={};
  for(const [id,m]of Object.entries(r.mb_map)){
   assert.equal(m.scene_abstraction,mode);
