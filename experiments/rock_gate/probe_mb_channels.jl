@@ -21,7 +21,8 @@ text=replace(read(file,String),r"(?m)^include.*\r?\n"=>"");anchor="        Main.
 Base.include_string(Main,replace(text,anchor=>"        sec==Main.stop_sec[] && Main.finish!(@lw_capture)\n"*anchor),file)
 const input=JSON3.read(read(joinpath(run,"ordinary/input.json"),String))
 function window(day)
-    start_sec[]=day*17280+60;stop_sec[]=start_sec[]+512
+    start_sec[]=day*17280+60;stop_sec[]=start_sec[]+parse(Int,get(ENV,"CHANNEL_PROBE_TICKS","512"))
+    @assert start_sec[]<stop_sec[]<input.config.days*17280 "probe stop must precede simulation end"
     try
         run_integrated(input;resume_from=joinpath(run,"ordinary/checkpoints/day-"*lpad(day,3,'0')*".jls"))
         error("missing bounded stop")
@@ -33,7 +34,7 @@ end
 for f in ("learning/mb_recognition.jl","learning/mb_chunks.jl","learning/mb_routes.jl","learning/mb_map.jl","learning/mb_sleep.jl","decision/relation_field.jl")
  include(joinpath(@__DIR__,"../../src/lw",f))
 end
-const proposal_counts=Dict("all"=>0,"intermediate"=>0)
+const proposal_counts=Dict("all"=>0,"intermediate"=>0,"join_proposals"=>0,"join_recognized"=>0)
 chunk_source=read(joinpath(@__DIR__,"../../src/lw/learning/mb_chunks.jl"),String)
 Base.include_string(Main,replace(chunk_source,"function mb_chunk_candidates!("=>"function original_channel_candidates!("))
 function mb_chunk_candidates!(s,args...;kwargs...)
@@ -48,8 +49,29 @@ function mb_chunk_candidates!(s,args...;kwargs...)
  end
  result
 end
+map_source=read(joinpath(@__DIR__,"../../src/lw/learning/mb_map.jl"),String)
+Base.include_string(Main,replace(map_source,"function mb_simulate!("=>"function original_join_simulate!("))
+function mb_simulate!(s,args...;kwargs...)
+ result=original_join_simulate!(s,args...;kwargs...)
+ for p in result
+  haskey(p,"mb_join") || continue
+  b=p["mb_join"]["bridge_length"];path=p["mb_path"]
+  @assert 1<=b<length(path)
+  @assert s["edges"][path[b]]["to"]==s["edges"][path[b+1]]["from"]==p["mb_join"]["node"]
+  proposal_counts["join_proposals"]+=1
+ end
+ result
+end
+route_source=read(joinpath(@__DIR__,"../../src/lw/learning/mb_routes.jl"),String)
+Base.include_string(Main,replace(route_source,"function mb_route_join_update!("=>"function original_join_update!("))
+function mb_route_join_update!(s,a,now)
+ before=get(get(a,"join",D()),"stage",nothing)
+ result=original_join_update!(s,a,now)
+ before=="approach" && get(a["join"],"stage",nothing)=="follow" && (proposal_counts["join_recognized"]+=1)
+ result
+end
 rows=Any[]
-for day in (1,89)
+for day in parse.(Int,split(get(ENV,"CHANNEL_PROBE_DAYS","1,89"),","))
  push!(rows,window(day));println(JSON3.write(last(rows)));flush(stdout)
 end
 write(joinpath(out,"summary.json"),JSON3.write(D("windows"=>rows,"proposals"=>proposal_counts)))

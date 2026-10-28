@@ -70,6 +70,7 @@ function mb_route_record!(s,p,status,now;energy=0.)
             "chunk"=>get(p,"mb_chunk",nothing),"chunk_start_index"=>get(p,"mb_chunk_start_index",1),"sleep"=>get(p,"mb_sleep",nothing),"cursor"=>1,"verified"=>0,
             "started_us"=>now,"last_us"=>now,"priority"=>p["priority"],"uncertain"=>false,"pending_edge"=>nothing,"H"=>get(p,"mb_control_H",0))
         a["estimate"]=mb_route_estimate(s,path,a["goal"])
+        haskey(p,"mb_join") && (a["join"]=deepcopy(p["mb_join"]))
         a["effort"]=D("actions"=>0,"energy"=>0.,"contradictions"=>0,"charged"=>0,"last_evaluated"=>nothing)
         r["active"]=a;r["started"]+=1
     end
@@ -123,6 +124,7 @@ function mb_route_candidates!(s,move,goal,reserve,strain,now;H=0)
     mb_route_rejoin!(s,s["current"],now)
     get(a,"repair_pending",false) && return Any[]
     mb_route_reacquire!(s,now)
+    mb_route_join_update!(s,a,now) || return Any[]
     i=a["cursor"]
     if i>length(a["path"])
         mb_route_uncertain!(s,"endpoint_unresolved");return Any[]
@@ -138,10 +140,24 @@ function mb_route_candidates!(s,move,goal,reserve,strain,now;H=0)
     merge!(p,D("method"=>"mb_route:"*a["id"],"priority"=>a["priority"],"question"=>"target_observed",
         "mb_edge"=>edge,"mb_expected"=>e["to"],"mb_depth"=>length(a["path"])-i+1,
         "mb_path"=>a["path"],"mb_route"=>a["id"],"mb_route_kind"=>a["kind"],"mb_route_index"=>i,"mb_route_goal"=>goal))
-    a["chunk"]!==nothing && merge!(p,D("mb_chunk"=>a["chunk"],"mb_chunk_index"=>get(a,"chunk_start_index",1)+i-1))
+    a["chunk"]!==nothing && merge!(p,D("mb_chunk"=>a["chunk"],"mb_chunk_index"=>get(a,"chunk_start_index",1)+i-get(a,"chunk_path_offset",0)-1))
     a["sleep"]!==nothing && (p["mb_sleep"]=a["sleep"])
     mb_attach_correspondence!(p,s,match)
     Any[p]
+end
+function mb_route_join_update!(s,a,now)
+    join=get(a,"join",nothing);join===nothing && return true
+    join["stage"]=="follow" && return true
+    a["cursor"]<=join["bridge_length"] && return true
+    frame=s["current"];node=get(s["nodes"],join["node"],nothing)
+    fit=(frame===nothing || s["current_us"]!=now || node===nothing) ? nothing : mb_similarity(frame,node;metric=s["recognition"]["metric"])
+    if fit===nothing || fit.common<2 || fit.agreement<.65
+        mb_route_uncertain!(s,"join_not_recognized");return false
+    end
+    # A tentative observed subgoal, never parent goal credit or an H reset.
+    join["stage"]="follow";join["recognized_us"]=now;join["agreement"]=fit.agreement
+    a["chunk"]=join["chunk"];a["chunk_start_index"]=join["index"];a["chunk_path_offset"]=join["bridge_length"]
+    true
 end
 
 # Re-observe the expected endpoint of an executed step; never execute it twice blindly.

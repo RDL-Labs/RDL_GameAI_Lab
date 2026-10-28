@@ -78,6 +78,28 @@ end
 # Repeated goal credit deepens a channel; transition contradictions weaken it.
 # Logarithmic growth avoids a hard saturation without making credit linear votes.
 mb_chunk_depth(c)=(log1p(c["successes"])+log1p(c["reward"]))/(1+c["misses"]+get(c,"execution_failures",0))
+# One remembered suffix per entry; no hidden goal coordinates or invented links.
+function mb_channel_terminals(s,goal)
+    terminals=Dict{String,Any}()
+    s["chunks_enabled"] || return terminals
+    for id in sort(collect(keys(s["chunks"])))
+        c=s["chunks"][id];c["goal"]==goal && c["successes"]>0 || continue
+        path=c["edges"];isempty(path) && continue
+        all(k->haskey(s["edges"],k),path) || continue
+        all(s["edges"][path[i]]["to"]==s["edges"][path[i+1]]["from"] for i in 1:length(path)-1) || continue
+        depth=mb_chunk_depth(c);cost=0.
+        for index in reverse(eachindex(path))
+            e=s["edges"][path[index]];e["action"] in ("walk","scan") || break
+            cost+=mb_edge_cost(e);origin=e["from"]
+            rank=(cost/(1+depth),id,index)
+            previous=get(terminals,origin,nothing)
+            if previous===nothing || rank<previous.rank
+                terminals[origin]=(chunk=id,index=index,path=path[index:end],cost=cost,depth=depth,rank=rank)
+            end
+        end
+    end
+    terminals
+end
 function mb_chunk_candidates!(s,move,goal,reserve,strain,now;H=0)
     frame=s["current"]
     (!s["chunks_enabled"] || frame===nothing || s["current_us"]!=now || reserve<=20 || strain>=.8) && return Any[]

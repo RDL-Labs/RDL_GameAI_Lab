@@ -96,13 +96,11 @@ function mb_first_action(e,frame,move)
     sort!(rows,by=r->(abs(ANGLES[parse(Int,r["ref"])+1]-angle),r["ref"]))
     D("action"=>"walk","direction"=>parse(Int,first(rows)["ref"]),"steering_angle"=>angle,"approach_angle"=>angle,"approach_span"=>e["distance"])
 end
-function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=e->true)
+function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=e->true,terminals=nothing,outgoing=nothing)
     goal in ("home","food") || error("mb_goal")
     1<=max_depth<=4 && 1<=max_expansions<=64 || error("mb_search_budget")
-    outgoing=Dict{String,Vector{String}}()
-    for (key,e) in s["edges"]
-        e["action"] in ("walk","scan") || continue
-        push!(get!(()->String[],outgoing,e["from"]),key)
+    if outgoing===nothing
+        outgoing=mb_outgoing(s)
     end
     queue=[(node=start,path=String[],cost=0.,visited=Set([start]),path_key="")]
     expanded=0;solution=nothing
@@ -111,6 +109,13 @@ function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=
         n=get(s["nodes"],item.node,nothing)
         if !isempty(item.path) && n!==nothing && n[goal]
             solution=(node=item.node,path=item.path,cost=item.cost,visited=item.visited);break
+        end
+        channel=terminals===nothing ? nothing : get(terminals,item.node,nothing)
+        if !isempty(item.path) && channel!==nothing &&
+            all(!(s["edges"][k]["to"] in item.visited) for k in channel.path)
+            solution=(node=s["edges"][last(channel.path)]["to"],path=vcat(item.path,channel.path),
+                cost=item.cost+channel.cost,visited=union(item.visited,Set(s["edges"][k]["to"] for k in channel.path)),
+                channel=channel,join_node=item.node,bridge_length=length(item.path));break
         end
         length(item.path)>=max_depth && continue
         edges=sort([k for k in get(outgoing,item.node,String[]) if !(s["edges"][k]["to"] in item.visited)],
@@ -125,27 +130,43 @@ function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=
     end
     (solution=solution,expanded=expanded)
 end
+function mb_outgoing(s)
+    outgoing=Dict{String,Vector{String}}()
+    for (key,e) in s["edges"]
+        e["action"] in ("walk","scan") || continue
+        push!(get!(()->String[],outgoing,e["from"]),key)
+    end
+    outgoing
+end
 function mb_simulate!(s,move,goal,H,threshold,reserve,strain,now;max_depth=4,max_expansions=64)
     goal in ("home","food") || error("mb_goal")
     1<=max_depth<=4 && 1<=max_expansions<=64 || error("mb_search_budget")
     frame=s["current"]
     (frame===nothing || s["current_us"]!=now) && (mb_reject!(s,"wake","no_current_observation");return Any[])
-    (H<threshold || reserve<=20 || strain>=.8) && (mb_reject!(s,"wake","H_or_body_gate");return Any[])
+    (reserve<=20 || strain>=.8) && (mb_reject!(s,"wake","H_or_body_gate");return Any[])
     now<s["next_search_us"] && (mb_reject!(s,"wake","search_cooldown");return Any[])
+    terminals=mb_channel_terminals(s,goal)
+    (H<threshold && isempty(terminals)) && (mb_reject!(s,"wake","H_or_body_gate");return Any[])
     s["next_search_us"]=now+64_000_000;s["searches"]+=1
     matches=mb_correspondences(s,keys(s["nodes"]),now;scope="wake",H=H)
-    out=Any[];expanded=0
+    out=Any[];expanded=0;outgoing=mb_outgoing(s)
     for match in matches
         aligned=(key=match["key"],anchor=match["anchor"],signature=frame.signature)
         search=mb_search(s,match["key"],goal,now;max_depth=max_depth,max_expansions=max(1,max_expansions-expanded),
-            first_allowed=e->mb_first_action(e,aligned,move)!==nothing)
+            first_allowed=e->mb_first_action(e,aligned,move)!==nothing,terminals=terminals,outgoing=outgoing)
         expanded+=search.expanded;solution=search.solution
         if solution!==nothing
             key=first(solution.path);p=mb_first_action(s["edges"][key],aligned,move)
             if p!==nothing
                 merge!(p,D("method"=>"mb_sim:"*key,"priority"=>3.0+1/(1+solution.cost),"question"=>"target_observed",
                     "mb_edge"=>key,"mb_expected"=>s["edges"][key]["to"],"mb_depth"=>length(solution.path)))
-                mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,solution.path,goal,"wake");push!(out,p)
+                if hasproperty(solution,:channel)
+                    c=solution.channel;b=solution.bridge_length
+                    p["mb_join"]=D("node"=>solution.join_node,"chunk"=>c.chunk,"index"=>c.index,
+                        "bridge_length"=>b,"stage"=>"approach","estimate"=>mb_route_estimate(s,solution.path[1:b],"join"))
+                    p["priority"]+=c.depth/(1+solution.cost)
+                end
+                mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,solution.path,goal,hasproperty(solution,:channel) ? "channel_join" : "wake");push!(out,p)
             end
         else
             mb_reject!(s,"wake","no_path")
