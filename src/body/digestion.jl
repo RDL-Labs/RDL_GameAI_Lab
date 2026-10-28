@@ -12,16 +12,21 @@ Digestion()=Digestion(0.,zeros(2),0,0.,0.,0.,Any[])
 const GUT_CAPACITY=2.
 const DIGEST_SECONDS=1800.
 const MEAL_ENERGY=20.
-const FOOD_LIKING=(1.,1.5) # ordinary / meat: scenario preference, not a biological law
+const FOOD_LIKING=(1.,1.5,0.,.45) # scenario preferences, not biological laws
 can_ingest(g)=g.gut<=GUT_CAPACITY-1+1e-12
 function taste(g,kind,reserve)
-    kind in FOOD_KIND_IDS || error("food kind")
+    food_edible(kind) || error("food requires processing or has unknown kind")
     0<=reserve<=100 || error("reserve")
-    FOOD_LIKING[kind]*(1-g.gut/GUT_CAPACITY)*(1-.6g.recent[kind])*(.5+.5*(1-reserve/100))
+    recent=kind<=length(g.recent) ? g.recent[kind] : 0.
+    FOOD_LIKING[kind]*(1-g.gut/GUT_CAPACITY)*(1-.6recent)*(.5+.5*(1-reserve/100))
 end
 function ingest!(g,kind,reserve,now)
     can_ingest(g) || error("gut full")
     liking=taste(g,kind,reserve)
+    # Keep the original two-kind state unchanged until another kind is eaten.
+    if kind>length(g.recent)
+        old=length(g.recent);resize!(g.recent,kind);g.recent[old+1:end].=0.
+    end
     g.gut+=1; g.recent[kind]=min(1.,g.recent[kind]+.6)
     g.eaten+=1; g.pleasure+=liking
     push!(g.records,(time=now,kind=kind,liking=liking,gut_after=g.gut,reserve_at_meal=reserve))
