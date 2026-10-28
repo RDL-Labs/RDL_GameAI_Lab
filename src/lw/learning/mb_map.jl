@@ -99,6 +99,11 @@ end
 function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=e->true)
     goal in ("home","food") || error("mb_goal")
     1<=max_depth<=4 && 1<=max_expansions<=64 || error("mb_search_budget")
+    outgoing=Dict{String,Vector{String}}()
+    for (key,e) in s["edges"]
+        e["action"] in ("walk","scan") || continue
+        push!(get!(()->String[],outgoing,e["from"]),key)
+    end
     queue=[(node=start,path=String[],cost=0.,visited=Set([start]),path_key="")]
     expanded=0;solution=nothing
     while !isempty(queue) && expanded<max_expansions
@@ -108,8 +113,8 @@ function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=
             solution=(node=item.node,path=item.path,cost=item.cost,visited=item.visited);break
         end
         length(item.path)>=max_depth && continue
-        edges=sort([k for (k,e) in s["edges"] if e["from"]==item.node && !(e["to"] in item.visited) &&
-            e["action"] in ("walk","scan")],by=k->(mb_edge_cost(s["edges"][k]),k))
+        edges=sort([k for k in get(outgoing,item.node,String[]) if !(s["edges"][k]["to"] in item.visited)],
+            by=k->(mb_edge_cost(s["edges"][k]),k))
         for key in Iterators.take(edges,8)
             e=s["edges"][key]
             isempty(item.path) && !first_allowed(e) && continue
