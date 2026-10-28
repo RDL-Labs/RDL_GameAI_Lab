@@ -18,7 +18,7 @@ function checked_food_kind(value)
     value isa Integer && !(value isa Bool) && value in RDLBody.FOOD_KIND_IDS || error("food_kind must be a known numeric ID")
     UInt8(value)
 end
-site_food_kind(f)=checked_food_kind(get(f,:food_kind,RDLBody.ORDINARY_FOOD))
+site_food_kind(f)=checked_food_kind(get(f,:food_kind,RDLBody.FRUIT_FOOD))
 function food_count_vector(value,total)
     value!==nothing && !(length(value)==length(RDLBody.FOOD_KIND_IDS) && all(x->x isa Integer && !(x isa Bool) && x>=0,value)) && error("food counts must be nonnegative integers")
     counts=value===nothing ? [total,0,0,0] : Int[x for x in value]
@@ -30,7 +30,7 @@ function food_resources(spec,w,food,stock,shared,stores)
     enabled=get(spec,:typed_food,false)
     enabled isa Bool || error("typed_food must be Bool")
     if !enabled
-        all(==(RDLBody.ORDINARY_FOOD),kinds) || error("nonordinary food requires typed_food")
+        all(==(RDLBody.FRUIT_FOOD),kinds) || error("nonordinary food requires typed_food")
         return nothing
     end
     get(spec,:world_history,nothing)===nothing || error("typed food world transfer requires daily checkpoints")
@@ -38,7 +38,7 @@ function food_resources(spec,w,food,stock,shared,stores)
     initial_kinds!==nothing && length(initial_kinds)!=length(IDS) && error("initial_inventory_kinds roster")
     inv=Dict{String,Vector{UInt8}}()
     for (i,a) in enumerate(IDS)
-        inv[a]=initial_kinds===nothing ? fill(UInt8(RDLBody.ORDINARY_FOOD),w.inventory[a]) : checked_food_kind.(initial_kinds[i])
+        inv[a]=initial_kinds===nothing ? fill(UInt8(RDLBody.FRUIT_FOOD),w.inventory[a]) : checked_food_kind.(initial_kinds[i])
         length(inv[a])==w.inventory[a] || error("initial_inventory_kinds count")
     end
     personal_spec=get(spec,:initial_personal_food_counts,nothing)

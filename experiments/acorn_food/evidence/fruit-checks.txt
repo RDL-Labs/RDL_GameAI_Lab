@@ -1,0 +1,14 @@
+Test Summary:                     | Pass  Total  Time
+taste and delayed acorn nutrition |   14     14  0.2s
+Test Summary:                 | Pass  Total  Time
+strict numeric food contracts |   17     17  0.9s
+Test Summary:                                  | Pass  Total  Time
+processing work and interruption preserve mass |   17     17  1.2s
+Test Summary:                            | Pass  Total  Time
+camp processing yields to exhausted body |    8      8  0.0s
+Test Summary:                               | Pass  Total  Time
+full gut rests before taking more camp food |    5      5  0.0s
+Test Summary:                                 | Pass  Total  Time
+storage, gifts and drops retain resource kind |   17     17  0.9s
+Test Summary:                             | Pass  Total  Time
+personal stores and known raw ingredients |    6      6  0.0s

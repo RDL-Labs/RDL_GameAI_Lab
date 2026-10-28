@@ -1,10 +1,11 @@
 # Stable food IDs; liking and nutrition belong to physiology, not identity.
-const ORDINARY_FOOD=1
+const FRUIT_FOOD=1
+const ORDINARY_FOOD=FRUIT_FOOD # legacy name; existing kind 1 is now explicitly fruit
 const MEAT_FOOD=2
 const RAW_ACORN=3
 const ACORN_MEAL=4
-const FOOD_KIND_IDS=(ORDINARY_FOOD,MEAT_FOOD,RAW_ACORN,ACORN_MEAL)
-const FOOD_KIND_LABELS=("ordinary","meat","raw_acorn","acorn_meal")
+const FOOD_KIND_IDS=(FRUIT_FOOD,MEAT_FOOD,RAW_ACORN,ACORN_MEAL)
+const FOOD_KIND_LABELS=("fruit","meat","raw_acorn","acorn_meal")
 # Game resource properties. Storage class is metadata until spoilage is modeled.
 const FOOD_EDIBLE=(true,true,false,true)
 const FOOD_STORAGE=("ordinary","ordinary","long","long")

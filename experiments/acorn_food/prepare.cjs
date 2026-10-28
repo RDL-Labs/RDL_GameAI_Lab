@@ -20,6 +20,6 @@ for(const radius of [4,7,10])for(let i=0;i<12&&sites.length<8;i++){
 if(sites.length!==8)throw Error('need 8 separated accessible acorn sites');
 s.food.push(...sites);
 fs.writeFileSync(out,JSON.stringify(input),{flag:'wx'});
-console.log(JSON.stringify({days:3,humans:3,rabbits:30,ordinary:s.food.filter(f=>f.food_kind===1).reduce((v,f)=>v+f.stock,0),
+console.log(JSON.stringify({days:3,humans:3,rabbits:30,fruit:s.food.filter(f=>f.food_kind===1).reduce((v,f)=>v+f.stock,0),
  acorns:192,carriedRaw:3,regrowth:false,processing:'at camp, 120 work ticks per portion',decay:false,
- liking:{ordinary:1,meat:1.5,acornMeal:.45},digestion:'on',seed:input.config.seed,sites},null,2));
+ liking:{fruit:1,meat:1.5,acornMeal:.45},digestion:'on',seed:input.config.seed,sites},null,2));
