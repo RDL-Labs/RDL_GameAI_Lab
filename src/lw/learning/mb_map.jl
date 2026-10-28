@@ -7,11 +7,19 @@ mb_map_state(actor;chunks=false,sensitivity=D())=D("sensitivity"=>mb_sensitivity
     "next_search_us"=>0,"observations"=>0,"searches"=>0,"expanded"=>0,"proposals"=>0,
     "selected"=>0,"prediction_match"=>0,"prediction_miss"=>0,"prediction_unknown"=>0,
     "evictions"=>0,"records"=>Any[])
-function mb_scene(obs)
+const MB_SCENE_ABSTRACTIONS=("standard","angle60","distance2","colors")
+function mb_scene(obs;abstraction="standard")
+    abstraction in MB_SCENE_ABSTRACTIONS || error("mb_scene_abstraction")
     scene=relation_scene(obs)
     (scene===nothing || isempty(scene)) && return nothing
     anchor=first(scene)["angle"]
-    signature=join(["$(x["color"]):$(x["range_band"]):$(round(Int,wrap_angle(x["angle"]-anchor)/30))" for x in scene],"|")
+    function token(x)
+        band=abstraction=="colors" ? "any" : abstraction=="distance2" && x["range_band"]!="near" ? "mid" : x["range_band"]
+        # Keep the existing 30-degree unit encoding so all shared consumers agree.
+        angle=abstraction=="colors" ? 0 : abstraction=="standard" ? round(Int,wrap_angle(x["angle"]-anchor)/30) : 2round(Int,wrap_angle(x["angle"]-anchor)/60)
+        "$(x["color"]):$band:$angle"
+    end
+    signature=join(token.(scene),"|")
     (key=bytes2hex(sha256(signature))[1:16],anchor=anchor,signature=signature,features=mb_features(signature))
 end
 function mb_forget_node!(s,key)
@@ -22,7 +30,7 @@ function mb_forget_node!(s,key)
 end
 function mb_observe!(s,obs,now;home=false,food=false)
     obs["source"]=="ob:$now:$(s["actor"])" || error("mb_observation_binding")
-    frame=mb_scene(obs);s["observations"]+=1;s["current"]=frame;s["current_us"]=now
+    frame=mb_scene(obs;abstraction=get(s,"scene_abstraction","standard"));s["observations"]+=1;s["current"]=frame;s["current_us"]=now
     receipt=s["receipt"];s["receipt"]=nothing
     if frame!==nothing
         if !haskey(s["nodes"],frame.key)

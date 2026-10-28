@@ -99,6 +99,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(navigation_mode in ("explicit_join","goal_cues"),"mb_navigation_mode")
     check(navigation_mode!="goal_cues" || (mb_simulation && mb_chunks && general_landmarks),"goal_cues_requires_observed_mb")
     for a in IDS;mb_maps[a]["navigation_mode"]=navigation_mode;end
+    scene_abstraction=get(spec,:mb_scene_abstraction,"standard")
+    check(scene_abstraction in MB_SCENE_ABSTRACTIONS,"mb_scene_abstraction")
+    for a in IDS;mb_maps[a]["scene_abstraction"]=scene_abstraction;end
     exploration_relations=get(spec,:mb_exploration_relations,false)
     check(!exploration_relations || (mb_simulation && general_landmarks),"exploration_relations_requires_mb")
     for a in IDS;mb_maps[a]["exploration_relations_enabled"]=exploration_relations;end

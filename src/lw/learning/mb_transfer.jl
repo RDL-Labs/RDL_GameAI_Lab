@@ -1,6 +1,7 @@
 # Whitelist learned state; never resume physical state or an unfinished trial.
 function mb_transfer!(fresh,old,ended_us)
     check(fresh["actor"]==old["actor"],"transfer_actor")
+    check(get(fresh,"scene_abstraction","standard")==get(old,"scene_abstraction","standard"),"transfer_scene_abstraction")
     for key in ("nodes","edges","chunks")
         fresh[key]=deepcopy(old[key])
     end
