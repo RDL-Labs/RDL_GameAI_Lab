@@ -30,7 +30,7 @@ end
 # Experimental tolerance1, quadratic scale2. Floor avoids ceil's immediate 1->2 jump.
 mb_retrieval_width(H)=min(136.,1+(max(0.,clamp(Float64(H),0.,32.)-1)/2)^2)
 mb_retrieval_budget(H)=floor(Int,mb_retrieval_width(H))
-function mb_correspondences(s,targets,now;scope="wake",H=0)
+function mb_correspondences(s,targets,now;scope="wake",H=0,retrieval_strength=nothing)
     frame=s["current"];out=Any[]
     frame===nothing && (mb_reject!(s,scope,"no_observation");return out)
     # Cheap retrieval order, not a declaration of identity. Full geometry is evaluated lazily.
@@ -44,7 +44,9 @@ function mb_correspondences(s,targets,now;scope="wake",H=0)
         features=get!(() -> mb_features(node["signature"]),node,"features")
         common=count(k->haskey(features,k),keys(observed))
         common==0 && continue
-        push!(ranked,(support*min(1.,common/2),key,support))
+        # Goal-linked experience affects retrieval order, never geometric agreement.
+        strength=retrieval_strength===nothing ? 0. : get(retrieval_strength,key,0.)
+        push!(ranked,(support*min(1.,common/2)*(1+strength),key,support))
     end
     sort!(ranked,by=x->(-x[1],x[2]))
     # Wider pressure opens weaker relations. Inadequate fit also opens the next batch.

@@ -3,7 +3,8 @@ function route_fixture()
  s=mb_map_state("a";chunks=true);chunk_trip!(s,0)
  mb_goal_result!(s,"home","op:1000000:a",true,8,0,2_000_000)
  mb_observe!(s,chunk_view(3_000_000,"far"),3_000_000)
- p=only(mb_chunk_candidates!(s,move,"home",90.,0.,3_000_000))
+ # Resolve origin versus intermediate entry before testing route lifecycle.
+ p=only(mb_chunk_candidates!(s,move,"home",90.,0.,3_000_000;H=8))
  s,p
 end
 @testset "whole path execution and parent outcome" begin

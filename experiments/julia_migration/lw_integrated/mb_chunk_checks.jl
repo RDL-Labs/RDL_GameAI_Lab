@@ -31,7 +31,8 @@ end
  @test mb_goal_result!(s,"home","op:7000000:a",true,0,0,8_000_000)
  @test c["reward"]==12 && c["successes"]==3
  mb_observe!(s,chunk_view(9_000_000,"far"),9_000_000)
- cs=mb_chunk_candidates!(s,move,"home",90.,0.,9_000_000)
+ # Include both origin and intermediate entry alternatives in this lifecycle test.
+ cs=mb_chunk_candidates!(s,move,"home",90.,0.,9_000_000;H=8)
  @test length(cs)==1 && cs[1]["mb_depth"]==2 && s["searches"]==0
  @test isempty(mb_chunk_candidates!(s,move,"food",90.,0.,9_000_000))
  @test isempty(mb_chunk_candidates!(s,move,"home",10.,0.,9_000_000))

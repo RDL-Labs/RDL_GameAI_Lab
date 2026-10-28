@@ -67,7 +67,7 @@ function mb_route_record!(s,p,status,now;energy=0.)
         end
         haskey(r["stats"],id) && (r["stats"][id]["starts"]+=1)
         a=D("id"=>id,"path"=>copy(path),"goal"=>p["mb_route_goal"],"kind"=>p["mb_route_kind"],
-            "chunk"=>get(p,"mb_chunk",nothing),"sleep"=>get(p,"mb_sleep",nothing),"cursor"=>1,"verified"=>0,
+            "chunk"=>get(p,"mb_chunk",nothing),"chunk_start_index"=>get(p,"mb_chunk_start_index",1),"sleep"=>get(p,"mb_sleep",nothing),"cursor"=>1,"verified"=>0,
             "started_us"=>now,"last_us"=>now,"priority"=>p["priority"],"uncertain"=>false,"pending_edge"=>nothing,"H"=>get(p,"mb_control_H",0))
         a["estimate"]=mb_route_estimate(s,path,a["goal"])
         a["effort"]=D("actions"=>0,"energy"=>0.,"contradictions"=>0,"charged"=>0,"last_evaluated"=>nothing)
@@ -138,7 +138,7 @@ function mb_route_candidates!(s,move,goal,reserve,strain,now;H=0)
     merge!(p,D("method"=>"mb_route:"*a["id"],"priority"=>a["priority"],"question"=>"target_observed",
         "mb_edge"=>edge,"mb_expected"=>e["to"],"mb_depth"=>length(a["path"])-i+1,
         "mb_path"=>a["path"],"mb_route"=>a["id"],"mb_route_kind"=>a["kind"],"mb_route_index"=>i,"mb_route_goal"=>goal))
-    a["chunk"]!==nothing && merge!(p,D("mb_chunk"=>a["chunk"],"mb_chunk_index"=>i))
+    a["chunk"]!==nothing && merge!(p,D("mb_chunk"=>a["chunk"],"mb_chunk_index"=>get(a,"chunk_start_index",1)+i-1))
     a["sleep"]!==nothing && (p["mb_sleep"]=a["sleep"])
     mb_attach_correspondence!(p,s,match)
     Any[p]

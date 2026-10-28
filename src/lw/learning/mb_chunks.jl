@@ -75,24 +75,33 @@ function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now;completion_
     length(s["chunk_records"])>32 && popfirst!(s["chunk_records"])
     true
 end
+# Repeated goal credit deepens a channel; transition contradictions weaken it.
+# Logarithmic growth avoids a hard saturation without making credit linear votes.
+mb_chunk_depth(c)=(log1p(c["successes"])+log1p(c["reward"]))/(1+c["misses"]+get(c,"execution_failures",0))
 function mb_chunk_candidates!(s,move,goal,reserve,strain,now;H=0)
     frame=s["current"]
     (!s["chunks_enabled"] || frame===nothing || s["current_us"]!=now || reserve<=20 || strain>=.8) && return Any[]
     out=Any[]
-    targets=unique([c["from"] for c in values(s["chunks"])])
-    matches=mb_correspondences(s,targets,now;scope="chunk",H=H)
-    for match in matches, id in sort(collect(keys(s["chunks"])))
-        c=s["chunks"][id];c["goal"]==goal || (mb_reject!(s,"chunk","goal_mismatch");continue)
+    entries=Dict{String,Vector{Tuple{String,Int}}}();strength=Dict{String,Float64}()
+    for id in sort(collect(keys(s["chunks"])))
+        c=s["chunks"][id];c["goal"]==goal || continue
         all(k->haskey(s["edges"],k),c["edges"]) || (mb_reject!(s,"chunk","missing_edge");continue)
-        c["from"]==match["key"] || continue
-        index=1;edge=c["edges"][index];p=mb_first_action(s["edges"][edge],(anchor=match["anchor"],),move)
+        for (index,edge) in enumerate(c["edges"])
+            origin=s["edges"][edge]["from"]
+            push!(get!(()->Tuple{String,Int}[],entries,origin),(id,index))
+            # Several chunks sharing an origin must not multiply its retrieval votes.
+            strength[origin]=max(get(strength,origin,0.),mb_chunk_depth(c))
+        end
+    end
+    matches=mb_correspondences(s,keys(entries),now;scope="chunk",H=H,retrieval_strength=strength)
+    for match in matches, (id,index) in entries[match["key"]]
+        c=s["chunks"][id];edge=c["edges"][index];p=mb_first_action(s["edges"][edge],(anchor=match["anchor"],),move)
         p===nothing && (mb_reject!(s,"chunk","infeasible_action");continue)
-        support=log1p(c["successes"])+log1p(c["reward"])
-        confidence=1/(1+c["misses"])
-        merge!(p,D("method"=>"mb_chunk:"*id,"action"=>p["action"],"priority"=>3.0+confidence*min(2.,support),
+        depth=mb_chunk_depth(c)
+        merge!(p,D("method"=>"mb_chunk:"*id,"action"=>p["action"],"priority"=>3.0+depth,"mb_channel_depth"=>depth,
             "question"=>"target_observed","mb_edge"=>edge,"mb_expected"=>s["edges"][edge]["to"],
-            "mb_chunk"=>id,"mb_chunk_index"=>index,"mb_depth"=>length(c["edges"])-index+1))
-        mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,c["edges"],goal,"chunk");push!(out,p)
+            "mb_chunk"=>id,"mb_chunk_index"=>index,"mb_chunk_start_index"=>index,"mb_depth"=>length(c["edges"])-index+1))
+        mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,c["edges"][index:end],goal,"chunk");push!(out,p)
     end
     sort!(out,by=p->(-p["priority"],p["method"]))
     unique!(p->p["method"],out);length(out)>4 && resize!(out,4)
