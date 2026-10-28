@@ -8,6 +8,8 @@
 
 # Design Document Status
 
+- [LW非同期個体・分散世界](LW_Async_Distributed_World_Plan.md)：将来案・未実装。長考中も世界と身体が進む方式、個体ワーカーの複数PC配置、MMORPG型の共有世界を検討。現行同期方式と実験条件は変更しない。
+
 - [設定経路・埋め込みMB・学習経路](RDL_Configured_Paths.md)：共通の用語。設定経路は撤去予定のテスト用固定処理で、埋め込みMBとは別。身体維持の直書き切り替えも設定経路に分類。
 
 - [LW-Julia統合対応表・共通起動口](RDL_Julia_LW_Integration_Status.md)：B1gの機能を一つのCLIへ接続。日数・seed・資源条件・採取学習を明示し、manifestと短いsummaryを出力。未接続領域を棚卸しし、有限な危険割込み・解除を接続済み。Julia単独のWorld生成・時計・実行・保存入口も追加。Python本線の置換ではない。
