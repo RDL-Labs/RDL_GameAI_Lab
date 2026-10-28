@@ -1,0 +1,13 @@
+policy sample {"world":{"offered":77,"declined":73,"unavailable":0,"exchanged":4,"expired":0},"rewarded_methods":8,"failed_trials":73,"skip_events":12}
+Test Summary:                                               | Pass  Total  Time
+probabilistic food proposals produce exchanges and refusals |   18     18  3.9s
+Test Summary:                                                 | Pass  Total  Time
+pending exchanges resolve once rather than adding H each tick |   14     14  0.1s
+Test Summary:                                | Pass  Total  Time
+continuing and declining are neutral choices |    8      8  0.3s
+Test Summary:                                                 | Pass  Total  Time
+learning uses the committed swap rather than the old forecast |   19     19  0.1s
+Test Summary:                                              | Pass  Total  Time
+trade learning and pending decisions survive serialization |    6      6  1.8s
+Test Summary:                                                | Pass  Total  Time
+trade actions pause existing navigation without resetting it |    9      9  0.0s

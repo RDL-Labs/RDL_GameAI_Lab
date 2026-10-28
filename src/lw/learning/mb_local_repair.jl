@@ -1,5 +1,6 @@
 # Local corrections keep the selected parent route and its frozen estimate.
 function mb_route_repair_record!(s,p,status,energy,now)
+    get(p,"food_exchange",false) && return
     a=s["routes"]["active"];a===nothing && return
     a["last_us"]=now;mb_route_effort!(a,energy)
     a["repairs"]=get(a,"repairs",0)+1

@@ -32,7 +32,9 @@ include(joinpath(@__DIR__, "../learning/sleep_maintenance.jl"))
 include(joinpath(@__DIR__, "moving.jl"))
 include(joinpath(@__DIR__, "../../body/load.jl"))
 include(joinpath(@__DIR__, "../world/food_resources.jl"))
+include(joinpath(@__DIR__, "../world/food_exchange.jl"))
 include(joinpath(@__DIR__, "../decision/basic_loop.jl"))
+include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
 include(joinpath(@__DIR__, "../decision/approach.jl"))
 include(joinpath(@__DIR__, "../decision/local_descent.jl"))
 include(joinpath(@__DIR__, "../decision/repetition_pressure.jl"))
@@ -132,6 +134,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     landmark_objects=landmark_routes ? prepare_landmark_objects(visual_objects) : nothing
     skyline_objects=skyline_mode=="off" ? nothing : prepare_skyline_objects(visual_objects)
     history=get(spec,:world_history,nothing)
+    history!==nothing && get(history,:food_exchange,nothing)!==nothing && error("food exchange world transfer requires daily checkpoints")
     history!==nothing && get(history,:food_resources,nothing)!==nothing && error("typed food world transfer requires daily checkpoints")
     history!==nothing && get(history,:wildlife,nothing)!==nothing && error("grazing world transfer requires daily checkpoints")
     wildlife=LWGrazing.build(spec,clock;low_obstacles)
@@ -285,6 +288,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     check(!shared_stores || all(v==0 for v in values(stores)),"shared_personal_conflict")
     foods=food_resources(spec,w,food,stock,shared,stores)
+    exchange_enabled=get(spec,:food_exchange,false)
+    check(exchange_enabled isa Bool,"food_exchange_flag")
+    check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
+    trades=exchange_enabled ? food_trade_state(choice_seed) : nothing
     initial=shared+sum(stock)+sum(values(w.inventory))+sum(values(stores));bounds=Int.(clock.phase_boundaries_us)
     replenished=0;replenishments=Any[]
     integrate(a,now,obs)=begin
@@ -355,6 +362,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             for a in IDS;observe_sky!(sky[a],sky_sample(a,"ob:$now:$a",now,yaw[a],clock));end
         end
         obs=Dict(a=>observe(w,a) for a in IDS)
+        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now)
         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
         homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
@@ -553,6 +561,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             end
 
+            if plan===nothing && trades!==nothing && !observing && phase!="night" && at_home && w.inventory[a]==0
+                plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now)
+            end
             if observing && plan===nothing
                 plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
                 plan===nothing && configured_camp_landmark && (plan=configured_camp_landmark_tour!(observation_states[a]["camp_landmark"],spec.home,w.positions[a],yaw[a],sec,camp_view,w.bodies[a].reserve,w.bodies[a].strain,local_us,clock;experience=configured_camp_experience))
@@ -851,6 +862,16 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
                 d=min(d,get(plan,"approach_span",d))
                 w.positions[a]=(p[1]+s*d,p[2]+c*d);distance[a]+=d
+            elseif action in ("trade_offer","trade_accept","trade_decline")
+                receipt=if action=="trade_offer"
+                    food_exchange_execute!(trades["world"],foods,w,stores,spec.home,a,op,action,now;
+                        target=plan["target"],give_kind=plan["give_kind"],give_count=plan["give_count"],
+                        want_kind=plan["want_kind"],want_count=plan["want_count"])
+                else
+                    food_exchange_execute!(trades["world"],foods,w,stores,spec.home,a,op,action,now;offer_id=plan["offer_id"])
+                end
+                status=receipt["status"];food_trade_executed!(trades,a,plan,receipt)
+                w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
             elseif action=="process_food"
                 legal=foods!==nothing && hypot(p[1]-spec.home[1],p[2]-spec.home[2])<=1.25 && food_has_raw(foods,a)
                 if legal
@@ -1044,6 +1065,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 "shared_stock"=>shared,"ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
             wildlife!==nothing && (daily[end]["wildlife"]=LWGrazing.snapshot(wildlife))
             foods!==nothing && (daily[end]["food_resources"]=food_snapshot(foods))
+            trades!==nothing && (daily[end]["food_exchange"]=food_trade_snapshot(trades))
             checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)
         end
     end
@@ -1065,8 +1087,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
         "wildlife"=>wildlife===nothing ? nothing : LWGrazing.snapshot(wildlife),
         "food_resources"=>foods===nothing ? nothing : food_snapshot(foods),
+        "food_exchange"=>trades===nothing ? nothing : food_trade_snapshot(trades),
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
-    merge(guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    merge(trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"repetition_pressure"=>repetition_pressure ? repetitions : nothing,"parent_breadth"=>parent_breadth ? breadth_stats : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts))
 end

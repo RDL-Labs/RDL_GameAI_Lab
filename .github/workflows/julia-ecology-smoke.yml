@@ -26,6 +26,10 @@ jobs:
           julia --startup-file=no --project=. test/shared_world_policies.jl
       - name: Root entry help
         run: julia --startup-file=no run.jl --help
+      - name: Typed food, personal stores and barter
+        run: |
+          julia --startup-file=no --project=. experiments/food_exchange/checks.jl
+          julia --startup-file=no --project=. experiments/food_exchange/policy_checks.jl
       - name: LW completion prediction reward
         run: |
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_return_outlook_checks.jl

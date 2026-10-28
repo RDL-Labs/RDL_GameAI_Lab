@@ -46,6 +46,19 @@ if get(summary.config,:stores,"personal")=="personal"
         end
     end
 end
+# Integration evidence is separate from the controlled barter fixtures: a
+# resource-rich map need not make both parties accept a proposal.
+if haskey(r,:food_exchange)
+    @testset "camp food exchange integration" begin
+        x=r.food_exchange
+        @test x.world.counts.offered>0
+        @test x.world.counts.exchanged<=sum(get(c,:trade_accept,0) for c in values(r.counts))
+        @test x.world.counts.offered<=sum(get(c,:trade_offer,0) for c in values(r.counts))
+        @test r.daily[end].food_exchange==x
+        @test summary.food_exchange==x
+        @test all(d->d.food_exchange.world.counts.exchanged<=x.world.counts.exchanged,r.daily)
+    end
+end
 # Same source/input, uninterrupted whole run versus continuing from day 2.
 native_main([joinpath(out,"resumed"),"--spec",joinpath(out,"input.json"),
     "--resume-from",joinpath(out,"checkpoints/day-002.jls")])
@@ -54,6 +67,7 @@ resumed=JSON3.read(read(joinpath(out,"resumed/result.json"),String))
     @test r==resumed
 end
 evidence=(config=summary.config,measurement=summary.measurement,food=summary.food,food_resources=f,
+    food_exchange=get(r,:food_exchange,nothing),
     humans=summary.agents,digestion=r.digestion,wildlife=(alive=r.wildlife.alive,starvation=r.wildlife.starvation_deaths),
     daily=[(day=i,food=d.food_resources,humans=Dict(a=>(reserve=v.body.reserve,position=v.position,inventory=v.inventory,personal_stock=v.personal_stock) for (a,v) in pairs(d.physical))) for (i,d) in enumerate(r.daily)],
     continuation_identical=true)

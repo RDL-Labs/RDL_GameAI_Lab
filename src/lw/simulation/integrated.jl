@@ -21,6 +21,7 @@ for a in IDS
         "replacement_used"=>h===nothing ? false : get(h,"replacement_used",false),"model_field"=>s["model_field"])
 end
 haskey(r,"digestion") && (summary["digestion"]=r["digestion"])
+haskey(r,"food_exchange") && (summary["food_exchange"]=r["food_exchange"])
 if get(cfg,:stores,"personal")=="personal"
     summary["food"]["personal"]=D(a=>r["final_agents"][a]["personal_stock"] for a in IDS)
 end

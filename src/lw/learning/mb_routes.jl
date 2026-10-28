@@ -24,6 +24,10 @@ function mb_route_attach!(p,s,path,goal,kind;chunk=nothing,sleep=nothing)
 end
 function mb_route_record!(s,p,status,now;energy=0.)
     r=s["routes"];a=r["active"];id=get(p,"mb_route",nothing)
+    if get(p,"food_exchange",false)
+        a!==nothing && (a["reason"]="social_pause")
+        return
+    end
     if a!==nothing
         a["H"]=get(p,"mb_control_H",get(a,"H",0))
         control=get(p,"mb_control",nothing)

@@ -1,0 +1,38 @@
+Test Summary:                     | Pass  Total  Time
+taste and delayed acorn nutrition |   14     14  0.3s
+Test Summary:                 | Pass  Total  Time
+strict numeric food contracts |   17     17  0.9s
+Test Summary:                                  | Pass  Total  Time
+processing work and interruption preserve mass |   17     17  1.3s
+Test Summary:                            | Pass  Total  Time
+camp processing yields to exhausted body |    8      8  0.0s
+Test Summary:                               | Pass  Total  Time
+full gut rests before taking more camp food |    5      5  0.0s
+Test Summary:                                 | Pass  Total  Time
+storage, gifts and drops retain resource kind |   17     17  0.9s
+Test Summary:                             | Pass  Total  Time
+personal stores and known raw ingredients |    6      6  0.0s
+Test Summary:                              | Pass  Total  Time
+private stores cannot supply another owner |   11     11  0.0s
+Test Summary:                                                | Pass  Total  Time
+warehouse food changes owner only after an explicit handover |   10     10  0.0s
+Test Summary:                                                 | Pass  Total  Time
+private raw food and partial processing survive serialization |   10     10  0.3s
+Test Summary:                                                       | Pass  Total  Time
+exchange proposal is private and does not reserve or transfer stock |   12     12  0.8s
+Test Summary:                             | Pass  Total  Time
+accepted barter is atomic and replay safe |   14     14  0.2s
+Test Summary:                             | Pass  Total  Time
+only the recipient can consent or decline |    6      6  0.0s
+Test Summary:                                                  | Pass  Total  Time
+exchange outcomes reveal only immutable personal stock changes |   25     25  0.3s
+Test Summary:                                            | Pass  Total  Time
+expired or unreachable proposals cannot move either side |   11     11  0.0s
+Test Summary:                                                | Pass  Total  Time
+stocks are revalidated at acceptance with no partial payment |   11     11  0.0s
+Test Summary:                          | Pass  Total  Time
+pending exchange survives a checkpoint |    5      5  0.0s
+Test Summary:                                                | Pass  Total  Time
+invalid terms fail before mutation and history stays bounded |   19     19  0.1s
+Test Summary:                                         | Pass  Total  Time
+proposal replays still enforce integer resource terms |   14     14  0.1s

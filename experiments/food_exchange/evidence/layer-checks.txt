@@ -1,0 +1,4 @@
+Test Summary:                       | Pass  Total  Time
+LW perception and decision boundary |    5      5  1.1s
+Test Summary:             | Pass  Total  Time
+core dependency direction |  561    561  0.1s
