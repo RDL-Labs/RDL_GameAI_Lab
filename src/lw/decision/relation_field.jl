@@ -15,6 +15,9 @@ function relation_scene(ob)
 end
 function compare_relation(ob,target)
     current=relation_scene(ob)
+    compare_relation_scene(current,target)
+end
+function compare_relation_scene(current,target)
     current===nothing && return D("status"=>"unavailable","pairs"=>Any[])
     old=Dict(x["color"]=>x for x in get(target,"scene",Any[]));now=Dict(x["color"]=>x for x in current)
     common=sort(collect(intersect(keys(old),keys(now))))
@@ -50,17 +53,22 @@ end
 relation_field_state()=D("owner"=>nothing,"goal"=>nothing,"evaluations"=>0,"proposals"=>0,"selections"=>0,"records"=>Any[])
 function relation_candidates!(state,move,ob,m,goal,source)
     eligible=Any[]
+    current=nothing;prepared=false
     for key in sort(collect(keys(m["routes"])))
         n=m["routes"][key];n["goal"]==goal || continue
         cursor=get(m["cursors"],key,1)
+        rel=nothing
+        if cursor<=length(n["points"]) && !prepared
+            current=relation_scene(ob);prepared=true
+        end
         while cursor<=length(n["points"])
-            rel=compare_relation(ob,n["points"][cursor])
+            rel=compare_relation_scene(current,n["points"][cursor])
             get(rel,"aligned",false) || break
             cursor+=1
         end
         m["cursors"][key]=cursor
         cursor>length(n["points"]) && continue
-        rel=compare_relation(ob,n["points"][cursor]);rel["status"]=="comparable" || continue
+        rel["status"]=="comparable" || continue
         push!(eligible,(key=key,score=(1+.25*n["support"])/(1+n["H"]),relation=rel))
     end
     state["evaluations"]+=1
