@@ -1,0 +1,47 @@
+name: Julia successful-channel trial
+run-name: Channel trial ${{ inputs.days }} days seed ${{ inputs.seed }}
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        type: choice
+        default: '10'
+        options: ['3', '10', '30']
+      seed:
+        type: choice
+        default: '20261007'
+        options: ['20261006', '20261007', '20261008']
+permissions:
+  contents: read
+jobs:
+  trial:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      TRIAL_DAYS: ${{ inputs.days }}
+      TRIAL_SEED: ${{ inputs.seed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - uses: julia-actions/cache@v2
+      - name: Install locked environment
+        run: |
+          julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
+          git diff --exit-code -- Project.toml Manifest.toml
+      - name: Run fresh cohort on frozen map
+        run: |
+          mkdir -p outputs
+          julia --startup-file=no --project=. experiments/rock_gate/run_channel_trial.jl experiments/rock_gate/channel_trial_spec.json outputs/cloud-channel "$TRIAL_DAYS" "$TRIAL_SEED" 2>&1 | tee outputs/cloud-channel.log
+      - name: Upload trial evidence and daily checkpoints
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: channel-${{ inputs.days }}d-seed-${{ inputs.seed }}-${{ github.run_id }}
+          path: |
+            outputs/cloud-channel
+            outputs/cloud-channel.log
+          retention-days: 14

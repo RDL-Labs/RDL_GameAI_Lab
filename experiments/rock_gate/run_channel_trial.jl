@@ -2,19 +2,23 @@
 using JSON3, Test, SHA
 const repo=normpath(joinpath(@__DIR__,"../.."))
 const original=abspath(ARGS[1]);const out=abspath(ARGS[2]);const days=parse(Int,ARGS[3])
+const choice_seed=length(ARGS)>=4 && ARGS[4]!="--prepare-only" ? parse(Int,ARGS[4]) : nothing
 @assert 1<=days<=90
+@assert choice_seed===nothing || choice_seed>=0
 ispath(out) && error("fresh output required")
 mkpath(out);const snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(repo,"src"),joinpath(snapshot,"src"))
 cp(joinpath(repo,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
 cp(@__FILE__,joinpath(out,"runner.jl"))
-input=JSON3.read(read(original,String),Dict{String,Any});old_days=input["config"]["days"]
+input=JSON3.read(read(original,String),Dict{String,Any});old_days=input["config"]["days"];old_seed=input["config"]["seed"]
 input["config"]["days"]=days
+choice_seed!==nothing && (input["config"]["seed"]=choice_seed)
 caseout=joinpath(out,"ordinary");mkpath(caseout)
 specpath=joinpath(caseout,"input.json");write(specpath,JSON3.write(input))
-@test merge(input["config"],Dict("days"=>old_days))==JSON3.read(read(original,String),Dict{String,Any})["config"]
+@test merge(input["config"],Dict("days"=>old_days,"seed"=>old_seed))==JSON3.read(read(original,String),Dict{String,Any})["config"]
 @test all(!f["renewable"] for f in input["scene"]["food"])
-write(joinpath(out,"input-origin.json"),JSON3.write(Dict("path"=>original,"sha256"=>bytes2hex(sha256(read(original))),"changed"=>Dict("days"=>[old_days,days]),"fresh_cohort"=>true)))
+changes=Dict("days"=>[old_days,days]);choice_seed!==nothing && (changes["seed"]=[old_seed,choice_seed])
+write(joinpath(out,"input-origin.json"),JSON3.write(Dict("path"=>original,"sha256"=>bytes2hex(sha256(read(original))),"changed"=>changes,"fresh_cohort"=>true)))
 const counts=Dict(a=>Dict("join_proposals"=>0,"join_recognized"=>0,"remembered_edges_reused"=>0) for a in ("npc_a","npc_b","npc_c"))
 const events=Any[];const positions=Any[];const started=Ref(time());const daily=Any[]
 function channel_candidate_probe!(s,out,now)
@@ -50,6 +54,7 @@ end
 patch_saved("src/lw/simulation/day.jl","        advance_physiology!(w,metabolism,guts,food_body)","        advance_physiology!(w,metabolism,guts,food_body)\n        Main.channel_tick!(sec,w,spec.home)")
 patch_saved("src/lw/learning/mb_map.jl","    s[\"expanded\"]+=expanded;s[\"proposals\"]+=length(out)","    s[\"expanded\"]+=expanded;s[\"proposals\"]+=length(out)\n    Main.channel_candidate_probe!(s,out,now)")
 patch_saved("src/lw/learning/mb_routes.jl","    a[\"chunk\"]=join[\"chunk\"];a[\"chunk_start_index\"]=join[\"index\"];a[\"chunk_path_offset\"]=join[\"bridge_length\"]","    a[\"chunk\"]=join[\"chunk\"];a[\"chunk_start_index\"]=join[\"index\"];a[\"chunk_path_offset\"]=join[\"bridge_length\"]\n    Main.channel_join_probe!(s,a,now)")
+"--prepare-only" in ARGS && (println("PREPARED days=$days seed=$(input["config"]["seed"])");exit(0))
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 started[]=time()
 native_main([joinpath(caseout,"run"),"--spec",specpath,"--checkpoint-dir",joinpath(caseout,"checkpoints")])
