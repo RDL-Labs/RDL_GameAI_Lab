@@ -43,6 +43,9 @@
 node experiments/acorn_food/prepare.cjs outputs/acorn-food-input.json
 julia --startup-file=no --project=. experiments/acorn_food/checks.jl
 julia --startup-file=no --project=. experiments/acorn_food/run.jl outputs/acorn-food-input.json outputs/acorn-food-3d
+julia --startup-file=no --project=. experiments/acorn_food/continue.jl outputs/acorn-food-3d 10 outputs/acorn-food-10d
 ```
 
 実験は人3体＋兎30体、3日、既存食料1080＋近隣ドングリ192、各人に原料1を所持、どちらも補充なし。加工の即時接続を確認するため拠点内から開始し、初日の見回し等の設定経路を維持。消化ON、腐敗OFF、標準の場面抽象度。入力・ソース・日末コピーと結果を保存する。[試験結果](../../experiments/acorn_food/report.md)。
+
+`continue.jl`は前の出力に保存したソースと最終日末コピーを使い、日数だけ変更して継続する。上の10は追加日数でなく通算10日目まで。最初の3日分の履歴はそのまま保持し、初期配置・初日見学をやり直さない。継続分の計測時間は読込・コンパイルを含む4〜10日分で、10日全体の時間とは区別する。新しい出力に継続中の日末コピーを保存する。

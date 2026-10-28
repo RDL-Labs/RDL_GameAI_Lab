@@ -1,0 +1,320 @@
+{
+  "source": "outputs/acorn-food-10d-20261029/run/result.json",
+  "result_sha256": "78673d0e0c8bc1c4e1b94b8fa51d810ab44209dd5b0f5323ee37ae5391fee0e0",
+  "day_us": 17280000000,
+  "food_kind": 1,
+  "ordinary_meals": [
+    {
+      "day": 6,
+      "meal": {
+        "actor": "npc_b",
+        "kind": 1,
+        "liking": 0.6000332633002612,
+        "us": 94732000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 94727000000,
+        "day": 6,
+        "actor": "npc_b",
+        "action": "pickup",
+        "status": "picked_up",
+        "phase": "exploration",
+        "purpose_family": "food",
+        "method": "work"
+      },
+      "recorded_actions_between": [
+        {
+          "us": 94730000000,
+          "day": 6,
+          "actor": "npc_b",
+          "action": "scan",
+          "status": "performed",
+          "phase": "exploration",
+          "purpose_family": "home",
+          "method": "mb_place:camp"
+        },
+        {
+          "us": 94731000000,
+          "day": 6,
+          "actor": "npc_b",
+          "action": "walk",
+          "status": "performed",
+          "phase": "exploration",
+          "purpose_family": "home",
+          "method": "skyline_home"
+        },
+        {
+          "us": 94732000000,
+          "day": 6,
+          "actor": "npc_b",
+          "action": "eat",
+          "status": "ate",
+          "phase": "exploration",
+          "purpose_family": "food",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 5
+    },
+    {
+      "day": 7,
+      "meal": {
+        "actor": "npc_b",
+        "kind": 1,
+        "liking": 0.5822391532730586,
+        "us": 112706000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 112705000000,
+        "day": 7,
+        "actor": "npc_b",
+        "action": "retrieve",
+        "status": "performed",
+        "phase": "return",
+        "purpose_family": "home",
+        "method": null
+      },
+      "recorded_actions_between": [
+        {
+          "us": 112706000000,
+          "day": 7,
+          "actor": "npc_b",
+          "action": "eat",
+          "status": "ate",
+          "phase": "return",
+          "purpose_family": "home",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 1
+    },
+    {
+      "day": 8,
+      "meal": {
+        "actor": "npc_b",
+        "kind": 1,
+        "liking": 0.5807818665421675,
+        "us": 130683000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 130682000000,
+        "day": 8,
+        "actor": "npc_b",
+        "action": "retrieve",
+        "status": "performed",
+        "phase": "return",
+        "purpose_family": "home",
+        "method": null
+      },
+      "recorded_actions_between": [
+        {
+          "us": 130683000000,
+          "day": 8,
+          "actor": "npc_b",
+          "action": "eat",
+          "status": "ate",
+          "phase": "return",
+          "purpose_family": "home",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 1
+    },
+    {
+      "day": 9,
+      "meal": {
+        "actor": "npc_a",
+        "kind": 1,
+        "liking": 0.6000336134489506,
+        "us": 147536000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 147535000000,
+        "day": 9,
+        "actor": "npc_a",
+        "action": "retrieve",
+        "status": "performed",
+        "phase": "return",
+        "purpose_family": "home",
+        "method": null
+      },
+      "recorded_actions_between": [
+        {
+          "us": 147536000000,
+          "day": 9,
+          "actor": "npc_a",
+          "action": "eat",
+          "status": "ate",
+          "phase": "return",
+          "purpose_family": "home",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 1
+    },
+    {
+      "day": 9,
+      "meal": {
+        "actor": "npc_b",
+        "kind": 1,
+        "liking": 0.5806831458466004,
+        "us": 148668000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 148667000000,
+        "day": 9,
+        "actor": "npc_b",
+        "action": "retrieve",
+        "status": "performed",
+        "phase": "return",
+        "purpose_family": "home",
+        "method": null
+      },
+      "recorded_actions_between": [
+        {
+          "us": 148668000000,
+          "day": 9,
+          "actor": "npc_b",
+          "action": "eat",
+          "status": "ate",
+          "phase": "return",
+          "purpose_family": "home",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 1
+    },
+    {
+      "day": 10,
+      "meal": {
+        "actor": "npc_c",
+        "kind": 1,
+        "liking": 0.6000384265863621,
+        "us": 164775000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 164774000000,
+        "day": 10,
+        "actor": "npc_c",
+        "action": "retrieve",
+        "status": "performed",
+        "phase": "return",
+        "purpose_family": "home",
+        "method": null
+      },
+      "recorded_actions_between": [
+        {
+          "us": 164775000000,
+          "day": 10,
+          "actor": "npc_c",
+          "action": "eat",
+          "status": "ate",
+          "phase": "return",
+          "purpose_family": "home",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 1
+    },
+    {
+      "day": 10,
+      "meal": {
+        "actor": "npc_a",
+        "kind": 1,
+        "liking": 0.5822930710082007,
+        "us": 165532000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 165531000000,
+        "day": 10,
+        "actor": "npc_a",
+        "action": "retrieve",
+        "status": "performed",
+        "phase": "return",
+        "purpose_family": "home",
+        "method": null
+      },
+      "recorded_actions_between": [
+        {
+          "us": 165532000000,
+          "day": 10,
+          "actor": "npc_a",
+          "action": "eat",
+          "status": "ate",
+          "phase": "return",
+          "purpose_family": "home",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 1
+    },
+    {
+      "day": 10,
+      "meal": {
+        "actor": "npc_b",
+        "kind": 1,
+        "liking": 0.5806703112226429,
+        "us": 166651000000
+      },
+      "nearest_preceding_acquisition_event": {
+        "us": 166650000000,
+        "day": 10,
+        "actor": "npc_b",
+        "action": "retrieve",
+        "status": "performed",
+        "phase": "return",
+        "purpose_family": "home",
+        "method": null
+      },
+      "recorded_actions_between": [
+        {
+          "us": 166651000000,
+          "day": 10,
+          "actor": "npc_b",
+          "action": "eat",
+          "status": "ate",
+          "phase": "return",
+          "purpose_family": "home",
+          "method": null
+        }
+      ],
+      "delay_from_acquisition_event_seconds": 1
+    }
+  ],
+  "ordinary_meals_by_actor": {
+    "npc_a": 2,
+    "npc_b": 5,
+    "npc_c": 1
+  },
+  "final_resources": {
+    "ground_by_kind": [
+      1064,
+      0,
+      75,
+      0
+    ],
+    "shared": [
+      8,
+      0,
+      93,
+      2
+    ],
+    "consumed": [
+      8,
+      0,
+      0,
+      25
+    ],
+    "processed_inputs": [
+      0,
+      0,
+      27,
+      0
+    ]
+  },
+  "limits": [
+    "events records action/status changes, not necessarily every repeated operation",
+    "acquisition events do not include the picked food kind or site index; meal.kind records the actual food eaten",
+    "these observations do not demonstrate learned taste-based foraging"
+  ]
+}
