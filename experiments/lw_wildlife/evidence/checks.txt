@@ -1,0 +1,10 @@
+Test Summary:                        | Pass  Total  Time
+LW grazing geometry and private seed |    8      8  2.8s
+Test Summary:                              | Pass  Total  Time
+observed humans, alert, flight and release |   12     12  0.3s
+Test Summary:                                            | Pass  Total  Time
+occlusion, peripheral field and visible target selection |    5      5  0.0s
+Test Summary:                                          | Pass  Total  Time
+resource accounting, sleep and serialized continuation |    6      6  1.3s
+Test Summary:                              | Pass  Total     Time
+LW daily checkpoint includes grazing world |    4      4  3m10.0s

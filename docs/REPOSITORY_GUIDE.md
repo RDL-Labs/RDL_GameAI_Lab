@@ -6,6 +6,7 @@
 
 - 生活・学習系：`src/lw`のworld/perception/decision/learning/simulation。CLIと出力は`integrations/lightweight_julia`。新規の実装を旧実験フォルダへ追加しない。
 - 簡易生態系：基本の兎は`src/ecology/herbivore`、捕食・視覚・過放牧の各変種も`src/ecology`。`experiments/numeric_ecology`に条件・比較・保存結果と互換入口を残す。数値化の歴史的スナップショットは変更対象外。
+- LW放牧接続：`src/ecology/lw_grazing`で既存の兎を人と同じ世界時計へ接続。条件・検査・軌跡出力は`experiments/lw_wildlife`。[接続範囲](design/LW_Wildlife_Grazing.md)。
 - 共通の身体・幾何は`src/body`と`src/geometry`。ルートProject/Manifestが現役の共通環境。
 - 数値化：同ディレクトリの`numeric-cpu*`。生態系の状態機械とは別系統。
 
