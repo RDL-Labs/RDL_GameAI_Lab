@@ -1,0 +1,450 @@
+{
+  "root": "outputs/scene-abstraction-30d-20261028",
+  "cases": {
+    "standard": {
+      "measurement": {
+        "gc_seconds": 67.7346104,
+        "process_peak_rss_bytes": 1506000896,
+        "compilation_included": true,
+        "call_seconds": 1438.4502478,
+        "allocated_bytes": 682157771962
+      },
+      "food": {
+        "initial": 1080,
+        "consumed": 87,
+        "ground": 723,
+        "added": 0,
+        "shared": 270
+      },
+      "actors": {
+        "npc_b": {
+          "reserve": 92.12192947481614,
+          "position": [
+            -0.20191506640701595,
+            6.979403035505737
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.71411232773518,
+          "nodes": 796,
+          "edges": 2479,
+          "chunks": 38,
+          "scenes": 524,
+          "relations": 5,
+          "relationUsed": 111,
+          "goalCueUsed": 313,
+          "prediction": {
+            "match": 6,
+            "miss": 52,
+            "unknown": 454
+          },
+          "routes": {
+            "abandoned": 72,
+            "success": 35,
+            "unresolved": 19,
+            "interrupted": 332
+          },
+          "localRepairs": 1793,
+          "localRejoins": 220,
+          "mbJSONBytes": 1454000,
+          "sceneJSONBytes": 172295
+        },
+        "npc_a": {
+          "reserve": 93.18492248395239,
+          "position": [
+            0.6279623154084828,
+            6.794042505767744
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.7089985413928,
+          "nodes": 501,
+          "edges": 1288,
+          "chunks": 29,
+          "scenes": 349,
+          "relations": 2,
+          "relationUsed": 10,
+          "goalCueUsed": 68,
+          "prediction": {
+            "match": 6,
+            "miss": 20,
+            "unknown": 234
+          },
+          "routes": {
+            "abandoned": 15,
+            "success": 29,
+            "unresolved": 10,
+            "interrupted": 146
+          },
+          "localRepairs": 541,
+          "localRejoins": 118,
+          "mbJSONBytes": 994673,
+          "sceneJSONBytes": 109738
+        },
+        "npc_c": {
+          "reserve": 92.91039171386043,
+          "position": [
+            0.6826159245644121,
+            6.829693068271668
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.70788472868645,
+          "nodes": 756,
+          "edges": 1895,
+          "chunks": 33,
+          "scenes": 472,
+          "relations": 18,
+          "relationUsed": 80,
+          "goalCueUsed": 136,
+          "prediction": {
+            "match": 2,
+            "miss": 32,
+            "unknown": 305
+          },
+          "routes": {
+            "abandoned": 42,
+            "success": 31,
+            "unresolved": 5,
+            "interrupted": 196
+          },
+          "localRepairs": 1201,
+          "localRejoins": 238,
+          "mbJSONBytes": 1288233,
+          "sceneJSONBytes": 166226
+        }
+      }
+    },
+    "angle60": {
+      "measurement": {
+        "gc_seconds": 68.2646873,
+        "process_peak_rss_bytes": 1780506624,
+        "compilation_included": true,
+        "call_seconds": 1457.4216779,
+        "allocated_bytes": 688003106371
+      },
+      "food": {
+        "initial": 1080,
+        "consumed": 87,
+        "ground": 705,
+        "added": 0,
+        "shared": 288
+      },
+      "actors": {
+        "npc_b": {
+          "reserve": 92.97984722838297,
+          "position": [
+            0.940245205870629,
+            6.5518871807276
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.71411232773518,
+          "nodes": 596,
+          "edges": 1791,
+          "chunks": 33,
+          "scenes": 409,
+          "relations": 13,
+          "relationUsed": 64,
+          "goalCueUsed": 113,
+          "prediction": {
+            "match": 7,
+            "miss": 38,
+            "unknown": 339
+          },
+          "routes": {
+            "abandoned": 41,
+            "success": 33,
+            "unresolved": 2,
+            "interrupted": 221
+          },
+          "localRepairs": 1157,
+          "localRejoins": 258,
+          "mbJSONBytes": 1215716,
+          "sceneJSONBytes": 132683
+        },
+        "npc_a": {
+          "reserve": 92.9545266473647,
+          "position": [
+            0.9225443905822859,
+            6.460759081761286
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.7089985413928,
+          "nodes": 471,
+          "edges": 1531,
+          "chunks": 23,
+          "scenes": 311,
+          "relations": 3,
+          "relationUsed": 6,
+          "goalCueUsed": 141,
+          "prediction": {
+            "match": 13,
+            "miss": 42,
+            "unknown": 254
+          },
+          "routes": {
+            "abandoned": 44,
+            "success": 21,
+            "unresolved": 12,
+            "interrupted": 171
+          },
+          "localRepairs": 864,
+          "localRejoins": 166,
+          "mbJSONBytes": 1087083,
+          "sceneJSONBytes": 104278
+        },
+        "npc_c": {
+          "reserve": 89.37172341308332,
+          "position": [
+            0.1404863494889188,
+            7.02747475725792
+          ],
+          "deposit": 28,
+          "minDayEndReserve": 70.70788472868645,
+          "nodes": 813,
+          "edges": 3840,
+          "chunks": 7,
+          "scenes": 554,
+          "relations": 9,
+          "relationUsed": 453,
+          "goalCueUsed": 897,
+          "prediction": {
+            "match": 11,
+            "miss": 85,
+            "unknown": 865
+          },
+          "routes": {
+            "abandoned": 260,
+            "success": 37,
+            "unresolved": 1,
+            "interrupted": 545
+          },
+          "localRepairs": 4804,
+          "localRejoins": 932,
+          "mbJSONBytes": 1904280,
+          "sceneJSONBytes": 180731
+        }
+      }
+    },
+    "distance2": {
+      "measurement": {
+        "gc_seconds": 67.70555,
+        "process_peak_rss_bytes": 1781723136,
+        "compilation_included": true,
+        "call_seconds": 1450.9391192,
+        "allocated_bytes": 677031123745
+      },
+      "food": {
+        "initial": 1080,
+        "consumed": 87,
+        "ground": 709,
+        "added": 0,
+        "shared": 284
+      },
+      "actors": {
+        "npc_b": {
+          "reserve": 91.9695696131514,
+          "position": [
+            -0.20672855904070186,
+            7.081421886856507
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.71411232773518,
+          "nodes": 500,
+          "edges": 2669,
+          "chunks": 41,
+          "scenes": 364,
+          "relations": 8,
+          "relationUsed": 95,
+          "goalCueUsed": 310,
+          "prediction": {
+            "match": 9,
+            "miss": 53,
+            "unknown": 612
+          },
+          "routes": {
+            "abandoned": 102,
+            "success": 44,
+            "unresolved": 2,
+            "interrupted": 406
+          },
+          "localRepairs": 2705,
+          "localRejoins": 613,
+          "mbJSONBytes": 1450422,
+          "sceneJSONBytes": 112113
+        },
+        "npc_a": {
+          "reserve": 93.08614402094544,
+          "position": [
+            0.6783050962820205,
+            6.529828857230359
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.7089985413928,
+          "nodes": 400,
+          "edges": 1447,
+          "chunks": 29,
+          "scenes": 298,
+          "relations": 7,
+          "relationUsed": 32,
+          "goalCueUsed": 82,
+          "prediction": {
+            "match": 6,
+            "miss": 18,
+            "unknown": 234
+          },
+          "routes": {
+            "abandoned": 23,
+            "success": 26,
+            "unresolved": 6,
+            "interrupted": 134
+          },
+          "localRepairs": 654,
+          "localRejoins": 170,
+          "mbJSONBytes": 998273,
+          "sceneJSONBytes": 91089
+        },
+        "npc_c": {
+          "reserve": 93.17016916694473,
+          "position": [
+            0.8180556754029559,
+            6.684354185698729
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.70788472868645,
+          "nodes": 439,
+          "edges": 1418,
+          "chunks": 30,
+          "scenes": 292,
+          "relations": 12,
+          "relationUsed": 31,
+          "goalCueUsed": 71,
+          "prediction": {
+            "match": 11,
+            "miss": 29,
+            "unknown": 256
+          },
+          "routes": {
+            "abandoned": 23,
+            "success": 33,
+            "unresolved": 6,
+            "interrupted": 180
+          },
+          "localRepairs": 854,
+          "localRejoins": 178,
+          "mbJSONBytes": 1030115,
+          "sceneJSONBytes": 99378
+        }
+      }
+    },
+    "colors": {
+      "measurement": {
+        "gc_seconds": 66.1725444,
+        "process_peak_rss_bytes": 1779830784,
+        "compilation_included": true,
+        "call_seconds": 1399.6778139,
+        "allocated_bytes": 669034492078
+      },
+      "food": {
+        "initial": 1080,
+        "consumed": 87,
+        "ground": 720,
+        "added": 0,
+        "shared": 273
+      },
+      "actors": {
+        "npc_b": {
+          "reserve": 93.27885523251366,
+          "position": [
+            0.6640964506627226,
+            6.767236656965607
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.71411232773518,
+          "nodes": 31,
+          "edges": 1090,
+          "chunks": 32,
+          "scenes": 31,
+          "relations": 7,
+          "relationUsed": 13,
+          "goalCueUsed": 39,
+          "prediction": {
+            "match": 41,
+            "miss": 0,
+            "unknown": 332
+          },
+          "routes": {
+            "abandoned": 11,
+            "success": 33,
+            "unresolved": 21,
+            "interrupted": 229
+          },
+          "localRepairs": 618,
+          "localRejoins": 190,
+          "mbJSONBytes": 686560,
+          "sceneJSONBytes": 6514
+        },
+        "npc_a": {
+          "reserve": 93.05222114580616,
+          "position": [
+            0.6098344224869252,
+            6.80829106132695
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.7089985413928,
+          "nodes": 31,
+          "edges": 1186,
+          "chunks": 29,
+          "scenes": 31,
+          "relations": 14,
+          "relationUsed": 12,
+          "goalCueUsed": 37,
+          "prediction": {
+            "match": 39,
+            "miss": 0,
+            "unknown": 246
+          },
+          "routes": {
+            "abandoned": 10,
+            "success": 23,
+            "unresolved": 49,
+            "interrupted": 150
+          },
+          "localRepairs": 371,
+          "localRejoins": 109,
+          "mbJSONBytes": 718718,
+          "sceneJSONBytes": 6514
+        },
+        "npc_c": {
+          "reserve": 93.00332816571208,
+          "position": [
+            1.189817564329358,
+            5.930760598630003
+          ],
+          "deposit": 29,
+          "minDayEndReserve": 70.70788472868645,
+          "nodes": 31,
+          "edges": 1809,
+          "chunks": 24,
+          "scenes": 31,
+          "relations": 69,
+          "relationUsed": 9,
+          "goalCueUsed": 109,
+          "prediction": {
+            "match": 78,
+            "miss": 0,
+            "unknown": 470
+          },
+          "routes": {
+            "abandoned": 39,
+            "success": 36,
+            "unresolved": 9,
+            "interrupted": 356
+          },
+          "localRepairs": 1182,
+          "localRejoins": 337,
+          "mbJSONBytes": 926881,
+          "sceneJSONBytes": 6514
+        }
+      }
+    }
+  },
+  "days": 30
+}
