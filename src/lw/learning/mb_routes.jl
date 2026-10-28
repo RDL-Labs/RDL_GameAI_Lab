@@ -149,13 +149,18 @@ function mb_route_join_update!(s,a,now)
     join=get(a,"join",nothing);join===nothing && return true
     join["stage"]=="follow" && return true
     a["cursor"]<=join["bridge_length"] && return true
-    frame=s["current"];node=get(s["nodes"],join["node"],nothing)
-    fit=(frame===nothing || s["current_us"]!=now || node===nothing) ? nothing : mb_similarity(frame,node;metric=s["recognition"]["metric"])
-    if fit===nothing || fit.common<2 || fit.agreement<.65
-        mb_route_uncertain!(s,"join_not_recognized");return false
+    # Joining is a tentative correspondence, not a special identity threshold.
+    # The ordinary route candidate attaches its learned weight exactly once;
+    # subsequent transitions feed the same association/forecast feedback as other routes.
+    matches=s["current_us"]==now ? mb_correspondences(s,[join["node"]],now;scope="join",H=get(a,"H",0)) : Any[]
+    if isempty(matches)
+        mb_route_uncertain!(s,"join_no_evidence");return false
     end
-    # A tentative observed subgoal, never parent goal credit or an H reset.
-    join["stage"]="follow";join["recognized_us"]=now;join["agreement"]=fit.agreement
+    match=first(matches)
+    # "follow" permits proposing the suffix; it does not assert physical arrival.
+    join["stage"]="follow";join["recognized_us"]=now
+    join["confidence"]=match["confidence"];join["weight"]=match["weight"]
+    join["association"]=match["association"];join["tentative"]=true
     a["chunk"]=join["chunk"];a["chunk_start_index"]=join["index"];a["chunk_path_offset"]=join["bridge_length"]
     true
 end
