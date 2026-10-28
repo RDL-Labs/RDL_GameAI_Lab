@@ -19,7 +19,7 @@ specpath=joinpath(caseout,"input.json");write(specpath,JSON3.write(input))
 @test all(!f["renewable"] for f in input["scene"]["food"])
 changes=Dict("days"=>[old_days,days]);choice_seed!==nothing && (changes["seed"]=[old_seed,choice_seed])
 write(joinpath(out,"input-origin.json"),JSON3.write(Dict("path"=>original,"sha256"=>bytes2hex(sha256(read(original))),"changed"=>changes,"fresh_cohort"=>true)))
-const counts=Dict(a=>Dict("join_proposals"=>0,"join_recognized"=>0,"remembered_edges_reused"=>0) for a in ("npc_a","npc_b","npc_c"))
+const counts=Dict(a=>Dict("join_proposals"=>0,"join_recognized"=>0,"remembered_edges_reused"=>0,"goal_cue_selected"=>0) for a in ("npc_a","npc_b","npc_c"))
 const events=Any[];const positions=Any[];const started=Ref(time());const daily=Any[]
 function channel_candidate_probe!(s,out,now)
  for p in out
@@ -33,6 +33,9 @@ function channel_join_probe!(s,a,now)
  push!(events,Dict("actor"=>s["actor"],"us"=>now,"route"=>a["id"],"join"=>deepcopy(a["join"])))
  length(events)>256 && popfirst!(events)
 end
+function goal_cue_probe!(s)
+ counts[s["actor"]]["goal_cue_selected"]+=1
+end
 function channel_tick!(sec,w,home)
  if mod(sec+1,60)==0
   for a in keys(w.positions)
@@ -44,7 +47,7 @@ function channel_tick!(sec,w,home)
   push!(daily,Dict("day"=>day,"elapsed_seconds"=>time()-started[],"counts"=>deepcopy(counts)))
   write(joinpath(out,"join-diagnostics.json"),JSON3.write(Dict("totals"=>counts,"daily"=>daily,"recent_recognitions"=>events)))
   write(joinpath(caseout,"positions.json"),JSON3.write(positions))
-  println("DAY $day elapsed=$(round(time()-started[],digits=1))s joins=$(sum(v["join_recognized"] for v in values(counts)))");flush(stdout)
+  println("DAY $day elapsed=$(round(time()-started[],digits=1))s joins=$(sum(v["join_recognized"] for v in values(counts))) goal_cues=$(sum(v["goal_cue_selected"] for v in values(counts)))");flush(stdout)
  end
 end
 function patch_saved(relative,anchor,replacement)
@@ -55,6 +58,7 @@ patch_saved("src/lw/simulation/day.jl","        advance_physiology!(w,metabolism
 patch_saved("src/lw/learning/mb_map.jl","    s[\"expanded\"]+=expanded;s[\"proposals\"]+=length(out)","    s[\"expanded\"]+=expanded;s[\"proposals\"]+=length(out)\n    Main.channel_candidate_probe!(s,out,now)")
 patch_saved("src/lw/learning/mb_routes.jl","    a[\"chunk\"]=join[\"chunk\"];a[\"chunk_start_index\"]=join[\"index\"];a[\"chunk_path_offset\"]=join[\"bridge_length\"]","    a[\"chunk\"]=join[\"chunk\"];a[\"chunk_start_index\"]=join[\"index\"];a[\"chunk_path_offset\"]=join[\"bridge_length\"]\n    Main.channel_join_probe!(s,a,now)")
 "--prepare-only" in ARGS && (println("PREPARED days=$days seed=$(input["config"]["seed"])");exit(0))
+patch_saved("src/lw/learning/mb_goal_cues.jl","    stats=s[\"goal_cues\"];stats[\"selected\"]+=1","    stats=s[\"goal_cues\"];stats[\"selected\"]+=1\n    Main.goal_cue_probe!(s)")
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 started[]=time()
 native_main([joinpath(caseout,"run"),"--spec",specpath,"--checkpoint-dir",joinpath(caseout,"checkpoints")])

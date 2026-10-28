@@ -97,6 +97,6 @@ function record_cue_selection!(stats,plan,H)
     stats["selected"][plan["cue_tier"]+1]+=1
     kind=plan["cue_kind"];stats["kinds"][kind]=get(stats["kinds"],kind,0)+1
     push!(stats["records"],D("method"=>plan["method"],"source"=>plan["cue_source"],"H"=>H,
-        "tier"=>plan["cue_tier"],"uncertain"=>plan["cue_uncertain"],"action"=>plan["action"]))
+        "tier"=>plan["cue_tier"],"uncertain"=>plan["cue_uncertain"],"action"=>plan["action"],"goal_relation"=>get(plan,"mb_goal_cue",nothing)))
     length(stats["records"])>32 && popfirst!(stats["records"])
 end

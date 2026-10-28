@@ -49,6 +49,7 @@ include(joinpath(@__DIR__, "../learning/mb_censored.jl"))
 include(joinpath(@__DIR__, "../learning/mb_parent.jl"))
 include(joinpath(@__DIR__, "../learning/mb_return_outlook.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
+include(joinpath(@__DIR__, "../learning/mb_goal_cues.jl"))
 include(joinpath(@__DIR__, "../learning/mb_place.jl"))
 include(joinpath(@__DIR__, "../learning/mb_sleep.jl"))
 include(joinpath(@__DIR__, "../decision/lateral_bias.jl"))
@@ -92,6 +93,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!embedded_rest_enabled || (mb_simulation && basic_loop),"embedded_rest_requires_mb_loop")
     check(!night_fear_enabled || (mb_simulation && basic_loop),"night_fear_requires_mb_loop")
     mb_maps=Dict(a=>mb_map_state(a;chunks=mb_chunks,sensitivity=get(mb_sensitivities,a,D())) for a in IDS)
+    navigation_mode=get(spec,:mb_navigation_mode,"explicit_join")
+    check(navigation_mode in ("explicit_join","goal_cues"),"mb_navigation_mode")
+    check(navigation_mode!="goal_cues" || (mb_simulation && mb_chunks && general_landmarks),"goal_cues_requires_observed_mb")
+    for a in IDS;mb_maps[a]["navigation_mode"]=navigation_mode;end
     inherited_mb=get(spec,:learned_mb_transfer,nothing)
     if inherited_mb!==nothing
         check(mb_simulation && basic_loop,"transfer_requires_mb_loop")
@@ -579,7 +584,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         if general_landmarks && target===nothing
                             structure_view=ground_continuity ? ground_models[a]["structures"]["observation"] : nothing
                             pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,floor(Int,s.H/s.threshold)))
-                            append!(candidates,cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold))
+                            cue_options=cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold)
+                            mb_simulation && mb_goal_cue_project!(mb_maps[a],cue_options,pool,family,s.H,now)
+                            append!(candidates,cue_options)
                         end
                         if mb_simulation && (target===nothing || mb_maps[a]["routes"]["active"]!==nothing)
                             active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
@@ -661,6 +668,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
                         goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
                         plan=choose_method!(s,candidates,source)
+                        mb_simulation && mb_goal_cue_selected!(mb_maps[a],plan,now)
                         get(plan,"goal_arrival",false) && (mb_maps[a]["goal_arrival"][family]["selected"]+=1)
                         get(plan,"configured_camp_landmark",false) && (observation_states[a]["camp_landmark"]["selected"]+=1)
                         if haskey(plan,"mb_place")

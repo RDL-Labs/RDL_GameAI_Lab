@@ -145,7 +145,7 @@ function mb_simulate!(s,move,goal,H,threshold,reserve,strain,now;max_depth=4,max
     (frame===nothing || s["current_us"]!=now) && (mb_reject!(s,"wake","no_current_observation");return Any[])
     (reserve<=20 || strain>=.8) && (mb_reject!(s,"wake","H_or_body_gate");return Any[])
     now<s["next_search_us"] && (mb_reject!(s,"wake","search_cooldown");return Any[])
-    terminals=mb_channel_terminals(s,goal)
+    terminals=get(s,"navigation_mode","explicit_join")=="goal_cues" ? Dict{String,Any}() : mb_channel_terminals(s,goal)
     (H<threshold && isempty(terminals)) && (mb_reject!(s,"wake","H_or_body_gate");return Any[])
     s["next_search_us"]=now+64_000_000;s["searches"]+=1
     matches=mb_correspondences(s,keys(s["nodes"]),now;scope="wake",H=H)
