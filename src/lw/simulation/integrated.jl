@@ -22,6 +22,7 @@ for a in IDS
 end
 haskey(r,"digestion") && (summary["digestion"]=r["digestion"])
 haskey(r,"food_exchange") && (summary["food_exchange"]=r["food_exchange"])
+haskey(r,"portable_items") && (summary["portable_items"]=r["portable_items"])
 haskey(r,"social_relationships") && (summary["social_relationships"]=r["social_relationships"])
 if get(cfg,:stores,"personal")=="personal"
     summary["food"]["personal"]=D(a=>r["final_agents"][a]["personal_stock"] for a in IDS)

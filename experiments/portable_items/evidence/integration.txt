@@ -1,0 +1,8 @@
+Test Summary:                                                         | Pass  Total   Time
+LW portable actions conserve items and food without inventing utility |   15     15  17.0s
+Test Summary:                                      | Pass  Total  Time
+placement alone does not force collection or trade |    6      6  5.5s
+Test Summary:                                                | Pass  Total   Time
+a data-only new kind uses the same LW pickup gift and barter |    4      4  14.4s
+Test Summary:                                              | Pass  Total   Time
+day checkpoint resumes an accepted item offer exactly once |    4      4  13.5s

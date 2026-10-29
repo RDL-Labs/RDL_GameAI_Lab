@@ -418,6 +418,8 @@ REQUEST / OFFER等のCommunication基盤へ接続する。
 
 ## Phase 13 — Glowing Stone / Emergent Value
 
+2026-10-30のJulia接続：[非食料の小物](LW_Portable_Items.md)として光る石・貝殻・羽の配置、拾得、保管、譲渡、食料を含む交換のWorld操作を実装。以下の弱い誘引や自律的な価値形成は未接続で、今回の操作成立と区別する。
+
 光る石には初期状態から、
 
 ```text

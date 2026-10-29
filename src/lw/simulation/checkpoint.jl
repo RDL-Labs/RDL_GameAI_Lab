@@ -2,7 +2,7 @@ using Serialization, SHA
 
 # Persistent state only: observations/plans are rebuilt on the next tick.
 # Serialize as ONE graph to preserve aliases and private RNG states.
-const LW_CHECKPOINT_FIELDS=Tuple(Symbol.(split("relations trades foods wildlife mb_maps cue_states repetitions breadth_stats lateral_stats w climb_stats hazard_world sky safety_loops safety horizons inertia trails bundles configured_body_states hunger guts metabolism body_fields response_stats skyline_states reposition_states ground_models ground_receipts wear wear_offset ground_views ground_stats food dropped observation_states yaw stock shared storage_stats stores states live results answered learning counts events previous distance run_stats routes relation_fields harvest harvest_pending field_stats cargo max_radius loops action_models general purposes pending daily day_starts initial replenished replenishments")))
+const LW_CHECKPOINT_FIELDS=Tuple(Symbol.(split("items relations trades foods wildlife mb_maps cue_states repetitions breadth_stats lateral_stats w climb_stats hazard_world sky safety_loops safety horizons inertia trails bundles configured_body_states hunger guts metabolism body_fields response_stats skyline_states reposition_states ground_models ground_receipts wear wear_offset ground_views ground_stats food dropped observation_states yaw stock shared storage_stats stores states live results answered learning counts events previous distance run_stats routes relation_fields harvest harvest_pending field_stats cargo max_radius loops action_models general purposes pending daily day_starts initial replenished replenishments")))
 macro lw_capture()
     esc(:(Dict{Symbol,Any}($( [:( $(QuoteNode(k)) => $k) for k in LW_CHECKPOINT_FIELDS]...))))
 end
