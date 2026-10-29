@@ -1,4 +1,15 @@
 social_initial()=D("records"=>Records(),"pending"=>nothing,"model"=>D(),"cycles"=>Any[])
+# New relation MBs own long-lived evidence. Keep the legacy packet window finite
+# after transferring a completed record; preserve the ordered Records contract.
+function social_record_window!(state;limit=128)
+    check(limit isa Integer && !(limit isa Bool) && 0<limit<192,"social_record_window_limit")
+    records=state["records"]
+    while length(records)>limit
+        old=popfirst!(records.order);delete!(records.data,old)
+        state["records_pruned"]=get(state,"records_pruned",0)+1
+    end
+    state
+end
 # Retain the one pending request's execution receipt alongside the latest
 # action. Replying to another actor must not erase evidence that we requested aid.
 function social_result_window(previous,pending,op,result)
@@ -21,6 +32,8 @@ function ingest(state,packet,results)
             r=deepcopy(pending)
             merge!(r,D("agent_id"=>packet["agent_id"],"outcome"=>own===nothing || own["status"]!="expressed" ? "request_not_executed" : response===nothing ? "no_response_observed" : response["kind"],
                 "source_observation_id"=>packet["observation_id"],"tick"=>packet["capture_us"],"intent"=>"unknown"))
+            r["outcome"]=="given" && haskey(response,"food_kind") &&
+                (r["received_kind"]=response["food_kind"])
             s["records"][pending["message_id"]]=r;s["pending"]=nothing
         end
     end

@@ -1,26 +1,32 @@
-function select_target(targets,model,pressure;relation=nothing,seed=nothing)
+function select_target(targets,model,pressure;relation=nothing,seed=nothing,situation=nothing)
     relation!==nothing && check(pressure.parent.goal_id==relation["actor"]*":obtain-aid" && seed isa AbstractString,"target_relation_owner_seed")
+    unified=hasproperty(pressure,:loop)
+    unified && check(seed isa AbstractString,"target_forecast_seed")
     candidates=Any[]
     for target in sort(unique(targets))
         state=get(pressure.methods,target,nothing)
         H=state===nothing ? 0 : state.H
         theta=state===nothing ? pressure.parent.threshold : state.threshold
-        penalty=H>=theta ? min(2,H/theta) : 0
-        relationship=relation===nothing ? nothing : social_relation_bias(relation,target,"request")
+        # The persistent common loop applies its own method H and learned
+        # outcomes. Do not apply the old threshold penalty a second time.
+        penalty=!unified && H>=theta ? min(2,H/theta) : 0
+        relationship=relation===nothing ? nothing : unified ?
+            social_relation_bias(relation,target,"request";situation,H=pressure.parent.H) :
+            social_relation_bias(relation,target,"request")
         candidate=D("target"=>target,"H"=>H,"threshold"=>theta,
             "score"=>(relationship===nothing ? get(get(model,target,D()),"expectation",.5) : .5+relationship["weight"])-penalty)
         relationship!==nothing && (candidate["relationship"]=relationship)
         push!(candidates,candidate)
     end
-    if pressure.parent.H>=pressure.parent.threshold
+    if unified || pressure.parent.H>=pressure.parent.threshold
         push!(candidates,D("target"=>nothing,"score"=>.25,"reason"=>"reconsider_existing_activity"))
     end
-    if relation!==nothing && !isempty(candidates)
+    if (unified || relation!==nothing) && !isempty(candidates)
         # Reuse the common H-temperature distribution. Existing aid pressure
         # remains the experience owner; this read-only adapter creates no trial.
-        loop=BasicLoop(relation["actor"]*":social-target";threshold=pressure.parent.threshold,probabilistic=true)
-        loop.H=pressure.parent.H
-        probabilities=method_distribution(loop,[D("method"=>c["target"]===nothing ? "existing_activity" : "peer:"*c["target"],"priority"=>c["score"]) for c in candidates])
+        loop=unified ? pressure.loop : BasicLoop(relation["actor"]*":social-target";threshold=pressure.parent.threshold,probabilistic=true)
+        !unified && (loop.H=pressure.parent.H)
+        probabilities=method_distribution(loop,[D("method"=>c["target"]===nothing ? "existing_activity" : unified ? c["target"] : "peer:"*c["target"],"priority"=>c["score"]) for c in candidates])
         bits=foldl((x,b)->(x<<8)|UInt64(b),sha256(seed)[1:8];init=UInt64(0))
         draw=Float64(bits)/18446744073709551616.0
         index=something(findfirst(>=(draw),cumsum(probabilities)),length(candidates))

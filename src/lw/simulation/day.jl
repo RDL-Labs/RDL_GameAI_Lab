@@ -35,7 +35,11 @@ include(joinpath(@__DIR__, "../../body/load.jl"))
 include(joinpath(@__DIR__, "../world/food_resources.jl"))
 include(joinpath(@__DIR__, "../world/food_exchange.jl"))
 include(joinpath(@__DIR__, "../decision/basic_loop.jl"))
+include(joinpath(@__DIR__, "../decision/prediction_result.jl"))
+include(joinpath(@__DIR__, "../learning/social_aid.jl"))
 include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
+include(joinpath(@__DIR__, "../perception/social_sight.jl"))
+include(joinpath(@__DIR__, "../decision/social_approach.jl"))
 include(joinpath(@__DIR__, "../decision/approach.jl"))
 include(joinpath(@__DIR__, "../decision/local_descent.jl"))
 include(joinpath(@__DIR__, "../decision/repetition_pressure.jl"))
@@ -292,10 +296,18 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     exchange_enabled=get(spec,:food_exchange,false)
     check(exchange_enabled isa Bool,"food_exchange_flag")
     check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
-    trades=exchange_enabled ? food_trade_state(choice_seed) : nothing
     relationship_enabled=get(spec,:social_relationships,false)
     check(relationship_enabled isa Bool,"social_relationships_flag")
-    relations=relationship_enabled ? D(a=>social_relations_state(a) for a in IDS) : nothing
+    trades=exchange_enabled ? food_trade_state(choice_seed;relational=relationship_enabled) : nothing
+    relations=relationship_enabled ? D(a=>social_relations_state(a;relational=true) for a in IDS) : nothing
+    if relations!==nothing
+        for a in IDS
+            relations[a]["aid"]=social_aid_state(a;seed=choice_seed)
+            relations[a]["approach"]=D("proposed"=>0,"selected"=>0,"contacts"=>0,"records"=>Any[])
+            states[a]["records_pruned"]=0
+        end
+    end
+    aid_view(a)=relations===nothing ? live[a].state : social_aid_pressure(relations[a]["aid"])
     relation_snapshot()=D(a=>social_relations_snapshot(relations[a]) for a in IDS)
     initial=shared+sum(stock)+sum(values(w.inventory))+sum(values(stores));bounds=Int.(clock.phase_boundaries_us)
     replenished=0;replenishments=Any[]
@@ -306,10 +318,17 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             states[a]=ingest(states[a],D("agent_id"=>a,"capture_us"=>now,
                 "observation_id"=>"ob:$now:$a","social"=>obs),results[a])
         end
-        pressure_poll!(live[a],states[a]["records"],before)
+        relations===nothing && pressure_poll!(live[a],states[a]["records"],before)
         if relations!==nothing && length(states[a]["records"])>before
             r=states[a]["records"][old_pending["message_id"]]
-            social_relation_event!(relations[a],r["target"],"aid_received",r["message_id"],r["tick"];outcome=r["outcome"])
+            evidence=social_aid_finish!(relations[a]["aid"],r["message_id"],r["target"],r["outcome"],r["tick"];
+                received_kind=get(r,"received_kind",nothing),source=r["source_observation_id"])
+            social_relation_event!(relations[a],r["target"],"aid_received",r["message_id"],r["tick"];outcome=r["outcome"],
+                value=r["outcome"]=="given" && evidence["actual"]!==nothing ? evidence["actual"] : 0.,
+                context=get(old_pending,"social_context",nothing),food_kind=get(r,"received_kind",0))
+            # The new MB holds consolidated evidence; the old packet window is
+            # only a bounded diagnostic history, not a second lifelong model.
+            social_record_window!(states[a])
         end
     end
     # Tick phases: world/clock -> observations -> learning/decision -> actions -> physiology -> daily consolidation.
@@ -372,6 +391,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             for a in IDS;observe_sky!(sky[a],sky_sample(a,"ob:$now:$a",now,yaw[a],clock));end
         end
         obs=Dict(a=>observe(w,a) for a in IDS)
+        social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high) for a in IDS)
         relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),IDS)
         trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations)
         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
@@ -480,8 +500,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 t=pop!(pending,a);s=loops[a][t.family]
                 target=t.family=="home" ? home : isempty(moves[a]["visible"]) ? nothing : first(moves[a]["visible"])
                 same=target!==nothing && (t.family=="home" || t.ref===nothing || target["ref"]==t.ref)
-                value=t.question=="ground_extension" ? ground_extension_result(ground_models[a],s.trial.method,t.status,t.moved) : t.question=="movement_progress" ? t.status=="performed" && t.moved : t.question=="rested" ? t.status=="performed" : t.question=="load_reduced" ? t.status=="dropped" : t.question=="recovered" ? t.status=="recovered" : t.question=="landmark_progress" ? t.status=="performed" : t.question=="acquired" ? t.status=="picked_up" : t.question=="home_confirmed" ? at_home && t.status=="performed" : t.question=="target_observed" ? target!==nothing :
+                value=t.question=="social_contact" ? social_approach_evidence(D("social_peer"=>t.social_peer,"social_actor"=>a,"social_capture_us"=>t.social_capture_us),social_views[a]) : t.question=="ground_extension" ? ground_extension_result(ground_models[a],s.trial.method,t.status,t.moved) : t.question=="movement_progress" ? t.status=="performed" && t.moved : t.question=="rested" ? t.status=="performed" : t.question=="load_reduced" ? t.status=="dropped" : t.question=="recovered" ? t.status=="recovered" : t.question=="landmark_progress" ? t.status=="performed" : t.question=="acquired" ? t.status=="picked_up" : t.question=="home_confirmed" ? at_home && t.status=="performed" : t.question=="target_observed" ? target!==nothing :
                     same ? target["distance"]<t.distance : nothing
+                if t.question=="social_contact"
+                    value===true && (relations[a]["approach"]["contacts"]+=1)
+                end
                 # No move/turn result is credited as acquired food or confirmed home.
                 goal=t.family=="home" ? at_home : t.status in ("picked_up","recovered")
                 if reposition && t.phase==phase
@@ -492,6 +515,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 forecast_increment=mb_simulation ? mb_parent_H_increment!(mb_maps[a],t.family,t.source,goal,now;
                     child_increment=child_increment===nothing ? 0 : child_increment) : nothing
                 forecast_increment===nothing && (forecast_increment=child_increment)
+                t.question=="social_contact" && forecast_increment===nothing && (forecast_increment=0.)
                 completion_reward=mb_simulation ? mb_parent_reward(mb_maps[a],t.family,t.source,now) : nothing
                 method_evidence=forecast_method_evidence(forecast_increment,goal,t.phase==phase,value)
                 resolve_method!(s,t.source,method_evidence,forecast_increment!==nothing ? goal : (t.phase==phase || goal ? goal : nothing);
@@ -536,7 +560,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             elseif !isempty(messages)
                 m=first(messages);current=merge(copy(o),D("messages"=>[m]))
                 if social_response || food_body || relations!==nothing
-                    decision,trace=experienced_response(current,states[a]["records"],live[a].state,a,"respond:$now:$a:$(m["id"])";retention=food_body ? retention_cost(current,hunger[a]) : 0.,relation=relations===nothing ? nothing : relations[a])
+                    decision,trace=experienced_response(current,states[a]["records"],aid_view(a),a,"respond:$now:$a:$(m["id"])";retention=food_body ? retention_cost(current,hunger[a]) : 0.,relation=relations===nothing ? nothing : relations[a])
                     act,t,r=decision
                     if trace!==nothing
                         rs=response_stats[a];rs["decisions"]+=1;rs[act]+=1
@@ -558,10 +582,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=D("action"=>"rest")
             elseif (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && !configured_overrides.suppress_repeat_request
                 targets=[x["ref"] for x in o["others"] if x["holding_food"]]
-                target,target_trace=select_target(targets,states[a]["model"],live[a].state;relation=relations===nothing ? nothing : relations[a],seed="target:$choice_seed:$now:$a")
+                target,target_trace=select_target(targets,states[a]["model"],aid_view(a);relation=relations===nothing ? nothing : relations[a],seed="target:$choice_seed:$now:$a",situation=food_social_context(w.bodies[a]))
                 request_allowed=target!==nothing
                 if request_allowed && (social_response || relations!==nothing)
-                    request_allowed,trace=experienced_request(o,states[a]["records"],live[a].state,a,target,"request:$now:$a:$target";relation=relations===nothing ? nothing : relations[a])
+                    request_allowed,trace=experienced_request(o,states[a]["records"],aid_view(a),a,target,"request:$now:$a:$target";relation=relations===nothing ? nothing : relations[a])
                     rs=response_stats[a];rs["request_decisions"]+=1;rs[request_allowed ? "requests" : "withheld"]+=1
                     push!(rs["records"],trace);length(rs["records"])>32 && popfirst!(rs["records"])
                     if relations!==nothing
@@ -572,6 +596,15 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     op="op:$now:$a"
                     states[a]["pending"]=D("message_id"=>a*":"*op,"target"=>target,"deadline"=>now+5_000_000,
                         "request_observation_id"=>"ob:$now:$a","operation_id"=>op)
+                    if relations!==nothing
+                        situation=food_social_context(w.bodies[a])
+                        prediction=social_mb_predict(relations[a],target,"aid_received";situation,H=aid_view(a).parent.H)
+                        kinds=foods===nothing ? fill(meal_kind,w.inventory[a]) : foods.inventory[a]
+                        aid_values=food_aid_values(w.bodies[a],guts===nothing ? nothing : guts[a],kinds)
+                        social_aid_begin!(relations[a]["aid"],a*":"*op,target,now;probability=prediction["probability"],values=aid_values,
+                            kind_probabilities=prediction["kind_probabilities"],source_refs=prediction["source_refs"],mb_ids=prediction["mb_ids"],context=situation)
+                        states[a]["pending"]["social_context"]=situation
+                    end
                     plan=D("action"=>"request","target"=>target)
                 end
             end
@@ -609,6 +642,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         s=loops[a][family];source="op:$now:$a"
                         navigation_H=night_fear_enabled && family=="home" ? max(s.H,mb_maps[a]["night_fear"]["H"]) : s.H
                         candidates=search_candidates(moves[a],target,s)
+                        if relations!==nothing && family=="food" && food_hungry
+                            kinds=foods===nothing ? fill(meal_kind,w.inventory[a]) : foods.inventory[a]
+                            aid_values=food_aid_values(w.bodies[a],guts===nothing ? nothing : guts[a],kinds)
+                            social_options=social_approach_candidates(social_views[a],moves[a],relations[a],s,now;
+                                food_value=sum(aid_values)/length(aid_values),food_values=aid_values,context=food_social_context(w.bodies[a]))
+                            append!(candidates,social_options)
+                            relations[a]["approach"]["proposed"]+=length(social_options)
+                        end
                         rho_profile=="home-distance" && family=="home" && append!(candidates,home_distance_candidates(mb_maps[a]["home_distance"]))
                         if skyline_views!==nothing && returning && target===nothing
                             append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
@@ -725,6 +766,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
                         goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
                         plan=choose_method!(s,candidates,source)
+                        if haskey(plan,"social_peer")
+                            stats=relations[a]["approach"];stats["selected"]+=1
+                            push!(stats["records"],D("us"=>now,"peer"=>plan["social_peer"],"method"=>plan["method"],
+                                "probability"=>get(plan,"selection_probability",nothing),"expected_gain"=>get(plan,"social_expected_gain",nothing)))
+                            length(stats["records"])>32 && popfirst!(stats["records"])
+                        end
                         mb_simulation && mb_goal_cue_selected!(mb_maps[a],plan,now)
                         get(plan,"goal_arrival",false) && (mb_maps[a]["goal_arrival"][family]["selected"]+=1)
                         get(plan,"configured_camp_landmark",false) && (observation_states[a]["camp_landmark"]["selected"]+=1)
@@ -760,7 +807,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         end
                         pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
                             distance=target===nothing ? nothing : target["distance"],
-                            ref=target===nothing || returning ? nothing : target["ref"],status="unexecuted")
+                            ref=target===nothing || returning ? nothing : target["ref"],status="unexecuted",social_peer=get(plan,"social_peer",nothing),social_capture_us=now)
                     end
                 elseif returning && home===nothing
                     plan=D("action"=>"scan")
@@ -902,7 +949,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 if action=="eat" && (meal_index==0 || (guts!==nothing && !can_ingest(guts[a])))
                     r=D("status"=>meal_index==0 ? "no_edible_food" : "gut_full")
                 else
-                    r=communicate!(w,a,op,action,get(plan,"target",nothing),get(plan,"reply_to",nothing))
+                    delivered_kind=action=="give" && w.inventory[a]>0 ? (foods===nothing ? meal_kind : Int(first(foods.inventory[a]))) : nothing
+                    r=communicate!(w,a,op,action,get(plan,"target",nothing),get(plan,"reply_to",nothing);food_kind=delivered_kind)
                 end
                 status=r["status"]
                 if relations!==nothing && action in ("give","refuse") && get(plan,"target",nothing)!==nothing
@@ -1008,7 +1056,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     freeze_general!(general[a],a,now;retained=sleep_retention)
                     mb_sleep && mb_sleep_freeze!(mb_maps[a],now)
                 end
-                callback=(harvest_sleep || general_sleep) ? ((c,t)->begin
+                if relations!==nothing && cycle["status"]=="pending" && cycle["rest_us"]==0 && action=="rest"
+                    social_mb_sleep_freeze!(relations[a],day,now)
+                end
+                callback=(harvest_sleep || general_sleep || relations!==nothing) ? ((c,t)->begin
                     harvest_sleep && consolidate_harvest!(harvest[a],c,t)
                     general_sleep && review_general!(general[a],a,day,t)
                     mb_simulation && mb_compress_exploration!(mb_maps[a],day,t)
@@ -1018,6 +1069,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     sleep_maintenance && review_sleep_usage!(action_models[a],day,general[a]["formation_us"])
                     sleep_actions && adopt_sleep_actions!(action_models[a],last(general[a]["reviews"]),a,t)
                     sleep_maintenance && enroll_sleep_usage!(action_models[a],t)
+                    relations!==nothing && social_mb_sleep_review!(relations[a],day,t;completed=true)
                 end) : nothing
                 receipt!(learning[a],now;phase=phase,kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
             end
@@ -1078,7 +1130,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             for a in IDS
                 integrate(a,now+1_000_000,observe(w,a))
                 cycle=learning[a]["sleep"]["cycle"]
-                states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>now+1_000_000)),a)
+                relations===nothing && (states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>now+1_000_000)),a))
             end
             push!(daily,D("physical"=>physical(),"sleep"=>deepcopy(learning),"counts"=>deepcopy(counts),
                 "shared_stock"=>shared,"ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
@@ -1094,9 +1146,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     for a in IDS
         integrate(a,Int(days*clock.day_us),observe(w,a))
         cycle=learning[a]["sleep"]["cycle"]
-        states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>Int(days*clock.day_us))),a)
+        relations===nothing && (states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>Int(days*clock.day_us))),a))
         terminal[a]=D("body_purpose"=>body_purpose ? deepcopy(configured_body_states[a]) : nothing,"return_purpose"=>deepcopy(purposes[a]),"position"=>collect(w.positions[a]),"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
-            "personal_stock"=>stores[a],"sleep"=>learning[a],"social"=>states[a],"aid"=>pressure_snapshot(live[a]),"distance"=>distance[a],
+            "personal_stock"=>stores[a],"sleep"=>learning[a],"social"=>states[a],"aid"=>relations===nothing ? pressure_snapshot(live[a]) : social_aid_snapshot(relations[a]["aid"]),"distance"=>distance[a],
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end

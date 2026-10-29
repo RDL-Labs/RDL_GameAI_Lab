@@ -31,6 +31,10 @@ jobs:
           julia --startup-file=no --project=. experiments/food_exchange/checks.jl
           julia --startup-file=no --project=. experiments/food_exchange/policy_checks.jl
           julia --startup-file=no --project=. experiments/social_relationships/checks.jl
+          julia --startup-file=no --project=. experiments/social_relationships/aid_forecast_checks.jl
+          julia --startup-file=no --project=. experiments/social_relationships/relational_memory_checks.jl
+          julia --startup-file=no --project=. experiments/social_relationships/approach_checks.jl
+          julia --startup-file=no --project=. experiments/social_relationships/integration_checks.jl
       - name: LW completion prediction reward
         run: |
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_return_outlook_checks.jl

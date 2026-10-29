@@ -6,8 +6,9 @@ include(joinpath(@__DIR__, "../world/contact.jl"))
 
 include(joinpath(@__DIR__, "../perception/social.jl"))
 
-function communicate!(w,a,op,action,target=nothing,reply=nothing)
-    key=a*"|"*op;request=(action,target,reply)
+function communicate!(w,a,op,action,target=nothing,reply=nothing;food_kind=nothing)
+    check(food_kind===nothing || (action=="give" && food_kind isa Integer && !(food_kind isa Bool) && food_kind in 1:4),"communication_food_kind")
+    key=a*"|"*op;request=food_kind===nothing ? (action,target,reply) : (action,target,reply,Int(food_kind))
     if haskey(w.receipts,key)
         old,result=w.receipts[key];check(old==request,"communication_conflict");return deepcopy(result)
     end
@@ -43,9 +44,12 @@ function communicate!(w,a,op,action,target=nothing,reply=nothing)
     kind in ("given","refuse") && push!(w.answered,(a,reply))
     if kind!==nothing && (kind in ("reach","given") || w.hearing[target])
         w.inbox[target]=[m for m in w.inbox[target] if w.seconds-m["time"]<3]
-        push!(w.inbox[target],D("id"=>a*":"*op,"sender"=>a,"kind"=>kind,"reply_to"=>reply,"time"=>w.seconds))
+        message=D("id"=>a*":"*op,"sender"=>a,"kind"=>kind,"reply_to"=>reply,"time"=>w.seconds)
+        kind=="given" && food_kind!==nothing && (message["food_kind"]=Int(food_kind))
+        push!(w.inbox[target],message)
     end
     r=D("agent"=>a,"operation"=>op,"action"=>action,"status"=>status,"time"=>w.seconds)
+    status=="transferred" && food_kind!==nothing && (r["food_kind"]=Int(food_kind))
     w.receipts[key]=(request,deepcopy(r));r
 end
 function response(obs,share)

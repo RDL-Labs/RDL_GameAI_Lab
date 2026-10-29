@@ -1,0 +1,703 @@
+{
+  "rule": "unified-social-owner-evidence-v1",
+  "input_sha256": "e828ef024351f4006bb0f9190a2fbb29bf2c35191f83fecbf0f2b939f4fbc3be",
+  "checks_passed": 160,
+  "continuation_identical": true,
+  "measurement": {
+    "gc_seconds": 7.8553395,
+    "process_peak_rss_bytes": 1726816256,
+    "compilation_included": true,
+    "call_seconds": 191.946082,
+    "allocated_bytes": 74132384127
+  },
+  "resumed_measurement": {
+    "gc_seconds": 2.8031669,
+    "process_peak_rss_bytes": 1764929536,
+    "compilation_included": true,
+    "call_seconds": 58.6707026,
+    "allocated_bytes": 24244864804
+  },
+  "config": {
+    "camp_safe_zone": "on",
+    "embedded_rest": "on",
+    "goal_switch_threshold": 2,
+    "seed": 20261007,
+    "movement_inertia": "on",
+    "reposition": "on",
+    "layout": "riparian",
+    "mb_sleep": "on",
+    "mb_sensitivities": {
+      "npc_b": {
+        "delay": 1,
+        "contradiction": 1,
+        "stagnation": 1,
+        "energy": 1
+      },
+      "npc_a": {
+        "delay": 0.5,
+        "contradiction": 0.5,
+        "stagnation": 0.5,
+        "energy": 0.5
+      },
+      "npc_c": {
+        "delay": 1,
+        "contradiction": 1,
+        "stagnation": 1,
+        "energy": 1
+      }
+    },
+    "general_sleep": "apply",
+    "home_rest_reward": "on",
+    "rho_openings": "on",
+    "safety_methods": "continuous",
+    "running": "on",
+    "night_fear": "on",
+    "general_landmarks": "on",
+    "days": 3,
+    "continuous_descent": "on",
+    "food": "renewable",
+    "food_body": "on",
+    "hazards": "off",
+    "ground_perception": "on",
+    "body_purpose": "on",
+    "lateral_side": "off",
+    "mb_similarity_learning": "on",
+    "climbing": "on",
+    "mb_chunks": "on",
+    "exploration_horizon": "on",
+    "regrowth_days": 3,
+    "world_features": "color-size-patches-v1",
+    "bundle_credit": "off",
+    "low_obstacles": "on",
+    "ground_wear": "on",
+    "sleep_maintenance": "on",
+    "rho_profile": "home-distance",
+    "orientation": "on",
+    "ground": "patches",
+    "repetition_pressure": "off",
+    "home_observation": "on",
+    "skyline": "subrays",
+    "body_field": "on",
+    "mb_simulation": "on",
+    "experience_bundles": "on",
+    "sleep_retention": "strata",
+    "dropping": "on",
+    "stores": "personal",
+    "regrowth_capacity": 12,
+    "learning": "full",
+    "ground_continuity": "on",
+    "relation_field": "on",
+    "daily_delivery": "on",
+    "selection_trails": "on",
+    "social_response": "experience",
+    "parent_breadth": "on",
+    "digestion": "ordinary"
+  },
+  "food": {
+    "initial": 1275,
+    "consumed": 12,
+    "ground": 1240,
+    "personal": {
+      "npc_b": 9,
+      "npc_a": 6,
+      "npc_c": 8
+    },
+    "added": 0,
+    "shared": 0
+  },
+  "food_resources": {
+    "consumed": [
+      0,
+      0,
+      0,
+      12
+    ],
+    "processed_inputs": [
+      0,
+      0,
+      14,
+      0
+    ],
+    "personal": {
+      "npc_b": [
+        0,
+        0,
+        9,
+        0
+      ],
+      "npc_a": [
+        0,
+        0,
+        5,
+        1
+      ],
+      "npc_c": [
+        0,
+        0,
+        7,
+        1
+      ]
+    }
+  },
+  "wildlife": {
+    "alive": 30,
+    "starvation_deaths": 0
+  },
+  "trade": {
+    "offered": 123,
+    "declined": 97,
+    "unavailable": 0,
+    "exchanged": 2,
+    "expired": 24
+  },
+  "actors": {
+    "npc_b": {
+      "reserve": 86.58527568249062,
+      "position": [
+        1.0401622600241391,
+        6.332359360903002
+      ],
+      "inventory": 0,
+      "personal_stock": 9,
+      "aid": {
+        "forecasts": 31,
+        "resolved": 31,
+        "deferred": 0,
+        "H": 0,
+        "outcomes": {
+          "npc_a": {
+            "given": 4,
+            "no_response_observed": 0,
+            "refuse": 9,
+            "request_not_executed": 0,
+            "unobserved": 0
+          },
+          "npc_c": {
+            "given": 2,
+            "no_response_observed": 0,
+            "refuse": 16,
+            "request_not_executed": 0,
+            "unobserved": 0
+          }
+        },
+        "pruned": 0,
+        "retained": 31
+      },
+      "relation_mb": {
+        "events": 186,
+        "unknown": 24,
+        "adopted": 15,
+        "pending": 0,
+        "evidence_samples": 162,
+        "merged": 67,
+        "admission_blocked": 0,
+        "evicted": 0,
+        "provisional_evicted": 0,
+        "metric": [
+          0.41828411344970184,
+          0.27209191405351757
+        ],
+        "metric_updates": 710,
+        "reviews": [
+          {
+            "merged": 0,
+            "completed_us": 17280000000,
+            "candidates": 4,
+            "evicted": 0,
+            "before": 0,
+            "admitted": 4,
+            "retained": 4,
+            "formation_us": 14400000000,
+            "day": 0
+          },
+          {
+            "merged": 24,
+            "completed_us": 31680000000,
+            "candidates": 32,
+            "evicted": 0,
+            "before": 4,
+            "admitted": 8,
+            "retained": 12,
+            "formation_us": 28800000000,
+            "day": 1
+          },
+          {
+            "merged": 43,
+            "completed_us": 48960000000,
+            "candidates": 46,
+            "evicted": 0,
+            "before": 12,
+            "admitted": 3,
+            "retained": 15,
+            "formation_us": 46080000000,
+            "day": 2
+          }
+        ]
+      },
+      "approach": {
+        "proposed": 0,
+        "selected": 0,
+        "contacts": 0
+      }
+    },
+    "npc_a": {
+      "reserve": 87.72149322564417,
+      "position": [
+        0.6023267810620576,
+        6.600417854349319
+      ],
+      "inventory": 0,
+      "personal_stock": 6,
+      "aid": {
+        "forecasts": 69,
+        "resolved": 69,
+        "deferred": 0,
+        "H": 0.5578817813009973,
+        "outcomes": {
+          "npc_b": {
+            "given": 2,
+            "no_response_observed": 22,
+            "refuse": 12,
+            "request_not_executed": 0,
+            "unobserved": 0
+          },
+          "npc_c": {
+            "given": 5,
+            "no_response_observed": 13,
+            "refuse": 15,
+            "request_not_executed": 0,
+            "unobserved": 0
+          }
+        },
+        "pruned": 0,
+        "retained": 69
+      },
+      "relation_mb": {
+        "events": 191,
+        "unknown": 35,
+        "adopted": 15,
+        "pending": 0,
+        "evidence_samples": 156,
+        "merged": 68,
+        "admission_blocked": 0,
+        "evicted": 0,
+        "provisional_evicted": 0,
+        "metric": [
+          0.41828411344970184,
+          0.27209191405351757
+        ],
+        "metric_updates": 721,
+        "reviews": [
+          {
+            "merged": 0,
+            "completed_us": 17280000000,
+            "candidates": 4,
+            "evicted": 0,
+            "before": 0,
+            "admitted": 4,
+            "retained": 4,
+            "formation_us": 14400000000,
+            "day": 0
+          },
+          {
+            "merged": 25,
+            "completed_us": 31680000000,
+            "candidates": 33,
+            "evicted": 0,
+            "before": 4,
+            "admitted": 8,
+            "retained": 12,
+            "formation_us": 28800000000,
+            "day": 1
+          },
+          {
+            "merged": 43,
+            "completed_us": 48960000000,
+            "candidates": 46,
+            "evicted": 0,
+            "before": 12,
+            "admitted": 3,
+            "retained": 15,
+            "formation_us": 46080000000,
+            "day": 2
+          }
+        ]
+      },
+      "approach": {
+        "proposed": 4,
+        "selected": 0,
+        "contacts": 0
+      }
+    },
+    "npc_c": {
+      "reserve": 85.71920040734337,
+      "position": [
+        -1.198008563859429,
+        5.918224235838393
+      ],
+      "inventory": 0,
+      "personal_stock": 8,
+      "aid": {
+        "forecasts": 44,
+        "resolved": 44,
+        "deferred": 0,
+        "H": 0,
+        "outcomes": {
+          "npc_b": {
+            "given": 3,
+            "no_response_observed": 16,
+            "refuse": 15,
+            "request_not_executed": 0,
+            "unobserved": 0
+          },
+          "npc_a": {
+            "given": 4,
+            "no_response_observed": 0,
+            "refuse": 6,
+            "request_not_executed": 0,
+            "unobserved": 0
+          }
+        },
+        "pruned": 0,
+        "retained": 44
+      },
+      "relation_mb": {
+        "events": 83,
+        "unknown": 17,
+        "adopted": 4,
+        "pending": 0,
+        "evidence_samples": 66,
+        "merged": 1,
+        "admission_blocked": 0,
+        "evicted": 0,
+        "provisional_evicted": 0,
+        "metric": [
+          2,
+          1.0004496960718048
+        ],
+        "metric_updates": 26,
+        "reviews": [
+          {
+            "merged": 1,
+            "completed_us": 17280000000,
+            "candidates": 5,
+            "evicted": 0,
+            "before": 0,
+            "admitted": 4,
+            "retained": 4,
+            "formation_us": 14400000000,
+            "day": 0
+          },
+          {
+            "merged": 0,
+            "completed_us": 31680000000,
+            "candidates": 0,
+            "evicted": 0,
+            "before": 4,
+            "admitted": 0,
+            "retained": 4,
+            "formation_us": 28800000000,
+            "day": 1
+          },
+          {
+            "merged": 0,
+            "completed_us": 48960000000,
+            "candidates": 0,
+            "evicted": 0,
+            "before": 4,
+            "admitted": 0,
+            "retained": 4,
+            "formation_us": 46080000000,
+            "day": 2
+          }
+        ]
+      },
+      "approach": {
+        "proposed": 4,
+        "selected": 0,
+        "contacts": 0
+      }
+    }
+  },
+  "edges": [
+    {
+      "owner": "npc_b",
+      "other": "npc_a",
+      "aid": {
+        "given": 4,
+        "no_response_observed": 0,
+        "refuse": 9,
+        "request_not_executed": 0
+      },
+      "aid_given": {
+        "unavailable": 0,
+        "refuse": 12,
+        "transferred": 2
+      },
+      "trade_offer": {
+        "declined": 50,
+        "unavailable": 0,
+        "exchanged": 2,
+        "expired": 24
+      },
+      "trade_response": {
+        "declined": 47,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_value_sum": 0.035445959943458616
+    },
+    {
+      "owner": "npc_b",
+      "other": "npc_c",
+      "aid": {
+        "given": 2,
+        "no_response_observed": 0,
+        "refuse": 16,
+        "request_not_executed": 0
+      },
+      "aid_given": {
+        "unavailable": 0,
+        "refuse": 15,
+        "transferred": 3
+      },
+      "trade_offer": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_response": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_value_sum": 0
+    },
+    {
+      "owner": "npc_a",
+      "other": "npc_b",
+      "aid": {
+        "given": 2,
+        "no_response_observed": 22,
+        "refuse": 12,
+        "request_not_executed": 0
+      },
+      "aid_given": {
+        "unavailable": 0,
+        "refuse": 9,
+        "transferred": 4
+      },
+      "trade_offer": {
+        "declined": 47,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_response": {
+        "declined": 50,
+        "unavailable": 0,
+        "exchanged": 2,
+        "expired": 0
+      },
+      "trade_value_sum": -0.03256329664625163
+    },
+    {
+      "owner": "npc_a",
+      "other": "npc_c",
+      "aid": {
+        "given": 5,
+        "no_response_observed": 13,
+        "refuse": 15,
+        "request_not_executed": 0
+      },
+      "aid_given": {
+        "unavailable": 0,
+        "refuse": 6,
+        "transferred": 4
+      },
+      "trade_offer": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_response": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_value_sum": 0
+    },
+    {
+      "owner": "npc_c",
+      "other": "npc_b",
+      "aid": {
+        "given": 3,
+        "no_response_observed": 16,
+        "refuse": 15,
+        "request_not_executed": 0
+      },
+      "aid_given": {
+        "unavailable": 0,
+        "refuse": 16,
+        "transferred": 2
+      },
+      "trade_offer": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_response": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_value_sum": 0
+    },
+    {
+      "owner": "npc_c",
+      "other": "npc_a",
+      "aid": {
+        "given": 4,
+        "no_response_observed": 0,
+        "refuse": 6,
+        "request_not_executed": 0
+      },
+      "aid_given": {
+        "unavailable": 1,
+        "refuse": 15,
+        "transferred": 5
+      },
+      "trade_offer": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_response": {
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "trade_value_sum": 0
+    }
+  ],
+  "daily": [
+    {
+      "day": 1,
+      "trade": {
+        "offered": 0,
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "actors": {
+        "npc_b": {
+          "aid_resolved": 31,
+          "aid_H": 0,
+          "relation_nodes": 4,
+          "sleep_reviews": 1,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        },
+        "npc_a": {
+          "aid_resolved": 69,
+          "aid_H": 0.5578817813009973,
+          "relation_nodes": 4,
+          "sleep_reviews": 1,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        },
+        "npc_c": {
+          "aid_resolved": 44,
+          "aid_H": 0,
+          "relation_nodes": 4,
+          "sleep_reviews": 1,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        }
+      }
+    },
+    {
+      "day": 2,
+      "trade": {
+        "offered": 63,
+        "declined": 39,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 24
+      },
+      "actors": {
+        "npc_b": {
+          "aid_resolved": 31,
+          "aid_H": 0,
+          "relation_nodes": 12,
+          "sleep_reviews": 2,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        },
+        "npc_a": {
+          "aid_resolved": 69,
+          "aid_H": 0.5578817813009973,
+          "relation_nodes": 12,
+          "sleep_reviews": 2,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        },
+        "npc_c": {
+          "aid_resolved": 44,
+          "aid_H": 0,
+          "relation_nodes": 4,
+          "sleep_reviews": 2,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        }
+      }
+    },
+    {
+      "day": 3,
+      "trade": {
+        "offered": 60,
+        "declined": 58,
+        "unavailable": 0,
+        "exchanged": 2,
+        "expired": 0
+      },
+      "actors": {
+        "npc_b": {
+          "aid_resolved": 31,
+          "aid_H": 0,
+          "relation_nodes": 15,
+          "sleep_reviews": 3,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        },
+        "npc_a": {
+          "aid_resolved": 69,
+          "aid_H": 0.5578817813009973,
+          "relation_nodes": 15,
+          "sleep_reviews": 3,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        },
+        "npc_c": {
+          "aid_resolved": 44,
+          "aid_H": 0,
+          "relation_nodes": 4,
+          "sleep_reviews": 3,
+          "approach_selected": 0,
+          "approach_contacts": 0
+        }
+      }
+    }
+  ],
+  "scope": "Cumulative directed aid counts match world-confirmed giver receipts. Value/H assertions inspect retained records only; pruned detail is not reconstructed. MB predictions use owner experience, not ground-truth intent."
+}

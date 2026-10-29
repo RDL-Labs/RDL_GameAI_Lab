@@ -71,8 +71,21 @@ if haskey(r,:social_relationships)
             @test all(e->e.actor==String(a),s.records)
             @test length(s.records)<=32 && length(s.choices)<=32
             @test all(c->c.actor==String(a) && isfinite(c.trace.weight),s.choices)
-            @test sum(p.aid_received.given for p in values(s.peers);init=0)==
-                count(e->e.outcome=="given",values(r.final_agents[a].social.records))
+            if get(s,:relational,false)
+                @test s.aid.resolved==sum(sum(values(v)) for v in values(s.aid.outcome_counts);init=0)
+                for (other,p) in pairs(s.peers), outcome in keys(p.aid_received)
+                    counts=get(s.aid.outcome_counts,other,Dict())
+                    @test p.aid_received[outcome]==get(counts,outcome,0)
+                end
+                @test length(r.final_agents[a].social.records)<=128
+                @test length(r.final_agents[a].social.records)+r.final_agents[a].social.records_pruned==s.aid.resolved
+                @test isempty(r.final_agents[a].social.model)
+                @test !isempty(s.mb.reviews)
+                @test length(s.mb.nodes)<=96 && length(s.mb.pending)<=128
+            else
+                @test sum(p.aid_received.given for p in values(s.peers);init=0)==
+                    count(e->e.outcome=="given",values(r.final_agents[a].social.records))
+            end
             @test sum(p.aid_given.transferred for p in values(s.peers);init=0)<=get(r.counts[a],:give,0)
             exchange_experiences+=sum(p.trade_offer.exchanged+p.trade_response.exchanged for p in values(s.peers);init=0)
         end

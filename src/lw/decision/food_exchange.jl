@@ -2,11 +2,22 @@
 # No access to another actor's warehouse, body, preferences or hidden intentions.
 const FOOD_TRADE_INTERVAL_US=64_000_000
 const FOOD_TRADE_TOLERANCE=.05
-function food_trade_state(seed)
+function food_trade_state(seed;relational=false)
     D("world"=>food_exchange_state(),"minds"=>D(a=>D(
         "offer"=>BasicLoop(a*":food-exchange-offer";parent=a*":food-security",probabilistic=true,seed),
         "response"=>BasicLoop(a*":food-exchange-response";parent=a*":food-security",probabilistic=true,seed),
-        "pending"=>nothing,"next_view_us"=>0,"next_offer_us"=>0) for a in IDS))
+        "pending"=>nothing,"next_view_us"=>0,"next_offer_us"=>0,"relational"=>relational) for a in IDS))
+end
+"Known food values belong to the observer, including current taste and need."
+function food_aid_values(body,gut,kinds)
+    weights=food_trade_weights(body,gut)
+    [weights[k]*log1p(1/(1+count(==(k),kinds))) for k in RDLBody.FOOD_KIND_IDS]
+end
+function food_social_context(body;give_kind=0,want_kind=0,give_count=0,want_count=0)
+    context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
+    give_kind>0 && merge!(context,D("give_kind"=>give_kind,"give_count"=>give_count))
+    want_kind>0 && merge!(context,D("want_kind"=>want_kind,"want_count"=>want_count))
+    context
 end
 function food_trade_weights(body,gut)
     need=clamp((80-body.reserve)/80,0.,1.)
@@ -25,11 +36,14 @@ function food_trade_gain(stock,weights,g,n,h,m)
 end
 food_trade_actual(weights,result)=result["status"]=="exchanged" ?
     sum(weights[k]*(log1p(result["own_after"][k])-log1p(result["own_before"][k])) for k in RDLBody.FOOD_KIND_IDS) : 0.
-function food_trade_resolve!(loop,source,expected,weights,result)
+function food_trade_resolve!(loop,source,expected,weights,result;relational=false)
     exchanged=result["status"]=="exchanged"
     # Freeze valuation at selection; evaluate only the committed swap, excluding
     # intervening meals/withdrawals and never reading the partner's warehouse.
     actual=food_trade_actual(weights,result)
+    if relational
+        return resolve_prediction!(loop,source,expected,actual;fulfilled=exchanged,tolerance=FOOD_TRADE_TOLERANCE)
+    end
     pressure=max(0.,expected-actual-FOOD_TRADE_TOLERANCE,-actual-FOOD_TRADE_TOLERANCE)
     useful=exchanged && actual>FOOD_TRADE_TOLERANCE
     if useful && pressure==0.
@@ -57,9 +71,9 @@ function food_trade_views!(t,r,w,home,now;relations=nothing)
                 notice=findfirst(n->n["offer_id"]==pending["offer_id"],view["notices"])
                 if notice!==nothing
                     result=view["notices"][notice]
-                    food_trade_resolve!(mind["offer"],pending["source"],pending["gain"],pending["weights"],result)
+                    food_trade_resolve!(mind["offer"],pending["source"],get(pending,"expected",pending["gain"]),pending["weights"],result;relational=get(mind,"relational",false))
                     relations!==nothing && social_relation_event!(relations[a],pending["partner"],"trade_offer",
-                        pending["offer_id"],result["us"];outcome=result["status"],value=food_trade_actual(pending["weights"],result))
+                        pending["offer_id"],result["us"];outcome=result["status"],value=food_trade_actual(pending["weights"],result),context=get(pending,"context",nothing))
                     mind["pending"]=nothing
                 end
             end
@@ -74,7 +88,8 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing)
     source="trade:$now:$a"
     if !isempty(view["incoming"])
         offer=first(view["incoming"]);other=offer["proposer"]
-        relation_trace=relation===nothing ? nothing : social_relation_bias(relation,other,"trade_response")
+        situation=food_social_context(body;give_kind=offer["want_kind"],want_kind=offer["give_kind"],give_count=offer["want_count"],want_count=offer["give_count"])
+        relation_trace=relation===nothing ? nothing : social_relation_bias(relation,other,"trade_response";situation,H=mind["response"].H)
         gain=food_trade_gain(stock,weights,offer["want_kind"],offer["want_count"],offer["give_kind"],offer["give_count"])
         candidates=Any[D("method"=>"decline:$other","action"=>"trade_decline","priority"=>0.,"question"=>"stock_value_improved",
             "offer_id"=>offer["id"],"trade_gain"=>0.)]
@@ -86,6 +101,7 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing)
         plan=choose_method!(mind["response"],candidates,source)
         plan["trade_role"]="response";plan["trade_source"]=source
         plan["trade_weights"]=weights
+        plan["trade_context"]=situation
         plan["trade_partner"]=other;plan["food_exchange"]=true
         if relation!==nothing
             social_relation_use!(relation,other,"trade_response",source,now,
@@ -98,13 +114,17 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing)
     mind["next_offer_us"]=now+FOOD_TRADE_INTERVAL_US
     isempty(view["partners"]) && return nothing
     candidates=Any[]
-    relation_traces=relation===nothing ? nothing : D(other=>social_relation_bias(relation,other,"trade_offer") for other in view["partners"])
+    relation_traces=D()
     for other in view["partners"], g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:4
         g==h && continue
         gain=food_trade_gain(stock,weights,g,n,h,m)
-        push!(candidates,D("method"=>"offer:$other:$g:$n:$h:$m","action"=>"trade_offer","priority"=>4gain-1. + (relation===nothing ? 0. : relation_traces[other]["weight"]),
+        situation=food_social_context(body;give_kind=g,want_kind=h,give_count=n,want_count=m)
+        trace_key="$other:$g:$n:$h:$m"
+        relation!==nothing && (relation_traces[trace_key]=social_relation_bias(relation,other,"trade_offer";situation,H=mind["offer"].H))
+        expected=get(mind,"relational",false) && relation!==nothing ? gain*relation_traces[trace_key]["profile"]["trade_probability"] : gain
+        push!(candidates,D("method"=>"offer:$other:$g:$n:$h:$m","action"=>"trade_offer","priority"=>4gain-1. + (relation===nothing ? 0. : relation_traces[trace_key]["weight"]),
             "question"=>"stock_value_improved","target"=>other,"give_kind"=>g,"give_count"=>n,
-            "want_kind"=>h,"want_count"=>m,"trade_gain"=>gain))
+            "want_kind"=>h,"want_count"=>m,"trade_gain"=>gain,"trade_expected_gain"=>expected,"trade_context"=>situation,"trade_trace_key"=>trace_key))
     end
     isempty(candidates) && return nothing
     # More quantity combinations must not by themselves overwhelm continuing activity.
@@ -119,22 +139,22 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing)
     plan["trade_role"]="offer";plan["trade_source"]=source
     plan["trade_weights"]=weights
     plan["trade_partner"]=plan["target"];plan["food_exchange"]=true
-    relation!==nothing && social_relation_use!(relation,plan["target"],"trade_offer",source,now,relation_traces[plan["target"]];action=plan["action"])
+    relation!==nothing && social_relation_use!(relation,plan["target"],"trade_offer",source,now,relation_traces[plan["trade_trace_key"]];action=plan["action"])
     plan
 end
 function food_trade_executed!(t,a,plan,result;relation=nothing)
     relation!==nothing && check(relation["actor"]==a,"trade_relation_owner")
     mind=t["minds"][a];role=plan["trade_role"];source=plan["trade_source"]
     if role=="offer" && result["status"]=="offered"
-        mind["pending"]=D("offer_id"=>result["offer_id"],"source"=>source,"gain"=>plan["trade_gain"],"weights"=>copy(plan["trade_weights"]),"partner"=>plan["target"])
+        mind["pending"]=D("offer_id"=>result["offer_id"],"source"=>source,"gain"=>plan["trade_gain"],"expected"=>get(plan,"trade_expected_gain",plan["trade_gain"]),"weights"=>copy(plan["trade_weights"]),"partner"=>plan["target"],"context"=>deepcopy(get(plan,"trade_context",nothing)))
     elseif plan["action"]=="trade_decline"
         resolve_method!(mind["response"],source,nothing,nothing;creditable=false,goal_H_increment=0.)
     else
-        food_trade_resolve!(mind[role],source,plan["trade_gain"],plan["trade_weights"],result)
+        food_trade_resolve!(mind[role],source,get(plan,"trade_expected_gain",plan["trade_gain"]),plan["trade_weights"],result;relational=get(mind,"relational",false))
     end
     if relation!==nothing && result["status"]!="offered"
         social_relation_event!(relation,plan["trade_partner"],role=="offer" ? "trade_offer" : "trade_response",source,
-            result["us"];outcome=result["status"],value=food_trade_actual(plan["trade_weights"],result))
+            result["us"];outcome=result["status"],value=food_trade_actual(plan["trade_weights"],result),context=get(plan,"trade_context",nothing))
     end
 end
 food_trade_snapshot(t)=D("world"=>food_exchange_snapshot(t["world"]),
