@@ -138,6 +138,21 @@ function mb_parent_begin!(s,p,goal,target,now)
 end
 function mb_parent_record!(s,p,energy,now)
     goal=get(p,"mb_parent_goal",nothing)
+    if get(p,"incidental_item",false)
+        # Optional collection spends the current purpose's budget without starting
+        # a new parent trial or allowing its outcome to stand for goal completion.
+        previous=s["parent_mb"]["last_goal"]
+        goal=get(p,"purpose_family",nothing)==previous ? previous : nothing
+        a=goal===nothing ? nothing : get(s["parent_mb"]["active"],goal,nothing)
+        if a!==nothing
+            a["paused"]=false
+            a["actions"]+=1;a["energy"]+=max(0.,energy)
+            # Keep the last parent operation binding. The next ordinary parent
+            # evaluation sees all accumulated costs against the same estimate.
+            return
+        end
+        goal=nothing
+    end
     if goal===nothing
         previous=s["parent_mb"]["last_goal"]
         a=previous===nothing ? nothing : get(s["parent_mb"]["active"],previous,nothing)

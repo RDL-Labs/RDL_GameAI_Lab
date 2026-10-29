@@ -24,6 +24,17 @@ function mb_route_attach!(p,s,path,goal,kind;chunk=nothing,sleep=nothing)
 end
 function mb_route_record!(s,p,status,now;energy=0.)
     r=s["routes"];a=r["active"];id=get(p,"mb_route",nothing)
+    if get(p,"incidental_item",false)
+        a===nothing && return
+        if get(p,"purpose_family",nothing)!=a["goal"]
+            a["reason"]="parent_purpose_changed";mb_route_finish!(s,"interrupted",now)
+        else
+            # A stationary optional action costs time/energy, but supplies no
+            # navigation outcome and does not replace the route's source binding.
+            mb_route_effort!(a,energy);a["reason"]="incidental_item_pause"
+        end
+        return
+    end
     if (get(p,"food_exchange",false) || get(p,"portable_item_action",false))
         a!==nothing && (a["reason"]="social_pause")
         return

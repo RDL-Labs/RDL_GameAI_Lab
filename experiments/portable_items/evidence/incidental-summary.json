@@ -1,0 +1,1077 @@
+{
+  "date": "2026-10-30",
+  "days": 3,
+  "input_sha256": "571864efd8b42423463df7312a67fe7e73c97f7544005d1b806b45ad15db39f5",
+  "result_sha256": "1eda7e01f4cb71a90457511e6ecfad2ae38b92872c161c9841d2ecf3a4bfd2b1",
+  "measurement": {
+    "gc_seconds": 8.534564,
+    "process_peak_rss_bytes": 1908752384,
+    "compilation_included": true,
+    "call_seconds": 225.6289206,
+    "allocated_bytes": 77840074746
+  },
+  "first_day_matches_previous": null,
+  "meal_history_complete": true,
+  "agents": {
+    "npc_a": {
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0,
+        "damage": 0,
+        "burst": 10,
+        "reserve": 87.72149322564417
+      },
+      "position": [
+        0.6023267810620576,
+        6.600417854349319
+      ],
+      "home_distance": 0.850469958908614,
+      "inventory": 0,
+      "personal_stock": 6,
+      "food_counts": [
+        0,
+        0,
+        5,
+        1
+      ],
+      "min_day_end_reserve": 50.71321338515429,
+      "actions": {
+        "request": 69,
+        "rest": 36860,
+        "pickup": 12,
+        "refuse": 15,
+        "scan": 13802,
+        "trade_decline": 50,
+        "trade_offer": 47,
+        "give": 8,
+        "eat": 4,
+        "trade_accept": 2,
+        "process_food": 617,
+        "deposit": 2,
+        "item_pickup": 2,
+        "walk": 350
+      },
+      "successful_deposit_events": 2,
+      "meals_retained": 4,
+      "meal_kinds_retained": [
+        0,
+        0,
+        0,
+        4
+      ],
+      "social_mb": {
+        "nodes": 15,
+        "reviews": 3
+      },
+      "peers": {
+        "npc_b": {
+          "contact_seconds": 39933,
+          "trade_participation": 2,
+          "trade_food_value_sum": -0.03256329664625163
+        },
+        "npc_c": {
+          "contact_seconds": 17232,
+          "trade_participation": 0,
+          "trade_food_value_sum": 0
+        }
+      }
+    },
+    "npc_b": {
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0,
+        "damage": 0,
+        "burst": 10,
+        "reserve": 86.58527568249062
+      },
+      "position": [
+        1.0401622600241391,
+        6.332359360903002
+      ],
+      "home_distance": 1.0919708201038967,
+      "inventory": 0,
+      "personal_stock": 9,
+      "food_counts": [
+        0,
+        0,
+        9,
+        0
+      ],
+      "min_day_end_reserve": 85.0452176848122,
+      "actions": {
+        "request": 31,
+        "rest": 37062,
+        "pickup": 9,
+        "refuse": 27,
+        "scan": 13754,
+        "trade_decline": 47,
+        "trade_offer": 76,
+        "give": 5,
+        "eat": 4,
+        "retrieve": 2,
+        "process_food": 512,
+        "deposit": 3,
+        "item_pickup": 2,
+        "walk": 306
+      },
+      "successful_deposit_events": 3,
+      "meals_retained": 4,
+      "meal_kinds_retained": [
+        0,
+        0,
+        0,
+        4
+      ],
+      "social_mb": {
+        "nodes": 15,
+        "reviews": 3
+      },
+      "peers": {
+        "npc_a": {
+          "contact_seconds": 39933,
+          "trade_participation": 2,
+          "trade_food_value_sum": 0.035445959943458616
+        },
+        "npc_c": {
+          "contact_seconds": 17291,
+          "trade_participation": 0,
+          "trade_food_value_sum": 0
+        }
+      }
+    },
+    "npc_c": {
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0,
+        "damage": 0,
+        "burst": 10,
+        "reserve": 85.71530131160412
+      },
+      "position": [
+        -0.9614691016627706,
+        6.2715043001834445
+      ],
+      "home_distance": 0.9990682751795881,
+      "inventory": 0,
+      "personal_stock": 8,
+      "food_counts": [
+        0,
+        0,
+        7,
+        1
+      ],
+      "min_day_end_reserve": 70.68856279922736,
+      "actions": {
+        "request": 44,
+        "rest": 36986,
+        "pickup": 11,
+        "refuse": 32,
+        "scan": 13790,
+        "give": 7,
+        "eat": 4,
+        "process_food": 617,
+        "deposit": 2,
+        "item_pickup": 1,
+        "walk": 346
+      },
+      "successful_deposit_events": 2,
+      "meals_retained": 4,
+      "meal_kinds_retained": [
+        0,
+        0,
+        0,
+        4
+      ],
+      "social_mb": {
+        "nodes": 4,
+        "reviews": 3
+      },
+      "peers": {
+        "npc_b": {
+          "contact_seconds": 17291,
+          "trade_participation": 0,
+          "trade_food_value_sum": 0
+        },
+        "npc_a": {
+          "contact_seconds": 17232,
+          "trade_participation": 0,
+          "trade_food_value_sum": 0
+        }
+      }
+    }
+  },
+  "food": {
+    "initial": 1275,
+    "ground": 1240,
+    "consumed": 12,
+    "added": 0,
+    "personal": 23,
+    "consumed_by_kind": [
+      0,
+      0,
+      0,
+      12
+    ],
+    "processed_inputs": [
+      0,
+      0,
+      14,
+      0
+    ]
+  },
+  "exchange": {
+    "offered": 123,
+    "declined": 97,
+    "unavailable": 0,
+    "exchanged": 2,
+    "expired": 24
+  },
+  "items": {
+    "kind_ids": [
+      1,
+      2,
+      3
+    ],
+    "initial": [
+      3,
+      3,
+      3
+    ],
+    "remaining": [
+      3,
+      3,
+      3
+    ],
+    "counts": {
+      "given": 0,
+      "offered": 0,
+      "dropped": 0,
+      "picked_up": 5,
+      "retrieved": 0,
+      "declined": 0,
+      "unavailable": 0,
+      "exchanged": 0,
+      "stored": 0,
+      "expired": 0
+    },
+    "locations": [
+      {
+        "id": 1,
+        "kind": 1,
+        "location": 1,
+        "owner": null
+      },
+      {
+        "id": 2,
+        "kind": 2,
+        "location": 2,
+        "owner": "npc_a"
+      },
+      {
+        "id": 3,
+        "kind": 3,
+        "location": 2,
+        "owner": "npc_a"
+      },
+      {
+        "id": 4,
+        "kind": 1,
+        "location": 2,
+        "owner": "npc_b"
+      },
+      {
+        "id": 5,
+        "kind": 2,
+        "location": 2,
+        "owner": "npc_b"
+      },
+      {
+        "id": 6,
+        "kind": 3,
+        "location": 1,
+        "owner": null
+      },
+      {
+        "id": 7,
+        "kind": 1,
+        "location": 1,
+        "owner": null
+      },
+      {
+        "id": 8,
+        "kind": 2,
+        "location": 1,
+        "owner": null
+      },
+      {
+        "id": 9,
+        "kind": 3,
+        "location": 2,
+        "owner": "npc_c"
+      }
+    ],
+    "actors": {
+      "npc_a": {
+        "decisions": 33,
+        "continued": 31,
+        "selected": 2,
+        "succeeded": 2,
+        "failed": 0,
+        "ignored": 0,
+        "records": [
+          {
+            "source": "incidental:17420000000:npc_a:11",
+            "selection_probability": 0.013066250402277754,
+            "item_id": 3,
+            "confirmed_novelty": 0.2,
+            "method": "pickup:\"blue\":0:0",
+            "family": "food",
+            "expected": 0.098,
+            "us": 17420000000,
+            "energy": 0.00018518518518817473,
+            "actual": 0.19981481481481184,
+            "feature": {
+              "light_source": 0,
+              "size": 0.18,
+              "color": "blue"
+            },
+            "status": "item_picked_up"
+          },
+          {
+            "source": "incidental:19230000000:npc_a:33",
+            "selection_probability": 0.009461680788746415,
+            "item_id": 2,
+            "confirmed_novelty": 0.1816740046085163,
+            "method": "pickup:\"cream\":0:0",
+            "family": "home",
+            "expected": 0.09334763126558729,
+            "us": 19230000000,
+            "energy": 0.00018518518518817473,
+            "actual": 0.18148881942332812,
+            "feature": {
+              "light_source": 0,
+              "size": 0.1,
+              "color": "cream"
+            },
+            "status": "item_picked_up"
+          }
+        ],
+        "memory_count": 2,
+        "metric_updates": 1,
+        "weights": [
+          1.9954651195290551,
+          0.9986672288661268
+        ]
+      },
+      "npc_b": {
+        "decisions": 10,
+        "continued": 8,
+        "selected": 2,
+        "succeeded": 2,
+        "failed": 0,
+        "ignored": 0,
+        "records": [
+          {
+            "source": "incidental:17349000000:npc_b:8",
+            "selection_probability": 0.07068242237227856,
+            "item_id": 4,
+            "confirmed_novelty": 0.2,
+            "method": "pickup:\"cyan\":0:0",
+            "family": "food",
+            "expected": 0.098,
+            "us": 17349000000,
+            "energy": 0.00018518518518817473,
+            "actual": 0.19981481481481184,
+            "feature": {
+              "light_source": 0.02,
+              "size": 0.12,
+              "color": "cyan"
+            },
+            "status": "item_picked_up"
+          },
+          {
+            "source": "incidental:17350000000:npc_b:9",
+            "selection_probability": 0.12652583086670807,
+            "item_id": 5,
+            "confirmed_novelty": 0.17820127313537054,
+            "method": "pickup:\"cream\":0:0",
+            "family": "food",
+            "expected": 0.09168581678171146,
+            "us": 17350000000,
+            "energy": 0.00018518518518817473,
+            "actual": 0.17801608795018237,
+            "feature": {
+              "light_source": 0,
+              "size": 0.1,
+              "color": "cream"
+            },
+            "status": "item_picked_up"
+          }
+        ],
+        "memory_count": 2,
+        "metric_updates": 1,
+        "weights": [
+          1.9946318659981985,
+          0.9994574851473997
+        ]
+      },
+      "npc_c": {
+        "decisions": 32,
+        "continued": 31,
+        "selected": 1,
+        "succeeded": 1,
+        "failed": 0,
+        "ignored": 0,
+        "records": [
+          {
+            "source": "incidental:17288000000:npc_c:7",
+            "selection_probability": 0.07967203192848805,
+            "item_id": 9,
+            "confirmed_novelty": 0.2,
+            "method": "pickup:\"blue\":0:0",
+            "family": "home",
+            "expected": 0.098,
+            "us": 17288000000,
+            "energy": 0.00018518518518817473,
+            "actual": 0.19981481481481184,
+            "feature": {
+              "light_source": 0,
+              "size": 0.18,
+              "color": "blue"
+            },
+            "status": "item_picked_up"
+          }
+        ],
+        "memory_count": 1,
+        "metric_updates": 0,
+        "weights": [
+          2,
+          1
+        ]
+      }
+    },
+    "followups": [
+      {
+        "actor": "npc_a",
+        "pickup": {
+          "incidental_item": true,
+          "landmark_color": null,
+          "item_id": 3,
+          "method": "pickup:\"blue\":0:0",
+          "selection_mode": "probabilistic_H",
+          "us": 17420000000,
+          "route": null,
+          "status": "item_picked_up",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "item_pickup",
+          "actor": "npc_a",
+          "phase": "exploration",
+          "target": null
+        },
+        "next": {
+          "landmark_color": null,
+          "method": "survey",
+          "selection_mode": "probabilistic_H",
+          "us": 17421000000,
+          "route": null,
+          "status": "performed",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "scan",
+          "actor": "npc_a",
+          "phase": "exploration",
+          "target": null
+        }
+      },
+      {
+        "actor": "npc_a",
+        "pickup": {
+          "incidental_item": true,
+          "landmark_color": null,
+          "item_id": 2,
+          "method": "pickup:\"cream\":0:0",
+          "selection_mode": "probabilistic_H",
+          "us": 19230000000,
+          "route": null,
+          "status": "item_picked_up",
+          "purpose_family": "home",
+          "direction": null,
+          "action": "item_pickup",
+          "actor": "npc_a",
+          "phase": "exploration",
+          "target": null
+        },
+        "next": {
+          "landmark_color": null,
+          "method": "goal_arrival:home",
+          "selection_mode": "probabilistic_H",
+          "us": 19231000000,
+          "route": null,
+          "status": "performed",
+          "purpose_family": "home",
+          "direction": 2,
+          "action": "walk",
+          "actor": "npc_a",
+          "phase": "exploration",
+          "target": null
+        }
+      },
+      {
+        "actor": "npc_b",
+        "pickup": {
+          "incidental_item": true,
+          "landmark_color": null,
+          "item_id": 4,
+          "method": "pickup:\"cyan\":0:0",
+          "selection_mode": "probabilistic_H",
+          "us": 17349000000,
+          "route": null,
+          "status": "item_picked_up",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "item_pickup",
+          "actor": "npc_b",
+          "phase": "exploration",
+          "target": null
+        },
+        "next": {
+          "incidental_item": true,
+          "landmark_color": null,
+          "item_id": 5,
+          "method": "pickup:\"cream\":0:0",
+          "selection_mode": "probabilistic_H",
+          "us": 17350000000,
+          "route": null,
+          "status": "item_picked_up",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "item_pickup",
+          "actor": "npc_b",
+          "phase": "exploration",
+          "target": null
+        }
+      },
+      {
+        "actor": "npc_b",
+        "pickup": {
+          "incidental_item": true,
+          "landmark_color": null,
+          "item_id": 5,
+          "method": "pickup:\"cream\":0:0",
+          "selection_mode": "probabilistic_H",
+          "us": 17350000000,
+          "route": null,
+          "status": "item_picked_up",
+          "purpose_family": "food",
+          "direction": null,
+          "action": "item_pickup",
+          "actor": "npc_b",
+          "phase": "exploration",
+          "target": null
+        },
+        "next": {
+          "landmark_color": null,
+          "method": "goal_arrival:food",
+          "selection_mode": "probabilistic_H",
+          "us": 17351000000,
+          "route": null,
+          "status": "performed",
+          "purpose_family": "food",
+          "direction": 4,
+          "action": "walk",
+          "actor": "npc_b",
+          "phase": "exploration",
+          "target": null
+        }
+      },
+      {
+        "actor": "npc_c",
+        "pickup": {
+          "incidental_item": true,
+          "landmark_color": null,
+          "item_id": 9,
+          "method": "pickup:\"blue\":0:0",
+          "selection_mode": "probabilistic_H",
+          "us": 17288000000,
+          "route": null,
+          "status": "item_picked_up",
+          "purpose_family": "home",
+          "direction": null,
+          "action": "item_pickup",
+          "actor": "npc_c",
+          "phase": "orientation",
+          "target": null
+        },
+        "next": {
+          "landmark_color": null,
+          "method": "step_0",
+          "selection_mode": "probabilistic_H",
+          "us": 17289000000,
+          "route": null,
+          "status": "performed",
+          "purpose_family": "home",
+          "direction": 2,
+          "action": "walk",
+          "actor": "npc_c",
+          "phase": "orientation",
+          "target": null
+        }
+      }
+    ]
+  },
+  "wildlife": {
+    "count": 30,
+    "alive": 30,
+    "starvation_deaths": 0,
+    "grass_initial": 13905.27868769368,
+    "grass_grown": 1525.3974540911531,
+    "grass_eaten": 2279.7286058083514,
+    "grass_remaining": 13150.947535979773
+  },
+  "checkpoints": [
+    {
+      "day": 1,
+      "bytes": 1999867,
+      "modified_utc": "2026-10-29T16:31:04.346Z",
+      "interval_seconds": null
+    },
+    {
+      "day": 2,
+      "bytes": 2616526,
+      "modified_utc": "2026-10-29T16:32:09.991Z",
+      "interval_seconds": 65.64451489257813
+    },
+    {
+      "day": 3,
+      "bytes": 3222133,
+      "modified_utc": "2026-10-29T16:33:09.099Z",
+      "interval_seconds": 59.10851171875
+    }
+  ],
+  "daily": [
+    {
+      "day": 1,
+      "food": {
+        "ground": 1272,
+        "held_and_stored": 0,
+        "consumed": 3,
+        "added": 0
+      },
+      "trade_new": {
+        "offered": 0,
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "humans": {
+        "npc_a": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 50.71321338515429
+          },
+          "position": [
+            0.06966991411008938,
+            5.769669914110089
+          ],
+          "inventory": 0,
+          "personal_stock": 0,
+          "actions_new": {
+            "request": 69,
+            "rest": 3118,
+            "walk": 283,
+            "give": 8,
+            "refuse": 15,
+            "scan": 13787
+          },
+          "contact_seconds": {
+            "npc_b": 17241,
+            "npc_c": 17230
+          }
+        },
+        "npc_b": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 85.0452176848122
+          },
+          "position": [
+            0.3696699141100894,
+            5.4696699141100895
+          ],
+          "inventory": 0,
+          "personal_stock": 0,
+          "actions_new": {
+            "request": 31,
+            "rest": 2940,
+            "walk": 285,
+            "give": 5,
+            "process_food": 240,
+            "eat": 2,
+            "refuse": 27,
+            "scan": 13750
+          },
+          "contact_seconds": {
+            "npc_a": 17241,
+            "npc_c": 17246
+          }
+        },
+        "npc_c": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 70.68856279922736
+          },
+          "position": [
+            -0.2303300858899106,
+            5.4696699141100895
+          ],
+          "inventory": 0,
+          "personal_stock": 0,
+          "actions_new": {
+            "request": 44,
+            "rest": 3011,
+            "walk": 284,
+            "give": 7,
+            "process_food": 120,
+            "eat": 1,
+            "refuse": 32,
+            "scan": 13781
+          },
+          "contact_seconds": {
+            "npc_b": 17246,
+            "npc_a": 17230
+          }
+        }
+      },
+      "wildlife_alive": 30,
+      "incidental_new": {
+        "npc_a": {
+          "decisions": 0,
+          "continued": 0,
+          "selected": 0,
+          "succeeded": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        "npc_b": {
+          "decisions": 0,
+          "continued": 0,
+          "selected": 0,
+          "succeeded": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        "npc_c": {
+          "decisions": 0,
+          "continued": 0,
+          "selected": 0,
+          "succeeded": 0,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    },
+    {
+      "day": 2,
+      "food": {
+        "ground": 1258,
+        "held_and_stored": 8,
+        "consumed": 9,
+        "added": 0
+      },
+      "trade_new": {
+        "offered": 63,
+        "declined": 39,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 24
+      },
+      "humans": {
+        "npc_a": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 86.95143021179489
+          },
+          "position": [
+            0.8908482121352691,
+            6.4698540942046465
+          ],
+          "inventory": 0,
+          "personal_stock": 3,
+          "actions_new": {
+            "request": 0,
+            "rest": 16680,
+            "pickup": 6,
+            "refuse": 0,
+            "scan": 12,
+            "trade_decline": 19,
+            "trade_offer": 20,
+            "give": 0,
+            "eat": 3,
+            "process_food": 480,
+            "deposit": 1,
+            "item_pickup": 2,
+            "walk": 57
+          },
+          "contact_seconds": {
+            "npc_b": 28852,
+            "npc_c": 17232
+          }
+        },
+        "npc_b": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 85.81588400622711
+          },
+          "position": [
+            1.152979462382091,
+            5.858567723198469
+          ],
+          "inventory": 0,
+          "personal_stock": 2,
+          "actions_new": {
+            "request": 0,
+            "rest": 17058,
+            "pickup": 3,
+            "refuse": 0,
+            "scan": 3,
+            "trade_decline": 20,
+            "trade_offer": 43,
+            "give": 0,
+            "eat": 1,
+            "retrieve": 2,
+            "process_food": 135,
+            "deposit": 2,
+            "item_pickup": 2,
+            "walk": 11
+          },
+          "contact_seconds": {
+            "npc_a": 28852,
+            "npc_c": 17291
+          }
+        },
+        "npc_c": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 84.94649408945575
+          },
+          "position": [
+            -1.0924063814060194,
+            6.0805580190701685
+          ],
+          "inventory": 0,
+          "personal_stock": 3,
+          "actions_new": {
+            "request": 0,
+            "rest": 16853,
+            "pickup": 5,
+            "refuse": 0,
+            "scan": 7,
+            "give": 0,
+            "eat": 2,
+            "process_food": 360,
+            "deposit": 1,
+            "item_pickup": 1,
+            "walk": 51
+          },
+          "contact_seconds": {
+            "npc_b": 17291,
+            "npc_a": 17232
+          }
+        }
+      },
+      "wildlife_alive": 30,
+      "incidental_new": {
+        "npc_a": {
+          "decisions": 33,
+          "continued": 31,
+          "selected": 2,
+          "succeeded": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        "npc_b": {
+          "decisions": 10,
+          "continued": 8,
+          "selected": 2,
+          "succeeded": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        "npc_c": {
+          "decisions": 30,
+          "continued": 29,
+          "selected": 1,
+          "succeeded": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    },
+    {
+      "day": 3,
+      "food": {
+        "ground": 1240,
+        "held_and_stored": 23,
+        "consumed": 12,
+        "added": 0
+      },
+      "trade_new": {
+        "offered": 60,
+        "declined": 58,
+        "unavailable": 0,
+        "exchanged": 2,
+        "expired": 0
+      },
+      "humans": {
+        "npc_a": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 87.72149322564417
+          },
+          "position": [
+            0.6023267810620576,
+            6.600417854349319
+          ],
+          "inventory": 0,
+          "personal_stock": 6,
+          "actions_new": {
+            "request": 0,
+            "rest": 17062,
+            "pickup": 6,
+            "refuse": 0,
+            "scan": 3,
+            "trade_decline": 31,
+            "trade_offer": 27,
+            "give": 0,
+            "eat": 1,
+            "trade_accept": 2,
+            "process_food": 137,
+            "deposit": 1,
+            "item_pickup": 0,
+            "walk": 10
+          },
+          "contact_seconds": {
+            "npc_b": 39933,
+            "npc_c": 17232
+          }
+        },
+        "npc_b": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 86.58527568249062
+          },
+          "position": [
+            1.0401622600241391,
+            6.332359360903002
+          ],
+          "inventory": 0,
+          "personal_stock": 9,
+          "actions_new": {
+            "request": 0,
+            "rest": 17064,
+            "pickup": 6,
+            "refuse": 0,
+            "scan": 1,
+            "trade_decline": 27,
+            "trade_offer": 33,
+            "give": 0,
+            "eat": 1,
+            "retrieve": 0,
+            "process_food": 137,
+            "deposit": 1,
+            "item_pickup": 0,
+            "walk": 10
+          },
+          "contact_seconds": {
+            "npc_a": 39933,
+            "npc_c": 17291
+          }
+        },
+        "npc_c": {
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 85.71530131160412
+          },
+          "position": [
+            -0.9614691016627706,
+            6.2715043001834445
+          ],
+          "inventory": 0,
+          "personal_stock": 8,
+          "actions_new": {
+            "request": 0,
+            "rest": 17122,
+            "pickup": 6,
+            "refuse": 0,
+            "scan": 2,
+            "give": 0,
+            "eat": 1,
+            "process_food": 137,
+            "deposit": 1,
+            "item_pickup": 0,
+            "walk": 11
+          },
+          "contact_seconds": {
+            "npc_b": 17291,
+            "npc_a": 17232
+          }
+        }
+      },
+      "wildlife_alive": 30,
+      "incidental_new": {
+        "npc_a": {
+          "decisions": 0,
+          "continued": 0,
+          "selected": 0,
+          "succeeded": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        "npc_b": {
+          "decisions": 0,
+          "continued": 0,
+          "selected": 0,
+          "succeeded": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        "npc_c": {
+          "decisions": 2,
+          "continued": 2,
+          "selected": 0,
+          "succeeded": 0,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    }
+  ]
+}

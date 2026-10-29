@@ -1,0 +1,6 @@
+Test Summary:                                                        | Pass  Total   Time
+optional pickups occur during food and return without parent success |   15     15  19.3s
+Test Summary:                                | Pass  Total  Time
+disabled mode and existing protected actions |    9      9  7.1s
+Test Summary:                                                        | Pass  Total   Time
+checkpoint preserves optional-choice RNG experience and parent state |    2      2  13.5s

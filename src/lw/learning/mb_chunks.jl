@@ -13,9 +13,11 @@ function mb_trace_observation!(s,receipt,frame,now)
     s["last_chunk_operation"]=nothing
     receipt===nothing && return
     valid=frame!==nothing && now==receipt["now"]+1_000_000
-    valid && (s["last_chunk_operation"]="op:$(receipt["now"]):$(s["actor"])")
+    incidental=get(receipt,"incidental_item",false) && receipt["action"]=="item_pickup"
+    # Collecting an incidental object is not evidence that food/home was reached.
+    valid && !incidental && (s["last_chunk_operation"]="op:$(receipt["now"]):$(s["actor"])")
     goal=get(receipt,"goal",nothing)
-    if !valid || !(goal in ("home","food")) || !(receipt["status"] in ("performed","picked_up","recovered"))
+    if !valid || !(goal in ("home","food")) || (!incidental && !(receipt["status"] in ("performed","picked_up","recovered")))
         mb_trace_reset!(s);return
     end
     if s["trace_goal"]!=goal

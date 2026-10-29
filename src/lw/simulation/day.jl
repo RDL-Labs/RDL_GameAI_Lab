@@ -38,6 +38,7 @@ include(joinpath(@__DIR__, "../world/portable_items.jl"))
 include(joinpath(@__DIR__, "../configured_paths/item_actions.jl"))
 include(joinpath(@__DIR__, "../decision/basic_loop.jl"))
 include(joinpath(@__DIR__, "../decision/prediction_result.jl"))
+include(joinpath(@__DIR__, "../decision/incidental_items.jl"))
 include(joinpath(@__DIR__, "../learning/social_aid.jl"))
 include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
 include(joinpath(@__DIR__, "../perception/social_sight.jl"))
@@ -298,6 +299,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     foods=food_resources(spec,w,food,stock,shared,stores)
     items=portable_items(spec,w)
     item_actions=configured_item_actions(spec,items!==nothing)
+    incidental_enabled=get(spec,:incidental_items,false)
+    check(incidental_enabled isa Bool,"incidental_items_flag")
+    check(!incidental_enabled || (items!==nothing && basic_loop),"incidental_items_require_world_and_loop")
+    incidental_items=incidental_enabled ? D(a=>incidental_item_state(a,choice_seed) for a in IDS) : nothing
+    incidental_snapshot()=D(a=>incidental_item_snapshot(incidental_items[a]) for a in IDS)
     exchange_enabled=get(spec,:food_exchange,false)
     check(exchange_enabled isa Bool,"food_exchange_flag")
     check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
@@ -647,183 +653,191 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     plan=D("action"=>"rest")
                 elseif basic_loop
                     family=returning ? "home" : "food"
-                    visible=moves[a]["visible"];target=returning ? home : isempty(visible) ? nothing : first(visible)
-                    if goal_arrival_enabled && !returning && mb_maps[a]["goal_arrival"]["food"]["mode"]=="approach"
-                        held=filter(f->f["ref"]==mb_maps[a]["goal_arrival"]["food"]["target"],visible)
-                        target=isempty(held) ? nothing : first(held)
+                    if incidental_items!==nothing
+                        urgency=food_body ? hunger[a]["intensity"] : clamp((80-w.bodies[a].reserve)/80,0.,1.)
+                        night_fear_enabled && (urgency=max(urgency,clamp(mb_maps[a]["night_fear"]["H"]/32,0.,1.)))
+                        plan=incidental_item_plan!(incidental_items[a],o["items"],w.bodies[a],loops[a][family],now;
+                            family=family,pressure=urgency)
                     end
-                    if !returning && target!==nothing && target["distance"]<=1.25
-                        plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
-                    else
-                        s=loops[a][family];source="op:$now:$a"
-                        navigation_H=night_fear_enabled && family=="home" ? max(s.H,mb_maps[a]["night_fear"]["H"]) : s.H
-                        candidates=search_candidates(moves[a],target,s)
-                        if relations!==nothing && family=="food" && food_hungry
-                            kinds=foods===nothing ? fill(meal_kind,w.inventory[a]) : foods.inventory[a]
-                            aid_values=food_aid_values(w.bodies[a],guts===nothing ? nothing : guts[a],kinds)
-                            social_options=social_approach_candidates(social_views[a],moves[a],relations[a],s,now;
-                                food_value=sum(aid_values)/length(aid_values),food_values=aid_values,context=food_social_context(w.bodies[a]))
-                            append!(candidates,social_options)
-                            relations[a]["approach"]["proposed"]+=length(social_options)
+                    if plan===nothing
+                        visible=moves[a]["visible"];target=returning ? home : isempty(visible) ? nothing : first(visible)
+                        if goal_arrival_enabled && !returning && mb_maps[a]["goal_arrival"]["food"]["mode"]=="approach"
+                            held=filter(f->f["ref"]==mb_maps[a]["goal_arrival"]["food"]["target"],visible)
+                            target=isempty(held) ? nothing : first(held)
                         end
-                        rho_profile=="home-distance" && family=="home" && append!(candidates,home_distance_candidates(mb_maps[a]["home_distance"]))
-                        if skyline_views!==nothing && returning && target===nothing
-                            append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
-                        end
-                        reposition && append!(candidates,reposition_candidates!(reposition_states[a],a,moves[a],now;purpose=family,home_unresolved=returning && target===nothing && s.H>=s.threshold,linked=s.receipt!==nothing && s.receipt.source=="op:$(now-1_000_000):$a"))
-                        body_field && push!(candidates,D("method"=>"rest","action"=>"rest","priority"=>1.,"question"=>"rested"))
-                        climbing && append!(candidates,climb_candidates(climbs[a],moves[a],target,s))
-                        dropping && climbing && append!(candidates,drop_candidates(climbs[a],w.bodies[a],w.inventory[a],target))
-                        if landmark_routes
-                            if routes[a]["day"]!=day
-                                empty!(routes[a]["cursors"]);routes[a]["day"]=day
+                        if !returning && target!==nothing && target["distance"]<=1.25
+                            plan=D("action"=>haskey(dropped["origins"],target["ref"]+1) ? "recover" : "pickup","food_ref"=>target["ref"])
+                        else
+                            s=loops[a][family];source="op:$now:$a"
+                            navigation_H=night_fear_enabled && family=="home" ? max(s.H,mb_maps[a]["night_fear"]["H"]) : s.H
+                            candidates=search_candidates(moves[a],target,s)
+                            if relations!==nothing && family=="food" && food_hungry
+                                kinds=foods===nothing ? fill(meal_kind,w.inventory[a]) : foods.inventory[a]
+                                aid_values=food_aid_values(w.bodies[a],guts===nothing ? nothing : guts[a],kinds)
+                                social_options=social_approach_candidates(social_views[a],moves[a],relations[a],s,now;
+                                    food_value=sum(aid_values)/length(aid_values),food_values=aid_values,context=food_social_context(w.bodies[a]))
+                                append!(candidates,social_options)
+                                relations[a]["approach"]["proposed"]+=length(social_options)
                             end
-                            # Direct currently observed goal wins over remembered detours.
-                            if target===nothing
-                                append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"];include_routes=!relation_field,include_observed=!general_landmarks))
-                                relation_field && append!(candidates,relation_candidates!(relation_fields[a],moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
+                            rho_profile=="home-distance" && family=="home" && append!(candidates,home_distance_candidates(mb_maps[a]["home_distance"]))
+                            if skyline_views!==nothing && returning && target===nothing
+                                append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))
                             end
-                        end
-                        # Local paths are movement options for either purpose, even with a visible goal.
-                        if ground_continuity
-                            append!(candidates,ground_proposals(ground_models[a],moves[a]))
-                            if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
-                                append!(candidates,rho_opening_candidates(ground_models[a]["structures"]["observation"],moves[a]))
+                            reposition && append!(candidates,reposition_candidates!(reposition_states[a],a,moves[a],now;purpose=family,home_unresolved=returning && target===nothing && s.H>=s.threshold,linked=s.receipt!==nothing && s.receipt.source=="op:$(now-1_000_000):$a"))
+                            body_field && push!(candidates,D("method"=>"rest","action"=>"rest","priority"=>1.,"question"=>"rested"))
+                            climbing && append!(candidates,climb_candidates(climbs[a],moves[a],target,s))
+                            dropping && climbing && append!(candidates,drop_candidates(climbs[a],w.bodies[a],w.inventory[a],target))
+                            if landmark_routes
+                                if routes[a]["day"]!=day
+                                    empty!(routes[a]["cursors"]);routes[a]["day"]=day
+                                end
+                                # Direct currently observed goal wins over remembered detours.
+                                if target===nothing
+                                    append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a]["source"];include_routes=!relation_field,include_observed=!general_landmarks))
+                                    relation_field && append!(candidates,relation_candidates!(relation_fields[a],moves[a],landmarks[a],routes[a],family,landmarks[a]["source"]))
+                                end
                             end
-                        end
-                        if exploration_horizon && phase=="exploration" && !returning && target===nothing
-                            append!(candidates,horizon_candidates(horizons[a],landmarks[a],moves[a]))
-                        end
-                        if general_landmarks && target===nothing
-                            structure_view=ground_continuity ? ground_models[a]["structures"]["observation"] : nothing
-                            pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,floor(Int,s.H/s.threshold)))
-                            cue_options=cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold)
-                            mb_simulation && mb_goal_cue_project!(mb_maps[a],cue_options,pool,family,s.H,now)
-                            mb_simulation && mb_exploration_project!(mb_maps[a],cue_options,family,s.H,now)
-                            append!(candidates,cue_options)
-                        end
-                        if mb_simulation && (target===nothing || mb_maps[a]["routes"]["active"]!==nothing)
-                            active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
-                            chunk_candidates=copy(active_candidates)
-                            if isempty(active_candidates) || s.H>=s.threshold
-                                fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
+                            # Local paths are movement options for either purpose, even with a visible goal.
+                            if ground_continuity
+                                append!(candidates,ground_proposals(ground_models[a],moves[a]))
+                                if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
+                                    append!(candidates,rho_opening_candidates(ground_models[a]["structures"]["observation"],moves[a]))
+                                end
+                            end
+                            if exploration_horizon && phase=="exploration" && !returning && target===nothing
+                                append!(candidates,horizon_candidates(horizons[a],landmarks[a],moves[a]))
+                            end
+                            if general_landmarks && target===nothing
+                                structure_view=ground_continuity ? ground_models[a]["structures"]["observation"] : nothing
+                                pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],"ob:$now:$a";level=min(2,floor(Int,s.H/s.threshold)))
+                                cue_options=cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold)
+                                mb_simulation && mb_goal_cue_project!(mb_maps[a],cue_options,pool,family,s.H,now)
+                                mb_simulation && mb_exploration_project!(mb_maps[a],cue_options,family,s.H,now)
+                                append!(candidates,cue_options)
+                            end
+                            if mb_simulation && (target===nothing || mb_maps[a]["routes"]["active"]!==nothing)
+                                active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
+                                chunk_candidates=copy(active_candidates)
+                                if isempty(active_candidates) || s.H>=s.threshold
+                                    fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
+                                    active=mb_maps[a]["routes"]["active"]
+                                    filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
+                                    append!(chunk_candidates,fresh)
+                                end
+                                mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
                                 active=mb_maps[a]["routes"]["active"]
-                                filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
-                                append!(chunk_candidates,fresh)
+                                filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"] || startswith(p["method"],"mb_route:"),chunk_candidates)
+                                if isempty(chunk_candidates)
+                                    fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)
+                                    filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
+                                    append!(candidates,fresh)
+                                else
+                                    append!(candidates,chunk_candidates)
+                                end
+                                filter!(p->!(startswith(first(p),"mb_route:") || startswith(first(p),"mb_recheck:") || startswith(first(p),"mb_abandon:")) || (mb_maps[a]["routes"]["active"]!==nothing && (first(p)=="mb_route:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_recheck:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_abandon:"*mb_maps[a]["routes"]["active"]["id"])),s.methods)
+                                filter!(p->!startswith(first(p),"mb_chunk:") || haskey(mb_maps[a]["chunks"],first(p)[10:end]),s.methods)
+                                filter!(p->!startswith(first(p),"mb_sim:") || haskey(mb_maps[a]["edges"],first(p)[8:end]),s.methods)
                             end
-                            mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
-                            active=mb_maps[a]["routes"]["active"]
-                            filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"] || startswith(p["method"],"mb_route:"),chunk_candidates)
-                            if isempty(chunk_candidates)
-                                fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)
-                                filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
-                                append!(candidates,fresh)
-                            else
-                                append!(candidates,chunk_candidates)
+                            reposition && project_search_review!(reposition_states[a],candidates,s,target,family)
+                            if parent_breadth
+                                before=length(candidates)
+                                candidates=parent_candidates(s,candidates)
+                                bs=breadth_stats[a];bs["decisions"]+=1;bs["offered"]+=before
+                                bs["admitted"]+=length(candidates);bs["restricted"]+=Int(length(candidates)<before)
+                                level=s.H>=32 ? 2 : min(2,floor(Int,s.H/s.threshold))
+                                bs["levels"][level+1]+=1
                             end
-                            filter!(p->!(startswith(first(p),"mb_route:") || startswith(first(p),"mb_recheck:") || startswith(first(p),"mb_abandon:")) || (mb_maps[a]["routes"]["active"]!==nothing && (first(p)=="mb_route:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_recheck:"*mb_maps[a]["routes"]["active"]["id"] || first(p)=="mb_abandon:"*mb_maps[a]["routes"]["active"]["id"])),s.methods)
-                            filter!(p->!startswith(first(p),"mb_chunk:") || haskey(mb_maps[a]["chunks"],first(p)[10:end]),s.methods)
-                            filter!(p->!startswith(first(p),"mb_sim:") || haskey(mb_maps[a]["edges"],first(p)[8:end]),s.methods)
-                        end
-                        reposition && project_search_review!(reposition_states[a],candidates,s,target,family)
-                        if parent_breadth
-                            before=length(candidates)
-                            candidates=parent_candidates(s,candidates)
-                            bs=breadth_stats[a];bs["decisions"]+=1;bs["offered"]+=before
-                            bs["admitted"]+=length(candidates);bs["restricted"]+=Int(length(candidates)<before)
-                            level=s.H>=32 ? 2 : min(2,floor(Int,s.H/s.threshold))
-                            bs["levels"][level+1]+=1
-                        end
-                        if ground_mode=="patches"
-                            candidates=ground_candidates(candidates,moves[a],w.inventory[a])
-                            ground_stats[a]["projection_decisions"]+=1
-                        end
-                        counterfactual=nothing;field_trace=nothing
-                        if model_field && family=="food"
-                            projected,field_trace=harvest_field(candidates,moves[a],harvest[a],a,now;enabled=true)
-                            if field_trace["applied"]
-                                counterfactual=method_choice(s,candidates)
-                                candidates=projected;field_stats[a]["applied"]+=1
-                                m=get!(field_stats[a]["by_model"],field_trace["model_ref"],D("applied"=>0,"selection_changes"=>0))
-                                m["applied"]+=1
+                            if ground_mode=="patches"
+                                candidates=ground_candidates(candidates,moves[a],w.inventory[a])
+                                ground_stats[a]["projection_decisions"]+=1
                             end
-                        end
-                        if lateral_side!="off" && lateral_views!==nothing
-                            lateral_trace=project_lateral!(candidates,moves[a],lateral_views[a],lateral_side,field_trace)
-                            ls=lateral_stats[a];ls["evaluations"]+=1;ls["applied"]+=Int(lateral_trace["applied"])
-                            push!(ls["records"],merge(lateral_trace,D("source"=>source)));length(ls["records"])>32 && popfirst!(ls["records"])
-                        end
-                        sleep_maintenance && wake_sleep_usage!(action_models[a],contexts[a],phase)
-                        sleep_without=sleep_actions ? method_choice(s,candidates) : nothing
-                        sleep_applied=sleep_actions && project_sleep_actions!(action_models[a],candidates,contexts[a],a,now)
-                        sleep_selected=sleep_actions ? method_choice(s,candidates) : nothing
-                        field_selected=sleep_actions ? sleep_without : method_choice(s,candidates)
-                        body_before=body_field ? method_choice(s,candidates)["method"] : nothing
-                        body_applied=body_field && project_body_methods!(candidates,hunger[a],w.bodies[a],phase)
-                        body_selected=body_field ? method_choice(s,candidates)["method"] : nothing
-                        bundle_trace=experience_bundles ? project_bundles!(bundles[a],candidates,s,bundle_contexts[a],phase,now;credit=bundle_credit) : nothing
-                        trail_trace=selection_trails ? project_trails!(trails[a],candidates,s,bundle_contexts[a],phase) : nothing
-                        if repetition_pressure
-                            prior_choice=method_choice(s,candidates)
-                            project_repetition!(repetitions[a],candidates)
-                            after_choice=method_choice(s,candidates)
-                            repetitions[a]["changes"]+=Int(prior_choice!==nothing && after_choice!==nothing && prior_choice["method"]!=after_choice["method"])
-                        end
-                        if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
-                            project_rho_affordance!(candidates,ground_models[a]["structures"]["observation"])
-                        end
-                        if configured_camp_landmark && family=="home"
-                            c=configured_camp_experience ? mb_place_candidate!(mb_maps[a]["place_mb"],moves[a]) : configured_camp_landmark_candidate!(observation_states[a]["camp_landmark"],camp_view,moves[a])
-                            c!==nothing && push!(candidates,c)
-                        end
-                        mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))
-                        mb_simulation && phase=="exploration" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))
-                        mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
-                        goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
-                        goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
-                        plan=choose_method!(s,candidates,source)
-                        if haskey(plan,"social_peer")
-                            stats=relations[a]["approach"];stats["selected"]+=1
-                            push!(stats["records"],D("us"=>now,"peer"=>plan["social_peer"],"method"=>plan["method"],
-                                "probability"=>get(plan,"selection_probability",nothing),"expected_gain"=>get(plan,"social_expected_gain",nothing)))
-                            length(stats["records"])>32 && popfirst!(stats["records"])
-                        end
-                        mb_simulation && mb_goal_cue_selected!(mb_maps[a],plan,now)
-                        get(plan,"goal_arrival",false) && (mb_maps[a]["goal_arrival"][family]["selected"]+=1)
-                        get(plan,"configured_camp_landmark",false) && (observation_states[a]["camp_landmark"]["selected"]+=1)
-                        if haskey(plan,"mb_place")
-                            mb_maps[a]["place_mb"]["selected"]+=1
-                            get(plan,"mb_place_memory",false) && (mb_maps[a]["place_mb"]["memory_selected"]+=1)
-                        end
-                        get(plan,"mb_return_link",false) && (mb_maps[a]["return_outlook"]["selected"]+=1)
-                        general_landmarks && record_cue_selection!(cue_states[a],plan,s.H)
-                        movement_inertia && record_continuation!(inertia[a],plan,s,source)
-                        skyline_mode!="off" && plan["method"]=="skyline_home" && (skyline_states[a]["selections"]+=1)
-                        reposition && startswith(plan["method"],"reposition_") && (reposition_states[a]["selected"]+=1)
-                        selection_trails && (plan["trail_trace"]=trail_trace)
-                        experience_bundles && (plan["bundle_trace"]=bundle_trace)
-                        if body_applied
-                            body_fields[a]["applied"]+=1;body_fields[a]["changed"]+=Int(body_before!=body_selected)
-                        end
-                        relation_field && startswith(plan["method"],"relation:") && (relation_fields[a]["selections"]+=1)
-                        ground_continuity && startswith(plan["method"],"ground_") && (ground_models[a]["selections"]+=1)
-                        sleep_maintenance && (plan["sleep_changed"]=sleep_applied && sleep_without["method"]!=sleep_selected["method"] && plan["method"]==sleep_selected["method"])
-                        sleep_applied && sleep_without["method"]!=sleep_selected["method"] && (action_models[a]["selection_changes"]+=1)
-                        if counterfactual!==nothing && counterfactual["method"]!=field_selected["method"]
-                            field_stats[a]["selection_changes"]+=1
-                            field_stats[a]["by_model"][field_trace["model_ref"]]["selection_changes"]+=1
-                            if length(field_stats[a]["examples"])<8
-                                push!(field_stats[a]["examples"],D("source"=>"ob:$now:$a","without"=>counterfactual["method"],
-                                    "with"=>field_selected["method"],"field"=>field_trace))
+                            counterfactual=nothing;field_trace=nothing
+                            if model_field && family=="food"
+                                projected,field_trace=harvest_field(candidates,moves[a],harvest[a],a,now;enabled=true)
+                                if field_trace["applied"]
+                                    counterfactual=method_choice(s,candidates)
+                                    candidates=projected;field_stats[a]["applied"]+=1
+                                    m=get!(field_stats[a]["by_model"],field_trace["model_ref"],D("applied"=>0,"selection_changes"=>0))
+                                    m["applied"]+=1
+                                end
                             end
+                            if lateral_side!="off" && lateral_views!==nothing
+                                lateral_trace=project_lateral!(candidates,moves[a],lateral_views[a],lateral_side,field_trace)
+                                ls=lateral_stats[a];ls["evaluations"]+=1;ls["applied"]+=Int(lateral_trace["applied"])
+                                push!(ls["records"],merge(lateral_trace,D("source"=>source)));length(ls["records"])>32 && popfirst!(ls["records"])
+                            end
+                            sleep_maintenance && wake_sleep_usage!(action_models[a],contexts[a],phase)
+                            sleep_without=sleep_actions ? method_choice(s,candidates) : nothing
+                            sleep_applied=sleep_actions && project_sleep_actions!(action_models[a],candidates,contexts[a],a,now)
+                            sleep_selected=sleep_actions ? method_choice(s,candidates) : nothing
+                            field_selected=sleep_actions ? sleep_without : method_choice(s,candidates)
+                            body_before=body_field ? method_choice(s,candidates)["method"] : nothing
+                            body_applied=body_field && project_body_methods!(candidates,hunger[a],w.bodies[a],phase)
+                            body_selected=body_field ? method_choice(s,candidates)["method"] : nothing
+                            bundle_trace=experience_bundles ? project_bundles!(bundles[a],candidates,s,bundle_contexts[a],phase,now;credit=bundle_credit) : nothing
+                            trail_trace=selection_trails ? project_trails!(trails[a],candidates,s,bundle_contexts[a],phase) : nothing
+                            if repetition_pressure
+                                prior_choice=method_choice(s,candidates)
+                                project_repetition!(repetitions[a],candidates)
+                                after_choice=method_choice(s,candidates)
+                                repetitions[a]["changes"]+=Int(prior_choice!==nothing && after_choice!==nothing && prior_choice["method"]!=after_choice["method"])
+                            end
+                            if rho_profile!="off" && rho_opening_candidates_enabled && target===nothing
+                                project_rho_affordance!(candidates,ground_models[a]["structures"]["observation"])
+                            end
+                            if configured_camp_landmark && family=="home"
+                                c=configured_camp_experience ? mb_place_candidate!(mb_maps[a]["place_mb"],moves[a]) : configured_camp_landmark_candidate!(observation_states[a]["camp_landmark"],camp_view,moves[a])
+                                c!==nothing && push!(candidates,c)
+                            end
+                            mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))
+                            mb_simulation && phase=="exploration" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))
+                            mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
+                            goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
+                            goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
+                            plan=choose_method!(s,candidates,source)
+                            if haskey(plan,"social_peer")
+                                stats=relations[a]["approach"];stats["selected"]+=1
+                                push!(stats["records"],D("us"=>now,"peer"=>plan["social_peer"],"method"=>plan["method"],
+                                    "probability"=>get(plan,"selection_probability",nothing),"expected_gain"=>get(plan,"social_expected_gain",nothing)))
+                                length(stats["records"])>32 && popfirst!(stats["records"])
+                            end
+                            mb_simulation && mb_goal_cue_selected!(mb_maps[a],plan,now)
+                            get(plan,"goal_arrival",false) && (mb_maps[a]["goal_arrival"][family]["selected"]+=1)
+                            get(plan,"configured_camp_landmark",false) && (observation_states[a]["camp_landmark"]["selected"]+=1)
+                            if haskey(plan,"mb_place")
+                                mb_maps[a]["place_mb"]["selected"]+=1
+                                get(plan,"mb_place_memory",false) && (mb_maps[a]["place_mb"]["memory_selected"]+=1)
+                            end
+                            get(plan,"mb_return_link",false) && (mb_maps[a]["return_outlook"]["selected"]+=1)
+                            general_landmarks && record_cue_selection!(cue_states[a],plan,s.H)
+                            movement_inertia && record_continuation!(inertia[a],plan,s,source)
+                            skyline_mode!="off" && plan["method"]=="skyline_home" && (skyline_states[a]["selections"]+=1)
+                            reposition && startswith(plan["method"],"reposition_") && (reposition_states[a]["selected"]+=1)
+                            selection_trails && (plan["trail_trace"]=trail_trace)
+                            experience_bundles && (plan["bundle_trace"]=bundle_trace)
+                            if body_applied
+                                body_fields[a]["applied"]+=1;body_fields[a]["changed"]+=Int(body_before!=body_selected)
+                            end
+                            relation_field && startswith(plan["method"],"relation:") && (relation_fields[a]["selections"]+=1)
+                            ground_continuity && startswith(plan["method"],"ground_") && (ground_models[a]["selections"]+=1)
+                            sleep_maintenance && (plan["sleep_changed"]=sleep_applied && sleep_without["method"]!=sleep_selected["method"] && plan["method"]==sleep_selected["method"])
+                            sleep_applied && sleep_without["method"]!=sleep_selected["method"] && (action_models[a]["selection_changes"]+=1)
+                            if counterfactual!==nothing && counterfactual["method"]!=field_selected["method"]
+                                field_stats[a]["selection_changes"]+=1
+                                field_stats[a]["by_model"][field_trace["model_ref"]]["selection_changes"]+=1
+                                if length(field_stats[a]["examples"])<8
+                                    push!(field_stats[a]["examples"],D("source"=>"ob:$now:$a","without"=>counterfactual["method"],
+                                        "with"=>field_selected["method"],"field"=>field_trace))
+                                end
+                            end
+                            landmark_routes && get(plan,"route",nothing)!==nothing && (routes[a]["selections"]+=1)
+                            if !continuous_descent && adaptive_approach
+                                refine_approach!(plan,target,w,a,yaw,resistance_at)
+                            end
+                            pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
+                                distance=target===nothing ? nothing : target["distance"],
+                                ref=target===nothing || returning ? nothing : target["ref"],status="unexecuted",social_peer=get(plan,"social_peer",nothing),social_capture_us=now)
                         end
-                        landmark_routes && get(plan,"route",nothing)!==nothing && (routes[a]["selections"]+=1)
-                        if !continuous_descent && adaptive_approach
-                            refine_approach!(plan,target,w,a,yaw,resistance_at)
-                        end
-                        pending[a]=(family=family,source=source,phase=phase,question=plan["question"],
-                            distance=target===nothing ? nothing : target["distance"],
-                            ref=target===nothing || returning ? nothing : target["ref"],status="unexecuted",social_peer=get(plan,"social_peer",nothing),social_capture_us=now)
                     end
                 elseif returning && home===nothing
                     plan=D("action"=>"scan")
@@ -1044,6 +1058,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 push!(storage_stats["records"],D("actor"=>a,"operation"=>op,"action"=>action,"status"=>status,"stock_after"=>shared))
                 length(storage_stats["records"])>32 && popfirst!(storage_stats["records"])
             end
+            if get(plan,"incidental_item",false)
+                incidental_item_result!(incidental_items[a],plan,status,max(0.,repetition_before.reserve-w.bodies[a].reserve),now)
+            end
             if configured_home_rest_enabled
                 h=homes[a]
                 configured_home_rest_step!(mb_maps[a],loops[a]["home"],h!==nothing && h["distance"]<=1.25,
@@ -1139,10 +1156,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             configured_camp_experience && now<clock.day_us && configured_camp_place_rest!(mb_maps[a]["place_mb"],observation_states[a]["camp_landmark"],loops[a]["home"],plan,status,homes[a]!==nothing && homes[a]["distance"]<=1.25,now)
             counts[a][action]=get(counts[a],action,0)+1
             sig=(phase,leg,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))
-            if get(previous,a,nothing)!=sig
+            if get(previous,a,nothing)!=sig || get(plan,"incidental_item",false)
                 push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"purpose_family"=>leg,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing),
                     "method"=>get(plan,"method",nothing),"direction"=>get(plan,"direction",nothing),"selection_mode"=>get(plan,"selection_mode",nothing),
                     "route"=>get(plan,"route",nothing),"landmark_color"=>get(plan,"landmark_color",nothing)))
+                if get(plan,"incidental_item",false)
+                    events[end]["incidental_item"]=true;events[end]["item_id"]=plan["item_id"]
+                end
                 previous[a]=sig
             end
         end
@@ -1163,6 +1183,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             foods!==nothing && (daily[end]["food_resources"]=food_snapshot(foods))
             trades!==nothing && (daily[end]["food_exchange"]=food_trade_snapshot(trades))
             items!==nothing && (daily[end]["portable_items"]=item_snapshot(items))
+            incidental_items!==nothing && (daily[end]["incidental_items"]=incidental_snapshot())
             relations!==nothing && (daily[end]["social_relationships"]=relation_snapshot())
             checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)
         end
@@ -1188,7 +1209,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "food_exchange"=>trades===nothing ? nothing : food_trade_snapshot(trades),
         "portable_items"=>items===nothing ? nothing : item_snapshot(items),
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
-    merge(items===nothing ? D() : D("portable_items"=>item_snapshot(items)),relations===nothing ? D() : D("social_relationships"=>relation_snapshot()),trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body || relations!==nothing) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    merge(incidental_items===nothing ? D() : D("incidental_items"=>incidental_snapshot()),items===nothing ? D() : D("portable_items"=>item_snapshot(items)),relations===nothing ? D() : D("social_relationships"=>relation_snapshot()),trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body || relations!==nothing) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"repetition_pressure"=>repetition_pressure ? repetitions : nothing,"parent_breadth"=>parent_breadth ? breadth_stats : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts))
 end

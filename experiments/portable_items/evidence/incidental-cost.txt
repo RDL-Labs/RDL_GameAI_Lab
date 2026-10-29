@@ -1,0 +1,17 @@
+Recorded 2026-10-30: transcription of the earlier completed tool output.
+This is not a fresh rerun after the later day.jl hook-priority adjustment.
+Julia 1.13.1, JULIA_NUM_THREADS=1, OPENBLAS_NUM_THREADS=1.
+JULIA_DEPOT_PATH=C:/Users/ken_m/Documents/Codex/tools/julia-depot
+Command: julia --startup-file=no --project=. experiments/portable_items/incidental_cost_checks.jl
+Exit code: 0
+
+Test Summary:                                           | Pass  Total  Time
+incidental costs preserve the selected parent and route |  184    184  2.2s
+Test Summary:                                                       | Pass  Total  Time
+incidental action cannot create a parent or bypass a purpose switch |    7      7  0.1s
+Test Summary:                                              | Pass  Total  Time
+scheduled item operations retain their old pause semantics |    3      3  0.0s
+Test Summary:                                                      | Pass  Total  Time
+incidental pauses do not invent bridges across observation changes |   15     15  0.0s
+
+Total: 209 PASS.

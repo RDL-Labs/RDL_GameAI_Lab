@@ -93,6 +93,7 @@ function mb_record!(s,plan,status,energy,now;turn=nothing,distance=.5)
     angle=turn===nothing ? (action=="scan" ? get(plan,"scan_angle",60.) : get(plan,"approach_angle",ANGLES[get(plan,"direction",0)+1])) : turn
     s["receipt"]=D("from"=>frame.key,"action"=>action,"offset"=>action=="scan" ? angle : wrap_angle(angle-frame.anchor),
         "distance"=>distance,"status"=>status,"energy"=>max(0.,energy),"now"=>now,"predicted"=>predicted,"goal"=>get(plan,"purpose_family",nothing),"local_repair"=>get(plan,"mb_local_repair",nothing),"route"=>get(plan,"mb_route",nothing),"chunk"=>get(plan,"mb_chunk",nothing),"association"=>get(plan,"mb_association",nothing))
+    get(plan,"incidental_item",false) && (s["receipt"]["incidental_item"]=true)
 end
 mb_edge_cost(e)=1.0+e["energy_sum"]/max(1,e["samples"])+2/(1+e["samples"]+e["matches"])+2log1p(e["misses"])+log1p(get(e,"execution_failures",0))
 function mb_first_action(e,frame,move)

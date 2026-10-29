@@ -1,0 +1,11 @@
+{
+  "input_changes": [
+    "config.days",
+    "scene.incidental_items"
+  ],
+  "first_day_matches_placement_without_incidental_diagnostics": true,
+  "frozen_files_match_repository": true,
+  "source_file_count": 146,
+  "source_tree_sha256": "9c2807df3538b21a3fbfe9aa1d9d73192527cf2ed2231d5ffc6b5c0715b21404",
+  "native_day_us": 17280000000
+}
