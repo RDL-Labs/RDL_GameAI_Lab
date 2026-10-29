@@ -10,6 +10,10 @@
 - 共通の身体・幾何は`src/body`と`src/geometry`。ルートProject/Manifestが現役の共通環境。
 - 数値化：同ディレクトリの`numeric-cpu*`。生態系の状態機械とは別系統。
 
+## 考察と文書
+
+[考察と研究メモ](reflections/README.md)に、対話から生まれた仮説と今後の検討課題を保存する。設計は`docs/design`、実験条件は`docs/experiment-contracts`、結果は`docs/experiment-evidence`と`experiments`で扱う。既存の考察は元の場所を保ち、索引から参照する。
+
 ## Python・外部連携の扱い
 
 Python runtimeとtestsは比較基準・回帰検証として保持。Luanti、Godot、p5.jsの既存連携にはPython側の経路もある。Juliaを主入口にしたことは、これら全てをJuliaへ置き換えたことを意味しない。

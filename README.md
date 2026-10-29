@@ -51,6 +51,7 @@ julia --startup-file=no run.jl lw outputs/lw-replay --spec path/to/spec.json
 | `experiments/julia_migration` | 互換入口、旧固定環境、移行・回帰・性能の証拠 |
 | `experiments/numeric_ecology` | 数値化と生態系の独立実験・保存結果 |
 | `docs` / `notes` | 設計・契約・検証記録 |
+| [`docs/reflections`](docs/reflections/README.md) | 考察・研究メモ・実装前の仮説 |
 | `runtime` / `tests` / `integrations/lightweight` | Pythonの比較基準・旧経路・回帰検証 |
 | `gui-p5` / `start_workbench.bat` | Pythonで配信する既存観測用UI |
 | `godot` / `integrations/luanti` | 外部エンジン連携。Julia生態系との接続は別作業 |
