@@ -1,4 +1,14 @@
 social_initial()=D("records"=>Records(),"pending"=>nothing,"model"=>D(),"cycles"=>Any[])
+# Retain the one pending request's execution receipt alongside the latest
+# action. Replying to another actor must not erase evidence that we requested aid.
+function social_result_window(previous,pending,op,result)
+    current=D(op=>deepcopy(result))
+    if pending!==nothing
+        request_op=pending["operation_id"]
+        request_op!=op && haskey(previous,request_op) && (current[request_op]=deepcopy(previous[request_op]))
+    end
+    current
+end
 function ingest(state,packet,results)
     s=state===nothing ? social_initial() : deepcopy(state)
     pending=s["pending"]

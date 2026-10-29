@@ -3,7 +3,7 @@ const out=process.argv[2],stores=process.argv[3]||'personal';
 if(!out||process.argv.length>4||!['personal','shared'].includes(stores))throw Error('usage: prepare.cjs INPUT.json [personal|shared]');
 const input=JSON.parse(fs.readFileSync(path.join(__dirname,'../rock_gate/channel_trial_spec.json'))),s=input.scene;
 Object.assign(input.config,{days:3,seed:20261007,digestion:'ordinary',stores});
-Object.assign(s,{typed_food:true,food_exchange:stores==='personal',mb_navigation_mode:'goal_cues',mb_exploration_relations:true,mb_scene_abstraction:'standard',
+Object.assign(s,{typed_food:true,food_exchange:stores==='personal',social_relationships:true,mb_navigation_mode:'goal_cues',mb_exploration_relations:true,mb_scene_abstraction:'standard',
  wildlife:{enabled:true,count:30,seed:20261028,grass_scale:1,spawn_min_distance:8,spawn_max_distance:40}});
 // A taught recipe and one carried raw portion each expose processing immediately.
 s.positions=[[s.home[0],s.home[1]+.3],[s.home[0]+.3,s.home[1]],[s.home[0]-.3,s.home[1]]];

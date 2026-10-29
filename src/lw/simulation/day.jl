@@ -19,6 +19,7 @@ include(joinpath(@__DIR__, "../perception/ground_continuity.jl"))
 include(joinpath(@__DIR__, "../decision/climbing.jl"))
 include(joinpath(@__DIR__, "../world/dropped_cargo.jl"))
 include(joinpath(@__DIR__, "../decision/return_purpose.jl"))
+include(joinpath(@__DIR__, "../learning/social_relations.jl"))
 include(joinpath(@__DIR__, "../decision/social_response.jl"))
 include(joinpath(@__DIR__, "../decision/food_body.jl"))
 include(joinpath(@__DIR__, "../decision/embedded_rest.jl"))
@@ -292,15 +293,24 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(exchange_enabled isa Bool,"food_exchange_flag")
     check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
     trades=exchange_enabled ? food_trade_state(choice_seed) : nothing
+    relationship_enabled=get(spec,:social_relationships,false)
+    check(relationship_enabled isa Bool,"social_relationships_flag")
+    relations=relationship_enabled ? D(a=>social_relations_state(a) for a in IDS) : nothing
+    relation_snapshot()=D(a=>social_relations_snapshot(relations[a]) for a in IDS)
     initial=shared+sum(stock)+sum(values(w.inventory))+sum(values(stores));bounds=Int.(clock.phase_boundaries_us)
     replenished=0;replenishments=Any[]
     integrate(a,now,obs)=begin
         before=length(states[a]["records"])
+        old_pending=states[a]["pending"]
         if states[a]["pending"]!==nothing
             states[a]=ingest(states[a],D("agent_id"=>a,"capture_us"=>now,
                 "observation_id"=>"ob:$now:$a","social"=>obs),results[a])
         end
         pressure_poll!(live[a],states[a]["records"],before)
+        if relations!==nothing && length(states[a]["records"])>before
+            r=states[a]["records"][old_pending["message_id"]]
+            social_relation_event!(relations[a],r["target"],"aid_received",r["message_id"],r["tick"];outcome=r["outcome"])
+        end
     end
     # Tick phases: world/clock -> observations -> learning/decision -> actions -> physiology -> daily consolidation.
     checkpoint_code=(checkpoint_dir!==nothing || resume_from!==nothing) ? checkpoint_code_hash() : ""
@@ -362,7 +372,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             for a in IDS;observe_sky!(sky[a],sky_sample(a,"ob:$now:$a",now,yaw[a],clock));end
         end
         obs=Dict(a=>observe(w,a) for a in IDS)
-        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now)
+        relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),IDS)
+        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations)
         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
         homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
@@ -524,12 +535,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 foods!==nothing && (plan["configured_food_preparation"]=true)
             elseif !isempty(messages)
                 m=first(messages);current=merge(copy(o),D("messages"=>[m]))
-                if social_response || food_body
-                    decision,trace=experienced_response(current,states[a]["records"],live[a].state,a,"respond:$now:$a:$(m["id"])";retention=food_body ? retention_cost(current,hunger[a]) : 0.)
+                if social_response || food_body || relations!==nothing
+                    decision,trace=experienced_response(current,states[a]["records"],live[a].state,a,"respond:$now:$a:$(m["id"])";retention=food_body ? retention_cost(current,hunger[a]) : 0.,relation=relations===nothing ? nothing : relations[a])
                     act,t,r=decision
                     if trace!==nothing
                         rs=response_stats[a];rs["decisions"]+=1;rs[act]+=1
-                        trace["weight"]>0 && (rs["experienced"]+=1)
+                        (trace["weight"]>0 || (haskey(trace,"relationship") && trace["relationship"]["weight"]!=0)) && (rs["experienced"]+=1)
+                        relations!==nothing && social_relation_use!(relations[a],m["sender"],"give",trace["source"],now,trace["relationship"];action=act)
                         push!(rs["records"],trace);length(rs["records"])>32 && popfirst!(rs["records"])
                     end
                 else
@@ -546,12 +558,15 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=D("action"=>"rest")
             elseif (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && !configured_overrides.suppress_repeat_request
                 targets=[x["ref"] for x in o["others"] if x["holding_food"]]
-                target,_=select_target(targets,states[a]["model"],live[a].state)
+                target,target_trace=select_target(targets,states[a]["model"],live[a].state;relation=relations===nothing ? nothing : relations[a],seed="target:$choice_seed:$now:$a")
                 request_allowed=target!==nothing
-                if request_allowed && social_response
-                    request_allowed,trace=experienced_request(o,states[a]["records"],live[a].state,a,target,"request:$now:$a:$target")
+                if request_allowed && (social_response || relations!==nothing)
+                    request_allowed,trace=experienced_request(o,states[a]["records"],live[a].state,a,target,"request:$now:$a:$target";relation=relations===nothing ? nothing : relations[a])
                     rs=response_stats[a];rs["request_decisions"]+=1;rs[request_allowed ? "requests" : "withheld"]+=1
                     push!(rs["records"],trace);length(rs["records"])>32 && popfirst!(rs["records"])
+                    if relations!==nothing
+                        social_relation_use!(relations[a],target,"request",trace["source"],now,merge(trace["relationship"],D("target_selection"=>target_trace));action=trace["selected"])
+                    end
                 end
                 if request_allowed
                     op="op:$now:$a"
@@ -562,7 +577,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
 
             if plan===nothing && trades!==nothing && !observing && phase!="night" && at_home && w.inventory[a]==0
-                plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now)
+                plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;relation=relations===nothing ? nothing : relations[a])
             end
             if observing && plan===nothing
                 plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
@@ -870,7 +885,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 else
                     food_exchange_execute!(trades["world"],foods,w,stores,spec.home,a,op,action,now;offer_id=plan["offer_id"])
                 end
-                status=receipt["status"];food_trade_executed!(trades,a,plan,receipt)
+                status=receipt["status"];food_trade_executed!(trades,a,plan,receipt;relation=relations===nothing ? nothing : relations[a])
                 w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
             elseif action=="process_food"
                 legal=foods!==nothing && hypot(p[1]-spec.home[1],p[2]-spec.home[2])<=1.25 && food_has_raw(foods,a)
@@ -890,6 +905,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     r=communicate!(w,a,op,action,get(plan,"target",nothing),get(plan,"reply_to",nothing))
                 end
                 status=r["status"]
+                if relations!==nothing && action in ("give","refuse") && get(plan,"target",nothing)!==nothing
+                    social_relation_event!(relations[a],plan["target"],"aid_given",op,now;
+                        outcome=action=="refuse" && status=="expressed" ? "refuse" : status)
+                end
                 if status=="ate"
                     liking=FOOD_LIKING[actual_kind]
                     if guts!==nothing
@@ -905,7 +924,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     push!(cargo[plan["target"]],popfirst!(cargo[a]))
                     foods!==nothing && push!(foods.inventory[plan["target"]],food_remove!(foods,a,1))
                 end
-                results[a]=D(op=>r)
+                results[a]=social_result_window(results[a],states[a]["pending"],op,r)
                 if action!="eat"
                     w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
                 end
@@ -1066,6 +1085,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             wildlife!==nothing && (daily[end]["wildlife"]=LWGrazing.snapshot(wildlife))
             foods!==nothing && (daily[end]["food_resources"]=food_snapshot(foods))
             trades!==nothing && (daily[end]["food_exchange"]=food_trade_snapshot(trades))
+            relations!==nothing && (daily[end]["social_relationships"]=relation_snapshot())
             checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)
         end
     end
@@ -1089,7 +1109,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "food_resources"=>foods===nothing ? nothing : food_snapshot(foods),
         "food_exchange"=>trades===nothing ? nothing : food_trade_snapshot(trades),
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
-    merge(trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    merge(relations===nothing ? D() : D("social_relationships"=>relation_snapshot()),trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body || relations!==nothing) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"repetition_pressure"=>repetition_pressure ? repetitions : nothing,"parent_breadth"=>parent_breadth ? breadth_stats : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts))
 end

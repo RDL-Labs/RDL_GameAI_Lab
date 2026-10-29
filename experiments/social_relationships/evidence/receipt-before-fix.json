@@ -1,0 +1,325 @@
+{
+  "rule": "directed-aid-receipt-audit-v1",
+  "run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\social-relationships-3d-20261029\\run",
+  "totals": {
+    "world_transfers": 45,
+    "received_relation": 28,
+    "received_records": 28,
+    "logged_transfers": 45
+  },
+  "checks": {
+    "relation_counts_match_records": true,
+    "all_transfer_events_logged": true,
+    "every_transfer_attributed_given": false,
+    "no_duplicate_transfer_attribution": true,
+    "every_given_has_logged_transfer": true
+  },
+  "edges": [
+    {
+      "giver": "npc_a",
+      "receiver": "npc_b",
+      "world_transfers": 8,
+      "received_relation": 8,
+      "received_records": 8,
+      "logged_transfers": 8
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "world_transfers": 16,
+      "received_relation": 7,
+      "received_records": 7,
+      "logged_transfers": 16
+    },
+    {
+      "giver": "npc_b",
+      "receiver": "npc_a",
+      "world_transfers": 4,
+      "received_relation": 2,
+      "received_records": 2,
+      "logged_transfers": 4
+    },
+    {
+      "giver": "npc_b",
+      "receiver": "npc_c",
+      "world_transfers": 0,
+      "received_relation": 0,
+      "received_records": 0,
+      "logged_transfers": 0
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "world_transfers": 17,
+      "received_relation": 11,
+      "received_records": 11,
+      "logged_transfers": 17
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_b",
+      "world_transfers": 0,
+      "received_relation": 0,
+      "received_records": 0,
+      "logged_transfers": 0
+    }
+  ],
+  "request_outcomes": {
+    "refuse": 44,
+    "given": 28,
+    "request_not_executed": 52,
+    "no_response_observed": 54
+  },
+  "transfer_record_classifications": {
+    "request_not_executed": 17,
+    "given": 28
+  },
+  "intervening_receipt_actions": {
+    "refuse": 17
+  },
+  "relation_count_differences": [],
+  "mismatches": [
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:5000000:npc_c",
+      "request_us": 5000000,
+      "transfer_us": 6000000,
+      "observed_us": 7000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 6000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_b",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:24000000:npc_a",
+      "request_us": 24000000,
+      "transfer_us": 26000000,
+      "observed_us": 27000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 25000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_b",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:35000000:npc_a",
+      "request_us": 35000000,
+      "transfer_us": 36000000,
+      "observed_us": 37000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 36000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:40000000:npc_c",
+      "request_us": 40000000,
+      "transfer_us": 41000000,
+      "observed_us": 42000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 41000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:62000000:npc_c",
+      "request_us": 62000000,
+      "transfer_us": 63000000,
+      "observed_us": 64000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 63000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:71000000:npc_a",
+      "request_us": 71000000,
+      "transfer_us": 72000000,
+      "observed_us": 73000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 72000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:73000000:npc_a",
+      "request_us": 73000000,
+      "transfer_us": 74000000,
+      "observed_us": 75000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 74000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:92000000:npc_c",
+      "request_us": 92000000,
+      "transfer_us": 93000000,
+      "observed_us": 94000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 93000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:98000000:npc_c",
+      "request_us": 98000000,
+      "transfer_us": 99000000,
+      "observed_us": 100000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 99000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:106000000:npc_c",
+      "request_us": 106000000,
+      "transfer_us": 107000000,
+      "observed_us": 108000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 107000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:112000000:npc_c",
+      "request_us": 112000000,
+      "transfer_us": 113000000,
+      "observed_us": 114000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 113000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:120000000:npc_a",
+      "request_us": 120000000,
+      "transfer_us": 121000000,
+      "observed_us": 122000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 121000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:124000000:npc_c",
+      "request_us": 124000000,
+      "transfer_us": 125000000,
+      "observed_us": 126000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 125000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:130000000:npc_a",
+      "request_us": 130000000,
+      "transfer_us": 131000000,
+      "observed_us": 132000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 131000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "request_id": "npc_c:op:140000000:npc_c",
+      "request_us": 140000000,
+      "transfer_us": 141000000,
+      "observed_us": 142000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 141000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:146000000:npc_a",
+      "request_us": 146000000,
+      "transfer_us": 147000000,
+      "observed_us": 148000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 147000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "request_id": "npc_a:op:150000000:npc_a",
+      "request_us": 150000000,
+      "transfer_us": 151000000,
+      "observed_us": 152000000,
+      "recorded_outcome": "request_not_executed",
+      "last_intervening_communication": {
+        "us": 151000000,
+        "action": "refuse",
+        "status": "expressed"
+      }
+    }
+  ],
+  "ambiguous": [],
+  "duplicate_matches": [],
+  "unmatched_given": [],
+  "scope": "world_transfers uses aid_given.transferred counters updated from execution receipts; event logs are change-compressed and their coverage is checked separately. A matching time window is not a stored reply_to identity."
+}

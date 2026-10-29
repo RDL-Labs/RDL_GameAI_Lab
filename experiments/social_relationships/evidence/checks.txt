@@ -1,0 +1,23 @@
+Test Summary:                                         | Pass  Total  Time
+unknown peers are neutral and observation stays local |   14     14  0.7s
+Test Summary:                                     | Pass  Total  Time
+aid, refusal and missing evidence remain separate |   15     15  0.1s
+Test Summary:                                               | Pass  Total  Time
+trade acceptance and personal value are different relations |   10     10  0.0s
+Test Summary:                                                  | Pass  Total  Time
+relation receipts prevent double learning and preserve sources |   12     12  0.8s
+Test Summary:                                             | Pass  Total  Time
+long histories stay bounded without fabricating certainty |    5      5  0.0s
+Test Summary:                                                 | Pass  Total  Time
+one committed trade gives each participant their own relation |   12     12  3.3s
+Test Summary:                                                                   | Pass  Total  Time
+shared partner experience changes aid decisions without double refusal pressure |   12     12  0.4s
+Test Summary:                                                       | Pass  Total  Time
+request targets use common H probabilities over observed candidates |    8      8  0.4s
+relationship response probabilities {"negative":0.21301741969390062,"neutral":0.2739220534948687,"helped":0.31543870929215484}
+Test Summary:                                          | Pass  Total  Time
+aid and personal trade value carry into barter choices |    9      9  0.3s
+Test Summary:                                                   | Pass  Total  Time
+other social actions do not erase a pending aid request receipt |   26     26  0.5s
+Test Summary:                                                  | Pass  Total  Time
+retaining a failed request does not turn it into received help |    5      5  0.1s

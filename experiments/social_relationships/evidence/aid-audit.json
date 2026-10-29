@@ -1,0 +1,83 @@
+{
+  "rule": "directed-aid-receipt-audit-v1",
+  "run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\social-relationships-fixed-3d-20261029\\run",
+  "totals": {
+    "world_transfers": 36,
+    "received_relation": 36,
+    "received_records": 36,
+    "logged_transfers": 36
+  },
+  "checks": {
+    "relation_counts_match_records": true,
+    "all_transfer_events_logged": true,
+    "every_transfer_attributed_given": true,
+    "no_duplicate_transfer_attribution": true,
+    "every_given_has_logged_transfer": true
+  },
+  "edges": [
+    {
+      "giver": "npc_a",
+      "receiver": "npc_b",
+      "world_transfers": 3,
+      "received_relation": 3,
+      "received_records": 3,
+      "logged_transfers": 3
+    },
+    {
+      "giver": "npc_a",
+      "receiver": "npc_c",
+      "world_transfers": 15,
+      "received_relation": 15,
+      "received_records": 15,
+      "logged_transfers": 15
+    },
+    {
+      "giver": "npc_b",
+      "receiver": "npc_a",
+      "world_transfers": 4,
+      "received_relation": 4,
+      "received_records": 4,
+      "logged_transfers": 4
+    },
+    {
+      "giver": "npc_b",
+      "receiver": "npc_c",
+      "world_transfers": 0,
+      "received_relation": 0,
+      "received_records": 0,
+      "logged_transfers": 0
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_a",
+      "world_transfers": 14,
+      "received_relation": 14,
+      "received_records": 14,
+      "logged_transfers": 14
+    },
+    {
+      "giver": "npc_c",
+      "receiver": "npc_b",
+      "world_transfers": 0,
+      "received_relation": 0,
+      "received_records": 0,
+      "logged_transfers": 0
+    }
+  ],
+  "request_outcomes": {
+    "refuse": 74,
+    "given": 36,
+    "no_response_observed": 44,
+    "request_not_executed": 1
+  },
+  "transfer_record_classifications": {
+    "given": 36
+  },
+  "intervening_receipt_actions": {},
+  "relation_count_differences": [],
+  "mismatches": [],
+  "ambiguous": [],
+  "duplicate_matches": [],
+  "unmatched_given": [],
+  "scope": "world_transfers uses aid_given.transferred counters updated from execution receipts; event logs are change-compressed and their coverage is checked separately. A matching time window is not a stored reply_to identity."
+}

@@ -60,6 +60,25 @@ if haskey(r,:food_exchange)
     end
 end
 # Same source/input, uninterrupted whole run versus continuing from day 2.
+if haskey(r,:social_relationships)
+    @testset "directed social relationships integration" begin
+        @test summary.social_relationships==r.social_relationships
+        @test r.daily[end].social_relationships==r.social_relationships
+        exchange_experiences=0
+        for a in keys(r.social_relationships)
+            s=r.social_relationships[a]
+            @test s.actor==String(a) && !haskey(s.peers,a)
+            @test all(e->e.actor==String(a),s.records)
+            @test length(s.records)<=32 && length(s.choices)<=32
+            @test all(c->c.actor==String(a) && isfinite(c.trace.weight),s.choices)
+            @test sum(p.aid_received.given for p in values(s.peers);init=0)==
+                count(e->e.outcome=="given",values(r.final_agents[a].social.records))
+            @test sum(p.aid_given.transferred for p in values(s.peers);init=0)<=get(r.counts[a],:give,0)
+            exchange_experiences+=sum(p.trade_offer.exchanged+p.trade_response.exchanged for p in values(s.peers);init=0)
+        end
+        @test exchange_experiences==(haskey(r,:food_exchange) ? 2r.food_exchange.world.counts.exchanged : 0)
+    end
+end
 native_main([joinpath(out,"resumed"),"--spec",joinpath(out,"input.json"),
     "--resume-from",joinpath(out,"checkpoints/day-002.jls")])
 resumed=JSON3.read(read(joinpath(out,"resumed/result.json"),String))
@@ -68,8 +87,9 @@ resumed=JSON3.read(read(joinpath(out,"resumed/result.json"),String))
 end
 evidence=(config=summary.config,measurement=summary.measurement,food=summary.food,food_resources=f,
     food_exchange=get(r,:food_exchange,nothing),
+    social_relationships=get(r,:social_relationships,nothing),
     humans=summary.agents,digestion=r.digestion,wildlife=(alive=r.wildlife.alive,starvation=r.wildlife.starvation_deaths),
-    daily=[(day=i,food=d.food_resources,humans=Dict(a=>(reserve=v.body.reserve,position=v.position,inventory=v.inventory,personal_stock=v.personal_stock) for (a,v) in pairs(d.physical))) for (i,d) in enumerate(r.daily)],
+    daily=[(day=i,food=d.food_resources,social_relationships=get(d,:social_relationships,nothing),humans=Dict(a=>(reserve=v.body.reserve,position=v.position,inventory=v.inventory,personal_stock=v.personal_stock) for (a,v) in pairs(d.physical))) for (i,d) in enumerate(r.daily)],
     continuation_identical=true)
 write(joinpath(out,"evidence.json"),JSON3.write(evidence))
 write(joinpath(out,"completed.json"),JSON3.write((days=3,processed=f.processed_inputs[3],eaten=f.consumed[4])))
