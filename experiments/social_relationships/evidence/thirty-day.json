@@ -1,0 +1,1441 @@
+{
+  "source": {
+    "mode": "fresh-current-source",
+    "days": 30,
+    "previous_input": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\experiments\\social_relationships\\input.json",
+    "previous_input_sha256": "e828ef024351f4006bb0f9190a2fbb29bf2c35191f83fecbf0f2b939f4fbc3be",
+    "input_sha256": "6d4aa5cb6910f345abf4892f50370de479c829921097dc5b3f6d4a2f65f8eb9c",
+    "revision": "dbc47eaf066575839d2725a6ca6a1649652dec1e",
+    "started_utc": "2026-10-29T09:24:49.798"
+  },
+  "completion": {
+    "days": 30,
+    "completed_utc": "2026-10-29T09:52:08.991",
+    "integrity_passed": true
+  },
+  "integrity_checks_passed": 167,
+  "measurement": {
+    "gc_seconds": 82.4136842,
+    "process_peak_rss_bytes": 1644191744,
+    "compilation_included": true,
+    "call_seconds": 1617.9044485,
+    "allocated_bytes": 798428412912
+  },
+  "food": {
+    "initial": 1275,
+    "consumed": 90,
+    "ground": 883,
+    "personal": {
+      "npc_b": 99,
+      "npc_a": 112,
+      "npc_c": 91
+    },
+    "added": 0,
+    "shared": 0
+  },
+  "typed_food": {
+    "initial": [
+      1080,
+      0,
+      195,
+      0
+    ],
+    "consumed": [
+      66,
+      0,
+      0,
+      24
+    ],
+    "processed_inputs": [
+      0,
+      0,
+      25,
+      0
+    ],
+    "personal": {
+      "npc_b": [
+        72,
+        0,
+        26,
+        1
+      ],
+      "npc_a": [
+        72,
+        0,
+        40,
+        0
+      ],
+      "npc_c": [
+        59,
+        0,
+        32,
+        0
+      ]
+    },
+    "ground_by_kind": [
+      811,
+      0,
+      72,
+      0
+    ]
+  },
+  "wildlife": {
+    "alive": 30,
+    "starvation": 0
+  },
+  "humans": {
+    "npc_b": {
+      "reserve": 87.48202909517178,
+      "position": [
+        0.6200612464972296,
+        6.812730478489831
+      ],
+      "inventory": 0,
+      "personal_stock": 99,
+      "counts": {
+        "request": 32,
+        "rest": 499911,
+        "pickup": 122,
+        "refuse": 27,
+        "scan": 13953,
+        "trade_decline": 789,
+        "trade_offer": 791,
+        "give": 5,
+        "eat": 30,
+        "retrieve": 16,
+        "trade_accept": 78,
+        "process_food": 786,
+        "deposit": 30,
+        "walk": 1830
+      },
+      "daily_minimum": {
+        "reserve": 80.59130217965853,
+        "min_day": 21,
+        "final_home_distance": 1.022255731250262
+      }
+    },
+    "npc_a": {
+      "reserve": 88.54186122796219,
+      "position": [
+        0.9790317018091443,
+        6.610602811427215
+      ],
+      "inventory": 0,
+      "personal_stock": 112,
+      "counts": {
+        "request": 69,
+        "rest": 499495,
+        "pickup": 136,
+        "refuse": 15,
+        "scan": 14207,
+        "trade_decline": 696,
+        "trade_offer": 774,
+        "give": 9,
+        "eat": 30,
+        "retrieve": 12,
+        "trade_accept": 87,
+        "process_food": 891,
+        "deposit": 29,
+        "walk": 1950
+      },
+      "daily_minimum": {
+        "reserve": 50.71321338515429,
+        "min_day": 1,
+        "final_home_distance": 1.1538365856871278
+      }
+    },
+    "npc_c": {
+      "reserve": 86.87661633469253,
+      "position": [
+        -0.38629527480989934,
+        6.66184813976235
+      ],
+      "inventory": 0,
+      "personal_stock": 91,
+      "counts": {
+        "request": 44,
+        "rest": 500701,
+        "pickup": 131,
+        "refuse": 32,
+        "scan": 13932,
+        "trade_decline": 368,
+        "trade_offer": 533,
+        "give": 7,
+        "eat": 30,
+        "retrieve": 15,
+        "trade_accept": 54,
+        "process_food": 1572,
+        "deposit": 31,
+        "walk": 950
+      },
+      "daily_minimum": {
+        "reserve": 70.68856279922736,
+        "min_day": 1,
+        "final_home_distance": 0.7663334779633074
+      }
+    }
+  },
+  "checkpoint_count": 30,
+  "checkpoint_intervals": [
+    {
+      "days": [
+        2,
+        10
+      ],
+      "mean": 48.289712429470484,
+      "min": 45.07883325195313,
+      "max": 57.67152099609375
+    },
+    {
+      "days": [
+        11,
+        20
+      ],
+      "mean": 50.92281008300781,
+      "min": 48.74401806640625,
+      "max": 53.27141040039062
+    },
+    {
+      "days": [
+        21,
+        30
+      ],
+      "mean": 58.79748908691406,
+      "min": 53.43700756835938,
+      "max": 66.47793041992188
+    }
+  ],
+  "checkpoint_interval_scope": "checkpoint write intervals include simulation and I/O; first day compilation excluded",
+  "social": {
+    "actors": {
+      "npc_b": {
+        "aid": {
+          "given": 7,
+          "refuse": 25,
+          "no_response_observed": 0,
+          "request_not_executed": 0
+        },
+        "forecasts": 32,
+        "pending": null,
+        "H": 0,
+        "approach": {
+          "records": [],
+          "selected": 0,
+          "proposed": 0,
+          "contacts": 0
+        },
+        "MB": {
+          "nodes": 87,
+          "pending": 0,
+          "frozen": null,
+          "events": 1722,
+          "unknown": 25,
+          "retained_samples": 1697,
+          "merged": 1341,
+          "evicted": 0,
+          "provisional_evicted": 0,
+          "admission_blocked": 0,
+          "reviews": 30,
+          "metric": [
+            0.744224124209189,
+            0.6376787529655283
+          ],
+          "metric_updates": 12729
+        },
+        "use_counts": {
+          "trade_offer": 791,
+          "request": 32,
+          "trade_response": 867,
+          "give": 32
+        },
+        "trade_H": {
+          "offer": 12.927053120725105,
+          "response": 0.19092920281465012
+        },
+        "trade_pending": null,
+        "peers": {
+          "npc_a": {
+            "aid": {
+              "given": 5,
+              "no_response_observed": 0,
+              "refuse": 9,
+              "request_not_executed": 0
+            },
+            "given": {
+              "unavailable": 0,
+              "refuse": 12,
+              "transferred": 2
+            },
+            "offer": {
+              "declined": 493,
+              "unavailable": 0,
+              "exchanged": 59,
+              "expired": 25
+            },
+            "response": {
+              "declined": 518,
+              "unavailable": 0,
+              "exchanged": 47,
+              "expired": 0
+            },
+            "positive": 52,
+            "negative": 54,
+            "value": -0.021742606213936803
+          },
+          "npc_c": {
+            "aid": {
+              "given": 2,
+              "no_response_observed": 0,
+              "refuse": 16,
+              "request_not_executed": 0
+            },
+            "given": {
+              "unavailable": 0,
+              "refuse": 15,
+              "transferred": 3
+            },
+            "offer": {
+              "declined": 186,
+              "unavailable": 0,
+              "exchanged": 28,
+              "expired": 0
+            },
+            "response": {
+              "declined": 271,
+              "unavailable": 0,
+              "exchanged": 31,
+              "expired": 0
+            },
+            "positive": 27,
+            "negative": 32,
+            "value": -0.3552053309293105
+          }
+        }
+      },
+      "npc_a": {
+        "aid": {
+          "given": 7,
+          "refuse": 27,
+          "no_response_observed": 35,
+          "request_not_executed": 0
+        },
+        "forecasts": 69,
+        "pending": null,
+        "H": 0.5578817813009973,
+        "approach": {
+          "records": [],
+          "selected": 0,
+          "proposed": 4,
+          "contacts": 0
+        },
+        "MB": {
+          "nodes": 71,
+          "pending": 0,
+          "frozen": null,
+          "events": 1650,
+          "unknown": 36,
+          "retained_samples": 1614,
+          "merged": 1293,
+          "evicted": 0,
+          "provisional_evicted": 0,
+          "admission_blocked": 0,
+          "reviews": 30,
+          "metric": [
+            0.6960863910470422,
+            0.6183464079031853
+          ],
+          "metric_updates": 12166
+        },
+        "use_counts": {
+          "trade_offer": 774,
+          "request": 69,
+          "trade_response": 783,
+          "give": 24
+        },
+        "trade_H": {
+          "offer": 12.084605604156012,
+          "response": 0.48128339568005224
+        },
+        "trade_pending": null,
+        "peers": {
+          "npc_b": {
+            "aid": {
+              "given": 2,
+              "no_response_observed": 22,
+              "refuse": 12,
+              "request_not_executed": 0
+            },
+            "given": {
+              "unavailable": 0,
+              "refuse": 9,
+              "transferred": 5
+            },
+            "offer": {
+              "declined": 518,
+              "unavailable": 0,
+              "exchanged": 47,
+              "expired": 1
+            },
+            "response": {
+              "declined": 493,
+              "unavailable": 0,
+              "exchanged": 59,
+              "expired": 0
+            },
+            "positive": 52,
+            "negative": 54,
+            "value": 0.1040576962831608
+          },
+          "npc_c": {
+            "aid": {
+              "given": 5,
+              "no_response_observed": 13,
+              "refuse": 15,
+              "request_not_executed": 0
+            },
+            "given": {
+              "unavailable": 0,
+              "refuse": 6,
+              "transferred": 4
+            },
+            "offer": {
+              "declined": 182,
+              "unavailable": 0,
+              "exchanged": 26,
+              "expired": 0
+            },
+            "response": {
+              "declined": 203,
+              "unavailable": 0,
+              "exchanged": 28,
+              "expired": 0
+            },
+            "positive": 24,
+            "negative": 30,
+            "value": -0.27304526947471125
+          }
+        }
+      },
+      "npc_c": {
+        "aid": {
+          "given": 7,
+          "refuse": 21,
+          "no_response_observed": 16,
+          "request_not_executed": 0
+        },
+        "forecasts": 44,
+        "pending": null,
+        "H": 0,
+        "approach": {
+          "records": [],
+          "selected": 0,
+          "proposed": 4,
+          "contacts": 0
+        },
+        "MB": {
+          "nodes": 74,
+          "pending": 0,
+          "frozen": null,
+          "events": 1038,
+          "unknown": 17,
+          "retained_samples": 1021,
+          "merged": 792,
+          "evicted": 0,
+          "provisional_evicted": 0,
+          "admission_blocked": 0,
+          "reviews": 30,
+          "metric": [
+            0.4603312833745957,
+            0.4953141271485176
+          ],
+          "metric_updates": 7400
+        },
+        "use_counts": {
+          "trade_offer": 533,
+          "request": 44,
+          "trade_response": 422,
+          "give": 39
+        },
+        "trade_H": {
+          "offer": 9.486543113590892,
+          "response": 0.5830205032402
+        },
+        "trade_pending": null,
+        "peers": {
+          "npc_b": {
+            "aid": {
+              "given": 3,
+              "no_response_observed": 16,
+              "refuse": 15,
+              "request_not_executed": 0
+            },
+            "given": {
+              "unavailable": 0,
+              "refuse": 16,
+              "transferred": 2
+            },
+            "offer": {
+              "declined": 271,
+              "unavailable": 0,
+              "exchanged": 31,
+              "expired": 0
+            },
+            "response": {
+              "declined": 186,
+              "unavailable": 0,
+              "exchanged": 28,
+              "expired": 0
+            },
+            "positive": 27,
+            "negative": 32,
+            "value": 0.9928715315044873
+          },
+          "npc_a": {
+            "aid": {
+              "given": 4,
+              "no_response_observed": 0,
+              "refuse": 6,
+              "request_not_executed": 0
+            },
+            "given": {
+              "unavailable": 1,
+              "refuse": 15,
+              "transferred": 5
+            },
+            "offer": {
+              "declined": 203,
+              "unavailable": 0,
+              "exchanged": 28,
+              "expired": 0
+            },
+            "response": {
+              "declined": 182,
+              "unavailable": 0,
+              "exchanged": 26,
+              "expired": 0
+            },
+            "positive": 30,
+            "negative": 24,
+            "value": 1.6644459872508062
+          }
+        }
+      }
+    },
+    "daily": [
+      {
+        "day": 1,
+        "trade": {
+          "offered": 0,
+          "declined": 0,
+          "unavailable": 0,
+          "exchanged": 0,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 6,
+            "refuse": 25,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 7,
+            "refuse": 27,
+            "no_response_observed": 35,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 7,
+            "refuse": 21,
+            "no_response_observed": 16,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 2,
+        "trade": {
+          "offered": 63,
+          "declined": 39,
+          "unavailable": 0,
+          "exchanged": 0,
+          "expired": 24
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 3,
+        "trade": {
+          "offered": 60,
+          "declined": 58,
+          "unavailable": 0,
+          "exchanged": 2,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 4,
+        "trade": {
+          "offered": 55,
+          "declined": 53,
+          "unavailable": 0,
+          "exchanged": 1,
+          "expired": 1
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 5,
+        "trade": {
+          "offered": 47,
+          "declined": 46,
+          "unavailable": 0,
+          "exchanged": 1,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 1,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 6,
+        "trade": {
+          "offered": 35,
+          "declined": 35,
+          "unavailable": 0,
+          "exchanged": 0,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 7,
+        "trade": {
+          "offered": 25,
+          "declined": 23,
+          "unavailable": 0,
+          "exchanged": 2,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 8,
+        "trade": {
+          "offered": 34,
+          "declined": 31,
+          "unavailable": 0,
+          "exchanged": 3,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 9,
+        "trade": {
+          "offered": 42,
+          "declined": 38,
+          "unavailable": 0,
+          "exchanged": 4,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 10,
+        "trade": {
+          "offered": 29,
+          "declined": 26,
+          "unavailable": 0,
+          "exchanged": 3,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 11,
+        "trade": {
+          "offered": 54,
+          "declined": 51,
+          "unavailable": 0,
+          "exchanged": 3,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 12,
+        "trade": {
+          "offered": 71,
+          "declined": 65,
+          "unavailable": 0,
+          "exchanged": 6,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 13,
+        "trade": {
+          "offered": 58,
+          "declined": 52,
+          "unavailable": 0,
+          "exchanged": 6,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 14,
+        "trade": {
+          "offered": 43,
+          "declined": 37,
+          "unavailable": 0,
+          "exchanged": 6,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 15,
+        "trade": {
+          "offered": 71,
+          "declined": 64,
+          "unavailable": 0,
+          "exchanged": 6,
+          "expired": 1
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 16,
+        "trade": {
+          "offered": 60,
+          "declined": 56,
+          "unavailable": 0,
+          "exchanged": 4,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 17,
+        "trade": {
+          "offered": 65,
+          "declined": 56,
+          "unavailable": 0,
+          "exchanged": 9,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 18,
+        "trade": {
+          "offered": 54,
+          "declined": 52,
+          "unavailable": 0,
+          "exchanged": 2,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 19,
+        "trade": {
+          "offered": 60,
+          "declined": 55,
+          "unavailable": 0,
+          "exchanged": 5,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 20,
+        "trade": {
+          "offered": 54,
+          "declined": 44,
+          "unavailable": 0,
+          "exchanged": 10,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 21,
+        "trade": {
+          "offered": 68,
+          "declined": 59,
+          "unavailable": 0,
+          "exchanged": 9,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 22,
+        "trade": {
+          "offered": 126,
+          "declined": 111,
+          "unavailable": 0,
+          "exchanged": 15,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 23,
+        "trade": {
+          "offered": 135,
+          "declined": 123,
+          "unavailable": 0,
+          "exchanged": 12,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 24,
+        "trade": {
+          "offered": 104,
+          "declined": 94,
+          "unavailable": 0,
+          "exchanged": 10,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 25,
+        "trade": {
+          "offered": 157,
+          "declined": 141,
+          "unavailable": 0,
+          "exchanged": 16,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 26,
+        "trade": {
+          "offered": 79,
+          "declined": 68,
+          "unavailable": 0,
+          "exchanged": 11,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 27,
+        "trade": {
+          "offered": 142,
+          "declined": 122,
+          "unavailable": 0,
+          "exchanged": 20,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 28,
+        "trade": {
+          "offered": 122,
+          "declined": 101,
+          "unavailable": 0,
+          "exchanged": 21,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 29,
+        "trade": {
+          "offered": 94,
+          "declined": 78,
+          "unavailable": 0,
+          "exchanged": 16,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      },
+      {
+        "day": 30,
+        "trade": {
+          "offered": 91,
+          "declined": 75,
+          "unavailable": 0,
+          "exchanged": 16,
+          "expired": 0
+        },
+        "aid": {
+          "npc_b": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_a": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          },
+          "npc_c": {
+            "given": 0,
+            "refuse": 0,
+            "no_response_observed": 0,
+            "request_not_executed": 0
+          }
+        }
+      }
+    ],
+    "trade_active": [],
+    "trade_totals": {
+      "offered": 2098,
+      "declined": 1853,
+      "unavailable": 0,
+      "exchanged": 219,
+      "expired": 26
+    }
+  },
+  "previous_three_day_comparison": {
+    "reference": "outputs/social-unified-3d-20261029/run/result.json",
+    "daily_values_equal": true,
+    "day_starts_equal": true,
+    "simulation_rerun": false
+  }
+}
