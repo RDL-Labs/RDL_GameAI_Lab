@@ -1,3 +1,4 @@
+# Lower-level negotiation regression fixture: necessity is explicitly disabled here.
 include("checks.jl")
 @testset "counter replacement is atomic and requires new consent" begin
     f=barter_fixture()
@@ -28,7 +29,7 @@ end
     counters=0;declines=0
     for seed in 1:64
         s=LW.incidental_item_state(ITEM_A,seed)
-        p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1)
+        p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
         @test p!==nothing && p["action"] in ("item_counter","item_decline")
         if p["action"]=="item_counter"
             counters+=1
@@ -43,6 +44,6 @@ end
     @test f.s["items"][1]["owner"]==ITEM_A
     f.s["offers"][o["offer_id"]]["round"]=8
     s=LW.incidental_item_state(ITEM_A,1)
-    p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1)
+    p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
     @test p["action"]=="item_decline"
 end

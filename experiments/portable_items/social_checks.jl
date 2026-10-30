@@ -1,3 +1,4 @@
+# Lower-level negotiation regression fixture: necessity is explicitly disabled here.
 include("checks.jl")
 
 @testset "consensual requests and gifts" begin
@@ -48,7 +49,7 @@ end
         views=Dict(a=>item_view(f,a;now) for a in (ITEM_A,ITEM_B))
         for a in (ITEM_A,ITEM_B)
             LW.item_social_observe!(states[a],views[a];relation=relations[a])
-            p=LW.item_social_plan!(states[a],views[a],f.w.bodies[a],nothing,f.foods.personal[a],now;relation=relations[a])
+            p=LW.item_social_plan!(states[a],views[a],f.w.bodies[a],nothing,f.foods.personal[a],now;relation=relations[a],require_need=false)
             p===nothing && continue
             result=item_act(f,a,p["action"],now;item_id=get(p,"item_id",0),target=get(p,"target",nothing),
                 offer_id=get(p,"offer_id",nothing),give_items=get(p,"give_items",Int[]),want_items=get(p,"want_items",Int[]),

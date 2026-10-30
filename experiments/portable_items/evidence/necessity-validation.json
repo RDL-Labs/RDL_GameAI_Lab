@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-31",
+  "kind": "validation summary, not raw stdout",
+  "runtime": "Julia 1.13.1, Windows, one thread",
+  "checks": [
+    {"file": "experiments/portable_items/necessity_checks.jl", "status": "PASS", "own_assertions": 113, "included_world_assertions": 251},
+    {"file": "experiments/portable_items/quantity_gradient_checks.jl", "status": "PASS", "own_assertions": 37},
+    {"file": "experiments/portable_items/exchange_memory_checks.jl", "status": "PASS", "own_assertions": 23},
+    {"file": "experiments/portable_items/counter_checks.jl", "status": "PASS", "own_assertions": 258},
+    {"file": "experiments/portable_items/social_checks.jl", "status": "PASS", "own_assertions": 250},
+    {"file": "experiments/portable_items/social_integration_checks.jl", "status": "PASS", "own_assertions": 12},
+    {"file": "experiments/food_exchange/policy_checks.jl", "status": "PASS", "own_assertions": 74},
+    {"file": "test/layer_dependencies.jl", "status": "PASS", "own_assertions": 621}
+  ],
+  "fixture_note": "Legacy valuation/counter/outcome fixtures explicitly use require_need=false; necessity and integration checks exercise the production default.",
+  "corrections_during_validation": [
+    "Clarified Julia floating literal subtraction syntax before successful execution.",
+    "Allowed mixed object terms when the same proposal reduces food need; a test had overconstrained all proposals to a single object sale.",
+    "Updated no-food integration expectation to no barter, including an explicit init=0 for empty relation totals."
+  ]
+}

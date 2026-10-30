@@ -81,10 +81,20 @@ function food_trade_views!(t,r,w,home,now;relations=nothing)
     end
     views
 end
-function food_trade_plan!(t,a,view,body,gut,now;relation=nothing)
+function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=true)
     relation!==nothing && check(relation["actor"]==a,"trade_relation_owner")
     view===nothing && return nothing
-    mind=t["minds"][a];stock=view["own_stock"];weights=food_trade_weights(body,gut)
+    mind=t["minds"][a];stock=view["own_stock"]
+    need=trade_food_need(body,gut,stock)
+    if require_need && isempty(view["incoming"]) && need<=1e-9
+        mind["need_skipped"]=get(mind,"need_skipped",0)+1
+        return nothing
+    end
+    weights=food_trade_weights(body,gut)
+    relief(g,n,h,m)=begin
+        give=zeros(Int,4);want=zeros(Int,4);give[g]=n;want[h]=m
+        trade_food_relief(body,gut,stock,give,want)
+    end
     source="trade:$now:$a"
     if !isempty(view["incoming"])
         offer=first(view["incoming"]);other=offer["proposer"]
@@ -93,7 +103,7 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing)
         gain=food_trade_gain(stock,weights,offer["want_kind"],offer["want_count"],offer["give_kind"],offer["give_count"])
         candidates=Any[D("method"=>"decline:$other","action"=>"trade_decline","priority"=>0.,"question"=>"stock_value_improved",
             "offer_id"=>offer["id"],"trade_gain"=>0.)]
-        if gain!==nothing
+        if gain!==nothing && (!require_need || (need>1e-9 && relief(offer["want_kind"],offer["want_count"],offer["give_kind"],offer["give_count"])>1e-9 && gain>FOOD_TRADE_TOLERANCE))
             method="accept:$other:$(offer["give_kind"]):$(offer["give_count"]):$(offer["want_kind"]):$(offer["want_count"])"
             push!(candidates,D("method"=>method,"action"=>"trade_accept","priority"=>4gain-.2+(relation_trace===nothing ? 0. : relation_trace["weight"]),
                 "question"=>"stock_value_improved","offer_id"=>offer["id"],"trade_gain"=>gain))
@@ -117,7 +127,9 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing)
     relation_traces=D()
     for other in view["partners"], g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:4
         g==h && continue
+        require_need && relief(g,n,h,m)<=1e-9 && continue
         gain=food_trade_gain(stock,weights,g,n,h,m)
+        require_need && gain<=FOOD_TRADE_TOLERANCE && continue
         situation=food_social_context(body;give_kind=g,want_kind=h,give_count=n,want_count=m)
         trace_key="$other:$g:$n:$h:$m"
         relation!==nothing && (relation_traces[trace_key]=social_relation_bias(relation,other,"trade_offer";situation,H=mind["offer"].H))
@@ -159,4 +171,4 @@ function food_trade_executed!(t,a,plan,result;relation=nothing)
 end
 food_trade_snapshot(t)=D("world"=>food_exchange_snapshot(t["world"]),
     "learning"=>D(a=>D("offer"=>loop_snapshot(m["offer"]),"response"=>loop_snapshot(m["response"]),
-        "pending"=>deepcopy(m["pending"])) for (a,m) in t["minds"]))
+        "pending"=>deepcopy(m["pending"]),"need_skipped"=>get(m,"need_skipped",0)) for (a,m) in t["minds"]))

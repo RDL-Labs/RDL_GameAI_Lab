@@ -1,3 +1,4 @@
+# Lower-level negotiation regression fixture: necessity is explicitly disabled here.
 # Controlled policy fixtures: no long world simulation or repeated resource suite.
 using Test, Serialization, JSON3
 include("../../src/lw/LW.jl")
@@ -55,7 +56,7 @@ function execute_policy_plan!(x,a,p,now)
 end
 function policy_tick!(x,now)
     views=LW.food_trade_views!(x.t,x.r,x.w,PHOME,now)
-    plans=Dict(a=>LW.food_trade_plan!(x.t,a,get(views,a,nothing),x.w.bodies[a],nothing,now) for a in LW.IDS)
+    plans=Dict(a=>LW.food_trade_plan!(x.t,a,get(views,a,nothing),x.w.bodies[a],nothing,now;require_need=false) for a in LW.IDS)
     results=Dict(a=>execute_policy_plan!(x,a,plans[a],now) for a in LW.IDS if plans[a]!==nothing)
     policy_audit(x)
     (plans=plans,results=results)
@@ -63,7 +64,7 @@ end
 function offered_policy_fixture()
     for seed in 1:128
         x=policy_fixture(seed);views=LW.food_trade_views!(x.t,x.r,x.w,PHOME,0)
-        p=LW.food_trade_plan!(x.t,PA,views[PA],x.w.bodies[PA],nothing,0)
+        p=LW.food_trade_plan!(x.t,PA,views[PA],x.w.bodies[PA],nothing,0;require_need=false)
         if p!==nothing && p["trade_gain"]>LW.FOOD_TRADE_TOLERANCE
             result=execute_policy_plan!(x,PA,p,0)
             result["status"]=="offered" && return x,p
@@ -116,7 +117,7 @@ end
     for seed in 1:128
         x=policy_fixture(seed);loop=x.t["minds"][PA]["offer"];loop.H=2.
         view=LW.food_trade_views!(x.t,x.r,x.w,PHOME,0)[PA]
-        p=LW.food_trade_plan!(x.t,PA,view,x.w.bodies[PA],nothing,0)
+        p=LW.food_trade_plan!(x.t,PA,view,x.w.bodies[PA],nothing,0;require_need=false)
         if p===nothing && loop.sequence>0
             @test loop.trial===nothing && loop.H==2.
             @test last(loop.events).method=="continue_activity" && last(loop.events).goal_E===nothing
@@ -130,7 +131,7 @@ end
         target=POTHER,give_kind=PB.RAW_ACORN,give_count=1,want_kind=PB.MEAT_FOOD,want_count=1)
     @test receipt["status"]=="offered"
     view=LW.food_trade_views!(x.t,x.r,x.w,PHOME,1_000_000)[POTHER]
-    p=LW.food_trade_plan!(x.t,POTHER,view,x.w.bodies[POTHER],nothing,1_000_000)
+    p=LW.food_trade_plan!(x.t,POTHER,view,x.w.bodies[POTHER],nothing,1_000_000;require_need=false)
     @test p["action"]=="trade_decline"
     before=LW.food_snapshot(x.r);result=execute_policy_plan!(x,POTHER,p,1_000_000)
     @test result["status"]=="declined" && LW.food_snapshot(x.r)==before

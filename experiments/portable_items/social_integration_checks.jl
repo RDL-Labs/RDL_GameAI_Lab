@@ -16,17 +16,16 @@ scene=merge(LW.native_scene(19),(positions=[[0.,0.],[.1,0.],[0.,.1]],home=[0.,0.
         @test r["portable_items"]==resumed["portable_items"]
         @test r["incidental_items"]==resumed["incidental_items"]
         @test r["social_relationships"]==resumed["social_relationships"]
-        @test r["portable_items"]["counts"]["offered"]>0
-        # Quantity utility changes which near-equal swaps fall inside the
-        # existing -.01 admissibility band. Check valuations, not a fixed count.
+        @test r["portable_items"]["counts"]["offered"]==0
+        # No food-need subsystem: collection alone must not initiate barter.
         receipts=[e for s in values(r["incidental_items"]) for e in s["social"]["records"] if e["status"]=="exchanged"]
         @test length(receipts)==2*r["portable_items"]["counts"]["exchanged"]
-        @test all(e->e["actual"]>=-.01 && e["subjective_gain"]>=-.01,receipts)
-        @test sum(m["successes"] for s in values(r["incidental_items"]) for m in s["exchange_relations"])==length(receipts)
+        @test isempty(receipts)
+        @test sum((m["successes"] for s in values(r["incidental_items"]) for m in s["exchange_relations"]);init=0)==0
         @test r["portable_items"]["counts"]["unavailable"]==0 # no food terms when food subsystem is absent
-        @test r["portable_items"]["counts"]["declined"]>0
+        @test r["portable_items"]["counts"]["declined"]==0
         @test r["portable_items"]["remaining_counts"]==[1,1,1]
-        @test all(x["social"]["decisions"]>0 for x in values(r["incidental_items"]))
+        @test all(x["social"]["decisions"]==0 && x["social"]["need_skipped"]>0 for x in values(r["incidental_items"]))
         @test r["consumed"]==0
         println(JSON3.write(r["portable_items"]["counts"]))
         println(JSON3.write(receipts))

@@ -1,3 +1,4 @@
+# Lower-level negotiation regression fixture: necessity is explicitly disabled here.
 include("checks.jl")
 using Serialization
 @testset "exchange relations generalize observed bundles" begin
@@ -60,7 +61,7 @@ end
     found=false
     for seed in 1:256
         trial=deepcopy(s);trial["loop"].seed=seed
-        p=LW.item_social_plan!(trial,v,f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1)
+        p=LW.item_social_plan!(trial,v,f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
         p===nothing && continue
         if p["action"]=="item_offer" && p["give_items"]==[1] && p["want_food"]==[4,0,0,0]
             found=true
