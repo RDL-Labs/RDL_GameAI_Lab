@@ -41,7 +41,7 @@ function incidental_item_fit(state,a,b)
     exp(-w[1]*p[1]-w[2]*p[2])
 end
 
-function incidental_item_prediction(state,feature,context,H)
+function incidental_item_prediction(state,feature,context,H;stock=nothing,weights=nothing)
     memory=collect(values(state["memory"]))
     sort!(memory;by=m->(-incidental_item_fit(state,feature,m["feature"]),m["method"]))
     # H expands the number of recalled relations, not the number of world rows
@@ -58,7 +58,7 @@ function incidental_item_prediction(state,feature,context,H)
         successes+=weight*m["successes"];attempts+=weight*m["attempts"]
         cost+=weight*m["cost_total"]
     end
-    novelty=incidental_item_interest(feature)/(1+familiarity)
+    novelty=max(incidental_item_interest(feature)/(1+familiarity),item_exchange_option(state,feature;stock,weights))
     # The unknown pickup outcome has a weak symmetric prior. A visible size is
     # known, but mass remains unknown until the world accepts/rejects the act.
     probability=(1+successes)/(2+attempts)
@@ -68,7 +68,7 @@ function incidental_item_prediction(state,feature,context,H)
 end
 
 "Read-only candidates from this observer's current item view and own body."
-function incidental_item_candidates(state,view,body,parent_loop;family,pressure=0.)
+function incidental_item_candidates(state,view,body,parent_loop;family,pressure=0.,stock=nothing,gut=nothing)
     view===nothing && return Any[]
     check(incidental_finite(pressure) && pressure>=0,"incidental_pressure")
     reserve=Float64(incidental_body(body,"reserve",100.))
@@ -95,7 +95,7 @@ function incidental_item_candidates(state,view,body,parent_loop;family,pressure=
         # Visibly equivalent opportunities are one method, with the nearest
         # current executor binding. This is not an object-identity classifier.
         previous!==nothing && previous["observed_distance"]<=distance && continue
-        prediction=incidental_item_prediction(state,feature,context,H)
+        prediction=incidental_item_prediction(state,feature,context,H;stock,weights=stock===nothing ? nothing : food_trade_weights(body,gut))
         candidates[method]=D("method"=>method,"action"=>"item_pickup","priority"=>2prediction.expected,
             "question"=>"observed_pickup_interest_confirmed","incidental_item"=>true,
             "portable_item_action"=>true,"item_id"=>Int(ref),"family"=>String(family),"purpose_family"=>String(family),
@@ -103,7 +103,7 @@ function incidental_item_candidates(state,view,body,parent_loop;family,pressure=
             "expected_benefit"=>prediction.expected,"confirmed_novelty"=>prediction.novelty,
             "predicted_success"=>prediction.probability,"predicted_effort"=>prediction.effort,
             "familiarity"=>prediction.familiarity,"retrieval_budget"=>prediction.budget,
-            "interest_source"=>"initial_observable_novelty_prior")
+            "interest_source"=>"observable_interest_and_learned_exchange_option")
     end
     isempty(candidates) && return Any[]
     pickups=sort!(collect(values(candidates));by=c->(-c["expected_benefit"],c["observed_distance"],c["method"]))
@@ -133,8 +133,8 @@ function incidental_item_bound_methods!(state,candidates)
     end
 end
 
-function incidental_item_plan!(state,view,body,parent_loop,now;family,pressure=0.)
-    candidates=incidental_item_candidates(state,view,body,parent_loop;family,pressure)
+function incidental_item_plan!(state,view,body,parent_loop,now;family,pressure=0.,stock=nothing,gut=nothing)
+    candidates=incidental_item_candidates(state,view,body,parent_loop;family,pressure,stock,gut)
     isempty(candidates) && return nothing # no RNG, memory, sequence or H mutation
     loop=state["loop"];check(loop.trial===nothing,"incidental_active_trial")
     incidental_item_bound_methods!(state,candidates)
@@ -207,5 +207,9 @@ function incidental_item_snapshot(state)
       "metric"=>deepcopy(state["metric"]),"memory"=>deepcopy(state["memory"]),
       "handled_refs"=>copy(state["handled_refs"]),"records"=>deepcopy(state["records"]),
       "social"=>haskey(state,"social") ? item_social_snapshot(state["social"]) : nothing,
+      "exchange_relations"=>deepcopy(get(state,"exchange_relations",Any[])),
+      "exchange_recalled_choices"=>get(state,"exchange_recalled_choices",0),
       (name=>state[name] for name in ("decisions","continued","selected","succeeded","failed","ignored"))...)
 end
+
+include("item_exchange_memory.jl")

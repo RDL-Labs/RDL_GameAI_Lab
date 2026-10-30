@@ -1,0 +1,2 @@
+Test Summary:             | Pass  Total  Time
+core dependency direction |  613    613  0.2s

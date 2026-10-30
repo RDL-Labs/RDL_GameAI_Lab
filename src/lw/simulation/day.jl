@@ -665,7 +665,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         urgency=food_body ? hunger[a]["intensity"] : clamp((80-w.bodies[a].reserve)/80,0.,1.)
                         night_fear_enabled && (urgency=max(urgency,clamp(mb_maps[a]["night_fear"]["H"]/32,0.,1.)))
                         plan=incidental_item_plan!(incidental_items[a],o["items"],w.bodies[a],loops[a][family],now;
-                            family=family,pressure=urgency)
+                            family=family,pressure=urgency,stock=shared_stores || foods===nothing ? nothing : foods.personal[a],
+                            gut=guts===nothing ? nothing : guts[a])
                     end
                     if plan===nothing
                         visible=moves[a]["visible"];target=returning ? home : isempty(visible) ? nothing : first(visible)

@@ -11,7 +11,7 @@ function item_social_state!(state)
     end
 end
 
-function item_subjective_values(state,view)
+function item_subjective_values(state,view;stock=nothing,weights=nothing)
     own=vcat(view["own"]["held"],view["own"]["stored"])
     values=Dict{Int,Float64}()
     for row in Iterators.flatten((own,view["visible"]))
@@ -24,7 +24,7 @@ function item_subjective_values(state,view)
             g=incidental_item_feature(held);g===nothing && continue
             similar+=incidental_item_fit(state,f,g)
         end
-        values[Int(row["ref"])]=incidental_item_interest(f)/(1+similar)
+        values[Int(row["ref"])]=max(incidental_item_interest(f),item_exchange_option(state,f;stock,weights))/(1+similar)
     end
     values
 end
@@ -40,13 +40,14 @@ function item_social_actual(plan,result)
         item_social_utility(before["items"],before["food"],plan["values"],plan["weights"])+get(plan,"relation_value",0.)-.002
 end
 
-function item_social_resolve!(mind,plan,result;relation=nothing)
+function item_social_resolve!(mind,plan,result;relation=nothing,state=nothing)
     actual=item_social_actual(plan,result);success=result["status"]=="exchanged"
     role=plan["item_social_role"]
     # Sending an offer is not acquiring anything. Only the eventual receipt
     # resolves its frozen prediction; a negative subjective outcome stays negative.
     resolve_prediction!(mind[role],plan["source"],plan["expected"],actual;
         fulfilled=success,tolerance=.01) || return false
+    state!==nothing && item_exchange_learn!(state,plan,result)
     if relation!==nothing
         social_relation_event!(relation,plan["partner"],role=="offer" ? "trade_offer" : "trade_response",
             plan["source"],result["us"];outcome=result["status"],value=actual,context=plan["context"])
@@ -55,6 +56,7 @@ function item_social_resolve!(mind,plan,result;relation=nothing)
         "action"=>plan["action"],"status"=>result["status"],"expected"=>plan["expected"],
         "actual"=>actual,"subjective_gain"=>get(plan,"subjective_gain",nothing),
         "reason"=>get(result,"reason",nothing),"counter_of"=>get(plan,"counter_of",nothing),
+        "exchange_evidence"=>get(plan,"exchange_evidence",nothing),
         "terms"=>get(plan,"terms",nothing),"us"=>result["us"]),64)
     true
 end
@@ -65,7 +67,7 @@ function item_social_observe!(state,view;relation=nothing)
     for n in view["notices"]
         get(n,"offer_id",nothing)==p["offer_id"] || continue
         n["status"] in ("exchanged","declined","expired","unavailable") || continue
-        item_social_resolve!(mind,p,n;relation);mind["pending"]=nothing;return
+        item_social_resolve!(mind,p,n;relation,state);mind["pending"]=nothing;return
     end
 end
 
@@ -87,9 +89,9 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
     mind["next_us"]=now+64_000_000
     role=response ? "response" : "offer";loop=mind[role]
     loop.trial===nothing || return nothing
-    values=item_subjective_values(state,view)
     weights=stock===nothing ? zeros(4) : food_trade_weights(body,gut)
     available=stock===nothing ? zeros(Int,4) : copy(stock)
+    values=item_subjective_values(state,view;stock=available,weights)
     context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
     candidates=Any[]
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
@@ -104,7 +106,11 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
         # A valuation admissibility band, not a probability of accepting a loss.
         # Need/taste, possessions and social MB evidence remain owner-relative.
         subjective>=-.01 || return
-        probability=response && !counter ? 1. : trace===nothing ? .5 : trace["profile"]["trade_probability"]
+        exchange_give=item_exchange_bundle(view,give,gf);exchange_want=item_exchange_bundle(view,want,wf)
+        (exchange_give===nothing || exchange_want===nothing) && return
+        evidence=item_exchange_recall(state,exchange_give,exchange_want,other,context,loop.H)
+        prior=trace===nothing ? .5 : trace["profile"]["trade_probability"]
+        probability=response && !counter ? 1. : (2prior+evidence.successes)/(2+evidence.successes+evidence.failures)
         expected=probability*subjective
         # Shape-based methods generalize over object IDs. Actual refs bind only
         # the current transfer. The bounded method table is shared-loop machinery.
@@ -116,6 +122,8 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
             "action"=>action,"question"=>"subjective_possession_value",
             "priority"=>4expected+(trace===nothing ? 0. : trace["weight"]),
             "expected"=>expected,"gain"=>gain,"subjective_gain"=>subjective,"relation_value"=>relation_value,"partner"=>other,"trace"=>trace,
+            "exchange_give"=>exchange_give,"exchange_want"=>exchange_want,
+            "exchange_evidence"=>D("successes"=>evidence.successes,"failures"=>evidence.failures),
             "terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
             "give_items"=>give,"want_items"=>want,"give_food"=>gf,"want_food"=>wf,"offer_id"=>offer_id))
     end
@@ -157,6 +165,15 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
             "offer_id"=>o["id"],"partner"=>o["proposer"],"trace"=>nothing))
     else
         own=Iterators.take(view["own"]["held"],4)
+        # Recall previously successful bundles, binding their features to things
+        # currently owned/visible. This also permits learned item-for-food offers.
+        memories=sort(collect(get(state,"exchange_relations",Any[]));by=m->(-m["successes"],-m["last_us"],m["key"]))
+        for m in Iterators.take(filter(m->m["successes"]>0,memories),min(8,mb_retrieval_budget(loop.H))), other in get(view,"trade_partners",String[])
+            give=item_exchange_bind(state,m["give"]["items"],view["own"]["held"])
+            want=item_exchange_bind(state,m["want"]["items"],filter(r->get(r,"holder",nothing)==other,view["visible"]))
+            (give===nothing || want===nothing) && continue
+            candidate(other,give,want,m["give"]["food"],m["want"]["food"])
+        end
         # Only currently visible possessions of a contact partner can be requested.
         for r in Iterators.take(view["visible"],8)
             other=get(r,"holder",nothing)
@@ -198,6 +215,10 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
         resolve_method!(loop,source,nothing,nothing;creditable=false,goal_H_increment=0.)
         return nothing
     end
+    evidence=get(plan,"exchange_evidence",nothing)
+    if evidence!==nothing && evidence["successes"]>0
+        state["exchange_recalled_choices"]=get(state,"exchange_recalled_choices",0)+1
+    end
     merge!(plan,D("item_social_role"=>role,"source"=>source,"values"=>values,
         "weights"=>weights,"context"=>context,"portable_item_action"=>true))
     if plan["action"] in ("item_offer","item_counter")
@@ -222,7 +243,7 @@ function item_social_executed!(state,plan,result;relation=nothing)
         mind["proposed"]+=1
         plan["action"]=="item_counter" && (mind["counterproposed"]=get(mind,"counterproposed",0)+1)
     else
-        item_social_resolve!(mind,plan,result;relation) || return false
+        item_social_resolve!(mind,plan,result;relation,state) || return false
         result["status"]=="exchanged" && (mind["accepted"]+=1)
         result["status"]=="declined" && (mind["declined"]+=1)
     end

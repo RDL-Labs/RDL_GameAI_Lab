@@ -1,0 +1,1017 @@
+{
+  "output": "outputs/item-relations-3d-20261030",
+  "counts": {
+    "given": 0,
+    "offered": 99,
+    "dropped": 0,
+    "picked_up": 5,
+    "retrieved": 0,
+    "declined": 80,
+    "unavailable": 0,
+    "exchanged": 0,
+    "stored": 0,
+    "expired": 19
+  },
+  "agents": [
+    {
+      "actor": "npc_a",
+      "reserve": 87.7220433724126,
+      "stock": 8,
+      "proposed": 39,
+      "counterproposed": 19,
+      "declined": 22,
+      "relations": 22,
+      "successes": 0.0,
+      "failures": 39.0,
+      "recalled_choices": 0
+    },
+    {
+      "actor": "npc_b",
+      "reserve": 86.58444385425858,
+      "stock": 7,
+      "proposed": 60,
+      "counterproposed": 18,
+      "declined": 21,
+      "relations": 20,
+      "successes": 0.0,
+      "failures": 41.0,
+      "recalled_choices": 0
+    },
+    {
+      "actor": "npc_c",
+      "reserve": 85.71530131160412,
+      "stock": 8,
+      "proposed": 0,
+      "counterproposed": 0,
+      "declined": 0,
+      "relations": 0,
+      "successes": 0,
+      "failures": 0,
+      "recalled_choices": 0
+    }
+  ],
+  "food": {
+    "initial": 1275,
+    "consumed": 12,
+    "ground": 1240,
+    "personal": {
+      "npc_b": 7,
+      "npc_a": 8,
+      "npc_c": 8
+    },
+    "added": 0,
+    "shared": 0
+  },
+  "measurement": {
+    "gc_seconds": 9.3780416,
+    "process_peak_rss_bytes": 1759604736,
+    "compilation_included": true,
+    "call_seconds": 231.9095716,
+    "allocated_bytes": 84496284576
+  },
+  "wildlife": {
+    "rule": "lw-grazing-v1",
+    "balances": {
+      "grass": {
+        "name": "grass",
+        "supplied": 15430.676141784834,
+        "accounted": 15430.676141788124,
+        "residual": -3.2905518310144544E-09,
+        "relative_error": 2.1324741707871406E-13,
+        "delta_since_previous": -2.1991581888869405E-09,
+        "max_abs_residual": 3.2905518310144544E-09,
+        "warning_limit": 2.5430676141788124E-06,
+        "stop_limit": 0.00025430676141788126,
+        "status": "ok"
+      },
+      "intake": {
+        "name": "intake",
+        "supplied": 2279.7286058083514,
+        "accounted": 2279.7286058045215,
+        "residual": 3.829882189165801E-09,
+        "relative_error": 1.679972861422157E-12,
+        "delta_since_previous": 2.5117969926213846E-09,
+        "max_abs_residual": 3.829882189165801E-09,
+        "warning_limit": 1.2279728605808352E-06,
+        "stop_limit": 0.0001227972860580835,
+        "status": "ok"
+      },
+      "digestion": {
+        "name": "digestion",
+        "supplied": 2279.7286058045215,
+        "accounted": 2279.7286058045843,
+        "residual": -6.275513442233205E-11,
+        "relative_error": 2.7527458427527993E-14,
+        "delta_since_previous": 1.0049916454590857E-10,
+        "max_abs_residual": 1.6325429896824062E-10,
+        "warning_limit": 1.2279728605804583E-06,
+        "stop_limit": 0.00012279728605804586,
+        "status": "ok"
+      }
+    },
+    "count": 30,
+    "alive": 30,
+    "ticks": 51840,
+    "starvation_deaths": 0,
+    "grass_initial": 13905.27868769368,
+    "grass_grown": 1525.3974540911531,
+    "grass_remaining": 13150.947535979773,
+    "grass_eaten": 2279.7286058083514,
+    "grass_cells": 3790,
+    "states": [
+      "search",
+      "graze",
+      "rest",
+      "sleep",
+      "flee",
+      "alert"
+    ],
+    "state_ticks": [
+      3876,
+      91389,
+      1109578,
+      346567,
+      16,
+      3774
+    ],
+    "human_seen": [
+      4079,
+      0,
+      13930
+    ],
+    "alert_entries": 3612,
+    "flee_entries": 4,
+    "final": [
+      {
+        "id": 1,
+        "alive": true,
+        "initial": [
+          -27.0,
+          -3.0
+        ],
+        "position": [
+          -11.105047543080348,
+          -12.079088154482628
+        ],
+        "energy": 85.03782949930729,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 26.999999999999936,
+        "eaten": 76.44920983307838,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          135,
+          3064,
+          37410,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 2,
+        "alive": true,
+        "initial": [
+          17.0,
+          -1.0
+        ],
+        "position": [
+          19.55674149510164,
+          -8.118595929410708
+        ],
+        "energy": 85.00180078981761,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 34.39999999999995,
+        "eaten": 76.52723359658188,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          172,
+          3069,
+          37368,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 3,
+        "alive": true,
+        "initial": [
+          -33.0,
+          -15.0
+        ],
+        "position": [
+          -44.000557990776684,
+          -12.099573690274946
+        ],
+        "energy": 85.02841939180936,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 26.19999999999994,
+        "eaten": 76.43633979724575,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          131,
+          3064,
+          37414,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 4,
+        "alive": true,
+        "initial": [
+          13.0,
+          29.0
+        ],
+        "position": [
+          7.967583889558841,
+          37.18642637615416
+        ],
+        "energy": 85.02750941122426,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 22.59999999999995,
+        "eaten": 76.39223647038403,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          113,
+          3063,
+          37433,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 5,
+        "alive": true,
+        "initial": [
+          -7.0,
+          39.0
+        ],
+        "position": [
+          -0.6072047406771808,
+          19.8919340949371
+        ],
+        "energy": 85.04208047199117,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 27.799999999999933,
+        "eaten": 76.46036015730635,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          139,
+          3068,
+          37402,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 6,
+        "alive": true,
+        "initial": [
+          -5.0,
+          -27.0
+        ],
+        "position": [
+          -2.0304024597375383,
+          -22.50579926482054
+        ],
+        "energy": 85.00450679902053,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 15.199999999999978,
+        "eaten": 76.29453559964942,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          76,
+          3057,
+          37476,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 7,
+        "alive": true,
+        "initial": [
+          27.0,
+          7.0
+        ],
+        "position": [
+          14.023085341252058,
+          -0.7546522689641348
+        ],
+        "energy": 85.02187852864492,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 26.399999999999938,
+        "eaten": 76.43659284285759,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          132,
+          3064,
+          37413,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 8,
+        "alive": true,
+        "initial": [
+          -29.0,
+          7.0
+        ],
+        "position": [
+          -46.90054762790469,
+          3.8772945662699883
+        ],
+        "energy": 85.00892048374507,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 23.799999999999947,
+        "eaten": 76.40064016122429,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          119,
+          3062,
+          37428,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 9,
+        "alive": true,
+        "initial": [
+          15.0,
+          -19.0
+        ],
+        "position": [
+          9.93800674650625,
+          -32.51135600497605
+        ],
+        "energy": 85.05006223231123,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 20.19999999999996,
+        "eaten": 76.37055407741302,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          101,
+          3060,
+          37448,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 10,
+        "alive": true,
+        "initial": [
+          -31.0,
+          -7.0
+        ],
+        "position": [
+          -44.000109250307716,
+          -6.528554259979363
+        ],
+        "energy": 85.02471397957618,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 26.19999999999994,
+        "eaten": 76.43510465983468,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          131,
+          3064,
+          37414,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 11,
+        "alive": true,
+        "initial": [
+          -17.0,
+          9.0
+        ],
+        "position": [
+          -20.875432752546526,
+          2.065768722354229
+        ],
+        "energy": 85.04754110231931,
+        "gut": 0.005000000000000001,
+        "state": "rest",
+        "distance": 19.399999999999963,
+        "eaten": 76.3649803674157,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          97,
+          3059,
+          37453,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 12,
+        "alive": true,
+        "initial": [
+          27.0,
+          -7.0
+        ],
+        "position": [
+          15.967028664439983,
+          -16.871224505552213
+        ],
+        "energy": 85.00732593338732,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 27.999999999999932,
+        "eaten": 76.45120864443841,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          140,
+          3064,
+          37405,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 13,
+        "alive": true,
+        "initial": [
+          -21.0,
+          39.0
+        ],
+        "position": [
+          -2.333529288249121,
+          46.054108103092375
+        ],
+        "energy": 85.0470036243594,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 25.99999999999994,
+        "eaten": 76.44010120809574,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          130,
+          3064,
+          37415,
+          11231,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 14,
+        "alive": true,
+        "initial": [
+          3.0,
+          27.0
+        ],
+        "position": [
+          -1.8790253985138394,
+          17.980856262166103
+        ],
+        "energy": 84.9240896002091,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 17.79999999999997,
+        "eaten": 76.23726320004552,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          89,
+          3054,
+          37397,
+          11300,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 15,
+        "alive": true,
+        "initial": [
+          13.0,
+          -21.0
+        ],
+        "position": [
+          18.12760242563901,
+          -36.06941161010078
+        ],
+        "energy": 84.73638216916474,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 18.599999999999966,
+        "eaten": 76.12232738969728,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          93,
+          3051,
+          37327,
+          11369,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 16,
+        "alive": true,
+        "initial": [
+          27.0,
+          27.0
+        ],
+        "position": [
+          42.08369320456207,
+          14.4333045074548
+        ],
+        "energy": 84.58625358355224,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 29.399999999999928,
+        "eaten": 76.14158452782635,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          147,
+          3054,
+          37201,
+          11438,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 17,
+        "alive": true,
+        "initial": [
+          15.0,
+          -11.0
+        ],
+        "position": [
+          14.102639180085596,
+          -23.79148046906179
+        ],
+        "energy": 84.47666314436226,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 33.99999999999994,
+        "eaten": 76.09892104809626,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          170,
+          3051,
+          37112,
+          11507,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 18,
+        "alive": true,
+        "initial": [
+          5.0,
+          39.0
+        ],
+        "position": [
+          -0.6828408852479102,
+          46.15552537059391
+        ],
+        "energy": 84.36100247765769,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 13.799999999999983,
+        "eaten": 75.75250082586122,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          69,
+          3034,
+          37161,
+          11576,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 19,
+        "alive": true,
+        "initial": [
+          13.0,
+          -15.0
+        ],
+        "position": [
+          16.183075239153588,
+          -22.118044450979227
+        ],
+        "energy": 84.21228032366288,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 22.99999999999995,
+        "eaten": 75.75276010786285,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          115,
+          3036,
+          37044,
+          11645,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 20,
+        "alive": true,
+        "initial": [
+          -17.0,
+          35.0
+        ],
+        "position": [
+          -0.6047172923770808,
+          19.91131318061017
+        ],
+        "energy": 84.06684157448024,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 39.20000000000002,
+        "eaten": 75.83928052480191,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          196,
+          3041,
+          36889,
+          11714,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 21,
+        "alive": true,
+        "initial": [
+          35.0,
+          21.0
+        ],
+        "position": [
+          48.1659421936474,
+          20.976968842118907
+        ],
+        "energy": 83.94971312986569,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 27.999999999999932,
+        "eaten": 75.60187104326356,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          140,
+          3031,
+          36886,
+          11783,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 22,
+        "alive": true,
+        "initial": [
+          29.0,
+          9.0
+        ],
+        "position": [
+          24.067783621163894,
+          25.51464812626929
+        ],
+        "energy": 83.79592010368567,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 31.59999999999992,
+        "eaten": 75.53230670120345,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          158,
+          3028,
+          36802,
+          11852,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 23,
+        "alive": true,
+        "initial": [
+          35.0,
+          -13.0
+        ],
+        "position": [
+          35.997344175098696,
+          -3.4107973486498824
+        ],
+        "energy": 83.61630800613324,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 54.80000000000024,
+        "eaten": 75.6926026686859,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          274,
+          3044,
+          36601,
+          11921,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 24,
+        "alive": true,
+        "initial": [
+          21.0,
+          -3.0
+        ],
+        "position": [
+          23.914043605894378,
+          -1.3364929270706518
+        ],
+        "energy": 83.54192033956906,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 21.799999999999955,
+        "eaten": 75.20420677983097,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          109,
+          3013,
+          36728,
+          11990,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 25,
+        "alive": true,
+        "initial": [
+          29.0,
+          3.0
+        ],
+        "position": [
+          15.883449633307837,
+          -3.9727783864161466
+        ],
+        "energy": 83.37663448238351,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 26.19999999999994,
+        "eaten": 75.14054482743569,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          131,
+          3014,
+          36636,
+          12059,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 26,
+        "alive": true,
+        "initial": [
+          3.0,
+          29.0
+        ],
+        "position": [
+          1.92795159777478,
+          39.37295856187683
+        ],
+        "energy": 83.22852668904336,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 18.599999999999966,
+        "eaten": 74.93660889632216,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          93,
+          3002,
+          36617,
+          12128,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 27,
+        "alive": true,
+        "initial": [
+          -29.0,
+          1.0
+        ],
+        "position": [
+          -44.01402538034898,
+          2.423857247485804
+        ],
+        "energy": 83.12601379867856,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 21.799999999999955,
+        "eaten": 74.87927126620043,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          109,
+          3003,
+          36531,
+          12197,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 28,
+        "alive": true,
+        "initial": [
+          -17.0,
+          11.0
+        ],
+        "position": [
+          -1.9432159417018382,
+          15.794155961317792
+        ],
+        "energy": 85.02017863621316,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 30.199999999999978,
+        "eaten": 76.1853928787131,
+        "blocked": 0,
+        "human_seen_ticks": 18009,
+        "alert_entries": 3612,
+        "flee_entries": 4,
+        "state_ticks": [
+          103,
+          3054,
+          33312,
+          11581,
+          16,
+          3774
+        ]
+      },
+      {
+        "id": 29,
+        "alive": true,
+        "initial": [
+          23.0,
+          19.0
+        ],
+        "position": [
+          20.11703825174946,
+          15.131361701013477
+        ],
+        "energy": 85.35942621949023,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 24.399999999999945,
+        "eaten": 75.60587540647107,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          122,
+          3027,
+          36439,
+          12252,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 30,
+        "alive": true,
+        "initial": [
+          29.0,
+          21.0
+        ],
+        "position": [
+          23.88742045779839,
+          15.32379829032121
+        ],
+        "energy": 85.0343708901129,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 28.39999999999993,
+        "eaten": 75.5461902966786,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          142,
+          3030,
+          36416,
+          12252,
+          0,
+          0
+        ]
+      }
+    ]
+  }
+}

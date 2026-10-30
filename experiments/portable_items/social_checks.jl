@@ -52,15 +52,19 @@ end
                 offer_id=get(p,"offer_id",nothing),give_items=get(p,"give_items",Int[]),want_items=get(p,"want_items",Int[]),
                 give_food=get(p,"give_food",zeros(Int,4)),want_food=get(p,"want_food",zeros(Int,4)))
             LW.item_social_executed!(states[a],p,result;relation=relations[a])
-            recorded=deepcopy(LW.item_social_snapshot(states[a]["social"]))
+            recorded=deepcopy(LW.incidental_item_snapshot(states[a]))
             @test !LW.item_social_executed!(states[a],p,result;relation=relations[a])
-            @test LW.item_social_snapshot(states[a]["social"])==recorded
+            @test LW.incidental_item_snapshot(states[a])==recorded
             if result["status"]=="offered"
                 @test states[a]["social"][p["item_social_role"]].trial!==nothing
                 pending_checked=true
             end
         end
     end
+    for a in (ITEM_A,ITEM_B)
+        LW.item_social_observe!(states[a],item_view(f,a;now=512_000_000);relation=relations[a])
+    end
+    @test sum(m["successes"] for s in values(states) for m in get(s,"exchange_relations",[]))==2*f.s["counts"]["exchanged"]
     @test pending_checked
     @test f.s["counts"]["offered"]>0
     @test f.s["counts"]["exchanged"]>0
