@@ -1179,7 +1179,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             push!(daily,D("physical"=>physical(),"sleep"=>deepcopy(learning),"counts"=>deepcopy(counts),
                 "shared_stock"=>shared,"ground"=>sum(stock),"consumed"=>w.consumed,"replenished_food"=>replenished))
-            wildlife!==nothing && (daily[end]["wildlife"]=LWGrazing.snapshot(wildlife))
+            wildlife!==nothing && (daily[end]["wildlife"]=LWGrazing.snapshot(wildlife;
+                previous=length(daily)>1 ? get(daily[end-1],"wildlife",nothing) : nothing))
             foods!==nothing && (daily[end]["food_resources"]=food_snapshot(foods))
             trades!==nothing && (daily[end]["food_exchange"]=food_trade_snapshot(trades))
             items!==nothing && (daily[end]["portable_items"]=item_snapshot(items))
@@ -1204,7 +1205,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "renewable"=>renewable_food,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
         "food"=>deepcopy(food),"stock"=>copy(stock),"ground"=>ground_wear ? wear_snapshot(wear) : nothing,
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
-        "wildlife"=>wildlife===nothing ? nothing : LWGrazing.snapshot(wildlife),
+        "wildlife"=>wildlife===nothing ? nothing :
+            (!isempty(daily) && haskey(daily[end],"wildlife") ? daily[end]["wildlife"] : LWGrazing.snapshot(wildlife)),
         "food_resources"=>foods===nothing ? nothing : food_snapshot(foods),
         "food_exchange"=>trades===nothing ? nothing : food_trade_snapshot(trades),
         "portable_items"=>items===nothing ? nothing : item_snapshot(items),

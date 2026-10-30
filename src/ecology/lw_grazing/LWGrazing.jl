@@ -144,17 +144,21 @@ function advance!(s::GrazingWorld,t::Int)
     nothing
 end
 
-function snapshot(s::GrazingWorld)
+include("balance.jl")
+
+function snapshot(s::GrazingWorld; previous=nothing)
     w=s.world;a=s.animals
     for k in eachindex(w.grass);H.grass!(w,k,s.ticks);end
-    @assert isapprox(w.initial+w.grown,sum(w.grass)+w.eaten;atol=1e-6,rtol=1e-10)
-    @assert isapprox(w.eaten,sum(a.consumed);atol=1e-6)
-    @assert isapprox(sum(a.consumed),sum(a.gut)+sum(a.digested);atol=1e-6)
+    prior=previous===nothing ? nothing : get(previous,:balances,nothing)
+    old(k)=prior===nothing ? nothing : get(prior,k,nothing)
+    balances=(grass=balance_diagnostic("grass",w.initial+w.grown,sum(w.grass)+w.eaten;previous=old(:grass)),
+        intake=balance_diagnostic("intake",w.eaten,sum(a.consumed);previous=old(:intake)),
+        digestion=balance_diagnostic("digestion",sum(a.consumed),sum(a.gut)+sum(a.digested);previous=old(:digestion)))
     @assert count(!,s.alive)==s.deaths
     @assert all(i->H.clear(w,(a.x[i],a.z[i]),(a.x[i],a.z[i])),eachindex(s.alive))
     @assert all(isfinite,a.energy) && all(e->0<=e<=100,a.energy)
     @assert all(i->!s.alive[i] || sum(a.counts[i,:])==s.ticks,eachindex(s.alive))
-    (rule="lw-grazing-v1",count=length(s.alive),alive=count(s.alive),ticks=s.ticks,
+    (rule="lw-grazing-v1",balances=balances,count=length(s.alive),alive=count(s.alive),ticks=s.ticks,
      starvation_deaths=s.deaths,grass_initial=w.initial,grass_grown=w.grown,
      grass_remaining=sum(w.grass),grass_eaten=w.eaten,grass_cells=count(>(0),w.capacity),
      states=H.STATES,state_ticks=vec(sum(a.counts,dims=1)),human_seen=copy(s.human_seen),
