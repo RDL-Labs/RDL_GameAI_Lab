@@ -6,6 +6,10 @@ const INCIDENTAL_ITEM_RECORD_LIMIT=64
 const INCIDENTAL_ITEM_NOVELTY_PRIOR=.2
 const INCIDENTAL_ITEM_REACH=1.25
 
+# Shared initial observable attraction, not a kind ID or market price. The
+# default stone emits .02: .20 -> .25, with a bounded bonus for brighter things.
+incidental_item_interest(f)=INCIDENTAL_ITEM_NOVELTY_PRIOR+.1*f["light_source"]/(.02+f["light_source"])
+
 function incidental_item_state(actor,seed=0)
     D("actor"=>String(actor),
       "loop"=>BasicLoop("$actor:incidental-items";parent="$actor:activity",probabilistic=true,seed),
@@ -54,7 +58,7 @@ function incidental_item_prediction(state,feature,context,H)
         successes+=weight*m["successes"];attempts+=weight*m["attempts"]
         cost+=weight*m["cost_total"]
     end
-    novelty=INCIDENTAL_ITEM_NOVELTY_PRIOR/(1+familiarity)
+    novelty=incidental_item_interest(feature)/(1+familiarity)
     # The unknown pickup outcome has a weak symmetric prior. A visible size is
     # known, but mass remains unknown until the world accepts/rejects the act.
     probability=(1+successes)/(2+attempts)
@@ -202,5 +206,6 @@ function incidental_item_snapshot(state)
     D("actor"=>state["actor"],"loop"=>loop_snapshot(state["loop"]),
       "metric"=>deepcopy(state["metric"]),"memory"=>deepcopy(state["memory"]),
       "handled_refs"=>copy(state["handled_refs"]),"records"=>deepcopy(state["records"]),
+      "social"=>haskey(state,"social") ? item_social_snapshot(state["social"]) : nothing,
       (name=>state[name] for name in ("decisions","continued","selected","succeeded","failed","ignored"))...)
 end

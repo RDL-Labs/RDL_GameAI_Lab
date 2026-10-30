@@ -215,7 +215,7 @@ end
             (give_items=[true],want_items=[2]),(give_items=[1.],want_items=[2]),
             (give_items=[1],want_food=[0,0,-1,0]),(give_items=[1],want_food=[0,0,5,0]),
             (give_items=[1],want_food=[0.,0.,1.,0.]),(give_items=[1],want_food=[false,false,true,false]),
-            (give_items=[1],want_food=[0,0,1]),(give_items=[1],),
+            (give_items=[1],want_food=[0,0,1]),(give_items=Int[],want_items=Int[]),
             (give_food=[1,0,0,0],want_food=[0,0,1,0]))
         bad=barter_fixture();before=LW.item_snapshot(bad.s)
         @test_throws Exception item_act(bad,ITEM_A,"item_offer",0;target=ITEM_B,terms...)

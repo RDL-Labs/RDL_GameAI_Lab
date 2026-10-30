@@ -39,6 +39,7 @@ include(joinpath(@__DIR__, "../configured_paths/item_actions.jl"))
 include(joinpath(@__DIR__, "../decision/basic_loop.jl"))
 include(joinpath(@__DIR__, "../decision/prediction_result.jl"))
 include(joinpath(@__DIR__, "../decision/incidental_items.jl"))
+include(joinpath(@__DIR__, "../decision/item_social.jl"))
 include(joinpath(@__DIR__, "../learning/social_aid.jl"))
 include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
 include(joinpath(@__DIR__, "../perception/social_sight.jl"))
@@ -406,6 +407,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             item_expire!(items,now)
             for a in IDS
                 obs[a]["items"]=item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high)
+                incidental_items!==nothing && item_social_observe!(incidental_items[a],obs[a]["items"];
+                    relation=relations===nothing ? nothing : relations[a])
             end
         end
         social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high) for a in IDS)
@@ -630,6 +633,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
 
             if plan===nothing && items!==nothing
                 plan=configured_item_plan(item_actions,a,now)
+            end
+            if plan===nothing && incidental_items!==nothing && !observing && !(phase in ("night","orientation")) && at_home && w.inventory[a]==0
+                plan=item_social_plan!(incidental_items[a],get(o,"items",nothing),w.bodies[a],
+                    guts===nothing ? nothing : guts[a],shared_stores || foods===nothing ? nothing : foods.personal[a],now;
+                    relation=relations===nothing ? nothing : relations[a])
             end
             if plan===nothing && trades!==nothing && !observing && phase!="night" && at_home && w.inventory[a]==0
                 plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;relation=relations===nothing ? nothing : relations[a])
@@ -961,6 +969,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     give_food=get(plan,"give_food",[0,0,0,0]),want_food=get(plan,"want_food",[0,0,0,0]))
                 # Item acquisition must never count as food acquisition.
                 status="item_"*receipt["status"]
+                haskey(plan,"item_social_role") && item_social_executed!(incidental_items[a],plan,receipt;
+                    relation=relations===nothing ? nothing : relations[a])
                 w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
             elseif action in ("trade_offer","trade_accept","trade_decline")
                 receipt=if action=="trade_offer"

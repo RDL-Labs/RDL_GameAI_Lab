@@ -24,7 +24,8 @@ r=JSON3.read(read(joinpath(out,"run/result.json"),String))
     @test length(unique(i.id for i in r.portable_items.items))==length(placed)
     if incidental
         @test haskey(r,:incidental_items)
-        @test all(iszero(v) for (k,v) in pairs(r.portable_items.counts) if !(k in (:picked_up,:unavailable)))
+        @test all(iszero(v) for (k,v) in pairs(r.portable_items.counts) if !(k in
+            (:picked_up,:unavailable,:offered,:exchanged,:declined,:expired)))
         @test r.portable_items.counts.picked_up==sum(x.succeeded for x in values(r.incidental_items))
     else
         @test all(iszero,values(r.portable_items.counts))

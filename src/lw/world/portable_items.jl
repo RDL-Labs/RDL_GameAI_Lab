@@ -180,6 +180,7 @@ function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles)
     outgoing=findfirst(o->o["proposer"]==a && t<o["expires_us"],offers)
     D("visible"=>visible,"own"=>item_inventory(s,a),"own_load"=>item_load(s,a),
         "carry_capacity"=>item_capacity(s,w,a),"partners"=>partners,
+        "trade_partners"=>String[b for b in partners if item_trade_contact(w,home,a,b)],
         "incoming"=>incoming,"outgoing"=>outgoing===nothing ? nothing : offers[outgoing]["id"],
         "notices"=>deepcopy(s["notices"][a]))
 end
@@ -256,7 +257,8 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
         check(item_id==0 && target in IDS && target!=a && offer_id===nothing,"item_offer_target")
         check(isempty(intersect(give,want)),"item_offer_overlap")
         check(!isempty(give) || !isempty(want),"item_offer_needs_item")
-        check((!isempty(give) || sum(gf)>0) && (!isempty(want) || sum(wf)>0),"item_offer_empty_leg")
+            # A single empty leg expresses a gift proposal or a request. Both
+            # still require the recipient's explicit acceptance; no forced take.
     else
         check(isempty(give) && isempty(want) && all(iszero,gf) && all(iszero,wf),"item_unused_terms")
         if action in ("item_accept","item_decline")

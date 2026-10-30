@@ -1,0 +1,3 @@
+{"given":0,"offered":18,"dropped":0,"picked_up":0,"retrieved":0,"declined":11,"unavailable":1,"exchanged":6,"stored":0,"expired":0}
+Test Summary:                                              | Pass  Total   Time
+LW autonomous item negotiation and checkpoint continuation |    9      9  25.7s
