@@ -17,7 +17,9 @@ scene=merge(LW.native_scene(19),(positions=[[0.,0.],[.1,0.],[0.,.1]],home=[0.,0.
         @test r["incidental_items"]==resumed["incidental_items"]
         @test r["social_relationships"]==resumed["social_relationships"]
         @test r["portable_items"]["counts"]["offered"]>0
-        @test r["portable_items"]["counts"]["exchanged"]>0
+        # This symmetric no-food fixture has no mutually acceptable exchange.
+        # The old policy produced trades by randomly accepting subjective losses.
+        @test r["portable_items"]["counts"]["exchanged"]==0
         @test r["portable_items"]["counts"]["declined"]>0
         @test r["portable_items"]["remaining_counts"]==[1,1,1]
         @test all(x["social"]["decisions"]>0 for x in values(r["incidental_items"]))

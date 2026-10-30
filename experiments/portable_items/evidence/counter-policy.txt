@@ -1,0 +1,32 @@
+Test Summary:                               | Pass  Total  Time
+physical item actions require an able actor |   12     12  1.7s
+Test Summary:                                     | Pass  Total  Time
+portable item identity and strict input contracts |   26     26  0.7s
+Test Summary:                                                | Pass  Total  Time
+pickup, personal storage and gift preserve identity and food |   22     22  0.8s
+Test Summary:                                             | Pass  Total  Time
+world reach, contact and obstruction constrain operations |    8      8  0.4s
+Test Summary:                                                 | Pass  Total  Time
+actor views hide private storage and do not alias world state |    9      9  1.7s
+Test Summary:                                             | Pass  Total  Time
+barter moves both sides atomically without requiring food |   11     11  0.3s
+Test Summary:                                                       | Pass  Total  Time
+item-food barter preserves typed food and validates before mutation |   11     11  0.1s
+Test Summary:                                                           | Pass  Total  Time
+receipts, denial, expiry and malformed commands cannot duplicate assets |   39     39  1.1s
+Test Summary:                                             | Pass  Total  Time
+moving light and bounded provenance survive serialization |   14     14  0.2s
+Test Summary:                                            | Pass  Total  Time
+loose objects accept generic kinds and registry defaults |   33     33  1.4s
+Test Summary:                                                     | Pass  Total  Time
+mass is owner information and public views expose only appearance |   10     10  0.2s
+Test Summary:                                          | Pass  Total  Time
+size, mass, accumulated load and injury limit carrying |   27     27  0.2s
+Test Summary:                                                      | Pass  Total  Time
+gifts and barter validate final capacity without partial transfers |   22     22  0.0s
+Test Summary:                                                  | Pass  Total  Time
+generic kinds, limits and pending barter survive serialization |    7      7  0.2s
+Test Summary:                                          | Pass  Total  Time
+counter replacement is atomic and requires new consent |   11     11  0.3s
+Test Summary:                                             | Pass  Total  Time
+loss is never a random accept; counter terms are optional |  244    244  1.6s

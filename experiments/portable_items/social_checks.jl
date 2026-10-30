@@ -56,7 +56,7 @@ end
             @test !LW.item_social_executed!(states[a],p,result;relation=relations[a])
             @test LW.item_social_snapshot(states[a]["social"])==recorded
             if result["status"]=="offered"
-                @test states[a]["social"]["offer"].trial!==nothing
+                @test states[a]["social"][p["item_social_role"]].trial!==nothing
                 pending_checked=true
             end
         end

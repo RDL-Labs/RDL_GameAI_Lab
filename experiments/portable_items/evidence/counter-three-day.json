@@ -1,0 +1,3101 @@
+{
+  "days": 3,
+  "counts": {
+    "given": 0,
+    "offered": 98,
+    "dropped": 0,
+    "picked_up": 5,
+    "retrieved": 0,
+    "declined": 79,
+    "unavailable": 0,
+    "exchanged": 0,
+    "stored": 0,
+    "expired": 19
+  },
+  "agents": [
+    {
+      "agent": "npc_b",
+      "reserve": 86.58444385147223,
+      "stock": 5,
+      "proposed": 59,
+      "counterproposed": 16,
+      "accepted": 0,
+      "declined": 23,
+      "records": [
+        {
+          "source": "items:offer:npc_b:19988000000",
+          "partner": "npc_a",
+          "expected": 0.030005935326810226,
+          "us": 20018000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.07801543184970659,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "expired",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:offer:npc_b:20308000000",
+          "partner": "npc_a",
+          "expected": 0.029917867477027762,
+          "us": 20338000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.07778645544027218,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "expired",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:25927000000",
+          "partner": "npc_a",
+          "expected": 0.5592269189065592,
+          "us": 25928000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 1.453989989157054,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:25926000000:op:25926000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_b:25991000000",
+          "partner": "npc_a",
+          "expected": 0.06272768959826543,
+          "us": 25992000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.16309199295549012,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:offer:npc_b:26055000000",
+          "partner": "npc_a",
+          "expected": 0.02065225421919646,
+          "us": 26056000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.061956762657589384,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:26057000000",
+          "partner": "npc_a",
+          "expected": 0.02633309843857299,
+          "us": 26058000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.10533239375429196,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "counter_of": "npc_a:26056000000:op:26056000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_b:26121000000",
+          "partner": "npc_a",
+          "expected": 0.01544948039914611,
+          "us": 26122000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.06179792159658444,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:26123000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 26123000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:26187000000",
+          "partner": "npc_a",
+          "expected": 0.19715870422377157,
+          "us": 26188000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.9857935211188579,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              5
+            ],
+            "want_items": [],
+            "want_food": [
+              4,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:26186000000:op:26186000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_b:26315000000",
+          "partner": "npc_a",
+          "expected": -0.0019097442013866093,
+          "us": 26316000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": -0.009548721006933046,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:offer:npc_b:26379000000",
+          "partner": "npc_a",
+          "expected": 0.02718199882591502,
+          "us": 26380000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.16309199295549012,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:26381000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 26381000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:26509000000",
+          "partner": "npc_a",
+          "expected": 0.012673522694264784,
+          "us": 26510000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.0887146588598535,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              5
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "counter_of": "npc_a:26508000000:op:26508000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_b:26511000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 26511000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:26703000000",
+          "partner": "npc_a",
+          "expected": 0.008634022247996594,
+          "us": 26704000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.06043815573597616,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:26705000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 26705000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:26769000000",
+          "partner": "npc_a",
+          "expected": 0.001676576337798325,
+          "us": 26770000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.0134126107023866,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_a:26768000000:op:26768000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_b:26963000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 26963000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:27091000000",
+          "partner": "npc_a",
+          "expected": 0.007446343190176957,
+          "us": 27092000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.059570745521415655,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:27157000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 27157000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:27221000000",
+          "partner": "npc_a",
+          "expected": 0.006587421764590803,
+          "us": 27222000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.05928679588131723,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:27223000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 27223000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:27287000000",
+          "partner": "npc_a",
+          "expected": 0.009220668408545666,
+          "us": 27288000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.09220668408545665,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:offer:npc_b:27671000000",
+          "partner": "npc_a",
+          "expected": 0.005302612680138163,
+          "us": 27672000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.05832873948151979,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:27801000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 27801000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:28057000000",
+          "partner": "npc_a",
+          "expected": 0.0076838903404547205,
+          "us": 28058000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09220668408545665,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:28059000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 28059000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:28123000000",
+          "partner": "npc_a",
+          "expected": 0.02768798572411667,
+          "us": 28124000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.3599438144135167,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [],
+            "want_food": [
+              1,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_a:28122000000:op:28122000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_b:28251000000",
+          "partner": "npc_a",
+          "expected": 0.004396005936858742,
+          "us": 28252000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.05714807717916365,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:28253000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 28253000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:28381000000",
+          "partner": "npc_a",
+          "expected": 0.02360529565489456,
+          "us": 28382000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.33047413916852386,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              5
+            ],
+            "want_items": [],
+            "want_food": [
+              1,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:28380000000:op:28380000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_b:28383000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 28383000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:28511000000",
+          "partner": "npc_a",
+          "expected": 0.09960284772281865,
+          "us": 28512000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 1.3944398681194612,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:28510000000:op:28510000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_b:28639000000",
+          "partner": "npc_a",
+          "expected": 0.006586191720389761,
+          "us": 28640000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09220668408545665,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:28641000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 28641000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:34620000000",
+          "partner": "npc_a",
+          "expected": 0.010872799530366009,
+          "us": 34621000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.16309199295549012,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:offer:npc_b:41219000000",
+          "partner": "npc_a",
+          "expected": 0.0028630177776152433,
+          "us": 41220000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.04294526666422865,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:41221000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 41221000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:41605000000",
+          "partner": "npc_a",
+          "expected": 0.008066384410006984,
+          "us": 41606000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.12099576615010477,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:41607000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 41607000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:41735000000",
+          "partner": "npc_a",
+          "expected": 0.06758660263267345,
+          "us": 41736000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 1.0137990394901017,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              4,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:41734000000:op:41734000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_b:41863000000",
+          "partner": "npc_a",
+          "expected": 0.00801820204086587,
+          "us": 41864000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.12027303061298805,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:41865000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 41865000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:41993000000",
+          "partner": "npc_a",
+          "expected": 0.008006644890098552,
+          "us": 41994000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.12009967335147828,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:41995000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 41995000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:42955000000",
+          "partner": "npc_a",
+          "expected": 0.05135646142822273,
+          "us": 42956000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.7703469214233409,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [],
+            "want_food": [
+              3,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:42954000000:op:42954000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_b:43341000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 43341000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:43597000000",
+          "partner": "npc_a",
+          "expected": 0.007875457389926122,
+          "us": 43598000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.11813186084889182,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:43599000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 43599000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:43663000000",
+          "partner": "npc_a",
+          "expected": 0.0031447913245489217,
+          "us": 43664000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.04717186986823382,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:43665000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 43665000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:43857000000",
+          "partner": "npc_a",
+          "expected": 0.033050697635037256,
+          "us": 43858000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.49576046452555883,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              1,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_a:43856000000:op:43856000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_b:43859000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 43859000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:43923000000",
+          "partner": "npc_a",
+          "expected": 0.0031254747040271587,
+          "us": 43924000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.04688212056040738,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:44181000000",
+          "partner": "npc_a",
+          "expected": 0.01617851850707934,
+          "us": 44182000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.2426777776061901,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              5
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              0,
+              2
+            ]
+          },
+          "counter_of": "npc_a:44180000000:op:44180000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_b:44501000000",
+          "partner": "npc_a",
+          "expected": 0.010872799530366009,
+          "us": 44502000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.16309199295549012,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:44695000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 44695000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:45015000000",
+          "partner": "npc_a",
+          "expected": 0.003049219086650649,
+          "us": 45016000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.045738286299759734,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              2
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:45017000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 45017000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_b:45657000000",
+          "partner": "npc_a",
+          "expected": 0.007733454900182915,
+          "us": 45658000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.11600182350274373,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              3
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_b:45659000000",
+          "partner": "npc_a",
+          "expected": 0.0,
+          "us": 45659000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_b:45787000000",
+          "partner": "npc_a",
+          "expected": 0.024811928817533677,
+          "us": 45788000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.37217893226300514,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              5
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              0,
+              3
+            ]
+          },
+          "counter_of": "npc_a:45786000000:op:45786000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_b:45981000000",
+          "partner": "npc_a",
+          "expected": 0.09548171835977089,
+          "us": 45982000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 1.4322257753965633,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              5
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:45980000000:op:45980000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_b:46047000000",
+          "partner": "npc_a",
+          "expected": 0.0925724690756488,
+          "us": 46048000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 1.388587036134732,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              4
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_a:46046000000:op:46046000000:npc_a",
+          "status": "declined",
+          "action": "item_counter"
+        }
+      ]
+    },
+    {
+      "agent": "npc_a",
+      "reserve": 87.7220433724126,
+      "stock": 10,
+      "proposed": 39,
+      "counterproposed": 19,
+      "accepted": 0,
+      "declined": 21,
+      "records": [
+        {
+          "source": "items:offer:npc_a:19219000000",
+          "partner": "npc_b",
+          "expected": 0.011672289165998398,
+          "us": 19220000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.023344578331996796,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:19221000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 19221000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:25926000000",
+          "partner": "npc_b",
+          "expected": 0.006696033836382064,
+          "us": 25927000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.019192066291037396,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:25928000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 25928000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:25992000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 25992000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:26056000000",
+          "partner": "npc_b",
+          "expected": 0.03002059334742175,
+          "us": 26057000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09006178004226525,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:26055000000:op:26055000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:26058000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 26058000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:26122000000",
+          "partner": "npc_b",
+          "expected": 0.294421257664089,
+          "us": 26123000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.883263772992267,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              3,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:26121000000:op:26121000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:26186000000",
+          "partner": "npc_b",
+          "expected": 0.03105865073518313,
+          "us": 26187000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:26188000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 26188000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:26316000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 26316000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:26380000000",
+          "partner": "npc_b",
+          "expected": 0.34829456087221705,
+          "us": 26381000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 1.3931782434888682,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              4,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_b:26379000000:op:26379000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:26508000000",
+          "partner": "npc_b",
+          "expected": 0.023293988051387347,
+          "us": 26509000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:26510000000",
+          "partner": "npc_b",
+          "expected": 0.12382905401744282,
+          "us": 26511000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.6191452700872141,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              2,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_b:26509000000:op:26509000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:26704000000",
+          "partner": "npc_b",
+          "expected": 0.031039955597973196,
+          "us": 26705000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.15519977798986598,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              1,
+              2
+            ]
+          },
+          "counter_of": "npc_b:26703000000:op:26703000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:26768000000",
+          "partner": "npc_b",
+          "expected": 0.01983710669130819,
+          "us": 26769000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09918553345654095,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:26770000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 26770000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:26962000000",
+          "partner": "npc_b",
+          "expected": 0.015529325367591565,
+          "us": 26963000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:27092000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 27092000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:27156000000",
+          "partner": "npc_b",
+          "expected": 0.002741723755862485,
+          "us": 27157000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.019192066291037396,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:27222000000",
+          "partner": "npc_b",
+          "expected": 0.11169620280720385,
+          "us": 27223000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.8935696224576308,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              3,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:27221000000:op:27221000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:27288000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 27288000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:27672000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 27672000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:27800000000",
+          "partner": "npc_b",
+          "expected": 0.0023990082863796745,
+          "us": 27801000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.019192066291037396,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:28058000000",
+          "partner": "npc_b",
+          "expected": -0.0005623230098801123,
+          "us": 28059000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": -0.005060907088921011,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              3,
+              0
+            ]
+          },
+          "counter_of": "npc_b:28057000000:op:28057000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:28122000000",
+          "partner": "npc_b",
+          "expected": 0.010690841016957116,
+          "us": 28123000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09621756915261405,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:28124000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 28124000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:28252000000",
+          "partner": "npc_b",
+          "expected": 0.039692556864448836,
+          "us": 28253000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.39692556864448836,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              1,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:28251000000:op:28251000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:28380000000",
+          "partner": "npc_b",
+          "expected": 0.009317595220554939,
+          "us": 28381000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:28382000000",
+          "partner": "npc_b",
+          "expected": 0.008470541109595399,
+          "us": 28383000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_b:28381000000:op:28381000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:28510000000",
+          "partner": "npc_b",
+          "expected": 0.018253081285097734,
+          "us": 28511000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.20078389413607506,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:28512000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 28512000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:28640000000",
+          "partner": "npc_b",
+          "expected": 0.0030920215941141332,
+          "us": 28641000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.0371042591293696,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              4,
+              0
+            ]
+          },
+          "counter_of": "npc_b:28639000000:op:28639000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:34621000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 34621000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:41220000000",
+          "partner": "npc_b",
+          "expected": 0.012106016945735354,
+          "us": 41221000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.15737822029455958,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              1,
+              2
+            ]
+          },
+          "counter_of": "npc_b:41219000000:op:41219000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:41606000000",
+          "partner": "npc_b",
+          "expected": 0.02906608265932064,
+          "us": 41607000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.3778590745711683,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              1,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:41605000000:op:41605000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:41734000000",
+          "partner": "npc_b",
+          "expected": 0.0014763127916182614,
+          "us": 41735000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.019192066291037396,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:41736000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 41736000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:41864000000",
+          "partner": "npc_b",
+          "expected": 0.05343022113438684,
+          "us": 41865000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.6945928747470289,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              3,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:41863000000:op:41863000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:41994000000",
+          "partner": "npc_b",
+          "expected": 0.059351952910796806,
+          "us": 41995000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.7715753878403584,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              2,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:41993000000:op:41993000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:42954000000",
+          "partner": "npc_b",
+          "expected": 0.015444914933544236,
+          "us": 42955000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.20078389413607506,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:42956000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 42956000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:43340000000",
+          "partner": "npc_b",
+          "expected": 0.013512746235635947,
+          "us": 43341000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.17566570106326732,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:43598000000",
+          "partner": "npc_b",
+          "expected": 0.013683564750897294,
+          "us": 43599000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.17788634176166482,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              0,
+              1,
+              3
+            ]
+          },
+          "counter_of": "npc_b:43597000000:op:43597000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:43664000000",
+          "partner": "npc_b",
+          "expected": 0.06399115606118337,
+          "us": 43665000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.8318850287953838,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [],
+            "want_food": [
+              3,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:43663000000:op:43663000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:43856000000",
+          "partner": "npc_b",
+          "expected": 0.013484180001705478,
+          "us": 43857000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.1752943400221712,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:43858000000",
+          "partner": "npc_b",
+          "expected": 0.013484072029582144,
+          "us": 43859000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.17529293638456786,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              1,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": "npc_b:43857000000:op:43857000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:43924000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 43924000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:44180000000",
+          "partner": "npc_b",
+          "expected": 0.007167380938888415,
+          "us": 44181000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:44182000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 44182000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:response:npc_a:44502000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 44502000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:44694000000",
+          "partner": "npc_b",
+          "expected": 0.0014763127916182614,
+          "us": 44695000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.019192066291037396,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:45016000000",
+          "partner": "npc_b",
+          "expected": 0.06485523402101846,
+          "us": 45017000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 0.84311804227324,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              2
+            ],
+            "want_items": [],
+            "want_food": [
+              3,
+              0,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:45015000000:op:45015000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:response:npc_a:45658000000",
+          "partner": "npc_b",
+          "expected": 0.09336440068599457,
+          "us": 45659000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": 1.2137372089179292,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [
+              3
+            ],
+            "want_items": [],
+            "want_food": [
+              0,
+              3,
+              1,
+              0
+            ]
+          },
+          "counter_of": "npc_b:45657000000:op:45657000000:npc_b",
+          "status": "declined",
+          "action": "item_counter"
+        },
+        {
+          "source": "items:offer:npc_a:45786000000",
+          "partner": "npc_b",
+          "expected": 0.007167380938888415,
+          "us": 45787000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:45788000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 45788000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:45980000000",
+          "partner": "npc_b",
+          "expected": 0.007167380938888415,
+          "us": 45981000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.09317595220554939,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              5
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:45982000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 45982000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        },
+        {
+          "source": "items:offer:npc_a:46046000000",
+          "partner": "npc_b",
+          "expected": 0.015444914933544236,
+          "us": 46047000000,
+          "actual": 0.0,
+          "reason": "countered",
+          "subjective_gain": 0.20078389413607506,
+          "terms": {
+            "give_food": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "give_items": [],
+            "want_items": [
+              4
+            ],
+            "want_food": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_offer"
+        },
+        {
+          "source": "items:response:npc_a:46048000000",
+          "partner": "npc_b",
+          "expected": 0.0,
+          "us": 46048000000,
+          "actual": 0.0,
+          "reason": null,
+          "subjective_gain": null,
+          "terms": null,
+          "counter_of": null,
+          "status": "declined",
+          "action": "item_decline"
+        }
+      ]
+    },
+    {
+      "agent": "npc_c",
+      "reserve": 85.71530131160412,
+      "stock": 8,
+      "proposed": 0,
+      "counterproposed": 0,
+      "accepted": 0,
+      "declined": 0,
+      "records": []
+    }
+  ],
+  "wildlife_alive": 30,
+  "balances": {
+    "grass": {
+      "name": "grass",
+      "supplied": 15430.676141784834,
+      "accounted": 15430.676141788124,
+      "residual": -3.2905518310144544E-09,
+      "relative_error": 2.1324741707871406E-13,
+      "delta_since_previous": -2.1991581888869405E-09,
+      "max_abs_residual": 3.2905518310144544E-09,
+      "warning_limit": 2.5430676141788124E-06,
+      "stop_limit": 0.00025430676141788126,
+      "status": "ok"
+    },
+    "intake": {
+      "name": "intake",
+      "supplied": 2279.7286058083514,
+      "accounted": 2279.7286058045215,
+      "residual": 3.829882189165801E-09,
+      "relative_error": 1.679972861422157E-12,
+      "delta_since_previous": 2.5117969926213846E-09,
+      "max_abs_residual": 3.829882189165801E-09,
+      "warning_limit": 1.2279728605808352E-06,
+      "stop_limit": 0.0001227972860580835,
+      "status": "ok"
+    },
+    "digestion": {
+      "name": "digestion",
+      "supplied": 2279.7286058045215,
+      "accounted": 2279.7286058045843,
+      "residual": -6.275513442233205E-11,
+      "relative_error": 2.7527458427527993E-14,
+      "delta_since_previous": 1.0049916454590857E-10,
+      "max_abs_residual": 1.6325429896824062E-10,
+      "warning_limit": 1.2279728605804583E-06,
+      "stop_limit": 0.00012279728605804586,
+      "status": "ok"
+    }
+  },
+  "measurement": {
+    "gc_seconds": 9.2825292,
+    "process_peak_rss_bytes": 1769418752,
+    "compilation_included": true,
+    "call_seconds": 228.0267571,
+    "allocated_bytes": 84308612805
+  },
+  "food": {
+    "initial": 1275,
+    "consumed": 12,
+    "ground": 1240,
+    "personal": {
+      "npc_b": 5,
+      "npc_a": 10,
+      "npc_c": 8
+    },
+    "added": 0,
+    "shared": 0
+  }
+}

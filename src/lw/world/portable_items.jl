@@ -4,7 +4,7 @@ include("../../data/item_ids.jl")
 # value, pleasure, currency status, or social credit to a successful transfer.
 const ITEM_OFFER_TTL_US=30_000_000
 const ITEM_ACTIONS=("item_pickup","item_drop","item_store","item_retrieve",
-    "item_give","item_offer","item_accept","item_decline")
+    "item_give","item_offer","item_counter","item_accept","item_decline")
 item_field(x,k,default)=x isa AbstractDict ? get(x,String(k),get(x,k,default)) : get(x,k,default)
 item_hasfield(x,k)=x isa AbstractDict ? haskey(x,String(k)) || haskey(x,k) : hasproperty(x,k)
 item_integer(x)=x isa Integer && !(x isa Bool)
@@ -253,8 +253,9 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
     check(action in ITEM_ACTIONS,"item_action")
     check(item_integer(item_id) && 0<=item_id<=typemax(Int),"item_target_id")
     t=item_time(now);give,gf=item_terms(give_items,give_food);want,wf=item_terms(want_items,want_food)
-    if action=="item_offer"
-        check(item_id==0 && target in IDS && target!=a && offer_id===nothing,"item_offer_target")
+    if action in ("item_offer","item_counter")
+        check(item_id==0 && target in IDS && target!=a &&
+            (action=="item_counter" ? offer_id isa AbstractString : offer_id===nothing),"item_offer_target")
         check(isempty(intersect(give,want)),"item_offer_overlap")
         check(!isempty(give) || !isempty(want),"item_offer_needs_item")
             # A single empty leg expresses a gift proposal or a request. Both
@@ -281,8 +282,13 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
     body=w.bodies[a]
     if !(body.reserve>0 && body.damage<1 && body.strain<1)
         reason="body_limited"
-    elseif action=="item_offer"
-        if any(o->o["proposer"]==a,values(s["offers"]))
+    elseif action in ("item_offer","item_counter")
+        previous=action=="item_counter" ? get(s["offers"],offer_id,nothing) : nothing
+        if action=="item_counter" && (previous===nothing || previous["target"]!=a || previous["proposer"]!=target)
+            reason="counter_not_recipient"
+        elseif previous!==nothing && get(previous,"round",0)>=8
+            reason="counter_round_limit"
+        elseif any(o->o["proposer"]==a,values(s["offers"]))
             reason="outgoing_pending"
         elseif !item_trade_contact(w,home,a,target)
             reason="partner_unavailable"
@@ -294,6 +300,12 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
             id="$a:$t:$op"
             o=D("id"=>id,"proposer"=>a,"target"=>target,"give_items"=>give,"want_items"=>want,
                 "give_food"=>gf,"want_food"=>wf,"created_us"=>t,"expires_us"=>t+ITEM_OFFER_TTL_US)
+            if previous!==nothing
+                o["counter_of"]=previous["id"];o["round"]=get(previous,"round",0)+1
+                o["root_id"]=get(previous,"root_id",previous["id"])
+                o["expires_us"]=previous["expires_us"]
+                item_close!(s,previous,"declined",t;reason="countered")
+            end
             s["offers"][id]=o;status="offered";reason=nothing
             item_record!(s,merge(deepcopy(o),D("status"=>status,"us"=>t)));recorded=true
         end
