@@ -1,3 +1,4 @@
+include("../decision/relational_gradient.jl")
 include("../perception/home_distance.jl")
 include("../decision/goal_arrival.jl")
 include("checkpoint.jl")

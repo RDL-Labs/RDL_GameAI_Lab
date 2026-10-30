@@ -45,6 +45,7 @@ jobs:
           julia --startup-file=no --project=. experiments/portable_items/social_checks.jl
           julia --startup-file=no --project=. experiments/portable_items/counter_checks.jl
           julia --startup-file=no --project=. experiments/portable_items/exchange_memory_checks.jl
+          julia --startup-file=no --project=. experiments/portable_items/quantity_gradient_checks.jl
           julia --startup-file=no --project=. experiments/portable_items/social_integration_checks.jl
       - name: LW completion prediction reward
         run: |

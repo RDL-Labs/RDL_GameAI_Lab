@@ -16,22 +16,21 @@ function item_subjective_values(state,view;stock=nothing,weights=nothing)
     values=Dict{Int,Float64}()
     for row in Iterators.flatten((own,view["visible"]))
         f=incidental_item_feature(row);f===nothing && continue
-        # Similar possessions reduce marginal interest. IDs exclude the current
-        # executor object only; similarity and interest use observable features.
-        similar=0.
-        for held in own
-            held["ref"]==row["ref"] && continue
-            g=incidental_item_feature(held);g===nothing && continue
-            similar+=incidental_item_fit(state,f,g)
-        end
-        values[Int(row["ref"])]=max(incidental_item_interest(f),item_exchange_option(state,f;stock,weights))/(1+similar)
+        values[Int(row["ref"])]=max(incidental_item_interest(f),item_exchange_option(state,f;stock,weights))
     end
     values
 end
 
-item_social_utility(items,stock,values,weights)=
-    sum((get(values,Int(r["ref"]),0.) for r in Iterators.flatten((items["held"],items["stored"])));init=0.)+
-    sum(weights[k]*log1p(stock===nothing ? 0 : stock[k]) for k in eachindex(weights))
+function item_social_utility(items,stock,values,weights)
+    groups=Dict{String,Tuple{Int,Float64}}()
+    for r in Iterators.flatten((items["held"],items["stored"]))
+        f=incidental_item_feature(r);f===nothing && continue
+        key=incidental_item_key(f);n,v=get(groups,key,(0,0.))
+        groups[key]=(n+1,v+get(values,Int(r["ref"]),0.))
+    end
+    sum((v/n*log1p(n)/log(2) for (n,v) in Base.values(groups));init=0.)+
+        sum(weights[k]*log1p(stock===nothing ? 0 : stock[k]) for k in eachindex(weights))
+end
 
 function item_social_actual(plan,result)
     result["status"]=="exchanged" || return 0.
@@ -71,18 +70,23 @@ function item_social_observe!(state,view;relation=nothing)
     end
 end
 
-function item_social_gain(own,stock,values,weights,give,want,gf,wf)
+function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[])
     refs=Set(Int(x["ref"]) for x in Iterators.flatten((own["held"],own["stored"])))
     all(in(refs),give) && all(haskey(values,id) for id in want) || return nothing
     all(stock.>=gf) || return nothing
-    sum((values[id] for id in want);init=0.)-sum((values[id] for id in give);init=0.)+
-        sum(weights[k]*(log1p(stock[k]-gf[k]+wf[k])-log1p(stock[k])) for k in eachindex(stock))
+    rows=collect(Iterators.flatten((own["held"],own["stored"])))
+    additions=filter(r->r["ref"] in want,visible)
+    length(additions)==length(want) || return nothing
+    after=D("held"=>vcat(filter(r->!(r["ref"] in give),rows),additions),"stored"=>Any[])
+    relational_transition(item_social_utility(own,stock,values,weights),
+        item_social_utility(after,stock.-gf.+wf,values,weights)).delta
 end
 
 function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
     view===nothing && return nothing
     body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
     mind=item_social_state!(state)
+    item_exchange_memory!(state)
     incoming=get(view,"incoming",Any[])
     response=!isempty(incoming)
     (!response && (now<mind["next_us"] || mind["pending"]!==nothing || view["outgoing"]!==nothing)) && return nothing
@@ -95,9 +99,10 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
     context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
     candidates=Any[]
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
+        stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
         isempty(intersect(give,want)) || return
         (!isempty(give) || !isempty(want)) && sum(gf)<=4 && sum(wf)<=4 || return
-        gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf)
+        gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"])
         gain===nothing && return
         trace=relation===nothing ? nothing : social_relation_bias(relation,other,
             response ? "trade_response" : "trade_offer";situation=context,H=loop.H)
@@ -110,19 +115,18 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
         (exchange_give===nothing || exchange_want===nothing) && return
         evidence=item_exchange_recall(state,exchange_give,exchange_want,other,context,loop.H)
         prior=trace===nothing ? .5 : trace["profile"]["trade_probability"]
-        probability=response && !counter ? 1. : (2prior+evidence.successes)/(2+evidence.successes+evidence.failures)
-        expected=probability*subjective
+        probability=response && !counter ? 1. : (2prior+evidence.predicted)/(2+evidence.successes+evidence.failures)
+        field=relational_transition(0.,gain+relation_value;probability,cost=.002)
+        expected=field.expected
         # Shape-based methods generalize over object IDs. Actual refs bind only
         # the current transfer. The bounded method table is shared-loop machinery.
-        shape(ids)=join(sort([incidental_item_key(incidental_item_feature(r)) for r in
-            Iterators.flatten((view["own"]["held"],view["own"]["stored"],view["visible"]))
-            if r["ref"] in ids]),"|")
         action=counter ? "item_counter" : response ? "item_accept" : "item_offer"
-        push!(candidates,D("method"=>"$action:$other:$(shape(give)):$(shape(want)):$gf:$wf",
+        push!(candidates,D("method"=>"$action:$(item_exchange_key(other,exchange_give,exchange_want))",
             "action"=>action,"question"=>"subjective_possession_value",
             "priority"=>4expected+(trace===nothing ? 0. : trace["weight"]),
             "expected"=>expected,"gain"=>gain,"subjective_gain"=>subjective,"relation_value"=>relation_value,"partner"=>other,"trace"=>trace,
             "exchange_give"=>exchange_give,"exchange_want"=>exchange_want,
+            "relational_field"=>field,
             "exchange_evidence"=>D("successes"=>evidence.successes,"failures"=>evidence.failures),
             "terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
             "give_items"=>give,"want_items"=>want,"give_food"=>gf,"want_food"=>wf,"offer_id"=>offer_id))
@@ -155,6 +159,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
                 candidate(o["proposer"],give,want,less,wf;offer_id=o["id"],counter=true)
             end
             if !isempty(candidates)
+                candidates=item_exchange_refine(candidates)
                 sort!(candidates;by=c->(-c["expected"],c["method"]))
                 length(candidates)>32 && resize!(candidates,32)
                 for c in candidates;c["observation_log_prior"]=-log(length(candidates));end
@@ -169,10 +174,13 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
         # currently owned/visible. This also permits learned item-for-food offers.
         memories=sort(collect(get(state,"exchange_relations",Any[]));by=m->(-m["successes"],-m["last_us"],m["key"]))
         for m in Iterators.take(filter(m->m["successes"]>0,memories),min(8,mb_retrieval_budget(loop.H))), other in get(view,"trade_partners",String[])
-            give=item_exchange_bind(state,m["give"]["items"],view["own"]["held"])
-            want=item_exchange_bind(state,m["want"]["items"],filter(r->get(r,"holder",nothing)==other,view["visible"]))
+            give=item_exchange_bind(state,m["give"]["items"],view["own"]["held"];partial=true)
+            want=item_exchange_bind(state,m["want"]["items"],filter(r->get(r,"holder",nothing)==other,view["visible"]);partial=true)
             (give===nothing || want===nothing) && continue
-            candidate(other,give,want,m["give"]["food"],m["want"]["food"])
+            for terms in item_exchange_neighbors(give,want,m["give"]["food"],m["want"]["food"],
+                view["own"]["held"],filter(r->get(r,"holder",nothing)==other,view["visible"]))
+                candidate(other,terms...)
+            end
         end
         # Only currently visible possessions of a contact partner can be requested.
         for r in Iterators.take(view["visible"],8)
@@ -182,9 +190,9 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
             for held in own
                 candidate(other,[Int(held["ref"])],[Int(r["ref"])],zeros(Int,4),zeros(Int,4))
             end
-            for k in eachindex(available)
+            for k in eachindex(available), n in 1:min(4,available[k])
                 available[k]>0 || continue
-                gf=zeros(Int,4);gf[k]=1
+                gf=zeros(Int,4);gf[k]=n
                 candidate(other,Int[],[Int(r["ref"])],gf,zeros(Int,4))
             end
         end
@@ -192,7 +200,16 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
         for other in get(view,"trade_partners",String[]), held in own
             candidate(other,[Int(held["ref"])],Int[],zeros(Int,4),zeros(Int,4))
         end
+        # Refine feasible seed offers locally, just as movement refines heading.
+        for seed in Iterators.take(copy(candidates),32)
+            other=seed["partner"]
+            for terms in item_exchange_neighbors(seed["give_items"],seed["want_items"],seed["give_food"],seed["want_food"],
+                view["own"]["held"],filter(r->get(r,"holder",nothing)==other,view["visible"]))
+                candidate(other,terms...)
+            end
+        end
         isempty(candidates) && return nothing
+        candidates=item_exchange_refine(candidates)
         sort!(candidates;by=c->(-c["expected"],c["method"]))
         length(candidates)>32 && resize!(candidates,32)
         for c in candidates;c["observation_log_prior"]=-log(length(candidates));end
@@ -201,7 +218,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing)
     end
     # Equivalent edits (e.g. append vs replace an empty requested list) and
     # visually equivalent objects are one MB method, not extra lottery tickets.
-    unique!(c->c["method"],candidates)
+    candidates=item_exchange_refine(candidates)
     proposals=count(c->c["action"] in ("item_offer","item_counter"),candidates)
     for c in candidates
         c["action"] in ("item_offer","item_counter") && (c["observation_log_prior"]=-log(proposals))

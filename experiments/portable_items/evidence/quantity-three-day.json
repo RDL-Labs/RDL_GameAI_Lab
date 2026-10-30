@@ -1,0 +1,74 @@
+{
+  "output": "outputs/item-quantity-gradient-3d-20261030-v2",
+  "counts": {
+    "given": 0,
+    "offered": 115,
+    "dropped": 0,
+    "picked_up": 5,
+    "retrieved": 0,
+    "declined": 90,
+    "unavailable": 3,
+    "exchanged": 1,
+    "stored": 0,
+    "expired": 23
+  },
+  "agents": [
+    {
+      "actor": "npc_a",
+      "reserve": 87.7220433724126,
+      "stock": 8,
+      "proposed": 41,
+      "counterproposed": 13,
+      "declined": 37,
+      "relations": 27,
+      "successes": 1.0,
+      "failures": 40.0,
+      "recalled_choices": 3
+    },
+    {
+      "actor": "npc_b",
+      "reserve": 86.58444385147223,
+      "stock": 7,
+      "proposed": 74,
+      "counterproposed": 9,
+      "declined": 31,
+      "relations": 32,
+      "successes": 1.0,
+      "failures": 50.0,
+      "recalled_choices": 20
+    },
+    {
+      "actor": "npc_c",
+      "reserve": 85.71530131160412,
+      "stock": 8,
+      "proposed": 0,
+      "counterproposed": 0,
+      "declined": 0,
+      "relations": 0,
+      "successes": 0.0,
+      "failures": 0.0,
+      "recalled_choices": 0
+    }
+  ],
+  "food": {
+    "initial": 1275,
+    "consumed": 12,
+    "ground": 1240,
+    "personal": {
+      "npc_b": 7,
+      "npc_a": 8,
+      "npc_c": 8
+    },
+    "added": 0,
+    "shared": 0
+  },
+  "measurement": {
+    "gc_seconds": 10.3150139,
+    "process_peak_rss_bytes": 1799176192,
+    "compilation_included": true,
+    "call_seconds": 262.3389583,
+    "allocated_bytes": 92822193793
+  },
+  "wildlife_alive": 30,
+  "source_note": "Final code adds a guard only for stock===nothing; this run has typed_food=true and personal stores. The no-food path was separately checked on final code."
+}

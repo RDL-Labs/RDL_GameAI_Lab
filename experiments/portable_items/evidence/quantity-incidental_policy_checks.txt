@@ -1,0 +1,14 @@
+Test Summary:                                                   | Pass  Total  Time
+no observed opportunity does not consume choice or parent state |    9      9  1.4s
+Test Summary:                                                   | Pass  Total  Time
+observable feasibility and category-independent object handling |   13     13  0.5s
+Test Summary:                                                        | Pass  Total  Time
+continuing and picking compete and urgency changes their probability |  264    264  0.4s
+Test Summary:                                                   | Pass  Total  Time
+successful handling informs similar appearances across purposes |    9      9  0.4s
+Test Summary:                                                    | Pass  Total  Time
+failed or costly opportunities update the common prediction loop |    7      7  0.3s
+Test Summary:                                                     | Pass  Total  Time
+result replay and checkpoint restore keep learning single-applied |   12     12  1.4s
+Test Summary:                                         | Pass  Total  Time
+longer observation and handling retain bounded memory |    7      7  1.3s

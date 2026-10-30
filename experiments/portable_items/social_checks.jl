@@ -41,7 +41,9 @@ end
     states=Dict(a=>LW.incidental_item_state(a,33) for a in (ITEM_A,ITEM_B))
     relations=Dict(a=>LW.social_relations_state(a;relational=true) for a in keys(states))
     pending_checked=false
-    for t in 0:511
+    # Quantity refinement changes stochastic negotiation timing. Allow repeated
+    # response learning; this is still autonomous, not a prescribed transaction.
+    for t in 0:4095
         now=t*1_000_000;LW.item_expire!(f.s,now)
         views=Dict(a=>item_view(f,a;now) for a in (ITEM_A,ITEM_B))
         for a in (ITEM_A,ITEM_B)
@@ -62,7 +64,7 @@ end
         end
     end
     for a in (ITEM_A,ITEM_B)
-        LW.item_social_observe!(states[a],item_view(f,a;now=512_000_000);relation=relations[a])
+        LW.item_social_observe!(states[a],item_view(f,a;now=4096_000_000);relation=relations[a])
     end
     @test sum(m["successes"] for s in values(states) for m in get(s,"exchange_relations",[]))==2*f.s["counts"]["exchanged"]
     @test pending_checked

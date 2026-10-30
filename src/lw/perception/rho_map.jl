@@ -106,14 +106,13 @@ function rho_descent(angle,map;clearance=2.,span=.5)
     map["coverage"]=="complete" && !map["output_limited"] || return nothing
     # Deterministic local refinement of an upstream probabilistically chosen method.
     offsets=(0.,-11.25,11.25,-22.5,22.5,-33.75,33.75,-45.,45.)
-    best_angle=angle;best=nothing
-    for offset in offsets
+    before=-rho_potential(map,(0.,0.),angle;clearance=clearance).total
+    selected=relational_best(offsets) do offset
         candidate=angle+offset
         value=rho_potential(map,(span*sind(candidate),span*cosd(candidate)),angle;clearance=clearance)
-        if best===nothing || value.total<best.total-1e-12
-            best=value;best_angle=candidate
-        end
+        merge(relational_transition(before,-value.total),(potential=value,))
     end
+    best_angle=angle+selected.candidate;best=selected.field.potential
     (angle=best_angle,combined=(cosd(best_angle),sind(best_angle)),
         groups=count(g->g["kind"] in ("obstacle","water"),map["groups"]),potential=best)
 end
