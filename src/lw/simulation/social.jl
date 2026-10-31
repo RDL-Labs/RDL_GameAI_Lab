@@ -6,9 +6,11 @@ include(joinpath(@__DIR__, "../world/contact.jl"))
 
 include(joinpath(@__DIR__, "../perception/social.jl"))
 
-function communicate!(w,a,op,action,target=nothing,reply=nothing;food_kind=nothing)
+function communicate!(w,a,op,action,target=nothing,reply=nothing;food_kind=nothing,unsolicited=false)
+    check(unsolicited isa Bool && (!unsolicited || (action=="give" && reply===nothing)),"unsolicited_give_contract")
     check(food_kind===nothing || (action=="give" && food_kind isa Integer && !(food_kind isa Bool) && food_kind in 1:4),"communication_food_kind")
     key=a*"|"*op;request=food_kind===nothing ? (action,target,reply) : (action,target,reply,Int(food_kind))
+    unsolicited && (request=(request...,true))
     if haskey(w.receipts,key)
         old,result=w.receipts[key];check(old==request,"communication_conflict");return deepcopy(result)
     end
@@ -31,6 +33,8 @@ function communicate!(w,a,op,action,target=nothing,reply=nothing;food_kind=nothi
     elseif target!==nothing && contact(w,a,target)
         if action in ("request","reach")
             kind=action;status="expressed"
+        elseif action=="give" && unsolicited && w.inventory[a]>0
+            w.inventory[a]-=1;w.inventory[target]+=1;kind="given";status="transferred"
         elseif action in ("give","refuse") && antecedent!==nothing && antecedent["kind"]=="request" && !((a,reply) in w.answered)
             if action=="refuse"
                 kind="refuse";status="expressed"
@@ -41,7 +45,7 @@ function communicate!(w,a,op,action,target=nothing,reply=nothing;food_kind=nothi
             kind="warn";status="expressed"
         end
     end
-    kind in ("given","refuse") && push!(w.answered,(a,reply))
+    kind in ("given","refuse") && reply!==nothing && push!(w.answered,(a,reply))
     if kind!==nothing && (kind in ("reach","given") || w.hearing[target])
         w.inbox[target]=[m for m in w.inbox[target] if w.seconds-m["time"]<3]
         message=D("id"=>a*":"*op,"sender"=>a,"kind"=>kind,"reply_to"=>reply,"time"=>w.seconds)

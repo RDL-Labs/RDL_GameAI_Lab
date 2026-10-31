@@ -80,6 +80,7 @@
 
 ## 関連
 
+- [固定の表情と、観測からの食料援助候補](LW_Expressions_And_Visual_Aid.md)
 - [らしさと計算費用による評価](RDL_Julia_Behavioral_Fidelity_Policy.md)
 - [確率的MB認識](LW_Probabilistic_MB_Recognition.md)
 - [ρ・感度・経験](RDL_GameAI_Rho_Sensitivity_Experience.md)

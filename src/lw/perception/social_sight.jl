@@ -1,7 +1,7 @@
 # World geometry is consumed here only. The decision layer receives a current,
 # coarse visual bearing/range and the existing observed peer reference. Identity
 # recognition is still an initial ability; this does not infer another's mind.
-function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=12.,half_fov=90.,max_peers=16)
+function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=12.,half_fov=90.,max_peers=16,expressions=nothing)
     check(actor in IDS,"social_sight_actor")
     check(now isa Integer && !(now isa Bool) && now>=0,"social_sight_time")
     heading=yaw isa AbstractDict ? yaw[actor] : yaw
@@ -21,7 +21,16 @@ function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=
         lower,upper=distance<=1.25 ? (0.,1.25) : distance<=2 ? (1.25,2.) :
             distance<=4 ? (2.,4.) : distance<=8 ? (4.,8.) : (8.,Float64(max_distance))
         upper=min(upper,Float64(max_distance))
+        # A face outside the near visual range is unknown, not calm. Quantized
+        # appearance never includes reserve, damage, inventory or cause labels.
+        face=if distance<=4
+            emitted=expressions===nothing ? configured_expression(w.bodies[other]) : expressions[other]
+            (calm=round(4emitted.calm)/4,distress=round(4emitted.distress)/4,fear=round(4emitted.fear)/4)
+        else
+            nothing
+        end
         push!(peers,D("ref"=>other,"angle"=>clamp(15round(angle/15),-half_fov,half_fov),
+            "expression"=>face,
             "range_lower"=>lower,"range_upper"=>upper,"distance"=>(lower+upper)/2,
             "contact"=>distance<=1.25))
     end

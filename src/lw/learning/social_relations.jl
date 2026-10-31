@@ -176,5 +176,6 @@ function social_relations_snapshot(s)
     s===nothing && return nothing
     out=deepcopy(s)
     haskey(s,"aid") && (out["aid"]=social_aid_snapshot(s["aid"]))
+    haskey(s,"visual_aid") && (out["visual_aid"]=visual_aid_snapshot(s["visual_aid"]))
     out
 end

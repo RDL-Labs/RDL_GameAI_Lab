@@ -4,7 +4,7 @@
 # predictions and the similarity metric change from experienced consequences.
 const SOCIAL_MB_PENDING_LIMIT=128
 const SOCIAL_MB_NODE_LIMIT=96
-const SOCIAL_MB_CONTEXT_KEYS=("give_kind","want_kind","give_count","want_count","need")
+const SOCIAL_MB_CONTEXT_KEYS=("give_kind","want_kind","give_count","want_count","need","distress","fear")
 social_mb_state()=D("nodes"=>D(),"pending"=>D(),"frozen"=>nothing,
     "metric"=>mb_metric_state(),"reviews"=>Any[],"last_review_day"=>-1,
     "events"=>0,"unknown"=>0,"admission_blocked"=>0,"provisional_evicted"=>0,"merged"=>0,"evicted"=>0)
@@ -23,7 +23,7 @@ function social_mb_context(context)
             check(isinteger(value) && 0<=value<=4,"social_mb_context_count")
             out[k]=Int(value)
         else
-            check(0<=value<=2,"social_mb_context_need");out[k]=Float64(value)
+            check(0<=value<=(k=="need" ? 2 : 1),"social_mb_context_need");out[k]=Float64(value)
         end
     end
     out
@@ -62,7 +62,7 @@ function social_mb_parts(a,b)
     kinds=String[k for k in common if k in ("give_kind","want_kind")]
     numeric=String[k for k in common if !(k in kinds)]
     categorical=isempty(kinds) ? 0. : sum(a[k]!=b[k] for k in kinds)/length(kinds)
-    continuous=isempty(numeric) ? 0. : sum(abs(a[k]-b[k])/(k=="need" ? 1. : 4.) for k in numeric)/length(numeric)
+    continuous=isempty(numeric) ? 0. : sum(abs(a[k]-b[k])/(k in ("need","distress","fear") ? 1. : 4.) for k in numeric)/length(numeric)
     [(Float64(categorical),Float64(continuous))]
 end
 function social_mb_fit(metric,query,stored)

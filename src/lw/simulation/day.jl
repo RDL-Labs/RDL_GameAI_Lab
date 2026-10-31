@@ -45,6 +45,7 @@ include(joinpath(@__DIR__, "../decision/item_social.jl"))
 include(joinpath(@__DIR__, "../learning/social_aid.jl"))
 include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
 include(joinpath(@__DIR__, "../perception/social_sight.jl"))
+include(joinpath(@__DIR__, "../decision/visual_aid.jl"))
 include(joinpath(@__DIR__, "../decision/social_approach.jl"))
 include(joinpath(@__DIR__, "../decision/approach.jl"))
 include(joinpath(@__DIR__, "../decision/local_descent.jl"))
@@ -317,6 +318,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     if relations!==nothing
         for a in IDS
             relations[a]["aid"]=social_aid_state(a;seed=choice_seed)
+            relations[a]["visual_aid"]=visual_aid_state(a;seed=choice_seed)
             relations[a]["approach"]=D("proposed"=>0,"selected"=>0,"contacts"=>0,"records"=>Any[])
             states[a]["records_pruned"]=0
         end
@@ -413,7 +415,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     relation=relations===nothing ? nothing : relations[a])
             end
         end
-        social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high) for a in IDS)
+        expressions=relations===nothing ? nothing : Dict(a=>configured_expression(w.bodies[a];fear=night_fear_enabled ? mb_maps[a]["night_fear"]["H"]/8 : 0.) for a in IDS)
+        social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions) for a in IDS)
         relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),IDS)
         trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations)
         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
@@ -596,6 +599,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     act,t,r=response(current,a!="npc_b")
                 end
                 plan=D("action"=>act,"target"=>t,"reply_to"=>r);push!(answered[a],m["id"])
+                if act=="give" && relations!==nothing
+                    visual_pending=get(get(relations[a],"visual_aid",D()),"pending",nothing)
+                    visual_pending!==nothing && visual_pending["target"]==t && (plan=merge(visual_pending,plan))
+                end
             elseif (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && edible_on_hand && (guts===nothing || can_ingest(guts[a]))
                 plan=D("action"=>"eat")
             elseif at_home && (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && (shared_stores ? shared : stores[a])>0
@@ -633,6 +640,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             end
 
+            if plan===nothing && relations!==nothing && !observing && !(phase in ("night","orientation"))
+                kinds=foods===nothing ? fill(meal_kind,w.inventory[a]) : foods.inventory[a]
+                plan=visual_aid_plan!(relations[a],social_views[a],w.bodies[a],guts===nothing ? nothing : guts[a],
+                    shared_stores || foods===nothing ? nothing : foods.personal[a],kinds,now;at_home,contacts=o["others"])
+            end
             if plan===nothing && items!==nothing
                 plan=configured_item_plan(item_actions,a,now)
             end
@@ -1001,12 +1013,18 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     r=D("status"=>meal_index==0 ? "no_edible_food" : "gut_full")
                 else
                     delivered_kind=action=="give" && w.inventory[a]>0 ? (foods===nothing ? meal_kind : Int(first(foods.inventory[a]))) : nothing
-                    r=communicate!(w,a,op,action,get(plan,"target",nothing),get(plan,"reply_to",nothing);food_kind=delivered_kind)
+                    r=communicate!(w,a,op,action,get(plan,"target",nothing),get(plan,"reply_to",nothing);food_kind=delivered_kind,unsolicited=get(plan,"visual_aid",false) && get(plan,"reply_to",nothing)===nothing)
                 end
                 status=r["status"]
                 if relations!==nothing && action in ("give","refuse") && get(plan,"target",nothing)!==nothing
                     social_relation_event!(relations[a],plan["target"],"aid_given",op,now;
-                        outcome=action=="refuse" && status=="expressed" ? "refuse" : status)
+                        outcome=action=="refuse" && status=="expressed" ? "refuse" : status,context=get(plan,"context",nothing))
+                    if get(plan,"visual_aid",false) && get(plan,"reply_to",nothing)===nothing && status=="transferred"
+                        receiver=plan["target"]
+                        received_values=food_aid_values(w.bodies[receiver],guts===nothing ? nothing : guts[receiver],foods===nothing ? Int[] : foods.inventory[receiver])
+                        social_relation_event!(relations[receiver],a,"aid_received",a*":"*op,now;
+                            outcome="given",value=received_values[delivered_kind],food_kind=delivered_kind,context=food_social_context(w.bodies[receiver]))
+                    end
                 end
                 if status=="ate"
                     liking=FOOD_LIKING[actual_kind]
@@ -1067,6 +1085,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     end
                 end
             end
+            get(plan,"visual_aid",false) && visual_aid_executed!(relations[a],plan,status)
             if shared_stores && action in ("deposit","retrieve")
                 push!(storage_stats["records"],D("actor"=>a,"operation"=>op,"action"=>action,"status"=>status,"stock_after"=>shared))
                 length(storage_stats["records"])>32 && popfirst!(storage_stats["records"])

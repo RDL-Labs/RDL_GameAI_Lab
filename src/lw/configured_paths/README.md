@@ -3,6 +3,7 @@
 このディレクトリは、実験を成立させるために便宜的に与えた固定の判断・行動接続を置く場所。**埋め込みMBや学習経路の実装場所ではない。** [設計上の区分](../../../docs/design/RDL_Configured_Paths.md)を参照。
 
 - `include.jl`：シミュレーションからの明示的な読み込み境界。
+- `expression.jl`：身体状態と既存の恐怖から表情強度を出す固定の初期表出。行動の強制ではない。観測・援助候補の選択・結果更新はperception/decision/learning側に分離する。[仕様](../../../docs/design/LW_Expressions_And_Visual_Aid.md)。
 - `item_actions.jl`：非食料の操作を確認する明示的な時刻表。`scene.configured_item_actions`を指定した試験だけで使用し、通常の配置入力では空。好み・収集報酬・自動収集は与えない。安全・食事・既存応答・夜間休息が決まったtickでは見送る。[非食料仕様](../../../docs/design/LW_Portable_Items.md)。
 - `food_preparation.jl`：種類別食料を有効にした場合の初期レシピ知識と空腹時の加工・摂食。加工場所は拠点、原料だけを持って空腹なら通常の帰還候補へつなぐ。加工の自力発明ではない。疲労時と可食物所持・胃満杯時は休む。世界の数量保存・加工成立判定は`world/food_resources.jl`へ分離。[仕様](../../../docs/design/LW_Typed_Food_Processing.md)。
 - `body_maintenance.jl`：空腹時のfood切り替え、回復後の帰還再開、即時摂食・取り出しの優先、定時休息・社会応答待ちの解除。

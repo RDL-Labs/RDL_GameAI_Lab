@@ -50,19 +50,19 @@ end
     @test any(r["final_agents"][IA]["aid"]["resolved"]>0 for r in runs)
 end
 
-@testset "LW trade uses the same prediction and contextual relation path" begin
+@testset "LW stocked actors do not initiate unnecessary trade" begin
     scene=merge(integration_scene(),(initial_inventory=[0,0,0],initial_inventory_kinds=[Int[],Int[],Int[]],
         reserve=[90.,90.,100.],initial_personal_stock=[40,40,0],
         initial_personal_food_counts=(npc_a=[40,0,0,0],npc_b=[0,40,0,0],npc_c=zeros(Int,4))))
     r=integration_run(scene,integration_clock(512;orientation=512))
     exchange=r["food_exchange"];closed=exchange["world"]["counts"]
-    @test closed["exchanged"]>0
-    @test any(x["action"]=="trade_accept" && x["status"]=="exchanged" for x in r["events"])
+    @test closed["exchanged"]==0 && closed["offered"]==0
+    @test !any(x["action"]=="trade_accept" for x in r["events"])
     @test sum(a["personal_stock"] for a in values(r["final_agents"]))==80
     @test all(r["food_resources"]["consumed"].==0)
     trade_events=vcat([exchange["learning"][a][role]["events"] for a in LW.IDS for role in ("offer","response")]...)
-    @test any(hasproperty(e,:expected) && e.evaluated for e in trade_events)
-    @test any(n["channel"] in ("trade_offer","trade_response") for a in LW.IDS for n in values(r["social_relationships"][a]["mb"]["pending"]))
+    @test isempty(trade_events)
+    @test !any(n["channel"] in ("trade_offer","trade_response") for a in LW.IDS for n in values(r["social_relationships"][a]["mb"]["pending"]))
 end
 
 @testset "LW aid remains active after bounded legacy record storage fills" begin

@@ -253,6 +253,8 @@ end
 end
 
 @testset "aid and personal trade value carry into barter choices" begin
+    # Isolate relation weighting; default necessity admission is checked by
+    # portable_items/necessity_checks.jl and the LW integration fixture.
     x=relationship_trade_fixture();_,offered=fixed_relation_offer!(x)
     view=LW.food_exchange_view(x.t["world"],x.r,x.w,RH,SB,1_000_000)
     good=LW.social_relations_state(SB);bad=LW.social_relations_state(SB)
@@ -263,7 +265,7 @@ end
     plans=Any[]
     for rel in (bad,LW.social_relations_state(SB),good)
         t=LW.food_trade_state(8)
-        push!(plans,LW.food_trade_plan!(t,SB,view,x.w.bodies[SB],nothing,1_000_000;relation=rel))
+        push!(plans,LW.food_trade_plan!(t,SB,view,x.w.bodies[SB],nothing,1_000_000;relation=rel,require_need=false))
     end
     accept_probability(p)=p["action"]=="trade_accept" ? p["selection_probability"] : 1-p["selection_probability"]
     probabilities=accept_probability.(plans)
@@ -279,7 +281,7 @@ end
         z=relationship_trade_fixture(seed);rel=LW.social_relations_state(SA)
         relation_event!(rel,SB,"aid_received","old-help",1,"given")
         ownview=LW.food_exchange_view(z.t["world"],z.r,z.w,RH,SA,1_000_000)
-        p=LW.food_trade_plan!(z.t,SA,ownview,z.w.bodies[SA],nothing,1_000_000;relation=rel)
+        p=LW.food_trade_plan!(z.t,SA,ownview,z.w.bodies[SA],nothing,1_000_000;relation=rel,require_need=false)
         if p!==nothing
             @test p["priority"]≈4p["trade_gain"]-1+bias(rel,"trade_offer")
             @test p["give_count"]<=z.r.personal[SA][p["give_kind"]] && p["target"]==SB
