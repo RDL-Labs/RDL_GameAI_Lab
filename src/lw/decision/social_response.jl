@@ -1,6 +1,6 @@
 using SHA
 # Port of runtime/refusal_relation_field.py's respond path (affiliation=0).
-function experienced_response(obs,records,pressure,owner,seed;retention=0.,relation=nothing)
+function experienced_response(obs,records,pressure,owner,seed;retention=0.,relation=nothing,now=nothing)
     check(obs["self_id"]==owner && pressure.parent.goal_id==owner*":obtain-aid","response_owner")
     m=first(obs["messages"]);other=m["sender"]
     if m["kind"]!="request" || !any(x->x["ref"]==other,obs["others"])
@@ -35,6 +35,15 @@ function experienced_response(obs,records,pressure,owner,seed;retention=0.,relat
     digest=sha256(seed);bits=foldl((x,b)->(x<<8)|UInt64(b),digest[1:8];init=UInt64(0))
     draw=Float64(bits)/18446744073709551616.0
     action=draw<1-probability ? "refuse" : "give"
+    components=D("baseline"=>1.,"own_need"=>-need,"prior_refusal"=>-weight,"retention"=>-retention,
+        "anxiety"=>-food_anxiety(food_security(relation)),"appearance"=>get(situation,"distress",0.),
+        "relation"=>relationship===nothing ? 0. : relationship["weight"])
+    candidates=Any[D("method"=>"refuse:"*other,"action"=>"refuse","priority"=>0.),
+        D("method"=>"give:"*other,"action"=>"give","priority"=>score,"context"=>situation,
+          "components"=>components,"gradient_relation"=>relationship,"feasible"=>obs["inventory"]>0)]
+    selected=action=="give" ? candidates[2] : candidates[1]
+    gradient_capture!(relation,unified ? pressure.loop : nothing,candidates,selected,seed,now;
+        channel="aid_response",probabilities=[1-probability,probability])
     trace=D("source"=>seed,"other"=>other,"weight"=>weight,"sources"=>sources,
         "need"=>need,"retention_cost"=>retention,"give_probability"=>probability,"draw"=>draw,"selected"=>action,
         "authority"=>"local response use rule; not inferred intent")

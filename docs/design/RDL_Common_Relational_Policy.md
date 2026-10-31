@@ -87,3 +87,5 @@
 - [経路全体のMB](LW_Whole_Route_MB.md)
 
 - [食料の将来不足・共通の他者観測・注視](LW_Food_Security_And_Social_Attention.md)
+
+- [選択時のMB勾配地図の記録](LW_MB_Gradient_Records.md)

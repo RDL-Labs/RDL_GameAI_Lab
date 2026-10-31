@@ -45,6 +45,7 @@ include(joinpath(@__DIR__, "../decision/item_social.jl"))
 include(joinpath(@__DIR__, "../learning/social_aid.jl"))
 include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
 include(joinpath(@__DIR__, "../decision/food_security.jl"))
+include(joinpath(@__DIR__, "../decision/gradient_trace.jl"))
 include(joinpath(@__DIR__, "../perception/social_sight.jl"))
 include(joinpath(@__DIR__, "../decision/visual_aid.jl"))
 include(joinpath(@__DIR__, "../decision/social_approach.jl"))
@@ -320,6 +321,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         for a in IDS
             relations[a]["aid"]=social_aid_state(a;seed=choice_seed)
             relations[a]["visual_aid"]=visual_aid_state(a;seed=choice_seed)
+            relations[a]["gradient_logging"]=get(spec,:gradient_logging,true)
+            check(relations[a]["gradient_logging"] isa Bool,"gradient_logging_flag")
             relations[a]["approach"]=D("proposed"=>0,"selected"=>0,"contacts"=>0,"records"=>Any[])
             states[a]["records_pruned"]=0
         end
@@ -605,7 +608,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             elseif !isempty(messages)
                 m=first(messages);current=merge(copy(o),D("messages"=>[m]))
                 if social_response || food_body || relations!==nothing
-                    decision,trace=experienced_response(current,states[a]["records"],aid_view(a),a,"respond:$now:$a:$(m["id"])";retention=food_body ? retention_cost(current,hunger[a]) : 0.,relation=relations===nothing ? nothing : relations[a])
+                    decision,trace=experienced_response(current,states[a]["records"],aid_view(a),a,"respond:$now:$a:$(m["id"])";retention=food_body ? retention_cost(current,hunger[a]) : 0.,relation=relations===nothing ? nothing : relations[a],now)
                     act,t,r=decision
                     if trace!==nothing
                         rs=response_stats[a];rs["decisions"]+=1;rs[act]+=1
@@ -617,6 +620,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     act,t,r=response(current,a!="npc_b")
                 end
                 plan=D("action"=>act,"target"=>t,"reply_to"=>r)
+                (m["kind"]=="request" && any(x->x["ref"]==m["sender"],o["others"])) && (plan["gradient_source"]="respond:$now:$a:$(m["id"])")
                 relations!==nothing && t!==nothing && (plan["context"]=social_observed_context(relations[a],t,food_social_context(w.bodies[a])))
                 push!(answered[a],m["id"])
                 if act=="give" && relations!==nothing
@@ -1106,7 +1110,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     end
                 end
             end
-            get(plan,"visual_aid",false) && visual_aid_executed!(relations[a],plan,status)
+            get(plan,"visual_aid",false) && visual_aid_executed!(relations[a],plan,status;now)
+            haskey(plan,"gradient_source") && gradient_result!(relations===nothing ? nothing : relations[a],plan["gradient_source"],status;actual=status=="transferred" ? 1. : 0.,now)
             if shared_stores && action in ("deposit","retrieve")
                 push!(storage_stats["records"],D("actor"=>a,"operation"=>op,"action"=>action,"status"=>status,"stock_after"=>shared))
                 length(storage_stats["records"])>32 && popfirst!(storage_stats["records"])

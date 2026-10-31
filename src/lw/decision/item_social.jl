@@ -47,6 +47,8 @@ function item_social_resolve!(mind,plan,result;relation=nothing,state=nothing)
     resolve_prediction!(mind[role],plan["source"],plan["expected"],actual;
         fulfilled=success,tolerance=.01) || return false
     state!==nothing && item_exchange_learn!(state,plan,result)
+    gradient_result!(relation,plan["source"],result["status"];actual,now=result["us"])
+
     if relation!==nothing
         social_relation_event!(relation,plan["partner"],role=="offer" ? "trade_offer" : "trade_response",
             plan["source"],result["us"];outcome=result["status"],value=actual,context=plan["context"])
@@ -131,7 +133,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         action=counter ? "item_counter" : response ? "item_accept" : "item_offer"
         push!(candidates,D("method"=>"$action:$(item_exchange_key(other,exchange_give,exchange_want))",
             "action"=>action,"question"=>"subjective_possession_value",
-            "priority"=>4expected+(trace===nothing ? 0. : trace["weight"]),
+            "components"=>D("expected"=>4expected,"relation"=>trace===nothing ? 0. : trace["weight"]),"priority"=>4expected+(trace===nothing ? 0. : trace["weight"]),
             "expected"=>expected,"gain"=>gain,"subjective_gain"=>subjective,"relation_value"=>relation_value,"partner"=>other,"trace"=>trace,
             "exchange_give"=>exchange_give,"exchange_want"=>exchange_want,
             "relational_field"=>field,
@@ -242,8 +244,10 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     incidental_item_bound_methods!(D("loop"=>loop),candidates)
     source="items:$role:$(state["actor"]):$now"
     plan=choose_method!(loop,candidates,source)
+    gradient_capture!(relation,loop,candidates,plan,source,now;channel="item_trade")
     mind["decisions"]+=1;mind["candidates"]+=length(candidates)
     if plan["action"]=="continue"
+        gradient_result!(relation,source,"continued";now)
         mind["continued"]+=1
         resolve_method!(loop,source,nothing,nothing;creditable=false,goal_H_increment=0.)
         return nothing
@@ -260,6 +264,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     else
         for k in ("give_items","want_items","give_food","want_food");pop!(plan,k,nothing);end
     end
+
     if relation!==nothing && plan["trace"]!==nothing
         social_relation_use!(relation,plan["partner"],response ? "trade_response" : "trade_offer",
             source,now,plan["trace"];action=plan["action"])
@@ -273,6 +278,7 @@ function item_social_executed!(state,plan,result;relation=nothing)
         mind["pending"]!==nothing && mind["pending"]["offer_id"]==result["offer_id"] && return false
         mind["pending"]=merge(deepcopy(plan),D("offer_id"=>result["offer_id"],
             "counter_of"=>plan["action"]=="item_counter" ? plan["offer_id"] : nothing))
+        gradient_result!(relation,plan["source"],"offered";now=result["us"])
         mind["proposed"]+=1
         plan["action"]=="item_counter" && (mind["counterproposed"]=get(mind,"counterproposed",0)+1)
     else

@@ -71,6 +71,7 @@ function food_trade_views!(t,r,w,home,now;relations=nothing)
                 notice=findfirst(n->n["offer_id"]==pending["offer_id"],view["notices"])
                 if notice!==nothing
                     result=view["notices"][notice]
+                    gradient_result!(relations===nothing ? nothing : relations[a],pending["source"],result["status"];actual=food_trade_actual(pending["weights"],result),now=result["us"])
                     food_trade_resolve!(mind["offer"],pending["source"],get(pending,"expected",pending["gain"]),pending["weights"],result;relational=get(mind,"relational",false))
                     relations!==nothing && social_relation_event!(relations[a],pending["partner"],"trade_offer",
                         pending["offer_id"],result["us"];outcome=result["status"],value=food_trade_actual(pending["weights"],result),context=get(pending,"context",nothing))
@@ -109,7 +110,9 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=tr
             push!(candidates,D("method"=>method,"action"=>"trade_accept","priority"=>4gain-.2+(relation_trace===nothing ? 0. : relation_trace["weight"]),
                 "question"=>"stock_value_improved","offer_id"=>offer["id"],"trade_gain"=>gain))
         end
+        for c in candidates;c["gradient_relation"]=relation_trace;c["context"]=situation;end
         plan=choose_method!(mind["response"],candidates,source)
+        gradient_capture!(relation,mind["response"],candidates,plan,source,now;channel="food_trade_response")
         plan["trade_role"]="response";plan["trade_source"]=source
         plan["trade_weights"]=weights
         plan["trade_context"]=situation
@@ -145,8 +148,11 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=tr
     prior=-log(length(candidates))
     for c in candidates;c["observation_log_prior"]=prior;end
     push!(candidates,D("method"=>"continue_activity","action"=>"trade_skip","priority"=>0.,"question"=>"stock_value_improved"))
+    for c in candidates;c["gradient_relation"]=get(relation_traces,get(c,"trade_trace_key",""),nothing);end
     plan=choose_method!(mind["offer"],candidates,source)
+    gradient_capture!(relation,mind["offer"],candidates,plan,source,now;channel="food_trade_offer")
     if plan["action"]=="trade_skip"
+        gradient_result!(relation,source,"continued";now)
         resolve_method!(mind["offer"],source,nothing,nothing;creditable=false,goal_H_increment=0.)
         return nothing
     end
@@ -159,6 +165,7 @@ end
 function food_trade_executed!(t,a,plan,result;relation=nothing)
     relation!==nothing && check(relation["actor"]==a,"trade_relation_owner")
     mind=t["minds"][a];role=plan["trade_role"];source=plan["trade_source"]
+    gradient_result!(relation,source,result["status"];actual=result["status"]=="offered" ? nothing : food_trade_actual(plan["trade_weights"],result),now=result["us"])
     if role=="offer" && result["status"]=="offered"
         mind["pending"]=D("offer_id"=>result["offer_id"],"source"=>source,"gain"=>plan["trade_gain"],"expected"=>get(plan,"trade_expected_gain",plan["trade_gain"]),"weights"=>copy(plan["trade_weights"]),"partner"=>plan["target"],"context"=>deepcopy(get(plan,"trade_context",nothing)))
     elseif plan["action"]=="trade_decline"

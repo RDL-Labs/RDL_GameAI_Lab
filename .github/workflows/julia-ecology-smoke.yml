@@ -36,6 +36,7 @@ jobs:
           julia --startup-file=no --project=. experiments/social_relationships/approach_checks.jl
           julia --startup-file=no --project=. experiments/social_relationships/expression_checks.jl
           julia --startup-file=no --project=. experiments/social_relationships/food_security_checks.jl
+          julia --startup-file=no --project=. experiments/social_relationships/gradient_checks.jl
           julia --startup-file=no --project=. experiments/social_relationships/integration_checks.jl
       - name: Portable non-food world operations
         run: |

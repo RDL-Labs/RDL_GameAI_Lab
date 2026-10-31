@@ -5,7 +5,7 @@ function visual_aid_state(actor;seed=0)
       "pending"=>nothing,"next_us"=>0,"decisions"=>0,"candidates"=>0,
       "selected"=>0,"transferred"=>0,"abandoned"=>0,"records"=>Any[])
 end
-function visual_aid_close!(s,plan,status)
+function visual_aid_close!(s,plan,status;relation=nothing,now=nothing)
     success=status=="transferred"
     changed=resolve_prediction!(s["loop"],plan["visual_aid_source"],plan["expected"],
         status=="abandoned" ? nothing : Float64(success);fulfilled=success,tolerance=.05)
@@ -15,6 +15,7 @@ function visual_aid_close!(s,plan,status)
         "status"=>status,"expression"=>plan["expression"],"context"=>plan["context"],
         "expected"=>plan["expected"],"question"=>"food_delivered"))
     length(s["records"])>32 && popfirst!(s["records"])
+    gradient_result!(relation,plan["visual_aid_source"],status;actual=status=="abandoned" ? nothing : Float64(success),now)
     s["pending"]=nothing
     true
 end
@@ -34,11 +35,11 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
     if s["pending"]!==nothing
         p=s["pending"]
         if !able || now>p["deadline_us"] || !any(x->x["ref"]==p["target"],peers)
-            visual_aid_close!(s,p,"abandoned");return nothing
+            visual_aid_close!(s,p,"abandoned";relation,now);return nothing
         end
         isempty(kinds) && return nothing
         if !RDLBody.food_edible(first(kinds))
-            visual_aid_close!(s,p,"abandoned");return nothing
+            visual_aid_close!(s,p,"abandoned";relation,now);return nothing
         end
         return merge(p,D("action"=>"give"))
     end
@@ -61,6 +62,7 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
         # Food may help this appearance; fear/fatigue can make that guess wrong.
         motivation=face.distress*(1-.5face.fear)
         push!(candidates,D("method"=>"visual_give:$other","action"=>action,"target"=>other,
+            "components"=>D("appearance"=>2motivation,"relation"=>trace["weight"],"prediction"=>.5log(2prediction["probability"]),"retention"=>-1/(1+spare),"baseline"=>-1.),
             "priority"=>2motivation+trace["weight"]+.5log(2prediction["probability"])-1/(1+spare)-1,
             "question"=>"food_delivered","expected"=>prediction["probability"],
             "expression"=>face,"context"=>context,"trace"=>trace,"visual_aid"=>true,
@@ -71,7 +73,9 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
     for p in candidates;p["observation_log_prior"]=prior;end
     push!(candidates,D("method"=>"continue","action"=>"continue","priority"=>0.,"question"=>"food_delivered"))
     p=choose_method!(s["loop"],candidates,source)
+    gradient_capture!(relation,s["loop"],candidates,p,source,now;channel="visual_aid")
     if p["action"]=="continue"
+        gradient_result!(relation,source,"continued";now)
         resolve_method!(s["loop"],source,nothing,nothing;creditable=false,goal_H_increment=0.)
         return nothing
     end
@@ -79,11 +83,11 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
     social_relation_use!(relation,p["target"],"give",source,now,p["trace"];action)
     p
 end
-function visual_aid_executed!(relation,plan,status)
+function visual_aid_executed!(relation,plan,status;now=nothing)
     get(plan,"visual_aid",false) || return false
     s=relation["visual_aid"]
     plan["action"]=="retrieve" && status!="unavailable" && return false
-    visual_aid_close!(s,plan,status)
+    visual_aid_close!(s,plan,status;relation,now)
 end
 function visual_aid_snapshot(s)
     out=deepcopy(s);out["loop"]=loop_snapshot(s["loop"]);out
