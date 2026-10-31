@@ -34,6 +34,7 @@ include(joinpath(@__DIR__, "../learning/sleep_maintenance.jl"))
 include(joinpath(@__DIR__, "moving.jl"))
 include(joinpath(@__DIR__, "../../body/load.jl"))
 include(joinpath(@__DIR__, "../world/food_resources.jl"))
+include(joinpath(@__DIR__, "../world/seasonal_food.jl"))
 include(joinpath(@__DIR__, "../world/food_exchange.jl"))
 include(joinpath(@__DIR__, "../world/portable_items.jl"))
 include(joinpath(@__DIR__, "../configured_paths/item_actions.jl"))
@@ -100,7 +101,7 @@ end
 
 function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest_sleep=false,model_field=false,model_review=false,model_relearn=false,renewable_food=false,hazard_mode=false,ground_mode="flat",running=false,climbing=false,low_obstacles=false,dropping=false,social_response=false,general_sleep=false,sleep_actions=false,sleep_retention=false,sleep_maintenance=false,ground_wear=false,ground_perception=false,ground_continuity=false,food_body=false,dynamic_hazard_mode="off",continuous_safety=false,orientation=false,relation_field=false,body_field=false,movement_inertia=false,exploration_horizon=false,experience_bundles=false,bundle_credit=false,selection_trails=false,reposition=false,skyline_mode="off",shared_stores=false,regrowth_days=1,regrowth_capacity=0,goal_switch_threshold=2,lateral_side="off",parent_breadth=false,repetition_pressure=false,adaptive_approach=false,continuous_descent=false,rho_profile="off",rho_opening_candidates_enabled=true,digestion_mode="off",choice_seed=0,general_landmarks=false,body_purpose=false,mb_simulation=false,mb_chunks=false,mb_sleep=false,configured_observation_enabled=false,configured_home_rest_enabled=false,embedded_rest_enabled=false,night_fear_enabled=false,daily_delivery_enabled=false,camp_safe_zone=false,mb_sensitivities=D(),mb_similarity_learning=true,checkpoint_dir=nothing,resume_from=nothing,checkpoint_identity="")
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
-    check(days isa Int && 1<=days<=90,"lw_days")
+    check(days isa Int && 1<=days<=180,"lw_days")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!general_landmarks || landmark_routes,"general_landmarks_requires_routes")
     check(!mb_simulation || (basic_loop && landmark_routes),"mb_simulation_requires_observed_loop")
@@ -263,6 +264,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
     end
     check(regrowth_days isa Integer && regrowth_days>=1 && regrowth_capacity isa Integer && regrowth_capacity>=0,"regrowth_config")
+    food_season=seasonal_food_config(spec,renewable_food,regrowth_days)
+    history!==nothing && check(seasonal_food_config((food_season=get(history,:food_season,nothing),),renewable_food,regrowth_days)==food_season,"world_history_food_season")
     shared=history===nothing ? get(spec,:initial_shared_stock,0) : get(history,:shared_stock,0)
     check(shared isa Integer && !(shared isa Bool) && shared>=0 && (shared_stores || shared==0),"shared_stock")
     history!==nothing && check(get(history,:shared_stores,false)==shared_stores && get(history,:regrowth_days,1)==regrowth_days && get(history,:regrowth_capacity,0)==regrowth_capacity,"world_history_store_regrowth")
@@ -387,7 +390,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 day>0 && (learning=Dict(a=>sleeper(day) for a in IDS))
                 if renewable_food && mod(div(world_offset,clock.day_us)+day,regrowth_days)==0
                     old_stock=foods===nothing ? nothing : copy(stock)
-                    added=replenish_food!(stock,spec.food;capacity=regrowth_capacity);replenished+=added
+                    added=food_season===nothing ? replenish_food!(stock,spec.food;capacity=regrowth_capacity) :
+                        seasonal_replenish_food!(stock,spec.food,food_season,div(world_offset,clock.day_us)+day;capacity=regrowth_capacity)
+                    replenished+=added
                     if foods!==nothing
                         for i in eachindex(stock);foods.added[foods.site_kinds[i]]+=stock[i]-old_stock[i];end
                     end
@@ -1260,7 +1265,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     environment=D("rule"=>"native-cohort-world-v1","day_us"=>clock.day_us,"next_us"=>world_offset+days*clock.day_us,
         "shared_stores"=>shared_stores,"shared_stock"=>shared,"regrowth_days"=>regrowth_days,"regrowth_capacity"=>regrowth_capacity,"landscape"=>land,"obstacles"=>spec.obstacles,"renewal_targets"=>spec.food,"ground_patches"=>spec.ground_patches,
-        "renewable"=>renewable_food,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
+        "renewable"=>renewable_food,"food_season"=>food_season,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
         "food"=>deepcopy(food),"stock"=>copy(stock),"ground"=>ground_wear ? wear_snapshot(wear) : nothing,
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
         "wildlife"=>wildlife===nothing ? nothing :

@@ -28,6 +28,7 @@ jobs:
         run: julia --startup-file=no run.jl --help
       - name: Typed food, personal stores and barter
         run: |
+          julia --startup-file=no --project=. experiments/seasonal_food/checks.jl
           julia --startup-file=no --project=. experiments/food_exchange/checks.jl
           julia --startup-file=no --project=. experiments/food_exchange/policy_checks.jl
           julia --startup-file=no --project=. experiments/social_relationships/checks.jl

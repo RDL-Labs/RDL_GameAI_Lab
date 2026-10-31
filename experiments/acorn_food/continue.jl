@@ -3,7 +3,7 @@ length(ARGS)==3 || error("usage: continue.jl PREVIOUS_OUTPUT FINAL_DAY NEW_OUTPU
 const previous=abspath(ARGS[1]);const final_day=parse(Int,ARGS[2]);const out=abspath(ARGS[3])
 const original=JSON3.read(read(joinpath(previous,"input.json"),String),Dict{String,Any})
 const start_day=Int(original["config"]["days"])
-start_day<final_day<=90 || error("final day must extend the previous run, up to 90")
+start_day<final_day<=180 || error("final day must extend the previous run, up to 180")
 ispath(out) && error("fresh output required")
 const saved=joinpath(previous,"checkpoints","day-"*lpad(start_day,3,'0')*".jls")
 isfile(saved) || error("missing final daily checkpoint")
@@ -33,7 +33,8 @@ const f=r.food_resources
     @test sum(values(f.work_ticks))>=120*f.processed_inputs[3]
     for (i,d) in enumerate(r.daily)
         @test r.initial_food+d.replenished_food==d.ground+d.shared_stock+d.consumed+sum(a.inventory+a.personal_stock for a in values(d.physical))
-        @test d.replenished_food==0
+        @test d.replenished_food>=0
+        original["config"]["food"]=="finite" && (@test d.replenished_food==0)
         @test d.food_resources.consumed[3]==0
         @test sum(d.food_resources.consumed)==d.consumed
         i>1 && (@test r.day_starts[i]==r.daily[i-1].physical)
