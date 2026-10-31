@@ -1,4 +1,4 @@
-# Lower-level negotiation regression fixture: necessity is explicitly disabled here.
+# Lower-level negotiation fixture; require_need=false is retained for API compatibility.
 # Controlled policy fixtures: no long world simulation or repeated resource suite.
 using Test, Serialization, JSON3
 include("../../src/lw/LW.jl")

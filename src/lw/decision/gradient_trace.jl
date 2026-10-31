@@ -20,7 +20,7 @@ function gradient_capture!(relation,loop,candidates,chosen,source,now;channel="s
             "repulsion"=>repulsion,"method_penalty"=>method_H,"temperature"=>temperature,
             "prior"=>get(c,"observation_log_prior",0.),"probability"=>probs[i],"feasible"=>get(c,"feasible",true),
             "log_weight"=>(c["priority"]+learned-repulsion-method_H)/temperature+get(c,"observation_log_prior",0.))
-        for k in ("action","target","partner","expected","trade_gain","trade_expected_gain","context","trade_context","observed_context","terms","components")
+        for k in ("action","target","partner","expected","trade_gain","trade_expected_gain","context","trade_context","observed_context","terms","components","compound_gradient")
             haskey(c,k) && (row[k]=deepcopy(c[k]))
         end
         trace=get(c,"trace",get(c,"gradient_relation",nothing))

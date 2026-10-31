@@ -1,4 +1,4 @@
-# Lower-level negotiation regression fixture: necessity is explicitly disabled here.
+# Lower-level negotiation fixture; require_need=false is retained for API compatibility.
 include("checks.jl")
 using Serialization
 @testset "exchange relations generalize observed bundles" begin

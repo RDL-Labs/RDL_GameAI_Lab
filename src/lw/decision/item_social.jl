@@ -35,8 +35,10 @@ end
 function item_social_actual(plan,result)
     result["status"]=="exchanged" || return 0.
     before=result["own_before"];after=result["own_after"]
-    item_social_utility(after["items"],after["food"],plan["values"],plan["weights"])-
-        item_social_utility(before["items"],before["food"],plan["values"],plan["weights"])+get(plan,"relation_value",0.)-.002
+    material=item_social_utility(after["items"],after["food"],plan["values"],plan["weights"])-
+        item_social_utility(before["items"],before["food"],plan["values"],plan["weights"])
+    haskey(plan,"valuation") ? trade_compound_gradient(before["food"],after["food"],material,plan["valuation"])["total"] :
+        material+get(plan,"relation_value",0.)-.002 # previously saved trials
 end
 
 function item_social_resolve!(mind,plan,result;relation=nothing,state=nothing)
@@ -85,17 +87,14 @@ function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[]
         item_social_utility(after,stock.-gf.+wf,values,weights)).delta
 end
 
-function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,require_need=true)
+function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,require_need=false)
+    require_need && error("necessity admission was replaced by compound trade valuation")
     view===nothing && return nothing
     body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
     mind=item_social_state!(state)
     incoming=get(view,"incoming",Any[])
     response=!isempty(incoming)
     security=food_security(relation);need=trade_food_need(body,gut,stock;security)
-    if require_need && !response && need<=1e-9
-        mind["need_skipped"]=get(mind,"need_skipped",0)+1
-        return nothing # no recall, candidate construction, RNG or H update
-    end
     (!response && (now<mind["next_us"] || mind["pending"]!==nothing || view["outgoing"]!==nothing)) && return nothing
     mind["next_us"]=now+64_000_000
     role=response ? "response" : "offer";loop=mind[role]
@@ -103,24 +102,29 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     item_exchange_memory!(state)
     weights=stock===nothing ? zeros(4) : food_trade_weights(body,gut)
     available=stock===nothing ? zeros(Int,4) : copy(stock)
-    values=require_need && need<=1e-9 ? Dict{Int,Float64}() : item_subjective_values(state,view;stock=available,weights)
+    values=item_subjective_values(state,view;stock=available,weights)
     context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
     candidates=Any[]
+    peer_valuations=D()
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
         # New requests and counteroffers stay within the observed warehouse.
         # An incoming offer is its own evidence; execution revalidates ownership.
         (!response || counter) && any(k->wf[k]>observed_food_count(view,other,k;fallback=typemax(Int)),eachindex(wf)) && return
         relief=trade_food_relief(body,gut,stock,gf,wf;security)
-        require_need && (need<=1e-9 || relief<=1e-9) && return
         isempty(intersect(give,want)) || return
         (!isempty(give) || !isempty(want)) && sum(gf)<=4 && sum(wf)<=4 || return
         gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"])
         gain===nothing && return
-        trace=relation===nothing ? nothing : social_relation_bias(relation,other,
-            response ? "trade_response" : "trade_offer";situation=social_observed_context(relation,other,context),H=loop.H)
-        relation_value=trace===nothing ? 0. : .02trace["profile"]["benefit"]
-        subjective=gain+relation_value-.002
+        observed,trace,valuation=get!(peer_valuations,other) do
+            observed=social_observed_context(relation,other,context)
+            trace=relation===nothing ? nothing : social_relation_bias(relation,other,
+                response ? "trade_response" : "trade_offer";situation=observed,H=loop.H)
+            (observed,trace,trade_valuation_context(body,gut,security,observed,trace;food_enabled=stock!==nothing))
+        end
+        gradient=trade_compound_gradient(available,available.-gf.+wf,gain,valuation)
+        relation_value=gradient["relationship"]
+        subjective=gradient["total"]
         # A valuation admissibility band, not a probability of accepting a loss.
         # Need/taste, possessions and social MB evidence remain owner-relative.
         subjective>=-.01 || return
@@ -129,7 +133,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         evidence=item_exchange_recall(state,exchange_give,exchange_want,other,context,loop.H)
         prior=trace===nothing ? .5 : trace["profile"]["trade_probability"]
         probability=response && !counter ? 1. : (2prior+evidence.predicted)/(2+evidence.successes+evidence.failures)
-        field=relational_transition(0.,gain+relation_value;probability,cost=.002)
+        field=relational_transition(0.,subjective;probability)
         expected=field.expected
         # Shape-based methods generalize over object IDs. Actual refs bind only
         # the current transfer. The bounded method table is shared-loop machinery.
@@ -138,17 +142,18 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
             "action"=>action,"question"=>"subjective_possession_value",
             "components"=>D("expected"=>4expected,"relation"=>trace===nothing ? 0. : trace["weight"]),"priority"=>4expected+(trace===nothing ? 0. : trace["weight"]),
             "expected"=>expected,"gain"=>gain,"subjective_gain"=>subjective,"relation_value"=>relation_value,"partner"=>other,"trace"=>trace,
+            "compound_gradient"=>gradient,"valuation"=>valuation,
             "exchange_give"=>exchange_give,"exchange_want"=>exchange_want,
             "relational_field"=>field,
-            "necessity"=>D("purpose"=>"food_security","before"=>need,"relief"=>relief,"required"=>require_need),
+            "necessity"=>D("purpose"=>"food_security","before"=>need,"relief"=>relief,"required"=>false),
             "exchange_evidence"=>D("successes"=>evidence.successes,"failures"=>evidence.failures),
-            "observed_context"=>social_observed_context(relation,other,context),"terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
+            "observed_context"=>observed,"terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
             "give_items"=>give,"want_items"=>want,"give_food"=>gf,"want_food"=>wf,"offer_id"=>offer_id))
     end
     if response
         o=first(incoming)
         candidate(o["proposer"],o["want_items"],o["give_items"],o["want_food"],o["give_food"];offer_id=o["id"])
-        if isempty(candidates) && (!require_need || need>1e-9) && view["outgoing"]===nothing && mind["pending"]===nothing && get(o,"round",0)<8
+        if isempty(candidates) && view["outgoing"]===nothing && mind["pending"]===nothing && get(o,"round",0)<8
             give=Int.(o["want_items"]);want=Int.(o["give_items"])
             gf=Int.(o["want_food"]);wf=Int.(o["give_food"])
             # Local changes use only the warehouse observation in this view.
@@ -184,7 +189,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
             "offer_id"=>o["id"],"partner"=>o["proposer"],"trace"=>nothing))
     else
         own=Iterators.take(view["own"]["held"],4)
-        if require_need && stock!==nothing
+        if stock!==nothing
             # Tender a possession for needed, observed food.
             for other in get(view,"trade_partners",String[]), held in own, k in eachindex(available), n in 1:min(4,observed_food_count(view,other,k))
                 wf=zeros(Int,4);wf[k]=n

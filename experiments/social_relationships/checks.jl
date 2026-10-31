@@ -131,8 +131,8 @@ end
 
 const RF=LW.RDLBody
 const RH=(0.,0.)
-function relationship_trade_fixture(seed=1)
-    kinds=[fill(RF.RAW_ACORN,20),fill(RF.FRUIT_FOOD,2),Int[]]
+function relationship_trade_fixture(seed=1;fruit=2)
+    kinds=[fill(RF.RAW_ACORN,20),fill(RF.FRUIT_FOOD,fruit),Int[]]
     w=LW.world(true);w.positions[SC]=(100.,100.)
     for (i,a) in enumerate(LW.IDS)
         w.inventory[a]=length(kinds[i]);w.bodies[a]=RF.Body(10.,0.,90.,0.)
@@ -253,9 +253,9 @@ end
 end
 
 @testset "aid and personal trade value carry into barter choices" begin
-    # Isolate relation weighting; default necessity admission is checked by
-    # portable_items/necessity_checks.jl and the LW integration fixture.
-    x=relationship_trade_fixture();_,offered=fixed_relation_offer!(x)
+    # Compare relation weighting on admissible terms, not a forced probability
+    # of accepting an overall loss. Scarcity and aid are checked separately.
+    x=relationship_trade_fixture(;fruit=20);_,offered=fixed_relation_offer!(x)
     view=LW.food_exchange_view(x.t["world"],x.r,x.w,RH,SB,1_000_000)
     good=LW.social_relations_state(SB);bad=LW.social_relations_state(SB)
     for i in 1:8
@@ -271,7 +271,8 @@ end
     probabilities=accept_probability.(plans)
     @test 0<probabilities[1]<probabilities[2]<probabilities[3]<1
     expected=LW.food_trade_gain(view["own_stock"],LW.food_trade_weights(x.w.bodies[SB],nothing),RF.FRUIT_FOOD,1,RF.RAW_ACORN,1)
-    @test all(p->p["action"]=="trade_decline" ? p["trade_gain"]==0. : p["trade_gain"]==expected,plans)
+    @test all(p->p["action"]=="trade_decline" ? p["trade_gain"]==0. : p["compound_gradient"]["material"]≈expected,plans)
+    @test all(p->p["action"]=="trade_decline" || p["trade_gain"]==p["compound_gradient"]["total"],plans)
     @test all(p->p["action"] in ("trade_accept","trade_decline"),plans)
     @test last(good["choices"])["trace"]["profile"]["aid_credit"]>0.
     @test good["use_counts"]["trade_response"]==1
