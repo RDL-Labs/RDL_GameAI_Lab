@@ -106,6 +106,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
     candidates=Any[]
     peer_valuations=D()
+    recall_support=D() # local: never survives selection or experience updates
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
         # New requests and counteroffers stay within the observed warehouse.
@@ -130,7 +131,11 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         subjective>=-.01 || return
         exchange_give=item_exchange_bundle(view,give,gf);exchange_want=item_exchange_bundle(view,want,wf)
         (exchange_give===nothing || exchange_want===nothing) && return
-        evidence=item_exchange_recall(state,exchange_give,exchange_want,other,context,loop.H)
+        key=item_exchange_key(other,exchange_give,exchange_want)
+        support=get!(recall_support,key) do
+            item_exchange_support(state,exchange_give,exchange_want,other,context,loop.H)
+        end
+        evidence=item_exchange_prediction(support,exchange_give,exchange_want)
         prior=trace===nothing ? .5 : trace["profile"]["trade_probability"]
         probability=response && !counter ? 1. : (2prior+evidence.predicted)/(2+evidence.successes+evidence.failures)
         field=relational_transition(0.,subjective;probability)
@@ -138,7 +143,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         # Shape-based methods generalize over object IDs. Actual refs bind only
         # the current transfer. The bounded method table is shared-loop machinery.
         action=counter ? "item_counter" : response ? "item_accept" : "item_offer"
-        push!(candidates,D("method"=>"$action:$(item_exchange_key(other,exchange_give,exchange_want))",
+        push!(candidates,D("method"=>"$action:$key",
             "action"=>action,"question"=>"subjective_possession_value",
             "components"=>D("expected"=>4expected,"relation"=>trace===nothing ? 0. : trace["weight"]),"priority"=>4expected+(trace===nothing ? 0. : trace["weight"]),
             "expected"=>expected,"gain"=>gain,"subjective_gain"=>subjective,"relation_value"=>relation_value,"partner"=>other,"trace"=>trace,

@@ -5,8 +5,10 @@ item_exchange_key(partner,give,want)=repr((partner,item_exchange_shapes(give),fi
     item_exchange_shapes(want),findall(>(0),want["food"])))
 item_exchange_quantities(give,want)=vcat(log1p(length(give["items"])),log1p.(give["food"]),
     -log1p(length(want["items"])),.-log1p.(want["food"]))
-item_exchange_response(m,give,want)=haskey(m,"quantity_coefficients") ?
-    1/(1+exp(-clamp(m["quantity_intercept"]+sum(m["quantity_coefficients"].*item_exchange_quantities(give,want)),-30.,30.))) :
+item_exchange_response(m,give,want)=item_exchange_response(m,
+    haskey(m,"quantity_coefficients") ? item_exchange_quantities(give,want) : nothing)
+item_exchange_response(m,quantities)=haskey(m,"quantity_coefficients") ?
+    1/(1+exp(-clamp(m["quantity_intercept"]+sum(m["quantity_coefficients"].*quantities),-30.,30.))) :
     (1+m["successes"])/(2+m["successes"]+m["failures"])
 
 function item_exchange_accumulate!(memory,give,want,partner,need,successes,failures,now)
@@ -120,7 +122,7 @@ function item_exchange_bundle_fit(state,a,b)
     fit*exp(-sum((a["food"].>0).!=(b["food"].>0)))
 end
 
-function item_exchange_recall(state,give,want,partner,context,H)
+function item_exchange_support(state,give,want,partner,context,H)
     scored=Any[]
     for m in get(state,"exchange_relations",Any[])
         fit=item_exchange_bundle_fit(state,give,m["give"])*item_exchange_bundle_fit(state,want,m["want"])
@@ -129,12 +131,29 @@ function item_exchange_recall(state,give,want,partner,context,H)
         push!(scored,(fit=fit,m=m))
     end
     sort!(scored;by=x->(-x.fit,-x.m["successes"],x.m["key"]))
-    successes=0.;failures=0.;predicted=0.
-    for x in Iterators.take(scored,min(8,mb_retrieval_budget(H)))
+    resize!(scored,min(length(scored),8,mb_retrieval_budget(H)))
+    successes=0.;failures=0.
+    for x in scored
         successes+=x.fit*x.m["successes"];failures+=x.fit*x.m["failures"]
-        predicted+=x.fit*(x.m["successes"]+x.m["failures"])*item_exchange_response(x.m,give,want)
     end
-    (successes=successes,failures=failures,predicted=predicted)
+    (matches=scored,successes=successes,failures=failures)
+end
+
+# Support is independent of quantity. Reuse only within a single planner call:
+# its memory, metric, need and H are fixed, and learning happens after selection.
+function item_exchange_prediction(support,give,want)
+    predicted=0.
+    if !isempty(support.matches)
+        quantities=item_exchange_quantities(give,want)
+        for x in support.matches
+            predicted+=x.fit*(x.m["successes"]+x.m["failures"])*item_exchange_response(x.m,quantities)
+        end
+    end
+    (successes=support.successes,failures=support.failures,predicted=predicted)
+end
+
+function item_exchange_recall(state,give,want,partner,context,H)
+    item_exchange_prediction(item_exchange_support(state,give,want,partner,context,H),give,want)
 end
 
 function item_exchange_learn!(state,plan,result)

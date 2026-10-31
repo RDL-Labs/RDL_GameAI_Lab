@@ -52,7 +52,13 @@ end
 
 @testset "learn only resolved execution once; recall learned food request" begin
     # Synthetic prior is a test fixture, not a configured production trade.
-    f=barter_fixture();s=LW.incidental_item_state(ITEM_A,9);v=item_view(f,ITEM_A)
+    # Observe an actually stocked counterparty. The old private-store fixture
+    # admitted unrelated, unavailable foods and no longer isolated this recall
+    # after compound valuation (it also fails on the unoptimized a5de82b).
+    f=item_fixture(objects=[placed_item(1,1;owner=ITEM_A,location="held")],
+        food_counts=[[2,0,0,0],[4,0,0,0],[0,0,0,0]])
+    s=LW.incidental_item_state(ITEM_A,9)
+    v=LW.item_visible(f.s,f.w,ITEM_HOME,ITEM_A,0.,0;open_stores=true,foods=f.foods)
     give=LW.item_exchange_bundle(v,[1],zeros(Int,4))
     want=LW.item_exchange_bundle(v,Int[],[4,0,0,0])
     prior=LW.D("exchange_give"=>give,"exchange_want"=>want,"partner"=>ITEM_B,
@@ -63,7 +69,7 @@ end
         trial=deepcopy(s);trial["loop"].seed=seed
         p=LW.item_social_plan!(trial,v,f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
         p===nothing && continue
-        if p["action"]=="item_offer" && p["give_items"]==[1] && p["want_food"]==[4,0,0,0]
+        if p["action"]=="item_offer" && p["give_items"]==[1] && isempty(p["want_items"]) && p["want_food"]==[4,0,0,0]
             found=true
             @test p["exchange_evidence"]["successes"]>0
             o=item_act(f,ITEM_A,p["action"],1;target=p["target"],give_items=p["give_items"],want_items=p["want_items"],give_food=p["give_food"],want_food=p["want_food"])

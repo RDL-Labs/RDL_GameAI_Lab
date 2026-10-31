@@ -1,0 +1,1087 @@
+{
+  "baseline_commit": "a5de82b",
+  "julia": "1.13.1",
+  "threads": 1,
+  "measurement": "5 warmed repetitions per case; planner only; fixture construction, cloning, GC.gc and serialization excluded",
+  "historical_input": "seasonal-food-180d-20261101/run/summary.json",
+  "input_sha256": "ADB24E2AA1EB150AAA34B5D2E7CB719630FC37C1FAB111C8FE86E1F92BF5D5D4",
+  "before": [
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "memory": 94,
+      "seconds": [
+        0.1170854,
+        0.1164706,
+        0.1163494,
+        0.1169172,
+        0.1187001
+      ],
+      "bytes": [
+        108920323,
+        108920323,
+        108916053,
+        108918236,
+        108918124
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.1169172,
+      "median_bytes": 108918236.0
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "memory": 94,
+      "seconds": [
+        0.002718,
+        0.0026767,
+        0.0026979,
+        0.002674,
+        0.0026633
+      ],
+      "bytes": [
+        2047239,
+        2047255,
+        2047255,
+        2049390,
+        2047271
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0026767,
+      "median_bytes": 2047255.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "memory": 81,
+      "seconds": [
+        0.0945267,
+        0.0942487,
+        0.0971847,
+        0.0939126,
+        0.0948302
+      ],
+      "bytes": [
+        87193859,
+        87191740,
+        87193843,
+        87193891,
+        87193875
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0945267,
+      "median_bytes": 87193859.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "memory": 81,
+      "seconds": [
+        0.0027716,
+        0.0027931,
+        0.0027948,
+        0.0028541,
+        0.0028197
+      ],
+      "bytes": [
+        2166679,
+        2166679,
+        2168798,
+        2166663,
+        2168734
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0027948,
+      "median_bytes": 2166679.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "memory": 44,
+      "seconds": [
+        0.0688199,
+        0.0642688,
+        0.0643639,
+        0.0645027,
+        0.0644454
+      ],
+      "bytes": [
+        56983317,
+        56983317,
+        56983317,
+        56983349,
+        56983317
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0644454,
+      "median_bytes": 56983317.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "memory": 44,
+      "seconds": [
+        0.00186,
+        0.0018514,
+        0.0018725,
+        0.0018378,
+        0.0018212
+      ],
+      "bytes": [
+        1266752,
+        1266752,
+        1266752,
+        1266752,
+        1266752
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0018514,
+      "median_bytes": 1266752.0
+    }
+  ],
+  "after": [
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "memory": 94,
+      "seconds": [
+        0.0440766,
+        0.0439842,
+        0.0454039,
+        0.0437847,
+        0.0445627
+      ],
+      "bytes": [
+        37682634,
+        37684833,
+        37684769,
+        37684769,
+        37682730
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0440766,
+      "median_bytes": 37684769.0
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "memory": 94,
+      "seconds": [
+        0.0018417,
+        0.0018915,
+        0.0018657,
+        0.0018651,
+        0.0018424
+      ],
+      "bytes": [
+        1168071,
+        1168039,
+        1168087,
+        1168087,
+        1170158
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0018651,
+      "median_bytes": 1168087.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "memory": 81,
+      "seconds": [
+        0.0396989,
+        0.0397896,
+        0.0400669,
+        0.0399588,
+        0.0399358
+      ],
+      "bytes": [
+        34035738,
+        34037841,
+        34035738,
+        34035722,
+        34035754
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0399358,
+      "median_bytes": 34035738.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "memory": 81,
+      "seconds": [
+        0.0020816,
+        0.0021312,
+        0.0020675,
+        0.0020812,
+        0.0021078
+      ],
+      "bytes": [
+        1417991,
+        1417991,
+        1418007,
+        1420094,
+        1417959
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0020816,
+      "median_bytes": 1417991.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "memory": 44,
+      "seconds": [
+        0.0276375,
+        0.0275685,
+        0.0278268,
+        0.0274055,
+        0.0272602
+      ],
+      "bytes": [
+        21493555,
+        21493587,
+        21493587,
+        21493619,
+        21493603
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0275685,
+      "median_bytes": 21493587.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "memory": 44,
+      "seconds": [
+        0.0013257,
+        0.0012769,
+        0.0012351,
+        0.0012429,
+        0.0013034
+      ],
+      "bytes": [
+        679488,
+        679488,
+        679488,
+        679488,
+        679488
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0012769,
+      "median_bytes": 679488.0
+    }
+  ],
+  "comparison": [
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "before_seconds": 0.1169172,
+      "after_seconds": 0.0440766,
+      "speedup": 2.652591170825336,
+      "before_bytes": 108918236,
+      "after_bytes": 37684769
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "before_seconds": 0.0026767,
+      "after_seconds": 0.0018651,
+      "speedup": 1.4351509302450272,
+      "before_bytes": 2047255,
+      "after_bytes": 1168087
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "before_seconds": 0.0945267,
+      "after_seconds": 0.0399358,
+      "speedup": 2.3669664812023297,
+      "before_bytes": 87193859,
+      "after_bytes": 34035738
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "before_seconds": 0.0027948,
+      "after_seconds": 0.0020816,
+      "speedup": 1.3426210607225213,
+      "before_bytes": 2166679,
+      "after_bytes": 1417991
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "before_seconds": 0.0644454,
+      "after_seconds": 0.0275685,
+      "speedup": 2.337646226671745,
+      "before_bytes": 56983317,
+      "after_bytes": 21493587
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "before_seconds": 0.0018514,
+      "after_seconds": 0.0012769,
+      "speedup": 1.4499177695982457,
+      "before_bytes": 1266752,
+      "after_bytes": 679488
+    }
+  ],
+  "decision_bytes_identical": true,
+  "parity_cases": 30,
+  "comparison_checks_passed": 32,
+  "before_parity": [
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "726c04cecc15c46efb30c0a26a9182a13b5f0c617262c8f3a4594d30d870ffc6"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "f746470d1a9a0005cc9eb909beba0d7cdc7588c7391441dee2d9351d4b2ad6d9"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "f5771a313bf62d65f70e8a2ff479b5cf1fe02164bd87a1f7544a0e5067f39b4c"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "01c72d9225771f139092418e0e6e879c68845778fcccb0671e4202155123ca39"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "b6cc0a8e002d5319704c2610dc8d0cdc7161ddba7ae947ef46246dde86557a6a"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "27a497ff4e49a8dded5068be968e02a825f01ba948690276548a58c7cf9a9036"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "44ce2c78526fc935aa3dcb5f8df03161282c09a43c16efa5997f73073ad16150"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "ed9ba9d6a067ed0a95e11b90d397a4c8a86ba460de270c28d914c8d42d84b4cd"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "b662c4792201443e4427030d0d4cb07e91cd4845bdfe9176fddbdab22f74114c"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "4538d9cd030dfe4bee6b514ae2a030aeff2d5e5cfef5284057a4075deb2a332e"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "294b634161e412c9297ccc083c28128711d0cfd55e8f05c9e9121f60283a9127"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "b9b43b94938ae1b0742c07d42f887fa679f959334060ac9744ff005da255f69e"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "8fbc37d5dc439babda88a3b8c7490ed3946d170c76070509fb10f1b56c9525d5"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "f3eb8ff3d32bbc0adadcda4a827c0eaa7be5f69c0e5306261edd73a97ab35310"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "a8181090518d197503654b0f9504415781651c368ff5e2e04433d1019e3a83aa"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "c78f141fcb89f3efc65e6946c304f90124014a3773eeba4790d5c6150391e6f0"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "936dc8649b7738aa5707526c4d50b0223e4b4a782498130ff2906dbff6e49578"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "634b0d37460576d9d4a1b83badd4096a8e4a5df1e0a4f90162e83b4b84ea32c7"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "45b7493870e81c0c34a05e7c84bb1d1ad4a08cdfa8067d8f5d6554e879a4668d"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "6c332e4b50c2799f8c8fc842b1e713bcd3e525027ce751f0c44a6df59479087f"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "1683523a7b43852f3b4317bbc4a0acbd2bb7f22241fe35eb75427095d8094895"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "d6c5709b74bd16bfb1326dfd98e451af7885f279327b5be4f5248c929d4d0f92"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "7c7959c05db91222190fa08f1a3ae7e4360aed65ef35d070faf9c82c4ca53362"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "79f4a944b250245dc4d834d45e511b93c099a97f1035b29d9560c03ef9b39c03"
+    }
+  ],
+  "after_parity": [
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "726c04cecc15c46efb30c0a26a9182a13b5f0c617262c8f3a4594d30d870ffc6"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "f746470d1a9a0005cc9eb909beba0d7cdc7588c7391441dee2d9351d4b2ad6d9"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "f5771a313bf62d65f70e8a2ff479b5cf1fe02164bd87a1f7544a0e5067f39b4c"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "01c72d9225771f139092418e0e6e879c68845778fcccb0671e4202155123ca39"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "b6cc0a8e002d5319704c2610dc8d0cdc7161ddba7ae947ef46246dde86557a6a"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "27a497ff4e49a8dded5068be968e02a825f01ba948690276548a58c7cf9a9036"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "44ce2c78526fc935aa3dcb5f8df03161282c09a43c16efa5997f73073ad16150"
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "ed9ba9d6a067ed0a95e11b90d397a4c8a86ba460de270c28d914c8d42d84b4cd"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "b662c4792201443e4427030d0d4cb07e91cd4845bdfe9176fddbdab22f74114c"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "4538d9cd030dfe4bee6b514ae2a030aeff2d5e5cfef5284057a4075deb2a332e"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "294b634161e412c9297ccc083c28128711d0cfd55e8f05c9e9121f60283a9127"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "b9b43b94938ae1b0742c07d42f887fa679f959334060ac9744ff005da255f69e"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "8fbc37d5dc439babda88a3b8c7490ed3946d170c76070509fb10f1b56c9525d5"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "f3eb8ff3d32bbc0adadcda4a827c0eaa7be5f69c0e5306261edd73a97ab35310"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "a8181090518d197503654b0f9504415781651c368ff5e2e04433d1019e3a83aa"
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "c78f141fcb89f3efc65e6946c304f90124014a3773eeba4790d5c6150391e6f0"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "936dc8649b7738aa5707526c4d50b0223e4b4a782498130ff2906dbff6e49578"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "634b0d37460576d9d4a1b83badd4096a8e4a5df1e0a4f90162e83b4b84ea32c7"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "45b7493870e81c0c34a05e7c84bb1d1ad4a08cdfa8067d8f5d6554e879a4668d"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "6c332e4b50c2799f8c8fc842b1e713bcd3e525027ce751f0c44a6df59479087f"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 1,
+      "sha256": "1683523a7b43852f3b4317bbc4a0acbd2bb7f22241fe35eb75427095d8094895"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 0.0,
+      "seed": 19,
+      "sha256": "d6c5709b74bd16bfb1326dfd98e451af7885f279327b5be4f5248c929d4d0f92"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 1,
+      "sha256": "7c7959c05db91222190fa08f1a3ae7e4360aed65ef35d070faf9c82c4ca53362"
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "H": 16.0,
+      "seed": 19,
+      "sha256": "79f4a944b250245dc4d834d45e511b93c099a97f1035b29d9560c03ef9b39c03"
+    }
+  ],
+  "first_run_before": [
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "memory": 94,
+      "seconds": [
+        0.1246944,
+        0.125239,
+        0.1248606,
+        0.1279694,
+        0.1263132
+      ],
+      "bytes": [
+        108920291,
+        108918124,
+        108920259,
+        108918236,
+        108920243
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.125239,
+      "median_bytes": 108920243.0
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "memory": 94,
+      "seconds": [
+        0.0031599,
+        0.0028104,
+        0.0027573,
+        0.0032372,
+        0.0027372
+      ],
+      "bytes": [
+        2049342,
+        2047255,
+        2047271,
+        2047287,
+        2047271
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0028104,
+      "median_bytes": 2047271.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "memory": 81,
+      "seconds": [
+        0.1003492,
+        0.1005243,
+        0.0997041,
+        0.0992194,
+        0.1045796
+      ],
+      "bytes": [
+        87193891,
+        87191724,
+        87193843,
+        87191772,
+        87193907
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.1003492,
+      "median_bytes": 87193843.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "memory": 81,
+      "seconds": [
+        0.0028741,
+        0.0029863,
+        0.003625,
+        0.0028742,
+        0.0047667
+      ],
+      "bytes": [
+        2166631,
+        2168766,
+        2168766,
+        2168766,
+        2168750
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0029863,
+      "median_bytes": 2168766.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "memory": 44,
+      "seconds": [
+        0.0704439,
+        0.0678741,
+        0.0728442,
+        0.0690559,
+        0.1120191
+      ],
+      "bytes": [
+        56983365,
+        56983317,
+        56983365,
+        56983285,
+        56983269
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0704439,
+      "median_bytes": 56983317.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "memory": 44,
+      "seconds": [
+        0.0019244,
+        0.0018764,
+        0.0019251,
+        0.0021913,
+        0.0018792
+      ],
+      "bytes": [
+        1266752,
+        1266752,
+        1266752,
+        1266752,
+        1266752
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0019244,
+      "median_bytes": 1266752.0
+    }
+  ],
+  "first_run_after": [
+    {
+      "actor": "npc_a",
+      "mode": "offer",
+      "memory": 94,
+      "seconds": [
+        0.0440594,
+        0.0440508,
+        0.0440804,
+        0.0439198,
+        0.0444051
+      ],
+      "bytes": [
+        37684833,
+        37684785,
+        37684801,
+        37682714,
+        37682714
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0440594,
+      "median_bytes": 37684785.0
+    },
+    {
+      "actor": "npc_a",
+      "mode": "response",
+      "memory": 94,
+      "seconds": [
+        0.0018645,
+        0.0018114,
+        0.0018694,
+        0.0018098,
+        0.0018559
+      ],
+      "bytes": [
+        1170142,
+        1170158,
+        1168087,
+        1170174,
+        1168055
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0018559,
+      "median_bytes": 1170142.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "offer",
+      "memory": 81,
+      "seconds": [
+        0.0399215,
+        0.0399871,
+        0.0398882,
+        0.0398418,
+        0.0397496
+      ],
+      "bytes": [
+        34037809,
+        34037873,
+        34037809,
+        34037857,
+        34037825
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0398882,
+      "median_bytes": 34037825.0
+    },
+    {
+      "actor": "npc_b",
+      "mode": "response",
+      "memory": 81,
+      "seconds": [
+        0.002108,
+        0.002063,
+        0.0020467,
+        0.002073,
+        0.0021333
+      ],
+      "bytes": [
+        1417975,
+        1420126,
+        1420094,
+        1420094,
+        1420062
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.002073,
+      "median_bytes": 1420094.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "offer",
+      "memory": 44,
+      "seconds": [
+        0.0273877,
+        0.027456,
+        0.0274075,
+        0.0274546,
+        0.0273449
+      ],
+      "bytes": [
+        21493571,
+        21493571,
+        21493635,
+        21493587,
+        21493571
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0274075,
+      "median_bytes": 21493571.0
+    },
+    {
+      "actor": "npc_c",
+      "mode": "response",
+      "memory": 44,
+      "seconds": [
+        0.0012645,
+        0.0012756,
+        0.0012453,
+        0.0012401,
+        0.0012702
+      ],
+      "bytes": [
+        679488,
+        679488,
+        679488,
+        679488,
+        679488
+      ],
+      "gc": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_seconds": 0.0012645,
+      "median_bytes": 679488.0
+    }
+  ]
+}
