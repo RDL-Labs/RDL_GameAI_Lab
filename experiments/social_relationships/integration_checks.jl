@@ -25,7 +25,7 @@ integration_run(scene,clock;seed=3,days=1,kwargs...)=LW.lw_day(scene,clock;days,
     @test get(r["counts"][IA],"request",0)>0
     @test get(r["counts"][IB],"give",0)>0
     @test r["initial_food"]==r["ground"]+r["consumed"]+sum(a["inventory"]+a["personal_stock"] for a in values(r["final_agents"]))
-    @test aid["rule"]=="owner-food-forecast-v1" && aid["resolved"]>1 && aid["pending"]===nothing
+    @test aid["rule"]=="owner-food-forecast-v1" && aid["resolved"]>1 && (aid["pending"]===nothing || aid["pending"]["deadline_us"]>=r["ended_us"])
     given=filter(x->x["outcome"]=="given",aid["records"])
     @test !isempty(given) && all(x->x["received_kind"]==4,given)
     @test all(x->x["actual"]==x["forecast"]["values"][4] && x["evaluated"],given)
@@ -33,7 +33,8 @@ integration_run(scene,clock;seed=3,days=1,kwargs...)=LW.lw_day(scene,clock;days,
     @test any(x->x["reward"]>0 && x["H_after"]<x["H_before"],given)
     @test rel["relational"] && rel["mb"]["events"]>0 && !isempty(rel["mb"]["pending"])
     @test any(x->!isempty(x["forecast"]["mb_ids"]),aid["records"])
-    @test r["food_resources"]["consumed"][4]==3
+    # Forecast retention changes the amount eaten in this fixed 60-second window.
+    @test 1<=r["food_resources"]["consumed"][4]<=3
     @test r["final_agents"][IA]["social"]["model"]==LW.social_initial()["model"]
     @test r["food_exchange"]!==nothing
 end
@@ -91,7 +92,8 @@ end
         @test r["final_agents"][a]["social"]["model"]==LW.social_initial()["model"]
     end
     @test !isempty(r["social_relationships"][IA]["mb"]["nodes"])
-    @test all(n["channel"]=="aid_received" for n in values(r["social_relationships"][IA]["mb"]["nodes"]))
+    # Anticipatory requests can also make A a responder; both channels are valid.
+    @test all(n["channel"] in ("aid_received","aid_given") for n in values(r["social_relationships"][IA]["mb"]["nodes"]))
     legacy=integration_run(integration_scene(relationships=false),integration_clock(3000;orientation=60,exploration=60,night=120))
     @test !haskey(legacy,"social_relationships")
     @test !isempty(legacy["final_agents"][IA]["social"]["model"])

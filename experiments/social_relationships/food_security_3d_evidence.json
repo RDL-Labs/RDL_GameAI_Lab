@@ -1,0 +1,152 @@
+{
+  "actors": [
+    {
+      "actor": "npc_a",
+      "reserve": 92.06066156717357,
+      "stock": 4,
+      "anxiety": 0.0,
+      "required": 1.2982462617179387,
+      "forecast": {
+        "source": "experience",
+        "samples": 809,
+        "search_seconds": 41,
+        "horizon_seconds": 51840.0,
+        "energy": 48.026697912643456,
+        "metabolic_rate": 0.0009259259259266628
+      },
+      "request_considerations": 228,
+      "requests": 264,
+      "visual_candidates": 0,
+      "visual_selected": 0,
+      "visual_given": 0,
+      "request_outcomes": {
+        "npc_b": {
+          "given": 15,
+          "no_response_observed": 0,
+          "refuse": 86,
+          "request_not_executed": 0,
+          "unobserved": 0
+        },
+        "npc_c": {
+          "given": 1,
+          "no_response_observed": 134,
+          "refuse": 28,
+          "request_not_executed": 0,
+          "unobserved": 0
+        }
+      }
+    },
+    {
+      "actor": "npc_b",
+      "reserve": 85.2099427652636,
+      "stock": 6,
+      "anxiety": 0.0,
+      "required": 3.7484448708883087,
+      "forecast": {
+        "source": "experience",
+        "samples": 809,
+        "search_seconds": 41884,
+        "horizon_seconds": 76444.0,
+        "energy": 90.17995129414089,
+        "metabolic_rate": 0.0009259259259266628
+      },
+      "request_considerations": 354,
+      "requests": 298,
+      "visual_candidates": 0,
+      "visual_selected": 0,
+      "visual_given": 0,
+      "request_outcomes": {
+        "npc_a": {
+          "given": 15,
+          "no_response_observed": 0,
+          "refuse": 105,
+          "request_not_executed": 0,
+          "unobserved": 0
+        },
+        "npc_c": {
+          "given": 0,
+          "no_response_observed": 136,
+          "refuse": 42,
+          "request_not_executed": 0,
+          "unobserved": 0
+        }
+      }
+    },
+    {
+      "actor": "npc_c",
+      "reserve": 86.27424321881435,
+      "stock": 63,
+      "anxiety": 0.0,
+      "required": 1.5876856277175464,
+      "forecast": {
+        "source": "experience",
+        "samples": 809,
+        "search_seconds": 45,
+        "horizon_seconds": 51840.0,
+        "energy": 48.02906688427639,
+        "metabolic_rate": 0.0009259259259266628
+      },
+      "request_considerations": 0,
+      "requests": 3,
+      "visual_candidates": 3,
+      "visual_selected": 1,
+      "visual_given": 0,
+      "request_outcomes": {
+        "npc_b": {
+          "given": 0,
+          "no_response_observed": 1,
+          "refuse": 0,
+          "request_not_executed": 0,
+          "unobserved": 0
+        },
+        "npc_a": {
+          "given": 0,
+          "no_response_observed": 2,
+          "refuse": 0,
+          "request_not_executed": 0,
+          "unobserved": 0
+        }
+      }
+    }
+  ],
+  "food": {
+    "initial": 105,
+    "consumed": 12,
+    "ground": 20,
+    "personal": {
+      "npc_b": 6,
+      "npc_a": 4,
+      "npc_c": 63
+    },
+    "added": 0,
+    "shared": 0
+  },
+  "measurement": {
+    "gc_seconds": 9.5946606,
+    "process_peak_rss_bytes": 1758892032,
+    "compilation_included": true,
+    "call_seconds": 270.1665681,
+    "allocated_bytes": 82683879271
+  },
+  "food_exchange": {
+    "offered": 4,
+    "declined": 3,
+    "unavailable": 1,
+    "exchanged": 0,
+    "expired": 0
+  },
+  "items": {
+    "given": 0,
+    "offered": 6,
+    "dropped": 0,
+    "picked_up": 9,
+    "retrieved": 0,
+    "declined": 6,
+    "unavailable": 0,
+    "exchanged": 0,
+    "stored": 0,
+    "expired": 0
+  },
+  "note": "Final cooldown version, 3 days; regressions overlapped startup, not a speed benchmark",
+  "output": "outputs/food-security-sharing-3d-final-20261031"
+}

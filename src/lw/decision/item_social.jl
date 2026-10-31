@@ -89,7 +89,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     mind=item_social_state!(state)
     incoming=get(view,"incoming",Any[])
     response=!isempty(incoming)
-    need=trade_food_need(body,gut,stock)
+    security=food_security(relation);need=trade_food_need(body,gut,stock;security)
     if require_need && !response && need<=1e-9
         mind["need_skipped"]=get(mind,"need_skipped",0)+1
         return nothing # no recall, candidate construction, RNG or H update
@@ -106,14 +106,14 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     candidates=Any[]
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
-        relief=trade_food_relief(body,gut,stock,gf,wf)
+        relief=trade_food_relief(body,gut,stock,gf,wf;security)
         require_need && (need<=1e-9 || relief<=1e-9) && return
         isempty(intersect(give,want)) || return
         (!isempty(give) || !isempty(want)) && sum(gf)<=4 && sum(wf)<=4 || return
         gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"])
         gain===nothing && return
         trace=relation===nothing ? nothing : social_relation_bias(relation,other,
-            response ? "trade_response" : "trade_offer";situation=context,H=loop.H)
+            response ? "trade_response" : "trade_offer";situation=social_observed_context(relation,other,context),H=loop.H)
         relation_value=trace===nothing ? 0. : .02trace["profile"]["benefit"]
         subjective=gain+relation_value-.002
         # A valuation admissibility band, not a probability of accepting a loss.
@@ -137,7 +137,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
             "relational_field"=>field,
             "necessity"=>D("purpose"=>"food_security","before"=>need,"relief"=>relief,"required"=>require_need),
             "exchange_evidence"=>D("successes"=>evidence.successes,"failures"=>evidence.failures),
-            "terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
+            "observed_context"=>social_observed_context(relation,other,context),"terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
             "give_items"=>give,"want_items"=>want,"give_food"=>gf,"want_food"=>wf,"offer_id"=>offer_id))
     end
     if response
@@ -253,7 +253,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         state["exchange_recalled_choices"]=get(state,"exchange_recalled_choices",0)+1
     end
     merge!(plan,D("item_social_role"=>role,"source"=>source,"values"=>values,
-        "weights"=>weights,"context"=>context,"portable_item_action"=>true))
+        "weights"=>weights,"context"=>get(plan,"observed_context",context),"portable_item_action"=>true))
     if plan["action"] in ("item_offer","item_counter")
         plan["target"]=plan["partner"]
         plan["action"]=="item_offer" && delete!(plan,"offer_id")

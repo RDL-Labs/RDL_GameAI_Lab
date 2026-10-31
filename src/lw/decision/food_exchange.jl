@@ -85,7 +85,7 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=tr
     relation!==nothing && check(relation["actor"]==a,"trade_relation_owner")
     view===nothing && return nothing
     mind=t["minds"][a];stock=view["own_stock"]
-    need=trade_food_need(body,gut,stock)
+    security=food_security(relation);need=trade_food_need(body,gut,stock;security)
     if require_need && isempty(view["incoming"]) && need<=1e-9
         mind["need_skipped"]=get(mind,"need_skipped",0)+1
         return nothing
@@ -93,12 +93,13 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=tr
     weights=food_trade_weights(body,gut)
     relief(g,n,h,m)=begin
         give=zeros(Int,4);want=zeros(Int,4);give[g]=n;want[h]=m
-        trade_food_relief(body,gut,stock,give,want)
+        trade_food_relief(body,gut,stock,give,want;security)
     end
     source="trade:$now:$a"
     if !isempty(view["incoming"])
         offer=first(view["incoming"]);other=offer["proposer"]
         situation=food_social_context(body;give_kind=offer["want_kind"],want_kind=offer["give_kind"],give_count=offer["want_count"],want_count=offer["give_count"])
+        situation=social_observed_context(relation,other,situation)
         relation_trace=relation===nothing ? nothing : social_relation_bias(relation,other,"trade_response";situation,H=mind["response"].H)
         gain=food_trade_gain(stock,weights,offer["want_kind"],offer["want_count"],offer["give_kind"],offer["give_count"])
         candidates=Any[D("method"=>"decline:$other","action"=>"trade_decline","priority"=>0.,"question"=>"stock_value_improved",
@@ -131,6 +132,7 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=tr
         gain=food_trade_gain(stock,weights,g,n,h,m)
         require_need && gain<=FOOD_TRADE_TOLERANCE && continue
         situation=food_social_context(body;give_kind=g,want_kind=h,give_count=n,want_count=m)
+        situation=social_observed_context(relation,other,situation)
         trace_key="$other:$g:$n:$h:$m"
         relation!==nothing && (relation_traces[trace_key]=social_relation_bias(relation,other,"trade_offer";situation,H=mind["offer"].H))
         expected=get(mind,"relational",false) && relation!==nothing ? gain*relation_traces[trace_key]["profile"]["trade_probability"] : gain

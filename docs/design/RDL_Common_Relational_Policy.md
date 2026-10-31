@@ -85,3 +85,5 @@
 - [確率的MB認識](LW_Probabilistic_MB_Recognition.md)
 - [ρ・感度・経験](RDL_GameAI_Rho_Sensitivity_Experience.md)
 - [経路全体のMB](LW_Whole_Route_MB.md)
+
+- [食料の将来不足・共通の他者観測・注視](LW_Food_Security_And_Social_Attention.md)

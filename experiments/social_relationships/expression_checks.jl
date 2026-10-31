@@ -27,7 +27,7 @@ end
     @test only(LW.social_sight(w,EA,0.,0)["peers"])["expression"]==face
     @test isempty(LW.social_sight(w,EA,180.,0)["peers"])
     w.positions[EB]=(0.,5.)
-    @test only(LW.social_sight(w,EA,0.,0)["peers"])["expression"]===nothing
+    @test only(LW.social_sight(w,EA,0.,0)["peers"])["expression"].distress==1
     push!(w.obstacles,LW.RDLMigrationProbe.Circle(0.,2.,.5))
     @test isempty(LW.social_sight(w,EA,0.,0)["peers"])
 end

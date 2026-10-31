@@ -11,10 +11,10 @@ function select_target(targets,model,pressure;relation=nothing,seed=nothing,situ
         # outcomes. Do not apply the old threshold penalty a second time.
         penalty=!unified && H>=theta ? min(2,H/theta) : 0
         relationship=relation===nothing ? nothing : unified ?
-            social_relation_bias(relation,target,"request";situation,H=pressure.parent.H) :
+            social_relation_bias(relation,target,"request";situation=social_observed_context(relation,target,situation),H=pressure.parent.H) :
             social_relation_bias(relation,target,"request")
         candidate=D("target"=>target,"H"=>H,"threshold"=>theta,
-            "score"=>(relationship===nothing ? get(get(model,target,D()),"expectation",.5) : .5+relationship["weight"])-penalty)
+            "score"=>(relationship===nothing ? get(get(model,target,D()),"expectation",.5) : .5+relationship["weight"])-penalty+log1p(food_anxiety(food_security(relation))))
         relationship!==nothing && (candidate["relationship"]=relationship)
         push!(candidates,candidate)
     end

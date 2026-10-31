@@ -16,13 +16,13 @@ function experienced_response(obs,records,pressure,owner,seed;retention=0.,relat
     end
     relation!==nothing && check(relation["actor"]==owner,"response_relation_owner")
     unified=hasproperty(pressure,:loop)
-    situation=D("need"=>clamp((80-obs["body"]["reserve"])/80,0.,1.))
+    situation=social_observed_context(relation,other,D("need"=>clamp((80-obs["body"]["reserve"])/80,0.,1.)))
     relationship=relation===nothing ? nothing : unified ?
         social_relation_bias(relation,other,"give";situation,H=pressure.parent.H) :
         social_relation_bias(relation,other,"give")
     relationship!==nothing && (relationship["applies_to"]="give")
     reserve=obs["body"]["reserve"];need=max(0.,(80-reserve)/40)
-    score=1.0 - need - weight - retention + (relationship===nothing ? 0. : relationship["weight"])
+    score=1.0 - need - weight - retention - food_anxiety(food_security(relation)) + get(situation,"distress",0.) + (relationship===nothing ? 0. : relationship["weight"])
     probability=if obs["inventory"]<=0
         0.
     elseif unified
@@ -60,14 +60,14 @@ function experienced_request(obs,records,pressure,owner,other,seed;relation=noth
     end
     relation!==nothing && check(relation["actor"]==owner,"request_relation_owner")
     unified=hasproperty(pressure,:loop)
-    situation=D("need"=>clamp((80-obs["body"]["reserve"])/80,0.,1.))
+    situation=social_observed_context(relation,other,D("need"=>clamp((80-obs["body"]["reserve"])/80,0.,1.)))
     relationship=relation===nothing ? nothing : unified ?
         social_relation_bias(relation,other,"request";situation,H=pressure.parent.H) :
         social_relation_bias(relation,other,"request")
     if unified
         # The target loop has already chosen among partners and continuing the
         # activity. This is only a feasibility check, not a second weighted draw.
-        selected=obs["others"][contact]["holding_food"]
+        selected=obs["others"][contact]["holding_food"] || food_anxiety(food_security(relation))>0
         trace=D("source"=>seed,"other"=>other,"question"=>"request_again","weight"=>0.,"sources"=>String[],
             "request_probability"=>selected ? 1. : 0.,"draw"=>nothing,
             "selected"=>selected ? "request" : "existing_activity","selection"=>"common_target_already_selected")

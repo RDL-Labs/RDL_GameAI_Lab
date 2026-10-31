@@ -24,8 +24,8 @@ end
     @test all(p->p["range_lower"]==4. && p["range_upper"]==8. && p["distance"]==6.,view["peers"])
     @test all(p->!p["contact"] && abs(p["angle"])==30.,view["peers"])
     @test all(p->Set(keys(p))==Set(["ref","angle","range_lower","range_upper","distance","contact","expression"]),view["peers"])
-    # Internal body, food holdings and hearing are not remote visual evidence.
-    w.inventory[SDB]=200;w.bodies[SDB]=LW.Body(1.,.9,0.,.7);w.hearing[SDB]=false
+    # Private holdings/hearing are not visual evidence; bodily appearance is observable.
+    w.inventory[SDB]=200;w.hearing[SDB]=false
     @test LW.social_sight(w,SDA,0.,0)==view
     @test isempty(LW.social_sight(w,SDA,180.,0)["peers"])
     w.positions[SDB]=(0.,13.);w.positions[SDC]=(0.,-2.)

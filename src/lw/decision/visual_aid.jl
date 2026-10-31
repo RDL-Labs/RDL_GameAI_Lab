@@ -25,7 +25,7 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
     s["pending"]===nothing && now<s["next_us"] && return nothing
     own=stock===nothing || !at_home ? zeros(Int,4) : copy(stock)
     for k in kinds;own[k]+=1;end
-    required=max(1.,(80.0-body.reserve)/RDLBody.MEAL_ENERGY)
+    security=food_security(relation);required=max(1.,(80.0-body.reserve)/RDLBody.MEAL_ENERGY,security===nothing ? 0. : security["required"])
     spare=sum(own)+(gut===nothing ? 0. : gut.gut)-required
     able=body.reserve>=80 && body.strain<.8 && body.damage<1 && spare>=1
     held_food(other)=any(p->p["ref"]==other && p["holding_food"],contacts)

@@ -44,6 +44,7 @@ include(joinpath(@__DIR__, "../decision/trade_necessity.jl"))
 include(joinpath(@__DIR__, "../decision/item_social.jl"))
 include(joinpath(@__DIR__, "../learning/social_aid.jl"))
 include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
+include(joinpath(@__DIR__, "../decision/food_security.jl"))
 include(joinpath(@__DIR__, "../perception/social_sight.jl"))
 include(joinpath(@__DIR__, "../decision/visual_aid.jl"))
 include(joinpath(@__DIR__, "../decision/social_approach.jl"))
@@ -415,11 +416,21 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     relation=relations===nothing ? nothing : relations[a])
             end
         end
-        expressions=relations===nothing ? nothing : Dict(a=>configured_expression(w.bodies[a];fear=night_fear_enabled ? mb_maps[a]["night_fear"]["H"]/8 : 0.) for a in IDS)
-        social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions) for a in IDS)
-        relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),IDS)
-        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations)
         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)
+        if relations!==nothing && foods!==nothing && !shared_stores
+            for a in IDS
+                security=get!(food_security_state,relations[a],"food_security")
+                visible=moves[a]["visible"]
+                food_security_update!(security,mb_simulation ? mb_maps[a] : nothing,w.bodies[a],guts===nothing ? nothing : guts[a],
+                    foods.personal[a],foods.inventory[a],metabolism[a],now,clock.day_us;target=isempty(visible) ? nothing : first(visible))
+            end
+        end
+        expressions=relations===nothing ? nothing : Dict(a=>configured_expression(w.bodies[a];anxiety=food_anxiety(food_security(relations[a])),fear=night_fear_enabled ? mb_maps[a]["night_fear"]["H"]/8 : 0.) for a in IDS)
+        social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions,rho=get(rho_baselines,a,"coarse"),attention=social_attention(relations[a],now)) for a in IDS)
+        relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),IDS)
+        relations!==nothing && foreach(a->(relations[a]["social_view"]=social_views[a]),IDS)
+        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations)
+
         homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
         if harvest_sleep
@@ -493,7 +504,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 night_fear_update!(fear,estimate,protected_home,hazard_views[a],now,clock.day_us,clock.phase_boundaries_us[3])
             end
             returning=observing ? false : returning!(purposes[a],phase,w.inventory[a],at_home,now)
-            replenishing=false
+            replenishing=false;food_worried=relations!==nothing && food_anxiety(food_security(relations[a]))>0
+            forecast_request_ready=relations!==nothing && food_request_ready(food_security(relations[a]),now)
             if body_purpose
                 parent_choice=configured_body_purpose!(configured_body_states[a],hunger[a],w.bodies[a].reserve,returning,at_home,
                     at_home ? (shared_stores ? shared : stores[a]) : 0,now)
@@ -514,6 +526,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             night_fear_enabled && !observing && (returning=night_fear_request!(mb_maps[a]["night_fear"],returning,replenishing,now,loops[a]["home"].rng))
             if daily_delivery_enabled && !observing
                 returning=configured_daily_delivery_request!(mb_maps[a]["configured_daily_delivery"],returning,replenishing,w.inventory[a],at_home,at_home ? (shared_stores ? shared : stores[a]) : 0,now,clock.day_us)
+            end
+            # Forecast shortage can redirect the purpose before hunger, never force a meal.
+            if food_worried && basic_loop && !observing && !(phase in ("night","orientation"))
+                pressure=food_anxiety(food_security(relations[a]))
+                probabilities=method_distribution(loops[a]["food"],Any[D("method"=>"security_explore","priority"=>log(pressure)),D("method"=>"security_continue","priority"=>0.)])
+                rand(loops[a]["food"].rng)<probabilities[1] && (returning=false)
             end
             # Given recipe knowledge: raw carried provisions need the observed camp
             # preparation place. Navigation still uses the normal home candidates.
@@ -598,7 +616,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 else
                     act,t,r=response(current,a!="npc_b")
                 end
-                plan=D("action"=>act,"target"=>t,"reply_to"=>r);push!(answered[a],m["id"])
+                plan=D("action"=>act,"target"=>t,"reply_to"=>r)
+                relations!==nothing && t!==nothing && (plan["context"]=social_observed_context(relations[a],t,food_social_context(w.bodies[a])))
+                push!(answered[a],m["id"])
                 if act=="give" && relations!==nothing
                     visual_pending=get(get(relations[a],"visual_aid",D()),"pending",nothing)
                     visual_pending!==nothing && visual_pending["target"]==t && (plan=merge(visual_pending,plan))
@@ -611,8 +631,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=D("action"=>"rest")
             elseif states[a]["pending"]!==nothing && !configured_overrides.bypass_social_wait
                 plan=D("action"=>"rest")
-            elseif (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) && !configured_overrides.suppress_repeat_request
-                targets=[x["ref"] for x in o["others"] if x["holding_food"]]
+            elseif ((food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80) || forecast_request_ready) && !configured_overrides.suppress_repeat_request && states[a]["pending"]===nothing
+                forecast_request_ready && food_request_considered!(food_security(relations[a]),now)
+                targets=[x["ref"] for x in o["others"] if x["holding_food"] || forecast_request_ready]
                 target,target_trace=select_target(targets,states[a]["model"],aid_view(a);relation=relations===nothing ? nothing : relations[a],seed="target:$choice_seed:$now:$a",situation=food_social_context(w.bodies[a]))
                 request_allowed=target!==nothing
                 if request_allowed && (social_response || relations!==nothing)
@@ -694,7 +715,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             s=loops[a][family];source="op:$now:$a"
                             navigation_H=night_fear_enabled && family=="home" ? max(s.H,mb_maps[a]["night_fear"]["H"]) : s.H
                             candidates=search_candidates(moves[a],target,s)
-                            if relations!==nothing && family=="food" && food_hungry
+                            if relations!==nothing && family=="food" && (food_hungry || food_worried)
                                 kinds=foods===nothing ? fill(meal_kind,w.inventory[a]) : foods.inventory[a]
                                 aid_values=food_aid_values(w.bodies[a],guts===nothing ? nothing : guts[a],kinds)
                                 social_options=social_approach_candidates(social_views[a],moves[a],relations[a],s,now;
