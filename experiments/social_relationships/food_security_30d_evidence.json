@@ -1,0 +1,1127 @@
+{
+  "actors": [
+    {
+      "actor": "npc_a",
+      "reserve": 93.20724757067178,
+      "damage": 0.0,
+      "stock": 2,
+      "inventory": 0,
+      "anxiety": 11.364237027823636,
+      "required": 12.764237027823636,
+      "requests": 726,
+      "visual_candidates": 25,
+      "visual_selected": 23,
+      "visual_given": 23,
+      "visual_abandoned": 0,
+      "request_outcomes": {
+        "npc_b": {
+          "given": 15,
+          "no_response_observed": 10,
+          "refuse": 330,
+          "request_not_executed": 0,
+          "unobserved": 0
+        },
+        "npc_c": {
+          "given": 2,
+          "no_response_observed": 143,
+          "refuse": 226,
+          "request_not_executed": 0,
+          "unobserved": 0
+        }
+      }
+    },
+    {
+      "actor": "npc_b",
+      "reserve": 96.9391107514311,
+      "damage": 0.0,
+      "stock": 0,
+      "inventory": 0,
+      "anxiety": 5.540672116893389,
+      "required": 5.640672116893389,
+      "requests": 672,
+      "visual_candidates": 49,
+      "visual_selected": 28,
+      "visual_given": 22,
+      "visual_abandoned": 4,
+      "request_outcomes": {
+        "npc_a": {
+          "given": 17,
+          "no_response_observed": 0,
+          "refuse": 328,
+          "request_not_executed": 9,
+          "unobserved": 0
+        },
+        "npc_c": {
+          "given": 1,
+          "no_response_observed": 145,
+          "refuse": 172,
+          "request_not_executed": 0,
+          "unobserved": 0
+        }
+      }
+    },
+    {
+      "actor": "npc_c",
+      "reserve": 94.36657753864243,
+      "damage": 0.0,
+      "stock": 4,
+      "inventory": 0,
+      "anxiety": 0.8130839585481305,
+      "required": 3.5130839585481306,
+      "requests": 43,
+      "visual_candidates": 76,
+      "visual_selected": 53,
+      "visual_given": 36,
+      "visual_abandoned": 11,
+      "request_outcomes": {
+        "npc_b": {
+          "given": 0,
+          "no_response_observed": 1,
+          "refuse": 18,
+          "request_not_executed": 2,
+          "unobserved": 0
+        },
+        "npc_a": {
+          "given": 0,
+          "no_response_observed": 3,
+          "refuse": 19,
+          "request_not_executed": 0,
+          "unobserved": 0
+        }
+      }
+    }
+  ],
+  "food": {
+    "initial": 105,
+    "consumed": 99,
+    "ground": 0,
+    "personal": {
+      "npc_b": 0,
+      "npc_a": 2,
+      "npc_c": 4
+    },
+    "added": 0,
+    "shared": 0
+  },
+  "measurement": {
+    "gc_seconds": 166.240684,
+    "process_peak_rss_bytes": 2825977856,
+    "compilation_included": true,
+    "call_seconds": 2836.0406152,
+    "allocated_bytes": 1302075909414
+  },
+  "measured_days": "11-30 only",
+  "food_exchange": {
+    "offered": 516,
+    "declined": 489,
+    "unavailable": 23,
+    "exchanged": 0,
+    "expired": 6
+  },
+  "items": {
+    "given": 0,
+    "offered": 708,
+    "dropped": 0,
+    "picked_up": 9,
+    "retrieved": 0,
+    "declined": 678,
+    "unavailable": 24,
+    "exchanged": 0,
+    "stored": 0,
+    "expired": 11
+  },
+  "output": "outputs/food-security-sharing-30d-continued-20261031",
+  "daily": [
+    {
+      "day": 1,
+      "ground": 42,
+      "actors": {
+        "npc_a": {
+          "reserve": 90.69281498488643,
+          "position": [
+            0.06966991411008938,
+            5.769669914110089
+          ],
+          "inventory": 0,
+          "personal_stock": 0
+        },
+        "npc_b": {
+          "reserve": 70.69314827479509,
+          "position": [
+            0.3696699141100894,
+            5.4696699141100895
+          ],
+          "inventory": 0,
+          "personal_stock": 0
+        },
+        "npc_c": {
+          "reserve": 84.97695123519594,
+          "position": [
+            -0.2303300858899106,
+            5.4696699141100895
+          ],
+          "inventory": 0,
+          "personal_stock": 58
+        }
+      }
+    },
+    {
+      "day": 2,
+      "ground": 31,
+      "actors": {
+        "npc_a": {
+          "reserve": 91.33505741999868,
+          "position": [
+            0.7736556983821088,
+            6.137738203717792
+          ],
+          "inventory": 0,
+          "personal_stock": 2
+        },
+        "npc_b": {
+          "reserve": 84.82703791258498,
+          "position": [
+            -0.5828107731707003,
+            6.640571309594936
+          ],
+          "inventory": 0,
+          "personal_stock": 3
+        },
+        "npc_c": {
+          "reserve": 85.7270088233383,
+          "position": [
+            -0.9892530379661392,
+            5.853786365633145
+          ],
+          "inventory": 0,
+          "personal_stock": 60
+        }
+      }
+    },
+    {
+      "day": 3,
+      "ground": 20,
+      "actors": {
+        "npc_a": {
+          "reserve": 92.06066156717357,
+          "position": [
+            1.181776147838098,
+            6.217826321770288
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_b": {
+          "reserve": 85.2099427652636,
+          "position": [
+            0.6134569636342082,
+            7.0800798020789575
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_c": {
+          "reserve": 86.27424321881435,
+          "position": [
+            -0.9615327869185342,
+            5.271678322190728
+          ],
+          "inventory": 0,
+          "personal_stock": 63
+        }
+      }
+    },
+    {
+      "day": 4,
+      "ground": 13,
+      "actors": {
+        "npc_a": {
+          "reserve": 92.8112752471604,
+          "position": [
+            0.853278007403243,
+            6.5673770357796
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_b": {
+          "reserve": 85.5884514002212,
+          "position": [
+            0.6311379525324021,
+            5.911459280639407
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_c": {
+          "reserve": 86.79551566606715,
+          "position": [
+            1.0910513734105693,
+            5.58625397288198
+          ],
+          "inventory": 0,
+          "personal_stock": 64
+        }
+      }
+    },
+    {
+      "day": 5,
+      "ground": 9,
+      "actors": {
+        "npc_a": {
+          "reserve": 92.3442895886753,
+          "position": [
+            -0.17627690791375722,
+            6.658683073880439
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_b": {
+          "reserve": 86.33044704829652,
+          "position": [
+            -0.5753544508444373,
+            6.974208224299834
+          ],
+          "inventory": 0,
+          "personal_stock": 10
+        },
+        "npc_c": {
+          "reserve": 79.10518358506916,
+          "position": [
+            1.0106666668312125,
+            6.167412267450227
+          ],
+          "inventory": 1,
+          "personal_stock": 61
+        }
+      }
+    },
+    {
+      "day": 6,
+      "ground": 7,
+      "actors": {
+        "npc_a": {
+          "reserve": 91.89118156931005,
+          "position": [
+            -0.7799803953349127,
+            5.32784113012625
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_b": {
+          "reserve": 86.95472414570406,
+          "position": [
+            0.8865937084621911,
+            6.54753723892309
+          ],
+          "inventory": 0,
+          "personal_stock": 11
+        },
+        "npc_c": {
+          "reserve": 83.41222222216659,
+          "position": [
+            1.0106666668312125,
+            6.167412267450227
+          ],
+          "inventory": 0,
+          "personal_stock": 62
+        }
+      }
+    },
+    {
+      "day": 7,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 91.3845405419728,
+          "position": [
+            0.4178173650796,
+            5.22700156058276
+          ],
+          "inventory": 0,
+          "personal_stock": 3
+        },
+        "npc_b": {
+          "reserve": 91.48999999997146,
+          "position": [
+            -1.0486689277233587,
+            6.389402120626589
+          ],
+          "inventory": 0,
+          "personal_stock": 9
+        },
+        "npc_c": {
+          "reserve": 84.0117101203305,
+          "position": [
+            1.148568152047116,
+            6.016423094850622
+          ],
+          "inventory": 0,
+          "personal_stock": 63
+        }
+      }
+    },
+    {
+      "day": 8,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 90.86039383712598,
+          "position": [
+            0.00788312933595875,
+            6.641061784247404
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_b": {
+          "reserve": 90.92835509553801,
+          "position": [
+            0.08224074672531899,
+            5.851494717962115
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_c": {
+          "reserve": 94.24222222220291,
+          "position": [
+            0.9344497171079322,
+            6.695315996008322
+          ],
+          "inventory": 0,
+          "personal_stock": 61
+        }
+      }
+    },
+    {
+      "day": 9,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 90.5880927675595,
+          "position": [
+            -0.35664650116154156,
+            6.201737781528117
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_b": {
+          "reserve": 90.4084461298889,
+          "position": [
+            0.7295217713795973,
+            5.288511443136877
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_c": {
+          "reserve": 93.65286983812895,
+          "position": [
+            0.023003121144620792,
+            6.999735393200424
+          ],
+          "inventory": 0,
+          "personal_stock": 60
+        }
+      }
+    },
+    {
+      "day": 10,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 90.52659126395707,
+          "position": [
+            -0.8306482291263675,
+            5.713219527020075
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_b": {
+          "reserve": 90.36826559679429,
+          "position": [
+            0.6837510427342568,
+            6.944595105069202
+          ],
+          "inventory": 0,
+          "personal_stock": 3
+        },
+        "npc_c": {
+          "reserve": 93.11907015853158,
+          "position": [
+            -0.20374604620972797,
+            5.4701306133149235
+          ],
+          "inventory": 0,
+          "personal_stock": 58
+        }
+      }
+    },
+    {
+      "day": 11,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 90.54008036140299,
+          "position": [
+            -0.3317965665579783,
+            6.765529782215819
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_b": {
+          "reserve": 90.50901900959475,
+          "position": [
+            -0.6878291079857662,
+            6.587862111640029
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_c": {
+          "reserve": 92.6277792377205,
+          "position": [
+            0.3644416737074553,
+            6.801626274709783
+          ],
+          "inventory": 0,
+          "personal_stock": 53
+        }
+      }
+    },
+    {
+      "day": 12,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 90.2584500014978,
+          "position": [
+            0.2871078480058097,
+            6.4809972098828705
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_b": {
+          "reserve": 90.23653771776297,
+          "position": [
+            0.12365679152984149,
+            5.772631805178635
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_c": {
+          "reserve": 92.53031902998579,
+          "position": [
+            0.9459764258522583,
+            6.324235410977559
+          ],
+          "inventory": 0,
+          "personal_stock": 50
+        }
+      }
+    },
+    {
+      "day": 13,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.82261900266353,
+          "position": [
+            0.23279296751107076,
+            5.9478252142184935
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_b": {
+          "reserve": 89.9360610799941,
+          "position": [
+            0.0979967201969229,
+            5.661916193693026
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_c": {
+          "reserve": 92.05217583915565,
+          "position": [
+            0.4727957013617943,
+            6.833666961377576
+          ],
+          "inventory": 0,
+          "personal_stock": 45
+        }
+      }
+    },
+    {
+      "day": 14,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.22063350430854,
+          "position": [
+            0.07748814450310693,
+            5.946231232843487
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_b": {
+          "reserve": 89.76583162264855,
+          "position": [
+            0.1337578048284766,
+            6.481776763291327
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_c": {
+          "reserve": 91.91329452159943,
+          "position": [
+            -0.3471634023332045,
+            6.321677008014487
+          ],
+          "inventory": 0,
+          "personal_stock": 42
+        }
+      }
+    },
+    {
+      "day": 15,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.55417126114246,
+          "position": [
+            0.3413674306355233,
+            5.871636535553426
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_b": {
+          "reserve": 89.93394276007055,
+          "position": [
+            -1.1102230246251565E-16,
+            6.0
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_c": {
+          "reserve": 92.00977221423481,
+          "position": [
+            0.09616844226317861,
+            5.911746288643821
+          ],
+          "inventory": 0,
+          "personal_stock": 39
+        }
+      }
+    },
+    {
+      "day": 16,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.43263180229603,
+          "position": [
+            0.15977956267177745,
+            6.320546113891099
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_b": {
+          "reserve": 90.27628024681815,
+          "position": [
+            -0.08865400452003358,
+            5.546596895690967
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_c": {
+          "reserve": 92.24283924007199,
+          "position": [
+            -0.3998304675764187,
+            6.82800842126795
+          ],
+          "inventory": 0,
+          "personal_stock": 35
+        }
+      }
+    },
+    {
+      "day": 17,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.258459231096,
+          "position": [
+            -0.42366460961419505,
+            7.152964589075905
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_b": {
+          "reserve": 90.1010930039767,
+          "position": [
+            0.28825798206907494,
+            6.957552784849725
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_c": {
+          "reserve": 91.69160829847304,
+          "position": [
+            0.1562732932154825,
+            7.187992005372136
+          ],
+          "inventory": 0,
+          "personal_stock": 31
+        }
+      }
+    },
+    {
+      "day": 18,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.06857925313352,
+          "position": [
+            -0.10225731068224103,
+            6.587670925532405
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        },
+        "npc_b": {
+          "reserve": 90.0318352225095,
+          "position": [
+            0.16764470075626697,
+            5.797781664789632
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_c": {
+          "reserve": 91.73124619065497,
+          "position": [
+            0.7709092511623802,
+            6.8272335565282
+          ],
+          "inventory": 0,
+          "personal_stock": 27
+        }
+      }
+    },
+    {
+      "day": 19,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 88.89204696785764,
+          "position": [
+            0.63716497800607,
+            5.235015199039873
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        },
+        "npc_b": {
+          "reserve": 89.63868355387736,
+          "position": [
+            0.1256431835704461,
+            7.053042722438606
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_c": {
+          "reserve": 91.22801715556147,
+          "position": [
+            0.6085814795826348,
+            6.771501724557306
+          ],
+          "inventory": 0,
+          "personal_stock": 23
+        }
+      }
+    },
+    {
+      "day": 20,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 88.92747661780234,
+          "position": [
+            0.5906834195249833,
+            5.995848505475107
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        },
+        "npc_b": {
+          "reserve": 89.47804219666882,
+          "position": [
+            0.18205952417399218,
+            6.205084542367936
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_c": {
+          "reserve": 90.72252382562932,
+          "position": [
+            -0.3489309984290604,
+            6.789689808619497
+          ],
+          "inventory": 0,
+          "personal_stock": 20
+        }
+      }
+    },
+    {
+      "day": 21,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.42821236121594,
+          "position": [
+            0.8578868702549587,
+            6.194783486656154
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        },
+        "npc_b": {
+          "reserve": 89.20399064763508,
+          "position": [
+            -0.7180659859969405,
+            6.241218541609812
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_c": {
+          "reserve": 94.81111111109371,
+          "position": [
+            0.6249366385323296,
+            6.936122201556375
+          ],
+          "inventory": 0,
+          "personal_stock": 16
+        }
+      }
+    },
+    {
+      "day": 22,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 89.28513048017346,
+          "position": [
+            -0.45112433947258035,
+            6.099532854725286
+          ],
+          "inventory": 0,
+          "personal_stock": 9
+        },
+        "npc_b": {
+          "reserve": 89.45538790216492,
+          "position": [
+            -0.4513199645799535,
+            5.670848699376153
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        },
+        "npc_c": {
+          "reserve": 94.92488585734453,
+          "position": [
+            -1.230133796267875,
+            5.950012533162308
+          ],
+          "inventory": 0,
+          "personal_stock": 11
+        }
+      }
+    },
+    {
+      "day": 23,
+      "ground": 5,
+      "actors": {
+        "npc_a": {
+          "reserve": 88.55196346411988,
+          "position": [
+            -0.8200655211656837,
+            6.572269640113169
+          ],
+          "inventory": 0,
+          "personal_stock": 9
+        },
+        "npc_b": {
+          "reserve": 96.35888888887668,
+          "position": [
+            -0.8892233734411166,
+            6.693281695052122
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_c": {
+          "reserve": 94.66898161990959,
+          "position": [
+            -0.7634975460297088,
+            6.98473890512793
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        }
+      }
+    },
+    {
+      "day": 24,
+      "ground": 3,
+      "actors": {
+        "npc_a": {
+          "reserve": 88.26199503022752,
+          "position": [
+            -1.0613775237739076,
+            6.046447911340837
+          ],
+          "inventory": 0,
+          "personal_stock": 9
+        },
+        "npc_b": {
+          "reserve": 96.50258831118262,
+          "position": [
+            0.5669478597639102,
+            6.545224436661523
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        },
+        "npc_c": {
+          "reserve": 94.1066571700792,
+          "position": [
+            -1.0411681679369216,
+            6.156239300850797
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        }
+      }
+    },
+    {
+      "day": 25,
+      "ground": 0,
+      "actors": {
+        "npc_a": {
+          "reserve": 87.25870811406234,
+          "position": [
+            -0.5893002197291064,
+            6.994309989280015
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        },
+        "npc_b": {
+          "reserve": 95.66077161556323,
+          "position": [
+            -0.2026987285519672,
+            6.979241147748304
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_c": {
+          "reserve": 94.20918783210281,
+          "position": [
+            -0.41923070781095395,
+            5.092120264777142
+          ],
+          "inventory": 0,
+          "personal_stock": 9
+        }
+      }
+    },
+    {
+      "day": 26,
+      "ground": 0,
+      "actors": {
+        "npc_a": {
+          "reserve": 97.20333333332395,
+          "position": [
+            1.1497861410976735,
+            5.983856840679369
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        },
+        "npc_b": {
+          "reserve": 94.65740392757886,
+          "position": [
+            -0.04894873786012799,
+            6.898584105301732
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_c": {
+          "reserve": 94.98437301721417,
+          "position": [
+            -0.41923070781095395,
+            5.092120264777142
+          ],
+          "inventory": 0,
+          "personal_stock": 8
+        }
+      }
+    },
+    {
+      "day": 27,
+      "ground": 0,
+      "actors": {
+        "npc_a": {
+          "reserve": 96.26665792350302,
+          "position": [
+            -0.7178734883652413,
+            5.299995734883742
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        },
+        "npc_b": {
+          "reserve": 93.66445763984245,
+          "position": [
+            -0.009471274210565206,
+            5.376798553261089
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_c": {
+          "reserve": 95.64568342309383,
+          "position": [
+            -0.6160764988141276,
+            5.850422139821394
+          ],
+          "inventory": 0,
+          "personal_stock": 7
+        }
+      }
+    },
+    {
+      "day": 28,
+      "ground": 0,
+      "actors": {
+        "npc_a": {
+          "reserve": 95.2569414533692,
+          "position": [
+            -0.3275147352779524,
+            6.529491890853882
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        },
+        "npc_b": {
+          "reserve": 99.00222222221888,
+          "position": [
+            0.8883904349955714,
+            5.739385810141863
+          ],
+          "inventory": 0,
+          "personal_stock": 2
+        },
+        "npc_c": {
+          "reserve": 96.28854759804949,
+          "position": [
+            -0.2727750878891491,
+            5.911900394020136
+          ],
+          "inventory": 0,
+          "personal_stock": 6
+        }
+      }
+    },
+    {
+      "day": 29,
+      "ground": 0,
+      "actors": {
+        "npc_a": {
+          "reserve": 94.28237806172496,
+          "position": [
+            -0.07767233743010654,
+            6.99697894059912
+          ],
+          "inventory": 0,
+          "personal_stock": 3
+        },
+        "npc_b": {
+          "reserve": 97.98188437112688,
+          "position": [
+            -0.0018930715049731706,
+            6.133961220923817
+          ],
+          "inventory": 0,
+          "personal_stock": 1
+        },
+        "npc_c": {
+          "reserve": 95.71617398819119,
+          "position": [
+            0.13280582969210314,
+            6.9911420743767225
+          ],
+          "inventory": 0,
+          "personal_stock": 5
+        }
+      }
+    },
+    {
+      "day": 30,
+      "ground": 0,
+      "actors": {
+        "npc_a": {
+          "reserve": 93.20724757067178,
+          "position": [
+            -0.10660532282240053,
+            6.994301415641118
+          ],
+          "inventory": 0,
+          "personal_stock": 2
+        },
+        "npc_b": {
+          "reserve": 96.9391107514311,
+          "position": [
+            -1.9968542036658405,
+            8.163273193805619
+          ],
+          "inventory": 0,
+          "personal_stock": 0
+        },
+        "npc_c": {
+          "reserve": 94.36657753864243,
+          "position": [
+            -0.39689167170399764,
+            6.322796246246379
+          ],
+          "inventory": 0,
+          "personal_stock": 4
+        }
+      }
+    }
+  ],
+  "previous_days_identical": true
+}
