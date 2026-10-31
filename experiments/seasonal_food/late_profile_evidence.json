@@ -1,0 +1,472 @@
+{
+  "source_commit": "2b04bc8",
+  "run": "outputs/seasonal-food-180d-20261101",
+  "profile_output": "outputs/seasonal-late-profile-20261101",
+  "warmup_ticks": 512,
+  "profile": [
+    {
+      "checkpoint_seconds": 3.6861306,
+      "checkpoint_bytes": 86575527,
+      "call_gc_seconds": 5.86403,
+      "call_including_restore_seconds": 117.0894922,
+      "sleep_calls": 3,
+      "seconds": 102.8894425,
+      "sleep_callback_seconds": 3.0928231,
+      "ordinary_tick_seconds": 95.5808572,
+      "day_end_before_save_seconds": 0.5296316,
+      "sample_delay_seconds": 0.005,
+      "original_counts_and_physical_equal": true,
+      "call_allocated_bytes": 36828011144,
+      "day": 30
+    },
+    {
+      "checkpoint_seconds": 35.4675411,
+      "checkpoint_bytes": 634622586,
+      "call_gc_seconds": 42.5990585,
+      "call_including_restore_seconds": 395.2521008,
+      "sleep_calls": 3,
+      "seconds": 351.9107335,
+      "sleep_callback_seconds": 1.9551067,
+      "ordinary_tick_seconds": 314.3860838,
+      "day_end_before_save_seconds": 0.1020019,
+      "sample_delay_seconds": 0.005,
+      "original_counts_and_physical_equal": true,
+      "call_allocated_bytes": 165992763493,
+      "day": 174
+    }
+  ],
+  "cpu": [
+    {
+      "day": 30,
+      "total_samples": 17408,
+      "top_calls": [
+        {
+          "samples": 1497,
+          "percent": 8.599494485294118,
+          "instrumented_line": 514,
+          "code": "structure=effective==\"off\" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],effective)"
+        },
+        {
+          "samples": 979,
+          "percent": 5.623851102941177,
+          "instrumented_line": 767,
+          "code": "mb_simulation && phase==\"exploration\" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))"
+        },
+        {
+          "samples": 896,
+          "percent": 5.147058823529412,
+          "instrumented_line": 515,
+          "code": "update_structures!(ground_models[a][\"structures\"],structure,receipt)"
+        },
+        {
+          "samples": 757,
+          "percent": 4.348575367647059,
+          "instrumented_line": 292,
+          "code": "lateral_views=lateral_side!=\"off\" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],\"ob:$now:$a\") for a in IDS) : nothing"
+        },
+        {
+          "samples": 680,
+          "percent": 3.90625,
+          "instrumented_line": 407,
+          "code": "mb_simulation && mb_observe!(mb_maps[a],landmarks[a],now;home=at_home,food=any(f->f[\"distance\"]<=1.25,moves[a][\"visible\"]))"
+        },
+        {
+          "samples": 641,
+          "percent": 3.6822150735294117,
+          "instrumented_line": 521,
+          "code": "filter!(kv->!startswith(first(kv),\"ground_\") || first(kv) in active,loop.methods)"
+        },
+        {
+          "samples": 637,
+          "percent": 3.659237132352941,
+          "instrumented_line": 348,
+          "code": "moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)"
+        },
+        {
+          "samples": 606,
+          "percent": 3.481158088235294,
+          "instrumented_line": 1178,
+          "code": "checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)"
+        },
+        {
+          "samples": 583,
+          "percent": 3.3490349264705883,
+          "instrumented_line": 343,
+          "code": "obs[a][\"items\"]=item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high)"
+        },
+        {
+          "samples": 526,
+          "percent": 3.0215992647058822,
+          "instrumented_line": 751,
+          "code": "bundle_trace=experience_bundles ? project_bundles!(bundles[a],candidates,s,bundle_contexts[a],phase,now;credit=bundle_credit) : nothing"
+        },
+        {
+          "samples": 523,
+          "percent": 3.0043658088235294,
+          "instrumented_line": 1101,
+          "code": "receipt!(learning[a],now;phase=phase,kind=action==\"rest\" ? \"wait\" : action,status=action==\"rest\" ? \"waited\" : status,on_complete=callback)"
+        },
+        {
+          "samples": 453,
+          "percent": 2.602251838235294,
+          "instrumented_line": 392,
+          "code": "skyline_views=skyline_mode==\"off\" ? nothing : Dict(a=>skyline_fan(skyline_objects,w.positions[a],yaw[a],\"ob:$now:$a\";subrays=skyline_mode==\"subrays\") for a in IDS)"
+        },
+        {
+          "samples": 447,
+          "percent": 2.5677849264705883,
+          "instrumented_line": 297,
+          "code": "patterns=ground_patterns(view)"
+        },
+        {
+          "samples": 442,
+          "percent": 2.5390625,
+          "instrumented_line": 432,
+          "code": "estimate=night_return_estimate!(mb_maps[a],fear,home,protected_home,now,clock.day_us)"
+        },
+        {
+          "samples": 389,
+          "percent": 2.2346047794117645,
+          "instrumented_line": 296,
+          "code": "view=ground_appearance(w,a,yaw,wear,now;dry=dry)"
+        },
+        {
+          "samples": 351,
+          "percent": 2.016314338235294,
+          "instrumented_line": 1103,
+          "code": "general_sleep && remember_general!(general[a],a,op,action,status,get(plan,\"target\",nothing),phase,now+1_000_000;context=contexts[a],direction=get(plan,\"direction\",nothing),retain=sleep_retention)"
+        }
+      ],
+      "item_social": [
+        {
+          "samples": 15,
+          "percent": 0.0861672794117647,
+          "instrumented_line": 603,
+          "code": "plan=item_social_plan!(incidental_items[a],get(o,\"items\",nothing),w.bodies[a],"
+        }
+      ]
+    },
+    {
+      "day": 174,
+      "total_samples": 59667,
+      "top_calls": [
+        {
+          "samples": 29563,
+          "percent": 49.546650577371075,
+          "instrumented_line": 603,
+          "code": "plan=item_social_plan!(incidental_items[a],get(o,\"items\",nothing),w.bodies[a],"
+        },
+        {
+          "samples": 6020,
+          "percent": 10.08932910989324,
+          "instrumented_line": 1178,
+          "code": "checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)"
+        },
+        {
+          "samples": 2200,
+          "percent": 3.6871302394958687,
+          "instrumented_line": 767,
+          "code": "mb_simulation && phase==\"exploration\" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))"
+        },
+        {
+          "samples": 2119,
+          "percent": 3.5513768079507937,
+          "instrumented_line": 608,
+          "code": "plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;relation=relations===nothing ? nothing : relations[a])"
+        },
+        {
+          "samples": 2107,
+          "percent": 3.5312651884626343,
+          "instrumented_line": 343,
+          "code": "obs[a][\"items\"]=item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high)"
+        },
+        {
+          "samples": 1600,
+          "percent": 2.6815492650879045,
+          "instrumented_line": 514,
+          "code": "structure=effective==\"off\" ? local_structures(view,lateral_views[a]) : rho_map(view,lateral_views[a],effective)"
+        },
+        {
+          "samples": 1052,
+          "percent": 1.7631186417952973,
+          "instrumented_line": 515,
+          "code": "update_structures!(ground_models[a][\"structures\"],structure,receipt)"
+        },
+        {
+          "samples": 1026,
+          "percent": 1.7195434662376188,
+          "instrumented_line": 470,
+          "code": "wake_bundles!(bundles[a],bundle_contexts[a],phase)"
+        },
+        {
+          "samples": 914,
+          "percent": 1.5318350176814655,
+          "instrumented_line": 521,
+          "code": "filter!(kv->!startswith(first(kv),\"ground_\") || first(kv) in active,loop.methods)"
+        },
+        {
+          "samples": 816,
+          "percent": 1.3675901251948313,
+          "instrumented_line": 292,
+          "code": "lateral_views=lateral_side!=\"off\" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],\"ob:$now:$a\") for a in IDS) : nothing"
+        },
+        {
+          "samples": 682,
+          "percent": 1.1430103742437192,
+          "instrumented_line": 348,
+          "code": "moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in IDS)"
+        },
+        {
+          "samples": 619,
+          "percent": 1.037424371930883,
+          "instrumented_line": 407,
+          "code": "mb_simulation && mb_observe!(mb_maps[a],landmarks[a],now;home=at_home,food=any(f->f[\"distance\"]<=1.25,moves[a][\"visible\"]))"
+        },
+        {
+          "samples": 597,
+          "percent": 1.0005530695359244,
+          "instrumented_line": 392,
+          "code": "skyline_views=skyline_mode==\"off\" ? nothing : Dict(a=>skyline_fan(skyline_objects,w.positions[a],yaw[a],\"ob:$now:$a\";subrays=skyline_mode==\"subrays\") for a in IDS)"
+        },
+        {
+          "samples": 560,
+          "percent": 0.9385422427807666,
+          "instrumented_line": 297,
+          "code": "patterns=ground_patterns(view)"
+        },
+        {
+          "samples": 476,
+          "percent": 0.7977609063636516,
+          "instrumented_line": 1103,
+          "code": "general_sleep && remember_general!(general[a],a,op,action,status,get(plan,\"target\",nothing),phase,now+1_000_000;context=contexts[a],direction=get(plan,\"direction\",nothing),retain=sleep_retention)"
+        },
+        {
+          "samples": 434,
+          "percent": 0.727370238155094,
+          "instrumented_line": 391,
+          "code": "landmarks=landmark_routes ? Dict(a=>landmark_fan(current_landmarks,w.positions[a],yaw[a],\"ob:$now:$a\";night=phase==\"night\",all_colors=general_landmarks) for a in IDS) : nothing"
+        }
+      ],
+      "item_social": [
+        {
+          "samples": 29563,
+          "percent": 49.546650577371075,
+          "instrumented_line": 603,
+          "code": "plan=item_social_plan!(incidental_items[a],get(o,\"items\",nothing),w.bodies[a],"
+        }
+      ]
+    }
+  ],
+  "state_counts": [
+    {
+      "day": 29,
+      "daily_history": 29,
+      "loop_methods": {
+        "npc_b": {
+          "food": {
+            "ground": 0,
+            "total": 1827
+          },
+          "home": {
+            "ground": 0,
+            "total": 1301
+          }
+        },
+        "npc_a": {
+          "food": {
+            "ground": 0,
+            "total": 1762
+          },
+          "home": {
+            "ground": 0,
+            "total": 1129
+          }
+        },
+        "npc_c": {
+          "food": {
+            "ground": 0,
+            "total": 1896
+          },
+          "home": {
+            "ground": 0,
+            "total": 1122
+          }
+        }
+      },
+      "mb_maps": {
+        "npc_b": {
+          "nodes": 960,
+          "chunks": 0,
+          "edges": 4356
+        },
+        "npc_a": {
+          "nodes": 999,
+          "chunks": 3,
+          "edges": 3865
+        },
+        "npc_c": {
+          "nodes": 960,
+          "chunks": 2,
+          "edges": 3840
+        }
+      },
+      "social_mb": {
+        "npc_b": {
+          "nodes": 9,
+          "pending": 0
+        },
+        "npc_a": {
+          "nodes": 10,
+          "pending": 0
+        },
+        "npc_c": {
+          "nodes": 9,
+          "pending": 0
+        }
+      },
+      "exchange_relations": {
+        "npc_b": 0,
+        "npc_a": 0,
+        "npc_c": 0
+      }
+    },
+    {
+      "day": 173,
+      "daily_history": 173,
+      "loop_methods": {
+        "npc_b": {
+          "food": {
+            "ground": 0,
+            "total": 2105
+          },
+          "home": {
+            "ground": 0,
+            "total": 1642
+          }
+        },
+        "npc_a": {
+          "food": {
+            "ground": 0,
+            "total": 2065
+          },
+          "home": {
+            "ground": 0,
+            "total": 1839
+          }
+        },
+        "npc_c": {
+          "food": {
+            "ground": 0,
+            "total": 2067
+          },
+          "home": {
+            "ground": 0,
+            "total": 1520
+          }
+        }
+      },
+      "mb_maps": {
+        "npc_b": {
+          "nodes": 997,
+          "chunks": 3,
+          "edges": 3941
+        },
+        "npc_a": {
+          "nodes": 962,
+          "chunks": 7,
+          "edges": 3849
+        },
+        "npc_c": {
+          "nodes": 1062,
+          "chunks": 3,
+          "edges": 4182
+        }
+      },
+      "social_mb": {
+        "npc_b": {
+          "nodes": 72,
+          "pending": 5
+        },
+        "npc_a": {
+          "nodes": 96,
+          "pending": 4
+        },
+        "npc_c": {
+          "nodes": 75,
+          "pending": 4
+        }
+      },
+      "exchange_relations": {
+        "npc_b": 76,
+        "npc_a": 94,
+        "npc_c": 36
+      }
+    }
+  ],
+  "daily_decisions": [
+    {
+      "day": 30,
+      "item_trade": {
+        "given": 0,
+        "offered": 0,
+        "dropped": 0,
+        "picked_up": 0,
+        "retrieved": 0,
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "stored": 0,
+        "expired": 0
+      },
+      "food_trade": {
+        "offered": 0,
+        "declined": 0,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "day_start_H": {
+        "npc_b": 0.0,
+        "npc_a": 0.0,
+        "npc_c": 0.0
+      },
+      "day_end_H": {
+        "npc_b": 0.0,
+        "npc_a": 0.0,
+        "npc_c": 0.0
+      }
+    },
+    {
+      "day": 174,
+      "item_trade": {
+        "given": 0,
+        "offered": 184,
+        "dropped": 0,
+        "picked_up": 0,
+        "retrieved": 0,
+        "declined": 184,
+        "unavailable": 0,
+        "exchanged": 0,
+        "stored": 0,
+        "expired": 0
+      },
+      "food_trade": {
+        "offered": 230,
+        "declined": 230,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "day_start_H": {
+        "npc_b": 0.5592040811609259,
+        "npc_a": 0.7248514427607177,
+        "npc_c": 1.168137065163664
+      },
+      "day_end_H": {
+        "npc_b": 1.166613810708538,
+        "npc_a": 1.3301747723055644,
+        "npc_c": 1.7774466715691477
+      }
+    }
+  ]
+}
