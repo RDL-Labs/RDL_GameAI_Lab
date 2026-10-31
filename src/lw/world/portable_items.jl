@@ -153,21 +153,24 @@ function item_can_carry(s,w,a;remove=(),add=())
         load["size"]<=capacity["size"]+1e-12*max(1.,capacity["size"])
 end
 item_position(item,w)=item["location"]==ITEM_HELD ? w.positions[item["owner"]] : item["position"]
-function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles)
+function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_stores=false,foods=nothing)
     check(a in IDS,"item_actor");t=item_time(now)
     angle=yaw isa AbstractDict ? yaw[a] : yaw
     check(item_real(angle),"item_yaw")
     visible=Any[];p=w.positions[a];sn,cs=sincos(deg2rad(angle))
     for id in s["initial_ids"]
         item=s["items"][id]
-        item["location"]==ITEM_STORED && continue
+        stored=item["location"]==ITEM_STORED
+        stored && !(open_stores && item_at_home(w,home,a)) && continue
         item["owner"]==a && continue
         q=item_position(item,w);dx,dz=q[1]-p[1],q[2]-p[2]
         f,r=dx*sn+dz*cs,dx*cs-dz*sn;d=hypot(dx,dz)
-        d<=12 && (f>=0 || d<=1.25) || continue
-        any(o->segment_hit(p,q,o,0.),visual_obstacles) && continue
+        if !stored # Open stores are a configured camp inspection shortcut.
+            d<=12 && (f>=0 || d<=1.25) || continue
+            any(o->segment_hit(p,q,o,0.),visual_obstacles) && continue
+        end
         row=item_descriptor(item)
-        # Other owners' internal category IDs, stores and prior histories are private.
+        # Internal category IDs and prior histories remain private.
         delete!(row,"kind");delete!(row,"mass")
         merge!(row,D("forward"=>f,"right"=>r,"distance"=>d,"holder"=>item["owner"]))
         push!(visible,row)
@@ -178,11 +181,13 @@ function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles)
     offers=sort(collect(values(s["offers"]));by=o->o["id"])
     incoming=Any[deepcopy(o) for o in offers if o["target"]==a && t<o["expires_us"] && o["proposer"] in partners]
     outgoing=findfirst(o->o["proposer"]==a && t<o["expires_us"],offers)
-    D("visible"=>visible,"own"=>item_inventory(s,a),"own_load"=>item_load(s,a),
+    view=D("visible"=>visible,"own"=>item_inventory(s,a),"own_load"=>item_load(s,a),
         "carry_capacity"=>item_capacity(s,w,a),"partners"=>partners,
         "trade_partners"=>String[b for b in partners if item_trade_contact(w,home,a,b)],
         "incoming"=>incoming,"outgoing"=>outgoing===nothing ? nothing : offers[outgoing]["id"],
         "notices"=>deepcopy(s["notices"][a]))
+    open_stores && (view["observed_food_stocks"]=observed_food_stores(foods,w,home,a))
+    view
 end
 
 function item_light_objects(s,w)

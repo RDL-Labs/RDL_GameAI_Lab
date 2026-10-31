@@ -30,6 +30,7 @@ item_run(s;kwargs...)=LW.lw_day(s,CLOCK;basic_loop=true,landmark_routes=true,kwa
 @testset "LW portable actions conserve items and food without inventing utility" begin
     r=item_run(item_scene();days=2)
     items=r["portable_items"];counts=items["counts"]
+    @test r["world_checkpoint"]["open_stores"]===true
     @test counts["picked_up"]==4 && counts["stored"]==5 && counts["retrieved"]==2
     @test counts["given"]==1 && counts["dropped"]==1 && counts["offered"]==3
     @test counts["exchanged"]==2 && counts["declined"]==1 && counts["unavailable"]==0
@@ -48,7 +49,8 @@ item_run(s;kwargs...)=LW.lw_day(s,CLOCK;basic_loop=true,landmark_routes=true,kwa
 end
 
 @testset "placement alone does not force collection or trade" begin
-    r=item_run(item_scene(actions=false))
+    r=item_run(merge(item_scene(actions=false),(open_stores=false,)))
+    @test r["world_checkpoint"]["open_stores"]===false
     @test all(iszero,values(r["portable_items"]["counts"]))
     @test all(x["owner"]===nothing for x in r["portable_items"]["items"])
     hungry=merge(item_scene(actions=false),(reserve=[60.,95.,95.],

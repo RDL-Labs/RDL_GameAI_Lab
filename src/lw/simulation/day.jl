@@ -314,6 +314,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     incidental_items=incidental_enabled ? D(a=>incidental_item_state(a,choice_seed) for a in IDS) : nothing
     incidental_snapshot()=D(a=>incidental_item_snapshot(incidental_items[a]) for a in IDS)
     exchange_enabled=get(spec,:food_exchange,false)
+    open_stores=get(spec,:open_stores,true)
+    check(open_stores isa Bool,"open_stores_flag")
     check(exchange_enabled isa Bool,"food_exchange_flag")
     check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
     relationship_enabled=get(spec,:social_relationships,false)
@@ -419,7 +421,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         if items!==nothing
             item_expire!(items,now)
             for a in IDS
-                obs[a]["items"]=item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high)
+                obs[a]["items"]=item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods)
                 incidental_items!==nothing && item_social_observe!(incidental_items[a],obs[a]["items"];
                     relation=relations===nothing ? nothing : relations[a])
             end
@@ -437,7 +439,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions,rho=get(rho_baselines,a,"coarse"),attention=social_attention(relations[a],now)) for a in IDS)
         relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),IDS)
         relations!==nothing && foreach(a->(relations[a]["social_view"]=social_views[a]),IDS)
-        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations)
+        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations,open_stores)
 
         homes=Dict(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6) for a in IDS)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in IDS) : nothing
@@ -1265,7 +1267,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     end
     environment=D("rule"=>"native-cohort-world-v1","day_us"=>clock.day_us,"next_us"=>world_offset+days*clock.day_us,
         "shared_stores"=>shared_stores,"shared_stock"=>shared,"regrowth_days"=>regrowth_days,"regrowth_capacity"=>regrowth_capacity,"landscape"=>land,"obstacles"=>spec.obstacles,"renewal_targets"=>spec.food,"ground_patches"=>spec.ground_patches,
-        "renewable"=>renewable_food,"food_season"=>food_season,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
+        "renewable"=>renewable_food,"food_season"=>food_season,"open_stores"=>open_stores,"hazard_mode"=>dynamic_hazard_mode,"dropping"=>dropping,"wear_enabled"=>ground_wear,
         "food"=>deepcopy(food),"stock"=>copy(stock),"ground"=>ground_wear ? wear_snapshot(wear) : nothing,
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
         "wildlife"=>wildlife===nothing ? nothing :

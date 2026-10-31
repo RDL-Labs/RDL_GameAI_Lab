@@ -1,5 +1,5 @@
 # Authoritative camp transactions. Beliefs, utilities and offer selection live
-# outside this module; another owner's warehouse is never included in a view.
+# outside this module. Open stores expose a copied observation, not private utility.
 const FOOD_EXCHANGE_TTL_US=30_000_000
 
 function food_exchange_state()
@@ -54,7 +54,11 @@ function food_exchange_expire!(s,now)
     nothing
 end
 
-function food_exchange_view(s,r,w,home,a,now)
+function observed_food_stores(r,w,home,a)
+    r===nothing || !food_exchange_at_home(w,home,a) ? D() :
+        D(b=>copy(r.personal[b]) for b in IDS if b!=a)
+end
+function food_exchange_view(s,r,w,home,a,now;open_stores=false)
     check(a in IDS,"trade_actor")
     t=food_exchange_time(now)
     partners=String[b for b in IDS if food_exchange_contact(w,home,a,b)]
@@ -64,9 +68,11 @@ function food_exchange_view(s,r,w,home,a,now)
         o=s["offers"][id];o["proposer"]==a && t<o["expires_us"]
     end,sort(collect(keys(s["offers"]))))
     ids=sort(collect(keys(s["offers"])))
-    D("own_stock"=>copy(r.personal[a]),"partners"=>partners,"incoming"=>incoming,
+    view=D("own_stock"=>copy(r.personal[a]),"partners"=>partners,"incoming"=>incoming,
         "outgoing"=>outgoing===nothing ? nothing : ids[outgoing],
         "notices"=>deepcopy(s["notices"][a]))
+    open_stores && (view["observed_food_stocks"]=observed_food_stores(r,w,home,a))
+    view
 end
 
 function food_exchange_execute!(s,r,w,stores,home,a,op,action,now;

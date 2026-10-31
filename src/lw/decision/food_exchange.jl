@@ -1,5 +1,10 @@
 # Initial valuation adapter; selection and experience use the common BasicLoop.
-# No access to another actor's warehouse, body, preferences or hidden intentions.
+# Peer stock is used only through explicit observations; private utility stays hidden.
+function observed_food_count(view,other,k;fallback=4)
+    stocks=get(view,"observed_food_stocks",nothing)
+    stocks===nothing && return fallback # legacy private-store experiment
+    haskey(stocks,other) ? stocks[other][k] : 0
+end
 const FOOD_TRADE_INTERVAL_US=64_000_000
 const FOOD_TRADE_TOLERANCE=.05
 function food_trade_state(seed;relational=false)
@@ -56,7 +61,7 @@ function food_trade_resolve!(loop,source,expected,weights,result;relational=fals
         resolve_method!(loop,source,nothing,nothing;creditable=false,goal_H_increment=0.)
     end
 end
-function food_trade_views!(t,r,w,home,now;relations=nothing)
+function food_trade_views!(t,r,w,home,now;relations=nothing,open_stores=false)
     food_exchange_expire!(t["world"],now)
     views=D()
     for a in IDS
@@ -64,7 +69,7 @@ function food_trade_views!(t,r,w,home,now;relations=nothing)
         mind=t["minds"][a]
         incoming=any(o->o["target"]==a,values(t["world"]["offers"]))
         if mind["pending"]!==nothing || incoming || now>=mind["next_view_us"]
-            view=food_exchange_view(t["world"],r,w,home,a,now)
+            view=food_exchange_view(t["world"],r,w,home,a,now;open_stores)
             views[a]=view;mind["next_view_us"]=now+FOOD_TRADE_INTERVAL_US
             pending=mind["pending"]
             if pending!==nothing
@@ -129,7 +134,7 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=tr
     isempty(view["partners"]) && return nothing
     candidates=Any[]
     relation_traces=D()
-    for other in view["partners"], g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:4
+    for other in view["partners"], g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:min(4,observed_food_count(view,other,h))
         g==h && continue
         require_need && relief(g,n,h,m)<=1e-9 && continue
         gain=food_trade_gain(stock,weights,g,n,h,m)

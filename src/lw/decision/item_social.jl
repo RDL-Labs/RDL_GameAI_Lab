@@ -1,6 +1,6 @@
 # Optional possession changes use the same observable interest as pickup,
-# common BasicLoop selection, and owner-local social MB predictions. No peer
-# stock, hidden kind, preference or valuation is read by this policy.
+# common BasicLoop selection, and owner-local social MB predictions. Unobserved
+# peer stock, hidden kind, preference and valuation are not read by this policy.
 function item_social_state!(state)
     get!(state,"social") do
         a=state["actor"]
@@ -108,6 +108,9 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     candidates=Any[]
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
+        # New requests and counteroffers stay within the observed warehouse.
+        # An incoming offer is its own evidence; execution revalidates ownership.
+        (!response || counter) && any(k->wf[k]>observed_food_count(view,other,k;fallback=typemax(Int)),eachindex(wf)) && return
         relief=trade_food_relief(body,gut,stock,gf,wf;security)
         require_need && (need<=1e-9 || relief<=1e-9) && return
         isempty(intersect(give,want)) || return
@@ -148,7 +151,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         if isempty(candidates) && (!require_need || need>1e-9) && view["outgoing"]===nothing && mind["pending"]===nothing && get(o,"round",0)<8
             give=Int.(o["want_items"]);want=Int.(o["give_items"])
             gf=Int.(o["want_food"]);wf=Int.(o["give_food"])
-            # Local changes to the received conditions. No peer warehouse lookup.
+            # Local changes use only the warehouse observation in this view.
             for row in Iterators.take(view["visible"],8)
                 get(row,"holder",nothing)==o["proposer"] || continue
                 id=Int(row["ref"]);id in want && continue
@@ -182,8 +185,8 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     else
         own=Iterators.take(view["own"]["held"],4)
         if require_need && stock!==nothing
-            # Tender a possession for needed food without inspecting peer stock.
-            for other in get(view,"trade_partners",String[]), held in own, k in eachindex(available), n in 1:4
+            # Tender a possession for needed, observed food.
+            for other in get(view,"trade_partners",String[]), held in own, k in eachindex(available), n in 1:min(4,observed_food_count(view,other,k))
                 wf=zeros(Int,4);wf[k]=n
                 candidate(other,[Int(held["ref"])],Int[],zeros(Int,4),wf)
             end
