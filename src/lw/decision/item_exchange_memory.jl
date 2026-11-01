@@ -121,21 +121,31 @@ function item_exchange_prepared_bundle(by_ref,ids,food)
     D("items"=>features,"food"=>copy(food))
 end
 
-function item_exchange_bundle_fit(state,a,b)
-    aa=unique(a["items"]);bb=unique(b["items"])
+item_exchange_fit_material(b)=(items=unique(b["items"]),food=b["food"].>0)
+function item_exchange_fit_material(b,materials)
+    get!(materials,b) do;item_exchange_fit_material(b);end
+end
+item_exchange_bundle_fit(state,a,b)=item_exchange_material_fit(state,item_exchange_fit_material(a),item_exchange_fit_material(b))
+function item_exchange_material_fit(state,a,b)
+    aa=a.items;bb=b.items
     isempty(aa)!=isempty(bb) && return 0.
     # Relation support is independent of multiplicity. Quantity is evaluated by
     # the response model and utility field after retrieval, not as mismatch.
     fit=isempty(aa) ? 1. :
         (sum(maximum(incidental_item_fit(state,f,g) for g in bb) for f in aa)/length(aa)+
          sum(maximum(incidental_item_fit(state,g,f) for f in aa) for g in bb)/length(bb))/2
-    fit*exp(-sum((a["food"].>0).!=(b["food"].>0)))
+    fit*exp(-sum(a.food.!=b.food))
 end
 
-function item_exchange_support(state,give,want,partner,context,H)
+function item_exchange_support(state,give,want,partner,context,H;materials=nothing)
+    # No cross-decision cache: learning may change prototypes before the next call.
+    materials===nothing && (materials=IdDict{Any,Any}())
+    give_material=item_exchange_fit_material(give,materials)
+    want_material=item_exchange_fit_material(want,materials)
     scored=Any[]
     for m in get(state,"exchange_relations",Any[])
-        fit=item_exchange_bundle_fit(state,give,m["give"])*item_exchange_bundle_fit(state,want,m["want"])
+        fit=item_exchange_material_fit(state,give_material,item_exchange_fit_material(m["give"],materials))*
+            item_exchange_material_fit(state,want_material,item_exchange_fit_material(m["want"],materials))
         fit*=partner==m["partner"] ? 1. : .25
         fit*=exp(-abs(context["need"]-m["need"]))
         push!(scored,(fit=fit,m=m))

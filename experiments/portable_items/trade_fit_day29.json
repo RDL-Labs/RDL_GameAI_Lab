@@ -1,0 +1,121 @@
+{
+  "summary_equal_excluding_diagnostics": true,
+  "excluded_keys": [
+    "elapsed_seconds_including_compilation",
+    "measurement"
+  ],
+  "provenance": {
+    "after": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "overlay_sha256": {
+        "src/lw/decision/item_social.jl": "1b61825836bdb62f4edcc3c922faf64eaf1fbc10f838f69c9afa8b6eb779c18b",
+        "src/lw/decision/item_exchange_memory.jl": "7e5a1acea39c7675f9868cd69949203b22be4ca49bf7280110907cd2e7e826a7"
+      },
+      "logging": true,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Logging flag applied after original checkpoint validation; old records retained. Optional function overlays are explicitly listed in overlay_sha256.",
+      "day": 29
+    },
+    "before": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "overlay_sha256": {
+        "src/lw/decision/item_social.jl": "8eb71e2180b4fb21052c855e9dc6c7e2d8cfbbc114532f2996acf15da518d1c9",
+        "src/lw/decision/item_exchange_memory.jl": "b659986a6f3db3bc61dbccb60b735d0b4b51cb6a5cd2b74c0c069081ee870bb5"
+      },
+      "logging": true,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Logging flag applied after original checkpoint validation; old records retained. Optional function overlays are explicitly listed in overlay_sha256.",
+      "day": 29
+    }
+  },
+  "matches_original_action_counts": true,
+  "metrics": {
+    "after": {
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T12:45:06.2992387+09:00",
+        "wall_seconds": 271.267485,
+        "started_utc": "2026-11-01T12:40:35.0317537+09:00",
+        "mode": "after"
+      },
+      "summary_json_bytes": 18174878,
+      "logging": true,
+      "checkpoint_bytes": 183823168,
+      "new_gradient_records": {
+        "npc_b": 328,
+        "npc_a": 320,
+        "npc_c": 181
+      },
+      "tick_and_daily_save_seconds": 170.55282,
+      "call_seconds": 189.8858073,
+      "allocated_bytes": 79076335192,
+      "result_json_bytes": 144368859,
+      "gc_seconds": 14.7170281,
+      "process_peak_rss_bytes": 3110461440,
+      "checkpoint_save_seconds": 6.740125,
+      "day": 29
+    },
+    "before": {
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T12:40:35.0226173+09:00",
+        "wall_seconds": 279.4657701,
+        "started_utc": "2026-11-01T12:35:55.5568472+09:00",
+        "mode": "before"
+      },
+      "summary_json_bytes": 18174878,
+      "logging": true,
+      "checkpoint_bytes": 183823168,
+      "new_gradient_records": {
+        "npc_b": 328,
+        "npc_a": 320,
+        "npc_c": 181
+      },
+      "tick_and_daily_save_seconds": 178.1739183,
+      "call_seconds": 197.6715201,
+      "allocated_bytes": 89041372315,
+      "result_json_bytes": 144368859,
+      "gc_seconds": 15.8737926,
+      "process_peak_rss_bytes": 3101392896,
+      "checkpoint_save_seconds": 6.7849856,
+      "day": 29
+    }
+  },
+  "comparison_mode": "trade-fit-materials",
+  "matches_original_physical": true,
+  "checks_passed": 12,
+  "gradient_logs_compared": true,
+  "result_equal_excluding_diagnostics": true,
+  "day": 29,
+  "before_commit": "e348193db4b44d9fe83ba905e991d83e3bb3adf1",
+  "output_hashes": {
+    "result.json": {
+      "before": "B0B385D2AE26208F86C094DC104FDED3AB657F613A054545022FCC5BA9A544E5",
+      "after": "B0B385D2AE26208F86C094DC104FDED3AB657F613A054545022FCC5BA9A544E5",
+      "equal": true
+    },
+    "summary.json": {
+      "before": "54C88395F375A9EDE5452C66C69A424149EB61E21965ACE407F6CD4166CC7090",
+      "after": "54C88395F375A9EDE5452C66C69A424149EB61E21965ACE407F6CD4166CC7090",
+      "equal": true
+    }
+  },
+  "checks": {
+    "fit_materials": 523,
+    "replay": 12,
+    "quantity_gradient": 288,
+    "exchange_memory": 274
+  }
+}

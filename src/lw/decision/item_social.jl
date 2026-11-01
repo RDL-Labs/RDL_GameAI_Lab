@@ -126,6 +126,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     candidates=Any[]
     peer_valuations=D()
     recall_support=D() # local: never survives selection or experience updates
+    fit_materials=IdDict{Any,Any}() # query/prototype preparation shared within this decision
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
         # New requests and counteroffers stay within the observed warehouse.
@@ -152,7 +153,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         (exchange_give===nothing || exchange_want===nothing) && return
         key=item_exchange_key(other,exchange_give,exchange_want)
         support=get!(recall_support,key) do
-            item_exchange_support(state,exchange_give,exchange_want,other,context,loop.H)
+            item_exchange_support(state,exchange_give,exchange_want,other,context,loop.H;materials=fit_materials)
         end
         evidence=item_exchange_prediction(support,exchange_give,exchange_want)
         prior=trace===nothing ? .5 : trace["profile"]["trade_probability"]
