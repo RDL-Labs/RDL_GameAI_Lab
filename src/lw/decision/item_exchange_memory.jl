@@ -111,6 +111,16 @@ function item_exchange_bundle(view,ids,food)
     D("items"=>features,"food"=>copy(food))
 end
 
+function item_exchange_prepared_bundle(by_ref,ids,food)
+    features=Any[]
+    for id in ids
+        f=get(by_ref,id,nothing);f===nothing && return nothing
+        push!(features,f)
+    end
+    sort!(features;by=f->(f["color"],f["size"],f["light_source"]))
+    D("items"=>features,"food"=>copy(food))
+end
+
 function item_exchange_bundle_fit(state,a,b)
     aa=unique(a["items"]);bb=unique(b["items"])
     isempty(aa)!=isempty(bb) && return 0.

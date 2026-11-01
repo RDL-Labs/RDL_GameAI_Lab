@@ -11,25 +11,43 @@ function item_social_state!(state)
     end
 end
 
-function item_subjective_values(state,view;stock=nothing,weights=nothing)
+function item_subjective_values(state,view;stock=nothing,weights=nothing,features=nothing)
     own=vcat(view["own"]["held"],view["own"]["stored"])
     values=Dict{Int,Float64}()
     for row in Iterators.flatten((own,view["visible"]))
-        f=incidental_item_feature(row);f===nothing && continue
+        f=features===nothing ? incidental_item_feature(row) : features[row];f===nothing && continue
         values[Int(row["ref"])]=max(incidental_item_interest(f),item_exchange_option(state,f;stock,weights))
     end
     values
 end
 
-function item_social_utility(items,stock,values,weights)
+function item_social_utility(items,stock,values,weights;prepared=nothing)
     groups=Dict{String,Tuple{Int,Float64}}()
     for r in Iterators.flatten((items["held"],items["stored"]))
-        f=incidental_item_feature(r);f===nothing && continue
-        key=incidental_item_key(f);n,v=get(groups,key,(0,0.))
+        f=prepared===nothing ? incidental_item_feature(r) : prepared.features[r];f===nothing && continue
+        key=prepared===nothing ? incidental_item_key(f) : prepared.keys[r];n,v=get(groups,key,(0,0.))
         groups[key]=(n+1,v+get(values,Int(r["ref"]),0.))
     end
     sum((v/n*log1p(n)/log(2) for (n,v) in Base.values(groups));init=0.)+
         sum(weights[k]*log1p(stock===nothing ? 0 : stock[k]) for k in eachindex(weights))
+end
+
+# Ephemeral observation preparation: row identity preserves conflicting duplicate
+# observations. Bundle lookup keeps the old first-ref rule; value lookup keeps
+# its last-valid-ref rule. Nothing is attached to memories or checkpoints.
+function item_social_prepare(state,view,stock,weights)
+    rows=collect(Iterators.flatten((view["own"]["held"],view["own"]["stored"])))
+    features=IdDict{Any,Any}();keys=IdDict{Any,String}();by_ref=Dict{Int,Any}()
+    for row in Iterators.flatten((rows,view["visible"]))
+        f=get!(features,row) do;incidental_item_feature(row);end
+        f===nothing || (keys[row]=incidental_item_key(f))
+        ref=Int(row["ref"])
+        haskey(by_ref,ref) || (by_ref[ref]=f)
+    end
+    common=(rows=rows,refs=Set(Int(r["ref"]) for r in rows),features=features,keys=keys,by_ref=by_ref)
+    values=item_subjective_values(state,view;stock,weights,features)
+    before=item_social_utility(view["own"],stock,values,weights;prepared=common)
+    merge(common,(values=values,before=before))
 end
 
 function item_social_actual(plan,result)
@@ -75,16 +93,16 @@ function item_social_observe!(state,view;relation=nothing)
     end
 end
 
-function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[])
-    refs=Set(Int(x["ref"]) for x in Iterators.flatten((own["held"],own["stored"])))
+function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[],prepared=nothing)
+    refs=prepared===nothing ? Set(Int(x["ref"]) for x in Iterators.flatten((own["held"],own["stored"]))) : prepared.refs
     all(in(refs),give) && all(haskey(values,id) for id in want) || return nothing
     all(stock.>=gf) || return nothing
-    rows=collect(Iterators.flatten((own["held"],own["stored"])))
+    rows=prepared===nothing ? collect(Iterators.flatten((own["held"],own["stored"]))) : prepared.rows
     additions=filter(r->r["ref"] in want,visible)
     length(additions)==length(want) || return nothing
     after=D("held"=>vcat(filter(r->!(r["ref"] in give),rows),additions),"stored"=>Any[])
-    relational_transition(item_social_utility(own,stock,values,weights),
-        item_social_utility(after,stock.-gf.+wf,values,weights)).delta
+    before=prepared===nothing ? item_social_utility(own,stock,values,weights) : prepared.before
+    relational_transition(before,item_social_utility(after,stock.-gf.+wf,values,weights;prepared)).delta
 end
 
 function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,require_need=false)
@@ -102,7 +120,8 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     item_exchange_memory!(state)
     weights=stock===nothing ? zeros(4) : food_trade_weights(body,gut)
     available=stock===nothing ? zeros(Int,4) : copy(stock)
-    values=item_subjective_values(state,view;stock=available,weights)
+    prepared=item_social_prepare(state,view,available,weights)
+    values=prepared.values
     context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
     candidates=Any[]
     peer_valuations=D()
@@ -115,7 +134,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         relief=trade_food_relief(body,gut,stock,gf,wf;security)
         isempty(intersect(give,want)) || return
         (!isempty(give) || !isempty(want)) && sum(gf)<=4 && sum(wf)<=4 || return
-        gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"])
+        gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"],prepared)
         gain===nothing && return
         observed,trace,valuation=get!(peer_valuations,other) do
             observed=social_observed_context(relation,other,context)
@@ -129,7 +148,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         # A valuation admissibility band, not a probability of accepting a loss.
         # Need/taste, possessions and social MB evidence remain owner-relative.
         subjective>=-.01 || return
-        exchange_give=item_exchange_bundle(view,give,gf);exchange_want=item_exchange_bundle(view,want,wf)
+        exchange_give=item_exchange_prepared_bundle(prepared.by_ref,give,gf);exchange_want=item_exchange_prepared_bundle(prepared.by_ref,want,wf)
         (exchange_give===nothing || exchange_want===nothing) && return
         key=item_exchange_key(other,exchange_give,exchange_want)
         support=get!(recall_support,key) do

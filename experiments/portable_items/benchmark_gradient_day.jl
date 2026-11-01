@@ -1,6 +1,6 @@
 # Trusted local checkpoint replay. Frozen production source is never modified.
 using JSON3, SHA, Serialization
-length(ARGS)==4 || error("usage: benchmark_gradient_day.jl RUN DAY on|off NEW_OUTPUT")
+length(ARGS) in (4,5) || error("usage: benchmark_gradient_day.jl RUN DAY on|off NEW_OUTPUT [TRADE_OVERLAY_SOURCE]")
 const run=abspath(ARGS[1]);const day=parse(Int,ARGS[2]);const enabled=ARGS[3]=="on"
 ARGS[3] in ("on","off") || error("invalid mode")
 const out=abspath(ARGS[4]);ispath(out) && error("fresh output required");mkpath(out)
@@ -25,6 +25,17 @@ function finish_day!()
     tick_seconds[]=(time_ns()-started[])/1e9
 end
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
+const overlay_hashes=Dict{String,String}()
+if length(ARGS)==5
+    # Explicit experiment-only function overlay, no state schema changes.
+    # Original checkpoint validation still checks the original frozen source.
+    for relative in ("src/lw/decision/item_exchange_memory.jl","src/lw/decision/item_social.jl")
+        path=joinpath(abspath(ARGS[5]),relative)
+        overlay_hashes[relative]=bytes2hex(sha256(read(path)))
+        target=joinpath(out,"overlay",relative);mkpath(dirname(target));cp(path,target)
+        Base.include(Main,path)
+    end
+end
 file=joinpath(snapshot,"src/lw/simulation/day.jl")
 function edit_once(s,a,b)
     count(a,s)==1 || error("instrumentation anchor mismatch: $a")
@@ -43,8 +54,8 @@ input=JSON3.read(JSON3.write(inputdict));first_sec[]=(day-1)*div(input.clock.day
 write(joinpath(out,"input.json"),JSON3.write(inputdict))
 write(joinpath(out,"provenance.json"),JSON3.write((source_run=run,day=day,logging=enabled,
     checkpoint=checkpoint,checkpoint_sha256=bytes2hex(sha256(read(checkpoint))),
-    source_code_hash=checkpoint_code_hash(),instrumentation_sha256=bytes2hex(sha256(codeunits(source))),
-    override="Only relations[*].gradient_logging after original checkpoint identity/source validation; old records retained",
+    source_code_hash=checkpoint_code_hash(),instrumentation_sha256=bytes2hex(sha256(codeunits(source))),overlay_sha256=overlay_hashes,
+    override="Logging flag applied after original checkpoint validation; old records retained. Optional function overlays are explicitly listed in overlay_sha256.",
     warmup_seconds=512,threads=Threads.nthreads(),julia=string(VERSION))))
 println("warmup $(ARGS[3]) day $day");flush(stdout)
 try

@@ -1,0 +1,122 @@
+{
+  "summary_equal_excluding_diagnostics": true,
+  "excluded_keys": [
+    "elapsed_seconds_including_compilation",
+    "measurement"
+  ],
+  "provenance": {
+    "after": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "overlay_sha256": {
+        "src/lw/decision/item_social.jl": "8eb71e2180b4fb21052c855e9dc6c7e2d8cfbbc114532f2996acf15da518d1c9",
+        "src/lw/decision/item_exchange_memory.jl": "b659986a6f3db3bc61dbccb60b735d0b4b51cb6a5cd2b74c0c069081ee870bb5"
+      },
+      "logging": true,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Only relations[*].gradient_logging after original checkpoint identity/source validation; old records retained",
+      "day": 29
+    },
+    "before": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "overlay_sha256": {
+        "src/lw/decision/item_social.jl": "fd910cc033996e8f8f02013e80415a4b7ac5bd56924c149262bd9efb0a62cb33",
+        "src/lw/decision/item_exchange_memory.jl": "c9f943af5ec26e9d9d9068fcdf3308f86ef2ed192d7945c460bca14153bf4718"
+      },
+      "logging": true,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Only relations[*].gradient_logging after original checkpoint identity/source validation; old records retained",
+      "day": 29
+    }
+  },
+  "matches_original_action_counts": true,
+  "metrics": {
+    "after": {
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T10:59:16.3759505+09:00",
+        "wall_seconds": 281.7041639,
+        "started_utc": "2026-11-01T10:54:34.6717866+09:00",
+        "mode": "after"
+      },
+      "summary_json_bytes": 18174878,
+      "logging": true,
+      "checkpoint_bytes": 183823168,
+      "new_gradient_records": {
+        "npc_b": 328,
+        "npc_a": 320,
+        "npc_c": 181
+      },
+      "tick_and_daily_save_seconds": 179.959773,
+      "call_seconds": 200.4234562,
+      "allocated_bytes": 89109647253,
+      "result_json_bytes": 144368859,
+      "gc_seconds": 16.1887203,
+      "process_peak_rss_bytes": 3060457472,
+      "checkpoint_save_seconds": 6.9315739,
+      "day": 29
+    },
+    "before": {
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T10:54:34.6631814+09:00",
+        "wall_seconds": 284.3398354,
+        "started_utc": "2026-11-01T10:49:50.323346+09:00",
+        "mode": "before"
+      },
+      "summary_json_bytes": 18174878,
+      "logging": true,
+      "checkpoint_bytes": 183823168,
+      "new_gradient_records": {
+        "npc_b": 328,
+        "npc_a": 320,
+        "npc_c": 181
+      },
+      "tick_and_daily_save_seconds": 183.0038463,
+      "call_seconds": 202.3908823,
+      "allocated_bytes": 91289948736,
+      "result_json_bytes": 144368859,
+      "gc_seconds": 16.2781073,
+      "process_peak_rss_bytes": 3122839552,
+      "checkpoint_save_seconds": 6.9890187,
+      "day": 29
+    }
+  },
+  "comparison_mode": "trade-preparation",
+  "matches_original_physical": true,
+  "checks_passed": 12,
+  "gradient_logs_compared": true,
+  "result_equal_excluding_diagnostics": true,
+  "day": 29,
+  "note": "Both runs logging ON; original frozen runtime plus explicit two-file trade function overlay. Baseline matches original frozen source. Comparison includes gradient logs; only timing metadata excluded.",
+  "before_commit": "fe704557e77d435f05ca48a33783e14b45f6c697",
+  "output_hashes": {
+    "summary.json": {
+      "equal": true,
+      "after": "54C88395F375A9EDE5452C66C69A424149EB61E21965ACE407F6CD4166CC7090",
+      "before": "54C88395F375A9EDE5452C66C69A424149EB61E21965ACE407F6CD4166CC7090"
+    },
+    "result.json": {
+      "equal": true,
+      "after": "B0B385D2AE26208F86C094DC104FDED3AB657F613A054545022FCC5BA9A544E5",
+      "before": "B0B385D2AE26208F86C094DC104FDED3AB657F613A054545022FCC5BA9A544E5"
+    }
+  },
+  "checks": {
+    "replay": 12,
+    "compound": "PASS",
+    "integration": 13,
+    "prepared": 372
+  }
+}
