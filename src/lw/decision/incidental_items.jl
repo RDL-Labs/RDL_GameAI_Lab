@@ -207,9 +207,55 @@ function incidental_item_snapshot(state)
       "metric"=>deepcopy(state["metric"]),"memory"=>deepcopy(state["memory"]),
       "handled_refs"=>copy(state["handled_refs"]),"records"=>deepcopy(state["records"]),
       "social"=>haskey(state,"social") ? item_social_snapshot(state["social"]) : nothing,
+      "attention"=>deepcopy(get(state,"attention",nothing)),
       "exchange_relations"=>deepcopy(get(state,"exchange_relations",Any[])),
       "exchange_recalled_choices"=>get(state,"exchange_recalled_choices",0),
       (name=>state[name] for name in ("decisions","continued","selected","succeeded","failed","ignored"))...)
+end
+
+# Experimental attention scheduling. Only current observations enter action plans;
+# skipping a look does not mean absence, nor does it reuse stale executable refs.
+function item_attention_view!(state,items,w,home,a,yaw,now;purpose, H=0.,pressure=0.,
+        visual_obstacles=w.obstacles,open_stores=false,foods=nothing)
+    attention=get!(state,"attention") do
+        D("requests"=>0,"skipped"=>0,"glimpses"=>0,"details"=>0,
+          "trade_details"=>0,"pickup_details"=>0,"next_pickup_us"=>0,"last_amount"=>"unknown")
+    end
+    attention["requests"]+=1
+    if purpose==:trade
+        mind=item_social_state!(state)
+        # Addressed offers are communication, not access to a peer's private stock.
+        incoming=any(o->o["target"]==a && now<o["expires_us"] && item_contact(w,a,o["proposer"]),values(items["offers"]))
+        if !incoming && (now<mind["next_us"] || mind["pending"]!==nothing)
+            attention["skipped"]+=1;return nothing
+        end
+    elseif purpose==:pickup
+        if now<attention["next_pickup_us"]
+            attention["skipped"]+=1;return nothing
+        end
+        # Trial cadence in simulation seconds, not a biological claim. Greater
+        # unresolved pressure prompts review; bodily urgency reduces distraction.
+        interval=clamp(16*(1+clamp(pressure,0.,1.))/(1+max(0.,H)/8),2.,32.)
+        attention["next_pickup_us"]=now+round(Int,interval*1_000_000)
+        attention["glimpses"]+=1
+        n=0;p=w.positions[a];sn,cs=sincos(deg2rad(yaw))
+        for id in items["initial_ids"]
+            item=items["items"][id]
+            item["location"]==ITEM_GROUND || continue
+            q=item_position(item,w);dx,dz=q[1]-p[1],q[2]-p[2];d=hypot(dx,dz)
+            d<=12 && (dx*sn+dz*cs>=0 || d<=1.25) || continue
+            any(o->segment_hit(p,q,o,0.),visual_obstacles) && continue
+            n+=1;n>=3 && break # Only none/few/many, no object descriptors.
+        end
+        attention["last_amount"]=n==0 ? "none" : n<3 ? "few" : "many"
+        if n==0;attention["skipped"]+=1;return nothing;end
+    else
+        error("item attention purpose")
+    end
+    attention["details"]+=1
+    attention[purpose==:trade ? "trade_details" : "pickup_details"]+=1
+    item_visible(items,w,home,a,yaw,now;visual_obstacles,open_stores,foods,
+        focus=purpose==:pickup ? :pickup : :all)
 end
 
 include("item_exchange_memory.jl")

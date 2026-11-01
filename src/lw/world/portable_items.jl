@@ -153,7 +153,8 @@ function item_can_carry(s,w,a;remove=(),add=())
         load["size"]<=capacity["size"]+1e-12*max(1.,capacity["size"])
 end
 item_position(item,w)=item["location"]==ITEM_HELD ? w.positions[item["owner"]] : item["position"]
-function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_stores=false,foods=nothing)
+function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_stores=false,foods=nothing,focus=:all)
+    focus in (:all,:pickup) || error("item observation focus")
     check(a in IDS,"item_actor");t=item_time(now)
     angle=yaw isa AbstractDict ? yaw[a] : yaw
     check(item_real(angle),"item_yaw")
@@ -161,9 +162,11 @@ function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_store
     for id in s["initial_ids"]
         item=s["items"][id]
         stored=item["location"]==ITEM_STORED
+        focus==:pickup && item["location"]!=ITEM_GROUND && continue
         stored && !(open_stores && item_at_home(w,home,a)) && continue
         item["owner"]==a && continue
         q=item_position(item,w);dx,dz=q[1]-p[1],q[2]-p[2]
+        focus==:pickup && hypot(dx,dz)>1.25 && continue
         f,r=dx*sn+dz*cs,dx*cs-dz*sn;d=hypot(dx,dz)
         if !stored # Open stores are a configured camp inspection shortcut.
             d<=12 && (f>=0 || d<=1.25) || continue

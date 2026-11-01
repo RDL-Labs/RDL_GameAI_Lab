@@ -309,6 +309,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     items=portable_items(spec,w)
     item_actions=configured_item_actions(spec,items!==nothing)
     incidental_enabled=get(spec,:incidental_items,false)
+    item_attention_enabled=get(spec,:item_attention,false)
+    check(item_attention_enabled isa Bool,"item_attention_flag")
+    check(!item_attention_enabled || incidental_enabled,"item_attention_requires_incidental")
     check(incidental_enabled isa Bool,"incidental_items_flag")
     check(!incidental_enabled || (items!==nothing && basic_loop),"incidental_items_require_world_and_loop")
     incidental_items=incidental_enabled ? D(a=>incidental_item_state(a,choice_seed) for a in IDS) : nothing
@@ -421,7 +424,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         if items!==nothing
             item_expire!(items,now)
             for a in IDS
-                obs[a]["items"]=item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods)
+                obs[a]["items"]=item_attention_enabled ? D("notices"=>items["notices"][a]) :
+                    item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods)
                 incidental_items!==nothing && item_social_observe!(incidental_items[a],obs[a]["items"];
                     relation=relations===nothing ? nothing : relations[a])
             end
@@ -681,7 +685,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=configured_item_plan(item_actions,a,now)
             end
             if plan===nothing && incidental_items!==nothing && !observing && !(phase in ("night","orientation")) && at_home && w.inventory[a]==0
-                plan=item_social_plan!(incidental_items[a],get(o,"items",nothing),w.bodies[a],
+                item_view=item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
+                    purpose=:trade,visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods) : get(o,"items",nothing)
+                plan=item_social_plan!(incidental_items[a],item_view,w.bodies[a],
                     guts===nothing ? nothing : guts[a],shared_stores || foods===nothing ? nothing : foods.personal[a],now;
                     relation=relations===nothing ? nothing : relations[a])
             end
@@ -710,7 +716,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     if incidental_items!==nothing
                         urgency=food_body ? hunger[a]["intensity"] : clamp((80-w.bodies[a].reserve)/80,0.,1.)
                         night_fear_enabled && (urgency=max(urgency,clamp(mb_maps[a]["night_fear"]["H"]/32,0.,1.)))
-                        plan=incidental_item_plan!(incidental_items[a],o["items"],w.bodies[a],loops[a][family],now;
+                        item_view=item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
+                            purpose=:pickup,H=loops[a][family].H,pressure=urgency,visual_obstacles=high) : o["items"]
+                        plan=incidental_item_plan!(incidental_items[a],item_view,w.bodies[a],loops[a][family],now;
                             family=family,pressure=urgency,stock=shared_stores || foods===nothing ? nothing : foods.personal[a],
                             gut=guts===nothing ? nothing : guts[a])
                     end
