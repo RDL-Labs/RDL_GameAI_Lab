@@ -13,13 +13,27 @@ println("$(incidental ? "OPTIONAL PICKUP" : "PLACEMENT ONLY"): $(input.config.da
 mkpath(out);const snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(repo,"src"),joinpath(snapshot,"src"))
 cp(joinpath(repo,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
+const roster=String.(get(input.scene,:experimental_actor_ids,["npc_a","npc_b","npc_c"]))
+if haskey(input.scene,:experimental_actor_ids)
+    3<=length(roster)<=30 && length(unique(roster))==length(roster) || error("experimental roster")
+    roster[1:3]==["npc_a","npc_b","npc_c"] || error("retain legacy actor labels")
+    all(occursin(r"^npc_[a-z0-9_]+$",a) for a in roster) || error("actor label")
+    for key in (:positions,:reserve,:initial_inventory,:initial_inventory_kinds,:initial_personal_stock)
+        length(getproperty(input.scene,key))==length(roster) || error("roster input length: $key")
+    end
+    # Isolated experiment, following the six-actor transfer runner. Default
+    # production roster and other running snapshots are never modified.
+    write(joinpath(snapshot,"src/data/lw_actor_ids.jl"),"# Experimental frozen roster.\nconst IDS="*repr(Tuple(roster))*"\n")
+end
 cp(@__FILE__,joinpath(out,"runner.jl"));cp(original,joinpath(out,"input.json"))
-write(joinpath(out,"origin.json"),JSON3.write((path=original,sha256=bytes2hex(sha256(read(original))))))
+write(joinpath(out,"origin.json"),JSON3.write((path=original,sha256=bytes2hex(sha256(read(original))),
+    actor_ids=roster,roster_sha256=bytes2hex(sha256(read(joinpath(snapshot,"src/data/lw_actor_ids.jl")))))))
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 native_main([joinpath(out,"run"),"--spec",joinpath(out,"input.json"),"--checkpoint-dir",joinpath(out,"checkpoints")])
 r=JSON3.read(read(joinpath(out,"run/result.json"),String))
 @testset "finite placed objects and food conservation" begin
     @test length(r.daily)==input.config.days
+    @test Set(keys(r.final_agents))==Set(Symbol.(roster))
     @test r.portable_items.remaining_counts==r.portable_items.initial_counts
     @test length(unique(i.id for i in r.portable_items.items))==length(placed)
     if incidental
