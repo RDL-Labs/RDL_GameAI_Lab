@@ -1,0 +1,226 @@
+{
+  "metrics": {
+    "off": {
+      "item_counts": {
+        "given": 0,
+        "offered": 33,
+        "dropped": 0,
+        "picked_up": 9,
+        "retrieved": 0,
+        "declined": 30,
+        "unavailable": 0,
+        "exchanged": 3,
+        "stored": 0,
+        "expired": 0
+      },
+      "food_counts": {
+        "offered": 9,
+        "declined": 9,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "summary_json_bytes": 3692774,
+      "last_checkpoint_bytes": 4110276,
+      "checkpoint_total_bytes": 8302464,
+      "agents": {
+        "npc_b": {
+          "stock": 62,
+          "operations": 51840,
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 86.3987900648979
+          }
+        },
+        "npc_a": {
+          "stock": 61,
+          "operations": 51840,
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 86.5160503986879
+          }
+        },
+        "npc_c": {
+          "stock": 60,
+          "operations": 51840,
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 85.96014144395099
+          }
+        }
+      },
+      "gradient_records": {
+        "npc_b": {
+          "captured": 0,
+          "retained": 0
+        },
+        "npc_a": {
+          "captured": 0,
+          "retained": 0
+        },
+        "npc_c": {
+          "captured": 0,
+          "retained": 0
+        }
+      },
+      "measurement": {
+        "gc_seconds": 8.8025749,
+        "process_peak_rss_bytes": 1819676672,
+        "compilation_included": true,
+        "call_seconds": 222.1853462,
+        "allocated_bytes": 80212363746
+      },
+      "result_json_bytes": 7778975,
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T10:08:53.3040302+09:00",
+        "wall_seconds": 244.514269,
+        "started_utc": "2026-11-01T10:04:48.7897612+09:00",
+        "mode": "off"
+      },
+      "daily_timing": [
+        {
+          "day": 1,
+          "seconds": 112.5057794,
+          "bytes": 1909989
+        },
+        {
+          "day": 2,
+          "seconds": 53.7967327,
+          "bytes": 2282199
+        },
+        {
+          "day": 3,
+          "seconds": 73.0221919,
+          "bytes": 4110276
+        }
+      ]
+    },
+    "on": {
+      "item_counts": {
+        "given": 0,
+        "offered": 33,
+        "dropped": 0,
+        "picked_up": 9,
+        "retrieved": 0,
+        "declined": 30,
+        "unavailable": 0,
+        "exchanged": 3,
+        "stored": 0,
+        "expired": 0
+      },
+      "food_counts": {
+        "offered": 9,
+        "declined": 9,
+        "unavailable": 0,
+        "exchanged": 0,
+        "expired": 0
+      },
+      "summary_json_bytes": 5436311,
+      "last_checkpoint_bytes": 6183304,
+      "checkpoint_total_bytes": 10756848,
+      "agents": {
+        "npc_b": {
+          "stock": 62,
+          "operations": 51840,
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 86.3987900648979
+          }
+        },
+        "npc_a": {
+          "stock": 61,
+          "operations": 51840,
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 86.5160503986879
+          }
+        },
+        "npc_c": {
+          "stock": 60,
+          "operations": 51840,
+          "body": {
+            "rule": "layered-body-human-scale-v1",
+            "strain": 0,
+            "damage": 0,
+            "burst": 10,
+            "reserve": 85.96014144395099
+          }
+        }
+      },
+      "gradient_records": {
+        "npc_b": {
+          "captured": 101,
+          "retained": 64
+        },
+        "npc_a": {
+          "captured": 27,
+          "retained": 27
+        },
+        "npc_c": {
+          "captured": 119,
+          "retained": 64
+        }
+      },
+      "measurement": {
+        "gc_seconds": 8.8905944,
+        "process_peak_rss_bytes": 1825718272,
+        "compilation_included": true,
+        "call_seconds": 219.6856426,
+        "allocated_bytes": 80273423825
+      },
+      "result_json_bytes": 11514809,
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T10:04:48.7812093+09:00",
+        "wall_seconds": 241.4141113,
+        "started_utc": "2026-11-01T10:00:47.367098+09:00",
+        "mode": "on"
+      },
+      "daily_timing": [
+        {
+          "day": 1,
+          "seconds": 111.0459731,
+          "bytes": 2063043
+        },
+        {
+          "day": 2,
+          "seconds": 52.3784899,
+          "bytes": 2510501
+        },
+        {
+          "day": 3,
+          "seconds": 72.7313042,
+          "bytes": 6183304
+        }
+      ]
+    }
+  },
+  "sources_equal": true,
+  "result_differences_excluding_diagnostics": [],
+  "summary_differences_excluding_diagnostics": [],
+  "excluded_keys": [
+    "elapsed_seconds_including_compilation",
+    "gradient_logging",
+    "gradient_maps",
+    "measurement"
+  ],
+  "input_differences_excluding_log_flag": [],
+  "source_commit": "7df4747e50d8d69261de525488e49005d5938c6c",
+  "conditions": "Fresh 3 days; seed 20261007; 3 humans/30 rabbits; initial food 225; seasonal regeneration 60 days; one Julia thread; ON then OFF in separate processes; daily checkpoints; only gradient_logging differs."
+}
