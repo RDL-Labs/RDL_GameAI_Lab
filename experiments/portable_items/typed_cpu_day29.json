@@ -1,0 +1,4777 @@
+{
+  "experiment": "typed-day29-cpu-profile",
+  "baseline_commit": "e521f2d193f579256c0e6e89f056e31b50da87b7",
+  "profile_interval_seconds": 0.002,
+  "profile_buffer_entries": 20000000,
+  "scope": "Measured run_integrated call after 512 simulated seconds warmup; checkpoint restore, daily save and final assembly included; JSON export excluded",
+  "metrics": {
+    "gc_seconds": 11.7911857,
+    "process_peak_rss_bytes": 3589029888,
+    "logging": true,
+    "checkpoint_save_seconds": 6.8511415,
+    "new_gradient_records": {
+      "npc_b": 328,
+      "npc_a": 320,
+      "npc_c": 181
+    },
+    "tick_and_daily_save_seconds": 151.2052048,
+    "call_seconds": 170.8234212,
+    "allocated_bytes": 63873048427,
+    "day": 29
+  },
+  "provenance": {
+    "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+    "day": 29,
+    "logging": true,
+    "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+    "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+    "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+    "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+    "overlay_sha256": {
+      "src/lw/decision/item_social.jl": "ea5dd1c9e2a68407986c1d4d49cda4f5dc1212946720301728b407c2c26b59be",
+      "src/lw/decision/item_exchange_memory.jl": "4172c79fa5eb70d3d3a096d44276bbc67fbeb64f757236cf8e38f839deca1d16"
+    },
+    "override": "Logging flag applied after original checkpoint validation; old records retained. Optional function overlays are explicitly listed in overlay_sha256.",
+    "warmup_seconds": 512,
+    "threads": 1,
+    "julia": "1.13.1"
+  },
+  "profile_runner_sha256": "EBBC900A3F017BFAF52245FBB895863B89BA28D0E8ABE1009F20FCB1926CC80A",
+  "reference": "outputs/typed-fit-day29-20261101/after/result.json",
+  "result_sha256": "B0B385D2AE26208F86C094DC104FDED3AB657F613A054545022FCC5BA9A544E5",
+  "reference_sha256": "B0B385D2AE26208F86C094DC104FDED3AB657F613A054545022FCC5BA9A544E5",
+  "summary": {
+    "samples": 58825,
+    "inclusive": [
+      {
+        "function_key": "lw/simulation/integrated.jl:#run_integrated#1500",
+        "samples": 57904,
+        "percent": 98.43433914152146
+      },
+      {
+        "function_key": "lw/simulation/integrated.jl:run_integrated",
+        "samples": 57904,
+        "percent": 98.43433914152146
+      },
+      {
+        "function_key": "lw/simulation/day.jl:lw_day",
+        "samples": 54736,
+        "percent": 93.04887377815555
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#lw_day#1624",
+        "samples": 54733,
+        "percent": 93.04377390565236
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_plan!#1580",
+        "samples": 6092,
+        "percent": 10.356141096472589
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_plan!",
+        "samples": 6092,
+        "percent": 10.356141096472589
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_visible#506",
+        "samples": 5618,
+        "percent": 9.550361240968975
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_visible",
+        "samples": 5618,
+        "percent": 9.550361240968975
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:candidate",
+        "samples": 5534,
+        "percent": 9.407564810879729
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_support#1543",
+        "samples": 3730,
+        "percent": 6.340841478963026
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_support",
+        "samples": 3730,
+        "percent": 6.340841478963026
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1599",
+        "samples": 3730,
+        "percent": 6.340841478963026
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:mb_project_return!",
+        "samples": 3609,
+        "percent": 6.135146621334466
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_map",
+        "samples": 2939,
+        "percent": 4.996175095622609
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:local_structures",
+        "samples": 2930,
+        "percent": 4.980875478113047
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#local_structures#102",
+        "samples": 2925,
+        "percent": 4.972375690607735
+      },
+      {
+        "function_key": "lw/simulation/checkpoint.jl:checkpoint_load",
+        "samples": 2762,
+        "percent": 4.695282617934551
+      },
+      {
+        "function_key": "lw/simulation/checkpoint.jl:checkpoint_save",
+        "samples": 2211,
+        "percent": 3.758606034849129
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:update_structures!",
+        "samples": 1854,
+        "percent": 3.151721206969826
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#1545",
+        "samples": 1841,
+        "percent": 3.1296217594560134
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:mb_return_outlook!",
+        "samples": 1813,
+        "percent": 3.0820229494262645
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_search#954",
+        "samples": 1683,
+        "percent": 2.8610284742881427
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_search",
+        "samples": 1683,
+        "percent": 2.8610284742881427
+      },
+      {
+        "function_key": "lw/decision/lateral_bias.jl:lateral_obstacles",
+        "samples": 1562,
+        "percent": 2.6553336166595836
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_simulate!#976",
+        "samples": 1512,
+        "percent": 2.57033574160646
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_simulate!",
+        "samples": 1512,
+        "percent": 2.57033574160646
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_observe!#950",
+        "samples": 1476,
+        "percent": 2.509137271568211
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_observe!",
+        "samples": 1476,
+        "percent": 2.509137271568211
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#971",
+        "samples": 1475,
+        "percent": 2.507437314067148
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:landmark_patches",
+        "samples": 1472,
+        "percent": 2.5023374415639608
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#food_trade_plan!#737",
+        "samples": 1418,
+        "percent": 2.4105397365065873
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_plan!",
+        "samples": 1418,
+        "percent": 2.4105397365065873
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_bias#247",
+        "samples": 1304,
+        "percent": 2.2167445813854654
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relation_bias",
+        "samples": 1304,
+        "percent": 2.2167445813854654
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_profile#246",
+        "samples": 1276,
+        "percent": 2.169145771355716
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relation_profile",
+        "samples": 1276,
+        "percent": 2.169145771355716
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#social_mb_predict#220",
+        "samples": 1217,
+        "percent": 2.06884827879303
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_predict",
+        "samples": 1217,
+        "percent": 2.06884827879303
+      },
+      {
+        "function_key": "lw/simulation/moving.jl:#movement_observation#393",
+        "samples": 1185,
+        "percent": 2.014449638759031
+      },
+      {
+        "function_key": "lw/simulation/moving.jl:movement_observation",
+        "samples": 1185,
+        "percent": 2.014449638759031
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_edge_cost",
+        "samples": 1155,
+        "percent": 1.9634509137271567
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_scene#947",
+        "samples": 1000,
+        "percent": 1.6999575010624735
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_scene",
+        "samples": 1000,
+        "percent": 1.6999575010624735
+      },
+      {
+        "function_key": "lw/learning/sleep_cycle.jl:#receipt!#344",
+        "samples": 989,
+        "percent": 1.6812579685507862
+      },
+      {
+        "function_key": "lw/learning/sleep_cycle.jl:receipt!",
+        "samples": 989,
+        "percent": 1.6812579685507862
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1962",
+        "samples": 981,
+        "percent": 1.6676583085422865
+      },
+      {
+        "function_key": "geometry/RDLMigrationProbe.jl:segment_hit",
+        "samples": 980,
+        "percent": 1.665958351041224
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:relation_scene",
+        "samples": 945,
+        "percent": 1.6064598385040374
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:skyline_fan",
+        "samples": 920,
+        "percent": 1.5639609009774755
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:#skyline_fan#60",
+        "samples": 916,
+        "percent": 1.5571610709732258
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:ground_patterns",
+        "samples": 913,
+        "percent": 1.5520611984700383
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:observed_cues",
+        "samples": 863,
+        "percent": 1.4670633234169146
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#observed_cues#871",
+        "samples": 862,
+        "percent": 1.465363365915852
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:#remember_general!#305",
+        "samples": 825,
+        "percent": 1.4024649383765406
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:remember_general!",
+        "samples": 825,
+        "percent": 1.4024649383765406
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:project_trails!",
+        "samples": 819,
+        "percent": 1.3922651933701657
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_descriptor",
+        "samples": 809,
+        "percent": 1.375265618359541
+      },
+      {
+        "function_key": "lw/decision/movement.jl:evaluate_movement",
+        "samples": 754,
+        "percent": 1.281767955801105
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:ground_appearance",
+        "samples": 731,
+        "percent": 1.242668933276668
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:#ground_appearance#73",
+        "samples": 730,
+        "percent": 1.2409689757756057
+      },
+      {
+        "function_key": "geometry/RDLMigrationProbe.jl:ray_hit",
+        "samples": 720,
+        "percent": 1.2239694007649808
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#landmark_fan#848",
+        "samples": 719,
+        "percent": 1.2222694432639185
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:landmark_fan",
+        "samples": 719,
+        "percent": 1.2222694432639185
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_material_fit",
+        "samples": 657,
+        "percent": 1.116872078198045
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_candidates!",
+        "samples": 657,
+        "percent": 1.116872078198045
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_estimate!",
+        "samples": 625,
+        "percent": 1.062473438164046
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:climb_sample",
+        "samples": 613,
+        "percent": 1.0420739481512962
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:wake_bundles!",
+        "samples": 562,
+        "percent": 0.9553761155971101
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:project_rho_affordance!",
+        "samples": 537,
+        "percent": 0.9128771780705482
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:cue_candidates!",
+        "samples": 518,
+        "percent": 0.8805779855503613
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:mb_sleep_review!",
+        "samples": 514,
+        "percent": 0.8737781555461114
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:trail_key_from_prefix",
+        "samples": 500,
+        "percent": 0.8499787505312367
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_inventory",
+        "samples": 492,
+        "percent": 0.836379090522737
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_key",
+        "samples": 465,
+        "percent": 0.7904802379940501
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1926",
+        "samples": 464,
+        "percent": 0.7887802804929877
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_fit",
+        "samples": 436,
+        "percent": 0.7411814704632385
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_potential",
+        "samples": 435,
+        "percent": 0.7394815129621759
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#rho_potential#140",
+        "samples": 432,
+        "percent": 0.7343816404589886
+      },
+      {
+        "function_key": "lw/perception/movement.jl:perceive_movement",
+        "samples": 431,
+        "percent": 0.732681682957926
+      },
+      {
+        "function_key": "lw/perception/movement.jl:#perceive_movement#378",
+        "samples": 430,
+        "percent": 0.7309817254568636
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_correspondences",
+        "samples": 427,
+        "percent": 0.7258818529536761
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_correspondences#920",
+        "samples": 416,
+        "percent": 0.7071823204419889
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:method_distribution",
+        "samples": 413,
+        "percent": 0.7020824479388015
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_prediction",
+        "samples": 395,
+        "percent": 0.671483212919677
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:#wake_bundles!##0",
+        "samples": 357,
+        "percent": 0.606884827879303
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#landmark_candidates#861",
+        "samples": 344,
+        "percent": 0.5847853803654909
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:landmark_candidates",
+        "samples": 344,
+        "percent": 0.5847853803654909
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_parts",
+        "samples": 325,
+        "percent": 0.5524861878453039
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:#78",
+        "samples": 325,
+        "percent": 0.5524861878453039
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:remember_bundle!",
+        "samples": 320,
+        "percent": 0.5439864003399915
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:mb_sleep_candidates!",
+        "samples": 315,
+        "percent": 0.5354866128346791
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:method_choice",
+        "samples": 300,
+        "percent": 0.509987250318742
+      },
+      {
+        "function_key": "lw/decision/movement_inertia.jl:inertia_view",
+        "samples": 291,
+        "percent": 0.49468763280917977
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:social_attention",
+        "samples": 260,
+        "percent": 0.4419889502762431
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##12",
+        "samples": 259,
+        "percent": 0.44028899277518063
+      },
+      {
+        "function_key": "lw/world/ground.jl:ground_candidates",
+        "samples": 257,
+        "percent": 0.4368890777730557
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:relation_candidates!",
+        "samples": 252,
+        "percent": 0.4283892902677433
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:update_ground!",
+        "samples": 250,
+        "percent": 0.42498937526561836
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:choose_method!",
+        "samples": 242,
+        "percent": 0.4113897152571186
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_feature_fit",
+        "samples": 239,
+        "percent": 0.40628984275393115
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_sleep_organize!",
+        "samples": 227,
+        "percent": 0.3858903527411815
+      },
+      {
+        "function_key": "lw/learning/mb_similarity_learning.jl:mb_metric_observe!",
+        "samples": 226,
+        "percent": 0.384190395240119
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:surface_wear",
+        "samples": 218,
+        "percent": 0.37059073523161923
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:wear_cell!",
+        "samples": 213,
+        "percent": 0.36209094772630684
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_quantities",
+        "samples": 208,
+        "percent": 0.35359116022099446
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_record!#951",
+        "samples": 201,
+        "percent": 0.34169145771355713
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_record!",
+        "samples": 201,
+        "percent": 0.34169145771355713
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_compound_gradient#637",
+        "samples": 190,
+        "percent": 0.32299192520187
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:trade_compound_gradient",
+        "samples": 190,
+        "percent": 0.32299192520187
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_fit_material",
+        "samples": 179,
+        "percent": 0.30429239269018277
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1944",
+        "samples": 177,
+        "percent": 0.3008924776880578
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_similarity#910",
+        "samples": 176,
+        "percent": 0.2991925201869953
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_similarity",
+        "samples": 176,
+        "percent": 0.2991925201869953
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_audit!",
+        "samples": 176,
+        "percent": 0.2991925201869953
+      },
+      {
+        "function_key": "lw/learning/sleep_action_model.jl:sleep_context",
+        "samples": 174,
+        "percent": 0.2957926051848704
+      },
+      {
+        "function_key": "lw/learning/sleep_action_model.jl:#sleep_context#310",
+        "samples": 173,
+        "percent": 0.2940926476838079
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_H_increment!",
+        "samples": 172,
+        "percent": 0.29239269018274544
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:#mb_parent_H_increment!#1005",
+        "samples": 171,
+        "percent": 0.29069273268168294
+      },
+      {
+        "function_key": "lw/decision/local_descent.jl:steer_structure!",
+        "samples": 164,
+        "percent": 0.27879303017424567
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_prepare",
+        "samples": 162,
+        "percent": 0.2753931151721207
+      },
+      {
+        "function_key": "lw/perception/social.jl:observe",
+        "samples": 161,
+        "percent": 0.27369315767105823
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_openings",
+        "samples": 160,
+        "percent": 0.27199320016999573
+      },
+      {
+        "function_key": "lw/decision/night_fear.jl:night_return_estimate!",
+        "samples": 153,
+        "percent": 0.26009349766255846
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_subjective_values#1555",
+        "samples": 152,
+        "percent": 0.25839354016149596
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_subjective_values",
+        "samples": 152,
+        "percent": 0.25839354016149596
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_option#1547",
+        "samples": 150,
+        "percent": 0.254993625159371
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_option",
+        "samples": 150,
+        "percent": 0.254993625159371
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#method_distribution##0",
+        "samples": 145,
+        "percent": 0.24649383765405866
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:#308",
+        "samples": 142,
+        "percent": 0.24139396515087122
+      },
+      {
+        "function_key": "ecology/lw_grazing/LWGrazing.jl:advance!",
+        "samples": 141,
+        "percent": 0.23969400764980875
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_gain#1567",
+        "samples": 141,
+        "percent": 0.23969400764980875
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_gain",
+        "samples": 141,
+        "percent": 0.23969400764980875
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_outgoing",
+        "samples": 141,
+        "percent": 0.23969400764980875
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:step!",
+        "samples": 139,
+        "percent": 0.2362940926476838
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:mb_parent_survival!",
+        "samples": 138,
+        "percent": 0.23459413514662134
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:#step!#27",
+        "samples": 137,
+        "percent": 0.23289417764555886
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_project!",
+        "samples": 131,
+        "percent": 0.222694432639184
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:key",
+        "samples": 129,
+        "percent": 0.21929451763705907
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_arrival_sync!",
+        "samples": 128,
+        "percent": 0.2175945601359966
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#gradient_capture!#748",
+        "samples": 124,
+        "percent": 0.2107947301317467
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:gradient_capture!",
+        "samples": 124,
+        "percent": 0.2107947301317467
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:incidental_item_parts",
+        "samples": 124,
+        "percent": 0.2107947301317467
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_fit_material##0",
+        "samples": 123,
+        "percent": 0.20909477263068424
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_forget_node!",
+        "samples": 120,
+        "percent": 0.20399490012749683
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#rho_descent#162",
+        "samples": 120,
+        "percent": 0.20399490012749683
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_descent",
+        "samples": 120,
+        "percent": 0.20399490012749683
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_shapes",
+        "samples": 115,
+        "percent": 0.19549511262218444
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#515",
+        "samples": 115,
+        "percent": 0.19549511262218444
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:#climb_sample##10",
+        "samples": 107,
+        "percent": 0.18189545261368467
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:social_sight",
+        "samples": 105,
+        "percent": 0.1784955376115597
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_load#504",
+        "samples": 105,
+        "percent": 0.1784955376115597
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_load",
+        "samples": 105,
+        "percent": 0.1784955376115597
+      },
+      {
+        "function_key": "lw/world/contact.jl:contact",
+        "samples": 104,
+        "percent": 0.17679558011049723
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_opening_candidates",
+        "samples": 103,
+        "percent": 0.17509562260943476
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:#social_sight#768",
+        "samples": 103,
+        "percent": 0.17509562260943476
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#home_observation#1619",
+        "samples": 101,
+        "percent": 0.17169570760730982
+      },
+      {
+        "function_key": "lw/simulation/day.jl:home_observation",
+        "samples": 101,
+        "percent": 0.17169570760730982
+      },
+      {
+        "function_key": "lw/perception/home_distance.jl:home_distance_profile!",
+        "samples": 100,
+        "percent": 0.16999575010624735
+      },
+      {
+        "function_key": "lw/perception/movement.jl:#391",
+        "samples": 100,
+        "percent": 0.16999575010624735
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_views!",
+        "samples": 99,
+        "percent": 0.16829579260518487
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#food_trade_views!#730",
+        "samples": 98,
+        "percent": 0.1665958351041224
+      },
+      {
+        "function_key": "lw/decision/relational_gradient.jl:#relational_best#2",
+        "samples": 96,
+        "percent": 0.16319592010199746
+      },
+      {
+        "function_key": "lw/decision/relational_gradient.jl:relational_best",
+        "samples": 96,
+        "percent": 0.16319592010199746
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#mb_chunk_candidates!#1026",
+        "samples": 96,
+        "percent": 0.16319592010199746
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_chunk_candidates!",
+        "samples": 96,
+        "percent": 0.16319592010199746
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:trail_key_prefix",
+        "samples": 96,
+        "percent": 0.16319592010199746
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1621",
+        "samples": 93,
+        "percent": 0.15809604759881002
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:#incidental_item_plan!#594",
+        "samples": 91,
+        "percent": 0.15469613259668508
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_plan!",
+        "samples": 91,
+        "percent": 0.15469613259668508
+      },
+      {
+        "function_key": "lw/world/contact.jl:#contact##0",
+        "samples": 91,
+        "percent": 0.15469613259668508
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_utility#1556",
+        "samples": 90,
+        "percent": 0.1529961750956226
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_utility",
+        "samples": 90,
+        "percent": 0.1529961750956226
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1898",
+        "samples": 90,
+        "percent": 0.1529961750956226
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:#incidental_item_candidates#586",
+        "samples": 89,
+        "percent": 0.15129621759456013
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_candidates",
+        "samples": 89,
+        "percent": 0.15129621759456013
+      },
+      {
+        "function_key": "ecology/herbivore/perception.jl:observe_state!",
+        "samples": 86,
+        "percent": 0.14619634509137272
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:token",
+        "samples": 86,
+        "percent": 0.14619634509137272
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relations_observe!",
+        "samples": 86,
+        "percent": 0.14619634509137272
+      },
+      {
+        "function_key": "lw/simulation/day.jl:relation_snapshot",
+        "samples": 86,
+        "percent": 0.14619634509137272
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:add",
+        "samples": 85,
+        "percent": 0.14449638759031025
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1807",
+        "samples": 85,
+        "percent": 0.14449638759031025
+      },
+      {
+        "function_key": "lw/perception/movement.jl:#389",
+        "samples": 84,
+        "percent": 0.14279643008924778
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relations_snapshot",
+        "samples": 83,
+        "percent": 0.1410964725881853
+      },
+      {
+        "function_key": "lw/learning/mb_relation_compression.jl:mb_compress_exploration!",
+        "samples": 80,
+        "percent": 0.13599660008499787
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#light_fan#844",
+        "samples": 79,
+        "percent": 0.1342966425839354
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:light_fan",
+        "samples": 79,
+        "percent": 0.1342966425839354
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#social_mb_sleep_review!#229",
+        "samples": 79,
+        "percent": 0.1342966425839354
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_sleep_review!",
+        "samples": 79,
+        "percent": 0.1342966425839354
+      },
+      {
+        "function_key": "lw/configured_paths/camp_landmark.jl:#configured_camp_landmark_view#267",
+        "samples": 78,
+        "percent": 0.13259668508287292
+      },
+      {
+        "function_key": "lw/configured_paths/camp_landmark.jl:configured_camp_landmark_view",
+        "samples": 78,
+        "percent": 0.13259668508287292
+      },
+      {
+        "function_key": "lw/learning/harvest_field.jl:#harvest_field#1113",
+        "samples": 78,
+        "percent": 0.13259668508287292
+      },
+      {
+        "function_key": "lw/learning/harvest_field.jl:harvest_field",
+        "samples": 78,
+        "percent": 0.13259668508287292
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_forget_node!##0",
+        "samples": 78,
+        "percent": 0.13259668508287292
+      },
+      {
+        "function_key": "lw/decision/exploration_horizon.jl:horizon_candidates",
+        "samples": 77,
+        "percent": 0.13089672758181045
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_response",
+        "samples": 75,
+        "percent": 0.1274968125796855
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_reject!",
+        "samples": 75,
+        "percent": 0.1274968125796855
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1946",
+        "samples": 71,
+        "percent": 0.12069698257543561
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:#climb_sample##6",
+        "samples": 70,
+        "percent": 0.11899702507437314
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_contact",
+        "samples": 70,
+        "percent": 0.11899702507437314
+      },
+      {
+        "function_key": "lw/learning/mb_goal_cues.jl:mb_goal_cue_project!",
+        "samples": 69,
+        "percent": 0.11729706757331067
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#165",
+        "samples": 69,
+        "percent": 0.11729706757331067
+      },
+      {
+        "function_key": "lw/decision/night_fear.jl:night_fear_update!",
+        "samples": 67,
+        "percent": 0.11389715257118573
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1597",
+        "samples": 64,
+        "percent": 0.1087972800679983
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:wear_factor",
+        "samples": 64,
+        "percent": 0.1087972800679983
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:resolve_method!",
+        "samples": 63,
+        "percent": 0.10709732256693583
+      },
+      {
+        "function_key": "lw/perception/orientation.jl:#sky_sample#30",
+        "samples": 63,
+        "percent": 0.10709732256693583
+      },
+      {
+        "function_key": "lw/perception/orientation.jl:sky_sample",
+        "samples": 63,
+        "percent": 0.10709732256693583
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#resolve_method!#564",
+        "samples": 62,
+        "percent": 0.10539736506587336
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:compare_relation_scene",
+        "samples": 61,
+        "percent": 0.10369740756481088
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_neighbors",
+        "samples": 60,
+        "percent": 0.10199745006374841
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#landmark_patches##2",
+        "samples": 58,
+        "percent": 0.09859753506162346
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1948",
+        "samples": 57,
+        "percent": 0.09689757756056099
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_light_objects",
+        "samples": 56,
+        "percent": 0.09519762005949851
+      },
+      {
+        "function_key": "lw/decision/movement_inertia.jl:observe_inertia!",
+        "samples": 54,
+        "percent": 0.09179770505737357
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:record_ground_patterns!",
+        "samples": 53,
+        "percent": 0.09009774755631109
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_trace_observation!",
+        "samples": 50,
+        "percent": 0.08499787505312367
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:search_candidates",
+        "samples": 49,
+        "percent": 0.0832979175520612
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:harvest_section",
+        "samples": 49,
+        "percent": 0.0832979175520612
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_prepared_bundle",
+        "samples": 48,
+        "percent": 0.08159796005099873
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:mb_parent_learn!",
+        "samples": 48,
+        "percent": 0.08159796005099873
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_begin!",
+        "samples": 47,
+        "percent": 0.07989800254993625
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_bind#1528",
+        "samples": 46,
+        "percent": 0.07819804504887377
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_bind",
+        "samples": 46,
+        "percent": 0.07819804504887377
+      },
+      {
+        "function_key": "lw/decision/food_body.jl:project_body_methods!",
+        "samples": 45,
+        "percent": 0.0764980875478113
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:ground_neighbors",
+        "samples": 45,
+        "percent": 0.0764980875478113
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_features",
+        "samples": 42,
+        "percent": 0.07139821504462389
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_gradient",
+        "samples": 40,
+        "percent": 0.06799830004249893
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:harvest_predict",
+        "samples": 40,
+        "percent": 0.06799830004249893
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_feature",
+        "samples": 39,
+        "percent": 0.06629834254143646
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:#mb_exploration_observe!#1044",
+        "samples": 39,
+        "percent": 0.06629834254143646
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_observe!",
+        "samples": 39,
+        "percent": 0.06629834254143646
+      },
+      {
+        "function_key": "lw/configured_paths/home_rest_reward.jl:configured_home_rest_step!",
+        "samples": 38,
+        "percent": 0.06459838504037399
+      },
+      {
+        "function_key": "lw/decision/embedded_rest.jl:embedded_rest_request!",
+        "samples": 38,
+        "percent": 0.06459838504037399
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_refine",
+        "samples": 38,
+        "percent": 0.06459838504037399
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##20",
+        "samples": 37,
+        "percent": 0.06289842753931152
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_security_update!",
+        "samples": 35,
+        "percent": 0.05949851253718657
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1613",
+        "samples": 35,
+        "percent": 0.05949851253718657
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##18",
+        "samples": 35,
+        "percent": 0.05949851253718657
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:#food_security_update!#740",
+        "samples": 34,
+        "percent": 0.0577985550361241
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_resolve!#1565",
+        "samples": 34,
+        "percent": 0.0577985550361241
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_resolve!",
+        "samples": 34,
+        "percent": 0.0577985550361241
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1603",
+        "samples": 33,
+        "percent": 0.05609859753506162
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_context",
+        "samples": 33,
+        "percent": 0.05609859753506162
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##14",
+        "samples": 33,
+        "percent": 0.05609859753506162
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_trade_contact",
+        "samples": 31,
+        "percent": 0.05269868253293668
+      },
+      {
+        "function_key": "lw/decision/night_fear.jl:night_fear_request!",
+        "samples": 30,
+        "percent": 0.050998725031874206
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:#food_exchange_view#474",
+        "samples": 30,
+        "percent": 0.050998725031874206
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_view",
+        "samples": 30,
+        "percent": 0.050998725031874206
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_observe!#1566",
+        "samples": 29,
+        "percent": 0.04929876753081173
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_observe!",
+        "samples": 29,
+        "percent": 0.04929876753081173
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:#visual_aid_plan!#777",
+        "samples": 29,
+        "percent": 0.04929876753081173
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:visual_aid_plan!",
+        "samples": 29,
+        "percent": 0.04929876753081173
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:freeze_harvest!",
+        "samples": 28,
+        "percent": 0.04759881002974926
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:mb_return_estimate",
+        "samples": 28,
+        "percent": 0.04759881002974926
+      },
+      {
+        "function_key": "lw/world/landscape.jl:landscape_material",
+        "samples": 28,
+        "percent": 0.04759881002974926
+      },
+      {
+        "function_key": "ecology/herbivore/decision.jl:choose_state",
+        "samples": 27,
+        "percent": 0.045898852528686786
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#846",
+        "samples": 27,
+        "percent": 0.045898852528686786
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:#mb_route_record!#987",
+        "samples": 27,
+        "percent": 0.045898852528686786
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_record!",
+        "samples": 27,
+        "percent": 0.045898852528686786
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_fit",
+        "samples": 26,
+        "percent": 0.04419889502762431
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##2",
+        "samples": 26,
+        "percent": 0.04419889502762431
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_advance!",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_expire!",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_capacity",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_expire!",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "ecology/lw_grazing/LWGrazing.jl:prepare!",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/decision/movement_inertia.jl:record_continuation!",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_model!",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/perception/orientation.jl:observe_sky!",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:#771",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/learning/mb_place.jl:mb_place_recall!",
+        "samples": 22,
+        "percent": 0.037399065023374416
+      },
+      {
+        "function_key": "lw/perception/home_distance.jl:observe_home_distance!",
+        "samples": 22,
+        "percent": 0.037399065023374416
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_execute!#537",
+        "samples": 22,
+        "percent": 0.037399065023374416
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_execute!",
+        "samples": 22,
+        "percent": 0.037399065023374416
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:use_trail!",
+        "samples": 21,
+        "percent": 0.035699107522311944
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_record!",
+        "samples": 20,
+        "percent": 0.033999150021249466
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_sleep_organize!##2",
+        "samples": 20,
+        "percent": 0.033999150021249466
+      },
+      {
+        "function_key": "lw/simulation/day.jl:integrate",
+        "samples": 20,
+        "percent": 0.033999150021249466
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:grass!",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_parts",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1595",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_food_relief#643",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_valuation_context#633",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:trade_food_relief",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:trade_valuation_context",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "geometry/RDLMigrationProbe.jl:Circle",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#571",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_food_need#626",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:trade_food_need",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_first_action",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:mb_sleep_freeze!",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_event!#245",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relation_event!",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1803",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/simulation/social.jl:#communicate!#354",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/simulation/social.jl:communicate!",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:#tread!#67",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:tread!",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/decision/embedded_rest.jl:embedded_rest_feedback!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:#goal_arrival_update!#3",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_project!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_update!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:ground_proposals",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/perception/orientation.jl:orientation_scan!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/simulation/day.jl:incidental_snapshot",
+        "samples": 16,
+        "percent": 0.027199320016999574
+      },
+      {
+        "function_key": "ecology/directional-vision-cpu/Predators.jl:angle_delta",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "ecology/directional-vision-cpu/Predators.jl:turn_gaze",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:observed_food_count",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#756",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_executed!#1617",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_executed!",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:#project_bundles!#281",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:project_bundles!",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#929",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_record!",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_use!#248",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relation_use!",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:record_skyline!",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_snapshot",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#observed_food_count#717",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#1531",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_refine##6",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1805",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/world/landscape.jl:landscape_resistance",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_snapshot",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:wrap_angle",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:form_bundle!",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:#mb_exploration_record!#1045",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_record!",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:ground_points",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/perception/hazard.jl:#hazard_observation#11",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/perception/hazard.jl:hazard_observation",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/simulation/legacy_loop.jl:bodydict",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_learn!",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/learning/mb_relation_compression.jl:#mb_relation_compression_fit#1047",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/learning/mb_relation_compression.jl:mb_relation_compression_fit",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:skyline_home_candidates",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#517",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/decision/exploration_horizon.jl:#horizon_result!#839",
+        "samples": 11,
+        "percent": 0.018699532511687208
+      },
+      {
+        "function_key": "lw/decision/exploration_horizon.jl:horizon_result!",
+        "samples": 11,
+        "percent": 0.018699532511687208
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_accumulate!",
+        "samples": 11,
+        "percent": 0.018699532511687208
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_reward",
+        "samples": 11,
+        "percent": 0.018699532511687208
+      },
+      {
+        "function_key": "body/digestion.jl:digestion_snapshot",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/configured_paths/home_rest_reward.jl:configured_home_rest_arrival!",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_snapshot",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1576",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/decision/reposition.jl:#reposition_candidates!#43",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/decision/reposition.jl:reposition_candidates!",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:deficit",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:#mb_parent_learn!##0",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#mb_goal_result!#1017",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_goal_result!",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_prune_chunks!",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_estimate",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:observed_food_stores",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "body/actions.jl:step",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/configured_paths/daily_delivery.jl:configured_daily_delivery_request!",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:failure_repulsion",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:social_observed_context",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_camp_match",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_observe!",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:#mb_sleep_review!##8",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:record_cue_selection!",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "ecology/herbivore/features.jl:observe_grass!",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_security",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#gradient_result!#764",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:gradient_result!",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_sleep_organize!##4",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_control!",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_merge_compatible",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_position",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/configured_paths/body_maintenance.jl:configured_body_purpose!",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:loop_snapshot",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1578",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:#mb_route_candidates!#990",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_candidates!",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#update_ground!##14",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/world/landscape.jl:river_x",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/food_body.jl:hunger_update!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_anxiety",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:bundle_context",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:#freeze_general!#303",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:freeze_general!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_state!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_place.jl:mb_place_candidate!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#935",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:#80",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#rho_openings##2",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/simulation/day.jl:physical",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/simulation/physiology.jl:advance_physiology!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/world/food_resources.jl:food_audit!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:cell",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/configured_paths/daily_delivery.jl:configured_daily_delivery_day!",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/food_body.jl:hunger_select",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#food_social_context#723",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_social_context",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#766",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#update_ground!##20",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/simulation/checkpoint.jl:checkpoint_code_hash",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:climb_candidates",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_prepared_bundle##0",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_prepare##0",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/local_descent.jl:#steer_structure!##0",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:held_food",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:review_general!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#route_result!#860",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:route_result!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_channel_terminals",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_enabled",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_local_repair.jl:mb_route_rejoin!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:#mb_sleep_review!##4",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#223",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#ground_proposals##2",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1954",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_snapshot",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "ecology/herbivore/features.jl:grass_cover!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "ecology/lw_grazing/LWGrazing.jl:#build#1",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "ecology/lw_grazing/LWGrazing.jl:build",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:#clear##0",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:clear",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/configured_paths/camp_landmark.jl:configured_camp_landmark_observe!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:MethodNode",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_rho",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:ObservedItemFeatures",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_memory!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_actual",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/return_purpose.jl:returning!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:#visual_aid_executed!#794",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:visual_aid_executed!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_trace_edge!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_goal_cues.jl:mb_goal_cue_selected!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_sleep_organize!##10",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:#mb_route_attach!#983",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_attach!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relation_other",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_boundary_range",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:#773",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1900",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/world/food_resources.jl:food_remaining!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:advance_wear!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "body/digestion.jl:digest!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "data/lw_model_types.jl:check",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "ecology/herbivore/features.jl:#grass_cover!#1",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:#social_observed_context##0",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_bound_methods!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_memory!##4",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1609",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_snapshot",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_state!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/reposition.jl:project_search_review!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:supplied",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:bundle_snapshot",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#mb_prune_chunks!##0",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_trace_reset!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_local_repair.jl:mb_route_repair_record!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_response",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#914",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_relation_compression.jl:mb_compression_tolerance",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_similarity_learning.jl:mb_metric_update!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#social_mb_record!##0",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:ground_extension_result",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/home_distance.jl:home_distance_candidates",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#888",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#167",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_at_home",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_contact",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:wear_snapshot",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/landscape.jl:river_width",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_close!#531",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_close!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_own_result",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "ecology/herbivore/perception.jl:#observe_neighbors!##0",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "ecology/herbivore/perception.jl:observe_neighbors!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:#build#7",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:build",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:target!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/configured_paths/camp_landmark.jl:#269",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/configured_paths/expression.jl:#configured_expression#276",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/configured_paths/expression.jl:configured_expression",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/configured_paths/item_actions.jl:configured_item_plan",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#choose_method!##10",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:parent_candidates",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#food_trade_executed!#738",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_executed!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_gain",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_request_ready",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_rho_record!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#758",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:#incidental_item_bound_methods!##6",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_finite",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_interest",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_key",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_accumulate!##4",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1605",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1607",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/reposition.jl:search_review_result!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:harvest_observe!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#record_landmark!#852",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:record_landmark!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:#mb_parent_survival!##4",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:#mb_parent_survival!##6",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#1031",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_chunk_depth",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#978",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_outgoing##0",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_completion_reward",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#927",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_recognition_feedback!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:#mb_return_outlook!##2",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_H_increment!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_goal!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:resolve_trail!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_groups",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_merge!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#update_ground!##2",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#update_ground!##22",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:point_near",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:structure_kind",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#cue_candidates!##0",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#cue_candidates!##4",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_history!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:portable_items",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      }
+    ],
+    "nearest_project_frame": [
+      {
+        "function_key": "lw/simulation/day.jl:#lw_day#1624",
+        "samples": 5046,
+        "percent": 8.577985550361241
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_visible#506",
+        "samples": 4434,
+        "percent": 7.537611559711007
+      },
+      {
+        "function_key": "lw/simulation/integrated.jl:#run_integrated#1500",
+        "samples": 3168,
+        "percent": 5.385465363365916
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#local_structures#102",
+        "samples": 2912,
+        "percent": 4.9502762430939224
+      },
+      {
+        "function_key": "lw/simulation/checkpoint.jl:checkpoint_load",
+        "samples": 2762,
+        "percent": 4.695282617934551
+      },
+      {
+        "function_key": "lw/simulation/checkpoint.jl:checkpoint_save",
+        "samples": 2211,
+        "percent": 3.758606034849129
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:mb_project_return!",
+        "samples": 1877,
+        "percent": 3.1908202294942627
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#1545",
+        "samples": 1841,
+        "percent": 3.1296217594560134
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:mb_return_outlook!",
+        "samples": 1714,
+        "percent": 2.9137271568210794
+      },
+      {
+        "function_key": "lw/decision/lateral_bias.jl:lateral_obstacles",
+        "samples": 1520,
+        "percent": 2.58393540161496
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:update_structures!",
+        "samples": 1497,
+        "percent": 2.5448363790905226
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:landmark_patches",
+        "samples": 1414,
+        "percent": 2.4037399065023375
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_edge_cost",
+        "samples": 1155,
+        "percent": 1.9634509137271567
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_support#1543",
+        "samples": 1053,
+        "percent": 1.7900552486187846
+      },
+      {
+        "function_key": "geometry/RDLMigrationProbe.jl:segment_hit",
+        "samples": 980,
+        "percent": 1.665958351041224
+      },
+      {
+        "function_key": "outside_project",
+        "samples": 921,
+        "percent": 1.565660858478538
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:ground_patterns",
+        "samples": 880,
+        "percent": 1.4959626009349767
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_descriptor",
+        "samples": 809,
+        "percent": 1.375265618359541
+      },
+      {
+        "function_key": "lw/decision/movement.jl:evaluate_movement",
+        "samples": 751,
+        "percent": 1.2766680832979176
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#social_mb_predict#220",
+        "samples": 743,
+        "percent": 1.2630684232894178
+      },
+      {
+        "function_key": "geometry/RDLMigrationProbe.jl:ray_hit",
+        "samples": 720,
+        "percent": 1.2239694007649808
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:#skyline_fan#60",
+        "samples": 712,
+        "percent": 1.210369740756481
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:#remember_general!#305",
+        "samples": 683,
+        "percent": 1.1610709732256694
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:cue_candidates!",
+        "samples": 516,
+        "percent": 0.8771780705482363
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:trail_key_from_prefix",
+        "samples": 500,
+        "percent": 0.8499787505312367
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:candidate",
+        "samples": 487,
+        "percent": 0.8278793030174245
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_estimate!",
+        "samples": 464,
+        "percent": 0.7887802804929877
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1926",
+        "samples": 464,
+        "percent": 0.7887802804929877
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:climb_sample",
+        "samples": 432,
+        "percent": 0.7343816404589886
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#rho_potential#140",
+        "samples": 429,
+        "percent": 0.7292817679558011
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#971",
+        "samples": 421,
+        "percent": 0.7156821079473014
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_material_fit",
+        "samples": 418,
+        "percent": 0.7105822354441139
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:#wake_bundles!##0",
+        "samples": 357,
+        "percent": 0.606884827879303
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_key",
+        "samples": 350,
+        "percent": 0.5949851253718657
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_parts",
+        "samples": 325,
+        "percent": 0.5524861878453039
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:remember_bundle!",
+        "samples": 320,
+        "percent": 0.5439864003399915
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_correspondences#920",
+        "samples": 306,
+        "percent": 0.5201869953251169
+      },
+      {
+        "function_key": "lw/decision/movement_inertia.jl:inertia_view",
+        "samples": 291,
+        "percent": 0.49468763280917977
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:relation_scene",
+        "samples": 273,
+        "percent": 0.46408839779005523
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:method_distribution",
+        "samples": 268,
+        "percent": 0.4555886102847429
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:social_attention",
+        "samples": 260,
+        "percent": 0.4419889502762431
+      },
+      {
+        "function_key": "lw/world/ground.jl:ground_candidates",
+        "samples": 257,
+        "percent": 0.4368890777730557
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#observed_cues#871",
+        "samples": 233,
+        "percent": 0.3960900977475563
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##12",
+        "samples": 226,
+        "percent": 0.384190395240119
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:update_ground!",
+        "samples": 224,
+        "percent": 0.38079048023799406
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:#ground_appearance#73",
+        "samples": 217,
+        "percent": 0.36889077773055673
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:wear_cell!",
+        "samples": 213,
+        "percent": 0.36209094772630684
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_quantities",
+        "samples": 208,
+        "percent": 0.35359116022099446
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#landmark_fan#848",
+        "samples": 207,
+        "percent": 0.351891202719932
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:wake_bundles!",
+        "samples": 205,
+        "percent": 0.3484912877178071
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_search#954",
+        "samples": 185,
+        "percent": 0.3144921376965576
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_compound_gradient#637",
+        "samples": 180,
+        "percent": 0.3059923501912452
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1944",
+        "samples": 177,
+        "percent": 0.3008924776880578
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_fit_material",
+        "samples": 176,
+        "percent": 0.2991925201869953
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_audit!",
+        "samples": 176,
+        "percent": 0.2991925201869953
+      },
+      {
+        "function_key": "lw/learning/sleep_action_model.jl:#sleep_context#310",
+        "samples": 173,
+        "percent": 0.2940926476838079
+      },
+      {
+        "function_key": "lw/perception/movement.jl:#perceive_movement#378",
+        "samples": 171,
+        "percent": 0.29069273268168294
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_similarity#910",
+        "samples": 168,
+        "percent": 0.28559286017849556
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:#mb_parent_H_increment!#1005",
+        "samples": 164,
+        "percent": 0.27879303017424567
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_openings",
+        "samples": 154,
+        "percent": 0.2617934551636209
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_observe!#950",
+        "samples": 148,
+        "percent": 0.2515937101572461
+      },
+      {
+        "function_key": "lw/learning/mb_similarity_learning.jl:mb_metric_observe!",
+        "samples": 148,
+        "percent": 0.2515937101572461
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_record!#951",
+        "samples": 140,
+        "percent": 0.23799405014874628
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_outgoing",
+        "samples": 140,
+        "percent": 0.23799405014874628
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:mb_parent_survival!",
+        "samples": 136,
+        "percent": 0.2311942201444964
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#method_distribution##0",
+        "samples": 133,
+        "percent": 0.22609434764130898
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_option#1547",
+        "samples": 133,
+        "percent": 0.22609434764130898
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:project_trails!",
+        "samples": 131,
+        "percent": 0.222694432639184
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:choose_method!",
+        "samples": 129,
+        "percent": 0.21929451763705907
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:key",
+        "samples": 129,
+        "percent": 0.21929451763705907
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_arrival_sync!",
+        "samples": 127,
+        "percent": 0.21589460263493412
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:incidental_item_parts",
+        "samples": 124,
+        "percent": 0.2107947301317467
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:project_rho_affordance!",
+        "samples": 119,
+        "percent": 0.20229494262643433
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_prediction",
+        "samples": 116,
+        "percent": 0.1971950701232469
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_shapes",
+        "samples": 115,
+        "percent": 0.19549511262218444
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_feature_fit",
+        "samples": 115,
+        "percent": 0.19549511262218444
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_fit",
+        "samples": 112,
+        "percent": 0.19039524011899703
+      },
+      {
+        "function_key": "lw/perception/social.jl:observe",
+        "samples": 106,
+        "percent": 0.18019549511262217
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_load#504",
+        "samples": 105,
+        "percent": 0.1784955376115597
+      },
+      {
+        "function_key": "lw/perception/home_distance.jl:home_distance_profile!",
+        "samples": 100,
+        "percent": 0.16999575010624735
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#gradient_capture!#748",
+        "samples": 98,
+        "percent": 0.1665958351041224
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:mb_sleep_review!",
+        "samples": 98,
+        "percent": 0.1665958351041224
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:trail_key_prefix",
+        "samples": 96,
+        "percent": 0.16319592010199746
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#landmark_candidates#861",
+        "samples": 93,
+        "percent": 0.15809604759881002
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:mb_sleep_candidates!",
+        "samples": 90,
+        "percent": 0.1529961750956226
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_utility#1556",
+        "samples": 89,
+        "percent": 0.15129621759456013
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:#incidental_item_candidates#586",
+        "samples": 88,
+        "percent": 0.14959626009349766
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_scene#947",
+        "samples": 88,
+        "percent": 0.14959626009349766
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:token",
+        "samples": 85,
+        "percent": 0.14449638759031025
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:add",
+        "samples": 85,
+        "percent": 0.14449638759031025
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relations_observe!",
+        "samples": 83,
+        "percent": 0.1410964725881853
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relations_snapshot",
+        "samples": 83,
+        "percent": 0.1410964725881853
+      },
+      {
+        "function_key": "lw/learning/harvest_field.jl:#harvest_field#1113",
+        "samples": 78,
+        "percent": 0.13259668508287292
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_forget_node!##0",
+        "samples": 78,
+        "percent": 0.13259668508287292
+      },
+      {
+        "function_key": "lw/decision/exploration_horizon.jl:horizon_candidates",
+        "samples": 77,
+        "percent": 0.13089672758181045
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:#social_sight#768",
+        "samples": 77,
+        "percent": 0.13089672758181045
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1962",
+        "samples": 77,
+        "percent": 0.13089672758181045
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_sleep_organize!",
+        "samples": 76,
+        "percent": 0.12919677008074798
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_response",
+        "samples": 75,
+        "percent": 0.1274968125796855
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_reject!",
+        "samples": 75,
+        "percent": 0.1274968125796855
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_plan!#1580",
+        "samples": 74,
+        "percent": 0.12579685507862304
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1946",
+        "samples": 71,
+        "percent": 0.12069698257543561
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#social_mb_sleep_review!#229",
+        "samples": 70,
+        "percent": 0.11899702507437314
+      },
+      {
+        "function_key": "lw/decision/night_fear.jl:night_fear_update!",
+        "samples": 67,
+        "percent": 0.11389715257118573
+      },
+      {
+        "function_key": "lw/learning/mb_relation_compression.jl:mb_compress_exploration!",
+        "samples": 66,
+        "percent": 0.11219719507012324
+      },
+      {
+        "function_key": "lw/perception/orientation.jl:#sky_sample#30",
+        "samples": 63,
+        "percent": 0.10709732256693583
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:compare_relation_scene",
+        "samples": 61,
+        "percent": 0.10369740756481088
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_neighbors",
+        "samples": 60,
+        "percent": 0.10199745006374841
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_profile#246",
+        "samples": 59,
+        "percent": 0.10029749256268593
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#landmark_patches##2",
+        "samples": 58,
+        "percent": 0.09859753506162346
+      },
+      {
+        "function_key": "ecology/herbivore/perception.jl:observe_state!",
+        "samples": 57,
+        "percent": 0.09689757756056099
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1948",
+        "samples": 57,
+        "percent": 0.09689757756056099
+      },
+      {
+        "function_key": "lw/decision/movement_inertia.jl:observe_inertia!",
+        "samples": 54,
+        "percent": 0.09179770505737357
+      },
+      {
+        "function_key": "lw/learning/mb_goal_cues.jl:mb_goal_cue_project!",
+        "samples": 54,
+        "percent": 0.09179770505737357
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:record_ground_patterns!",
+        "samples": 53,
+        "percent": 0.09009774755631109
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_light_objects",
+        "samples": 53,
+        "percent": 0.09009774755631109
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#light_fan#844",
+        "samples": 52,
+        "percent": 0.08839779005524862
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:search_candidates",
+        "samples": 49,
+        "percent": 0.0832979175520612
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:harvest_section",
+        "samples": 49,
+        "percent": 0.0832979175520612
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#food_trade_plan!#737",
+        "samples": 48,
+        "percent": 0.08159796005099873
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_trace_observation!",
+        "samples": 48,
+        "percent": 0.08159796005099873
+      },
+      {
+        "function_key": "lw/decision/food_body.jl:project_body_methods!",
+        "samples": 45,
+        "percent": 0.0764980875478113
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:ground_neighbors",
+        "samples": 45,
+        "percent": 0.0764980875478113
+      },
+      {
+        "function_key": "lw/configured_paths/camp_landmark.jl:#configured_camp_landmark_view#267",
+        "samples": 44,
+        "percent": 0.07479813004674883
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#resolve_method!#564",
+        "samples": 44,
+        "percent": 0.07479813004674883
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_prepared_bundle",
+        "samples": 44,
+        "percent": 0.07479813004674883
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_candidates!",
+        "samples": 44,
+        "percent": 0.07479813004674883
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#food_trade_views!#730",
+        "samples": 42,
+        "percent": 0.07139821504462389
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_features",
+        "samples": 42,
+        "percent": 0.07139821504462389
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:harvest_predict",
+        "samples": 40,
+        "percent": 0.06799830004249893
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_feature",
+        "samples": 39,
+        "percent": 0.06629834254143646
+      },
+      {
+        "function_key": "lw/configured_paths/home_rest_reward.jl:configured_home_rest_step!",
+        "samples": 38,
+        "percent": 0.06459838504037399
+      },
+      {
+        "function_key": "lw/decision/embedded_rest.jl:embedded_rest_request!",
+        "samples": 38,
+        "percent": 0.06459838504037399
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:mb_parent_learn!",
+        "samples": 38,
+        "percent": 0.06459838504037399
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:relation_candidates!",
+        "samples": 37,
+        "percent": 0.06289842753931152
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##20",
+        "samples": 37,
+        "percent": 0.06289842753931152
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_gain#1567",
+        "samples": 36,
+        "percent": 0.06119847003824904
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1613",
+        "samples": 35,
+        "percent": 0.05949851253718657
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##18",
+        "samples": 35,
+        "percent": 0.05949851253718657
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_inventory",
+        "samples": 35,
+        "percent": 0.05949851253718657
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#mb_chunk_candidates!#1026",
+        "samples": 34,
+        "percent": 0.0577985550361241
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:#mb_exploration_observe!#1044",
+        "samples": 34,
+        "percent": 0.0577985550361241
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:#food_security_update!#740",
+        "samples": 33,
+        "percent": 0.05609859753506162
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1603",
+        "samples": 33,
+        "percent": 0.05609859753506162
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##14",
+        "samples": 33,
+        "percent": 0.05609859753506162
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_project!",
+        "samples": 32,
+        "percent": 0.05439864003399915
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_forget_node!",
+        "samples": 32,
+        "percent": 0.05439864003399915
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_context",
+        "samples": 31,
+        "percent": 0.05269868253293668
+      },
+      {
+        "function_key": "lw/decision/local_descent.jl:steer_structure!",
+        "samples": 30,
+        "percent": 0.050998725031874206
+      },
+      {
+        "function_key": "lw/decision/night_fear.jl:night_fear_request!",
+        "samples": 30,
+        "percent": 0.050998725031874206
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:freeze_harvest!",
+        "samples": 28,
+        "percent": 0.04759881002974926
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:mb_return_estimate",
+        "samples": 28,
+        "percent": 0.04759881002974926
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_bias#247",
+        "samples": 28,
+        "percent": 0.04759881002974926
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:#food_exchange_view#474",
+        "samples": 28,
+        "percent": 0.04759881002974926
+      },
+      {
+        "function_key": "ecology/herbivore/decision.jl:choose_state",
+        "samples": 27,
+        "percent": 0.045898852528686786
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:#update_structures!##2",
+        "samples": 26,
+        "percent": 0.04419889502762431
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:#visual_aid_plan!#777",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_expire!",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_capacity",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_expire!",
+        "samples": 25,
+        "percent": 0.042498937526561836
+      },
+      {
+        "function_key": "lw/decision/movement_inertia.jl:record_continuation!",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_model!",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/perception/orientation.jl:observe_sky!",
+        "samples": 23,
+        "percent": 0.03909902252443689
+      },
+      {
+        "function_key": "lw/perception/home_distance.jl:observe_home_distance!",
+        "samples": 22,
+        "percent": 0.037399065023374416
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:use_trail!",
+        "samples": 21,
+        "percent": 0.035699107522311944
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_opening_candidates",
+        "samples": 21,
+        "percent": 0.035699107522311944
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:#step!#27",
+        "samples": 20,
+        "percent": 0.033999150021249466
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_sleep_organize!##2",
+        "samples": 20,
+        "percent": 0.033999150021249466
+      },
+      {
+        "function_key": "lw/simulation/day.jl:integrate",
+        "samples": 20,
+        "percent": 0.033999150021249466
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:grass!",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_parts",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_valuation_context#633",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "lw/world/landscape.jl:landscape_material",
+        "samples": 19,
+        "percent": 0.032299192520186995
+      },
+      {
+        "function_key": "geometry/RDLMigrationProbe.jl:Circle",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#571",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_food_need#626",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:mb_first_action",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:mb_sleep_freeze!",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/simulation/social.jl:#communicate!#354",
+        "samples": 18,
+        "percent": 0.03059923501912452
+      },
+      {
+        "function_key": "lw/decision/embedded_rest.jl:embedded_rest_feedback!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:#goal_arrival_update!#3",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_advance!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_project!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/decision/night_fear.jl:night_return_estimate!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "lw/perception/orientation.jl:orientation_scan!",
+        "samples": 17,
+        "percent": 0.02889927751806205
+      },
+      {
+        "function_key": "ecology/directional-vision-cpu/Predators.jl:angle_delta",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#756",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:#project_bundles!#281",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_record!",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#929",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:#mb_route_record!#987",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_use!#248",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:#78",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#rho_descent#162",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:record_skyline!",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_snapshot",
+        "samples": 15,
+        "percent": 0.025499362515937103
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#observed_food_count#717",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_refine##6",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_refine",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:wear_factor",
+        "samples": 14,
+        "percent": 0.02379940501487463
+      },
+      {
+        "function_key": "lw/decision/relation_field.jl:wrap_angle",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/decision/relational_gradient.jl:#relational_best#2",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:form_bundle!",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:#308",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:ground_points",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:ground_proposals",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/perception/hazard.jl:#hazard_observation#11",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/simulation/legacy_loop.jl:bodydict",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/world/contact.jl:contact",
+        "samples": 13,
+        "percent": 0.022099447513812154
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_record!",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:#tread!#67",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#517",
+        "samples": 12,
+        "percent": 0.020399490012749683
+      },
+      {
+        "function_key": "lw/decision/exploration_horizon.jl:#horizon_result!#839",
+        "samples": 11,
+        "percent": 0.018699532511687208
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_reward",
+        "samples": 11,
+        "percent": 0.018699532511687208
+      },
+      {
+        "function_key": "body/digestion.jl:digestion_snapshot",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/configured_paths/home_rest_reward.jl:configured_home_rest_arrival!",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1576",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/decision/reposition.jl:#reposition_candidates!#43",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:#mb_parent_learn!##0",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#mb_goal_result!#1017",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_estimate",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1807",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:surface_wear",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_execute!#537",
+        "samples": 10,
+        "percent": 0.016999575010624733
+      },
+      {
+        "function_key": "body/actions.jl:step",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:failure_repulsion",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:method_choice",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_snapshot",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:#mb_sleep_review!##8",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:record_cue_selection!",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_map",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_contact",
+        "samples": 9,
+        "percent": 0.01529961750956226
+      },
+      {
+        "function_key": "ecology/lw_grazing/LWGrazing.jl:prepare!",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_security",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_snapshot",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:#trade_food_relief#643",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:deficit",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_prune_chunks!",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:#mb_exploration_record!#1045",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_begin!",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_sleep_organize!##4",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_control!",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/sleep_cycle.jl:#receipt!#344",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_merge_compatible",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#home_observation#1619",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:observed_food_stores",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_position",
+        "samples": 8,
+        "percent": 0.013599660008499787
+      },
+      {
+        "function_key": "lw/configured_paths/body_maintenance.jl:configured_body_purpose!",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:loop_snapshot",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:social_observed_context",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_fit",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1578",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:#mb_route_candidates!#990",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#update_ground!##14",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/world/landscape.jl:river_x",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#515",
+        "samples": 7,
+        "percent": 0.011899702507437314
+      },
+      {
+        "function_key": "lw/decision/food_body.jl:hunger_update!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_anxiety",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_observe!#1566",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:bundle_context",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:#freeze_general!#303",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_state!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_simulate!#976",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_place.jl:mb_place_candidate!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_place.jl:mb_place_recall!",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#935",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/learning/mb_relation_compression.jl:#mb_relation_compression_fit#1047",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:#80",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#rho_openings##2",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "lw/simulation/day.jl:incidental_snapshot",
+        "samples": 6,
+        "percent": 0.010199745006374841
+      },
+      {
+        "function_key": "ecology/herbivore/features.jl:observe_grass!",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:cell",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/configured_paths/daily_delivery.jl:configured_daily_delivery_day!",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/food_body.jl:hunger_select",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:#food_social_context#723",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#766",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1595",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_observe!",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:local_structures",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#165",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:skyline_home_candidates",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/simulation/checkpoint.jl:checkpoint_code_hash",
+        "samples": 5,
+        "percent": 0.008499787505312367
+      },
+      {
+        "function_key": "lw/configured_paths/daily_delivery.jl:configured_daily_delivery_request!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:climb_candidates",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_prepared_bundle##0",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_accumulate!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_executed!#1617",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_prepare",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:held_food",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/general_sleep.jl:review_general!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_channel_terminals",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_exploration_relations.jl:mb_exploration_enabled",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_local_repair.jl:mb_route_rejoin!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/mb_sleep.jl:#mb_sleep_review!##4",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#223",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#ground_proposals##2",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#update_ground!##20",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/perception/skyline.jl:skyline_fan",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1898",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/simulation/physiology.jl:advance_physiology!",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/world/contact.jl:#contact##0",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_snapshot",
+        "samples": 4,
+        "percent": 0.006799830004249894
+      },
+      {
+        "function_key": "lw/configured_paths/camp_landmark.jl:configured_camp_landmark_observe!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:MethodNode",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:#climb_sample##10",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_camp_match",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_rho",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#gradient_result!#764",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_bind#1528",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:ObservedItemFeatures",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_social_resolve!#1565",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/return_purpose.jl:returning!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/decision/visual_aid.jl:#visual_aid_executed!#794",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#route_result!#860",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_trace_edge!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_goal_cues.jl:mb_goal_cue_selected!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#mb_sleep_organize!##10",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:#mb_route_attach!#983",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:#social_relation_event!#245",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/learning/social_relations.jl:social_relation_other",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_boundary_range",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:rho_potential",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:#771",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:#773",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1621",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1900",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/simulation/day.jl:lw_day",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/simulation/day.jl:relation_snapshot",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/world/food_resources.jl:food_audit!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/world/food_resources.jl:food_remaining!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:advance_wear!",
+        "samples": 3,
+        "percent": 0.005099872503187421
+      },
+      {
+        "function_key": "body/digestion.jl:digest!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "data/lw_model_types.jl:check",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "ecology/lw_grazing/LWGrazing.jl:#build#1",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "ecology/lw_grazing/LWGrazing.jl:advance!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:step!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/climbing.jl:#climb_sample##6",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:#social_observed_context##0",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:#incidental_item_plan!#594",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_memory!##4",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1609",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_state!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/reposition.jl:project_search_review!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/decision/trade_necessity.jl:supplied",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/experience_bundles.jl:bundle_snapshot",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#mb_prune_chunks!##0",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_trace_reset!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_local_repair.jl:mb_route_repair_record!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_response",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_relation_compression.jl:mb_compression_tolerance",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/mb_similarity_learning.jl:mb_metric_update!",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:#social_mb_record!##0",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:ground_extension_result",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/home_distance.jl:home_distance_candidates",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/movement.jl:#391",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#888",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/rho_map.jl:#167",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/perception/social_sight.jl:social_sight",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/simulation/day.jl:#1803",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_at_home",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/landscape.jl:landscape_resistance",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/landscape.jl:river_width",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:#item_close!#531",
+        "samples": 2,
+        "percent": 0.003399915002124947
+      },
+      {
+        "function_key": "ecology/herbivore/features.jl:grass_cover!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "ecology/motion-vision-cpu/Herbivores.jl:#build#7",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/configured_paths/expression.jl:#configured_expression#276",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/configured_paths/item_actions.jl:configured_item_plan",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:#choose_method!##10",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:parent_candidates",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/basic_loop.jl:resolve_method!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_gain",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:food_trade_views!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_exchange.jl:observed_food_count",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_request_ready",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/food_security.jl:food_security_update!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/goal_arrival.jl:goal_arrival_rho_record!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/gradient_trace.jl:#758",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:#incidental_item_bound_methods!##6",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_finite",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_bound_methods!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_interest",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/incidental_items.jl:incidental_item_key",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:#item_exchange_accumulate!##4",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_exchange_memory.jl:item_exchange_memory!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1605",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#1607",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:#item_subjective_values#1555",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_actual",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/item_social.jl:item_social_snapshot",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/decision/reposition.jl:search_review_result!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/harvest_learning.jl:harvest_observe!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#846",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/landmark_routes.jl:#record_landmark!#852",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:#mb_parent_survival!##4",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_censored.jl:#mb_parent_survival!##6",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:#1031",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_chunks.jl:mb_chunk_depth",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_map.jl:#mb_outgoing##0",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_completion_reward",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_parent.jl:mb_parent_H_increment!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#914",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:#927",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_recognition.jl:mb_recognition_feedback!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_return_outlook.jl:#mb_return_outlook!##2",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_H_increment!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/mb_routes.jl:mb_route_goal!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/selection_trail.jl:resolve_trail!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/sleep_action_model.jl:sleep_context",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_groups",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/learning/social_mb.jl:social_mb_merge!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:#update_ground!##2",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/ground_continuity.jl:point_near",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/ground_pattern.jl:ground_appearance",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/local_structures.jl:structure_kind",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/movement.jl:perceive_movement",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#cue_candidates!##0",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:#cue_candidates!##4",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/perception/observed_cues.jl:observed_cues",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/world/food_exchange.jl:food_exchange_contact",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/world/ground_wear.jl:wear_snapshot",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:item_history!",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      },
+      {
+        "function_key": "lw/world/portable_items.jl:portable_items",
+        "samples": 1,
+        "percent": 0.0016999575010624734
+      }
+    ],
+    "note": "Inclusive shares overlap; nearest project frame charges library/runtime callees to the innermost project frame. Sampling estimates, not exact timers. Main thread only."
+  },
+  "notes": [
+    "Inclusive percentages overlap; never sum parent and child.",
+    "One profiled replay; sampling proportions are estimates and elapsed time is not a speed benchmark.",
+    "item_exchange_support line 181 sorting appears in 2264/58825 samples; its key function appears in 1841/58825.",
+    "item_visible line 184 constructs the observation dictionary and its own inventory/load/capacity fields; line attribution includes callees."
+  ]
+}
