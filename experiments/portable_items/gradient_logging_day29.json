@@ -1,0 +1,108 @@
+{
+  "result_equal_excluding_diagnostics": true,
+  "matches_original_action_counts": true,
+  "summary_equal_excluding_diagnostics": true,
+  "metrics": {
+    "off": {
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T10:21:38.0426516+09:00",
+        "wall_seconds": 285.0234123,
+        "started_utc": "2026-11-01T10:16:53.0192393+09:00",
+        "mode": "off"
+      },
+      "summary_json_bytes": 18559467,
+      "logging": false,
+      "checkpoint_bytes": 184015517,
+      "new_gradient_records": {
+        "npc_b": 0,
+        "npc_a": 0,
+        "npc_c": 0
+      },
+      "tick_and_daily_save_seconds": 183.7421947,
+      "call_seconds": 203.4669543,
+      "allocated_bytes": 90699443865,
+      "result_json_bytes": 145138037,
+      "gc_seconds": 15.717219,
+      "process_peak_rss_bytes": 3036979200,
+      "checkpoint_save_seconds": 6.8681168,
+      "day": 29,
+      "final_gradient_json_bytes": {
+        "npc_c": 2584824,
+        "npc_a": 1905648,
+        "npc_b": 1830107
+      }
+    },
+    "on": {
+      "process_timing": {
+        "exit_code": 0,
+        "ended_utc": "2026-11-01T10:16:53.0103507+09:00",
+        "wall_seconds": 286.9785008,
+        "started_utc": "2026-11-01T10:12:06.0318499+09:00",
+        "mode": "on"
+      },
+      "summary_json_bytes": 18174878,
+      "logging": true,
+      "checkpoint_bytes": 183823168,
+      "new_gradient_records": {
+        "npc_b": 328,
+        "npc_a": 320,
+        "npc_c": 181
+      },
+      "tick_and_daily_save_seconds": 186.5824668,
+      "call_seconds": 205.4740365,
+      "allocated_bytes": 90762733713,
+      "result_json_bytes": 144368859,
+      "gc_seconds": 15.6858435,
+      "process_peak_rss_bytes": 3119730688,
+      "checkpoint_save_seconds": 7.000995,
+      "day": 29,
+      "final_gradient_json_bytes": {
+        "npc_c": 2154479,
+        "npc_a": 1495458,
+        "npc_b": 2286043
+      }
+    }
+  },
+  "matches_original_physical": true,
+  "checks_passed": 10,
+  "excluded_keys": [
+    "elapsed_seconds_including_compilation",
+    "gradient_logging",
+    "gradient_maps",
+    "measurement"
+  ],
+  "provenance": {
+    "off": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "logging": false,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Only relations[*].gradient_logging after original checkpoint identity/source validation; old records retained",
+      "day": 29
+    },
+    "on": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "logging": true,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Only relations[*].gradient_logging after original checkpoint identity/source validation; old records retained",
+      "day": 29
+    }
+  },
+  "day": 29,
+  "on_checkpoint_matches_original_sha256": false,
+  "original_checkpoint_sha256": "521B1FDAEDF96CB78B5F79075E5C47C034C24CE4D3137898D10614000306EFE3",
+  "on_checkpoint_sha256": "9BB843FC3BA2796ECD426B473CA566733DC04EEA15AEED7D0DFF5CF7754C0AF8",
+  "source_commit": "7df4747e50d8d69261de525488e49005d5938c6c"
+}
