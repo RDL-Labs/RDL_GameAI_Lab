@@ -34,7 +34,7 @@ bundles=[LW.D("items"=>x,"food"=>food) for x in (Any[],Any[f],Any[f,deepcopy(f)]
     state["exchange_relations"]=Any[LW.D("give"=>a,"want"=>bundles[mod1(i+3,length(bundles))],
         "partner"=>isodd(i) ? "npc_b" : "npc_c","need"=>i/25,"key"=>string(i),
         "successes"=>mod(i,4),"failures"=>mod(i,3)) for (i,a) in enumerate(bundles)]
-    saved=deepcopy(state);materials=IdDict{Any,Any}()
+    saved=deepcopy(state);materials=IdDict{Any,LW.ItemFitMaterial}()
     for H in (0.,4.,16.),partner in ("npc_b","npc_c"),a in bundles
         b=bundles[1];context=LW.D("need"=>.3)
         expected=reference_support(state,a,b,partner,context,H)
@@ -47,4 +47,12 @@ bundles=[LW.D("items"=>x,"food"=>food) for x in (Any[],Any[f],Any[f,deepcopy(f)]
     fresh=IdDict{Any,Any}()
     @test isequal(reference_support(state,bundles[1],bundles[2],"npc_b",LW.D("need"=>.3),4.),
         LW.item_exchange_support(state,bundles[1],bundles[2],"npc_b",LW.D("need"=>.3),4.;materials=fresh))
+end
+
+@testset "typed observation kernels infer concrete numeric results" begin
+    a=LW.ObservedItemFeatures(f);b=LW.ObservedItemFeatures(g)
+    w=(2.,1.)
+    @test (@inferred LW.item_feature_fit(a,b,w)) == LW.incidental_item_fit(LW.incidental_item_state("a"),f,g)
+    x=LW.item_exchange_fit_material(bundles[5]);y=LW.item_exchange_fit_material(bundles[end])
+    @test (@inferred LW.item_exchange_material_fit(x,y,w)) == reference_fit(LW.incidental_item_state("a"),bundles[5],bundles[end])
 end

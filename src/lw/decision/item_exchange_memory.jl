@@ -121,25 +121,53 @@ function item_exchange_prepared_bundle(by_ref,ids,food)
     D("items"=>features,"food"=>copy(food))
 end
 
-item_exchange_fit_material(b)=(items=unique(b["items"]),food=b["food"].>0)
+# Ephemeral numeric view only: persisted observations and memory stay unchanged.
+struct ObservedItemFeatures
+    color::String
+    size::Float64
+    light_source::Float64
+end
+ObservedItemFeatures(f)=ObservedItemFeatures(f["color"],f["size"],f["light_source"])
+struct ItemFitMaterial
+    items::Vector{ObservedItemFeatures}
+    food::BitVector
+end
+function incidental_item_parts(a::ObservedItemFeatures,b::ObservedItemFeatures)
+    (a.color==b.color ? 0. : 1.,
+     (abs(log(a.size/b.size))+abs(log1p(a.light_source)-log1p(b.light_source)))/2)
+end
+function incidental_item_fit(state,a::ObservedItemFeatures,b::ObservedItemFeatures)
+    w=state["metric"]["weights"]
+    item_feature_fit(a,b,(w[1]::Float64,w[2]::Float64))
+end
+function item_feature_fit(a::ObservedItemFeatures,b::ObservedItemFeatures,w::NTuple{2,Float64})
+    p=incidental_item_parts(a,b)
+    exp(-w[1]*p[1]-w[2]*p[2])
+end
+# Deduplicate original dictionaries first, retaining their existing equality/order.
+item_exchange_fit_material(b)=ItemFitMaterial(ObservedItemFeatures[ObservedItemFeatures(f) for f in unique(b["items"])],BitVector(b["food"].>0))
 function item_exchange_fit_material(b,materials)
     get!(materials,b) do;item_exchange_fit_material(b);end
 end
 item_exchange_bundle_fit(state,a,b)=item_exchange_material_fit(state,item_exchange_fit_material(a),item_exchange_fit_material(b))
 function item_exchange_material_fit(state,a,b)
+    w=state["metric"]["weights"]
+    item_exchange_material_fit(a,b,(w[1]::Float64,w[2]::Float64))
+end
+function item_exchange_material_fit(a::ItemFitMaterial,b::ItemFitMaterial,w::NTuple{2,Float64})
     aa=a.items;bb=b.items
     isempty(aa)!=isempty(bb) && return 0.
     # Relation support is independent of multiplicity. Quantity is evaluated by
     # the response model and utility field after retrieval, not as mismatch.
     fit=isempty(aa) ? 1. :
-        (sum(maximum(incidental_item_fit(state,f,g) for g in bb) for f in aa)/length(aa)+
-         sum(maximum(incidental_item_fit(state,g,f) for f in aa) for g in bb)/length(bb))/2
+        (sum(maximum(item_feature_fit(f,g,w) for g in bb) for f in aa)/length(aa)+
+         sum(maximum(item_feature_fit(g,f,w) for f in aa) for g in bb)/length(bb))/2
     fit*exp(-sum(a.food.!=b.food))
 end
 
 function item_exchange_support(state,give,want,partner,context,H;materials=nothing)
     # No cross-decision cache: learning may change prototypes before the next call.
-    materials===nothing && (materials=IdDict{Any,Any}())
+    materials===nothing && (materials=IdDict{Any,ItemFitMaterial}())
     give_material=item_exchange_fit_material(give,materials)
     want_material=item_exchange_fit_material(want,materials)
     scored=Any[]

@@ -1,0 +1,103 @@
+{
+  "summary_equal_excluding_diagnostics": true,
+  "excluded_keys": [
+    "elapsed_seconds_including_compilation",
+    "measurement"
+  ],
+  "provenance": {
+    "after": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "overlay_sha256": {
+        "src/lw/decision/item_social.jl": "ea5dd1c9e2a68407986c1d4d49cda4f5dc1212946720301728b407c2c26b59be",
+        "src/lw/decision/item_exchange_memory.jl": "4172c79fa5eb70d3d3a096d44276bbc67fbeb64f757236cf8e38f839deca1d16"
+      },
+      "logging": true,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Logging flag applied after original checkpoint validation; old records retained. Optional function overlays are explicitly listed in overlay_sha256.",
+      "day": 29
+    },
+    "before": {
+      "warmup_seconds": 512,
+      "checkpoint": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206\\checkpoints\\day-028.jls",
+      "source_run": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\compound-trade-fast-30d-20261101-083206",
+      "overlay_sha256": {
+        "src/lw/decision/item_social.jl": "1b61825836bdb62f4edcc3c922faf64eaf1fbc10f838f69c9afa8b6eb779c18b",
+        "src/lw/decision/item_exchange_memory.jl": "7e5a1acea39c7675f9868cd69949203b22be4ca49bf7280110907cd2e7e826a7"
+      },
+      "logging": true,
+      "threads": 1,
+      "checkpoint_sha256": "ee52b8dcddaa6579f6ca76203e3f90ca7c3a3bba8b3cd4817154f57d194af879",
+      "source_code_hash": "9dc8581932285d92e83f85959aecb02128383babb61f311f852036c36ac38c45",
+      "instrumentation_sha256": "49b14b1c5fde07db00012e05c269152c7f8d47dde71b3e0c83650a6b24b5ce6a",
+      "julia": "1.13.1",
+      "override": "Logging flag applied after original checkpoint validation; old records retained. Optional function overlays are explicitly listed in overlay_sha256.",
+      "day": 29
+    }
+  },
+  "matches_original_action_counts": true,
+  "metrics": {
+    "after": {
+      "process_timing": {
+        "exit_code": 0,
+        "mode": "after",
+        "timing_note": "Executed directly after controller failed to obtain baseline exit code; process wall time not recorded."
+      },
+      "summary_json_bytes": 18174878,
+      "logging": true,
+      "checkpoint_bytes": 183823168,
+      "new_gradient_records": {
+        "npc_b": 328,
+        "npc_a": 320,
+        "npc_c": 181
+      },
+      "tick_and_daily_save_seconds": 151.251003,
+      "call_seconds": 170.7621994,
+      "allocated_bytes": 63976582573,
+      "result_json_bytes": 144368859,
+      "gc_seconds": 12.1106283,
+      "process_peak_rss_bytes": 3006480384,
+      "checkpoint_save_seconds": 6.9592042,
+      "day": 29
+    },
+    "before": {
+      "process_timing": {
+        "exit_code": null,
+        "ended_utc": "2026-11-01T16:54:17.5271332+09:00",
+        "wall_seconds": 254.8410602,
+        "started_utc": "2026-11-01T16:50:02.686073+09:00",
+        "mode": "before"
+      },
+      "summary_json_bytes": 18174878,
+      "logging": true,
+      "checkpoint_bytes": 183823168,
+      "new_gradient_records": {
+        "npc_b": 328,
+        "npc_a": 320,
+        "npc_c": 181
+      },
+      "tick_and_daily_save_seconds": 154.8105803,
+      "call_seconds": 174.618768,
+      "allocated_bytes": 78844353587,
+      "result_json_bytes": 144368859,
+      "gc_seconds": 13.5136334,
+      "process_peak_rss_bytes": 3102765056,
+      "checkpoint_save_seconds": 6.601708,
+      "day": 29
+    }
+  },
+  "comparison_mode": "trade-fit-materials",
+  "matches_original_physical": true,
+  "checks_passed": 12,
+  "gradient_logs_compared": true,
+  "result_equal_excluding_diagnostics": true,
+  "day": 29,
+  "experiment": "typed-observation-fit",
+  "caveat": "Baseline completed but PowerShell controller received a null ExitCode and stopped before candidate. Candidate subsequently executed directly and exited 0. Runs are not consecutive; timing difference may include host state effects. Baseline original timing retains null exit code.",
+  "result_sha256": "B0B385D2AE26208F86C094DC104FDED3AB657F613A054545022FCC5BA9A544E5"
+}

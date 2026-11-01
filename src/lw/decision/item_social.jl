@@ -126,7 +126,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     candidates=Any[]
     peer_valuations=D()
     recall_support=D() # local: never survives selection or experience updates
-    fit_materials=IdDict{Any,Any}() # query/prototype preparation shared within this decision
+    fit_materials=IdDict{Any,ItemFitMaterial}() # query/prototype preparation shared within this decision
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
         # New requests and counteroffers stay within the observed warehouse.
