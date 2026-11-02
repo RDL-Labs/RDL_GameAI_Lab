@@ -216,7 +216,7 @@ end
 # Experimental attention scheduling. Only current observations enter action plans;
 # skipping a look does not mean absence, nor does it reuse stale executable refs.
 function item_attention_view!(state,items,w,home,a,yaw,now;purpose, H=0.,pressure=0.,
-        visual_obstacles=w.obstacles,open_stores=false,foods=nothing)
+        visual_obstacles=w.obstacles,open_stores=false,foods=nothing,allow_start=true)
     attention=get!(state,"attention") do
         D("requests"=>0,"skipped"=>0,"glimpses"=>0,"details"=>0,
           "trade_details"=>0,"pickup_details"=>0,"next_pickup_us"=>0,"last_amount"=>"unknown")
@@ -226,7 +226,7 @@ function item_attention_view!(state,items,w,home,a,yaw,now;purpose, H=0.,pressur
         mind=item_social_state!(state)
         # Addressed offers are communication, not access to a peer's private stock.
         incoming=any(o->o["target"]==a && now<o["expires_us"] && item_contact(w,a,o["proposer"]),values(items["offers"]))
-        if !incoming && (now<mind["next_us"] || mind["pending"]!==nothing)
+        if !incoming && (!allow_start || now<mind["next_us"] || mind["pending"]!==nothing)
             attention["skipped"]+=1;return nothing
         end
     elseif purpose==:pickup

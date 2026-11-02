@@ -5,6 +5,7 @@ include("checkpoint.jl")
 include("physiology.jl")
 include("../../ecology/lw_grazing/LWGrazing.jl")
 include(joinpath(@__DIR__, "../configured_paths/daily_delivery.jl"))
+include(joinpath(@__DIR__, "../configured_paths/trade_daily_limit.jl"))
 include(joinpath(@__DIR__, "../perception/hazard.jl"))
 include(joinpath(@__DIR__, "../perception/orientation.jl"))
 include(joinpath(@__DIR__, "../world/world_hazards.jl"))
@@ -686,13 +687,15 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if plan===nothing && incidental_items!==nothing && !observing && !(phase in ("night","orientation")) && at_home && w.inventory[a]==0
                 item_view=item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
-                    purpose=:trade,visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods) : get(o,"items",nothing)
+                    purpose=:trade,allow_start=trade_start_available(states[a],now,clock.day_us),visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods) : get(o,"items",nothing)
                 plan=item_social_plan!(incidental_items[a],item_view,w.bodies[a],
                     guts===nothing ? nothing : guts[a],shared_stores || foods===nothing ? nothing : foods.personal[a],now;
+                    allow_start=trade_start_available(states[a],now,clock.day_us),
                     relation=relations===nothing ? nothing : relations[a])
             end
             if plan===nothing && trades!==nothing && !observing && phase!="night" && at_home && w.inventory[a]==0
-                plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;relation=relations===nothing ? nothing : relations[a])
+                plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;
+                    allow_start=trade_start_available(states[a],now,clock.day_us),relation=relations===nothing ? nothing : relations[a])
             end
             if observing && plan===nothing
                 plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
@@ -1024,6 +1027,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     give_food=get(plan,"give_food",[0,0,0,0]),want_food=get(plan,"want_food",[0,0,0,0]))
                 # Item acquisition must never count as food acquisition.
                 status="item_"*receipt["status"]
+                trade_start_record!(states[a],action,receipt["status"],now,clock.day_us,op)
                 haskey(plan,"item_social_role") && item_social_executed!(incidental_items[a],plan,receipt;
                     relation=relations===nothing ? nothing : relations[a])
                 w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
@@ -1036,6 +1040,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     food_exchange_execute!(trades["world"],foods,w,stores,spec.home,a,op,action,now;offer_id=plan["offer_id"])
                 end
                 status=receipt["status"];food_trade_executed!(trades,a,plan,receipt;relation=relations===nothing ? nothing : relations[a])
+                trade_start_record!(states[a],action,receipt["status"],now,clock.day_us,op)
                 w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
             elseif action=="process_food"
                 legal=foods!==nothing && hypot(p[1]-spec.home[1],p[2]-spec.home[2])<=1.25 && food_has_raw(foods,a)

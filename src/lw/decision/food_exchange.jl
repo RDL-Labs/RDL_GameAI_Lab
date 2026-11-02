@@ -99,7 +99,7 @@ function food_trade_views!(t,r,w,home,now;relations=nothing,open_stores=false)
     end
     views
 end
-function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=false)
+function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=false,allow_start=true)
     require_need && error("necessity admission was replaced by compound trade valuation")
     relation!==nothing && check(relation["actor"]==a,"trade_relation_owner")
     view===nothing && return nothing
@@ -136,6 +136,7 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=fa
         mind["next_offer_us"]=now+FOOD_TRADE_INTERVAL_US
         return plan
     end
+    allow_start || return nothing
     mind["pending"]===nothing && view["outgoing"]===nothing && now>=mind["next_offer_us"] || return nothing
     mind["next_offer_us"]=now+FOOD_TRADE_INTERVAL_US
     isempty(view["partners"]) && return nothing

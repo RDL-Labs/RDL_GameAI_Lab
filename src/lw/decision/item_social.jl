@@ -105,13 +105,14 @@ function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[]
     relational_transition(before,item_social_utility(after,stock.-gf.+wf,values,weights;prepared)).delta
 end
 
-function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,require_need=false)
+function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,require_need=false,allow_start=true)
     require_need && error("necessity admission was replaced by compound trade valuation")
     view===nothing && return nothing
     body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
     mind=item_social_state!(state)
     incoming=get(view,"incoming",Any[])
     response=!isempty(incoming)
+    !response && !allow_start && return nothing
     security=food_security(relation);need=trade_food_need(body,gut,stock;security)
     (!response && (now<mind["next_us"] || mind["pending"]!==nothing || view["outgoing"]!==nothing)) && return nothing
     mind["next_us"]=now+64_000_000
