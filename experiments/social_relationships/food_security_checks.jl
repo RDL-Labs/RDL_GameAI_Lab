@@ -28,10 +28,15 @@ const A="npc_a";const B="npc_b"
     @test LW.food_request_ready(s,64_000_000)
     @test s["requests"]==1
 end
-@testset "forecast admission and shared appearance reach actual trade plans" begin
+@testset "forecast component and shared appearance reach actual trade plans" begin
     body=LW.Body(10.,0.,95.,0.)
     view=Dict{String,Any}("own_stock"=>[0,0,1,0],"incoming"=>Any[],"outgoing"=>nothing,"partners"=>[B])
-    @test LW.food_trade_plan!(LW.food_trade_state(1),A,view,body,nothing,0)===nothing
+    # Shortage is no longer an admission gate: material benefit can motivate a
+    # stocked actor, while forecast shortage still contributes to valuation.
+    calm=LW.food_trade_plan!(LW.food_trade_state(1),A,view,body,nothing,0)
+    @test calm!==nothing
+    @test calm["compound_gradient"]["need_before"]==0
+    @test calm["trade_gain"]>0
     plans=Any[]
     for seed in 1:32
         rel=LW.social_relations_state(A;relational=true)
@@ -41,6 +46,8 @@ end
         p=LW.food_trade_plan!(LW.food_trade_state(seed;relational=true),A,view,body,nothing,0;relation=rel)
         p===nothing && continue
         push!(plans,p)
+        @test p["valuation"]["required"]==3.
+        @test p["compound_gradient"]["need_before"]>0
         @test p["trade_context"]["distress"]==.5
         @test p["want_count"]>p["give_count"]
     end

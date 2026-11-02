@@ -10,6 +10,10 @@ jobs:
   ecology:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [boundaries, food-social, portable, navigation, animals]
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
@@ -18,6 +22,7 @@ jobs:
       - name: Dependencies
         run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
       - name: Julia layer boundaries
+        if: matrix.suite == 'boundaries'
         run: |
           julia --startup-file=no --project=. test/herbivore_policy.jl
           julia --startup-file=no --project=. test/lw_policy.jl
@@ -25,8 +30,10 @@ jobs:
           julia --startup-file=no --project=. test/layer_dependencies.jl
           julia --startup-file=no --project=. test/shared_world_policies.jl
       - name: Root entry help
+        if: matrix.suite == 'boundaries'
         run: julia --startup-file=no run.jl --help
       - name: Typed food, personal stores and barter
+        if: matrix.suite == 'food-social'
         run: |
           julia --startup-file=no --project=. experiments/seasonal_food/checks.jl
           julia --startup-file=no --project=. experiments/food_exchange/checks.jl
@@ -40,6 +47,7 @@ jobs:
           julia --startup-file=no --project=. experiments/social_relationships/gradient_checks.jl
           julia --startup-file=no --project=. experiments/social_relationships/integration_checks.jl
       - name: Portable non-food world operations
+        if: matrix.suite == 'portable'
         run: |
           julia --startup-file=no --project=. experiments/portable_items/checks.jl
           julia --startup-file=no --project=. experiments/portable_items/integration_checks.jl
@@ -50,9 +58,10 @@ jobs:
           julia --startup-file=no --project=. experiments/portable_items/counter_checks.jl
           julia --startup-file=no --project=. experiments/portable_items/exchange_memory_checks.jl
           julia --startup-file=no --project=. experiments/portable_items/quantity_gradient_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/necessity_checks.jl
+          julia --startup-file=no --project=. experiments/portable_items/compound_trade_checks.jl
           julia --startup-file=no --project=. experiments/portable_items/social_integration_checks.jl
       - name: LW completion prediction reward
+        if: matrix.suite == 'navigation'
         run: |
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_return_outlook_checks.jl
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/h_reward_checks.jl
@@ -63,9 +72,11 @@ jobs:
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/camp_safe_zone_checks.jl
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_transfer_checks.jl
       - name: Herbivore and predator checks
+        if: matrix.suite == 'animals'
         # Includes coarse/fine boundary fields and physical collision regression.
         run: julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/rho_opening_checks.jl
       - name: Herbivore and predator behavior checks
+        if: matrix.suite == 'animals'
         run: |
           julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/checks.jl
           julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/predator_checks.jl

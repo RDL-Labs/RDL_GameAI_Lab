@@ -2,7 +2,7 @@
 # Peer stock is used only through explicit observations; private utility stays hidden.
 function observed_food_count(view,other,k;fallback=4)
     stocks=get(view,"observed_food_stocks",nothing)
-    stocks===nothing && return fallback # legacy private-store experiment
+    stocks===nothing && return legacy_unobserved_food_count(fallback)
     haskey(stocks,other) ? stocks[other][k] : 0
 end
 const FOOD_TRADE_INTERVAL_US=64_000_000
@@ -60,17 +60,7 @@ function food_trade_resolve!(loop,source,expected,weights,result;relational=fals
     if relational
         return resolve_prediction!(loop,source,expected,actual;fulfilled=exchanged,tolerance=FOOD_TRADE_TOLERANCE)
     end
-    pressure=max(0.,expected-actual-FOOD_TRADE_TOLERANCE,-actual-FOOD_TRADE_TOLERANCE)
-    useful=exchanged && actual>FOOD_TRADE_TOLERANCE
-    if useful && pressure==0.
-        resolve_method!(loop,source,true,true;goal_H_increment=0.,completion_reward=actual-FOOD_TRADE_TOLERANCE)
-    elseif pressure>0.
-        # A useful swap can still fall short of the prediction: partial method
-        # success, with unmet goal pressure retained by the common loop.
-        resolve_method!(loop,source,useful,false;creditable=useful,goal_H_increment=pressure)
-    else
-        resolve_method!(loop,source,nothing,nothing;creditable=false,goal_H_increment=0.)
-    end
+    legacy_food_trade_resolve!(loop,source,expected,actual,exchanged,FOOD_TRADE_TOLERANCE)
 end
 function food_trade_views!(t,r,w,home,now;relations=nothing,open_stores=false)
     food_exchange_expire!(t["world"],now)
