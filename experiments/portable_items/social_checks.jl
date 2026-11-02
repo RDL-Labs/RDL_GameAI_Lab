@@ -38,7 +38,10 @@ end
 
 @testset "autonomous visible possession negotiation and asynchronous credit" begin
     f=item_fixture(objects=[placed_item(1,1;owner=ITEM_B,location="held"),
-        placed_item(2,2;owner=ITEM_A,location="held")])
+        placed_item(2,2;owner=ITEM_A,location="held")],
+        # Distinct surpluses allow mutually useful terms under compound value.
+        # Do not require scarce owners to accept a loss merely to exercise credit.
+        food_counts=[[20,0,0,0],[0,0,20,0],[0,0,0,0]])
     states=Dict(a=>LW.incidental_item_state(a,33) for a in (ITEM_A,ITEM_B))
     relations=Dict(a=>LW.social_relations_state(a;relational=true) for a in keys(states))
     pending_checked=false
