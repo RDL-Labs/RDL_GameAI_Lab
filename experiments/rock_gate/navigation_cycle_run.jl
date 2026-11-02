@@ -1,10 +1,12 @@
 # Isolated exploration/harvest/return cycle; no scripted movement or success.
 using JSON3, SHA, Test
-1<=length(ARGS)<=3 || error("usage: navigation_cycle_run.jl NEW_OUTPUT [FROZEN_SOURCE [RETRIEVAL_COMMIT]]")
+1<=length(ARGS)<=4 || error("usage: navigation_cycle_run.jl NEW_OUTPUT [FROZEN_SOURCE [RETRIEVAL_COMMIT [seasonal|nondepleting]]]")
 const repo=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required")
 const source_root=length(ARGS)>=2 ? abspath(ARGS[2]) : repo
 const retrieval_commit=length(ARGS)>=3 ? ARGS[3] : nothing
+const supply=length(ARGS)>=4 ? ARGS[4] : "seasonal"
+supply in ("seasonal","nondepleting") || error("unknown supply mode")
 const base=joinpath(source_root,"experiments/portable_items/attention_10d_input.json")
 input=JSON3.read(read(base,String),Dict{String,Any})
 input["config"]["days"]=10
@@ -15,6 +17,16 @@ end
 scene["wildlife"]["enabled"]=false
 scene["loose_items"]=Any[]
 scene["name"]="strong-relations-navigation-cycle"
+if supply=="nondepleting"
+    # One pickup per actor per one-second operation: even every operation spent
+    # at one site cannot exhaust it during this run. Keep exact integer accounting.
+    capacity=3*input["config"]["days"]*cld(input["clock"]["day_us"],1_000_000)+1
+    for site in scene["food"];site["stock"]=capacity;end
+    pop!(scene,"food_season",nothing)
+    pop!(scene,"finite_food_layout",nothing)
+    input["config"]["food"]="finite"
+    scene["name"]="nondepleting-fixed-food-navigation-cycle"
+end
 mkpath(out)
 snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(source_root,"src"),joinpath(snapshot,"src"))
@@ -36,7 +48,7 @@ cp(@__FILE__,joinpath(out,"runner.jl"))
 write(joinpath(out,"conditions.json"),JSON3.write((days=10,actors=3,seed=input["config"]["seed"],
     base_sha256=bytes2hex(sha256(read(base))),configured_ablation="disable aid initiation in frozen source only",
     disabled=["trade","aid requests","incidental pickup","wildlife"],source_commit=strip(read(`git -C $repo rev-parse HEAD`,String)),
-    source_root=source_root,retrieval_commit=retrieval_commit,
+    source_root=source_root,retrieval_commit=retrieval_commit,supply=supply,
     retrieval_sha256=Dict(f=>bytes2hex(sha256(read(joinpath(snapshot,f)))) for f in retrieval_files))))
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 println("START navigation cycle: 3 actors, 10 days, no trade/aid/pickup/wildlife");flush(stdout)
@@ -48,6 +60,10 @@ r=JSON3.read(read(joinpath(out,"run/result.json"),String))
     @test !haskey(r,:food_exchange)
     @test !haskey(r,:incidental_items)
     @test !haskey(r,:social_relationships)
+    if supply=="nondepleting"
+        @test all(>(0),r.world_checkpoint.stock[1:length(scene["food"])])
+        @test r.replenished_food==0
+    end
     @test all(!(e.action in ("request","give","trade_offer","item_offer","item_pickup")) for e in r.events)
     for d in r.daily
         @test r.initial_food+d.replenished_food==d.ground+d.shared_stock+d.consumed+sum(a.inventory+a.personal_stock for a in values(d.physical))
