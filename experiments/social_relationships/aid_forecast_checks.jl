@@ -232,6 +232,7 @@ end
     probability=LW.social_relation_profile(x.relations[AID_A],AID_B;situation=plan["trade_context"],H=loop.H)["trade_probability"]
     @test 0<probability<.5 && pending["expected"]≈probability*plan["trade_gain"]
     @test pending["weights"]==plan["trade_weights"] && mind["pending"]["weights"]!==plan["trade_weights"]
+    @test pending["valuation"]==plan["valuation"] && mind["pending"]["valuation"]!==plan["valuation"]
     @test loop.H==3. && loop.trial!==nothing && isempty(loop.events)
     # Fresh knowledge and bodily valuation change before settlement. Neither
     # revises the forecast or the valuation already committed to this trial.
@@ -251,7 +252,9 @@ end
     response_event=last(x.t["minds"][AID_B]["response"].events)
     @test response_event.expected==answer["trade_gain"]
     notice=only(filter(n->n["offer_id"]==pending["offer_id"],x.t["world"]["notices"][AID_A]))
-    actual=LW.food_trade_actual(pending["weights"],notice)
+    # Settlement uses the frozen compound valuation, including transaction cost,
+    # rather than material value alone or the body's new valuation.
+    actual=LW.food_trade_actual(pending["weights"],notice;valuation=pending["valuation"])
     pressure=max(0.,pending["expected"]-actual-.05,-actual-.05);benefit=max(0.,actual-.05)
     LW.food_trade_views!(x.t,x.r,x.w,(0.,0.),4_000_000;relations=x.relations)
     event=last(loop.events)
