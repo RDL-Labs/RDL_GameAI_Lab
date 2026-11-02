@@ -1,9 +1,11 @@
 # Isolated exploration/harvest/return cycle; no scripted movement or success.
 using JSON3, SHA, Test
-length(ARGS)==1 || error("usage: navigation_cycle_run.jl NEW_OUTPUT")
+1<=length(ARGS)<=3 || error("usage: navigation_cycle_run.jl NEW_OUTPUT [FROZEN_SOURCE [RETRIEVAL_COMMIT]]")
 const repo=normpath(joinpath(@__DIR__,"../.."))
-const out=abspath(only(ARGS));ispath(out) && error("fresh output required")
-const base=joinpath(repo,"experiments/portable_items/attention_10d_input.json")
+const out=abspath(ARGS[1]);ispath(out) && error("fresh output required")
+const source_root=length(ARGS)>=2 ? abspath(ARGS[2]) : repo
+const retrieval_commit=length(ARGS)>=3 ? ARGS[3] : nothing
+const base=joinpath(source_root,"experiments/portable_items/attention_10d_input.json")
 input=JSON3.read(read(base,String),Dict{String,Any})
 input["config"]["days"]=10
 scene=input["scene"]
@@ -15,8 +17,14 @@ scene["loose_items"]=Any[]
 scene["name"]="strong-relations-navigation-cycle"
 mkpath(out)
 snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
-cp(joinpath(repo,"src"),joinpath(snapshot,"src"))
-cp(joinpath(repo,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
+cp(joinpath(source_root,"src"),joinpath(snapshot,"src"))
+cp(joinpath(source_root,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
+retrieval_files=["src/lw/learning/mb_recognition.jl","src/lw/learning/mb_goal_cues.jl"]
+if retrieval_commit!==nothing
+    for file in retrieval_files
+        write(joinpath(snapshot,file),read(`git -C $repo show $(retrieval_commit*":"*file)`,String))
+    end
+end
 # Explicit experiment-only configured path. Legacy aid initiation has no OFF flag.
 day=joinpath(snapshot,"src/lw/simulation/day.jl")
 source=read(day,String)
@@ -27,7 +35,9 @@ write(joinpath(out,"input.json"),JSON3.write(input))
 cp(@__FILE__,joinpath(out,"runner.jl"))
 write(joinpath(out,"conditions.json"),JSON3.write((days=10,actors=3,seed=input["config"]["seed"],
     base_sha256=bytes2hex(sha256(read(base))),configured_ablation="disable aid initiation in frozen source only",
-    disabled=["trade","aid requests","incidental pickup","wildlife"],source_commit=strip(read(`git -C $repo rev-parse HEAD`,String)))))
+    disabled=["trade","aid requests","incidental pickup","wildlife"],source_commit=strip(read(`git -C $repo rev-parse HEAD`,String)),
+    source_root=source_root,retrieval_commit=retrieval_commit,
+    retrieval_sha256=Dict(f=>bytes2hex(sha256(read(joinpath(snapshot,f)))) for f in retrieval_files))))
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 println("START navigation cycle: 3 actors, 10 days, no trade/aid/pickup/wildlife");flush(stdout)
 native_main([joinpath(out,"run"),"--spec",joinpath(out,"input.json"),"--checkpoint-dir",joinpath(out,"checkpoints")])
