@@ -30,13 +30,13 @@ end
 # Experimental tolerance1, quadratic scale2. Floor avoids ceil's immediate 1->2 jump.
 mb_retrieval_width(H)=min(136.,1+(max(0.,clamp(Float64(H),0.,32.)-1)/2)^2)
 mb_retrieval_budget(H)=floor(Int,mb_retrieval_width(H))
-function mb_correspondences(s,targets,now;scope="wake",H=0,retrieval_strength=nothing)
+function mb_correspondences(s,targets,now;scope="wake",H=0,retrieval_strength=nothing,ordered_targets=nothing,usable=match->true)
     frame=s["current"];out=Any[]
     frame===nothing && (mb_reject!(s,scope,"no_observation");return out)
     # Cheap retrieval order, not a declaration of identity. Full geometry is evaluated lazily.
     observed=hasproperty(frame,:features) ? frame.features : mb_features(frame.signature)
     ranked=Tuple{Float64,String,Float64}[]
-    for key in sort(unique(collect(targets)))
+    for key in (ordered_targets===nothing ? sort(unique(collect(targets))) : String[])
         node=get(s["nodes"],key,nothing);node===nothing && continue
         id=frame.key*":"*key
         a=get(s["recognition"]["associations"],id,nothing)
@@ -52,26 +52,34 @@ function mb_correspondences(s,targets,now;scope="wake",H=0,retrieval_strength=no
     # Wider pressure opens weaker relations. Inadequate fit also opens the next batch.
     batch=mb_retrieval_budget(H)
     examined=0;best_weight=0.;batches=0
-    for (_,key,support) in ranked
+    retrieval=ordered_targets===nothing ? ranked : ((0.,key,NaN) for key in ordered_targets)
+    for (_,key,prior_support) in retrieval
         if examined>0 && examined%batch==0
             best_weight>=.25 && break
         end
         examined%batch==0 && (batches+=1)
         examined+=1
-        node=s["nodes"][key]
+        node=get(s["nodes"],key,nothing);node===nothing && continue
+        id=frame.key*":"*key
+        a=get(s["recognition"]["associations"],id,nothing)
+        support=isnan(prior_support) ? (a===nothing ? .5 : (1+a["matches"])/(2+a["matches"]+a["mismatches"])) : prior_support
         fit=mb_similarity(frame,node;metric=s["recognition"]["metric"]);fit===nothing && continue
         id=frame.key*":"*key
         weight=max(1e-6,fit.confidence*support)
+        match=D("key"=>key,"association"=>id,"confidence"=>fit.confidence,"weight"=>weight,"anchor"=>fit.anchor)
+        usable(match) || continue
         best_weight=max(best_weight,weight)
-        push!(out,D("key"=>key,"association"=>id,"confidence"=>fit.confidence,"weight"=>weight,"anchor"=>fit.anchor))
+        push!(out,match)
     end
     stats=get!(s["recognition"],"retrieval") do
         D("calls"=>0,"eligible"=>0,"examined"=>0,"expanded"=>0,"records"=>Any[])
     end
-    stats["calls"]+=1;stats["eligible"]+=length(ranked);stats["examined"]+=examined
+    eligible=ordered_targets===nothing ? length(ranked) : length(ordered_targets)
+    stats["calls"]+=1;stats["eligible"]+=eligible;stats["examined"]+=examined
     stats["expanded"]+=max(0,batches-1)
     push!(stats["records"],D("us"=>now,"scope"=>scope,"H"=>H,"width"=>mb_retrieval_width(H),"batch"=>batch,
-        "eligible"=>length(ranked),"examined"=>examined,"batches"=>batches,"best_weight"=>best_weight))
+        "eligible"=>eligible,"examined"=>examined,"batches"=>batches,"best_weight"=>best_weight,
+        "ordered_retrieval"=>ordered_targets!==nothing))
     length(stats["records"])>32 && popfirst!(stats["records"])
     sort!(out,by=x->(-x["weight"],x["key"]))
     limit=min(8,examined);length(out)>limit && resize!(out,limit)

@@ -12,9 +12,25 @@ function mb_goal_cue_project!(s,candidates,pool,goal,H,now)
         stats["cache"][goal]=cache
     end
     terminals=cache["terminals"];isempty(terminals) && return candidates
-    strengths=Dict(k=>c.depth/(1+c.cost) for (k,c) in terminals)
-    matches=mb_correspondences(s,keys(terminals),now;scope="goal_cue",H=H,retrieval_strength=strengths)
+    # Derived purpose index is reused until the existing refresh/credit boundary.
+    # Do not inspect every node's features merely to choose which node to inspect.
+    ordered=get!(cache,"ordered_terminals") do
+        sort(collect(keys(terminals)),by=k->(-terminals[k].depth/(1+terminals[k].cost),k))
+    end
     cues=Dict(c["key"]=>c for c in pool.items)
+    function usable(match)
+        c=terminals[match["key"]]
+        all(k->haskey(s["edges"],k),c.path) || return false
+        haskey(s["chunks"],c.chunk) || return false
+        s["edges"][first(c.path)]["action"]=="walk" || return false
+        features=s["nodes"][match["key"]]["features"]
+        any(candidates) do p
+            cue=get(cues,p["method"],nothing)
+            cue!==nothing && cue["kind"]=="shape" && p["action"]=="walk" && haskey(features,cue["label"])
+        end
+    end
+    matches=mb_correspondences(s,keys(terminals),now;scope="goal_cue",H=H,
+        ordered_targets=ordered,usable=usable)
     for p in candidates
         cue=get(cues,p["method"],nothing)
         (cue===nothing || cue["kind"]!="shape" || p["action"]!="walk") && continue

@@ -29,6 +29,29 @@ include("mb_recognition_checks.jl")
  @test isempty(mb_correspondences(s,["deleted"],0))
  @test length(s["nodes"])==40 # Retrieval does not merge memories.
 end
+
+@testset "purpose index opens only sufficient usable relations" begin
+ s=mb_map_state("a");mb_observe!(s,recognition_view(0),0)
+ empty!(s["nodes"])
+ ordered=[string(i) for i in 1:40]
+ for k in ordered
+     s["nodes"][k]=D("signature"=>"brown:far:0|gray:far:2","home"=>false,"food"=>false)
+ end
+ matches=mb_correspondences(s,ordered,0;ordered_targets=ordered,H=0)
+ @test only(matches)["key"]=="1"
+ @test count(n->haskey(n,"features"),values(s["nodes"]))==1
+ @test last(s["recognition"]["retrieval"]["records"])["examined"]==1
+ matches=mb_correspondences(s,ordered,0;ordered_targets=ordered,H=0,usable=m->m["key"]=="3")
+ @test only(matches)["key"]=="3"
+ @test count(n->haskey(n,"features"),values(s["nodes"]))==3
+ @test last(s["recognition"]["retrieval"]["records"])["examined"]==3
+ mb_correspondences(s,ordered,0;ordered_targets=ordered,H=8)
+ @test last(s["recognition"]["retrieval"]["records"])["examined"]==13
+ delete!(s["nodes"],"1")
+ @test only(mb_correspondences(s,ordered,0;ordered_targets=ordered,H=0))["key"]=="2"
+ @test isempty(mb_correspondences(s,ordered,0;ordered_targets=ordered,H=0,usable=m->false))
+ @test last(s["recognition"]["retrieval"]["records"])["examined"]==40
+end
 @testset "small H changes retain narrow retrieval" begin
  @test all(mb_retrieval_budget(h)==1 for h in (0.,.1,.9,1.,1.01,2.,2.99))
  @test mb_retrieval_budget(3.)==2
