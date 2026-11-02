@@ -31,6 +31,19 @@ end
     @test all(sum(values(c))==600 for c in values(on["counts"]))
     println("diagnostic consumed off/on: ",off["consumed"]," / ",on["consumed"])
 end
+@testset "raw carried food does not force hungry actors home" begin
+    scene=merge(native_scene(42),(positions=[[-8.,0.],[0.,0.],[8.,0.]],home=[0.,-30.],
+        food=[(x=x,z=.5,stock=30,food_kind=1) for x in (-8.,0.,8.)],obstacles=NamedTuple[],
+        typed_food=true,initial_inventory=[1,1,1],initial_inventory_kinds=[[3],[3],[3]],
+        reserve=[60.,60.,60.],hearing=false))
+    clock=merge(native_clock(),(day_us=600_000_000,phase_boundaries_us=[1_000_000,2_000_000,3_000_000,600_000_000],quiet_night_us=4_000_000))
+    r=lw_day(scene,clock;basic_loop=true,food_body=true,body_purpose=true,choice_seed=42)
+    @test all(get(r["counts"][a],"pickup",0)>0 for a in IDS)
+    @test all(get(r["counts"][a],"eat",0)>0 for a in IDS)
+    @test any(e["action"]=="pickup" && e["purpose_family"]=="food" for e in r["events"])
+    @test r["food_resources"]["consumed"][3]==0
+    @test r["initial_food"]==r["ground"]+r["shared_stock"]+r["consumed"]+sum(s["inventory"]+s["personal_stock"] for s in values(r["final_agents"]))
+end
 @testset "integrated body parent with existing LW features" begin
     input=JSON3.read(read(joinpath(@__DIR__,"search_review_spec.json"),String),Dict{String,Any})
     input["config"]["days"]=1

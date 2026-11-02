@@ -5,7 +5,7 @@
 - `include.jl`：シミュレーションからの明示的な読み込み境界。
 - `expression.jl`：身体状態と既存の恐怖から表情強度を出す固定の初期表出。行動の強制ではない。観測・援助候補の選択・結果更新はperception/decision/learning側に分離する。[仕様](../../../docs/design/LW_Expressions_And_Visual_Aid.md)。
 - `item_actions.jl`：非食料の操作を確認する明示的な時刻表。`scene.configured_item_actions`を指定した試験だけで使用し、通常の配置入力では空。好み・収集報酬・自動収集は与えない。安全・食事・既存応答・夜間休息が決まったtickでは見送る。[非食料仕様](../../../docs/design/LW_Portable_Items.md)。
-- `food_preparation.jl`：種類別食料を有効にした場合の初期レシピ知識と空腹時の加工・摂食。加工場所は拠点、原料だけを持って空腹なら通常の帰還候補へつなぐ。加工の自力発明ではない。疲労時と可食物所持・胃満杯時は休む。世界の数量保存・加工成立判定は`world/food_resources.jl`へ分離。[仕様](../../../docs/design/LW_Typed_Food_Processing.md)。
+- `food_preparation.jl`：種類別食料を有効にした場合の初期レシピ知識と空腹時の加工・摂食。加工場所は拠点。原料の所持だけで帰還目的へ強制変更しない（2026-11-03に上書き分岐を撤去）。加工の自力発明ではない。疲労時と可食物所持・胃満杯時は休む。世界の数量保存・加工成立判定は`world/food_resources.jl`へ分離。[仕様](../../../docs/design/LW_Typed_Food_Processing.md)。
 - `body_maintenance.jl`：空腹時のfood切り替え、回復後の帰還再開、即時摂食・取り出しの優先、定時休息・社会応答待ちの解除。
 - `home_rest_reward.jl`：暫定的な「拠点で休める価値」。JSON設定`home_rest_reward: "on"`、rock_gate runnerでは`--home-rest-reward on`。既定off。拠点を観測でき距離1.25以内で60操作秒連続してrestを実行したときに5を加点。1個体1シミュレーション日1回まで。中断で連続時間をリセットし、外へ出ると帰還の記録との接続を解除する。身体の実際の回復量とは独立した設定値で、自然に学んだ好みではない。
 

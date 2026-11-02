@@ -551,9 +551,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 probabilities=method_distribution(loops[a]["food"],Any[D("method"=>"security_explore","priority"=>log(pressure)),D("method"=>"security_continue","priority"=>0.)])
                 rand(loops[a]["food"].rng)<probabilities[1] && (returning=false)
             end
-            # Given recipe knowledge: raw carried provisions need the observed camp
-            # preparation place. Navigation still uses the normal home candidates.
-            foods!==nothing && food_hungry && !edible_on_hand && food_has_raw(foods,a) && !at_home && (returning=true)
+            # Recipe constraints govern processing, not the current parent purpose.
+            # Carrying raw food must not override energy-maintenance selection.
             if experience_bundles
                 form_bundle!(bundles[a],hunger[a],now)
                 wake_bundles!(bundles[a],bundle_contexts[a],phase)
