@@ -331,6 +331,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             relations[a]["aid"]=social_aid_state(a;seed=choice_seed)
             relations[a]["visual_aid"]=visual_aid_state(a;seed=choice_seed)
             relations[a]["gradient_logging"]=get(spec,:gradient_logging,true)
+            relations[a]["peer_rho_enabled"]=get(spec,:social_peer_rho,true)
+            check(relations[a]["peer_rho_enabled"] isa Bool,"social_peer_rho_flag")
             check(relations[a]["gradient_logging"] isa Bool,"gradient_logging_flag")
             relations[a]["approach"]=D("proposed"=>0,"selected"=>0,"contacts"=>0,"records"=>Any[])
             states[a]["records_pruned"]=0

@@ -140,9 +140,10 @@ function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=fa
     mind["pending"]===nothing && view["outgoing"]===nothing && now>=mind["next_offer_us"] || return nothing
     mind["next_offer_us"]=now+FOOD_TRADE_INTERVAL_US
     isempty(view["partners"]) && return nothing
+    partners=social_peer_scope!(relation,view["partners"],mind["offer"],trade_food_need(body,gut,stock;security),now)
     candidates=Any[]
     relation_traces=D()
-    for other in view["partners"], g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:min(4,observed_food_count(view,other,h))
+    for other in partners, g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:min(4,observed_food_count(view,other,h))
         g==h && continue
         situation=food_social_context(body;give_kind=g,want_kind=h,give_count=n,want_count=m)
         situation=social_observed_context(relation,other,situation)

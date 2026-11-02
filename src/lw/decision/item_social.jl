@@ -214,10 +214,11 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
             "question"=>"subjective_possession_value","priority"=>0.,"expected"=>0.,
             "offer_id"=>o["id"],"partner"=>o["proposer"],"trace"=>nothing))
     else
+        partners=social_peer_scope!(relation,get(view,"trade_partners",String[]),loop,need,now)
         own=Iterators.take(view["own"]["held"],4)
         if stock!==nothing
             # Tender a possession for needed, observed food.
-            for other in get(view,"trade_partners",String[]), held in own, k in eachindex(available), n in 1:min(4,observed_food_count(view,other,k))
+            for other in partners, held in own, k in eachindex(available), n in 1:min(4,observed_food_count(view,other,k))
                 wf=zeros(Int,4);wf[k]=n
                 candidate(other,[Int(held["ref"])],Int[],zeros(Int,4),wf)
             end
@@ -225,7 +226,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         # Recall previously successful bundles, binding their features to things
         # currently owned/visible. This also permits learned item-for-food offers.
         memories=sort(collect(get(state,"exchange_relations",Any[]));by=m->(-m["successes"],-m["last_us"],m["key"]))
-        for m in Iterators.take(filter(m->m["successes"]>0,memories),min(8,mb_retrieval_budget(loop.H))), other in get(view,"trade_partners",String[])
+        for m in Iterators.take(filter(m->m["successes"]>0,memories),min(8,mb_retrieval_budget(loop.H))), other in partners
             give=item_exchange_bind(state,m["give"]["items"],view["own"]["held"];partial=true)
             want=item_exchange_bind(state,m["want"]["items"],filter(r->get(r,"holder",nothing)==other,view["visible"]);partial=true)
             (give===nothing || want===nothing) && continue
@@ -235,9 +236,11 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
             end
         end
         # Only currently visible possessions of a contact partner can be requested.
-        for r in Iterators.take(view["visible"],8)
+        candidate_rows=length(partners)<length(get(view,"trade_partners",String[])) ?
+            Iterators.filter(r->get(r,"holder",nothing) in partners,view["visible"]) : view["visible"]
+        for r in Iterators.take(candidate_rows,8)
             other=get(r,"holder",nothing)
-            other in get(view,"trade_partners",String[]) || continue
+            other in partners || continue
             candidate(other,Int[],[Int(r["ref"])],zeros(Int,4),zeros(Int,4))
             for held in own
                 candidate(other,[Int(held["ref"])],[Int(r["ref"])],zeros(Int,4),zeros(Int,4))
@@ -249,7 +252,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
             end
         end
         # Gift proposals use the same recipient acceptance and valuation route.
-        for other in get(view,"trade_partners",String[]), held in own
+        for other in partners, held in own
             candidate(other,[Int(held["ref"])],Int[],zeros(Int,4),zeros(Int,4))
         end
         # Refine feasible seed offers locally, just as movement refines heading.

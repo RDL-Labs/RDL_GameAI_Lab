@@ -9,6 +9,7 @@ const SOCIAL_RELATION_OUTCOMES=Dict(
     "trade_response"=>("exchanged","declined","expired","unavailable"))
 
 include("social_mb.jl")
+include("social_peer_resolution.jl")
 
 function social_relations_state(actor;relational=false)
     check(actor isa AbstractString && !isempty(actor),"social_relation_owner")
