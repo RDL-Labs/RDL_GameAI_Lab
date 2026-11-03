@@ -33,6 +33,10 @@ end
     switches=[x for m in values(r["mb_map"]) for x in m["daily_plan"]["plan_records"] if x["reason"] in ("observed_empty_site","food_not_found")]
     @test !isempty(switches)
     @test all(!x["completed"] for x in switches)
+    contacts=[m["last_food_contact"] for m in values(r["mb_map"]) if haskey(m,"last_food_contact")]
+    @test length(contacts)==length(IDS) && all(v["state"]=="empty" for v in contacts)
+    exhausted=[x for m in values(r["mb_map"]) for x in m["daily_plan"]["plan_records"] if x["reason"]=="harvest_exhausted"]
+    @test !isempty(exhausted) && all(!x["completed"] for x in exhausted)
     @test all(sum(values(v))==1200 for v in values(r["counts"]))
     @test r["initial_food"]==r["ground"]+r["shared_stock"]+r["consumed"]+sum(f["inventory"]+f["personal_stock"] for f in values(r["final_agents"]))
     println("DEPLETION_SWITCHES ",JSON3.write(switches))
@@ -78,6 +82,7 @@ end
     @test last(st["plan_records"])["completed"] # Discovery, not provision completion.
     @test !a["closed"] && isempty(st["records"])
     mb_daily_result!(s,D("action"=>"pickup","food_ref"=>0),"not_found",602_000_000,.1,0)
+    mb_food_contact!(s,D("action"=>"pickup","food_ref"=>0),"not_found",0,603_000_000,"op:602000000:test")
     @test a["strategy"]=="explore"
     @test last(st["plan_records"])["reason"]=="food_not_found"
     mb_daily_request!(s,visible,nothing,false,0,80.,0.,604_000_000,600_000_000)

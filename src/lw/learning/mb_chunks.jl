@@ -71,6 +71,8 @@ function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now;completion_
         s["chunk_formations"]+=1
     end
     c=s["chunks"][key];c["successes"]+=1;c["reward"]+=reward;c["last_success_us"]=now
+    contact=get(s,"last_food_contact",nothing)
+    goal=="food" && contact!==nothing && contact["operation"]==source && (c["food_ref"]=contact["ref"])
     s["chunk_goal_credits"]+=1;s["chunk_reward"]+=reward
     push!(s["chunk_records"],D("chunk"=>key,"source"=>source,"goal"=>goal,"H_before"=>H_before,"H_after"=>H_after,
         "reward"=>reward,"edges"=>length(path),"successes"=>c["successes"],"tentative"=>c["successes"]==1))
@@ -80,6 +82,9 @@ end
 # Repeated goal credit deepens a channel; transition contradictions weaken it.
 # Logarithmic growth avoids a hard saturation without making credit linear votes.
 mb_chunk_depth(c)=(log1p(c["successes"])+log1p(c["reward"]))/(1+c["misses"]+get(c,"execution_failures",0))
+# Availability changes food expectation, not learned transition validity.
+# A weak recheck remains possible; positive observation restores normal weighting.
+mb_food_availability(s,c)=c["goal"]=="food" && mb_food_site_empty(s,get(c,"food_ref",nothing)) ? .25 : 1.
 # One remembered suffix per entry; no hidden goal coordinates or invented links.
 function mb_channel_terminals(s,goal)
     terminals=Dict{String,Any}()
@@ -89,7 +94,7 @@ function mb_channel_terminals(s,goal)
         path=c["edges"];isempty(path) && continue
         all(k->haskey(s["edges"],k),path) || continue
         all(s["edges"][path[i]]["to"]==s["edges"][path[i+1]]["from"] for i in 1:length(path)-1) || continue
-        depth=mb_chunk_depth(c);cost=0.
+        depth=mb_chunk_depth(c)*mb_food_availability(s,c);cost=0.
         for index in reverse(eachindex(path))
             e=s["edges"][path[index]];e["action"] in ("walk","scan") || break
             cost+=mb_edge_cost(e);origin=e["from"]
@@ -114,17 +119,19 @@ function mb_chunk_candidates!(s,move,goal,reserve,strain,now;H=0)
             origin=s["edges"][edge]["from"]
             push!(get!(()->Tuple{String,Int}[],entries,origin),(id,index))
             # Several chunks sharing an origin must not multiply its retrieval votes.
-            strength[origin]=max(get(strength,origin,0.),mb_chunk_depth(c))
+            strength[origin]=max(get(strength,origin,0.),mb_chunk_depth(c)*mb_food_availability(s,c))
         end
     end
     matches=mb_correspondences(s,keys(entries),now;scope="chunk",H=H,retrieval_strength=strength)
     for match in matches, (id,index) in entries[match["key"]]
         c=s["chunks"][id];edge=c["edges"][index];p=mb_first_action(s["edges"][edge],(anchor=match["anchor"],),move)
         p===nothing && (mb_reject!(s,"chunk","infeasible_action");continue)
-        depth=mb_chunk_depth(c)
-        merge!(p,D("method"=>"mb_chunk:"*id,"action"=>p["action"],"priority"=>3.0+depth,"mb_channel_depth"=>depth,
+        availability=mb_food_availability(s,c);depth=mb_chunk_depth(c)*availability
+        merge!(p,D("method"=>"mb_chunk:"*id,"action"=>p["action"],"priority"=>(3.0+mb_chunk_depth(c))*availability,"mb_channel_depth"=>depth,
+            "food_availability"=>availability,
             "question"=>"target_observed","mb_edge"=>edge,"mb_expected"=>s["edges"][edge]["to"],
             "mb_chunk"=>id,"mb_chunk_index"=>index,"mb_chunk_start_index"=>index,"mb_depth"=>length(c["edges"])-index+1))
+        haskey(c,"food_ref") && (p["food_ref"]=c["food_ref"])
         mb_attach_correspondence!(p,s,match);mb_route_attach!(p,s,c["edges"][index:end],goal,"chunk");push!(out,p)
     end
     sort!(out,by=p->(-p["priority"],p["method"]))

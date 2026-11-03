@@ -46,7 +46,7 @@ function mb_goal_cue_project!(s,candidates,pool,goal,H,now)
             # A co-visible object behind the successful movement is weak evidence.
             historical=exp(-abs(wrap_angle(f.angle-edge["offset"]))/45)
             aligned=exp(-abs(wrap_angle(cue["angle"]-(match["anchor"]+edge["offset"])))/45)
-            strength=2match["weight"]*mb_chunk_depth(chunk)/(1+c.cost)*historical*aligned
+            strength=2match["weight"]*mb_chunk_depth(chunk)*mb_food_availability(s,chunk)/(1+c.cost)*historical*aligned
             if strength>best
                 best=strength;evidence=(node=match["key"],chunk=c.chunk,confidence=match["confidence"])
             end

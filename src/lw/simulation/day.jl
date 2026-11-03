@@ -992,6 +992,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];before_yaw=yaw[a];status="performed"
             daily_cargo_before=w.inventory[a]
+            food_remaining_observed=nothing
             repetition_before=w.bodies[a]
             frozen_prediction=harvest_sleep && action=="pickup" ? harvest_predict(harvest[a],sections[a]) : nothing
             leg=plan["purpose_family"] # Frozen selection-time parent, not post-drop load.
@@ -1258,9 +1259,22 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             goal_arrival_enabled && action in ("pickup","recover") && status in ("picked_up","recovered") && goal_arrival_update!(mb_maps[a]["goal_arrival"]["food"],nothing,nothing,0.,now+1_000_000;completed=true)
             configured_camp_experience && now<clock.day_us && configured_camp_place_rest!(mb_maps[a]["place_mb"],observation_states[a]["camp_landmark"],loops[a]["home"],plan,status,homes[a]!==nothing && homes[a]["distance"]<=1.25,now)
             counts[a][action]=get(counts[a],action,0)+1
+            # Contact sensing happens immediately after this actor's action, before
+            # the next actor can change stock. Never read distant/occluded stock.
+            if mb_simulation && action in ("pickup","recover")
+                j=get(plan,"food_ref",-1)+1
+                if 1<=j<=length(food)
+                    f=food[j]
+                    if hypot(f.x-p[1],f.z-p[2])<=1.25 && !any(o->segment_hit(p,(Float64(f.x),Float64(f.z)),o,0.),w.obstacles)
+                        food_remaining_observed=stock[j]
+                    end
+                end
+            end
             daily_delivery_enabled && mb_daily_result!(mb_maps[a],plan,status,now,
                 repetition_before.reserve-w.bodies[a].reserve,daily_cargo_before;
                 acquired_source=isempty(cargo[a]) ? nothing : last(cargo[a]),delivered_sources=delivered)
+            mb_simulation && action in ("pickup","recover") && mb_food_contact!(mb_maps[a],plan,status,
+                food_remaining_observed,now+1_000_000,op)
             sig=(phase,leg,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))
             if get(previous,a,nothing)!=sig || get(plan,"incidental_item",false)
                 push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"purpose_family"=>leg,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing),

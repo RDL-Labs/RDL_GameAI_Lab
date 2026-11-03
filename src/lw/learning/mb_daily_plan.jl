@@ -76,7 +76,7 @@ function mb_daily_food_absent!(s,now,ref,reason)
     candidate=get(a["evidence"],"candidate",nothing)
     if candidate!==nothing && haskey(candidate,"mb_chunk")
         chunk=get(s["chunks"],candidate["mb_chunk"],nothing)
-        chunk!==nothing && (chunk["misses"]+=1) # Weaken expected food availability; retain route geometry.
+        chunk!==nothing && ref!==nothing && (chunk["food_ref"]=Int(ref))
     end
     arrival=get(get(s,"goal_arrival",D()),"food",nothing)
     if arrival!==nothing && arrival["mode"]=="approach"
@@ -84,6 +84,53 @@ function mb_daily_food_absent!(s,now,ref,reason)
         arrival["mode"]="search";arrival["rejections"]+=1
     end
     mb_daily_replan!(s,now,"explore",reason)
+end
+# An actor's last contact observation, never a live view of global stock.
+# Quantity is deliberately coarse; a later unseen competitor cannot update it.
+function mb_food_site_observe!(s,ref,remaining,now,source;operation=nothing)
+    ref===nothing && return
+    sites=get!(() -> Dict{Int,Any}(),s,"food_sites")
+    previous=get(sites,Int(ref),nothing)
+    changed=previous===nothing || previous["state"]!=(remaining>0 ? "remaining" : "empty")
+    sites[Int(ref)]=D("ref"=>Int(ref),"state"=>remaining>0 ? "remaining" : "empty",
+        "observed_us"=>now,"source"=>source,"knowledge"=>"last_observed")
+    changed && haskey(s,"goal_cues") && delete!(s["goal_cues"]["cache"],"food")
+    operation!==nothing && (s["last_food_contact"]=D("operation"=>operation,"ref"=>Int(ref),
+        "state"=>sites[Int(ref)]["state"],"observed_us"=>now))
+    state=get(s,"daily_plan",nothing)
+    state===nothing && return
+    push!(state["known_sites"],Int(ref))
+    remaining>0 ? delete!(state["empty_sites"],Int(ref)) : push!(state["empty_sites"],Int(ref))
+end
+function mb_food_site_empty(s,ref)
+    ref===nothing && return false
+    row=get(get(s,"food_sites",Dict{Int,Any}()),Int(ref),nothing)
+    row!==nothing && row["state"]=="empty"
+end
+function mb_food_contact!(s,plan,status,remaining,now,operation)
+    remaining===nothing && return # Failure out of reach/behind a barrier says nothing about stock.
+    ref=get(plan,"food_ref",nothing);ref===nothing && return
+    mb_food_site_observe!(s,ref,remaining,now,"harvest_contact";operation)
+    state=get(s,"daily_plan",nothing);state===nothing && return
+    a=state["active"]
+    (a===nothing || a["closed"]) && return
+    a["target_ref"]=ref
+    remaining>0 && return
+    # Successful acquisition remains a success. Only the expectation of further
+    # acquisition here is exhausted; inventory, delivery credit and geometry survive.
+    successful=status in ("picked_up","recovered")
+    if a["strategy"]=="acquire"
+        mb_daily_replan!(s,now,"explore",successful ? "harvest_exhausted" : "food_not_found")
+    end
+    a["evidence"]=D("mode"=>"unknown_food","candidate"=>nothing)
+    a["target_ref"]=nothing
+    arrival=get(get(s,"goal_arrival",D()),"food",nothing)
+    if arrival!==nothing && arrival["mode"]=="approach"
+        goal_arrival_event!(arrival,"food_not_available",now)
+        arrival["mode"]="search";arrival["rejections"]+=1
+    end
+    successful && mb_daily_stage!(state,"return",now;reason="acquired")
+    a["next_us"]=now
 end
 function mb_daily_evidence(s,move,reserve,strain,now)
     visible=get(move,"visible",Any[])
@@ -96,17 +143,18 @@ function mb_daily_evidence(s,move,reserve,strain,now)
             "seconds"=>max(1.,hypot(e["forward"],e["right"])/.5+1),"candidate"=>nothing)
     end
     # Reuse the same uncertain chunk correspondence as ordinary navigation.
-    options=mb_chunk_candidates!(s,move,"food",reserve,strain,now;H=0)
+    options=filter(p->!mb_food_site_empty(s,get(p,"food_ref",nothing)),mb_chunk_candidates!(s,move,"food",reserve,strain,now;H=0))
     isempty(options) && return D("mode"=>"unknown_food","source"=>"no_usable_memory","confidence"=>0.,"seconds"=>128.,"candidate"=>nothing)
     p=first(options)
     D("mode"=>"known_food","source"=>"remembered_route","confidence"=>get(p,"mb_recognition_confidence",.5),
-      "seconds"=>Float64(get(p,"mb_depth",128)),"candidate"=>p)
+      "seconds"=>Float64(get(p,"mb_depth",128)),"candidate"=>p,"site_ref"=>get(p,"food_ref",nothing))
 end
 function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_us;replenishing=false,return_hint=false)
     state=s["daily_plan"];a=state["active"]
     for row in get(move,"visible",Any[])
         ref=get(row,"ref",nothing);ref===nothing && continue
         push!(state["known_sites"],Int(ref));delete!(state["empty_sites"],Int(ref))
+        mb_food_site_observe!(s,ref,1,now,"visible")
     end
     if a===nothing || (a["closed"] && now>=a["deadline_us"])
         evidence=mb_daily_evidence(s,move,reserve,strain,now)
@@ -124,6 +172,7 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     for ref in get(move,"empty_food_sites",Int[])
         ref in state["known_sites"] || continue
         push!(state["empty_sites"],ref)
+        mb_food_site_observe!(s,ref,0,now,"visible_empty")
         ref==get(a,"target_ref",nothing) && inventory==0 && mb_daily_food_absent!(s,now,ref,"observed_empty_site")
     end
     if now>=a["deadline_us"]
@@ -141,7 +190,7 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     evidence=mb_daily_evidence(s,move,reserve,strain,now);a["evidence"]=evidence
     ref=get(evidence,"site_ref",nothing)
     if ref!==nothing
-        a["strategy"]=="explore" && mb_daily_replan!(s,now,"acquire","food_observed";completed=true)
+        a["strategy"]=="explore" && evidence["source"]=="visible" && mb_daily_replan!(s,now,"acquire","food_observed";completed=true)
         a["target_ref"]=ref
     end
     mode=a["strategy"]=="explore" ? "unknown_food" : evidence["mode"]
@@ -202,11 +251,6 @@ function mb_daily_result!(s,plan,status,now,energy,amount;acquired_source=nothin
         if a["departed"] || a["delivered"]>0
             mb_daily_close!(state,now+1_000_000,true,a["delivered"]>0 ? "delivered" : "initial_cargo_return")
         end
-        a["next_us"]=now+1_000_000
-    elseif status=="not_found" && plan["action"] in ("pickup","recover")
-        mb_daily_food_absent!(s,now+1_000_000,get(plan,"food_ref",nothing),"food_not_found")
-        a["evidence"]=D("mode"=>"unknown_food","candidate"=>nothing)
-        mb_daily_stage!(state,"unknown_food",now+1_000_000;reason="food_not_found")
         a["next_us"]=now+1_000_000
     end
 end
