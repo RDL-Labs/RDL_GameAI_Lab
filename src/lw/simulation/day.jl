@@ -535,6 +535,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     hunger[a]["intensity"],replenishing,returning,now,clock.day_us,loops[a]["home"].rng)
             end
             food_hungry=food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80
+            mb_simulation && mb_plan_context!(mb_maps[a],now,clock.day_us,w.bodies[a].reserve,metabolism[a])
             edible_on_hand=foods===nothing ? w.inventory[a]>0 : food_has_edible(foods,a)
             configured_action=foods===nothing ? configured_body_action(replenishing,w.inventory[a],guts===nothing || can_ingest(guts[a]),
                 at_home,at_home ? (shared_stores ? shared : stores[a]) : 0) :

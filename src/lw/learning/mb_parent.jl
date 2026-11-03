@@ -8,6 +8,7 @@ function mb_sensitivity(values=D())
     out
 end
 mb_response(s,key,residual)=s["sensitivity"][key]*max(0.,Float64(residual))
+include("mb_plan_budget.jl")
 
 # Parent MB estimates: bounded learned episodes, bootstrapped only when experience is absent.
 mb_parent_state()=D("models"=>D(),"active"=>D(),"records"=>Any[],"evaluated"=>0,"within_estimate"=>0,"H_requested"=>0,"successes"=>0,"last_goal"=>nothing)
@@ -114,6 +115,11 @@ function mb_parent_candidates!(s,candidates,goal,target)
     for p in candidates
         estimate=mb_parent_estimate!(s,p,goal,target)
         p["mb_parent_estimate"]=estimate
+        budget=mb_plan_budget(s,estimate,goal)
+        if budget!==nothing
+            estimate["planning"]=budget
+            p["priority"]-=budget["penalty"]
+        end
         # Only a small estimated effort term; learned rewards and H still govern selection.
         p["priority"]-=.1log1p(estimate["upper_actions"])
     end
@@ -123,6 +129,10 @@ function mb_parent_begin!(s,p,goal,target,now)
     p["mb_parent_goal"]=goal
     estimate=get(p,"mb_parent_estimate",nothing)
     estimate===nothing && (estimate=mb_parent_estimate!(s,p,goal,target))
+    if !haskey(estimate,"planning")
+        budget=mb_plan_budget(s,estimate,goal)
+        budget!==nothing && (estimate["planning"]=budget)
+    end
     state=s["parent_mb"]
     previous=state["last_goal"]
     if previous!==nothing && previous!=goal && haskey(state["active"],previous)
@@ -178,13 +188,14 @@ function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
     stagnation=e["expected_new_scenes"]>0 && length(a["scenes"])<2 ? mb_response(s,"stagnation",a["actions"]/window-1) : 0
     excess=mb_response(s,"energy",(a["energy"]-e["energy"])/e["energy_quantum"])
     a["child_debt"]+=max(0,child_increment)
-    debt=max(delay,stagnation,excess,a["child_debt"])
+    planning_pressure=mb_plan_pressure(s,a,now)
+    debt=max(delay,stagnation,excess,a["child_debt"],planning_pressure)
     increment=resolved===true ? 0 : max(0,debt-a["charged"])
     a["charged"]=max(a["charged"],debt);a["last_increment"]=increment
     state["evaluated"]+=1;state["within_estimate"]+=Int(debt==0 && resolved!==true);state["H_requested"]+=increment
     record=D("source"=>source,"goal"=>goal,"evaluated_us"=>now,"estimate"=>copy(e),"actions"=>a["actions"],"energy"=>a["energy"],
         "sensitivity"=>copy(s["sensitivity"]),"scenes"=>length(a["scenes"]),"delay"=>delay,"stagnation"=>stagnation,"energy_excess"=>excess,
-        "child_debt"=>a["child_debt"],"increment"=>increment,"resolved"=>resolved)
+        "child_debt"=>a["child_debt"],"planning_pressure"=>planning_pressure,"increment"=>increment,"resolved"=>resolved)
     record["completion_reward"]=resolved===true ? mb_completion_reward(e,a["actions"],a["energy"]) : nothing
     push!(state["records"],record);length(state["records"])>64 && popfirst!(state["records"])
     if resolved!==true && a["actions"]>=max(32,2a["learned_actions"])

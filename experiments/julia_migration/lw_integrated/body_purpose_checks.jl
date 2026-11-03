@@ -48,6 +48,7 @@ end
     input=JSON3.read(read(joinpath(@__DIR__,"search_review_spec.json"),String),Dict{String,Any})
     input["config"]["days"]=1
     input["config"]["body_purpose"]="on"
+    input["config"]["mb_simulation"]="on"
     input["config"]["general_landmarks"]="on"
     input["config"]["rho_profile"]="coarse"
     input["scene"]["reserve"]=[60.,60.,60.]
@@ -56,6 +57,8 @@ end
     input["clock"]["quiet_night_us"]=4_000_000
     r,summary=run_integrated(JSON3.read(JSON3.write(input)))
     @test r["body_purpose"]==summary["body_purpose"]
+    @test all(haskey(m["parent_mb"],"resources") for m in values(r["mb_map"]))
+    @test any(haskey(x["estimate"],"planning") for m in values(r["mb_map"]) for x in m["parent_mb"]["records"])
     @test all(s["decisions"]==600 for s in values(r["body_purpose"]))
     @test sum(s["food_overrides"] for s in values(r["body_purpose"]))>0
     @test all(r["daily"][1]["physical"][a]["loops"][f]["parent"]==a*":energy-maintenance" for a in IDS for f in ("food","home"))
