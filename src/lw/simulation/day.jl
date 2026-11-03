@@ -70,6 +70,7 @@ include(joinpath(@__DIR__, "../learning/mb_censored.jl"))
 include(joinpath(@__DIR__, "../learning/mb_parent.jl"))
 include(joinpath(@__DIR__, "../learning/mb_return_outlook.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
+include(joinpath(@__DIR__, "../learning/mb_daily_plan.jl"))
 include(joinpath(@__DIR__, "../learning/mb_goal_cues.jl"))
 include(joinpath(@__DIR__, "../learning/mb_exploration_relations.jl"))
 include(joinpath(@__DIR__, "../learning/mb_relation_compression.jl"))
@@ -207,7 +208,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!body_purpose || food_body,"body_purpose_requires_hunger")
     check(!daily_delivery_enabled || (mb_simulation && basic_loop),"daily_delivery_requires_mb_loop")
     if daily_delivery_enabled
-        for a in IDS;mb_maps[a]["configured_daily_delivery"]=configured_daily_delivery_state();end
+        for a in IDS
+            mb_maps[a]["configured_daily_delivery"]=configured_daily_delivery_state()
+            mb_maps[a]["daily_plan"]=mb_daily_plan_state(a,choice_seed)
+        end
     end
     configured_body_states=Dict(a=>configured_body_state(a) for a in IDS)
     hunger=Dict(a=>hunger_state(a) for a in IDS)
@@ -544,7 +548,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     processing_feasible=step(w.bodies[a],"process_food",w.inventory[a])[2]=="worked")
             night_fear_enabled && !observing && (returning=night_fear_request!(mb_maps[a]["night_fear"],returning,replenishing,now,loops[a]["home"].rng))
             if daily_delivery_enabled && !observing
-                returning=configured_daily_delivery_request!(mb_maps[a]["configured_daily_delivery"],returning,replenishing,w.inventory[a],at_home,at_home ? (shared_stores ? shared : stores[a]) : 0,now,clock.day_us)
+                returning=mb_daily_request!(mb_maps[a],moves[a],home,at_home,w.inventory[a],
+                    w.bodies[a].reserve,w.bodies[a].strain,now,clock.day_us;replenishing=replenishing,return_hint=returning)
             end
             # Forecast shortage can redirect the purpose before hunger, never force a meal.
             if food_worried && basic_loop && !observing && !(phase in ("night","orientation"))
@@ -970,6 +975,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         w.seconds=sec+1
         for a in IDS
             plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];before_yaw=yaw[a];status="performed"
+            daily_cargo_before=w.inventory[a]
             repetition_before=w.bodies[a]
             frozen_prediction=harvest_sleep && action=="pickup" ? harvest_predict(harvest[a],sections[a]) : nothing
             leg=plan["purpose_family"] # Frozen selection-time parent, not post-drop load.
@@ -1236,6 +1242,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             goal_arrival_enabled && action in ("pickup","recover") && status in ("picked_up","recovered") && goal_arrival_update!(mb_maps[a]["goal_arrival"]["food"],nothing,nothing,0.,now+1_000_000;completed=true)
             configured_camp_experience && now<clock.day_us && configured_camp_place_rest!(mb_maps[a]["place_mb"],observation_states[a]["camp_landmark"],loops[a]["home"],plan,status,homes[a]!==nothing && homes[a]["distance"]<=1.25,now)
             counts[a][action]=get(counts[a],action,0)+1
+            daily_delivery_enabled && mb_daily_result!(mb_maps[a],plan,status,now,
+                repetition_before.reserve-w.bodies[a].reserve,daily_cargo_before;
+                acquired_source=isempty(cargo[a]) ? nothing : last(cargo[a]),delivered_sources=delivered)
             sig=(phase,leg,action,get(plan,"target",nothing),status,get(plan,"method",nothing),get(plan,"direction",nothing),get(plan,"selection_mode",nothing))
             if get(previous,a,nothing)!=sig || get(plan,"incidental_item",false)
                 push!(events,D("us"=>now,"actor"=>a,"phase"=>phase,"purpose_family"=>leg,"action"=>action,"status"=>status,"target"=>get(plan,"target",nothing),

@@ -6,6 +6,10 @@ end
 function mb_plan_budget(s,e,goal)
     ctx=get(s["parent_mb"],"resources",nothing);ctx===nothing && return nothing
     deadline=ctx["deadline_us"]
+    daily=get(s,"daily_plan",nothing)
+    if daily!==nothing && daily["active"]!==nothing && !daily["active"]["closed"]
+        deadline=min(deadline,daily["active"]["deadline_us"])
+    end
     # Neither replacing a method nor entering approach buys a new deadline.
     parent=s["parent_mb"]
     mode=get(get(parent,"modes",D()),goal,nothing)

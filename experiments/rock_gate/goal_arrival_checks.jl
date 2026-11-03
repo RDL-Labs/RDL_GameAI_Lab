@@ -28,7 +28,7 @@ include("../../integrations/lightweight_julia/native.jl")
 end
 @testset "parent question outcome isolation" begin
     g=goal_arrival_state();loop=BasicLoop("home");loop.H=10.
-    search=D("actions"=>0)
+    search=D("actions"=>0,"energy"=>0.)
     s=D("parent_mb"=>mb_parent_state(),"goal_arrival"=>D("home"=>g))
     s["parent_mb"]["active"]["home"]=search
     goal_arrival_update!(g,D("forward"=>5.,"right"=>0.),"home",.8,1)

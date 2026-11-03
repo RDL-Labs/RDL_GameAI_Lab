@@ -12,6 +12,17 @@ include("mb_plan_budget.jl")
 
 # Parent MB estimates: bounded learned episodes, bootstrapped only when experience is absent.
 mb_parent_state()=D("models"=>D(),"active"=>D(),"records"=>Any[],"evaluated"=>0,"within_estimate"=>0,"H_requested"=>0,"successes"=>0,"last_goal"=>nothing)
+function mb_parent_complete!(s,goal,a,reason)
+    get(a,"completion_accounted",false) && return
+    a["actions"]>0 || return
+    mb_parent_learn!(s,goal,a,true,reason)
+    model=s["parent_mb"]["models"][a["estimate"]["model"]]
+    model["completed"]+=1;model["samples"]+=1
+    delta=a["actions"]-model["actions_mean"]
+    model["actions_mean"]+=delta/model["samples"]
+    model["actions_m2"]+=delta*(a["actions"]-model["actions_mean"])
+    s["parent_mb"]["successes"]+=1;a["completion_accounted"]=true
+end
 # A parent retains its purpose, but changes the question and frozen forecast.
 # Save the parent's pressure; the local question returns only a Boolean outcome.
 function mb_parent_arrival_sync!(s,loop,goal,now)
@@ -23,14 +34,21 @@ function mb_parent_arrival_sync!(s,loop,goal,now)
     m["completed"]=completed
     if m["mode"]=="approach" && (finished || arrival["mode"]!="approach" || arrival["entries"]!=m["entry"])
         active=pop!(parent["active"],goal,nothing)
-        active!==nothing && mb_parent_learn!(s,goal,active,false,"arrival_mode_end")
+        if active!==nothing
+            finished ? mb_parent_complete!(s,goal,active,"arrival_confirmed") : mb_parent_learn!(s,goal,active,false,"arrival_mode_end")
+        end
         before=loop.H
         loop.H=goal_result_H(m["saved_H"],finished)
+        if m["suspended"]!==nothing
+            m["suspended"]["actions"]+=get(m,"local_actions",0)
+            m["suspended"]["energy"]+=get(m,"local_energy",0.)
+        end
         if !finished
             m["suspended"]!==nothing && (parent["active"][goal]=m["suspended"])
         elseif m["suspended"]!==nothing
-            # Finding a location is not evidence of completing the old full journey.
-            mb_parent_learn!(s,goal,m["suspended"],false,"location_confirmed")
+            # Confirmation, not merely seeing a cue, completes the original journey.
+            # Include the entire approach cost even if its local trial was already closed.
+            mb_parent_complete!(s,goal,m["suspended"],"journey_confirmed")
         end
         push!(m["events"],D("us"=>now,"kind"=>finished ? "arrival_confirmed" : "search_restored",
             "success"=>finished,"local_H"=>before,"saved_parent_H"=>m["saved_H"],"H_after"=>loop.H))
@@ -41,6 +59,7 @@ function mb_parent_arrival_sync!(s,loop,goal,now)
         before=loop.H
         m["saved_H"]=before;loop.H=0.
         m["mode"]="approach";m["entry"]=arrival["entries"];m["suspended"]=active
+        m["local_actions"]=0;m["local_energy"]=0.
         push!(m["events"],D("us"=>now,"kind"=>"arrival_question","saved_parent_H"=>before,"H_after"=>loop.H))
     end
     while length(m["events"])>64;popfirst!(m["events"]);end
@@ -111,7 +130,27 @@ function mb_parent_reward(s,goal,source,now)
     get(r,"evaluated_us",nothing)==now && r["source"]==source && r["goal"]==goal && r["resolved"]===true || return nothing
     r["completion_reward"]["value"]
 end
+function mb_parent_daily_epoch!(s,goal)
+    daily=get(s,"daily_plan",nothing)
+    (daily===nothing || daily["active"]===nothing) && return nothing
+    epoch=daily["active"]["started_us"];parent=s["parent_mb"]
+    active=get(parent["active"],goal,nothing)
+    if active!==nothing && get(active,"daily_epoch",nothing)!=epoch
+        mb_parent_learn!(s,goal,active,false,"daily_plan_ended")
+        delete!(parent["active"],goal)
+    end
+    mode=get(get(parent,"modes",D()),goal,nothing)
+    suspended=mode===nothing ? nothing : get(mode,"suspended",nothing)
+    if suspended!==nothing && get(suspended,"daily_epoch",nothing)!=epoch
+        suspended["actions"]+=get(mode,"local_actions",0)
+        suspended["energy"]+=get(mode,"local_energy",0.)
+        mb_parent_learn!(s,goal,suspended,false,"daily_plan_ended")
+        mode["suspended"]=nothing;mode["local_actions"]=0;mode["local_energy"]=0.
+    end
+    epoch
+end
 function mb_parent_candidates!(s,candidates,goal,target)
+    mb_parent_daily_epoch!(s,goal)
     for p in candidates
         estimate=mb_parent_estimate!(s,p,goal,target)
         p["mb_parent_estimate"]=estimate
@@ -126,6 +165,7 @@ function mb_parent_candidates!(s,candidates,goal,target)
     candidates
 end
 function mb_parent_begin!(s,p,goal,target,now)
+    epoch=mb_parent_daily_epoch!(s,goal)
     p["mb_parent_goal"]=goal
     estimate=get(p,"mb_parent_estimate",nothing)
     estimate===nothing && (estimate=mb_parent_estimate!(s,p,goal,target))
@@ -143,7 +183,14 @@ function mb_parent_begin!(s,p,goal,target,now)
         frame=s["current"]
         state["active"][goal]=D("estimate"=>deepcopy(estimate),"started_us"=>now,"last_us"=>now,
             "actions"=>0,"energy"=>0.,"scenes"=>frame===nothing ? String[] : [frame.key],
-            "learned_actions"=>0,"paused"=>false,"child_debt"=>0,"charged"=>0,"last_source"=>nothing,"last_increment"=>0)
+            "learned_actions"=>0,"paused"=>false,"child_debt"=>0,"charged"=>0,"last_source"=>nothing,"last_increment"=>0,"daily_epoch"=>epoch)
+    end
+end
+function mb_parent_local_cost!(s,goal,energy)
+    m=get(get(s["parent_mb"],"modes",D()),goal,nothing)
+    if m!==nothing && get(m,"mode",nothing)=="approach"
+        m["local_actions"]=get(m,"local_actions",0)+1
+        m["local_energy"]=get(m,"local_energy",0.)+max(0.,energy)
     end
 end
 function mb_parent_record!(s,p,energy,now)
@@ -157,6 +204,7 @@ function mb_parent_record!(s,p,energy,now)
         if a!==nothing
             a["paused"]=false
             a["actions"]+=1;a["energy"]+=max(0.,energy)
+            mb_parent_local_cost!(s,goal,energy)
             # Keep the last parent operation binding. The next ordinary parent
             # evaluation sees all accumulated costs against the same estimate.
             return
@@ -174,6 +222,7 @@ function mb_parent_record!(s,p,energy,now)
     a=get(s["parent_mb"]["active"],goal,nothing);a===nothing && return
     a["paused"]=false
     a["actions"]+=1;a["energy"]+=max(0.,energy);a["last_us"]=now
+    mb_parent_local_cost!(s,goal,energy)
 end
 function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
     state=s["parent_mb"];a=get(state["active"],goal,nothing)
@@ -202,12 +251,8 @@ function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
         mb_parent_learn!(s,goal,a,false,"unfinished")
     end
     if resolved===true
-        mb_parent_learn!(s,goal,a,true,"completed")
-        model=state["models"][e["model"]];model["completed"]+=1
-        # Learn only completed episodes; unresolved episodes are not fictitious arrival times.
-        model["samples"]+=1;n=model["samples"];delta=a["actions"]-model["actions_mean"]
-        model["actions_mean"]+=delta/n;model["actions_m2"]+=delta*(a["actions"]-model["actions_mean"])
-        state["successes"]+=1;delete!(state["active"],goal)
+        mb_parent_complete!(s,goal,a,"completed")
+        delete!(state["active"],goal)
     end
     increment
 end
