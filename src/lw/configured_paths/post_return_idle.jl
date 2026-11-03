@@ -1,14 +1,14 @@
-# Declared experimental behavior: stop cognition after a completed return until night.
+# Declared experimental behavior: stop cognition after a completed provision goal until night.
 # Not learned attention, an embedded MB, or a biological sleep model.
 configured_post_return_idle_state()=D("active"=>false,"ticks"=>0,"entries"=>0,"records"=>Any[])
 function configured_post_return_idle!(s,now,day_us,night_us;pending=false,observing=false)
     state=s["configured_post_return_idle"];plan=s["daily_plan"]["active"]
     paused=plan!==nothing && plan["closed"] && now<plan["deadline_us"] &&
         mod(now,day_us)<night_us && !pending && !observing && !isempty(s["daily_plan"]["records"]) &&
-        last(s["daily_plan"]["records"])["returned"]
+        last(s["daily_plan"]["records"])["returned"] && get(last(s["daily_plan"]["records"]),"food_success",false)
     if paused!=state["active"]
         state["active"]=paused;state["entries"]+=Int(paused)
-        push!(state["records"],D("us"=>now,"active"=>paused,"reason"=>paused ? "completed_return" : "resume"))
+        push!(state["records"],D("us"=>now,"active"=>paused,"reason"=>paused ? "completed_provision_goal" : "resume"))
         length(state["records"])>64 && popfirst!(state["records"])
     end
     paused

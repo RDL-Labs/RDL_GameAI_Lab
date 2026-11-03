@@ -34,19 +34,27 @@ end
     s=daily_fixture();move=D("visible"=>Any[])
     mb_daily_request!(s,move,nothing,false,0,70.,0.,0,600_000_000)
     a=s["daily_plan"]["active"];a["choice"]="home"
+    mb_daily_stage!(s["daily_plan"],"return",20_000_000)
+    a["operations"]=40;a["energy"]=.5
+    forecast=deepcopy(a["forecast"])
     mb_daily_request!(s,move,D("distance"=>0.),true,0,70.,0.,40_000_000,600_000_000)
-    record=only(s["daily_plan"]["records"])
+    record=only(s["daily_plan"]["local_returns"])
     @test record["returned"] && !record["food_success"]
     @test record["reason"]=="empty_return"
-    @test !only(s["daily_plan"]["models"]["roundtrip:unknown_food"])["completed"]
+    @test !a["closed"] && isempty(s["daily_plan"]["records"])
+    @test !haskey(s["daily_plan"]["models"],"roundtrip:unknown_food")
+    @test only(filter(x->x["completed"],s["daily_plan"]["models"]["return"]))["seconds"]==20.
+    @test a["forecast"]==forecast && a["started_us"]==0 && a["energy"]==.5 && a["operations"]==40
+    mb_daily_request!(s,move,D("distance"=>0.),true,0,70.,0.,41_000_000,600_000_000)
+    @test length(s["daily_plan"]["local_returns"])==1
     mb_daily_request!(s,move,nothing,false,0,70.,0.,600_000_000,600_000_000)
     a=s["daily_plan"]["active"]
-    @test a["deadline_us"]==1_200_000_000
+    @test a["deadline_us"]==600_000_000
     mb_daily_request!(s,move,nothing,false,0,70.,0.,1_300_000_000,600_000_000)
-    @test a["deadline_us"]==1_200_000_000 # unfinished journey never gains another day
+    @test a["deadline_us"]==600_000_000 # local returns do not renew the unfinished parent's deadline
     mb_plan_context!(s,1_300_000_000,600_000_000,70.,1.)
     b=mb_plan_budget(s,D("expected_actions"=>20.,"expected_energy"=>.1),"home")
-    @test b["deadline_us"]==1_200_000_000
+    @test b["deadline_us"]==600_000_000
 end
 @testset "known and unknown estimates learn separately" begin
     st=mb_daily_plan_state("test",1)
@@ -71,6 +79,8 @@ end
     mb_parent_begin!(s,p,"food",nothing,0);mb_parent_record!(s,p,.1,0)
     old=s["parent_mb"]["active"]["food"]
     s["daily_plan"]["active"]["choice"]="home"
+    mb_daily_result!(s,D("action"=>"pickup"),"picked_up",30_000_000,0.,0;acquired_source="new-food")
+    mb_daily_result!(s,D("action"=>"deposit"),"performed",39_000_000,0.,1;delivered_sources=["new-food"])
     mb_daily_request!(s,move,D("distance"=>0.),true,0,70.,0.,40_000_000,600_000_000)
     mb_plan_context!(s,600_000_000,600_000_000,70.,1.)
     mb_daily_request!(s,move,nothing,false,0,70.,0.,600_000_000,600_000_000)
@@ -98,7 +108,11 @@ end
     @test s["daily_plan"]["active"]["acquired"]==1
     s["daily_plan"]["active"]["departed"]=true
     mb_daily_result!(s,D("action"=>"deposit"),"performed",3_000_000,0.,1;delivered_sources=["old-food"])
-    @test !only(s["daily_plan"]["records"])["food_success"]
+    @test !only(s["daily_plan"]["local_returns"])["food_success"]
+    @test !s["daily_plan"]["active"]["closed"] && isempty(s["daily_plan"]["records"])
+    mb_daily_result!(s,D("action"=>"deposit"),"performed",4_000_000,0.,1;delivered_sources=["new-food"])
+    @test only(s["daily_plan"]["records"])["food_success"]
+    @test s["daily_plan"]["active"]["closed"]
 end
 @testset "confirmed approach completes its suspended full journey" begin
     for succeeded in (false,true)

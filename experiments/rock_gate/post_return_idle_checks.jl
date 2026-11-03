@@ -1,7 +1,7 @@
 using Test, JSON3
 include("../../integrations/lightweight_julia/native.jl")
 @testset "declared idle eligibility" begin
-    s=D("daily_plan"=>D("active"=>D("closed"=>true,"deadline_us"=>100),"records"=>[D("returned"=>true)]),
+    s=D("daily_plan"=>D("active"=>D("closed"=>true,"deadline_us"=>100),"records"=>[D("returned"=>true,"food_success"=>true)]),
         "configured_post_return_idle"=>configured_post_return_idle_state())
     @test configured_post_return_idle!(s,10,100,70)
     @test !configured_post_return_idle!(s,11,100,70;pending=true)
@@ -9,6 +9,9 @@ include("../../integrations/lightweight_julia/native.jl")
     @test configured_post_return_idle!(s,12,100,70)
     @test !configured_post_return_idle!(s,70,100,70)
     @test !configured_post_return_idle!(s,100,100,70)
+    s["daily_plan"]["records"][1]["food_success"]=false
+    @test !configured_post_return_idle!(s,13,100,70) # Even a legacy closed empty return cannot pause.
+    s["daily_plan"]["records"][1]["food_success"]=true
     s["daily_plan"]["records"][1]["returned"]=false
     @test !configured_post_return_idle!(s,13,100,70)
 end

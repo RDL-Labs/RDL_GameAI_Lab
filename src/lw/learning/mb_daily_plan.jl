@@ -3,7 +3,7 @@
 # values are experimental scaffolding, not universal MB rules. Generic extraction
 # is incomplete; see docs/design/LW_Daily_Provision_Plan.md.
 # Uses observed food / remembered routes only; no hidden food coordinates or stocks.
-mb_daily_plan_state(actor,seed)=D("active"=>nothing,"models"=>D(),"records"=>Any[],
+mb_daily_plan_state(actor,seed)=D("active"=>nothing,"models"=>D(),"records"=>Any[],"local_returns"=>Any[],
     "decisions"=>Any[],"rng"=>BasicLoop("$actor:daily-provisions";probabilistic=true,seed=seed).rng)
 function mb_daily_log!(rows,row)
     push!(rows,row);length(rows)>128 && popfirst!(rows);nothing
@@ -24,15 +24,27 @@ function mb_daily_stage!(state,stage,now;completed=false,reason="replan")
     mb_daily_learn!(state,a["stage"],(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],completed,reason)
     a["stage"]=stage;a["stage_us"]=now;a["stage_energy"]=a["energy"]
 end
+function mb_daily_local_return!(state,now,reason)
+    a=state["active"]
+    # Arrival closes only this return stage, never the enclosing provision goal.
+    mb_daily_log!(get!(() -> Any[],state,"local_returns"),D("us"=>now,"parent_started_us"=>a["started_us"],
+        "scope"=>"return","returned"=>true,"food_success"=>false,"reason"=>reason,
+        "parent_operations"=>a["operations"],"parent_energy"=>a["energy"]))
+    mb_daily_stage!(state,"unknown_food",now;completed=a["stage"]=="return",reason=reason)
+    a["departed"]=false
+    a["next_us"]=now # Reconsider existing candidates; do not force another outing.
+    nothing
+end
 function mb_daily_close!(state,now,returned,reason)
     a=state["active"];a["closed"] && return
+    returned && a["delivered"]==0 && return mb_daily_local_return!(state,now,reason)
     mb_daily_learn!(state,a["stage"],(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],returned && a["stage"]=="return",reason)
     # Acquisition and return outcomes are separate; an empty return is not a delivery.
     mb_daily_learn!(state,"roundtrip:"*a["initial_mode"],(now-a["started_us"])/1e6,a["energy"],returned && a["delivered"]>0,reason)
     a["closed"]=true
     mb_daily_log!(state["records"],D("started_us"=>a["started_us"],"ended_us"=>now,"deadline_us"=>a["deadline_us"],
         "initial_mode"=>a["initial_mode"],"acquired"=>a["acquired"],"delivered"=>a["delivered"],
-        "returned"=>returned,"food_success"=>a["delivered"]>0,"on_time"=>now<=a["deadline_us"],
+        "returned"=>returned,"food_success"=>returned && a["delivered"]>0,"on_time"=>now<=a["deadline_us"],
         "operations"=>a["operations"],"energy"=>a["energy"],"reason"=>reason))
 end
 function mb_daily_evidence(s,move,reserve,strain,now)
@@ -65,7 +77,7 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     a["closed"] && return configured_daily_plan_stay(replenishing)
     a["departed"] |= !at_home
     if at_home && a["departed"] && a["choice"]=="home" && inventory==0
-        mb_daily_close!(state,now,true,"empty_return");return configured_daily_plan_stay(replenishing)
+        mb_daily_local_return!(state,now,"empty_return")
     end
     visible=!isempty(get(move,"visible",Any[]))
     if now<a["next_us"] && visible==a["last_visible"]
@@ -120,7 +132,7 @@ function mb_daily_result!(s,plan,status,now,energy,amount;acquired_source=nothin
         if !(source in a["acquired_sources"])
             a["acquired"]+=1;push!(a["acquired_sources"],source)
         end
-        mb_daily_stage!(state,"return",now+1_000_000;completed=true,reason="acquired")
+        mb_daily_stage!(state,"return",now+1_000_000;completed=a["stage"] in ("unknown_food","known_food"),reason="acquired")
         a["next_us"]=now+1_000_000
     elseif plan["action"]=="deposit" && status=="performed"
         a["delivered"]+=min(amount,count(id->id in a["acquired_sources"],unique(delivered_sources)))
