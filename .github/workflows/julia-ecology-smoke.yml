@@ -78,6 +78,7 @@ jobs:
           julia --startup-file=no --project=. experiments/rock_gate/local_success_checks.jl
           julia --startup-file=no --project=. experiments/rock_gate/parent_plan_switch_checks.jl
           julia --startup-file=no --project=. experiments/rock_gate/food_site_observation_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/depleted_home_route_checks.jl
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/body_purpose_checks.jl
       - name: Herbivore and predator checks
         if: matrix.suite == 'animals'
