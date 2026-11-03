@@ -49,12 +49,12 @@ end
     @test length(s["daily_plan"]["local_returns"])==1
     mb_daily_request!(s,move,nothing,false,0,70.,0.,600_000_000,600_000_000)
     a=s["daily_plan"]["active"]
-    @test a["deadline_us"]==600_000_000
+    @test a["deadline_us"]==1_200_000_000
     mb_daily_request!(s,move,nothing,false,0,70.,0.,1_300_000_000,600_000_000)
-    @test a["deadline_us"]==600_000_000 # local returns do not renew the unfinished parent's deadline
+    @test a["deadline_us"]==1_800_000_000 # expired strategy is recorded, not silently kept forever
     mb_plan_context!(s,1_300_000_000,600_000_000,70.,1.)
     b=mb_plan_budget(s,D("expected_actions"=>20.,"expected_energy"=>.1),"home")
-    @test b["deadline_us"]==600_000_000
+    @test b["deadline_us"]==1_800_000_000
 end
 @testset "known and unknown estimates learn separately" begin
     st=mb_daily_plan_state("test",1)
@@ -65,10 +65,10 @@ end
     @test mb_daily_estimate(st,"unknown_food",128.)["seconds"]==50.
     @test !last(st["models"]["unknown_food"])["completed"]
     s=daily_fixture()
-    mb_daily_learn!(s["daily_plan"],"roundtrip:unknown_food",900.,3.,true,"delivered")
+    mb_daily_learn!(s["daily_plan"],"plan:explore",900.,3.,true,"delivered")
     mb_daily_request!(s,D("visible"=>Any[]),nothing,false,0,70.,0.,0,600_000_000)
     @test s["daily_plan"]["active"]["forecast"]["seconds"]==900.
-    mb_daily_learn!(s["daily_plan"],"roundtrip:unknown_food",100.,1.,true,"delivered")
+    mb_daily_learn!(s["daily_plan"],"plan:explore",100.,1.,true,"delivered")
     mb_daily_request!(s,D("visible"=>Any[]),nothing,false,0,70.,0.,64_000_000,600_000_000)
     @test s["daily_plan"]["active"]["forecast"]["seconds"]==900.
 end

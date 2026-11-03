@@ -4,6 +4,7 @@
 # is incomplete; see docs/design/LW_Daily_Provision_Plan.md.
 # Uses observed food / remembered routes only; no hidden food coordinates or stocks.
 mb_daily_plan_state(actor,seed)=D("active"=>nothing,"models"=>D(),"records"=>Any[],"local_returns"=>Any[],
+    "known_sites"=>Set{Int}(),"empty_sites"=>Set{Int}(),"plan_records"=>Any[],
     "decisions"=>Any[],"rng"=>BasicLoop("$actor:daily-provisions";probabilistic=true,seed=seed).rng)
 function mb_daily_log!(rows,row)
     push!(rows,row);length(rows)>128 && popfirst!(rows);nothing
@@ -38,19 +39,56 @@ end
 function mb_daily_close!(state,now,returned,reason)
     a=state["active"];a["closed"] && return
     returned && a["delivered"]==0 && return mb_daily_local_return!(state,now,reason)
+    mb_daily_finish_plan!(state,now,returned && a["delivered"]>0,reason)
     mb_daily_learn!(state,a["stage"],(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],returned && a["stage"]=="return",reason)
     # Acquisition and return outcomes are separate; an empty return is not a delivery.
     mb_daily_learn!(state,"roundtrip:"*a["initial_mode"],(now-a["started_us"])/1e6,a["energy"],returned && a["delivered"]>0,reason)
     a["closed"]=true
-    mb_daily_log!(state["records"],D("started_us"=>a["started_us"],"ended_us"=>now,"deadline_us"=>a["deadline_us"],
+    goal_deadline=get(a,"goal_deadline_us",a["deadline_us"])
+    mb_daily_log!(state["records"],D("started_us"=>a["started_us"],"ended_us"=>now,"deadline_us"=>goal_deadline,
         "initial_mode"=>a["initial_mode"],"acquired"=>a["acquired"],"delivered"=>a["delivered"],
-        "returned"=>returned,"food_success"=>returned && a["delivered"]>0,"on_time"=>now<=a["deadline_us"],
+        "returned"=>returned,"food_success"=>returned && a["delivered"]>0,"on_time"=>now<=goal_deadline,
+        "plan_deadline_us"=>a["deadline_us"],"plan_on_time"=>now<=a["deadline_us"],
         "operations"=>a["operations"],"energy"=>a["energy"],"reason"=>reason))
+end
+function mb_daily_finish_plan!(state,now,success,reason)
+    a=state["active"];haskey(a,"plan_started_us") || return
+    seconds=(now-a["plan_started_us"])/1e6;energy=a["energy"]-a["plan_energy"]
+    mb_daily_learn!(state,"plan:"*a["strategy"],seconds,energy,success,reason)
+    mb_daily_log!(state["plan_records"],D("strategy"=>a["strategy"],"started_us"=>a["plan_started_us"],
+        "ended_us"=>now,"deadline_us"=>a["deadline_us"],"completed"=>success,"reason"=>reason,
+        "operations"=>a["operations"]-a["plan_operations"],"energy"=>energy,"parent_started_us"=>a["started_us"]))
+end
+function mb_daily_replan!(s,now,strategy,reason;completed=false)
+    state=s["daily_plan"];a=state["active"]
+    mb_daily_finish_plan!(state,now,completed,reason)
+    mb_daily_stage!(state,strategy=="explore" ? "unknown_food" : "known_food",now;completed=completed && a["stage"]=="unknown_food",reason)
+    a["strategy"]=strategy;a["plan_started_us"]=now;a["plan_epoch"]=get(a,"plan_epoch",0)+1
+    a["plan_operations"]=a["operations"];a["plan_energy"]=a["energy"]
+    a["forecast"]=nothing;a["next_us"]=now
+    # A new strategy receives only the time actually left in the current scenario day.
+    a["deadline_us"]=(fld(now,a["day_us"])+1)*a["day_us"]
+end
+function mb_daily_food_absent!(s,now,ref,reason)
+    state=s["daily_plan"];a=state["active"]
+    ref!==nothing && push!(state["empty_sites"],Int(ref))
+    (a===nothing || a["closed"] || a["strategy"]!="acquire") && return
+    candidate=get(a["evidence"],"candidate",nothing)
+    if candidate!==nothing && haskey(candidate,"mb_chunk")
+        chunk=get(s["chunks"],candidate["mb_chunk"],nothing)
+        chunk!==nothing && (chunk["misses"]+=1) # Weaken expected food availability; retain route geometry.
+    end
+    arrival=get(get(s,"goal_arrival",D()),"food",nothing)
+    if arrival!==nothing && arrival["mode"]=="approach"
+        goal_arrival_event!(arrival,"food_not_available",now)
+        arrival["mode"]="search";arrival["rejections"]+=1
+    end
+    mb_daily_replan!(s,now,"explore",reason)
 end
 function mb_daily_evidence(s,move,reserve,strain,now)
     visible=get(move,"visible",Any[])
     !isempty(visible) && return D("mode"=>"known_food","source"=>"visible","confidence"=>1.,
-        "seconds"=>max(1.,first(visible)["distance"]/.5+1),"candidate"=>nothing)
+        "seconds"=>max(1.,first(visible)["distance"]/.5+1),"candidate"=>nothing,"site_ref"=>get(first(visible),"ref",nothing))
     arrival=get(get(s,"goal_arrival",D()),"food",nothing)
     if arrival!==nothing && arrival["mode"]=="approach"
         e=arrival["estimate"]
@@ -66,6 +104,10 @@ function mb_daily_evidence(s,move,reserve,strain,now)
 end
 function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_us;replenishing=false,return_hint=false)
     state=s["daily_plan"];a=state["active"]
+    for row in get(move,"visible",Any[])
+        ref=get(row,"ref",nothing);ref===nothing && continue
+        push!(state["known_sites"],Int(ref));delete!(state["empty_sites"],Int(ref))
+    end
     if a===nothing || (a["closed"] && now>=a["deadline_us"])
         evidence=mb_daily_evidence(s,move,reserve,strain,now)
         a=D("started_us"=>now,"deadline_us"=>(fld(now,day_us)+1)*day_us,"initial_mode"=>evidence["mode"],
@@ -73,8 +115,20 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
             "acquired"=>0,"acquired_sources"=>Set{String}(),"delivered"=>0,"departed"=>!at_home,"closed"=>false,"choice"=>"food","forecast"=>nothing,
             "evidence"=>evidence,"next_us"=>now,"last_visible"=>!isempty(get(move,"visible",Any[])))
         state["active"]=a
+        a["goal_deadline_us"]=a["deadline_us"]
+        a["strategy"]=evidence["mode"]=="known_food" ? "acquire" : "explore"
+        a["plan_started_us"]=now;a["plan_epoch"]=0;a["plan_operations"]=0;a["plan_energy"]=0.;a["day_us"]=day_us
+        a["target_ref"]=get(evidence,"site_ref",nothing)
     end
     a["closed"] && return configured_daily_plan_stay(replenishing)
+    for ref in get(move,"empty_food_sites",Int[])
+        ref in state["known_sites"] || continue
+        push!(state["empty_sites"],ref)
+        ref==get(a,"target_ref",nothing) && inventory==0 && mb_daily_food_absent!(s,now,ref,"observed_empty_site")
+    end
+    if now>=a["deadline_us"]
+        mb_daily_replan!(s,now,inventory>0 ? a["strategy"] : "explore","deadline_unmet")
+    end
     a["departed"] |= !at_home
     if at_home && a["departed"] && a["choice"]=="home" && inventory==0
         mb_daily_local_return!(state,now,"empty_return")
@@ -85,7 +139,12 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     end
     a["next_us"]=now+64_000_000;a["last_visible"]=visible
     evidence=mb_daily_evidence(s,move,reserve,strain,now);a["evidence"]=evidence
-    mode=evidence["mode"]
+    ref=get(evidence,"site_ref",nothing)
+    if ref!==nothing
+        a["strategy"]=="explore" && mb_daily_replan!(s,now,"acquire","food_observed";completed=true)
+        a["target_ref"]=ref
+    end
+    mode=a["strategy"]=="explore" ? "unknown_food" : evidence["mode"]
     food=mb_daily_estimate(state,mode,evidence["seconds"])
     mode=="known_food" && (food["seconds"]=max(food["seconds"],evidence["seconds"]))
     # Recognized home distance or an observed directed return chain; unknown is explicit.
@@ -99,10 +158,14 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     # Reserving the whole return is part of evaluating further acquisition.
     t=food["seconds"]+back["seconds"];e=food["energy"]+back["energy"]
     if a["forecast"]===nothing
-        a["forecast"]=mb_daily_estimate(state,"roundtrip:"*a["initial_mode"],t)
+        a["forecast"]=mb_daily_estimate(state,"plan:"*a["strategy"],a["strategy"]=="explore" ? food["seconds"] : t)
+        if a["strategy"]=="explore"
+            failures=filter(x->!x["completed"],get(state["models"],"plan:explore",Any[]))
+            !isempty(failures) && (a["forecast"]["seconds"]=max(a["forecast"]["seconds"],maximum(x["seconds"] for x in failures)))
+        end
     end
-    forecast=a["forecast"];elapsed=(now-a["started_us"])/1e6
-    t=max(t,forecast["seconds"]-elapsed);e=max(e,forecast["energy"]-a["energy"])
+    forecast=a["forecast"];elapsed=(now-a["plan_started_us"])/1e6
+    t=max(t,forecast["seconds"]-elapsed);e=max(e,forecast["energy"]-(a["energy"]-a["plan_energy"]))
     continue_score,return_score=configured_daily_plan_scores(evidence["confidence"],inventory,reserve,
         replenishing,budget_penalty(t,e),budget_penalty(back["seconds"],back["energy"]),return_hint)
     loop=BasicLoop("daily-provisions";probabilistic=true)
@@ -119,7 +182,7 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     a["choice"]=choice
     a["remaining_estimate"]=D("food_seconds"=>food["seconds"],"return_seconds"=>back["seconds"],
         "available_seconds"=>remaining,"food_source"=>evidence["source"],"return_known"=>home!==nothing || chain!==nothing)
-    mb_daily_log!(state["decisions"],D("us"=>now,"stage"=>stage,"confidence"=>evidence["confidence"],
+    mb_daily_log!(state["decisions"],D("us"=>now,"stage"=>stage,"strategy"=>a["strategy"],"plan_started_us"=>a["plan_started_us"],"plan_epoch"=>a["plan_epoch"],"confidence"=>evidence["confidence"],
         "return_probability"=>probabilities[2],"H"=>loop.H,"forecast_seconds"=>forecast["seconds"],"estimate"=>copy(a["remaining_estimate"])))
     choice=="home"
 end
@@ -140,7 +203,8 @@ function mb_daily_result!(s,plan,status,now,energy,amount;acquired_source=nothin
             mb_daily_close!(state,now+1_000_000,true,a["delivered"]>0 ? "delivered" : "initial_cargo_return")
         end
         a["next_us"]=now+1_000_000
-    elseif status=="not_found"
+    elseif status=="not_found" && plan["action"] in ("pickup","recover")
+        mb_daily_food_absent!(s,now+1_000_000,get(plan,"food_ref",nothing),"food_not_found")
         a["evidence"]=D("mode"=>"unknown_food","candidate"=>nothing)
         mb_daily_stage!(state,"unknown_food",now+1_000_000;reason="food_not_found")
         a["next_us"]=now+1_000_000

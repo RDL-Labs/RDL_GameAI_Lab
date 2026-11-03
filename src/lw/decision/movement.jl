@@ -23,6 +23,6 @@ function evaluate_movement(::EnergyMovementPolicy,o)
     end
     D("movement_surface"=>D("schema"=>"l15a-current-surface-rays-v1",
         "ground"=>D("coverage"=>"complete","output_limited"=>false,"samples"=>o.surface)),
-      "food_coverage"=>o.coverage,"run_rows"=>run_rows,"visible"=>o.visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
+      "food_coverage"=>o.coverage,"empty_food_sites"=>get(o,:empty_sites,Int[]),"run_rows"=>run_rows,"visible"=>o.visible,"energy"=>D("rule"=>"finite-energy-field-v1","rows"=>rows,"selected"=>chosen,
         "action"=>chosen===nothing ? "rest" : "walk","status"=>chosen===nothing ? "no_feasible_observed_move" : "selected"))
 end

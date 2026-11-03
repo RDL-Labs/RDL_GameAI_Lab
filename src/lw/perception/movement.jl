@@ -1,8 +1,11 @@
-function perceive_movement(w,actor,yaw,food,stock;resistance_at=p->1.5,run_resistance_at=resistance_at,running=false,visual_obstacles=w.obstacles)
-    origin=w.positions[actor];s,c=sincos(deg2rad(yaw[actor]));visible=Any[]
+function perceive_movement(w,actor,yaw,food,stock;resistance_at=p->1.5,run_resistance_at=resistance_at,running=false,visual_obstacles=w.obstacles,known_food_sites=())
+    origin=w.positions[actor];s,c=sincos(deg2rad(yaw[actor]));visible=Any[];empty_sites=Int[]
     for (j,f) in enumerate(food)
         dx,dz=f.x-origin[1],f.z-origin[2];forward,right=dx*s+dz*c,dx*c-dz*s
         distance=hypot(forward,right)
+        if stock[j]==0 && j-1 in known_food_sites && distance<=1.25 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),visual_obstacles)
+            push!(empty_sites,j-1)
+        end
         if stock[j]>0 && distance<=12 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),visual_obstacles)
             push!(visible,D("ref"=>j-1,"forward"=>forward,"right"=>right,"distance"=>distance,
                 "appearance"=>hasproperty(f,:appearance) ? f.appearance : "brown_capped_ovoid"))
@@ -28,5 +31,5 @@ function perceive_movement(w,actor,yaw,food,stock;resistance_at=p->1.5,run_resis
             push!(runs,(ref=string(j-1),clear=clear,resistance=run_resistance_at(midpoint)))
         end
     end
-    (body=b,load=w.inventory[actor],visible=visible,coverage=coverage,surface=surface,walks=walks,runs=runs)
+    (body=b,load=w.inventory[actor],visible=visible,empty_sites=empty_sites,coverage=coverage,surface=surface,walks=walks,runs=runs)
 end

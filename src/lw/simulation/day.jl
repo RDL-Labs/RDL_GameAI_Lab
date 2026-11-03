@@ -448,7 +448,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     relation=relations===nothing ? nothing : relations[a])
             end
         end
-        moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high) for a in thinking_ids)
+        moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high,
+            known_food_sites=daily_delivery_enabled ? mb_maps[a]["daily_plan"]["known_sites"] : ()) for a in thinking_ids)
         if relations!==nothing && foods!==nothing && !shared_stores
             for a in thinking_ids
                 security=get!(food_security_state,relations[a],"food_security")

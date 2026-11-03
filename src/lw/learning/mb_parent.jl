@@ -133,7 +133,7 @@ end
 function mb_parent_daily_epoch!(s,goal)
     daily=get(s,"daily_plan",nothing)
     (daily===nothing || daily["active"]===nothing) && return nothing
-    epoch=daily["active"]["started_us"];parent=s["parent_mb"]
+    a=daily["active"];epoch=(a["started_us"],get(a,"plan_epoch",0));parent=s["parent_mb"]
     active=get(parent["active"],goal,nothing)
     if active!==nothing && get(active,"daily_epoch",nothing)!=epoch
         mb_parent_learn!(s,goal,active,false,"daily_plan_ended")
