@@ -57,11 +57,12 @@ end
 function project_rho_affordance!(candidates,map)
     map["coverage"]=="complete" && !map["output_limited"] || return
     openings=rho_openings(map)
+    local_field=rho_local_field(map;span=.5)
     for c in candidates
         c["action"] in ("walk","run") || continue
         angle=get(c,"steering_angle",Float64(ANGLES[c["direction"]+1]))
         depth_support=maximum((min(1.,o.contrast/4)*max(0.,cosd(angle-o.angle))^4 for o in openings);init=0.)
-        field=rho_potential(map,(.5sind(angle),.5cosd(angle)),angle)
+        field=rho_local_potential(local_field,(.5sind(angle),.5cosd(angle)),angle)
         c["observation_log_prior"]=2.5depth_support-min(2.,2field.repulsion)
         c["affordance_source"]=map["source"]["observation"]
     end
@@ -106,13 +107,53 @@ function rho_descent(angle,map;clearance=2.,span=.5)
     map["coverage"]=="complete" && !map["output_limited"] || return nothing
     # Deterministic local refinement of an upstream probabilistically chosen method.
     offsets=(0.,-11.25,11.25,-22.5,22.5,-33.75,33.75,-45.,45.)
-    before=-rho_potential(map,(0.,0.),angle;clearance=clearance).total
+    local_field=rho_local_field(map;clearance=clearance,span=span)
+    before=-rho_local_potential(local_field,(0.,0.),angle).total
     selected=relational_best(offsets) do offset
         candidate=angle+offset
-        value=rho_potential(map,(span*sind(candidate),span*cosd(candidate)),angle;clearance=clearance)
+        value=rho_local_potential(local_field,(span*sind(candidate),span*cosd(candidate)),angle)
         merge(relational_transition(before,-value.total),(potential=value,))
     end
     best_angle=angle+selected.candidate;best=selected.field.potential
     (angle=best_angle,combined=(cosd(best_angle),sind(best_angle)),
         groups=count(g->g["kind"] in ("obstacle","water"),map["groups"]),potential=best)
+end
+
+# Prepared once per candidate batch, never persisted across observations or actors.
+# A point beyond span + support cannot contribute to any endpoint in this batch.
+function rho_local_field(map;clearance=2.,span=.5,water_weight=.35,road_weight=.15)
+    range=rho_boundary_range(map,clearance)
+    radius=abs(span)+range
+    radius+=16eps(max(1.,radius)) # Conservative floating-point boundary inclusion.
+    surfaces=Vector{Tuple{Float64,Vector{Tuple{Float64,Float64}}}}()
+    roads=Tuple{Float64,Float64,Float64}[]
+    for g in map["groups"]
+        points=g["points"];isempty(points) && continue
+        if g["kind"] in ("obstacle","water")
+            local_points=Tuple{Float64,Float64}[(p[1],p[2]) for p in points if hypot(p...)<=radius]
+            isempty(local_points) || push!(surfaces,(g["kind"]=="water" ? Float64(water_weight) : 1.,local_points))
+        elseif g["kind"]=="worn_ground" && length(points)>=3
+            # Keep ALL road samples: distant points can determine the local axis.
+            mx=sum(p[1] for p in points)/length(points);mz=sum(p[2] for p in points)/length(points)
+            xx=sum((p[1]-mx)^2 for p in points);zz=sum((p[2]-mz)^2 for p in points)
+            xz=sum((p[1]-mx)*(p[2]-mz) for p in points)
+            disc=hypot(xx-zz,2xz);major=(xx+zz+disc)/2;minor=(xx+zz-disc)/2
+            major>1e-8 && major>=4max(minor,0.) || continue
+            theta=.5atan(2xz,xx-zz);ux,uz=cos(theta),sin(theta)
+            proximity=max(0.,1-minimum(hypot(p...) for p in points)/4)
+            push!(roads,(Float64(road_weight)*proximity,ux,uz))
+        end
+    end
+    (surfaces=surfaces,roads=roads,clearance=Float64(clearance),range=range)
+end
+function rho_local_potential(field,point,heading)
+    x,z=point;attraction=-(x*sind(heading)+z*cosd(heading));repulsion=0.;road=0.
+    for (weight,points) in field.surfaces
+        d=minimum(hypot(x-p[1],z-p[2]) for p in points)
+        repulsion+=weight*field.clearance*max(0.,1-d/field.range)^3
+    end
+    for (gain,ux,uz) in field.roads
+        road=max(road,gain*abs(x*ux+z*uz))
+    end
+    (total=attraction+repulsion-road,attraction=attraction,repulsion=repulsion,road=road)
 end
