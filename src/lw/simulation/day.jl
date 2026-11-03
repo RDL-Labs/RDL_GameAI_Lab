@@ -207,6 +207,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     bundles=Dict(a=>bundle_state(a) for a in IDS)
     check(!body_purpose || food_body,"body_purpose_requires_hunger")
     check(!daily_delivery_enabled || (mb_simulation && basic_loop),"daily_delivery_requires_mb_loop")
+    food_processing_enabled=get(spec,:food_processing,true)
+    check(food_processing_enabled isa Bool,"food_processing_must_be_bool")
     if daily_delivery_enabled
         for a in IDS
             mb_maps[a]["configured_daily_delivery"]=configured_daily_delivery_state()
@@ -545,7 +547,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 at_home,at_home ? (shared_stores ? shared : stores[a]) : 0) :
                 configured_food_preparation(foods,a,food_hungry,guts===nothing || can_ingest(guts[a]),
                     at_home,at_home ? (shared_stores ? shared : stores[a]) : 0;
-                    processing_feasible=step(w.bodies[a],"process_food",w.inventory[a])[2]=="worked")
+                    processing_feasible=food_processing_enabled && step(w.bodies[a],"process_food",w.inventory[a])[2]=="worked",
+                    processing_enabled=food_processing_enabled)
             night_fear_enabled && !observing && (returning=night_fear_request!(mb_maps[a]["night_fear"],returning,replenishing,now,loops[a]["home"].rng))
             if daily_delivery_enabled && !observing
                 returning=mb_daily_request!(mb_maps[a],moves[a],home,at_home,w.inventory[a],

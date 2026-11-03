@@ -1,5 +1,6 @@
 # Isolated exploration/harvest/return cycle; no scripted movement or success.
 using JSON3, SHA, Test
+include("navigation_edible_profile.jl")
 1<=length(ARGS)<=4 || error("usage: navigation_cycle_run.jl NEW_OUTPUT [FROZEN_SOURCE [RETRIEVAL_COMMIT [seasonal|nondepleting]]]")
 const repo=normpath(joinpath(@__DIR__,"../.."))
 const out=abspath(ARGS[1]);ispath(out) && error("fresh output required")
@@ -27,6 +28,7 @@ if supply=="nondepleting"
     input["config"]["food"]="finite"
     scene["name"]="nondepleting-fixed-food-navigation-cycle"
 end
+navigation_edible_profile!(input)
 mkpath(out)
 snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(source_root,"src"),joinpath(snapshot,"src"))
@@ -48,7 +50,7 @@ cp(@__FILE__,joinpath(out,"runner.jl"))
 write(joinpath(out,"conditions.json"),JSON3.write((days=10,actors=3,seed=input["config"]["seed"],
     base_sha256=bytes2hex(sha256(read(base))),configured_ablation="disable aid initiation in frozen source only",
     disabled=["trade","aid requests","incidental pickup","wildlife"],source_commit=strip(read(`git -C $repo rev-parse HEAD`,String)),
-    source_root=source_root,retrieval_commit=retrieval_commit,supply=supply,
+    source_root=source_root,retrieval_commit=retrieval_commit,supply=supply,food_processing=false,raw_acorns_replaced_with="fruit",
     retrieval_sha256=Dict(f=>bytes2hex(sha256(read(joinpath(snapshot,f)))) for f in retrieval_files))))
 include(joinpath(snapshot,"integrations/lightweight_julia/native.jl"))
 println("START navigation cycle: 3 actors, 10 days, no trade/aid/pickup/wildlife");flush(stdout)

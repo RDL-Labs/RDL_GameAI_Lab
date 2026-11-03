@@ -97,6 +97,7 @@ end
     @test LW.configured_food_preparation(f.r,A,true,true,false,0)===nothing
     @test LW.configured_food_preparation(f.r,A,false,true,true,0)===nothing
     @test LW.configured_food_preparation(f.r,A,true,true,true,0)=="process_food"
+    @test LW.configured_food_preparation(f.r,A,true,true,true,0;processing_enabled=false)===nothing
     exhausted=B.Body(10.,1.,50.,0.)
     @test B.step(exhausted,"process_food",1)[2]=="body_limited"
     chosen=LW.configured_food_preparation(f.r,A,true,true,true,0;processing_feasible=false)
