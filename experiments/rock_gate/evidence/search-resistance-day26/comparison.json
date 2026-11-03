@@ -1,0 +1,218 @@
+{
+  "off": {
+    "ground": 37,
+    "elapsed_seconds": 317.9839999675751,
+    "actors": {
+      "npc_b": {
+        "reserve": 84.91790940028204,
+        "stock": 101,
+        "deliveries": 0,
+        "distance": 3241.4367116227186,
+        "pickup": 0,
+        "walk": 6483,
+        "scan": 5519,
+        "cells": 117,
+        "cell_entries": 894,
+        "repeated_entries": 777,
+        "repeat_fraction": 0.8691275167785235,
+        "new_cells_per_quarter": [
+          75,
+          31,
+          8,
+          3
+        ],
+        "max_home_distance": 30.819367808352098,
+        "resistance": null
+      },
+      "npc_a": {
+        "reserve": 82.08303830417994,
+        "stock": 103,
+        "deliveries": 1,
+        "distance": 116.5,
+        "pickup": 3,
+        "walk": 233,
+        "scan": 200,
+        "cells": 23,
+        "cell_entries": 36,
+        "repeated_entries": 13,
+        "repeat_fraction": 0.3611111111111111,
+        "new_cells_per_quarter": [
+          23,
+          0,
+          0,
+          0
+        ],
+        "max_home_distance": 23.842440872994555,
+        "resistance": null
+      },
+      "npc_d": {
+        "reserve": 100,
+        "stock": 98,
+        "deliveries": 0,
+        "distance": 3650.3453045278684,
+        "pickup": 0,
+        "walk": 7301,
+        "scan": 4084,
+        "cells": 117,
+        "cell_entries": 974,
+        "repeated_entries": 857,
+        "repeat_fraction": 0.8798767967145791,
+        "new_cells_per_quarter": [
+          93,
+          17,
+          5,
+          2
+        ],
+        "max_home_distance": 35.148835298080215,
+        "resistance": null
+      },
+      "npc_c": {
+        "reserve": 96.44722305673614,
+        "stock": 128,
+        "deliveries": 0,
+        "distance": 2245.9999999999995,
+        "pickup": 0,
+        "walk": 4492,
+        "scan": 6473,
+        "cells": 55,
+        "cell_entries": 652,
+        "repeated_entries": 597,
+        "repeat_fraction": 0.9156441717791411,
+        "new_cells_per_quarter": [
+          40,
+          14,
+          1,
+          0
+        ],
+        "max_home_distance": 13.271053660467746,
+        "resistance": null
+      }
+    }
+  },
+  "on": {
+    "ground": 38,
+    "elapsed_seconds": 319.3439998626709,
+    "actors": {
+      "npc_b": {
+        "reserve": 85.52229955095443,
+        "stock": 101,
+        "deliveries": 0,
+        "distance": 2850,
+        "pickup": 0,
+        "walk": 5700,
+        "scan": 6186,
+        "cells": 104,
+        "cell_entries": 804,
+        "repeated_entries": 700,
+        "repeat_fraction": 0.8706467661691543,
+        "new_cells_per_quarter": [
+          87,
+          9,
+          4,
+          4
+        ],
+        "max_home_distance": 31.015709634465306,
+        "resistance": {
+          "observations": 6932,
+          "scans": 3795,
+          "passes": 3137,
+          "projected": 74911,
+          "selected": 1944,
+          "released": 0,
+          "scenes": 626,
+          "max_effort": 791.9799999999958
+        }
+      },
+      "npc_a": {
+        "reserve": 81.4831170271737,
+        "stock": 102,
+        "deliveries": 1,
+        "distance": 52.5,
+        "pickup": 2,
+        "walk": 105,
+        "scan": 9,
+        "cells": 13,
+        "cell_entries": 13,
+        "repeated_entries": 0,
+        "repeat_fraction": 0,
+        "new_cells_per_quarter": [
+          13,
+          0,
+          0,
+          0
+        ],
+        "max_home_distance": 23.035764539563772,
+        "resistance": {
+          "observations": 31,
+          "scans": 4,
+          "passes": 27,
+          "projected": 54,
+          "selected": 4,
+          "released": 1,
+          "scenes": 22,
+          "max_effort": 3
+        }
+      },
+      "npc_d": {
+        "reserve": 100,
+        "stock": 98,
+        "deliveries": 0,
+        "distance": 3681.047537823145,
+        "pickup": 0,
+        "walk": 7363,
+        "scan": 4086,
+        "cells": 178,
+        "cell_entries": 985,
+        "repeated_entries": 807,
+        "repeat_fraction": 0.8192893401015229,
+        "new_cells_per_quarter": [
+          154,
+          18,
+          4,
+          2
+        ],
+        "max_home_distance": 35.148835298080215,
+        "resistance": {
+          "observations": 6035,
+          "scans": 2198,
+          "passes": 3837,
+          "projected": 198749,
+          "selected": 5286,
+          "released": 0,
+          "scenes": 761,
+          "max_effort": 360.74499999999944
+        }
+      },
+      "npc_c": {
+        "reserve": 96.44850052479819,
+        "stock": 128,
+        "deliveries": 0,
+        "distance": 2212.9999999999995,
+        "pickup": 0,
+        "walk": 4426,
+        "scan": 6624,
+        "cells": 63,
+        "cell_entries": 670,
+        "repeated_entries": 607,
+        "repeat_fraction": 0.9059701492537313,
+        "new_cells_per_quarter": [
+          49,
+          11,
+          3,
+          0
+        ],
+        "max_home_distance": 12.407439593697827,
+        "resistance": {
+          "observations": 6629,
+          "scans": 4187,
+          "passes": 2442,
+          "projected": 39368,
+          "selected": 1139,
+          "released": 0,
+          "scenes": 546,
+          "max_effort": 890.9599999999951
+        }
+      }
+    }
+  }
+}

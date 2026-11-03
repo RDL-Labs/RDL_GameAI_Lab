@@ -72,6 +72,7 @@ include(joinpath(@__DIR__, "../learning/mb_parent.jl"))
 include(joinpath(@__DIR__, "../learning/mb_return_outlook.jl"))
 include(joinpath(@__DIR__, "../learning/mb_chunks.jl"))
 include(joinpath(@__DIR__, "../learning/mb_daily_plan.jl"))
+include(joinpath(@__DIR__, "../learning/mb_search_resistance.jl"))
 include(joinpath(@__DIR__, "../learning/mb_goal_cues.jl"))
 include(joinpath(@__DIR__, "../learning/mb_exploration_relations.jl"))
 include(joinpath(@__DIR__, "../learning/mb_relation_compression.jl"))
@@ -128,6 +129,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     exploration_relations=get(spec,:mb_exploration_relations,false)
     check(!exploration_relations || (mb_simulation && general_landmarks),"exploration_relations_requires_mb")
     for a in IDS;mb_maps[a]["exploration_relations_enabled"]=exploration_relations;end
+    for a in IDS;mb_maps[a]["food_search_resistance_enabled"]=get(spec,:mb_food_search_resistance,false);end
     inherited_mb=get(spec,:learned_mb_transfer,nothing)
     if inherited_mb!==nothing
         check(mb_simulation && basic_loop,"transfer_requires_mb_loop")
@@ -508,7 +510,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             integrate(a,now,obs[a]);o=obs[a];plan=nothing;home=homes[a]
             rho_profile=="home-distance" && observe_home_distance!(mb_maps[a]["home_distance"],home)
             at_home=home!==nothing && home["distance"]<=1.25
+            search_receipt=mb_simulation ? mb_maps[a]["receipt"] : nothing
             mb_simulation && mb_observe!(mb_maps[a],landmarks[a],now;home=at_home,food=any(f->f["distance"]<=1.25,moves[a]["visible"]))
+            mb_simulation && mb_search_resistance_observe!(mb_maps[a],moves[a],landmarks[a],search_receipt,now;rho=get(rho_baselines,a,rho_profile))
             observing=configured_observation_enabled && now<clock.day_us
             camp_view=configured_camp_landmark ? configured_camp_landmark_view(landmark_objects,w.positions[a],yaw[a];night=phase=="night") : nothing
             configured_camp_landmark && configured_camp_landmark_observe!(observation_states[a]["camp_landmark"],camp_view,home,observing,now)
@@ -880,7 +884,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
                             goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
                             goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
+                            mb_simulation && mb_search_resistance_project!(mb_maps[a],candidates,family,moves[a],now)
                             plan=choose_method!(s,candidates,source)
+                            mb_simulation && mb_search_resistance_selected!(mb_maps[a],plan,now)
                             if haskey(plan,"social_peer")
                                 stats=relations[a]["approach"];stats["selected"]+=1
                                 push!(stats["records"],D("us"=>now,"peer"=>plan["social_peer"],"method"=>plan["method"],
