@@ -1,0 +1,518 @@
+{
+  "groups": [
+    {
+      "days": [
+        28,
+        36
+      ],
+      "mean_seconds": 231.22956868489584,
+      "mean_active_ticks": 62619.11111111111,
+      "amortized_ms": 3.6926357557935146
+    },
+    {
+      "days": [
+        37,
+        41
+      ],
+      "mean_seconds": 259.82649702148444,
+      "mean_active_ticks": 66452.2,
+      "amortized_ms": 3.909975847624073
+    },
+    {
+      "days": [
+        43,
+        46
+      ],
+      "mean_seconds": 281.78560290527344,
+      "mean_active_ticks": 69120,
+      "amortized_ms": 4.076759301291572
+    },
+    {
+      "days": [
+        47,
+        56
+      ],
+      "mean_seconds": 266.1184327148437,
+      "mean_active_ticks": 67147.9,
+      "amortized_ms": 3.9631683599165974
+    }
+  ],
+  "days": [
+    {
+      "paused_ticks": 10977,
+      "active_actor_ticks": 58143,
+      "counts": {
+        "rest": 36164,
+        "walk": 20031,
+        "eat": 3,
+        "retrieve": 5,
+        "deposit": 4,
+        "pickup": 3,
+        "scan": 12910
+      },
+      "day": 27
+    },
+    {
+      "paused_ticks": 10486,
+      "active_actor_ticks": 58634,
+      "counts": {
+        "rest": 31874,
+        "walk": 23149,
+        "eat": 7,
+        "retrieve": 9,
+        "deposit": 4,
+        "pickup": 4,
+        "scan": 14073
+      },
+      "day": 28,
+      "seconds": 193.47407202148437,
+      "ms_per_active_actor_tick": 3.299690828213739
+    },
+    {
+      "paused_ticks": 10165,
+      "active_actor_ticks": 58955,
+      "counts": {
+        "rest": 27971,
+        "walk": 25766,
+        "eat": 7,
+        "retrieve": 8,
+        "deposit": 3,
+        "pickup": 4,
+        "scan": 15361
+      },
+      "day": 29,
+      "seconds": 211.12555200195314,
+      "ms_per_active_actor_tick": 3.5811305572377767
+    },
+    {
+      "paused_ticks": 11308,
+      "active_actor_ticks": 57812,
+      "counts": {
+        "rest": 28623,
+        "walk": 25278,
+        "eat": 6,
+        "retrieve": 9,
+        "deposit": 4,
+        "pickup": 2,
+        "scan": 15198
+      },
+      "day": 30,
+      "seconds": 208.53760302734375,
+      "ms_per_active_actor_tick": 3.6071681143593675
+    },
+    {
+      "paused_ticks": 10580,
+      "active_actor_ticks": 58540,
+      "counts": {
+        "rest": 26145,
+        "walk": 26957,
+        "eat": 7,
+        "retrieve": 10,
+        "deposit": 3,
+        "pickup": 3,
+        "scan": 15995
+      },
+      "day": 31,
+      "seconds": 212.40363671875,
+      "ms_per_active_actor_tick": 3.628350473501025
+    },
+    {
+      "paused_ticks": 11071,
+      "active_actor_ticks": 58049,
+      "counts": {
+        "rest": 28938,
+        "walk": 25328,
+        "eat": 5,
+        "retrieve": 7,
+        "deposit": 4,
+        "pickup": 2,
+        "scan": 14836
+      },
+      "day": 32,
+      "seconds": 212.29261962890624,
+      "ms_per_active_actor_tick": 3.6571279372410594
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 16108,
+        "walk": 31028,
+        "eat": 7,
+        "retrieve": 10,
+        "deposit": 2,
+        "pickup": 0,
+        "scan": 21965
+      },
+      "day": 33,
+      "seconds": 268.54192993164065,
+      "ms_per_active_actor_tick": 3.8851552362795228
+    },
+    {
+      "paused_ticks": 4898,
+      "active_actor_ticks": 64222,
+      "counts": {
+        "rest": 21280,
+        "walk": 27342,
+        "eat": 6,
+        "retrieve": 9,
+        "deposit": 3,
+        "pickup": 2,
+        "scan": 20478
+      },
+      "day": 34,
+      "seconds": 246.72156127929688,
+      "ms_per_active_actor_tick": 3.8416985033056723
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 27905,
+        "walk": 23349,
+        "eat": 3,
+        "retrieve": 4,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 17856
+      },
+      "day": 35,
+      "seconds": 252.372724609375,
+      "ms_per_active_actor_tick": 3.651225761131004
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 20280,
+        "walk": 32738,
+        "eat": 8,
+        "retrieve": 12,
+        "deposit": 4,
+        "pickup": 0,
+        "scan": 16078
+      },
+      "day": 36,
+      "seconds": 275.5964189453125,
+      "ms_per_active_actor_tick": 3.987216709278248
+    },
+    {
+      "paused_ticks": 2043,
+      "active_actor_ticks": 67077,
+      "counts": {
+        "rest": 24072,
+        "walk": 30677,
+        "eat": 7,
+        "retrieve": 10,
+        "deposit": 4,
+        "pickup": 1,
+        "scan": 14349
+      },
+      "day": 37,
+      "seconds": 263.9442919921875,
+      "ms_per_active_actor_tick": 3.9349447946716087
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 28934,
+        "walk": 27299,
+        "eat": 8,
+        "retrieve": 11,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 12865
+      },
+      "day": 38,
+      "seconds": 259.46535546875,
+      "ms_per_active_actor_tick": 3.753839054814091
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 19619,
+        "walk": 34205,
+        "eat": 6,
+        "retrieve": 9,
+        "deposit": 2,
+        "pickup": 0,
+        "scan": 15279
+      },
+      "day": 39,
+      "seconds": 283.37896215820314,
+      "ms_per_active_actor_tick": 4.099811373816596
+    },
+    {
+      "paused_ticks": 160,
+      "active_actor_ticks": 68960,
+      "counts": {
+        "rest": 23541,
+        "walk": 31364,
+        "eat": 6,
+        "retrieve": 9,
+        "deposit": 5,
+        "pickup": 2,
+        "scan": 14193
+      },
+      "day": 40,
+      "seconds": 268.5233200683594,
+      "ms_per_active_actor_tick": 3.893899652963448
+    },
+    {
+      "paused_ticks": 11136,
+      "active_actor_ticks": 57984,
+      "counts": {
+        "rest": 32406,
+        "walk": 24762,
+        "eat": 8,
+        "retrieve": 12,
+        "deposit": 3,
+        "pickup": 2,
+        "scan": 11927
+      },
+      "day": 41,
+      "seconds": 223.82055541992187,
+      "ms_per_active_actor_tick": 3.860039932048873
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 30788,
+        "walk": 25635,
+        "eat": 4,
+        "retrieve": 6,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 12684
+      },
+      "day": 42
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 25130,
+        "walk": 30587,
+        "eat": 5,
+        "retrieve": 7,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 13388
+      },
+      "day": 43,
+      "seconds": 272.99637255859375,
+      "ms_per_active_actor_tick": 3.9496002974333586
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 18570,
+        "walk": 34568,
+        "eat": 8,
+        "retrieve": 12,
+        "deposit": 4,
+        "pickup": 0,
+        "scan": 15958
+      },
+      "day": 44,
+      "seconds": 282.64701782226564,
+      "ms_per_active_actor_tick": 4.089221901363796
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 19095,
+        "walk": 33457,
+        "eat": 7,
+        "retrieve": 10,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 16548
+      },
+      "day": 45,
+      "seconds": 283.82669458007814,
+      "ms_per_active_actor_tick": 4.1062889840867784
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 18222,
+        "walk": 34699,
+        "eat": 7,
+        "retrieve": 10,
+        "deposit": 2,
+        "pickup": 0,
+        "scan": 16180
+      },
+      "day": 46,
+      "seconds": 287.6723266601563,
+      "ms_per_active_actor_tick": 4.161926022282353
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 16400,
+        "walk": 35185,
+        "eat": 4,
+        "retrieve": 6,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 17522
+      },
+      "day": 47,
+      "seconds": 291.82725854492185,
+      "ms_per_active_actor_tick": 4.222037884041115
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 17802,
+        "walk": 34998,
+        "eat": 7,
+        "retrieve": 10,
+        "deposit": 2,
+        "pickup": 0,
+        "scan": 16301
+      },
+      "day": 48,
+      "seconds": 289.7477124023437,
+      "ms_per_active_actor_tick": 4.191951857672797
+    },
+    {
+      "paused_ticks": 6383,
+      "active_actor_ticks": 62737,
+      "counts": {
+        "rest": 27140,
+        "walk": 29167,
+        "eat": 6,
+        "retrieve": 9,
+        "deposit": 4,
+        "pickup": 2,
+        "scan": 12792
+      },
+      "day": 49,
+      "seconds": 246.98104248046874,
+      "ms_per_active_actor_tick": 3.9367684537110277
+    },
+    {
+      "paused_ticks": 2608,
+      "active_actor_ticks": 66512,
+      "counts": {
+        "rest": 25226,
+        "walk": 30475,
+        "eat": 7,
+        "retrieve": 10,
+        "deposit": 5,
+        "pickup": 2,
+        "scan": 13395
+      },
+      "day": 50,
+      "seconds": 271.8364309082031,
+      "ms_per_active_actor_tick": 4.087028369440148
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 30453,
+        "walk": 25502,
+        "eat": 6,
+        "retrieve": 9,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 13147
+      },
+      "day": 51,
+      "seconds": 250.7267421875,
+      "ms_per_active_actor_tick": 3.627412358036748
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 25585,
+        "walk": 30229,
+        "eat": 8,
+        "retrieve": 11,
+        "deposit": 2,
+        "pickup": 0,
+        "scan": 13285
+      },
+      "day": 52,
+      "seconds": 276.95160522460935,
+      "ms_per_active_actor_tick": 4.006822992254187
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 25656,
+        "walk": 30022,
+        "eat": 5,
+        "retrieve": 7,
+        "deposit": 2,
+        "pickup": 0,
+        "scan": 13428
+      },
+      "day": 53,
+      "seconds": 284.05316772460935,
+      "ms_per_active_actor_tick": 4.10956550527502
+    },
+    {
+      "paused_ticks": 1348,
+      "active_actor_ticks": 67772,
+      "counts": {
+        "rest": 28579,
+        "walk": 29014,
+        "eat": 4,
+        "retrieve": 5,
+        "deposit": 3,
+        "pickup": 2,
+        "scan": 11513
+      },
+      "day": 54,
+      "seconds": 259.15015405273436,
+      "ms_per_active_actor_tick": 3.8238528308554325
+    },
+    {
+      "paused_ticks": 9382,
+      "active_actor_ticks": 59738,
+      "counts": {
+        "rest": 44855,
+        "walk": 18024,
+        "eat": 5,
+        "retrieve": 7,
+        "deposit": 2,
+        "pickup": 2,
+        "scan": 6225
+      },
+      "day": 55,
+      "seconds": 218.46983471679687,
+      "ms_per_active_actor_tick": 3.6571333944356503
+    },
+    {
+      "paused_ticks": 0,
+      "active_actor_ticks": 69120,
+      "counts": {
+        "rest": 31188,
+        "walk": 27636,
+        "eat": 5,
+        "retrieve": 7,
+        "deposit": 3,
+        "pickup": 0,
+        "scan": 10281
+      },
+      "day": 56,
+      "seconds": 271.44037890625,
+      "ms_per_active_actor_tick": 3.927088815194589
+    }
+  ]
+}
