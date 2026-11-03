@@ -1,4 +1,7 @@
 # A scenario-supplied daily objective, with learned stages and probabilistic policy.
+# 局所観測用の固定設定: food/home, daily deadline, stage labels and bootstrap/cadence
+# values are experimental scaffolding, not universal MB rules. Generic extraction
+# is incomplete; see docs/design/LW_Daily_Provision_Plan.md.
 # Uses observed food / remembered routes only; no hidden food coordinates or stocks.
 mb_daily_plan_state(actor,seed)=D("active"=>nothing,"models"=>D(),"records"=>Any[],
     "decisions"=>Any[],"rng"=>BasicLoop("$actor:daily-provisions";probabilistic=true,seed=seed).rng)

@@ -1,4 +1,5 @@
 # Experimental daily objective, deliberately separate from learned MB goals.
+# 局所観測用の固定設定: isolate planning behavior, not autonomous purpose formation.
 configured_daily_delivery_state()=D("day"=>-1,"completed"=>false,"known_stock"=>0,
     "completions"=>0,"stay_requests"=>0,"food_exceptions"=>0,"records"=>Any[])
 function configured_daily_delivery_day!(s,now,day_us)
