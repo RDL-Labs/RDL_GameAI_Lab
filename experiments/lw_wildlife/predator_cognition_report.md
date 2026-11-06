@@ -471,3 +471,36 @@ ONの時間短縮には死亡後の処理減少を含むため、局所計算が
 結果: `outputs/local-wait-child-30d-20261107`。
 集計: `evidence/local-wait-child-thirty-day.json`。
 再現: `julia --startup-file=no --project=. experiments/lw_wildlife/scent_motion_longrun.jl outputs/NEW_OUTPUT 30 --local-hunt`
+
+## 攻撃中止22件の再現監査（2026-11-07）
+
+`audit_local_hunt_abort.jl`で待機子MB版の凍結ソースを最初から再生。
+局所rolloutの演算・判定順を維持した診断版で、判断に影響しない予測step記録を追加。
+17日分の日末・最終の世界/親認知報告と局所MB報告が元結果に一致。
+実イベントのabort_forecast22件と診断記録の個体/tickも全件一致。
+
+中止理由（H.clearの評価順に排他的分類）:
+- 予測経路が水へ入る: 11件。
+- 予測経路がマップ境界を越える: 6件。
+- 3step以内に接触半径0.55へ届かない: 5件。
+水判定のうち2件は障害物区間とも重なる。視認不能によるabort_unseenは0。
+全22件が攻撃開始の次tick（1歩実行後、残りtimer=2）。
+全件で再予測の最初の1歩は通行可能。地形不成立17件は2または3step目。
+にもかかわらず、rolloutがnothingを返すと即recoverへ移し120tick休止する。
+「次の一歩が危険」と「数歩先の捕獲見込みが崩れた」を同じ中止として扱っている。
+再予測のhorizonは毎回3で、残り攻撃timer=2とも揃っていない。
+
+開始時と中止時で推定速度の内積が負（90度超の方向変化）は19件。
+開始時推定静止→速度0.6は2件。最新の直線等速予測が相手の方向変化で崩れている。
+例tick6168開始は北向き約0.6、6169には南向き約0.6となり、3step先の川で不成立。
+この予測は獲物が水や境界で向きを変える可能性を表現せず、直線を延長する。
+実際にその未来位置へ獲物が進むことが確定したわけではない。
+距離理由5件の3step後予測間隔は2.13〜3.00で、単なる丸め誤差の境界判定ではない。
+
+調査からの設計候補: 直近の身体安全、捕獲成立の見込み、再接近への切替を分ける。
+予測が崩れた時に常に全体中止＋回復へ移すのでなく、安全な局所修正と親側の費用見積もりで継続/撤退を評価する。
+ただし次の一歩が通ることは、追走が有益なことや捕獲成功を保証しない。
+今回は原因調査のみ。中止判断・休息報酬は変更していない。
+
+証拠: `evidence/local-hunt-abort-audit.json`。
+再現: `julia --startup-file=no --project=. experiments/lw_wildlife/audit_local_hunt_abort.jl outputs/local-wait-child-30d-20261107 outputs/NEW_AUDIT.json`
