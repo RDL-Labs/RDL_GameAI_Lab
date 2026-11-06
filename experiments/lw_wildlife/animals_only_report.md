@@ -83,3 +83,27 @@ julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl --ch
 再実行: `julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl outputs/NEW_OUTPUT 60`。
 集計 `evidence/animals-only-sixty-day.json`。
 詳細・60日分checkpoint・凍結ソースは `outputs/animals-only-60d-20261106`。
+
+## 威嚇の固定上限（2026-11-06）
+
+威嚇開始から60tickで切り上げ、その後600tickは威嚇を再開しない暫定固定へ変更。
+短い見失いでも期限を延長しない。待機中も相手を観測し、撤退は可能。
+威嚇だけを抑制し、空腹なら狩猟、満腹なら休息へ戻る。相手の威嚇を受け取る機構ではない。
+`warning_started`、`warning_blocked_until`、`warning_timeouts`を保存・出力する。
+通常LWへ未接続。将来は状況変化・身体需要・経験による終了へ置換予定。
+
+旧3日目checkpointの既存フィールドを維持し、新規タイマーだけ未開始として10日まで比較。
+旧構造を新構造として直接deserializeせず、凍結版で読み出してフィールド移送する実験用手順。
+捕食者2の威嚇累計は16,537→35tick、捕食2→7、5日目死亡→10日目生存。
+修正版の再実行区間の最長連続威嚇は23tick。開始から60tickという時間枠内に
+短い威嚇が複数回入り、上限で終了した。捕食者1は10日目死亡のまま。
+10日目兎27体（旧32体）。これは同じ初期状態からの因果的な挙動変化であり、
+長期バランスの改善を保証しない。境界検査は既存9＋追加8＝17項目PASS。
+上限、再入場禁止、空腹で狩猟、満腹で休息、タイマー保存、見失い後の期限維持を確認。
+
+証拠: `evidence/warning-limit-replay.json`。
+再現コマンド（旧60日出力のパスは絶対パスを渡す）:
+```
+julia --project=. experiments/lw_wildlife/warning_transfer_export.jl OLD_OUTPUT TRANSFER.jls
+julia --project=. experiments/lw_wildlife/warning_limit_replay.jl TRANSFER.jls RESULT.json
+```

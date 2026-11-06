@@ -72,6 +72,37 @@ function main()
         end
         @test animal_trial_report(s,predators)==animal_trial_report(copy_s,copy_p)
     end
+    @testset "bounded warning and reentry" begin
+        s,predators=animal_trial_world();p,q=predators
+        empty!(s.world.obstacles);s.world.traits.density.=0.
+        p.visual.body.x=-10.;p.visual.body.z=6.;p.visual.gaze=0.;p.center=(-10.,6.)
+        q.visual.body.x=-8.;q.visual.body.z=6.
+        warnings=0
+        for t in 0:59
+            configured_trial_plan!(s,p,predators,t)
+            warnings+=p.mode==:warn
+        end
+        @test warnings==60
+        configured_trial_plan!(s,p,predators,60)
+        @test p.mode==:rest && p.warning_blocked_until==660 && p.warning_timeouts==1
+        p.food=100.
+        configured_trial_plan!(s,p,predators,61)
+        @test p.mode==:hunt
+        io=IOBuffer();serialize(io,p);seekstart(io);restored=deserialize(io)
+        @test restored.warning_blocked_until==660 && restored.warning_started==-1
+        p.food=900.;p.visual.body.state=P.REST;p.visual.gaze=0.
+        configured_trial_plan!(s,p,predators,659)
+        @test p.mode==:rest
+        p.visual.gaze=0.
+        configured_trial_plan!(s,p,predators,660)
+        @test p.mode==:warn && p.warning_started==660
+        configured_trial_plan!(s,p,[p],680)
+        p.visual.gaze=0.
+        configured_trial_plan!(s,p,predators,719)
+        @test p.mode==:warn && p.warning_started==660
+        configured_trial_plan!(s,p,predators,720)
+        @test p.mode==:rest && p.warning_timeouts==2
+    end
     checks_only && return
     frozen=joinpath(out,"source")
     mkpath(joinpath(frozen,"experiments","lw_wildlife"))
