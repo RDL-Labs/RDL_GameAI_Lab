@@ -215,3 +215,20 @@ withdraw_priority=0、速度はapproach_speedを共用。攻撃見積もりが�
 wait_recordsには対象・status・reason・凍結見積もり・経過・消費を保存（直近128件）。
 countsにwait_ticks、wait_achieved/failed/interruptedを累計。active_waitに進行中試行を保存。
 比較でwaitは選択回数、wait_ticksは継続時間であり、旧版の毎tick選択回数と混同しない。
+
+## 動物の境界反発（2026-11-07）
+
+`src/lw/configured_paths/wildlife_boundary.jl` に暫定固定設定として隔離。
+世界の境界を直接知るショートカットで、学習や視覚から生じた反発ではない。
+`wildlife.boundary_gradient` は通常LWでは既定false、animals_onlyの世界生成では既定true。
+scent_runは既存比較を保つため既定false。scent_motion_longrunは既定ON、
+`--no-boundary-gradient` でOFF。各実行のconditionsに設定と係数を保存する。
+幅8世界単位、強度2、身体余白0.25。各辺からの距離dに対し
+`2*clamp(1-d/8,0,1)^2` を内向きの方向ベクトルとして足して正規化する。
+速度は変えず、中央では元の向きをそのまま返す。角では二辺を合成。
+ウサギの探索・逃走、捕食者の通常移動・攻撃、局所攻撃と接近候補の予測に接続。
+休息・待機を移動させず、水・障害物・境界の物理衝突判定も維持する。
+獲物の未来位置は従来どおり観測速度の直線外挿であり、獲物の旋回予測まで実装したわけではない。
+将来は観測された地形や活動範囲の関係勾配へ置換する。現在は人の移動には適用しない。
+Worldにフラグを保存するため新しいチェックポイントでON/OFFを保持できる。
+旧チェックポイントは型が異なるので、その実験の凍結ソースで読み込む。

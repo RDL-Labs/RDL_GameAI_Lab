@@ -1,7 +1,7 @@
 using Statistics
 include("animals_only.jl")
-function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_dir=nothing,local_hunt=false)
-    s,predators=animal_trial_world(;adult_rabbits=95)
+function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_dir=nothing,local_hunt=false,boundary_gradient=false)
+    s,predators=animal_trial_world(;adult_rabbits=95,boundary_gradient)
     scents=PredatorScentWorld(2);minds=[PredatorMind(i) for i in 1:2]
     prey_scents=enabled ? PreyScentWorld(2;cautious) : nothing;daily=Any[]
     local_hunts=local_hunt ? [LocalHunt(i) for i in 1:2] : nothing

@@ -6,9 +6,9 @@ include("../../src/lw/configured_paths/predator_marking.jl")
 include("../../src/lw/configured_paths/prey_scent.jl")
 include("../../src/ecology/lw_grazing/predator_cognition.jl")
 include("../../src/lw/configured_paths/predator_local_hunt.jl")
-function animal_trial_world(;adult_rabbits=30)
+function animal_trial_world(;adult_rabbits=30,boundary_gradient=true)
     input=JSON3.read(read(joinpath(@__DIR__,"predator_3d_spec.json"),String))
-    wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,count=adult_rabbits))
+    wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,count=adult_rabbits,boundary_gradient=boundary_gradient))
     scene=merge((;pairs(input.scene)...),(positions=Tuple{Float64,Float64}[],wildlife=wildlife))
     s=G.build(scene,input.clock)
     cells=findall(s.world.walkable)
@@ -71,7 +71,7 @@ function main()
     ispath(out) && error("output already exists")
     mkpath(out)
     conditions=(days=days,stop_on_predator_extinction=true,humans=0,adult_rabbits=adult_rabbits,initial_young=5,predators=2,
-        rule=PREDATOR_ANIMAL_TRIAL,prey_nutrition=prey_nutrition,adult_food_equivalent=PREDATOR_ANIMAL_TRIAL.adult_food*prey_nutrition,
+        boundary_gradient=true,boundary_rule=H.WILDLIFE_BOUNDARY,rule=PREDATOR_ANIMAL_TRIAL,prey_nutrition=prey_nutrition,adult_food_equivalent=PREDATOR_ANIMAL_TRIAL.adult_food*prey_nutrition,
         marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
         cognition=cognition,cognition_rule=cognition ? PREDATOR_COGNITION : nothing,
         fixed=cognition ? "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding" :

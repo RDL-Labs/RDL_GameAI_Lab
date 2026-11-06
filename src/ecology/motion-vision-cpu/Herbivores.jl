@@ -15,7 +15,9 @@ mutable struct World
     features::Vector{NamedTuple}
     traits::Union{Nothing,WorldFeatures.GrassTraits}
     grown::Float64; eaten::Float64; initial::Float64
+    boundary_gradient::Bool
 end
+include("../../lw/configured_paths/wildlife_boundary.jl")
 mutable struct Animals
     x::Vector{Float64}; z::Vector{Float64}; heading::Vector{Float64}
     energy::Vector{Float64}; gut::Vector{Float64}; sleepy::Vector{Float64}
@@ -43,7 +45,7 @@ function build(spec; seed=20261005, grass_scale=1.,rich=false)
     s=rich && !hasproperty(spec.scene,:world_features) ? WorldFeatures.enrich_scene(spec.scene;seed) : spec.scene; land=s.landscape; xmin,xmax,zmin,zmax=Float64.(land.extent)
     nx=round(Int,(xmax-xmin)/2); nz=round(Int,(zmax-zmin)/2); n=nx*nz
     objects=[RDLMigrationProbe.Circle(Float64(o.x),Float64(o.z),Float64(o.radius)) for o in vcat(collect(s.obstacles),collect(s.low_obstacles)) if !hasproperty(o,:solid) || o.solid]
-    w=World(xmin,zmin,xmax,zmax,2.,nx,nz,land.phase,zeros(UInt8,n),falses(n),zeros(n),zeros(n),zeros(Int,n),objects,rich ? NamedTuple[(x=Float64(o.x),z=Float64(o.z),radius=Float64(o.radius),height=Float64(o.height),color=UInt8(something(findfirst(==(o.color),WorldFeatures.COLORS),0)),kind=o.kind) for o in vcat(collect(s.obstacles),collect(s.low_obstacles))] : NamedTuple[],rich ? WorldFeatures.grass_traits(nx,nz;seed) : nothing,0.,0.,0.)
+    w=World(xmin,zmin,xmax,zmax,2.,nx,nz,land.phase,zeros(UInt8,n),falses(n),zeros(n),zeros(n),zeros(Int,n),objects,rich ? NamedTuple[(x=Float64(o.x),z=Float64(o.z),radius=Float64(o.radius),height=Float64(o.height),color=UInt8(something(findfirst(==(o.color),WorldFeatures.COLORS),0)),kind=o.kind) for o in vcat(collect(s.obstacles),collect(s.low_obstacles))] : NamedTuple[],rich ? WorldFeatures.grass_traits(nx,nz;seed) : nothing,0.,0.,0.,Bool(get(get(s,:wildlife,NamedTuple()),:boundary_gradient,false)))
     rng=MersenneTwister(seed)
     for k in 1:n
         p=center(w,k); m=material(w.phase,p...); w.material[k]=m
@@ -113,12 +115,12 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
             end
             speed=state==FLEE ? .6 : .2
             steering!==nothing && state==SEARCH && (a.heading[i]=steering(w,a,i,speed,overrides))
-            p=(a.x[i],a.z[i]); q=(p[1]+speed*cos(a.heading[i]),p[2]+speed*sin(a.heading[i]))
+            p=(a.x[i],a.z[i]); a.heading[i]=configured_boundary_heading(w,p,a.heading[i]); q=(p[1]+speed*cos(a.heading[i]),p[2]+speed*sin(a.heading[i]))
             if state==FLEE && !clear(w,p,q)
                 # Choose the clear escape step farthest from the perceived threat.
                 best=-Inf; chosen=nothing; base=a.heading[i]
                 for offset in (pi/4,-pi/4,pi/2,-pi/2,3pi/4,-3pi/4,pi)
-                    h=base+offset; candidate=(p[1]+speed*cos(h),p[2]+speed*sin(h))
+                    h=configured_boundary_heading(w,p,base+offset); candidate=(p[1]+speed*cos(h),p[2]+speed*sin(h))
                     clear(w,p,candidate) || continue
                     score=hypot(candidate[1]-threat[1],candidate[2]-threat[2])
                     if score>best; best=score; chosen=(candidate,h); end

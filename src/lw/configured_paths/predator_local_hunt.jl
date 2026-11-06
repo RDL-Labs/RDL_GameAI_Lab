@@ -51,7 +51,7 @@ function local_hunt_rollout(w,origin,forecast)
         target=(forecast.x+k*forecast.vx,forecast.z+k*forecast.vz)
         dx=target[1]-p[1];dz=target[2]-p[2];distance=hypot(dx,dz)
         speed=min(LOCAL_HUNT.attack_speed,distance)
-        q=distance>0 ? (p[1]+speed*dx/distance,p[2]+speed*dz/distance) : p
+        q=distance>0 ? (w.boundary_gradient ? H.configured_boundary_step(w,p,atan(dz,dx),speed) : (p[1]+speed*dx/distance,p[2]+speed*dz/distance)) : p
         H.clear(w,p,q) || return nothing
         k==1 && (first_step=(heading=atan(dz,dx),speed=speed))
         hypot(q[1]-target[1],q[2]-target[2])<=LOCAL_HUNT.contact_radius && return first_step
@@ -116,7 +116,7 @@ function configured_local_hunt_plan!(state,s,observations,t)
         "heading"=>attack.heading,"speed"=>attack.speed))
     heading=atan(o.z-b.z,o.x-b.x)
     for (name,offset) in (("approach",0.),("left",rule.side_angle),("right",-rule.side_angle),("withdraw",pi))
-        angle=heading+offset;q=(b.x+rule.approach_speed*cos(angle),b.z+rule.approach_speed*sin(angle))
+        angle=heading+offset;q=H.configured_boundary_step(s.world,origin,angle,rule.approach_speed)
         H.clear(s.world,origin,q) || continue
         future=local_hunt_rollout(s.world,q,forecast)
         progress=o.distance-hypot(q[1]-o.x,q[2]-o.z)

@@ -38,7 +38,7 @@ end
 function move!(w,p,speed; turn=true)
     old=(p.x,p.z)
     for offset in (turn ? (0.,pi/4,-pi/4,pi/2,-pi/2,pi) : (0.,))
-        h=p.heading+offset; q=(p.x+speed*cos(h),p.z+speed*sin(h))
+        h=H.configured_boundary_heading(w,old,p.heading+offset); q=(p.x+speed*cos(h),p.z+speed*sin(h))
         if H.clear(w,old,q)
             p.x,p.z=q; p.heading=h; p.distance+=speed; return true
         end

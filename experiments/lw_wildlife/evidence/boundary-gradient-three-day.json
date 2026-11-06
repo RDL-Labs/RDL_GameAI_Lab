@@ -1,0 +1,293 @@
+{
+  "conditions": "paired 3-day boundary gradient OFF/ON; same initial state and seed",
+  "rule": {
+    "width": 8.0,
+    "strength": 2.0,
+    "body_margin": 0.25
+  },
+  "checks": 15,
+  "off_daily_matches_previous": true,
+  "runs": [
+    {
+      "enabled": false,
+      "seconds": 7.7943301,
+      "predators": [
+        {
+          "alive": false,
+          "food": 0.0,
+          "eaten": 0.0,
+          "spent": 900.0000000002125,
+          "discarded": 0.0,
+          "balance_residual": -2.1248069970170036E-10,
+          "captures": 0,
+          "attacks": 5,
+          "encounters": 10,
+          "warning_started": -1,
+          "warning_blocked_until": 0,
+          "warning_timeouts": 0,
+          "ticks": {
+            "dead": 32220,
+            "hunt": 12136,
+            "visit_rest": 884,
+            "rest": 6600
+          },
+          "position": [
+            -63.45540573731973,
+            -4.600639610609948
+          ],
+          "center": [
+            -9.0,
+            5.0
+          ],
+          "prey_observations": 21042,
+          "events": [
+            {
+              "tick": 6127,
+              "kind": "miss",
+              "id": 0
+            },
+            {
+              "tick": 8642,
+              "kind": "abort_forecast",
+              "id": 52
+            },
+            {
+              "tick": 8767,
+              "kind": "abort_forecast",
+              "id": 52
+            },
+            {
+              "tick": 8901,
+              "kind": "escape",
+              "id": 5
+            },
+            {
+              "tick": 14420,
+              "kind": "abort_forecast",
+              "id": 50
+            }
+          ]
+        },
+        {
+          "alive": true,
+          "food": 523.9837777788864,
+          "eaten": 1600.5430097279218,
+          "spent": 1976.5592319496545,
+          "discarded": 86.9569902720782,
+          "balance_residual": -6.191385182319209E-10,
+          "captures": 6,
+          "attacks": 11,
+          "encounters": 10,
+          "warning_started": -1,
+          "warning_blocked_until": 0,
+          "warning_timeouts": 0,
+          "ticks": {
+            "hunt": 3944,
+            "visit_food": 727,
+            "visit_rest": 4397,
+            "rest": 42772
+          },
+          "position": [
+            -24.664566474865286,
+            17.676315961374797
+          ],
+          "center": [
+            7.0,
+            5.0
+          ],
+          "prey_observations": 18229,
+          "events": [
+            {
+              "tick": 6045,
+              "kind": "abort_forecast",
+              "id": 33
+            },
+            {
+              "tick": 6169,
+              "kind": "abort_forecast",
+              "id": 33
+            },
+            {
+              "tick": 6296,
+              "kind": "abort_forecast",
+              "id": 33
+            },
+            {
+              "tick": 6420,
+              "kind": "escape",
+              "id": 33
+            },
+            {
+              "tick": 9517,
+              "kind": "capture",
+              "id": 96
+            },
+            {
+              "tick": 9671,
+              "kind": "capture",
+              "id": 97
+            },
+            {
+              "tick": 14933,
+              "kind": "capture",
+              "id": 98
+            },
+            {
+              "tick": 14934,
+              "kind": "capture",
+              "id": 99
+            },
+            {
+              "tick": 14949,
+              "kind": "escape",
+              "id": 100
+            },
+            {
+              "tick": 15070,
+              "kind": "capture",
+              "id": 100
+            },
+            {
+              "tick": 18260,
+              "kind": "capture",
+              "id": 76
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "seconds": 5.5268223,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1.241950392519866,
+          "eaten": 1195.6823333330685,
+          "spent": 2094.44038294081,
+          "discarded": 221.81766666693147,
+          "balance_residual": -2.6147972675971687E-10,
+          "captures": 2,
+          "attacks": 5,
+          "encounters": 2,
+          "warning_started": -1,
+          "warning_blocked_until": 0,
+          "warning_timeouts": 0,
+          "ticks": {
+            "hunt": 10330,
+            "visit_food": 1035,
+            "visit_rest": 4475,
+            "rest": 36000
+          },
+          "position": [
+            0.8489501774575458,
+            -10.014284667450474
+          ],
+          "center": [
+            -9.0,
+            5.0
+          ],
+          "prey_observations": 21812,
+          "events": [
+            {
+              "tick": 4049,
+              "kind": "abort_forecast",
+              "id": 91
+            },
+            {
+              "tick": 5964,
+              "kind": "capture",
+              "id": 33
+            },
+            {
+              "tick": 20245,
+              "kind": "abort_forecast",
+              "id": 50
+            },
+            {
+              "tick": 34012,
+              "kind": "escape",
+              "id": 96
+            },
+            {
+              "tick": 34135,
+              "kind": "capture",
+              "id": 96
+            }
+          ]
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "eaten": 0.0,
+          "spent": 900.0000000003986,
+          "discarded": 0.0,
+          "balance_residual": -3.985860530519858E-10,
+          "captures": 0,
+          "attacks": 8,
+          "encounters": 2,
+          "warning_started": -1,
+          "warning_blocked_until": 0,
+          "warning_timeouts": 0,
+          "ticks": {
+            "dead": 31508,
+            "hunt": 10476,
+            "visit_rest": 256,
+            "rest": 9600
+          },
+          "position": [
+            13.360082710192714,
+            11.080402608929582
+          ],
+          "center": [
+            7.0,
+            5.0
+          ],
+          "prey_observations": 12994,
+          "events": [
+            {
+              "tick": 6054,
+              "kind": "miss",
+              "id": 0
+            },
+            {
+              "tick": 9357,
+              "kind": "abort_forecast",
+              "id": 91
+            },
+            {
+              "tick": 12403,
+              "kind": "abort_forecast",
+              "id": 91
+            },
+            {
+              "tick": 12528,
+              "kind": "abort_forecast",
+              "id": 91
+            },
+            {
+              "tick": 12653,
+              "kind": "abort_forecast",
+              "id": 91
+            },
+            {
+              "tick": 13920,
+              "kind": "abort_forecast",
+              "id": 57
+            },
+            {
+              "tick": 14042,
+              "kind": "abort_forecast",
+              "id": 57
+            },
+            {
+              "tick": 19791,
+              "kind": "abort_forecast",
+              "id": 52
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

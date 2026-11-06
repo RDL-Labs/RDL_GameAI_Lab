@@ -504,3 +504,17 @@ ONの時間短縮には死亡後の処理減少を含むため、局所計算が
 
 証拠: `evidence/local-hunt-abort-audit.json`。
 再現: `julia --startup-file=no --project=. experiments/lw_wildlife/audit_local_hunt_abort.jl outputs/local-wait-child-30d-20261107 outputs/NEW_AUDIT.json`
+
+## 境界反発の接続と3日比較（2026-11-07）
+
+同一地形・シード、成体95+幼体5、捕食者2、人0、栄養1.5、匂い/慎重移動/速度視覚/
+局所狩猟/待機子MB ON。境界反発のみOFF/ON。休息の固定報酬は変更していない。
+`boundary_checks.jl` の四辺・角・速度保持・中央不変・実移動一致・保存検査15項目PASS。
+OFFの3日分日末結果が旧local-wait-child-30dと完全一致することも確認。
+OFF: 捕獲0/6、生存false/true、予測中止合計6。
+ON: 捕獲2/0、生存true/false、予測中止合計9。生存側の残存食料も1.24で余裕はない。
+反発実装の動作確認であり、狩猟や生存が改善したという結果ではない。
+ONの中止9件の地形別内訳は未調査。境界中止が解消したとも断定しない。
+実行秒7.79/5.53はOFF先行・コンパイル影響と行動差があり、速度改善の比較には使わない。
+証拠: evidence/boundary-gradient-three-day.json。全結果と検証済みソースのコピーは
+outputs/boundary-gradient-3d-20261107。旧保存状態は旧凍結ソースを使う。
