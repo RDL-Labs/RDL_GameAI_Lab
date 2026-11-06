@@ -1,0 +1,2807 @@
+{
+  "conditions": {
+    "days": 30,
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "humans": 0,
+    "nutrition": 1.5,
+    "marking": true,
+    "cognition": true,
+    "prey_scent": true,
+    "cautious": true,
+    "motion_speed": true,
+    "stop_on_predator_extinction": true,
+    "prey_rule": {
+      "cell_size": 4.0,
+      "radius": 6.0,
+      "deposit_interval": 30,
+      "sniff_interval": 30,
+      "lifetime": 17280,
+      "deposit": 1.0,
+      "capacity": 4.0,
+      "minimum_signal": 0.05,
+      "arrival_radius": 1.0
+    },
+    "caution_rule": {
+      "strong_signal": 0.6,
+      "speed": 0.08,
+      "unconfirmed_ticks": 120,
+      "cooldown_ticks": 600
+    },
+    "motion_rule": {
+      "stationary": 0.55,
+      "saturation_speed": 0.5
+    },
+    "local_hunt": true,
+    "local_rule": {
+      "radius": 6.0,
+      "velocity_cap": 0.7,
+      "history_ticks": 20,
+      "horizon": 3,
+      "attack_speed": 1.0,
+      "approach_speed": 0.35,
+      "side_angle": 1.0471975511965976,
+      "contact_radius": 0.55,
+      "attack_priority": 4.0,
+      "approach_priority": 2.0,
+      "wait_priority": -1.0,
+      "cost_weight": 0.2,
+      "future_attack_bonus": 1.0,
+      "expected_capture": 0.6,
+      "wait_forecast_ticks": 20,
+      "withdraw_priority": 0.0,
+      "log_limit": 128
+    },
+    "fixed": "provisional scent/speed rules; optional local capture forecast with wait child; no sound/wind/humans; rest reward unchanged"
+  },
+  "completion": {
+    "reason": "predator_extinction",
+    "elapsed_days": 17.749305555555555,
+    "completed_days": 17,
+    "stopped_in_day": 18
+  },
+  "seconds": 29.8697333,
+  "bytes": 21577785354,
+  "gc_seconds": 1.6675821,
+  "wait_boundary_tests": 9,
+  "wait_counts_balanced": true,
+  "predators": [
+    {
+      "alive": false,
+      "food": 0.0,
+      "captures": 0,
+      "attacks": 5,
+      "eaten": 0.0,
+      "spent": 900.0000000002125,
+      "discarded": 0.0,
+      "ticks": {
+        "dead": 287088,
+        "hunt": 12136,
+        "visit_rest": 884,
+        "rest": 6600
+      },
+      "events": [
+        {
+          "tick": 6127,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 8642,
+          "kind": "abort_forecast",
+          "id": 52
+        },
+        {
+          "tick": 8767,
+          "kind": "abort_forecast",
+          "id": 52
+        },
+        {
+          "tick": 8901,
+          "kind": "escape",
+          "id": 5
+        },
+        {
+          "tick": 14420,
+          "kind": "abort_forecast",
+          "id": 50
+        }
+      ],
+      "balance_residual": -2.1248069970170036E-10
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "captures": 18,
+      "attacks": 45,
+      "eaten": 10695.342940756738,
+      "spent": 11595.342940837887,
+      "discarded": 779.6570592432636,
+      "ticks": {
+        "hunt": 27398,
+        "visit_food": 4084,
+        "visit_rest": 17826,
+        "rest": 257400
+      },
+      "events": [
+        {
+          "tick": 6045,
+          "kind": "abort_forecast",
+          "id": 33
+        },
+        {
+          "tick": 6169,
+          "kind": "abort_forecast",
+          "id": 33
+        },
+        {
+          "tick": 6296,
+          "kind": "abort_forecast",
+          "id": 33
+        },
+        {
+          "tick": 6420,
+          "kind": "escape",
+          "id": 33
+        },
+        {
+          "tick": 9517,
+          "kind": "capture",
+          "id": 96
+        },
+        {
+          "tick": 9671,
+          "kind": "capture",
+          "id": 97
+        },
+        {
+          "tick": 14933,
+          "kind": "capture",
+          "id": 98
+        },
+        {
+          "tick": 14934,
+          "kind": "capture",
+          "id": 99
+        },
+        {
+          "tick": 14949,
+          "kind": "escape",
+          "id": 100
+        },
+        {
+          "tick": 15070,
+          "kind": "capture",
+          "id": 100
+        },
+        {
+          "tick": 18260,
+          "kind": "capture",
+          "id": 76
+        },
+        {
+          "tick": 54945,
+          "kind": "abort_forecast",
+          "id": 60
+        },
+        {
+          "tick": 55067,
+          "kind": "escape",
+          "id": 60
+        },
+        {
+          "tick": 60029,
+          "kind": "capture",
+          "id": 72
+        },
+        {
+          "tick": 87444,
+          "kind": "abort_forecast",
+          "id": 44
+        },
+        {
+          "tick": 87566,
+          "kind": "escape",
+          "id": 56
+        },
+        {
+          "tick": 89521,
+          "kind": "escape",
+          "id": 82
+        },
+        {
+          "tick": 89668,
+          "kind": "abort_forecast",
+          "id": 75
+        },
+        {
+          "tick": 89790,
+          "kind": "abort_forecast",
+          "id": 75
+        },
+        {
+          "tick": 91481,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 91606,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 91728,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 93416,
+          "kind": "capture",
+          "id": 6
+        },
+        {
+          "tick": 115874,
+          "kind": "abort_forecast",
+          "id": 94
+        },
+        {
+          "tick": 115998,
+          "kind": "abort_forecast",
+          "id": 94
+        },
+        {
+          "tick": 116127,
+          "kind": "capture",
+          "id": 56
+        },
+        {
+          "tick": 146425,
+          "kind": "capture",
+          "id": 44
+        },
+        {
+          "tick": 176931,
+          "kind": "capture",
+          "id": 75
+        },
+        {
+          "tick": 178796,
+          "kind": "escape",
+          "id": 77
+        },
+        {
+          "tick": 178980,
+          "kind": "capture",
+          "id": 107
+        },
+        {
+          "tick": 216182,
+          "kind": "escape",
+          "id": 108
+        },
+        {
+          "tick": 216305,
+          "kind": "capture",
+          "id": 108
+        },
+        {
+          "tick": 218337,
+          "kind": "capture",
+          "id": 109
+        },
+        {
+          "tick": 220958,
+          "kind": "abort_forecast",
+          "id": 95
+        },
+        {
+          "tick": 221082,
+          "kind": "abort_forecast",
+          "id": 95
+        },
+        {
+          "tick": 221205,
+          "kind": "abort_forecast",
+          "id": 28
+        },
+        {
+          "tick": 221326,
+          "kind": "capture",
+          "id": 95
+        },
+        {
+          "tick": 257638,
+          "kind": "abort_forecast",
+          "id": 82
+        },
+        {
+          "tick": 257761,
+          "kind": "capture",
+          "id": 82
+        },
+        {
+          "tick": 292335,
+          "kind": "abort_forecast",
+          "id": 28
+        },
+        {
+          "tick": 296378,
+          "kind": "capture",
+          "id": 110
+        },
+        {
+          "tick": 298839,
+          "kind": "capture",
+          "id": 111
+        },
+        {
+          "tick": 300015,
+          "kind": "abort_forecast",
+          "id": 64
+        },
+        {
+          "tick": 300140,
+          "kind": "abort_forecast",
+          "id": 5
+        },
+        {
+          "tick": 300472,
+          "kind": "miss",
+          "id": 0
+        }
+      ],
+      "balance_residual": -8.114875527098775E-08
+    }
+  ],
+  "local_hunt": [
+    {
+      "counts": {
+        "right": 223,
+        "wait_ticks": 267,
+        "wait_failed": 29,
+        "attack": 5,
+        "wait_achieved": 2,
+        "withdraw": 66,
+        "approach": 226,
+        "evaluations": 1002,
+        "left": 209,
+        "wait": 31
+      },
+      "wait_records": [
+        {
+          "target": 91,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 38,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 74,
+          "status": "failed",
+          "reason": "target_unobserved",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 73,
+            "key": "wait",
+            "energy": 0.5902777777778851,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_unobserved"
+            },
+            "last_us": null,
+            "elapsed": 17.0
+          }
+        },
+        {
+          "target": 73,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 92,
+            "key": "wait",
+            "energy": 0.10416666666668561,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 3.0
+          }
+        },
+        {
+          "target": 52,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 231,
+            "key": "wait",
+            "energy": 0.10416666666668561,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 3.0
+          }
+        },
+        {
+          "target": 5,
+          "status": "achieved",
+          "reason": "capture_opportunity_observed",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 233,
+            "key": "wait",
+            "energy": 0.03472222222222854,
+            "forecast": 20.0,
+            "status": "achieved",
+            "evidence": {
+              "reason": "capture_opportunity_observed"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 5,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 251,
+            "key": "wait",
+            "energy": 0.10416666666668561,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 3.0
+          }
+        },
+        {
+          "target": 94,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 265,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 64,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 329,
+            "key": "wait",
+            "energy": 0.03472222222222854,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 64,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 346,
+            "key": "wait",
+            "energy": 0.03472222222222854,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 64,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 356,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 64,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 366,
+            "key": "wait",
+            "energy": 0.03472222222222854,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 44,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 394,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 18,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 408,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 36,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 416,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 50,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 418,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 50,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 455,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 18,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 476,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 18,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 487,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 50,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 488,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 47,
+          "status": "achieved",
+          "reason": "capture_opportunity_observed",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 581,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "achieved",
+            "evidence": {
+              "reason": "capture_opportunity_observed"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 47,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 591,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 47,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 595,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 70,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 616,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 1,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 639,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 661,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "target_unobserved",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 682,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_unobserved"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 45,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 683,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 45,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 685,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 44,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 692,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 44,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 708,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 53,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 728,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        }
+      ],
+      "active_wait": null,
+      "loop": {
+        "goal": "predator:1:capture",
+        "H": 2.7499999999999996,
+        "selection_seed": 14501759506709801246,
+        "last_method": "left",
+        "sequence": 760,
+        "methods": {
+          "right": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 752,
+            "failure_repulsion": 0.0
+          },
+          "attack": {
+            "failure_count": 5,
+            "H": 2.7499999999999996,
+            "threshold": 2.0,
+            "failure_H_total": 2.7499999999999996,
+            "reward": 0.0,
+            "last_selected": 537,
+            "failure_repulsion": 1.3217558399823193
+          },
+          "withdraw": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 758,
+            "failure_repulsion": 0.0
+          },
+          "approach": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 757,
+            "failure_repulsion": 0.0
+          },
+          "left": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 760,
+            "failure_repulsion": 0.0
+          },
+          "wait": {
+            "failure_count": 0,
+            "H": 11.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 728,
+            "failure_repulsion": 0.0
+          }
+        },
+        "events": [
+          {
+            "source": 729,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 730,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 731,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 732,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 733,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 734,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 735,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 736,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 737,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 738,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 739,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 740,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 741,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 742,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 743,
+            "method": "withdraw",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 744,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 745,
+            "method": "withdraw",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 746,
+            "method": "withdraw",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 747,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 748,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 749,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 750,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 751,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 752,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 753,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 754,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 755,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 756,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 757,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 758,
+            "method": "withdraw",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 759,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 760,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 2.7499999999999996,
+            "goal_H_after": 2.7499999999999996,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          }
+        ],
+        "parent": null,
+        "probabilistic": true,
+        "threshold": 2.0,
+        "credit_path": []
+      }
+    },
+    {
+      "counts": {
+        "right": 355,
+        "wait_ticks": 448,
+        "wait_failed": 33,
+        "attack": 45,
+        "wait_achieved": 1,
+        "withdraw": 96,
+        "approach": 513,
+        "evaluations": 1906,
+        "left": 400,
+        "wait": 34
+      },
+      "wait_records": [
+        {
+          "target": 33,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 1,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 74,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 36,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 74,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 42,
+            "key": "wait",
+            "energy": 0.03472222222222854,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 76,
+          "status": "failed",
+          "reason": "target_unobserved",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 78,
+            "key": "wait",
+            "energy": 0.10416666666668561,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_unobserved"
+            },
+            "last_us": null,
+            "elapsed": 3.0
+          }
+        },
+        {
+          "target": 76,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 84,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 76,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 86,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 52,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 107,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 52,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 108,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 52,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 118,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 52,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 127,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 52,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 130,
+            "key": "wait",
+            "energy": 0.6944444444445708,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 52,
+          "status": "failed",
+          "reason": "target_unobserved",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 135,
+            "key": "wait",
+            "energy": 0.20833333333337123,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_unobserved"
+            },
+            "last_us": null,
+            "elapsed": 6.0
+          }
+        },
+        {
+          "target": 33,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 136,
+            "key": "wait",
+            "energy": 0.03472222222222854,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 211,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 13,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 401,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 68,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 426,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 75,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 654,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 91,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 714,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 91,
+          "status": "failed",
+          "reason": "target_unobserved",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 718,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_unobserved"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 91,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 723,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 81,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 766,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 33,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 777,
+            "key": "wait",
+            "energy": 0.034722222222171695,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 1.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 798,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "target_left_local_range",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 817,
+            "key": "wait",
+            "energy": 0.06944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "target_left_local_range"
+            },
+            "last_us": null,
+            "elapsed": 2.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 828,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 830,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 6,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 853,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 6,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 854,
+            "key": "wait",
+            "energy": 0.6944444444434339,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 94,
+          "status": "achieved",
+          "reason": "capture_opportunity_observed",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 891,
+            "key": "wait",
+            "energy": 0.1736111111131322,
+            "forecast": 20.0,
+            "status": "achieved",
+            "evidence": {
+              "reason": "capture_opportunity_observed"
+            },
+            "last_us": null,
+            "elapsed": 5.0
+          }
+        },
+        {
+          "target": 60,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 919,
+            "key": "wait",
+            "energy": 0.6944444444525288,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 953,
+            "key": "wait",
+            "energy": 0.6944444444525288,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 57,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 958,
+            "key": "wait",
+            "energy": 0.6944444444525288,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 44,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 963,
+            "key": "wait",
+            "energy": 0.6944444444525288,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        },
+        {
+          "target": 107,
+          "status": "failed",
+          "reason": "forecast_elapsed_without_opportunity",
+          "trial": {
+            "goal": "capture_opportunity",
+            "H": 0.0,
+            "id": 1039,
+            "key": "wait",
+            "energy": 0.6944444444525288,
+            "forecast": 20.0,
+            "status": "failed",
+            "evidence": {
+              "reason": "forecast_elapsed_without_opportunity"
+            },
+            "last_us": null,
+            "elapsed": 20.0
+          }
+        }
+      ],
+      "active_wait": null,
+      "loop": {
+        "goal": "predator:2:capture",
+        "H": 1.65,
+        "selection_seed": 9797653991174694622,
+        "last_method": "left",
+        "sequence": 1443,
+        "methods": {
+          "right": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 1435,
+            "failure_repulsion": 0.0
+          },
+          "attack": {
+            "failure_count": 27,
+            "H": 1.65,
+            "threshold": 2.0,
+            "failure_H_total": 14.850000000000007,
+            "reward": 17.099999999999994,
+            "last_selected": 1439,
+            "failure_repulsion": 2.76316950032329
+          },
+          "withdraw": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 1327,
+            "failure_repulsion": 0.0
+          },
+          "approach": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 1440,
+            "failure_repulsion": 0.0
+          },
+          "left": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 1443,
+            "failure_repulsion": 0.0
+          },
+          "wait": {
+            "failure_count": 0,
+            "H": 5.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 1039,
+            "failure_repulsion": 0.0
+          }
+        },
+        "events": [
+          {
+            "source": 1412,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 0.5499999999999999,
+            "goal_H_after": 0.5499999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1413,
+            "method": "attack",
+            "question": "capture",
+            "E": 0.5499999999999999,
+            "H_before": 0.5499999999999999,
+            "H_after": 1.0999999999999999,
+            "goal_E": 0.5499999999999999,
+            "goal_H_before": 0.5499999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0.5499999999999999,
+            "reward": 0.0,
+            "credit": {},
+            "failed": true,
+            "failure_H": 0.5499999999999999,
+            "expected": 0.6,
+            "actual": 0.0,
+            "evaluated": true,
+            "fulfilled": false,
+            "relief": 0.0,
+            "method_relief": 0.0,
+            "tolerance": 0.05
+          },
+          {
+            "source": 1414,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1415,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1416,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1417,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1418,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1419,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1420,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1421,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1422,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1423,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1424,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1425,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1426,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1427,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1428,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1429,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1430,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1431,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1432,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1433,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1434,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1435,
+            "method": "right",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1436,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1437,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1438,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.0999999999999999,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1439,
+            "method": "attack",
+            "question": "capture",
+            "E": 0.5499999999999999,
+            "H_before": 1.0999999999999999,
+            "H_after": 1.65,
+            "goal_E": 0.5499999999999999,
+            "goal_H_before": 1.0999999999999999,
+            "goal_H_after": 1.65,
+            "goal_H_increment": 0.5499999999999999,
+            "reward": 0.0,
+            "credit": {},
+            "failed": true,
+            "failure_H": 0.5499999999999999,
+            "expected": 0.6,
+            "actual": 0.0,
+            "evaluated": true,
+            "fulfilled": false,
+            "relief": 0.0,
+            "method_relief": 0.0,
+            "tolerance": 0.05
+          },
+          {
+            "source": 1440,
+            "method": "approach",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.65,
+            "goal_H_after": 1.65,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1441,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.65,
+            "goal_H_after": 1.65,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1442,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.65,
+            "goal_H_after": 1.65,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          },
+          {
+            "source": 1443,
+            "method": "left",
+            "question": "local_position",
+            "E": 0,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": null,
+            "goal_H_before": 1.65,
+            "goal_H_after": 1.65,
+            "goal_H_increment": 0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          }
+        ],
+        "parent": null,
+        "probabilistic": true,
+        "threshold": 2.0,
+        "credit_path": []
+      }
+    }
+  ],
+  "rabbit_alive": 97,
+  "births": 16,
+  "starvation": 1
+}

@@ -40,6 +40,9 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
         search_speed=prey_scents!==nothing && prey_scents.active_target[i]!==nothing ? PREY_SCENT_CAUTION.speed : nothing
         attack_speed=local_hunts===nothing ? 1. : local_hunts[i].attack_speed
         movement_speed=local_hunts===nothing ? nothing : local_hunts[i].movement_speed
+        if local_hunts!==nothing && local_hunts[i].wait_trial!==nothing && isnan(local_hunts[i].wait_spent)
+            local_hunts[i].wait_spent=predators[i].spent
+        end
         configured_trial_advance!(s,predators[i],t;prey_nutrition,search_speed,attack_speed,movement_speed,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
         local_hunts!==nothing && configured_local_hunt_finish!(local_hunts[i],predators[i])
     end

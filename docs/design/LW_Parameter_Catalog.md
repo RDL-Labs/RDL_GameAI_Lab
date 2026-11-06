@@ -199,3 +199,19 @@ attack_priority=4、approach_priority=2、wait_priority=-1、cost_weight=.2、ex
 親の狩り評価は既存の実際の摂取結果を使用。休息の固定報酬問題は今回未修正。
 log_limit=128の候補履歴と累積選択件数を保存。局所状態ONのチェックポイントは6要素tuple。
 将来は予測地形・相手の不確実性・文脈別成功経験をより共通のMBへ統合する。
+
+## 待機を子MB試行として保持（2026-11-07）
+
+局所狩猟ON時のwaitを共通action_trialで保持。目標は同じ視認対象に対して
+捕獲可能な局所経路が観測・予測できる状況になること。待った時間そのものを成功にしない。
+wait_forecast_ticks=20tickは暫定初期見積もりで学習値ではない。選び直しで延長せず、
+経過・消費を同じ試行へ加算。目標出現でachieved、見失い/範囲外/期限未達でfailed、親変更/死亡はinterrupted。
+局所resolve_method!だけ更新（成功でも捕獲報酬なし・親H不変）。
+親の既存狩り試行も継続して実時間・実消費を計上し、子のHを追加で転送しない。
+次の候補選択では失敗したwaitの方法Hが作用する。
+移動可能な後方候補withdrawも追加し、攻撃/前左右が塞がっても待機だけになりにくくする。
+withdraw_priority=0、速度はapproach_speedを共用。攻撃見積もりが既に成立する時は待機候補を出さない。
+これら候補/初期期限は隔離された暫定設定。親の休息報酬問題は別件で未修正。
+wait_recordsには対象・status・reason・凍結見積もり・経過・消費を保存（直近128件）。
+countsにwait_ticks、wait_achieved/failed/interruptedを累計。active_waitに進行中試行を保存。
+比較でwaitは選択回数、wait_ticksは継続時間であり、旧版の毎tick選択回数と混同しない。
