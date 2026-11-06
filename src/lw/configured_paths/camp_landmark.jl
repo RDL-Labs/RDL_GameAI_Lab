@@ -39,10 +39,11 @@ function configured_camp_landmark_observe!(s,view,home,observing,now)
         isempty(s["records"]) && push!(s["records"],D("us"=>now,"kind"=>"observed_home_pair","signature"=>view["signature"]))
     end
 end
-function configured_camp_landmark_tour!(s,home,position,yaw,sec,view,reserve,strain,local_us,clock;experience=false)
-    (s["tour_completed"] || sec>=1200 || reserve<=0 || strain>=.8 || local_us>=clock.quiet_night_us) && return nothing
+function configured_camp_landmark_tour!(s,home,position,yaw,sec,view,reserve,strain,local_us,clock;experience=false,exterior=false,landmark_view=nothing,skyline_view=nothing)
+    (s["tour_completed"] || sec>=(exterior ? 3600 : 1200) || reserve<=0 || strain>=.8 || local_us>=clock.quiet_night_us) && return nothing
     # Explicit scaffolding visits both sides of the known test entrance; never used after day one.
     offsets=experience ? ((0.,3.),(0.,5.5),(0.,3.),(-2.,1.),(2.,1.),(0.,1.)) : ((0.,3.),(0.,5.5),(0.,3.))
+    exterior && (offsets=((0.,3.),(0.,5.5),(0.,3.),(-2.,1.),(2.,1.),(0.,3.),(0.,16.),(0.,10.),(0.,3.),(0.,1.)))
     stage=s["stage"];offset=offsets[stage];target=(Float64(home[1])+offset[1],Float64(home[2])+offset[2])
     dx=target[1]-position[1];dz=target[2]-position[2];d=hypot(dx,dz)
     p=D("configured_observation"=>true,"method"=>"configured_camp_landmark_tour")
@@ -50,6 +51,21 @@ function configured_camp_landmark_tour!(s,home,position,yaw,sec,view,reserve,str
         angle=wrap_angle(atand(dx,dz)-yaw)
         abs(angle)>45 && return merge(p,D("action"=>"scan","scan_angle"=>clamp(angle,-90.,90.)))
         return merge(p,D("action"=>"walk","direction"=>argmin(abs.(ANGLES.-angle))-1,"approach_angle"=>angle,"approach_span"=>min(.25,d)))
+    end
+    if exterior && stage in (7,8)
+        # Explicit day-one scaffold looks toward camp; perception itself is normal.
+        angle=wrap_angle(atand(home[1]-position[1],home[2]-position[2])-yaw)
+        abs(angle)>3 && return merge(p,D("action"=>"scan","scan_angle"=>clamp(angle,-90.,90.)))
+        s["stage_views"]+=1
+        if s["stage_views"]>=3
+            evidence(v)=v===nothing ? Any[] : deepcopy(get(v,"features",Any[]))
+            push!(s["records"],D("sec"=>sec,"kind"=>"exterior_camp_view","stage"=>stage,
+                "distance"=>hypot(position[1]-home[1],position[2]-home[2]),
+                "position"=>collect(position),"yaw"=>yaw,"landmarks"=>evidence(landmark_view),"skyline"=>evidence(skyline_view)))
+            s["exterior_views"]=get(s,"exterior_views",0)+1
+            s["stage_views"]=0;s["stage"]+=1
+        end
+        return merge(p,D("action"=>"scan","scan_angle"=>0.))
     end
     if view===nothing || abs(view["angle"])>15
         return merge(p,D("action"=>"scan","scan_angle"=>view===nothing ? 30. : view["angle"]))

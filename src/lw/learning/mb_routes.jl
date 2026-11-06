@@ -12,8 +12,10 @@ function mb_route_finish!(s,outcome,now;reward=0.)
     length(r["events"])>64 && popfirst!(r["events"])
     r["active"]=nothing
 end
+mb_route_id(goal,path)=goal*":"*bytes2hex(sha256(join(path,"|")))[1:16]
+
 function mb_route_attach!(p,s,path,goal,kind;chunk=nothing,sleep=nothing)
-    id=goal*":"*bytes2hex(sha256(join(path,"|")))[1:16]
+    id=mb_route_id(goal,path)
     merge!(p,D("mb_path"=>copy(path),"mb_route"=>id,"mb_route_kind"=>kind,"mb_route_index"=>1,"mb_route_goal"=>goal))
     st=get(s["routes"]["stats"],id,nothing)
     if st!==nothing

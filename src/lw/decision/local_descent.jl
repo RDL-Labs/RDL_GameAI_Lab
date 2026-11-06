@@ -45,7 +45,7 @@ end
 function steer_structure!(plan,target,obstacles,structures,w,a,yaw,resistance_at)
     action=plan["action"];action in ("walk","run") || return false
     # A chosen route/escape retains its own heading even if food/home is visible.
-    direct=get(plan,"question",nothing)=="target_nearer" && target!==nothing
+    direct=get(plan,"question",nothing)=="target_nearer" && target!==nothing && get(plan,"gradient_roll_mode","")!="direction"
     angle=direct ? rad2deg(atan(target["right"],target["forward"])) : get(plan,"steering_angle",Float64(ANGLES[plan["direction"]+1]))
     body=w.bodies[a]
     clearance=2.0 + .05*min(w.inventory[a],6)+.5*body.damage+(action=="run" ? .5 : 0.)

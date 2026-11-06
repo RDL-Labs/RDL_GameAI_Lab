@@ -64,37 +64,46 @@ function mb_parent_arrival_sync!(s,loop,goal,now)
     end
     while length(m["events"])>64;popfirst!(m["events"]);end
 end
-function mb_parent_model!(s,goal,mode)
-    key=goal*":"*mode
+function mb_parent_model!(s,goal,mode;route=nothing)
+    key=route===nothing ? goal*":"*mode : goal*":"*mode*":"*route
     get!(s["parent_mb"]["models"],key) do
         D("id"=>key,"samples"=>0,"actions_mean"=>mode=="search" ? 128. : 16.,"actions_m2"=>0.,
           "energy_rate"=>.01,"completed"=>0,"observations"=>Any[],"censored_updates"=>0,"forecast"=>nothing)
     end
 end
-function mb_parent_estimate!(s,p,goal,target)
-    arrival=get(get(s,"goal_arrival",D()),goal,nothing)
+# Planning resolution only; movement still uses the observed geometry.
+function mb_travel_seconds(distance)
+    distance<=1.25 && return 1.
+    distance<=8 && return 11.
+    distance<=30 && return 40.
+    return 32.0*ceil(distance/16)
+end
+function mb_parent_estimate!(s,p,goal,target;use_arrival=true)
+    arrival=use_arrival && !haskey(p,"mb_path") ? get(get(s,"goal_arrival",D()),goal,nothing) : nothing
     if arrival!==nothing && arrival["mode"]=="approach"
         target=D("distance"=>hypot(arrival["estimate"]["forward"],arrival["estimate"]["right"]))
     end
     mode=haskey(p,"mb_path") ? "route" : target===nothing ? "search" : "approach"
     arrival!==nothing && arrival["mode"]=="approach" && (mode="approach")
-    model=mb_parent_model!(s,goal,mode);n=model["samples"]
+    route=mode=="route" ? get(() -> mb_route_id(goal,p["mb_path"]),p,"mb_route") : nothing
+    model=mb_parent_model!(s,goal,mode;route);n=model["samples"]
     # Child route and current observed distance are evidence, not hidden world coordinates.
     center=mode=="route" ? Float64(length(p["mb_path"])+(goal=="food" ? 1 : 0)) :
-        mode=="approach" ? max(1.,ceil(max(0.,target["distance"]-1.)/.5)+1.) : 128.
+        mode=="approach" ? mb_travel_seconds(target["distance"]) : 128.
     baseline=center
-    survival=mb_parent_survival!(model,mode)
+    survival=mode=="approach" ? nothing : mb_parent_survival!(model,mode)
     prior_weight=1.;tail_mass=0.;evidence_count=0
     if survival===nothing
         spread=max(mode=="search" ? 128. : 4.,center)
         upper=max(2,ceil(Int,center+spread))
     else
-        scale=mode=="search" ? 1. : baseline
-        center=max(1.,survival["restricted_mean"]*scale)
+        base_cost=mode=="route" ? baseline : 0.
+        center=max(1.,base_cost+survival["restricted_mean"])
         prior_weight=survival["prior_weight"];tail_mass=survival["tail_mass"];evidence_count=survival["evidence_count"]
         q=survival["q80"]
         # If the 80% quantile is unidentified, keep the unobserved tail explicit and plan beyond the bound.
-        horizon=q===nothing ? survival["last_observed"]*scale+max(4.,.25survival["last_observed"]*scale) : q*scale
+        tail=survival["last_observed"]
+        horizon=base_cost+(q===nothing ? tail+max(4.,.25tail) : q)
         upper=max(2,ceil(Int,max(center,horizon)))
     end
     rate=max(.0001,model["energy_rate"])

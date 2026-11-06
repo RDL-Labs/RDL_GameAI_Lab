@@ -3,8 +3,8 @@ include("../../src/lw/LW.jl")
 const G=LW.LWGrazing
 const H=G.H
 const input=JSON3.read(read(joinpath(@__DIR__,"../rock_gate/channel_trial_spec.json"),String))
-function scene(;count=3,seed=20261028)
-    merge((;pairs(input.scene)...),(wildlife=(enabled=true,count=count,seed=seed),))
+function scene(;count=3,seed=20261028,reproduction=false)
+    merge((;pairs(input.scene)...),(wildlife=(enabled=true,count=count,seed=seed,reproduction=reproduction),))
 end
 function isolated()
     s=G.build(scene(count=1),input.clock)
@@ -92,7 +92,7 @@ end
 @testset "LW daily checkpoint includes grazing world" begin
     cfg=merge((;pairs(input.config)...),(days=2,))
     # Full day/clock calibration is retained. First-day observation keeps this cheap.
-    sc=scene(count=3)
+    sc=scene(count=3,reproduction=true)
     fixture=(scene=sc,clock=input.clock,config=cfg)
     mktempdir() do dir
         continuous,_=LW.run_integrated(fixture;checkpoint_dir=dir)

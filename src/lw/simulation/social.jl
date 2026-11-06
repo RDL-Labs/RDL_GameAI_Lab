@@ -8,7 +8,7 @@ include(joinpath(@__DIR__, "../perception/social.jl"))
 
 function communicate!(w,a,op,action,target=nothing,reply=nothing;food_kind=nothing,unsolicited=false)
     check(unsolicited isa Bool && (!unsolicited || (action=="give" && reply===nothing)),"unsolicited_give_contract")
-    check(food_kind===nothing || (action=="give" && food_kind isa Integer && !(food_kind isa Bool) && food_kind in 1:4),"communication_food_kind")
+    check(food_kind===nothing || (action=="give" && food_kind isa Integer && !(food_kind isa Bool) && food_kind in RDLBody.FOOD_KIND_IDS),"communication_food_kind")
     key=a*"|"*op;request=food_kind===nothing ? (action,target,reply) : (action,target,reply,Int(food_kind))
     unsolicited && (request=(request...,true))
     if haskey(w.receipts,key)

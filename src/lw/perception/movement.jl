@@ -1,14 +1,16 @@
 function perceive_movement(w,actor,yaw,food,stock;resistance_at=p->1.5,run_resistance_at=resistance_at,running=false,visual_obstacles=w.obstacles,known_food_sites=())
     origin=w.positions[actor];s,c=sincos(deg2rad(yaw[actor]));visible=Any[];empty_sites=Int[]
     for (j,f) in enumerate(food)
+        fishing=get(f,:acquisition,"pickup")=="fishing"
         dx,dz=f.x-origin[1],f.z-origin[2];forward,right=dx*s+dz*c,dx*c-dz*s
         distance=hypot(forward,right)
-        if stock[j]==0 && j-1 in known_food_sites && distance<=1.25 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),visual_obstacles)
+        if !fishing && stock[j]==0 && j-1 in known_food_sites && distance<=1.25 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),visual_obstacles)
             push!(empty_sites,j-1)
         end
-        if stock[j]>0 && distance<=12 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),visual_obstacles)
+        if (fishing || stock[j]>0) && distance<=12 && forward>=0 && !any(o->segment_hit(origin,(Float64(f.x),Float64(f.z)),o,0.),visual_obstacles)
             push!(visible,D("ref"=>j-1,"forward"=>forward,"right"=>right,"distance"=>distance,
-                "appearance"=>hasproperty(f,:appearance) ? f.appearance : "brown_capped_ovoid"))
+                "appearance"=>hasproperty(f,:appearance) ? f.appearance : "brown_capped_ovoid","condition"=>get(f,:condition,0)))
+            fishing && (last(visible)["acquisition"]="fishing")
         end
     end
     coverage=length(visible)>5 ? "partial" : "complete"

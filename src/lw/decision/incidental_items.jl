@@ -68,7 +68,7 @@ function incidental_item_prediction(state,feature,context,H;stock=nothing,weight
 end
 
 "Read-only candidates from this observer's current item view and own body."
-function incidental_item_candidates(state,view,body,parent_loop;family,pressure=0.,stock=nothing,gut=nothing)
+function incidental_item_candidates(state,view,body,parent_loop;family,pressure=0.,stock=nothing,gut=nothing,map=nothing,kitchen=nothing)
     view===nothing && return Any[]
     check(incidental_finite(pressure) && pressure>=0,"incidental_pressure")
     reserve=Float64(incidental_body(body,"reserve",100.))
@@ -95,7 +95,7 @@ function incidental_item_candidates(state,view,body,parent_loop;family,pressure=
         # Visibly equivalent opportunities are one method, with the nearest
         # current executor binding. This is not an object-identity classifier.
         previous!==nothing && previous["observed_distance"]<=distance && continue
-        prediction=incidental_item_prediction(state,feature,context,H;stock,weights=stock===nothing ? nothing : food_trade_weights(body,gut))
+        prediction=incidental_item_prediction(state,feature,context,H;stock,weights=stock===nothing ? nothing : food_trade_weights(body,gut;map,kitchen))
         candidates[method]=D("method"=>method,"action"=>"item_pickup","priority"=>2prediction.expected,
             "question"=>"observed_pickup_interest_confirmed","incidental_item"=>true,
             "portable_item_action"=>true,"item_id"=>Int(ref),"family"=>String(family),"purpose_family"=>String(family),
@@ -133,8 +133,8 @@ function incidental_item_bound_methods!(state,candidates)
     end
 end
 
-function incidental_item_plan!(state,view,body,parent_loop,now;family,pressure=0.,stock=nothing,gut=nothing)
-    candidates=incidental_item_candidates(state,view,body,parent_loop;family,pressure,stock,gut)
+function incidental_item_plan!(state,view,body,parent_loop,now;family,pressure=0.,stock=nothing,gut=nothing,map=nothing,kitchen=nothing)
+    candidates=incidental_item_candidates(state,view,body,parent_loop;family,pressure,stock,gut,map,kitchen)
     isempty(candidates) && return nothing # no RNG, memory, sequence or H mutation
     loop=state["loop"];check(loop.trial===nothing,"incidental_active_trial")
     incidental_item_bound_methods!(state,candidates)
@@ -207,6 +207,7 @@ function incidental_item_snapshot(state)
       "metric"=>deepcopy(state["metric"]),"memory"=>deepcopy(state["memory"]),
       "handled_refs"=>copy(state["handled_refs"]),"records"=>deepcopy(state["records"]),
       "social"=>haskey(state,"social") ? item_social_snapshot(state["social"]) : nothing,
+      "configured_work_wait"=>deepcopy(get(state,"configured_work_wait",nothing)),
       "attention"=>deepcopy(get(state,"attention",nothing)),
       "exchange_relations"=>deepcopy(get(state,"exchange_relations",Any[])),
       "exchange_recalled_choices"=>get(state,"exchange_recalled_choices",0),

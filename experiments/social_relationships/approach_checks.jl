@@ -61,7 +61,7 @@ end
     @test isempty(LW.social_approach_candidates(view,move,relations,loop,0;food_value=0.))
     @test isempty(LW.social_approach_candidates(view,move,nothing,loop,0;food_value=2.))
     @test_throws ErrorException LW.social_approach_candidates(view,move,relations,loop,1;food_value=2.)
-    @test_throws ErrorException LW.social_approach_candidates(view,move,relations,loop,0;food_value=-1.)
+    @test isempty(LW.social_approach_candidates(view,move,relations,loop,0;food_value=-1.))
     @test_throws ErrorException LW.social_approach_candidates(view,move,LW.social_relations_state(SDB),loop,0;food_value=2.)
     blocked=deepcopy(move);foreach(r->r["cost"]=nothing,blocked["energy"]["rows"])
     @test isempty(LW.social_approach_candidates(view,blocked,relations,loop,0;food_value=2.))

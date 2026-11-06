@@ -35,6 +35,13 @@ jobs:
       - name: Typed food, personal stores and barter
         if: matrix.suite == 'food-social'
         run: |
+          julia --startup-file=no --project=. experiments/acorn_food/proficiency_checks.jl
+          julia --startup-file=no --project=. experiments/fishing/checks.jl
+          julia --startup-file=no --project=. experiments/fishing/training_checks.jl
+          julia --startup-file=no --project=. experiments/fishing/expiry_salt_checks.jl
+          julia --startup-file=no --project=. experiments/fishing/spoilage_learning_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/food_desire_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/provision_choice_checks.jl
           julia --startup-file=no --project=. experiments/seasonal_food/checks.jl
           julia --startup-file=no --project=. experiments/food_exchange/checks.jl
           julia --startup-file=no --project=. experiments/food_exchange/policy_checks.jl
@@ -81,6 +88,11 @@ jobs:
           julia --startup-file=no --project=. experiments/rock_gate/depleted_home_route_checks.jl
           julia --startup-file=no --project=. experiments/rock_gate/search_resistance_checks.jl
           julia --startup-file=no --project=. experiments/rock_gate/rho_local_field_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/skyline_interval_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/gradient_roll_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/camp_exterior_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/configured_routine_checks.jl
+          julia --startup-file=no --project=. experiments/rock_gate/sleep_gate_checks.jl
           julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/body_purpose_checks.jl
       - name: Herbivore and predator checks
         if: matrix.suite == 'animals'

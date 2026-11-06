@@ -1,6 +1,6 @@
 using SHA
 # Port of runtime/refusal_relation_field.py's respond path (affiliation=0).
-function experienced_response(obs,records,pressure,owner,seed;retention=0.,relation=nothing,now=nothing)
+function experienced_response(obs,records,pressure,owner,seed;retention=0.,relation=nothing,now=nothing,available_food=obs["inventory"]>0)
     check(obs["self_id"]==owner && pressure.parent.goal_id==owner*":obtain-aid","response_owner")
     m=first(obs["messages"]);other=m["sender"]
     if m["kind"]!="request" || !any(x->x["ref"]==other,obs["others"])
@@ -23,7 +23,7 @@ function experienced_response(obs,records,pressure,owner,seed;retention=0.,relat
     relationship!==nothing && (relationship["applies_to"]="give")
     reserve=obs["body"]["reserve"];need=max(0.,(80-reserve)/40)
     score=1.0 - need - weight - retention - food_anxiety(food_security(relation)) + get(situation,"distress",0.) + (relationship===nothing ? 0. : relationship["weight"])
-    probability=if obs["inventory"]<=0
+    probability=if !available_food
         0.
     elseif unified
         method_distribution(pressure.loop,Any[
@@ -40,7 +40,7 @@ function experienced_response(obs,records,pressure,owner,seed;retention=0.,relat
         "relation"=>relationship===nothing ? 0. : relationship["weight"])
     candidates=Any[D("method"=>"refuse:"*other,"action"=>"refuse","priority"=>0.),
         D("method"=>"give:"*other,"action"=>"give","priority"=>score,"context"=>situation,
-          "components"=>components,"gradient_relation"=>relationship,"feasible"=>obs["inventory"]>0)]
+          "components"=>components,"gradient_relation"=>relationship,"feasible"=>available_food)]
     selected=action=="give" ? candidates[2] : candidates[1]
     gradient_capture!(relation,unified ? pressure.loop : nothing,candidates,selected,seed,now;
         channel="aid_response",probabilities=[1-probability,probability])
@@ -50,6 +50,25 @@ function experienced_response(obs,records,pressure,owner,seed;retention=0.,relat
     unified && (trace["selection"]="common_H_distribution")
     relationship!==nothing && (trace["relationship"]=relationship)
     (action,other,m["id"]),trace
+end
+
+# Fulfil an already chosen response with normal retrieve/give actions. No gift
+# is forced: the response was selected by the common loop; loss of contact,
+# deadline or the promised edible resource cancels this short execution plan.
+function aid_response_food(kinds,stock,at_home)
+    !isempty(kinds) && return RDLBody.food_edible(first(kinds)) ? Int(first(kinds)) : 0
+    (!at_home || stock===nothing) && return 0
+    something(findfirst(k->stock[k]>0 && RDLBody.food_edible(k),eachindex(stock)),0)
+end
+function aid_response_continue!(relation,kinds,contacts,now)
+    relation===nothing && return nothing
+    pending=pop!(relation,"aid_delivery",nothing);pending===nothing && return nothing
+    now>=pending["deadline_us"] && return nothing
+    any(peer->peer["ref"]==pending["target"],contacts) || return nothing
+    if isempty(kinds) || first(kinds)!=pending["food_kind"] || !RDLBody.food_edible(first(kinds))
+        return merge(pending,D("action"=>"refuse"))
+    end
+    merge(pending,D("action"=>"give"))
 end
 
 

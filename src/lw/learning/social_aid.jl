@@ -16,7 +16,8 @@ function social_aid_begin!(s,request_id,target,now;probability,values,
     check(target isa AbstractString && !isempty(target) && target!=s["actor"],"social_aid_target")
     check(now isa Integer && !(now isa Bool) && 0<=now<deadline_us && deadline_us isa Integer && !(deadline_us isa Bool),"social_aid_deadline")
     check(probability isa Real && !(probability isa Bool) && isfinite(probability) && 0<=probability<=1,"social_aid_probability")
-    check(values isa AbstractVector && !isempty(values) && all(v->v isa Real && !(v isa Bool) && isfinite(v) && v>=0,values),"social_aid_values")
+    # Receiving unwanted/spoiled food may have negative subjective value.
+    check(values isa AbstractVector && !isempty(values) && all(v->v isa Real && !(v isa Bool) && isfinite(v),values),"social_aid_values")
     frozen=Float64.(values);kinds=Dict{Int,Float64}()
     if expected_kind!==nothing
         check(expected_kind isa Integer && !(expected_kind isa Bool) && expected_kind in eachindex(frozen),"social_aid_expected_kind")

@@ -1,4 +1,5 @@
 include("../../data/item_ids.jl")
+include("../configured_paths/negotiation.jl")
 
 # Finite world capabilities. This module neither selects an action nor assigns
 # value, pleasure, currency status, or social credit to a successful transfer.
@@ -96,6 +97,10 @@ function portable_items(spec,w)
         "notices"=>D(a=>Any[] for a in IDS),"counts"=>D(k=>0 for k in
             ("picked_up","dropped","stored","retrieved","given","offered","exchanged","declined","expired","unavailable")))
     item_audit!(s,w)
+    enabled=get(spec,:configured_negotiation,false)
+    check(enabled isa Bool,"configured_negotiation_flag")
+    s["configured_negotiation"]=enabled
+    s["negotiations"]=D("counts"=>D(k=>0 for k in ("started","adjusted","mismatch","agreed","ended","interrupted")),"records"=>Any[])
     s
 end
 
@@ -105,8 +110,8 @@ function item_audit!(s,w)
     counts=zeros(Int,length(s["kind_ids"]))
     for (id,item) in s["items"]
         check(item["id"]==id && item_kind_valid(item["kind"]) && haskey(s["registry"],item["kind"]),"item_identity")
-        check(item["location"] in (ITEM_GROUND,ITEM_HELD,ITEM_STORED),"item_location_state")
-        check(item["location"]==ITEM_GROUND ? item["owner"]===nothing : item["owner"] in IDS,"item_owner_state")
+        check(item["location"] in (ITEM_GROUND,ITEM_HELD,ITEM_STORED,ITEM_CONSUMED),"item_location_state")
+        check(item["location"] in (ITEM_GROUND,ITEM_CONSUMED) ? item["owner"]===nothing : item["owner"] in IDS,"item_owner_state")
         check(all(item_real,item["position"]),"item_position_state")
         check(item_real(item["mass"]) && item["mass"]>0 && item_real(item["size"]) && item["size"]>0,"item_physical_state")
         check(item["origin"]["id"]==id && item["origin"]["kind"]==item["kind"],"item_origin")
@@ -161,6 +166,7 @@ function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_store
     visible=Any[];p=w.positions[a];sn,cs=sincos(deg2rad(angle))
     for id in s["initial_ids"]
         item=s["items"][id]
+        item["location"]==ITEM_CONSUMED && continue
         stored=item["location"]==ITEM_STORED
         focus==:pickup && item["location"]!=ITEM_GROUND && continue
         stored && !(open_stores && item_at_home(w,home,a)) && continue
@@ -184,12 +190,13 @@ function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_store
     offers=sort(collect(values(s["offers"]));by=o->o["id"])
     incoming=Any[deepcopy(o) for o in offers if o["target"]==a && t<o["expires_us"] && o["proposer"] in partners]
     outgoing=findfirst(o->o["proposer"]==a && t<o["expires_us"],offers)
-    view=D("visible"=>visible,"own"=>item_inventory(s,a),"own_load"=>item_load(s,a),
+    view=D("configured_negotiation"=>get(s,"configured_negotiation",false),"visible"=>visible,"own"=>item_inventory(s,a),"own_load"=>item_load(s,a),
         "carry_capacity"=>item_capacity(s,w,a),"partners"=>partners,
         "trade_partners"=>String[b for b in partners if item_trade_contact(w,home,a,b)],
         "incoming"=>incoming,"outgoing"=>outgoing===nothing ? nothing : offers[outgoing]["id"],
         "notices"=>deepcopy(s["notices"][a]))
     open_stores && (view["observed_food_stocks"]=observed_food_stores(foods,w,home,a))
+    open_stores && (view["observed_food_conditions"]=observed_food_conditions(foods,view))
     view
 end
 
@@ -214,6 +221,7 @@ function item_history!(item,a,op,action,now,owner,location,position)
     nothing
 end
 function item_record!(s,event)
+    negotiation_record!(s,event)
     item_push!(s["records"],deepcopy(event),64)
     s["counts"][event["status"]]+=1
 end
@@ -246,8 +254,8 @@ end
 function item_terms(ids,food)
     check(ids isa AbstractVector && length(ids)<=4 && all(x->item_integer(x) && 1<=x<=typemax(Int),ids),"item_offer_ids")
     check(length(unique(ids))==length(ids),"item_offer_duplicate")
-    check(food isa AbstractVector && length(food)==4 && all(x->item_integer(x) && 0<=x<=4,food) && sum(food)<=4,"item_offer_food")
-    (Int[x for x in ids],Int[x for x in food])
+    check(food isa AbstractVector && length(food) in (4,5,length(RDLBody.FOOD_KIND_IDS)) && all(x->item_integer(x) && 0<=x<=4,food) && sum(food)<=4,"item_offer_food")
+    (Int[x for x in ids],vcat(Int[x for x in food],zeros(Int,length(RDLBody.FOOD_KIND_IDS)-length(food))))
 end
 item_owns(s,a,ids)=all(id->haskey(s["items"],id) && s["items"][id]["owner"]==a && s["items"][id]["location"]!=ITEM_GROUND,ids)
 item_food_available(foods,a,counts)=all(iszero,counts) || (foods!==nothing && all(foods.personal[a].>=counts))
@@ -294,7 +302,7 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
         previous=action=="item_counter" ? get(s["offers"],offer_id,nothing) : nothing
         if action=="item_counter" && (previous===nothing || previous["target"]!=a || previous["proposer"]!=target)
             reason="counter_not_recipient"
-        elseif previous!==nothing && get(previous,"round",0)>=8
+        elseif previous!==nothing && get(previous,"round",0)>=configured_negotiation_limit(get(s,"configured_negotiation",false))
             reason="counter_round_limit"
         elseif any(o->o["proposer"]==a,values(s["offers"]))
             reason="outgoing_pending"
@@ -307,7 +315,7 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
         else
             id="$a:$t:$op"
             o=D("id"=>id,"proposer"=>a,"target"=>target,"give_items"=>give,"want_items"=>want,
-                "give_food"=>gf,"want_food"=>wf,"created_us"=>t,"expires_us"=>t+ITEM_OFFER_TTL_US)
+                "give_food"=>gf,"want_food"=>wf,"created_us"=>t,"expires_us"=>t+ITEM_OFFER_TTL_US,"root_id"=>id,"round"=>0)
             if previous!==nothing
                 o["counter_of"]=previous["id"];o["round"]=get(previous,"round",0)+1
                 o["root_id"]=get(previous,"root_id",previous["id"])
@@ -353,6 +361,7 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
                     item_history!(item,a,op,action,t,recipient,item["location"],w.positions[recipient])
                 end
                 if food_change
+                    food_quality_swap!(foods,b,a,o["give_food"],o["want_food"])
                     foods.personal[b].=left;foods.personal[a].=right
                     stores[b]=sum(left);stores[a]=sum(right)
                 end
@@ -414,11 +423,12 @@ function item_snapshot(s)
     for id in s["initial_ids"]
         item=deepcopy(s["items"][id])
         item["position"]=item["location"]==ITEM_GROUND ? collect(item["position"]) : nothing
-        remaining[s["kind_index"][item["kind"]]]+=1;push!(items,item)
+        item["location"]!=ITEM_CONSUMED && (remaining[s["kind_index"][item["kind"]]]+=1)
+        push!(items,item)
     end
     D("rule"=>"portable-nonfood-items-v2","items"=>items,"kind_ids"=>copy(s["kind_ids"]),
         "registry"=>[merge(D("id"=>k),deepcopy(s["registry"][k])) for k in s["kind_ids"]],
         "carry_limits"=>copy(s["carry_limits"]),"initial_counts"=>copy(s["initial_counts"]),
-        "remaining_counts"=>remaining,"counts"=>copy(s["counts"]),
+        "remaining_counts"=>remaining,"counts"=>copy(s["counts"]),"negotiations"=>deepcopy(get(s,"negotiations",nothing)),
         "active"=>[deepcopy(o) for (_,o) in sort(collect(s["offers"]);by=first)],"records"=>deepcopy(s["records"]))
 end

@@ -24,7 +24,7 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
     check(view["actor"]==relation["actor"] && view["capture_us"]==now,"visual_aid_observation")
     s=get!(()->visual_aid_state(relation["actor"]),relation,"visual_aid")
     s["pending"]===nothing && now<s["next_us"] && return nothing
-    own=stock===nothing || !at_home ? zeros(Int,4) : copy(stock)
+    own=stock===nothing || !at_home ? zeros(Int,length(RDLBody.FOOD_KIND_IDS)) : copy(stock)
     for k in kinds;own[k]+=1;end
     security=food_security(relation);required=max(1.,(80.0-body.reserve)/RDLBody.MEAL_ENERGY,security===nothing ? 0. : security["required"])
     spare=sum(own)+(gut===nothing ? 0. : gut.gut)-required
@@ -61,9 +61,15 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
         prediction=social_mb_predict(relation,other,"aid_given";situation=context,H=s["loop"].H)
         # Food may help this appearance; fear/fatigue can make that guess wrong.
         motivation=face.distress*(1-.5face.fear)
+        expiry=security===nothing ? nothing : get(security,"expiry",nothing)
+        waste_relief=0.
+        if action=="give" && expiry!==nothing
+            after=copy(own);after[first(kinds)]-=1
+            waste_relief=2max(0.,food_expected_waste(own,expiry)-food_expected_waste(after,expiry))
+        end
         push!(candidates,D("method"=>"visual_give:$other","action"=>action,"target"=>other,
             "components"=>D("appearance"=>2motivation,"relation"=>trace["weight"],"prediction"=>.5log(2prediction["probability"]),"retention"=>-1/(1+spare),"baseline"=>-1.),
-            "priority"=>2motivation+trace["weight"]+.5log(2prediction["probability"])-1/(1+spare)-1,
+            "priority"=>2motivation+trace["weight"]+.5log(2prediction["probability"])-1/(1+spare)-1+waste_relief,"waste_relief"=>waste_relief,
             "question"=>"food_delivered","expected"=>prediction["probability"],
             "expression"=>face,"context"=>context,"trace"=>trace,"visual_aid"=>true,
             "visual_aid_source"=>source,"deadline_us"=>now+64_000_000))

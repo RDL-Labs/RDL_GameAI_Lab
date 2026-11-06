@@ -55,6 +55,10 @@ function item_social_actual(plan,result)
     before=result["own_before"];after=result["own_after"]
     material=item_social_utility(after["items"],after["food"],plan["values"],plan["weights"])-
         item_social_utility(before["items"],before["food"],plan["values"],plan["weights"])
+    if haskey(plan,"salt_unit")
+        pairs(x)=min(x["food"][5],count(r->r["ref"] in plan["salt_refs"],Iterators.flatten((x["items"]["held"],x["items"]["stored"]))))
+        material+=plan["salt_unit"]*(pairs(after)-pairs(before))
+    end
     haskey(plan,"valuation") ? trade_compound_gradient(before["food"],after["food"],material,plan["valuation"])["total"] :
         material+get(plan,"relation_value",0.)-.002 # previously saved trials
 end
@@ -105,7 +109,7 @@ function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[]
     relational_transition(before,item_social_utility(after,stock.-gf.+wf,values,weights;prepared)).delta
 end
 
-function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,require_need=false,allow_start=true)
+function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true)
     require_need && error("necessity admission was replaced by compound trade valuation")
     view===nothing && return nothing
     body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
@@ -113,15 +117,18 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     incoming=get(view,"incoming",Any[])
     response=!isempty(incoming)
     !response && !allow_start && return nothing
-    security=food_security(relation);need=trade_food_need(body,gut,stock;security)
+    security=map===nothing ? food_security(relation) : get(map,"food_security",food_security(relation));need=trade_food_need(body,gut,stock;security)
     (!response && (now<mind["next_us"] || mind["pending"]!==nothing || view["outgoing"]!==nothing)) && return nothing
     mind["next_us"]=now+64_000_000
     role=response ? "response" : "offer";loop=mind[role]
     loop.trial===nothing || return nothing
     item_exchange_memory!(state)
-    weights=stock===nothing ? zeros(4) : food_trade_weights(body,gut)
-    available=stock===nothing ? zeros(Int,4) : copy(stock)
+    weights=stock===nothing ? zeros(length(RDLBody.FOOD_KIND_IDS)) : food_trade_weights(body,gut;map,kitchen)
+    available=stock===nothing ? zeros(Int,length(RDLBody.FOOD_KIND_IDS)) : copy(stock)
     prepared=item_social_prepare(state,view,available,weights)
+    salted=kitchen===nothing ? nothing : food_use_forecast(map,kitchen.foods,state["actor"],RDLBody.FISH_FOOD,true,gut,body.reserve,kitchen.facilities,kitchen.position;processing=kitchen.processing,salted=true)
+    unit=salted===nothing ? 0. : max(0.,.2+.6clamp((80-body.reserve)/80,0.,1.)+food_taste_value(salted.liking,body.reserve)-salted.cost-weights[RDLBody.FISH_FOOD])
+    salts=Set(Int(row["ref"]) for row in Iterators.flatten((prepared.rows,view["visible"])) if recognized_salt(map,row))
     values=prepared.values
     context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
     candidates=Any[]
@@ -138,6 +145,9 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         (!isempty(give) || !isempty(want)) && sum(gf)<=4 && sum(wf)<=4 || return
         gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"],prepared)
         gain===nothing && return
+        before_salt=length(intersect(prepared.refs,salts))
+        after_salt=before_salt-count(in(salts),give)+count(in(salts),want)
+        gain+=unit*(min(after_salt,available[5]-gf[5]+wf[5])-min(before_salt,available[5]))
         observed,trace,valuation=get!(peer_valuations,other) do
             observed=social_observed_context(relation,other,context)
             trace=relation===nothing ? nothing : social_relation_bias(relation,other,
@@ -179,7 +189,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
     if response
         o=first(incoming)
         candidate(o["proposer"],o["want_items"],o["give_items"],o["want_food"],o["give_food"];offer_id=o["id"])
-        if isempty(candidates) && view["outgoing"]===nothing && mind["pending"]===nothing && get(o,"round",0)<8
+        if isempty(candidates) && view["outgoing"]===nothing && mind["pending"]===nothing && get(o,"round",0)<configured_negotiation_limit(get(view,"configured_negotiation",false))
             give=Int.(o["want_items"]);want=Int.(o["give_items"])
             gf=Int.(o["want_food"]);wf=Int.(o["give_food"])
             # Local changes use only the warehouse observation in this view.
@@ -190,7 +200,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
                 candidate(o["proposer"],give,[id],gf,wf;offer_id=o["id"],counter=true)
             end
             if stock!==nothing
-                for k in 1:4, n in 1:(4-sum(wf))
+                for k in RDLBody.FOOD_KIND_IDS, n in 1:(4-sum(wf))
                     more=copy(wf);more[k]+=n
                     candidate(o["proposer"],give,want,gf,more;offer_id=o["id"],counter=true)
                 end
@@ -198,7 +208,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
             for id in give
                 candidate(o["proposer"],filter(!=(id),give),want,gf,wf;offer_id=o["id"],counter=true)
             end
-            for k in 1:4
+            for k in RDLBody.FOOD_KIND_IDS
                 gf[k]>0 || continue
                 less=copy(gf);less[k]-=1
                 candidate(o["proposer"],give,want,less,wf;offer_id=o["id"],counter=true)
@@ -210,17 +220,19 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
                 for c in candidates;c["observation_log_prior"]=-log(length(candidates));end
             end
         end
+        if !configured_negotiation_adjusting(get(view,"configured_negotiation",false),candidates)
         push!(candidates,D("method"=>"decline:$(o["proposer"])","action"=>"item_decline",
             "question"=>"subjective_possession_value","priority"=>0.,"expected"=>0.,
             "offer_id"=>o["id"],"partner"=>o["proposer"],"trace"=>nothing))
+        end
     else
         partners=social_peer_scope!(relation,get(view,"trade_partners",String[]),loop,need,now)
         own=Iterators.take(view["own"]["held"],4)
         if stock!==nothing
             # Tender a possession for needed, observed food.
             for other in partners, held in own, k in eachindex(available), n in 1:min(4,observed_food_count(view,other,k))
-                wf=zeros(Int,4);wf[k]=n
-                candidate(other,[Int(held["ref"])],Int[],zeros(Int,4),wf)
+                wf=zeros(Int,length(RDLBody.FOOD_KIND_IDS));wf[k]=n
+                candidate(other,[Int(held["ref"])],Int[],zeros(Int,length(RDLBody.FOOD_KIND_IDS)),wf)
             end
         end
         # Recall previously successful bundles, binding their features to things
@@ -241,19 +253,19 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         for r in Iterators.take(candidate_rows,8)
             other=get(r,"holder",nothing)
             other in partners || continue
-            candidate(other,Int[],[Int(r["ref"])],zeros(Int,4),zeros(Int,4))
+            candidate(other,Int[],[Int(r["ref"])],zeros(Int,length(RDLBody.FOOD_KIND_IDS)),zeros(Int,length(RDLBody.FOOD_KIND_IDS)))
             for held in own
-                candidate(other,[Int(held["ref"])],[Int(r["ref"])],zeros(Int,4),zeros(Int,4))
+                candidate(other,[Int(held["ref"])],[Int(r["ref"])],zeros(Int,length(RDLBody.FOOD_KIND_IDS)),zeros(Int,length(RDLBody.FOOD_KIND_IDS)))
             end
             for k in eachindex(available), n in 1:min(4,available[k])
                 available[k]>0 || continue
-                gf=zeros(Int,4);gf[k]=n
-                candidate(other,Int[],[Int(r["ref"])],gf,zeros(Int,4))
+                gf=zeros(Int,length(RDLBody.FOOD_KIND_IDS));gf[k]=n
+                candidate(other,Int[],[Int(r["ref"])],gf,zeros(Int,length(RDLBody.FOOD_KIND_IDS)))
             end
         end
         # Gift proposals use the same recipient acceptance and valuation route.
         for other in partners, held in own
-            candidate(other,[Int(held["ref"])],Int[],zeros(Int,4),zeros(Int,4))
+            candidate(other,[Int(held["ref"])],Int[],zeros(Int,length(RDLBody.FOOD_KIND_IDS)),zeros(Int,length(RDLBody.FOOD_KIND_IDS)))
         end
         # Refine feasible seed offers locally, just as movement refines heading.
         for seed in Iterators.take(copy(candidates),32)
@@ -294,7 +306,7 @@ function item_social_plan!(state,view,body,gut,stock,now;relation=nothing,requir
         state["exchange_recalled_choices"]=get(state,"exchange_recalled_choices",0)+1
     end
     merge!(plan,D("item_social_role"=>role,"source"=>source,"values"=>values,
-        "weights"=>weights,"context"=>get(plan,"observed_context",context),"portable_item_action"=>true))
+        "salt_refs"=>salts,"salt_unit"=>unit,"weights"=>weights,"context"=>get(plan,"observed_context",context),"portable_item_action"=>true))
     if plan["action"] in ("item_offer","item_counter")
         plan["target"]=plan["partner"]
         plan["action"]=="item_offer" && delete!(plan,"offer_id")

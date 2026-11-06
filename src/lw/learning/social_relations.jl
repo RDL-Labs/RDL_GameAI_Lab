@@ -67,7 +67,7 @@ function social_relation_event!(s,other,channel,source,now;outcome,value=0.,cont
     exchange=channel in ("trade_offer","trade_response") && outcome=="exchanged"
     received=channel=="aid_received" && outcome=="given"
     check(exchange || received || iszero(value),"social_relation_nonexchange_value")
-    check(food_kind isa Integer && !(food_kind isa Bool) && 0<=food_kind<=4,"social_relation_food_kind")
+    check(food_kind isa Integer && !(food_kind isa Bool) && (food_kind==0 || food_kind in RDLBody.FOOD_KIND_IDS),"social_relation_food_kind")
     check(received || food_kind==0,"social_relation_food_consequence")
     situation=social_mb_context(context)
     event=D("actor"=>s["actor"],"other"=>other,"channel"=>String(channel),

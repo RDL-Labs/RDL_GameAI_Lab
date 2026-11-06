@@ -23,9 +23,9 @@ end
 function mb_parent_survival!(model,mode)
     cached=model["forecast"];cached!==nothing && return cached
     observations=model["observations"];isempty(observations) && return nothing
-    prior=mode=="search" ? 128. : 1.
+    prior=mode=="search" ? 128. : 0.
     pairs=Any[(time=prior,event=true)]
-    append!(pairs,[(time=mode=="search" ? Float64(x["actions"]) : x["actions"]/max(1.,x["baseline"]),event=x["completed"]) for x in observations])
+    append!(pairs,[(time=mode=="search" ? Float64(x["actions"]) : max(0.,x["actions"]-x["baseline"]),event=x["completed"]) for x in observations])
     times=sort(unique([x.time for x in pairs]));risk=Float64(length(pairs));survival=1.;area=0.;previous=0.;q80=nothing
     for t in times
         area+=survival*(t-previous)

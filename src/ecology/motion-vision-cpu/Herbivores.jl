@@ -74,7 +74,7 @@ function target!(w,a,i,t,policy=StateMachinePolicy())
     a.target[i]=choose_target(policy,observe_neighbors!(w,a,i,t),a.heading[i],a.previous_cell[i])
     a.next_sense[i]=t+10
 end
-function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing)
+function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing)
     fill!(demand,0.); empty!(active)
     n=length(a.x)
     for i in 1:n
@@ -112,6 +112,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 end
             end
             speed=state==FLEE ? .6 : .2
+            steering!==nothing && state==SEARCH && (a.heading[i]=steering(w,a,i,speed,overrides))
             p=(a.x[i],a.z[i]); q=(p[1]+speed*cos(a.heading[i]),p[2]+speed*sin(a.heading[i]))
             if state==FLEE && !clear(w,p,q)
                 # Choose the clear escape step farthest from the perceived threat.

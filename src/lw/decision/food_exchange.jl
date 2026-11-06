@@ -3,7 +3,7 @@
 function observed_food_count(view,other,k;fallback=4)
     stocks=get(view,"observed_food_stocks",nothing)
     stocks===nothing && return legacy_unobserved_food_count(fallback)
-    haskey(stocks,other) ? stocks[other][k] : 0
+    haskey(stocks,other) ? get(stocks[other],k,0) : 0
 end
 const FOOD_TRADE_INTERVAL_US=64_000_000
 const FOOD_TRADE_TOLERANCE=.05
@@ -14,8 +14,8 @@ function food_trade_state(seed;relational=false)
         "pending"=>nothing,"next_view_us"=>0,"next_offer_us"=>0,"relational"=>relational) for a in IDS))
 end
 "Known food values belong to the observer, including current taste and need."
-function food_aid_values(body,gut,kinds)
-    weights=food_trade_weights(body,gut)
+function food_aid_values(body,gut,kinds;map=nothing,kitchen=nothing)
+    weights=food_trade_weights(body,gut;map,kitchen)
     [weights[k]*log1p(1/(1+count(==(k),kinds))) for k in RDLBody.FOOD_KIND_IDS]
 end
 function food_social_context(body;give_kind=0,want_kind=0,give_count=0,want_count=0)
@@ -24,15 +24,21 @@ function food_social_context(body;give_kind=0,want_kind=0,give_count=0,want_coun
     want_kind>0 && merge!(context,D("want_kind"=>want_kind,"want_count"=>want_count))
     context
 end
-function food_trade_weights(body,gut)
+function food_trade_weights(body,gut;map=nothing,kitchen=nothing)
     need=clamp((80-body.reserve)/80,0.,1.)
-    [begin
-        edible=RDLBody.food_edible(k)
-        meal=edible ? k : RDLBody.FOOD_PROCESS_OUTPUT[k]
-        liking=meal==0 ? 0. : gut===nothing ? FOOD_LIKING[meal] : taste(gut,meal,body.reserve)
-        # A known recipe predicts an edible result but still requires work.
-        (.2+.6need+liking)*(edible ? 1. : .65)
-    end for k in RDLBody.FOOD_KIND_IDS]
+    Base.map(RDLBody.FOOD_KIND_IDS) do kind
+        best=nothing
+        for prepared in (false,true)
+            forecast=food_use_forecast(map,kitchen===nothing ? nothing : kitchen.foods,
+                kitchen===nothing ? nothing : kitchen.actor,kind,prepared,gut,body.reserve,
+                kitchen===nothing ? () : kitchen.facilities,kitchen===nothing ? (0.,0.) : kitchen.position;
+                processing=kitchen!==nothing && kitchen.processing)
+            forecast===nothing && continue
+            value=.2+.6need+food_taste_value(forecast.liking,body.reserve)-forecast.cost
+            best=best===nothing ? value : max(best,value)
+        end
+        something(best,0.)-food_condition_aversion(map,kind)
+    end |> collect
 end
 function food_trade_gain(stock,weights,g,n,h,m)
     stock[g]>=n || return nothing
@@ -62,10 +68,10 @@ function food_trade_resolve!(loop,source,expected,weights,result;relational=fals
     end
     legacy_food_trade_resolve!(loop,source,expected,actual,exchanged,FOOD_TRADE_TOLERANCE)
 end
-function food_trade_views!(t,r,w,home,now;relations=nothing,open_stores=false)
+function food_trade_views!(t,r,w,home,now;relations=nothing,open_stores=false,actors=IDS)
     food_exchange_expire!(t["world"],now)
     views=D()
-    for a in IDS
+    for a in actors
         relations!==nothing && check(relations[a]["actor"]==a,"trade_relation_owner")
         mind=t["minds"][a]
         incoming=any(o->o["target"]==a,values(t["world"]["offers"]))
@@ -89,13 +95,13 @@ function food_trade_views!(t,r,w,home,now;relations=nothing,open_stores=false)
     end
     views
 end
-function food_trade_plan!(t,a,view,body,gut,now;relation=nothing,require_need=false,allow_start=true)
+function food_trade_plan!(t,a,view,body,gut,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true)
     require_need && error("necessity admission was replaced by compound trade valuation")
     relation!==nothing && check(relation["actor"]==a,"trade_relation_owner")
     view===nothing && return nothing
     mind=t["minds"][a];stock=view["own_stock"]
-    security=food_security(relation)
-    weights=food_trade_weights(body,gut)
+    security=map===nothing ? food_security(relation) : get(map,"food_security",food_security(relation))
+    weights=food_trade_weights(body,gut;map,kitchen)
     source="trade:$now:$a"
     if !isempty(view["incoming"])
         offer=first(view["incoming"]);other=offer["proposer"]

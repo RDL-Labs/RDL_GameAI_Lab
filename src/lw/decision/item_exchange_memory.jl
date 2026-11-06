@@ -17,7 +17,7 @@ function item_exchange_accumulate!(memory,give,want,partner,need,successes,failu
         length(memory)>=128 && deleteat!(memory,argmin([(m["successes"]>0,m["last_us"]) for m in memory]))
         push!(memory,D("key"=>key,"partner"=>partner,"give"=>deepcopy(give),"want"=>deepcopy(want),
             "need"=>need,"successes"=>0,"failures"=>0,"last_us"=>now,
-            "quantity_coefficients"=>fill(.25,10),"quantity_intercept"=>0.,"quantity_observations"=>Any[]))
+            "quantity_coefficients"=>fill(.25,length(item_exchange_quantities(give,want))),"quantity_intercept"=>0.,"quantity_observations"=>Any[]))
         i=length(memory)
     end
     m=memory[i];n=successes+failures;n>0 || return m

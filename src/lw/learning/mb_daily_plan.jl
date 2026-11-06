@@ -22,7 +22,7 @@ function mb_daily_estimate(state,key,baseline)
 end
 function mb_daily_stage!(state,stage,now;completed=false,reason="replan")
     a=state["active"];a["stage"]==stage && return
-    mb_daily_learn!(state,a["stage"],(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],completed,reason)
+    mb_daily_learn!(state,a["stage"]=="return" ? "return" : a["stage"]*":"*get(a,"stage_technique","legacy"),(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],completed,reason)
     a["stage"]=stage;a["stage_us"]=now;a["stage_energy"]=a["energy"]
 end
 function mb_daily_local_return!(state,now,reason)
@@ -40,7 +40,7 @@ function mb_daily_close!(state,now,returned,reason)
     a=state["active"];a["closed"] && return
     returned && a["delivered"]==0 && return mb_daily_local_return!(state,now,reason)
     mb_daily_finish_plan!(state,now,returned && a["delivered"]>0,reason)
-    mb_daily_learn!(state,a["stage"],(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],returned && a["stage"]=="return",reason)
+    mb_daily_learn!(state,a["stage"]=="return" ? "return" : a["stage"]*":"*get(a,"stage_technique","legacy"),(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],returned && a["stage"]=="return",reason)
     # Acquisition and return outcomes are separate; an empty return is not a delivery.
     mb_daily_learn!(state,"roundtrip:"*a["initial_mode"],(now-a["started_us"])/1e6,a["energy"],returned && a["delivered"]>0,reason)
     a["closed"]=true
@@ -134,13 +134,21 @@ function mb_food_contact!(s,plan,status,remaining,now,operation)
 end
 function mb_daily_evidence(s,move,reserve,strain,now)
     visible=get(move,"visible",Any[])
-    !isempty(visible) && return D("mode"=>"known_food","source"=>"visible","confidence"=>1.,
-        "seconds"=>max(1.,first(visible)["distance"]/.5+1),"candidate"=>nothing,"site_ref"=>get(first(visible),"ref",nothing))
+    selected=get(get(s,"acquisition",D()),"choice",nothing)
+    if selected!==nothing
+        if selected["ref"]===nothing
+            return D("mode"=>"unknown_food","source"=>"explore","confidence"=>0.,
+                "seconds"=>selected["seconds"],"candidate"=>nothing)
+        end
+        visible=filter(v->v["ref"]==selected["ref"],visible)
+    end
+    !isempty(visible) && return D("mode"=>"known_food","source"=>get(first(visible),"acquisition","pickup")=="fishing" ? "fishing_spot" : "visible","confidence"=>1.,
+        "seconds"=>max(1.,selected===nothing ? mb_travel_seconds(first(visible)["distance"])+get(first(visible),"acquisition_seconds",1.) : get(selected,"acquire_seconds",selected["seconds"])),"candidate"=>nothing,"site_ref"=>get(first(visible),"ref",nothing))
     arrival=get(get(s,"goal_arrival",D()),"food",nothing)
     if arrival!==nothing && arrival["mode"]=="approach"
         e=arrival["estimate"]
         return D("mode"=>"known_food","source"=>"provisional_location","confidence"=>arrival["confidence"],
-            "seconds"=>max(1.,hypot(e["forward"],e["right"])/.5+1),"candidate"=>nothing)
+            "seconds"=>max(1.,mb_travel_seconds(hypot(e["forward"],e["right"]))+1),"candidate"=>nothing)
     end
     # Reuse the same uncertain chunk correspondence as ordinary navigation.
     options=filter(p->!mb_food_site_empty(s,get(p,"food_ref",nothing)),mb_chunk_candidates!(s,move,"food",reserve,strain,now;H=0))
@@ -153,6 +161,7 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     state=s["daily_plan"];a=state["active"]
     for row in get(move,"visible",Any[])
         ref=get(row,"ref",nothing);ref===nothing && continue
+        get(row,"acquisition","pickup")=="fishing" && continue # opportunity, not visible fish stock
         push!(state["known_sites"],Int(ref));delete!(state["empty_sites"],Int(ref))
         mb_food_site_observe!(s,ref,1,now,"visible")
     end
@@ -194,11 +203,17 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
         a["target_ref"]=ref
     end
     mode=a["strategy"]=="explore" ? "unknown_food" : evidence["mode"]
-    food=mb_daily_estimate(state,mode,evidence["seconds"])
+    technique=get(get(get(s,"acquisition",D()),"choice",D()),"technique","legacy")
+    if get(a,"stage_technique",technique)!=technique
+        mb_daily_learn!(state,a["stage"]*":"*a["stage_technique"],(now-a["stage_us"])/1e6,a["energy"]-a["stage_energy"],false,"method_switch")
+        a["stage_us"]=now;a["stage_energy"]=a["energy"]
+    end
+    a["stage_technique"]=technique
+    food=mb_daily_estimate(state,mode*":"*technique,evidence["seconds"] )
     mode=="known_food" && (food["seconds"]=max(food["seconds"],evidence["seconds"]))
     # Recognized home distance or an observed directed return chain; unknown is explicit.
     frame=s["current"];chain=frame===nothing ? nothing : mb_return_estimate(s,mb_return_outlook!(s,now),frame.key)
-    base=home!==nothing ? home["distance"]/.5 : chain===nothing ? 128. : Float64(length(chain["path"]))
+    base=home!==nothing ? mb_travel_seconds(home["distance"]) : chain===nothing ? 128. : Float64(length(chain["path"]))
     back=mb_daily_estimate(state,"return",max(1.,base))
     (home!==nothing || chain!==nothing) && (back["seconds"]=max(back["seconds"],base))
     resources=get(s["parent_mb"],"resources",D("metabolic_rate"=>0.))

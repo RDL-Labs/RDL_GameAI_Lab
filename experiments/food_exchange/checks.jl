@@ -25,7 +25,7 @@ trade_view(x,a,now=0)=LW.food_exchange_view(x.s,x.f.r,x.f.w,TRADE_HOME,a,now)
     @test length(x.s["offers"])==1 && audit(x.f)===nothing
     own=trade_view(x,A);other=trade_view(x,OTHER)
     @test own["outgoing"]==id && isempty(own["incoming"])
-    @test other["incoming"][1]["id"]==id && other["own_stock"]==[0,0,4,0]
+    @test other["incoming"][1]["id"]==id && other["own_stock"]==[0,0,4,0,0,0,0,0]
     @test all(p->p isa String,other["partners"]) && !haskey(other,"personal")
     # Another owner's undisclosed stock cannot change the proposer's observation.
     hidden=saved_copy(x);hidden.f.r.personal[OTHER][3]+=1;hidden.f.stores[OTHER]+=1;hidden.f.r.initial[3]+=1
@@ -50,10 +50,10 @@ end
     hand=deepcopy(x.f.w.inventory);cargo=deepcopy(x.f.cargo);outside=copy(x.f.r.personal[C])
     accepted=answer_offer!(x,id)
     @test accepted["status"]=="exchanged" && isempty(x.s["offers"])
-    @test x.f.r.personal[A]==[2,0,2,0] && x.f.r.personal[OTHER]==[1,0,2,0]
+    @test x.f.r.personal[A]==[2,0,2,0,0,0,0,0] && x.f.r.personal[OTHER]==[1,0,2,0,0,0,0,0]
     @test x.f.stores[A]==4 && x.f.stores[OTHER]==3
     @test x.f.w.inventory==hand && x.f.cargo==cargo && x.f.r.personal[C]==outside
-    @test x.f.r.shared==zeros(Int,4) && audit(x.f)===nothing
+    @test x.f.r.shared==zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)) && audit(x.f)===nothing
     @test all(last(x.s["notices"][a])["status"]=="exchanged" for a in (A,OTHER))
     before=LW.food_snapshot(x.f.r);state=LW.food_exchange_snapshot(x.s)
     @test answer_offer!(x,id)==accepted
@@ -94,13 +94,13 @@ end
     proposer_receipt=answer_offer!(more_proposer,id)
     views=Dict(a=>trade_view(x,a,1_000_000) for a in (A,OTHER))
     notices=Dict(a=>deepcopy(only(views[a]["notices"])) for a in (A,OTHER))
-    @test before[A]==[3,0,0,0] && before[OTHER]==[0,0,4,0]
+    @test before[A]==[3,0,0,0,0,0,0,0] && before[OTHER]==[0,0,4,0,0,0,0,0]
     for a in (A,OTHER)
         @test notices[a]["own_before"]==before[a]
         @test notices[a]["own_after"]==x.f.r.personal[a]
     end
-    @test accepted["own_before"]==before[OTHER] && accepted["own_after"]==[1,0,2,0]
-    @test receiver_receipt["own_before"]==[0,0,6,0] && receiver_receipt["own_after"]==[1,0,4,0]
+    @test accepted["own_before"]==before[OTHER] && accepted["own_after"]==[1,0,2,0,0,0,0,0]
+    @test receiver_receipt["own_before"]==[0,0,6,0,0,0,0,0] && receiver_receipt["own_after"]==[1,0,4,0,0,0,0,0]
     @test trade_view(more_receiver,A,1_000_000)==views[A]
     @test proposer_receipt==accepted && trade_view(more_proposer,OTHER,1_000_000)==views[OTHER]
     public_keys=Set(("id","proposer","target","give_kind","give_count","want_kind","want_count",
@@ -191,7 +191,7 @@ end
 
 @testset "invalid terms fail before mutation and history stays bounded" begin
     for terms in ((give_kind=true,),(give_count=true,),(give_count=0,),(want_count=5,),
-                  (want_count=1.5,),(want_kind=B.FRUIT_FOOD,),(want_kind=5,))
+                  (want_count=1.5,),(want_kind=B.FRUIT_FOOD,),(want_kind=9,))
         x=exchange_fixture();before=LW.food_snapshot(x.f.r)
         @test_throws ErrorException make_offer!(x;terms...)
         @test LW.food_snapshot(x.f.r)==before && isempty(x.s["offers"])

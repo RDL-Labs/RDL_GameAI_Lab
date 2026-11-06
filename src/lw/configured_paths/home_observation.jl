@@ -36,9 +36,11 @@ function configured_observation_record!(state,map,position,action,now,day_us)
     end
     state["actions"][action]=get(state["actions"],action,0)+1
     state["max_displacement"]=max(state["max_displacement"],hypot(position[1]-state["origin"][1],position[2]-state["origin"][2]))
-    if now+1_000_000==day_us
-        state["completed"]=true
-        state["map_at_end"]=D("nodes"=>length(map["nodes"]),"edges"=>length(map["edges"]),
-            "home_nodes"=>count(n->n["home"],values(map["nodes"])),"chunks"=>map["chunk_formations"])
-    end
+end
+# Calendar completion is independent of sensing: sleeping actors do not observe.
+function configured_observation_finish!(state,map)
+    state["completed"] && return
+    state["completed"]=true
+    state["map_at_end"]=D("nodes"=>length(map["nodes"]),"edges"=>length(map["edges"]),
+        "home_nodes"=>count(n->n["home"],values(map["nodes"])),"chunks"=>map["chunk_formations"])
 end

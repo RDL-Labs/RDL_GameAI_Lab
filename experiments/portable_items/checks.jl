@@ -67,8 +67,8 @@ end
     f=item_fixture()
     @test item_checks(f)===nothing
     @test Set(keys(f.s["items"]))==Set([1,2,3])
-    @test LW.item_snapshot(f.s)["initial_counts"]==[1,1,1]
-    @test LW.item_snapshot(f.s)["remaining_counts"]==[1,1,1]
+    @test LW.item_snapshot(f.s)["initial_counts"]==[1,1,1,0]
+    @test LW.item_snapshot(f.s)["remaining_counts"]==[1,1,1,0]
     for invalid in (true,1.0,"1",0,-1)
         @test_throws Exception item_fixture(objects=[placed_item(invalid,1)])
     end
@@ -179,7 +179,7 @@ end
     offer=item_act(f,ITEM_A,"item_offer",0;target=ITEM_B,give_items=[1],want_food=[0,0,2,0])
     accepted=item_act(f,ITEM_B,"item_accept",1;offer_id=offer["offer_id"])
     @test accepted["status"]=="exchanged" && f.s["items"][1]["owner"]==ITEM_B
-    @test f.foods.personal[ITEM_A]==[2,0,2,0] && f.foods.personal[ITEM_B]==[0,0,1,0]
+    @test f.foods.personal[ITEM_A]==[2,0,2,0,0,0] && f.foods.personal[ITEM_B]==[0,0,1,0,0,0]
     @test f.stores[ITEM_A]==4 && f.stores[ITEM_B]==1
     @test f.foods.initial==before && item_checks(f)===nothing
     f=barter_fixture()
@@ -192,7 +192,19 @@ end
     f=barter_fixture()
     offer=item_act(f,ITEM_A,"item_offer",0;target=ITEM_B,give_food=[1,0,0,0],want_items=[2])
     @test item_act(f,ITEM_B,"item_accept",1;offer_id=offer["offer_id"])["status"]=="exchanged"
-    @test f.s["items"][2]["owner"]==ITEM_A && f.foods.personal[ITEM_B]==[1,0,3,0]
+    @test f.s["items"][2]["owner"]==ITEM_A && f.foods.personal[ITEM_B]==[1,0,3,0,0,0]
+    @test item_checks(f)===nothing
+end
+
+@testset "mixed barter carries processed food quality" begin
+    f=barter_fixture()
+    f.foods.personal[ITEM_B].=[0,0,0,3,0,0]
+    f.foods.initial[3]-=3;f.foods.initial[4]+=3
+    LW.food_quality_store_add!(f.foods,ITEM_B,4,3,2)
+    offer=item_act(f,ITEM_A,"item_offer",0;target=ITEM_B,give_items=[1],want_food=[0,0,0,2])
+    @test item_act(f,ITEM_B,"item_accept",1;offer_id=offer["offer_id"])["status"]=="exchanged"
+    @test f.foods.game.stores[ITEM_A][(4,3)]==1
+    @test f.foods.game.stores[ITEM_B][(4,3)]==1
     @test item_checks(f)===nothing
 end
 
@@ -283,7 +295,7 @@ end
     f=item_fixture(objects=[placed_item(1,99),placed_item(2,99;color="red",mass=.2),placed_item(3,1)],
         input_key=:loose_items,scene=(item_kinds=registry,))
     snap=LW.item_snapshot(f.s)
-    @test snap["kind_ids"]==[1,2,3,99] && snap["initial_counts"]==[1,0,0,2]
+    @test snap["kind_ids"]==[1,2,3,4,99] && snap["initial_counts"]==[1,0,0,0,2]
     @test snap["items"][1]["label"]=="quartz" && snap["items"][1]["mass"]==.7
     @test snap["items"][1]["color"]=="white" && snap["items"][1]["size"]==.3
     @test snap["items"][2]["color"]=="red" && snap["items"][2]["mass"]==.2
@@ -384,7 +396,7 @@ end
     @test f.s["items"][1]["owner"]==ITEM_B && f.s["items"][2]["owner"]==ITEM_A
     @test item_view(f,ITEM_A;now=1)["own_load"]["mass"]==5.
     @test item_view(f,ITEM_B;now=1)["own_load"]["mass"]==5.
-    @test f.foods.personal[ITEM_A]==[1,0,1,0] && f.foods.personal[ITEM_B]==[1,0,2,0]
+    @test f.foods.personal[ITEM_A]==[1,0,1,0,0,0] && f.foods.personal[ITEM_B]==[1,0,2,0,0,0]
     @test item_checks(f)===nothing
 
     for overloaded in (ITEM_A,ITEM_B)
@@ -422,6 +434,6 @@ end
     @test item_act(f,ITEM_B,"item_accept",1;offer_id=id)==item_act(restored,ITEM_B,"item_accept",1;offer_id=id)
     @test LW.item_snapshot(f.s)==LW.item_snapshot(restored.s)
     @test LW.food_snapshot(f.foods)==LW.food_snapshot(restored.foods)
-    @test LW.item_snapshot(restored.s)["kind_ids"]==[1,2,3,99,65535]
-    @test LW.item_snapshot(restored.s)["initial_counts"]==[0,0,0,1,1] && item_checks(restored)===nothing
+    @test LW.item_snapshot(restored.s)["kind_ids"]==[1,2,3,4,99,65535]
+    @test LW.item_snapshot(restored.s)["initial_counts"]==[0,0,0,0,1,1] && item_checks(restored)===nothing
 end

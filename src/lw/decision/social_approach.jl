@@ -3,10 +3,10 @@
 function social_approach_candidates(view,move,relation,loop,now;purpose="aid",food_value=1.,food_values=nothing,context=nothing)
     view===nothing && return Any[]
     check(purpose in ("aid","trade"),"social_approach_purpose")
-    check(food_value isa Real && !(food_value isa Bool) && isfinite(food_value) && food_value>=0,
+    check(food_value isa Real && !(food_value isa Bool) && isfinite(food_value),
         "social_approach_value")
-    check(food_values===nothing || (food_values isa AbstractVector && length(food_values)==4 &&
-        all(v->v isa Real && !(v isa Bool) && isfinite(v) && v>=0,food_values)),"social_approach_food_values")
+    check(food_values===nothing || (food_values isa AbstractVector && length(food_values)==length(RDLBody.FOOD_KIND_IDS) &&
+        all(v->v isa Real && !(v isa Bool) && isfinite(v),food_values)),"social_approach_food_values")
     check(view["capture_us"]==now && view["source"]=="ob:$now:$(view["actor"])","social_approach_observation")
     relation===nothing && return Any[]
     check(relation["actor"]==view["actor"],"social_approach_owner")
@@ -36,6 +36,9 @@ function social_approach_candidates(view,move,relation,loop,now;purpose="aid",fo
                 sum(p*food_values[k] for (k,p) in kinds)
         end
         expected=value*probability
+        # Rotten/unwanted foods can carry negative learned value. Keep that
+        # evidence; only beneficial predicted aid motivates an approach.
+        expected>0 || continue
         # The common exploration walk has base priority 1.5. Additional value
         # is an expected owner-side gain, discounted by observed travel expense.
         # The same aid probability is not added again as a social-bias bonus.

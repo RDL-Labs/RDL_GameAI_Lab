@@ -4,7 +4,8 @@
 # predictions and the similarity metric change from experienced consequences.
 const SOCIAL_MB_PENDING_LIMIT=128
 const SOCIAL_MB_NODE_LIMIT=96
-const SOCIAL_MB_CONTEXT_KEYS=("give_kind","want_kind","give_count","want_count","need","distress","fear")
+const SOCIAL_MB_CONTEXT_KEYS=("give_kind","want_kind","give_count","want_count","need","distress","fear",
+    "holding_food","stock_known","stock_edible","stock_faded")
 social_mb_state()=D("nodes"=>D(),"pending"=>D(),"frozen"=>nothing,
     "metric"=>mb_metric_state(),"reviews"=>Any[],"last_review_day"=>-1,
     "events"=>0,"unknown"=>0,"admission_blocked"=>0,"provisional_evicted"=>0,"merged"=>0,"evicted"=>0)
@@ -14,14 +15,18 @@ function social_mb_context(context)
     context===nothing && return D()
     out=D()
     for (key,value) in pairs(context)
-        k=String(key);check(k in SOCIAL_MB_CONTEXT_KEYS,"social_mb_context_key")
+        k=String(key)
+        stock_kind=startswith(k,"stock_kind_") ? tryparse(Int,k[12:end]) : nothing
+        check(k in SOCIAL_MB_CONTEXT_KEYS || (stock_kind!==nothing && stock_kind in RDLBody.FOOD_KIND_IDS),"social_mb_context_key")
         check(value isa Real && !(value isa Bool) && isfinite(value),"social_mb_context_value")
         if k in ("give_kind","want_kind")
-            check(isinteger(value) && 1<=value<=4,"social_mb_context_kind")
+            check(isinteger(value) && value in RDLBody.FOOD_KIND_IDS,"social_mb_context_kind")
             out[k]=Int(value)
         elseif k in ("give_count","want_count")
             check(isinteger(value) && 0<=value<=4,"social_mb_context_count")
             out[k]=Int(value)
+        elseif startswith(k,"stock_") && k!="stock_known"
+            check(value>=0,"social_mb_context_stock");out[k]=Float64(value)
         else
             check(0<=value<=(k=="need" ? 2 : 1),"social_mb_context_need");out[k]=Float64(value)
         end

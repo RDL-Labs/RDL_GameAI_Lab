@@ -6,6 +6,8 @@ include("../directional-vision-cpu/DirectionalVision.jl")
 const V=DirectionalVision
 const H=V.H
 const P=V.P
+include("reproduction.jl")
+include("../../lw/configured_paths/wildlife_reproduction.jl")
 
 mutable struct GrazingWorld
     world::H.World
@@ -32,12 +34,16 @@ mutable struct GrazingWorld
     ticks::Int
     prepared::Bool
     deaths::Int
+    life::Union{Nothing,RabbitLife}
 end
 
 function build(scene,clock;low_obstacles=true)
     cfg=get(scene,:wildlife,nothing)
     (cfg===nothing || !get(cfg,:enabled,false)) && return nothing
     get(cfg,:enabled,false)===true || error("wildlife.enabled must be Bool")
+    get(cfg,:reproduction,false) isa Bool || error("wildlife.reproduction must be Bool")
+    initial_pregnancy_days=get(cfg,:initial_pregnancy_days,Int[])
+    isempty(initial_pregnancy_days) || get(cfg,:reproduction,false) || error("initial pregnancy requires reproduction")
     hasproperty(scene,:landscape) || error("grazing requires a riparian landscape")
     scene.landscape.rule=="lw-riparian-base-v1" || error("unsupported grazing landscape")
     clock.day_us==17_280_000_000 || error("grazing body requires the 17280-second day")
@@ -73,7 +79,8 @@ function build(scene,clock;low_obstacles=true)
     GrazingWorld(w,a,trues(n),copy(a.heading),fill(-1000,n),zeros(Int,n),fill((0.,0.),n),
         fill(-1000,n),fill(-1000,n),zeros(UInt8,n),fill((0.,0.),n),zeros(length(w.grass)),
         zeros(length(w.grass)),zeros(n),Int[],humans,zeros(Int,n),zeros(Int,n),zeros(Int,n),
-        zeros(Int,length(humans)),positions,0,false,0)
+        zeros(Int,length(humans)),positions,0,false,0,
+        get(cfg,:reproduction,false) ? rabbit_life(n,seed,positions;initial_pregnancy_days) : nothing)
 end
 
 function prepare!(s::GrazingWorld,humans,t::Int)
@@ -83,6 +90,7 @@ function prepare!(s::GrazingWorld,humans,t::Int)
     fill!(s.overrides,0)
     for i in eachindex(s.alive)
         s.alive[i] || continue
+        s.life!==nothing && dependent(s.life,i,t) && continue
         recent=t-s.last_seen[i]<=20
         remembered=s.seen_position[i]
         desired=recent ? atan(remembered[2]-a.z[i],remembered[1]-a.x[i]) : a.heading[i]+(pi/6)*sin(t/8+i)
@@ -121,11 +129,12 @@ function prepare!(s::GrazingWorld,humans,t::Int)
         s.threats[i]=s.seen_position[i]
     end
     copyto!(s.previous_humans,humans)
+    configured_rabbit_nursing!(s,t)
     s.prepared=true
     nothing
 end
 
-function advance!(s::GrazingWorld,t::Int)
+function advance!(s::GrazingWorld,t::Int; nursing_potential=true)
     t==s.ticks && s.prepared || error("grazing action without current perception")
     a=s.animals
     for i in eachindex(s.alive)
@@ -134,7 +143,9 @@ function advance!(s::GrazingWorld,t::Int)
         s.overrides[i]==H.FLEE && a.state[i]!=H.FLEE && (s.flee_entries[i]+=1)
     end
     H.step!(s.world,a,t,s.demand,s.ratio,s.requests,s.active;
-        alive=s.alive,overrides=s.overrides,threat_positions=s.threats)
+        alive=s.life===nothing ? s.alive : s.life.moving,overrides=s.overrides,threat_positions=s.threats,
+        steering=s.life!==nothing && nursing_potential ? configured_rabbit_potential : nothing)
+    s.life!==nothing && rabbit_advance!(s,t)
     for i in eachindex(s.alive)
         if s.alive[i] && a.energy[i]<=0
             s.alive[i]=false;s.deaths+=1
@@ -157,14 +168,17 @@ function snapshot(s::GrazingWorld; previous=nothing)
     @assert count(!,s.alive)==s.deaths
     @assert all(i->H.clear(w,(a.x[i],a.z[i]),(a.x[i],a.z[i])),eachindex(s.alive))
     @assert all(isfinite,a.energy) && all(e->0<=e<=100,a.energy)
-    @assert all(i->!s.alive[i] || sum(a.counts[i,:])==s.ticks,eachindex(s.alive))
+    @assert all(i->!s.alive[i] || sum(a.counts[i,:])==s.ticks-(s.life===nothing ? 0 : max(0,s.life.born[i])),eachindex(s.alive))
     (rule="lw-grazing-v1",balances=balances,count=length(s.alive),alive=count(s.alive),ticks=s.ticks,
+     reproduction=rabbit_reproduction_snapshot(s),
      starvation_deaths=s.deaths,grass_initial=w.initial,grass_grown=w.grown,
      grass_remaining=sum(w.grass),grass_eaten=w.eaten,grass_cells=count(>(0),w.capacity),
      states=H.STATES,state_ticks=vec(sum(a.counts,dims=1)),human_seen=copy(s.human_seen),
      alert_entries=sum(s.alert_entries),flee_entries=sum(s.flee_entries),
      final=[(id=i,alive=s.alive[i],initial=s.initial_positions[i],position=(a.x[i],a.z[i]),
         energy=a.energy[i],gut=a.gut[i],state=H.STATES[a.state[i]],distance=a.distance[i],
+        born_tick=s.life===nothing ? nothing : s.life.born[i],mother=s.life===nothing ? 0 : s.life.mother[i],
+        sex=s.life===nothing ? 0 : s.life.sex[i],height=rabbit_height(s,i),
         eaten=a.consumed[i],blocked=a.blocked[i],human_seen_ticks=s.seen_ticks[i],
         alert_entries=s.alert_entries[i],flee_entries=s.flee_entries[i],state_ticks=a.counts[i,:]) for i in eachindex(s.alive)])
 end

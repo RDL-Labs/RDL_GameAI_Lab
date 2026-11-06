@@ -18,12 +18,14 @@ function trade_valuation_context(body,gut,security,situation,trace;food_enabled=
         "food_units"=>[RDLBody.food_edible(k) ? 1. : RDLBody.FOOD_PROCESS_OUTPUT[k]!=0 ? (security===nothing ? 1. : .65) : 0. for k in RDLBody.FOOD_KIND_IDS],
         "distress"=>clamp(get(situation,"distress",0.),0.,1.),"fear"=>clamp(get(situation,"fear",0.),0.,1.),
         "affiliation"=>clamp(1+.75credit+.5benefit+.1familiar,0.,2.5),
+        "expiry"=>security===nothing ? nothing : deepcopy(get(security,"expiry",nothing)),
         "relationship"=>.05benefit+.1credit+.02familiar)
 end
 
 function trade_compound_gradient(before,after,material,valuation;cost=.002)
     units=valuation["food_units"]
-    supplied(x)=x===nothing ? 0. : sum(units[k]*x[k] for k in eachindex(units))
+    expiry=get(valuation,"expiry",nothing)
+    supplied(x)=x===nothing ? 0. : sum(units[k]*x[k] for k in eachindex(x))-(expiry===nothing ? 0. : food_expected_waste(x,expiry;units))
     deficit(x)=max(0.,valuation["required"]-valuation["digesting"]-supplied(x))
     initial=deficit(before);final=deficit(after)
     security=.5*((1+initial)^2-(1+final)^2)
@@ -32,8 +34,12 @@ function trade_compound_gradient(before,after,material,valuation;cost=.002)
     # make food a weaker response to the visible distress. No return promise.
     aid=valuation["distress"]*(1-.5valuation["fear"])*valuation["affiliation"]*log1p(delivered)
     relationship=valuation["relationship"]
+    waste_before=expiry===nothing ? 0. : food_expected_waste(before,expiry)
+    waste_after=expiry===nothing ? 0. : food_expected_waste(after,expiry)
+    waste_relief=2*(waste_before-waste_after)
     D("material"=>material,"security"=>security,"aid"=>aid,"relationship"=>relationship,
-        "cost"=>-cost,"total"=>material+security+aid+relationship-cost,
+        "waste_before"=>waste_before,"waste_after"=>waste_after,"waste_relief"=>waste_relief,
+        "cost"=>-cost,"total"=>material+security+aid+relationship+waste_relief-cost,
         "need_before"=>initial,"need_after"=>final)
 end
 

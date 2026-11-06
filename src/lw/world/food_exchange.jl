@@ -72,6 +72,7 @@ function food_exchange_view(s,r,w,home,a,now;open_stores=false)
         "outgoing"=>outgoing===nothing ? nothing : ids[outgoing],
         "notices"=>deepcopy(s["notices"][a]))
     open_stores && (view["observed_food_stocks"]=observed_food_stores(r,w,home,a))
+    open_stores && (view["observed_food_conditions"]=observed_food_conditions(r,view))
     view
 end
 
@@ -146,6 +147,8 @@ function food_exchange_execute!(s,r,w,stores,home,a,op,action,now;
                 left[g]-=n;left[h]+=m;right[h]-=m;right[g]+=n
                 check(all(>=(0),left) && all(>=(0),right),"trade_stock")
                 left_total=sum(left);right_total=sum(right)
+                give=zeros(Int,length(RDLBody.FOOD_KIND_IDS));want=zeros(Int,length(RDLBody.FOOD_KIND_IDS));give[g]=n;want[h]=m
+                food_quality_swap!(r,proposer,a,give,want)
                 r.personal[proposer].=left;r.personal[a].=right
                 stores[proposer]=left_total;stores[a]=right_total
                 status="exchanged";reason=nothing

@@ -2,6 +2,18 @@ using Test, JSON3, Serialization
 include("../../src/lw/LW.jl")
 const B=LW.RDLBody
 const A="npc_a";const C="npc_c";const OTHER="npc_b"
+@testset "processing requires compatible nearby equipment" begin
+ f=(id=1,name="camp_food_workshop",x=-.8,z=6.,work_radius=2.1,height=1.,radius=.5,color="brown",processing_kinds=[3])
+ fs=LW.food_facilities((food_facilities=[f],))
+ @test LW.food_facility_for(fs,(0.,6.),3)==f
+ @test LW.food_facility_for(fs,(10.,6.),3)===nothing
+ @test LW.food_facility_for(fs,(0.,6.),1)===nothing
+ @test LW.food_facility_for(LW.food_facilities((home=[0.,6.],)),(0.,6.),3)===nothing
+ @test length(LW.food_facility_visuals(fs))==1
+ @test_throws ErrorException LW.food_facilities((food_facilities=[f,f],))
+ @test_throws ErrorException LW.food_facilities((food_facilities=[merge(f,(work_radius=-1.,))],))
+ @test_throws ErrorException LW.food_facilities((food_facilities=[merge(f,(processing_kinds=[99],))],))
+end
 
 "Small authoritative resource fixture; no navigation or simulated days."
 function fixture(;kinds=[[3,1],Int[],Int[]],shared_counts=[0,0,0,0])
@@ -17,6 +29,20 @@ function fixture(;kinds=[[3,1],Int[],Int[]],shared_counts=[0,0,0,0])
     (w=w,r=r,food=food,stock=stock,stores=stores,shared=shared,cargo=cargo)
 end
 audit(f)=LW.food_audit!(f.r,f.w,f.stock,f.shared[],f.stores)
+@testset "explicit food selection does not substitute another kind" begin
+ f=fixture()
+ @test LW.food_meal_index(f.r,A,nothing,50.,3)==1
+ @test LW.food_meal_index(f.r,A,nothing,50.,1)==2
+ @test LW.food_meal_index(f.r,A,nothing,50.,4)==0
+ @test LW.food_meal_index(f.r,A,nothing,50.,99)==0
+ LW.food_deposit!(f.r,A,false);f.stores[A]=2;f.w.inventory[A]=0
+ @test LW.food_retrieve!(f.r,A,false,nothing,50.;kind=3)==3
+ f.stores[A]-=1;f.w.inventory[A]+=1
+ @test audit(f)===nothing
+ before=deepcopy(f.r.personal[A])
+ @test_throws ErrorException LW.food_retrieve!(f.r,A,false,nothing,50.;kind=4)
+ @test f.r.personal[A]==before
+end
 function saved_copy(x)
     io=IOBuffer();serialize(io,x);seekstart(io);deserialize(io)
 end
@@ -27,9 +53,9 @@ end
     @test B.taste(g,B.MEAT_FOOD,50.)==1.125
     @test B.taste(g,B.ACORN_MEAL,50.)≈.3375
     @test B.taste(g,B.ACORN_MEAL,50.)<B.taste(g,B.ORDINARY_FOOD,50.)
-    before=B.digestion_snapshot(g)
-    @test_throws ErrorException B.ingest!(g,B.RAW_ACORN,50.,0)
-    @test B.digestion_snapshot(g)==before
+    raw=B.Digestion()
+    @test B.ingest!(raw,B.RAW_ACORN,50.,0)<0
+    @test B.digestion_snapshot(raw)["eaten"]==1
     liking=B.ingest!(g,B.ACORN_MEAL,50.,0)
     @test liking≈.3375 && body.reserve==50.
     @test g.recent==[0.,0.,0.,.6]
@@ -46,10 +72,10 @@ end
 
 @testset "strict numeric food contracts" begin
     @test LW.checked_food_kind(3)===UInt8(3)
-    for invalid in (0,5,-1,true,1.0,"raw_acorn")
+    for invalid in (0,9,-1,true,1.0,"raw_acorn")
         @test_throws ErrorException LW.checked_food_kind(invalid)
     end
-    @test LW.food_count_vector(nothing,3)==[3,0,0,0]
+    @test LW.food_count_vector(nothing,3)==[3,0,0,0,0,0,0,0]
     @test_throws ErrorException LW.food_count_vector([0,-1,2,0],1)
     @test_throws ErrorException LW.food_count_vector([0,0,1],1)
     @test_throws ErrorException LW.food_count_vector([0,0,2,0],1)
@@ -57,7 +83,7 @@ end
     @test_throws ErrorException LW.food_count_vector([1.0,0,0,0],1)
     f=fixture()
     @test_throws ErrorException LW.food_resources((typed_food=false,),f.w,f.food,f.stock,0,f.stores)
-    @test_throws ErrorException fixture(kinds=[[5],Int[],Int[]])
+    @test_throws ErrorException fixture(kinds=[[9],Int[],Int[]])
     @test audit(f)===nothing
     f.r.inventory[A][1]=UInt8(B.MEAT_FOOD) # same total but wrong species of resource
     @test_throws ErrorException audit(f)
@@ -65,8 +91,8 @@ end
 
 @testset "processing work and interruption preserve mass" begin
     f=fixture(kinds=[[3],Int[],Int[]]);r=f.r
-    @test !LW.food_has_edible(r,A) && LW.food_has_raw(r,A)
-    @test LW.food_best_edible(r,A,nothing,50.)==0
+    @test LW.food_has_edible(r,A) && LW.food_has_raw(r,A)
+    @test LW.food_best_edible(r,A,nothing,50.)==1
     statuses=[LW.food_process!(r,A) for _ in 1:119]
     @test all(==("processing"),statuses)
     @test r.inventory[A]==[3] && r.processed[B.RAW_ACORN]==0
@@ -77,7 +103,7 @@ end
     @test LW.food_process!(r,A)=="processed"
     @test LW.food_process!(resumed,A)=="processed"
     @test LW.food_snapshot(r)==LW.food_snapshot(resumed)
-    @test r.inventory[A]==[4] && r.processed==[0,0,1,0] && r.work_ticks[A]==120
+    @test r.inventory[A]==[4] && r.processed==[0,0,1,0,0,0,0,0] && r.work_ticks[A]==120
     @test audit(f)===nothing
     @test LW.food_process!(r,A)=="no_ingredient"
     @test r.work_ticks[A]==120
@@ -94,10 +120,10 @@ end
 
 @testset "camp processing yields to exhausted body" begin
     f=fixture(kinds=[[3],Int[],Int[]])
-    @test LW.configured_food_preparation(f.r,A,true,true,false,0)===nothing
+    @test LW.configured_food_preparation(f.r,A,true,true,false,0)=="eat"
     @test LW.configured_food_preparation(f.r,A,false,true,true,0)===nothing
     @test LW.configured_food_preparation(f.r,A,true,true,true,0)=="process_food"
-    @test LW.configured_food_preparation(f.r,A,true,true,true,0;processing_enabled=false)===nothing
+    @test LW.configured_food_preparation(f.r,A,true,true,true,0;processing_enabled=false)=="eat"
     exhausted=B.Body(10.,1.,50.,0.)
     @test B.step(exhausted,"process_food",1)[2]=="body_limited"
     chosen=LW.configured_food_preparation(f.r,A,true,true,true,0;processing_feasible=false)
@@ -125,7 +151,7 @@ end
 
 @testset "storage, gifts and drops retain resource kind" begin
     f=fixture();r=f.r;w=f.w
-    @test LW.food_best_edible(r,A,nothing,50.)==2 # raw first in bag is not a meal
+    @test LW.food_best_edible(r,A,nothing,50.)==2 # fruit is preferred to unpleasant raw acorn
     LW.communicate!(w,OTHER,"request-1","request",A)
     receipt=LW.communicate!(w,A,"give-1","give",OTHER,OTHER*":request-1")
     @test receipt["status"]=="transferred"
@@ -146,11 +172,11 @@ end
     for _ in 1:120;LW.food_process!(r,C);end
     amount=w.inventory[C]
     LW.food_deposit!(r,C,true);f.shared[]+=amount;w.inventory[C]=0;empty!(f.cargo[C])
-    @test r.shared==[0,0,0,1] && audit(f)===nothing
+    @test r.shared==[0,0,0,1,0,0,0,0] && audit(f)===nothing
     # Ordinary food can be deposited into the same shared store without erasing kinds.
     amount=w.inventory[A]
     LW.food_deposit!(r,A,true);f.shared[]+=amount;w.inventory[A]=0;empty!(f.cargo[A])
-    @test r.shared==[1,0,0,1]
+    @test r.shared==[1,0,0,1,0,0,0,0]
     @test LW.food_retrieve!(r,OTHER,true,nothing,50.)==B.ORDINARY_FOOD
     f.shared[]-=1;w.inventory[OTHER]+=1;push!(f.cargo[OTHER],nothing)
     @test LW.food_retrieve!(r,C,true,nothing,50.)==B.ACORN_MEAL
@@ -159,15 +185,15 @@ end
     receipt=LW.communicate!(w,C,"eat-1","eat")
     @test receipt["status"]=="ate"
     kind=LW.food_remove!(r,C,1);popfirst!(f.cargo[C]);LW.food_record_meal!(r,C,kind,.3375,3_000_000)
-    @test r.consumed==[0,0,0,1] && r.pleasure[C]==.3375
+    @test r.consumed==[0,0,0,1,0,0,0,0] && r.pleasure[C]==.3375
     @test audit(f)===nothing
-    @test !LW.food_snapshot(r)["decay_enabled"]
+    @test LW.food_snapshot(r)["decay_enabled"] && LW.food_snapshot(r)["expired_fish"]==0
 end
 
 @testset "personal stores and known raw ingredients" begin
     f=fixture(kinds=[[3],Int[],Int[]])
     LW.food_deposit!(f.r,A,false);f.stores[A]+=1;f.w.inventory[A]=0
-    @test f.r.personal[A]==[0,0,1,0] && f.r.shared==zeros(Int,4)
+    @test f.r.personal[A]==[0,0,1,0,0,0,0,0] && f.r.shared==zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS))
     @test audit(f)===nothing
     @test LW.configured_food_preparation(f.r,A,true,true,true,1)=="retrieve"
     @test LW.food_retrieve!(f.r,A,false,nothing,50.)==B.RAW_ACORN

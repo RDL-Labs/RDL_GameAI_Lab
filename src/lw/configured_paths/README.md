@@ -1,6 +1,6 @@
 # 設定経路（撤去予定のテスト用処理）
 
-`post_return_idle.jl`：当日の食料持ち帰り成功後、夜開始まで認知を止めて休息させる固定設定。空帰還では適用しない。
+`post_return_idle.jl`：当日の食料持ち帰り成功後、夜開始まで認知を止めて休息させる固定設定。旧条件は空帰還では適用しない。`post_return_meal=true`では帰還後の実食を必須にし、取り出し・加工・食事が終わるまで停止しない。空帰還後でも実食できれば停止可。既定false、[研修後の試験条件](../../../docs/design/LW_Acorn_Training_Quest.md)を参照。
 既定OFF。適用範囲・観測停止・身体維持・記録先は[設計](../../../docs/design/LW_Configured_Post_Return_Idle.md)を参照。
 
 **追加・有効化前にユーザーへ固定設定と目的を宣言し、ここへ隔離する。**
@@ -47,3 +47,112 @@
 初日に観測した特徴とhomeの対応を、まとまりを呼び出すキーとして使う。再観測時に拠点MBをactiveにし、実際に見えた相対方向・距離を記憶する。視野から消えても自己移動receiptで推定を更新し、通常の帰還候補を出す。不確実性3超または背後なら確認用scan、実際にhomeへ到着したらactive解除。見えない物体の世界座標は参照しない。新しい視野での一致が無ければ未活動MBは勝手に起動しない。
 
 これは固定の初期経験による場所MBの初期版である。場面と遷移をまとめて保存するが、内部の全関係を一般的なグラフ推論で復元する機構ではない。今回はランドマークとの学習済み対応と自己移動見積もりによって帰還候補を作る。食事・別建物の用途学習や場所MBの自動分割統合、別世界への転移は未検証。固定見学・初期報酬は設定経路、保存と想起はlearning/mb_place.jlに分離。
+
+2026-11-04：routine_actions.jl と return_purpose.jl に定時帰還、夜間・応答待機、拠点作業、近距離採取、旧非MB移動を隔離。適用条件・OFF方法・残る設計定数は [棚卸し](../../../docs/design/LW_Configured_Policy_Audit.md) を参照。
+
+- sleep_gate.jl：夜の実行済み休息から朝まで外界入力を停止する初期ルール。scene.sleep_external_gate既定true。身体・内部記憶整理は継続。[仕様](../../../docs/design/LW_Sleep_External_Gate.md)。
+- collapse_gate.jl：reserve<=0の間、観測・判断・学習と睡眠整理を停止。scene.collapse_cognition_gate既定true、falseで比較可能。死亡とは判定せず、代謝・消化・他者からの物理的譲渡・世界時間は継続。reserve>0なら次tickから通常の認知対象に戻る（通常の睡眠条件は別）。受け取った食品を自動で食べる処理は加えない。counts.collapsed、mb_map.collapse_gate、events.configured_ruleに記録。将来、身体モデルが独立した意識状態を持てばこのreserve判定を置換する。
+
+- acorn_quest.jl：拠点見学後、ドングリ取得→帰還→由来を確認した納品を進める研修用の目的切替。scene.configured_acorn_quest既定false。日次納品目標との併用不可。移動は通常MB、加工は含まない。[仕様・試験](../../../docs/design/LW_Acorn_Training_Quest.md)。
+  追加研修はscene.configured_acorn_tasting（既定false）：2個納品→生食→もう1個を加工→加工物を食べる→果実を食べる。指定種類の取り出し・食事は固定研修として介入する。満腹・作業制限・材料・場所の実行条件は通常処理が検査する。
+
+- 加工練度は行動を固定しないゲーム成長則のため、`../game_rules/proficiency.jl`へ別隔離。scene.game_proficiency（typed_food時に既定true）で有効。特殊技能MBの予測品質を通常候補へ接続する。固定研修と技能成長を混同しない。詳細は上記の加工研修文書「ゲーム用の技能MBと加工品質」を参照。
+
+魚・塩の研修：`configured_fishing_training` + `configured_salt_tasting`。
+魚を食べ、所有する岩塩の外見と塩味を経験してから釣り1回と帰還。塩紹介は既定OFF。
+釣果は修了条件にしない。手順はfishing_training.jl、詳細はdocs/design/LW_Acorn_Training_Quest.md。
+
+## 帰還後の取引判断と認知停止（2026-11-05）
+
+`scene.configured_trade_idle=true` はコスト削減用の暫定設定（既定false）。
+`post_return_idle=true`、`post_return_meal=true`、物品取引ONが必要。
+帰還後の食事を終え、取引判断が見送りになった場合、通常の外界観測と候補生成を停止する。
+日次開始上限で提案できない場合も、未処理の受信提案がなければ停止できる。
+取引の成立・拒否を強制するものではなく、評価・選択は既存のMBが行う。
+
+停止中は接触可能な相手からの有効な提示を軽く確認し、届いた場合は通常判断へ戻す。
+自分の提示の結果待ちも停止しない。睡眠・倒れた状態の停止を解除するものではない。
+身体更新・消化・食品期限・外界時間は継続。翌日には判断済みフラグを解除する。
+停止中の自発的な再考や新しい空腹による起動は未実装であり、この実験制御の限界。
+一般的な休息・注意モデルではない。退屈や自発行動導入時に置換する。
+
+実装は `configured_paths/trade_idle.jl`。`mb_map.configured_trade_idle` に判断日時と
+通知による起動数、既存の `configured_post_return_idle.ticks` に停止tick数を記録する。
+物品・倉庫の見える範囲は変更しない。食品だけの取引と人間関係機構は今回OFF。
+`experiments/fishing/longrun.jl OUTPUT DAYS abundant trade-on idle-on` で有効化できる。
+
+## 加工中の相手への提示前待機（2026-11-05）
+
+`scene.configured_trade_work_wait` は既定false、釣り実験ランナーでは取引ON時にtrue。
+`configured_paths/trade_work_wait.jl` に仮置きの理由・切替設定・将来の置換方針をコメント化。
+新規提案を選んだ相手が直前tickで加工継続中だった場合、提示を発行せずrestで待つ。
+物理取引も日次開始回数も消費せず、未実行の選択を成功・失敗として学習させない。
+作業終了後は条件を再評価し、元の相手や数量を強制しない。提示前なので期限は始まらない。
+高優先行動は先行し、夜・翌日・接触喪失・受信提案によって待機を解除する。
+既存の逆提案や受諾にはこの待機を適用しない。提示後の移動拘束も今回の範囲外。
+直前tickの実行結果を読むため開始直後は1tick遅れる場合がある。
+将来は声かけ、相手の返答、待つか離れるかのMB選択に置換する。
+記録は `incidental_items.<actor>.configured_work_wait` の entries/ticks/released/cancelled、
+行動イベントの `configured_rule=wait_before_trade_offer`。
+
+### 提示後の返答待ちと同時移動（2026-11-05追記）
+
+提示前待機版30日の実行不能5件は、4件が提示者の返答前移動、1件が提示と同tickの
+相手の移動だった。このため同じ `configured_trade_work_wait` 設定に以下を追加した。
+有効な送信済み提案があり相手と取引接触できる間、他の上位行動がなければその場でrest。
+受諾・拒否・期限切れ・離別で待機対象がなくなる。受信応答は待機より優先。
+また全個体の計画確定後、相手がwalk/run/climb予定なら新規提示を実行前に見送る。
+物理取引と日次回数は発生させず、失敗学習もしない。次tickは再評価する。
+相手の計画を直接参照する暫定固定であり、将来は声かけへの応答で開始を合意する。
+記録は `reply_ticks`、`departure_deferrals`、eventsの `wait_for_trade_reply` /
+`defer_trade_departing_partner`。上位の安全行動などによる中断までは禁止しない。
+27項目の単体検査PASS。新しい30日での実行不能件数の再評価は未実施。
+
+返答待ち版の初回30日試験は10日完了後、11日目の同時移動見送りで停止。
+行動の差し替えが親の集計情報 `trail_parent` を落とし、後続記録でKeyErrorとなった。
+`trail_parent` / `bundle_parent` を保持し、提案固有の学習traceは持ち越さない修正を追加。
+回帰検査を含む30項目PASS。失敗出力は保存し、新規出力で30日を最初から再実行する。
+
+## 最大3回の交渉調整（2026-11-05）
+
+`scene.configured_negotiation` は既定false、釣り実験では取引ON時にtrue。
+設定経路 `configured_paths/negotiation.jl` に理由・設定・将来の置換予定を明記。
+初回をround=0とし、同じroot_idで最大3回の条件調整を許可する。round=3でも受諾可能。
+現条件を受諾できず実行可能な調整案がある場合は、即打ち切りより調整を固定で優先する。
+調整案なし、または上限後は打ち切り可能。成立は強制しない。
+候補の主観評価と数量近傍生成は既存MBを使用する。世界側も上限を検査する。
+旧モードfalseは上限8と従来の拒否候補を維持する。
+
+`portable_items.negotiations.counts` に started / adjusted / mismatch / agreed / ended /
+interrupted を累積保存。root_idで交渉を追跡し、調整に伴う旧提示の不一致は ended に
+加算しない。従来のcounts.declinedは互換性のため残し、交渉拒否率の分母分子には使わない。
+提示ごとの不成立経験は学習材料として残す。30秒の総期限は調整でも延長しない。
+将来は改善見込み・交渉費用・Hによる継続判断へ置換する。
+単体21項目PASS（3回後の成立、4回目禁止、打ち切り、期限切れ、資源保存）。
+
+## 人間関係との併用（2026-11-06）
+
+釣り長期ランナーの既定を `social_relationships=true` に変更した。
+第6引数 `social-off` で以前の比較条件へ戻せる（設定をconditions.jsonへ保存）。
+親しさ・援助・取引経験、表情観測、対人MB、対人接近・援助判断の既存機構を有効化する。
+単なる好意係数の追加ではなく、行動候補も変わるため、速度と成立率は実験で確認する。
+
+帰還後停止は通知起動を持つ `configured_trade_idle=true` の場合に限り併用可能。
+取引通知に加えて、知覚と同じ有効期間内の未処理の社会メッセージでも起動する。
+この起動条件はコスト削減用の固定制御の拡張で、通常の注意認知の実装ではない。
+睡眠・倒れた個体の停止は従来どおり。食品だけの別取引機構は引き続きOFF。
+単体15項目PASS。人間関係ONの長期効果は未評価。
+
+初回のON動作確認で、対人接近と援助予測が「食品価値は非負」を要求する旧前提により停止。
+腐敗食品などの負の主観価値を保持して受け取れるように修正した。対人接近は期待利益が
+正の場合だけ候補にし、援助予測では負の期待値／実績も記録する。関連7項目PASS。
+停止した初回・2回目の出力は残し、v3-smokeを正常性確認の対象とする。
+# 作業中の状況依存割込み遮断（2026-11-06）
+
+`task_interrupt.jl` の `configured_task_interrupt` を釣り・加工の集中継続へ接続。
+`scene.task_interrupt_shield` は既定true。falseなら動体検出時に従来どおり再観測。
+食料不安と本人の作業進捗を直接利用する暫定固定であり、MB学習で生まれた行動ではない。
+応答距離だけを縮小し、身体・完了・phase・定期確認による解除は残す。
+設定値は同ディレクトリの `parameters.jl`。診断は本人MBの `task_focus` に保存。
+将来は作業期待・観測矛盾に基づく注意配分へ置換する。
+詳細と検証は [集中観測報告](../../../experiments/fishing/task_focus_report.md) を参照。
