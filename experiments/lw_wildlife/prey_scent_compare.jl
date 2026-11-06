@@ -1,6 +1,6 @@
 using Statistics
 include("animals_only.jl")
-function scent_run(enabled;days=3,cautious=false,motion_speed=false)
+function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_dir=nothing)
     s,predators=animal_trial_world(;adult_rabbits=95)
     scents=PredatorScentWorld(2);minds=[PredatorMind(i) for i in 1:2]
     prey_scents=enabled ? PreyScentWorld(2;cautious) : nothing;daily=Any[]
@@ -12,9 +12,19 @@ function scent_run(enabled;days=3,cautious=false,motion_speed=false)
             end
             break
         end
-        (t+1)%17280==0 && push!(daily,animal_trial_report(s,predators;scents,minds))
+        if (t+1)%17280==0
+            report=animal_trial_report(s,predators;scents,minds);push!(daily,report)
+            if checkpoint_dir!==nothing
+                day=div(t+1,17280)
+                serialize(joinpath(checkpoint_dir,"day-$day.jls"),(s,predators,scents,minds,prey_scents))
+                println(JSON3.write((day=day,rabbits=report.rabbits.alive,
+                    alive=[p.alive for p in report.predators],captures=[p.captures for p in report.predators])))
+                flush(stdout)
+            end
+        end
     end
     final_state=animal_trial_report(s,predators;scents,minds)
+    checkpoint_dir!==nothing && serialize(joinpath(checkpoint_dir,"final.jls"),(s,predators,scents,minds,prey_scents))
     (enabled=enabled,cautious=cautious,motion_speed=motion_speed,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime,
         ticks=s.ticks,daily=daily,final_state=final_state,scent=prey_scent_report(prey_scents))
 end

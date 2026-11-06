@@ -1,0 +1,611 @@
+{
+  "conditions": {
+    "days": 30,
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "humans": 0,
+    "nutrition": 1.5,
+    "marking": true,
+    "cognition": true,
+    "prey_scent": true,
+    "cautious": true,
+    "motion_speed": true,
+    "stop_on_predator_extinction": true,
+    "prey_rule": {
+      "cell_size": 4.0,
+      "radius": 6.0,
+      "deposit_interval": 30,
+      "sniff_interval": 30,
+      "lifetime": 17280,
+      "deposit": 1.0,
+      "capacity": 4.0,
+      "minimum_signal": 0.05,
+      "arrival_radius": 1.0
+    },
+    "caution_rule": {
+      "strong_signal": 0.6,
+      "speed": 0.08,
+      "unconfirmed_ticks": 120,
+      "cooldown_ticks": 600
+    },
+    "motion_rule": {
+      "stationary": 0.55,
+      "saturation_speed": 0.5
+    },
+    "fixed": "same provisional scent steering/caution and speed perception as the three-day trial; no sound, wind, human actors or revised attack geometry"
+  },
+  "completion": {
+    "reason": "duration_reached",
+    "elapsed_days": 30.0,
+    "completed_days": 30,
+    "stopped_in_day": 30
+  },
+  "seconds": 49.0443138,
+  "bytes": 34682306078,
+  "gc_seconds": 2.8332892,
+  "first_three_days_match": true,
+  "scent": {
+    "cells": 967,
+    "deposits": 1649876,
+    "sniffs": 354,
+    "detections": 253,
+    "steering_ticks": 5011,
+    "cautious": true,
+    "caution_ticks": [
+      1076,
+      2351
+    ],
+    "rejected": 21
+  },
+  "predators": [
+    {
+      "alive": true,
+      "food": 202.2790000080842,
+      "captures": 29,
+      "attacks": 47,
+      "eaten": 18125.990999986592,
+      "spent": 18823.712000150448,
+      "discarded": 3069.009000013408,
+      "ticks": {
+        "hunt": 17692,
+        "visit_food": 3937,
+        "visit_rest": 19184,
+        "rest": 477587
+      },
+      "balance_residual": -1.7194179235957563E-07
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "captures": 2,
+      "attacks": 13,
+      "eaten": 2527.9304999981505,
+      "spent": 3427.9304999984383,
+      "discarded": 172.0695000018493,
+      "ticks": {
+        "dead": 429334,
+        "hunt": 12472,
+        "visit_food": 1957,
+        "visit_rest": 4437,
+        "rest": 70200
+      },
+      "balance_residual": -2.878550731111318E-10
+    }
+  ],
+  "rabbit_alive": 88,
+  "births": 19,
+  "starvation_deaths": 0,
+  "daily": [
+    {
+      "rabbits": 97,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1403.3163888893384,
+          "captures": 2,
+          "attacks": 3
+        },
+        {
+          "alive": true,
+          "food": 1539.0637222224525,
+          "captures": 1,
+          "attacks": 6
+        }
+      ]
+    },
+    {
+      "rabbits": 96,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1748.0944444445197,
+          "captures": 3,
+          "attacks": 7
+        },
+        {
+          "alive": true,
+          "food": 905.7717222231956,
+          "captures": 1,
+          "attacks": 6
+        }
+      ]
+    },
+    {
+      "rabbits": 95,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1128.272444445247,
+          "captures": 3,
+          "attacks": 7
+        },
+        {
+          "alive": true,
+          "food": 1502.0705000002954,
+          "captures": 2,
+          "attacks": 8
+        }
+      ]
+    },
+    {
+      "rabbits": 95,
+      "predators": [
+        {
+          "alive": true,
+          "food": 503.0384444460339,
+          "captures": 3,
+          "attacks": 7
+        },
+        {
+          "alive": true,
+          "food": 886.4725000010585,
+          "captures": 2,
+          "attacks": 8
+        }
+      ]
+    },
+    {
+      "rabbits": 100,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1156.5604444464961,
+          "captures": 4,
+          "attacks": 8
+        },
+        {
+          "alive": true,
+          "food": 134.33650000147523,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 100,
+      "predators": [
+        {
+          "alive": true,
+          "food": 523.0764444473266,
+          "captures": 4,
+          "attacks": 8
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 98,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1296.810444447982,
+          "captures": 6,
+          "attacks": 11
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 98,
+      "predators": [
+        {
+          "alive": true,
+          "food": 679.5844444488599,
+          "captures": 6,
+          "attacks": 11
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 96,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1596.884611111437,
+          "captures": 8,
+          "attacks": 13
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 101,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1321.6452222228422,
+          "captures": 9,
+          "attacks": 14
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 101,
+      "predators": [
+        {
+          "alive": true,
+          "food": 693.5932222236281,
+          "captures": 9,
+          "attacks": 14
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 100,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1394.559222224041,
+          "captures": 10,
+          "attacks": 17
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 100,
+      "predators": [
+        {
+          "alive": true,
+          "food": 778.3452222248253,
+          "captures": 10,
+          "attacks": 17
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 98,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1443.7831111115324,
+          "captures": 12,
+          "attacks": 24
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 101,
+      "predators": [
+        {
+          "alive": true,
+          "food": 896.9531111123176,
+          "captures": 13,
+          "attacks": 26
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 99,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1542.8213333336596,
+          "captures": 15,
+          "attacks": 29
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 97,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1060.715333334421,
+          "captures": 17,
+          "attacks": 31
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 96,
+      "predators": [
+        {
+          "alive": true,
+          "food": 522.6673333352431,
+          "captures": 18,
+          "attacks": 33
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 93,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1339.2110000006146,
+          "captures": 21,
+          "attacks": 36
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 93,
+      "predators": [
+        {
+          "alive": true,
+          "food": 737.5170000014753,
+          "captures": 21,
+          "attacks": 36
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 92,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1457.4350000020956,
+          "captures": 22,
+          "attacks": 37
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 92,
+      "predators": [
+        {
+          "alive": true,
+          "food": 849.3830000029171,
+          "captures": 22,
+          "attacks": 37
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 92,
+      "predators": [
+        {
+          "alive": true,
+          "food": 184.81100000334496,
+          "captures": 22,
+          "attacks": 38
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 91,
+      "predators": [
+        {
+          "alive": true,
+          "food": 908.8570000040716,
+          "captures": 23,
+          "attacks": 39
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 93,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1642.4350000047036,
+          "captures": 24,
+          "attacks": 41
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 93,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1038.80500000555,
+          "captures": 24,
+          "attacks": 41
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 93,
+      "predators": [
+        {
+          "alive": true,
+          "food": 430.4890000062724,
+          "captures": 24,
+          "attacks": 41
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 91,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1236.8290000069385,
+          "captures": 26,
+          "attacks": 44
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 91,
+      "predators": [
+        {
+          "alive": true,
+          "food": 628.4690000077904,
+          "captures": 26,
+          "attacks": 44
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    },
+    {
+      "rabbits": 88,
+      "predators": [
+        {
+          "alive": true,
+          "food": 202.2790000080842,
+          "captures": 29,
+          "attacks": 47
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 2,
+          "attacks": 13
+        }
+      ]
+    }
+  ]
+}
