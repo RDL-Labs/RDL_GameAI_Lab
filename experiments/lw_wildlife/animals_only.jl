@@ -15,7 +15,7 @@ function animal_trial_world(;adult_rabbits=30)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     s,predators
 end
-function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing)
+function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,motion_speed=false)
     scents!==nothing && configured_scent_tick!(scents,predators,t)
     for (i,p) in enumerate(predators)
         if minds===nothing
@@ -31,7 +31,7 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
         for (i,p) in enumerate(predators);configured_prey_scent_steer!(prey_scents,p,i,t);end
     end
     G.prepare!(s,Tuple{Float64,Float64}[],t;additional_predators=[p.visual for p in predators],
-        additional_predator_alive=[p.alive for p in predators])
+        additional_predator_alive=[p.alive for p in predators],motion_speed)
     G.advance!(s,t)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))

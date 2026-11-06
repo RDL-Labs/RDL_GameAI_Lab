@@ -9,6 +9,7 @@ const P=V.P
 include("reproduction.jl")
 include("../../lw/configured_paths/wildlife_reproduction.jl")
 include("../../lw/configured_paths/wildlife_predation.jl")
+include("../../lw/configured_paths/motion_visibility.jl")
 
 mutable struct GrazingWorld
     world::H.World
@@ -90,7 +91,7 @@ function build(scene,clock;low_obstacles=true)
     rabbit_initial_young!(grazing_world,initial_young_count,initial_young_age)
 end
 
-function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing)
+function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing,motion_speed=false)
     t==s.ticks && !s.prepared || error("grazing perception must run once before actions")
     length(humans)==length(s.previous_humans) || error("grazing human roster changed")
     w=s.world;a=s.animals
@@ -114,10 +115,12 @@ function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additi
             bearing=atan(p[2]-a.z[i],p[1]-a.x[i])
             P.field_factor(bearing-s.gaze[i],true)>0 || continue
             previous=j<=length(humans) ? s.previous_humans[j] : predators[j-length(humans)].previous_position
-            moved=hypot(p[1]-previous[1],p[2]-previous[2])>1e-6
+            displacement=hypot(p[1]-previous[1],p[2]-previous[2])
+            moved=displacement>1e-6
             tracked=recent && s.seen_actor[i]==j
             cover=H.grass_cover!(w,H.cell(w,p...),t;body_height=j<=length(humans) ? 1.7 : WILDLIFE_PREDATOR.body_height)
-            d<=10/(1+.8cover)*P.vision_factor(true,moved,tracked) &&
+            motion_factor=motion_speed ? configured_motion_visibility(displacement,tracked) : P.vision_factor(true,moved,tracked)
+            d<=10/(1+.8cover)*motion_factor &&
                 P.los(w,(a.x[i],a.z[i]),p) || continue
             best=j;distance=d
         end
