@@ -969,7 +969,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if observing && plan===nothing
                 plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
                 plan===nothing && configured_camp_landmark && (plan=configured_camp_landmark_tour!(observation_states[a]["camp_landmark"],spec.home,w.positions[a],yaw[a],sec,camp_view,w.bodies[a].reserve,w.bodies[a].strain,local_us,clock;experience=configured_camp_experience,exterior=get(spec,:configured_camp_exterior,false),landmark_view=landmarks===nothing ? nothing : landmarks[a],skyline_view=skyline_views===nothing ? nothing : skyline_views[a]))
-                plan===nothing && (plan=configured_camp_learning_rest(configured_camp_experience,observation_states[a]["camp_landmark"]["tour_completed"],mb_maps[a]["place_mb"]["complete"],at_home))
+                # Disabled camp training has no landmark/place state to read.
+                plan===nothing && configured_camp_experience && (plan=configured_camp_learning_rest(configured_camp_experience,observation_states[a]["camp_landmark"]["tour_completed"],mb_maps[a]["place_mb"]["complete"],at_home))
                 plan===nothing && (plan=configured_observation_plan(observation_states[a],w.positions[a],yaw[a],sec,local_us,clock,w.bodies[a].reserve,w.bodies[a].strain))
             end
             if get(spec,:gradient_roll,false) && plan===nothing && basic_loop && !observing && !at_home &&

@@ -63,7 +63,19 @@ CIの分類整理は、全検査の成功を意味しない。次の検査は除
 - `portable_items/counter_checks.jl`: 64シードで逆提案と拒否の両方が出る想定が不合格。食料在庫を増やすだけでは直らず、その試験的変更は戻した。
 - `portable_items/social_checks.jl`: 自律交渉から交換が成立する想定が不合格。成立を強制したり、成立回数の検査を削ったりしない。
 - `social_relationships/integration_checks.jl`: 現行の援助条件と短時間fixtureの整合を確認する。在庫・時間・拒否の期待値をまとめて緩める変更は採用しない。
-- `portable_items/incidental_integration_checks.jl`: 物品種類数を修正すると後続の無効化条件まで進み、`day.jl` の `camp_landmark` 参照で `KeyError` を検出する。単なる期待値の古さとは別の残件。
+- `portable_items/incidental_integration_checks.jl`: 研修OFF時も引数評価で `camp_landmark` を読む実装不具合を修正。呼出し側を `configured_camp_experience` でガードし、OFF時に存在しない研修状態を読まない。修正後、任意採取15・無効化9・保存再開2の計26項目がローカルで成功。
+
+### 全ジョブ完了後の追加調査
+
+`bc8e6ac` のActions run `42210590724` は69本中59本成功、10本不合格。
+保存・再開の独立workflowは成功。上記の1本修正はこの実行の後であり、クラウド再検証前。
+移動グループは13/18本成功で、次の5本も残る。
+
+- `rock_gate/post_return_idle_checks.jl`: 待機への移行が0回。観測数＋待機数を全tick数とする期待値も、睡眠遮断分を含んでいない。行動条件と集計を分けて調査する。
+- `rock_gate/local_success_checks.jl`: 活動計画が存在する前提で `active` を参照して例外。備蓄60の条件で出発・局所帰還が起きていない。観測1200回の期待も実測1001回と不一致。
+- `rock_gate/parent_plan_switch_checks.jl`: 同様に備蓄60の条件で採取・枯渇・親計画切替が発生していない。枯渇処理自体の不具合とはまだ断定できない。
+- `rock_gate/food_site_observation_checks.jl`: 学習結果の `models["known_food"]` 参照が `KeyError`。現在のモデルキー・記録契約を確認する。
+- `julia_migration/lw_integrated/body_purpose_checks.jl`: `returning!` が未定義で停止。旧APIの検査を現在の設定経路APIと照合する。後続には生ドングリ非可食・夜間活動を前提とする検査もあるため、名前だけの置換で対応完了にしない。
 
 これらは通常CIで引き続き検出する。検査条件が古いのか実装の不具合かを個別に確認し、
 本体の認知・交換ルール変更はCI整理から分ける。全体がgreenになるまで成功扱いにしない。
