@@ -22,7 +22,8 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
             configured_trial_plan!(s,p,predators,t;territory_evidence=scents===nothing ? nothing : scents.observed[i])
             scents!==nothing && configured_scent_choice!(scents,p,i,t)
         else
-            predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i)
+            attention=prey_scents===nothing ? nothing : prey_scents.active_target[i]
+            predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i,search_attention=attention)
         end
     end
     if prey_scents!==nothing
@@ -34,7 +35,8 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
     G.advance!(s,t)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
-        configured_trial_advance!(s,predators[i],t;prey_nutrition,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        search_speed=prey_scents!==nothing && prey_scents.active_target[i]!==nothing ? PREY_SCENT_CAUTION.speed : nothing
+        configured_trial_advance!(s,predators[i],t;prey_nutrition,search_speed,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
     end
 end
 function animal_trial_report(s,predators;scents=nothing,minds=nothing)

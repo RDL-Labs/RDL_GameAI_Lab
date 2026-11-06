@@ -88,14 +88,19 @@ function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
     body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
     G.configured_wildlife_predator_plan!(trial_proxy(s,p),t)
 end
-function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.)
+function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,search_speed=nothing)
     rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
     p.ticks[p.mode]=get(p.ticks,p.mode,0)+1
     p.visual.previous_position=(body.x,body.z)
     p.alive || return
     previous_distance=body.distance;previous_captures=body.captures
     if p.mode==:hunt
-        G.configured_wildlife_predator_advance!(trial_proxy(s,p),t)
+        if search_speed!==nothing && body.state==P.SEARCH
+            # 暫定固定: scent caution supplies slow search speed; no change to chase/attack.
+            P.move!(s.world,body,search_speed)
+        else
+            G.configured_wildlife_predator_advance!(trial_proxy(s,p),t)
+        end
     elseif p.mode==:retreat
         body.heading+=pi;P.move!(s.world,body,rule.retreat_speed)
     elseif p.mode in (:scent_return,:scent_avoid)

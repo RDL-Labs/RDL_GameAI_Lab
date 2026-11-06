@@ -106,7 +106,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false)
     length(mind.records)>rule.history_limit && popfirst!(mind.records)
     mind.completed+=1;mind.trial=nothing;mind.selected=nothing
 end
-function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1)
+function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_attention=nothing)
     rule=PREDATOR_COGNITION;body=p.visual.body
     rival=trial_visible_rival(s,p,predators,t)
     rival.actor!==nothing && !p.last_rival && p.alive && (p.encounters+=1)
@@ -138,7 +138,7 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1)
     p.mode=mind.selected["action"]
     if p.mode==:hunt
         body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
-        G.configured_wildlife_predator_plan!(trial_proxy(s,p),t)
+        G.configured_wildlife_predator_plan!(trial_proxy(s,p),t;search_attention)
     else
         body.state=P.REST;body.target=0;body.pursuit=0;body.timer=0
         if haskey(mind.selected,"target")

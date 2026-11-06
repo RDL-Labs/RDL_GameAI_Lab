@@ -1,9 +1,9 @@
 using Statistics
 include("animals_only.jl")
-function scent_run(enabled;days=3)
+function scent_run(enabled;days=3,cautious=false)
     s,predators=animal_trial_world(;adult_rabbits=95)
     scents=PredatorScentWorld(2);minds=[PredatorMind(i) for i in 1:2]
-    prey_scents=enabled ? PreyScentWorld(2) : nothing;daily=Any[]
+    prey_scents=enabled ? PreyScentWorld(2;cautious) : nothing;daily=Any[]
     timing=@timed for t in 0:days*17280-1
         animal_trial_step!(s,predators,t;scents,minds,prey_nutrition=1.5,prey_scents)
         if all(p->!p.alive,predators)
@@ -15,7 +15,7 @@ function scent_run(enabled;days=3)
         (t+1)%17280==0 && push!(daily,animal_trial_report(s,predators;scents,minds))
     end
     final_state=animal_trial_report(s,predators;scents,minds)
-    (enabled=enabled,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime,
+    (enabled=enabled,cautious=cautious,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime,
         ticks=s.ticks,daily=daily,final_state=final_state,scent=prey_scent_report(prey_scents))
 end
 function scent_checks()

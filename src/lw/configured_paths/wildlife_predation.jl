@@ -31,10 +31,11 @@ function configured_wildlife_predator(w,a,cfg,seed)
         collect(zip(a.x,a.z)),0,NamedTuple[])
 end
 
-function configured_wildlife_predator_plan!(s,t)
+function configured_wildlife_predator_plan!(s,t;search_attention=nothing)
     predator_state=s.predator;predator_state===nothing && return
     predator=predator_state.body;rule=WILDLIFE_PREDATOR
     desired=predator.target!=0 && t<predator.expires ? atan(predator.seen_z-predator.z,predator.seen_x-predator.x) :
+        search_attention!==nothing ? atan(search_attention[2]-predator.z,search_attention[1]-predator.x) :
         predator.heading+rule.scan_amplitude*sin(t/rule.scan_period)
     predator_state.gaze=P.turn_gaze(predator_state.gaze,desired)
     observations=NamedTuple{(:id,:x,:z,:distance),Tuple{Int,Float64,Float64,Float64}}[]
