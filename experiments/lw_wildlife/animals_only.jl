@@ -47,7 +47,7 @@ function main()
     out=checks_only ? joinpath(mktempdir(),"checks") : length(ARGS)>0 ? ARGS[1] : "outputs/animals-only-3d"
     ispath(out) && error("output already exists")
     mkpath(out)
-    conditions=(days=days,humans=0,adult_rabbits=30,initial_young=5,predators=2,
+    conditions=(days=days,stop_on_predator_extinction=true,humans=0,adult_rabbits=30,initial_young=5,predators=2,
         rule=PREDATOR_ANIMAL_TRIAL,marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
         cognition=cognition,cognition_rule=cognition ? PREDATOR_COGNITION : nothing,
         fixed=cognition ? "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding" :
@@ -184,16 +184,34 @@ function main()
     cp(joinpath(@__DIR__,"../../Project.toml"),joinpath(frozen,"Project.toml"))
     s,predators=animal_trial_world();daily=Any[];scents=marking ? PredatorScentWorld(2) : nothing
     minds=cognition ? [PredatorMind(i) for i in 1:2] : nothing
+    stop_reason="duration_reached"
     elapsed=@elapsed for t in 0:days*17280-1
         animal_trial_step!(s,predators,t;scents,minds)
+        extinct=all(p->!p.alive,predators)
+        if extinct
+            stop_reason="predator_extinction"
+            # Final action killed the last predator: close its outstanding trial
+            # at this boundary without advancing rabbits/world an extra tick.
+            if minds!==nothing
+                for (i,p) in enumerate(predators)
+                    minds[i].trial===nothing || predator_mind_plan!(s,p,predators,minds[i],t+1;scents,index=i)
+                end
+            end
+        end
         if (t+1)%17280==0
             day=div(t+1,17280);report=animal_trial_report(s,predators;scents,minds)
             push!(daily,(day=day,report=report))
             serialize(joinpath(out,"day-$day.jls"),minds!==nothing ? (s,predators,scents,minds) : scents===nothing ? (s,predators) : (s,predators,scents))
             println(JSON3.write((day=day,rabbits=report.rabbits.alive,predators=report.predators)))
         end
+        extinct && break
     end
-    write(joinpath(out,"result.json"),JSON3.write((conditions=conditions,elapsed_seconds=elapsed,daily=daily)))
-    println("COMPLETE seconds=",elapsed)
+    final_state=animal_trial_report(s,predators;scents,minds)
+    serialize(joinpath(out,"final.jls"),minds!==nothing ? (s,predators,scents,minds) : scents===nothing ? (s,predators) : (s,predators,scents))
+    completion=(stop_reason=stop_reason,executed_ticks=s.ticks,completed_days=div(s.ticks,17280),
+        stopped_in_day=cld(s.ticks,17280),elapsed_simulation_days=s.ticks/17280)
+    write(joinpath(out,"result.json"),JSON3.write((conditions=conditions,elapsed_seconds=elapsed,
+        completion=completion,daily=daily,final_state=final_state)))
+    println("COMPLETE seconds=",elapsed," ",JSON3.write(completion))
 end
 abspath(PROGRAM_FILE)==(@__FILE__) && main()

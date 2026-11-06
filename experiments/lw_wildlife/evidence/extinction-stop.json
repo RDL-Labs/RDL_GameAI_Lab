@@ -1,0 +1,21 @@
+{
+  "completion": {
+    "stop_reason": "predator_extinction",
+    "executed_ticks": 66162,
+    "completed_days": 3,
+    "stopped_in_day": 4,
+    "elapsed_simulation_days": 3.8288194444444446
+  },
+  "elapsed_seconds": 3.6928559,
+  "rabbits": 31,
+  "predators_alive": [
+    false,
+    false
+  ],
+  "active_trials": [
+    null,
+    null
+  ],
+  "daily_matches_previous_sixty_day_run": true,
+  "final_checkpoint": "outputs/predator-extinction-stop-20261106/final.jls"
+}

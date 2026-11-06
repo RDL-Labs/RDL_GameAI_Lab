@@ -159,3 +159,8 @@ ONのcheckpointは `(world,predators,scents)`、OFFは既存の2要素。
 julia --project=. experiments/lw_wildlife/animals_only.jl outputs/NEW_ON 10 --marking
 julia --project=. experiments/lw_wildlife/animals_only.jl outputs/NEW_OFF 10
 ```
+
+2026-11-06: 動物単独ランナーは捕食者全滅で早期終了する。日数は上限。
+日途中の停止も `completion` / `final_state` / `final.jls` に保存する。
+過去の全滅後も継続した試験は凍結ソースで再現可能。
+詳細は `predator_cognition_report.md` の「捕食者全滅時の早期終了」を参照。

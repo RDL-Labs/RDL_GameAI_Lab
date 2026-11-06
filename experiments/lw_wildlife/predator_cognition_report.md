@@ -98,3 +98,17 @@
 ```
 julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl outputs/NEW_OUTPUT 60 --cognition --marking
 ```
+
+## 捕食者全滅時の早期終了（2026-11-06）
+
+動物単独ランナーは捕食者全滅を停止条件とする。指定日数は上限。
+全滅を確認したtickの身体/世界更新までで止まり、兎の世界を余分に進めない。
+最後の死亡時に未完了の認知試行があれば、その時刻で中断結果を確定する。
+`completion` に停止理由・実行tick・完了日数・停止した日・経過日数を保存。
+`daily` は完了した日だけ、日途中の最終状態は `final_state` と `final.jls` に保存。
+期間満了の場合も `duration_reached` と最終状態を保存する。
+
+上限60日の同条件確認: `predator_extinction`、66,162tick、経過3.828819日（4日目）。
+完了日数3、兎31体、捕食者全滅、未完了認知試行0。最初の3日分は旧60日結果と一致。
+主ループ3.693秒、境界33項目PASS。詳細は `outputs/predator-extinction-stop-20261106`、
+要約は `evidence/extinction-stop.json`。以前の60日結果・凍結ソースは変更しない。
