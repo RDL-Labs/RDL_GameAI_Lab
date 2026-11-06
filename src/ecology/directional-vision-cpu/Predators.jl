@@ -51,10 +51,10 @@ function plan!(w,p,a,alive,t,rng; motion=false, moved=nothing, gaze=nothing)
     observations=p.state in (REST,RECOVER,ATTACK) ? nothing : observe_prey(w,p,a,alive,t;motion,moved,gaze)
     decide!(p,observations,t,rng)
 end
-function advance!(w,p,a,alive,t,rng,events)
+function advance!(w,p,a,alive,t,rng,events;attack_speed=1.,movement_speed=nothing)
     if p.state==ATTACK
         start=(p.x,p.z)
-        if !move!(w,p,1.;turn=false)
+        if !move!(w,p,attack_speed;turn=false)
             p.misses+=1; push!(events,(tick=t,kind="blocked",id=0)); recover!(p); return
         end
         # Resolve at most one contact per attack, using the swept movement segment.
@@ -75,7 +75,7 @@ function advance!(w,p,a,alive,t,rng,events)
         p.timer-=1
         if p.timer<=0; p.misses+=1; recover!(p); push!(events,(tick=t,kind="miss",id=0)); end
     elseif p.state==SEARCH || p.state==CHASE
-        move!(w,p,p.state==CHASE ? .5 : .22)
+        move!(w,p,movement_speed===nothing ? (p.state==CHASE ? .5 : .22) : movement_speed)
     end
 end
 function simulate(spec;days=3,seed=20261005,predator=true,out=nothing)

@@ -31,7 +31,7 @@ function configured_wildlife_predator(w,a,cfg,seed)
         collect(zip(a.x,a.z)),0,NamedTuple[])
 end
 
-function configured_wildlife_predator_plan!(s,t;search_attention=nothing)
+function configured_wildlife_predator_plan!(s,t;search_attention=nothing,local_planner=nothing)
     predator_state=s.predator;predator_state===nothing && return
     predator=predator_state.body;rule=WILDLIFE_PREDATOR
     desired=predator.target!=0 && t<predator.expires ? atan(predator.seen_z-predator.z,predator.seen_x-predator.x) :
@@ -39,7 +39,7 @@ function configured_wildlife_predator_plan!(s,t;search_attention=nothing)
         predator.heading+rule.scan_amplitude*sin(t/rule.scan_period)
     predator_state.gaze=P.turn_gaze(predator_state.gaze,desired)
     observations=NamedTuple{(:id,:x,:z,:distance),Tuple{Int,Float64,Float64,Float64}}[]
-    if !(predator.state in (P.REST,P.RECOVER,P.ATTACK))
+    if !(predator.state in (P.REST,P.RECOVER)) && (predator.state!=P.ATTACK || local_planner!==nothing)
         for i in eachindex(s.alive)
             s.alive[i] || continue
             position=(s.animals.x[i],s.animals.z[i])
@@ -53,17 +53,18 @@ function configured_wildlife_predator_plan!(s,t;search_attention=nothing)
             push!(observations,(id=i,x=position[1],z=position[2],distance=distance))
         end
     end
-    P.decide!(predator,observations,t,predator_state.rng)
+    handled=local_planner!==nothing && local_planner(s,observations,t)
+    handled || P.decide!(predator,observations,t,predator_state.rng)
     resize!(predator_state.previous_prey,length(s.alive))
     for i in eachindex(s.alive);predator_state.previous_prey[i]=(s.animals.x[i],s.animals.z[i]);end
 end
 
-function configured_wildlife_predator_advance!(s,t)
+function configured_wildlife_predator_advance!(s,t;attack_speed=1.,movement_speed=nothing)
     predator_state=s.predator;predator_state===nothing && return
     predator=predator_state.body
     predator_state.previous_position=(predator.x,predator.z)
     prior_captures=predator.captures
-    P.advance!(s.world,predator,s.animals,s.alive,t,predator_state.rng,predator_state.events)
+    P.advance!(s.world,predator,s.animals,s.alive,t,predator_state.rng,predator_state.events;attack_speed,movement_speed)
     if predator.captures>prior_captures && s.life!==nothing
         victim=last(predator_state.events).id
         if s.life.due[victim]>0

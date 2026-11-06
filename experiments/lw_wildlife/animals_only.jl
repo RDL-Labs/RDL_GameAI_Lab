@@ -5,6 +5,7 @@ include("../../src/lw/configured_paths/predator_animal_trial.jl")
 include("../../src/lw/configured_paths/predator_marking.jl")
 include("../../src/lw/configured_paths/prey_scent.jl")
 include("../../src/ecology/lw_grazing/predator_cognition.jl")
+include("../../src/lw/configured_paths/predator_local_hunt.jl")
 function animal_trial_world(;adult_rabbits=30)
     input=JSON3.read(read(joinpath(@__DIR__,"predator_3d_spec.json"),String))
     wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,count=adult_rabbits))
@@ -15,7 +16,7 @@ function animal_trial_world(;adult_rabbits=30)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     s,predators
 end
-function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,motion_speed=false)
+function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,motion_speed=false,local_hunts=nothing)
     scents!==nothing && configured_scent_tick!(scents,predators,t)
     for (i,p) in enumerate(predators)
         if minds===nothing
@@ -23,7 +24,8 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
             scents!==nothing && configured_scent_choice!(scents,p,i,t)
         else
             attention=prey_scents===nothing ? nothing : prey_scents.active_target[i]
-            predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i,search_attention=attention)
+            planner=local_hunts===nothing ? nothing : (proxy,observations,tick)->configured_local_hunt_plan!(local_hunts[i],proxy,observations,tick)
+            predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i,search_attention=attention,local_planner=planner)
         end
     end
     if prey_scents!==nothing
@@ -36,7 +38,10 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
         search_speed=prey_scents!==nothing && prey_scents.active_target[i]!==nothing ? PREY_SCENT_CAUTION.speed : nothing
-        configured_trial_advance!(s,predators[i],t;prey_nutrition,search_speed,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        attack_speed=local_hunts===nothing ? 1. : local_hunts[i].attack_speed
+        movement_speed=local_hunts===nothing ? nothing : local_hunts[i].movement_speed
+        configured_trial_advance!(s,predators[i],t;prey_nutrition,search_speed,attack_speed,movement_speed,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        local_hunts!==nothing && configured_local_hunt_finish!(local_hunts[i],predators[i])
     end
 end
 function animal_trial_report(s,predators;scents=nothing,minds=nothing)

@@ -181,3 +181,21 @@ stationary=.55、saturation_speed=.5距離/tick。未追跡時の係数は
 音、対象の姿勢/足の動き、人の観測側、捕食者が兎を見る側にはまだ適用していない。
 人を対象とする場合も同じ式を利用可能だが、今回の比較は人0体。
 将来は共通感覚の観測間隔・角速度・経験に応じたモデルへ置換する。
+
+## 捕獲直前の局所見積もり（2026-11-07）
+
+`configured_paths/predator_local_hunt.jl` の `LOCAL_HUNT`。動物単独 `local_hunt=true` のみ、既定OFF。
+視認距離radius=6以内で詳しい候補を展開。実際に見えた位置履歴だけから速度を推定し、
+history_ticks=20以内の履歴、velocity_cap=.7距離/tickに制限。未観測の世界速度は読まない。
+horizon=3tick、attack_speed=1、approach_speed=.35、side_angle=π/3、contact_radius=.55。
+攻撃の各予測stepを既存H.clearで判定するため、身体幅・水・境界の正確な短距離地形を直接参照する暫定近道。
+地形観測MBによる誤差や部分遮蔽率は未実装。通常の広域探索にはこの計算を追加しない。
+攻撃・接近・左右・待機を共通BasicLoopの確率選択へ渡す。
+attack_priority=4、approach_priority=2、wait_priority=-1、cost_weight=.2、expected_capture=.6。
+接近候補の評価には距離改善量と次の攻撃が成立する見込みの加点1を使用（暫定尺度）。
+攻撃中も視認位置を更新し、次の一歩は予測位置までの距離を超えない。
+見失い/予測経路不成立はabort_unseen/abort_forecastとして攻撃失敗を記録。
+攻撃成否は局所BasicLoopの予測結果へ返す。移動成功は局所方法だけ更新し、捕獲成功や親報酬にはしない。
+親の狩り評価は既存の実際の摂取結果を使用。休息の固定報酬問題は今回未修正。
+log_limit=128の候補履歴と累積選択件数を保存。局所状態ONのチェックポイントは6要素tuple。
+将来は予測地形・相手の不確実性・文脈別成功経験をより共通のMBへ統合する。
