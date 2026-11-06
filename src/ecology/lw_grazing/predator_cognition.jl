@@ -23,10 +23,8 @@ function predator_remember_place!(mind,p,kind,t)
     rule=PREDATOR_COGNITION;body=p.visual.body
     cell=(floor(Int,body.x/rule.place_cell),floor(Int,body.z/rule.place_cell))
     key=string(kind,":",cell)
-    rest_key=configured_predator_rest_place!(mind)
-    kind=="rest" && rest_key!==nothing && key!=rest_key && return
     if !haskey(mind.places,key) && length(mind.places)>=rule.place_limit
-        eviction_keys=filter(k->k!=rest_key,collect(keys(mind.places)))
+        eviction_keys=collect(keys(mind.places))
         oldest=first(sort!(eviction_keys;by=k->(mind.places[k].seen,k)))
         delete!(mind.places,oldest)
     end
@@ -34,7 +32,6 @@ function predator_remember_place!(mind,p,kind,t)
     mind.places[key]=(kind=kind,x=body.x,z=body.z,seen=t,successes=prior===nothing ? 1 : prior.successes+1)
 end
 function predator_candidates(mind,p,rival,scents,i)
-    configured_predator_rest_place!(mind) # Also normalizes resumed legacy checkpoints.
     rule=PREDATOR_COGNITION;body=p.visual.body
     hunger=max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-p.food)/rule.food_pressure_scale)
     rows=Any[LW.D("method"=>"hunt","action"=>:hunt,"question"=>"acquired_food",
@@ -53,6 +50,7 @@ function predator_candidates(mind,p,rival,scents,i)
             "priority"=>pressure+value.score+rule.place_prior,"forecast"=>travel,
             "expected"=>rule.place_prior,"target"=>(place.x,place.z),"site"=>key))
     end
+    configured_predator_rest_candidates!(mind,rows)
     if rival.actor!==nothing
         push!(rows,LW.D("method"=>"retreat","action"=>:retreat,"question"=>"rival_farther",
             "priority"=>rule.rival_weight,"forecast"=>rule.decision_ticks,"expected"=>rule.place_prior))

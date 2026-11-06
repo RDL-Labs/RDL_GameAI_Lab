@@ -16,7 +16,6 @@ function configured_predator_mb_inherit(donor_mind,donor_local,actor,generation,
     configured_inherit_loop!(local_state.loop,donor_local.loop)
     mind.estimates=deepcopy(donor_mind.estimates)
     mind.places=Dict{String,Any}(key=>merge(place,(seen=place.seen-donor_tick,)) for (key,place) in donor_mind.places)
-    configured_predator_rest_place!(mind)
     source=get(donor_mind.acquisition,"acquisition",nothing)
     if source!==nothing
         target=LW.acquisition_state()
