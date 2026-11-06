@@ -139,3 +139,17 @@ place_prior=.5、rest_benefit=.2、hunt_prior=.3、tolerance=.05。
 収支検査は `balance_atol=1e-7` と `balance_rtol=1e-10`。
 長期のFloat64逐次加算誤差を許容する診断値で、資源そのものを補正しない。
 各報告のbalance_residualに初期量＋摂取−残量−消費を保存する。
+
+## 獲物の地表痕跡（2026-11-07）
+
+`configured_paths/prey_scent.jl` の `PREY_SCENT`。通常LW・animals_onlyの既定はOFF。
+`prey_scent_compare.jl`でのみON/OFFを比較する。風・拡散・個体識別なし。
+cell_size=4距離単位、radius=6、deposit_interval=30tick、sniff_interval=30tick、
+lifetime=17280tick（1日）、deposit=1、capacity=4、minimum_signal=.05、arrival_radius=1。
+生存兎のセルへ静止中も付着、セル内で混合し、参照/再付着時に線形減衰する。
+有限地図上のセル辞書は個体履歴数で増えない。嗅ぐ時は近傍25セルのみ照会。
+観測はセル中心・強度・観測時刻だけ。獲物IDや現在位置は渡さない。
+暫定固定の探索方位補助: hunt/SEARCH中だけ、近傍で観測した強い匂いのセルへ向ける。
+視認後のCHASE/ATTACK/RECOVERと、休息・既知地点移動を上書きしない。
+嗅いだセルへの到着を捕食成功として学習しない。親側は既存の捕食実績で評価する。
+将来は人も含む共通の感覚・注意・MB候補選択へ移す。現時点は設定経路による試作。

@@ -210,3 +210,39 @@ snapshotは遅延更新の草を全セルで実体化するため、再現では
 
 監査結果: `evidence/nutrition15-attack-audit.json`。
 実行: `julia --startup-file=no --project=. experiments/lw_wildlife/audit_predator_attacks.jl RUN_DIRECTORY OUTPUT_JSON`
+
+## 獲物臭の3日ON/OFF試験（2026-11-07）
+
+動物単独の `prey_scent_compare.jl`。成体95＋幼体5、捕食者2、栄養1.5倍、
+同一seed、共通認知ON、縄張り臭ON。獲物臭のみON/OFF。通常LWには未接続。
+風・拡散・個体識別なし。4単位セルに30tick間隔で混合痕跡、1日で線形減衰。
+探索中に半径6の近傍セルを30tick間隔で嗅ぎ、セル中心への方位を暫定固定で補助する。
+見えた獲物の追跡/攻撃は優先される。獲物臭を識別できること自体も初期設定であり、学習成果ではない。
+世界痕跡から受け取るのは近傍セル中心・信号・観測時刻で、現在の獲物位置やIDではない。
+
+両方式を1日ウォームアップ後、OFF→ON→ON→OFFを同一プロセス・1threadで順次計測。
+計測内のファイル保存なし。同一方式の最終状態は一致、OFFの各日報告は以前の凍結実験と一致。
+新規境界9項目＋反復/過去結果比較6項目通過。既存全境界試験を再実行したという意味ではない。
+
+| 条件 | 主ループ秒（2回） | 捕獲 個体1/2 | 攻撃 個体1/2 | 3日後生存 |
+|---|---|---|---|---|
+| OFF | 6.268 / 6.343 | 2 / 5 | 5 / 16 | 2 |
+| ON | 5.572 / 5.493 | 3 / 0 | 7 / 5 | 1 |
+
+ON個体2は経過1.193808日で餓死。攻撃5回のうち阻害4回・接触後逃走1回。
+ONで合計534セル、付着169277回、嗅ぎ174回、検出173回、探索方位補助4374tick。
+捕食改善は確認できず、むしろこのseedでは全体捕獲7→3へ減少した。
+濃い匂いの方向へ固定で向けるだけでは安定した狩りにならない。
+古い跡への固執や同一セル周辺の往復は今後の調査候補で、今回まだ原因として確定していない。
+
+### 計算量の切り分け
+
+ONの総時間低下には死亡後の処理減少と行動差が含まれ、高速化を意味しない。
+`prey_scent_cost.jl`はOFF軌跡の各step後に匂いの付着/観測だけ計算し、行動へ反映しない。
+3日51840回の呼出し累積は0.0059899秒（タイマー費用込み、方位補助は除外）。
+各日報告は以前のOFF結果と一致。単発の参考値だが、この100体・2捕食者規模では
+匂いの表更新・近傍照会自体は小さい。風・拡散や人数増加の費用を測った値ではない。
+
+実験保存先: `outputs/prey-scent-3d-20261107`、小集計: `evidence/prey-scent-three-day.json`。
+再実行: `julia --startup-file=no --project=. experiments/lw_wildlife/prey_scent_compare.jl outputs/NEW_OUTPUT`
+費用分離: `julia --startup-file=no --project=. experiments/lw_wildlife/prey_scent_cost.jl outputs/predator-100rabbits-nutrition15-v2-20261106/result.json outputs/NEW_COST.json`

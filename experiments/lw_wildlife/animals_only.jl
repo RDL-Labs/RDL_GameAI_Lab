@@ -3,6 +3,7 @@ include("../../src/lw/LW.jl")
 const G=LW.LWGrazing;const H=G.H;const P=G.P
 include("../../src/lw/configured_paths/predator_animal_trial.jl")
 include("../../src/lw/configured_paths/predator_marking.jl")
+include("../../src/lw/configured_paths/prey_scent.jl")
 include("../../src/ecology/lw_grazing/predator_cognition.jl")
 function animal_trial_world(;adult_rabbits=30)
     input=JSON3.read(read(joinpath(@__DIR__,"predator_3d_spec.json"),String))
@@ -14,7 +15,7 @@ function animal_trial_world(;adult_rabbits=30)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     s,predators
 end
-function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.)
+function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing)
     scents!==nothing && configured_scent_tick!(scents,predators,t)
     for (i,p) in enumerate(predators)
         if minds===nothing
@@ -23,6 +24,10 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
         else
             predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i)
         end
+    end
+    if prey_scents!==nothing
+        configured_prey_scent_tick!(prey_scents,s,predators,t)
+        for (i,p) in enumerate(predators);configured_prey_scent_steer!(prey_scents,p,i,t);end
     end
     G.prepare!(s,Tuple{Float64,Float64}[],t;additional_predators=[p.visual for p in predators],
         additional_predator_alive=[p.alive for p in predators])

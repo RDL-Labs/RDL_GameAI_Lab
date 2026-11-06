@@ -1,0 +1,204 @@
+{
+  "conditions": {
+    "days": 3,
+    "adult_rabbits": 95,
+    "initial_young": 5,
+    "predators": 2,
+    "humans": 0,
+    "nutrition": 1.5,
+    "marking": true,
+    "cognition": true,
+    "prey_scent": {
+      "cell_size": 4.0,
+      "radius": 6.0,
+      "deposit_interval": 30,
+      "sniff_interval": 30,
+      "lifetime": 17280,
+      "deposit": 1.0,
+      "capacity": 4.0,
+      "minimum_signal": 0.05,
+      "arrival_radius": 1.0
+    },
+    "fixed": "mixed ground trace; fixed nearby sniff and search-heading aid; no wind/diffusion; no human connection",
+    "measurement": "warm both modes for one day; sequential OFF ON ON OFF; no file IO inside timing"
+  },
+  "boundary_tests": 9,
+  "repeat_and_historical_checks": 6,
+  "cost": {
+    "seconds": 0.0059899,
+    "calls": 51840,
+    "source": "OFF trajectory, after each world step; timer overhead included; steering excluded",
+    "off_daily_matches": true,
+    "scent": {
+      "cells": 629,
+      "deposits": 166874,
+      "sniffs": 80,
+      "detections": 51,
+      "steering_ticks": 0
+    }
+  },
+  "runs": [
+    {
+      "enabled": false,
+      "seconds": 6.2678114,
+      "bytes": 4440409147,
+      "gc_seconds": 0.3133101,
+      "ticks": 51840,
+      "scent": null,
+      "rabbits": 93,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1308.5753888904007,
+          "captures": 2,
+          "attacks": 5,
+          "ticks": {
+            "hunt": 7224,
+            "visit_food": 741,
+            "visit_rest": 6269,
+            "rest": 37606
+          },
+          "balance_residual": -2.1736923372372985E-10
+        },
+        {
+          "alive": true,
+          "food": 1507.4788333338126,
+          "captures": 5,
+          "attacks": 16,
+          "ticks": {
+            "hunt": 7287,
+            "warn": 60,
+            "visit_food": 355,
+            "visit_rest": 6549,
+            "rest": 37589
+          },
+          "balance_residual": -7.73070496506989E-11
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "seconds": 5.5716741,
+      "bytes": 3976856832,
+      "gc_seconds": 0.2935669,
+      "ticks": 51840,
+      "scent": {
+        "cells": 534,
+        "deposits": 169277,
+        "sniffs": 174,
+        "detections": 173,
+        "steering_ticks": 4374
+      },
+      "rabbits": 97,
+      "predators": [
+        {
+          "alive": true,
+          "food": 927.4888888897184,
+          "captures": 3,
+          "attacks": 7,
+          "ticks": {
+            "hunt": 3275,
+            "visit_food": 544,
+            "visit_rest": 5613,
+            "rest": 42408
+          },
+          "balance_residual": -2.2600943339057267E-10
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 0,
+          "attacks": 5,
+          "ticks": {
+            "dead": 31211,
+            "hunt": 9631,
+            "visit_rest": 198,
+            "rest": 10800
+          },
+          "balance_residual": -3.454942998359911E-10
+        }
+      ]
+    },
+    {
+      "enabled": true,
+      "seconds": 5.4931173,
+      "bytes": 3974968798,
+      "gc_seconds": 0.327996,
+      "ticks": 51840,
+      "scent": {
+        "cells": 534,
+        "deposits": 169277,
+        "sniffs": 174,
+        "detections": 173,
+        "steering_ticks": 4374
+      },
+      "rabbits": 97,
+      "predators": [
+        {
+          "alive": true,
+          "food": 927.4888888897184,
+          "captures": 3,
+          "attacks": 7,
+          "ticks": {
+            "hunt": 3275,
+            "visit_food": 544,
+            "visit_rest": 5613,
+            "rest": 42408
+          },
+          "balance_residual": -2.2600943339057267E-10
+        },
+        {
+          "alive": false,
+          "food": 0.0,
+          "captures": 0,
+          "attacks": 5,
+          "ticks": {
+            "dead": 31211,
+            "hunt": 9631,
+            "visit_rest": 198,
+            "rest": 10800
+          },
+          "balance_residual": -3.454942998359911E-10
+        }
+      ]
+    },
+    {
+      "enabled": false,
+      "seconds": 6.3430828,
+      "bytes": 4440112346,
+      "gc_seconds": 0.3511046,
+      "ticks": 51840,
+      "scent": null,
+      "rabbits": 93,
+      "predators": [
+        {
+          "alive": true,
+          "food": 1308.5753888904007,
+          "captures": 2,
+          "attacks": 5,
+          "ticks": {
+            "hunt": 7224,
+            "visit_food": 741,
+            "visit_rest": 6269,
+            "rest": 37606
+          },
+          "balance_residual": -2.1736923372372985E-10
+        },
+        {
+          "alive": true,
+          "food": 1507.4788333338126,
+          "captures": 5,
+          "attacks": 16,
+          "ticks": {
+            "hunt": 7287,
+            "warn": 60,
+            "visit_food": 355,
+            "visit_rest": 6549,
+            "rest": 37589
+          },
+          "balance_residual": -7.73070496506989E-11
+        }
+      ]
+    }
+  ]
+}
