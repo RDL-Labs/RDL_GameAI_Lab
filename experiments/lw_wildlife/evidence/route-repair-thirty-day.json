@@ -1,0 +1,605 @@
+{
+  "conditions": {
+    "days": 30,
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "humans": 0,
+    "nutrition": 1.5,
+    "boundary_gradient": true,
+    "boundary_rule": {
+      "width": 8.0,
+      "strength": 2.0,
+      "body_margin": 0.25
+    },
+    "marking": true,
+    "cognition": true,
+    "prey_scent": true,
+    "cautious": true,
+    "motion_speed": true,
+    "stop_on_predator_extinction": true,
+    "prey_rule": {
+      "cell_size": 4.0,
+      "radius": 6.0,
+      "deposit_interval": 30,
+      "sniff_interval": 30,
+      "lifetime": 17280,
+      "deposit": 1.0,
+      "capacity": 4.0,
+      "minimum_signal": 0.05,
+      "arrival_radius": 1.0
+    },
+    "caution_rule": {
+      "strong_signal": 0.6,
+      "speed": 0.08,
+      "unconfirmed_ticks": 120,
+      "cooldown_ticks": 600
+    },
+    "motion_rule": {
+      "stationary": 0.55,
+      "saturation_speed": 0.5
+    },
+    "local_hunt": true,
+    "local_rule": {
+      "radius": 6.0,
+      "velocity_cap": 0.7,
+      "history_ticks": 20,
+      "horizon": 3,
+      "attack_speed": 1.0,
+      "approach_speed": 0.35,
+      "side_angle": 1.0471975511965976,
+      "contact_radius": 0.55,
+      "attack_priority": 4.0,
+      "approach_priority": 2.0,
+      "wait_priority": -1.0,
+      "cost_weight": 0.2,
+      "future_attack_bonus": 1.0,
+      "expected_capture": 0.6,
+      "wait_forecast_ticks": 20,
+      "withdraw_priority": 0.0,
+      "log_limit": 128
+    },
+    "fixed": "provisional scent/speed rules; optional local capture forecast with wait child; no sound/wind/humans; rest benefit removed; local route repair without recovery pause"
+  },
+  "completion": {
+    "reason": "predator_extinction",
+    "elapsed_days": 18.16516203703704,
+    "completed_days": 18,
+    "stopped_in_day": 19
+  },
+  "seconds": 23.176814,
+  "route_checks": 18,
+  "wait_checks": 9,
+  "rabbits_alive": 28,
+  "balances": {
+    "grass": {
+      "name": "grass",
+      "supplied": 36805.16753876956,
+      "accounted": 36805.167538809736,
+      "residual": -4.017783794552088E-08,
+      "relative_error": 1.0916357846531953E-12,
+      "delta_since_previous": null,
+      "max_abs_residual": 4.017783794552088E-08,
+      "warning_limit": 4.680516753880974E-06,
+      "stop_limit": 0.00046805167538809737,
+      "status": "ok"
+    },
+    "intake": {
+      "name": "intake",
+      "supplied": 23436.650214897083,
+      "accounted": 23436.65021465475,
+      "residual": 2.423330442979932E-07,
+      "relative_error": 1.0339918122938855E-11,
+      "delta_since_previous": null,
+      "max_abs_residual": 2.423330442979932E-07,
+      "warning_limit": 3.3436650214897086E-06,
+      "stop_limit": 0.00033436650214897085,
+      "status": "ok"
+    },
+    "digestion": {
+      "name": "digestion",
+      "supplied": 23436.65021465475,
+      "accounted": 23436.65021465328,
+      "residual": 1.469743438065052E-09,
+      "relative_error": 6.271132711389075E-14,
+      "delta_since_previous": null,
+      "max_abs_residual": 1.469743438065052E-09,
+      "warning_limit": 3.343665021465475E-06,
+      "stop_limit": 0.0003343665021465475,
+      "status": "ok"
+    }
+  },
+  "predators": [
+    {
+      "alive": false,
+      "food": 0.0,
+      "eaten": 1067.3954444443534,
+      "spent": 1967.3954444439541,
+      "discarded": 282.6045555556466,
+      "balance_residual": 3.992681740783155E-10,
+      "captures": 1,
+      "attacks": 6,
+      "encounters": 27,
+      "warning_started": -1,
+      "warning_blocked_until": 0,
+      "warning_timeouts": 0,
+      "ticks": {
+        "dead": 274478,
+        "hunt": 13024,
+        "visit_food": 1403,
+        "visit_rest": 8789,
+        "rest": 16200
+      },
+      "position": [
+        15.774657788888792,
+        27.797013569359322
+      ],
+      "center": [
+        -9.0,
+        5.0
+      ],
+      "prey_observations": 17970,
+      "events": [
+        {
+          "tick": 1980,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 3422,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 3429,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 3633,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 3638,
+          "kind": "capture",
+          "id": 35
+        },
+        {
+          "tick": 17267,
+          "kind": "miss",
+          "id": 0
+        }
+      ]
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "eaten": 14179.618620415564,
+      "spent": 15079.618620429761,
+      "discarded": 10457.881379584436,
+      "balance_residual": -1.419721229467541E-08,
+      "captures": 23,
+      "attacks": 73,
+      "encounters": 45,
+      "warning_started": 3600,
+      "warning_blocked_until": 4260,
+      "warning_timeouts": 1,
+      "ticks": {
+        "hunt": 61424,
+        "warn": 60,
+        "visit_food": 14169,
+        "visit_rest": 100841,
+        "rest": 137400
+      },
+      "position": [
+        15.687179478443644,
+        42.1556466512577
+      ],
+      "center": [
+        7.0,
+        5.0
+      ],
+      "prey_observations": 47956,
+      "events": [
+        {
+          "tick": 8755,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 8759,
+          "kind": "escape",
+          "id": 33
+        },
+        {
+          "tick": 10933,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 16040,
+          "kind": "escape",
+          "id": 64
+        },
+        {
+          "tick": 16880,
+          "kind": "capture",
+          "id": 64
+        },
+        {
+          "tick": 22553,
+          "kind": "capture",
+          "id": 61
+        },
+        {
+          "tick": 47777,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 47782,
+          "kind": "capture",
+          "id": 18
+        },
+        {
+          "tick": 65038,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 65042,
+          "kind": "capture",
+          "id": 31
+        },
+        {
+          "tick": 68706,
+          "kind": "capture",
+          "id": 52
+        },
+        {
+          "tick": 69023,
+          "kind": "capture",
+          "id": 48
+        },
+        {
+          "tick": 76497,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 77158,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 77161,
+          "kind": "capture",
+          "id": 55
+        },
+        {
+          "tick": 96739,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 96757,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 96760,
+          "kind": "escape",
+          "id": 5
+        },
+        {
+          "tick": 103693,
+          "kind": "capture",
+          "id": 44
+        },
+        {
+          "tick": 104902,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 104910,
+          "kind": "escape",
+          "id": 33
+        },
+        {
+          "tick": 104911,
+          "kind": "capture",
+          "id": 33
+        },
+        {
+          "tick": 120358,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 120361,
+          "kind": "escape",
+          "id": 66
+        },
+        {
+          "tick": 120365,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 132272,
+          "kind": "capture",
+          "id": 96
+        },
+        {
+          "tick": 134016,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 135953,
+          "kind": "route_blocked",
+          "id": 56
+        },
+        {
+          "tick": 135957,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 135961,
+          "kind": "escape",
+          "id": 56
+        },
+        {
+          "tick": 135962,
+          "kind": "capture",
+          "id": 56
+        },
+        {
+          "tick": 164996,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 168215,
+          "kind": "capture",
+          "id": 97
+        },
+        {
+          "tick": 168816,
+          "kind": "capture",
+          "id": 98
+        },
+        {
+          "tick": 173478,
+          "kind": "capture",
+          "id": 80
+        },
+        {
+          "tick": 185668,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 185671,
+          "kind": "capture",
+          "id": 11
+        },
+        {
+          "tick": 190601,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 208633,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 208637,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 210701,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 212388,
+          "kind": "escape",
+          "id": 81
+        },
+        {
+          "tick": 212389,
+          "kind": "capture",
+          "id": 81
+        },
+        {
+          "tick": 212663,
+          "kind": "capture",
+          "id": 70
+        },
+        {
+          "tick": 223669,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 223672,
+          "kind": "route_blocked",
+          "id": 3
+        },
+        {
+          "tick": 223674,
+          "kind": "capture",
+          "id": 3
+        },
+        {
+          "tick": 230241,
+          "kind": "capture",
+          "id": 99
+        },
+        {
+          "tick": 239924,
+          "kind": "capture",
+          "id": 100
+        },
+        {
+          "tick": 242414,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 242415,
+          "kind": "escape",
+          "id": 8
+        },
+        {
+          "tick": 242416,
+          "kind": "escape",
+          "id": 8
+        },
+        {
+          "tick": 242417,
+          "kind": "escape",
+          "id": 8
+        },
+        {
+          "tick": 253231,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 253233,
+          "kind": "capture",
+          "id": 74
+        },
+        {
+          "tick": 253238,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 253241,
+          "kind": "capture",
+          "id": 27
+        },
+        {
+          "tick": 258453,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 258455,
+          "kind": "route_blocked",
+          "id": 65
+        },
+        {
+          "tick": 258462,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 258467,
+          "kind": "escape",
+          "id": 65
+        },
+        {
+          "tick": 277633,
+          "kind": "route_blocked",
+          "id": 91
+        },
+        {
+          "tick": 277636,
+          "kind": "route_blocked",
+          "id": 91
+        },
+        {
+          "tick": 277643,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 277653,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 277654,
+          "kind": "capture",
+          "id": 91
+        },
+        {
+          "tick": 298581,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 298584,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 298587,
+          "kind": "escape",
+          "id": 66
+        },
+        {
+          "tick": 298593,
+          "kind": "escape",
+          "id": 66
+        },
+        {
+          "tick": 298594,
+          "kind": "escape",
+          "id": 66
+        },
+        {
+          "tick": 298597,
+          "kind": "escape",
+          "id": 66
+        },
+        {
+          "tick": 311908,
+          "kind": "miss",
+          "id": 0
+        }
+      ]
+    }
+  ],
+  "local_counts": [
+    {
+      "right": 315,
+      "attack": 6,
+      "wait_achieved": 1,
+      "left": 307,
+      "wait_ticks": 105,
+      "withdraw": 32,
+      "route_retry": 5,
+      "wait": 10,
+      "wait_failed": 9,
+      "uncertain_continuation": 6,
+      "approach": 373,
+      "evaluations": 1149
+    },
+    {
+      "right": 834,
+      "route_blocked": 5,
+      "attack": 73,
+      "wait_achieved": 1,
+      "left": 867,
+      "wait_ticks": 456,
+      "withdraw": 101,
+      "route_retry": 45,
+      "wait": 33,
+      "wait_interrupted": 1,
+      "wait_failed": 31,
+      "uncertain_continuation": 50,
+      "approach": 1127,
+      "evaluations": 3553
+    }
+  ]
+}

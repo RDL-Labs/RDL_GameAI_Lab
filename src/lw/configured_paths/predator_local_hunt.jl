@@ -59,6 +59,19 @@ function local_hunt_rollout(w,origin,forecast)
     end
     nothing
 end
+# 暫定固定: 局所狩猟ONでは経路の失敗を捕食全体へ転送せず、休止なしで再選択。
+# 地形の正確な参照は従来同様。将来は観測MBの不確実な通行見積もりへ置換。
+function configured_local_route_replan!(state,s,t,reason)
+    b=s.predator.body
+    b.misses+=1
+    push!(s.predator.events,(tick=t,kind=reason,id=b.target))
+    if state.selected!==nothing
+        LW.resolve_method!(state.loop,state.loop.trial.source,false,nothing;creditable=false,goal_H_increment=0)
+        state.selected=nothing
+    end
+    b.state=P.CHASE;b.timer=0
+    state.counts[reason]=get(state.counts,reason,0)+1
+end
 function configured_local_hunt_plan!(state,s,observations,t)
     b=s.predator.body;rule=LOCAL_HUNT
     state.movement_speed=nothing;state.attack_speed=1.
@@ -66,13 +79,16 @@ function configured_local_hunt_plan!(state,s,observations,t)
     if isempty(observations)
         configured_local_wait_close!(state,"failed","target_unobserved")
         if b.state==P.ATTACK
-            b.misses+=1;push!(s.predator.events,(tick=t,kind="abort_unseen",id=b.target));P.recover!(b)
-            b.counts[b.state]+=1;return true
+            configured_local_route_replan!(state,s,t,"route_unseen")
+        end
+        if b.target!=0 && t<b.expires
+            b.state=P.CHASE;b.heading=atan(b.seen_z-b.z,b.seen_x-b.x)
+            state.movement_speed=rule.approach_speed;b.counts[b.state]+=1;return true
         end
         return false
     end
     o=observations[argmin([o.distance for o in observations])]
-    if b.state==P.ATTACK || state.wait_trial!==nothing
+    if b.target!=0 || state.wait_trial!==nothing
         target=state.wait_trial===nothing ? b.target : state.wait_target
         index=findfirst(o->o.id==target,observations)
         if index===nothing
@@ -80,17 +96,24 @@ function configured_local_hunt_plan!(state,s,observations,t)
                 configured_local_wait_close!(state,"failed","target_unobserved")
                 return false
             end
-            b.misses+=1;push!(s.predator.events,(tick=t,kind="abort_unseen",id=b.target));P.recover!(b)
-            b.counts[b.state]+=1;return true
+            b.state==P.ATTACK && configured_local_route_replan!(state,s,t,"route_unseen")
+            if t<b.expires
+                b.state=P.CHASE;b.heading=atan(b.seen_z-b.z,b.seen_x-b.x)
+                state.movement_speed=rule.approach_speed;b.counts[b.state]+=1;return true
+            end
+        else
+            o=observations[index]
         end
-        o=observations[index]
     end
     forecast=local_hunt_prediction(state,o,t)
     for seen in observations;state.memory[seen.id]=(x=seen.x,z=seen.z,tick=t);end
     filter!(pair->t-last(pair).tick<=rule.history_ticks,state.memory)
     if o.distance>rule.radius
         configured_local_wait_close!(state,"failed","target_left_local_range")
-        return false
+        b.state==P.ATTACK && configured_local_route_replan!(state,s,t,"route_out_of_range")
+        b.target=o.id;b.seen_x=o.x;b.seen_z=o.z;b.expires=t+rule.history_ticks
+        b.state=P.CHASE;b.heading=atan(o.z-b.z,o.x-b.x)
+        state.movement_speed=rule.approach_speed;b.counts[b.state]+=1;return true
     end
     b.target=o.id;b.seen_x=o.x;b.seen_z=o.z;b.expires=t+rule.history_ticks
     origin=(b.x,b.z);attack=local_hunt_rollout(s.world,origin,forecast)
@@ -105,11 +128,19 @@ function configured_local_hunt_plan!(state,s,observations,t)
     end
     if b.state==P.ATTACK
         if attack===nothing
-            b.misses+=1;push!(s.predator.events,(tick=t,kind="abort_forecast",id=b.target));P.recover!(b)
+            # Failure to predict capture is not proof that the next step is impossible.
+            angle=atan(o.z-b.z,o.x-b.x);speed=min(rule.attack_speed,o.distance)
+            q=H.configured_boundary_step(s.world,origin,angle,speed)
+            if H.clear(s.world,origin,q)
+                b.heading=angle;state.attack_speed=speed
+                state.counts["uncertain_continuation"]=get(state.counts,"uncertain_continuation",0)+1
+                b.counts[b.state]+=1;return true
+            end
+            configured_local_route_replan!(state,s,t,"route_blocked")
         else
             b.heading=attack.heading;state.attack_speed=attack.speed
+            b.counts[b.state]+=1;return true
         end
-        b.counts[b.state]+=1;return true
     end
     rows=Any[]
     attack!==nothing && push!(rows,LW.D("method"=>"attack","question"=>"capture","priority"=>rule.attack_priority-rule.cost_weight*o.distance,
@@ -125,6 +156,7 @@ function configured_local_hunt_plan!(state,s,observations,t)
     end
     attack===nothing && push!(rows,LW.D("method"=>"wait","question"=>"capture_opportunity","priority"=>rule.wait_priority,"heading"=>heading,"speed"=>0.))
     state.selected=LW.choose_method!(state.loop,rows,state.loop.sequence+1)
+    state.selected["target_id"]=o.id
     c=state.selected;name=c["method"];state.counts[name]=get(state.counts,name,0)+1
     state.start_distance=b.distance;state.last_captures=b.captures;state.last_misses=b.misses
     b.heading=c["heading"]
@@ -158,9 +190,20 @@ function configured_local_hunt_finish!(state,p)
         state.wait_trial["elapsed"]>=LOCAL_HUNT.wait_forecast_ticks && configured_local_wait_close!(state,"failed","forecast_elapsed_without_opportunity")
         return
     elseif c["method"]=="attack"
+        if !p.alive || p.mode!=:hunt
+            LW.resolve_method!(state.loop,source,nothing,nothing;creditable=false,goal_H_increment=0)
+            state.selected=nothing;return
+        end
         b.captures==state.last_captures && b.misses==state.last_misses && p.alive && return
         success=b.captures>state.last_captures
-        LW.resolve_prediction!(state.loop,source,LOCAL_HUNT.expected_capture,success ? 1. : 0.;fulfilled=success)
+        if success
+            LW.resolve_prediction!(state.loop,source,LOCAL_HUNT.expected_capture,1.;fulfilled=true)
+        else
+            LW.resolve_method!(state.loop,source,false,nothing;creditable=false,goal_H_increment=0)
+            # Physical misses/escape/blocked end this route, not the hunt. No synthetic fatigue.
+            b.state=P.CHASE;b.timer=0;b.target=get(c,"target_id",b.target)
+            state.counts["route_retry"]=get(state.counts,"route_retry",0)+1
+        end
     else
         moved=c["speed"]==0 || b.distance>state.start_distance
         LW.resolve_method!(state.loop,source,moved,nothing;creditable=false,goal_H_increment=0)
