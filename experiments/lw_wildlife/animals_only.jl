@@ -4,9 +4,9 @@ const G=LW.LWGrazing;const H=G.H;const P=G.P
 include("../../src/lw/configured_paths/predator_animal_trial.jl")
 include("../../src/lw/configured_paths/predator_marking.jl")
 include("../../src/ecology/lw_grazing/predator_cognition.jl")
-function animal_trial_world()
+function animal_trial_world(;adult_rabbits=30)
     input=JSON3.read(read(joinpath(@__DIR__,"predator_3d_spec.json"),String))
-    wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,))
+    wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,count=adult_rabbits))
     scene=merge((;pairs(input.scene)...),(positions=Tuple{Float64,Float64}[],wildlife=wildlife))
     s=G.build(scene,input.clock)
     cells=findall(s.world.walkable)
@@ -42,12 +42,16 @@ function main()
     checks_only="--checks-only" in ARGS
     marking="--marking" in ARGS
     cognition="--cognition" in ARGS
+    population_option=filter(arg->startswith(arg,"--adult-rabbits="),ARGS)
+    length(population_option)<=1 || error("duplicate adult rabbit count")
+    adult_rabbits=isempty(population_option) ? 30 : parse(Int,split(only(population_option),'=';limit=2)[2])
+    1<=adult_rabbits<=10000 || error("adult rabbit count must be 1..10000")
     days=checks_only || length(ARGS)<2 ? 3 : parse(Int,ARGS[2])
     days>0 || error("days must be positive")
     out=checks_only ? joinpath(mktempdir(),"checks") : length(ARGS)>0 ? ARGS[1] : "outputs/animals-only-3d"
     ispath(out) && error("output already exists")
     mkpath(out)
-    conditions=(days=days,stop_on_predator_extinction=true,humans=0,adult_rabbits=30,initial_young=5,predators=2,
+    conditions=(days=days,stop_on_predator_extinction=true,humans=0,adult_rabbits=adult_rabbits,initial_young=5,predators=2,
         rule=PREDATOR_ANIMAL_TRIAL,marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
         cognition=cognition,cognition_rule=cognition ? PREDATOR_COGNITION : nothing,
         fixed=cognition ? "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding" :
@@ -182,7 +186,8 @@ function main()
         cp(joinpath(@__DIR__,name),joinpath(frozen,"experiments","lw_wildlife",name))
     end
     cp(joinpath(@__DIR__,"../../Project.toml"),joinpath(frozen,"Project.toml"))
-    s,predators=animal_trial_world();daily=Any[];scents=marking ? PredatorScentWorld(2) : nothing
+    s,predators=animal_trial_world(;adult_rabbits);daily=Any[];scents=marking ? PredatorScentWorld(2) : nothing
+    @assert length(s.alive)==adult_rabbits+conditions.initial_young
     minds=cognition ? [PredatorMind(i) for i in 1:2] : nothing
     stop_reason="duration_reached"
     elapsed=@elapsed for t in 0:days*17280-1
