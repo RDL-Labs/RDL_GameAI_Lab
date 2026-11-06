@@ -12,7 +12,7 @@ function local_hunt_rollout(w,origin,forecast)
         target=(forecast.x+k*forecast.vx,forecast.z+k*forecast.vz)
         dx=target[1]-p[1];dz=target[2]-p[2];distance=hypot(dx,dz)
         speed=min(LOCAL_HUNT.attack_speed,distance)
-        q=distance>0 ? (p[1]+speed*dx/distance,p[2]+speed*dz/distance) : p
+        q=distance>0 ? (hasproperty(w,:boundary_gradient) && w.boundary_gradient ? H.configured_boundary_step(w,p,atan(dz,dx),speed) : (p[1]+speed*dx/distance,p[2]+speed*dz/distance)) : p
         clear=H.clear(w,p,q)
         actor!==nothing && push!(steps,(step=k,start=p,destination=q,predicted_prey=target,clear=clear,
             gap=hypot(q[1]-target[1],q[2]-target[2]),
