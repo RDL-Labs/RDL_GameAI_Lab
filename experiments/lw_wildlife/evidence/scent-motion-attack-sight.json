@@ -1,0 +1,269 @@
+{
+  "matched_days": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "events": [
+    {
+      "event": {
+        "tick": 41809,
+        "kind": "blocked",
+        "id": 0
+      },
+      "food": 644.8923333346543,
+      "attack_start": {
+        "tick": 41808,
+        "position": [
+          11.421810360092145,
+          8.026929162786773
+        ],
+        "seen": [
+          11.739697274435912,
+          9.747420826810423
+        ],
+        "distance": 1.7496124303073144,
+        "sight_clear": true,
+        "body_path_clear": true
+      },
+      "geometry": {
+        "start": [
+          11.603500264002996,
+          9.010285038762946
+        ],
+        "destination": [
+          11.785190167913846,
+          9.99364091473912
+        ],
+        "last_seen": [
+          11.739697274435912,
+          9.747420826810423
+        ],
+        "sight_to_last_seen": true,
+        "sight_along_step": true,
+        "boundary": false,
+        "water": false,
+        "obstacles": [
+          102
+        ]
+      }
+    },
+    {
+      "event": {
+        "tick": 43713,
+        "kind": "capture",
+        "id": 77
+      },
+      "food": 570.2092222236143,
+      "attack_start": {
+        "tick": 43712,
+        "position": [
+          7.49282928014793,
+          15.25430593432175
+        ],
+        "seen": [
+          7.844583525661878,
+          17.541022360937493
+        ],
+        "distance": 2.3136125572341113,
+        "sight_clear": true,
+        "body_path_clear": true
+      },
+      "geometry": null
+    },
+    {
+      "event": {
+        "tick": 76292,
+        "kind": "blocked",
+        "id": 0
+      },
+      "food": 605.5067222235788,
+      "attack_start": {
+        "tick": 76292,
+        "position": [
+          15.2420113943428,
+          27.91329339576929
+        ],
+        "seen": [
+          15.368262662813997,
+          29.96806823785277
+        ],
+        "distance": 2.0586498086002316,
+        "sight_clear": true,
+        "body_path_clear": false
+      },
+      "geometry": {
+        "start": [
+          15.2420113943428,
+          27.91329339576929
+        ],
+        "destination": [
+          15.303338613738624,
+          28.91141111035068
+        ],
+        "last_seen": [
+          15.368262662813997,
+          29.96806823785277
+        ],
+        "sight_to_last_seen": true,
+        "sight_along_step": true,
+        "boundary": false,
+        "water": false,
+        "obstacles": [
+          138
+        ]
+      }
+    },
+    {
+      "event": {
+        "tick": 78835,
+        "kind": "escape",
+        "id": 3
+      },
+      "food": 504.6301111125712,
+      "attack_start": {
+        "tick": 78834,
+        "position": [
+          11.445172700927348,
+          38.00567365746913
+        ],
+        "seen": [
+          13.704923964643424,
+          38.015555905844074
+        ],
+        "distance": 2.2597728719274746,
+        "sight_clear": true,
+        "body_path_clear": true
+      },
+      "geometry": null
+    },
+    {
+      "event": {
+        "tick": 79014,
+        "kind": "blocked",
+        "id": 0
+      },
+      "food": 497.7728333347934,
+      "attack_start": {
+        "tick": 79014,
+        "position": [
+          13.208406817843338,
+          41.91208737247008
+        ],
+        "seen": [
+          15.491414710088298,
+          42.0857258434227
+        ],
+        "distance": 2.289601571157641,
+        "sight_clear": true,
+        "body_path_clear": false
+      },
+      "geometry": {
+        "start": [
+          13.208406817843338,
+          41.91208737247008
+        ],
+        "destination": [
+          14.205526981021185,
+          41.987925227029564
+        ],
+        "last_seen": [
+          15.491414710088298,
+          42.0857258434227
+        ],
+        "sight_to_last_seen": true,
+        "sight_along_step": true,
+        "boundary": false,
+        "water": false,
+        "obstacles": [
+          15
+        ]
+      }
+    },
+    {
+      "event": {
+        "tick": 83236,
+        "kind": "blocked",
+        "id": 0
+      },
+      "food": 286.44761111256247,
+      "attack_start": {
+        "tick": 83234,
+        "position": [
+          13.506961660499687,
+          12.784103553602886
+        ],
+        "seen": [
+          13.573352881179755,
+          10.948096363119065
+        ],
+        "distance": 1.8372071733181545,
+        "sight_clear": true,
+        "body_path_clear": true
+      },
+      "geometry": {
+        "start": [
+          13.57923573132226,
+          10.785409865543926
+        ],
+        "destination": [
+          13.615372766733547,
+          9.786063021514446
+        ],
+        "last_seen": [
+          13.573352881179755,
+          10.948096363119065
+        ],
+        "sight_to_last_seen": true,
+        "sight_along_step": false,
+        "boundary": false,
+        "water": true,
+        "obstacles": [
+          103
+        ]
+      }
+    },
+    {
+      "event": {
+        "tick": 84986,
+        "kind": "blocked",
+        "id": 0
+      },
+      "food": 205.1357222236707,
+      "attack_start": {
+        "tick": 84985,
+        "position": [
+          -61.58827911833525,
+          68.4699740140735
+        ],
+        "seen": [
+          -62.95198197088359,
+          69.68530818748188
+        ],
+        "distance": 1.8266698177565364,
+        "sight_clear": true,
+        "body_path_clear": true
+      },
+      "geometry": {
+        "start": [
+          -62.33483048700197,
+          69.13530179339872
+        ],
+        "destination": [
+          -63.081381855668695,
+          69.80062957272395
+        ],
+        "last_seen": [
+          -62.95198197088359,
+          69.68530818748188
+        ],
+        "sight_to_last_seen": true,
+        "sight_along_step": true,
+        "boundary": true,
+        "water": false,
+        "obstacles": []
+      }
+    }
+  ]
+}
