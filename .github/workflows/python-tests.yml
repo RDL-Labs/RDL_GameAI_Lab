@@ -1,9 +1,11 @@
-name: Python Tests
+name: Legacy Python and Godot compatibility (manual)
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  # Julia is the active runtime. Keep legacy checks available on explicit request.
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   python-tests:

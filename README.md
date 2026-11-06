@@ -71,6 +71,6 @@ Juliaの構造整理を実施しました。現役実装は`src`を正本とし�
 - [Julia LWの検証・切替判定](docs/design/RDL_Julia_LW_Backend_Decision.md)
 - [数値CPU・生態系の検証](experiments/numeric_ecology/README.md)
 - [過去のREADME・更新履歴](docs/history/README-before-julia-primary-20261016.md)
-- GitHub Actions：Juliaの短い生態系チェックを自動実行。長期LW比較は既存の手動ワークフロー。Python回帰も維持。
+- GitHub Actions：Julia回帰検査と日次保存・再開検査を自動実行。長期LW比較と旧Python／Godot互換検査は手動実行。[CIの区分と運用](test/ci/README.md)。
 
 過去記録の「本線Python」「移行中」などは当時の状況です。現在の入口と役割はこのREADMEを優先してください。

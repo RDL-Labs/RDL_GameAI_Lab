@@ -21,7 +21,7 @@ GitHub Actionsとローカルで `julia --startup-file=no --project=. test/ci/ru
 matrixのfail-fast=falseは継続。各jobの上限は20分。CI結果のsuccess/skippedを混同しない。
 
 日次保存・別プロセス再開は `julia-lw-checkpoint.yml` に独立して維持する。
-Python/Godot互換検査も削除しない。30〜180日実験、性能比較、ローカルcheckpoint依存の
+Python/Godot互換検査は手動専用で維持する（下記）。30〜180日実験、性能比較、ローカルcheckpoint依存の
 `potential_checks.jl`や監査runnerは通常CIへ混ぜない。代わりに帰巣の自己完結した短い検査を
 `reproduction_checks.jl`へ追加する。長期の生存・速度改善はCI成功だけでは証明できない。
 
@@ -30,6 +30,30 @@ Python/Godot互換検査も削除しない。30〜180日実験、性能比較、
 味の事前予測と身体状態依存の摂食結果は別に検査し、経験を記録した後の想起も検査する。
 不利な交換を無理に成立させない。関係の選択効果や決済記録を試すfixtureでは、
 現行仕様で利用可能な食品と在庫を用意する。未加工品の加工価値を試す場合は設備条件も渡す。
+
+## 自動CIと旧版・実験用workflowの区別
+
+| 区分 | workflow | 起動条件 |
+|---|---|---|
+| 現行Julia回帰 | `julia-ecology-smoke.yml` | mainへのpush、PR、手動 |
+| 現行Julia保存・再開 | `julia-lw-checkpoint.yml` | mainへのpush、PR、手動 |
+| 旧Python／Godot互換 | `python-tests.yml` | 手動のみ |
+| その他の移行期・長期・比較実験 | その他の既存workflow | 手動のみ |
+
+2026-11-06から、開発対象でない旧Python検査を毎push・PRでは起動しない。
+Actionsの **Legacy Python and Godot compatibility (manual)** → **Run workflow** で実行できる。
+Python実装や旧Godot連携を変更・再利用するときに、対象ブランチで互換性を確認する。
+テスト本体・実行コマンド・workflowファイル名は保持し、過去の実験への参照を残す。
+ここでのGodot検査はPython経由の旧縦断検査であり、Julia版の動作保証ではない。
+
+その他の既存workflowは整理前から手動専用。名前にJuliaが含まれていても、
+移行期のPython比較や旧実験入口を呼ぶものがある。現行の必須CIとは扱わず、
+再利用時に入口・依存環境・試験条件を確認する。今回それらの動作を再保証したものではない。
+新しい通常回帰検査はまず `suites.json` へ追加し、過去の単発実験workflowを増殖させない。
+
+手動化は検査成功を意味しない。既に起動済みの旧CIはこの変更では中止されない。
+ブランチ保護で旧 `python-tests` / `godot-verticals` を必須にしている場合は、
+リポジトリ管理設定側でも必須対象を見直す（workflow変更だけでは保護設定は変更されない）。
 
 ## 整理時に見つかった残件（2026-11-06）
 
