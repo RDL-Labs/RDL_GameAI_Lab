@@ -15,7 +15,8 @@ GitHub Actionsとローカルで `julia --startup-file=no --project=. test/ci/ru
 | animals | 既存動物・捕食者、開口境界 |
 | wildlife | LW草食接続、繁殖・初期親子・帰巣回避、動体観測 |
 
-旧workflowの検査を落とさず分類し直し、繁殖・援助資源・共通試行などを追加した。
+初回整理では旧workflowの検査を全て移し、繁殖・援助資源・共通試行などを追加した。
+その後、下記の旧仕様検査4本を通常CIから外した。現在の通常CIは8区分・65本。
 各スクリプトは独立Juliaプロセスで実行。失敗しても同suiteの後続を実行し、最後に非ゼロで終了する。
 ファイル別ログと終了コード・秒数は `outputs/ci/<suite>` に保存し、Actions artifactへアップロードする。
 matrixのfail-fast=falseは継続。各jobの上限は20分。CI結果のsuccess/skippedを混同しない。
@@ -77,5 +78,25 @@ CIの分類整理は、全検査の成功を意味しない。次の検査は除
 - `rock_gate/food_site_observation_checks.jl`: 学習結果の `models["known_food"]` 参照が `KeyError`。現在のモデルキー・記録契約を確認する。
 - `julia_migration/lw_integrated/body_purpose_checks.jl`: `returning!` が未定義で停止。旧APIの検査を現在の設定経路APIと照合する。後続には生ドングリ非可食・夜間活動を前提とする検査もあるため、名前だけの置換で対応完了にしない。
 
-これらは通常CIで引き続き検出する。検査条件が古いのか実装の不具合かを個別に確認し、
+旧仕様検査として下記へ移した4本を除き、残件は通常CIで引き続き検出する。検査条件が古いのか実装の不具合かを個別に確認し、
 本体の認知・交換ルール変更はCI整理から分ける。全体がgreenになるまで成功扱いにしない。
+
+## 通常CIから外した旧仕様検査（2026-11-06）
+
+ユーザーの旧検査整理方針に基づき、以下は `suites.json` から外す。
+コードは元の場所へ保存し、必要時は `julia --startup-file=no --project=. <path>` で手動実行できる。
+過去の実験再現では当時のコミットと環境も合わせる。現行HEADで通ることは保証しない。
+
+| path | 外す理由 | 現行検査として作り直す場合の条件 |
+|---|---|---|
+| `experiments/julia_migration/lw_integrated/body_purpose_checks.jl` | 未定義の旧API `returning!`、生ドングリ非可食、夜間活動の旧前提 | 現在の設定経路API・食品・睡眠仕様に基づいて身体目的切替を検査する |
+| `experiments/rock_gate/post_return_idle_checks.jl` | 旧食料入力から毎日外出・帰還・待機を期待し、睡眠遮断分を観測集計へ含めていない | 待機の適格性と自律的な帰還頻度を分離し、睡眠・待機・観測の区間を別集計する |
+| `experiments/rock_gate/local_success_checks.jl` | 備蓄60でも活動計画と局所帰還が必ず存在する前提、睡眠を含む全tickで観測する期待 | 実際に開始した親計画に対して局所成果が親成功にならないことを検査する |
+| `experiments/rock_gate/parent_plan_switch_checks.jl` | 備蓄60のシーンでも短時間で採取・枯渇することを必須にする旧実験条件 | 採取が成立した条件から、残量観測と目的切替・帰路保持を確認する |
+
+ファイル単位で外すため、同居する単体検査も自動実行対象から外れる。代替で全てを
+網羅したとは扱わない。特に親計画の統合挙動・待機適格性の検査範囲には不足が残る。
+`food_site_observation_checks.jl`、`depleted_home_route_checks.jl`、
+`search_resistance_checks.jl`、共通日次計画・保存再開・睡眠検査は引き続き実行する。
+交換・援助の成立条件や `known_food` の記録契約はまだ原因を確定していないため、
+「古い検査」として一括除外しない。今回の整理だけでCI全件成功になるとは扱わない。

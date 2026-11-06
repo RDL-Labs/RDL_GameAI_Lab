@@ -212,18 +212,6 @@
     },
     {
       "args": [],
-      "path": "experiments/rock_gate/post_return_idle_checks.jl"
-    },
-    {
-      "args": [],
-      "path": "experiments/rock_gate/local_success_checks.jl"
-    },
-    {
-      "args": [],
-      "path": "experiments/rock_gate/parent_plan_switch_checks.jl"
-    },
-    {
-      "args": [],
       "path": "experiments/rock_gate/food_site_observation_checks.jl"
     },
     {
@@ -233,10 +221,6 @@
     {
       "args": [],
       "path": "experiments/rock_gate/search_resistance_checks.jl"
-    },
-    {
-      "args": [],
-      "path": "experiments/julia_migration/lw_integrated/body_purpose_checks.jl"
     }
   ],
   "observation": [
