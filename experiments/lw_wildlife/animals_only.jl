@@ -43,7 +43,7 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
         if local_hunts!==nothing && local_hunts[i].wait_trial!==nothing && isnan(local_hunts[i].wait_spent)
             local_hunts[i].wait_spent=predators[i].spent
         end
-        configured_trial_advance!(s,predators[i],t;prey_nutrition,search_speed,attack_speed,movement_speed,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        configured_trial_advance!(s,predators[i],t;prey_nutrition,search_speed,attack_speed,movement_speed,probabilistic_capture=local_hunts!==nothing && local_hunts[i].probabilistic_capture,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
         local_hunts!==nothing && configured_local_hunt_finish!(local_hunts[i],predators[i])
     end
 end

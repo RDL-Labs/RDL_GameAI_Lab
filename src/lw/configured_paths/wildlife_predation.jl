@@ -59,12 +59,17 @@ function configured_wildlife_predator_plan!(s,t;search_attention=nothing,local_p
     for i in eachindex(s.alive);predator_state.previous_prey[i]=(s.animals.x[i],s.animals.z[i]);end
 end
 
-function configured_wildlife_predator_advance!(s,t;attack_speed=1.,movement_speed=nothing)
+include("probabilistic_capture.jl")
+function configured_wildlife_predator_advance!(s,t;attack_speed=1.,movement_speed=nothing,probabilistic_capture=false)
     predator_state=s.predator;predator_state===nothing && return
     predator=predator_state.body
     predator_state.previous_position=(predator.x,predator.z)
     prior_captures=predator.captures
-    P.advance!(s.world,predator,s.animals,s.alive,t,predator_state.rng,predator_state.events;attack_speed,movement_speed)
+    if probabilistic_capture && predator.state==P.ATTACK
+        configured_probability_advance!(s,t,attack_speed)
+    else
+        P.advance!(s.world,predator,s.animals,s.alive,t,predator_state.rng,predator_state.events;attack_speed,movement_speed)
+    end
     if predator.captures>prior_captures && s.life!==nothing
         victim=last(predator_state.events).id
         if s.life.due[victim]>0

@@ -1,0 +1,660 @@
+{
+  "conditions": {
+    "days": 30,
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "humans": 0,
+    "nutrition": 1.5,
+    "probabilistic_capture": true,
+    "capture_world": {
+      "reach": 2.5,
+      "path_step": 0.5,
+      "base": 0.1,
+      "distance_weight": 0.4,
+      "unaware_weight": 0.2,
+      "rear_weight": 0.1,
+      "closing_weight": 0.15,
+      "cover_weight": 0.1,
+      "speed_scale": 1.0,
+      "minimum": 0.05,
+      "maximum": 0.9
+    },
+    "capture_estimate": {
+      "near_distance": 1.25,
+      "near_prior": 0.6,
+      "far_prior": 0.3,
+      "prior_samples": 2.0,
+      "weight": 2.0
+    },
+    "boundary_gradient": true,
+    "boundary_rule": {
+      "width": 8.0,
+      "strength": 2.0,
+      "body_margin": 0.25
+    },
+    "marking": true,
+    "cognition": true,
+    "prey_scent": true,
+    "cautious": true,
+    "motion_speed": true,
+    "stop_on_predator_extinction": true,
+    "prey_rule": {
+      "cell_size": 4.0,
+      "radius": 6.0,
+      "deposit_interval": 30,
+      "sniff_interval": 30,
+      "lifetime": 17280,
+      "deposit": 1.0,
+      "capacity": 4.0,
+      "minimum_signal": 0.05,
+      "arrival_radius": 1.0
+    },
+    "caution_rule": {
+      "strong_signal": 0.6,
+      "speed": 0.08,
+      "unconfirmed_ticks": 120,
+      "cooldown_ticks": 600
+    },
+    "motion_rule": {
+      "stationary": 0.55,
+      "saturation_speed": 0.5
+    },
+    "local_hunt": true,
+    "local_rule": {
+      "radius": 6.0,
+      "velocity_cap": 0.7,
+      "history_ticks": 20,
+      "horizon": 3,
+      "attack_speed": 1.0,
+      "approach_speed": 0.35,
+      "side_angle": 1.0471975511965976,
+      "contact_radius": 0.55,
+      "attack_priority": 4.0,
+      "approach_priority": 2.0,
+      "wait_priority": -1.0,
+      "cost_weight": 0.2,
+      "future_attack_bonus": 1.0,
+      "expected_capture": 0.6,
+      "wait_forecast_ticks": 20,
+      "withdraw_priority": 0.0,
+      "log_limit": 128
+    },
+    "fixed": "provisional scent/speed rules; optional local capture forecast with wait child; no sound/wind/humans; rest benefit removed; local route repair without recovery pause"
+  },
+  "completion": {
+    "reason": "predator_extinction",
+    "elapsed_days": 11.862789351851852,
+    "completed_days": 11,
+    "stopped_in_day": 12
+  },
+  "seconds": 21.3972401,
+  "probability_checks": 23,
+  "legacy_route_checks": 18,
+  "wait_checks": 9,
+  "rabbits_alive": 42,
+  "balances": {
+    "grass": {
+      "name": "grass",
+      "supplied": 30958.97532954272,
+      "accounted": 30958.97532927378,
+      "residual": 2.6894122129306197E-07,
+      "relative_error": 8.687019464640478E-12,
+      "delta_since_previous": null,
+      "max_abs_residual": 2.6894122129306197E-07,
+      "warning_limit": 4.095897532954272E-06,
+      "stop_limit": 0.0004095897532954272,
+      "status": "ok"
+    },
+    "intake": {
+      "name": "intake",
+      "supplied": 17838.806447905263,
+      "accounted": 17838.806447987357,
+      "residual": -8.20946297608316E-08,
+      "relative_error": 4.6020248047533374E-12,
+      "delta_since_previous": null,
+      "max_abs_residual": 8.20946297608316E-08,
+      "warning_limit": 2.7838806447987358E-06,
+      "stop_limit": 0.0002783880644798736,
+      "status": "ok"
+    },
+    "digestion": {
+      "name": "digestion",
+      "supplied": 17838.806447987357,
+      "accounted": 17838.806447985884,
+      "residual": 1.4733814168721437E-09,
+      "relative_error": 8.259417025281847E-14,
+      "delta_since_previous": null,
+      "max_abs_residual": 1.4733814168721437E-09,
+      "warning_limit": 2.7838806447987358E-06,
+      "stop_limit": 0.0002783880644798736,
+      "status": "ok"
+    }
+  },
+  "predators": [
+    {
+      "alive": false,
+      "food": 0.0,
+      "eaten": 9053.697640861223,
+      "spent": 9953.697640886206,
+      "discarded": 3096.302359138778,
+      "balance_residual": -2.498381945770234E-08,
+      "captures": 9,
+      "attacks": 18,
+      "encounters": 458,
+      "warning_started": 130384,
+      "warning_blocked_until": 131044,
+      "warning_timeouts": 7,
+      "ticks": {
+        "hunt": 47030,
+        "retreat": 480,
+        "warn": 420,
+        "visit_food": 13749,
+        "visit_rest": 62910,
+        "rest": 80400
+      },
+      "position": [
+        -8.424622354022157,
+        -36.685458460021245
+      ],
+      "center": [
+        -9.0,
+        5.0
+      ],
+      "prey_observations": 33826,
+      "events": [
+        {
+          "tick": 3362,
+          "kind": "probability_miss",
+          "id": 72,
+          "probability": 0.4151203723537008,
+          "distance": 0.5976442659042072,
+          "reason": "draw"
+        },
+        {
+          "tick": 4157,
+          "kind": "capture",
+          "id": 72,
+          "probability": 0.37359379759005706,
+          "distance": 0.4150387650621435,
+          "reason": "draw"
+        },
+        {
+          "tick": 8466,
+          "kind": "probability_miss",
+          "id": 64,
+          "probability": 0.29920080978266417,
+          "distance": 1.2000000000000006,
+          "reason": "draw"
+        },
+        {
+          "tick": 15405,
+          "kind": "capture",
+          "id": 94,
+          "probability": 0.42397358997931645,
+          "distance": 0.6000000000000003,
+          "reason": "draw"
+        },
+        {
+          "tick": 22540,
+          "kind": "probability_miss",
+          "id": 46,
+          "probability": 0.3888191873722148,
+          "distance": 0.5957258553591375,
+          "reason": "draw"
+        },
+        {
+          "tick": 23922,
+          "kind": "probability_miss",
+          "id": 73,
+          "probability": 0.35399999999999987,
+          "distance": 0.6000000000000005,
+          "reason": "draw"
+        },
+        {
+          "tick": 42012,
+          "kind": "probability_miss",
+          "id": 14,
+          "probability": 0.1847947114399254,
+          "distance": 1.8,
+          "reason": "draw"
+        },
+        {
+          "tick": 42215,
+          "kind": "capture",
+          "id": 73,
+          "probability": 0.4394636641216261,
+          "distance": 0.5999999999999964,
+          "reason": "draw"
+        },
+        {
+          "tick": 46698,
+          "kind": "probability_miss",
+          "id": 14,
+          "probability": 0.5132008097826644,
+          "distance": 0.7999999999999995,
+          "reason": "draw"
+        },
+        {
+          "tick": 59936,
+          "kind": "probability_miss",
+          "id": 84,
+          "probability": 0.42267259812860514,
+          "distance": 0.4363011654839499,
+          "reason": "draw"
+        },
+        {
+          "tick": 71926,
+          "kind": "probability_miss",
+          "id": 8,
+          "probability": 0.49289348340487305,
+          "distance": 1.0444155227376883,
+          "reason": "draw"
+        },
+        {
+          "tick": 71932,
+          "kind": "capture",
+          "id": 8,
+          "probability": 0.46992547282408603,
+          "distance": 0.9278009738150912,
+          "reason": "draw"
+        },
+        {
+          "tick": 95346,
+          "kind": "capture",
+          "id": 60,
+          "probability": 0.4024895536438925,
+          "distance": 0.47922796803555295,
+          "reason": "draw"
+        },
+        {
+          "tick": 128804,
+          "kind": "capture",
+          "id": 48,
+          "probability": 0.7297419158144172,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 138736,
+          "kind": "capture",
+          "id": 61,
+          "probability": 0.47352098726510483,
+          "distance": 0.48278375704105564,
+          "reason": "draw"
+        },
+        {
+          "tick": 166580,
+          "kind": "probability_miss",
+          "id": 36,
+          "probability": 0.45329205137291084,
+          "distance": 0.4770606925258113,
+          "reason": "draw"
+        },
+        {
+          "tick": 166584,
+          "kind": "capture",
+          "id": 36,
+          "probability": 0.3959951106358083,
+          "distance": 0.5239352728821739,
+          "reason": "draw"
+        },
+        {
+          "tick": 168083,
+          "kind": "capture",
+          "id": 5,
+          "probability": 0.48350433478078625,
+          "distance": 0.041525260639742274,
+          "reason": "draw"
+        }
+      ]
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "eaten": 5614.25156096235,
+      "spent": 6514.251560981945,
+      "discarded": 4173.24843903765,
+      "balance_residual": -1.959506334969774E-08,
+      "captures": 12,
+      "attacks": 30,
+      "encounters": 428,
+      "warning_started": 96385,
+      "warning_blocked_until": 97045,
+      "warning_timeouts": 3,
+      "ticks": {
+        "dead": 65335,
+        "hunt": 21238,
+        "retreat": 60,
+        "warn": 180,
+        "visit_food": 9722,
+        "visit_rest": 40054,
+        "rest": 68400
+      },
+      "position": [
+        8.749285003950808,
+        -13.451170790881681
+      ],
+      "center": [
+        7.0,
+        5.0
+      ],
+      "prey_observations": 25472,
+      "events": [
+        {
+          "tick": 4260,
+          "kind": "probability_miss",
+          "id": 33,
+          "probability": 0.3952008097826644,
+          "distance": 0.5999999999999998,
+          "reason": "draw"
+        },
+        {
+          "tick": 6924,
+          "kind": "probability_miss",
+          "id": 95,
+          "probability": 0.4140000000000002,
+          "distance": 0.5999999999999995,
+          "reason": "draw"
+        },
+        {
+          "tick": 6931,
+          "kind": "probability_miss",
+          "id": 95,
+          "probability": 0.5365603899224708,
+          "distance": 0.5999999999999996,
+          "reason": "draw"
+        },
+        {
+          "tick": 6937,
+          "kind": "probability_miss",
+          "id": 95,
+          "probability": 0.5333744310830425,
+          "distance": 0.6000000000000004,
+          "reason": "draw"
+        },
+        {
+          "tick": 6940,
+          "kind": "capture",
+          "id": 95,
+          "probability": 0.5593941176675704,
+          "distance": 0.20000000000000132,
+          "reason": "draw"
+        },
+        {
+          "tick": 7896,
+          "kind": "probability_miss",
+          "id": 96,
+          "probability": 0.47614234182833964,
+          "distance": 0.9999999999999989,
+          "reason": "draw"
+        },
+        {
+          "tick": 7905,
+          "kind": "capture",
+          "id": 96,
+          "probability": 0.736246765975085,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 8047,
+          "kind": "probability_miss",
+          "id": 97,
+          "probability": 0.47596484942745454,
+          "distance": 0.9999999999999983,
+          "reason": "draw"
+        },
+        {
+          "tick": 8054,
+          "kind": "capture",
+          "id": 97,
+          "probability": 0.7359861820648977,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 16056,
+          "kind": "probability_miss",
+          "id": 76,
+          "probability": 0.18479471143992562,
+          "distance": 1.7999999999999987,
+          "reason": "draw"
+        },
+        {
+          "tick": 16554,
+          "kind": "capture",
+          "id": 76,
+          "probability": 0.33716506102839056,
+          "distance": 0.5338413850082587,
+          "reason": "draw"
+        },
+        {
+          "tick": 17269,
+          "kind": "capture",
+          "id": 74,
+          "probability": 0.4828470423947659,
+          "distance": 0.6,
+          "reason": "draw"
+        },
+        {
+          "tick": 44194,
+          "kind": "probability_miss",
+          "id": 31,
+          "probability": 0.4539333145237416,
+          "distance": 0.6000000000000002,
+          "reason": "draw"
+        },
+        {
+          "tick": 44197,
+          "kind": "capture",
+          "id": 31,
+          "probability": 0.5978456561057065,
+          "distance": 0.2000000000000006,
+          "reason": "draw"
+        },
+        {
+          "tick": 46813,
+          "kind": "probability_miss",
+          "id": 14,
+          "probability": 0.5395222473713684,
+          "distance": 0.6354910150705996,
+          "reason": "draw"
+        },
+        {
+          "tick": 46816,
+          "kind": "capture",
+          "id": 14,
+          "probability": 0.39554302092518573,
+          "distance": 0.7989154090076606,
+          "reason": "draw"
+        },
+        {
+          "tick": 49920,
+          "kind": "probability_miss",
+          "id": 98,
+          "probability": 0.7233487368634699,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 49923,
+          "kind": "capture",
+          "id": 98,
+          "probability": 0.7233434902075601,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 66356,
+          "kind": "probability_miss",
+          "id": 6,
+          "probability": 0.39152729310916967,
+          "distance": 0.5999999999999995,
+          "reason": "draw"
+        },
+        {
+          "tick": 66359,
+          "kind": "probability_miss",
+          "id": 6,
+          "probability": 0.22200000000000036,
+          "distance": 1.7999999999999985,
+          "reason": "draw"
+        },
+        {
+          "tick": 75116,
+          "kind": "capture",
+          "id": 99,
+          "probability": 0.7094765786379313,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 79217,
+          "kind": "capture",
+          "id": 100,
+          "probability": 0.7023044000092209,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 80220,
+          "kind": "probability_miss",
+          "id": 52,
+          "probability": 0.5003951121906552,
+          "distance": 0.9970201517870889,
+          "reason": "draw"
+        },
+        {
+          "tick": 80223,
+          "kind": "capture",
+          "id": 52,
+          "probability": 0.338204069579971,
+          "distance": 1.304978755863711,
+          "reason": "draw"
+        },
+        {
+          "tick": 101652,
+          "kind": "probability_miss",
+          "id": 91,
+          "probability": 0.3829104998376113,
+          "distance": 1.3011284101113545,
+          "reason": "draw"
+        },
+        {
+          "tick": 101657,
+          "kind": "probability_miss",
+          "id": 91,
+          "probability": 0.3864575752315511,
+          "distance": 1.3120444151184243,
+          "reason": "draw"
+        },
+        {
+          "tick": 102203,
+          "kind": "capture",
+          "id": 91,
+          "probability": 0.2194365999861679,
+          "distance": 1.200000000000001,
+          "reason": "draw"
+        },
+        {
+          "tick": 130683,
+          "kind": "probability_miss",
+          "id": 37,
+          "probability": 0.0,
+          "distance": 1.1086554390135437,
+          "reason": "blocked"
+        },
+        {
+          "tick": 135087,
+          "kind": "probability_miss",
+          "id": 35,
+          "probability": 0.47744123712904296,
+          "distance": 0.2034922679434804,
+          "reason": "draw"
+        },
+        {
+          "tick": 135090,
+          "kind": "probability_miss",
+          "id": 35,
+          "probability": 0.14632838789776198,
+          "distance": 1.800000000000004,
+          "reason": "draw"
+        }
+      ]
+    }
+  ],
+  "learning": [
+    {
+      "counts": {
+        "right": 488,
+        "attack": 18,
+        "left": 478,
+        "wait_ticks": 68,
+        "withdraw": 52,
+        "route_retry": 9,
+        "capture_draw": 18,
+        "wait": 8,
+        "probability_miss": 9,
+        "wait_failed": 8,
+        "probability_capture": 9,
+        "approach": 609,
+        "evaluations": 1713
+      },
+      "experience": {
+        "far:closing": [
+          8,
+          5
+        ],
+        "far:leaving": [
+          4,
+          1
+        ],
+        "near:leaving": [
+          4,
+          2
+        ],
+        "near:closing": [
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "counts": {
+        "right": 274,
+        "attack": 30,
+        "left": 305,
+        "wait_ticks": 86,
+        "withdraw": 32,
+        "route_retry": 18,
+        "capture_draw": 29,
+        "wait": 6,
+        "probability_miss": 18,
+        "wait_failed": 6,
+        "probability_capture": 12,
+        "approach": 398,
+        "evaluations": 1125,
+        "capture_blocked": 1
+      },
+      "experience": {
+        "far:closing": [
+          11,
+          3
+        ],
+        "far:leaving": [
+          5,
+          0
+        ],
+        "near:leaving": [
+          6,
+          4
+        ],
+        "near:closing": [
+          8,
+          5
+        ]
+      }
+    }
+  ]
+}

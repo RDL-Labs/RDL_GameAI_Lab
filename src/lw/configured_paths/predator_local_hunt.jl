@@ -6,6 +6,8 @@ const LOCAL_HUNT=(radius=6.,velocity_cap=.7,history_ticks=20,horizon=3,attack_sp
     approach_speed=.35,side_angle=pi/3,contact_radius=.55,attack_priority=4.,
     approach_priority=2.,wait_priority=-1.,cost_weight=.2,future_attack_bonus=1.,expected_capture=.6,
     wait_forecast_ticks=20,withdraw_priority=0.,log_limit=128)
+# 暫定の個体側事前見積もり。世界の確率係数とは独立。経験で文脈ごとに更新。
+const CAPTURE_ESTIMATE=(near_distance=1.25,near_prior=.6,far_prior=.3,prior_samples=2.,weight=2.)
 mutable struct LocalHunt
     loop::LW.BasicLoop
     memory::Dict{Int,NamedTuple}
@@ -21,9 +23,25 @@ mutable struct LocalHunt
     wait_target::Int
     wait_spent::Float64
     wait_records::Vector{Any}
+    probabilistic_capture::Bool
+    capture_experience::Dict{String,Tuple{Int,Int}}
 end
-LocalHunt(i)=LocalHunt(LW.BasicLoop("predator:$i:capture";probabilistic=true,seed=20261107+i),
-    Dict{Int,NamedTuple}(),nothing,1.,nothing,Dict{String,Int}(),Any[],0,0,0.,nothing,0,0.,Any[])
+LocalHunt(i;probabilistic_capture=false)=LocalHunt(LW.BasicLoop("predator:$i:capture";probabilistic=true,seed=20261107+i),
+    Dict{Int,NamedTuple}(),nothing,1.,nothing,Dict{String,Int}(),Any[],0,0,0.,nothing,0,0.,Any[],probabilistic_capture,Dict{String,Tuple{Int,Int}}())
+function local_capture_estimate(state,origin,forecast)
+    dx=forecast.x-origin[1];dz=forecast.z-origin[2];distance=hypot(dx,dz)
+    approaching=dx*forecast.vx+dz*forecast.vz<=0
+    near=distance<=CAPTURE_ESTIMATE.near_distance
+    key=string(near ? "near" : "far",approaching ? ":closing" : ":leaving")
+    samples,successes=get(state.capture_experience,key,(0,0))
+    prior=near ? CAPTURE_ESTIMATE.near_prior : CAPTURE_ESTIMATE.far_prior
+    (key=key,value=(successes+CAPTURE_ESTIMATE.prior_samples*prior)/(samples+CAPTURE_ESTIMATE.prior_samples))
+end
+function local_capture_opportunity(w,origin,forecast)
+    target=(forecast.x,forecast.z)
+    G.configured_capture_path(w,origin,target) || return nothing
+    (heading=atan(target[2]-origin[2],target[1]-origin[1]),speed=min(LOCAL_HUNT.attack_speed,hypot(target[1]-origin[1],target[2]-origin[2])))
+end
 function configured_local_wait_close!(state,status,reason)
     state.wait_trial===nothing && return
     child=state.wait_trial
@@ -76,6 +94,16 @@ function configured_local_hunt_plan!(state,s,observations,t)
     b=s.predator.body;rule=LOCAL_HUNT
     state.movement_speed=nothing;state.attack_speed=1.
     if b.state in (P.REST,P.RECOVER);return false;end
+    if state.probabilistic_capture && b.state==P.ATTACK
+        # Bounded physical attempt: one draw after the existing three-tick interval.
+        # Update heading only from visible target; no future trajectory rollout.
+        index=findfirst(o->o.id==b.target,observations)
+        if index!==nothing
+            o=observations[index];b.heading=atan(o.z-b.z,o.x-b.x)
+            state.attack_speed=min(rule.attack_speed,o.distance)
+        end
+        b.counts[b.state]+=1;return true
+    end
     if isempty(observations)
         configured_local_wait_close!(state,"failed","target_unobserved")
         if b.state==P.ATTACK
@@ -116,7 +144,9 @@ function configured_local_hunt_plan!(state,s,observations,t)
         state.movement_speed=rule.approach_speed;b.counts[b.state]+=1;return true
     end
     b.target=o.id;b.seen_x=o.x;b.seen_z=o.z;b.expires=t+rule.history_ticks
-    origin=(b.x,b.z);attack=local_hunt_rollout(s.world,origin,forecast)
+    origin=(b.x,b.z)
+    attack=state.probabilistic_capture ? local_capture_opportunity(s.world,origin,forecast) : local_hunt_rollout(s.world,origin,forecast)
+    estimate=state.probabilistic_capture ? local_capture_estimate(state,origin,forecast) : nothing
     state.counts["evaluations"]=get(state.counts,"evaluations",0)+1
     if state.wait_trial!==nothing
         if attack!==nothing
@@ -143,20 +173,25 @@ function configured_local_hunt_plan!(state,s,observations,t)
         end
     end
     rows=Any[]
-    attack!==nothing && push!(rows,LW.D("method"=>"attack","question"=>"capture","priority"=>rule.attack_priority-rule.cost_weight*o.distance,
+    attack!==nothing && push!(rows,LW.D("method"=>"attack","question"=>"capture","priority"=>rule.attack_priority-rule.cost_weight*o.distance+(estimate===nothing ? 0. : CAPTURE_ESTIMATE.weight*(estimate.value-rule.expected_capture)),
         "heading"=>attack.heading,"speed"=>attack.speed))
     heading=atan(o.z-b.z,o.x-b.x)
     for (name,offset) in (("approach",0.),("left",rule.side_angle),("right",-rule.side_angle),("withdraw",pi))
         angle=heading+offset;q=H.configured_boundary_step(s.world,origin,angle,rule.approach_speed)
         H.clear(s.world,origin,q) || continue
-        future=local_hunt_rollout(s.world,q,forecast)
+        future=state.probabilistic_capture ? local_capture_opportunity(s.world,q,forecast) : local_hunt_rollout(s.world,q,forecast)
         progress=o.distance-hypot(q[1]-o.x,q[2]-o.z)
         priority=name=="withdraw" ? rule.withdraw_priority : rule.approach_priority
-        push!(rows,LW.D("method"=>name,"question"=>"local_position","priority"=>priority+progress+(future===nothing ? 0. : rule.future_attack_bonus),"heading"=>angle,"speed"=>rule.approach_speed))
+        learning_gradient=estimate===nothing ? 0. : CAPTURE_ESTIMATE.weight*(local_capture_estimate(state,q,forecast).value-estimate.value)
+        push!(rows,LW.D("method"=>name,"question"=>"local_position","priority"=>priority+progress+learning_gradient+(future===nothing ? 0. : rule.future_attack_bonus),"heading"=>angle,"speed"=>rule.approach_speed))
     end
     attack===nothing && push!(rows,LW.D("method"=>"wait","question"=>"capture_opportunity","priority"=>rule.wait_priority,"heading"=>heading,"speed"=>0.))
     state.selected=LW.choose_method!(state.loop,rows,state.loop.sequence+1)
     state.selected["target_id"]=o.id
+    if estimate!==nothing
+        state.selected["capture_context"]=estimate.key
+        state.selected["capture_expected"]=estimate.value
+    end
     c=state.selected;name=c["method"];state.counts[name]=get(state.counts,name,0)+1
     state.start_distance=b.distance;state.last_captures=b.captures;state.last_misses=b.misses
     b.heading=c["heading"]
@@ -196,8 +231,18 @@ function configured_local_hunt_finish!(state,p)
         end
         b.captures==state.last_captures && b.misses==state.last_misses && p.alive && return
         success=b.captures>state.last_captures
+        if state.probabilistic_capture
+            key=c["capture_context"];samples,successes=get(state.capture_experience,key,(0,0))
+            state.capture_experience[key]=(samples+1,successes+Int(success))
+            result_key=success ? "probability_capture" : "probability_miss"
+            state.counts[result_key]=get(state.counts,result_key,0)+1
+            if !isempty(p.visual.events) && hasproperty(last(p.visual.events),:reason)
+                reason_key="capture_"*last(p.visual.events).reason
+                state.counts[reason_key]=get(state.counts,reason_key,0)+1
+            end
+        end
         if success
-            LW.resolve_prediction!(state.loop,source,LOCAL_HUNT.expected_capture,1.;fulfilled=true)
+            LW.resolve_prediction!(state.loop,source,get(c,"capture_expected",LOCAL_HUNT.expected_capture),1.;fulfilled=true)
         else
             LW.resolve_method!(state.loop,source,false,nothing;creditable=false,goal_H_increment=0)
             # Physical misses/escape/blocked end this route, not the hunt. No synthetic fatigue.
@@ -210,4 +255,4 @@ function configured_local_hunt_finish!(state,p)
     end
     state.selected=nothing
 end
-local_hunt_report(state)=(counts=copy(state.counts),memory=length(state.memory),loop=LW.loop_snapshot(state.loop),records=copy(state.records),wait_records=deepcopy(state.wait_records),active_wait=deepcopy(state.wait_trial))
+local_hunt_report(state)=(counts=copy(state.counts),memory=length(state.memory),loop=LW.loop_snapshot(state.loop),records=copy(state.records),wait_records=deepcopy(state.wait_records),active_wait=deepcopy(state.wait_trial),probabilistic_capture=state.probabilistic_capture,capture_experience=copy(state.capture_experience))

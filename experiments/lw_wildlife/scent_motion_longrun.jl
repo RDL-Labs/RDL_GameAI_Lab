@@ -4,10 +4,12 @@ function scent_motion_longrun()
     out=abspath(ARGS[1]);days=length(ARGS)>1 ? parse(Int,ARGS[2]) : 30
     days>0 || error("days must be positive")
     local_hunt="--local-hunt" in ARGS
+    probabilistic_capture="--probabilistic-capture" in ARGS
+    probabilistic_capture && !local_hunt && error("probabilistic capture requires local hunt")
     boundary_gradient=!("--no-boundary-gradient" in ARGS)
     ispath(out) && error("output exists");mkpath(out)
     conditions=(days=days,adults=95,young=5,predators=2,humans=0,nutrition=1.5,
-        boundary_gradient=boundary_gradient,boundary_rule=H.WILDLIFE_BOUNDARY,marking=true,cognition=true,prey_scent=true,cautious=true,motion_speed=true,
+        probabilistic_capture=probabilistic_capture,capture_world=G.CAPTURE_WORLD,capture_estimate=CAPTURE_ESTIMATE,boundary_gradient=boundary_gradient,boundary_rule=H.WILDLIFE_BOUNDARY,marking=true,cognition=true,prey_scent=true,cautious=true,motion_speed=true,
         stop_on_predator_extinction=true,prey_rule=PREY_SCENT,caution_rule=PREY_SCENT_CAUTION,
         motion_rule=G.MOTION_VISIBILITY,local_hunt=local_hunt,local_rule=local_hunt ? LOCAL_HUNT : nothing,
         fixed="provisional scent/speed rules; optional local capture forecast with wait child; no sound/wind/humans; rest benefit removed; local route repair without recovery pause")
@@ -19,7 +21,7 @@ function scent_motion_longrun()
     end
     cp(joinpath(@__DIR__,"../../Project.toml"),joinpath(frozen,"Project.toml"))
     local_hunt && local_wait_checks()
-    result=scent_run(true;days,cautious=true,motion_speed=true,checkpoint_dir=out,local_hunt,boundary_gradient)
+    result=scent_run(true;days,cautious=true,motion_speed=true,checkpoint_dir=out,local_hunt,boundary_gradient,probabilistic_capture)
     completion=(reason=all(p->!p.alive,result.final_state.predators) ? "predator_extinction" : "duration_reached",
         elapsed_days=result.ticks/17280,completed_days=length(result.daily),stopped_in_day=cld(result.ticks,17280))
     write(joinpath(out,"result.json"),JSON3.write((conditions=conditions,completion=completion,result=result)))
