@@ -1,5 +1,10 @@
 # 設定経路（撤去予定のテスト用処理）
 
+`wildlife_predation.jl`：`wildlife.predator_count=1`（既定0）で既存捕食FSMをLWへ接続。
+観測された兎の追跡・接触捕食・固定休息。人への攻撃、捕食者の身体需要・繁殖は未実装。
+`wildlife.predator` と `predation_deaths` へ記録する。将来は身体需要と観測・記憶MBの選択へ置換。
+詳細は[野生動物設計](../../../docs/design/LW_Wildlife_Grazing.md)を参照。
+
 `post_return_idle.jl`：当日の食料持ち帰り成功後、夜開始まで認知を止めて休息させる固定設定。旧条件は空帰還では適用しない。`post_return_meal=true`では帰還後の実食を必須にし、取り出し・加工・食事が終わるまで停止しない。空帰還後でも実食できれば停止可。既定false、[研修後の試験条件](../../../docs/design/LW_Acorn_Training_Quest.md)を参照。
 既定OFF。適用範囲・観測停止・身体維持・記録先は[設計](../../../docs/design/LW_Configured_Post_Return_Idle.md)を参照。
 

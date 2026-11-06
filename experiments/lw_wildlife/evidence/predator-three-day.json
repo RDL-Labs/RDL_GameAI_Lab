@@ -1,0 +1,312 @@
+{
+  "conditions": "predator_3d_spec.json; humans 4; adult rabbits 30 + initial young 5; predator 1; initial pregnancies 5",
+  "source_base": "b2ac692 plus predator adapter changes; frozen source retained in local output",
+  "days": 3,
+  "measurement": {
+    "gc_seconds": 6.2821399,
+    "process_peak_rss_bytes": 2542002176,
+    "compilation_included": true,
+    "call_seconds": 193.3800396,
+    "allocated_bytes": 49237404217
+  },
+  "grazing_update_seconds": 1.6278977,
+  "daily": [
+    {
+      "day": 1,
+      "alive": 34,
+      "predation_deaths": 1,
+      "starvation_deaths": 0,
+      "births": 0,
+      "attacks": 8
+    },
+    {
+      "day": 2,
+      "alive": 32,
+      "predation_deaths": 3,
+      "starvation_deaths": 0,
+      "births": 0,
+      "attacks": 14
+    },
+    {
+      "day": 3,
+      "alive": 30,
+      "predation_deaths": 5,
+      "starvation_deaths": 0,
+      "births": 0,
+      "attacks": 18
+    }
+  ],
+  "predator": {
+    "rule": "configured-visual-predation-v1",
+    "position": [
+      -2.9463928758437827,
+      -22.008047030858457
+    ],
+    "state": "rest",
+    "attacks": 18,
+    "captures": 5,
+    "misses": 13,
+    "blocked": 38,
+    "distance": 2551.1999999999966,
+    "state_ticks": [
+      4160,
+      3225,
+      48,
+      7187,
+      37220
+    ],
+    "seen_by_rabbits": 17268,
+    "events": [
+      {
+        "tick": 1549,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 3147,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 4265,
+        "kind": "escape",
+        "id": 13
+      },
+      {
+        "tick": 5374,
+        "kind": "capture",
+        "id": 18
+      },
+      {
+        "tick": 14222,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 14742,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 15729,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 16667,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 17614,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 18139,
+        "kind": "capture",
+        "id": 4
+      },
+      {
+        "tick": 27729,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 28095,
+        "kind": "miss",
+        "id": 0
+      },
+      {
+        "tick": 28261,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 28492,
+        "kind": "capture",
+        "id": 8
+      },
+      {
+        "tick": 38416,
+        "kind": "capture",
+        "id": 14
+      },
+      {
+        "tick": 47552,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 48478,
+        "kind": "blocked",
+        "id": 0
+      },
+      {
+        "tick": 49175,
+        "kind": "capture",
+        "id": 6
+      }
+    ]
+  },
+  "reproduction": {
+    "rule": "rabbit-like-reproduction-v1",
+    "parameters": {
+      "day_ticks": 17280,
+      "gestation_days": 31,
+      "wean_days": 28,
+      "maturity_days": 150,
+      "initial_age_days": 180,
+      "year_days": 365,
+      "season_days": 240,
+      "receptive_days": 14,
+      "receptivity_period": 16,
+      "mate_radius": 6,
+      "conception_chance": 0.2,
+      "breeding_energy": 70,
+      "recovery_days": 7,
+      "litter_min": 3,
+      "litter_max": 6,
+      "pregnancy_energy_per_day": 1,
+      "infant_energy_per_day": 4,
+      "milk_target": 8,
+      "milk_efficiency": 0.75,
+      "maternal_reserve": 35,
+      "nurse_distance": 1.5,
+      "infant_height": 0.1,
+      "adult_height": 0.4,
+      "allocation_limit": 10000
+    },
+    "initial": 35,
+    "balances": {
+      "gestation": {
+        "name": "gestation_energy",
+        "supplied": 92,
+        "accounted": 92,
+        "residual": 0,
+        "relative_error": 0,
+        "delta_since_previous": null,
+        "max_abs_residual": 0,
+        "warning_limit": 1.0092E-06,
+        "stop_limit": 0.00010092,
+        "status": "ok"
+      },
+      "milk": {
+        "name": "milk_energy",
+        "supplied": 40.09722222225413,
+        "accounted": 40.09722222225413,
+        "residual": 0,
+        "relative_error": 0,
+        "delta_since_previous": null,
+        "max_abs_residual": 0,
+        "warning_limit": 1.0040097222222254E-06,
+        "stop_limit": 0.00010040097222222254,
+        "status": "ok"
+      }
+    },
+    "initial_young": 5,
+    "conceptions": 6,
+    "births": 0,
+    "litters": 0,
+    "lost_pregnancies": 2,
+    "dependent": 5,
+    "pregnant": 4,
+    "milk_out": 53.46296296300551,
+    "milk_in": 40.09722222225413,
+    "milk_loss": 13.365740740751377,
+    "gestation_out": 92,
+    "newborn_energy": 0,
+    "gestation_retained": 63,
+    "gestation_lost": 29,
+    "nursing_visits": 3,
+    "nest_return_ticks": 113
+  },
+  "balances": {
+    "grass": {
+      "name": "grass",
+      "supplied": 15420.363303628086,
+      "accounted": 15420.363303632597,
+      "residual": -4.511093720793724E-09,
+      "relative_error": 2.9254133848656076E-13,
+      "delta_since_previous": -2.8976501198485494E-09,
+      "max_abs_residual": 4.511093720793724E-09,
+      "warning_limit": 2.5420363303632597E-06,
+      "stop_limit": 0.000254203633036326,
+      "status": "ok"
+    },
+    "intake": {
+      "name": "intake",
+      "supplied": 2168.880728644029,
+      "accounted": 2168.880728640654,
+      "residual": 3.3751348382793367E-09,
+      "relative_error": 1.5561643356891506E-12,
+      "delta_since_previous": 2.143906385754235E-09,
+      "max_abs_residual": 3.3751348382793367E-09,
+      "warning_limit": 1.216888072864403E-06,
+      "stop_limit": 0.0001216888072864403,
+      "status": "ok"
+    },
+    "digestion": {
+      "name": "digestion",
+      "supplied": 2168.880728640654,
+      "accounted": 2168.8807286407023,
+      "residual": -4.8203219193965197E-11,
+      "relative_error": 2.2224928534532874E-14,
+      "delta_since_previous": 1.0913936421275139E-10,
+      "max_abs_residual": 1.5734258340671659E-10,
+      "warning_limit": 1.2168880728640703E-06,
+      "stop_limit": 0.00012168880728640703,
+      "status": "ok"
+    }
+  },
+  "dead": [
+    {
+      "id": 4,
+      "born_tick": -3110400,
+      "mother": 0,
+      "energy": 84.53480741858223
+    },
+    {
+      "id": 6,
+      "born_tick": -3110400,
+      "mother": 0,
+      "energy": 85.04852856201684
+    },
+    {
+      "id": 8,
+      "born_tick": -3110400,
+      "mother": 0,
+      "energy": 84.02912371548142
+    },
+    {
+      "id": 14,
+      "born_tick": -3110400,
+      "mother": 0,
+      "energy": 83.54422987742645
+    },
+    {
+      "id": 18,
+      "born_tick": -3110400,
+      "mother": 0,
+      "energy": 84.09807506461047
+    }
+  ],
+  "human_reserves": [
+    {
+      "id": "npc_b",
+      "reserve": 83.55999999994549
+    },
+    {
+      "id": "npc_a",
+      "reserve": 84.2866666666146
+    },
+    {
+      "id": "npc_d",
+      "reserve": 83.92999999994673
+    },
+    {
+      "id": "npc_c",
+      "reserve": 85.59222222217453
+    }
+  ]
+}

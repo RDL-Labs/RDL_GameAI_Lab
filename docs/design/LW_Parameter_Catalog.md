@@ -81,3 +81,14 @@ epsilon=1e-9は零距離除算保護。巣引力は単位方向。暫定固定�
 初期幼体: `wildlife.initial_young_count=0`（0〜6、成体数へ加算）、
 `initial_young_age_days=7`（1〜27日）。実験用初期状態。身体energyは既存milk_target=8を使う。
 LWランナーmixed-familyでは成体30＋7日齢5体。開始21日後が離乳境界、28日後が母親の再交尾可能時刻。
+
+## LW捕食者接続（2026-11-06）
+
+`configured_paths/wildlife_predation.jl` の `WILDLIFE_PREDATOR` は暫定ゲーム設定。
+sight=16、cover_attenuation=0.8、scan_amplitude=π/2、scan_period=12tickは
+既存方向視覚実験と同じ。body_height=0.6は捕食者の草遮蔽・人側観測用の初期体高。
+event_limit=128は直近イベント保持上限で、総捕食数は別に累積する。
+既存捕食FSMの移動0.22/追跡0.5/攻撃1.0、追跡60tick、攻撃3tick、回復120tick、
+捕食後休息8640tick、接触半径0.55、捕食確率0.28（逃走中）/0.78は今回変更しない。
+現実の種への適合値ではなく旧実験の仮設定。捕食者の生理実装時に再検討する。
+`wildlife.predator_count` は既定0、現版は0/1のみ。位置指定は世界初期条件である。

@@ -9,7 +9,18 @@ input.scene.wildlife.enabled && 1<=days<=90 || error("enabled wildlife / 1..90 d
 mkpath(out);const snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(repo,"src"),joinpath(snapshot,"src"))
 cp(joinpath(repo,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
+const roster=String.(get(input.scene,:experimental_actor_ids,["npc_a","npc_b","npc_c"]))
+3<=length(roster)<=30 && length(unique(roster))==length(roster) || error("experimental roster")
+all(occursin(r"^npc_[a-z0-9_]+$",actor) for actor in roster) || error("actor label")
+for key in (:positions,:reserve,:initial_inventory)
+    length(getproperty(input.scene,key))==length(roster) || error("roster input length: $key")
+end
+write(joinpath(snapshot,"src/data/lw_actor_ids.jl"),"# Frozen experiment roster.\nconst IDS="*repr(Tuple(roster))*"\n")
 cp(@__FILE__,joinpath(out,"runner.jl"));cp(original,joinpath(out,"input.json"))
+const conditions=(days=days,actors=roster,wildlife=input.scene.wildlife,config=input.config,
+    fixed="existing grazing and visual predation FSM; nest wait and maternal nursing return; no predator metabolism, reproduction or attacks on humans")
+write(joinpath(out,"conditions.json"),JSON3.write(conditions))
+println("CONDITIONS ",JSON3.write(conditions));flush(stdout)
 write(joinpath(out,"input-origin.json"),JSON3.write((path=original,sha256=bytes2hex(sha256(read(original))))))
 const started=Ref(time());const grazing_nanoseconds=Ref(UInt64(0))
 const last_wildlife=Ref{Any}(nothing)
@@ -67,15 +78,15 @@ open(joinpath(out,"grass-final.csv"),"w") do io
 end
 @testset "integrated human and grass conservation" begin
     @test length(r.daily)==days
+    @test Set(keys(r.final_agents))==Set(Symbol.(roster))
     for (i,d) in enumerate(r.daily)
-        @test r.initial_food+d.replenished_food==d.ground+d.shared_stock+d.consumed+sum(s.inventory+s.personal_stock for s in values(d.physical))
-        @test d.replenished_food==0
+        @test r.initial_food+d.replenished_food==d.ground+d.shared_stock+d.consumed+get(d,:discarded_food,0)+sum(s.inventory+s.personal_stock for s in values(d.physical))
         i>1 && (@test r.day_starts[i]==r.daily[i-1].physical)
         g=d.wildlife
         @test g.ticks==i*17280
-        @test g.count==g.alive+g.starvation_deaths
+        @test g.count==g.alive+g.starvation_deaths+get(g,:predation_deaths,0)
         @test g.grass_initial+g.grass_grown≈g.grass_remaining+g.grass_eaten
-        @test all(v->!v.alive || sum(v.state_ticks)==g.ticks,g.final)
+        @test all(v->!v.alive || sum(v.state_ticks)==g.ticks-(v.born_tick===nothing ? 0 : max(0,v.born_tick)),g.final)
     end
 end
 evidence=(days=days,config=input.config,wildlife_config=input.scene.wildlife,

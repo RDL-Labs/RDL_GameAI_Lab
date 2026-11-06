@@ -266,6 +266,10 @@
   "wildlife": [
     {
       "args": [],
+      "path": "experiments/lw_wildlife/predator_checks.jl"
+    },
+    {
+      "args": [],
       "path": "experiments/lw_wildlife/reproduction_checks.jl"
     },
     {

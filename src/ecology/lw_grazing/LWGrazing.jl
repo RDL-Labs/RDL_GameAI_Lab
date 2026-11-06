@@ -1,13 +1,14 @@
 module LWGrazing
 using Random
 # Reuse the tested six-state body, grazing allocation, escape steps and vision rules.
-# No predator is instantiated by this adapter.
+# Optional predator shares this same geometry, prey roster and directional vision.
 include("../directional-vision-cpu/DirectionalVision.jl")
 const V=DirectionalVision
 const H=V.H
 const P=V.P
 include("reproduction.jl")
 include("../../lw/configured_paths/wildlife_reproduction.jl")
+include("../../lw/configured_paths/wildlife_predation.jl")
 
 mutable struct GrazingWorld
     world::H.World
@@ -35,6 +36,7 @@ mutable struct GrazingWorld
     prepared::Bool
     deaths::Int
     life::Union{Nothing,RabbitLife}
+    predator::Union{Nothing,WildlifePredator}
 end
 
 function build(scene,clock;low_obstacles=true)
@@ -83,7 +85,8 @@ function build(scene,clock;low_obstacles=true)
         fill(-1000,n),fill(-1000,n),zeros(UInt8,n),fill((0.,0.),n),zeros(length(w.grass)),
         zeros(length(w.grass)),zeros(n),Int[],humans,zeros(Int,n),zeros(Int,n),zeros(Int,n),
         zeros(Int,length(humans)),positions,0,false,0,
-        get(cfg,:reproduction,false) ? rabbit_life(n,seed,positions;initial_pregnancy_days) : nothing)
+        get(cfg,:reproduction,false) ? rabbit_life(n,seed,positions;initial_pregnancy_days) : nothing,
+        configured_wildlife_predator(w,a,cfg,seed))
     rabbit_initial_young!(grazing_world,initial_young_count,initial_young_age)
 end
 
@@ -91,6 +94,8 @@ function prepare!(s::GrazingWorld,humans,t::Int)
     t==s.ticks && !s.prepared || error("grazing perception must run once before actions")
     length(humans)==length(s.previous_humans) || error("grazing human roster changed")
     w=s.world;a=s.animals
+    configured_wildlife_predator_plan!(s,t)
+    targets=s.predator===nothing ? humans : vcat(humans,[(s.predator.body.x,s.predator.body.z)])
     fill!(s.overrides,0)
     for i in eachindex(s.alive)
         s.alive[i] || continue
@@ -100,14 +105,15 @@ function prepare!(s::GrazingWorld,humans,t::Int)
         desired=recent ? atan(remembered[2]-a.z[i],remembered[1]-a.x[i]) : a.heading[i]+(pi/6)*sin(t/8+i)
         s.gaze[i]=P.turn_gaze(s.gaze[i],desired)
         best=0;distance=Inf
-        for j in eachindex(humans)
-            p=humans[j];d=hypot(p[1]-a.x[i],p[2]-a.z[i])
+        for j in eachindex(targets)
+            p=targets[j];d=hypot(p[1]-a.x[i],p[2]-a.z[i])
             d<=10 && d<distance || continue
             bearing=atan(p[2]-a.z[i],p[1]-a.x[i])
             P.field_factor(bearing-s.gaze[i],true)>0 || continue
-            moved=hypot(p[1]-s.previous_humans[j][1],p[2]-s.previous_humans[j][2])>1e-6
+            previous=j<=length(humans) ? s.previous_humans[j] : s.predator.previous_position
+            moved=hypot(p[1]-previous[1],p[2]-previous[2])>1e-6
             tracked=recent && s.seen_actor[i]==j
-            cover=H.grass_cover!(w,H.cell(w,p...),t;body_height=1.7)
+            cover=H.grass_cover!(w,H.cell(w,p...),t;body_height=j<=length(humans) ? 1.7 : WILDLIFE_PREDATOR.body_height)
             d<=10/(1+.8cover)*P.vision_factor(true,moved,tracked) &&
                 P.los(w,(a.x[i],a.z[i]),p) || continue
             best=j;distance=d
@@ -116,8 +122,12 @@ function prepare!(s::GrazingWorld,humans,t::Int)
             same=recent && best==s.seen_actor[i]
             closing=same ? (hypot(a.x[i]-remembered[1],a.z[i]-remembered[2])-distance)/max(1,t-s.last_seen[i]) : 0.
             state=V.reaction(distance,closing,same)
-            s.last_seen[i]=t;s.seen_actor[i]=best;s.seen_position[i]=humans[best]
-            s.seen_ticks[i]+=1;s.human_seen[best]+=1
+            s.last_seen[i]=t;s.seen_actor[i]=best;s.seen_position[i]=targets[best]
+            if best<=length(humans)
+                s.seen_ticks[i]+=1;s.human_seen[best]+=1
+            else
+                s.predator.seen_by_rabbits+=1
+            end
             if state==H.FLEE
                 s.flee_until[i]=t+3;s.calm_since[i]=t
             elseif !same
@@ -155,6 +165,7 @@ function advance!(s::GrazingWorld,t::Int; nursing_potential=true)
             s.alive[i]=false;s.deaths+=1
         end
     end
+    configured_wildlife_predator_advance!(s,t)
     s.ticks+=1;s.prepared=false
     nothing
 end
@@ -169,12 +180,14 @@ function snapshot(s::GrazingWorld; previous=nothing)
     balances=(grass=balance_diagnostic("grass",w.initial+w.grown,sum(w.grass)+w.eaten;previous=old(:grass)),
         intake=balance_diagnostic("intake",w.eaten,sum(a.consumed);previous=old(:intake)),
         digestion=balance_diagnostic("digestion",sum(a.consumed),sum(a.gut)+sum(a.digested);previous=old(:digestion)))
-    @assert count(!,s.alive)==s.deaths
+    captures=s.predator===nothing ? 0 : s.predator.body.captures
+    @assert count(!,s.alive)==s.deaths+captures
     @assert all(i->H.clear(w,(a.x[i],a.z[i]),(a.x[i],a.z[i])),eachindex(s.alive))
     @assert all(isfinite,a.energy) && all(e->0<=e<=100,a.energy)
     @assert all(i->!s.alive[i] || sum(a.counts[i,:])==s.ticks-(s.life===nothing ? 0 : max(0,s.life.born[i])),eachindex(s.alive))
     (rule="lw-grazing-v1",balances=balances,count=length(s.alive),alive=count(s.alive),ticks=s.ticks,
      reproduction=rabbit_reproduction_snapshot(s),
+     predator=wildlife_predator_snapshot(s),predation_deaths=captures,
      starvation_deaths=s.deaths,grass_initial=w.initial,grass_grown=w.grown,
      grass_remaining=sum(w.grass),grass_eaten=w.eaten,grass_cells=count(>(0),w.capacity),
      states=H.STATES,state_ticks=vec(sum(a.counts,dims=1)),human_seen=copy(s.human_seen),
