@@ -1,5 +1,10 @@
 # 設定経路（撤去予定のテスト用処理）
 
+`predator_cognition_parameters.jl`：動物単独 `--cognition` の候補初期値・区間・記憶上限。
+選択と結果学習は人と同じBasicLoop/MethodNode等を使用。自己位置の正確な記憶、
+休息の仮効用、固定区間、威嚇上限は残る。通常LWは既定OFF。
+流用範囲・未接続部分は `experiments/lw_wildlife/predator_cognition_report.md`。
+
 `predator_marking.jl`：動物単独の `--marking` のみ、既定OFF。
 自他の匂い識別、設置/観測間隔、匂いによる回避と記憶帰路を暫定固定で試す。
 世界の匂い表と個体の観測記憶を分離。将来は身体需要と経験MBへ置換する。

@@ -117,3 +117,15 @@ avoidance_margin=.1、local_familiarity=.5、speed=.22距離単位/tick。
 値は種の測定値ではなく試作用。近傍セルだけ観測、記憶は観測時のコピー。
 記憶の忘却にも3日を使用するが、世界の真の残存時刻を与えない。
 距離による信号/帰路評価はstrength/(1+distance)。1は初期の距離正規化尺度。
+
+## 捕食者の共通認知アダプター（2026-11-06）
+
+`PREDATOR_COGNITION`（`predator_cognition_parameters.jl`）、動物単独 `--cognition`、既定OFF。
+共有BasicLoopへ渡す候補評価係数: food_weight=3、rest_weight=2、rival_weight=2、
+place_prior=.5、rest_benefit=.2、hunt_prior=.3、tolerance=.05。
+食料相当量の正規化: food_value_scale=900、food_pressure_scale=600。
+区間: episode_ticks=600、decision_ticks=60（対面区間）、移動は共通mb_travel_seconds。
+場所記憶: place_limit=16、place_cell=8、arrival_radius=3、move_speed=.22、history_limit=64。
+いずれも初期試験値。身体の厳密な疲労モデルや生物学的較正値ではない。
+狩猟期待効用のみ実経験平均へ更新。共通関数を変更せず、局所到着と親Hを分離する。
+詳細は `experiments/lw_wildlife/predator_cognition_report.md`。

@@ -3,6 +3,7 @@ include("../../src/lw/LW.jl")
 const G=LW.LWGrazing;const H=G.H;const P=G.P
 include("../../src/lw/configured_paths/predator_animal_trial.jl")
 include("../../src/lw/configured_paths/predator_marking.jl")
+include("../../src/ecology/lw_grazing/predator_cognition.jl")
 function animal_trial_world()
     input=JSON3.read(read(joinpath(@__DIR__,"predator_3d_spec.json"),String))
     wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,))
@@ -13,28 +14,34 @@ function animal_trial_world()
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     s,predators
 end
-function animal_trial_step!(s,predators,t;scents=nothing)
+function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing)
     scents!==nothing && configured_scent_tick!(scents,predators,t)
     for (i,p) in enumerate(predators)
-        configured_trial_plan!(s,p,predators,t;territory_evidence=scents===nothing ? nothing : scents.observed[i])
-        scents!==nothing && configured_scent_choice!(scents,p,i,t)
+        if minds===nothing
+            configured_trial_plan!(s,p,predators,t;territory_evidence=scents===nothing ? nothing : scents.observed[i])
+            scents!==nothing && configured_scent_choice!(scents,p,i,t)
+        else
+            predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i)
+        end
     end
     G.prepare!(s,Tuple{Float64,Float64}[],t;additional_predators=[p.visual for p in predators],
         additional_predator_alive=[p.alive for p in predators])
     G.advance!(s,t)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
-        configured_trial_advance!(s,predators[i],t;scent_speed=scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        configured_trial_advance!(s,predators[i],t;scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
     end
 end
-function animal_trial_report(s,predators;scents=nothing)
+function animal_trial_report(s,predators;scents=nothing,minds=nothing)
     captures=sum(p.visual.body.captures for p in predators)
     report=(rabbits=G.snapshot(s;additional_predation_deaths=captures),predators=trial_predator_report.(predators))
-    scents===nothing ? report : merge(report,(scent=scent_report(scents),))
+    scents!==nothing && (report=merge(report,(scent=scent_report(scents),)))
+    minds===nothing ? report : merge(report,(cognition=predator_mind_report.(minds),))
 end
 function main()
     checks_only="--checks-only" in ARGS
     marking="--marking" in ARGS
+    cognition="--cognition" in ARGS
     days=checks_only || length(ARGS)<2 ? 3 : parse(Int,ARGS[2])
     days>0 || error("days must be positive")
     out=checks_only ? joinpath(mktempdir(),"checks") : length(ARGS)>0 ? ARGS[1] : "outputs/animals-only-3d"
@@ -42,7 +49,9 @@ function main()
     mkpath(out)
     conditions=(days=days,humans=0,adult_rabbits=30,initial_young=5,predators=2,
         rule=PREDATOR_ANIMAL_TRIAL,marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
-        fixed="territory centers when marking OFF; local scent identity/intervals/choices when ON; visual warning/retreat, instantaneous meals; no predator breeding or combat")
+        cognition=cognition,cognition_rule=cognition ? PREDATOR_COGNITION : nothing,
+        fixed=cognition ? "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding" :
+            "territory centers when marking OFF; local scent identity/intervals/choices when ON; visual warning/retreat, instantaneous meals; no predator breeding or combat")
     write(joinpath(out,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions))
     s,predators=animal_trial_world()
     @testset "animal trial boundaries" begin
@@ -142,6 +151,29 @@ function main()
         @test animal_trial_report(s,predators;scents)==animal_trial_report(copy_s,copy_p;scents=copy_scents)
         @test scents.marks==copy_scents.marks && scents.memory==copy_scents.memory
     end
+    @testset "shared human cognition adapter" begin
+        s,predators=animal_trial_world();minds=[PredatorMind(i) for i in 1:2]
+        @test minds[1].loop isa LW.BasicLoop
+        @test isempty(minds[1].places)
+        m=minds[1];p=predators[1]
+        c=LW.D("method"=>"visit:fixture","action"=>:visit_food,"question"=>"local_arrival",
+            "priority"=>1.,"forecast"=>10.,"expected"=>.5,"target"=>(p.visual.body.x,p.visual.body.z),"site"=>"fixture")
+        m.selected=LW.choose_method!(m.loop,[c],1);m.loop.H=3.
+        m.trial=LW.action_trial(1,c["method"],c["question"],10.)
+        m.start_spent=p.spent;m.start_eaten=p.eaten;m.start_capture=p.visual.body.captures
+        predator_mind_close!(m,p,(actor=nothing,distance=Inf),1)
+        @test m.loop.H==3. && isempty(m.places) # Arrival is not food or parent success.
+        s,predators=animal_trial_world();minds=[PredatorMind(i) for i in 1:2]
+        for t in 0:1999;animal_trial_step!(s,predators,t;minds);end
+        @test all(m->m.completed>0 && !isempty(m.loop.methods),minds)
+        @test all(m->all(r->isfinite(r["H"]),m.records),minds)
+        io=IOBuffer();serialize(io,(s,predators,minds));seekstart(io);copy_s,copy_p,copy_m=deserialize(io)
+        for t in 2000:2999
+            animal_trial_step!(s,predators,t;minds)
+            animal_trial_step!(copy_s,copy_p,t;minds=copy_m)
+        end
+        @test animal_trial_report(s,predators;minds)==animal_trial_report(copy_s,copy_p;minds=copy_m)
+    end
     checks_only && return
     frozen=joinpath(out,"source")
     mkpath(joinpath(frozen,"experiments","lw_wildlife"))
@@ -151,12 +183,13 @@ function main()
     end
     cp(joinpath(@__DIR__,"../../Project.toml"),joinpath(frozen,"Project.toml"))
     s,predators=animal_trial_world();daily=Any[];scents=marking ? PredatorScentWorld(2) : nothing
+    minds=cognition ? [PredatorMind(i) for i in 1:2] : nothing
     elapsed=@elapsed for t in 0:days*17280-1
-        animal_trial_step!(s,predators,t;scents)
+        animal_trial_step!(s,predators,t;scents,minds)
         if (t+1)%17280==0
-            day=div(t+1,17280);report=animal_trial_report(s,predators;scents)
+            day=div(t+1,17280);report=animal_trial_report(s,predators;scents,minds)
             push!(daily,(day=day,report=report))
-            serialize(joinpath(out,"day-$day.jls"),scents===nothing ? (s,predators) : (s,predators,scents))
+            serialize(joinpath(out,"day-$day.jls"),minds!==nothing ? (s,predators,scents,minds) : scents===nothing ? (s,predators) : (s,predators,scents))
             println(JSON3.write((day=day,rabbits=report.rabbits.alive,predators=report.predators)))
         end
     end

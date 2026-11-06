@@ -30,18 +30,8 @@ function configured_trial_predator(s,position,seed)
         :rest,Dict{Symbol,Int}(),0,false,-1,0,0)
 end
 trial_proxy(s,p)=(world=s.world,animals=s.animals,alive=s.alive,life=s.life,ticks=s.ticks,predator=p.visual)
-function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
-    rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
-    p.mode=:dead
-    p.alive || return
-    # 暫定固定: 威嚇は開始から60tickまで、終了後600tickは再開しない。
-    # 視野から一瞬外れても期限を延長しない。将来は状況変化/身体需要による終了へ置換。
-    if p.warning_started>=0 && t-p.warning_started>=rule.warning_duration_ticks
-        p.warning_started=-1
-        p.warning_blocked_until=t+rule.warning_cooldown_ticks
-        p.warning_timeouts+=1
-    end
-    # All decisions use pre-movement positions. No unseen rival coordinates are used.
+function trial_visible_rival(s,p,others,t)
+    body=p.visual.body;rule=PREDATOR_ANIMAL_TRIAL
     seen=nothing;nearest=Inf
     for other in others
         other===p && continue
@@ -54,6 +44,21 @@ function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
             distance<nearest && P.los(s.world,(body.x,body.z),(rival.x,rival.z)) || continue
         seen=other;nearest=distance
     end
+    (actor=seen,distance=nearest)
+end
+function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
+    rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
+    p.mode=:dead
+    p.alive || return
+    # 暫定固定: 威嚇は開始から60tickまで、終了後600tickは再開しない。
+    # 視野から一瞬外れても期限を延長しない。将来は状況変化/身体需要による終了へ置換。
+    if p.warning_started>=0 && t-p.warning_started>=rule.warning_duration_ticks
+        p.warning_started=-1
+        p.warning_blocked_until=t+rule.warning_cooldown_ticks
+        p.warning_timeouts+=1
+    end
+    # All decisions use pre-movement positions. No unseen rival coordinates are used.
+    seen=trial_visible_rival(s,p,others,t).actor
     seen!==nothing && !p.last_rival && (p.encounters+=1)
     p.last_rival=seen!==nothing
     if seen!==nothing && body.state!=P.ATTACK
@@ -93,6 +98,8 @@ function configured_trial_advance!(s,p,t; scent_speed=0.)
     elseif p.mode==:retreat
         body.heading+=pi;P.move!(s.world,body,rule.retreat_speed)
     elseif p.mode in (:scent_return,:scent_avoid)
+        P.move!(s.world,body,scent_speed)
+    elseif p.mode in (:visit_food,:visit_rest)
         P.move!(s.world,body,scent_speed)
     end
     if body.captures>previous_captures
