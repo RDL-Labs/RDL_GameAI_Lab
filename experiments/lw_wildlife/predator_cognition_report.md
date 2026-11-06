@@ -176,3 +176,37 @@ julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl outp
 結果: `outputs/predator-100rabbits-nutrition15-v2-20261106`。
 集計: `evidence/hundred-rabbits-nutrition15.json`。
 再現: `julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl outputs/NEW_OUTPUT 60 --cognition --marking --adult-rabbits=95 --prey-nutrition=1.5`
+
+## 攻撃失敗の再現監査（2026-11-06）
+
+`audit_predator_attacks.jl`で栄養1.5倍版の凍結ソースを使い、同じ初期条件・更新順・日末snapshotを再現。
+攻撃直前の移動区間、対象位置、記憶位置、食料残量、世界側の衝突分類だけを記録。
+乱数追加・判断変更なし。61攻撃を回収し、最終報告全体が元result.jsonと完全一致。
+初回監査は日末snapshotを省略して一致しなかったため採用していない。
+snapshotは遅延更新の草を全セルで実体化するため、再現では呼出しも揃える必要がある。
+
+| 個体 | 捕獲 | blocked | 空振りmiss | 接触後escape | blocked内訳:障害物/境界/水 |
+|---|---:|---:|---:|---:|---|
+| 1 | 2 | 9 | 1 | 0 | 3 / 4 / 2 |
+| 2 | 21 | 21 | 3 | 4 | 12 / 5 / 4 |
+
+失敗38回中30回（78.9%）がblocked。阻害30回中10回は初手、2回は2歩目、18回は3歩目。
+障害物15回のうち、ID164が4回、162が3回、166が2回。同じ障害物付近への再遭遇あり。
+個体1の終盤はtick73110空振り、74781境界、75328障害物、75960水、79431水、80084障害物、83090障害物。
+食料は約503→435→407→384→227→194→37へ低下し、以後捕獲なしで死亡。
+
+原因となる現行簡易仕様:
+- 視認対象が距離2.5以内なら攻撃開始。直進の実行可能性は開始条件に含まれない。
+- 攻撃中は向きを更新せず、最大3tick・1距離単位/tickの直進。通常移動の側方候補は無効。
+- clearが1歩分の移動を拒否すると、接触判定より前に失敗・回復へ移行。
+- 視線は障害物の余白0、移動は余白0.25＋水＋境界なので、見えることと通れることは異なる。
+- 接触後の捕獲確率も暫定固定（逃走条件なら0.28、それ以外0.78）。今回これを変更していない。
+
+具体例: tick6267、個体2は(9.75,-8.21)から(8.95,-8.82)へ直進しようとし、
+障害物165（中心8.32,-9.60、半径0.89）で初手阻害。
+記憶された獲物位置は(9.21,-8.62)、移動後の実位置は(9.57,-9.10)。
+単純に栄養や捕獲確率を増やす前に、攻撃前の短距離見積り・接近角度・攻撃中の追従を検討する根拠になる。
+ただし今回は原因調査のみで、行動修正や改善効果の比較は実施していない。
+
+監査結果: `evidence/nutrition15-attack-audit.json`。
+実行: `julia --startup-file=no --project=. experiments/lw_wildlife/audit_predator_attacks.jl RUN_DIRECTORY OUTPUT_JSON`
