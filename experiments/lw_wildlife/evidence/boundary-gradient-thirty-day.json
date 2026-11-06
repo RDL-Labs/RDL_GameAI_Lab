@@ -1,0 +1,242 @@
+{
+  "source_commit": "ad10f06",
+  "conditions": {
+    "days": 30,
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "humans": 0,
+    "nutrition": 1.5,
+    "boundary_gradient": true,
+    "boundary_rule": {
+      "width": 8.0,
+      "strength": 2.0,
+      "body_margin": 0.25
+    },
+    "marking": true,
+    "cognition": true,
+    "prey_scent": true,
+    "cautious": true,
+    "motion_speed": true,
+    "stop_on_predator_extinction": true,
+    "prey_rule": {
+      "cell_size": 4.0,
+      "radius": 6.0,
+      "deposit_interval": 30,
+      "sniff_interval": 30,
+      "lifetime": 17280,
+      "deposit": 1.0,
+      "capacity": 4.0,
+      "minimum_signal": 0.05,
+      "arrival_radius": 1.0
+    },
+    "caution_rule": {
+      "strong_signal": 0.6,
+      "speed": 0.08,
+      "unconfirmed_ticks": 120,
+      "cooldown_ticks": 600
+    },
+    "motion_rule": {
+      "stationary": 0.55,
+      "saturation_speed": 0.5
+    },
+    "local_hunt": true,
+    "local_rule": {
+      "radius": 6.0,
+      "velocity_cap": 0.7,
+      "history_ticks": 20,
+      "horizon": 3,
+      "attack_speed": 1.0,
+      "approach_speed": 0.35,
+      "side_angle": 1.0471975511965976,
+      "contact_radius": 0.55,
+      "attack_priority": 4.0,
+      "approach_priority": 2.0,
+      "wait_priority": -1.0,
+      "cost_weight": 0.2,
+      "future_attack_bonus": 1.0,
+      "expected_capture": 0.6,
+      "wait_forecast_ticks": 20,
+      "withdraw_priority": 0.0,
+      "log_limit": 128
+    },
+    "fixed": "provisional scent/speed rules; optional local capture forecast with wait child; no sound/wind/humans; rest reward unchanged"
+  },
+  "completion": {
+    "reason": "predator_extinction",
+    "elapsed_days": 3.001736111111111,
+    "completed_days": 3,
+    "stopped_in_day": 4
+  },
+  "seconds": 8.6596075,
+  "first_three_days_match": true,
+  "wait_checks": 9,
+  "rabbits_alive": 91,
+  "balances": {
+    "grass": {
+      "name": "grass",
+      "supplied": 18662.168204845108,
+      "accounted": 18662.16820481653,
+      "residual": 2.8576323529705405E-08,
+      "relative_error": 1.5312434876825495E-12,
+      "delta_since_previous": null,
+      "max_abs_residual": 2.8576323529705405E-08,
+      "warning_limit": 2.8662168204845107E-06,
+      "stop_limit": 0.00028662168204845106,
+      "status": "ok"
+    },
+    "intake": {
+      "name": "intake",
+      "supplied": 7085.745832754362,
+      "accounted": 7085.745832786193,
+      "residual": -3.1831405067350715E-08,
+      "relative_error": 4.492315391848349E-12,
+      "delta_since_previous": null,
+      "max_abs_residual": 3.1831405067350715E-08,
+      "warning_limit": 1.7085745832786193E-06,
+      "stop_limit": 0.00017085745832786194,
+      "status": "ok"
+    },
+    "digestion": {
+      "name": "digestion",
+      "supplied": 7085.745832786193,
+      "accounted": 7085.745832786377,
+      "residual": -1.837179297581315E-10,
+      "relative_error": 2.592781819918692E-14,
+      "delta_since_previous": null,
+      "max_abs_residual": 1.837179297581315E-10,
+      "warning_limit": 1.7085745832786377E-06,
+      "stop_limit": 0.0001708574583278638,
+      "status": "ok"
+    }
+  },
+  "predators": [
+    {
+      "alive": false,
+      "food": 0.0,
+      "eaten": 1195.6823333330685,
+      "spent": 2095.6823333333364,
+      "discarded": 221.81766666693147,
+      "balance_residual": -2.6784618967212737E-10,
+      "captures": 2,
+      "attacks": 5,
+      "encounters": 2,
+      "warning_started": -1,
+      "warning_blocked_until": 0,
+      "warning_timeouts": 0,
+      "ticks": {
+        "hunt": 10360,
+        "visit_food": 1035,
+        "visit_rest": 4475,
+        "rest": 36000
+      },
+      "position": [
+        0.8513365161946053,
+        -9.5344007554047
+      ],
+      "center": [
+        -9.0,
+        5.0
+      ],
+      "prey_observations": 21812,
+      "events": [
+        {
+          "tick": 4049,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 5964,
+          "kind": "capture",
+          "id": 33
+        },
+        {
+          "tick": 20245,
+          "kind": "abort_forecast",
+          "id": 50
+        },
+        {
+          "tick": 34012,
+          "kind": "escape",
+          "id": 96
+        },
+        {
+          "tick": 34135,
+          "kind": "capture",
+          "id": 96
+        }
+      ]
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "eaten": 0.0,
+      "spent": 900.0000000003986,
+      "discarded": 0.0,
+      "balance_residual": -3.985860530519858E-10,
+      "captures": 0,
+      "attacks": 8,
+      "encounters": 2,
+      "warning_started": -1,
+      "warning_blocked_until": 0,
+      "warning_timeouts": 0,
+      "ticks": {
+        "dead": 31538,
+        "hunt": 10476,
+        "visit_rest": 256,
+        "rest": 9600
+      },
+      "position": [
+        13.360082710192714,
+        11.080402608929582
+      ],
+      "center": [
+        7.0,
+        5.0
+      ],
+      "prey_observations": 12994,
+      "events": [
+        {
+          "tick": 6054,
+          "kind": "miss",
+          "id": 0
+        },
+        {
+          "tick": 9357,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 12403,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 12528,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 12653,
+          "kind": "abort_forecast",
+          "id": 91
+        },
+        {
+          "tick": 13920,
+          "kind": "abort_forecast",
+          "id": 57
+        },
+        {
+          "tick": 14042,
+          "kind": "abort_forecast",
+          "id": 57
+        },
+        {
+          "tick": 19791,
+          "kind": "abort_forecast",
+          "id": 52
+        }
+      ]
+    }
+  ]
+}
