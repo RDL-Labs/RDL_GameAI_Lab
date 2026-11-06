@@ -115,3 +115,26 @@ end
  @test_throws ErrorException G.build(merge(scene,(wildlife=merge(cfg,(reproduction=false,initial_pregnancy_days=Int[],)),)),input.clock)
  @test_throws ErrorException G.build(merge(scene,(wildlife=merge(cfg,(initial_young_age_days=28,)),)),input.clock)
 end
+
+@testset "nursing potential avoids a local rock without teleporting" begin
+ s=reproductive_world();s.life.litter[1]=3;s.life.invested[1]=24.;s.life.gestation_out=24.
+ s.animals.x[1]=-6.;G.rabbit_birth!(s,1,0)
+ s.animals.x[1]=-10.;s.animals.current_cell[1]=G.H.cell(s.world,-10.,6.)
+ s.life.nursed_day[3:5].=-1
+ push!(s.world.obstacles,G.H.RDLMigrationProbe.Circle(-8.,6.,.4))
+ initial=deepcopy(s);humans=[(1000.,1000.) for _ in s.previous_humans]
+ for t in 0:99
+  previous=(s.animals.x[1],s.animals.z[1])
+  G.prepare!(s,humans,t);G.advance!(s,t)
+  @test hypot(s.animals.x[1]-previous[1],s.animals.z[1]-previous[2])<=.2+1e-10
+  @test G.H.clear(s.world,previous,(s.animals.x[1],s.animals.z[1]))
+  all(s.life.nursed_day[3:5].==0) && break
+ end
+ @test all(s.life.nursed_day[3:5].==0)
+ @test s.animals.blocked[1]==0
+ @test s.life.nest_return_ticks>0
+ # OFF retains the old straight return, for regression diagnosis.
+ for t in 0:99;G.prepare!(initial,humans,t);G.advance!(initial,t;nursing_potential=false);end
+ @test initial.animals.blocked[1]>0
+ @test all(initial.life.nursed_day[3:5].==-1)
+end

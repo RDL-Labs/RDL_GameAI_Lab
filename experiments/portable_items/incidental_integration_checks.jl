@@ -30,7 +30,7 @@ incidental_run(scene;kwargs...)=LW.lw_day(scene,INC_CLOCK;basic_loop=true,landma
     @test all(r["incidental_items"][a]["failed"]==0 for a in INC_IDS)
     @test all(v["body"]["reserve"]>0 for v in values(r["final_agents"]))
     @test r["initial_food"]==6 && r["consumed"]==0 && r["final_agents"]["npc_b"]["inventory"]==6
-    @test r["portable_items"]["remaining_counts"]==[3,3,3]
+    @test r["portable_items"]["remaining_counts"]==[3,3,3,0] # Registered salt has no placed items in this scene.
     @test all(get(r["counts"][a],"walk",0)+get(r["counts"][a],"scan",0)>0 for a in INC_IDS)
     @test all(r["incidental_items"][a]["selected"]==get(r["counts"][a],"item_pickup",0) for a in INC_IDS)
 end

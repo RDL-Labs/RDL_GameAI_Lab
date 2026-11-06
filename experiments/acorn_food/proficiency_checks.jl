@@ -39,8 +39,17 @@ end
     rough=B.ingest!(deepcopy(g),4,50.,0;quality_bonus=LW.game_food_bonus(4,1))
     excellent=B.ingest!(deepcopy(g),4,50.,0;quality_bonus=LW.game_food_bonus(4,4))
     @test rough<ordinary<excellent
-    @test LW.food_expected_taste(LW.D(),4,g,50.;quality=1)≈rough
-    @test LW.food_expected_taste(LW.D(),4,g,50.;quality=4)≈excellent
+    # Before tasting, quality modifies the prior; it is not an oracle for the
+    # body's current nutrient/fullness response. Afterwards remember experience.
+    prior_rough=LW.food_expected_taste(LW.D(),4,g,50.;quality=1)
+    prior_excellent=LW.food_expected_taste(LW.D(),4,g,50.;quality=4)
+    @test prior_rough≈B.food_base_taste(g,4)+LW.game_food_bonus(4,1)
+    @test prior_excellent-prior_rough≈LW.game_food_bonus(4,4)-LW.game_food_bonus(4,1)
+    tasted=LW.D()
+    LW.food_remember_taste!(tasted,4,1,rough,0)
+    LW.food_remember_taste!(tasted,4,4,excellent,0)
+    @test LW.food_expected_taste(tasted,4,g,50.;quality=1)≈rough
+    @test LW.food_expected_taste(tasted,4,g,50.;quality=4)≈excellent
     f=fixture(kinds=[[4,4,4],Int[],Int[]]);r=f.r
     LW.food_quality_set!(r,A,1,1);LW.food_quality_set!(r,A,2,3);LW.food_quality_set!(r,A,3,4)
     LW.food_remove!(r,A,1)

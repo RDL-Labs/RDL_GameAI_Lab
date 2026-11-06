@@ -24,7 +24,7 @@ scene=merge(LW.native_scene(19),(positions=[[0.,0.],[.1,0.],[0.,.1]],home=[0.,0.
         @test sum((m["successes"] for s in values(r["incidental_items"]) for m in s["exchange_relations"]);init=0)==length(receipts)
         @test r["portable_items"]["counts"]["unavailable"]==0 # no food terms when food subsystem is absent
         @test all(e["status"]=="exchanged" for e in receipts)
-        @test r["portable_items"]["remaining_counts"]==[1,1,1]
+        @test r["portable_items"]["remaining_counts"]==[1,1,1,0]
         @test sum(x["social"]["decisions"] for x in values(r["incidental_items"]))>0
         @test all(x["social"]["need_skipped"]==0 for x in values(r["incidental_items"]))
         @test r["consumed"]==0

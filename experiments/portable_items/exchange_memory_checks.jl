@@ -6,8 +6,8 @@ using Serialization
     f=item_fixture(objects=[placed_item(1,1;owner=ITEM_A,location="held"),
         placed_item(2,3;owner=ITEM_B,location="held")])
     v=item_view(f,ITEM_A)
-    give=LW.item_exchange_bundle(v,[1],zeros(Int,6))
-    want=LW.item_exchange_bundle(v,[2],[4,0,0,0,0,0])
+    give=LW.item_exchange_bundle(v,[1],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)))
+    want=LW.item_exchange_bundle(v,[2],[4,0,0,0,0,0,0,0])
     p=LW.D("exchange_give"=>give,"exchange_want"=>want,"partner"=>ITEM_B,
         "action"=>"item_offer","context"=>LW.D("need"=>0.))
     feature=only(give["items"])
@@ -27,27 +27,27 @@ using Serialization
     @test e.successes==1 && 0<other.successes<e.successes
     near=deepcopy(give);near["items"][1]["size"]*=1.05
     @test 0<LW.item_exchange_bundle_fit(s,give,near)<1
-    value=LW.item_exchange_option(s,feature;stock=zeros(Int,6),weights=ones(6))
+    value=LW.item_exchange_option(s,feature;stock=zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),weights=ones(length(LW.RDLBody.FOOD_KIND_IDS)))
     @test value>LW.incidental_item_interest(feature)
-    @test LW.item_subjective_values(s,v;stock=zeros(Int,6),weights=ones(6))[1]>LW.item_subjective_values(LW.incidental_item_state(ITEM_A),v)[1]
+    @test LW.item_subjective_values(s,v;stock=zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),weights=ones(length(LW.RDLBody.FOOD_KIND_IDS)))[1]>LW.item_subjective_values(LW.incidental_item_state(ITEM_A),v)[1]
     context=LW.D("load_fraction"=>0.,"capacity_mass"=>10.,"capacity_size"=>10.)
-    @test LW.incidental_item_prediction(s,feature,context,0.;stock=zeros(Int,6),weights=ones(6)).novelty==value
+    @test LW.incidental_item_prediction(s,feature,context,0.;stock=zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),weights=ones(length(LW.RDLBody.FOOD_KIND_IDS))).novelty==value
     LW.item_exchange_learn!(s,p,LW.D("status"=>"declined","us"=>3))
     @test only(s["exchange_relations"])["failures"]==1
-    @test LW.item_exchange_option(s,feature;stock=zeros(Int,6),weights=ones(6))<value
+    @test LW.item_exchange_option(s,feature;stock=zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),weights=ones(length(LW.RDLBody.FOOD_KIND_IDS)))<value
     # Changed executor identity still binds the visually similar object.
     renamed=deepcopy(v["own"]["held"]);renamed[1]["ref"]=999
     @test LW.item_exchange_bind(s,give["items"],renamed)==[999]
     io=IOBuffer();serialize(io,s);seekstart(io);restored=deserialize(io)
     @test LW.incidental_item_snapshot(restored)==LW.incidental_item_snapshot(s)
     # Bounded memory and no recursive output revaluation.
-    base=LW.item_exchange_option(s,feature;stock=zeros(Int,6),weights=ones(6))
+    base=LW.item_exchange_option(s,feature;stock=zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),weights=ones(length(LW.RDLBody.FOOD_KIND_IDS)))
     for n in 1:140
         q=deepcopy(p);q["partner"]="peer-$n"
         LW.item_exchange_learn!(s,q,LW.D("status"=>"declined","us"=>n+3))
     end
     @test length(s["exchange_relations"])==128
-    @test LW.item_exchange_option(s,feature;stock=zeros(Int,6),weights=ones(6))==base
+    @test LW.item_exchange_option(s,feature;stock=zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),weights=ones(length(LW.RDLBody.FOOD_KIND_IDS)))==base
 end
 
 @testset "learn only resolved execution once; recall learned food request" begin
@@ -56,11 +56,11 @@ end
     # admitted unrelated, unavailable foods and no longer isolated this recall
     # after compound valuation (it also fails on the unoptimized a5de82b).
     f=item_fixture(objects=[placed_item(1,1;owner=ITEM_A,location="held")],
-        food_counts=[[2,0,0,0,0,0],[4,0,0,0,0,0],[0,0,0,0,0,0]])
+        food_counts=[[2,0,0,0,0,0,0,0],[4,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]])
     s=LW.incidental_item_state(ITEM_A,9)
     v=LW.item_visible(f.s,f.w,ITEM_HOME,ITEM_A,0.,0;open_stores=true,foods=f.foods)
-    give=LW.item_exchange_bundle(v,[1],zeros(Int,6))
-    want=LW.item_exchange_bundle(v,Int[],[4,0,0,0,0,0])
+    give=LW.item_exchange_bundle(v,[1],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)))
+    want=LW.item_exchange_bundle(v,Int[],[4,0,0,0,0,0,0,0])
     prior=LW.D("exchange_give"=>give,"exchange_want"=>want,"partner"=>ITEM_B,
         "action"=>"item_offer","context"=>LW.D("need"=>0.))
     LW.item_exchange_learn!(s,prior,LW.D("status"=>"exchanged","us"=>0))
@@ -69,7 +69,7 @@ end
         trial=deepcopy(s);trial["loop"].seed=seed
         p=LW.item_social_plan!(trial,v,f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
         p===nothing && continue
-        if p["action"]=="item_offer" && p["give_items"]==[1] && isempty(p["want_items"]) && p["want_food"]==[4,0,0,0,0,0]
+        if p["action"]=="item_offer" && p["give_items"]==[1] && isempty(p["want_items"]) && p["want_food"]==[4,0,0,0,0,0,0,0]
             found=true
             @test p["exchange_evidence"]["successes"]>0
             o=item_act(f,ITEM_A,p["action"],1;target=p["target"],give_items=p["give_items"],want_items=p["want_items"],give_food=p["give_food"],want_food=p["want_food"])

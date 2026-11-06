@@ -21,8 +21,10 @@ end
     input["scene"]["reserve"]=fill(60.,3)
     input["config"]["days"]=1;input["config"]["body_purpose"]="on"
     input["clock"]["day_us"]=600_000_000
-    input["clock"]["phase_boundaries_us"]=[1_000_000,2_000_000,3_000_000,600_000_000]
-    input["clock"]["quiet_night_us"]=4_000_000
+    # Give the food decision an awake interval; sleeping now shuts observation
+    # and decision down rather than silently eating during almost the entire day.
+    input["clock"]["phase_boundaries_us"]=[200_000_000,400_000_000,599_000_000,600_000_000]
+    input["clock"]["quiet_night_us"]=600_000_000
     navigation_edible_profile!(input)
     r,_=run_integrated(JSON3.read(JSON3.write(input)))
     @test all(get(c,"process_food",0)==0 for c in values(r["counts"]))

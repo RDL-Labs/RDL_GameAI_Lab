@@ -34,8 +34,8 @@ item_run(s;kwargs...)=LW.lw_day(s,CLOCK;basic_loop=true,landmark_routes=true,kwa
     @test counts["picked_up"]==4 && counts["stored"]==5 && counts["retrieved"]==2
     @test counts["given"]==1 && counts["dropped"]==1 && counts["offered"]==3
     @test counts["exchanged"]==2 && counts["declined"]==1 && counts["unavailable"]==0
-    @test r["food_resources"]["personal"][IA]==[1,0,0,0]
-    @test r["food_resources"]["personal"][IB]==[1,0,0,0]
+    @test r["food_resources"]["personal"][IA]==[1,0,0,0,0,0,0,0]
+    @test r["food_resources"]["personal"][IB]==[1,0,0,0,0,0,0,0]
     @test r["initial_food"]==2 && r["consumed"]==0
     @test sum(a["personal_stock"] for a in values(r["final_agents"]))==2
     @test all(a["inventory"]==0 for a in values(r["final_agents"]))

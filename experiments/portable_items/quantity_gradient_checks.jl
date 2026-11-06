@@ -20,17 +20,17 @@ end
         placed_item(2,1;owner=ITEM_A,location="held"),
         placed_item(3,3;owner=ITEM_B,location="held"),placed_item(4,3;owner=ITEM_B,location="held")])
     s=LW.incidental_item_state(ITEM_A,19);v=item_view(f,ITEM_A);values=LW.item_subjective_values(s,v)
-    gain(g,w,gf,wf;stock=zeros(Int,6),weights=ones(6))=LW.item_social_gain(v["own"],stock,values,weights,g,w,gf,wf;visible=v["visible"])
-    g=[gain([1],Int[],zeros(Int,6),[n,0,0,0,0,0]) for n in 1:3]
+    gain(g,w,gf,wf;stock=zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),weights=ones(length(LW.RDLBody.FOOD_KIND_IDS)))=LW.item_social_gain(v["own"],stock,values,weights,g,w,gf,wf;visible=v["visible"])
+    g=[gain([1],Int[],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),[n,0,0,0,0,0,0,0]) for n in 1:3]
     @test g[1]<g[2]<g[3]
     @test g[3]-g[2]<g[2]-g[1]
-    @test gain([1],Int[],zeros(Int,6),[1,0,0,0,0,0];stock=[20,0,0,0,0,0])<g[1]
-    @test gain([1],Int[],zeros(Int,6),[1,0,0,0,0,0];weights=2ones(6))>g[1]
-    @test gain([1,2],Int[],zeros(Int,6),[1,0,0,0,0,0])<g[1]
-    @test gain(Int[],[3,4],[1,0,0,0,0,0],zeros(Int,6);stock=[5,0,0,0,0,0])>gain(Int[],[3],[1,0,0,0,0,0],zeros(Int,6);stock=[5,0,0,0,0,0])
-    @test gain(Int[],[3],[2,0,0,0,0,0],zeros(Int,6);stock=[5,0,0,0,0,0])<gain(Int[],[3],[1,0,0,0,0,0],zeros(Int,6);stock=[5,0,0,0,0,0])
-    give=LW.item_exchange_bundle(v,[1],zeros(Int,6));want=LW.item_exchange_bundle(v,Int[],[1,0,0,0,0,0])
-    more=LW.item_exchange_bundle(v,Int[],[3,0,0,0,0,0]);two=LW.item_exchange_bundle(v,[1,2],zeros(Int,6))
+    @test gain([1],Int[],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),[1,0,0,0,0,0,0,0];stock=[20,0,0,0,0,0,0,0])<g[1]
+    @test gain([1],Int[],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),[1,0,0,0,0,0,0,0];weights=2ones(length(LW.RDLBody.FOOD_KIND_IDS)))>g[1]
+    @test gain([1,2],Int[],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),[1,0,0,0,0,0,0,0])<g[1]
+    @test gain(Int[],[3,4],[1,0,0,0,0,0,0,0],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS));stock=[5,0,0,0,0,0,0,0])>gain(Int[],[3],[1,0,0,0,0,0,0,0],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS));stock=[5,0,0,0,0,0,0,0])
+    @test gain(Int[],[3],[2,0,0,0,0,0,0,0],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS));stock=[5,0,0,0,0,0,0,0])<gain(Int[],[3],[1,0,0,0,0,0,0,0],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS));stock=[5,0,0,0,0,0,0,0])
+    give=LW.item_exchange_bundle(v,[1],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)));want=LW.item_exchange_bundle(v,Int[],[1,0,0,0,0,0,0,0])
+    more=LW.item_exchange_bundle(v,Int[],[3,0,0,0,0,0,0,0]);two=LW.item_exchange_bundle(v,[1,2],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)))
     @test LW.item_exchange_key(ITEM_B,give,want)==LW.item_exchange_key(ITEM_B,two,more)
     @test LW.item_exchange_bundle_fit(s,give,two)==1
     @test LW.item_exchange_bind(s,two["items"],v["own"]["held"][1:1];partial=true)==[1]
@@ -45,7 +45,7 @@ end
     @test length(s["exchange_relations"])==1
     @test m["successes"]==1 && m["failures"]==1
     @test LW.item_exchange_response(m,give,more)<before
-    middle=LW.item_exchange_bundle(v,Int[],[2,0,0,0,0,0])
+    middle=LW.item_exchange_bundle(v,Int[],[2,0,0,0,0,0,0,0])
     e=LW.item_exchange_recall(s,give,middle,ITEM_B,LW.D("need"=>0.),0.)
     @test e.successes==1 && e.failures==1 && isfinite(e.predicted)
     @test LW.incidental_item_snapshot(item_saved_copy(s))==LW.incidental_item_snapshot(s)
@@ -63,11 +63,11 @@ end
     copy_migrated=deepcopy(migrated);LW.item_exchange_memory!(old)
     @test old["exchange_relations"]==copy_migrated
     # The executor receipt and forecast use the same frozen quantity utility.
-    predicted=gain([1],[3],zeros(Int,6),zeros(Int,6);stock=f.foods.personal[ITEM_A])
+    predicted=gain([1],[3],zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS)),zeros(Int,length(LW.RDLBody.FOOD_KIND_IDS));stock=f.foods.personal[ITEM_A])
     offer=item_act(f,ITEM_A,"item_offer",20;target=ITEM_B,give_items=[1],want_items=[3])
     result=item_act(f,ITEM_B,"item_accept",21;offer_id=offer["offer_id"])
     @test result["status"]=="exchanged"
     notice=only(filter(n->get(n,"offer_id",nothing)==offer["offer_id"] && n["status"]=="exchanged",item_view(f,ITEM_A;now=22)["notices"]))
-    @test LW.item_social_actual(LW.D("values"=>values,"weights"=>ones(6)),notice)≈predicted-.002
+    @test LW.item_social_actual(LW.D("values"=>values,"weights"=>ones(length(LW.RDLBody.FOOD_KIND_IDS))),notice)≈predicted-.002
     @test item_checks(f)===nothing
 end

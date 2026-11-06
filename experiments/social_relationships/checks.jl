@@ -131,8 +131,8 @@ end
 
 const RF=LW.RDLBody
 const RH=(0.,0.)
-function relationship_trade_fixture(seed=1;fruit=2)
-    kinds=[fill(RF.RAW_ACORN,20),fill(RF.FRUIT_FOOD,fruit),Int[]]
+function relationship_trade_fixture(seed=1;fruit=2,offered_kind=RF.RAW_ACORN)
+    kinds=[fill(offered_kind,20),fill(RF.FRUIT_FOOD,fruit),Int[]]
     w=LW.world(true);w.positions[SC]=(100.,100.)
     for (i,a) in enumerate(LW.IDS)
         w.inventory[a]=length(kinds[i]);w.bodies[a]=RF.Body(10.,0.,90.,0.)
@@ -143,24 +143,24 @@ function relationship_trade_fixture(seed=1;fruit=2)
         amount=w.inventory[a];LW.food_deposit!(r,a,false);stores[a]+=amount;w.inventory[a]=0
     end
     relations=Dict(a=>LW.social_relations_state(a) for a in LW.IDS)
-    (r=r,w=w,stores=stores,t=LW.food_trade_state(seed),relations=relations)
+    (r=r,w=w,stores=stores,t=LW.food_trade_state(seed),relations=relations,offered_kind=offered_kind)
 end
 function fixed_relation_offer!(x)
     weights=LW.food_trade_weights(x.w.bodies[SA],nothing)
-    gain=LW.food_trade_gain(x.r.personal[SA],weights,RF.RAW_ACORN,1,RF.FRUIT_FOOD,1)
+    gain=LW.food_trade_gain(x.r.personal[SA],weights,x.offered_kind,1,RF.FRUIT_FOOD,1)
     source="relation-offer"
     candidate=SD("method"=>"fixture-offer","action"=>"trade_offer","priority"=>0.,"question"=>"stock_value_improved",
-        "target"=>SB,"give_kind"=>RF.RAW_ACORN,"give_count"=>1,"want_kind"=>RF.FRUIT_FOOD,"want_count"=>1,
+        "target"=>SB,"give_kind"=>x.offered_kind,"give_count"=>1,"want_kind"=>RF.FRUIT_FOOD,"want_count"=>1,
         "trade_role"=>"offer","trade_source"=>source,"trade_weights"=>weights,"trade_gain"=>gain,"trade_partner"=>SB)
     p=LW.choose_method!(x.t["minds"][SA]["offer"],Any[candidate],source)
     result=LW.food_exchange_execute!(x.t["world"],x.r,x.w,x.stores,RH,SA,source,"trade_offer",0;
-        target=SB,give_kind=RF.RAW_ACORN,give_count=1,want_kind=RF.FRUIT_FOOD,want_count=1)
+        target=SB,give_kind=x.offered_kind,give_count=1,want_kind=RF.FRUIT_FOOD,want_count=1)
     LW.food_trade_executed!(x.t,SA,p,result;relation=x.relations[SA])
     p,result
 end
 function fixed_relation_accept!(x,id)
     weights=LW.food_trade_weights(x.w.bodies[SB],nothing)
-    gain=LW.food_trade_gain(x.r.personal[SB],weights,RF.FRUIT_FOOD,1,RF.RAW_ACORN,1)
+    gain=LW.food_trade_gain(x.r.personal[SB],weights,RF.FRUIT_FOOD,1,x.offered_kind,1)
     source="relation-accept"
     candidate=SD("method"=>"fixture-accept","action"=>"trade_accept","priority"=>0.,"question"=>"stock_value_improved",
         "offer_id"=>id,"trade_role"=>"response","trade_source"=>source,
@@ -255,7 +255,7 @@ end
 @testset "aid and personal trade value carry into barter choices" begin
     # Compare relation weighting on admissible terms, not a forced probability
     # of accepting an overall loss. Scarcity and aid are checked separately.
-    x=relationship_trade_fixture(;fruit=20);_,offered=fixed_relation_offer!(x)
+    x=relationship_trade_fixture(;fruit=20,offered_kind=RF.ACORN_MEAL);_,offered=fixed_relation_offer!(x)
     view=LW.food_exchange_view(x.t["world"],x.r,x.w,RH,SB,1_000_000)
     good=LW.social_relations_state(SB);bad=LW.social_relations_state(SB)
     for i in 1:8
@@ -270,7 +270,7 @@ end
     accept_probability(p)=p["action"]=="trade_accept" ? p["selection_probability"] : 1-p["selection_probability"]
     probabilities=accept_probability.(plans)
     @test 0<probabilities[1]<probabilities[2]<probabilities[3]<1
-    expected=LW.food_trade_gain(view["own_stock"],LW.food_trade_weights(x.w.bodies[SB],nothing),RF.FRUIT_FOOD,1,RF.RAW_ACORN,1)
+    expected=LW.food_trade_gain(view["own_stock"],LW.food_trade_weights(x.w.bodies[SB],nothing),RF.FRUIT_FOOD,1,x.offered_kind,1)
     @test all(p->p["action"]=="trade_decline" ? p["trade_gain"]==0. : p["compound_gradient"]["material"]≈expected,plans)
     @test all(p->p["action"]=="trade_decline" || p["trade_gain"]==p["compound_gradient"]["total"],plans)
     @test all(p->p["action"] in ("trade_accept","trade_decline"),plans)

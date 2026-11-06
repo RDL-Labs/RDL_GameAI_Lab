@@ -184,7 +184,7 @@ end
 end
 
 function relational_trade_fixture(seed)
-    body=LW.RDLBody;kinds=[fill(body.RAW_ACORN,20),vcat([fill(k,20) for k in body.FOOD_KIND_IDS if k!=body.RAW_ACORN]...),UInt8[]]
+    body=LW.RDLBody;kinds=[fill(body.ACORN_MEAL,20),vcat([fill(k,20) for k in body.FOOD_KIND_IDS if body.food_edible(k) && k!=body.ACORN_MEAL]...),UInt8[]]
     w=LW.world(true);w.positions[AID_C]=(100.,100.)
     for (i,a) in enumerate(LW.IDS)
         w.inventory[a]=length(kinds[i]);w.bodies[a]=body.Body(10.,0.,90.,0.)

@@ -1,4 +1,4 @@
-name: Julia ecology smoke checks
+name: Julia regression checks
 on:
   push:
     branches: [main]
@@ -7,13 +7,13 @@ on:
 permissions:
   contents: read
 jobs:
-  ecology:
+  regression:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        suite: [boundaries, food-social, portable, navigation, animals]
+        suite: [boundaries, food, social, portable, navigation, observation, animals, wildlife]
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
@@ -21,85 +21,12 @@ jobs:
           version: '1.13.1'
       - name: Dependencies
         run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
-      - name: Julia layer boundaries
-        if: matrix.suite == 'boundaries'
-        run: |
-          julia --startup-file=no --project=. test/herbivore_policy.jl
-          julia --startup-file=no --project=. test/lw_policy.jl
-          julia --startup-file=no --project=. test/memory_blocks.jl
-          julia --startup-file=no --project=. test/layer_dependencies.jl
-          julia --startup-file=no --project=. test/shared_world_policies.jl
-      - name: Root entry help
-        if: matrix.suite == 'boundaries'
-        run: julia --startup-file=no run.jl --help
-      - name: Typed food, personal stores and barter
-        if: matrix.suite == 'food-social'
-        run: |
-          julia --startup-file=no --project=. experiments/acorn_food/proficiency_checks.jl
-          julia --startup-file=no --project=. experiments/fishing/checks.jl
-          julia --startup-file=no --project=. experiments/fishing/training_checks.jl
-          julia --startup-file=no --project=. experiments/fishing/expiry_salt_checks.jl
-          julia --startup-file=no --project=. experiments/fishing/spoilage_learning_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/food_desire_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/provision_choice_checks.jl
-          julia --startup-file=no --project=. experiments/seasonal_food/checks.jl
-          julia --startup-file=no --project=. experiments/food_exchange/checks.jl
-          julia --startup-file=no --project=. experiments/food_exchange/policy_checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/aid_forecast_checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/relational_memory_checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/approach_checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/expression_checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/food_security_checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/gradient_checks.jl
-          julia --startup-file=no --project=. experiments/social_relationships/integration_checks.jl
-      - name: Portable non-food world operations
-        if: matrix.suite == 'portable'
-        run: |
-          julia --startup-file=no --project=. experiments/portable_items/checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/integration_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/incidental_policy_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/incidental_cost_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/incidental_integration_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/social_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/counter_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/exchange_memory_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/quantity_gradient_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/compound_trade_checks.jl
-          julia --startup-file=no --project=. experiments/portable_items/social_integration_checks.jl
-      - name: LW completion prediction reward
-        if: matrix.suite == 'navigation'
-        run: |
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_return_outlook_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/h_reward_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/home_rest_reward_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/embedded_rest_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/night_fear_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/daily_delivery_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/camp_safe_zone_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_transfer_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_plan_budget_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/mb_daily_plan_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/navigation_edible_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/post_return_idle_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/local_success_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/parent_plan_switch_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/food_site_observation_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/depleted_home_route_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/search_resistance_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/rho_local_field_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/skyline_interval_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/gradient_roll_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/camp_exterior_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/configured_routine_checks.jl
-          julia --startup-file=no --project=. experiments/rock_gate/sleep_gate_checks.jl
-          julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/body_purpose_checks.jl
-      - name: Herbivore and predator checks
-        if: matrix.suite == 'animals'
-        # Includes coarse/fine boundary fields and physical collision regression.
-        run: julia --startup-file=no --project=. experiments/julia_migration/lw_integrated/rho_opening_checks.jl
-      - name: Herbivore and predator behavior checks
-        if: matrix.suite == 'animals'
-        run: |
-          julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/checks.jl
-          julia --startup-file=no --project=. experiments/numeric_ecology/predator-cpu/predator_checks.jl
+      - name: Run regression suite
+        run: julia --startup-file=no --project=. test/ci/run.jl ${{ matrix.suite }}
+      - name: Preserve individual test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: julia-${{ matrix.suite }}-logs
+          path: outputs/ci/${{ matrix.suite }}/
+          if-no-files-found: warn

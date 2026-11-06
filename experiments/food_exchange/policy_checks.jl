@@ -9,7 +9,7 @@ function policy_saved(x)
     io=IOBuffer();serialize(io,x);seekstart(io);deserialize(io)
 end
 function policy_fixture(seed=1;third_fruit=0)
-    kinds=[fill(PB.RAW_ACORN,20),fill(PB.FRUIT_FOOD,20),fill(PB.FRUIT_FOOD,third_fruit)]
+    kinds=[fill(PB.ACORN_MEAL,20),fill(PB.FRUIT_FOOD,20),fill(PB.FRUIT_FOOD,third_fruit)]
     w=LW.world(true)
     for (i,a) in enumerate(LW.IDS)
         w.inventory[a]=length(kinds[i]);w.bodies[a]=PB.Body(10.,0.,90.,0.)
@@ -28,11 +28,11 @@ end
 # One-candidate configured fixture isolates outcome learning; ordinary proposal
 # and response selection are exercised probabilistically in the first testset.
 function controlled_policy_offer!(x;weights=LW.food_trade_weights(x.w.bodies[PA],nothing))
-    gain=LW.food_trade_gain(x.r.personal[PA],weights,PB.RAW_ACORN,1,PB.FRUIT_FOOD,1)
+    gain=LW.food_trade_gain(x.r.personal[PA],weights,PB.ACORN_MEAL,1,PB.FRUIT_FOOD,1)
     source="controlled-offer"
-    candidate=Dict{String,Any}("method"=>"offer:$(POTHER):$(PB.RAW_ACORN):1:$(PB.FRUIT_FOOD):1",
+    candidate=Dict{String,Any}("method"=>"offer:$(POTHER):$(PB.ACORN_MEAL):1:$(PB.FRUIT_FOOD):1",
         "action"=>"trade_offer","priority"=>0.,"question"=>"stock_value_improved",
-        "target"=>POTHER,"give_kind"=>PB.RAW_ACORN,"give_count"=>1,
+        "target"=>POTHER,"give_kind"=>PB.ACORN_MEAL,"give_count"=>1,
         "want_kind"=>PB.FRUIT_FOOD,"want_count"=>1,"trade_gain"=>gain,
         "trade_role"=>"offer","trade_source"=>source,"trade_weights"=>weights,
         "trade_partner"=>POTHER,"food_exchange"=>true)
@@ -128,7 +128,7 @@ end
     @test skip_found
     x=policy_fixture();loop=x.t["minds"][POTHER]["response"];loop.H=2.
     receipt=LW.food_exchange_execute!(x.t["world"],x.r,x.w,x.stores,PHOME,PA,"unknown-meat","trade_offer",0;
-        target=POTHER,give_kind=PB.RAW_ACORN,give_count=1,want_kind=PB.MEAT_FOOD,want_count=1)
+        target=POTHER,give_kind=PB.ACORN_MEAL,give_count=1,want_kind=PB.MEAT_FOOD,want_count=1)
     @test receipt["status"]=="offered"
     view=LW.food_trade_views!(x.t,x.r,x.w,PHOME,1_000_000)[POTHER]
     p=LW.food_trade_plan!(x.t,POTHER,view,x.w.bodies[POTHER],nothing,1_000_000;require_need=false)
@@ -160,7 +160,7 @@ end
     fill!(plan["trade_weights"],0.) # changing a caller buffer must not change pending valuation
     extra=LW.food_exchange_execute!(x.t["world"],x.r,x.w,x.stores,PHOME,PC,
         "intervening-offer","trade_offer",1_000_000;target=PA,
-        give_kind=PB.FRUIT_FOOD,give_count=4,want_kind=PB.RAW_ACORN,want_count=1)
+        give_kind=PB.FRUIT_FOOD,give_count=4,want_kind=PB.ACORN_MEAL,want_count=1)
     accepted=LW.food_exchange_execute!(x.t["world"],x.r,x.w,x.stores,PHOME,PA,
         "intervening-accept","trade_accept",2_000_000;offer_id=extra["offer_id"])
     @test accepted["status"]=="exchanged" && loop.trial!==nothing && isempty(loop.events)
@@ -168,8 +168,8 @@ end
         "delayed-accept","trade_accept",3_000_000;offer_id=id)
     notice=only(filter(n->n["offer_id"]==id,x.t["world"]["notices"][PA]))
     @test notice["own_before"][PB.FRUIT_FOOD]==4 && notice["own_after"][PB.FRUIT_FOOD]==5
-    @test notice["own_before"][PB.RAW_ACORN]==19 && notice["own_after"][PB.RAW_ACORN]==18
-    actual=LW.food_trade_gain(notice["own_before"],frozen,PB.RAW_ACORN,1,PB.FRUIT_FOOD,1)
+    @test notice["own_before"][PB.ACORN_MEAL]==19 && notice["own_after"][PB.ACORN_MEAL]==18
+    actual=LW.food_trade_gain(notice["own_before"],frozen,PB.ACORN_MEAL,1,PB.FRUIT_FOOD,1)
     @test LW.FOOD_TRADE_TOLERANCE<actual<plan["trade_gain"]-LW.FOOD_TRADE_TOLERANCE
     LW.food_trade_views!(x.t,x.r,x.w,PHOME,4_000_000)
     event=last(loop.events)

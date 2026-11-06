@@ -109,17 +109,17 @@ end
     end
     loop=LW.BasicLoop("$SDA:food";probabilistic=true,seed=5)
     fruit=LW.social_approach_candidates(view,move,relation,loop,0;
-        food_values=[4.,1.,1.,.5],context=situation)
+        food_values=[4.,1.,1.,.5,0.,0.,0.,0.],context=situation)
     meal=LW.social_approach_candidates(view,move,relation,loop,0;
-        food_values=[.5,1.,1.,4.],context=situation)
+        food_values=[.5,1.,1.,4.,0.,0.,0.,0.],context=situation)
     @test only(fruit)["social_peer"]==SDB && only(meal)["social_peer"]==SDC
     @test only(fruit)["social_conditional_value"]==4. && only(meal)["social_conditional_value"]==4.
     @test only(fruit)["social_probability"]≈only(meal)["social_probability"]
-    @test isempty(LW.social_approach_candidates(view,move,relation,loop,0;food_values=zeros(4)))
+    @test isempty(LW.social_approach_candidates(view,move,relation,loop,0;food_values=zeros(length(LW.RDLBody.FOOD_KIND_IDS))))
     @test_throws ErrorException LW.social_approach_candidates(view,move,relation,loop,0;food_values=[1.,2.])
     # Once the owner has seen the same evidence, hidden changes in the other
     # body's taste/needs/stock cannot enter this pure proposal calculation.
     w.inventory[SDB]=0;w.bodies[SDB]=LW.Body(1.,.9,0.,.7)
     @test LW.social_approach_candidates(LW.social_sight(w,SDA,0.,0),move,relation,loop,0;
-        food_values=[4.,1.,1.,.5],context=situation)==fruit
+        food_values=[4.,1.,1.,.5,0.,0.,0.,0.],context=situation)==fruit
 end

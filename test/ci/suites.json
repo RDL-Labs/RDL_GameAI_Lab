@@ -1,0 +1,296 @@
+{
+  "boundaries": [
+    {
+      "args": [],
+      "path": "test/herbivore_policy.jl"
+    },
+    {
+      "args": [],
+      "path": "test/lw_policy.jl"
+    },
+    {
+      "args": [],
+      "path": "test/memory_blocks.jl"
+    },
+    {
+      "args": [],
+      "path": "test/layer_dependencies.jl"
+    },
+    {
+      "args": [],
+      "path": "test/shared_world_policies.jl"
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "path": "run.jl"
+    }
+  ],
+  "food": [
+    {
+      "args": [],
+      "path": "experiments/acorn_food/proficiency_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/fishing/checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/fishing/training_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/fishing/expiry_salt_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/fishing/spoilage_learning_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/food_desire_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/provision_choice_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/seasonal_food/checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/food_exchange/checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/food_exchange/policy_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/fishing/trial_lifecycle_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/fishing/low_load_checks.jl"
+    }
+  ],
+  "social": [
+    {
+      "args": [],
+      "path": "experiments/social_relationships/checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/aid_forecast_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/relational_memory_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/approach_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/expression_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/food_security_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/gradient_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/integration_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/aid_resource_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/self_reliance_checks.jl"
+    }
+  ],
+  "portable": [
+    {
+      "args": [],
+      "path": "experiments/portable_items/checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/integration_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/incidental_policy_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/incidental_cost_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/incidental_integration_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/social_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/counter_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/exchange_memory_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/quantity_gradient_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/compound_trade_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/portable_items/social_integration_checks.jl"
+    }
+  ],
+  "navigation": [
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/mb_return_outlook_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/h_reward_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/home_rest_reward_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/embedded_rest_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/night_fear_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/daily_delivery_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/camp_safe_zone_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/mb_transfer_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/mb_plan_budget_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/mb_daily_plan_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/navigation_edible_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/post_return_idle_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/local_success_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/parent_plan_switch_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/food_site_observation_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/depleted_home_route_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/search_resistance_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/body_purpose_checks.jl"
+    }
+  ],
+  "observation": [
+    {
+      "args": [],
+      "path": "experiments/rock_gate/rho_local_field_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/skyline_interval_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/gradient_roll_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/camp_exterior_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/configured_routine_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/rock_gate/sleep_gate_checks.jl"
+    }
+  ],
+  "animals": [
+    {
+      "args": [],
+      "path": "experiments/julia_migration/lw_integrated/rho_opening_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/numeric_ecology/predator-cpu/checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/numeric_ecology/predator-cpu/predator_checks.jl"
+    }
+  ],
+  "wildlife": [
+    {
+      "args": [],
+      "path": "experiments/lw_wildlife/reproduction_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/lw_wildlife/checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/fishing/wildlife_motion_checks.jl"
+    }
+  ]
+}

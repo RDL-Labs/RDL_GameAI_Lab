@@ -45,7 +45,7 @@ end
     @test p["context"]["distress"]==1 && p["question"]=="food_delivered"
     @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[1,0,0,0],Int[],0;at_home=true)===nothing
     @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[6,0,0,0],[1],0;at_home=false)===nothing
-    @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[0,0,6,0],Int[],0;at_home=true)===nothing
+    @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[0,0,0,0,0,6,0,0],Int[],0;at_home=true)===nothing
     @test LW.visual_aid_plan!(expression_relation(1),v,LW.Body(10.,0.,40.,0.),nothing,[6,0,0,0],Int[],0;at_home=true)===nothing
     @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[6,0,0,0],Int[],0;at_home=true,contacts=[Dict("ref"=>EB,"holding_food"=>true)])===nothing
     @test !LW.visual_aid_executed!(rel,p,"performed") # retrieve is not completed help

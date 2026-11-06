@@ -4,10 +4,11 @@ include("../../src/lw/LW.jl")
  for receipt in ("picked_up","no_catch")
   q=LW.configured_fishing_training_state()
   @test LW.configured_fishing_training_plan(q,Int[],true,true,[])["action"]=="retrieve"
-  @test LW.configured_fishing_training_plan(q,[5],true,false,[])["action"]=="rest"
+  @test LW.configured_fishing_training_plan(q,[LW.RDLBody.FISH_FOOD],true,false,[])["action"]=="process_food"
+  @test LW.configured_fishing_training_plan(q,[LW.RDLBody.COOKED_FISH],true,false,[])["action"]=="rest"
   LW.configured_fishing_training_result!(q,"eat","ate",1,true,1)
   @test q["stage"]=="taste"
-  LW.configured_fishing_training_result!(q,"eat","ate",5,true,2;liking=1.5)
+  LW.configured_fishing_training_result!(q,"eat","ate",LW.RDLBody.COOKED_FISH,true,2;liking=1.5)
   @test q["stage"]=="trial"
   LW.configured_fishing_training_result!(q,"fish","fishing",0,false,3)
   @test q["stage"]=="trial"

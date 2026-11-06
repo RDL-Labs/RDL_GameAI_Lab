@@ -31,7 +31,7 @@ end
     clock=merge(LW.native_clock(),(day_us=96_000_000,phase_boundaries_us=[96_000_000,96_000_000,96_000_000,96_000_000],quiet_night_us=96_000_000))
     base=merge(LW.native_scene(19),(positions=[[0.,0.],[0.,.75],[100.,100.]],home=[0.,0.],
         food=Any[],obstacles=Any[],low_obstacles=Any[],ground_patches=Any[],hazards=Any[],
-        initial_inventory=[0,3,0],initial_inventory_kinds=[Int[],[4,4,4],Int[]],
+        initial_inventory=[0,10,0],initial_inventory_kinds=[Int[],fill(4,10),Int[]], # Donor has surplus after own forecast needs.
         reserve=[30.,90.,100.],typed_food=true,social_relationships=true))
     run(enabled;kwargs...)=LW.lw_day(merge(base,(gradient_logging=enabled,)),clock;
         days=2,basic_loop=true,food_body=true,social_response=true,choice_seed=3,kwargs...)
