@@ -14,7 +14,7 @@ function animal_trial_world(;adult_rabbits=30)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     s,predators
 end
-function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing)
+function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.)
     scents!==nothing && configured_scent_tick!(scents,predators,t)
     for (i,p) in enumerate(predators)
         if minds===nothing
@@ -29,7 +29,7 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing)
     G.advance!(s,t)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
-        configured_trial_advance!(s,predators[i],t;scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        configured_trial_advance!(s,predators[i],t;prey_nutrition,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
     end
 end
 function animal_trial_report(s,predators;scents=nothing,minds=nothing)
@@ -46,13 +46,18 @@ function main()
     length(population_option)<=1 || error("duplicate adult rabbit count")
     adult_rabbits=isempty(population_option) ? 30 : parse(Int,split(only(population_option),'=';limit=2)[2])
     1<=adult_rabbits<=10000 || error("adult rabbit count must be 1..10000")
+    nutrition_option=filter(arg->startswith(arg,"--prey-nutrition="),ARGS)
+    length(nutrition_option)<=1 || error("duplicate prey nutrition")
+    prey_nutrition=isempty(nutrition_option) ? 1. : parse(Float64,split(only(nutrition_option),'=';limit=2)[2])
+    isfinite(prey_nutrition) && prey_nutrition>0 || error("prey nutrition must be finite and positive")
     days=checks_only || length(ARGS)<2 ? 3 : parse(Int,ARGS[2])
     days>0 || error("days must be positive")
     out=checks_only ? joinpath(mktempdir(),"checks") : length(ARGS)>0 ? ARGS[1] : "outputs/animals-only-3d"
     ispath(out) && error("output already exists")
     mkpath(out)
     conditions=(days=days,stop_on_predator_extinction=true,humans=0,adult_rabbits=adult_rabbits,initial_young=5,predators=2,
-        rule=PREDATOR_ANIMAL_TRIAL,marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
+        rule=PREDATOR_ANIMAL_TRIAL,prey_nutrition=prey_nutrition,adult_food_equivalent=PREDATOR_ANIMAL_TRIAL.adult_food*prey_nutrition,
+        marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
         cognition=cognition,cognition_rule=cognition ? PREDATOR_COGNITION : nothing,
         fixed=cognition ? "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding" :
             "territory centers when marking OFF; local scent identity/intervals/choices when ON; visual warning/retreat, instantaneous meals; no predator breeding or combat")
@@ -178,6 +183,21 @@ function main()
         end
         @test animal_trial_report(s,predators;minds)==animal_trial_report(copy_s,copy_p;minds=copy_m)
     end
+    @testset "prey nutrition and capacity" begin
+        s,predators=animal_trial_world();p=predators[1]
+        empty!(s.world.obstacles);s.world.traits.density.=0.
+        s.animals.x.=-20.;s.animals.z.=20.;s.animals.x[1]=-9.5;s.animals.z[1]=6.;s.animals.state[1]=H.REST
+        for t in 0:100
+            p.visual.body.captures>0 && break
+            p.mode=:hunt;p.visual.body.x=-10.;p.visual.body.z=6.;p.visual.body.heading=0.
+            p.visual.body.state=P.ATTACK;p.visual.body.timer=1;p.visual.body.attacks+=1
+            configured_trial_advance!(s,p,t;prey_nutrition=1.5)
+        end
+        @test p.visual.body.captures==1
+        @test isapprox(p.eaten+p.discarded,1350.)
+        @test p.food<=PREDATOR_ANIMAL_TRIAL.capacity && p.discarded>0
+        @test trial_predator_report(p).alive
+    end
     checks_only && return
     frozen=joinpath(out,"source")
     mkpath(joinpath(frozen,"experiments","lw_wildlife"))
@@ -191,7 +211,7 @@ function main()
     minds=cognition ? [PredatorMind(i) for i in 1:2] : nothing
     stop_reason="duration_reached"
     elapsed=@elapsed for t in 0:days*17280-1
-        animal_trial_step!(s,predators,t;scents,minds)
+        animal_trial_step!(s,predators,t;scents,minds,prey_nutrition)
         extinct=all(p->!p.alive,predators)
         if extinct
             stop_reason="predator_extinction"

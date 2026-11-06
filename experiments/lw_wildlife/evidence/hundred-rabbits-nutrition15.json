@@ -1,0 +1,4569 @@
+{
+  "conditions": {
+    "days": 60,
+    "stop_on_predator_extinction": true,
+    "humans": 0,
+    "adult_rabbits": 95,
+    "initial_young": 5,
+    "predators": 2,
+    "rule": {
+      "day_ticks": 17280,
+      "daily_food": 600.0,
+      "move_food": 0.1,
+      "initial_food": 900.0,
+      "capacity": 1800.0,
+      "hunt_below": 600.0,
+      "adult_food": 900.0,
+      "minimum_size_fraction": 0.05,
+      "territory_radius": 20.0,
+      "rival_sight": 12.0,
+      "balance_atol": 1E-07,
+      "balance_rtol": 1E-10,
+      "retreat_difference": 0.1,
+      "retreat_speed": 0.3,
+      "warning_duration_ticks": 60,
+      "warning_cooldown_ticks": 600
+    },
+    "prey_nutrition": 1.5,
+    "adult_food_equivalent": 1350.0,
+    "marking": true,
+    "marking_rule": {
+      "cell_size": 4.0,
+      "smell_radius": 4.0,
+      "lifetime_ticks": 51840,
+      "mark_interval_ticks": 600,
+      "sniff_interval_ticks": 30,
+      "deposit": 1.0,
+      "capacity": 4.0,
+      "memory_limit": 128,
+      "arrival_radius": 3.0,
+      "return_min_strength": 0.2,
+      "avoidance_margin": 0.1,
+      "local_familiarity": 0.5,
+      "speed": 0.22
+    },
+    "cognition": true,
+    "cognition_rule": {
+      "decision_ticks": 60,
+      "episode_ticks": 600,
+      "place_limit": 16,
+      "place_cell": 8.0,
+      "arrival_radius": 3.0,
+      "move_speed": 0.22,
+      "food_value_scale": 900.0,
+      "food_pressure_scale": 600.0,
+      "food_weight": 3.0,
+      "rest_weight": 2.0,
+      "rival_weight": 2.0,
+      "place_prior": 0.5,
+      "rest_benefit": 0.2,
+      "hunt_prior": 0.3,
+      "tolerance": 0.05,
+      "history_limit": 64
+    },
+    "fixed": "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding"
+  },
+  "completion": {
+    "stop_reason": "predator_extinction",
+    "executed_ticks": 419316,
+    "completed_days": 24,
+    "stopped_in_day": 25,
+    "elapsed_simulation_days": 24.26597222222222
+  },
+  "elapsed_seconds": 39.0247494,
+  "final_rabbits": {
+    "rule": "lw-grazing-v1",
+    "balances": {
+      "grass": {
+        "name": "grass",
+        "supplied": 62704.84144222735,
+        "accounted": 62704.84144367843,
+        "residual": -1.4510806067846715E-06,
+        "relative_error": 2.314144447822317E-11,
+        "delta_since_previous": null,
+        "max_abs_residual": 1.4510806067846715E-06,
+        "warning_limit": 7.270484144367843E-06,
+        "stop_limit": 0.0007270484144367844,
+        "status": "ok"
+      },
+      "intake": {
+        "name": "intake",
+        "supplied": 50837.85475426168,
+        "accounted": 50837.854752432795,
+        "residual": 1.828884705901146E-06,
+        "relative_error": 3.597485996884699E-11,
+        "delta_since_previous": null,
+        "max_abs_residual": 1.828884705901146E-06,
+        "warning_limit": 6.083785475426168E-06,
+        "stop_limit": 0.0006083785475426168,
+        "status": "ok"
+      },
+      "digestion": {
+        "name": "digestion",
+        "supplied": 50837.854752432795,
+        "accounted": 50837.85475243092,
+        "residual": 1.877197064459324E-09,
+        "relative_error": 3.692518249640525E-14,
+        "delta_since_previous": null,
+        "max_abs_residual": 1.877197064459324E-09,
+        "warning_limit": 6.08378547524328E-06,
+        "stop_limit": 0.000608378547524328,
+        "status": "ok"
+      }
+    },
+    "count": 122,
+    "alive": 98,
+    "ticks": 419316,
+    "reproduction": {
+      "rule": "rabbit-like-reproduction-v1",
+      "parameters": {
+        "day_ticks": 17280,
+        "gestation_days": 31,
+        "wean_days": 28,
+        "maturity_days": 150,
+        "initial_age_days": 180,
+        "year_days": 365,
+        "season_days": 240,
+        "receptive_days": 14,
+        "receptivity_period": 16,
+        "mate_radius": 6.0,
+        "conception_chance": 0.2,
+        "breeding_energy": 70.0,
+        "recovery_days": 7,
+        "litter_min": 3,
+        "litter_max": 6,
+        "pregnancy_energy_per_day": 1.0,
+        "infant_energy_per_day": 4.0,
+        "milk_target": 8.0,
+        "milk_efficiency": 0.75,
+        "maternal_reserve": 35.0,
+        "nurse_distance": 1.5,
+        "infant_height": 0.1,
+        "adult_height": 0.4,
+        "allocation_limit": 10000
+      },
+      "initial": 100,
+      "balances": {
+        "gestation": {
+          "name": "gestation_energy",
+          "supplied": 501.0,
+          "accounted": 501.0,
+          "residual": 0.0,
+          "relative_error": 0.0,
+          "delta_since_previous": null,
+          "max_abs_residual": 0.0,
+          "warning_limit": 1.0501E-06,
+          "stop_limit": 0.00010501,
+          "status": "ok"
+        },
+        "milk": {
+          "name": "milk_energy",
+          "supplied": 1136.1456018526999,
+          "accounted": 1136.1456018527003,
+          "residual": -4.547473508864641E-13,
+          "relative_error": 4.0025446575237587E-16,
+          "delta_since_previous": null,
+          "max_abs_residual": 4.547473508864641E-13,
+          "warning_limit": 1.11361456018527E-06,
+          "stop_limit": 0.00011136145601852701,
+          "status": "ok"
+        }
+      },
+      "initial_young": 5,
+      "conceptions": 31,
+      "births": 22,
+      "litters": 4,
+      "lost_pregnancies": 3,
+      "dependent": 17,
+      "pregnant": 24,
+      "milk_out": 1514.8608024702664,
+      "milk_in": 1136.1456018527003,
+      "milk_loss": 378.7152006175661,
+      "gestation_out": 501.0,
+      "newborn_energy": 124.0,
+      "gestation_retained": 345.0,
+      "gestation_lost": 32.0,
+      "nursing_visits": 65,
+      "nest_return_ticks": 2623
+    },
+    "predator": null,
+    "predation_deaths": 23,
+    "starvation_deaths": 1,
+    "grass_initial": 13905.27868769368,
+    "grass_grown": 48799.56275453367,
+    "grass_remaining": 11866.986689416752,
+    "grass_eaten": 50837.85475426168,
+    "grass_cells": 3790,
+    "states": [
+      "search",
+      "graze",
+      "rest",
+      "sleep",
+      "flee",
+      "alert"
+    ],
+    "state_ticks": [
+      124294,
+      2038771,
+      25676880,
+      13200245,
+      19109,
+      57580
+    ],
+    "human_seen": [],
+    "alert_entries": 32988,
+    "flee_entries": 3140,
+    "final": [
+      {
+        "id": 1,
+        "alive": true,
+        "initial": [
+          -27.0,
+          -3.0
+        ],
+        "position": [
+          -26.112337626898892,
+          -46.08276779759474
+        ],
+        "energy": 85.00582908500276,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 382.7999999999902,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 580.3418096945447,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 478,
+        "flee_entries": 42,
+        "state_ticks": [
+          1287,
+          23270,
+          297430,
+          96092,
+          209,
+          1028
+        ]
+      },
+      {
+        "id": 2,
+        "alive": true,
+        "initial": [
+          17.0,
+          -1.0
+        ],
+        "position": [
+          19.362599713326418,
+          -49.923128917843144
+        ],
+        "energy": 85.04994987839697,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 415.59999999998496,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 792.0543561318092,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 97,
+        "flee_entries": 2,
+        "state_ticks": [
+          2057,
+          31762,
+          288814,
+          96494,
+          7,
+          182
+        ]
+      },
+      {
+        "id": 3,
+        "alive": true,
+        "initial": [
+          -33.0,
+          -15.0
+        ],
+        "position": [
+          -45.98267855385387,
+          -14.227736909073949
+        ],
+        "energy": 84.9911232565126,
+        "gut": 0.025,
+        "state": "graze",
+        "distance": 294.7999999999924,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 730.0766974636184,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 885,
+        "flee_entries": 23,
+        "state_ticks": [
+          1234,
+          29259,
+          290916,
+          96567,
+          80,
+          1260
+        ]
+      },
+      {
+        "id": 4,
+        "alive": true,
+        "initial": [
+          13.0,
+          29.0
+        ],
+        "position": [
+          -2.761504553879613,
+          57.87004175964088
+        ],
+        "energy": 85.00771580953926,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 415.9999999999873,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 639.3886686438627,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 646,
+        "flee_entries": 26,
+        "state_ticks": [
+          1687,
+          25644,
+          294736,
+          96153,
+          131,
+          965
+        ]
+      },
+      {
+        "id": 5,
+        "alive": true,
+        "initial": [
+          -7.0,
+          39.0
+        ],
+        "position": [
+          -47.10515344047166,
+          28.01981918086151
+        ],
+        "energy": 85.01753780561133,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 414.5999999999921,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 637.5390447001574,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 367,
+        "flee_entries": 42,
+        "state_ticks": [
+          909,
+          25544,
+          295458,
+          96420,
+          388,
+          597
+        ]
+      },
+      {
+        "id": 6,
+        "alive": true,
+        "initial": [
+          -5.0,
+          -27.0
+        ],
+        "position": [
+          -41.81341719581389,
+          -3.960263832189958
+        ],
+        "energy": 83.54877410764529,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 453.999999999992,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 588.7357247020842,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 272,
+        "flee_entries": 77,
+        "state_ticks": [
+          812,
+          23599,
+          297231,
+          96426,
+          486,
+          762
+        ]
+      },
+      {
+        "id": 7,
+        "alive": true,
+        "initial": [
+          27.0,
+          7.0
+        ],
+        "position": [
+          54.520193566741,
+          -27.978582734588194
+        ],
+        "energy": 85.04635077508188,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 235.79999999999515,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.2793502579063,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 162,
+        "flee_entries": 1,
+        "state_ticks": [
+          1170,
+          23180,
+          298555,
+          96152,
+          3,
+          256
+        ]
+      },
+      {
+        "id": 8,
+        "alive": true,
+        "initial": [
+          -29.0,
+          7.0
+        ],
+        "position": [
+          -52.477206469015364,
+          8.07544438319173
+        ],
+        "energy": 85.01586760352913,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 940.2000000000719,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 630.1950986657291,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 2038,
+        "flee_entries": 96,
+        "state_ticks": [
+          3237,
+          25301,
+          291306,
+          96020,
+          488,
+          2964
+        ]
+      },
+      {
+        "id": 9,
+        "alive": true,
+        "initial": [
+          15.0,
+          -19.0
+        ],
+        "position": [
+          30.00851869000107,
+          -49.59782718017546
+        ],
+        "energy": 85.0440333017505,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 433.39999999998395,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 580.6179111001278,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 9,
+        "flee_entries": 1,
+        "state_ticks": [
+          2158,
+          23305,
+          297584,
+          96224,
+          3,
+          42
+        ]
+      },
+      {
+        "id": 10,
+        "alive": true,
+        "initial": [
+          -31.0,
+          -7.0
+        ],
+        "position": [
+          5.951161871565206,
+          -56.521431336471935
+        ],
+        "energy": 85.01792482916365,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 322.79999999999814,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.5604082759326,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 614,
+        "flee_entries": 53,
+        "state_ticks": [
+          855,
+          23231,
+          297693,
+          96209,
+          253,
+          1075
+        ]
+      },
+      {
+        "id": 11,
+        "alive": true,
+        "initial": [
+          -17.0,
+          9.0
+        ],
+        "position": [
+          5.901566605369935,
+          -51.39612172582294
+        ],
+        "energy": 85.00840652344054,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 226.39999999999563,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 577.9560021740257,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 98,
+        "flee_entries": 26,
+        "state_ticks": [
+          847,
+          23158,
+          298322,
+          96486,
+          95,
+          408
+        ]
+      },
+      {
+        "id": 12,
+        "alive": true,
+        "initial": [
+          27.0,
+          -7.0
+        ],
+        "position": [
+          59.95662652689318,
+          24.797451835955755
+        ],
+        "energy": 85.02051747736613,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 343.39999999998906,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 583.0700058253311,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1717,
+          23388,
+          298237,
+          95974,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 13,
+        "alive": false,
+        "initial": [
+          -21.0,
+          39.0
+        ],
+        "position": [
+          15.752850994085948,
+          41.01866785016
+        ],
+        "energy": 80.38931096129448,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 193.79999999999902,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 117.50390365373535,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 289,
+        "flee_entries": 11,
+        "state_ticks": [
+          183,
+          4711,
+          57790,
+          18378,
+          262,
+          331
+        ]
+      },
+      {
+        "id": 14,
+        "alive": false,
+        "initial": [
+          3.0,
+          27.0
+        ],
+        "position": [
+          -5.315450418054347,
+          17.816880691211217
+        ],
+        "energy": 83.55890291684973,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 533.5999999999951,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 467.9022009719712,
+        "blocked": 2,
+        "human_seen_ticks": 0,
+        "alert_entries": 216,
+        "flee_entries": 62,
+        "state_ticks": [
+          1536,
+          18778,
+          234914,
+          76339,
+          378,
+          499
+        ]
+      },
+      {
+        "id": 15,
+        "alive": true,
+        "initial": [
+          13.0,
+          -21.0
+        ],
+        "position": [
+          38.02527837329499,
+          -46.35604788452375
+        ],
+        "energy": 85.05191567628857,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 349.7999999999887,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.4812052249742,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 3,
+        "flee_entries": 0,
+        "state_ticks": [
+          1749,
+          23246,
+          297943,
+          96356,
+          0,
+          22
+        ]
+      },
+      {
+        "id": 16,
+        "alive": true,
+        "initial": [
+          27.0,
+          27.0
+        ],
+        "position": [
+          45.64901086403211,
+          54.066223987925135
+        ],
+        "energy": 85.01576187750325,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 271.79999999999313,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.8639539587136,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1359,
+          23219,
+          298764,
+          95974,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 17,
+        "alive": true,
+        "initial": [
+          15.0,
+          -11.0
+        ],
+        "position": [
+          39.95650918129009,
+          -52.28236743116579
+        ],
+        "energy": 85.05679530606757,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 363.99999999998766,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.6665317682334,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 179,
+        "flee_entries": 5,
+        "state_ticks": [
+          1772,
+          23264,
+          297606,
+          96364,
+          16,
+          294
+        ]
+      },
+      {
+        "id": 18,
+        "alive": false,
+        "initial": [
+          5.0,
+          39.0
+        ],
+        "position": [
+          11.894789196562135,
+          3.895560031538162
+        ],
+        "energy": 83.03619592967064,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 345.999999999996,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 515.7020319761821,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 216,
+        "flee_entries": 52,
+        "state_ticks": [
+          947,
+          20680,
+          264748,
+          85392,
+          261,
+          549
+        ]
+      },
+      {
+        "id": 19,
+        "alive": true,
+        "initial": [
+          13.0,
+          -15.0
+        ],
+        "position": [
+          12.522325621017398,
+          -40.04578209663176
+        ],
+        "energy": 85.04742760967824,
+        "gut": 0.005000000000000001,
+        "state": "rest",
+        "distance": 293.1999999999919,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.1398758694382,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 50,
+        "flee_entries": 0,
+        "state_ticks": [
+          1466,
+          23239,
+          298555,
+          95974,
+          0,
+          82
+        ]
+      },
+      {
+        "id": 20,
+        "alive": false,
+        "initial": [
+          -17.0,
+          35.0
+        ],
+        "position": [
+          15.421968301124075,
+          42.30307036020128
+        ],
+        "energy": 84.57188147774588,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 177.39999999999952,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 163.86099382587992,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 64,
+        "flee_entries": 28,
+        "state_ticks": [
+          410,
+          6570,
+          81530,
+          26172,
+          159,
+          193
+        ]
+      },
+      {
+        "id": 21,
+        "alive": true,
+        "initial": [
+          35.0,
+          21.0
+        ],
+        "position": [
+          23.918109601680555,
+          26.41162974614909
+        ],
+        "energy": 85.0280804217031,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 207.79999999999674,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.0893934734473,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 25,
+        "flee_entries": 0,
+        "state_ticks": [
+          1039,
+          23178,
+          299080,
+          95974,
+          0,
+          45
+        ]
+      },
+      {
+        "id": 22,
+        "alive": true,
+        "initial": [
+          29.0,
+          9.0
+        ],
+        "position": [
+          54.103248766583505,
+          49.37595460643525
+        ],
+        "energy": 85.0299367589159,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 245.19999999999462,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.5450455858517,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1226,
+          23201,
+          298915,
+          95974,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 23,
+        "alive": true,
+        "initial": [
+          35.0,
+          -13.0
+        ],
+        "position": [
+          30.195845573077012,
+          23.15653865045937
+        ],
+        "energy": 85.00043499181959,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 233.1999999999953,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.3892116634862,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1166,
+          23195,
+          298981,
+          95974,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 24,
+        "alive": true,
+        "initial": [
+          21.0,
+          -3.0
+        ],
+        "position": [
+          52.00736751142689,
+          46.55230873292297
+        ],
+        "energy": 85.01571036092867,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 296.19999999999175,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 581.6748034531853,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 42,
+        "flee_entries": 0,
+        "state_ticks": [
+          1481,
+          23335,
+          297910,
+          96514,
+          0,
+          76
+        ]
+      },
+      {
+        "id": 25,
+        "alive": true,
+        "initial": [
+          29.0,
+          3.0
+        ],
+        "position": [
+          58.018799497942155,
+          -16.531761255695745
+        ],
+        "energy": 85.04561063681447,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 208.5999999999967,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.1049702118175,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1043,
+          23173,
+          299126,
+          95974,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 26,
+        "alive": false,
+        "initial": [
+          3.0,
+          29.0
+        ],
+        "position": [
+          13.598676450573665,
+          10.869315619496826
+        ],
+        "energy": 84.10501332279875,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 348.19999999999965,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 307.83530444082044,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 205,
+        "flee_entries": 66,
+        "state_ticks": [
+          637,
+          12344,
+          155062,
+          50495,
+          368,
+          621
+        ]
+      },
+      {
+        "id": 27,
+        "alive": true,
+        "initial": [
+          -29.0,
+          1.0
+        ],
+        "position": [
+          -19.07564887860078,
+          63.966714368044165
+        ],
+        "energy": 84.90077433235375,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 641.400000000016,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 583.8524247769927,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 1081,
+        "flee_entries": 93,
+        "state_ticks": [
+          1704,
+          23424,
+          295757,
+          96016,
+          501,
+          1914
+        ]
+      },
+      {
+        "id": 28,
+        "alive": true,
+        "initial": [
+          -17.0,
+          11.0
+        ],
+        "position": [
+          -59.99706559939092,
+          16.812408994848926
+        ],
+        "energy": 85.00021353034657,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 355.5999999999953,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.6311045096596,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 371,
+        "flee_entries": 40,
+        "state_ticks": [
+          1034,
+          23243,
+          297605,
+          96561,
+          248,
+          625
+        ]
+      },
+      {
+        "id": 29,
+        "alive": true,
+        "initial": [
+          23.0,
+          19.0
+        ],
+        "position": [
+          49.43760330569363,
+          50.11067516909842
+        ],
+        "energy": 84.99395408151882,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 244.59999999999465,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 586.1767180267116,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 5,
+        "flee_entries": 2,
+        "state_ticks": [
+          1205,
+          23500,
+          298590,
+          95999,
+          6,
+          16
+        ]
+      },
+      {
+        "id": 30,
+        "alive": true,
+        "initial": [
+          29.0,
+          21.0
+        ],
+        "position": [
+          40.09043048500345,
+          47.77212588878747
+        ],
+        "energy": 84.95314497906787,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 218.19999999999615,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 585.1495483258954,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1091,
+          23457,
+          298748,
+          96020,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 31,
+        "alive": true,
+        "initial": [
+          -13.0,
+          35.0
+        ],
+        "position": [
+          -38.04048383975576,
+          61.59218359487385
+        ],
+        "energy": 85.04476176683688,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 598.2000000000016,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 586.390553921817,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 336,
+        "flee_entries": 55,
+        "state_ticks": [
+          1815,
+          23526,
+          296368,
+          96602,
+          392,
+          613
+        ]
+      },
+      {
+        "id": 32,
+        "alive": true,
+        "initial": [
+          9.0,
+          -29.0
+        ],
+        "position": [
+          13.44531113132388,
+          -19.85271408874627
+        ],
+        "energy": 85.05774682788027,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 278.99999999999244,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.5814822755056,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 136,
+        "flee_entries": 8,
+        "state_ticks": [
+          1311,
+          23208,
+          297979,
+          96436,
+          28,
+          354
+        ]
+      },
+      {
+        "id": 33,
+        "alive": false,
+        "initial": [
+          11.0,
+          3.0
+        ],
+        "position": [
+          15.513478914861986,
+          40.21498300593435
+        ],
+        "energy": 81.45412417566821,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 408.7999999999937,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 255.82167472517676,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 1479,
+        "flee_entries": 23,
+        "state_ticks": [
+          715,
+          10263,
+          126716,
+          41015,
+          443,
+          1768
+        ]
+      },
+      {
+        "id": 34,
+        "alive": true,
+        "initial": [
+          13.0,
+          -11.0
+        ],
+        "position": [
+          52.03730795464656,
+          -52.81293312388713
+        ],
+        "energy": 84.76583809281496,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 246.39999999999455,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.3537126971504,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 73,
+        "flee_entries": 0,
+        "state_ticks": [
+          1232,
+          23199,
+          298687,
+          96105,
+          0,
+          93
+        ]
+      },
+      {
+        "id": 35,
+        "alive": true,
+        "initial": [
+          -31.0,
+          21.0
+        ],
+        "position": [
+          -39.699540880150266,
+          54.093519588481016
+        ],
+        "energy": 85.05104020248274,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 433.5999999999946,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 580.7078134003707,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 423,
+        "flee_entries": 55,
+        "state_ticks": [
+          833,
+          23274,
+          297375,
+          96686,
+          445,
+          703
+        ]
+      },
+      {
+        "id": 36,
+        "alive": true,
+        "initial": [
+          -7.0,
+          33.0
+        ],
+        "position": [
+          -12.637439039914174,
+          64.03333281228929
+        ],
+        "energy": 84.70564083894546,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 369.1999999999898,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.8944136125265,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 79,
+        "flee_entries": 19,
+        "state_ticks": [
+          1567,
+          23262,
+          297987,
+          96148,
+          93,
+          259
+        ]
+      },
+      {
+        "id": 37,
+        "alive": false,
+        "initial": [
+          -21.0,
+          33.0
+        ],
+        "position": [
+          -63.64402712794839,
+          9.68162044601559
+        ],
+        "energy": 85.01649217116919,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 84.59999999999984,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 29.9944640570482,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 24,
+        "flee_entries": 14,
+        "state_ticks": [
+          123,
+          1205,
+          12324,
+          3316,
+          100,
+          58
+        ]
+      },
+      {
+        "id": 38,
+        "alive": true,
+        "initial": [
+          -27.0,
+          17.0
+        ],
+        "position": [
+          -38.020920969165154,
+          60.83682474921683
+        ],
+        "energy": 85.03305418784802,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 453.9999999999942,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 581.0130513954927,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 576,
+        "flee_entries": 59,
+        "state_ticks": [
+          1247,
+          23303,
+          296899,
+          96485,
+          341,
+          1041
+        ]
+      },
+      {
+        "id": 39,
+        "alive": true,
+        "initial": [
+          31.0,
+          17.0
+        ],
+        "position": [
+          54.103861539922676,
+          21.45619050963829
+        ],
+        "energy": 84.55992668585195,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 238.399999999995,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 584.0914422281579,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1192,
+          23424,
+          298488,
+          96212,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 40,
+        "alive": true,
+        "initial": [
+          -1.0,
+          23.0
+        ],
+        "position": [
+          -22.146585156230575,
+          56.688861449967135
+        ],
+        "energy": 83.36294766092966,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 447.99999999999005,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 583.8026158865172,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 1051,
+        "flee_entries": 52,
+        "state_ticks": [
+          1424,
+          23415,
+          296024,
+          96673,
+          272,
+          1508
+        ]
+      },
+      {
+        "id": 41,
+        "alive": true,
+        "initial": [
+          25.0,
+          -7.0
+        ],
+        "position": [
+          62.42707216055769,
+          -55.92484113525528
+        ],
+        "energy": 84.50966199289168,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 212.99999999999645,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.3945206638429,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1065,
+          23192,
+          298805,
+          96254,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 42,
+        "alive": true,
+        "initial": [
+          29.0,
+          1.0
+        ],
+        "position": [
+          13.444263549525667,
+          -19.847250351204753
+        ],
+        "energy": 85.05965813094507,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 349.7999999999887,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 582.1567527098574,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 245,
+        "flee_entries": 0,
+        "state_ticks": [
+          1749,
+          23370,
+          297389,
+          96349,
+          0,
+          459
+        ]
+      },
+      {
+        "id": 43,
+        "alive": true,
+        "initial": [
+          -33.0,
+          15.0
+        ],
+        "position": [
+          -61.975138701657734,
+          48.47460265185514
+        ],
+        "energy": 85.02307173682622,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 690.2000000000083,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 584.4079905784822,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 330,
+        "flee_entries": 93,
+        "state_ticks": [
+          1042,
+          23424,
+          296908,
+          96484,
+          803,
+          655
+        ]
+      },
+      {
+        "id": 44,
+        "alive": true,
+        "initial": [
+          1.0,
+          29.0
+        ],
+        "position": [
+          -22.638936682337036,
+          56.119661695143726
+        ],
+        "energy": 85.05364298891138,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 487.5999999999957,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 588.4731476625061,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 509,
+        "flee_entries": 71,
+        "state_ticks": [
+          1415,
+          23609,
+          296201,
+          96806,
+          341,
+          944
+        ]
+      },
+      {
+        "id": 45,
+        "alive": true,
+        "initial": [
+          -13.0,
+          41.0
+        ],
+        "position": [
+          -51.87722010654564,
+          47.121232743255774
+        ],
+        "energy": 83.21437895990947,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 359.19999999999436,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 580.6058596528459,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 182,
+        "flee_entries": 43,
+        "state_ticks": [
+          983,
+          23280,
+          297579,
+          96746,
+          271,
+          457
+        ]
+      },
+      {
+        "id": 46,
+        "alive": true,
+        "initial": [
+          3.0,
+          -11.0
+        ],
+        "position": [
+          -56.80131002612579,
+          -44.16359044267108
+        ],
+        "energy": 84.99661420369146,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 576.8000000000144,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 586.2594047341025,
+        "blocked": 1332,
+        "human_seen_ticks": 0,
+        "alert_entries": 1216,
+        "flee_entries": 105,
+        "state_ticks": [
+          2182,
+          23495,
+          294630,
+          96328,
+          678,
+          2003
+        ]
+      },
+      {
+        "id": 47,
+        "alive": true,
+        "initial": [
+          -27.0,
+          -7.0
+        ],
+        "position": [
+          -26.044940006625925,
+          -46.177723893655795
+        ],
+        "energy": 85.02553101588478,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 410.39999999998895,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 580.4677770048388,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 424,
+        "flee_entries": 58,
+        "state_ticks": [
+          1326,
+          23273,
+          297057,
+          96374,
+          242,
+          1044
+        ]
+      },
+      {
+        "id": 48,
+        "alive": true,
+        "initial": [
+          -33.0,
+          3.0
+        ],
+        "position": [
+          -62.02485975481541,
+          -55.65370831815872
+        ],
+        "energy": 84.0617372536725,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 272.39999999999526,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 586.0419124174286,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 76,
+        "flee_entries": 30,
+        "state_ticks": [
+          723,
+          23489,
+          298186,
+          96440,
+          213,
+          265
+        ]
+      },
+      {
+        "id": 49,
+        "alive": true,
+        "initial": [
+          11.0,
+          -19.0
+        ],
+        "position": [
+          20.954905469237175,
+          16.05040169844105
+        ],
+        "energy": 85.04427987320749,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 277.1999999999928,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.6988599572817,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 278,
+        "flee_entries": 0,
+        "state_ticks": [
+          1386,
+          23214,
+          298091,
+          96241,
+          0,
+          384
+        ]
+      },
+      {
+        "id": 50,
+        "alive": true,
+        "initial": [
+          1.0,
+          41.0
+        ],
+        "position": [
+          -10.878383545006695,
+          45.92923979467516
+        ],
+        "energy": 84.93816752402235,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 402.5999999999911,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 582.1663225075499,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 586,
+        "flee_entries": 43,
+        "state_ticks": [
+          1458,
+          23352,
+          297080,
+          96129,
+          185,
+          1112
+        ]
+      },
+      {
+        "id": 51,
+        "alive": true,
+        "initial": [
+          33.0,
+          3.0
+        ],
+        "position": [
+          53.85835520161461,
+          7.909852483515647
+        ],
+        "energy": 84.03833409588178,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 283.99999999999244,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.2428780315063,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1420,
+          23192,
+          298237,
+          96467,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 52,
+        "alive": true,
+        "initial": [
+          15.0,
+          43.0
+        ],
+        "position": [
+          -19.0756368063377,
+          63.96671110229037
+        ],
+        "energy": 84.89735478760797,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 536.9999999999974,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 588.7000849287385,
+        "blocked": 4,
+        "human_seen_ticks": 0,
+        "alert_entries": 649,
+        "flee_entries": 38,
+        "state_ticks": [
+          1548,
+          23610,
+          296630,
+          96138,
+          383,
+          1007
+        ]
+      },
+      {
+        "id": 53,
+        "alive": false,
+        "initial": [
+          -19.0,
+          -9.0
+        ],
+        "position": [
+          8.142015220180976,
+          -57.61102473265724
+        ],
+        "energy": 83.84602963608042,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 103.7999999999999,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 14.554209878691074,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 66,
+        "flee_entries": 21,
+        "state_ticks": [
+          111,
+          583,
+          4076,
+          1021,
+          136,
+          99
+        ]
+      },
+      {
+        "id": 54,
+        "alive": true,
+        "initial": [
+          33.0,
+          27.0
+        ],
+        "position": [
+          54.12746237967866,
+          49.35982259959555
+        ],
+        "energy": 83.88583677921446,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 297.59999999999167,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.2999122592839,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1488,
+          23192,
+          298105,
+          96531,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 55,
+        "alive": true,
+        "initial": [
+          1.0,
+          19.0
+        ],
+        "position": [
+          -55.90441623414704,
+          64.78182285043668
+        ],
+        "energy": 84.99072989251306,
+        "gut": 0.025,
+        "state": "graze",
+        "distance": 476.3999999999905,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 581.2709432970473,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 313,
+        "flee_entries": 53,
+        "state_ticks": [
+          1398,
+          23319,
+          297160,
+          96497,
+          328,
+          614
+        ]
+      },
+      {
+        "id": 56,
+        "alive": true,
+        "initial": [
+          -9.0,
+          -1.0
+        ],
+        "position": [
+          -8.70160403557956,
+          -46.09060633750328
+        ],
+        "energy": 84.99301019476766,
+        "gut": 0.025,
+        "state": "graze",
+        "distance": 724.6000000000463,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 584.7911033977953,
+        "blocked": 2,
+        "human_seen_ticks": 0,
+        "alert_entries": 346,
+        "flee_entries": 145,
+        "state_ticks": [
+          1024,
+          23444,
+          296601,
+          96626,
+          867,
+          754
+        ]
+      },
+      {
+        "id": 57,
+        "alive": true,
+        "initial": [
+          -27.0,
+          -9.0
+        ],
+        "position": [
+          -61.97905745834495,
+          48.488065202685846
+        ],
+        "energy": 84.99193932856957,
+        "gut": 0.025,
+        "state": "graze",
+        "distance": 579.3999999999996,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 582.3488131090652,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 257,
+        "flee_entries": 56,
+        "state_ticks": [
+          2147,
+          23369,
+          296036,
+          96594,
+          250,
+          920
+        ]
+      },
+      {
+        "id": 58,
+        "alive": true,
+        "initial": [
+          13.0,
+          -23.0
+        ],
+        "position": [
+          17.965176440734357,
+          -35.050848436182676
+        ],
+        "energy": 85.05672326650479,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 305.3999999999911,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.8796744217135,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 18,
+        "flee_entries": 1,
+        "state_ticks": [
+          1503,
+          23225,
+          298043,
+          96436,
+          8,
+          101
+        ]
+      },
+      {
+        "id": 59,
+        "alive": true,
+        "initial": [
+          27.0,
+          -3.0
+        ],
+        "position": [
+          46.03890964213345,
+          9.163619723597787
+        ],
+        "energy": 83.71631659600777,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 303.19999999999135,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 585.8828055315412,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1516,
+          23502,
+          297661,
+          96637,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 60,
+        "alive": true,
+        "initial": [
+          -21.0,
+          11.0
+        ],
+        "position": [
+          -53.11393585519881,
+          25.986026035236925
+        ],
+        "energy": 85.04151117318538,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 483.399999999997,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 581.5539037239374,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 366,
+        "flee_entries": 79,
+        "state_ticks": [
+          950,
+          23307,
+          297290,
+          96471,
+          489,
+          809
+        ]
+      },
+      {
+        "id": 61,
+        "alive": true,
+        "initial": [
+          -17.0,
+          21.0
+        ],
+        "position": [
+          -42.05591154036592,
+          45.50947829866651
+        ],
+        "energy": 85.00363858775275,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 538.1999999999964,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 581.8778461954595,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 392,
+        "flee_entries": 65,
+        "state_ticks": [
+          1500,
+          23346,
+          296434,
+          96722,
+          397,
+          917
+        ]
+      },
+      {
+        "id": 62,
+        "alive": true,
+        "initial": [
+          19.0,
+          1.0
+        ],
+        "position": [
+          62.98950970575055,
+          -7.9271789406173125
+        ],
+        "energy": 83.59722054766428,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 304.59999999999127,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.1392735154333,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 120,
+        "flee_entries": 1,
+        "state_ticks": [
+          1514,
+          23198,
+          297702,
+          96701,
+          3,
+          198
+        ]
+      },
+      {
+        "id": 63,
+        "alive": true,
+        "initial": [
+          25.0,
+          31.0
+        ],
+        "position": [
+          62.181930497937685,
+          52.69796958270542
+        ],
+        "energy": 83.51179293710346,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 221.39999999999597,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 577.0762309785807,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1107,
+          23139,
+          298348,
+          96722,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 64,
+        "alive": true,
+        "initial": [
+          1.0,
+          -5.0
+        ],
+        "position": [
+          -54.112298325000346,
+          -3.1248129458441833
+        ],
+        "energy": 85.03471069287389,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 556.6000000000065,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 582.4780702304992,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 923,
+        "flee_entries": 72,
+        "state_ticks": [
+          971,
+          23343,
+          296458,
+          96576,
+          604,
+          1364
+        ]
+      },
+      {
+        "id": 65,
+        "alive": false,
+        "initial": [
+          -11.0,
+          43.0
+        ],
+        "position": [
+          13.486335380381849,
+          10.621794376188916
+        ],
+        "energy": 84.69192393669117,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 348.19999999999374,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 405.7753746453296,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 162,
+        "flee_entries": 40,
+        "state_ticks": [
+          913,
+          16274,
+          204055,
+          65805,
+          276,
+          477
+        ]
+      },
+      {
+        "id": 66,
+        "alive": true,
+        "initial": [
+          5.0,
+          43.0
+        ],
+        "position": [
+          -10.878340384304266,
+          45.929352572197
+        ],
+        "energy": 85.04487475472578,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 330.9999999999928,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.5385915844533,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 178,
+        "flee_entries": 30,
+        "state_ticks": [
+          1244,
+          23242,
+          298027,
+          96208,
+          137,
+          458
+        ]
+      },
+      {
+        "id": 67,
+        "alive": true,
+        "initial": [
+          21.0,
+          3.0
+        ],
+        "position": [
+          36.085988517410065,
+          57.7994634331336
+        ],
+        "energy": 83.3923033616986,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 295.3999999999918,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 577.863634453445,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 162,
+        "flee_entries": 1,
+        "state_ticks": [
+          1468,
+          23185,
+          297599,
+          96807,
+          3,
+          254
+        ]
+      },
+      {
+        "id": 68,
+        "alive": true,
+        "initial": [
+          -21.0,
+          37.0
+        ],
+        "position": [
+          -42.93585775800397,
+          5.92768954922107
+        ],
+        "energy": 84.66725617461105,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 491.9999999999932,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 581.6719187244132,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 599,
+        "flee_entries": 67,
+        "state_ticks": [
+          999,
+          23323,
+          297155,
+          96315,
+          487,
+          1037
+        ]
+      },
+      {
+        "id": 69,
+        "alive": true,
+        "initial": [
+          23.0,
+          -7.0
+        ],
+        "position": [
+          46.06534837090913,
+          8.2272022437301
+        ],
+        "energy": 83.24438688986633,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 288.99999999999216,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 577.6943622961675,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 119,
+        "flee_entries": 0,
+        "state_ticks": [
+          1445,
+          23169,
+          297641,
+          96850,
+          0,
+          211
+        ]
+      },
+      {
+        "id": 70,
+        "alive": false,
+        "initial": [
+          -19.0,
+          -5.0
+        ],
+        "position": [
+          -34.16787959062234,
+          -51.51226286582867
+        ],
+        "energy": 85.05355481024098,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 213.99999999999798,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 204.36388493670668,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 845,
+        "flee_entries": 54,
+        "state_ticks": [
+          368,
+          8191,
+          101098,
+          32914,
+          234,
+          1514
+        ]
+      },
+      {
+        "id": 71,
+        "alive": true,
+        "initial": [
+          29.0,
+          -3.0
+        ],
+        "position": [
+          21.93317831227213,
+          20.14820248968529
+        ],
+        "energy": 83.18841985313061,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 357.39999999998855,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.483939950588,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 203,
+        "flee_entries": 4,
+        "state_ticks": [
+          1748,
+          23215,
+          297104,
+          96893,
+          13,
+          343
+        ]
+      },
+      {
+        "id": 72,
+        "alive": false,
+        "initial": [
+          -33.0,
+          17.0
+        ],
+        "position": [
+          16.038883301215137,
+          34.09534634280281
+        ],
+        "energy": 84.43092080057568,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 542.5999999999925,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 357.6697069333512,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 269,
+        "flee_entries": 67,
+        "state_ticks": [
+          1096,
+          14346,
+          179338,
+          58197,
+          539,
+          542
+        ]
+      },
+      {
+        "id": 73,
+        "alive": true,
+        "initial": [
+          -5.0,
+          23.0
+        ],
+        "position": [
+          -47.16409150008575,
+          0.06552402538516688
+        ],
+        "energy": 84.99439842772843,
+        "gut": 0.025,
+        "state": "graze",
+        "distance": 218.9999999999963,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 577.921666142122,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 105,
+        "flee_entries": 18,
+        "state_ticks": [
+          876,
+          23159,
+          298393,
+          96419,
+          73,
+          396
+        ]
+      },
+      {
+        "id": 74,
+        "alive": true,
+        "initial": [
+          1.0,
+          -3.0
+        ],
+        "position": [
+          -53.94455721130685,
+          -36.007196558487735
+        ],
+        "energy": 84.0674649730929,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 379.7999999999923,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.7153216572414,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 938,
+        "flee_entries": 81,
+        "state_ticks": [
+          867,
+          23231,
+          296854,
+          96570,
+          344,
+          1450
+        ]
+      },
+      {
+        "id": 75,
+        "alive": true,
+        "initial": [
+          -27.0,
+          33.0
+        ],
+        "position": [
+          -56.44226209167202,
+          -39.943815687112455
+        ],
+        "energy": 85.02287936845997,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 423.5999999999949,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 580.4952264556966,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 361,
+        "flee_entries": 42,
+        "state_ticks": [
+          1218,
+          23280,
+          297230,
+          96594,
+          300,
+          694
+        ]
+      },
+      {
+        "id": 76,
+        "alive": false,
+        "initial": [
+          -9.0,
+          11.0
+        ],
+        "position": [
+          15.831982813588949,
+          31.2351994718089
+        ],
+        "energy": 0.0,
+        "gut": 0.0,
+        "state": "search",
+        "distance": 1314.0000000001633,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 255.08837240607295,
+        "blocked": 1513,
+        "human_seen_ticks": 0,
+        "alert_entries": 110,
+        "flee_entries": 21,
+        "state_ticks": [
+          7639,
+          10231,
+          127274,
+          42926,
+          148,
+          434
+        ]
+      },
+      {
+        "id": 77,
+        "alive": true,
+        "initial": [
+          -33.0,
+          -13.0
+        ],
+        "position": [
+          5.870798165131415,
+          -57.11242046680683
+        ],
+        "energy": 83.7767463460915,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 411.9999999999949,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.9196821149076,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 1708,
+        "flee_entries": 70,
+        "state_ticks": [
+          965,
+          23243,
+          295623,
+          96697,
+          365,
+          2423
+        ]
+      },
+      {
+        "id": 78,
+        "alive": true,
+        "initial": [
+          -1.0,
+          -19.0
+        ],
+        "position": [
+          -61.95811920868657,
+          -7.6630266588429805
+        ],
+        "energy": 85.02107254805547,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 878.2000000000485,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 593.3555575155497,
+        "blocked": 3,
+        "human_seen_ticks": 0,
+        "alert_entries": 1971,
+        "flee_entries": 180,
+        "state_ticks": [
+          938,
+          23782,
+          293558,
+          96938,
+          1152,
+          2948
+        ]
+      },
+      {
+        "id": 79,
+        "alive": true,
+        "initial": [
+          21.0,
+          -23.0
+        ],
+        "position": [
+          52.47110255303408,
+          -38.0105605121176
+        ],
+        "energy": 85.40275580417408,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 251.79999999999424,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 582.1640519342657,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1259,
+          23346,
+          297716,
+          96995,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 80,
+        "alive": true,
+        "initial": [
+          -29.0,
+          15.0
+        ],
+        "position": [
+          -56.10802940211363,
+          -25.769670838132566
+        ],
+        "energy": 85.04672711650609,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 352.99999999999534,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 587.5051757050386,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 1349,
+        "flee_entries": 64,
+        "state_ticks": [
+          982,
+          23557,
+          296421,
+          96329,
+          261,
+          1766
+        ]
+      },
+      {
+        "id": 81,
+        "alive": true,
+        "initial": [
+          -7.0,
+          45.0
+        ],
+        "position": [
+          -60.02871716882184,
+          5.132687135411259
+        ],
+        "energy": 85.05405869700604,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 381.1999999999956,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 586.2314862318735,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 531,
+        "flee_entries": 41,
+        "state_ticks": [
+          1177,
+          23500,
+          297028,
+          96624,
+          243,
+          744
+        ]
+      },
+      {
+        "id": 82,
+        "alive": true,
+        "initial": [
+          -15.0,
+          31.0
+        ],
+        "position": [
+          -55.92501921649652,
+          64.77187237091833
+        ],
+        "energy": 84.99289741927868,
+        "gut": 0.025,
+        "state": "graze",
+        "distance": 547.2000000000045,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 582.081532472635,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 1112,
+        "flee_entries": 68,
+        "state_ticks": [
+          1431,
+          23350,
+          295810,
+          96689,
+          435,
+          1601
+        ]
+      },
+      {
+        "id": 83,
+        "alive": true,
+        "initial": [
+          29.0,
+          -9.0
+        ],
+        "position": [
+          56.20210446403306,
+          -2.018926562708081
+        ],
+        "energy": 85.06155562285024,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 323.99999999999017,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 581.2620852071587,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 45,
+        "flee_entries": 0,
+        "state_ticks": [
+          1620,
+          23313,
+          297291,
+          96995,
+          0,
+          97
+        ]
+      },
+      {
+        "id": 84,
+        "alive": true,
+        "initial": [
+          -13.0,
+          -5.0
+        ],
+        "position": [
+          -46.8244454104586,
+          0.04730854130736392
+        ],
+        "energy": 84.91054040384088,
+        "gut": 0.19000000000000014,
+        "state": "graze",
+        "distance": 345.99999999999494,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 579.2769801341572,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 431,
+        "flee_entries": 55,
+        "state_ticks": [
+          935,
+          23225,
+          296936,
+          97024,
+          265,
+          931
+        ]
+      },
+      {
+        "id": 85,
+        "alive": true,
+        "initial": [
+          13.0,
+          -9.0
+        ],
+        "position": [
+          45.05319817087334,
+          15.814569375251091
+        ],
+        "energy": 85.03836869173158,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 365.5999999999878,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 582.4271562301182,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 76,
+        "flee_entries": 0,
+        "state_ticks": [
+          1828,
+          23377,
+          297004,
+          96995,
+          0,
+          112
+        ]
+      },
+      {
+        "id": 86,
+        "alive": true,
+        "initial": [
+          15.0,
+          5.0
+        ],
+        "position": [
+          46.006411509456036,
+          25.3735032743459
+        ],
+        "energy": 85.05020282501704,
+        "gut": 0.005000000000000001,
+        "state": "rest",
+        "distance": 280.9999999999926,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 581.4170009412143,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 8,
+        "flee_entries": 3,
+        "state_ticks": [
+          1378,
+          23319,
+          297584,
+          96995,
+          9,
+          31
+        ]
+      },
+      {
+        "id": 87,
+        "alive": true,
+        "initial": [
+          31.0,
+          -13.0
+        ],
+        "position": [
+          56.16663024529994,
+          -2.057672125655642
+        ],
+        "energy": 85.04975016822101,
+        "gut": 0.005000000000000001,
+        "state": "rest",
+        "distance": 260.3999999999938,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 578.4893500556184,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1302,
+          23193,
+          297826,
+          96995,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 88,
+        "alive": true,
+        "initial": [
+          25.0,
+          -17.0
+        ],
+        "position": [
+          15.791617248355099,
+          -53.8918535459496
+        ],
+        "energy": 85.01340988737081,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 329.39999999999003,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 578.6518699620016,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 35,
+        "flee_entries": 2,
+        "state_ticks": [
+          1629,
+          23217,
+          297393,
+          96995,
+          6,
+          76
+        ]
+      },
+      {
+        "id": 89,
+        "alive": true,
+        "initial": [
+          29.0,
+          11.0
+        ],
+        "position": [
+          51.98272760029579,
+          8.199694876059157
+        ],
+        "energy": 84.99287563135313,
+        "gut": 0.025,
+        "state": "graze",
+        "distance": 252.5999999999942,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 577.7288252099962,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1263,
+          23167,
+          297891,
+          96995,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 90,
+        "alive": false,
+        "initial": [
+          -7.0,
+          -7.0
+        ],
+        "position": [
+          -60.63346255768023,
+          -35.29830091031998
+        ],
+        "energy": 85.0337893346785,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 196.7999999999992,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 68.8702297782029,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 84,
+        "flee_entries": 38,
+        "state_ticks": [
+          159,
+          2758,
+          31178,
+          10276,
+          275,
+          291
+        ]
+      },
+      {
+        "id": 91,
+        "alive": false,
+        "initial": [
+          -11.0,
+          1.0
+        ],
+        "position": [
+          -62.84150446258414,
+          69.69607889307315
+        ],
+        "energy": 85.24021309645275,
+        "gut": 0.0,
+        "state": "flee",
+        "distance": 255.7999999999978,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 68.77720436546078,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 735,
+        "flee_entries": 69,
+        "state_ticks": [
+          214,
+          2757,
+          29331,
+          10489,
+          355,
+          1294
+        ]
+      },
+      {
+        "id": 92,
+        "alive": true,
+        "initial": [
+          29.0,
+          -15.0
+        ],
+        "position": [
+          52.47119506943762,
+          -38.010518716774016
+        ],
+        "energy": 85.03025465545578,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 213.7999999999964,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 577.244218218031,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          1069,
+          23144,
+          298108,
+          96995,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 93,
+        "alive": true,
+        "initial": [
+          19.0,
+          19.0
+        ],
+        "position": [
+          41.86893826964892,
+          49.313787547628095
+        ],
+        "energy": 85.01070953656132,
+        "gut": 0.0,
+        "state": "rest",
+        "distance": 205.1999999999969,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 577.5799698450664,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 5,
+        "flee_entries": 2,
+        "state_ticks": [
+          1008,
+          23156,
+          298624,
+          96506,
+          6,
+          16
+        ]
+      },
+      {
+        "id": 94,
+        "alive": true,
+        "initial": [
+          -19.0,
+          15.0
+        ],
+        "position": [
+          -20.120180606054618,
+          68.91450007916406
+        ],
+        "energy": 83.50148913121062,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 509.39999999999065,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 2,
+        "height": 0.4,
+        "eaten": 580.7540963766129,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 410,
+        "flee_entries": 70,
+        "state_ticks": [
+          1656,
+          23294,
+          296148,
+          96899,
+          297,
+          1022
+        ]
+      },
+      {
+        "id": 95,
+        "alive": true,
+        "initial": [
+          -25.0,
+          21.0
+        ],
+        "position": [
+          -20.092308920737743,
+          58.863296528580875
+        ],
+        "energy": 83.44957702950417,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 458.5999999999902,
+        "born_tick": -3110400,
+        "mother": 0,
+        "sex": 1,
+        "height": 0.4,
+        "eaten": 580.0324590093784,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 552,
+        "flee_entries": 46,
+        "state_ticks": [
+          1597,
+          23283,
+          296182,
+          96913,
+          232,
+          1109
+        ]
+      },
+      {
+        "id": 96,
+        "alive": false,
+        "initial": [
+          -29.0,
+          7.0
+        ],
+        "position": [
+          -29.0,
+          7.0
+        ],
+        "energy": 4.666898148145496,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": -120960,
+        "mother": 8,
+        "sex": 2,
+        "height": 0.16253194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          14400,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 97,
+        "alive": false,
+        "initial": [
+          -29.0,
+          7.0
+        ],
+        "position": [
+          -29.0,
+          7.0
+        ],
+        "energy": 4.42291666666382,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": -120960,
+        "mother": 8,
+        "sex": 1,
+        "height": 0.16253194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          15454,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 98,
+        "alive": false,
+        "initial": [
+          -29.0,
+          7.0
+        ],
+        "position": [
+          -29.0,
+          7.0
+        ],
+        "energy": 6.1439814814800044,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": -120960,
+        "mother": 8,
+        "sex": 2,
+        "height": 0.16253194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          42656,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 99,
+        "alive": false,
+        "initial": [
+          -29.0,
+          7.0
+        ],
+        "position": [
+          -29.0,
+          7.0
+        ],
+        "energy": 6.601157407406294,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": -120960,
+        "mother": 8,
+        "sex": 2,
+        "height": 0.16253194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          75256,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 100,
+        "alive": false,
+        "initial": [
+          -29.0,
+          7.0
+        ],
+        "position": [
+          -29.0,
+          7.0
+        ],
+        "energy": 4.087268518515405,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": -120960,
+        "mother": 8,
+        "sex": 2,
+        "height": 0.16253194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          327970,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 101,
+        "alive": true,
+        "initial": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "position": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "energy": 6.936342592591746,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 86400,
+        "mother": 2,
+        "sex": 1,
+        "height": 0.13853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          332916,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 102,
+        "alive": true,
+        "initial": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "position": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "energy": 6.936342592591746,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 86400,
+        "mother": 2,
+        "sex": 2,
+        "height": 0.13853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          332916,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 103,
+        "alive": true,
+        "initial": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "position": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "energy": 6.936342592591746,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 86400,
+        "mother": 2,
+        "sex": 2,
+        "height": 0.13853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          332916,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 104,
+        "alive": true,
+        "initial": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "position": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "energy": 6.936342592591746,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 86400,
+        "mother": 2,
+        "sex": 2,
+        "height": 0.13853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          332916,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 105,
+        "alive": true,
+        "initial": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "position": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "energy": 6.936342592591746,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 86400,
+        "mother": 2,
+        "sex": 2,
+        "height": 0.13853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          332916,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 106,
+        "alive": true,
+        "initial": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "position": [
+          22.043164622479967,
+          -53.58980359800572
+        ],
+        "energy": 6.936342592591746,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 86400,
+        "mother": 2,
+        "sex": 1,
+        "height": 0.13853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          332916,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 107,
+        "alive": false,
+        "initial": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "position": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "energy": 6.572916666665531,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 172800,
+        "mother": 3,
+        "sex": 2,
+        "height": 0.12853194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          196279,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 108,
+        "alive": false,
+        "initial": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "position": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "energy": 4.836111111108593,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 172800,
+        "mother": 3,
+        "sex": 2,
+        "height": 0.12853194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          238322,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 109,
+        "alive": false,
+        "initial": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "position": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "energy": 4.696990740738112,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 172800,
+        "mother": 3,
+        "sex": 1,
+        "height": 0.12853194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          238923,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 110,
+        "alive": true,
+        "initial": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "position": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "energy": 6.950694444443609,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 172800,
+        "mother": 3,
+        "sex": 2,
+        "height": 0.12853194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          246516,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 111,
+        "alive": true,
+        "initial": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "position": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "energy": 6.950694444443609,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 172800,
+        "mother": 3,
+        "sex": 2,
+        "height": 0.12853194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          246516,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 112,
+        "alive": true,
+        "initial": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "position": [
+          -44.530304871492305,
+          -14.033463452345883
+        ],
+        "energy": 6.950694444443609,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 172800,
+        "mother": 3,
+        "sex": 2,
+        "height": 0.12853194444444446,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          246516,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 113,
+        "alive": false,
+        "initial": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "position": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "energy": 7.537962962962595,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 259200,
+        "mother": 4,
+        "sex": 2,
+        "height": 0.11853194444444445,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          105709,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 114,
+        "alive": false,
+        "initial": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "position": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "energy": 6.955092592591761,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 259200,
+        "mother": 4,
+        "sex": 2,
+        "height": 0.11853194444444445,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          108227,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 115,
+        "alive": true,
+        "initial": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "position": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "energy": 6.937268518517673,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 259200,
+        "mother": 4,
+        "sex": 1,
+        "height": 0.11853194444444445,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          160116,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 116,
+        "alive": true,
+        "initial": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "position": [
+          -3.613858071705198,
+          59.9519082601467
+        ],
+        "energy": 6.937268518517673,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 259200,
+        "mother": 4,
+        "sex": 1,
+        "height": 0.11853194444444445,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          160116,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 117,
+        "alive": true,
+        "initial": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "position": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "energy": 6.939814814813971,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 345600,
+        "mother": 5,
+        "sex": 2,
+        "height": 0.10853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          73716,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 118,
+        "alive": true,
+        "initial": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "position": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "energy": 6.939814814813971,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 345600,
+        "mother": 5,
+        "sex": 2,
+        "height": 0.10853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          73716,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 119,
+        "alive": true,
+        "initial": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "position": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "energy": 6.939814814813971,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 345600,
+        "mother": 5,
+        "sex": 1,
+        "height": 0.10853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          73716,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 120,
+        "alive": true,
+        "initial": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "position": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "energy": 6.939814814813971,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 345600,
+        "mother": 5,
+        "sex": 2,
+        "height": 0.10853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          73716,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 121,
+        "alive": true,
+        "initial": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "position": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "energy": 6.939814814813971,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 345600,
+        "mother": 5,
+        "sex": 2,
+        "height": 0.10853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          73716,
+          0,
+          0
+        ]
+      },
+      {
+        "id": 122,
+        "alive": true,
+        "initial": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "position": [
+          -48.41886695563726,
+          23.959323010297783
+        ],
+        "energy": 6.939814814813971,
+        "gut": 0.0,
+        "state": "sleep",
+        "distance": 0.0,
+        "born_tick": 345600,
+        "mother": 5,
+        "sex": 2,
+        "height": 0.10853194444444444,
+        "eaten": 0.0,
+        "blocked": 0,
+        "human_seen_ticks": 0,
+        "alert_entries": 0,
+        "flee_entries": 0,
+        "state_ticks": [
+          0,
+          0,
+          0,
+          73716,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "predators": [
+    {
+      "death_elapsed_days": 4.850462962962963,
+      "captures": 2,
+      "attacks": 12,
+      "eaten": 2492.309388888635,
+      "spent": 3392.3093888881544,
+      "discarded": 207.6906111113649,
+      "balance_residual": 4.806679498869926E-10,
+      "ticks": {
+        "dead": 335500,
+        "hunt": 14424,
+        "visit_food": 1237,
+        "visit_rest": 9355,
+        "rest": 58800
+      }
+    },
+    {
+      "death_elapsed_days": 24.26597222222222,
+      "captures": 21,
+      "attacks": 49,
+      "eaten": 14773.388822541796,
+      "spent": 15673.388822664709,
+      "discarded": 758.1291666786708,
+      "balance_residual": -1.2291275197640061E-07,
+      "ticks": {
+        "hunt": 29821,
+        "warn": 60,
+        "visit_food": 4264,
+        "visit_rest": 21370,
+        "rest": 363801
+      }
+    }
+  ],
+  "daily": [
+    {
+      "day": 1,
+      "rabbits": 96,
+      "predators_alive": [
+        true,
+        true
+      ],
+      "captures": [
+        1,
+        3
+      ]
+    },
+    {
+      "day": 2,
+      "rabbits": 96,
+      "predators_alive": [
+        true,
+        true
+      ],
+      "captures": [
+        1,
+        3
+      ]
+    },
+    {
+      "day": 3,
+      "rabbits": 93,
+      "predators_alive": [
+        true,
+        true
+      ],
+      "captures": [
+        2,
+        5
+      ]
+    },
+    {
+      "day": 4,
+      "rabbits": 93,
+      "predators_alive": [
+        true,
+        true
+      ],
+      "captures": [
+        2,
+        5
+      ]
+    },
+    {
+      "day": 5,
+      "rabbits": 97,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        7
+      ]
+    },
+    {
+      "day": 6,
+      "rabbits": 97,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        7
+      ]
+    },
+    {
+      "day": 7,
+      "rabbits": 96,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        8
+      ]
+    },
+    {
+      "day": 8,
+      "rabbits": 96,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        8
+      ]
+    },
+    {
+      "day": 9,
+      "rabbits": 95,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        9
+      ]
+    },
+    {
+      "day": 10,
+      "rabbits": 101,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        9
+      ]
+    },
+    {
+      "day": 11,
+      "rabbits": 99,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        10
+      ]
+    },
+    {
+      "day": 12,
+      "rabbits": 99,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        10
+      ]
+    },
+    {
+      "day": 13,
+      "rabbits": 98,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        11
+      ]
+    },
+    {
+      "day": 14,
+      "rabbits": 98,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        11
+      ]
+    },
+    {
+      "day": 15,
+      "rabbits": 101,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        12
+      ]
+    },
+    {
+      "day": 16,
+      "rabbits": 101,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        12
+      ]
+    },
+    {
+      "day": 17,
+      "rabbits": 100,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        13
+      ]
+    },
+    {
+      "day": 18,
+      "rabbits": 100,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        13
+      ]
+    },
+    {
+      "day": 19,
+      "rabbits": 99,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        14
+      ]
+    },
+    {
+      "day": 20,
+      "rabbits": 104,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        15
+      ]
+    },
+    {
+      "day": 21,
+      "rabbits": 104,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        15
+      ]
+    },
+    {
+      "day": 22,
+      "rabbits": 100,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        19
+      ]
+    },
+    {
+      "day": 23,
+      "rabbits": 100,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        19
+      ]
+    },
+    {
+      "day": 24,
+      "rabbits": 98,
+      "predators_alive": [
+        false,
+        true
+      ],
+      "captures": [
+        2,
+        21
+      ]
+    }
+  ]
+}

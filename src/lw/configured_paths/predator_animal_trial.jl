@@ -5,6 +5,7 @@
 const PREDATOR_ANIMAL_TRIAL=(day_ticks=17280,daily_food=600.,move_food=.1,
     initial_food=900.,capacity=1800.,hunt_below=600.,adult_food=900.,
     minimum_size_fraction=.05,territory_radius=20.,rival_sight=12.,
+    balance_atol=1e-7,balance_rtol=1e-10, # Diagnostic tolerance for cumulative Float64 sums.
     retreat_difference=.1,retreat_speed=.3,warning_duration_ticks=60,warning_cooldown_ticks=600)
 
 mutable struct TrialPredator
@@ -87,7 +88,7 @@ function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
     body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
     G.configured_wildlife_predator_plan!(trial_proxy(s,p),t)
 end
-function configured_trial_advance!(s,p,t; scent_speed=0.)
+function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.)
     rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
     p.ticks[p.mode]=get(p.ticks,p.mode,0)+1
     p.visual.previous_position=(body.x,body.z)
@@ -106,7 +107,8 @@ function configured_trial_advance!(s,p,t; scent_speed=0.)
         victim=last(p.visual.events).id
         # Approximate volume from visible body height; not calibrated rabbit mass.
         fraction=clamp((G.rabbit_height(s,victim)/G.RABBIT_LIFE.adult_height)^3,rule.minimum_size_fraction,1.)
-        meal=rule.adult_food*fraction
+        # Trial-only nutrition multiplier (default 1); capacity and choice rules stay separate.
+        meal=rule.adult_food*fraction*prey_nutrition
         accepted=min(meal,rule.capacity-p.food)
         p.food+=accepted;p.eaten+=accepted;p.discarded+=meal-accepted
         body.timer=0 # Replace the legacy fixed half-day rest with food balance.
@@ -116,10 +118,12 @@ function configured_trial_advance!(s,p,t; scent_speed=0.)
     p.food<=0 && (p.alive=false)
 end
 function trial_predator_report(p)
-    @assert isapprox(PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten,p.food+p.spent;atol=1e-7)
+    balance_residual=PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten-p.food-p.spent
+    @assert isapprox(PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten,p.food+p.spent;
+        atol=PREDATOR_ANIMAL_TRIAL.balance_atol,rtol=PREDATOR_ANIMAL_TRIAL.balance_rtol)
     body=p.visual.body
     @assert body.attacks==body.captures+body.misses+(body.state==P.ATTACK ? 1 : 0)
-    (alive=p.alive,food=p.food,eaten=p.eaten,spent=p.spent,discarded=p.discarded,
+    (alive=p.alive,food=p.food,eaten=p.eaten,spent=p.spent,discarded=p.discarded,balance_residual=balance_residual,
      captures=body.captures,attacks=body.attacks,encounters=p.encounters,
      warning_started=p.warning_started,warning_blocked_until=p.warning_blocked_until,warning_timeouts=p.warning_timeouts,
      ticks=copy(p.ticks),position=(body.x,body.z),center=p.center,

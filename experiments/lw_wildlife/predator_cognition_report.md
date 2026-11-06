@@ -146,3 +146,33 @@ julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl outp
 ```
 julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl outputs/NEW_OUTPUT 60 --cognition --marking --adult-rabbits=95
 ```
+
+## 栄養1.5倍比較（2026-11-06）
+
+100体版と同じ配置・seed・共通認知・マーキングで、捕食栄養のみ1.5倍。
+成体900→1350食料相当量、幼体にも同倍率。容量1800、消費・選択係数は据え置き。
+上限60日、捕食者全滅停止。これは動物単独実験の設定で通常LWの既定値は変更しない。
+
+| 指標 | 1.0倍 | 1.5倍 |
+|---|---:|---:|
+| 個体1死亡（経過日） | 11.8821 | 4.8505 |
+| 個体2死亡／全滅（経過日） | 12.0480 | 24.2660 |
+| 捕食数（個体1／2） | 14／13 | 2／21 |
+| 最終ウサギ | 82 | 98 |
+| 出生／捕食／餓死 | 12／27／3 | 22／23／1 |
+| 主ループ実時間（秒） | 24.627 | 39.025 |
+
+全滅まで延長したが、個体1は短命化。栄養増加で選択と相互作用も変わるため、
+単一seedから全個体への改善とは言えない。98体残存し、世界全域の獲物枯渇ではない。
+100＋22−23−1＝98。容量超過による非摂取量は207.691／758.129。
+実時間はシミュレーション期間も違うため、直接の速度比較ではない。
+37項目PASS。停止は419316tick、25日目途中、最終チェックポイントあり。
+
+初回は21日目の報告で収支の絶対誤差1e-7検査に停止。
+20日目まで微小誤差が累積していたため、絶対1e-7＋相対1e-10のisapprox監査へ変更し、
+収支残差を報告に追加して初めから再実行。物理状態の補正はしていない。
+再実行の最終残差は4.81e-10／-1.23e-7。初回の失敗ログ・凍結ソースも保持。
+
+結果: `outputs/predator-100rabbits-nutrition15-v2-20261106`。
+集計: `evidence/hundred-rabbits-nutrition15.json`。
+再現: `julia --startup-file=no --project=. experiments/lw_wildlife/animals_only.jl outputs/NEW_OUTPUT 60 --cognition --marking --adult-rabbits=95 --prey-nutrition=1.5`
