@@ -31,6 +31,8 @@ function generations_main()
     source_run=abspath(ARGS[1]);out=abspath(ARGS[2])
     generations=length(ARGS)>2 ? parse(Int,ARGS[3]) : 3
     days=length(ARGS)>3 ? parse(Int,ARGS[4]) : 30
+    generation_offset=length(ARGS)>4 ? parse(Int,ARGS[5]) : 0
+    generation_offset>=0 || error("nonnegative generation offset required")
     generations>0 && days>0 || error("positive generations/days required")
     ispath(out) && error("output exists");mkpath(out)
     donor_state=deserialize(joinpath(source_run,"final.jls"))
@@ -38,7 +40,7 @@ function generations_main()
     donor_mind=donor_state[4][donor_index];donor_local=donor_state[6][donor_index]
     donor_tick=donor_state[1].ticks
     donor_local.probabilistic_capture || error("requires probability model donor")
-    conditions=(generations=generations,days_per_generation=days,source=basename(source_run),
+    conditions=(generations=generations,generation_offset=generation_offset,days_per_generation=days,source=source_run,
         initial_donor=donor_index,initial_lifetimes=configured_predator_lifetime.(donor_state[2]),
         selection="longest alive ticks; ties use lower actor index; day-limit survival is censored",
         map="same map and rabbit seed, resources reset",adults=95,young=5,predators=2,
@@ -53,7 +55,7 @@ function generations_main()
     end
     cp(joinpath(@__DIR__,"../../Project.toml"),joinpath(frozen,"Project.toml"))
     rows=Any[]
-    for generation in 1:generations
+    for generation in (generation_offset+1):(generation_offset+generations)
         inheritance_checks(donor_mind,donor_local,donor_tick)
         generation_out=joinpath(out,"generation-$generation");mkpath(generation_out)
         parent_record=(index=donor_index,methods=length(donor_mind.loop.methods),
