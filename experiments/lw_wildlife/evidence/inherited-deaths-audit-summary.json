@@ -1,0 +1,584 @@
+{
+  "cases": [
+    {
+      "seed": 105,
+      "actor": 2,
+      "death_day": 4.114178240740741,
+      "matched_days": [
+        3,
+        4,
+        5
+      ],
+      "buckets": {
+        "above600": {
+          "hunt": 3428,
+          "visit_food": 478,
+          "visit_rest": 8160,
+          "rest": 13800
+        },
+        "300to600": {
+          "hunt": 4247,
+          "visit_food": 531,
+          "visit_rest": 400
+        },
+        "below300": {
+          "hunt": 4925,
+          "visit_food": 484,
+          "visit_rest": 80
+        }
+      },
+      "hunt": {
+        "ticks": 12600,
+        "nearby_truth_ticks": 1485,
+        "tracked_ticks": 3439
+      },
+      "low_food_hunt_fraction": 0.8972490435416287,
+      "example": {
+        "tick": 34669,
+        "food": 1778.821333333292,
+        "H": 0.0022804586666123616,
+        "selected": "visit:rest:(-2, 3)",
+        "groups": [
+          {
+            "action": "hunt",
+            "candidates": 1,
+            "probability": 0.015412823331485522
+          },
+          {
+            "action": "rest",
+            "candidates": 1,
+            "probability": 0.0676363836877856
+          },
+          {
+            "action": "visit_food",
+            "candidates": 4,
+            "probability": 0.02267550615026139
+          },
+          {
+            "action": "visit_rest",
+            "candidates": 12,
+            "probability": 0.8942752868304674
+          }
+        ]
+      },
+      "events": [
+        {
+          "event": {
+            "tick": 37692,
+            "kind": "probability_miss",
+            "id": 76,
+            "probability": 0.4376338473930957,
+            "distance": 0.6000000000000034,
+            "reason": "draw"
+          },
+          "food_before": 1659.2400555555707,
+          "food_after": 1659.1895774350864
+        },
+        {
+          "event": {
+            "tick": 37695,
+            "kind": "probability_miss",
+            "id": 76,
+            "probability": 0.5319999999999994,
+            "distance": 0.8000000000000034,
+            "reason": "draw"
+          },
+          "food_before": 1659.060132990642,
+          "food_after": 1658.9254107684196
+        },
+        {
+          "event": {
+            "tick": 49789,
+            "kind": "probability_miss",
+            "id": 56,
+            "probability": 0.41400000000000026,
+            "distance": 0.5999999999999992,
+            "reason": "draw"
+          },
+          "food_before": 1098.7235774347616,
+          "food_after": 1098.6260859294025
+        },
+        {
+          "event": {
+            "tick": 49792,
+            "kind": "probability_miss",
+            "id": 56,
+            "probability": 0.1389260512705875,
+            "distance": 1.800000000000004,
+            "reason": "draw"
+          },
+          "food_before": 1098.496641484958,
+          "food_after": 1098.4619192627358
+        },
+        {
+          "event": {
+            "tick": 59531,
+            "kind": "probability_miss",
+            "id": 5,
+            "probability": 0.0,
+            "distance": 1.1029097011873283,
+            "reason": "blocked"
+          },
+          "food_before": 654.7829192628839,
+          "food_after": 654.6481970406617
+        },
+        {
+          "event": {
+            "tick": 61151,
+            "kind": "probability_miss",
+            "id": 56,
+            "probability": 0.3212860913927164,
+            "distance": 0.5999999999999998,
+            "reason": "draw"
+          },
+          "food_before": 560.4019192628763,
+          "food_after": 560.2815781827887
+        },
+        {
+          "event": {
+            "tick": 61154,
+            "kind": "probability_miss",
+            "id": 56,
+            "probability": 0.504,
+            "distance": 0.5999999999999998,
+            "reason": "draw"
+          },
+          "food_before": 560.0921337383443,
+          "food_after": 559.997411516122
+        },
+        {
+          "death_tick": 71092,
+          "food_before": 0.011689294175252857,
+          "mode": "visit_food",
+          "position": [
+            -8.483838977155818,
+            19.684795875372288
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 103,
+      "actor": 2,
+      "death_day": 4.603645833333333,
+      "matched_days": [
+        3,
+        4,
+        5
+      ],
+      "buckets": {
+        "above600": {
+          "hunt": 6590,
+          "visit_food": 528,
+          "visit_rest": 10642,
+          "rest": 14081
+        },
+        "300to600": {
+          "hunt": 4738,
+          "visit_food": 624,
+          "rest": 919
+        },
+        "below300": {
+          "hunt": 5121,
+          "retreat": 60,
+          "visit_food": 1149,
+          "visit_rest": 539
+        }
+      },
+      "hunt": {
+        "ticks": 16449,
+        "nearby_truth_ticks": 712,
+        "tracked_ticks": 6654
+      },
+      "low_food_hunt_fraction": 0.745523365846557,
+      "example": {
+        "tick": 36553,
+        "food": 1558.240616622321,
+        "H": 0.0,
+        "selected": "visit:rest:(-1, 2)",
+        "groups": [
+          {
+            "action": "hunt",
+            "candidates": 1,
+            "probability": 0.018761110785325018
+          },
+          {
+            "action": "rest",
+            "candidates": 1,
+            "probability": 0.09742730498776735
+          },
+          {
+            "action": "visit_rest",
+            "candidates": 15,
+            "probability": 0.8838115842269078
+          }
+        ]
+      },
+      "events": [
+        {
+          "event": {
+            "tick": 36543,
+            "kind": "probability_miss",
+            "id": 47,
+            "probability": 0.49162170183300347,
+            "distance": 0.41517298310678036,
+            "reason": "draw"
+          },
+          "food_before": 209.31923918332217,
+          "food_after": 209.18490470367567
+        },
+        {
+          "event": {
+            "tick": 36546,
+            "kind": "probability_miss",
+            "id": 47,
+            "probability": 0.28641500218378274,
+            "distance": 0.7236589771543189,
+            "reason": "draw"
+          },
+          "food_before": 209.02777361291797,
+          "food_after": 208.89305139069575
+        },
+        {
+          "event": {
+            "tick": 36549,
+            "kind": "probability_miss",
+            "id": 47,
+            "probability": 0.3068812137124929,
+            "distance": 0.6357283279304001,
+            "reason": "draw"
+          },
+          "food_before": 208.69984621646518,
+          "food_after": 208.56512399424295
+        },
+        {
+          "event": {
+            "tick": 36552,
+            "kind": "capture",
+            "id": 47,
+            "probability": 0.314156862817276,
+            "distance": 0.5272029750214927,
+            "reason": "draw"
+          },
+          "food_before": 208.37533884454345,
+          "food_after": 1558.240616622321
+        },
+        {
+          "event": {
+            "tick": 39888,
+            "kind": "probability_miss",
+            "id": 95,
+            "probability": 0.4616302803526645,
+            "distance": 1.073996675359593,
+            "reason": "draw"
+          },
+          "food_before": 1376.3880055109175,
+          "food_after": 1376.2532832886952
+        },
+        {
+          "event": {
+            "tick": 39892,
+            "kind": "capture",
+            "id": 95,
+            "probability": 0.4845937212060296,
+            "distance": 0.6000000000000006,
+            "reason": "draw"
+          },
+          "food_before": 1375.9141166220284,
+          "food_after": 1799.8923442617408
+        },
+        {
+          "event": {
+            "tick": 40358,
+            "kind": "probability_miss",
+            "id": 33,
+            "probability": 0.273690816773141,
+            "distance": 0.6000000000000002,
+            "reason": "draw"
+          },
+          "food_before": 1772.5675109283607,
+          "food_after": 1772.4568988815522
+        },
+        {
+          "event": {
+            "tick": 64241,
+            "kind": "capture",
+            "id": 98,
+            "probability": 0.7285883972320658,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          "food_before": 722.2847877708275,
+          "food_after": 789.7267429264189
+        },
+        {
+          "event": {
+            "tick": 76520,
+            "kind": "probability_miss",
+            "id": 8,
+            "probability": 0.0,
+            "distance": 3.9661423405963308,
+            "reason": "out_of_reach"
+          },
+          "food_before": 158.35629848241672,
+          "food_after": 158.3215762601945
+        },
+        {
+          "death_tick": 79550,
+          "food_before": 0.02596514909829503,
+          "mode": "hunt",
+          "position": [
+            -6.579232311539123,
+            16.660720537531553
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 102,
+      "actor": 2,
+      "death_day": 6.274247685185185,
+      "matched_days": [
+        5,
+        6,
+        7
+      ],
+      "buckets": {
+        "above600": {
+          "hunt": 4100,
+          "retreat": 120,
+          "visit_food": 809,
+          "visit_rest": 8316,
+          "rest": 9581
+        },
+        "300to600": {
+          "hunt": 4082,
+          "visit_food": 968,
+          "visit_rest": 464,
+          "rest": 600
+        },
+        "below300": {
+          "hunt": 7156,
+          "visit_food": 1631,
+          "visit_rest": 272,
+          "rest": 1200
+        }
+      },
+      "hunt": {
+        "ticks": 15338,
+        "nearby_truth_ticks": 794,
+        "tracked_ticks": 3546
+      },
+      "low_food_hunt_fraction": 0.697533872697144,
+      "example": {
+        "tick": 69701,
+        "food": 1645.2879582106007,
+        "H": 0.0,
+        "selected": "rest",
+        "groups": [
+          {
+            "action": "hunt",
+            "candidates": 1,
+            "probability": 0.03194236415818928
+          },
+          {
+            "action": "rest",
+            "candidates": 1,
+            "probability": 0.1406212702238957
+          },
+          {
+            "action": "visit_food",
+            "candidates": 2,
+            "probability": 0.01572845217044638
+          },
+          {
+            "action": "visit_rest",
+            "candidates": 12,
+            "probability": 0.8117079134474686
+          }
+        ]
+      },
+      "events": [
+        {
+          "event": {
+            "tick": 71612,
+            "kind": "probability_miss",
+            "id": 8,
+            "probability": 0.37911738974429815,
+            "distance": 0.8126881077841489,
+            "reason": "draw"
+          },
+          "food_before": 1540.406791544006,
+          "food_after": 1540.3720693217838
+        },
+        {
+          "event": {
+            "tick": 71615,
+            "kind": "probability_miss",
+            "id": 8,
+            "probability": 0.5026195151626848,
+            "distance": 0.3606316538719918,
+            "reason": "draw"
+          },
+          "food_before": 1540.221356066561,
+          "food_after": 1540.0866338443386
+        },
+        {
+          "event": {
+            "tick": 92039,
+            "kind": "capture",
+            "id": 96,
+            "probability": 0.7405262883121869,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          "food_before": 566.6206894015593,
+          "food_after": 634.0445246568461
+        },
+        {
+          "event": {
+            "tick": 102306,
+            "kind": "probability_miss",
+            "id": 45,
+            "probability": 0.0,
+            "distance": 3.8868511458477126,
+            "reason": "out_of_reach"
+          },
+          "food_before": 76.72519132409428,
+          "food_after": 76.69046910187205
+        },
+        {
+          "event": {
+            "tick": 102723,
+            "kind": "probability_miss",
+            "id": 45,
+            "probability": 0.4293645949019028,
+            "distance": 1.2857730687432738,
+            "reason": "draw"
+          },
+          "food_before": 47.55602465741299,
+          "food_after": 47.42130243519077
+        },
+        {
+          "event": {
+            "tick": 102726,
+            "kind": "probability_miss",
+            "id": 45,
+            "probability": 0.4790882859008265,
+            "distance": 0.6,
+            "reason": "draw"
+          },
+          "food_before": 47.163280683872,
+          "food_after": 47.068558461649744
+        },
+        {
+          "event": {
+            "tick": 102729,
+            "kind": "probability_miss",
+            "id": 45,
+            "probability": 0.47908828590082664,
+            "distance": 0.6,
+            "reason": "draw"
+          },
+          "food_before": 46.879114017205225,
+          "food_after": 46.784391794982966
+        },
+        {
+          "event": {
+            "tick": 103010,
+            "kind": "capture",
+            "id": 97,
+            "probability": 0.7213392676500108,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          "food_before": 30.278169572775468,
+          "food_after": 97.69839319346352
+        },
+        {
+          "event": {
+            "tick": 103080,
+            "kind": "probability_miss",
+            "id": 98,
+            "probability": 0.7212168456787819,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          "food_before": 93.60255986013397,
+          "food_after": 93.51971680898589
+        },
+        {
+          "event": {
+            "tick": 103084,
+            "kind": "capture",
+            "id": 98,
+            "probability": 0.7212098501375688,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          "food_before": 93.24555014231916,
+          "food_after": 160.61082792009694
+        },
+        {
+          "event": {
+            "tick": 103088,
+            "kind": "capture",
+            "id": 99,
+            "probability": 0.7212028545963557,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          "food_before": 160.3626612534304,
+          "food_after": 227.72793903120817
+        },
+        {
+          "event": {
+            "tick": 103092,
+            "kind": "capture",
+            "id": 100,
+            "probability": 0.7211958590551426,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          "food_before": 227.47977236454162,
+          "food_after": 294.84505014231945
+        },
+        {
+          "event": {
+            "tick": 107430,
+            "kind": "probability_miss",
+            "id": 46,
+            "probability": 0.3457453502924636,
+            "distance": 0.5999999999999993,
+            "reason": "draw"
+          },
+          "food_before": 54.95777236461943,
+          "food_after": 54.857040032322786
+        },
+        {
+          "event": {
+            "tick": 107434,
+            "kind": "probability_miss",
+            "id": 46,
+            "probability": 0.45849514934520064,
+            "distance": 0.6000000000000002,
+            "reason": "draw"
+          },
+          "food_before": 54.52430899349161,
+          "food_after": 54.42958677126935
+        },
+        {
+          "death_tick": 108418,
+          "food_before": 0.05164232688055134,
+          "mode": "visit_food",
+          "position": [
+            -13.540346629914064,
+            -34.499451383917
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "nearby_truth is diagnostic world proximity, not actor knowledge; no policy/RNG changes",
+  "replay": "all intervening daily reports and end-day parent/local MB reports match saved checkpoints; no behavioral changes"
+}
