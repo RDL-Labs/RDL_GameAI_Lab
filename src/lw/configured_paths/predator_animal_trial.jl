@@ -30,7 +30,7 @@ function configured_trial_predator(s,position,seed)
         :rest,Dict{Symbol,Int}(),0,false,-1,0,0)
 end
 trial_proxy(s,p)=(world=s.world,animals=s.animals,alive=s.alive,life=s.life,ticks=s.ticks,predator=p.visual)
-function configured_trial_plan!(s,p,others,t)
+function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
     rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
     p.mode=:dead
     p.alive || return
@@ -61,7 +61,9 @@ function configured_trial_plan!(s,p,others,t)
         # The other animal's private center is never consulted.
         own_strength=max(0.,1-hypot(body.x-p.center[1],body.z-p.center[2])/rule.territory_radius)
         intruder_strength=max(0.,1-hypot(rival.x-p.center[1],rival.z-p.center[2])/rule.territory_radius)
-        rival_response=intruder_strength>own_strength+rule.retreat_difference || own_strength==0 ? :retreat : :warn
+        rival_response=territory_evidence===nothing ?
+            (intruder_strength>own_strength+rule.retreat_difference || own_strength==0 ? :retreat : :warn) :
+            (territory_evidence.own>territory_evidence.foreign+rule.retreat_difference ? :warn : :retreat)
         if rival_response==:retreat || t>=p.warning_blocked_until
             body.heading=atan(rival.z-body.z,rival.x-body.x)
             p.visual.gaze=P.turn_gaze(p.visual.gaze,body.heading)
@@ -80,7 +82,7 @@ function configured_trial_plan!(s,p,others,t)
     body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
     G.configured_wildlife_predator_plan!(trial_proxy(s,p),t)
 end
-function configured_trial_advance!(s,p,t)
+function configured_trial_advance!(s,p,t; scent_speed=0.)
     rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
     p.ticks[p.mode]=get(p.ticks,p.mode,0)+1
     p.visual.previous_position=(body.x,body.z)
@@ -90,6 +92,8 @@ function configured_trial_advance!(s,p,t)
         G.configured_wildlife_predator_advance!(trial_proxy(s,p),t)
     elseif p.mode==:retreat
         body.heading+=pi;P.move!(s.world,body,rule.retreat_speed)
+    elseif p.mode in (:scent_return,:scent_avoid)
+        P.move!(s.world,body,scent_speed)
     end
     if body.captures>previous_captures
         victim=last(p.visual.events).id

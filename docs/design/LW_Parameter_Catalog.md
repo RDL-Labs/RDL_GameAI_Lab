@@ -106,3 +106,14 @@ event_limit=128は直近イベント保持上限で、総捕食数は別に累�
 `warning_cooldown_ticks=600`。単位はシミュレーションtick。開始時刻との差が60以上で終了、
 終了時刻＋600以上で再開可。暫定固定判断であり生物学的な推定値ではない。
 短い見失いで期限をリセットしない。適用は動物単独ランナーのみ。通常LWは未接続。
+
+## 捕食者マーキング試作（2026-11-06）
+
+`PREDATOR_MARKING`（`src/lw/configured_paths/predator_marking.jl`）、動物単独 `--marking` のみ・既定OFF。
+世界: cell_size=4m、lifetime_ticks=51840（3日）、deposit=1、capacity=4。
+暫定観測: smell_radius=4m、sniff_interval_ticks=30、memory_limit=128。
+暫定行動: mark_interval_ticks=600、arrival_radius=3m、return_min_strength=.2、
+avoidance_margin=.1、local_familiarity=.5、speed=.22距離単位/tick。
+値は種の測定値ではなく試作用。近傍セルだけ観測、記憶は観測時のコピー。
+記憶の忘却にも3日を使用するが、世界の真の残存時刻を与えない。
+距離による信号/帰路評価はstrength/(1+distance)。1は初期の距離正規化尺度。

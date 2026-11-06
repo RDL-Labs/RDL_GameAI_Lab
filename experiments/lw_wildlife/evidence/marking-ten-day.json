@@ -1,0 +1,1055 @@
+[
+  {
+    "variant": "on",
+    "conditions": {
+      "days": 10,
+      "humans": 0,
+      "adult_rabbits": 30,
+      "initial_young": 5,
+      "predators": 2,
+      "rule": {
+        "day_ticks": 17280,
+        "daily_food": 600.0,
+        "move_food": 0.1,
+        "initial_food": 900.0,
+        "capacity": 1800.0,
+        "hunt_below": 600.0,
+        "adult_food": 900.0,
+        "minimum_size_fraction": 0.05,
+        "territory_radius": 20.0,
+        "rival_sight": 12.0,
+        "retreat_difference": 0.1,
+        "retreat_speed": 0.3,
+        "warning_duration_ticks": 60,
+        "warning_cooldown_ticks": 600
+      },
+      "marking": true,
+      "marking_rule": {
+        "cell_size": 4.0,
+        "smell_radius": 4.0,
+        "lifetime_ticks": 51840,
+        "mark_interval_ticks": 600,
+        "sniff_interval_ticks": 30,
+        "deposit": 1.0,
+        "capacity": 4.0,
+        "memory_limit": 128,
+        "arrival_radius": 3.0,
+        "return_min_strength": 0.2,
+        "avoidance_margin": 0.1,
+        "local_familiarity": 0.5,
+        "speed": 0.22
+      },
+      "fixed": "territory centers when marking OFF; local scent identity/intervals/choices when ON; visual warning/retreat, instantaneous meals; no predator breeding or combat"
+    },
+    "elapsed_seconds": 5.3120055,
+    "daily": [
+      {
+        "day": 1,
+        "rabbits": 34,
+        "births": 0,
+        "captures": 1,
+        "starvation": 0,
+        "scent": {
+          "world_records": 12,
+          "memory_records": [
+            9,
+            3
+          ],
+          "deposits": [
+            23,
+            29
+          ],
+          "own_observations": [
+            318,
+            549
+          ],
+          "foreign_observations": [
+            0,
+            0
+          ]
+        },
+        "predators": [
+          {
+            "alive": true,
+            "food": 113.17800000043152,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "hunt": 7541,
+              "retreat": 1098,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": true,
+            "food": 1179.6420000008034,
+            "captures": 1,
+            "attacks": 2,
+            "ticks": {
+              "hunt": 677,
+              "scent_return": 282,
+              "rest": 16321
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "rabbits": 33,
+        "births": 0,
+        "captures": 1,
+        "starvation": 1,
+        "scent": {
+          "world_records": 12,
+          "memory_records": [
+            9,
+            4
+          ],
+          "deposits": [
+            23,
+            57
+          ],
+          "own_observations": [
+            318,
+            1107
+          ],
+          "foreign_observations": [
+            0,
+            1
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 15713,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": true,
+            "food": 569.714000001662,
+            "captures": 1,
+            "attacks": 2,
+            "ticks": {
+              "hunt": 1263,
+              "scent_return": 282,
+              "rest": 33015
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "rabbits": 32,
+        "births": 0,
+        "captures": 2,
+        "starvation": 1,
+        "scent": {
+          "world_records": 20,
+          "memory_records": [
+            9,
+            18
+          ],
+          "deposits": [
+            23,
+            82
+          ],
+          "own_observations": [
+            318,
+            1858
+          ],
+          "foreign_observations": [
+            0,
+            39
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 32993,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": true,
+            "food": 752.832000002111,
+            "captures": 2,
+            "attacks": 6,
+            "ticks": {
+              "scent_avoid": 24,
+              "hunt": 7530,
+              "scent_return": 822,
+              "rest": 43464
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "rabbits": 31,
+        "births": 0,
+        "captures": 3,
+        "starvation": 1,
+        "scent": {
+          "world_records": 11,
+          "memory_records": [
+            9,
+            21
+          ],
+          "deposits": [
+            23,
+            110
+          ],
+          "own_observations": [
+            318,
+            2544
+          ],
+          "foreign_observations": [
+            0,
+            45
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 50273,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": true,
+            "food": 997.8440000028502,
+            "captures": 3,
+            "attacks": 8,
+            "ticks": {
+              "scent_avoid": 24,
+              "hunt": 10680,
+              "scent_return": 830,
+              "rest": 57586
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "rabbits": 35,
+        "births": 5,
+        "captures": 4,
+        "starvation": 1,
+        "scent": {
+          "world_records": 15,
+          "memory_records": [
+            9,
+            26
+          ],
+          "deposits": [
+            23,
+            138
+          ],
+          "own_observations": [
+            318,
+            3043
+          ],
+          "foreign_observations": [
+            0,
+            45
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 67553,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": true,
+            "food": 1239.8600000036074,
+            "captures": 4,
+            "attacks": 11,
+            "ticks": {
+              "scent_avoid": 24,
+              "hunt": 13310,
+              "scent_return": 1022,
+              "rest": 72044
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "rabbits": 35,
+        "births": 5,
+        "captures": 4,
+        "starvation": 1,
+        "scent": {
+          "world_records": 8,
+          "memory_records": [
+            9,
+            26
+          ],
+          "deposits": [
+            23,
+            167
+          ],
+          "own_observations": [
+            318,
+            3619
+          ],
+          "foreign_observations": [
+            0,
+            45
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 84833,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": true,
+            "food": 639.8600000044805,
+            "captures": 4,
+            "attacks": 11,
+            "ticks": {
+              "scent_avoid": 24,
+              "hunt": 13310,
+              "scent_return": 1022,
+              "rest": 89324
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "rabbits": 35,
+        "births": 5,
+        "captures": 4,
+        "starvation": 1,
+        "scent": {
+          "world_records": 20,
+          "memory_records": [
+            9,
+            39
+          ],
+          "deposits": [
+            23,
+            186
+          ],
+          "own_observations": [
+            318,
+            3758
+          ],
+          "foreign_observations": [
+            0,
+            45
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 102113,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 4,
+            "attacks": 16,
+            "ticks": {
+              "scent_avoid": 24,
+              "dead": 4626,
+              "hunt": 24816,
+              "scent_return": 1022,
+              "rest": 90472
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "rabbits": 35,
+        "births": 5,
+        "captures": 4,
+        "starvation": 1,
+        "scent": {
+          "world_records": 15,
+          "memory_records": [
+            9,
+            39
+          ],
+          "deposits": [
+            23,
+            186
+          ],
+          "own_observations": [
+            318,
+            3758
+          ],
+          "foreign_observations": [
+            0,
+            45
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 119393,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 4,
+            "attacks": 16,
+            "ticks": {
+              "scent_avoid": 24,
+              "dead": 21906,
+              "hunt": 24816,
+              "scent_return": 1022,
+              "rest": 90472
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "rabbits": 35,
+        "births": 5,
+        "captures": 4,
+        "starvation": 1,
+        "scent": {
+          "world_records": 15,
+          "memory_records": [
+            9,
+            39
+          ],
+          "deposits": [
+            23,
+            186
+          ],
+          "own_observations": [
+            318,
+            3758
+          ],
+          "foreign_observations": [
+            0,
+            45
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 136673,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 4,
+            "attacks": 16,
+            "ticks": {
+              "scent_avoid": 24,
+              "dead": 39186,
+              "hunt": 24816,
+              "scent_return": 1022,
+              "rest": 90472
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "rabbits": 38,
+        "births": 8,
+        "captures": 4,
+        "starvation": 1,
+        "scent": {
+          "world_records": 0,
+          "memory_records": [
+            9,
+            39
+          ],
+          "deposits": [
+            23,
+            186
+          ],
+          "own_observations": [
+            318,
+            3758
+          ],
+          "foreign_observations": [
+            0,
+            45
+          ]
+        },
+        "predators": [
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 0,
+            "attacks": 1,
+            "ticks": {
+              "dead": 153953,
+              "hunt": 8129,
+              "retreat": 2077,
+              "rest": 8641
+            },
+            "warning_timeouts": 0
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 4,
+            "attacks": 16,
+            "ticks": {
+              "scent_avoid": 24,
+              "dead": 56466,
+              "hunt": 24816,
+              "scent_return": 1022,
+              "rest": 90472
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      }
+    ],
+    "final_balances": {
+      "grass": {
+        "name": "grass",
+        "supplied": 19835.884071971705,
+        "accounted": 19835.88407197574,
+        "residual": -4.03451849706471E-09,
+        "relative_error": 2.0339494233910665E-13,
+        "delta_since_previous": null,
+        "max_abs_residual": 4.03451849706471E-09,
+        "warning_limit": 2.9835884071975743E-06,
+        "stop_limit": 0.0002983588407197574,
+        "status": "ok"
+      },
+      "intake": {
+        "name": "intake",
+        "supplied": 6548.655551372322,
+        "accounted": 6548.655551397443,
+        "residual": -2.5120243662968278E-08,
+        "relative_error": 3.835939066547449E-12,
+        "delta_since_previous": null,
+        "max_abs_residual": 2.5120243662968278E-08,
+        "warning_limit": 1.6548655551397443E-06,
+        "stop_limit": 0.00016548655551397443,
+        "status": "ok"
+      },
+      "digestion": {
+        "name": "digestion",
+        "supplied": 6548.655551397443,
+        "accounted": 6548.655551396928,
+        "residual": 5.147740012034774E-10,
+        "relative_error": 7.860758550564288E-14,
+        "delta_since_previous": null,
+        "max_abs_residual": 5.147740012034774E-10,
+        "warning_limit": 1.6548655551397443E-06,
+        "stop_limit": 0.00016548655551397443,
+        "status": "ok"
+      }
+    }
+  },
+  {
+    "variant": "off",
+    "conditions": {
+      "days": 10,
+      "humans": 0,
+      "adult_rabbits": 30,
+      "initial_young": 5,
+      "predators": 2,
+      "rule": {
+        "day_ticks": 17280,
+        "daily_food": 600.0,
+        "move_food": 0.1,
+        "initial_food": 900.0,
+        "capacity": 1800.0,
+        "hunt_below": 600.0,
+        "adult_food": 900.0,
+        "minimum_size_fraction": 0.05,
+        "territory_radius": 20.0,
+        "rival_sight": 12.0,
+        "retreat_difference": 0.1,
+        "retreat_speed": 0.3,
+        "warning_duration_ticks": 60,
+        "warning_cooldown_ticks": 600
+      },
+      "marking": false,
+      "marking_rule": null,
+      "fixed": "territory centers when marking OFF; local scent identity/intervals/choices when ON; visual warning/retreat, instantaneous meals; no predator breeding or combat"
+    },
+    "elapsed_seconds": 5.8075653,
+    "daily": [
+      {
+        "day": 1,
+        "rabbits": 33,
+        "births": 0,
+        "captures": 2,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 1122.0060000006654,
+            "captures": 1,
+            "attacks": 2,
+            "ticks": {
+              "hunt": 4278,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 12976
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": true,
+            "food": 1172.412000000827,
+            "captures": 1,
+            "attacks": 2,
+            "ticks": {
+              "hunt": 1412,
+              "retreat": 8,
+              "rest": 15860
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "rabbits": 32,
+        "births": 0,
+        "captures": 3,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 1383.5500000014658,
+            "captures": 2,
+            "attacks": 4,
+            "ticks": {
+              "hunt": 6408,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 28126
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": true,
+            "food": 554.9440000016618,
+            "captures": 1,
+            "attacks": 2,
+            "ticks": {
+              "hunt": 2206,
+              "retreat": 8,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "rabbits": 32,
+        "births": 0,
+        "captures": 3,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 783.550000002339,
+            "captures": 2,
+            "attacks": 4,
+            "ticks": {
+              "hunt": 6408,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 45406
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 6720,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "rabbits": 31,
+        "births": 0,
+        "captures": 4,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 954.4700000029186,
+            "captures": 3,
+            "attacks": 5,
+            "ticks": {
+              "hunt": 12696,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 56398
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 24000,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "rabbits": 35,
+        "births": 5,
+        "captures": 5,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 1140.976000003451,
+            "captures": 4,
+            "attacks": 7,
+            "ticks": {
+              "hunt": 18841,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 67533
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 41280,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "rabbits": 35,
+        "births": 5,
+        "captures": 5,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 511.1720000042769,
+            "captures": 4,
+            "attacks": 7,
+            "ticks": {
+              "hunt": 20540,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 83114
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 58560,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "rabbits": 34,
+        "births": 5,
+        "captures": 6,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 769.2240000050322,
+            "captures": 5,
+            "attacks": 9,
+            "ticks": {
+              "hunt": 22702,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 98232
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 75840,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "rabbits": 33,
+        "births": 5,
+        "captures": 7,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 870.1780000052781,
+            "captures": 6,
+            "attacks": 14,
+            "ticks": {
+              "hunt": 33489,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 104725
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 93120,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "rabbits": 32,
+        "births": 5,
+        "captures": 8,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 1134.836000006083,
+            "captures": 7,
+            "attacks": 17,
+            "ticks": {
+              "hunt": 35336,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 120158
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 110400,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "rabbits": 32,
+        "births": 5,
+        "captures": 8,
+        "starvation": 0,
+        "scent": null,
+        "predators": [
+          {
+            "alive": true,
+            "food": 493.5640000068656,
+            "captures": 7,
+            "attacks": 17,
+            "ticks": {
+              "hunt": 37212,
+              "retreat": 17,
+              "warn": 9,
+              "rest": 135562
+            },
+            "warning_timeouts": 1
+          },
+          {
+            "alive": false,
+            "food": 0.0,
+            "captures": 1,
+            "attacks": 5,
+            "ticks": {
+              "dead": 127680,
+              "hunt": 12759,
+              "retreat": 15,
+              "rest": 32346
+            },
+            "warning_timeouts": 0
+          }
+        ]
+      }
+    ],
+    "final_balances": {
+      "grass": {
+        "name": "grass",
+        "supplied": 19740.514896135734,
+        "accounted": 19740.51489610961,
+        "residual": 2.612432581372559E-08,
+        "relative_error": 1.3233862415027233E-12,
+        "delta_since_previous": null,
+        "max_abs_residual": 2.612432581372559E-08,
+        "warning_limit": 2.9740514896135734E-06,
+        "stop_limit": 0.00029740514896135734,
+        "status": "ok"
+      },
+      "intake": {
+        "name": "intake",
+        "supplied": 6379.833544152681,
+        "accounted": 6379.833544175855,
+        "residual": -2.3174834495875984E-08,
+        "relative_error": 3.632513973194845E-12,
+        "delta_since_previous": null,
+        "max_abs_residual": 2.3174834495875984E-08,
+        "warning_limit": 1.6379833544175855E-06,
+        "stop_limit": 0.00016379833544175856,
+        "status": "ok"
+      },
+      "digestion": {
+        "name": "digestion",
+        "supplied": 6379.833544175855,
+        "accounted": 6379.833544175332,
+        "residual": 5.238689482212067E-10,
+        "relative_error": 8.211326276677644E-14,
+        "delta_since_previous": null,
+        "max_abs_residual": 5.238689482212067E-10,
+        "warning_limit": 1.6379833544175855E-06,
+        "stop_limit": 0.00016379833544175856,
+        "status": "ok"
+      }
+    }
+  }
+]

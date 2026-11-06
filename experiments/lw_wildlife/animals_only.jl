@@ -2,6 +2,7 @@ using JSON3, Serialization, Test
 include("../../src/lw/LW.jl")
 const G=LW.LWGrazing;const H=G.H;const P=G.P
 include("../../src/lw/configured_paths/predator_animal_trial.jl")
+include("../../src/lw/configured_paths/predator_marking.jl")
 function animal_trial_world()
     input=JSON3.read(read(joinpath(@__DIR__,"predator_3d_spec.json"),String))
     wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,))
@@ -12,29 +13,36 @@ function animal_trial_world()
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     s,predators
 end
-function animal_trial_step!(s,predators,t)
-    for p in predators;configured_trial_plan!(s,p,predators,t);end
+function animal_trial_step!(s,predators,t;scents=nothing)
+    scents!==nothing && configured_scent_tick!(scents,predators,t)
+    for (i,p) in enumerate(predators)
+        configured_trial_plan!(s,p,predators,t;territory_evidence=scents===nothing ? nothing : scents.observed[i])
+        scents!==nothing && configured_scent_choice!(scents,p,i,t)
+    end
     G.prepare!(s,Tuple{Float64,Float64}[],t;additional_predators=[p.visual for p in predators],
         additional_predator_alive=[p.alive for p in predators])
     G.advance!(s,t)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
-        configured_trial_advance!(s,predators[i],t)
+        configured_trial_advance!(s,predators[i],t;scent_speed=scents===nothing ? 0. : PREDATOR_MARKING.speed)
     end
 end
-function animal_trial_report(s,predators)
+function animal_trial_report(s,predators;scents=nothing)
     captures=sum(p.visual.body.captures for p in predators)
-    (rabbits=G.snapshot(s;additional_predation_deaths=captures),predators=trial_predator_report.(predators))
+    report=(rabbits=G.snapshot(s;additional_predation_deaths=captures),predators=trial_predator_report.(predators))
+    scents===nothing ? report : merge(report,(scent=scent_report(scents),))
 end
 function main()
     checks_only="--checks-only" in ARGS
+    marking="--marking" in ARGS
     days=checks_only || length(ARGS)<2 ? 3 : parse(Int,ARGS[2])
     days>0 || error("days must be positive")
     out=checks_only ? joinpath(mktempdir(),"checks") : length(ARGS)>0 ? ARGS[1] : "outputs/animals-only-3d"
     ispath(out) && error("output already exists")
     mkpath(out)
     conditions=(days=days,humans=0,adult_rabbits=30,initial_young=5,predators=2,
-        rule=PREDATOR_ANIMAL_TRIAL,fixed="territory centers, visual warning/retreat, instantaneous meals; no predator breeding or combat")
+        rule=PREDATOR_ANIMAL_TRIAL,marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
+        fixed="territory centers when marking OFF; local scent identity/intervals/choices when ON; visual warning/retreat, instantaneous meals; no predator breeding or combat")
     write(joinpath(out,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions))
     s,predators=animal_trial_world()
     @testset "animal trial boundaries" begin
@@ -103,6 +111,37 @@ function main()
         configured_trial_plan!(s,p,predators,720)
         @test p.mode==:rest && p.warning_timeouts==2
     end
+    @testset "local scent, memory and continuation" begin
+        s,predators=animal_trial_world();p,q=predators;scents=PredatorScentWorld(2)
+        p.visual.body.x=-10.;p.visual.body.z=6.;q.visual.body.x=30.;q.visual.body.z=6.
+        configured_scent_deposit!(scents,p,1,0);configured_scent_observe!(scents,p,1,0)
+        @test scents.observed[1].own>0 && scents.observed[1].foreign==0
+        configured_scent_deposit!(scents,q,2,0);configured_scent_observe!(scents,p,1,0)
+        @test all(k->k[3]==1,keys(scents.memory[1])) # Far marks are not known.
+        q.visual.body.x=-9.;configured_scent_observe!(scents,q,2,0)
+        @test scents.observed[2].foreign>0
+        configured_scent_deposit!(scents,q,2,0)
+        @test any(k->k[3]==1,keys(scents.marks)) && any(k->k[3]==2,keys(scents.marks))
+        old_memory=deepcopy(scents.memory[1]);configured_scent_deposit!(scents,p,1,1)
+        @test scents.memory[1]==old_memory
+        @test scent_strength(first(values(scents.marks)),4*17280)==0
+        p.visual.body.x=-18.;configured_scent_observe!(scents,p,1,30)
+        p.mode=:rest;p.visual.body.state=P.REST
+        configured_scent_choice!(scents,p,1,30)
+        @test p.mode==:scent_return
+        q.mode=:rest;q.visual.body.state=P.REST
+        configured_scent_choice!(scents,q,2,0)
+        @test q.mode==:scent_avoid
+        s,predators=animal_trial_world();scents=PredatorScentWorld(2)
+        for t in 0:9999;animal_trial_step!(s,predators,t;scents);end
+        io=IOBuffer();serialize(io,(s,predators,scents));seekstart(io);copy_s,copy_p,copy_scents=deserialize(io)
+        for t in 10000:11999
+            animal_trial_step!(s,predators,t;scents)
+            animal_trial_step!(copy_s,copy_p,t;scents=copy_scents)
+        end
+        @test animal_trial_report(s,predators;scents)==animal_trial_report(copy_s,copy_p;scents=copy_scents)
+        @test scents.marks==copy_scents.marks && scents.memory==copy_scents.memory
+    end
     checks_only && return
     frozen=joinpath(out,"source")
     mkpath(joinpath(frozen,"experiments","lw_wildlife"))
@@ -111,13 +150,13 @@ function main()
         cp(joinpath(@__DIR__,name),joinpath(frozen,"experiments","lw_wildlife",name))
     end
     cp(joinpath(@__DIR__,"../../Project.toml"),joinpath(frozen,"Project.toml"))
-    s,predators=animal_trial_world();daily=Any[]
+    s,predators=animal_trial_world();daily=Any[];scents=marking ? PredatorScentWorld(2) : nothing
     elapsed=@elapsed for t in 0:days*17280-1
-        animal_trial_step!(s,predators,t)
+        animal_trial_step!(s,predators,t;scents)
         if (t+1)%17280==0
-            day=div(t+1,17280);report=animal_trial_report(s,predators)
+            day=div(t+1,17280);report=animal_trial_report(s,predators;scents)
             push!(daily,(day=day,report=report))
-            serialize(joinpath(out,"day-$day.jls"),(s,predators))
+            serialize(joinpath(out,"day-$day.jls"),scents===nothing ? (s,predators) : (s,predators,scents))
             println(JSON3.write((day=day,rabbits=report.rabbits.alive,predators=report.predators)))
         end
     end
