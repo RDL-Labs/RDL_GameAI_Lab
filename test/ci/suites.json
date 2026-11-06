@@ -265,6 +265,10 @@
   ],
   "wildlife": [
     {
+      "args": ["--checks-only"],
+      "path": "experiments/lw_wildlife/animals_only.jl"
+    },
+    {
       "args": [],
       "path": "experiments/lw_wildlife/predator_checks.jl"
     },

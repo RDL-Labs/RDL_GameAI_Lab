@@ -16,7 +16,7 @@ GitHub Actionsとローカルで `julia --startup-file=no --project=. test/ci/ru
 | wildlife | LW草食接続、繁殖・初期親子・帰巣回避、動体観測 |
 
 初回整理では旧workflowの検査を全て移し、繁殖・援助資源・共通試行などを追加した。
-その後、下記の旧仕様検査4本を通常CIから外し、捕食者接続検査を1本追加した。現在の通常CIは8区分・66本。
+その後、下記の旧仕様検査4本を通常CIから外し、捕食者接続検査を1本追加した。現在の通常CIは8区分・67本（動物単独の空腹・縄張り検査を含む）。
 各スクリプトは独立Juliaプロセスで実行。失敗しても同suiteの後続を実行し、最後に非ゼロで終了する。
 ファイル別ログと終了コード・秒数は `outputs/ci/<suite>` に保存し、Actions artifactへアップロードする。
 matrixのfail-fast=falseは継続。各jobの上限は20分。CI結果のsuccess/skippedを混同しない。

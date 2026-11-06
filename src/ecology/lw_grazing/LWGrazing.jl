@@ -90,12 +90,13 @@ function build(scene,clock;low_obstacles=true)
     rabbit_initial_young!(grazing_world,initial_young_count,initial_young_age)
 end
 
-function prepare!(s::GrazingWorld,humans,t::Int)
+function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing)
     t==s.ticks && !s.prepared || error("grazing perception must run once before actions")
     length(humans)==length(s.previous_humans) || error("grazing human roster changed")
     w=s.world;a=s.animals
     configured_wildlife_predator_plan!(s,t)
-    targets=s.predator===nothing ? humans : vcat(humans,[(s.predator.body.x,s.predator.body.z)])
+    predators=s.predator===nothing ? additional_predators : (s.predator,additional_predators...)
+    targets=isempty(predators) ? humans : vcat(humans,[(p.body.x,p.body.z) for p in predators])
     fill!(s.overrides,0)
     for i in eachindex(s.alive)
         s.alive[i] || continue
@@ -106,11 +107,13 @@ function prepare!(s::GrazingWorld,humans,t::Int)
         s.gaze[i]=P.turn_gaze(s.gaze[i],desired)
         best=0;distance=Inf
         for j in eachindex(targets)
+            extra_index=j-length(humans)-(s.predator===nothing ? 0 : 1)
+            additional_predator_alive!==nothing && extra_index>0 && !additional_predator_alive[extra_index] && continue
             p=targets[j];d=hypot(p[1]-a.x[i],p[2]-a.z[i])
             d<=10 && d<distance || continue
             bearing=atan(p[2]-a.z[i],p[1]-a.x[i])
             P.field_factor(bearing-s.gaze[i],true)>0 || continue
-            previous=j<=length(humans) ? s.previous_humans[j] : s.predator.previous_position
+            previous=j<=length(humans) ? s.previous_humans[j] : predators[j-length(humans)].previous_position
             moved=hypot(p[1]-previous[1],p[2]-previous[2])>1e-6
             tracked=recent && s.seen_actor[i]==j
             cover=H.grass_cover!(w,H.cell(w,p...),t;body_height=j<=length(humans) ? 1.7 : WILDLIFE_PREDATOR.body_height)
@@ -126,7 +129,7 @@ function prepare!(s::GrazingWorld,humans,t::Int)
             if best<=length(humans)
                 s.seen_ticks[i]+=1;s.human_seen[best]+=1
             else
-                s.predator.seen_by_rabbits+=1
+                predators[best-length(humans)].seen_by_rabbits+=1
             end
             if state==H.FLEE
                 s.flee_until[i]=t+3;s.calm_since[i]=t
@@ -172,7 +175,7 @@ end
 
 include("balance.jl")
 
-function snapshot(s::GrazingWorld; previous=nothing)
+function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths=0)
     w=s.world;a=s.animals
     for k in eachindex(w.grass);H.grass!(w,k,s.ticks);end
     prior=previous===nothing ? nothing : get(previous,:balances,nothing)
@@ -180,7 +183,7 @@ function snapshot(s::GrazingWorld; previous=nothing)
     balances=(grass=balance_diagnostic("grass",w.initial+w.grown,sum(w.grass)+w.eaten;previous=old(:grass)),
         intake=balance_diagnostic("intake",w.eaten,sum(a.consumed);previous=old(:intake)),
         digestion=balance_diagnostic("digestion",sum(a.consumed),sum(a.gut)+sum(a.digested);previous=old(:digestion)))
-    captures=s.predator===nothing ? 0 : s.predator.body.captures
+    captures=(s.predator===nothing ? 0 : s.predator.body.captures)+additional_predation_deaths
     @assert count(!,s.alive)==s.deaths+captures
     @assert all(i->H.clear(w,(a.x[i],a.z[i]),(a.x[i],a.z[i])),eachindex(s.alive))
     @assert all(isfinite,a.energy) && all(e->0<=e<=100,a.energy)

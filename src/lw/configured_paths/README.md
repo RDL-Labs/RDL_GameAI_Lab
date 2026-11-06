@@ -1,5 +1,10 @@
 # 設定経路（撤去予定のテスト用処理）
 
+`predator_animal_trial.jl`：動物単独ランナー専用・通常LWは既定OFF。
+食料相当量による狩猟/休息と、固定中心への接近度による威嚇/撤退を試す。
+瞬時摂食、固定閾値、初期縄張りを使用。将来は身体・経験MBへ置換する。
+条件と限界は `experiments/lw_wildlife/animals_only_report.md` を参照。
+
 `wildlife_predation.jl`：`wildlife.predator_count=1`（既定0）で既存捕食FSMをLWへ接続。
 観測された兎の追跡・接触捕食・固定休息。人への攻撃、捕食者の身体需要・繁殖は未実装。
 `wildlife.predator` と `predation_deaths` へ記録する。将来は身体需要と観測・記憶MBの選択へ置換。
