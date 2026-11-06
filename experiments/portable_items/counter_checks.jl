@@ -23,13 +23,16 @@ include("checks.jl")
     @test item_checks(f)===nothing
 end
 @testset "loss is never a random accept; counter terms are optional" begin
+    # Public stores are explicit test conditions, as in the connected LW scene.
+    # Cooked surplus can compensate the owner; unseen inventories must not invent terms.
     f=item_fixture(objects=[placed_item(1,1;owner=ITEM_A,location="held"),
-        placed_item(2,2;owner=ITEM_B,location="held")])
+        placed_item(2,2;owner=ITEM_B,location="held")],
+        food_counts=[[20,0,0,0],[0,0,0,20],[0,0,0,0]])
     o=item_act(f,ITEM_B,"item_offer",0;target=ITEM_A,want_items=[1])
     counters=0;declines=0
     for seed in 1:64
         s=LW.incidental_item_state(ITEM_A,seed)
-        p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
+        p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1,open_stores=true),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
         @test p!==nothing && p["action"] in ("item_counter","item_decline")
         if p["action"]=="item_counter"
             counters+=1
@@ -44,6 +47,19 @@ end
     @test f.s["items"][1]["owner"]==ITEM_A
     f.s["offers"][o["offer_id"]]["round"]=8
     s=LW.incidental_item_state(ITEM_A,1)
-    p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
+    p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1,open_stores=true),f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1;require_need=false)
     @test p["action"]=="item_decline"
+end
+
+@testset "visible uncompensated loss is declined without inventing food" begin
+    f=item_fixture(objects=[placed_item(1,1;owner=ITEM_A,location="held"),
+        placed_item(2,2;owner=ITEM_B,location="held")])
+    item_act(f,ITEM_B,"item_offer",0;target=ITEM_A,want_items=[1])
+    for seed in 1:64
+        s=LW.incidental_item_state(ITEM_A,seed)
+        p=LW.item_social_plan!(s,item_view(f,ITEM_A;now=1,open_stores=true),
+            f.w.bodies[ITEM_A],nothing,f.foods.personal[ITEM_A],1)
+        @test p["action"]=="item_decline"
+    end
+    @test f.s["items"][1]["owner"]==ITEM_A
 end

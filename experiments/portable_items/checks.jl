@@ -30,8 +30,8 @@ end
 function item_act(f,a,action,now;op="item-test:$now:$a",kwargs...)
     LW.item_execute!(f.s,f.foods,f.w,f.stores,ITEM_HOME,a,op,action,now;kwargs...)
 end
-function item_view(f,a;now=0,yaw=0.)
-    LW.item_visible(f.s,f.w,ITEM_HOME,a,yaw,now)
+function item_view(f,a;now=0,yaw=0.,open_stores=false)
+    LW.item_visible(f.s,f.w,ITEM_HOME,a,yaw,now;open_stores,foods=f.foods)
 end
 function item_saved_copy(x)
     io=IOBuffer();serialize(io,x);seekstart(io);deserialize(io)

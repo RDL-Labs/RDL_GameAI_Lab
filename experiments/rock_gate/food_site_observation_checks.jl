@@ -23,13 +23,16 @@ include("../julia_migration/lw_integrated/mb_chunk_checks.jl")
  mb_daily_request!(s,visible,nothing,false,1,80.,0.,5_000_000,600_000_000)
  @test a["strategy"]=="acquire" && !mb_food_site_empty(s,0)
  mb_daily_stage!(s["daily_plan"],"known_food",5_000_000;reason="test_acquisition")
+ a["stage_technique"]="pickup" # Controlled stage fixture: this result is a pickup, not fishing.
  mb_daily_result!(s,p,"picked_up",5_000_000,.1,1;acquired_source="op:5000000:a")
  mb_food_contact!(s,p,"picked_up",0,6_000_000,"op:5000000:a")
  @test a["strategy"]=="explore" && a["stage"]=="return" && a["acquired"]==2
  @test !a["closed"] && a["delivered"]==0
  @test last(s["daily_plan"]["plan_records"])["reason"]=="harvest_exhausted"
  @test !last(s["daily_plan"]["plan_records"])["completed"] # Harvest isn't roundtrip success.
- @test any(x->x["completed"] && x["reason"]=="acquired",s["daily_plan"]["models"]["known_food"])
+ # Acquisition forecasts are separated by technique; a pickup does not train fishing.
+ @test any(x->x["completed"] && x["reason"]=="acquired",s["daily_plan"]["models"]["known_food:pickup"])
+ @test !haskey(s["daily_plan"]["models"],"known_food:fishing")
  mb_daily_result!(s,D("action"=>"deposit"),"performed",7_000_000,.1,2;delivered_sources=["op:0:a","op:5000000:a"])
  @test only(s["daily_plan"]["records"])["food_success"]
  @test a["delivered"]==2

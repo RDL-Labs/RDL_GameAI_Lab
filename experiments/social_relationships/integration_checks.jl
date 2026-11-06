@@ -9,19 +9,21 @@ function integration_clock(seconds;orientation=0,exploration=seconds,night=secon
         phase_boundaries_us=[orientation,exploration,night,seconds].*1_000_000,
         quiet_night_us=night*1_000_000))
 end
-function integration_scene(;distance=.75,relationships=true)
+function integration_scene(;distance=.75,relationships=true,donor_stock=3)
     merge(LW.native_scene(19),(name="social-integration-controlled",positions=[[0.,0.],[0.,distance],[100.,100.]],
         home=[0.,0.],food=Any[],obstacles=Any[],low_obstacles=Any[],ground_patches=Any[],hazards=Any[],
-        initial_inventory=[0,3,0],initial_inventory_kinds=[Int[],[4,4,4],Int[]],
+        initial_inventory=[0,donor_stock,0],initial_inventory_kinds=[Int[],fill(4,donor_stock),Int[]],
         reserve=[30.,90.,100.],typed_food=true,food_exchange=true,social_relationships=relationships))
 end
 integration_run(scene,clock;seed=3,days=1,kwargs...)=LW.lw_day(scene,clock;days,basic_loop=true,
     food_body=true,social_response=true,choice_seed=seed,kwargs...)
 
 @testset "LW social aid transfer and owner MB are connected" begin
-    r=integration_run(integration_scene(),integration_clock(60;orientation=60))
+    # Usable donor surplus and three request opportunities at the current 64 s cadence.
+    # The response is still selected normally; this fixture observes both giving and refusal.
+    r=integration_run(integration_scene(donor_stock=10),integration_clock(192;orientation=192))
     aid=r["final_agents"][IA]["aid"];rel=r["social_relationships"][IA]
-    @test r["ended_us"]==60_000_000
+    @test r["ended_us"]==192_000_000
     @test get(r["counts"][IA],"request",0)>0
     @test get(r["counts"][IB],"give",0)>0
     @test r["initial_food"]==r["ground"]+r["consumed"]+sum(a["inventory"]+a["personal_stock"] for a in values(r["final_agents"]))
@@ -30,11 +32,13 @@ integration_run(scene,clock;seed=3,days=1,kwargs...)=LW.lw_day(scene,clock;days,
     @test !isempty(given) && all(x->x["received_kind"]==4,given)
     @test all(x->x["actual"]==x["forecast"]["values"][4] && x["evaluated"],given)
     @test any(x->x["outcome"]=="refuse" && 0<x["pressure"]<1,aid["records"])
-    @test any(x->x["reward"]>0 && x["H_after"]<x["H_before"],given)
+    # A first successful request starts at H=0: positive reward need not reduce H below zero.
+    # Relief from positive H is checked separately in aid_forecast_checks.jl.
+    @test any(x->x["reward"]>0 && x["H_after"]<=x["H_before"],given)
     @test rel["relational"] && rel["mb"]["events"]>0 && !isempty(rel["mb"]["pending"])
     @test any(x->!isempty(x["forecast"]["mb_ids"]),aid["records"])
-    # Forecast retention changes the amount eaten in this fixed 60-second window.
-    @test 1<=r["food_resources"]["consumed"][4]<=3
+    # Forecast retention changes the amount eaten in this fixed 192-second window.
+    @test 1<=r["food_resources"]["consumed"][4]<=10
     @test r["final_agents"][IA]["social"]["model"]==LW.social_initial()["model"]
     @test r["food_exchange"]!==nothing
 end
@@ -42,7 +46,7 @@ end
 @testset "LW visible approach reaches contact through ordinary walking" begin
     # Social walking competes probabilistically; use a fixed small seed set
     # instead of requiring every social opportunity to win over exploration.
-    runs=[integration_run(integration_scene(distance=1.5),integration_clock(45);seed) for seed in 0:7]
+    runs=[integration_run(integration_scene(distance=1.5,donor_stock=10),integration_clock(192);seed) for seed in 0:7]
     approaches=[r["social_relationships"][IA]["approach"] for r in runs]
     @test sum(a["proposed"] for a in approaches)>0 && sum(a["selected"] for a in approaches)>0
     @test sum(a["contacts"] for a in approaches)>0
@@ -72,20 +76,29 @@ end
     @test any(n["channel"] in ("trade_offer","trade_response") for a in LW.IDS for n in values(r["social_relationships"][a]["mb"]["pending"]))
 end
 
-@testset "LW aid remains active after bounded legacy record storage fills" begin
-    # Raw food remains useful predicted material but cannot be eaten away from
-    # home. This maintains hunger and contact without a forced request action.
-    scene=merge(integration_scene(),(home=[50.,50.],initial_inventory=[0,300,0],
-        initial_inventory_kinds=[Int[],fill(3,300),Int[]]))
-    r=integration_run(scene,integration_clock(1200;orientation=1200))
-    a=r["final_agents"][IA];aid=a["aid"];social=a["social"]
-    @test aid["resolved"]>192
-    @test length(social["records"])<=128 && social["records_pruned"]>0
-    @test aid["resolved"]==length(social["records"])+social["records_pruned"]
-    @test maximum(e["us"] for e in aid["records"])>600_000_000
-    @test sum(sum(values(counts)) for counts in values(aid["outcome_counts"]))==aid["resolved"]
+@testset "observed aid receipts remain usable after legacy window fills" begin
+    # Controlled message/receipt fixture, not 200 forced NPC requests in 1200 seconds.
+    # Exercise the same ingest -> owner forecast -> bounded legacy window sequence as LW.
+    social=LW.social_initial();aid=LW.social_aid_state(IA;seed=3)
+    for i in 1:200
+        now=(i-1)*64_000_000;id="aid-$i";op="request-$i"
+        social["pending"]=LW.D("message_id"=>id,"operation_id"=>op,"target"=>IB,"deadline"=>now+5_000_000)
+        LW.social_aid_begin!(aid,id,IB,now;probability=.5,values=[1.],expected_kind=1)
+        outcome=isodd(i) ? "given" : "refuse"
+        packet=LW.D("agent_id"=>IA,"capture_us"=>now+2_000_000,"observation_id"=>"obs-$i",
+            "social"=>LW.D("messages"=>[LW.D("reply_to"=>id,"sender"=>IB,"kind"=>outcome,"food_kind"=>1,"time"=>(now+1_000_000)/1e6)]))
+        social=LW.ingest(social,packet,LW.D(op=>LW.D("status"=>"expressed")))
+        record=social["records"][id]
+        LW.social_aid_finish!(aid,id,IB,record["outcome"],record["tick"];received_kind=get(record,"received_kind",nothing),source=record["source_observation_id"])
+        LW.social_record_window!(social)
+        @test social["pending"]===nothing && haskey(social["records"],id)
+        @test aid["resolved"]==i && length(social["records"])<=128
+    end
+    @test length(social["records"])==128 && social["records_pruned"]==72
+    @test aid["resolved"]==length(social["records"])+social["records_pruned"]==200
+    @test sum(sum(values(counts)) for counts in values(aid["outcome_counts"]))==200
+    @test last(aid["records"])["request_id"]=="aid-200"
 end
-
 @testset "LW Sleep adopts relation MBs and leaves the old model untouched" begin
     # Sleep still uses the production 2,880-second rest requirement. Keep that
     # duration and shorten only the waking schedule; no test-only Sleep trigger.
@@ -107,8 +120,10 @@ end
 end
 
 @testset "LW checkpoint resumes an open social forecast without duplicate learning" begin
-    scene=integration_scene();clock=integration_clock(5;orientation=5)
-    full=integration_run(scene,clock;days=2)
+    # Save immediately after the request, before the next-tick response. A five
+    # second day already settles it and the current retry interval is 64 seconds.
+    scene=integration_scene(donor_stock=10);clock=integration_clock(1;orientation=1)
+    full=integration_run(scene,clock;days=3)
     mktempdir() do directory
         # The test owns this generated temporary subtree, including automatic cleanup.
         @assert startswith(abspath(directory),joinpath(abspath(tempdir()),""))
@@ -116,7 +131,7 @@ end
         checkpoint=joinpath(directory,"day-001.jls")
         saved=deserialize(checkpoint)
         @test saved.state[:relations][IA]["aid"]["pending"]!==nothing
-        resumed=integration_run(scene,clock;days=2,resume_from=checkpoint,checkpoint_identity="social-integration")
+        resumed=integration_run(scene,clock;days=3,resume_from=checkpoint,checkpoint_identity="social-integration")
         @test resumed["final_agents"][IA]["aid"]["resolved"]>first["final_agents"][IA]["aid"]["resolved"]
         # Object key iteration order is not replay state. Compare the complete
         # JSON value tree, retaining exact numeric values and array order.

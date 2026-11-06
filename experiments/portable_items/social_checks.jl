@@ -41,7 +41,8 @@ end
         placed_item(2,2;owner=ITEM_A,location="held")],
         # Distinct surpluses allow mutually useful terms under compound value.
         # Do not require scarce owners to accept a loss merely to exercise credit.
-        food_counts=[[20,0,0,0],[0,0,20,0],[0,0,0,0]])
+        # Public stores below expose real stock; prepared food needs no implicit kitchen.
+        food_counts=[[20,0,0,0],[0,0,0,20],[0,0,0,0]])
     states=Dict(a=>LW.incidental_item_state(a,33) for a in (ITEM_A,ITEM_B))
     relations=Dict(a=>LW.social_relations_state(a;relational=true) for a in keys(states))
     pending_checked=false
@@ -49,7 +50,7 @@ end
     # response learning; this is still autonomous, not a prescribed transaction.
     for t in 0:4095
         now=t*1_000_000;LW.item_expire!(f.s,now)
-        views=Dict(a=>item_view(f,a;now) for a in (ITEM_A,ITEM_B))
+        views=Dict(a=>item_view(f,a;now,open_stores=true) for a in (ITEM_A,ITEM_B))
         for a in (ITEM_A,ITEM_B)
             LW.item_social_observe!(states[a],views[a];relation=relations[a])
             p=LW.item_social_plan!(states[a],views[a],f.w.bodies[a],nothing,f.foods.personal[a],now;relation=relations[a],require_need=false)
@@ -68,7 +69,7 @@ end
         end
     end
     for a in (ITEM_A,ITEM_B)
-        LW.item_social_observe!(states[a],item_view(f,a;now=4096_000_000);relation=relations[a])
+        LW.item_social_observe!(states[a],item_view(f,a;now=4096_000_000,open_stores=true);relation=relations[a])
     end
     @test sum(m["successes"] for s in values(states) for m in get(s,"exchange_relations",[]))==2*f.s["counts"]["exchanged"]
     @test pending_checked
