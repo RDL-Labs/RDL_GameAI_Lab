@@ -1,6 +1,7 @@
 # Adapter only: selection, prediction-result learning, trial lifecycle and
 # acquisition residuals call the SAME functions used by human LW actors.
 include("../../lw/configured_paths/predator_cognition_parameters.jl")
+include("../../lw/configured_paths/predator_rest_place.jl")
 mutable struct PredatorMind
     loop::LW.BasicLoop
     acquisition::Dict{String,Any}
@@ -22,14 +23,18 @@ function predator_remember_place!(mind,p,kind,t)
     rule=PREDATOR_COGNITION;body=p.visual.body
     cell=(floor(Int,body.x/rule.place_cell),floor(Int,body.z/rule.place_cell))
     key=string(kind,":",cell)
+    rest_key=configured_predator_rest_place!(mind)
+    kind=="rest" && rest_key!==nothing && key!=rest_key && return
     if !haskey(mind.places,key) && length(mind.places)>=rule.place_limit
-        oldest=first(sort!(collect(keys(mind.places));by=k->(mind.places[k].seen,k)))
+        eviction_keys=filter(k->k!=rest_key,collect(keys(mind.places)))
+        oldest=first(sort!(eviction_keys;by=k->(mind.places[k].seen,k)))
         delete!(mind.places,oldest)
     end
     prior=get(mind.places,key,nothing)
     mind.places[key]=(kind=kind,x=body.x,z=body.z,seen=t,successes=prior===nothing ? 1 : prior.successes+1)
 end
 function predator_candidates(mind,p,rival,scents,i)
+    configured_predator_rest_place!(mind) # Also normalizes resumed legacy checkpoints.
     rule=PREDATOR_COGNITION;body=p.visual.body
     hunger=max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-p.food)/rule.food_pressure_scale)
     rows=Any[LW.D("method"=>"hunt","action"=>:hunt,"question"=>"acquired_food",
@@ -155,4 +160,5 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
     end
 end
 predator_mind_report(mind)=(loop=LW.loop_snapshot(mind.loop),places=deepcopy(mind.places),
+    single_rest_place=PREDATOR_COGNITION.single_rest_place,
     completed=mind.completed,records=deepcopy(mind.records),active=deepcopy(mind.trial))

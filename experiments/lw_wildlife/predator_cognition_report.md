@@ -749,3 +749,20 @@ rest_weight=2、場所prior=.5、acquisition_value既定yield_units=1が残り�
 見える体格からの獲得栄養見積もりを順に分離検証したい。今回は行動変更なし。
 診断コード: audit_inherited_deaths.jl。全詳細ログ: outputs/inherited-deaths-audit.json。
 要約証拠: evidence/inherited-deaths-audit-summary.json。
+
+## 休息場所を1か所に制限（2026-11-07）
+
+ユーザー指定により `PREDATOR_COGNITION.single_rest_place=true` を追加。
+暫定固定の制限は `configured_paths/predator_rest_place.jl` に隔離。
+各個体の最初の休息場所を保持し、他所で休んでも地点候補を増やさない。
+同じ地点の休息経験は更新する。場所総数16件の更新ではこの休息場所を退去対象から除く。
+旧MBは休息経験数、最終経験時刻、キー順で1地点を選ぶ。世代継承時および候補生成時に正規化する。
+削除した地点の過去の方法・獲得経験は履歴として残すが、地点候補には出さない。
+進行中の試行を中断したり親Hをリセットしたりしない。
+設定falseで旧来の複数地点記憶に戻せる（削除済みの地点は復元されない）。
+日次・最終の cognition レポートに設定と保持地点を記録する。
+これは住処を経験から選ぶ学習ではなく、場所数による候補確率の偏りを抑える実験設定。
+将来は目的と場所選択の階層化、住処変更の認知へ置換する。
+その場のrest候補は残り、記憶地点への帰還を強制しない。固定のrest_weightも今回未変更。
+`single_rest_place_checks.jl`: 11項目PASS。記憶更新・上限時の保持・旧MB正規化・候補数・継承を検査。
+長期生存への影響は未測定。
