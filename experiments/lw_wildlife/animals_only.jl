@@ -74,7 +74,7 @@ function main()
         boundary_gradient=true,boundary_rule=H.WILDLIFE_BOUNDARY,rule=PREDATOR_ANIMAL_TRIAL,prey_nutrition=prey_nutrition,adult_food_equivalent=PREDATOR_ANIMAL_TRIAL.adult_food*prey_nutrition,
         marking=marking,marking_rule=marking ? PREDATOR_MARKING : nothing,
         cognition=cognition,cognition_rule=cognition ? PREDATOR_COGNITION : nothing,
-        fixed=cognition ? "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding" :
+        fixed=cognition ? "shared human selection; provisional candidate priors, exact self-position memory, episode horizons, zero rest benefit, warning cap and instantaneous meals; no fatigue or predator breeding" :
             "territory centers when marking OFF; local scent identity/intervals/choices when ON; visual warning/retreat, instantaneous meals; no predator breeding or combat")
     write(joinpath(out,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions))
     s,predators=animal_trial_world()

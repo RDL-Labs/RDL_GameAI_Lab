@@ -4,4 +4,4 @@
 const PREDATOR_COGNITION=(decision_ticks=60,episode_ticks=600,place_limit=16,
     place_cell=8.,arrival_radius=3.,move_speed=.22,food_value_scale=900.,
     food_pressure_scale=600.,food_weight=3.,rest_weight=2.,rival_weight=2.,
-    place_prior=.5,rest_benefit=.2,hunt_prior=.3,tolerance=.05,history_limit=64)
+    place_prior=.5,hunt_prior=.3,tolerance=.05,history_limit=64)

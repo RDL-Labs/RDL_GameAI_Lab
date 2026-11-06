@@ -36,7 +36,7 @@ function predator_candidates(mind,p,rival,scents,i)
         "priority"=>rule.food_weight*hunger,"forecast"=>rule.episode_ticks,"expected"=>get(mind.estimates,"hunt",rule.hunt_prior)),
         LW.D("method"=>"rest","action"=>:rest,"question"=>"rested",
         "priority"=>rule.rest_weight-rule.food_weight*hunger,"forecast"=>rule.episode_ticks,
-        "expected"=>rule.rest_benefit)]
+        "expected"=>0.)]
     for key in sort!(collect(keys(mind.places)))
         place=mind.places[key];distance=hypot(place.x-body.x,place.z-body.z)
         distance>rule.arrival_radius || continue
@@ -69,7 +69,9 @@ function predator_mind_close!(mind,p,rival,t;dead=false)
     actual=if action==:hunt
         (p.eaten-mind.start_eaten)/rule.food_value_scale-cost
     elseif action==:rest
-        rule.rest_benefit-cost
+        # No fatigue/recovery model exists: resting supplies no measured benefit.
+        # A completed rest can be local evidence, but must not reward or relieve parent H.
+        -cost
     elseif action in (:visit_food,:visit_rest)
         (arrived ? rule.place_prior : 0.)-cost
     else

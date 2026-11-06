@@ -10,7 +10,7 @@ function scent_motion_longrun()
         boundary_gradient=boundary_gradient,boundary_rule=H.WILDLIFE_BOUNDARY,marking=true,cognition=true,prey_scent=true,cautious=true,motion_speed=true,
         stop_on_predator_extinction=true,prey_rule=PREY_SCENT,caution_rule=PREY_SCENT_CAUTION,
         motion_rule=G.MOTION_VISIBILITY,local_hunt=local_hunt,local_rule=local_hunt ? LOCAL_HUNT : nothing,
-        fixed="provisional scent/speed rules; optional local capture forecast with wait child; no sound/wind/humans; rest reward unchanged")
+        fixed="provisional scent/speed rules; optional local capture forecast with wait child; no sound/wind/humans; rest benefit removed")
     write(joinpath(out,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
     frozen=joinpath(out,"source");mkpath(joinpath(frozen,"experiments/lw_wildlife"))
     cp(joinpath(@__DIR__,"../../src"),joinpath(frozen,"src"))
