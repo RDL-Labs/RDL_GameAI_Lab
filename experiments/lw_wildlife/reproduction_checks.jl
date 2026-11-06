@@ -84,3 +84,34 @@ end
  @test_throws ErrorException G.rabbit_life(2,42,fill((0.,0.),2);initial_pregnancy_days=[31])
  @test_throws ErrorException G.rabbit_life(2,42,fill((0.,0.),2);initial_pregnancy_days=[2,3])
 end
+
+@testset "initial mother and young" begin
+ cfg=(enabled=true,count=30,seed=20261028,reproduction=true,
+      initial_pregnancy_days=[26,21,16,11,6],initial_young_count=5,initial_young_age_days=7)
+ scene=merge((;pairs(input.scene)...),(wildlife=cfg,))
+ s=G.build(scene,input.clock)
+ @test length(s.alive)==35
+ @test s.life.initial_count==35 && s.life.births==0 && s.life.litters==0
+ @test G.snapshot(s).reproduction.initial_young==5
+ mother=only(unique(s.life.mother[31:35]))
+ @test s.life.due[mother]==0 && s.life.sex[mother]==1
+ @test all(s.life.born[31:35].==-7R.day_ticks)
+ @test all(s.animals.energy[31:35].==R.milk_target)
+ @test s.life.gestation_out==80. && s.life.newborn_energy==0. && s.life.milk_in==0.
+ @test G.dependent(s.life,31,21R.day_ticks-1)
+ @test !G.dependent(s.life,31,21R.day_ticks)
+ humans=[(1000.,1000.) for _ in scene.positions]
+ for t in 0:99;G.prepare!(s,humans,t);G.advance!(s,t);end
+ @test all(s.alive[31:35]) && all(.!s.life.moving[31:35])
+ @test all(s.animals.counts[31:35,G.H.SLEEP].==100)
+ @test G.snapshot(s).reproduction.balances.gestation.status=="ok"
+ io=IOBuffer();serialize(io,s);seekstart(io);resumed=deserialize(io)
+ for world in (s,resumed);G.prepare!(world,humans,100);G.advance!(world,100);end
+ @test G.snapshot(s)==G.snapshot(resumed)
+ # A focused boundary check uses a clone; no skipped-time result is reported.
+ boundary=deepcopy(s);boundary.ticks=21R.day_ticks
+ G.prepare!(boundary,humans,boundary.ticks)
+ @test all(boundary.life.moving[31:35])
+ @test_throws ErrorException G.build(merge(scene,(wildlife=merge(cfg,(reproduction=false,initial_pregnancy_days=Int[],)),)),input.clock)
+ @test_throws ErrorException G.build(merge(scene,(wildlife=merge(cfg,(initial_young_age_days=28,)),)),input.clock)
+end

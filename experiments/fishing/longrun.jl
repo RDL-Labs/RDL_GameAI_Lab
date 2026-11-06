@@ -1,7 +1,7 @@
 using JSON3, Test
-length(ARGS) in 1:11 || error("OUTPUT [DAYS] [ordinary|relaxed|abundant] [trade-on|trade-off] [idle-on|idle-off] [social-on|social-off] [normal|scarce] [RABBIT_COUNT] [finite|seasonal] [breed-off|breed-on] [empty|mixed-pregnancy]")
+length(ARGS) in 1:11 || error("OUTPUT [DAYS] [ordinary|relaxed|abundant] [trade-on|trade-off] [idle-on|idle-off] [social-on|social-off] [normal|scarce] [RABBIT_COUNT] [finite|seasonal] [breed-off|breed-on] [empty|mixed-pregnancy|mixed-family]")
 pregnancy_profile=length(ARGS)>=11 ? ARGS[11] : "empty"
-pregnancy_profile in ("empty","mixed-pregnancy") || error("unknown pregnancy profile")
+pregnancy_profile in ("empty","mixed-pregnancy","mixed-family") || error("unknown pregnancy profile")
 breeding_profile=length(ARGS)>=10 ? ARGS[10] : "breed-off"
 breeding_profile in ("breed-off","breed-on") || error("unknown breeding profile")
 pregnancy_profile=="empty" || breeding_profile=="breed-on" || error("mixed pregnancy requires breed-on")
@@ -57,7 +57,9 @@ if supply_profile=="seasonal"
 end
 s["loose_items"]=Any[]
 s["wildlife"]=Dict{String,Any}("enabled"=>rabbit_count>0,"count"=>max(1,rabbit_count),"seed"=>20261028,"reproduction"=>breeding_profile=="breed-on")
-s["wildlife"]["initial_pregnancy_days"]=pregnancy_profile=="mixed-pregnancy" ? [26,21,16,11,6] : Int[]
+s["wildlife"]["initial_pregnancy_days"]=pregnancy_profile!="empty" ? [26,21,16,11,6] : Int[]
+s["wildlife"]["initial_young_count"]=pregnancy_profile=="mixed-family" ? 5 : 0
+s["wildlife"]["initial_young_age_days"]=7
 append!(s["loose_items"],[Dict("id"=>100+i,"kind"=>4,"x"=>8.,"z"=>12.) for i in 1:32])
 source=joinpath(root,"source");ispath(source) && error("fresh output required")
 mkpath(joinpath(source,"integrations"));cp(joinpath(repo,"src"),joinpath(source,"src"));cp(joinpath(repo,"integrations/lightweight_julia"),joinpath(source,"integrations/lightweight_julia"))
@@ -93,8 +95,8 @@ write(joinpath(root,"conditions.json"),JSON3.write(Dict("days"=>days,"actors"=>i
  "wildlife"=>s["wildlife"],"wildlife_rule"=>"grazing rabbits; displacement wakes motion sensor; visible appearance on inspection, no threat label, no hunting",
  "breeding_profile"=>breeding_profile,"breeding_fixed"=>breeding_profile=="breed-on" ? "provisional FSM: nest-bound young and maternal nursing return with local potential; no predators, age death or disease; allocation limit stops experiment" : "disabled",
  "nursing_potential"=>breeding_profile=="breed-on","pregnancy_profile"=>pregnancy_profile,
- "breeding_observation_limit"=>"31-day gestation; mixed profile seeds 5 mothers due on days 5/10/15/20/25; partial nursing completion remains unchanged",
- "initial_pregnancy_accounting"=>"initial pregnancy investment and conceptions include pre-run history; subtract initial 5 conceptions for mixed profile when reporting new conceptions",
+ "breeding_observation_limit"=>"31-day gestation; mixed profiles seed 5 mothers due on days 5/10/15/20/25; mixed-family adds 5 seven-day-old young with a separate mother; partial nursing completion remains unchanged",
+ "initial_pregnancy_accounting"=>"initial pregnancy investment and conceptions include pre-run history; subtract initial 5 conceptions for mixed profiles when reporting new conceptions",
  "off"=>["acorn/home training","hazards","night fear","food-only exchange"],
  "on"=>["incidental pickup",trade_profile,"food security","spoilage observation and learning","sleep external gate","collapse cognition gate","proficiency"],"food_sites"=>s["food"])))
 include(joinpath(source,"integrations/lightweight_julia/native.jl"))

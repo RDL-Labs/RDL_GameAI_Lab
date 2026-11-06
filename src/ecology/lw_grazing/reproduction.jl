@@ -68,10 +68,10 @@ function rabbit_visibility(s,i)
     (height/RABBIT_LIFE.adult_height)/(1+cover)
 end
 
-function rabbit_birth!(s,mother,t)
+function rabbit_birth!(s,mother,t;initial=false)
     life=s.life;a=s.animals;n=life.litter[mother]
     length(s.alive)+n<=RABBIT_LIFE.allocation_limit || error("rabbit allocation safety stop: population limit; births not silently suppressed")
-    position=(a.x[mother],a.z[mother]);energy=life.invested[mother]/n
+    position=(a.x[mother],a.z[mother]);energy=initial ? RABBIT_LIFE.milk_target : life.invested[mother]/n
     for _ in 1:n
         for (field,value) in ((:x,position[1]),(:z,position[2]),(:heading,0.),(:energy,energy),
             (:gut,0.),(:sleepy,0.),(:state,H.SLEEP),(:previous_cell,0),(:current_cell,H.cell(s.world,position...)),
@@ -90,9 +90,27 @@ function rabbit_birth!(s,mother,t)
         end
     end
     a.counts=vcat(a.counts,zeros(Int,n,size(a.counts,2)))
-    life.births+=n;life.litters+=1;life.newborn_energy+=life.invested[mother]
+    if initial
+        life.initial_count+=n # Initial inventory, not births or milk produced in this run.
+    else
+        life.births+=n;life.litters+=1;life.newborn_energy+=life.invested[mother]
+    end
     life.invested[mother]=0.;life.due[mother]=0;life.litter[mother]=0
     life.next_mate[mother]=t+(RABBIT_LIFE.wean_days+RABBIT_LIFE.recovery_days)*RABBIT_LIFE.day_ticks
+end
+
+# World initial condition only. Existing nonpregnant mother and dependent offspring
+# start at the same nest. No new fixed decision: normal nursing/weaning rules apply.
+function rabbit_initial_young!(s,young_count,age_days)
+    young_count==0 && return s
+    life=s.life
+    life===nothing && error("initial young require reproduction")
+    age_days isa Integer && !(age_days isa Bool) && 0<age_days<RABBIT_LIFE.wean_days || error("initial young age must be integer days before weaning")
+    mother=findfirst(i->life.sex[i]==1 && life.due[i]==0,eachindex(life.sex))
+    mother===nothing && error("initial young require a nonpregnant mother")
+    life.litter[mother]=young_count
+    rabbit_birth!(s,mother,-age_days*RABBIT_LIFE.day_ticks;initial=true)
+    s
 end
 
 function rabbit_daily!(s,t)
@@ -177,6 +195,7 @@ function rabbit_reproduction_snapshot(s)
         milk=balance_diagnostic("milk_energy",life.milk_out*RABBIT_LIFE.milk_efficiency,life.milk_in))
     (rule="rabbit-like-reproduction-v1",parameters=RABBIT_LIFE,initial=life.initial_count,
      balances=reproduction_balances,
+     initial_young=count(i->life.mother[i]>0 && life.born[i]<0,eachindex(life.born)),
      conceptions=life.conceptions,births=life.births,litters=life.litters,lost_pregnancies=life.lost_pregnancies,
      dependent=count(i->s.alive[i] && dependent(life,i,s.ticks),eachindex(s.alive)),
      pregnant=count(>(0),life.due),milk_out=life.milk_out,milk_in=life.milk_in,

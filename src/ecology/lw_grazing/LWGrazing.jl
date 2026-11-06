@@ -43,6 +43,9 @@ function build(scene,clock;low_obstacles=true)
     get(cfg,:enabled,false)===true || error("wildlife.enabled must be Bool")
     get(cfg,:reproduction,false) isa Bool || error("wildlife.reproduction must be Bool")
     initial_pregnancy_days=get(cfg,:initial_pregnancy_days,Int[])
+    initial_young_count=get(cfg,:initial_young_count,0)
+    initial_young_count isa Integer && !(initial_young_count isa Bool) && 0<=initial_young_count<=RABBIT_LIFE.litter_max || error("initial young count must be 0..6 (one litter)")
+    initial_young_age=get(cfg,:initial_young_age_days,7) # World fixture, not a maturity threshold.
     isempty(initial_pregnancy_days) || get(cfg,:reproduction,false) || error("initial pregnancy requires reproduction")
     hasproperty(scene,:landscape) || error("grazing requires a riparian landscape")
     scene.landscape.rule=="lw-riparian-base-v1" || error("unsupported grazing landscape")
@@ -76,11 +79,12 @@ function build(scene,clock;low_obstacles=true)
         Int32.(candidates[1:n]),zeros(Int32,n),zeros(Int,n),zeros(n),zeros(n),zeros(n),
         zeros(Int,n),zeros(Int,n),zeros(Int,n,6))
     humans=[(Float64(p[1]),Float64(p[2])) for p in scene.positions]
-    GrazingWorld(w,a,trues(n),copy(a.heading),fill(-1000,n),zeros(Int,n),fill((0.,0.),n),
+    grazing_world=GrazingWorld(w,a,trues(n),copy(a.heading),fill(-1000,n),zeros(Int,n),fill((0.,0.),n),
         fill(-1000,n),fill(-1000,n),zeros(UInt8,n),fill((0.,0.),n),zeros(length(w.grass)),
         zeros(length(w.grass)),zeros(n),Int[],humans,zeros(Int,n),zeros(Int,n),zeros(Int,n),
         zeros(Int,length(humans)),positions,0,false,0,
         get(cfg,:reproduction,false) ? rabbit_life(n,seed,positions;initial_pregnancy_days) : nothing)
+    rabbit_initial_young!(grazing_world,initial_young_count,initial_young_age)
 end
 
 function prepare!(s::GrazingWorld,humans,t::Int)
