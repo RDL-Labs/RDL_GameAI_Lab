@@ -28,10 +28,12 @@ function animal_trial_report(s,predators)
 end
 function main()
     checks_only="--checks-only" in ARGS
+    days=checks_only || length(ARGS)<2 ? 3 : parse(Int,ARGS[2])
+    days>0 || error("days must be positive")
     out=checks_only ? joinpath(mktempdir(),"checks") : length(ARGS)>0 ? ARGS[1] : "outputs/animals-only-3d"
     ispath(out) && error("output already exists")
     mkpath(out)
-    conditions=(days=3,humans=0,adult_rabbits=30,initial_young=5,predators=2,
+    conditions=(days=days,humans=0,adult_rabbits=30,initial_young=5,predators=2,
         rule=PREDATOR_ANIMAL_TRIAL,fixed="territory centers, visual warning/retreat, instantaneous meals; no predator breeding or combat")
     write(joinpath(out,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions))
     s,predators=animal_trial_world()
@@ -71,8 +73,15 @@ function main()
         @test animal_trial_report(s,predators)==animal_trial_report(copy_s,copy_p)
     end
     checks_only && return
+    frozen=joinpath(out,"source")
+    mkpath(joinpath(frozen,"experiments","lw_wildlife"))
+    cp(joinpath(@__DIR__,"../../src"),joinpath(frozen,"src"))
+    for name in ("animals_only.jl","predator_3d_spec.json")
+        cp(joinpath(@__DIR__,name),joinpath(frozen,"experiments","lw_wildlife",name))
+    end
+    cp(joinpath(@__DIR__,"../../Project.toml"),joinpath(frozen,"Project.toml"))
     s,predators=animal_trial_world();daily=Any[]
-    elapsed=@elapsed for t in 0:3*17280-1
+    elapsed=@elapsed for t in 0:days*17280-1
         animal_trial_step!(s,predators,t)
         if (t+1)%17280==0
             day=div(t+1,17280);report=animal_trial_report(s,predators)
