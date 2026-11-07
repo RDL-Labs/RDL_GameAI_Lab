@@ -1,0 +1,153 @@
+{
+  "conditions": {
+    "days": 30,
+    "actors": [
+      "npc_a",
+      "npc_b",
+      "npc_c",
+      "npc_d"
+    ],
+    "donor": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\food-demand-inherited-30d-20261107\\generation-101",
+    "donor_index": 2,
+    "donor_captures": 25,
+    "wildlife": {
+      "boundary_gradient": true,
+      "enabled": true,
+      "initial_young_count": 5,
+      "grass_scale": 3.0,
+      "initial_pregnancy_days": [
+        26,
+        21,
+        16,
+        11,
+        6
+      ],
+      "initial_young_age_days": 7,
+      "predator_count": 0,
+      "reproduction": true,
+      "seed": 20261028,
+      "count": 95
+    },
+    "human_input_origin": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\lw-rabbit-family-30d-20261106\\input.json",
+    "human_input_sha256": "d227959e26c6eaa900d86678be3f4aeffd6b35acda4f4dd53df6a839567e5b57",
+    "fixed": "explicit B MB copies; fresh bodies; reserve-demand target 900; previous human training and configured paths retained",
+    "interactions": "rabbits react to humans and predators; humans observe both; no predator attack on humans or human hunting",
+    "checkpoint": "predator cohort included in human daily serialization graph",
+    "stop": "requested days, including after predator extinction"
+  },
+  "measurement": {
+    "gc_seconds": 45.7277231,
+    "process_peak_rss_bytes": 2694422528,
+    "compilation_included": true,
+    "call_seconds": 1037.2686339,
+    "allocated_bytes": 407387051519
+  },
+  "progress": {
+    "day": 30,
+    "elapsed_seconds": 1051.5199999809265,
+    "rabbits": 37,
+    "rabbit_starvation": 35,
+    "predator_alive": [
+      true,
+      true
+    ],
+    "captures": [
+      21,
+      19
+    ],
+    "humans": {
+      "npc_b": 94.94111111109414,
+      "npc_a": 83.45222222216735,
+      "npc_d": 84.07888888883612,
+      "npc_c": 84.41452484863107
+    }
+  },
+  "food": {
+    "expired_fish": 3,
+    "initial": 207,
+    "consumed": 148,
+    "discarded": 4,
+    "ground": 110,
+    "personal": {
+      "npc_b": 1,
+      "npc_a": 2,
+      "npc_d": 0,
+      "npc_c": 1
+    },
+    "added": 59,
+    "shared": 0
+  },
+  "predators": [
+    {
+      "alive": true,
+      "food": 1519.202777778186,
+      "captures": 21,
+      "attacks": 38,
+      "eaten": 19463.52193882024,
+      "spent": 18844.319161221254,
+      "discarded": 6321.478061179762,
+      "balance_residual": -1.791995600797236E-07,
+      "ticks": {
+        "idle": 484476,
+        "hunt": 26570,
+        "retreat": 120,
+        "visit_food": 2864,
+        "visit_rest": 872,
+        "rest": 3498
+      }
+    },
+    {
+      "alive": true,
+      "food": 1728.0744444445488,
+      "captures": 19,
+      "attacks": 39,
+      "eaten": 19826.62329751164,
+      "spent": 18998.548853248463,
+      "discarded": 5823.376702488361,
+      "balance_residual": -1.8137143342755735E-07,
+      "ticks": {
+        "idle": 479061,
+        "hunt": 27466,
+        "retreat": 240,
+        "visit_food": 6189,
+        "visit_rest": 1331,
+        "rest": 4113
+      }
+    }
+  ],
+  "physiology": [
+    {
+      "burst": 10.0,
+      "strain": 0.0,
+      "reserve": 1519.202777778186,
+      "damage": 0.0,
+      "need": 0.0,
+      "limited_ticks": 0
+    },
+    {
+      "burst": 10.0,
+      "strain": 0.0,
+      "reserve": 1728.0744444445488,
+      "damage": 0.0,
+      "need": 0.0,
+      "limited_ticks": 0
+    }
+  ],
+  "rabbits": {
+    "alive": 37,
+    "births": 12,
+    "predation_deaths": 40,
+    "starvation_deaths": 35,
+    "grass_remaining": 40892.64695548257,
+    "human_seen": [
+      41501,
+      2453,
+      27784,
+      104091
+    ]
+  },
+  "verified": {
+    "days": 30,
+    "verified": true
+  }
+}
