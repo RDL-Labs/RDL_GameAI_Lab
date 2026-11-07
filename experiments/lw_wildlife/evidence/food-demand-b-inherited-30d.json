@@ -1,0 +1,160 @@
+{
+  "conditions": {
+    "generations": 1,
+    "generation_offset": 100,
+    "days_per_generation": 30,
+    "source": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\food-demand-inherited-30d-20261107\\generation-101",
+    "initial_donor": 2,
+    "initial_lifetimes": [
+      518400,
+      487590
+    ],
+    "initial_donor_captures": 25,
+    "requested_donor": 2,
+    "selection": "explicit initial donor; subsequent generations select longest alive ticks",
+    "map": "same map and rabbit seed, resources reset",
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "boundary_gradient": true,
+    "probabilistic_capture": true,
+    "nutrition": 1.5,
+    "shared_body": true,
+    "body_rule": {
+      "burst_capacity": 10.0,
+      "recovery_energy": 360.0,
+      "rest_burst": 2.0,
+      "rest_strain": 0.0025,
+      "rest_energy": 0.0033333333333333335,
+      "move_strain": 0.001,
+      "attack_strain": 0.003,
+      "attack_burst": 0.6,
+      "rest_need_weight": 4.0,
+      "need_band": 1E-06
+    },
+    "ambient_vision": {
+      "day_seconds": 17280.0,
+      "night_fraction": 0.6666666666666666,
+      "human_dark_range": 0.25,
+      "predator_dark_range": 0.65,
+      "rabbit_dark_range": 0.5
+    },
+    "single_rest_place": true,
+    "rest_recall": "strongest current common MB candidate; memories retained",
+    "fixed": "experimenter selects and copies MB; independent offspring; body, acute H, trials and perceptions reset; no mutation",
+    "seed_rule": "decision seeds 20261106/20261107 + 1000*generation + actor; capture RNG 20261106 + 1000*generation + actor"
+  },
+  "summary": {
+    "generation": 101,
+    "parent": {
+      "index": 2,
+      "methods": 171,
+      "places": 16,
+      "estimates": {
+        "hunt_samples": 2265.0,
+        "hunt": 0.09339832253866093
+      },
+      "capture_experience": {
+        "far:closing": [
+          390,
+          187
+        ],
+        "far:leaving": [
+          105,
+          37
+        ],
+        "near:leaving": [
+          227,
+          86
+        ],
+        "near:closing": [
+          56,
+          38
+        ]
+      }
+    },
+    "winner": 1,
+    "lifetimes": [
+      426320,
+      336958
+    ],
+    "lifetimes_days": [
+      24.671296296296298,
+      19.49988425925926
+    ],
+    "censored": [
+      false,
+      false
+    ],
+    "captures": [
+      18,
+      16
+    ],
+    "elapsed_days": 24.671296296296298,
+    "seconds": 30.6538345,
+    "rabbits_alive": 18
+  },
+  "physiology": [
+    {
+      "burst": 10.0,
+      "strain": 0.5996228185666883,
+      "reserve": 0.0,
+      "damage": 0.0,
+      "need": 0.5996228185666883,
+      "limited_ticks": 0
+    },
+    {
+      "burst": 8.200000000000001,
+      "strain": 0.6527657219751204,
+      "reserve": 0.0,
+      "damage": 0.0,
+      "need": 0.8327657219751203,
+      "limited_ticks": 0
+    }
+  ],
+  "predators": [
+    {
+      "alive": false,
+      "food": 0.0,
+      "captures": 18,
+      "attacks": 27,
+      "eaten": 15179.716939697402,
+      "spent": 16079.716939811145,
+      "discarded": 3990.2830603025964,
+      "balance_residual": -1.1374322639312595E-07,
+      "ticks": {
+        "idle": 367740,
+        "hunt": 45454,
+        "retreat": 300,
+        "visit_food": 6942,
+        "visit_rest": 685,
+        "rest": 5199
+      }
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "captures": 16,
+      "attacks": 22,
+      "eaten": 11590.50852637401,
+      "spent": 12490.508526458401,
+      "discarded": 3596.9914736259925,
+      "balance_residual": -8.439201337751001E-08,
+      "ticks": {
+        "idle": 298140,
+        "dead": 89362,
+        "hunt": 30682,
+        "retreat": 300,
+        "visit_food": 3691,
+        "visit_rest": 888,
+        "rest": 3257
+      }
+    }
+  ],
+  "rabbits": {
+    "alive": 18,
+    "births": 16,
+    "predation_deaths": 34,
+    "starvation_deaths": 64
+  }
+}

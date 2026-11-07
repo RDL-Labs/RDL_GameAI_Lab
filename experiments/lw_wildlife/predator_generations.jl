@@ -32,17 +32,23 @@ function generations_main()
     generations=length(ARGS)>2 ? parse(Int,ARGS[3]) : 3
     days=length(ARGS)>3 ? parse(Int,ARGS[4]) : 30
     generation_offset=length(ARGS)>4 ? parse(Int,ARGS[5]) : 0
+    # Experiment-only donor override (sixth argument, 0=longest-lived default).
+    # Explicit researcher selection, not an animal decision; applies only to initial donor.
+    requested_donor=length(ARGS)>5 ? parse(Int,ARGS[6]) : 0
     generation_offset>=0 || error("nonnegative generation offset required")
     generations>0 && days>0 || error("positive generations/days required")
     ispath(out) && error("output exists");mkpath(out)
     donor_state=deserialize(joinpath(source_run,"final.jls"))
-    donor_index=configured_survivor_index(donor_state[2])
+    requested_donor==0 || 1<=requested_donor<=length(donor_state[2]) || error("invalid donor index")
+    donor_index=requested_donor==0 ? configured_survivor_index(donor_state[2]) : requested_donor
     donor_mind=donor_state[4][donor_index];donor_local=donor_state[6][donor_index]
     donor_tick=donor_state[1].ticks
     donor_local.probabilistic_capture || error("requires probability model donor")
     conditions=(generations=generations,generation_offset=generation_offset,days_per_generation=days,source=source_run,
         initial_donor=donor_index,initial_lifetimes=configured_predator_lifetime.(donor_state[2]),
-        selection="longest alive ticks; ties use lower actor index; day-limit survival is censored",
+        initial_donor_captures=donor_state[2][donor_index].visual.body.captures,
+        requested_donor=requested_donor,
+        selection=requested_donor==0 ? "longest alive ticks; ties use lower actor index; day-limit survival is censored" : "explicit initial donor; subsequent generations select longest alive ticks",
         map="same map and rabbit seed, resources reset",adults=95,young=5,predators=2,
         boundary_gradient=true,probabilistic_capture=true,nutrition=1.5,
         shared_body=true,body_rule=PREDATOR_BODY,ambient_vision=G.AmbientVision.RULE,single_rest_place=PREDATOR_COGNITION.single_rest_place,rest_recall="strongest current common MB candidate; memories retained",
