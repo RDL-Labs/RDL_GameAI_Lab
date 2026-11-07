@@ -289,6 +289,10 @@
       "path": "experiments/lw_wildlife/ambient_vision_checks.jl"
     },
     {
+      "args": [],
+      "path": "experiments/lw_wildlife/crossing_checks.jl"
+    },
+    {
       "args": ["--checks-only"],
       "path": "experiments/lw_wildlife/animals_only.jl"
     },

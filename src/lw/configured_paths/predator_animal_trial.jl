@@ -94,6 +94,7 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
     p.visual.previous_position=(body.x,body.z)
     p.alive || return
     previous_distance=body.distance;previous_captures=body.captures
+    crossing_extra_cost=0.
     attacking=body.state==P.ATTACK
     if physiology!==nothing
         @assert physiology.body.reserve==p.food
@@ -119,6 +120,9 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
         else
             G.configured_wildlife_predator_advance!(trial_proxy(s,p),t;attack_speed,movement_speed,probabilistic_capture)
         end
+    elseif p.mode==:cross_river
+        crossing_speed=physiology!==nothing && (physiology.body.strain>=1 || physiology.body.damage>=1) ? 0. : PREDATOR_CROSSING.land_speed
+        crossing_extra_cost=configured_crossing_step!(s.world,body,crossing_speed)
     elseif p.mode==:retreat
         body.heading+=pi;P.move!(s.world,body,physiology!==nothing && (physiology.body.strain>=1 || physiology.body.damage>=1) ? 0. : rule.retreat_speed)
     elseif p.mode in (:scent_return,:scent_avoid)
@@ -136,7 +140,7 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
         p.food+=accepted;p.eaten+=accepted;p.discarded+=meal-accepted
         body.timer=0 # Replace the legacy fixed half-day rest with food balance.
     end
-    expense=rule.daily_food/rule.day_ticks+rule.move_food*(body.distance-previous_distance)
+    expense=rule.daily_food/rule.day_ticks+rule.move_food*(body.distance-previous_distance)+crossing_extra_cost
     if physiology===nothing
         used=min(p.food,expense);p.food-=used;p.spent+=used
     else

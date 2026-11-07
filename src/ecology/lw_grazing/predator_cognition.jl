@@ -4,6 +4,7 @@ include("../../lw/configured_paths/predator_cognition_parameters.jl")
 include("../../lw/configured_paths/predator_rest_place.jl")
 include("../../lw/configured_paths/predator_food_demand.jl")
 include("../../lw/configured_paths/predator_food_site.jl")
+include("../../lw/configured_paths/predator_crossing.jl")
 mutable struct PredatorMind
     loop::LW.BasicLoop
     acquisition::Dict{String,Any}
@@ -33,7 +34,7 @@ function predator_remember_place!(mind,p,kind,t)
     prior=get(mind.places,key,nothing)
     mind.places[key]=(kind=kind,x=body.x,z=body.z,seen=t,successes=prior===nothing ? 1 : prior.successes+1)
 end
-function predator_candidates(mind,p,rival,scents,i;physiology=nothing)
+function predator_candidates(mind,p,rival,scents,i;physiology=nothing,world=nothing)
     rule=PREDATOR_COGNITION;body=p.visual.body
     hunger=max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-p.food)/rule.food_pressure_scale)
     rest_need=physiology===nothing ? nothing : predator_recovery_need(physiology.body)
@@ -75,6 +76,7 @@ function predator_candidates(mind,p,rival,scents,i;physiology=nothing)
             "priority"=>rule.rival_weight+own-foreign,"forecast"=>PREDATOR_ANIMAL_TRIAL.warning_duration_ticks,
             "expected"=>rule.place_prior))
     end
+    world!==nothing && configured_crossing_candidate!(rows,mind,p,world;physiology)
     physiology!==nothing && configured_predator_food_demand!(rows,p,mind)
     rows
 end
@@ -83,7 +85,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
     rule=PREDATOR_COGNITION;c=mind.selected;action=c["action"]
     cost=(p.spent-mind.start_spent)/rule.food_value_scale
     captured=p.visual.body.captures>mind.start_capture
-    arrived=haskey(c,"target") && hypot(p.visual.body.x-c["target"][1],p.visual.body.z-c["target"][2])<=rule.arrival_radius
+    arrived=haskey(c,"target") && hypot(p.visual.body.x-c["target"][1],p.visual.body.z-c["target"][2])<=get(c,"arrival_radius",rule.arrival_radius)
     observed=true
     actual=if action==:hunt
         (p.eaten-mind.start_eaten)/rule.food_value_scale-cost
@@ -91,16 +93,16 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
         physiology===nothing ? -cost : max(0.,get(c,"body_start_need",predator_recovery_need(physiology.body))-predator_recovery_need(physiology.body))-cost
     elseif action==:idle
         -cost
-    elseif action in (:visit_food,:visit_rest)
+    elseif action in (:visit_food,:visit_rest,:cross_river)
         (arrived ? rule.place_prior : 0.)-cost
     else
         observed=rival.actor!==nothing && isfinite(mind.start_rival_distance)
         observed ? clamp((rival.distance-mind.start_rival_distance)/PREDATOR_ANIMAL_TRIAL.rival_sight,-1.,1.)-cost : 0.
     end
     fulfilled=!dead && (action==:hunt ? captured : action==:idle ? false : action==:rest ? (physiology===nothing ? rival.actor===nothing : actual>rule.tolerance) :
-        action in (:visit_food,:visit_rest) ? arrived : observed && actual>0)
+        action in (:visit_food,:visit_rest,:cross_river) ? arrived : observed && actual>0)
     LW.action_trial_close!(mind.trial,dead ? "interrupted" : fulfilled ? "achieved" : "failed",LW.D("actual"=>actual,"observed"=>observed))
-    if action in (:visit_food,:visit_rest)
+    if action in (:visit_food,:visit_rest,:cross_river)
         # Waypoint outcomes update only the method MB, not the body's parent H.
         LW.resolve_method!(mind.loop,mind.trial["id"],arrived,nothing;creditable=false,goal_H_increment=0)
     else
@@ -141,7 +143,7 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
         if mind.selected["action"]==:hunt && p.alive && !captured
             predator_food_site_effort!(mind,p)
         end
-        arrived=haskey(mind.selected,"target") && hypot(body.x-mind.selected["target"][1],body.z-mind.selected["target"][2])<=rule.arrival_radius
+        arrived=haskey(mind.selected,"target") && hypot(body.x-mind.selected["target"][1],body.z-mind.selected["target"][2])<=get(mind.selected,"arrival_radius",rule.arrival_radius)
         due=mind.trial["elapsed"]>=mind.selected["forecast"]
         body_reconsider=false
         if physiology!==nothing && body.state!=P.ATTACK
@@ -156,13 +158,15 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
                 body_reconsider=true;mind.selected["body_end_reason"]="body_limited"
             end
         end
-        if !p.alive || captured || arrived || body_reconsider || (due && body.state!=P.ATTACK)
+        # 暫定: 水中で休息へ切替せず、一つの移動試行として岸まで継続。
+        crossing_in_water=configured_crossing_committed(s.world,mind,p)
+        if !p.alive || captured || arrived || (!crossing_in_water && (body_reconsider || (due && body.state!=P.ATTACK)))
             predator_mind_close!(mind,p,rival,t;dead=!p.alive,physiology)
         end
     end
     if !p.alive;p.mode=:dead;return;end
     if mind.trial===nothing
-        rows=predator_candidates(mind,p,rival,scents,index;physiology)
+        rows=predator_candidates(mind,p,rival,scents,index;physiology,world=s.world)
         filter!(c->c["action"]!=:warn || t>=p.warning_blocked_until,rows)
         source=mind.loop.sequence+1
         mind.selected=LW.choose_method!(mind.loop,rows,source)
