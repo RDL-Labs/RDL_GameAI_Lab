@@ -1,8 +1,10 @@
 # 暫定固定・動物単独実験のみ。通常LWへ自動接続しない（既定OFF）。
-# 600g/日、900g/成体は食料相当量の仮値。一括摂食で消化・死体を省略する。
+# 300/日、900/成体は食料相当量の仮値（実カロリー/実重量ではない）。
+# 2026-11-08: 基礎消費のみ600→300。移動消費/保持容量/狩り開始の需要目安は維持。
+# 一括摂食で消化・死体を省略する。
 # 縄張り中心は初期配置、視認した相手への防衛/撤退は距離勾配で決める。
 # 将来は身体需要・経験MBによる選択と摂食/消化に置換。人への対応は未接続。
-const PREDATOR_ANIMAL_TRIAL=(day_ticks=17280,daily_food=600.,move_food=.1,
+const PREDATOR_ANIMAL_TRIAL=(day_ticks=17280,daily_food=300.,move_food=.1,
     initial_food=900.,capacity=1800.,hunt_below=600.,adult_food=900.,
     minimum_size_fraction=.05,territory_radius=20.,rival_sight=12.,
     balance_atol=1e-7,balance_rtol=1e-10, # Diagnostic tolerance for cumulative Float64 sums.

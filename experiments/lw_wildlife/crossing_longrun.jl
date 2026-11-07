@@ -32,6 +32,7 @@ function crossing_main()
     cohort=(predators,minds,local_hunts=locals,pursuits,physiology,scents,prey_scents,rabbit_approach)
     conditions=(days=crossing_days,humans=0,predators=2,rabbits=length(s.alive),layout=CROSSING_LAYOUT,
         crossing_enabled,crossing=PREDATOR_CROSSING,rabbit_H=true,grass_scale=3.,nutrition=1.5,
+        predator_energy=PREDATOR_ANIMAL_TRIAL,
         donor=abspath(ARGS[2]),donor_index=2,human_scent=false,boundary=true,
         fixed="20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming unchanged",
         stop="90 days or requested duration; continue ecology after predator extinction")
