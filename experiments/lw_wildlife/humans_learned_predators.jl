@@ -13,7 +13,7 @@ const frozen_root=joinpath(integrated_output,"source")
 mkpath(joinpath(frozen_root,"experiments/lw_wildlife"));mkpath(joinpath(frozen_root,"integrations"))
 cp(joinpath(repository,"src"),joinpath(frozen_root,"src"))
 cp(joinpath(repository,"integrations/lightweight_julia"),joinpath(frozen_root,"integrations/lightweight_julia"))
-for name in ("animals_only.jl","prey_scent_compare.jl","predator_generations.jl","predator_3d_spec.json","humans_learned_predators.jl")
+for name in ("animals_only.jl","prey_scent_compare.jl","predator_generations.jl","predator_3d_spec.json","humans_learned_predators.jl","proximity_observer.jl")
     cp(joinpath(@__DIR__,name),joinpath(frozen_root,"experiments/lw_wildlife",name))
 end
 cp(joinpath(repository,"Project.toml"),joinpath(frozen_root,"Project.toml"))
@@ -48,6 +48,7 @@ patch_bridge(joinpath(frozen_root,"src/lw/simulation/checkpoint.jl"),
     "incidental_items items relations trades foods wildlife mb_maps", "predator_cohort incidental_items items relations trades foods wildlife mb_maps")
 # Load exactly one LW module so donor serialization and human world share types.
 include(joinpath(frozen_root,"experiments/lw_wildlife/predator_generations.jl"))
+include(joinpath(frozen_root,"experiments/lw_wildlife/proximity_observer.jl"))
 const inherited_source=deserialize(joinpath(donor_directory,"final.jls"))
 1<=selected_donor<=length(inherited_source[2]) || error("donor index")
 inheritance_checks(inherited_source[4][selected_donor],inherited_source[6][selected_donor],inherited_source[1].ticks)
@@ -61,9 +62,11 @@ function integrated_predator_cohort(wildlife)
         push!(minds,mind);push!(locals,local_state)
     end
     (predators=predators,minds=minds,scents=PredatorScentWorld(2),prey_scents=PreyScentWorld(2;cautious=true),
-        local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField() : nothing)
+        local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField() : nothing,
+        proximity=proximity_observer())
 end
 function integrated_predator_prepare!(wildlife,c,humans,t,illumination)
+    proximity_observe!(c.proximity,wildlife,c.predators,humans,human_input["scene"]["home"],t)
     c.human_scent===nothing || configured_human_scent_deposit!(c.human_scent,humans,t)
     animal_trial_prepare!(wildlife,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,
         motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,humans,illumination)
@@ -87,12 +90,13 @@ end
 function integrated_predator_daily!(day,c,number,w)
     day["learned_predators"]=(predators=trial_predator_report.(c.predators),physiology=predator_physiology_report.(c.physiology),minds=predator_mind_report.(c.minds))
     day["human_scent"]=human_scent_report(c.human_scent)
+    day["wildlife_proximity"]=deepcopy(c.proximity)
     rabbits=day["wildlife"]
     @assert rabbits.count==rabbits.alive+rabbits.starvation_deaths+rabbits.predation_deaths
     @assert all(c.physiology[i].body.reserve==c.predators[i].food for i in eachindex(c.predators))
     row=(day=number,elapsed_seconds=time()-bridge_started,rabbits=rabbits.alive,rabbit_starvation=rabbits.starvation_deaths,
         predator_alive=[p.alive for p in c.predators],captures=[p.visual.body.captures for p in c.predators],
-        humans=Dict(a=>w.bodies[a].reserve for a in human_roster))
+        humans=Dict(a=>w.bodies[a].reserve for a in human_roster),proximity=c.proximity)
     write(joinpath(integrated_output,"progress.json"),JSON3.write(row))
     open(joinpath(integrated_output,"daily.jsonl"),"a") do io;println(io,JSON3.write(row));end
     println("INTEGRATED_DAY ",JSON3.write(row));flush(stdout)

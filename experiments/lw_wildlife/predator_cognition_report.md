@@ -1108,3 +1108,14 @@ Aの3m以内は23tick、1m以内は全員0。これらの距離帯は診断用�
 LW呼出し187.904秒（コンパイル込み）。接近減少や長期生存の比較は未実施。
 人側の帰還後固定認知停止は変更していない。
 保存 outputs/human-scent-integrated-3d-20261107、抜粋 evidence/human-scent-integrated-3d.json。
+
+## 人臭ONの30日試験開始（2026-11-07）
+
+outputs/human-scent-integrated-30d-20261107。前節と同じ人4/兎100/捕食者2、草3倍、
+B継承・seed101・人臭ONを初期状態から30日へ延長。人への攻撃は未接続。
+proximity_observer.jlを追加し、行動前の毎tickで生存個体の拠点距離と捕食者から最寄り人への距離を記録。
+最小値/時刻、3m・6m以内の累積animal-tick数を日次wildlife_proximityとprogress.jsonへ保存。
+診断帯であり拠点境界や衝突判定ではない。複数個体の時間を合計し、遭遇回数とはしない。
+観測値を判断へ渡さず乱数も消費しない。7項目検査PASS（死亡除外・距離・範囲・時刻）。
+旧人臭OFF実験には同じ毎tick統計がなく、全期間最小値の厳密なON/OFF比較には追加再現が必要。
+開始時点では長期結果未確定。日次checkpoint、stdout/stderr、job.jsonを保存。
