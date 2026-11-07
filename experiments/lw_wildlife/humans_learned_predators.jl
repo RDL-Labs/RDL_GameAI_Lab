@@ -1,13 +1,14 @@
 # Experimental bridge only. Human policy stays unchanged; no attacks on humans.
-# Usage: INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX=2] [HUMAN_SCENT=false]
+# Usage: INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX=2] [HUMAN_SCENT=false] [RABBIT_H=false]
 # DONOR_INDEX=0 starts fresh MBs; donor directory is not read in that mode.
 # DONOR_GENERATION also accepts an integrated checkpoint .jls file.
 using JSON3, Serialization, SHA, Test
-length(ARGS) in 4:6 || error("INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX] [HUMAN_SCENT=false]")
+length(ARGS) in 4:7 || error("INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX] [HUMAN_SCENT=false] [RABBIT_H=false]")
 const human_source_input=abspath(ARGS[1]);const donor_directory=abspath(ARGS[2])
 const integrated_output=abspath(ARGS[3]);const requested_days=parse(Int,ARGS[4])
 const selected_donor=length(ARGS)>=5 ? parse(Int,ARGS[5]) : 2
 const human_scent_enabled=length(ARGS)>=6 ? parse(Bool,ARGS[6]) : false
+const rabbit_approach_enabled=length(ARGS)>=7 ? parse(Bool,ARGS[7]) : false
 1<=requested_days<=180 || error("days")
 ispath(integrated_output) && error("fresh output required")
 const repository=normpath(joinpath(@__DIR__,"../.."))
@@ -111,7 +112,8 @@ function integrated_predator_cohort(wildlife)
         pursuits=pursuit_report.(pursuits))))
     (predators=predators,minds=minds,scents=PredatorScentWorld(2),prey_scents=PreyScentWorld(2;cautious=true),
         local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField(camp=human_input["scene"]["home"]) : nothing,
-        proximity=proximity_observer(),pursuits=pursuits)
+        proximity=proximity_observer(),pursuits=pursuits,
+        rabbit_approach=rabbit_approach_enabled ? G.H.RabbitApproachPolicy() : G.H.StateMachinePolicy())
 end
 function integrated_predator_prepare!(wildlife,c,humans,t,illumination)
     proximity_observe!(c.proximity,wildlife,c.predators,humans,human_input["scene"]["home"],t)
@@ -121,7 +123,8 @@ function integrated_predator_prepare!(wildlife,c,humans,t,illumination)
 end
 function integrated_predator_advance!(wildlife,c,t)
     animal_trial_advance!(wildlife,c.predators,t;scents=c.scents,minds=c.minds,prey_nutrition=1.5,
-        prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology,human_scent=c.human_scent,pursuits=c.pursuits)
+        prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology,human_scent=c.human_scent,pursuits=c.pursuits,
+        grazing_policy=c.rabbit_approach)
 end
 integrated_captures(c)=sum(p.visual.body.captures for p in c.predators)
 function integrated_predator_motion(objects,c)
@@ -139,6 +142,10 @@ function integrated_predator_daily!(day,c,number,w)
     day["learned_predators"]=(predators=trial_predator_report.(c.predators),physiology=predator_physiology_report.(c.physiology),minds=predator_mind_report.(c.minds))
     day["human_scent"]=human_scent_report(c.human_scent)
     day["predator_pursuits"]=pursuit_report.(c.pursuits)
+    # Observer only; full H and private RNG remain in the serialized cohort.
+    day["rabbit_approach"]=rabbit_approach_enabled ?
+        Dict(string(i)=>(target=m.target,elapsed=m.elapsed,forecast=m.forecast,H=copy(m.H))
+            for (i,m) in c.rabbit_approach.actors) : nothing
     day["wildlife_proximity"]=deepcopy(c.proximity)
     rabbits=day["wildlife"]
     @assert rabbits.count==rabbits.alive+rabbits.starvation_deaths+rabbits.predation_deaths
@@ -153,6 +160,7 @@ end
 const bridge_conditions=(days=requested_days,actors=human_roster,donor=selected_donor==0 ? nothing : donor_directory,donor_index=selected_donor,
     predator_mb_initialization=selected_donor==0 ? "fresh; no donor read; no inherited experience" : "inherited donor MB",
     pursuit_mb_inherited=inherited_pursuits!==nothing,
+    rabbit_approach_enabled=rabbit_approach_enabled,rabbit_approach_parameters=G.H.RABBIT_APPROACH,
     direct_water_approach=PREDATOR_WATER_APPROACH,
     pursuit_decision=PREDATOR_PURSUIT,
     food_site_evidence=PREDATOR_FOOD_SITE,
@@ -177,6 +185,10 @@ const final_result=JSON3.read(read(joinpath(integrated_output,"run/result.json")
 @test Set(keys(final_result.final_agents))==Set(Symbol.(human_roster))
 const saved_day=deserialize(joinpath(integrated_output,"checkpoints","day-"*lpad(requested_days,3,'0')*".jls"))
 @test haskey(saved_day.state,:predator_cohort)
+@test (saved_day.state[:predator_cohort].rabbit_approach isa G.H.RabbitApproachPolicy)==rabbit_approach_enabled
+if rabbit_approach_enabled
+    @test !isempty(saved_day.state[:predator_cohort].rabbit_approach.actors)
+end
 @test integrated_captures(saved_day.state[:predator_cohort])==final_result.daily[end].wildlife.predation_deaths
 write(joinpath(integrated_output,"completed.json"),JSON3.write((days=requested_days,verified=true)))
 println("INTEGRATED_COMPLETE ",integrated_output)

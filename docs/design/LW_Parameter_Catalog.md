@@ -528,5 +528,8 @@ H上限32、温度尺度2、個体別セル記憶上限64、診断履歴64。
 
 policyオブジェクトが個体別H・見積もり・RNGを所有し、直列化可能。
 呼出し側は同じpolicyを毎tick保持し、再開時には世界と一緒に保存する必要がある。
-通常LWのcheckpointグラフ/長期統合runnerへの自動接続はまだしていない。
+長期統合runner `humans_learned_predators.jl` の第7引数 `true` で接続する（省略時false）。
+同じpolicyをpredator_cohort内に保持し、H・固定見積もり・RNGを日次checkpointへ保存。
+日次結果のrabbit_approachには個体別H・目標・経過・見積もりを記録する。
+通常LW単独runnerへの自動接続はまだしていない。
 旧世界構造の変更はなく、試験では旧day-006 checkpointを読み込める。

@@ -42,13 +42,13 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
     G.prepare!(s,humans,t;additional_predators=[p.visual for p in predators],
         additional_predator_alive=[p.alive for p in predators],motion_speed,illumination)
 end
-function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing)
+function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,grazing_policy=G.H.StateMachinePolicy())
     rabbit_steering=human_scent===nothing ? nothing : (w,a,i,speed,overrides)->begin
         base=s.life===nothing ? a.heading[i] : G.configured_rabbit_potential(w,a,i,speed,overrides)
         configured_human_scent_heading(human_scent,a.x[i],a.z[i],base,t,:rabbit)
     end
     predator_steering=human_scent===nothing ? nothing : (x,z,heading,tick)->configured_human_scent_heading(human_scent,x,z,heading,tick,:predator)
-    G.advance!(s,t;steering=rabbit_steering)
+    G.advance!(s,t;steering=rabbit_steering,grazing_policy)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
         search_speed=prey_scents!==nothing && prey_scents.active_target[i]!==nothing ? PREY_SCENT_CAUTION.speed : nothing

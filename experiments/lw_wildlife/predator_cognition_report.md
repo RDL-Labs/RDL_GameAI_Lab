@@ -1575,3 +1575,16 @@ Hありは境界草場1664にH2.531が残り、別候補1600を経て1534へ移�
 単体13項目（再選択保持、非移動評価停止、局所成功の分離、H/RNG保存）PASS。
 繁殖/授乳/帰巣の既存92項目PASS。新検査は通常wildlife CIにも追加。
 証拠evidence/rabbit-approach-replay.json。長期多個体の生存率・負荷は未測定。
+
+## 兎接近H・統合90日開始（2026-11-07）
+
+- runner: `humans_learned_predators.jl` の第7引数true。既定falseは維持。
+- 同じpolicyをcohort内に保持し、日次checkpointへH・試行・個体別RNGを保存。
+- 事前1日: `outputs/rabbit-h-integrated-smoke-20261107`、verified=true/exit0。
+  兎98、生存人4/捕食者2、捕獲各1、兎餓死0。checkpoint内policy存在/型/非空を検査。
+- 本番: `outputs/rabbit-h-integrated-90d-20261107`。90日、新規開始。
+- 比較元: `food-site-gradient-integrated-90d-20261107`。
+  同じ人4、成体95+幼体5、妊娠初期配置、草scale3、繁殖/再生、境界反発/拠点臭気ON。
+  同じfresh-MB30日B(day030)の捕食者MBを2体へ継承。兎のHは新規。
+- 初期条件の固定設定/人の研修設定は維持。兎の近傍セル/自己位置は既存ショートカット。
+- 捕食者全滅後も90日まで継続。結果未確定。日次に兎Hと既存の生死/捕獲/草収支を保存。
