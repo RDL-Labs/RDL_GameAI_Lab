@@ -88,7 +88,7 @@ function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
     body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
     G.configured_wildlife_predator_plan!(trial_proxy(s,p),t)
 end
-function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,search_speed=nothing,attack_speed=1.,movement_speed=nothing,probabilistic_capture=false,physiology=nothing)
+function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,search_speed=nothing,attack_speed=1.,movement_speed=nothing,probabilistic_capture=false,physiology=nothing,steering=nothing)
     rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
     p.ticks[p.mode]=get(p.ticks,p.mode,0)+1
     p.visual.previous_position=(body.x,body.z)
@@ -107,6 +107,10 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
             body.misses+=1;body.state=P.CHASE;body.timer=0;attacking=false
             push!(p.visual.events,(tick=t,kind="body_limited",id=body.target,reason="body_limited"))
         end
+    end
+    if steering!==nothing && p.mode in (:hunt,:retreat,:scent_return,:scent_avoid,:visit_food,:visit_rest)
+        reversal=p.mode==:retreat ? pi : 0.
+        body.heading=steering(body.x,body.z,body.heading+reversal,t)-reversal
     end
     if p.mode==:hunt
         if search_speed!==nothing && body.state==P.SEARCH

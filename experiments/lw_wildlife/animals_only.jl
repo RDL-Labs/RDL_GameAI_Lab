@@ -3,6 +3,7 @@ include("../../src/lw/LW.jl")
 const G=LW.LWGrazing;const H=G.H;const P=G.P
 include("../../src/lw/configured_paths/predator_animal_trial.jl")
 include("../../src/lw/configured_paths/predator_physiology.jl")
+include("../../src/lw/configured_paths/human_scent.jl")
 include("../../src/lw/configured_paths/predator_marking.jl")
 include("../../src/lw/configured_paths/prey_scent.jl")
 include("../../src/ecology/lw_grazing/predator_cognition.jl")
@@ -40,8 +41,13 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
     G.prepare!(s,humans,t;additional_predators=[p.visual for p in predators],
         additional_predator_alive=[p.alive for p in predators],motion_speed,illumination)
 end
-function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing)
-    G.advance!(s,t)
+function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing)
+    rabbit_steering=human_scent===nothing ? nothing : (w,a,i,speed,overrides)->begin
+        base=s.life===nothing ? a.heading[i] : G.configured_rabbit_potential(w,a,i,speed,overrides)
+        configured_human_scent_heading(human_scent,a.x[i],a.z[i],base,t,:rabbit)
+    end
+    predator_steering=human_scent===nothing ? nothing : (x,z,heading,tick)->configured_human_scent_heading(human_scent,x,z,heading,tick,:predator)
+    G.advance!(s,t;steering=rabbit_steering)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
         search_speed=prey_scents!==nothing && prey_scents.active_target[i]!==nothing ? PREY_SCENT_CAUTION.speed : nothing
@@ -50,7 +56,7 @@ function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_n
         if local_hunts!==nothing && local_hunts[i].wait_trial!==nothing && isnan(local_hunts[i].wait_spent)
             local_hunts[i].wait_spent=predators[i].spent
         end
-        configured_trial_advance!(s,predators[i],t;physiology=physiology===nothing ? nothing : physiology[i],prey_nutrition,search_speed,attack_speed,movement_speed,probabilistic_capture=local_hunts!==nothing && local_hunts[i].probabilistic_capture,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        configured_trial_advance!(s,predators[i],t;steering=predator_steering,physiology=physiology===nothing ? nothing : physiology[i],prey_nutrition,search_speed,attack_speed,movement_speed,probabilistic_capture=local_hunts!==nothing && local_hunts[i].probabilistic_capture,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
         local_hunts!==nothing && configured_local_hunt_finish!(local_hunts[i],predators[i])
     end
 end

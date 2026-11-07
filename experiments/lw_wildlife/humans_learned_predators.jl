@@ -1,10 +1,11 @@
 # Experimental bridge only. Human policy stays unchanged; no attacks on humans.
-# Usage: INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX=2]
+# Usage: INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX=2] [HUMAN_SCENT=false]
 using JSON3, Serialization, SHA, Test
-length(ARGS) in 4:5 || error("INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX]")
+length(ARGS) in 4:6 || error("INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX] [HUMAN_SCENT=false]")
 const human_source_input=abspath(ARGS[1]);const donor_directory=abspath(ARGS[2])
 const integrated_output=abspath(ARGS[3]);const requested_days=parse(Int,ARGS[4])
-const selected_donor=length(ARGS)==5 ? parse(Int,ARGS[5]) : 2
+const selected_donor=length(ARGS)>=5 ? parse(Int,ARGS[5]) : 2
+const human_scent_enabled=length(ARGS)>=6 ? parse(Bool,ARGS[6]) : false
 1<=requested_days<=180 || error("days")
 ispath(integrated_output) && error("fresh output required")
 const repository=normpath(joinpath(@__DIR__,"../.."))
@@ -60,15 +61,16 @@ function integrated_predator_cohort(wildlife)
         push!(minds,mind);push!(locals,local_state)
     end
     (predators=predators,minds=minds,scents=PredatorScentWorld(2),prey_scents=PreyScentWorld(2;cautious=true),
-        local_hunts=locals,physiology=PredatorPhysiology.(predators))
+        local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField() : nothing)
 end
 function integrated_predator_prepare!(wildlife,c,humans,t,illumination)
+    c.human_scent===nothing || configured_human_scent_deposit!(c.human_scent,humans,t)
     animal_trial_prepare!(wildlife,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,
         motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,humans,illumination)
 end
 function integrated_predator_advance!(wildlife,c,t)
     animal_trial_advance!(wildlife,c.predators,t;scents=c.scents,minds=c.minds,prey_nutrition=1.5,
-        prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology)
+        prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology,human_scent=c.human_scent)
 end
 integrated_captures(c)=sum(p.visual.body.captures for p in c.predators)
 function integrated_predator_motion(objects,c)
@@ -84,6 +86,7 @@ function integrated_predator_motion(objects,c)
 end
 function integrated_predator_daily!(day,c,number,w)
     day["learned_predators"]=(predators=trial_predator_report.(c.predators),physiology=predator_physiology_report.(c.physiology),minds=predator_mind_report.(c.minds))
+    day["human_scent"]=human_scent_report(c.human_scent)
     rabbits=day["wildlife"]
     @assert rabbits.count==rabbits.alive+rabbits.starvation_deaths+rabbits.predation_deaths
     @assert all(c.physiology[i].body.reserve==c.predators[i].food for i in eachindex(c.predators))
@@ -95,6 +98,7 @@ function integrated_predator_daily!(day,c,number,w)
     println("INTEGRATED_DAY ",JSON3.write(row));flush(stdout)
 end
 const bridge_conditions=(days=requested_days,actors=human_roster,donor=donor_directory,donor_index=selected_donor,
+    human_scent=human_scent_enabled,human_scent_rule=HUMAN_SCENT,
     donor_captures=inherited_source[2][selected_donor].visual.body.captures,wildlife=human_input["scene"]["wildlife"],
     human_input_origin=human_source_input,human_input_sha256=bytes2hex(sha256(read(human_source_input))),
     fixed="explicit B MB copies; fresh bodies; reserve-demand target 900; previous human training and configured paths retained",

@@ -266,7 +266,11 @@
   "wildlife": [
     {
       "args": [],
-      "path": "experiments/lw_wildlife/physiology_checks.jl"
+        "path": "experiments/lw_wildlife/physiology_checks.jl"
+      },
+      {
+        "args": [],
+        "path": "experiments/lw_wildlife/human_scent_checks.jl"
     },
     {
       "args": [],

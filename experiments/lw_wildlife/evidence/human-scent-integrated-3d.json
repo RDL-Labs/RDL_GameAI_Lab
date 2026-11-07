@@ -1,0 +1,135 @@
+{
+  "conditions": {
+    "days": 3,
+    "actors": [
+      "npc_a",
+      "npc_b",
+      "npc_c",
+      "npc_d"
+    ],
+    "donor": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\food-demand-inherited-30d-20261107\\generation-101",
+    "donor_index": 2,
+    "human_scent": true,
+    "human_scent_rule": {
+      "cell_size": 4.0,
+      "radius": 8.0,
+      "lifetime_ticks": 17280,
+      "deposit_interval": 60,
+      "deposit": 0.5,
+      "capacity": 4.0,
+      "predator_repulsion": 3.0,
+      "rabbit_repulsion": 2.0,
+      "epsilon": 1E-09
+    },
+    "donor_captures": 25,
+    "wildlife": {
+      "boundary_gradient": true,
+      "enabled": true,
+      "initial_young_count": 5,
+      "grass_scale": 3.0,
+      "initial_pregnancy_days": [
+        26,
+        21,
+        16,
+        11,
+        6
+      ],
+      "initial_young_age_days": 7,
+      "predator_count": 0,
+      "reproduction": true,
+      "seed": 20261028,
+      "count": 95
+    },
+    "human_input_origin": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\lw-rabbit-family-30d-20261106\\input.json",
+    "human_input_sha256": "d227959e26c6eaa900d86678be3f4aeffd6b35acda4f4dd53df6a839567e5b57",
+    "fixed": "explicit B MB copies; fresh bodies; reserve-demand target 900; previous human training and configured paths retained",
+    "interactions": "rabbits react to humans and predators; humans observe both; no predator attack on humans or human hunting",
+    "checkpoint": "predator cohort included in human daily serialization graph",
+    "stop": "requested days, including after predator extinction"
+  },
+  "measurement": {
+    "gc_seconds": 6.9762738,
+    "process_peak_rss_bytes": 2607194112,
+    "compilation_included": true,
+    "call_seconds": 187.9042952,
+    "allocated_bytes": 58941805346
+  },
+  "progress": {
+    "day": 3,
+    "elapsed_seconds": 203.76900005340576,
+    "rabbits": 96,
+    "rabbit_starvation": 0,
+    "predator_alive": [
+      true,
+      true
+    ],
+    "captures": [
+      2,
+      2
+    ],
+    "humans": {
+      "npc_b": 84.10999999994733,
+      "npc_a": 87.81111111107086,
+      "npc_d": 84.08999999994727,
+      "npc_c": 84.11333333328068
+    }
+  },
+  "human_scent": {
+    "rule": {
+      "cell_size": 4.0,
+      "radius": 8.0,
+      "lifetime_ticks": 17280,
+      "deposit_interval": 60,
+      "deposit": 0.5,
+      "capacity": 4.0,
+      "predator_repulsion": 3.0,
+      "rabbit_repulsion": 2.0,
+      "epsilon": 1E-09
+    },
+    "marks": 44,
+    "deposits": 3456,
+    "samples": {
+      "predator": 8118,
+      "rabbit": 13922
+    },
+    "signals": {
+      "predator": 3244,
+      "rabbit": 783
+    },
+    "turns": {
+      "predator": 3244,
+      "rabbit": 783
+    }
+  },
+  "predators": [
+    {
+      "alive": true,
+      "food": 1161.262620800732,
+      "captures": 2,
+      "attacks": 3,
+      "position": [
+        9.56779299684948,
+        66.64063842846275
+      ],
+      "eaten": 2218.558874141274,
+      "spent": 1957.296253340466,
+      "discarded": 481.44112585872597,
+      "balance_residual": 7.594280759803951E-11
+    },
+    {
+      "alive": true,
+      "food": 1028.413055556678,
+      "captures": 2,
+      "attacks": 3,
+      "position": [
+        7.519997066066474,
+        20.240817030153156
+      ],
+      "eaten": 1998.128561353691,
+      "spent": 1869.7155057970072,
+      "discarded": 701.871438646309,
+      "balance_residual": 5.9117155615240335E-12
+    }
+  ],
+  "validation": "18 scent checks; 354 inheritance checks; 4 integrated final checks; daily population and body assertions"
+}
