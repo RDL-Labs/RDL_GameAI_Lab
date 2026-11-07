@@ -1,0 +1,166 @@
+{
+  "conditions": {
+    "generations": 1,
+    "generation_offset": 100,
+    "days_per_generation": 60,
+    "source": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\food-demand-inherited-30d-20261107\\generation-101",
+    "initial_donor": 2,
+    "initial_lifetimes": [
+      518400,
+      487590
+    ],
+    "initial_donor_captures": 25,
+    "requested_donor": 2,
+    "selection": "explicit initial donor; subsequent generations select longest alive ticks",
+    "map": "same map and rabbit seed, resources reset",
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "grass_scale": 3.0,
+    "boundary_gradient": true,
+    "probabilistic_capture": true,
+    "nutrition": 1.5,
+    "shared_body": true,
+    "body_rule": {
+      "burst_capacity": 10.0,
+      "recovery_energy": 360.0,
+      "rest_burst": 2.0,
+      "rest_strain": 0.0025,
+      "rest_energy": 0.0033333333333333335,
+      "move_strain": 0.001,
+      "attack_strain": 0.003,
+      "attack_burst": 0.6,
+      "rest_need_weight": 4.0,
+      "need_band": 1E-06
+    },
+    "ambient_vision": {
+      "day_seconds": 17280.0,
+      "night_fraction": 0.6666666666666666,
+      "human_dark_range": 0.25,
+      "predator_dark_range": 0.65,
+      "rabbit_dark_range": 0.5
+    },
+    "single_rest_place": true,
+    "rest_recall": "strongest current common MB candidate; memories retained",
+    "fixed": "experimenter selects and copies MB; independent offspring; body, acute H, trials and perceptions reset; no mutation",
+    "seed_rule": "decision seeds 20261106/20261107 + 1000*generation + actor; capture RNG 20261106 + 1000*generation + actor"
+  },
+  "summary": {
+    "generation": 101,
+    "parent": {
+      "index": 2,
+      "methods": 171,
+      "places": 16,
+      "estimates": {
+        "hunt_samples": 2265.0,
+        "hunt": 0.09339832253866093
+      },
+      "capture_experience": {
+        "far:closing": [
+          390,
+          187
+        ],
+        "far:leaving": [
+          105,
+          37
+        ],
+        "near:leaving": [
+          227,
+          86
+        ],
+        "near:closing": [
+          56,
+          38
+        ]
+      }
+    },
+    "winner": 2,
+    "lifetimes": [
+      533562,
+      828079
+    ],
+    "lifetimes_days": [
+      30.877430555555556,
+      47.92123842592593
+    ],
+    "censored": [
+      false,
+      false
+    ],
+    "captures": [
+      18,
+      42
+    ],
+    "elapsed_days": 47.92123842592593,
+    "seconds": 68.3809634,
+    "rabbits_alive": 76
+  },
+  "physiology": [
+    {
+      "burst": 10.0,
+      "strain": 0.9992731948483485,
+      "reserve": 0.0,
+      "damage": 0.0,
+      "need": 0.9992731948483485,
+      "limited_ticks": 17
+    },
+    {
+      "burst": 10.0,
+      "strain": 0.8275818800214253,
+      "reserve": 0.0,
+      "damage": 0.0,
+      "need": 0.8275818800214253,
+      "limited_ticks": 2
+    }
+  ],
+  "predators": [
+    {
+      "alive": false,
+      "food": 0.0,
+      "captures": 18,
+      "attacks": 36,
+      "eaten": 19053.175796024603,
+      "spent": 19953.175796209118,
+      "discarded": 5246.824203975391,
+      "balance_residual": -1.845146471168846E-07,
+      "ticks": {
+        "idle": 474780,
+        "dead": 294517,
+        "hunt": 43513,
+        "retreat": 780,
+        "warn": 180,
+        "visit_food": 6947,
+        "visit_rest": 1168,
+        "rest": 6194
+      }
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "captures": 42,
+      "attacks": 91,
+      "eaten": 31104.710132867294,
+      "spent": 32004.710133204833,
+      "discarded": 6357.789867132707,
+      "balance_residual": -3.375389496795833E-07,
+      "ticks": {
+        "idle": 688440,
+        "hunt": 112624,
+        "retreat": 120,
+        "visit_food": 11476,
+        "visit_rest": 1570,
+        "rest": 13849
+      }
+    }
+  ],
+  "rabbits": {
+    "alive": 76,
+    "births": 63,
+    "predation_deaths": 60,
+    "starvation_deaths": 27,
+    "grass_initial": 41715.83606308104,
+    "grass_remaining": 40885.94409467484,
+    "grass_grown": 66097.72880250984,
+    "grass_eaten": 66927.62077578089
+  }
+}
