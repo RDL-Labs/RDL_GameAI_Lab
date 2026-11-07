@@ -4,7 +4,9 @@ module AmbientVision
 const RULE=(day_seconds=17280.,night_fraction=2/3,
     human_dark_range=.25,predator_dark_range=.65,rabbit_dark_range=.50)
 function illumination(seconds;day_seconds=RULE.day_seconds,night_start=RULE.night_fraction*day_seconds)
-    isfinite(seconds) && isfinite(day_seconds) && day_seconds>0 && 0<night_start<day_seconds || throw(ArgumentError("vision clock"))
+    # Zero-length day/night phases are valid in short simulation clocks:
+    # night_start=0 is all dark, night_start=day_seconds is all daylight.
+    isfinite(seconds) && isfinite(day_seconds) && day_seconds>0 && isfinite(night_start) && 0<=night_start<=day_seconds || throw(ArgumentError("vision clock"))
     mod(seconds,day_seconds)<night_start ? 1. : 0.
 end
 function range_factor(species,light)

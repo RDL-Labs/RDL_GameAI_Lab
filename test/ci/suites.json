@@ -266,7 +266,7 @@
   "wildlife": [
     {
       "args": [],
-      "path": "experiments/lw_wildlife/pursuit_checks.jl"
+      "path": "experiments/lw_wildlife/food_site_checks.jl"
     },
     {
       "args": [],

@@ -131,3 +131,16 @@ Python実装や旧Godot連携を変更・再利用するときに、対象ブラ
 再発防止：検査が暗黙の在庫仮定や旧入力の挙動に依存していないか確認する。
 確率選択の成立回数は、観測・実行可能性・主観評価を確かめた条件で検査する。
 拒否や行動継続も別条件で検査し、CIを通す目的で交換・援助を本体側から強制しない。
+
+## 2026-11-07 昼夜視覚と短時間時計の境界
+
+main bac2e99の回帰CIでfood/social/portableの8本がArgumentError("vision clock")。
+短時間の統合fixtureはphase_boundaries_us[3]==day_usで夜の長さ0を表すが、
+共通AmbientVisionが0<night_start<day_secondsしか認めず、選択処理より前で停止していた。
+night_start=day_secondsは終日明、0は終日暗として許容する。日長は正・有限、
+時刻/境界は有限、境界は[0,day_seconds]内という検査は維持する。
+fixtureの意味を変更したり、失敗テストを無効化する対応ではない。
+ambient_vision_checksに日周境界・ゼロ長昼夜・NaN/Inf/範囲外の検査を追加。
+またwildlifeのpursuit_checksを、それを内包するfood_site_checksへ置換し、
+追跡成功分離・餌場反発も通常CIへ接続する。
+実行中の90日試験は凍結ソースを使うため、この修正は途中適用されない。

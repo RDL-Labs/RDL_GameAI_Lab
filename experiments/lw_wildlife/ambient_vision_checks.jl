@@ -9,6 +9,15 @@ include("animals_only.jl")
     @test v.range_factor(:human,0.)<v.range_factor(:rabbit,0.)<v.range_factor(:predator,0.)
     @test v.illumination(11519)==1 && v.illumination(11520)==0
     @test v.illumination(17280)==1
+    for seconds in (0.,127.,128.,256.)
+        @test v.illumination(seconds;day_seconds=128.,night_start=128.)==1.
+        @test v.illumination(seconds;day_seconds=128.,night_start=0.)==0.
+    end
+    for night_start in (-1.,129.,NaN,Inf)
+        @test_throws ArgumentError v.illumination(0.;day_seconds=128.,night_start)
+    end
+    @test_throws ArgumentError v.illumination(0.;day_seconds=0.)
+    @test_throws ArgumentError v.illumination(Inf)
     @test_throws ArgumentError v.range_factor(:human,-1.)
     obj=[(actor="",x=0.,z=4.,vx=.1,vz=0.)]
     @test LW.task_motion_notice((0.,0.),0.,obj;illumination=1.)!==nothing
