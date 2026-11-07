@@ -461,3 +461,22 @@ local_hunt接続時の暫定固定（enabled=true、falseで従来動作）。sa
 将来は地形MBからの不確かな見積もり/迂回候補へ置換。
 条件ログdirect_water_approach、LocalHunt.countsのwater_direct_rejected（候補tick）と
 water_target_released（追跡解除）に記録。保存型は変更しない。
+
+## 逃走観測からの追走/離脱（2026-11-07）
+
+`configured_paths/predator_pursuit.jl`のPREDATOR_PURSUIT。統合実験はcohort.pursuitsを接続してON。
+animal_trial_prepare!/advance!のpursuits=nothingがOFF（動物単独の既定）。人側の判断は変更なし。
+連続観測位置から獲物の外向き速度を推定し、0.1m/tick超を暫定の逃走判断とする。
+未観測なら判定保留。獲物の内部状態・真の速度は選択に渡さない。
+共通BasicLoopでpursue/abandonを選ぶ。初期係数は進展2、疲労3、未解消残差1。
+空腹、身体疲労、20tick内の予測接近率、代謝＋移動費を候補評価へ使う。
+追走0.85m/tick、見積もり20tick、許容距離差0.5m、実移動1mあたり瞬発力0.2/追加疲労0.002。
+既存の距離比例エネルギー消費に加えて、同じBody.exertで瞬発力と疲労を更新する。
+予測は開始時固定。20tick経過時の距離残差を子MBのHへ一度だけ渡し再選択する。
+獲物停止・観測喪失・身体限界・親目的変更で子を終了。捕獲範囲到達は子のみ成立、報酬0。
+捕食親へ局所到達を食料獲得として転送しない。攻撃抽選と捕獲報酬は従来どおり。
+離脱対象は暫定20tick再取得を抑制、停止を観測すれば早期解除。永久除外ではない。
+種別速度・身体係数・判定幅・時間は暫定固定として隔離。将来は身体較正/経験/文脈へ置換。
+予測不能や経路失敗を世界の真値で正解判定せず、川の暫定通行見積もりは前節のまま。
+条件pursuit_decision、日次predator_pursuitsのcounts/records/Hに記録。
+新sidecarもcohort内でcheckpoint保存。旧再現比較は既存状態を保持した明示移行のみ。

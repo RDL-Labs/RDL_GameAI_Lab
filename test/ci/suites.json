@@ -266,6 +266,10 @@
   "wildlife": [
     {
       "args": [],
+      "path": "experiments/lw_wildlife/pursuit_checks.jl"
+    },
+    {
+      "args": [],
       "path": "experiments/lw_wildlife/water_approach_checks.jl"
     },
     {

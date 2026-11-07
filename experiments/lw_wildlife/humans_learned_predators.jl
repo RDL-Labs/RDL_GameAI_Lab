@@ -63,17 +63,17 @@ function integrated_predator_cohort(wildlife)
     end
     (predators=predators,minds=minds,scents=PredatorScentWorld(2),prey_scents=PreyScentWorld(2;cautious=true),
         local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField(camp=human_input["scene"]["home"]) : nothing,
-        proximity=proximity_observer())
+        proximity=proximity_observer(),pursuits=PredatorPursuit.(1:2))
 end
 function integrated_predator_prepare!(wildlife,c,humans,t,illumination)
     proximity_observe!(c.proximity,wildlife,c.predators,humans,human_input["scene"]["home"],t)
     c.human_scent===nothing || configured_human_scent_deposit!(c.human_scent,humans,t)
     animal_trial_prepare!(wildlife,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,
-        motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,humans,illumination)
+        motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits,humans,illumination)
 end
 function integrated_predator_advance!(wildlife,c,t)
     animal_trial_advance!(wildlife,c.predators,t;scents=c.scents,minds=c.minds,prey_nutrition=1.5,
-        prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology,human_scent=c.human_scent)
+        prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology,human_scent=c.human_scent,pursuits=c.pursuits)
 end
 integrated_captures(c)=sum(p.visual.body.captures for p in c.predators)
 function integrated_predator_motion(objects,c)
@@ -90,6 +90,7 @@ end
 function integrated_predator_daily!(day,c,number,w)
     day["learned_predators"]=(predators=trial_predator_report.(c.predators),physiology=predator_physiology_report.(c.physiology),minds=predator_mind_report.(c.minds))
     day["human_scent"]=human_scent_report(c.human_scent)
+    day["predator_pursuits"]=pursuit_report.(c.pursuits)
     day["wildlife_proximity"]=deepcopy(c.proximity)
     rabbits=day["wildlife"]
     @assert rabbits.count==rabbits.alive+rabbits.starvation_deaths+rabbits.predation_deaths
@@ -103,6 +104,7 @@ function integrated_predator_daily!(day,c,number,w)
 end
 const bridge_conditions=(days=requested_days,actors=human_roster,donor=donor_directory,donor_index=selected_donor,
     direct_water_approach=PREDATOR_WATER_APPROACH,
+    pursuit_decision=PREDATOR_PURSUIT,
     human_scent=human_scent_enabled,human_scent_rule=HUMAN_SCENT,fixed_camp_scent=human_scent_enabled ? human_input["scene"]["home"] : nothing,
     donor_captures=inherited_source[2][selected_donor].visual.body.captures,wildlife=human_input["scene"]["wildlife"],
     human_input_origin=human_source_input,human_input_sha256=bytes2hex(sha256(read(human_source_input))),

@@ -2,7 +2,8 @@
 using JSON3, Serialization, Test
 const audit_original=abspath(ARGS[1]);const audit_output=abspath(ARGS[2])
 const audit_day=parse(Int,ARGS[3]);const audit_actor=parse(Int,ARGS[4])
-const audit_water_variant=length(ARGS)>=5 && ARGS[5]=="water-approach"
+const audit_pursuit_variant=length(ARGS)>=5 && ARGS[5]=="pursuit"
+const audit_water_variant=length(ARGS)>=5 && ARGS[5] in ("water-approach","pursuit")
 const audit_config=JSON3.read(read(joinpath(audit_original,"conditions.json"),String))
 empty!(ARGS);append!(ARGS,[String(audit_config.human_input_origin),String(audit_config.donor),audit_output,string(audit_day),string(audit_config.donor_index),string(audit_config.human_scent)])
 const audit_bridge=joinpath(@__DIR__,"humans_learned_predators.jl")
@@ -82,11 +83,17 @@ const audit_resume_effective=if audit_water_variant
     paths(root)=Set(relpath(joinpath(d,f),root) for (d,_,fs) in walkdir(root) for f in fs if endswith(f,".jl"))
     changed=sort([p for p in union(paths(oldroot),paths(newroot)) if
         !isfile(joinpath(oldroot,p)) || !isfile(joinpath(newroot,p)) || read(joinpath(oldroot,p))!=read(joinpath(newroot,p))])
-    @test Set(replace.(changed,'\\'=>'/'))==Set(["lw/configured_paths/predator_local_hunt.jl","lw/configured_paths/predator_water_approach.jl"])
+    allowed=["lw/configured_paths/predator_local_hunt.jl","lw/configured_paths/predator_water_approach.jl"]
+    audit_pursuit_variant && push!(allowed,"lw/configured_paths/predator_pursuit.jl")
+    @test Set(replace.(changed,'\\'=>'/'))==Set(allowed)
     # Explicit experiment-only metadata migration; saved state/RNG/identity unchanged.
     migrated=joinpath(audit_output,"variant-start.jls")
-    serialize(migrated,merge(audit_saved,(code=LW.checkpoint_code_hash(),)))
-    write(joinpath(audit_output,"migration.json"),JSON3.write((original=audit_resume,old_code=audit_saved.code,new_code=LW.checkpoint_code_hash(),changed_files=changed,state="unchanged; metadata code only")))
+    migrated_state=copy(audit_saved.state)
+    if audit_pursuit_variant
+        migrated_state[:predator_cohort]=merge(migrated_state[:predator_cohort],(pursuits=PredatorPursuit.(1:2),))
+    end
+    serialize(migrated,merge(audit_saved,(code=LW.checkpoint_code_hash(),state=migrated_state)))
+    write(joinpath(audit_output,"migration.json"),JSON3.write((original=audit_resume,old_code=audit_saved.code,new_code=LW.checkpoint_code_hash(),changed_files=changed,state=audit_pursuit_variant ? "all old state/RNG preserved; add empty pursuit sidecars" : "unchanged; metadata code only")))
     migrated
 else
     @test audit_saved.code==LW.checkpoint_code_hash()
@@ -104,7 +111,8 @@ write(joinpath(audit_output,"audit.json"),JSON3.write(audit_evidence))
 write(joinpath(audit_output,"movement.json"),JSON3.write(audit_movement))
 if audit_water_variant
     ending=deserialize(joinpath(audit_output,"checkpoints","day-"*lpad(audit_day,3,'0')*".jls"))
-    write(joinpath(audit_output,"variant.json"),JSON3.write((mode="water-approach",day=audit_day,
+    write(joinpath(audit_output,"variant.json"),JSON3.write((mode=audit_pursuit_variant ? "pursuit" : "water-approach",day=audit_day,
+        pursuits=audit_pursuit_variant ? pursuit_report.(ending.state[:predator_cohort].pursuits) : nothing,
         predators=audit_result.daily[audit_day].learned_predators.predators,
         local_counts=[local_state.counts for local_state in ending.state[:predator_cohort].local_hunts])))
 end

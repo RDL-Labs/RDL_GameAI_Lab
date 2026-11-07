@@ -1,0 +1,286 @@
+{
+  "source": "outputs/pursuit-b9-20261107",
+  "day": 9,
+  "actor": "B",
+  "migration": {
+    "original": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\fixed-camp-scent-integrated-30d-20261107\\checkpoints\\day-008.jls",
+    "old_code": "8f9e8ff19b2f0e00215ef0d19f3d8d6226308a4b10683506cc5c794bfaf6f73a",
+    "new_code": "8239c091bfe706adc87fbf9bd9e0e7c38ae43f6728c58e63988f89727b1c2e01",
+    "changed_files": [
+      "lw\\configured_paths\\predator_local_hunt.jl",
+      "lw\\configured_paths\\predator_pursuit.jl",
+      "lw\\configured_paths\\predator_water_approach.jl"
+    ],
+    "state": "all old state/RNG preserved; add empty pursuit sidecars"
+  },
+  "baseline": "outputs/water-approach-b9-20261107",
+  "before": {
+    "captures_day": 1,
+    "attacks_day": 1,
+    "capture_tick": 149864,
+    "food_end": 1508.9866111127797,
+    "distance": 1948.32
+  },
+  "after": {
+    "captures_day": 1,
+    "attacks_day": 3,
+    "capture_tick": 141100,
+    "food_end": 1296.8568888896154,
+    "distance": 162.94464584447928,
+    "counts": {
+      "visual_state:5": 16694,
+      "mode:hunt": 586,
+      "visual_state:2": 21,
+      "alive": 17280,
+      "visual_state:1": 556,
+      "tracked_target": 30,
+      "prey_world_within6": 27,
+      "mode:visit_rest": 96,
+      "mode:rest": 83,
+      "stationary": 16598,
+      "mode:idle": 16515,
+      "visual_state:3": 9,
+      "prey_world_within16": 2588
+    },
+    "pursuit": {
+      "counts": {
+        "pursue": 1,
+        "end:capture_range": 1,
+        "sprint_ticks": 10
+      },
+      "loop": {
+        "goal": "predator:2:pursuit",
+        "H": 0.0,
+        "selection_seed": 17107053948737027026,
+        "last_method": "pursue",
+        "sequence": 1,
+        "methods": {
+          "pursue": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 1,
+            "failure_repulsion": 0.0
+          },
+          "abandon": {
+            "failure_count": 0,
+            "H": 0.0,
+            "threshold": 2.0,
+            "failure_H_total": 0.0,
+            "reward": 0.0,
+            "last_selected": 0,
+            "failure_repulsion": 0.0
+          }
+        },
+        "events": [
+          {
+            "source": 1,
+            "method": "pursue",
+            "question": "pursuit_progress",
+            "E": null,
+            "H_before": 0.0,
+            "H_after": 0.0,
+            "goal_E": 0,
+            "goal_H_before": 0.0,
+            "goal_H_after": 0.0,
+            "goal_H_increment": 0.0,
+            "reward": 0.0,
+            "credit": {},
+            "failed": false,
+            "failure_H": null
+          }
+        ],
+        "parent": null,
+        "probabilistic": true,
+        "threshold": 2.0,
+        "credit_path": []
+      },
+      "active": null,
+      "records": [
+        {
+          "event": "choice",
+          "tick": 141082,
+          "target": 3,
+          "selected": "pursue",
+          "distance": 4.85464584447699,
+          "radial_speed": 0.5988293491611507,
+          "closing": 0.25117065083884926,
+          "expected_gain": 1.0,
+          "cost": 0.002660493827160494,
+          "fatigue": 0.1261700000000134,
+          "hunger": 0.06094697530714989,
+          "H": 0.0,
+          "probability": 0.786048052641046,
+          "candidates": [
+            {
+              "method": "abandon",
+              "priority": 0.3785100000000402
+            },
+            {
+              "method": "pursue",
+              "priority": 1.6797764814799492
+            }
+          ]
+        },
+        {
+          "event": "result",
+          "tick": 141092,
+          "target": 3,
+          "reason": "capture_range",
+          "elapsed": 10,
+          "expected_distance": 2.5,
+          "observed_distance": 2.354645844476991,
+          "residual": 0.0,
+          "H": 0.0
+        }
+      ]
+    }
+  },
+  "other_predator_pursuit": {
+    "counts": {
+      "pursue": 1,
+      "abandon": 1,
+      "end:capture_range": 1,
+      "sprint_ticks": 11
+    },
+    "loop": {
+      "goal": "predator:1:pursuit",
+      "H": 0.0,
+      "selection_seed": 9453798319077593362,
+      "last_method": "pursue",
+      "sequence": 2,
+      "methods": {
+        "pursue": {
+          "failure_count": 0,
+          "H": 0.0,
+          "threshold": 2.0,
+          "failure_H_total": 0.0,
+          "reward": 0.0,
+          "last_selected": 2,
+          "failure_repulsion": 0.0
+        },
+        "abandon": {
+          "failure_count": 0,
+          "H": 0.0,
+          "threshold": 2.0,
+          "failure_H_total": 0.0,
+          "reward": 0.0,
+          "last_selected": 1,
+          "failure_repulsion": 0.0
+        }
+      },
+      "events": [
+        {
+          "source": 1,
+          "method": "abandon",
+          "question": "pursuit_progress",
+          "E": null,
+          "H_before": 0.0,
+          "H_after": 0.0,
+          "goal_E": null,
+          "goal_H_before": 0.0,
+          "goal_H_after": 0.0,
+          "goal_H_increment": 0,
+          "reward": 0.0,
+          "credit": {},
+          "failed": false,
+          "failure_H": null
+        },
+        {
+          "source": 2,
+          "method": "pursue",
+          "question": "pursuit_progress",
+          "E": null,
+          "H_before": 0.0,
+          "H_after": 0.0,
+          "goal_E": 0,
+          "goal_H_before": 0.0,
+          "goal_H_after": 0.0,
+          "goal_H_increment": 0.0,
+          "reward": 0.0,
+          "credit": {},
+          "failed": false,
+          "failure_H": null
+        }
+      ],
+      "parent": null,
+      "probabilistic": true,
+      "threshold": 2.0,
+      "credit_path": []
+    },
+    "active": null,
+    "records": [
+      {
+        "event": "choice",
+        "tick": 143871,
+        "target": 38,
+        "selected": "abandon",
+        "distance": 3.466365747825493,
+        "radial_speed": 0.6000000000000006,
+        "closing": 0.24999999999999933,
+        "expected_gain": 1.0,
+        "cost": 0.002660493827160494,
+        "fatigue": 0.0010499999999997271,
+        "hunger": 0.02455754080022315,
+        "H": 0.0,
+        "probability": 0.11757503367306095,
+        "candidates": [
+          {
+            "method": "abandon",
+            "priority": 0.0031499999999991812
+          },
+          {
+            "method": "pursue",
+            "priority": 2.018747046973063
+          }
+        ]
+      },
+      {
+        "event": "choice",
+        "tick": 143889,
+        "target": 27,
+        "selected": "pursue",
+        "distance": 5.034139905945146,
+        "radial_speed": 0.6000000000000004,
+        "closing": 0.24999999999999956,
+        "expected_gain": 1.0,
+        "cost": 0.002660493827160494,
+        "fatigue": 0.005099999999997182,
+        "hunger": 0.02570198524466769,
+        "H": 0.0,
+        "probability": 0.8800011960972566,
+        "candidates": [
+          {
+            "method": "abandon",
+            "priority": 0.015299999999991546
+          },
+          {
+            "method": "pursue",
+            "priority": 2.007741491417516
+          }
+        ]
+      },
+      {
+        "event": "result",
+        "tick": 143900,
+        "target": 27,
+        "reason": "capture_range",
+        "elapsed": 11,
+        "expected_distance": 2.5,
+        "observed_distance": 2.2841399059451497,
+        "residual": 0.0,
+        "H": 0.0
+      }
+    ]
+  },
+  "tests": [
+    "pursuit 11 PASS",
+    "water approach 9 PASS",
+    "route repair 18 PASS",
+    "wait child lifecycle 9 PASS",
+    "inheritance 354 PASS"
+  ],
+  "limitations": "Single day and seed; both predators use new policy. Forecast residual H increase tested in unit test; integrated pursuit reached capture range with zero residual. Fixed speed and thresholds provisional; early meal capped by body capacity affects day-end reserve."
+}

@@ -9,6 +9,7 @@ const LOCAL_HUNT=(radius=6.,velocity_cap=.7,history_ticks=20,horizon=3,attack_sp
 # 暫定の個体側事前見積もり。世界の確率係数とは独立。経験で文脈ごとに更新。
 const CAPTURE_ESTIMATE=(near_distance=1.25,near_prior=.6,far_prior=.3,prior_samples=2.,weight=2.)
 include("predator_water_approach.jl")
+include("predator_pursuit.jl")
 mutable struct LocalHunt
     loop::LW.BasicLoop
     memory::Dict{Int,NamedTuple}
@@ -91,7 +92,7 @@ function configured_local_route_replan!(state,s,t,reason)
     b.state=P.CHASE;b.timer=0
     state.counts[reason]=get(state.counts,reason,0)+1
 end
-function configured_local_hunt_plan!(state,s,observations,t;physiology=nothing)
+function configured_local_hunt_plan!(state,s,observations,t;physiology=nothing,pursuit=nothing)
     b=s.predator.body;rule=LOCAL_HUNT
     state.movement_speed=nothing;state.attack_speed=1.
     if b.state in (P.REST,P.RECOVER);return false;end
@@ -106,6 +107,10 @@ function configured_local_hunt_plan!(state,s,observations,t;physiology=nothing)
         b.counts[b.state]+=1;return true
     end
     observations,water_filtered=configured_predator_water_targets!(state,s,observations,t)
+    if pursuit!==nothing
+        observations,pursuit_handled=configured_pursuit_observe!(pursuit,state,s,observations,t;physiology)
+        pursuit_handled && return true
+    end
     if water_filtered && isempty(observations)
         # Consume the filtered observation here: returning false would let the
         # outer legacy selector immediately reacquire the rejected raw target.

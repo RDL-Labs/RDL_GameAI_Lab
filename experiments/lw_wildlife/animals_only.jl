@@ -21,7 +21,7 @@ function animal_trial_predators(s)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     predators
 end
-function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
+function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,pursuits=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
     scents!==nothing && configured_scent_tick!(scents,predators,t)
     for (i,p) in enumerate(predators)
         if minds===nothing
@@ -30,8 +30,9 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
         else
             attention=prey_scents===nothing ? nothing : prey_scents.active_target[i]
             physical=physiology===nothing ? nothing : physiology[i]
-            planner=local_hunts===nothing ? nothing : (proxy,observations,tick)->configured_local_hunt_plan!(local_hunts[i],proxy,observations,tick;physiology=physical)
+            planner=local_hunts===nothing ? nothing : (proxy,observations,tick)->configured_local_hunt_plan!(local_hunts[i],proxy,observations,tick;physiology=physical,pursuit=pursuits===nothing ? nothing : pursuits[i])
             predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i,search_attention=attention,local_planner=planner,physiology=physical)
+            pursuits!==nothing && p.mode!=:hunt && configured_pursuit_close!(pursuits[i],t,"parent_changed")
         end
     end
     if prey_scents!==nothing
@@ -41,7 +42,7 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
     G.prepare!(s,humans,t;additional_predators=[p.visual for p in predators],
         additional_predator_alive=[p.alive for p in predators],motion_speed,illumination)
 end
-function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing)
+function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing)
     rabbit_steering=human_scent===nothing ? nothing : (w,a,i,speed,overrides)->begin
         base=s.life===nothing ? a.heading[i] : G.configured_rabbit_potential(w,a,i,speed,overrides)
         configured_human_scent_heading(human_scent,a.x[i],a.z[i],base,t,:rabbit)
@@ -56,7 +57,10 @@ function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_n
         if local_hunts!==nothing && local_hunts[i].wait_trial!==nothing && isnan(local_hunts[i].wait_spent)
             local_hunts[i].wait_spent=predators[i].spent
         end
+        sprint_start_distance=predators[i].visual.body.distance
+        sprinting=pursuits!==nothing && predators[i].mode==:hunt && movement_speed===PREDATOR_PURSUIT.speed
         configured_trial_advance!(s,predators[i],t;steering=predator_steering,physiology=physiology===nothing ? nothing : physiology[i],prey_nutrition,search_speed,attack_speed,movement_speed,probabilistic_capture=local_hunts!==nothing && local_hunts[i].probabilistic_capture,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
+        sprinting && configured_pursuit_exert!(physiology===nothing ? nothing : physiology[i],predators[i].visual.body.distance-sprint_start_distance)
         local_hunts!==nothing && configured_local_hunt_finish!(local_hunts[i],predators[i])
     end
 end
