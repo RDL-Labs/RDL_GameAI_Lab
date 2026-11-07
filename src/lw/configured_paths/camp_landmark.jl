@@ -1,3 +1,4 @@
+include("../../perception/load.jl")
 # Removable experiment shortcut: learn a coarse visual signature with observed home.
 configured_camp_landmark_state()=D("learned"=>false,"signature"=>nothing,"observations"=>0,
     "paired_home"=>0,"stage"=>1,"stage_views"=>0,"inside_checked"=>false,"outside_checked"=>false,
@@ -21,7 +22,7 @@ function configured_camp_landmark_view(objects,position,yaw;night=false)
             sn,cs=sincosd(yaw+ray);best=Inf;idx=0
             for (j,b) in enumerate(objects)
                 hit=RDLMigrationProbe.ray_hit(position,(sn,cs),RDLMigrationProbe.Circle(b.x,b.z,b.radius))
-                if hit!==nothing && hit<=48 && b.height>=1 && hit<best;best=hit;idx=j;end
+                if hit!==nothing && hit<=48*AmbientVision.range_factor(:human,night ? 0. : 1.) && b.height>=1 && hit<best;best=hit;idx=j;end
             end
             idx==i && (shape=true;break)
         end

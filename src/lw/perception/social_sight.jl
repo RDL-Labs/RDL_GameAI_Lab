@@ -1,7 +1,8 @@
+include("../../perception/load.jl")
 # World geometry is consumed here only. The decision layer receives a current,
 # coarse visual bearing/range and the existing observed peer reference. Identity
 # recognition is still an initial ability; this does not infer another's mind.
-function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=12.,half_fov=90.,max_peers=16,expressions=nothing,rho="coarse",attention=nothing)
+function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=12.,half_fov=90.,max_peers=16,expressions=nothing,rho="coarse",attention=nothing,illumination=AmbientVision.illumination(w.seconds))
     check(actor in IDS,"social_sight_actor")
     check(now isa Integer && !(now isa Bool) && now>=0,"social_sight_time")
     heading=yaw isa AbstractDict ? yaw[actor] : yaw
@@ -9,7 +10,7 @@ function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=
     check(max_distance isa Real && isfinite(max_distance) && max_distance>0 &&
         half_fov isa Real && isfinite(half_fov) && 0<half_fov<=180 &&
         max_peers isa Integer && !(max_peers isa Bool) && 1<=max_peers<=64,"social_sight_limits")
-    p=w.positions[actor];sn,cs=sincosd(heading);peers=Any[]
+    max_distance*=AmbientVision.range_factor(:human,illumination);p=w.positions[actor];sn,cs=sincosd(heading);peers=Any[]
     for other in IDS
         other==actor && continue
         q=w.positions[other];dx,dz=q[1]-p[1],q[2]-p[2]

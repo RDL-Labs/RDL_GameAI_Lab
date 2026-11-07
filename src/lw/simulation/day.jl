@@ -108,11 +108,11 @@ include(joinpath(@__DIR__, "../learning/harvest_review.jl"))
 include(joinpath(@__DIR__, "../learning/harvest_relearn.jl"))
 
 # B0 lifecycle scaffold. Current observed relative beacon only; no stored home coordinate in policy.
-function home_observation(w,a,yaw,home;visual_obstacles=w.obstacles,range=60)
+function home_observation(w,a,yaw,home;visual_obstacles=w.obstacles,range=60,illumination=AmbientVision.illumination(w.seconds))
     p=w.positions[a];dx,dz=home[1]-p[1],home[2]-p[2]
     s,c=sincos(deg2rad(yaw[a]));f,r=dx*s+dz*c,dx*c-dz*s
     d=hypot(dx,dz)
-    if d<=range && (f>=0 || d<=1.25) && !any(o->segment_hit(p,(Float64(home[1]),Float64(home[2])),o,0.),visual_obstacles)
+    if d<=range*AmbientVision.range_factor(:human,illumination) && (f>=0 || d<=1.25) && !any(o->segment_hit(p,(Float64(home[1]),Float64(home[2])),o,0.),visual_obstacles)
         return D("forward"=>f,"right"=>r,"distance"=>d)
     end
     nothing
@@ -499,6 +499,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     wildlife_previous_positions=wildlife===nothing ? Tuple{Float64,Float64}[] : collect(zip(wildlife.animals.x,wildlife.animals.z))
     for sec in start_sec:days*div(clock.day_us,1_000_000)-1
         now=sec*1_000_000;w.seconds=sec
+        visual_illumination=AmbientVision.illumination(sec;day_seconds=clock.day_us/1e6,night_start=clock.phase_boundaries_us[3]/1e6)
         foods!==nothing && (shared=food_expire_fish!(foods,w,cargo,food,stock,stores,shared,div(now,clock.day_us)))
         collapsed_ids=Tuple(a for a in IDS if configured_collapse_active(w.bodies[a];enabled=get(spec,:collapse_cognition_gate,true)))
         for a in IDS
@@ -527,7 +528,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         for a in IDS
             fs=get!(task_focus_state,mb_maps[a],"task_focus")
-            notice=get(fs,"active",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles) : nothing
+            notice=get(fs,"active",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles,illumination=visual_illumination) : nothing
             task_focus_continue!(fs,w.bodies[a],w.positions[a],yaw[a],focus_phase,now,notice;
                 shield=get(spec,:task_interrupt_shield,true),
                 need=notice===nothing ? 0. : food_anxiety(get(mb_maps[a],"food_security",nothing)),
@@ -540,13 +541,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
 
         # Both populations sense the pre-action world. Rabbit actions use this
         # frozen perception after human actions, before the common day boundary.
-        wildlife!==nothing && LWGrazing.prepare!(wildlife,[w.positions[a] for a in IDS],sec)
+        wildlife!==nothing && LWGrazing.prepare!(wildlife,[w.positions[a] for a in IDS],sec;illumination=visual_illumination)
         (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
         lateral_views=lateral_side!="off" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in thinking_ids) : nothing
         rho_baselines=D()
         if ground_perception
             for a in thinking_ids
-                view=ground_appearance(w,a,yaw,wear,now;dry=dry)
+                view=ground_appearance(w,a,yaw,wear,now;dry=dry,illumination=visual_illumination)
                 patterns=ground_patterns(view)
                 record_ground_patterns!(ground_views[a],view,patterns)
                 ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing),patterns)
@@ -592,7 +593,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         obs=Dict(a=>observe(w,a) for a in thinking_ids)
         if wildlife!==nothing
             for a in thinking_ids
-                wildlife_observed_features=wildlife_view(w.positions[a],yaw[a],wildlife_motion_samples;occluders=w.obstacles)
+                wildlife_observed_features=wildlife_view(w.positions[a],yaw[a],wildlife_motion_samples;occluders=w.obstacles,illumination=visual_illumination)
                 obs[a]["wildlife"]=wildlife_observed_features
                 wildlife_focus_state=mb_maps[a]["task_focus"]
                 wildlife_focus_state["wildlife_visible_ticks"]=get(wildlife_focus_state,"wildlife_visible_ticks",0)+!isempty(wildlife_observed_features)
@@ -604,13 +605,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             item_expire!(items,now)
             for a in thinking_ids
                 obs[a]["items"]=item_attention_enabled ? D("notices"=>items["notices"][a]) :
-                    item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods)
+                    item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods,illumination=visual_illumination)
                 item_exchange_enabled && incidental_items!==nothing && item_social_observe!(incidental_items[a],obs[a]["items"];
                     relation=relations===nothing ? nothing : relations[a])
             end
         end
         moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high,
-            known_food_sites=daily_delivery_enabled ? mb_maps[a]["daily_plan"]["known_sites"] : ()) for a in thinking_ids)
+            illumination=visual_illumination,known_food_sites=daily_delivery_enabled ? mb_maps[a]["daily_plan"]["known_sites"] : ()) for a in thinking_ids)
         fishing_enabled && foreach(a->fishing_observation!(foods,a,moves[a]["visible"]),thinking_ids)
         if foods!==nothing && ((relations!==nothing && !shared_stores) || provision_enabled)
             for a in thinking_ids
@@ -621,12 +622,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         expressions=relations===nothing ? nothing : Dict(a=>configured_expression(w.bodies[a];anxiety=food_anxiety(food_security(relations[a])),fear=night_fear_enabled ? mb_maps[a]["night_fear"]["H"]/8 : 0.) for a in IDS)
-        social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions,rho=get(rho_baselines,a,"coarse"),attention=social_attention(relations[a],now)) for a in thinking_ids)
+        social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions,rho=get(rho_baselines,a,"coarse"),attention=social_attention(relations[a],now),illumination=visual_illumination) for a in thinking_ids)
         relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),thinking_ids)
         relations!==nothing && foreach(a->(relations[a]["social_view"]=social_views[a]),thinking_ids)
         trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations,open_stores,actors=Tuple(a for a in IDS if !(a in collapsed_ids)))
 
-        homes=Dict{String,Any}(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6) for a in thinking_ids)
+        homes=Dict{String,Any}(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6,illumination=visual_illumination) for a in thinking_ids)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in thinking_ids) : nothing
         if harvest_sleep
             for a in thinking_ids
@@ -654,14 +655,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         # Carried emitters follow the observed body; stored objects are hidden.
         current_landmarks=landmark_routes && items!==nothing ? vcat(landmark_objects,item_light_objects(items,w)) : landmark_objects
-        landmarks=landmark_routes ? Dict(a=>landmark_fan(current_landmarks,w.positions[a],yaw[a],"ob:$now:$a";night=phase=="night",all_colors=general_landmarks) for a in thinking_ids) : nothing
-        skyline_views=skyline_mode=="off" ? nothing : Dict(a=>(!get(spec,:predictive_skyline,false) ? skyline_fan(skyline_objects,w.positions[a],yaw[a],"ob:$now:$a";subrays=skyline_mode=="subrays") : interval_skyline!(() -> skyline_fan(skyline_objects,w.positions[a],yaw[a],"ob:$now:$a";subrays=skyline_mode=="subrays"),skyline_states[a],get(ground_receipts,a,nothing),now,"ob:$now:$a";skyline_schedule_inputs(mb_maps[a],landmarks===nothing ? nothing : landmarks[a],moves[a],homes[a])...,fine=get(rho_baselines,a,"fine")=="fine",enabled=true)) for a in thinking_ids)
+        landmarks=landmark_routes ? Dict(a=>landmark_fan(current_landmarks,w.positions[a],yaw[a],"ob:$now:$a";night=phase=="night",all_colors=general_landmarks,illumination=visual_illumination) for a in thinking_ids) : nothing
+        skyline_views=skyline_mode=="off" ? nothing : Dict(a=>(!get(spec,:predictive_skyline,false) ? skyline_fan(skyline_objects,w.positions[a],yaw[a],"ob:$now:$a";subrays=skyline_mode=="subrays",illumination=visual_illumination) : interval_skyline!(() -> skyline_fan(skyline_objects,w.positions[a],yaw[a],"ob:$now:$a";subrays=skyline_mode=="subrays",illumination=visual_illumination),skyline_states[a],get(ground_receipts,a,nothing),now,"ob:$now:$a";skyline_schedule_inputs(mb_maps[a],landmarks===nothing ? nothing : landmarks[a],moves[a],homes[a])...,fine=get(rho_baselines,a,"fine")=="fine",enabled=true,illumination=visual_illumination)) for a in thinking_ids)
         if skyline_views!==nothing
             for a in thinking_ids;record_skyline!(skyline_states[a],skyline_views[a]);end
         end
         climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in thinking_ids) : nothing
         # Safety and learning share the same current, actor-local observation.
-        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails || night_fear_enabled) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high,safe_home=camp_safe_zone ? spec.home : nothing) for a in thinking_ids) : nothing
+        hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails || night_fear_enabled) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high,safe_home=camp_safe_zone ? spec.home : nothing,illumination=visual_illumination) for a in thinking_ids) : nothing
         contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a];climbs=climbs===nothing ? nothing : climbs[a]) for a in thinking_ids) : nothing
         bundle_contexts=(experience_bundles || selection_trails) ? Dict(a=>bundle_context(w.inventory[a],w.bodies[a],moves[a],hazard_views[a]) for a in thinking_ids) : nothing
         # Every actor plans from observations acquired before any actor acts.
@@ -939,8 +940,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if plan===nothing && item_exchange_enabled && incidental_items!==nothing && !observing && !(phase in ("night","orientation")) && at_home && w.inventory[a]==0
                 waiting=trade_work_wait && get(get(incidental_items[a],"configured_work_wait",D()),"target",nothing)!==nothing
-                item_view=waiting && item_attention_enabled ? item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods) : item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
-                    purpose=:trade,allow_start=trade_start_available(states[a],now,clock.day_us),visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods) : get(o,"items",nothing)
+                item_view=waiting && item_attention_enabled ? item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods,illumination=visual_illumination) : item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
+                    purpose=:trade,allow_start=trade_start_available(states[a],now,clock.day_us),visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods,illumination=visual_illumination) : get(o,"items",nothing)
                 if trade_work_wait
                     plan=configured_trade_wait_poll!(incidental_items[a],trade_workers,
                         item_view===nothing ? String[] : item_view["trade_partners"],now,clock.day_us;
@@ -1653,7 +1654,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "food_exchange"=>trades===nothing ? nothing : food_trade_snapshot(trades),
         "portable_items"=>items===nothing ? nothing : item_snapshot(items),
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
-    merge(incidental_items===nothing ? D() : D("incidental_items"=>incidental_snapshot()),items===nothing ? D() : D("portable_items"=>item_snapshot(items)),relations===nothing ? D() : D("social_relationships"=>relation_snapshot()),trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body || relations!==nothing) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"expired_fish"=>(foods===nothing ? 0 : foods.game.expired_fish),"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    merge(incidental_items===nothing ? D() : D("incidental_items"=>incidental_snapshot()),items===nothing ? D() : D("portable_items"=>item_snapshot(items)),relations===nothing ? D() : D("social_relationships"=>relation_snapshot()),trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("ambient_vision"=>AmbientVision.RULE,"food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body || relations!==nothing) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"expired_fish"=>(foods===nothing ? 0 : foods.game.expired_fish),"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "discarded_food"=>food_waste_total(foods),"replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"repetition_pressure"=>repetition_pressure ? repetitions : nothing,"parent_breadth"=>parent_breadth ? breadth_stats : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts))
 end

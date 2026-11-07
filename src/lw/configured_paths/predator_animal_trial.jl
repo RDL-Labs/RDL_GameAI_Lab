@@ -41,7 +41,7 @@ function trial_visible_rival(s,p,others,t)
         distance=hypot(body.x-rival.x,body.z-rival.z)
         bearing=atan(rival.z-body.z,rival.x-body.x)
         cover=H.grass_cover!(s.world,H.cell(s.world,rival.x,rival.z),t;body_height=G.WILDLIFE_PREDATOR.body_height)
-        distance<=rule.rival_sight/(1+G.WILDLIFE_PREDATOR.cover_attenuation*cover)*P.field_factor(bearing-p.visual.gaze,false) &&
+        distance<=rule.rival_sight*G.AmbientVision.range_factor(:predator,G.AmbientVision.illumination(t))/(1+G.WILDLIFE_PREDATOR.cover_attenuation*cover)*P.field_factor(bearing-p.visual.gaze,false) &&
             distance<nearest && P.los(s.world,(body.x,body.z),(rival.x,rival.z)) || continue
         seen=other;nearest=distance
     end

@@ -31,7 +31,7 @@ function configured_wildlife_predator(w,a,cfg,seed)
         collect(zip(a.x,a.z)),0,NamedTuple[])
 end
 
-function configured_wildlife_predator_plan!(s,t;search_attention=nothing,local_planner=nothing)
+function configured_wildlife_predator_plan!(s,t;search_attention=nothing,local_planner=nothing,illumination=AmbientVision.illumination(t))
     predator_state=s.predator;predator_state===nothing && return
     predator=predator_state.body;rule=WILDLIFE_PREDATOR
     desired=predator.target!=0 && t<predator.expires ? atan(predator.seen_z-predator.z,predator.seen_x-predator.x) :
@@ -48,7 +48,7 @@ function configured_wildlife_predator_plan!(s,t;search_attention=nothing,local_p
             cover=H.grass_cover!(s.world,H.cell(s.world,position...),t;body_height=rabbit_height(s,i))
             distance=hypot(position[1]-predator.x,position[2]-predator.z)
             factor=P.field_factor(atan(position[2]-predator.z,position[1]-predator.x)-predator_state.gaze,false)
-            distance<=rule.sight/(1+rule.cover_attenuation*cover)*P.vision_factor(true,moved,tracked)*factor &&
+            distance<=rule.sight*AmbientVision.range_factor(:predator,illumination)/(1+rule.cover_attenuation*cover)*P.vision_factor(true,moved,tracked)*factor &&
                 factor>0 && P.los(s.world,(predator.x,predator.z),position) || continue
             push!(observations,(id=i,x=position[1],z=position[2],distance=distance))
         end

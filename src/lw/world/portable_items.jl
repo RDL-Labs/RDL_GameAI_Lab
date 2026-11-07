@@ -1,3 +1,4 @@
+include("../../perception/load.jl")
 include("../../data/item_ids.jl")
 include("../configured_paths/negotiation.jl")
 
@@ -158,7 +159,7 @@ function item_can_carry(s,w,a;remove=(),add=())
         load["size"]<=capacity["size"]+1e-12*max(1.,capacity["size"])
 end
 item_position(item,w)=item["location"]==ITEM_HELD ? w.positions[item["owner"]] : item["position"]
-function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_stores=false,foods=nothing,focus=:all)
+function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_stores=false,foods=nothing,focus=:all,illumination=AmbientVision.illumination(w.seconds))
     focus in (:all,:pickup) || error("item observation focus")
     check(a in IDS,"item_actor");t=item_time(now)
     angle=yaw isa AbstractDict ? yaw[a] : yaw
@@ -175,7 +176,7 @@ function item_visible(s,w,home,a,yaw,now;visual_obstacles=w.obstacles,open_store
         focus==:pickup && hypot(dx,dz)>1.25 && continue
         f,r=dx*sn+dz*cs,dx*cs-dz*sn;d=hypot(dx,dz)
         if !stored # Open stores are a configured camp inspection shortcut.
-            d<=12 && (f>=0 || d<=1.25) || continue
+            d<=12*AmbientVision.range_factor(:human,illumination) && (f>=0 || d<=1.25) || continue
             any(o->segment_hit(p,q,o,0.),visual_obstacles) && continue
         end
         row=item_descriptor(item)

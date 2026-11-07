@@ -1,9 +1,10 @@
+include("../../perception/load.jl")
 # Fifteen actor-relative samples; no map, road identity or destination authority.
-function ground_appearance(w,a,yaw,g,now;dry=p->true)
+function ground_appearance(w,a,yaw,g,now;dry=p->true,illumination=AmbientVision.illumination(w.seconds))
     p=w.positions[a];cells=Any[]
     for angle in ANGLES, distance in (1,2,4)
         sn,cs=sincos(deg2rad(yaw[a]+angle));q=(p[1]+sn*distance,p[2]+cs*distance)
-        blocked=any(o->segment_hit(p,q,o,0.),w.obstacles)
+        blocked=distance>4*AmbientVision.range_factor(:human,illumination) || any(o->segment_hit(p,q,o,0.),w.obstacles)
         wear=blocked ? 0. : surface_wear(g,(floor(Int,q[1]),floor(Int,q[2])))
         push!(cells,D("angle"=>angle,"distance"=>distance,"status"=>blocked ? "occluded" : "sampled",
             "appearance"=>blocked ? nothing : !dry(q) ? "water" : wear>=10 ? "bare_ground" : wear>0 ? "trampled_grass" : "grass"))

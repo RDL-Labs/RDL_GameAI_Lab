@@ -1,11 +1,12 @@
+include("../../perception/load.jl")
 # Finite adapter: World trajectory stays in the sensor; policy sees relative features only.
-function hazard_observation(w,a,yaw,hazards,sec;visual_obstacles=w.obstacles,safe_home=nothing)
+function hazard_observation(w,a,yaw,hazards,sec;visual_obstacles=w.obstacles,safe_home=nothing,illumination=AmbientVision.illumination(sec))
     features=Any[];p=w.positions[a];s,c=sincos(deg2rad(yaw[a]))
     for h in hazards
         h.start<=sec<h.stop || continue
         q=(Float64(h.x+h.vx*(sec-h.start)),Float64(h.z+h.vz*(sec-h.start)))
         dx,dz=q[1]-p[1],q[2]-p[2];f,r=dx*s+dz*c,dx*c-dz*s;d=hypot(dx,dz)
-        if d<=12 && f>=0 && !any(o->segment_hit(p,q,o,0.),visual_obstacles)
+        if d<=12*AmbientVision.range_factor(:human,illumination) && f>=0 && !any(o->segment_hit(p,q,o,0.),visual_obstacles)
             push!(features,D("forward"=>f,"right"=>r,"distance"=>d))
         end
     end

@@ -19,10 +19,10 @@ end
 
 # Deliberate inspection after waking; same forward field, range and occlusion as
 # the peripheral sensor, but stationary visible bodies are included. No danger label.
-function wildlife_view(position,yaw,objects;occluders=())
+function wildlife_view(position,yaw,objects;occluders=(),illumination=1.)
     wildlife_observed_features=Any[]
     for wildlife_object in objects
-        wildlife_feature=task_motion_notice(position,yaw,(wildlife_object,);occluders,min_speed=0.)
+        wildlife_feature=task_motion_notice(position,yaw,(wildlife_object,);occluders,min_speed=0.,illumination)
         wildlife_feature===nothing && continue
         delete!(wildlife_feature,"kind")
         wildlife_feature["appearance"]=hasproperty(wildlife_object,:appearance) ? wildlife_object.appearance : "small_furred_long_eared_body"

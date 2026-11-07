@@ -1,10 +1,11 @@
+include("../../perception/load.jl")
 # Per-World immutable geometry values; only the sensory adapter consumes these.
 # Objects are static in the current LW. A future geometry mutation must rebuild.
 prepare_skyline_objects(objects) = [(x=Float64(o.x),z=Float64(o.z),
     radius=Float64(o.radius),height=Float64(o.height),color=String(o.color)) for o in objects]
 
 # Python LW World.cast / finite-elevated-fan-v1, bounded current sensory evidence.
-function skyline_fan(objects,position,yaw,source;subrays=false)
+function skyline_fan(objects,position,yaw,source;subrays=false,illumination=1.)
     features=Any[];best=fill(Inf,3,13);hits=zeros(Int,3,13)
     for (ai,angle) in enumerate(-90:15:90)
         for delta in (subrays ? (-5,0,5) : (0,))
@@ -12,7 +13,7 @@ function skyline_fan(objects,position,yaw,source;subrays=false)
             sn,cs=sincos(deg2rad(yaw+angle+delta))
             for (oi,o) in enumerate(objects)
                 d=RDLMigrationProbe.ray_hit(position,(sn,cs),RDLMigrationProbe.Circle(o.x,o.z,o.radius))
-                (d===nothing || d>48) && continue
+                (d===nothing || d>48*AmbientVision.range_factor(:human,illumination)) && continue
                 for (ei,elevation) in enumerate((0,15,30))
                     if 1+d*tand(elevation)<=o.height && d<best[ei,ai]
                         best[ei,ai]=d;hits[ei,ai]=oi
@@ -57,18 +58,18 @@ end
 
 # Short-lived sensory prediction, not a new confirmed observation. Checkpointed
 # inside skyline_state; geometry and hidden object identities never enter cache.
-function predicted_skyline!(sample,s,receipt,now,source;fine=false,enabled=false)
+function predicted_skyline!(sample,s,receipt,now,source;fine=false,enabled=false,illumination=1.)
     c=get!(s,"prediction",D("view"=>nothing,"sample_us"=>-1,"last_us"=>-1,
         "travel"=>0.,"fresh"=>0,"reused"=>0,"reason"=>"initial"))
     v=c["view"]
     step=receipt===nothing ? 0. : hypot(receipt["forward"],receipt["right"])
     turn=receipt===nothing ? 0. : mod(Float64(receipt["yaw"])+180,360)-180
-    reason=!enabled ? "disabled" : v===nothing ? "initial" : fine ? "fine" :
+    reason=get(c,"illumination",nothing)!=illumination ? "light_change" : !enabled ? "disabled" : v===nothing ? "initial" : fine ? "fine" :
         receipt===nothing || get(receipt,"after_us",-1)!=now || c["last_us"]!=now-1_000_000 ? "gap" :
         step<.001 ? "stationary_or_blocked" : abs(turn)>5 ? "turn" :
         now-c["sample_us"]>=4_000_000 ? "age" : c["travel"]+step>.5 ? "travel" :
         any(f->f["range_band"]=="near",v["features"]) ? "near" : "reuse"
-    c["last_us"]=now;c["reason"]=reason
+    c["illumination"]=illumination;c["last_us"]=now;c["reason"]=reason
     if reason!="reuse"
         v=sample();c["view"]=v;c["sample_us"]=now;c["travel"]=0.;c["fresh"]+=1
         return v
@@ -93,7 +94,7 @@ end
 # Adaptive observation schedule. Retained predictions guide action but are not
 # additional sensory evidence. Counters and scheduling state are checkpointed.
 function interval_skyline!(sample,s,receipt,now,source;enabled=false,
-        distance=Inf,uncertain=true,pressure=0.,context="",fine=false)
+        distance=Inf,uncertain=true,pressure=0.,context="",fine=false,illumination=1.)
     c=get!(s,"interval_observation",D("view"=>nothing,"sample_us"=>-1,"last_us"=>-1,
         "interval"=>1.,"speed"=>0.,"pressure"=>pressure,"context"=>context,
         "fresh"=>0,"skipped"=>0,"reasons"=>D(),"interval_sum"=>0.,"max_interval"=>1.))
@@ -106,11 +107,11 @@ function interval_skyline!(sample,s,receipt,now,source;enabled=false,
     # A quarter of time-to-contact, using current observations/estimates only.
     eta_limit=isfinite(distance) ? max(1.,.25max(0.,distance-.75)/max(.01,c["speed"])) : 16.
     limit=min(16.,eta_limit,uncertain ? 2. : 16.,fine ? 2. : 16.)
-    reason=!enabled ? "disabled" : v===nothing ? "initial" : gap ? "gap" :
+    reason=get(c,"illumination",nothing)!=illumination ? "light_change" : !enabled ? "disabled" : v===nothing ? "initial" : gap ? "gap" :
         context!=c["context"] ? "goal_change" : pressure_rise ? "forecast_residual" :
         stalled ? "stalled" : abs(turn)>15 ? "turn" :
         (now-c["sample_us"])/1e6>=min(c["interval"],limit) ? "due" : "skip"
-    c["last_us"]=now;c["context"]=context;c["pressure"]=pressure
+    c["illumination"]=illumination;c["last_us"]=now;c["context"]=context;c["pressure"]=pressure
     reasons=c["reasons"];reasons[reason]=get(reasons,reason,0)+1
     if reason!="skip"
         fresh=sample()

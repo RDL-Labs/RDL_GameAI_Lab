@@ -1,3 +1,4 @@
+include("../../perception/load.jl")
 # Static World geometry prepared once; observations retain the existing bounded output.
 prepare_landmark_objects(objects) = [(x=Float64(o.x),z=Float64(o.z),
     radius=Float64(o.radius),height=Float64(o.height),
@@ -33,13 +34,13 @@ end
 
 # Port of the finite LW horizontal fan / directional color route roles.
 # World geometry is consumed only here; policy receives color/angle/band/source.
-function landmark_fan(objects,position,yaw,source;night=false,all_colors=false)
+function landmark_fan(objects,position,yaw,source;night=false,all_colors=false,illumination=night ? 0. : 1.)
     features=Any[]
     for angle in -90:15:90
         s,c=sincos(deg2rad(yaw+angle));best=Inf;hit=nothing
         for o in objects
             d=RDLMigrationProbe.ray_hit(position,(s,c),RDLMigrationProbe.Circle(o.x,o.z,o.radius))
-            if d!==nothing && d<=48 && o.height>=1 && d<best
+            if d!==nothing && d<=48*AmbientVision.range_factor(:human,illumination) && o.height>=1 && d<best
                 best=d;hit=o
             end
         end

@@ -217,7 +217,7 @@ end
 # Experimental attention scheduling. Only current observations enter action plans;
 # skipping a look does not mean absence, nor does it reuse stale executable refs.
 function item_attention_view!(state,items,w,home,a,yaw,now;purpose, H=0.,pressure=0.,
-        visual_obstacles=w.obstacles,open_stores=false,foods=nothing,allow_start=true)
+        visual_obstacles=w.obstacles,open_stores=false,foods=nothing,allow_start=true,illumination=AmbientVision.illumination(w.seconds))
     attention=get!(state,"attention") do
         D("requests"=>0,"skipped"=>0,"glimpses"=>0,"details"=>0,
           "trade_details"=>0,"pickup_details"=>0,"next_pickup_us"=>0,"last_amount"=>"unknown")
@@ -244,7 +244,7 @@ function item_attention_view!(state,items,w,home,a,yaw,now;purpose, H=0.,pressur
             item=items["items"][id]
             item["location"]==ITEM_GROUND || continue
             q=item_position(item,w);dx,dz=q[1]-p[1],q[2]-p[2];d=hypot(dx,dz)
-            d<=12 && (dx*sn+dz*cs>=0 || d<=1.25) || continue
+            d<=12*AmbientVision.range_factor(:human,illumination) && (dx*sn+dz*cs>=0 || d<=1.25) || continue
             any(o->segment_hit(p,q,o,0.),visual_obstacles) && continue
             n+=1;n>=3 && break # Only none/few/many, no object descriptors.
         end
@@ -255,7 +255,7 @@ function item_attention_view!(state,items,w,home,a,yaw,now;purpose, H=0.,pressur
     end
     attention["details"]+=1
     attention[purpose==:trade ? "trade_details" : "pickup_details"]+=1
-    item_visible(items,w,home,a,yaw,now;visual_obstacles,open_stores,foods,
+    item_visible(items,w,home,a,yaw,now;visual_obstacles,open_stores,foods,illumination,
         focus=purpose==:pickup ? :pickup : :all)
 end
 

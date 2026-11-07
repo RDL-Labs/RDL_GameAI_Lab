@@ -265,6 +265,10 @@
   ],
   "wildlife": [
     {
+      "args": [],
+      "path": "experiments/lw_wildlife/ambient_vision_checks.jl"
+    },
+    {
       "args": ["--checks-only"],
       "path": "experiments/lw_wildlife/animals_only.jl"
     },

@@ -1,5 +1,6 @@
 module LWGrazing
 using Random
+include("../../perception/ambient_vision.jl")
 # Reuse the tested six-state body, grazing allocation, escape steps and vision rules.
 # Optional predator shares this same geometry, prey roster and directional vision.
 include("../directional-vision-cpu/DirectionalVision.jl")
@@ -91,11 +92,11 @@ function build(scene,clock;low_obstacles=true)
     rabbit_initial_young!(grazing_world,initial_young_count,initial_young_age)
 end
 
-function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing,motion_speed=false)
+function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing,motion_speed=false,illumination=AmbientVision.illumination(t))
     t==s.ticks && !s.prepared || error("grazing perception must run once before actions")
     length(humans)==length(s.previous_humans) || error("grazing human roster changed")
     w=s.world;a=s.animals
-    configured_wildlife_predator_plan!(s,t)
+    configured_wildlife_predator_plan!(s,t;illumination)
     predators=s.predator===nothing ? additional_predators : (s.predator,additional_predators...)
     targets=isempty(predators) ? humans : vcat(humans,[(p.body.x,p.body.z) for p in predators])
     fill!(s.overrides,0)
@@ -120,7 +121,7 @@ function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additi
             tracked=recent && s.seen_actor[i]==j
             cover=H.grass_cover!(w,H.cell(w,p...),t;body_height=j<=length(humans) ? 1.7 : WILDLIFE_PREDATOR.body_height)
             motion_factor=motion_speed ? configured_motion_visibility(displacement,tracked) : P.vision_factor(true,moved,tracked)
-            d<=10/(1+.8cover)*motion_factor &&
+            d<=10*AmbientVision.range_factor(:rabbit,illumination)/(1+.8cover)*motion_factor &&
                 P.los(w,(a.x[i],a.z[i]),p) || continue
             best=j;distance=d
         end
@@ -193,7 +194,7 @@ function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths
     @assert all(i->!s.alive[i] || sum(a.counts[i,:])==s.ticks-(s.life===nothing ? 0 : max(0,s.life.born[i])),eachindex(s.alive))
     (rule="lw-grazing-v1",balances=balances,count=length(s.alive),alive=count(s.alive),ticks=s.ticks,
      reproduction=rabbit_reproduction_snapshot(s),
-     predator=wildlife_predator_snapshot(s),predation_deaths=captures,
+     ambient_vision=AmbientVision.RULE,predator=wildlife_predator_snapshot(s),predation_deaths=captures,
      starvation_deaths=s.deaths,grass_initial=w.initial,grass_grown=w.grown,
      grass_remaining=sum(w.grass),grass_eaten=w.eaten,grass_cells=count(>(0),w.capacity),
      states=H.STATES,state_ticks=vec(sum(a.counts,dims=1)),human_seen=copy(s.human_seen),
