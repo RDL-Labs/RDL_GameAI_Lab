@@ -2,6 +2,7 @@
 # acquisition residuals call the SAME functions used by human LW actors.
 include("../../lw/configured_paths/predator_cognition_parameters.jl")
 include("../../lw/configured_paths/predator_rest_place.jl")
+include("../../lw/configured_paths/predator_food_demand.jl")
 mutable struct PredatorMind
     loop::LW.BasicLoop
     acquisition::Dict{String,Any}
@@ -72,6 +73,7 @@ function predator_candidates(mind,p,rival,scents,i;physiology=nothing)
             "priority"=>rule.rival_weight+own-foreign,"forecast"=>PREDATOR_ANIMAL_TRIAL.warning_duration_ticks,
             "expected"=>rule.place_prior))
     end
+    physiology!==nothing && configured_predator_food_demand!(rows,p,mind)
     rows
 end
 function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
@@ -85,13 +87,15 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
         (p.eaten-mind.start_eaten)/rule.food_value_scale-cost
     elseif action==:rest
         physiology===nothing ? -cost : max(0.,get(c,"body_start_need",predator_recovery_need(physiology.body))-predator_recovery_need(physiology.body))-cost
+    elseif action==:idle
+        -cost
     elseif action in (:visit_food,:visit_rest)
         (arrived ? rule.place_prior : 0.)-cost
     else
         observed=rival.actor!==nothing && isfinite(mind.start_rival_distance)
         observed ? clamp((rival.distance-mind.start_rival_distance)/PREDATOR_ANIMAL_TRIAL.rival_sight,-1.,1.)-cost : 0.
     end
-    fulfilled=!dead && (action==:hunt ? captured : action==:rest ? (physiology===nothing ? rival.actor===nothing : actual>rule.tolerance) :
+    fulfilled=!dead && (action==:hunt ? captured : action==:idle ? false : action==:rest ? (physiology===nothing ? rival.actor===nothing : actual>rule.tolerance) :
         action in (:visit_food,:visit_rest) ? arrived : observed && actual>0)
     LW.action_trial_close!(mind.trial,dead ? "interrupted" : fulfilled ? "achieved" : "failed",LW.D("actual"=>actual,"observed"=>observed))
     if action in (:visit_food,:visit_rest)
@@ -119,6 +123,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
         "forecast"=>c["forecast"],"elapsed"=>mind.trial["elapsed"],"expected"=>c["expected"],"actual"=>observed ? actual : nothing,
         "H"=>mind.loop.H,"trial_H"=>mind.trial["H"],"fulfilled"=>fulfilled,
         "body_end_reason"=>get(c,"body_end_reason",nothing)))
+    mind.records[end]["food_demand_forecast"]=get(c,"food_demand_forecast",nothing)
     length(mind.records)>rule.history_limit && popfirst!(mind.records)
     mind.completed+=1;mind.trial=nothing;mind.selected=nothing
 end

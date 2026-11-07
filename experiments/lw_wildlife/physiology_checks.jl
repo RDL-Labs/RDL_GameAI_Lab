@@ -61,3 +61,29 @@ end
         @test last(mind.records)["elapsed"]<c["forecast"]
     end
 end
+@testset "food demand filters without erasing learned routes" begin
+    s,ps=animal_trial_world();p=ps[1];mind=PredatorMind(1);physical=PredatorPhysiology(p)
+    mind.places["food:test"]=(kind="food",x=40.,z=40.,seen=0,successes=20)
+    rival=(actor=nothing,distance=Inf)
+    p.food=PREDATOR_ANIMAL_TRIAL.capacity;physical.body=LW.Body(10.,0.,p.food,0.)
+    rows=predator_candidates(mind,p,rival,nothing,1;physiology=physical)
+    @test all(c->!(c["action"] in (:hunt,:visit_food)),rows)
+    @test any(c->c["action"]==:idle,rows)
+    @test haskey(mind.places,"food:test")
+    @test any(c->c["action"]==:hunt,predator_candidates(mind,p,rival,nothing,1))
+    predator_mind_plan!(s,p,[p],mind,1;physiology=physical)
+    @test p.mode==:idle
+    for t in 1:PREDATOR_COGNITION.decision_ticks
+        configured_trial_advance!(s,p,t;physiology=physical)
+    end
+    predator_mind_close!(mind,p,rival,61;physiology=physical)
+    @test mind.loop.methods["idle"].reward==0
+    @test p.visual.body.captures==0
+    @test p.food<PREDATOR_ANIMAL_TRIAL.capacity
+    p.food=300.;physical.body=LW.Body(10.,0.,p.food,0.)
+    rows=predator_candidates(mind,p,rival,nothing,1;physiology=physical)
+    @test any(c->c["action"]==:hunt,rows)
+    @test any(c->c["action"]==:visit_food,rows)
+    mind.estimates["hunt"]=-1.
+    @test any(c->c["action"]==:hunt,predator_candidates(mind,p,rival,nothing,1;physiology=physical))
+end
