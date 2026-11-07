@@ -1,0 +1,113 @@
+{
+  "source": "outputs/fixed-camp-scent-integrated-30d-20261107",
+  "completed": {
+    "days": 30,
+    "verified": true
+  },
+  "final": {
+    "day": 30,
+    "elapsed_seconds": 1148.3920001983643,
+    "rabbits": 67,
+    "rabbit_starvation": 38,
+    "predator_alive": [
+      false,
+      false
+    ],
+    "captures": [
+      12,
+      5
+    ],
+    "humans": {
+      "npc_b": 88.3255555555164,
+      "npc_a": 86.3311111110659,
+      "npc_d": 83.51333333327867,
+      "npc_c": 88.64999999996193
+    },
+    "proximity": {
+      "predator_human": {
+        "within_6_animal_ticks": 2306,
+        "within_3_animal_ticks": 252,
+        "minimum": 0.10416471502122646,
+        "minimum_tick": 18757
+      },
+      "predator_home": {
+        "within_6_animal_ticks": 28,
+        "within_3_animal_ticks": 0,
+        "minimum": 5.329973457571073,
+        "minimum_tick": 290250
+      },
+      "rabbit_home": {
+        "within_6_animal_ticks": 98448,
+        "within_3_animal_ticks": 0,
+        "minimum": 3.0379608234276887,
+        "minimum_tick": 488141
+      }
+    }
+  },
+  "cases": [
+    {
+      "day": 9,
+      "actor": 2,
+      "exact_daily_match": true,
+      "counts": {
+        "visual_state:5": 5729,
+        "mode:hunt": 11551,
+        "visual_state:2": 2396,
+        "mode:visit_food": 1834,
+        "alive": 17280,
+        "trail_signal": 107,
+        "visual_state:1": 9155,
+        "tracked_target": 2396,
+        "prey_world_within6": 796,
+        "mode:visit_rest": 136,
+        "mode:rest": 1484,
+        "stationary": 3771,
+        "mode:idle": 2275,
+        "prey_world_within16": 8369,
+        "camp_signal": 71
+      },
+      "distance": 3282.8999999999405,
+      "death": null,
+      "note": "Nearest prey is world truth for diagnosis, not visibility. Samples before movement; path every 60 ticks. Scent signal is not proof of heading change."
+    },
+    {
+      "day": 21,
+      "actor": 1,
+      "exact_daily_match": true,
+      "counts": {
+        "visual_state:5": 3410,
+        "mode:hunt": 11450,
+        "visual_state:2": 3835,
+        "mode:visit_food": 1525,
+        "alive": 14860,
+        "trail_signal": 79,
+        "visual_state:1": 7597,
+        "tracked_target": 3853,
+        "prey_world_within6": 1151,
+        "mode:visit_rest": 232,
+        "mode:rest": 1653,
+        "stationary": 1678,
+        "visual_state:3": 18,
+        "prey_world_within16": 7389,
+        "camp_signal": 47
+      },
+      "distance": 3275.1503216373358,
+      "death": {
+        "tick": 360459,
+        "food_before": 0.029871036902038045,
+        "food_after": 0.0,
+        "position": [
+          -7.839529550316191,
+          -9.470441694547459
+        ],
+        "mode": "visit_food"
+      },
+      "note": "Nearest prey is world truth for diagnosis, not visibility. Samples before movement; path every 60 ticks. Scent signal is not proof of heading change."
+    }
+  ],
+  "lifetimes_days": [
+    20.859953703703702,
+    9.031828703703704
+  ],
+  "limitations": "Observer replays match full daily results. No scent OFF counterfactual; earlier indirect effects on predator/prey paths remain unmeasured. Full paths in local audit outputs."
+}
