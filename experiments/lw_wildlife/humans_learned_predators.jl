@@ -1,5 +1,6 @@
 # Experimental bridge only. Human policy stays unchanged; no attacks on humans.
 # Usage: INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX=2] [HUMAN_SCENT=false]
+# DONOR_INDEX=0 starts fresh MBs; donor directory is not read in that mode.
 using JSON3, Serialization, SHA, Test
 length(ARGS) in 4:6 || error("INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX] [HUMAN_SCENT=false]")
 const human_source_input=abspath(ARGS[1]);const donor_directory=abspath(ARGS[2])
@@ -49,18 +50,38 @@ patch_bridge(joinpath(frozen_root,"src/lw/simulation/checkpoint.jl"),
 # Load exactly one LW module so donor serialization and human world share types.
 include(joinpath(frozen_root,"experiments/lw_wildlife/predator_generations.jl"))
 include(joinpath(frozen_root,"experiments/lw_wildlife/proximity_observer.jl"))
-const inherited_source=deserialize(joinpath(donor_directory,"final.jls"))
-1<=selected_donor<=length(inherited_source[2]) || error("donor index")
-inheritance_checks(inherited_source[4][selected_donor],inherited_source[6][selected_donor],inherited_source[1].ticks)
+selected_donor>=0 || error("donor index")
+const inherited_source=selected_donor==0 ? nothing : deserialize(joinpath(donor_directory,"final.jls"))
+if inherited_source!==nothing
+    1<=selected_donor<=length(inherited_source[2]) || error("donor index")
+    inheritance_checks(inherited_source[4][selected_donor],inherited_source[6][selected_donor],inherited_source[1].ticks)
+end
 const bridge_started=time()
 function integrated_predator_cohort(wildlife)
     predators=animal_trial_predators(wildlife)
     minds=PredatorMind[];locals=LocalHunt[]
     for actor in 1:2
-        mind,local_state=configured_predator_mb_inherit(inherited_source[4][selected_donor],inherited_source[6][selected_donor],actor,101,inherited_source[1].ticks)
+        mind,local_state=selected_donor==0 ? (PredatorMind(actor),LocalHunt(actor;probabilistic_capture=true)) :
+            configured_predator_mb_inherit(inherited_source[4][selected_donor],inherited_source[6][selected_donor],actor,101,inherited_source[1].ticks)
         Random.seed!(predators[actor].visual.rng,20261106+1000*101+actor)
         push!(minds,mind);push!(locals,local_state)
     end
+    if selected_donor==0
+        @testset "fresh predator MBs" begin
+            for (mind,local_state) in zip(minds,locals)
+                @test isempty(mind.loop.methods) && mind.loop.sequence==0 && mind.loop.H==0
+                @test isempty(mind.places) && isempty(mind.estimates) && isempty(mind.acquisition)
+                @test isempty(mind.records) && mind.trial===nothing
+                @test isempty(local_state.loop.methods) && local_state.loop.sequence==0
+                @test isempty(local_state.memory) && isempty(local_state.capture_experience)
+                @test local_state.probabilistic_capture
+            end
+            @test minds[1]!==minds[2] && locals[1]!==locals[2]
+        end
+    end
+    write(joinpath(integrated_output,"initial_predators.json"),JSON3.write((inherited=selected_donor!=0,
+        predators=trial_predator_report.(predators),minds=predator_mind_report.(minds),
+        local_methods=[length(s.loop.methods) for s in locals],capture_memories=[length(s.capture_experience) for s in locals])))
     (predators=predators,minds=minds,scents=PredatorScentWorld(2),prey_scents=PreyScentWorld(2;cautious=true),
         local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField(camp=human_input["scene"]["home"]) : nothing,
         proximity=proximity_observer(),pursuits=PredatorPursuit.(1:2))
@@ -102,13 +123,14 @@ function integrated_predator_daily!(day,c,number,w)
     open(joinpath(integrated_output,"daily.jsonl"),"a") do io;println(io,JSON3.write(row));end
     println("INTEGRATED_DAY ",JSON3.write(row));flush(stdout)
 end
-const bridge_conditions=(days=requested_days,actors=human_roster,donor=donor_directory,donor_index=selected_donor,
+const bridge_conditions=(days=requested_days,actors=human_roster,donor=selected_donor==0 ? nothing : donor_directory,donor_index=selected_donor,
+    predator_mb_initialization=selected_donor==0 ? "fresh; no donor read; no inherited experience" : "inherited donor MB",
     direct_water_approach=PREDATOR_WATER_APPROACH,
     pursuit_decision=PREDATOR_PURSUIT,
     human_scent=human_scent_enabled,human_scent_rule=HUMAN_SCENT,fixed_camp_scent=human_scent_enabled ? human_input["scene"]["home"] : nothing,
-    donor_captures=inherited_source[2][selected_donor].visual.body.captures,wildlife=human_input["scene"]["wildlife"],
+    donor_captures=inherited_source===nothing ? nothing : inherited_source[2][selected_donor].visual.body.captures,wildlife=human_input["scene"]["wildlife"],
     human_input_origin=human_source_input,human_input_sha256=bytes2hex(sha256(read(human_source_input))),
-    fixed="explicit B MB copies; fresh bodies; reserve-demand target 900; previous human training and configured paths retained",
+    fixed="explicit predator initialization (see predator_mb_initialization); fresh bodies; reserve-demand target 900; previous human training and configured paths retained",
     interactions="rabbits react to humans and predators; humans observe both; no predator attack on humans or human hunting",
     checkpoint="predator cohort included in human daily serialization graph",stop="requested days, including after predator extinction")
 write(joinpath(integrated_output,"conditions.json"),JSON3.write(bridge_conditions))
