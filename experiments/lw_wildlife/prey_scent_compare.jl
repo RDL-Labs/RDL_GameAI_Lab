@@ -1,7 +1,7 @@
 using Statistics
 include("animals_only.jl")
-function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_dir=nothing,local_hunt=false,boundary_gradient=false,probabilistic_capture=false,initialize_minds=nothing,shared_body=true)
-    s,predators=animal_trial_world(;adult_rabbits=95,boundary_gradient)
+function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_dir=nothing,local_hunt=false,boundary_gradient=false,probabilistic_capture=false,initialize_minds=nothing,shared_body=true,grass_scale=1.)
+    s,predators=animal_trial_world(;adult_rabbits=95,boundary_gradient,grass_scale)
     scents=PredatorScentWorld(2);minds=[PredatorMind(i) for i in 1:2]
     prey_scents=enabled ? PreyScentWorld(2;cautious) : nothing;daily=Any[]
     local_hunts=local_hunt ? [LocalHunt(i;probabilistic_capture) for i in 1:2] : nothing
@@ -29,7 +29,7 @@ function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_d
     end
     final_state=merge(animal_trial_report(s,predators;scents,minds),(physiology=physiology===nothing ? nothing : predator_physiology_report.(physiology),))
     checkpoint_dir!==nothing && serialize(joinpath(checkpoint_dir,"final.jls"),local_hunts===nothing ? (s,predators,scents,minds,prey_scents,nothing,physiology) : (s,predators,scents,minds,prey_scents,local_hunts,physiology))
-    (enabled=enabled,cautious=cautious,motion_speed=motion_speed,shared_body=shared_body,body_rule=shared_body ? PREDATOR_BODY : nothing,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime,
+    (enabled=enabled,cautious=cautious,motion_speed=motion_speed,grass_scale=grass_scale,shared_body=shared_body,body_rule=shared_body ? PREDATOR_BODY : nothing,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime,
         ticks=s.ticks,daily=daily,final_state=final_state,scent=prey_scent_report(prey_scents),local_hunt=local_hunts===nothing ? nothing : local_hunt_report.(local_hunts))
 end
 function scent_checks()

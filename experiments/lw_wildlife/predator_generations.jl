@@ -35,6 +35,9 @@ function generations_main()
     # Experiment-only donor override (sixth argument, 0=longest-lived default).
     # Explicit researcher selection, not an animal decision; applies only to initial donor.
     requested_donor=length(ARGS)>5 ? parse(Int,ARGS[6]) : 0
+    # World resource amount, not a behavior override. Existing grass_scale also scales regrowth.
+    grass_scale=length(ARGS)>6 ? parse(Float64,ARGS[7]) : 1.
+    isfinite(grass_scale) && grass_scale>0 || error("grass scale must be finite and positive")
     generation_offset>=0 || error("nonnegative generation offset required")
     generations>0 && days>0 || error("positive generations/days required")
     ispath(out) && error("output exists");mkpath(out)
@@ -49,7 +52,7 @@ function generations_main()
         initial_donor_captures=donor_state[2][donor_index].visual.body.captures,
         requested_donor=requested_donor,
         selection=requested_donor==0 ? "longest alive ticks; ties use lower actor index; day-limit survival is censored" : "explicit initial donor; subsequent generations select longest alive ticks",
-        map="same map and rabbit seed, resources reset",adults=95,young=5,predators=2,
+        map="same map and rabbit seed, resources reset",adults=95,young=5,predators=2,grass_scale=grass_scale,
         boundary_gradient=true,probabilistic_capture=true,nutrition=1.5,
         shared_body=true,body_rule=PREDATOR_BODY,ambient_vision=G.AmbientVision.RULE,single_rest_place=PREDATOR_COGNITION.single_rest_place,rest_recall="strongest current common MB candidate; memories retained",
         fixed="experimenter selects and copies MB; independent offspring; body, acute H, trials and perceptions reset; no mutation",
@@ -75,7 +78,7 @@ function generations_main()
             serialize(joinpath(generation_out,"initial.jls"),(s,predators,minds,locals))
         end
         result=scent_run(true;days,cautious=true,motion_speed=true,checkpoint_dir=generation_out,
-            local_hunt=true,boundary_gradient=true,probabilistic_capture=true,initialize_minds=initialize)
+            local_hunt=true,boundary_gradient=true,probabilistic_capture=true,initialize_minds=initialize,grass_scale)
         state=deserialize(joinpath(generation_out,"final.jls"))
         lifetimes=configured_predator_lifetime.(state[2]);winner=configured_survivor_index(state[2])
         row=(generation=generation,parent=parent_record,winner=winner,lifetimes=lifetimes,
