@@ -45,7 +45,7 @@ function generations_main()
         selection="longest alive ticks; ties use lower actor index; day-limit survival is censored",
         map="same map and rabbit seed, resources reset",adults=95,young=5,predators=2,
         boundary_gradient=true,probabilistic_capture=true,nutrition=1.5,
-        ambient_vision=G.AmbientVision.RULE,single_rest_place=PREDATOR_COGNITION.single_rest_place,rest_recall="strongest current common MB candidate; memories retained",
+        shared_body=true,body_rule=PREDATOR_BODY,ambient_vision=G.AmbientVision.RULE,single_rest_place=PREDATOR_COGNITION.single_rest_place,rest_recall="strongest current common MB candidate; memories retained",
         fixed="experimenter selects and copies MB; independent offspring; body, acute H, trials and perceptions reset; no mutation",
         seed_rule="decision seeds 20261106/20261107 + 1000*generation + actor; capture RNG 20261106 + 1000*generation + actor")
     write(joinpath(out,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)

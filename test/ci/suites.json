@@ -266,6 +266,10 @@
   "wildlife": [
     {
       "args": [],
+      "path": "experiments/lw_wildlife/physiology_checks.jl"
+    },
+    {
+      "args": [],
       "path": "experiments/lw_wildlife/ambient_vision_checks.jl"
     },
     {

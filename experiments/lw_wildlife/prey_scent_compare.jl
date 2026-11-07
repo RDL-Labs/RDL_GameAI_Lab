@@ -1,33 +1,35 @@
 using Statistics
 include("animals_only.jl")
-function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_dir=nothing,local_hunt=false,boundary_gradient=false,probabilistic_capture=false,initialize_minds=nothing)
+function scent_run(enabled;days=3,cautious=false,motion_speed=false,checkpoint_dir=nothing,local_hunt=false,boundary_gradient=false,probabilistic_capture=false,initialize_minds=nothing,shared_body=true)
     s,predators=animal_trial_world(;adult_rabbits=95,boundary_gradient)
     scents=PredatorScentWorld(2);minds=[PredatorMind(i) for i in 1:2]
     prey_scents=enabled ? PreyScentWorld(2;cautious) : nothing;daily=Any[]
     local_hunts=local_hunt ? [LocalHunt(i;probabilistic_capture) for i in 1:2] : nothing
     initialize_minds===nothing || initialize_minds(s,predators,minds,local_hunts)
+    physiology=shared_body ? PredatorPhysiology.(predators) : nothing
+    checkpoint_dir!==nothing && serialize(joinpath(checkpoint_dir,"physiology-initial.jls"),physiology)
     timing=@timed for t in 0:days*17280-1
-        animal_trial_step!(s,predators,t;scents,minds,prey_nutrition=1.5,prey_scents,motion_speed,local_hunts)
+        animal_trial_step!(s,predators,t;scents,minds,prey_nutrition=1.5,prey_scents,motion_speed,local_hunts,physiology)
         if all(p->!p.alive,predators)
             for (i,p) in enumerate(predators)
-                minds[i].trial===nothing || predator_mind_plan!(s,p,predators,minds[i],t+1;scents,index=i)
+                minds[i].trial===nothing || predator_mind_plan!(s,p,predators,minds[i],t+1;scents,index=i,physiology=physiology===nothing ? nothing : physiology[i])
             end
             break
         end
         if (t+1)%17280==0
-            report=animal_trial_report(s,predators;scents,minds);push!(daily,report)
+            report=merge(animal_trial_report(s,predators;scents,minds),(physiology=physiology===nothing ? nothing : predator_physiology_report.(physiology),));push!(daily,report)
             if checkpoint_dir!==nothing
                 day=div(t+1,17280)
-                serialize(joinpath(checkpoint_dir,"day-$day.jls"),local_hunts===nothing ? (s,predators,scents,minds,prey_scents) : (s,predators,scents,minds,prey_scents,local_hunts))
+                serialize(joinpath(checkpoint_dir,"day-$day.jls"),local_hunts===nothing ? (s,predators,scents,minds,prey_scents,nothing,physiology) : (s,predators,scents,minds,prey_scents,local_hunts,physiology))
                 println(JSON3.write((day=day,rabbits=report.rabbits.alive,
                     alive=[p.alive for p in report.predators],captures=[p.captures for p in report.predators])))
                 flush(stdout)
             end
         end
     end
-    final_state=animal_trial_report(s,predators;scents,minds)
-    checkpoint_dir!==nothing && serialize(joinpath(checkpoint_dir,"final.jls"),local_hunts===nothing ? (s,predators,scents,minds,prey_scents) : (s,predators,scents,minds,prey_scents,local_hunts))
-    (enabled=enabled,cautious=cautious,motion_speed=motion_speed,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime,
+    final_state=merge(animal_trial_report(s,predators;scents,minds),(physiology=physiology===nothing ? nothing : predator_physiology_report.(physiology),))
+    checkpoint_dir!==nothing && serialize(joinpath(checkpoint_dir,"final.jls"),local_hunts===nothing ? (s,predators,scents,minds,prey_scents,nothing,physiology) : (s,predators,scents,minds,prey_scents,local_hunts,physiology))
+    (enabled=enabled,cautious=cautious,motion_speed=motion_speed,shared_body=shared_body,body_rule=shared_body ? PREDATOR_BODY : nothing,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime,
         ticks=s.ticks,daily=daily,final_state=final_state,scent=prey_scent_report(prey_scents),local_hunt=local_hunts===nothing ? nothing : local_hunt_report.(local_hunts))
 end
 function scent_checks()

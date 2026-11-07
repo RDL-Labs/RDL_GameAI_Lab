@@ -31,7 +31,8 @@ function step(b::Body, action, load, resistance=1.0, clear=true)
             status="blocked";reserve=max(0,reserve-BODY_ACTION.blocked_reserve*effort*RS)
         else
             status="performed";distance=BODY_ACTION.walk_distance*integrity
-            reserve-=BODY_ACTION.walk_reserve*effort*RS;strain=min(1,strain+BODY_ACTION.walk_strain*effort*SS)
+            exerted=exert(b,BODY_ACTION.walk_reserve*effort*RS,BODY_ACTION.walk_strain*effort*SS)
+            burst,strain,reserve=exerted.burst,exerted.strain,exerted.reserve
         end
     elseif action=="run"
         if !(reserve>=BODY_ACTION.run_reserve*effort*RS && burst>=BODY_ACTION.run_burst*effort && strain<=BODY_ACTION.run_max_strain && integrity>0)
@@ -40,7 +41,8 @@ function step(b::Body, action, load, resistance=1.0, clear=true)
             status="blocked";reserve=max(0,reserve-BODY_ACTION.blocked_reserve*effort*RS)
         else
             status="performed";distance=BODY_ACTION.run_distance*integrity
-            burst-=BODY_ACTION.run_burst*effort;reserve-=BODY_ACTION.run_reserve*effort*RS;strain=min(1,strain+BODY_ACTION.run_strain*effort*SS)
+            exerted=exert(b,BODY_ACTION.run_reserve*effort*RS,BODY_ACTION.run_strain*effort*SS,BODY_ACTION.run_burst*effort)
+            burst,strain,reserve=exerted.burst,exerted.strain,exerted.reserve
         end
     elseif action=="climb"
         if !(reserve>=BODY_ACTION.climb_reserve*effort*RS && burst>=BODY_ACTION.climb_burst*effort && strain<=BODY_ACTION.climb_max_strain && integrity>0)
@@ -49,7 +51,8 @@ function step(b::Body, action, load, resistance=1.0, clear=true)
             status="blocked";reserve=max(0,reserve-BODY_ACTION.blocked_reserve*effort*RS)
         else
             status="performed";distance=integrity
-            burst-=BODY_ACTION.climb_burst*effort;reserve-=BODY_ACTION.climb_reserve*effort*RS;strain=min(1,strain+BODY_ACTION.climb_strain*effort*SS)
+            exerted=exert(b,BODY_ACTION.climb_reserve*effort*RS,BODY_ACTION.climb_strain*effort*SS,BODY_ACTION.climb_burst*effort)
+            burst,strain,reserve=exerted.burst,exerted.strain,exerted.reserve
         end
     elseif action=="fish"
         if reserve>=BODY_ACTION.fish_reserve*RS && strain<1 && integrity>0
@@ -69,9 +72,11 @@ function step(b::Body, action, load, resistance=1.0, clear=true)
     elseif action=="eat"
         status="ate";reserve=min(BODY_ACTION.reserve_capacity,reserve+BODY_ACTION.meal_energy)
     elseif action=="rest"
-        status="rested";recovery=min(1,b.reserve/BODY_ACTION.rest_energy_scale)*(1-b.damage)
-        burst=min(BODY_ACTION.burst_capacity*integrity,burst+BODY_ACTION.rest_burst*recovery)
-        strain=max(0,strain-BODY_ACTION.rest_strain*recovery*SS);reserve=max(0,reserve-BODY_ACTION.rest_reserve*recovery*RS)
+        status="rested"
+        recovered=recover(b;burst_capacity=BODY_ACTION.burst_capacity,energy_scale=BODY_ACTION.rest_energy_scale,
+            burst_rate=BODY_ACTION.rest_burst,strain_rate=BODY_ACTION.rest_strain,
+            reserve_rate=BODY_ACTION.rest_reserve,strain_scale=SS,reserve_scale=RS)
+        burst,strain,reserve=recovered.burst,recovered.strain,recovered.reserve
     else
         error("action")
     end
@@ -84,5 +89,5 @@ end
 
 function metabolize(b,seconds)
     seconds>=0 || error("metabolic_clock")
-    Body(b.burst,b.strain,max(0.,b.reserve-seconds*BODY_ACTION.metabolic_reserve_per_second*RS),b.damage)
+    exert(b,seconds*BODY_ACTION.metabolic_reserve_per_second*RS,0.)
 end

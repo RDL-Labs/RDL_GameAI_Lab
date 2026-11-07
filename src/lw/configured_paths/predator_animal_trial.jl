@@ -88,12 +88,26 @@ function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
     body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
     G.configured_wildlife_predator_plan!(trial_proxy(s,p),t)
 end
-function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,search_speed=nothing,attack_speed=1.,movement_speed=nothing,probabilistic_capture=false)
+function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,search_speed=nothing,attack_speed=1.,movement_speed=nothing,probabilistic_capture=false,physiology=nothing)
     rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
     p.ticks[p.mode]=get(p.ticks,p.mode,0)+1
     p.visual.previous_position=(body.x,body.z)
     p.alive || return
     previous_distance=body.distance;previous_captures=body.captures
+    attacking=body.state==P.ATTACK
+    if physiology!==nothing
+        @assert physiology.body.reserve==p.food
+        physical=physiology.body
+        mobility=physical.strain<1 && physical.damage<1 && p.food>0
+        if !mobility
+            physiology.limited_ticks+=1
+            search_speed=0.;movement_speed=0.;scent_speed=0.;attack_speed=0.
+        end
+        if attacking && (!mobility || physical.burst<PREDATOR_BODY.attack_burst)
+            body.misses+=1;body.state=P.CHASE;body.timer=0;attacking=false
+            push!(p.visual.events,(tick=t,kind="body_limited",id=body.target,reason="body_limited"))
+        end
+    end
     if p.mode==:hunt
         if search_speed!==nothing && body.state==P.SEARCH
             # 暫定固定: scent caution supplies slow search speed; no change to chase/attack.
@@ -102,7 +116,7 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
             G.configured_wildlife_predator_advance!(trial_proxy(s,p),t;attack_speed,movement_speed,probabilistic_capture)
         end
     elseif p.mode==:retreat
-        body.heading+=pi;P.move!(s.world,body,rule.retreat_speed)
+        body.heading+=pi;P.move!(s.world,body,physiology!==nothing && (physiology.body.strain>=1 || physiology.body.damage>=1) ? 0. : rule.retreat_speed)
     elseif p.mode in (:scent_return,:scent_avoid)
         P.move!(s.world,body,scent_speed)
     elseif p.mode in (:visit_food,:visit_rest)
@@ -119,8 +133,16 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
         body.timer=0 # Replace the legacy fixed half-day rest with food balance.
     end
     expense=rule.daily_food/rule.day_ticks+rule.move_food*(body.distance-previous_distance)
-    used=min(p.food,expense);p.food-=used;p.spent+=used
+    if physiology===nothing
+        used=min(p.food,expense);p.food-=used;p.spent+=used
+    else
+        before_food=p.food;physical=physiology.body
+        physical=LW.Body(physical.burst,physical.strain,p.food,physical.damage)
+        physiology.body=LW.RDLBody.exert(physical,expense,0.)
+        p.food=physiology.body.reserve;p.spent+=before_food-p.food
+    end
     p.food<=0 && (p.alive=false)
+    physiology!==nothing && predator_physiology_update!(physiology,p,body.distance-previous_distance,attacking,p.mode==:rest)
 end
 function trial_predator_report(p)
     balance_residual=PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten-p.food-p.spent

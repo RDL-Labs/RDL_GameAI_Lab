@@ -90,7 +90,7 @@ function configured_local_route_replan!(state,s,t,reason)
     b.state=P.CHASE;b.timer=0
     state.counts[reason]=get(state.counts,reason,0)+1
 end
-function configured_local_hunt_plan!(state,s,observations,t)
+function configured_local_hunt_plan!(state,s,observations,t;physiology=nothing)
     b=s.predator.body;rule=LOCAL_HUNT
     state.movement_speed=nothing;state.attack_speed=1.
     if b.state in (P.REST,P.RECOVER);return false;end
@@ -146,6 +146,9 @@ function configured_local_hunt_plan!(state,s,observations,t)
     b.target=o.id;b.seen_x=o.x;b.seen_z=o.z;b.expires=t+rule.history_ticks
     origin=(b.x,b.z)
     attack=state.probabilistic_capture ? local_capture_opportunity(s.world,origin,forecast) : local_hunt_rollout(s.world,origin,forecast)
+    if physiology!==nothing && (physiology.body.strain>=1 || physiology.body.burst<rule.horizon*PREDATOR_BODY.attack_burst)
+        attack=nothing
+    end
     estimate=state.probabilistic_capture ? local_capture_estimate(state,origin,forecast) : nothing
     state.counts["evaluations"]=get(state.counts,"evaluations",0)+1
     if state.wait_trial!==nothing

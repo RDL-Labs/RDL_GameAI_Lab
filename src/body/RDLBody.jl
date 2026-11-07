@@ -9,6 +9,7 @@ export COOKED_FISH, SPOILED_FOOD, FISH_FOOD, RAW_ACORN, ACORN_MEAL, FOOD_EDIBLE,
 include("types.jl")
 include("../data/food_ids.jl")
 include("parameters.jl")
+include("physiology.jl")
 include("actions.jl")
 include("digestion.jl")
 
