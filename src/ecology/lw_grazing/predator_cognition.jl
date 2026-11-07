@@ -3,6 +3,7 @@
 include("../../lw/configured_paths/predator_cognition_parameters.jl")
 include("../../lw/configured_paths/predator_rest_place.jl")
 include("../../lw/configured_paths/predator_food_demand.jl")
+include("../../lw/configured_paths/predator_food_site.jl")
 mutable struct PredatorMind
     loop::LW.BasicLoop
     acquisition::Dict{String,Any}
@@ -59,8 +60,9 @@ function predator_candidates(mind,p,rival,scents,i;physiology=nothing)
         action=place.kind=="food" ? :visit_food : :visit_rest
         value=LW.acquisition_value(mind.acquisition,string(action),key,travel,0.5,hunger)
         pressure=place.kind=="food" ? rule.food_weight*hunger : rest_pressure-rule.food_weight*hunger
+        site_repulsion=place.kind=="food" ? predator_food_site_repulsion(mind,key) : 0.
         push!(rows,LW.D("method"=>"visit:"*key,"action"=>action,"question"=>"reached_remembered_place",
-            "priority"=>pressure+value.score+rule.place_prior,"forecast"=>travel,
+            "priority"=>pressure+value.score+rule.place_prior-site_repulsion,"forecast"=>travel,"food_site_repulsion"=>site_repulsion,
             "expected"=>rule.place_prior,"target"=>(place.x,place.z),"site"=>key))
     end
     configured_predator_rest_candidates!(mind,rows)
@@ -106,6 +108,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
             observed,fulfilled,tolerance=rule.tolerance)
     end
     if action==:hunt
+        captured && predator_food_site_gain!(mind,p,p.eaten-mind.start_eaten)
         samples=get(mind.estimates,"hunt_samples",0.)+1
         prior=get(mind.estimates,"hunt",rule.hunt_prior)
         mind.estimates["hunt"]=prior+(actual-prior)/samples
@@ -135,6 +138,9 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
     if mind.trial!==nothing
         LW.action_trial_step!(mind.trial,1.,max(0.,p.spent-mind.start_spent-mind.trial["energy"]);now=t)
         captured=body.captures>mind.start_capture
+        if mind.selected["action"]==:hunt && p.alive && !captured
+            predator_food_site_effort!(mind,p)
+        end
         arrived=haskey(mind.selected,"target") && hypot(body.x-mind.selected["target"][1],body.z-mind.selected["target"][2])<=rule.arrival_radius
         due=mind.trial["elapsed"]>=mind.selected["forecast"]
         body_reconsider=false
@@ -188,5 +194,6 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
     end
 end
 predator_mind_report(mind)=(loop=LW.loop_snapshot(mind.loop),places=deepcopy(mind.places),
+    food_site_evidence=Dict(k=>v for (k,v) in mind.estimates if startswith(k,"food_site:")),
     single_rest_place=PREDATOR_COGNITION.single_rest_place,
     completed=mind.completed,records=deepcopy(mind.records),active=deepcopy(mind.trial))

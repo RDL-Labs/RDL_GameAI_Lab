@@ -29,7 +29,7 @@ function configured_pursuit_close!(p,t,reason;distance=nothing,opportunity=false
     expected=max(predator_pursuit_reach(),a.distance-a.closing*elapsed)
     residual=distance===nothing ? 0. : max(0.,distance-expected-PREDATOR_PURSUIT.distance_band)
     # Only the pursuit child's forecast receives this residual. No parent food credit.
-    LW.resolve_method!(p.loop,p.loop.trial.source,residual>0 ? false : nothing,
+    LW.resolve_method!(p.loop,p.loop.trial.source,opportunity ? true : residual>0 ? false : nothing,
         opportunity ? true : residual>0 ? false : nothing;creditable=false,
         goal_H_increment=residual,completion_reward=opportunity ? 0. : nothing)
     push!(p.records,(event="result",tick=t,target=a.target,reason=reason,elapsed=elapsed,

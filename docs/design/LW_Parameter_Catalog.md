@@ -480,3 +480,27 @@ animal_trial_prepare!/advance!のpursuits=nothingがOFF（動物単独の既定�
 予測不能や経路失敗を世界の真値で正解判定せず、川の暫定通行見積もりは前節のまま。
 条件pursuit_decision、日次predator_pursuitsのcounts/records/Hに記録。
 新sidecarもcohort内でcheckpoint保存。旧再現比較は既存状態を保持した明示移行のみ。
+
+## 追跡の局所成功と餌場の不成果（2026-11-07）
+
+`predator_pursuit.jl`は捕獲距離到達を追跡方法の成功証拠として渡す。
+子目的と方法の未解消Hは解消するが、過去のfailure_H_totalは保持し、completion_reward=0。
+食料確保の親Hや捕獲実績は接近だけで成功にしない。
+
+`configured_paths/predator_food_site.jl`のPREDATOR_FOOD_SITEは認知版で既定enabled=true。
+falseで蓄積/反発とも無効。暫定係数scale=.25、tau=3、指数上限8（数値発散防止）。
+反発=.25*expm1(min(8,u/3))。u=1/3/6/9で約.099/.430/1.597/4.771。
+未解消不成果uは既知餌場の半径place_cell=8m内で実際にhuntした時間600tickを1単位とする。
+重なる場所には最近傍の1地点だけ帰属。同距離はキー順で決定。再選択や到着では増えない。
+短時間の探索はeffort_ticksへ持ち越す。移動/休息/死亡時間は対象外。
+世界の獲物数を参照せず、本人の位置と場所記憶・狩猟時間・摂取だけを使う。
+捕獲で得た実摂取量/(hunt_prior .3 * food_value_scale 900)を未解消量から引く。
+小型幼体67.5なら.25単位、成体1350なら5単位（容量超過分は成功栄養に含めない）。
+端数は探索時間へ戻す。勾配は整数単位で更新する暫定実装で、連続感度モデルではない。
+
+保持は既存mind.estimatesのfood_site:<site>:unresolved/effort_ticks名前空間。
+旧checkpointは未登録=0から開始し、過去の空振りを推測して後付けしない。
+food_site_evidenceとして日次mind報告、候補にはfood_site_repulsionを保存。
+餌場visit候補のpriorityにだけ減点し、位置/到達経路/acquisitionの到達実績は維持。
+食料目的以外の通過や退避経路には適用しない。huntの方向場への直接適用は未接続。
+将来は場所半径/必要探索時間/期待栄養の単位を経験とρへ接続する。

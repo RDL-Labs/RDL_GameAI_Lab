@@ -155,6 +155,7 @@ const bridge_conditions=(days=requested_days,actors=human_roster,donor=selected_
     pursuit_mb_inherited=inherited_pursuits!==nothing,
     direct_water_approach=PREDATOR_WATER_APPROACH,
     pursuit_decision=PREDATOR_PURSUIT,
+    food_site_evidence=PREDATOR_FOOD_SITE,
     human_scent=human_scent_enabled,human_scent_rule=HUMAN_SCENT,fixed_camp_scent=human_scent_enabled ? human_input["scene"]["home"] : nothing,
     donor_captures=inherited_source===nothing ? nothing : inherited_source[2][selected_donor].visual.body.captures,wildlife=human_input["scene"]["wildlife"],
     human_input_origin=human_source_input,human_input_sha256=bytes2hex(sha256(read(human_source_input))),

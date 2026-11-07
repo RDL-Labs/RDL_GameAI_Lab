@@ -3,7 +3,8 @@ using JSON3, Serialization, Test
 const audit_original=abspath(ARGS[1]);const audit_output=abspath(ARGS[2])
 const audit_day=parse(Int,ARGS[3]);const audit_actor=parse(Int,ARGS[4])
 const audit_pursuit_variant=length(ARGS)>=5 && ARGS[5]=="pursuit"
-const audit_water_variant=length(ARGS)>=5 && ARGS[5] in ("water-approach","pursuit")
+const audit_food_variant=length(ARGS)>=5 && ARGS[5]=="food-site"
+const audit_water_variant=length(ARGS)>=5 && ARGS[5] in ("water-approach","pursuit","food-site")
 const audit_config=JSON3.read(read(joinpath(audit_original,"conditions.json"),String))
 empty!(ARGS);append!(ARGS,[String(audit_config.human_input_origin),String(audit_config.donor),audit_output,string(audit_day),string(audit_config.donor_index),string(audit_config.human_scent)])
 const audit_bridge=joinpath(@__DIR__,"humans_learned_predators.jl")
@@ -85,6 +86,8 @@ const audit_resume_effective=if audit_water_variant
         !isfile(joinpath(oldroot,p)) || !isfile(joinpath(newroot,p)) || read(joinpath(oldroot,p))!=read(joinpath(newroot,p))])
     allowed=["lw/configured_paths/predator_local_hunt.jl","lw/configured_paths/predator_water_approach.jl"]
     audit_pursuit_variant && push!(allowed,"lw/configured_paths/predator_pursuit.jl")
+    audit_food_variant && (allowed=["lw/configured_paths/predator_pursuit.jl",
+        "lw/configured_paths/predator_food_site.jl","ecology/lw_grazing/predator_cognition.jl"])
     @test Set(replace.(changed,'\\'=>'/'))==Set(allowed)
     # Explicit experiment-only metadata migration; saved state/RNG/identity unchanged.
     migrated=joinpath(audit_output,"variant-start.jls")
@@ -111,8 +114,9 @@ write(joinpath(audit_output,"audit.json"),JSON3.write(audit_evidence))
 write(joinpath(audit_output,"movement.json"),JSON3.write(audit_movement))
 if audit_water_variant
     ending=deserialize(joinpath(audit_output,"checkpoints","day-"*lpad(audit_day,3,'0')*".jls"))
-    write(joinpath(audit_output,"variant.json"),JSON3.write((mode=audit_pursuit_variant ? "pursuit" : "water-approach",day=audit_day,
-        pursuits=audit_pursuit_variant ? pursuit_report.(ending.state[:predator_cohort].pursuits) : nothing,
+    write(joinpath(audit_output,"variant.json"),JSON3.write((mode=audit_food_variant ? "food-site" : audit_pursuit_variant ? "pursuit" : "water-approach",day=audit_day,
+        pursuits=(audit_pursuit_variant || audit_food_variant) ? pursuit_report.(ending.state[:predator_cohort].pursuits) : nothing,
+        minds=predator_mind_report.(ending.state[:predator_cohort].minds),
         predators=audit_result.daily[audit_day].learned_predators.predators,
         local_counts=[local_state.counts for local_state in ending.state[:predator_cohort].local_hunts])))
 end
