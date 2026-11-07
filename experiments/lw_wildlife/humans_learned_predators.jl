@@ -102,6 +102,7 @@ function integrated_predator_daily!(day,c,number,w)
     println("INTEGRATED_DAY ",JSON3.write(row));flush(stdout)
 end
 const bridge_conditions=(days=requested_days,actors=human_roster,donor=donor_directory,donor_index=selected_donor,
+    direct_water_approach=PREDATOR_WATER_APPROACH,
     human_scent=human_scent_enabled,human_scent_rule=HUMAN_SCENT,fixed_camp_scent=human_scent_enabled ? human_input["scene"]["home"] : nothing,
     donor_captures=inherited_source[2][selected_donor].visual.body.captures,wildlife=human_input["scene"]["wildlife"],
     human_input_origin=human_source_input,human_input_sha256=bytes2hex(sha256(read(human_source_input))),

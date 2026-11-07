@@ -8,6 +8,7 @@ const LOCAL_HUNT=(radius=6.,velocity_cap=.7,history_ticks=20,horizon=3,attack_sp
     wait_forecast_ticks=20,withdraw_priority=0.,log_limit=128)
 # 暫定の個体側事前見積もり。世界の確率係数とは独立。経験で文脈ごとに更新。
 const CAPTURE_ESTIMATE=(near_distance=1.25,near_prior=.6,far_prior=.3,prior_samples=2.,weight=2.)
+include("predator_water_approach.jl")
 mutable struct LocalHunt
     loop::LW.BasicLoop
     memory::Dict{Int,NamedTuple}
@@ -103,6 +104,13 @@ function configured_local_hunt_plan!(state,s,observations,t;physiology=nothing)
             state.attack_speed=min(rule.attack_speed,o.distance)
         end
         b.counts[b.state]+=1;return true
+    end
+    observations,water_filtered=configured_predator_water_targets!(state,s,observations,t)
+    if water_filtered && isempty(observations)
+        # Consume the filtered observation here: returning false would let the
+        # outer legacy selector immediately reacquire the rejected raw target.
+        P.decide!(b,observations,t,s.predator.rng)
+        return true
     end
     if isempty(observations)
         configured_local_wait_close!(state,"failed","target_unobserved")

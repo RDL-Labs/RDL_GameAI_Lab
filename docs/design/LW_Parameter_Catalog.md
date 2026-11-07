@@ -448,3 +448,16 @@ strain=1またはdamage=1で移動不能。攻撃開始には3tick分のburstが
 条件ログfixed_camp_scent、日次human_scent.campとruleに記録、checkpointにも保存。
 HumanScentFieldの保存構造を更新したため、新仕様は新規開始用。旧保存は当時の凍結コードで読む。
 専用27項目PASS（人不在での維持・時間不変・弱い跡/強い拠点の分離・局所性・保存・通過跡の重複上限など）。
+
+## 捕食者の川越し直接接近見積もり（2026-11-07）
+
+`configured_paths/predator_water_approach.jl`、`PREDATOR_WATER_APPROACH`。
+local_hunt接続時の暫定固定（enabled=true、falseで従来動作）。sample_step=0.5mは直線の最大標本間隔。
+観測した獲物/最後の観測位置への線分に水面があれば、その直接接近候補を除外する。
+既存局所狩猟同様、地形の実値参照を使う近道であり、認識学習の実装済み宣言ではない。
+対象/現在地が変われば再評価。永久的な獲物除外、捕食親の失敗/H追加、休息への切替は行わない。
+他の到達候補がなければ既存SEARCHへ戻す。外側の旧選択器による同tick再取得を防ぐ。
+進行中のATTACKは既存の成否判定を維持。橋・広域迂回・泳ぎの評価は未実装。
+将来は地形MBからの不確かな見積もり/迂回候補へ置換。
+条件ログdirect_water_approach、LocalHunt.countsのwater_direct_rejected（候補tick）と
+water_target_released（追跡解除）に記録。保存型は変更しない。

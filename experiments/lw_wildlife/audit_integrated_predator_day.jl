@@ -2,6 +2,7 @@
 using JSON3, Serialization, Test
 const audit_original=abspath(ARGS[1]);const audit_output=abspath(ARGS[2])
 const audit_day=parse(Int,ARGS[3]);const audit_actor=parse(Int,ARGS[4])
+const audit_water_variant=length(ARGS)>=5 && ARGS[5]=="water-approach"
 const audit_config=JSON3.read(read(joinpath(audit_original,"conditions.json"),String))
 empty!(ARGS);append!(ARGS,[String(audit_config.human_input_origin),String(audit_config.donor),audit_output,string(audit_day),string(audit_config.donor_index),string(audit_config.human_scent)])
 const audit_bridge=joinpath(@__DIR__,"humans_learned_predators.jl")
@@ -76,15 +77,35 @@ function integrated_predator_advance!(wildlife,c,t)
 end
 const audit_resume=joinpath(audit_original,"checkpoints","day-"*lpad(audit_day-1,3,'0')*".jls")
 const audit_saved=deserialize(audit_resume)
-@test audit_saved.code==LW.checkpoint_code_hash()
-LW.native_main([joinpath(integrated_output,"run"),"--spec",joinpath(integrated_output,"input.json"),"--checkpoint-dir",joinpath(integrated_output,"checkpoints"),"--resume-from",audit_resume])
+const audit_resume_effective=if audit_water_variant
+    oldroot=joinpath(audit_original,"source/src");newroot=joinpath(frozen_root,"src")
+    paths(root)=Set(relpath(joinpath(d,f),root) for (d,_,fs) in walkdir(root) for f in fs if endswith(f,".jl"))
+    changed=sort([p for p in union(paths(oldroot),paths(newroot)) if
+        !isfile(joinpath(oldroot,p)) || !isfile(joinpath(newroot,p)) || read(joinpath(oldroot,p))!=read(joinpath(newroot,p))])
+    @test Set(replace.(changed,'\\'=>'/'))==Set(["lw/configured_paths/predator_local_hunt.jl","lw/configured_paths/predator_water_approach.jl"])
+    # Explicit experiment-only metadata migration; saved state/RNG/identity unchanged.
+    migrated=joinpath(audit_output,"variant-start.jls")
+    serialize(migrated,merge(audit_saved,(code=LW.checkpoint_code_hash(),)))
+    write(joinpath(audit_output,"migration.json"),JSON3.write((original=audit_resume,old_code=audit_saved.code,new_code=LW.checkpoint_code_hash(),changed_files=changed,state="unchanged; metadata code only")))
+    migrated
+else
+    @test audit_saved.code==LW.checkpoint_code_hash()
+    audit_resume
+end
+LW.native_main([joinpath(integrated_output,"run"),"--spec",joinpath(integrated_output,"input.json"),"--checkpoint-dir",joinpath(integrated_output,"checkpoints"),"--resume-from",audit_resume_effective])
 const audit_result=JSON3.read(read(joinpath(audit_output,"run/result.json"),String))
 const audit_expected=JSON3.read(read(joinpath(audit_original,"run/result.json"),String))
 const audit_match=JSON3.read(JSON3.write(audit_result.daily[audit_day]),Dict{String,Any})==JSON3.read(JSON3.write(audit_expected.daily[audit_day]),Dict{String,Any})
-@test audit_match
+audit_water_variant || @test audit_match
 const audit_evidence=(day=audit_day,actor=audit_actor,exact_daily_match=audit_match,counts=audit_counts,
     distance=audit_distance[],death=audit_death[],path=audit_path,
     note="Nearest prey is world truth for diagnosis, not visibility. Samples before movement; path every 60 ticks. Scent signal is not proof of heading change.")
 write(joinpath(audit_output,"audit.json"),JSON3.write(audit_evidence))
 write(joinpath(audit_output,"movement.json"),JSON3.write(audit_movement))
+if audit_water_variant
+    ending=deserialize(joinpath(audit_output,"checkpoints","day-"*lpad(audit_day,3,'0')*".jls"))
+    write(joinpath(audit_output,"variant.json"),JSON3.write((mode="water-approach",day=audit_day,
+        predators=audit_result.daily[audit_day].learned_predators.predators,
+        local_counts=[local_state.counts for local_state in ending.state[:predator_cohort].local_hunts])))
+end
 println("AUDIT_COMPLETE ",JSON3.write((day=audit_day,actor=audit_actor,exact_match=audit_match,counts=audit_counts,distance=audit_distance[],death=audit_death[])))

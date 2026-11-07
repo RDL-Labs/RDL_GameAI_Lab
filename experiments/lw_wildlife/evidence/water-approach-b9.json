@@ -1,0 +1,65 @@
+{
+  "day": 9,
+  "actor": "B",
+  "source": "outputs/water-approach-b9-20261107",
+  "migration": {
+    "original": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\fixed-camp-scent-integrated-30d-20261107\\checkpoints\\day-008.jls",
+    "old_code": "8f9e8ff19b2f0e00215ef0d19f3d8d6226308a4b10683506cc5c794bfaf6f73a",
+    "new_code": "7773f44e11db4c2403ab6ee46b923fa065b8ad9fedaf031866db491b7739d434",
+    "changed_files": [
+      "lw\\configured_paths\\predator_local_hunt.jl",
+      "lw\\configured_paths\\predator_water_approach.jl"
+    ],
+    "state": "unchanged; metadata code only"
+  },
+  "before": {
+    "captures_day": 0,
+    "attacks_day": 0,
+    "food_end": 25.04322869147031,
+    "distance": 3282.9,
+    "target19_water_steps": 517
+  },
+  "after": {
+    "captures_day": 1,
+    "attacks_day": 1,
+    "food_end": 1508.9866111127797,
+    "distance": 1948.3199999985543,
+    "counts": {
+      "visual_state:5": 10090,
+      "mode:hunt": 7190,
+      "visual_state:2": 810,
+      "mode:visit_food": 1480,
+      "alive": 17280,
+      "trail_signal": 85,
+      "visual_state:1": 6377,
+      "tracked_target": 813,
+      "prey_world_within6": 595,
+      "mode:visit_rest": 96,
+      "mode:rest": 788,
+      "stationary": 8534,
+      "mode:idle": 7726,
+      "visual_state:3": 3,
+      "prey_world_within16": 12501,
+      "camp_signal": 49
+    },
+    "water_direct_rejected": 744,
+    "target19_chase_steps": 0,
+    "target74_chase_steps": 416,
+    "last_capture": {
+      "tick": 149864,
+      "kind": "capture",
+      "id": 3,
+      "probability": 0.4105219186622252,
+      "distance": 0.6736451340834592,
+      "reason": "draw"
+    }
+  },
+  "tests": [
+    "water approach 9 PASS",
+    "route repair 18 PASS",
+    "wait lifecycle 9 PASS",
+    "inherited MB 354 PASS",
+    "variant only two permitted source files differ"
+  ],
+  "limitations": "Both predators use new rule from identical day-008 state; A and human reserves unchanged at day end. One day and one seed, no long-term survival claim. Geometry access remains provisional fixed policy."
+}
