@@ -1341,3 +1341,16 @@ LW呼出し1227.384秒（20分27秒、コンパイル込み）、日末30日ま�
 今回で新規MBから捕食を繰り返し約28日維持できたが、30日の生存は未達。
 以前の継承版から川判定/追走も変更されているため、MB継承の有無だけの効果比較ではない。
 終盤の捕獲途絶の詳細原因は未調査。証拠evidence/pursuit-fresh-mb-integrated-30d.json。
+
+## 未経験30日を経たBから継承し、次の30日を開始（2026-11-07）
+
+前回で長く生きたB（経過28.31794日、17捕獲）のMBを新規捕食者2体へ独立コピー。
+元保存outputs/pursuit-fresh-mb-integrated-30d-20261107/checkpoints/day-030.jls。
+統合checkpointをdonorとして読み込む入口を追加。親/局所狩猟/捕獲経験は既存の継承関数、
+新しい追走判断は同じconfigured_inherit_loop!で方法評価・失敗履歴・選択順序をコピーする。
+追走の急性H・実行中試行・観測・一時的離脱対象・診断履歴は初期化。各子の乱数は独立。
+身体・世界・兎・人の初期配置は新規。人4/兎100/捕食者2、草3倍、拠点臭/川判定/追走ONを維持。
+人の研修設定は維持し、人MBの持ち越しはしない。同じ地形での実験者指定コピーであり自然繁殖ではない。
+条件ログpursuit_mb_inherited、initial_predators.jsonへ追走の初期方法も保存。
+出力outputs/pursuit-inherited-b-integrated-30d-20261107、実装c7cbe3c、PID30428で起動。
+30日まで継続、日次checkpointあり。開始記録であり結果未確定。完了はcompleted.json verified=true。
