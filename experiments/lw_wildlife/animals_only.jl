@@ -12,12 +12,15 @@ function animal_trial_world(;adult_rabbits=30,boundary_gradient=true,grass_scale
     wildlife=merge((;pairs(input.scene.wildlife)...),(predator_count=0,count=adult_rabbits,boundary_gradient=boundary_gradient,grass_scale=grass_scale))
     scene=merge((;pairs(input.scene)...),(positions=Tuple{Float64,Float64}[],wildlife=wildlife))
     s=G.build(scene,input.clock)
+    s,animal_trial_predators(s)
+end
+function animal_trial_predators(s)
     cells=findall(s.world.walkable)
     centers=[H.center(s.world,cells[argmin([hypot(H.center(s.world,k)[1]-x,H.center(s.world,k)[2]-6) for k in cells])]) for x in (-8.,8.)]
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
-    s,predators
+    predators
 end
-function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing)
+function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
     scents!==nothing && configured_scent_tick!(scents,predators,t)
     for (i,p) in enumerate(predators)
         if minds===nothing
@@ -34,8 +37,10 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
         configured_prey_scent_tick!(prey_scents,s,predators,t)
         for (i,p) in enumerate(predators);configured_prey_scent_steer!(prey_scents,p,i,t);end
     end
-    G.prepare!(s,Tuple{Float64,Float64}[],t;additional_predators=[p.visual for p in predators],
-        additional_predator_alive=[p.alive for p in predators],motion_speed)
+    G.prepare!(s,humans,t;additional_predators=[p.visual for p in predators],
+        additional_predator_alive=[p.alive for p in predators],motion_speed,illumination)
+end
+function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing)
     G.advance!(s,t)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
@@ -48,6 +53,10 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
         configured_trial_advance!(s,predators[i],t;physiology=physiology===nothing ? nothing : physiology[i],prey_nutrition,search_speed,attack_speed,movement_speed,probabilistic_capture=local_hunts!==nothing && local_hunts[i].probabilistic_capture,scent_speed=minds!==nothing ? PREDATOR_COGNITION.move_speed : scents===nothing ? 0. : PREDATOR_MARKING.speed)
         local_hunts!==nothing && configured_local_hunt_finish!(local_hunts[i],predators[i])
     end
+end
+function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing)
+    animal_trial_prepare!(s,predators,t;scents,minds,prey_scents,motion_speed,local_hunts,physiology)
+    animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition,prey_scents,local_hunts,physiology)
 end
 function animal_trial_report(s,predators;scents=nothing,minds=nothing)
     captures=sum(p.visual.body.captures for p in predators)

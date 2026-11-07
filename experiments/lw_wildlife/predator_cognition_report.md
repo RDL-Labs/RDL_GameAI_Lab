@@ -1044,3 +1044,20 @@ A生存30.877431日・捕獲18/攻撃36、B生存47.921238日・捕獲42/攻撃9
 今回の捕食者全滅を獲物の全滅と混同しない。狩猟失敗・接触・疲労等の死因過程は未調査。
 実行本体68.381秒。保存 outputs/grass3-b-inherited-60d-20261107、
 抜粋 evidence/grass3-b-inherited-60d.json。
+
+## 人4体・学習済み捕食者2体の接続確認（2026-11-07）
+
+専用実験runner humans_learned_predators.jlを追加。人側入力はlw-rabbit-family-30d-20261106。
+成体兎95+幼体5、草3倍、捕食者はfood-demand-inherited-30dのB（25匹捕獲）を2体へ継承。
+人の生活・取引・動体観測を維持。兎は人と捕食者を見る。捕食者から人への攻撃/威嚇や人の狩猟は未接続。
+動物更新をprepare/advanceへ分離し、同じ世界に一度ずつ適用。通常LWの単純捕食者は無効化。
+凍結ソースのみ専用bridgeへ差し替え、通常LWへ自動接続しない。
+日次checkpointに捕食者cohortを人/兎と同じ直列化グラフで保存。
+1日統合確認完走。継承354項目、最終4検査（人roster・日数・cohort保存・捕食数照合）PASS。
+各日の個体数収支・身体reserve一致もassert。別プロセスでの途中再開同値は未検証。
+人4体reserve84.80〜86.80、捕食者2体生存/各1匹捕獲、兎98体・餓死0。
+LW呼出し113.243秒（コンパイル込み）、開始から日末約127.8秒。
+保存 outputs/humans-learned-predators-smoke-20261107、抜粋 evidence/humans-learned-predators-smoke.json。
+同条件の30日はoutputs/humans-learned-predators-30d-20261107でバックグラウンド開始。
+stdout/stderr/job.jsonは同名接頭辞でoutputs直下。日次進捗は出力内progress.json/daily.jsonl。
+捕食者全滅でも人の生活は30日まで継続。完了はcompleted.jsonで判定し、開始時点では長期結果未確定。
