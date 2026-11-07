@@ -1,0 +1,160 @@
+{
+  "conditions": {
+    "generations": 1,
+    "generation_offset": 100,
+    "days_per_generation": 30,
+    "source": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\predator-inheritance-20more-20261107\\generation-23",
+    "initial_donor": 1,
+    "initial_lifetimes": [
+      172694,
+      132070
+    ],
+    "selection": "longest alive ticks; ties use lower actor index; day-limit survival is censored",
+    "map": "same map and rabbit seed, resources reset",
+    "adults": 95,
+    "young": 5,
+    "predators": 2,
+    "boundary_gradient": true,
+    "probabilistic_capture": true,
+    "nutrition": 1.5,
+    "shared_body": true,
+    "body_rule": {
+      "burst_capacity": 10.0,
+      "recovery_energy": 360.0,
+      "rest_burst": 2.0,
+      "rest_strain": 0.0025,
+      "rest_energy": 0.0033333333333333335,
+      "move_strain": 0.001,
+      "attack_strain": 0.003,
+      "attack_burst": 0.6,
+      "rest_need_weight": 4.0,
+      "need_band": 1E-06
+    },
+    "ambient_vision": {
+      "day_seconds": 17280.0,
+      "night_fraction": 0.6666666666666666,
+      "human_dark_range": 0.25,
+      "predator_dark_range": 0.65,
+      "rabbit_dark_range": 0.5
+    },
+    "single_rest_place": true,
+    "rest_recall": "strongest current common MB candidate; memories retained",
+    "fixed": "experimenter selects and copies MB; independent offspring; body, acute H, trials and perceptions reset; no mutation",
+    "seed_rule": "decision seeds 20261106/20261107 + 1000*generation + actor; capture RNG 20261106 + 1000*generation + actor"
+  },
+  "food_demand_rule": "shared_body: deficit to initial_food vs forecast maintenance; no meal storage",
+  "summary": {
+    "generation": 101,
+    "parent": {
+      "index": 1,
+      "methods": 154,
+      "places": 16,
+      "estimates": {
+        "hunt_samples": 2175.0,
+        "hunt": 0.08969998269517945
+      },
+      "capture_experience": {
+        "far:closing": [
+          366,
+          173
+        ],
+        "far:leaving": [
+          102,
+          36
+        ],
+        "near:leaving": [
+          209,
+          80
+        ],
+        "near:closing": [
+          48,
+          34
+        ]
+      }
+    },
+    "winner": 1,
+    "lifetimes": [
+      518400,
+      487590
+    ],
+    "lifetimes_days": [
+      30.0,
+      28.21701388888889
+    ],
+    "censored": [
+      true,
+      false
+    ],
+    "captures": [
+      18,
+      25
+    ],
+    "elapsed_days": 30.0,
+    "seconds": 36.8536189,
+    "rabbits_alive": 19
+  },
+  "physiology": [
+    {
+      "burst": 10.0,
+      "strain": 0.08899999999977462,
+      "reserve": 849.570555556937,
+      "damage": 0.0,
+      "need": 0.08899999999977462,
+      "limited_ticks": 0
+    },
+    {
+      "burst": 1.000000000000003,
+      "strain": 0.7862337800358746,
+      "reserve": 0.0,
+      "damage": 0.0,
+      "need": 1.6862337800358742,
+      "limited_ticks": 0
+    }
+  ],
+  "predators": [
+    {
+      "alive": true,
+      "food": 849.570555556937,
+      "eaten": 19054.466351011743,
+      "spent": 19104.89579563707,
+      "captures": 18,
+      "attacks": 34,
+      "discarded": 5245.533648988255,
+      "balance_residual": -1.8226273823529482E-07,
+      "ticks": {
+        "idle": 475440,
+        "hunt": 29918,
+        "retreat": 420,
+        "warn": 60,
+        "visit_food": 5940,
+        "visit_rest": 2141,
+        "rest": 4481
+      }
+    },
+    {
+      "alive": false,
+      "food": 0.0,
+      "eaten": 17407.091864515427,
+      "spent": 18307.09186468655,
+      "captures": 25,
+      "attacks": 53,
+      "discarded": 4800.408135484572,
+      "balance_residual": -1.7112324712798E-07,
+      "ticks": {
+        "idle": 429120,
+        "dead": 30810,
+        "hunt": 42389,
+        "retreat": 180,
+        "visit_food": 6799,
+        "visit_rest": 3466,
+        "rest": 5636
+      }
+    }
+  ],
+  "rabbits": {
+    "alive": 19,
+    "predation_deaths": 43,
+    "starvation_deaths": 54,
+    "births": 16
+  }
+}
