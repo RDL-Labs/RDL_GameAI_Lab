@@ -1,0 +1,202 @@
+{
+  "run": "pursuit-inherited-b-integrated-30d-20261107",
+  "day": 28,
+  "actor": 2,
+  "exact_daily_match": true,
+  "counts": {
+    "visual_state:5": 3929,
+    "mode:hunt": 7277,
+    "visual_state:2": 8,
+    "mode:visit_food": 2812,
+    "alive": 11206,
+    "visual_state:1": 7269,
+    "tracked_target": 8,
+    "prey_world_within6": 6,
+    "mode:visit_rest": 40,
+    "mode:rest": 1077,
+    "stationary": 1082,
+    "prey_world_within16": 1838
+  },
+  "distance": 2209.7000000025355,
+  "death": {
+    "tick": 477765,
+    "food_before": 0.007223242611752975,
+    "food_after": 0.0,
+    "position": [
+      -45.336367560824634,
+      -20.163418269842715
+    ],
+    "mode": "rest"
+  },
+  "chase_moves": 8,
+  "blocked_chase_moves": 0,
+  "water_chase_moves": 0,
+  "prior_pursuit_methods": {
+    "pursue": {
+      "failure_count": 2,
+      "H": 2.0,
+      "threshold": 2.0,
+      "failure_H_total": 3.526742611833246,
+      "reward": 0.0,
+      "last_selected": 665,
+      "failure_repulsion": 1.5100026106044528
+    },
+    "abandon": {
+      "failure_count": 0,
+      "H": 0.0,
+      "threshold": 2.0,
+      "failure_H_total": 0.0,
+      "reward": 0.0,
+      "last_selected": 666,
+      "failure_repulsion": 0.0
+    }
+  },
+  "pursuit_choices": [
+    {
+      "event": "choice",
+      "tick": 467301,
+      "target": 55,
+      "selected": "abandon",
+      "distance": 6.434149669307009,
+      "radial_speed": 0.5941771536257502,
+      "closing": 0.2558228463742498,
+      "expected_gain": 1.0,
+      "cost": 0.002660493827160494,
+      "fatigue": 0.1338800000001525,
+      "hunger": 0.36517325947462204,
+      "H": 0.0,
+      "probability": 0.7212699737050944,
+      "candidates": [
+        {
+          "method": "abandon",
+          "priority": 0.40164000000045746
+        },
+        {
+          "method": "pursue",
+          "priority": 1.9608727656470042
+        }
+      ]
+    },
+    {
+      "event": "choice",
+      "tick": 467302,
+      "target": 31,
+      "selected": "abandon",
+      "distance": 6.792165091136475,
+      "radial_speed": 0.5999696783532508,
+      "closing": 0.2500303216467492,
+      "expected_gain": 1.0,
+      "cost": 0.002660493827160494,
+      "fatigue": 0.13410000000015274,
+      "hunger": 0.3652362841659801,
+      "H": 0.0,
+      "probability": 0.7215226052188743,
+      "candidates": [
+        {
+          "method": "abandon",
+          "priority": 0.4023000000004582
+        },
+        {
+          "method": "pursue",
+          "priority": 1.9602757903383612
+        }
+      ]
+    },
+    {
+      "event": "choice",
+      "tick": 467303,
+      "target": 66,
+      "selected": "abandon",
+      "distance": 7.274873400630933,
+      "radial_speed": 0.5949708151186205,
+      "closing": 0.2550291848813795,
+      "expected_gain": 1.0,
+      "cost": 0.002660493827160494,
+      "fatigue": 0.13432000000015298,
+      "hunger": 0.3652993088573381,
+      "H": 0.0,
+      "probability": 0.7217750960821323,
+      "candidates": [
+        {
+          "method": "abandon",
+          "priority": 0.40296000000045895
+        },
+        {
+          "method": "pursue",
+          "priority": 1.9596788150297186
+        }
+      ]
+    },
+    {
+      "event": "choice",
+      "tick": 467326,
+      "target": 66,
+      "selected": "abandon",
+      "distance": 6.1213169760277175,
+      "radial_speed": 0.5988291770918863,
+      "closing": 0.25117082290811366,
+      "expected_gain": 1.0,
+      "cost": 0.002660493827160494,
+      "fatigue": 0.1376800000001542,
+      "hunger": 0.36655998786968363,
+      "H": 0.0,
+      "probability": 0.7255544253053156,
+      "candidates": [
+        {
+          "method": "abandon",
+          "priority": 0.4130400000004626
+        },
+        {
+          "method": "pursue",
+          "priority": 1.9508594940420603
+        }
+      ]
+    }
+  ],
+  "bounded_visit_records": [
+    {
+      "method": "visit:food:(-7, -2)",
+      "records": 9,
+      "arrivals": 0,
+      "elapsed": 656.0,
+      "body_limited": 0
+    },
+    {
+      "method": "visit:food:(-7, 5)",
+      "records": 6,
+      "arrivals": 0,
+      "elapsed": 330.0,
+      "body_limited": 2
+    },
+    {
+      "method": "visit:food:(-8, -3)",
+      "records": 11,
+      "arrivals": 1,
+      "elapsed": 672.0,
+      "body_limited": 1
+    },
+    {
+      "method": "visit:food:(-8, 3)",
+      "records": 7,
+      "arrivals": 0,
+      "elapsed": 328.0,
+      "body_limited": 0
+    },
+    {
+      "method": "visit:food:(-8, 4)",
+      "records": 11,
+      "arrivals": 2,
+      "elapsed": 732.0,
+      "body_limited": 1
+    }
+  ],
+  "record_scope": "64-record rolling history; filtered ending tick >= day start; not full daily visit counts",
+  "body": {
+    "burst": 10.0,
+    "strain": 0.9926563198538553,
+    "reserve": 0.0,
+    "damage": 0.0,
+    "need": 0.9926563198538553,
+    "limited_ticks": 6
+  }
+}
