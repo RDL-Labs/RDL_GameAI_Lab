@@ -11,6 +11,39 @@ const audit_counts=Dict{String,Int}()
 const audit_path=Any[]
 const audit_death=Ref{Any}(nothing)
 const audit_distance=Ref(0.)
+const audit_movement=Any[]
+const audit_context=Ref{Any}(nothing)
+# Wrap the frozen movement function in memory; keep every original operation/RNG call.
+const audit_move_file=joinpath(frozen_root,"src/ecology/directional-vision-cpu/Predators.jl")
+const audit_move_source=read(audit_move_file,String)
+const audit_move_start=findfirst("function move!",audit_move_source).start
+const audit_move_end=findnext("include(\"perception.jl\")",audit_move_source,audit_move_start).start
+Base.include_string(P,replace(audit_move_source[audit_move_start:prevind(audit_move_source,audit_move_end)],
+    "function move!("=>"function audit_original_move!("),"audit_original_move")
+@eval P function move!(w,p,speed;turn=true)
+    context=Main.audit_context[]
+    tracked=context!==nothing && p===context.body && p.state==CHASE && p.target!=0
+    before=tracked ? (p.x,p.z,p.heading,p.target,p.blocked) : nothing
+    result=audit_original_move!(w,p,speed;turn)
+    tracked && Main.audit_record_move(w,p,speed,before,result,context)
+    result
+end
+function audit_record_move(w,b,speed,before,result,context)
+    x,z,heading,target,blocked=before;a=context.world.animals
+    origin=(x,z);h=H.configured_boundary_heading(w,origin,heading)
+    q=(x+speed*cos(h),z+speed*sin(h))
+    boundary=!(w.xmin+.25<=q[1]<=w.xmax-.25 && w.zmin+.25<=q[2]<=w.zmax-.25)
+    water=H.material(w.phase,q...)==H.WATER || H.material(w.phase,(x+q[1])/2,(z+q[2])/2)==H.WATER
+    obstacles=findall(o->H.RDLMigrationProbe.segment_hit(origin,q,o,.25),w.obstacles)
+    prey=(a.x[target],a.z[target]);oldprey=context.prey_positions[target]
+    push!(audit_movement,(tick=context.tick,target=target,origin=origin,position=(b.x,b.z),
+        prey_before=oldprey,prey_after=prey,prey_state=a.state[target],prey_alive=context.world.alive[target],
+        requested_speed=speed,moved=hypot(b.x-x,b.z-z),prey_moved=hypot(prey[1]-oldprey[1],prey[2]-oldprey[2]),
+        distance_before=hypot(oldprey[1]-x,oldprey[2]-z),distance_after=hypot(prey[1]-b.x,prey[2]-b.z),
+        first_clear=H.clear(w,origin,q),boundary=boundary,water=water,obstacles=obstacles,
+        move_success=result,blocked_delta=b.blocked-blocked,los=P.los(w,origin,prey),
+        boundary_turn=abs(P.angle_delta(h-heading)),actual_turn=abs(P.angle_delta(b.heading-h))))
+end
 audit_count(key,yes=true)=yes && (audit_counts[key]=get(audit_counts,key,0)+1)
 function integrated_predator_advance!(wildlife,c,t)
     p=c.predators[audit_actor];b=p.visual.body;was_alive=p.alive
@@ -32,7 +65,9 @@ function integrated_predator_advance!(wildlife,c,t)
             audit_path[end]=deepcopy(audit_path[end])
         end
     end
+    audit_context[]=(body=b,world=wildlife,tick=t,prey_positions=collect(zip(wildlife.animals.x,wildlife.animals.z)))
     audit_original_advance!(wildlife,c,t)
+    audit_context[]=nothing
     if was_alive
         moved=b.distance-before_distance;audit_distance[]+=moved
         audit_count("stationary",moved<=1e-9)
@@ -51,4 +86,5 @@ const audit_evidence=(day=audit_day,actor=audit_actor,exact_daily_match=audit_ma
     distance=audit_distance[],death=audit_death[],path=audit_path,
     note="Nearest prey is world truth for diagnosis, not visibility. Samples before movement; path every 60 ticks. Scent signal is not proof of heading change.")
 write(joinpath(audit_output,"audit.json"),JSON3.write(audit_evidence))
+write(joinpath(audit_output,"movement.json"),JSON3.write(audit_movement))
 println("AUDIT_COMPLETE ",JSON3.write((day=audit_day,actor=audit_actor,exact_match=audit_match,counts=audit_counts,distance=audit_distance[],death=audit_death[])))
