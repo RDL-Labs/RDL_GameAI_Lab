@@ -7,6 +7,7 @@ const audit_food_variant=length(ARGS)>=5 && ARGS[5]=="food-site"
 const audit_water_variant=length(ARGS)>=5 && ARGS[5] in ("water-approach","pursuit","food-site")
 const audit_config=JSON3.read(read(joinpath(audit_original,"conditions.json"),String))
 empty!(ARGS);append!(ARGS,[String(audit_config.human_input_origin),String(audit_config.donor),audit_output,string(audit_day),string(audit_config.donor_index),string(audit_config.human_scent)])
+push!(ARGS,string(get(audit_config,:rabbit_approach_enabled,false)))
 const audit_bridge=joinpath(@__DIR__,"humans_learned_predators.jl")
 const audit_prefix=first(split(read(audit_bridge,String),"LW.native_main([joinpath(integrated_output,\"run\")";limit=2))
 include_string(Main,replace(audit_prefix,"function integrated_predator_advance!("=>"function audit_original_advance!("),audit_bridge)

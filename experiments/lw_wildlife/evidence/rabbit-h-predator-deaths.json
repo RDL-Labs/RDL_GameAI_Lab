@@ -1,0 +1,1550 @@
+{
+  "source": "outputs/rabbit-h-integrated-90d-20261107",
+  "replays": [
+    {
+      "run": "rabbit-h-death-a46-20261108",
+      "day": 46,
+      "actor": 1,
+      "exact_daily_match": true,
+      "counts": {
+        "mode:visit_food": 466,
+        "alive": 4040,
+        "trail_signal": 144,
+        "visual_state:1": 2722,
+        "mode:rest": 841,
+        "visual_state:5": 1318,
+        "mode:visit_rest": 11,
+        "mode:hunt": 2722,
+        "stationary": 841,
+        "camp_signal": 30
+      },
+      "distance": 703.7799999979052,
+      "death": {
+        "tick": 781639,
+        "food_before": 0.052530190332381016,
+        "food_after": 0.0,
+        "position": [
+          -47.55458693914915,
+          27.297003954228046
+        ],
+        "mode": "visit_food"
+      },
+      "nearest_prey_sample_min": 24.95096689582837
+    },
+    {
+      "run": "rabbit-h-death-b47-20261108",
+      "day": 47,
+      "actor": 2,
+      "exact_daily_match": true,
+      "counts": {
+        "visual_state:5": 1733,
+        "mode:hunt": 6362,
+        "mode:visit_food": 1112,
+        "alive": 8095,
+        "trail_signal": 40,
+        "visual_state:1": 6362,
+        "prey_world_within6": 105,
+        "mode:rest": 621,
+        "stationary": 621,
+        "prey_world_within16": 597,
+        "camp_signal": 14
+      },
+      "distance": 1627.619999995175,
+      "death": {
+        "tick": 802974,
+        "food_before": 0.009867741825897627,
+        "food_after": 0.0,
+        "position": [
+          -12.585610005354464,
+          20.429754167092465
+        ],
+        "mode": "hunt"
+      },
+      "nearest_prey_sample_min": 5.782895021984255
+    }
+  ],
+  "food": [
+    {
+      "actor": 1,
+      "alive": false,
+      "life_days": 45.2337962962963,
+      "food": 0.0,
+      "captures": 39,
+      "full_size": 27,
+      "minimum_size": 12,
+      "gross": 37260.0,
+      "accepted": 27248.86054192601,
+      "discarded": 10011.13945807399,
+      "spent": 28148.860542241462,
+      "basal_nominal": 27140.277777777777,
+      "movement": 993.8050577495665,
+      "distance": 9938.050577495664,
+      "rest_and_final_tick_rounding": 14.777706714118267,
+      "meals": [
+        {
+          "tick": 2599,
+          "day": 1,
+          "prey": 48,
+          "age_days": 180.15046296296296,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 29175,
+          "day": 2,
+          "prey": 70,
+          "age_days": 181.6884259259259,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 55726,
+          "day": 4,
+          "prey": 3,
+          "age_days": 183.22494212962962,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 82466,
+          "day": 5,
+          "prey": 96,
+          "age_days": 11.772395833333333,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 84110,
+          "day": 5,
+          "prey": 97,
+          "age_days": 11.867534722222222,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 86037,
+          "day": 5,
+          "prey": 98,
+          "age_days": 11.979050925925925,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 89133,
+          "day": 6,
+          "prey": 11,
+          "age_days": 185.1582175925926,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 115674,
+          "day": 7,
+          "prey": 99,
+          "age_days": 13.694155092592593,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 117660,
+          "day": 7,
+          "prey": 94,
+          "age_days": 186.80908564814814,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 144307,
+          "day": 9,
+          "prey": 100,
+          "age_days": 15.351157407407408,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 148396,
+          "day": 9,
+          "prey": 74,
+          "age_days": 188.58778935185185,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 175062,
+          "day": 11,
+          "prey": 47,
+          "age_days": 190.13096064814815,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 201833,
+          "day": 12,
+          "prey": 8,
+          "age_days": 191.68020833333333,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 228460,
+          "day": 14,
+          "prey": 55,
+          "age_days": 193.22112268518518,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 255015,
+          "day": 15,
+          "prey": 40,
+          "age_days": 194.75787037037037,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 281972,
+          "day": 17,
+          "prey": 60,
+          "age_days": 196.31788194444445,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 308502,
+          "day": 18,
+          "prey": 1,
+          "age_days": 197.85318287037038,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 340214,
+          "day": 20,
+          "prey": 73,
+          "age_days": 199.68836805555554,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 366788,
+          "day": 22,
+          "prey": 61,
+          "age_days": 201.22621527777778,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 393343,
+          "day": 23,
+          "prey": 68,
+          "age_days": 202.76296296296297,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 419931,
+          "day": 25,
+          "prey": 81,
+          "age_days": 204.30162037037036,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 446492,
+          "day": 26,
+          "prey": 26,
+          "age_days": 205.83871527777777,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 475406,
+          "day": 28,
+          "prey": 45,
+          "age_days": 207.51197916666666,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 502282,
+          "day": 30,
+          "prey": 18,
+          "age_days": 209.06730324074073,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 529055,
+          "day": 31,
+          "prey": 114,
+          "age_days": 10.616666666666667,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 530712,
+          "day": 31,
+          "prey": 5,
+          "age_days": 210.71255787037038,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 557294,
+          "day": 33,
+          "prey": 66,
+          "age_days": 212.25086805555554,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 583989,
+          "day": 34,
+          "prey": 65,
+          "age_days": 213.79571759259258,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 610683,
+          "day": 36,
+          "prey": 52,
+          "age_days": 215.34050925925925,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 637250,
+          "day": 37,
+          "prey": 126,
+          "age_days": 4.877951388888889,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 639729,
+          "day": 38,
+          "prey": 127,
+          "age_days": 5.021412037037037,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 640897,
+          "day": 38,
+          "prey": 128,
+          "age_days": 5.089004629629629,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 642718,
+          "day": 38,
+          "prey": 129,
+          "age_days": 5.194386574074074,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 644656,
+          "day": 38,
+          "prey": 130,
+          "age_days": 5.3065393518518515,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 646583,
+          "day": 38,
+          "prey": 131,
+          "age_days": 5.418055555555555,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 650582,
+          "day": 38,
+          "prey": 95,
+          "age_days": 217.64947916666668,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 690726,
+          "day": 40,
+          "prey": 80,
+          "age_days": 219.97262731481482,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 708852,
+          "day": 42,
+          "prey": 50,
+          "age_days": 221.02158564814815,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 739089,
+          "day": 43,
+          "prey": 20,
+          "age_days": 222.77141203703704,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        }
+      ]
+    },
+    {
+      "actor": 2,
+      "alive": false,
+      "life_days": 46.468460648148145,
+      "food": 0.0,
+      "captures": 33,
+      "full_size": 28,
+      "minimum_size": 5,
+      "gross": 38137.5,
+      "accepted": 28132.674809547214,
+      "discarded": 10004.825190452786,
+      "spent": 29032.67480986239,
+      "basal_nominal": 27881.07638888889,
+      "movement": 1135.3378095832127,
+      "distance": 11353.378095832126,
+      "rest_and_final_tick_rounding": 16.260611390287067,
+      "meals": [
+        {
+          "tick": 1684,
+          "day": 1,
+          "prey": 6,
+          "age_days": 180.09751157407408,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 29368,
+          "day": 2,
+          "prey": 56,
+          "age_days": 181.6995949074074,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 56804,
+          "day": 4,
+          "prey": 33,
+          "age_days": 183.28732638888889,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 83435,
+          "day": 5,
+          "prey": 78,
+          "age_days": 184.82847222222222,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 110983,
+          "day": 7,
+          "prey": 27,
+          "age_days": 186.42268518518517,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 137851,
+          "day": 8,
+          "prey": 28,
+          "age_days": 187.9775462962963,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 164878,
+          "day": 10,
+          "prey": 46,
+          "age_days": 189.5416087962963,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 191552,
+          "day": 12,
+          "prey": 84,
+          "age_days": 191.08524305555557,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 220222,
+          "day": 13,
+          "prey": 43,
+          "age_days": 192.74438657407407,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 247299,
+          "day": 15,
+          "prey": 90,
+          "age_days": 194.31134259259258,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 274036,
+          "day": 16,
+          "prey": 57,
+          "age_days": 195.8586226851852,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 301875,
+          "day": 18,
+          "prey": 38,
+          "age_days": 197.4696759259259,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 329532,
+          "day": 20,
+          "prey": 64,
+          "age_days": 199.07019675925926,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 356414,
+          "day": 21,
+          "prey": 53,
+          "age_days": 200.62586805555554,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 392115,
+          "day": 23,
+          "prey": 91,
+          "age_days": 202.69189814814814,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 422750,
+          "day": 25,
+          "prey": 4,
+          "age_days": 204.46475694444445,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 449308,
+          "day": 27,
+          "prey": 14,
+          "age_days": 206.00167824074074,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 476416,
+          "day": 28,
+          "prey": 111,
+          "age_days": 7.570428240740741,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 477609,
+          "day": 28,
+          "prey": 112,
+          "age_days": 7.639467592592593,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 480501,
+          "day": 28,
+          "prey": 113,
+          "age_days": 7.806828703703704,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 481022,
+          "day": 28,
+          "prey": 36,
+          "age_days": 207.83697916666668,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 507575,
+          "day": 30,
+          "prey": 13,
+          "age_days": 209.3736111111111,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 535107,
+          "day": 31,
+          "prey": 115,
+          "age_days": 10.966898148148148,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 535446,
+          "day": 31,
+          "prey": 116,
+          "age_days": 10.986516203703705,
+          "fraction": 0.05,
+          "gross_food": 67.5
+        },
+        {
+          "tick": 537539,
+          "day": 32,
+          "prey": 31,
+          "age_days": 211.10763888888889,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 565429,
+          "day": 33,
+          "prey": 35,
+          "age_days": 212.7216435185185,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 595886,
+          "day": 35,
+          "prey": 44,
+          "age_days": 214.4842013888889,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 622544,
+          "day": 37,
+          "prey": 37,
+          "age_days": 216.02690972222223,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 649461,
+          "day": 38,
+          "prey": 77,
+          "age_days": 217.58460648148147,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 676113,
+          "day": 40,
+          "prey": 10,
+          "age_days": 219.1269675925926,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 703927,
+          "day": 41,
+          "prey": 72,
+          "age_days": 220.73657407407407,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 731166,
+          "day": 43,
+          "prey": 82,
+          "age_days": 222.3129050925926,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        },
+        {
+          "tick": 760578,
+          "day": 45,
+          "prey": 76,
+          "age_days": 224.01498842592594,
+          "fraction": 1.0,
+          "gross_food": 1350.0
+        }
+      ]
+    }
+  ],
+  "river_daily": [
+    {
+      "day": 1,
+      "west": 59,
+      "east": 39,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 2,
+      "west": 57,
+      "east": 39,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 3,
+      "west": 57,
+      "east": 39,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 4,
+      "west": 55,
+      "east": 39,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 5,
+      "west": 51,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 6,
+      "west": 50,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 7,
+      "west": 47,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 8,
+      "west": 46,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 9,
+      "west": 44,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 10,
+      "west": 43,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 11,
+      "west": 42,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 12,
+      "west": 40,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 13,
+      "west": 39,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 14,
+      "west": 38,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 15,
+      "west": 40,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 16,
+      "west": 39,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 17,
+      "west": 38,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 18,
+      "west": 36,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 19,
+      "west": 36,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 20,
+      "west": 40,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 21,
+      "west": 39,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 22,
+      "west": 37,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 23,
+      "west": 35,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 24,
+      "west": 35,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 25,
+      "west": 33,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 26,
+      "west": 32,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 27,
+      "west": 27,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 28,
+      "west": 22,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 29,
+      "west": 22,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 30,
+      "west": 20,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 31,
+      "west": 16,
+      "east": 45,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 32,
+      "west": 21,
+      "east": 54,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 33,
+      "west": 25,
+      "east": 54,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 34,
+      "west": 24,
+      "east": 54,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 35,
+      "west": 23,
+      "east": 62,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 36,
+      "west": 22,
+      "east": 68,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 37,
+      "west": 20,
+      "east": 68,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 38,
+      "west": 7,
+      "east": 68,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 39,
+      "west": 7,
+      "east": 74,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 40,
+      "west": 5,
+      "east": 86,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 41,
+      "west": 4,
+      "east": 92,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 42,
+      "west": 3,
+      "east": 97,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 43,
+      "west": 1,
+      "east": 97,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 44,
+      "west": 1,
+      "east": 97,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 45,
+      "west": 0,
+      "east": 103,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 46,
+      "west": 0,
+      "east": 103,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 47,
+      "west": 0,
+      "east": 107,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 48,
+      "west": 0,
+      "east": 107,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 49,
+      "west": 0,
+      "east": 111,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 50,
+      "west": 0,
+      "east": 115,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 51,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 52,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 53,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 54,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 55,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 56,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 57,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 58,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 59,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 60,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 61,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 62,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 63,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 64,
+      "west": 0,
+      "east": 120,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 65,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 66,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 67,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 68,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 69,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 70,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 71,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 72,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 73,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 74,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 75,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 76,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 77,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 78,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 79,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 80,
+      "west": 0,
+      "east": 125,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 81,
+      "west": 0,
+      "east": 131,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 82,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 83,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 84,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 85,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 86,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 87,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 88,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 89,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    },
+    {
+      "day": 90,
+      "west": 0,
+      "east": 135,
+      "predator_west": [
+        true,
+        true
+      ]
+    }
+  ],
+  "note": "prey_observations is seen_by_rabbits, not predator sightings. Nearest prey uses world truth for diagnosis; sampled minimum every 60 ticks.",
+  "local_day_counts": [
+    {
+      "day": 46,
+      "actor": 1,
+      "counts": {
+        "right": 0,
+        "capture_out_of_reach": 0,
+        "attack": 0,
+        "water_direct_rejected": 0,
+        "probability_miss": 0,
+        "left": 0,
+        "probability_capture": 0,
+        "withdraw": 0,
+        "approach": 0,
+        "route_retry": 0,
+        "capture_draw": 0,
+        "evaluations": 0
+      },
+      "blocked": 0,
+      "states": [
+        2722,
+        0,
+        0,
+        0,
+        0
+      ],
+      "records": []
+    },
+    {
+      "day": 47,
+      "actor": 2,
+      "counts": {
+        "right": 0,
+        "attack": 0,
+        "water_direct_rejected": 111,
+        "probability_miss": 0,
+        "left": 0,
+        "probability_capture": 0,
+        "withdraw": 0,
+        "approach": 0,
+        "route_retry": 0,
+        "capture_draw": 0,
+        "evaluations": 0
+      },
+      "blocked": 0,
+      "states": [
+        6362,
+        0,
+        0,
+        0,
+        0
+      ],
+      "records": []
+    }
+  ]
+}
