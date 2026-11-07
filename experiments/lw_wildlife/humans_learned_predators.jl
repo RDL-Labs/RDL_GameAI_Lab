@@ -62,7 +62,7 @@ function integrated_predator_cohort(wildlife)
         push!(minds,mind);push!(locals,local_state)
     end
     (predators=predators,minds=minds,scents=PredatorScentWorld(2),prey_scents=PreyScentWorld(2;cautious=true),
-        local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField() : nothing,
+        local_hunts=locals,physiology=PredatorPhysiology.(predators),human_scent=human_scent_enabled ? HumanScentField(camp=human_input["scene"]["home"]) : nothing,
         proximity=proximity_observer())
 end
 function integrated_predator_prepare!(wildlife,c,humans,t,illumination)
@@ -102,7 +102,7 @@ function integrated_predator_daily!(day,c,number,w)
     println("INTEGRATED_DAY ",JSON3.write(row));flush(stdout)
 end
 const bridge_conditions=(days=requested_days,actors=human_roster,donor=donor_directory,donor_index=selected_donor,
-    human_scent=human_scent_enabled,human_scent_rule=HUMAN_SCENT,
+    human_scent=human_scent_enabled,human_scent_rule=HUMAN_SCENT,fixed_camp_scent=human_scent_enabled ? human_input["scene"]["home"] : nothing,
     donor_captures=inherited_source[2][selected_donor].visual.body.captures,wildlife=human_input["scene"]["wildlife"],
     human_input_origin=human_source_input,human_input_sha256=bytes2hex(sha256(read(human_source_input))),
     fixed="explicit B MB copies; fresh bodies; reserve-demand target 900; previous human training and configured paths retained",

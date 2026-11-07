@@ -1,0 +1,161 @@
+{
+  "conditions": {
+    "days": 1,
+    "actors": [
+      "npc_a",
+      "npc_b",
+      "npc_c",
+      "npc_d"
+    ],
+    "donor": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\food-demand-inherited-30d-20261107\\generation-101",
+    "donor_index": 2,
+    "human_scent": true,
+    "human_scent_rule": {
+      "cell_size": 4.0,
+      "radius": 8.0,
+      "lifetime_ticks": 600,
+      "deposit_interval": 60,
+      "deposit": 0.05,
+      "capacity": 0.2,
+      "trail_gradient_cap": 0.2,
+      "camp_strength": 4.0,
+      "predator_repulsion": 3.0,
+      "rabbit_repulsion": 2.0,
+      "epsilon": 1E-09
+    },
+    "fixed_camp_scent": [
+      0,
+      6
+    ],
+    "donor_captures": 25,
+    "wildlife": {
+      "boundary_gradient": true,
+      "enabled": true,
+      "initial_young_count": 5,
+      "grass_scale": 3.0,
+      "initial_pregnancy_days": [
+        26,
+        21,
+        16,
+        11,
+        6
+      ],
+      "initial_young_age_days": 7,
+      "predator_count": 0,
+      "reproduction": true,
+      "seed": 20261028,
+      "count": 95
+    },
+    "human_input_origin": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\lw-rabbit-family-30d-20261106\\input.json",
+    "human_input_sha256": "d227959e26c6eaa900d86678be3f4aeffd6b35acda4f4dd53df6a839567e5b57",
+    "fixed": "explicit B MB copies; fresh bodies; reserve-demand target 900; previous human training and configured paths retained",
+    "interactions": "rabbits react to humans and predators; humans observe both; no predator attack on humans or human hunting",
+    "checkpoint": "predator cohort included in human daily serialization graph",
+    "stop": "requested days, including after predator extinction"
+  },
+  "measurement": {
+    "gc_seconds": 3.5134909,
+    "process_peak_rss_bytes": 2693783552,
+    "compilation_included": true,
+    "call_seconds": 112.2592191,
+    "allocated_bytes": 26083611568
+  },
+  "progress": {
+    "day": 1,
+    "elapsed_seconds": 127.04299998283386,
+    "rabbits": 98,
+    "rabbit_starvation": 0,
+    "predator_alive": [
+      true,
+      true
+    ],
+    "captures": [
+      1,
+      1
+    ],
+    "humans": {
+      "npc_b": 84.80111111106014,
+      "npc_a": 86.80111111106685,
+      "npc_d": 86.80111111106685,
+      "npc_c": 84.80111111106014
+    },
+    "proximity": {
+      "predator_human": {
+        "within_6_animal_ticks": 462,
+        "within_3_animal_ticks": 62,
+        "minimum": 0.4807444278349172,
+        "minimum_tick": 954
+      },
+      "predator_home": {
+        "within_6_animal_ticks": 0,
+        "within_3_animal_ticks": 0,
+        "minimum": 7.0710678118654755,
+        "minimum_tick": 0
+      },
+      "rabbit_home": {
+        "within_6_animal_ticks": 20,
+        "within_3_animal_ticks": 0,
+        "minimum": 4.520001643287808,
+        "minimum_tick": 1151
+      }
+    }
+  },
+  "human_scent": {
+    "rule": {
+      "cell_size": 4.0,
+      "radius": 8.0,
+      "lifetime_ticks": 600,
+      "deposit_interval": 60,
+      "deposit": 0.05,
+      "capacity": 0.2,
+      "trail_gradient_cap": 0.2,
+      "camp_strength": 4.0,
+      "predator_repulsion": 3.0,
+      "rabbit_repulsion": 2.0,
+      "epsilon": 1E-09
+    },
+    "camp": [
+      0.0,
+      6.0
+    ],
+    "marks": 2,
+    "deposits": 1152,
+    "samples": {
+      "predator": 258,
+      "rabbit": 1703
+    },
+    "signals": {
+      "predator": 42,
+      "rabbit": 13
+    },
+    "turns": {
+      "predator": 42,
+      "rabbit": 13
+    }
+  },
+  "predators": [
+    {
+      "alive": true,
+      "food": 1229.7937706445332,
+      "captures": 1,
+      "attacks": 1,
+      "position": [
+        6.798846962546558,
+        -50.735260740069144
+      ],
+      "balance_residual": 0.0
+    },
+    {
+      "alive": true,
+      "food": 1224.568888889726,
+      "captures": 1,
+      "attacks": 2,
+      "position": [
+        8.892115504854031,
+        -8.052941813777634
+      ],
+      "balance_residual": 0.0
+    }
+  ],
+  "validation": "27 scent checks; 354 inheritance checks; 4 integrated final checks"
+}
