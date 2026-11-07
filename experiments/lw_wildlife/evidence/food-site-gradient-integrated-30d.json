@@ -1,0 +1,219 @@
+{
+  "progress": {
+    "day": 30,
+    "elapsed_seconds": 1072.5920000076294,
+    "rabbits": 38,
+    "rabbit_starvation": 30,
+    "predator_alive": [
+      true,
+      true
+    ],
+    "captures": [
+      30,
+      24
+    ],
+    "humans": {
+      "npc_b": 83.03999999994375,
+      "npc_a": 82.90111111105439,
+      "npc_d": 93.23666666664461,
+      "npc_c": 83.60888888883454
+    },
+    "proximity": {
+      "predator_human": {
+        "within_6_animal_ticks": 1470,
+        "within_3_animal_ticks": 78,
+        "minimum": 0.23626958532728767,
+        "minimum_tick": 155719
+      },
+      "predator_home": {
+        "within_6_animal_ticks": 823,
+        "within_3_animal_ticks": 0,
+        "minimum": 5.270052970100153,
+        "minimum_tick": 140845
+      },
+      "rabbit_home": {
+        "within_6_animal_ticks": 424,
+        "within_3_animal_ticks": 19,
+        "minimum": 0.22249367800565106,
+        "minimum_tick": 312192
+      }
+    }
+  },
+  "limits": "Daily snapshots of site evidence, not within-day maxima. Two changes together, one seed; no causal attribution.",
+  "run": "food-site-gradient-integrated-30d-20261107",
+  "completed": {
+    "days": 30,
+    "verified": true
+  },
+  "actors": [
+    {
+      "first_positive_food_site_day": 7,
+      "actor": 1,
+      "final_food_sites": {
+        "food_site:food:(-4, -2):effort_ticks": 365.0,
+        "food_site:food:(0, -7):unresolved": 0.0,
+        "food_site:food:(-1, 4):unresolved": 0.0,
+        "food_site:food:(1, 6):effort_ticks": 24.0,
+        "food_site:food:(-5, -4):effort_ticks": 64.0,
+        "food_site:food:(-2, -4):unresolved": 1.0,
+        "food_site:food:(0, -7):effort_ticks": 37.0,
+        "food_site:food:(-4, 0):effort_ticks": 375.0,
+        "food_site:food:(-6, 1):unresolved": 0.0,
+        "food_site:food:(-5, -2):effort_ticks": 194.0,
+        "food_site:food:(0, -2):unresolved": 0.0,
+        "food_site:food:(-6, 1):effort_ticks": 208.0,
+        "food_site:food:(-7, -2):effort_ticks": 109.0,
+        "food_site:food:(-2, -2):effort_ticks": 37.0,
+        "food_site:food:(1, 5):effort_ticks": 51.0,
+        "food_site:food:(-4, -2):unresolved": 1.0,
+        "food_site:food:(-8, -1):unresolved": 0.0,
+        "food_site:food:(0, -2):effort_ticks": 344.0,
+        "food_site:food:(-7, 0):unresolved": 0.0,
+        "food_site:food:(-7, -2):unresolved": 0.0,
+        "food_site:food:(-7, 1):unresolved": 0.0,
+        "food_site:food:(-5, -2):unresolved": 0.0,
+        "food_site:food:(1, 5):unresolved": 0.0,
+        "food_site:food:(-7, 1):effort_ticks": 97.0,
+        "food_site:food:(-4, -1):effort_ticks": 172.0,
+        "food_site:food:(-4, -1):unresolved": 0.0,
+        "food_site:food:(-3, -1):effort_ticks": 0.0,
+        "food_site:food:(-1, -1):effort_ticks": 196.0,
+        "food_site:food:(-3, -1):unresolved": 0.0,
+        "food_site:food:(-2, -4):effort_ticks": 4.0,
+        "food_site:food:(-8, -1):effort_ticks": 271.0,
+        "food_site:food:(-4, 0):unresolved": 0.0,
+        "food_site:food:(-1, -1):unresolved": 0.0,
+        "food_site:food:(-2, 0):unresolved": 0.0,
+        "food_site:food:(-3, 1):unresolved": 0.0,
+        "food_site:food:(-2, -2):unresolved": 0.0,
+        "food_site:food:(-5, -4):unresolved": 0.0,
+        "food_site:food:(-1, 4):effort_ticks": 36.0,
+        "food_site:food:(-7, 0):effort_ticks": 261.0,
+        "food_site:food:(1, 6):unresolved": 0.0,
+        "food_site:food:(-2, 0):effort_ticks": 150.0,
+        "food_site:food:(-3, 1):effort_ticks": 194.0
+      },
+      "maximum_daily_unresolved": 1.0,
+      "pursuit_methods": {
+        "pursue": {
+          "failure_count": 3,
+          "H": 0.0,
+          "threshold": 2.0,
+          "failure_H_total": 3.526742611833246,
+          "reward": 0.0,
+          "last_selected": 598,
+          "failure_repulsion": 1.5100026106044528
+        },
+        "abandon": {
+          "failure_count": 0,
+          "H": 0.0,
+          "threshold": 2.0,
+          "failure_H_total": 0.0,
+          "reward": 0.0,
+          "last_selected": 597,
+          "failure_repulsion": 0.0
+        }
+      },
+      "pursuit_counts": {
+        "pursue": 29,
+        "abandon": 79,
+        "end:capture_range": 24,
+        "end:prey_stopped": 4,
+        "end:unobserved_or_route_unavailable": 1,
+        "sprint_ticks": 272
+      },
+      "maximum_daily_repulsion": 0.09890310627152238,
+      "predator": {
+        "alive": true,
+        "food": 1628.540555555805,
+        "captures": 30,
+        "attacks": 52,
+        "eaten": 19069.841987861404,
+        "spent": 18341.30143247984,
+        "discarded": 7322.658012138594
+      }
+    },
+    {
+      "first_positive_food_site_day": 27,
+      "actor": 2,
+      "final_food_sites": {
+        "food_site:food:(-1, 6):effort_ticks": 135.0,
+        "food_site:food:(-3, -6):effort_ticks": 23.0,
+        "food_site:food:(0, -7):unresolved": 0.0,
+        "food_site:food:(1, 6):effort_ticks": 0.0,
+        "food_site:food:(-1, -6):effort_ticks": 341.0,
+        "food_site:food:(0, -7):effort_ticks": 87.0,
+        "food_site:food:(-3, -6):unresolved": 0.0,
+        "food_site:food:(-3, -5):effort_ticks": 585.0,
+        "food_site:food:(-4, 1):effort_ticks": 38.0,
+        "food_site:food:(-1, 7):unresolved": 0.0,
+        "food_site:food:(-3, 5):effort_ticks": 73.0,
+        "food_site:food:(-1, 6):unresolved": 1.0,
+        "food_site:food:(-2, -2):effort_ticks": 174.0,
+        "food_site:food:(1, 5):effort_ticks": 118.0,
+        "food_site:food:(-1, 8):effort_ticks": 0.0,
+        "food_site:food:(0, -5):unresolved": 0.0,
+        "food_site:food:(0, -5):effort_ticks": 217.0,
+        "food_site:food:(-3, -5):unresolved": 0.0,
+        "food_site:food:(-3, -3):unresolved": 0.0,
+        "food_site:food:(-5, 0):effort_ticks": 5.0,
+        "food_site:food:(-3, -3):effort_ticks": 305.0,
+        "food_site:food:(-5, 0):unresolved": 0.0,
+        "food_site:food:(-7, -7):effort_ticks": 102.0,
+        "food_site:food:(1, 5):unresolved": 0.0,
+        "food_site:food:(-7, -7):unresolved": 0.0,
+        "food_site:food:(-4, 1):unresolved": 0.0,
+        "food_site:food:(-1, 8):unresolved": 0.0,
+        "food_site:food:(-5, 4):effort_ticks": 38.0,
+        "food_site:food:(-1, -2):effort_ticks": 80.0,
+        "food_site:food:(-1, -6):unresolved": 0.0,
+        "food_site:food:(-5, 4):unresolved": 0.0,
+        "food_site:food:(-1, -2):unresolved": 0.0,
+        "food_site:food:(-1, 7):effort_ticks": 129.0,
+        "food_site:food:(-2, -2):unresolved": 0.0,
+        "food_site:food:(1, 6):unresolved": 0.0,
+        "food_site:food:(-3, 5):unresolved": 0.0
+      },
+      "maximum_daily_unresolved": 1.0,
+      "pursuit_methods": {
+        "pursue": {
+          "failure_count": 2,
+          "H": 0.0,
+          "threshold": 2.0,
+          "failure_H_total": 3.526742611833246,
+          "reward": 0.0,
+          "last_selected": 674,
+          "failure_repulsion": 1.5100026106044528
+        },
+        "abandon": {
+          "failure_count": 0,
+          "H": 0.0,
+          "threshold": 2.0,
+          "failure_H_total": 0.0,
+          "reward": 0.0,
+          "last_selected": 672,
+          "failure_repulsion": 0.0
+        }
+      },
+      "pursuit_counts": {
+        "pursue": 39,
+        "end:forecast_due": 1,
+        "end:body_limit": 1,
+        "abandon": 145,
+        "end:capture_range": 30,
+        "end:prey_stopped": 7,
+        "sprint_ticks": 351
+      },
+      "maximum_daily_repulsion": 0.09890310627152238,
+      "predator": {
+        "alive": true,
+        "food": 1387.8311317525174,
+        "captures": 24,
+        "attacks": 59,
+        "eaten": 18920.511554384975,
+        "spent": 18432.680422807163,
+        "discarded": 7066.988445615027
+      }
+    }
+  ]
+}
