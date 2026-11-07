@@ -76,6 +76,7 @@ function target!(w,a,i,t,policy=StateMachinePolicy())
     a.target[i]=choose_target(policy,observe_neighbors!(w,a,i,t),a.heading[i],a.previous_cell[i])
     a.next_sense[i]=t+10
 end
+include("../herbivore/approach.jl")
 function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing)
     fill!(demand,0.); empty!(active)
     n=length(a.x)
@@ -108,7 +109,9 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 threat_positions!==nothing && (threat=threat_positions[i])
                 a.heading[i]=atan(a.z[i]-threat[2],a.x[i]-threat[1])
             else
-                (t>=a.next_sense[i] || a.target[i]==0) && target!(w,a,i,t,policy)
+                # Nursing's forced SEARCH has a different goal; pause grass-approach evidence.
+                target_policy=overrides!==nothing && overrides[i]!=0 ? StateMachinePolicy() : policy
+                (t>=a.next_sense[i] || a.target[i]==0) && target!(w,a,i,t,target_policy)
                 if a.target[i]!=0
                     p=center(w,a.target[i]); a.heading[i]=atan(p[2]-a.z[i],p[1]-a.x[i])
                 end
@@ -138,6 +141,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         cost=state==SLEEP ? .002 : state==SEARCH ? .012 : state==FLEE ? .03 : .0047
         a.energy[i]=max(0.,a.energy[i]-cost)
         a.energy[i]==0 && (a.starvation_ticks[i]+=1)
+        (overrides===nothing || overrides[i]==0) && approach_feedback!(policy,w,a,i,t)
     end
 end
 function simulate(spec;days=3,seed=20261005,grass_scale=1.,out=nothing)
