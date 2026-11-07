@@ -1,0 +1,138 @@
+{
+  "source": "outputs/pursuit-inherited-b-integrated-30d-20261107",
+  "verified": {
+    "days": 30,
+    "verified": true
+  },
+  "final": {
+    "day": 30,
+    "elapsed_seconds": 1243.404000043869,
+    "rabbits": 34,
+    "rabbit_starvation": 34,
+    "predator_alive": [
+      true,
+      false
+    ],
+    "captures": [
+      26,
+      27
+    ],
+    "humans": {
+      "npc_b": 89.9199999999662,
+      "npc_a": 85.49222222217419,
+      "npc_d": 83.66666666661251,
+      "npc_c": 85.37888888884048
+    },
+    "proximity": {
+      "predator_human": {
+        "within_6_animal_ticks": 18165,
+        "within_3_animal_ticks": 1602,
+        "minimum": 0.5162953843768561,
+        "minimum_tick": 308
+      },
+      "predator_home": {
+        "within_6_animal_ticks": 15,
+        "within_3_animal_ticks": 0,
+        "minimum": 5.394626889009099,
+        "minimum_tick": 36902
+      },
+      "rabbit_home": {
+        "within_6_animal_ticks": 56419,
+        "within_3_animal_ticks": 29210,
+        "minimum": 2.4103405275891174,
+        "minimum_tick": 36907
+      }
+    }
+  },
+  "actors": [
+    {
+      "actor": 1,
+      "alive": true,
+      "life_days": 30.0,
+      "food": 1129.0080555565316,
+      "captures": 26,
+      "attacks": 48,
+      "last_events": [
+        {
+          "tick": 496898,
+          "kind": "probability_miss",
+          "id": 118,
+          "probability": 0.7157031009612974,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 496901,
+          "kind": "capture",
+          "id": 118,
+          "probability": 0.7156951385176265,
+          "distance": 0.0,
+          "reason": "draw"
+        },
+        {
+          "tick": 499081,
+          "kind": "capture",
+          "id": 81,
+          "probability": 0.46079659132473244,
+          "distance": 0.7830556988214018,
+          "reason": "draw"
+        }
+      ],
+      "pursuit_counts": {
+        "pursue": 38,
+        "end:parent_changed": 1,
+        "abandon": 180,
+        "end:capture_range": 31,
+        "end:prey_stopped": 5,
+        "end:unobserved_or_route_unavailable": 1,
+        "sprint_ticks": 338
+      },
+      "pursuit_H": 0.0
+    },
+    {
+      "actor": 2,
+      "alive": false,
+      "life_days": 27.64849537037037,
+      "food": 0.0,
+      "captures": 27,
+      "attacks": 48,
+      "last_events": [
+        {
+          "tick": 433187,
+          "kind": "probability_miss",
+          "id": 1,
+          "probability": 0.42747082163051464,
+          "distance": 1.1884333407001924,
+          "reason": "draw"
+        },
+        {
+          "tick": 433190,
+          "kind": "capture",
+          "id": 1,
+          "probability": 0.46245942333524237,
+          "distance": 0.5986444528328942,
+          "reason": "draw"
+        },
+        {
+          "tick": 459865,
+          "kind": "capture",
+          "id": 121,
+          "probability": 0.7023708195936811,
+          "distance": 0.0,
+          "reason": "draw"
+        }
+      ],
+      "pursuit_counts": {
+        "pursue": 39,
+        "end:parent_changed": 1,
+        "abandon": 141,
+        "end:capture_range": 29,
+        "end:prey_stopped": 9,
+        "sprint_ticks": 302
+      },
+      "pursuit_H": 0.0
+    }
+  ],
+  "births": 21,
+  "lw_seconds": 1226.5530991
+}
