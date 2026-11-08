@@ -1,13 +1,13 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8,9,10) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit]")
+length(ARGS) in (4,5,6,7,8,9,10) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
 # World resource condition: scales capacity, initial grass and capacity-based regrowth.
 # Default 3 preserves the existing comparison; 1.5 halves supply, not birth rules.
 const crossing_grass_scale=length(ARGS)<7 ? 3. : parse(Float64,ARGS[7])
-const crossing_population_checkpoint=length(ARGS)<8 ? nothing : abspath(ARGS[8])
+const crossing_population_checkpoint=length(ARGS)<8 || ARGS[8]=="none" ? nothing : abspath(ARGS[8])
 const rabbit_swimming_enabled=length(ARGS)>=9 && parse(Bool,ARGS[9])
 const rabbit_neighbor_backend=length(ARGS)>=10 ? ARGS[10] : "cpu"
 rabbit_neighbor_backend in ("cpu","batch_cpu","gpu","gpu_audit","auto","auto_audit") || error("unknown neighbor backend")

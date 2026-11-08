@@ -2219,3 +2219,7 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 日次snapshotのbody_conditionとcrossing_longrunのconditionsに設定を記録。個体履歴はRabbitLifeに保存して再開後も維持する。
 旧チェックポイントは構造が異なるため直接新ソースで読まない。migrate_reproductive_condition.jl のexport（旧凍結ソースで読みlifeをフィールド列に変換）、import（現行ソースで再構成）の2工程を使う。履歴は復元不能なので移行時0で開始し、元の世界・RNGを保持。旧記録と移行後の同一挙動は主張しない。元チェックポイントは不変。
 検査: reproductive_condition_checks.jl、nursing_supply_checks.jl。継続360日最終（世界1170日、403体）の旧保存から移行して再読込検証。生存率や個体数波の改善は長期比較未実施。
+
+## 身体収支繁殖・新規90日試験（2026-11-08）
+run: C:/Users/ken_m/Documents/Codex/rabbit-body-condition-fresh90d-20261108
+新規0日開始、成体95+初期幼体5（7日齢）、妊娠5（経過26/21/16/11/6日）。固定配置西20東80、seed20261028/配置20261108、草scale1.5、捕食者/人0、巣穴/授乳/泳ぎON、季節停止OFF、近傍CPU/GPU auto（128候補）。繁殖身体条件は既定ON、履歴は0から。90日、CPU1thread、上限8実時間。checkpoint引数noneで新規世界と後続泳ぎ/backend引数を併用可能にした。終了はcompleted.jsonとexit_codeを確認すること。開始時点で効果や完了を主張しない。
