@@ -1,0 +1,103 @@
+{
+  "completed": {
+    "days": 90,
+    "start_day": 360,
+    "end_day": 450,
+    "verified": true,
+    "seconds": 484.7144453
+  },
+  "exit": {
+    "ended_utc": "2026-11-08T05:25:53.8812880Z",
+    "error": null,
+    "started_utc": "2026-11-08T05:17:31.1563153Z",
+    "exit_code": 0
+  },
+  "comparison": [
+    {
+      "name": "burrow-no-predators-90d-20261108",
+      "day": 90,
+      "rabbits": 216,
+      "west": 121,
+      "east": 95,
+      "births": 553,
+      "starvation": 615,
+      "captures": 0,
+      "peak": 766,
+      "checkpoints": [
+        {
+          "day": 30,
+          "rabbits": 278,
+          "starvation": 0
+        },
+        {
+          "day": 60,
+          "rabbits": 716,
+          "starvation": 6
+        },
+        {
+          "day": 70,
+          "rabbits": 341,
+          "starvation": 441
+        },
+        {
+          "day": 75,
+          "rabbits": 342,
+          "starvation": 451
+        },
+        {
+          "day": 80,
+          "rabbits": 195,
+          "starvation": 615
+        },
+        {
+          "day": 90,
+          "rabbits": 216,
+          "starvation": 615
+        }
+      ]
+    },
+    {
+      "name": "burrow-predators-360d-20261108",
+      "day": 90,
+      "rabbits": 195,
+      "west": 82,
+      "east": 113,
+      "births": 484,
+      "starvation": 501,
+      "captures": 66,
+      "peak": 617,
+      "checkpoints": [
+        {
+          "day": 30,
+          "rabbits": 256,
+          "starvation": 1
+        },
+        {
+          "day": 60,
+          "rabbits": 602,
+          "starvation": 26
+        },
+        {
+          "day": 70,
+          "rabbits": 617,
+          "starvation": 43
+        },
+        {
+          "day": 75,
+          "rabbits": 251,
+          "starvation": 414
+        },
+        {
+          "day": 80,
+          "rabbits": 174,
+          "starvation": 498
+        },
+        {
+          "day": 90,
+          "rabbits": 195,
+          "starvation": 501
+        }
+      ]
+    }
+  ]
+}
