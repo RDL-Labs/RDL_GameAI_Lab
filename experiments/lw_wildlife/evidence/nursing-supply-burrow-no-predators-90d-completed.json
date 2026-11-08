@@ -1,0 +1,80 @@
+{
+  "source": "C:/Users/ken_m/Documents/Codex/nursing-supply-burrow-no-predators-90d-20261108",
+  "completed": {
+    "days": 90,
+    "start_day": 360,
+    "end_day": 450,
+    "verified": true,
+    "seconds": 478.4741737
+  },
+  "exit": {
+    "ended_utc": "2026-11-08T08:21:44.4020514Z",
+    "error": null,
+    "started_utc": "2026-11-08T08:13:27.8791185Z",
+    "exit_code": 0
+  },
+  "daily_rows": 90,
+  "final": {
+    "day": 90,
+    "absolute_day": 450,
+    "seconds": 478.41699981689453,
+    "rabbits": 170,
+    "west": 94,
+    "east": 76,
+    "births": 532,
+    "starvation": 640,
+    "pregnant": 14,
+    "grass": 17048.962976496987
+  },
+  "peak": 775,
+  "trajectory": [
+    {
+      "day": 60,
+      "absolute_day": 420,
+      "seconds": 282.34299993515015,
+      "rabbits": 722,
+      "west": 521,
+      "east": 201,
+      "births": 444,
+      "starvation": 0,
+      "pregnant": 33,
+      "grass": 11942.85235100282
+    },
+    {
+      "day": 70,
+      "absolute_day": 430,
+      "seconds": 380.8829998970032,
+      "rabbits": 313,
+      "west": 94,
+      "east": 219,
+      "births": 504,
+      "starvation": 469,
+      "pregnant": 20,
+      "grass": 8021.107282574737
+    },
+    {
+      "day": 80,
+      "absolute_day": 440,
+      "seconds": 450.8899998664856,
+      "rabbits": 154,
+      "west": 94,
+      "east": 60,
+      "births": 516,
+      "starvation": 640,
+      "pregnant": 12,
+      "grass": 16349.26245613418
+    },
+    {
+      "day": 90,
+      "absolute_day": 450,
+      "seconds": 478.41699981689453,
+      "rabbits": 170,
+      "west": 94,
+      "east": 76,
+      "births": 532,
+      "starvation": 640,
+      "pregnant": 14,
+      "grass": 17048.962976496987
+    }
+  ]
+}
