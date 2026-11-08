@@ -1,6 +1,6 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8,9,10,11) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse]")
+length(ARGS) in (4,5,6,7,8,9,10,11,12) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
@@ -12,6 +12,9 @@ const rabbit_swimming_enabled=length(ARGS)>=9 && parse(Bool,ARGS[9])
 const rabbit_initial_profile=length(ARGS)>=11 ? ARGS[11] : "baseline"
 rabbit_initial_profile in ("baseline","diverse") || error("unknown initial profile")
 rabbit_initial_profile=="diverse" && crossing_population_checkpoint!==nothing && error("diverse profile requires fresh world")
+const grass_initial_profile=length(ARGS)>=12 ? ARGS[12] : "full"
+grass_initial_profile in ("full","patchy") || error("unknown grass profile")
+grass_initial_profile=="patchy" && crossing_population_checkpoint!==nothing && error("patchy grass requires fresh world")
 const rabbit_neighbor_backend=length(ARGS)>=10 ? ARGS[10] : "cpu"
 rabbit_neighbor_backend in ("cpu","batch_cpu","gpu","gpu_audit","auto","auto_audit") || error("unknown neighbor backend")
 isfinite(crossing_grass_scale) && crossing_grass_scale>0 || error("grass_scale must be finite and positive")
@@ -27,6 +30,7 @@ cp(joinpath(crossing_repo,"Project.toml"),joinpath(crossing_source,"Project.toml
 include(joinpath(crossing_source,"experiments/lw_wildlife/predator_generations.jl"))
 include(joinpath(crossing_source,"src/lw/configured_paths/predator_crossing_layout.jl"))
 include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_diverse_start.jl"))
+include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_patchy_grass.jl"))
 function crossing_main()
     input=JSON3.read(read(ARGS[1],String));scene=merge((;pairs(input.scene)...),
         (positions=Tuple{Float64,Float64}[],wildlife=merge((;pairs(input.scene.wildlife)...),(count=95,predator_count=0,grass_scale=crossing_grass_scale,boundary_gradient=true))))
@@ -44,6 +48,7 @@ function crossing_main()
         s=population_saved.world
         !s.prepared && s.ticks%17280==0 || error("checkpoint must be an unprepared day boundary")
     end
+    grass_initial_record=grass_initial_profile=="patchy" ? configured_rabbit_patchy_grass!(s) : nothing
     start_tick=s.ticks;start_day=div(start_tick,17280)
     predators=animal_trial_predators(s)
     # Explicit experiment intervention: remove predators before the first tick.
@@ -73,7 +78,7 @@ function crossing_main()
     end
     cohort=(predators,minds,local_hunts=locals,pursuits,physiology,scents,prey_scents,rabbit_approach)
     rabbit_neighbor_backend!="cpu" && H.enable_rabbit_neighbor_batch!(s.world;gpu=rabbit_neighbor_backend!="batch_cpu",audit=endswith(rabbit_neighbor_backend,"_audit"),automatic=startswith(rabbit_neighbor_backend,"auto"))
-    conditions=(rabbit_initial_profile,initial_profile_parameters=rabbit_initial_profile=="diverse" ? RABBIT_DIVERSE_START : nothing,rabbit_reproductive_condition=G.RABBIT_REPRODUCTIVE_CONDITION,rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
+    conditions=(grass_initial_profile,grass_initial_parameters=grass_initial_profile=="patchy" ? RABBIT_PATCHY_GRASS : nothing,grass_initial_record,rabbit_initial_profile,initial_profile_parameters=rabbit_initial_profile=="diverse" ? RABBIT_DIVERSE_START : nothing,rabbit_reproductive_condition=G.RABBIT_REPRODUCTIVE_CONDITION,rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,

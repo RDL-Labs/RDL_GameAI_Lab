@@ -659,3 +659,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 兎繁殖の身体応答: src/ecology/lw_grazing/reproduction.jl / RABBIT_REPRODUCTIVE_CONDITION。reserve_low=35、reserve_full=85（身体エネルギー）、balance_tau_days=3（日次収支EWMA時定数）、balance_scale_per_day=5（エネルギー/日）。全て暫定身体近似、enabled=true。満腹で収支0でも繁殖可能。詳細はwildlife報告の『繁殖と身体収支』。
 
 - 分散初期集団: src/lw/configured_paths/rabbit_diverse_start.jl / RABBIT_DIVERSE_START。新規試験のdiverse指定だけON、既定baseline。100体の年齢/家族/身体状態分布を定義。ゲーム世界の初期条件であり学習規則ではない。詳細はwildlife報告。
+
+- 草の初期残量: src/lw/configured_paths/rabbit_patchy_grass.jl / RABBIT_PATCHY_GRASS。seed20261110、区画幅20世界距離、残量比0.2〜1.0。暫定固定の世界初期条件で既定full、明示patchy時のみ。容量/再生速度は変更しない。
