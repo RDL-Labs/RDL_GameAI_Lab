@@ -114,7 +114,7 @@ function rabbit_initial_young!(s,young_count,age_days)
     s
 end
 
-function rabbit_daily!(s,t)
+function rabbit_daily!(s,t;seasonal_breeding=RABBIT_BREEDING_SEASON.enabled)
     life=s.life;a=s.animals;day=div(t,RABBIT_LIFE.day_ticks)
     for i in eachindex(life.due)
         life.due[i]>0 || continue
@@ -132,7 +132,7 @@ function rabbit_daily!(s,t)
             rabbit_birth!(s,i,t)
         end
     end
-    mod(day,RABBIT_LIFE.year_days)<RABBIT_LIFE.season_days || return
+    configured_rabbit_breeding_open(day;enabled=seasonal_breeding) || return
     radius=RABBIT_LIFE.mate_radius
     bins=Dict{Tuple{Int,Int},Vector{Int}}()
     for i in eachindex(s.alive)
@@ -195,7 +195,7 @@ function rabbit_reproduction_snapshot(s)
     reproduction_balances=(gestation=balance_diagnostic("gestation_energy",life.gestation_out,
         life.newborn_energy+sum(life.invested)+life.lost_investment),
         milk=balance_diagnostic("milk_energy",life.milk_out*RABBIT_LIFE.milk_efficiency,life.milk_in))
-    (rule="rabbit-like-reproduction-v1",parameters=RABBIT_LIFE,initial=life.initial_count,
+    (rule="rabbit-like-reproduction-v1",parameters=RABBIT_LIFE,breeding_season=RABBIT_BREEDING_SEASON,initial=life.initial_count,
      balances=reproduction_balances,
      initial_young=count(i->life.mother[i]>0 && life.born[i]<0,eachindex(life.born)),
      conceptions=life.conceptions,births=life.births,litters=life.litters,lost_pregnancies=life.lost_pregnancies,

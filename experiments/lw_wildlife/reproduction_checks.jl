@@ -55,7 +55,7 @@ end
  G.rabbit_daily!(s,R.day_ticks)
  @test s.life.conceptions==0
  s.animals.energy.=90.
- G.rabbit_daily!(s,R.season_days*R.day_ticks)
+ G.rabbit_daily!(s,R.season_days*R.day_ticks;seasonal_breeding=true)
  @test s.life.conceptions==0
  s.life.sex.=[1,1]
  for day in 1:30;G.rabbit_daily!(s,day*R.day_ticks);end
@@ -138,4 +138,22 @@ end
  for t in 0:99;G.prepare!(initial,humans,t);G.advance!(initial,t;nursing_potential=false);end
  @test initial.animals.blocked[1]>0
  @test all(initial.life.nursed_day[3:5].==-1)
+end
+
+@testset "year-round breeding with optional legacy season" begin
+ @test !G.RABBIT_BREEDING_SEASON.enabled
+ @test G.configured_rabbit_breeding_open(240)
+ @test G.configured_rabbit_breeding_open(364)
+ @test G.configured_rabbit_breeding_open(239;enabled=true)
+ @test !G.configured_rabbit_breeding_open(240;enabled=true)
+ @test G.configured_rabbit_breeding_open(365;enabled=true)
+ yearround=reproductive_world();seasonal=deepcopy(yearround)
+ for day in 240:269
+  yearround.animals.energy.=90.;seasonal.animals.energy.=90.
+  G.rabbit_daily!(yearround,day*R.day_ticks)
+  G.rabbit_daily!(seasonal,day*R.day_ticks;seasonal_breeding=true)
+ end
+ @test yearround.life.conceptions>0
+ @test seasonal.life.conceptions==0
+ @test any(>(0),yearround.life.due)
 end

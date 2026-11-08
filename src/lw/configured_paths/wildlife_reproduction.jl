@@ -1,3 +1,9 @@
+# 暫定固定の暦による繁殖停止。既定OFF（通年）。ON時だけ旧365日/240日窓を再現。
+# 日付を直接参照する環境ショートカット。将来は環境・身体状態による繁殖条件へ置換。
+const RABBIT_BREEDING_SEASON=(enabled=false,)
+configured_rabbit_breeding_open(day;enabled=RABBIT_BREEDING_SEASON.enabled)=
+    !enabled || mod(day,RABBIT_LIFE.year_days)<RABBIT_LIFE.season_days
+
 # 暫定固定：繁殖ON。子の不足・帰巣消費を直接参照し、まとめて採食してから授乳へ戻る。
 # 日付や実施回数では完了扱いしない。血縁/巣位置/子のenergyは認知の代用。
 # 逃走優先。胃の満杯/睡眠を尊重し、通常満腹85を超す備蓄は要求しない。

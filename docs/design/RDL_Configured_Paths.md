@@ -98,3 +98,7 @@
 地域的な草不足から移動できる候補としてRabbitSwimmingPolicyを追加。通常OFF。既存RabbitApproachPolicyを包み、探索中・岸から6以内で64tickごと（個体ずらし）に検討する。空腹と局所Hで確率上昇、近傍の観測草量で低下。対岸の草量は参照しない。
 川形状・着岸点の世界実状態参照は暫定固定。陸上速度0.2/水中0.1、消費0.012/0.036（各tick）。費用予測×1.5＋余力5を満たす場合のみ候補化。岸で授乳・逃避上書きがあれば中断、水中は着岸まで継続。障害物・境界は貫通せず、巣穴幼体は泳がない。流速・溺死・体温は未実装。将来は岸の観測・身体MBへ置換。
 実装はsrc/lw/configured_paths/rabbit_swimming.jl。crossing_longrun.jl第9引数rabbit_swimming=trueで有効化。conditions.jsonに条件、日別にselected/arrived/swim_ticks/interrupted累計、個体記録に選択・到着を保存。途中の目的地・乱数をチェックポイントで継承。水中に取り残すためON保存状態からOFFへの切替は拒否。
+
+
+## 2026-11-08 暦による兎の繁殖停止を既定OFF
+`RABBIT_BREEDING_SEASON.enabled=false`をconfigured_paths/wildlife_reproduction.jlに追加。新規妊娠を止めていたmod(day,365)<240をconfigured_rabbit_breeding_openへ隔離し、通常は通年許可。過去条件の再現にはenabled=true、日次処理の検査・呼出しではrabbit_daily!(...;seasonal_breeding=true)を使用可能。旧year_days/season_daysは再現用に保持。成熟150日、雌雄の遭遇、エネルギー70、妊娠・回復・受容周期など他の条件は維持。暦の直接参照は暫定固定で、将来は環境・身体条件へ置換。スナップショットとcrossing_longrunのconditionsにbreeding_seasonを記録。旧凍結ソース・既存結果は変更しない。変更後の長期実験は未実施。

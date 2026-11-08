@@ -67,7 +67,7 @@ function crossing_main()
     end
     cohort=(predators,minds,local_hunts=locals,pursuits,physiology,scents,prey_scents,rabbit_approach)
     rabbit_neighbor_backend!="cpu" && H.enable_rabbit_neighbor_batch!(s.world;gpu=rabbit_neighbor_backend!="batch_cpu",audit=endswith(rabbit_neighbor_backend,"_audit"),automatic=startswith(rabbit_neighbor_backend,"auto"))
-    conditions=(rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
+    conditions=(rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,

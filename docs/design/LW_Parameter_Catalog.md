@@ -651,3 +651,7 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 
 ## 候補数によるCPU/GPU自動切替（2026-11-08）
 第10引数auto/auto_auditを追加。共通要求バッチの候補数がRABBIT_NEIGHBOR_GPU_MIN_QUERIES=128以上ならGPU、それ未満ならCPU。暫定の実行系パラメータで、最適な境目の確定値ではない。個体の行動・H・観測時刻は変更しない。CPU選択時はFloat32変換・転送・GPU呼出しを行わない。GPUハンドルは初期化時に用意して再利用。cpu_batches/gpu_batchesおよび双方の候補数を日別累計で記録。既定は従来cpuを維持。30日比較ランナーはbatch_cpu→gpu→autoの順次実行、同じ66日目保存状態・泳ぎあり・捕食者なし、全日チェックポイントを三者比較。
+
+
+## 2026-11-08 暦による兎の繁殖停止を既定OFF
+`RABBIT_BREEDING_SEASON.enabled=false`をconfigured_paths/wildlife_reproduction.jlに追加。新規妊娠を止めていたmod(day,365)<240をconfigured_rabbit_breeding_openへ隔離し、通常は通年許可。過去条件の再現にはenabled=true、日次処理の検査・呼出しではrabbit_daily!(...;seasonal_breeding=true)を使用可能。旧year_days/season_daysは再現用に保持。成熟150日、雌雄の遭遇、エネルギー70、妊娠・回復・受容周期など他の条件は維持。暦の直接参照は暫定固定で、将来は環境・身体条件へ置換。スナップショットとcrossing_longrunのconditionsにbreeding_seasonを記録。旧凍結ソース・既存結果は変更しない。変更後の長期実験は未実施。

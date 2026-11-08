@@ -2171,3 +2171,7 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 ## 泳ぎあり360日・雌雄比と繁殖停止の監査（2026-11-08）
 凍結ソースで保存状態を読込。性別1=雌、2=雄。開始134/144、90日167/151、180日175/163、270日140/142、360日145/154。最終成体91/92、西81/88・東64/66。確認時点で片方の消失はない。
 凍結reproduction.jlにyear_days=365、season_days=240、mod(day,365)<240という新規妊娠の固定季節条件あり。今回の開始絶対日360に対し、244日目は絶対604/季節239、245日目は絶対605/季節240で期間外。累積受胎440で停止、275日目（最後の受胎から31日）に累積出生1838・妊娠0。最終成体雌91は全員energy>=70で、少なくとも終盤の新規妊娠は雌雄不足やエネルギー不足以前に季節ゲートで禁止される。前回の「繁殖停止原因未調査」をこの証拠で更新。次の季節は実験370日目付近（絶対730）だが未実行。自然な生態平衡が成立したという証拠ではない。集計：audit_sex_ratio.jl、evidence/swimming-360d-sex-ratio.json。
+
+
+## 2026-11-08 暦による兎の繁殖停止を既定OFF
+`RABBIT_BREEDING_SEASON.enabled=false`をconfigured_paths/wildlife_reproduction.jlに追加。新規妊娠を止めていたmod(day,365)<240をconfigured_rabbit_breeding_openへ隔離し、通常は通年許可。過去条件の再現にはenabled=true、日次処理の検査・呼出しではrabbit_daily!(...;seasonal_breeding=true)を使用可能。旧year_days/season_daysは再現用に保持。成熟150日、雌雄の遭遇、エネルギー70、妊娠・回復・受容周期など他の条件は維持。暦の直接参照は暫定固定で、将来は環境・身体条件へ置換。スナップショットとcrossing_longrunのconditionsにbreeding_seasonを記録。旧凍結ソース・既存結果は変更しない。変更後の長期実験は未実施。
