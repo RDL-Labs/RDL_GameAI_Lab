@@ -580,6 +580,8 @@ predatorsは0/2、grass_scaleは有限の正数。世界資源の既存wildlife.
 
 ### 母個体の幼体セル採食反発（2026-11-08）
 
+撤去済み：同日の巣穴方式へ置換。以下は実験履歴であり、現行APIではない。
+
 `configured_paths/rabbit_nest_grazing.jl`、`RABBIT_NEST_GRAZING`。
 生存する自分の離乳前の子のセルに対して、採食費用=1+4×草容量。
 capacity_multiplier=4、cost_floor=1は草量と同じ評価尺度の暫定値。
@@ -593,3 +595,14 @@ capacity_multiplier=4、cost_floor=1は草量と同じ評価尺度の暫定値�
 crossing_longrunのconditionsにONと係数、H目標変更時はrecordsに
 grazing_relation_changedを記録。保存状態のrequests/consumedでも作用を検査できる。
 新生児数×母数の全組合せ検索をせず、一回の走査で母→セル集合を構築する。
+
+### 幼体の巣穴（2026-11-08）
+
+`configured_paths/rabbit_burrow.jl`のRABBIT_BURROW.enabled=true。
+繁殖ONかつ母IDあり・28日齢未満の幼体は出生地点の穴内として扱う暫定世界規則。
+掘削・入口・内部地形・自発的な出入りは省略。離乳境界で自動的に地上扱い。
+捕食者の視覚と両捕獲方式（従来/確率）で保護し、人へのvisibilityも0。
+授乳・餓死・匂いは既存のまま。母を含む全個体の草採食は通常ルール。
+enabled=falseを凍結前に設定すると旧草上待機へ戻る。繁殖OFFでは無効。
+conditions.rabbit_burrowへ設定、日次dependent/保存個体born,motherで対象を追跡可能。
+将来は穴の形状・入口の観測と出入り行動へ置換する。学習による隠れ行動ではない。

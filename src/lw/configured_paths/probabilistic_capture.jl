@@ -28,7 +28,7 @@ function configured_probability_advance!(s,t,attack_speed)
     P.move!(s.world,b,attack_speed;turn=false) # Charge actual movement even on a miss.
     b.timer-=1
     b.timer>0 && return
-    valid=1<=target<=length(s.alive) && s.alive[target]
+    valid=1<=target<=length(s.alive) && s.alive[target] && !configured_rabbit_in_burrow(s,target,t)
     chance=0.;distance=Inf;reason="target_unavailable"
     if valid
         prey=(s.animals.x[target],s.animals.z[target]);origin=(b.x,b.z)

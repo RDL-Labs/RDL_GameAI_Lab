@@ -10,11 +10,11 @@ struct StateMachinePolicy end
 
 choose_state(::StateMachinePolicy, o) = choose_state(o.old,o.energy,o.gut,o.sleepy,o.grass,o.threat)
 
-function choose_target(::StateMachinePolicy, observations, heading, previous_cell; grazing_cost=nothing)
+function choose_target(::StateMachinePolicy, observations, heading, previous_cell)
     best=0; score=-Inf
     for o in observations
         o===nothing && continue
-        value=o.grass-(grazing_cost===nothing ? 0. : grazing_cost(o.cell))-.25o.distance+.2cos(o.direction-heading)-(o.cell==previous_cell ? 1. : 0.)
+        value=o.grass-.25o.distance+.2cos(o.direction-heading)-(o.cell==previous_cell ? 1. : 0.)
         if value>score; score=value; best=o.cell; end
     end
     best

@@ -42,6 +42,7 @@ function configured_wildlife_predator_plan!(s,t;search_attention=nothing,local_p
     if !(predator.state in (P.REST,P.RECOVER)) && (predator.state!=P.ATTACK || local_planner!==nothing)
         for i in eachindex(s.alive)
             s.alive[i] || continue
+            configured_rabbit_in_burrow(s,i,t) && continue
             position=(s.animals.x[i],s.animals.z[i])
             moved=i<=length(predator_state.previous_prey) && position!=predator_state.previous_prey[i]
             tracked=predator.target==i && t<predator.expires
@@ -65,6 +66,10 @@ function configured_wildlife_predator_advance!(s,t;attack_speed=1.,movement_spee
     predator=predator_state.body
     predator_state.previous_position=(predator.x,predator.z)
     prior_captures=predator.captures
+    if 1<=predator.target<=length(s.alive) && configured_rabbit_in_burrow(s,predator.target,t)
+        predator.state==P.ATTACK && (predator.misses+=1)
+        predator.target=0;predator.state=P.SEARCH;predator.timer=0
+    end
     if probabilistic_capture && predator.state==P.ATTACK
         configured_probability_advance!(s,t,attack_speed)
     else

@@ -62,6 +62,7 @@ rabbit_height(s,i)=s.life===nothing ? RABBIT_LIFE.adult_height :
     RABBIT_LIFE.infant_height+(RABBIT_LIFE.adult_height-RABBIT_LIFE.infant_height)*
     clamp((s.ticks-s.life.born[i])/(RABBIT_LIFE.maturity_days*RABBIT_LIFE.day_ticks),0.,1.)
 function rabbit_visibility(s,i)
+    configured_rabbit_in_burrow(s,i,s.ticks) && return 0.
     s.life===nothing && return 1.
     height=rabbit_height(s,i)
     cover=H.grass_cover!(s.world,H.cell(s.world,s.animals.x[i],s.animals.z[i]),s.ticks;body_height=height)

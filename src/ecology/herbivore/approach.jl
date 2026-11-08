@@ -21,19 +21,15 @@ function approach_record!(m,row)
     push!(m.records,row)
     length(m.records)>RABBIT_APPROACH.history_limit && popfirst!(m.records)
 end
-function target!(w,a,i,t,policy::RabbitApproachPolicy;grazing_cost=nothing)
+function target!(w,a,i,t,policy::RabbitApproachPolicy)
     m=approach_memory(policy,i)
-    if m.target!=0 && grazing_cost!==nothing && grazing_cost(i,m.target)>0
-        approach_record!(m,(event="grazing_relation_changed",tick=t,target=m.target))
-        m.target=0
-    end
     # Reobserving or an action interruption must not reset the fixed forecast.
     if m.target!=0
         a.target[i]=m.target;a.next_sense[i]=t+RABBIT_APPROACH.minimum_ticks;return
     end
     observations=filter(!isnothing,observe_neighbors!(w,a,i,t))
     isempty(observations) && (a.target[i]=0;return)
-    scores=[o.grass-(grazing_cost===nothing ? 0. : grazing_cost(i,o.cell))-.25o.distance+.2cos(o.direction-a.heading[i])-
+    scores=[o.grass-.25o.distance+.2cos(o.direction-a.heading[i])-
         (o.cell==a.previous_cell[i] ? 1. : 0.)-get(m.H,o.cell,0.) for o in observations]
     pressure=maximum(get(m.H,o.cell,0.) for o in observations)
     chosen=if pressure==0
