@@ -1836,3 +1836,16 @@ energy・consumed・行動カウンタ・草配列が元checkpointと完全一�
 
 証拠：`evidence/rabbit-mass-starvation-audit.json`。
 再現：`audit_rabbit_starvation_replay.jl`、`audit_rabbit_grass_regions.jl`。
+
+## 草半量・捕食者なし360日開始（2026-11-08）
+
+1000日案は保留し、まず360日。人0・捕食者0・兎100（西20/東80）、同地図/乱数/繁殖/兎H。
+草倍率を3.0→1.5へ変更。初期量と容量、容量比例の再生量が半分になる。
+繁殖率や出生上限を操作して頭数を抑える変更ではない。処理時間短縮は結果次第。
+3日smokeは完了検査PASS、100体維持。元の初期状態との比較48項目PASS：
+草量/容量は正確に半分、兎の身体・繁殖/RNG・初期位置・通行可能地形は一致。
+既存の死亡判定・幼体の授乳依存を含めて維持し、前回調査後の挙動修正は混ぜていない。
+
+出力 `C:/Users/ken_m/Documents/Codex/rabbit-half-grass-360d-20261108`。
+通常優先度・Julia1thread・日次checkpoint、警告を直接保存する一回限りタスクで実行。
+結果未確定。草倍率・出生・餓死・妊娠・草収支を保存する。
