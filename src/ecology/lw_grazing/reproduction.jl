@@ -234,7 +234,7 @@ function rabbit_reproduction_snapshot(s)
     reproduction_balances=(gestation=balance_diagnostic("gestation_energy",life.gestation_out,
         life.newborn_energy+sum(life.invested)+life.lost_investment),
         milk=balance_diagnostic("milk_energy",life.milk_out*RABBIT_LIFE.milk_efficiency,life.milk_in))
-    (rule="rabbit-like-reproduction-v2",body_condition=RABBIT_REPRODUCTIVE_CONDITION,parameters=RABBIT_LIFE,breeding_season=RABBIT_BREEDING_SEASON,initial=life.initial_count,
+    (rule="rabbit-like-reproduction-v2",body_condition=RABBIT_REPRODUCTIVE_CONDITION,nest_preparation=RABBIT_NEST_PREPARATION,parameters=RABBIT_LIFE,breeding_season=RABBIT_BREEDING_SEASON,initial=life.initial_count,
      balances=reproduction_balances,
      initial_young=count(i->life.mother[i]>0 && life.born[i]<0,eachindex(life.born)),
      conceptions=life.conceptions,births=life.births,litters=life.litters,lost_pregnancies=life.lost_pregnancies,

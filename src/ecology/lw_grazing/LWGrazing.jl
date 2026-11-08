@@ -10,6 +10,7 @@ const P=V.P
 include("reproduction.jl")
 include("../../lw/configured_paths/rabbit_burrow.jl")
 include("../../lw/configured_paths/wildlife_reproduction.jl")
+include("../../lw/configured_paths/rabbit_nest_preparation.jl")
 include("../../lw/configured_paths/wildlife_predation.jl")
 include("../../lw/configured_paths/motion_visibility.jl")
 
@@ -154,6 +155,7 @@ function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additi
     end
     copyto!(s.previous_humans,humans)
     configured_rabbit_nursing!(s,t)
+    configured_rabbit_nest_preparation!(s,t)
     s.prepared=true
     nothing
 end

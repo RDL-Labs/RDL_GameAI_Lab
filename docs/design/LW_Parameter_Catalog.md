@@ -661,3 +661,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 分散初期集団: src/lw/configured_paths/rabbit_diverse_start.jl / RABBIT_DIVERSE_START。新規試験のdiverse指定だけON、既定baseline。100体の年齢/家族/身体状態分布を定義。ゲーム世界の初期条件であり学習規則ではない。詳細はwildlife報告。
 
 - 草の初期残量: src/lw/configured_paths/rabbit_patchy_grass.jl / RABBIT_PATCHY_GRASS。seed20261110、区画幅20世界距離、残量比0.2〜1.0。暫定固定の世界初期条件で既定full、明示patchy時のみ。容量/再生速度は変更しない。
+
+- 出産前巣候補: src/lw/configured_paths/rabbit_nest_preparation.jl / RABBIT_NEST_PREPARATION。lead_days=3、観測半径8、採食評価半径3、距離費0.12、選択温度0.5、移動reserve70/眠気1未満、到着半径0.6。全て暫定固定。既定ON、将来は場所MBへ置換。
