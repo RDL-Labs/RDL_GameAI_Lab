@@ -91,6 +91,8 @@ function build(scene,clock;low_obstacles=true)
         get(cfg,:reproduction,false) ? rabbit_life(n,seed,positions;initial_pregnancy_days) : nothing,
         configured_wildlife_predator(w,a,cfg,seed))
     rabbit_initial_young!(grazing_world,initial_young_count,initial_young_age)
+    grazing_world.life!==nothing && rabbit_reserve_sample!(grazing_world,0)
+    grazing_world
 end
 
 function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing,motion_speed=false,illumination=AmbientVision.illumination(t))

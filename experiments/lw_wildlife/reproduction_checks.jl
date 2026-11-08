@@ -51,7 +51,7 @@ end
 end
 @testset "reproduction boundaries and observation" begin
  s=reproductive_world()
- s.animals.energy.=R.breeding_energy-1
+ s.animals.energy.=G.RABBIT_REPRODUCTIVE_CONDITION.reserve_low
  G.rabbit_daily!(s,R.day_ticks)
  @test s.life.conceptions==0
  s.animals.energy.=90.

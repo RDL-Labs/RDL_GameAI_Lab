@@ -8,6 +8,12 @@ const RABBIT_LIFE=(day_ticks=17280, gestation_days=31, wean_days=28,
     milk_efficiency=.75, maternal_reserve=35., nurse_distance=1.5,
     infant_height=.1, adult_height=.4, allocation_limit=10000)
 
+# Simplified body response, not fitted rabbit endocrinology. Energy units are game units.
+# 3-day EWMA of daily reserve change; excludes gut contents, includes nursing/pregnancy costs.
+# Stable high reserve reaches the old maximum .2; deficits suppress it continuously.
+const RABBIT_REPRODUCTIVE_CONDITION=(enabled=true,reserve_low=35.,reserve_full=85.,
+    balance_tau_days=3.,balance_scale_per_day=5.)
+
 mutable struct RabbitLife
     rng::MersenneTwister
     sex::Vector{UInt8}
@@ -33,6 +39,9 @@ mutable struct RabbitLife
     lost_investment::Float64
     nursing_visits::Int
     nest_return_ticks::Int
+    reserve_previous::Vector{Float64}
+    reserve_balance::Vector{Float64}
+    reserve_sample_tick::Vector{Int}
 end
 function rabbit_life(n,seed,positions;initial_pregnancy_days=Int[])
     rng=MersenneTwister(seed)
@@ -41,7 +50,7 @@ function rabbit_life(n,seed,positions;initial_pregnancy_days=Int[])
     life=RabbitLife(rng,sexes,fill(-RABBIT_LIFE.initial_age_days*RABBIT_LIFE.day_ticks,n),
         zeros(Int,n),zeros(Int,n),zeros(Int,n),zeros(n),zeros(Int,n),
         rand(rng,0:RABBIT_LIFE.receptivity_period-1,n),fill(-1,n),copy(positions),trues(n),
-        n,0,0,0,0,0.,0.,0.,0.,0.,0,0)
+        n,0,0,0,0,0.,0.,0.,0.,0.,0,0,fill(NaN,n),zeros(n),fill(-1,n))
     females=findall(==(1),sexes)
     length(initial_pregnancy_days)<=length(females) || error("too many initial rabbit pregnancies")
     for (slot,elapsed) in enumerate(initial_pregnancy_days)
@@ -86,7 +95,8 @@ function rabbit_birth!(s,mother,t;initial=false)
         end
         for (field,value) in ((:sex,rand(life.rng,UInt8[1,2])),(:born,t),(:mother,mother),(:due,0),
             (:litter,0),(:invested,0.),(:next_mate,0),(:receptive_phase,rand(life.rng,0:RABBIT_LIFE.receptivity_period-1)),
-            (:nursed_day,div(t,RABBIT_LIFE.day_ticks)),(:nest,position),(:moving,false))
+            (:nursed_day,div(t,RABBIT_LIFE.day_ticks)),(:nest,position),(:moving,false),
+            (:reserve_previous,energy),(:reserve_balance,0.),(:reserve_sample_tick,t))
             push!(getfield(life,field),value)
         end
     end
@@ -114,6 +124,33 @@ function rabbit_initial_young!(s,young_count,age_days)
     s
 end
 
+# Baseline at build, then sample once per day after pregnancy costs, even outside breeding season.
+function rabbit_reserve_sample!(s,t)
+    life=s.life; r=RABBIT_REPRODUCTIVE_CONDITION
+    for i in eachindex(s.alive)
+        s.alive[i] || continue
+        previous_tick=life.reserve_sample_tick[i]
+        if previous_tick<0 || !isfinite(life.reserve_previous[i])
+            life.reserve_previous[i]=s.animals.energy[i];life.reserve_sample_tick[i]=t
+            continue
+        end
+        t<=previous_tick && continue
+        elapsed_days=(t-previous_tick)/RABBIT_LIFE.day_ticks
+        rate=(s.animals.energy[i]-life.reserve_previous[i])/elapsed_days
+        alpha=-expm1(-elapsed_days/r.balance_tau_days)
+        life.reserve_balance[i]+=alpha*(rate-life.reserve_balance[i])
+        life.reserve_previous[i]=s.animals.energy[i];life.reserve_sample_tick[i]=t
+    end
+end
+function rabbit_conception_probability(energy,balance;enabled=RABBIT_REPRODUCTIVE_CONDITION.enabled)
+    r=RABBIT_REPRODUCTIVE_CONDITION
+    !enabled && return energy>=RABBIT_LIFE.breeding_energy ? RABBIT_LIFE.conception_chance : 0.
+    fraction=clamp((energy-r.reserve_low)/(r.reserve_full-r.reserve_low),0.,1.)
+    reserve_weight=fraction*fraction*(3-2fraction)
+    balance_weight=1+tanh(balance/r.balance_scale_per_day)
+    RABBIT_LIFE.conception_chance*clamp(reserve_weight*balance_weight,0.,1.)
+end
+
 function rabbit_daily!(s,t;seasonal_breeding=RABBIT_BREEDING_SEASON.enabled)
     life=s.life;a=s.animals;day=div(t,RABBIT_LIFE.day_ticks)
     for i in eachindex(life.due)
@@ -132,6 +169,7 @@ function rabbit_daily!(s,t;seasonal_breeding=RABBIT_BREEDING_SEASON.enabled)
             rabbit_birth!(s,i,t)
         end
     end
+    rabbit_reserve_sample!(s,t)
     configured_rabbit_breeding_open(day;enabled=seasonal_breeding) || return
     radius=RABBIT_LIFE.mate_radius
     bins=Dict{Tuple{Int,Int},Vector{Int}}()
@@ -141,13 +179,14 @@ function rabbit_daily!(s,t;seasonal_breeding=RABBIT_BREEDING_SEASON.enabled)
     end
     for i in eachindex(s.alive)
         s.alive[i] && life.sex[i]==1 && life.due[i]==0 && t>=life.next_mate[i] &&
-            t-life.born[i]>=RABBIT_LIFE.maturity_days*RABBIT_LIFE.day_ticks &&
-            a.energy[i]>=RABBIT_LIFE.breeding_energy || continue
+            t-life.born[i]>=RABBIT_LIFE.maturity_days*RABBIT_LIFE.day_ticks || continue
+        conception_probability=rabbit_conception_probability(a.energy[i],life.reserve_balance[i])
+        conception_probability>0 || continue
         mod(day+life.receptive_phase[i],RABBIT_LIFE.receptivity_period)<RABBIT_LIFE.receptive_days || continue
         bx,bz=floor(Int,a.x[i]/radius),floor(Int,a.z[i]/radius)
         encountered=any(any(j->hypot(a.x[i]-a.x[j],a.z[i]-a.z[j])<=radius &&
             H.clear(s.world,(a.x[i],a.z[i]),(a.x[j],a.z[j])),get(bins,(bx+dx,bz+dz),Int[])) for dx in -1:1 for dz in -1:1)
-        encountered && rand(life.rng)<RABBIT_LIFE.conception_chance || continue
+        encountered && rand(life.rng)<conception_probability || continue
         life.due[i]=t+RABBIT_LIFE.gestation_days*RABBIT_LIFE.day_ticks
         life.litter[i]=rand(life.rng,RABBIT_LIFE.litter_min:RABBIT_LIFE.litter_max)
         life.conceptions+=1
@@ -195,7 +234,7 @@ function rabbit_reproduction_snapshot(s)
     reproduction_balances=(gestation=balance_diagnostic("gestation_energy",life.gestation_out,
         life.newborn_energy+sum(life.invested)+life.lost_investment),
         milk=balance_diagnostic("milk_energy",life.milk_out*RABBIT_LIFE.milk_efficiency,life.milk_in))
-    (rule="rabbit-like-reproduction-v1",parameters=RABBIT_LIFE,breeding_season=RABBIT_BREEDING_SEASON,initial=life.initial_count,
+    (rule="rabbit-like-reproduction-v2",body_condition=RABBIT_REPRODUCTIVE_CONDITION,parameters=RABBIT_LIFE,breeding_season=RABBIT_BREEDING_SEASON,initial=life.initial_count,
      balances=reproduction_balances,
      initial_young=count(i->life.mother[i]>0 && life.born[i]<0,eachindex(life.born)),
      conceptions=life.conceptions,births=life.births,litters=life.litters,lost_pregnancies=life.lost_pregnancies,

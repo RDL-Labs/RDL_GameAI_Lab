@@ -655,3 +655,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 
 ## 2026-11-08 暦による兎の繁殖停止を既定OFF
 `RABBIT_BREEDING_SEASON.enabled=false`をconfigured_paths/wildlife_reproduction.jlに追加。新規妊娠を止めていたmod(day,365)<240をconfigured_rabbit_breeding_openへ隔離し、通常は通年許可。過去条件の再現にはenabled=true、日次処理の検査・呼出しではrabbit_daily!(...;seasonal_breeding=true)を使用可能。旧year_days/season_daysは再現用に保持。成熟150日、雌雄の遭遇、エネルギー70、妊娠・回復・受容周期など他の条件は維持。暦の直接参照は暫定固定で、将来は環境・身体条件へ置換。スナップショットとcrossing_longrunのconditionsにbreeding_seasonを記録。旧凍結ソース・既存結果は変更しない。変更後の長期実験は未実施。
+
+- 兎繁殖の身体応答: src/ecology/lw_grazing/reproduction.jl / RABBIT_REPRODUCTIVE_CONDITION。reserve_low=35、reserve_full=85（身体エネルギー）、balance_tau_days=3（日次収支EWMA時定数）、balance_scale_per_day=5（エネルギー/日）。全て暫定身体近似、enabled=true。満腹で収支0でも繁殖可能。詳細はwildlife報告の『繁殖と身体収支』。
