@@ -1,0 +1,756 @@
+{
+  "source": "C:\\Users\\ken_m\\Documents\\Codex\\crossing-basal300-90d-confirm-20261108",
+  "completed": {
+    "days": 90,
+    "verified": true,
+    "seconds": 203.4665763
+  },
+  "exit": {
+    "ended_utc": "2026-11-08T00:48:08.7812793Z",
+    "exit_code": 0
+  },
+  "matched_prior_days": 83,
+  "mismatches": [],
+  "final": {
+    "day": 90,
+    "rabbits": 122,
+    "rabbit_west": 0,
+    "rabbit_east": 122,
+    "starvation": 29,
+    "crossing": [
+      {
+        "swim_ticks": 34,
+        "arrived": 3,
+        "selected": 3,
+        "failed": 0,
+        "interrupted": 0
+      },
+      {
+        "swim_ticks": 11,
+        "arrived": 1,
+        "selected": 1,
+        "failed": 0,
+        "interrupted": 0
+      }
+    ],
+    "physiology": [
+      {
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 1775.1377777778137,
+        "damage": 0.0,
+        "need": 0.0,
+        "limited_ticks": 0
+      },
+      {
+        "burst": 10.0,
+        "strain": 0.0,
+        "reserve": 1077.8822222232727,
+        "damage": 0.0,
+        "need": 0.0,
+        "limited_ticks": 0
+      }
+    ]
+  },
+  "predators": [
+    {
+      "alive": true,
+      "food": 1775.1377777778137,
+      "captures": 65,
+      "attacks": 126,
+      "eaten": 28732.335796875082,
+      "spent": 27857.198018255778,
+      "discarded": 10866.116519199615
+    },
+    {
+      "alive": true,
+      "food": 1077.8822222232727,
+      "captures": 55,
+      "attacks": 103,
+      "eaten": 28206.669128494155,
+      "spent": 28028.78690537464,
+      "discarded": 10332.749529325241
+    }
+  ],
+  "daily": [
+    {
+      "day": 1,
+      "rabbits": 95,
+      "rabbit_west": 15,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 2,
+      "rabbits": 95,
+      "rabbit_west": 15,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 3,
+      "rabbits": 95,
+      "rabbit_west": 15,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 4,
+      "rabbits": 91,
+      "rabbit_west": 11,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 5,
+      "rabbits": 97,
+      "rabbit_west": 17,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 6,
+      "rabbits": 97,
+      "rabbit_west": 17,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 7,
+      "rabbits": 95,
+      "rabbit_west": 15,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 8,
+      "rabbits": 95,
+      "rabbit_west": 15,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 9,
+      "rabbits": 95,
+      "rabbit_west": 15,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 10,
+      "rabbits": 100,
+      "rabbit_west": 20,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 11,
+      "rabbits": 98,
+      "rabbit_west": 18,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 12,
+      "rabbits": 98,
+      "rabbit_west": 18,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 13,
+      "rabbits": 98,
+      "rabbit_west": 18,
+      "rabbit_east": 80,
+      "starvation": 0
+    },
+    {
+      "day": 14,
+      "rabbits": 91,
+      "rabbit_west": 12,
+      "rabbit_east": 79,
+      "starvation": 0
+    },
+    {
+      "day": 15,
+      "rabbits": 91,
+      "rabbit_west": 12,
+      "rabbit_east": 79,
+      "starvation": 0
+    },
+    {
+      "day": 16,
+      "rabbits": 91,
+      "rabbit_west": 12,
+      "rabbit_east": 79,
+      "starvation": 0
+    },
+    {
+      "day": 17,
+      "rabbits": 90,
+      "rabbit_west": 12,
+      "rabbit_east": 78,
+      "starvation": 0
+    },
+    {
+      "day": 18,
+      "rabbits": 89,
+      "rabbit_west": 11,
+      "rabbit_east": 78,
+      "starvation": 0
+    },
+    {
+      "day": 19,
+      "rabbits": 89,
+      "rabbit_west": 11,
+      "rabbit_east": 78,
+      "starvation": 0
+    },
+    {
+      "day": 20,
+      "rabbits": 88,
+      "rabbit_west": 11,
+      "rabbit_east": 77,
+      "starvation": 0
+    },
+    {
+      "day": 21,
+      "rabbits": 87,
+      "rabbit_west": 10,
+      "rabbit_east": 77,
+      "starvation": 0
+    },
+    {
+      "day": 22,
+      "rabbits": 87,
+      "rabbit_west": 10,
+      "rabbit_east": 77,
+      "starvation": 0
+    },
+    {
+      "day": 23,
+      "rabbits": 86,
+      "rabbit_west": 10,
+      "rabbit_east": 76,
+      "starvation": 0
+    },
+    {
+      "day": 24,
+      "rabbits": 85,
+      "rabbit_west": 9,
+      "rabbit_east": 76,
+      "starvation": 0
+    },
+    {
+      "day": 25,
+      "rabbits": 85,
+      "rabbit_west": 9,
+      "rabbit_east": 76,
+      "starvation": 0
+    },
+    {
+      "day": 26,
+      "rabbits": 84,
+      "rabbit_west": 9,
+      "rabbit_east": 75,
+      "starvation": 0
+    },
+    {
+      "day": 27,
+      "rabbits": 83,
+      "rabbit_west": 8,
+      "rabbit_east": 75,
+      "starvation": 0
+    },
+    {
+      "day": 28,
+      "rabbits": 83,
+      "rabbit_west": 8,
+      "rabbit_east": 75,
+      "starvation": 0
+    },
+    {
+      "day": 29,
+      "rabbits": 76,
+      "rabbit_west": 2,
+      "rabbit_east": 74,
+      "starvation": 6
+    },
+    {
+      "day": 30,
+      "rabbits": 75,
+      "rabbit_west": 1,
+      "rabbit_east": 74,
+      "starvation": 6
+    },
+    {
+      "day": 31,
+      "rabbits": 75,
+      "rabbit_west": 1,
+      "rabbit_east": 74,
+      "starvation": 6
+    },
+    {
+      "day": 32,
+      "rabbits": 83,
+      "rabbit_west": 1,
+      "rabbit_east": 82,
+      "starvation": 6
+    },
+    {
+      "day": 33,
+      "rabbits": 92,
+      "rabbit_west": 1,
+      "rabbit_east": 91,
+      "starvation": 6
+    },
+    {
+      "day": 34,
+      "rabbits": 102,
+      "rabbit_west": 0,
+      "rabbit_east": 102,
+      "starvation": 6
+    },
+    {
+      "day": 35,
+      "rabbits": 101,
+      "rabbit_west": 0,
+      "rabbit_east": 101,
+      "starvation": 6
+    },
+    {
+      "day": 36,
+      "rabbits": 114,
+      "rabbit_west": 0,
+      "rabbit_east": 114,
+      "starvation": 6
+    },
+    {
+      "day": 37,
+      "rabbits": 123,
+      "rabbit_west": 0,
+      "rabbit_east": 123,
+      "starvation": 6
+    },
+    {
+      "day": 38,
+      "rabbits": 121,
+      "rabbit_west": 0,
+      "rabbit_east": 121,
+      "starvation": 6
+    },
+    {
+      "day": 39,
+      "rabbits": 121,
+      "rabbit_west": 0,
+      "rabbit_east": 121,
+      "starvation": 6
+    },
+    {
+      "day": 40,
+      "rabbits": 122,
+      "rabbit_west": 0,
+      "rabbit_east": 122,
+      "starvation": 11
+    },
+    {
+      "day": 41,
+      "rabbits": 133,
+      "rabbit_west": 0,
+      "rabbit_east": 133,
+      "starvation": 11
+    },
+    {
+      "day": 42,
+      "rabbits": 147,
+      "rabbit_west": 0,
+      "rabbit_east": 147,
+      "starvation": 11
+    },
+    {
+      "day": 43,
+      "rabbits": 153,
+      "rabbit_west": 0,
+      "rabbit_east": 153,
+      "starvation": 11
+    },
+    {
+      "day": 44,
+      "rabbits": 157,
+      "rabbit_west": 0,
+      "rabbit_east": 157,
+      "starvation": 11
+    },
+    {
+      "day": 45,
+      "rabbits": 159,
+      "rabbit_west": 0,
+      "rabbit_east": 159,
+      "starvation": 11
+    },
+    {
+      "day": 46,
+      "rabbits": 159,
+      "rabbit_west": 0,
+      "rabbit_east": 159,
+      "starvation": 11
+    },
+    {
+      "day": 47,
+      "rabbits": 164,
+      "rabbit_west": 0,
+      "rabbit_east": 164,
+      "starvation": 11
+    },
+    {
+      "day": 48,
+      "rabbits": 156,
+      "rabbit_west": 0,
+      "rabbit_east": 156,
+      "starvation": 11
+    },
+    {
+      "day": 49,
+      "rabbits": 151,
+      "rabbit_west": 0,
+      "rabbit_east": 151,
+      "starvation": 15
+    },
+    {
+      "day": 50,
+      "rabbits": 151,
+      "rabbit_west": 0,
+      "rabbit_east": 151,
+      "starvation": 15
+    },
+    {
+      "day": 51,
+      "rabbits": 151,
+      "rabbit_west": 0,
+      "rabbit_east": 151,
+      "starvation": 19
+    },
+    {
+      "day": 52,
+      "rabbits": 154,
+      "rabbit_west": 0,
+      "rabbit_east": 154,
+      "starvation": 19
+    },
+    {
+      "day": 53,
+      "rabbits": 160,
+      "rabbit_west": 0,
+      "rabbit_east": 160,
+      "starvation": 19
+    },
+    {
+      "day": 54,
+      "rabbits": 162,
+      "rabbit_west": 0,
+      "rabbit_east": 162,
+      "starvation": 24
+    },
+    {
+      "day": 55,
+      "rabbits": 161,
+      "rabbit_west": 0,
+      "rabbit_east": 161,
+      "starvation": 24
+    },
+    {
+      "day": 56,
+      "rabbits": 167,
+      "rabbit_west": 0,
+      "rabbit_east": 167,
+      "starvation": 24
+    },
+    {
+      "day": 57,
+      "rabbits": 166,
+      "rabbit_west": 0,
+      "rabbit_east": 166,
+      "starvation": 24
+    },
+    {
+      "day": 58,
+      "rabbits": 163,
+      "rabbit_west": 0,
+      "rabbit_east": 163,
+      "starvation": 24
+    },
+    {
+      "day": 59,
+      "rabbits": 163,
+      "rabbit_west": 0,
+      "rabbit_east": 163,
+      "starvation": 24
+    },
+    {
+      "day": 60,
+      "rabbits": 160,
+      "rabbit_west": 0,
+      "rabbit_east": 160,
+      "starvation": 25
+    },
+    {
+      "day": 61,
+      "rabbits": 158,
+      "rabbit_west": 0,
+      "rabbit_east": 158,
+      "starvation": 25
+    },
+    {
+      "day": 62,
+      "rabbits": 158,
+      "rabbit_west": 0,
+      "rabbit_east": 158,
+      "starvation": 25
+    },
+    {
+      "day": 63,
+      "rabbits": 158,
+      "rabbit_west": 0,
+      "rabbit_east": 158,
+      "starvation": 25
+    },
+    {
+      "day": 64,
+      "rabbits": 157,
+      "rabbit_west": 0,
+      "rabbit_east": 157,
+      "starvation": 25
+    },
+    {
+      "day": 65,
+      "rabbits": 155,
+      "rabbit_west": 0,
+      "rabbit_east": 155,
+      "starvation": 25
+    },
+    {
+      "day": 66,
+      "rabbits": 154,
+      "rabbit_west": 0,
+      "rabbit_east": 154,
+      "starvation": 26
+    },
+    {
+      "day": 67,
+      "rabbits": 152,
+      "rabbit_west": 0,
+      "rabbit_east": 152,
+      "starvation": 26
+    },
+    {
+      "day": 68,
+      "rabbits": 145,
+      "rabbit_west": 0,
+      "rabbit_east": 145,
+      "starvation": 26
+    },
+    {
+      "day": 69,
+      "rabbits": 140,
+      "rabbit_west": 0,
+      "rabbit_east": 140,
+      "starvation": 26
+    },
+    {
+      "day": 70,
+      "rabbits": 146,
+      "rabbit_west": 0,
+      "rabbit_east": 146,
+      "starvation": 26
+    },
+    {
+      "day": 71,
+      "rabbits": 155,
+      "rabbit_west": 0,
+      "rabbit_east": 155,
+      "starvation": 26
+    },
+    {
+      "day": 72,
+      "rabbits": 150,
+      "rabbit_west": 0,
+      "rabbit_east": 150,
+      "starvation": 26
+    },
+    {
+      "day": 73,
+      "rabbits": 149,
+      "rabbit_west": 0,
+      "rabbit_east": 149,
+      "starvation": 26
+    },
+    {
+      "day": 74,
+      "rabbits": 146,
+      "rabbit_west": 0,
+      "rabbit_east": 146,
+      "starvation": 29
+    },
+    {
+      "day": 75,
+      "rabbits": 145,
+      "rabbit_west": 0,
+      "rabbit_east": 145,
+      "starvation": 29
+    },
+    {
+      "day": 76,
+      "rabbits": 140,
+      "rabbit_west": 0,
+      "rabbit_east": 140,
+      "starvation": 29
+    },
+    {
+      "day": 77,
+      "rabbits": 137,
+      "rabbit_west": 0,
+      "rabbit_east": 137,
+      "starvation": 29
+    },
+    {
+      "day": 78,
+      "rabbits": 132,
+      "rabbit_west": 0,
+      "rabbit_east": 132,
+      "starvation": 29
+    },
+    {
+      "day": 79,
+      "rabbits": 128,
+      "rabbit_west": 0,
+      "rabbit_east": 128,
+      "starvation": 29
+    },
+    {
+      "day": 80,
+      "rabbits": 133,
+      "rabbit_west": 0,
+      "rabbit_east": 133,
+      "starvation": 29
+    },
+    {
+      "day": 81,
+      "rabbits": 132,
+      "rabbit_west": 0,
+      "rabbit_east": 132,
+      "starvation": 29
+    },
+    {
+      "day": 82,
+      "rabbits": 131,
+      "rabbit_west": 0,
+      "rabbit_east": 131,
+      "starvation": 29
+    },
+    {
+      "day": 83,
+      "rabbits": 131,
+      "rabbit_west": 0,
+      "rabbit_east": 131,
+      "starvation": 29
+    },
+    {
+      "day": 84,
+      "rabbits": 130,
+      "rabbit_west": 0,
+      "rabbit_east": 130,
+      "starvation": 29
+    },
+    {
+      "day": 85,
+      "rabbits": 129,
+      "rabbit_west": 0,
+      "rabbit_east": 129,
+      "starvation": 29
+    },
+    {
+      "day": 86,
+      "rabbits": 127,
+      "rabbit_west": 0,
+      "rabbit_east": 127,
+      "starvation": 29
+    },
+    {
+      "day": 87,
+      "rabbits": 126,
+      "rabbit_west": 0,
+      "rabbit_east": 126,
+      "starvation": 29
+    },
+    {
+      "day": 88,
+      "rabbits": 124,
+      "rabbit_west": 0,
+      "rabbit_east": 124,
+      "starvation": 29
+    },
+    {
+      "day": 89,
+      "rabbits": 124,
+      "rabbit_west": 0,
+      "rabbit_east": 124,
+      "starvation": 29
+    },
+    {
+      "day": 90,
+      "rabbits": 122,
+      "rabbit_west": 0,
+      "rabbit_east": 122,
+      "starvation": 29
+    }
+  ],
+  "conditions": {
+    "days": 90,
+    "humans": 0,
+    "predators": 2,
+    "rabbits": 100,
+    "layout": {
+      "west_rabbits": 20,
+      "seed": 20261108,
+      "bank_margin": 3.0
+    },
+    "crossing_enabled": true,
+    "crossing": {
+      "prior_penalty": 2.5,
+      "swim_speed": 0.12,
+      "land_speed": 0.22,
+      "swim_move_multiplier": 4.0,
+      "landing_margin": 1.0,
+      "arrival_radius": 0.4,
+      "forecast_slack": 1.5,
+      "energy_margin": 1.2
+    },
+    "rabbit_H": true,
+    "grass_scale": 3.0,
+    "nutrition": 1.5,
+    "predator_energy": {
+      "day_ticks": 17280,
+      "daily_food": 300.0,
+      "move_food": 0.1,
+      "initial_food": 900.0,
+      "capacity": 1800.0,
+      "hunt_below": 600.0,
+      "adult_food": 900.0,
+      "minimum_size_fraction": 0.05,
+      "territory_radius": 20.0,
+      "rival_sight": 12.0,
+      "balance_atol": 1E-07,
+      "balance_rtol": 1E-10,
+      "retreat_difference": 0.1,
+      "retreat_speed": 0.3,
+      "warning_duration_ticks": 60,
+      "warning_cooldown_ticks": 600
+    },
+    "donor": "C:\\Users\\ken_m\\OneDrive\\Documents\\ChatGPT\\GAME AI\\RDL_GameAI_Lab\\outputs\\pursuit-fresh-mb-integrated-30d-20261107\\checkpoints\\day-030.jls",
+    "donor_index": 2,
+    "human_scent": false,
+    "boundary": true,
+    "fixed": "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming unchanged",
+    "stop": "90 days or requested duration; continue ecology after predator extinction"
+  }
+}
