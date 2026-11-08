@@ -2253,3 +2253,9 @@ RABBIT_NEST_PREPARATION、既定enabled=true。src/lw/configured_paths/rabbit_ne
 run: C:/Users/ken_m/Documents/Codex/rabbit-current-predators90d-20261109
 新規diverse100体、西20東80、初期草patchy（61.26%）、capacity scale1.5、人0、兎泳ぎ/身体収支繁殖/巣穴/授乳/出産前巣候補選択ON、季節停止OFF、CPU/GPU auto。捕食者2体は従来のpursuit-fresh-mb-integrated-30d-20261107/day030のBのMBを継承、身体新規、渡河ON。旧保存の兎構造と切り離すためexport_predator_memory_donor.jlで旧凍結ソースから捕食者記憶/時刻のみexport。元保存不変。
 実行条件・fixed・donorはconditions.json、日次checkpointと出生/餓死/捕獲/渡河/身体を既存reportへ記録。捕食者死亡でも90日まで生態系を継続。前回捕食者なし版とは巣候補選択も違うため、捕食者だけの因果比較ではない。起動時点で生存・緩和効果は未判定。
+
+## 捕食者含む全状態の継続（2026-11-09）
+従来crossing_longrunは捕食者なし保存から新しい捕食者を導入する入口のみだった。保存に既存捕食者がいる場合は、頭数と渡河設定が一致することを確認し、cohort（身体/MB/局所狩り/追跡/匂い/乱数/兎方策）をそのまま再利用する。再配置・再継承・seed振り直し・身体再生成はしない。渡河countsも保存から継承。兎・草の初期分散設定を再適用しない。conditions.preserve_predatorsとinitial_profiles_inheritedに明記。
+検証はrabbit-current-predators90d-20261109/day089から1日再生し元day090と全保存フィールドをcompare_checkpoint_fields.jlで比較する。初回は本体同一・渡河countsのみリセットを検出したため修正。バイナリSHA一致を検証条件とはせず、全フィールドの一致を検証する。
+継続予定run: C:/Users/ken_m/Documents/Codex/rabbit-current-predators-continue360d-20261109。元day090（兎94、捕食者2生存、出生101/餓死30/捕食77）から追加360日、世界450日まで。草・身体・行動ルール不変、CPU/GPU auto、CPU1thread、最大8実時間。捕食者絶滅でも生態系は要求日まで継続。
+修正後の89→90日再生は全保存フィールド一致PASS。追加360日を起動した。

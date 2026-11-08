@@ -42,7 +42,7 @@ function crossing_main()
     else
         # Continue a predator-free world, optionally introducing two predators.
         # Keep world time, resources, rabbit physiology, RNG, families and learned H.
-        isempty(population_saved.cohort.predators) || error("only predator-free population checkpoints are supported")
+        isempty(population_saved.cohort.predators) || length(population_saved.cohort.predators)==crossing_predator_count || error("cannot change existing predator roster on continuation")
         prior_conditions=JSON3.read(read(joinpath(dirname(dirname(crossing_population_checkpoint)),"conditions.json"),String))
         prior_conditions.grass_scale==crossing_grass_scale || error("cannot change grass scale on continuation")
         s=population_saved.world
@@ -50,6 +50,15 @@ function crossing_main()
     end
     grass_initial_record=grass_initial_profile=="patchy" ? configured_rabbit_patchy_grass!(s) : nothing
     start_tick=s.ticks;start_day=div(start_tick,17280)
+    preserve_predators=population_saved!==nothing && !isempty(population_saved.cohort.predators)
+    if preserve_predators
+        saved_cohort=population_saved.cohort
+        predators=saved_cohort.predators;minds=saved_cohort.minds;locals=saved_cohort.local_hunts
+        pursuits=saved_cohort.pursuits;physiology=saved_cohort.physiology
+        scents=saved_cohort.scents;prey_scents=saved_cohort.prey_scents
+        donor=nothing
+        all(m->get(m.estimates,"crossing_enabled",0.)==(crossing_enabled ? 1. : 0.),minds) || error("cannot change predator crossing on continuation")
+    else
     predators=animal_trial_predators(s)
     # Explicit experiment intervention: remove predators before the first tick.
     # Default 2 preserves the reference run; 0 keeps rabbit/world setup unchanged.
@@ -70,6 +79,7 @@ function crossing_main()
     end
     physiology=PredatorPhysiology.(predators);scents=PredatorScentWorld(length(predators))
     prey_scents=PreyScentWorld(length(predators);cautious=true)
+    end
     rabbit_approach=population_saved===nothing ? H.RabbitApproachPolicy() : population_saved.cohort.rabbit_approach
     if rabbit_swimming_enabled && !(rabbit_approach isa H.RabbitSwimmingPolicy)
         rabbit_approach=H.RabbitSwimmingPolicy(rabbit_approach)
@@ -78,7 +88,7 @@ function crossing_main()
     end
     cohort=(predators,minds,local_hunts=locals,pursuits,physiology,scents,prey_scents,rabbit_approach)
     rabbit_neighbor_backend!="cpu" && H.enable_rabbit_neighbor_batch!(s.world;gpu=rabbit_neighbor_backend!="batch_cpu",audit=endswith(rabbit_neighbor_backend,"_audit"),automatic=startswith(rabbit_neighbor_backend,"auto"))
-    conditions=(rabbit_nest_preparation=G.RABBIT_NEST_PREPARATION,grass_initial_profile,grass_initial_parameters=grass_initial_profile=="patchy" ? RABBIT_PATCHY_GRASS : nothing,grass_initial_record,rabbit_initial_profile,initial_profile_parameters=rabbit_initial_profile=="diverse" ? RABBIT_DIVERSE_START : nothing,rabbit_reproductive_condition=G.RABBIT_REPRODUCTIVE_CONDITION,rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
+    conditions=(preserve_predators,initial_profiles_inherited=population_saved===nothing ? nothing : (rabbit=get(prior_conditions,:rabbit_initial_profile,"unknown"),grass=get(prior_conditions,:grass_initial_profile,"unknown")),rabbit_nest_preparation=G.RABBIT_NEST_PREPARATION,grass_initial_profile,grass_initial_parameters=grass_initial_profile=="patchy" ? RABBIT_PATCHY_GRASS : nothing,grass_initial_record,rabbit_initial_profile,initial_profile_parameters=rabbit_initial_profile=="diverse" ? RABBIT_DIVERSE_START : nothing,rabbit_reproductive_condition=G.RABBIT_REPRODUCTIVE_CONDITION,rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,
@@ -88,14 +98,14 @@ function crossing_main()
         predator_energy=PREDATOR_ANIMAL_TRIAL,
         donor=donor===nothing ? nothing : abspath(ARGS[2]),donor_index=donor===nothing ? nothing : 2,human_scent=false,boundary=true,
         predator_removal=crossing_predator_count==0,
-        introduction=population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "two new predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
-        fixed=population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
+        introduction=preserve_predators ? "exact existing cohort continuation; bodies, memories, RNG, scents, pursuits retained" : population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "two new predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
+        fixed=preserve_predators ? "no respawn or initial profile reapplication; current configured behaviors retained" : population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
         stop="requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained")
     write(joinpath(crossing_output,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
     cp(ARGS[1],joinpath(crossing_output,"input-origin.json"))
     mkpath(joinpath(crossing_output,"checkpoints"))
     serialize(joinpath(crossing_output,"checkpoints/day-000.jls"),(world=s,cohort=cohort))
-    counts=[Dict("selected"=>0,"arrived"=>0,"failed"=>0,"interrupted"=>0,"swim_ticks"=>0) for _ in eachindex(predators)]
+    counts=preserve_predators && hasproperty(population_saved,:counts) ? deepcopy(population_saved.counts) : [Dict("selected"=>0,"arrived"=>0,"failed"=>0,"interrupted"=>0,"swim_ticks"=>0) for _ in eachindex(predators)]
     crossing_records=Any[];daily=Any[];started=time()
     timing=@timed for t in start_tick:(start_tick+crossing_days*17280-1)
         sequences=[m.loop.sequence for m in minds];completed=[m.completed for m in minds]
