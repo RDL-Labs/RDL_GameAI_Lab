@@ -1648,7 +1648,7 @@ Bはtick5998、H=0、選択確率0.07390でcross:eastを選択。tick6267に269t
 ## 基礎消費300・90日完了確認（2026-11-08）
 
 元実行は84日保存が0byte、再試行は83日保存後にプロセス消失。両方とも完了/終了コード記録なし。
-原因は未確定。保存先OneDrive外・前面実行監視へ変更し、同じ凍結ソース/初期条件/乱数で再実行した。
+この時点では原因未確定（後述のバックグラウンド停止調査で判明）。保存先OneDrive外・前面実行監視へ変更し、同じ凍結ソース/初期条件/乱数で再実行した。
 `C:/Users/ken_m/Documents/Codex/crossing-basal300-90d-confirm-20261108` が90日verified=true、exit0。
 203.47秒。先行再試行の83日全てで実時間を除く日次JSONが完全一致。
 これだけでOneDriveが原因と確定はできない。
@@ -1666,3 +1666,21 @@ runnerの期間上限のみ180→360へ拡張。身体/行動/世界条件は90�
 草再生/兎繁殖/兎H/渡河ON。全捕食者死亡後も継続。日次checkpoint保存。
 出力 `C:/Users/ken_m/Documents/Codex/crossing-basal300-360d-20261108`（OneDrive外）。
 繁殖の既存季節設定240日/365日もそのまま適用。結果未確定。
+
+### 2026-11-08: バックグラウンド停止の原因と修正
+
+この360日試験も83日で停止。旧方式に外側PowerShellのstderrを追加した90日再試験は83日で
+`NativeCommandError: Warning: wildlife balance warning`を捕捉した。元の起動形でも83日停止を再現。
+Windows PowerShellのネイティブstderr変換とErrorActionPreference=Stopにより、Julia側では
+続行可能な収支警告がラッパーを中断していた。人あり90日の完走と矛盾する一律の時間制限ではない。
+
+警告は84日報告時のintake残差−1.81474e−5、相対差1.06149e−10。停止基準は0.00180962であり、
+閾値や動物モデルを変更せず起動処理を修正した。新しい `scripts/run_julia_scheduled.ps1` は
+stderrを直接ファイルへ保存し、Juliaの終了コードを別に扱う。警告後続行・exit(7)保存の回帰検査PASS。
+詳細：[バックグラウンド起動の再発防止](../../docs/design/LW_Performance_Investigation_Lessons_20261104.md)。
+
+修正版360日出力は `C:/Users/ken_m/Documents/Codex/crossing-basal300-360d-scheduled-20261108`。
+161日まで進行を確認し、最初の90日の日次結果は前景完走版と経過秒以外すべて一致した。
+この記録時点では360日は未完了。新方式の初回はBelowNormal優先度・途中で並行診断ありなので
+処理速度比較には使わない。今後のランナーは通常優先度を指定する。
+証拠：[background-launch-20261108.json](evidence/background-launch-20261108.json)。

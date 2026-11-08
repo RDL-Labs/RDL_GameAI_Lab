@@ -1,0 +1,47 @@
+{
+  "checked_utc": "2026-11-08T01:13:13.941Z",
+  "cause": "Windows PowerShell native stderr converted a nonfatal Julia warning into NativeCommandError under ErrorActionPreference=Stop; wrapper and native pipeline stopped before exit.json.",
+  "old_probe": 83,
+  "original_probe": 83,
+  "old_wrapper_error": "NativeCommandError: Warning: wildlife balance warning",
+  "first_warning": {
+    "day": 84,
+    "name": "intake",
+    "residual": -0.000018147402442991734,
+    "relative_error": 1.0614865291633463e-10,
+    "warning_limit": 0.000018096215490643434,
+    "stop_limit": 0.0018096215490643434
+  },
+  "heartbeat": {
+    "child": {
+      "completed": true,
+      "seconds": 245.40452349999998
+    },
+    "scheduler": {
+      "completed": true,
+      "seconds": 245.5897837
+    }
+  },
+  "warning_regression": {
+    "ended_utc": "2026-11-08T01:11:14.4745522Z",
+    "error": null,
+    "started_utc": "2026-11-08T01:11:13.3880310Z",
+    "exit_code": 0
+  },
+  "nonzero_regression": {
+    "ended_utc": "2026-11-08T01:02:11.3327879Z",
+    "error": null,
+    "started_utc": "2026-11-08T01:02:10.2689742Z",
+    "exit_code": 7
+  },
+  "new_run": {
+    "path": "C:/Users/ken_m/Documents/Codex/crossing-basal300-360d-scheduled-20261108",
+    "requested_days": 360,
+    "latest_day": 161,
+    "elapsed_seconds": 603.0009999275208,
+    "completed": false,
+    "first_90_days_equal": true,
+    "priority": "BelowNormal",
+    "note": "Parallel diagnostic runs; timings are not a performance comparison."
+  }
+}

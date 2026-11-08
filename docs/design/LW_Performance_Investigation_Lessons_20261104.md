@@ -110,3 +110,81 @@ Bの22日目を診断付きで再現し、元のイベント・位置・在庫�
 ## 残る課題
 
 不安・安全経験による遮断度、粗い刺激検出、ρを上げた確認、途中覚醒・再入眠は将来案であり未実装。睡眠中の栄養維持への影響、Aの残存休息、日次計画に残る実験定数の分離も未完了。世界全体の安全や、全固定処理の撤去完了とは扱わない。
+
+## 2026-11-08: バックグラウンド停止の切り分けと起動管理
+
+動物のみの基礎消費300試験が83〜84日で停止し、Juliaだけでなく起動PowerShellも消失した。
+completed.jsonとラッパーのexit.jsonがなく、最初の試行ではday-084.jlsが0byteだった。
+出力をOneDrive外へ移しても再発した。一方、同じ条件の前景90日試験は203.47秒で完了し、
+停止した再試行の83日分と、経過秒を除く日次結果が一致した。
+
+**原因を再現できた。** 旧方式へ外側PowerShellのstderr記録を追加すると、再び83日で停止し、
+`NativeCommandError: Warning: wildlife balance warning`が残った。
+Windows PowerShellの`& julia ... >stdout 2>stderr`は、ネイティブstderrをPowerShellの
+エラーレコードへ変換する。このラッパーは`$ErrorActionPreference='Stop'`なので、Juliaの
+非致命的な警告がラッパーの終端エラーとなり、パイプラインが停止した。後続のexit.jsonも書けなかった。
+追加ログなしの元の起動形でも再び83日で停止した。
+
+前景完走ログでは84日報告時に初めて同じ警告が出ている。
+intakeの供給170962.15488828692、計上170962.15490643433、残差−1.8147402442991734e−5、
+相対差1.0614865291633463e−10。警告閾値1.8096215490643434e−5をわずかに超えるが、
+停止閾値0.0018096215490643434より小さい。診断側ではwarningとして続行する範囲であり、
+警告の削除や許容幅の変更で隠す必要はない。残差自体の丸め誤差原因を厳密に証明したわけではない。
+
+**反証も保存する。** 人ありのrabbit-h-integrated-90d-20261107は、同形のPowerShell起動で
+90日を完了し、exit_code=0を保存している。今回の245秒待機診断も、旧Start-Process方式と
+Task Scheduler方式の両方が完了した。「全バックグラウンド実行が180秒で終了する」
+「人なしの83日目に必ず致命的なJulia例外がある」という説明は誤りだった。
+人ありでも起動形の潜在不具合は共通だが、その実行で同じstderr警告が出たとは限らない。
+
+診断プロセス自身のWindows Job情報では、旧方式はLimitFlags=10240 (0x2800、
+KILL_ON_JOB_CLOSEを含む)、Scheduler方式は0だった。起動元のJob終了へ巻き込まれる可能性は
+旧方式にあるが、今回再現した停止原因は上記の警告処理だった。
+前回360日試験停止付近のApplication/Systemログにも、該当するクラッシュ・スリープ記録は
+確認できなかった。Job寿命の仮説と、実際に捕捉したNativeCommandErrorを混同しない。
+
+**修正の本体**は、Juliaのstdout/stderrを`Start-Process -RedirectStandardOutput/-RedirectStandardError`
+で直接ファイルへ流し、stderrの有無とExitCodeを分離すること。Task Schedulerは長期実験を
+呼出し元の寿命から分離する追加対策で、Schedulerへの変更だけが警告問題を直すわけではない。
+警告出力→続行マーカー→exit(0)の診断はexit_code=0で完了し、stderrに警告も保存できた。
+別途exit(7)も7として保存した。成功・非ゼロ終了の両方を確認し、警告を無視して成功を捏造しない。
+
+### 長期実験の起動
+
+`scripts/run_julia_scheduled.ps1`で現在のログインユーザーの一回限りのタスクとして起動する。
+繰り返しトリガー・管理者権限・パスワード保存は使わない。バッテリー移行だけでは停止しない。
+実時間上限はMaxHours（既定24時間）。ログアウト・再起動・スリープ復帰の再開は未対応。
+今後のタスク優先度は4（通常優先度）を指定する。最初の360日検証はScheduler既定の
+BelowNormalで開始し、その途中で優先度を変えていない。並行診断もあるため速度比較には使わない。
+OS全体の設定を変更せず、実験の判断・学習・乱数・シミュレーション時間も変更しない。
+
+```powershell
+# リポジトリ直下。JuliaArgumentsはJuliaへ渡す引数の配列。
+.\scripts\run_julia_scheduled.ps1 `
+  -JuliaPath 'C:\tools\julia\bin\julia.exe' `
+  -WorkingDirectory $PWD.Path -DepotPath 'C:\tools\julia-depot' `
+  -JuliaArguments @('--startup-file=no','--project=.','experiments/example.jl','argument') `
+  -RunPrefix 'C:\runs\unique-experiment' -Threads 1 -MaxHours 24
+```
+
+RunPrefixは未使用の絶対パスを使う。親ディレクトリは事前に存在させる。
+`.worker.ps1`へ起動処理をコピーし、`.config.json`に引数と環境、`.launch.json`にタスク名、
+`.started.json`に開始時刻とラッパーPID、`.stdout.log`/`.stderr.log`にJuliaの出力、
+`.exit.json`に終了コード・終了時刻・ラッパー例外を記録する。
+Windows PowerShellで短時間プロセスのExitCodeを取りこぼさないよう、Start-Processの-Waitを使う。
+
+成功判定は**exit_code=0に加え、実験自身のcompleted.jsonと要求日数**を確認する。
+タスクがReadyになっただけ、ログが止まっただけでは成功としない。
+強制終了ではfinallyも動かないため、exit.json欠落は正常終了ではない。
+状態確認と完了後の登録解除はlaunch.jsonのtask_nameを使う。
+
+```powershell
+$launch=Get-Content 'C:\runs\unique-experiment.launch.json' -Raw | ConvertFrom-Json
+Get-ScheduledTask -TaskName $launch.task_name
+Get-ScheduledTaskInfo -TaskName $launch.task_name
+# 完了・結果確認後のみ（実行中なら削除せず、まず停止の要否を判断）。
+Unregister-ScheduledTask -TaskName $launch.task_name -Confirm:$false
+```
+
+実行失敗時には外側のPowerShellエラーも残す。Julia stderrだけを見て「エラーなし」としない。
+起動直後の生存確認だけで放置可能と断定せず、過去の停止時刻・日数を超えて確認する。
