@@ -1,0 +1,149 @@
+{
+  "source": "C:/Users/ken_m/Documents/Codex/nursing-approach-12.json",
+  "nest": [
+    11.930795691987152,
+    48.533207455513754
+  ],
+  "events": [
+    {
+      "tick": 7292163,
+      "day": 62.00023148148148,
+      "position": [
+        13.283925862444635,
+        47.985102463546
+      ],
+      "distance": 1.4599247721791246,
+      "energy": 67.61135178092866,
+      "mother_energy_before": 83.62057400316361,
+      "child_energy_before": 4.000925925922743,
+      "child_energy_after": 8,
+      "wanted": true,
+      "override": 1,
+      "target": 3430,
+      "state": "search",
+      "nursed": 422,
+      "child_alive": true,
+      "steering": {
+        "base": 2.7158631206768864,
+        "obstacle": 2.6211094906696992,
+        "boundary": 2.6211094906696992,
+        "clear": true
+      },
+      "before": [
+        13.457441663311439,
+        47.88564258797021
+      ]
+    },
+    {
+      "tick": 7315251,
+      "day": 63.33634259259259,
+      "position": [
+        10.939877655658375,
+        47.40953179332922
+      ],
+      "distance": 1.4981874210216575,
+      "energy": 35,
+      "mother_energy_before": 35.03201451340378,
+      "child_energy_before": 2.655787037032784,
+      "child_energy_after": 2.6605591839022473,
+      "wanted": true,
+      "override": 1,
+      "target": 3430,
+      "state": "search",
+      "nursed": 423,
+      "child_alive": true,
+      "steering": {
+        "base": 1.5330126533917436,
+        "obstacle": 1.5330126533917436,
+        "boundary": 1.5330126533917436,
+        "clear": true
+      },
+      "before": [
+        10.932322718856005,
+        47.209674536943794
+      ]
+    },
+    {
+      "tick": 7326745,
+      "day": 64.00150462962961,
+      "position": [
+        10.296558453458609,
+        46.87269474227465
+      ],
+      "distance": 2.3298141176115483,
+      "energy": 84.72927012597908,
+      "mother_energy_before": 84.74127012597909,
+      "child_energy_before": 0.00014251723528593482,
+      "child_energy_after": 0,
+      "wanted": true,
+      "override": 1,
+      "target": 3430,
+      "state": "search",
+      "nursed": 423,
+      "child_alive": false,
+      "steering": {
+        "base": 1.2514423467452003,
+        "obstacle": 1.2514423467452003,
+        "boundary": 1.2514423467452003,
+        "clear": true
+      },
+      "before": [
+        10.233767799458553,
+        46.682807055021776
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "day": 63,
+      "same": true
+    },
+    {
+      "day": 64,
+      "same": true
+    },
+    {
+      "day": 65,
+      "same": true
+    }
+  ],
+  "counts": {
+    "true/0/sleep": 1470,
+    "true/0/graze": 61,
+    "true/1/search": 4300,
+    "false/0/graze": 3447,
+    "false/0/rest": 32153,
+    "false/0/sleep": 10210,
+    "false/0/search": 188,
+    "true/0/search": 11
+  },
+  "closest": {
+    "tick": 7292163,
+    "day": 62.00023148148148,
+    "position": [
+      13.283925862444635,
+      47.985102463546
+    ],
+    "distance": 1.4599247721791246,
+    "energy": 67.61135178092866,
+    "mother_energy_before": 83.62057400316361,
+    "child_energy_before": 4.000925925922743,
+    "child_energy_after": 8,
+    "wanted": true,
+    "override": 1,
+    "target": 3430,
+    "state": "search",
+    "nursed": 422,
+    "child_alive": true,
+    "steering": {
+      "base": 2.7158631206768864,
+      "obstacle": 2.6211094906696992,
+      "boundary": 2.6211094906696992,
+      "clear": true
+    },
+    "before": [
+      13.457441663311439,
+      47.88564258797021
+    ]
+  }
+}
