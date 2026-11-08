@@ -641,3 +641,9 @@ conditions.nursing_plan、既存milk_in/out/nursing_visits/nursed_day、比較�
 `crossing_longrun.jl` 第10引数 `cpu`（既定）/`gpu`/`gpu_audit`。通常CPU動作を維持し、GPU利用時のみOpenCL.dllへ接続。H・乱数・草更新・行動選択はCPUのまま。状態確定後、近傍観測が必要なSEARCH個体の候補を一括転送し、静的な岩との線分クリアランスを返す。川・境界条件は元のFloat64処理。
 `src/ecology/herbivore/neighbor_batch.jl` の `RABBIT_NEIGHBOR_GPU_BAND=0.001`（地図座標単位）はFloat32境界再判定用の暫定数値許容帯。帯内・非有限値は元のCPU判定へ戻す。対象地図・障害物座標は絶対値1000以内に制限。任意地形に対する数学的な誤差保証ではないため、新地図ではgpu_auditでCPU照合が必要。世界・tick・観測元位置が違えばキャッシュを使わない。静的障害物が変わった場合は再初期化が必要。
 実行ハンドル・キャッシュは保存状態に含めず、ロード後にバックエンドを再生成。conditionsと日別neighbor_gpuに機種・バッチ数・候補数・キャッシュ利用・境界再判定数を記録。これは計算方式の切替であり、固定行動の追加ではない。
+
+
+## 2026-11-08 観測要求・結果の共通バッチ型
+
+RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終点配列、結果はBool配列。個体×近傍方向の固定配列で要求位置を引き、毎tickの辞書登録・検索を除去。配列は個体数増加時のみ拡張し再利用。GPU用Float32への変換も事前確保領域へ書き込む。CPUは同じ要求に元のFloat64線分判定を適用する。観測時刻・要求生成条件・草/H更新順は変更しない。
+ランナー第10引数はcpu（従来逐次、既定）/batch_cpu（共通型CPU）/gpu/gpu_audit。既存enable_rabbit_neighbor_gpu!も互換入口として残す。GPU境界帯0.001と監査は継続。計算方式のみで、新たな固定行動・観測間引きは加えない。
