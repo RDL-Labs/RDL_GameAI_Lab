@@ -2,23 +2,29 @@
 include("neighbor_opencl.jl")
 # Conservative Float32 ambiguity band, map units; validate against Float64 in audit mode.
 const RABBIT_NEIGHBOR_GPU_BAND=.001
+# Provisional execution threshold: candidate count per batch, >=128 uses GPU.
+# Based on the 30-day workload, not a measured universal crossover.
+const RABBIT_NEIGHBOR_GPU_MIN_QUERIES=128
 mutable struct RabbitNeighborBatch
  gpu::Union{Nothing,RabbitNeighborOpenCL.Backend}
  world::World
  obstacles::Vector{RDLMigrationProbe.Circle}
  queries::Matrix{Float64};gpu_queries::Matrix{Float32};gaps::Vector{Float32};clear_results::Vector{Bool}
  slots::Matrix{Int};origins::Matrix{Float64}
+ automatic::Bool;gpu_min_queries::Int;cpu_batches::Int;gpu_batches::Int;cpu_queries::Int;gpu_queries_total::Int
  tick::Int;audit::Bool;batches::Int;queries_total::Int;hits::Int;fallbacks::Int
 end
 const RABBIT_NEIGHBOR_BACKEND=Ref{Union{Nothing,RabbitNeighborBatch}}(nothing)
-function enable_rabbit_neighbor_batch!(w;gpu=false,audit=false)
+function enable_rabbit_neighbor_batch!(w;gpu=false,audit=false,automatic=false,gpu_min_queries=RABBIT_NEIGHBOR_GPU_MIN_QUERIES)
+ gpu_min_queries>0 || error("positive GPU threshold required")
+ automatic && !gpu && error("automatic mode requires GPU backend")
  disable_rabbit_neighbor_gpu!()
  # Large coordinates are outside the validated Float32 guard envelope.
  if gpu
   maximum(abs, (w.xmin,w.xmax,w.zmin,w.zmax))<=1000 || error("GPU map extent exceeds validated envelope")
   all(o->max(abs(o.x),abs(o.z),abs(o.radius))<=1000,w.obstacles) || error("GPU obstacle extent")
  end
- b=RabbitNeighborBatch(gpu ? RabbitNeighborOpenCL.Backend(w) : nothing,w,copy(w.obstacles),zeros(4,0),zeros(Float32,4,0),Float32[],Bool[],zeros(Int,9,0),zeros(2,0),-1,audit,0,0,0,0)
+ b=RabbitNeighborBatch(gpu ? RabbitNeighborOpenCL.Backend(w) : nothing,w,copy(w.obstacles),zeros(4,0),zeros(Float32,4,0),Float32[],Bool[],zeros(Int,9,0),zeros(2,0),automatic,gpu_min_queries,0,0,0,0,-1,audit,0,0,0,0)
  RABBIT_NEIGHBOR_BACKEND[]=b;b
 end
 enable_rabbit_neighbor_gpu!(w;audit=false)=enable_rabbit_neighbor_batch!(w;gpu=true,audit)
@@ -28,7 +34,7 @@ function disable_rabbit_neighbor_gpu!()
  RABBIT_NEIGHBOR_BACKEND[]=nothing
 end
 rabbit_neighbor_stats()=let b=RABBIT_NEIGHBOR_BACKEND[]
- b===nothing ? nothing : (device=b.gpu===nothing ? "CPU common batch" : b.gpu.device,batches=b.batches,queries=b.queries_total,hits=b.hits,fallbacks=b.fallbacks,audit=b.audit)
+ b===nothing ? nothing : (device=b.gpu===nothing ? "CPU common batch" : b.gpu.device,automatic=b.automatic,gpu_min_queries=b.gpu_min_queries,cpu_batches=b.cpu_batches,gpu_batches=b.gpu_batches,cpu_queries=b.cpu_queries,gpu_queries=b.gpu_queries_total,batches=b.batches,queries=b.queries_total,hits=b.hits,fallbacks=b.fallbacks,audit=b.audit)
 end
 function rabbit_needs_neighbors(policy,a,i,t,overrides)
  overrides!==nothing && overrides[i]!=0 && return false
@@ -71,13 +77,19 @@ function prepare_rabbit_neighbor_batch!(w,a,t,policy,alive,overrides)
  evaluate_rabbit_neighbors!(b,used);b.batches+=1;b.queries_total+=used
 end
 function evaluate_rabbit_neighbors!(b,used)
- if b.gpu!==nothing
+ use_gpu=b.gpu!==nothing && (!b.automatic || used>=b.gpu_min_queries)
+ if use_gpu
+  b.gpu_batches+=1;b.gpu_queries_total+=used
+ else
+  b.cpu_batches+=1;b.cpu_queries+=used
+ end
+ if use_gpu
   @inbounds for j in 1:used, k in 1:4;b.gpu_queries[k,j]=b.queries[k,j];end
   RabbitNeighborOpenCL.evaluate!(b.gpu,b.gpu_queries,b.gaps,used)
  end
  @inbounds for j in 1:used
   p=(b.queries[1,j],b.queries[2,j]);q=(b.queries[3,j],b.queries[4,j])
-  if b.gpu===nothing
+  if !use_gpu
    b.clear_results[j]=!any(o->RDLMigrationProbe.segment_hit(p,q,o,.25),b.obstacles)
   else
    gap=b.gaps[j]

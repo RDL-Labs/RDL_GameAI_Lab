@@ -647,3 +647,7 @@ conditions.nursing_plan、既存milk_in/out/nursing_visits/nursed_day、比較�
 
 RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終点配列、結果はBool配列。個体×近傍方向の固定配列で要求位置を引き、毎tickの辞書登録・検索を除去。配列は個体数増加時のみ拡張し再利用。GPU用Float32への変換も事前確保領域へ書き込む。CPUは同じ要求に元のFloat64線分判定を適用する。観測時刻・要求生成条件・草/H更新順は変更しない。
 ランナー第10引数はcpu（従来逐次、既定）/batch_cpu（共通型CPU）/gpu/gpu_audit。既存enable_rabbit_neighbor_gpu!も互換入口として残す。GPU境界帯0.001と監査は継続。計算方式のみで、新たな固定行動・観測間引きは加えない。
+
+
+## 候補数によるCPU/GPU自動切替（2026-11-08）
+第10引数auto/auto_auditを追加。共通要求バッチの候補数がRABBIT_NEIGHBOR_GPU_MIN_QUERIES=128以上ならGPU、それ未満ならCPU。暫定の実行系パラメータで、最適な境目の確定値ではない。個体の行動・H・観測時刻は変更しない。CPU選択時はFloat32変換・転送・GPU呼出しを行わない。GPUハンドルは初期化時に用意して再利用。cpu_batches/gpu_batchesおよび双方の候補数を日別累計で記録。既定は従来cpuを維持。30日比較ランナーはbatch_cpu→gpu→autoの順次実行、同じ66日目保存状態・泳ぎあり・捕食者なし、全日チェックポイントを三者比較。

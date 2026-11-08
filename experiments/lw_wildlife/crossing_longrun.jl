@@ -1,6 +1,6 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8,9,10) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit]")
+length(ARGS) in (4,5,6,7,8,9,10) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
@@ -10,7 +10,7 @@ const crossing_grass_scale=length(ARGS)<7 ? 3. : parse(Float64,ARGS[7])
 const crossing_population_checkpoint=length(ARGS)<8 ? nothing : abspath(ARGS[8])
 const rabbit_swimming_enabled=length(ARGS)>=9 && parse(Bool,ARGS[9])
 const rabbit_neighbor_backend=length(ARGS)>=10 ? ARGS[10] : "cpu"
-rabbit_neighbor_backend in ("cpu","batch_cpu","gpu","gpu_audit") || error("unknown neighbor backend")
+rabbit_neighbor_backend in ("cpu","batch_cpu","gpu","gpu_audit","auto","auto_audit") || error("unknown neighbor backend")
 isfinite(crossing_grass_scale) && crossing_grass_scale>0 || error("grass_scale must be finite and positive")
 crossing_predator_count in (0,2) || error("predators must be 0 or 2")
 1<=crossing_days<=360 || error("days must be 1..360")
@@ -66,8 +66,8 @@ function crossing_main()
         error("cannot disable swimming on a swimming checkpoint")
     end
     cohort=(predators,minds,local_hunts=locals,pursuits,physiology,scents,prey_scents,rabbit_approach)
-    rabbit_neighbor_backend!="cpu" && H.enable_rabbit_neighbor_batch!(s.world;gpu=rabbit_neighbor_backend!="batch_cpu",audit=rabbit_neighbor_backend=="gpu_audit")
-    conditions=(rabbit_neighbor_backend,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
+    rabbit_neighbor_backend!="cpu" && H.enable_rabbit_neighbor_batch!(s.world;gpu=rabbit_neighbor_backend!="batch_cpu",audit=endswith(rabbit_neighbor_backend,"_audit"),automatic=startswith(rabbit_neighbor_backend,"auto"))
+    conditions=(rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,
