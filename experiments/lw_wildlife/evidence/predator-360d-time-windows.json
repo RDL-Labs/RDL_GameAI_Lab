@@ -1,0 +1,273 @@
+[
+  {
+    "start": 1,
+    "end": 30,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 13,
+        "ticks": {
+          "idle": 488707,
+          "hunt": 21901,
+          "retreat": 60,
+          "warn": 60,
+          "visit_food": 4321,
+          "cross_river": 558,
+          "visit_rest": 209,
+          "rest": 2584
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 18,
+        "ticks": {
+          "idle": 491676,
+          "hunt": 19779,
+          "retreat": 360,
+          "warn": 120,
+          "visit_food": 3785,
+          "visit_rest": 251,
+          "rest": 2429
+        }
+      }
+    ]
+  },
+  {
+    "start": 31,
+    "end": 60,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 16,
+        "ticks": {
+          "idle": 514524,
+          "hunt": 2357,
+          "retreat": 60,
+          "warn": 0,
+          "visit_food": 845,
+          "cross_river": 0,
+          "visit_rest": 68,
+          "rest": 546
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 16,
+        "ticks": {
+          "idle": 499424,
+          "hunt": 14906,
+          "retreat": 60,
+          "warn": 60,
+          "visit_food": 1838,
+          "cross_river": 73,
+          "visit_rest": 285,
+          "rest": 1754
+        }
+      }
+    ]
+  },
+  {
+    "start": 61,
+    "end": 90,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 36,
+        "ticks": {
+          "idle": 510900,
+          "hunt": 3854,
+          "retreat": 0,
+          "warn": 0,
+          "visit_food": 2415,
+          "cross_river": 0,
+          "visit_rest": 112,
+          "rest": 1119
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 21,
+        "ticks": {
+          "idle": 514701,
+          "hunt": 1230,
+          "retreat": 60,
+          "warn": 0,
+          "visit_food": 1663,
+          "cross_river": 0,
+          "visit_rest": 125,
+          "rest": 621
+        }
+      }
+    ]
+  },
+  {
+    "start": 91,
+    "end": 120,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 21,
+        "ticks": {
+          "idle": 512785,
+          "hunt": 3711,
+          "retreat": 120,
+          "warn": 60,
+          "visit_food": 951,
+          "cross_river": 0,
+          "visit_rest": 46,
+          "rest": 727
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 21,
+        "ticks": {
+          "idle": 511843,
+          "hunt": 4414,
+          "retreat": 60,
+          "warn": 0,
+          "visit_food": 1080,
+          "cross_river": 0,
+          "visit_rest": 40,
+          "rest": 963
+        }
+      }
+    ]
+  },
+  {
+    "start": 121,
+    "end": 150,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 15,
+        "ticks": {
+          "idle": 513501,
+          "hunt": 3263,
+          "retreat": 180,
+          "warn": 60,
+          "visit_food": 703,
+          "cross_river": 0,
+          "visit_rest": 62,
+          "rest": 631
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 24,
+        "ticks": {
+          "idle": 495064,
+          "hunt": 17115,
+          "retreat": 360,
+          "warn": 120,
+          "visit_food": 3212,
+          "cross_river": 190,
+          "visit_rest": 91,
+          "rest": 2248
+        }
+      }
+    ]
+  },
+  {
+    "start": 151,
+    "end": 180,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 13,
+        "ticks": {
+          "idle": 515497,
+          "hunt": 1953,
+          "retreat": 60,
+          "warn": 0,
+          "visit_food": 416,
+          "cross_river": 0,
+          "visit_rest": 0,
+          "rest": 474
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 16,
+        "ticks": {
+          "idle": 510188,
+          "hunt": 5910,
+          "retreat": 120,
+          "warn": 0,
+          "visit_food": 1219,
+          "cross_river": 0,
+          "visit_rest": 51,
+          "rest": 912
+        }
+      }
+    ]
+  },
+  {
+    "start": 181,
+    "end": 210,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 13,
+        "ticks": {
+          "idle": 514306,
+          "hunt": 2628,
+          "retreat": 120,
+          "warn": 60,
+          "visit_food": 717,
+          "cross_river": 0,
+          "visit_rest": 40,
+          "rest": 529
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 14,
+        "ticks": {
+          "idle": 515262,
+          "hunt": 2247,
+          "retreat": 0,
+          "warn": 0,
+          "visit_food": 443,
+          "cross_river": 0,
+          "visit_rest": 22,
+          "rest": 426
+        }
+      }
+    ]
+  },
+  {
+    "start": 211,
+    "end": 240,
+    "actors": [
+      {
+        "actor": 0,
+        "captures": 16,
+        "ticks": {
+          "idle": 502250,
+          "hunt": 12531,
+          "retreat": 120,
+          "warn": 0,
+          "visit_food": 1973,
+          "cross_river": 0,
+          "visit_rest": 0,
+          "rest": 1526
+        }
+      },
+      {
+        "actor": 1,
+        "captures": 12,
+        "ticks": {
+          "idle": 513100,
+          "hunt": 3996,
+          "retreat": 240,
+          "warn": 0,
+          "visit_food": 422,
+          "cross_river": 0,
+          "visit_rest": 0,
+          "rest": 642
+        }
+      }
+    ]
+  }
+]
