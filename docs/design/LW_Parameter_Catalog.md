@@ -634,3 +634,10 @@ conditions.nursing_plan、既存milk_in/out/nursing_visits/nursed_day、比較�
 地域的な草不足から移動できる候補としてRabbitSwimmingPolicyを追加。通常OFF。既存RabbitApproachPolicyを包み、探索中・岸から6以内で64tickごと（個体ずらし）に検討する。空腹と局所Hで確率上昇、近傍の観測草量で低下。対岸の草量は参照しない。
 川形状・着岸点の世界実状態参照は暫定固定。陸上速度0.2/水中0.1、消費0.012/0.036（各tick）。費用予測×1.5＋余力5を満たす場合のみ候補化。岸で授乳・逃避上書きがあれば中断、水中は着岸まで継続。障害物・境界は貫通せず、巣穴幼体は泳がない。流速・溺死・体温は未実装。将来は岸の観測・身体MBへ置換。
 実装はsrc/lw/configured_paths/rabbit_swimming.jl。crossing_longrun.jl第9引数rabbit_swimming=trueで有効化。conditions.jsonに条件、日別にselected/arrived/swim_ticks/interrupted累計、個体記録に選択・到着を保存。途中の目的地・乱数をチェックポイントで継承。水中に取り残すためON保存状態からOFFへの切替は拒否。
+
+
+## 兎近傍GPU接続（2026-11-08、実験用）
+
+`crossing_longrun.jl` 第10引数 `cpu`（既定）/`gpu`/`gpu_audit`。通常CPU動作を維持し、GPU利用時のみOpenCL.dllへ接続。H・乱数・草更新・行動選択はCPUのまま。状態確定後、近傍観測が必要なSEARCH個体の候補を一括転送し、静的な岩との線分クリアランスを返す。川・境界条件は元のFloat64処理。
+`src/ecology/herbivore/neighbor_batch.jl` の `RABBIT_NEIGHBOR_GPU_BAND=0.001`（地図座標単位）はFloat32境界再判定用の暫定数値許容帯。帯内・非有限値は元のCPU判定へ戻す。対象地図・障害物座標は絶対値1000以内に制限。任意地形に対する数学的な誤差保証ではないため、新地図ではgpu_auditでCPU照合が必要。世界・tick・観測元位置が違えばキャッシュを使わない。静的障害物が変わった場合は再初期化が必要。
+実行ハンドル・キャッシュは保存状態に含めず、ロード後にバックエンドを再生成。conditionsと日別neighbor_gpuに機種・バッチ数・候補数・キャッシュ利用・境界再判定数を記録。これは計算方式の切替であり、固定行動の追加ではない。

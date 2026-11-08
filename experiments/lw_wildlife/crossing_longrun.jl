@@ -1,6 +1,6 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|gpu|gpu_audit].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8,9) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false]")
+length(ARGS) in (4,5,6,7,8,9,10) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false] [neighbor_backend=cpu|gpu|gpu_audit]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
@@ -9,6 +9,8 @@ const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
 const crossing_grass_scale=length(ARGS)<7 ? 3. : parse(Float64,ARGS[7])
 const crossing_population_checkpoint=length(ARGS)<8 ? nothing : abspath(ARGS[8])
 const rabbit_swimming_enabled=length(ARGS)>=9 && parse(Bool,ARGS[9])
+const rabbit_neighbor_backend=length(ARGS)>=10 ? ARGS[10] : "cpu"
+rabbit_neighbor_backend in ("cpu","gpu","gpu_audit") || error("unknown neighbor backend")
 isfinite(crossing_grass_scale) && crossing_grass_scale>0 || error("grass_scale must be finite and positive")
 crossing_predator_count in (0,2) || error("predators must be 0 or 2")
 1<=crossing_days<=360 || error("days must be 1..360")
@@ -64,7 +66,8 @@ function crossing_main()
         error("cannot disable swimming on a swimming checkpoint")
     end
     cohort=(predators,minds,local_hunts=locals,pursuits,physiology,scents,prey_scents,rabbit_approach)
-    conditions=(days=crossing_days,start_day,end_day=start_day+crossing_days,
+    rabbit_neighbor_backend!="cpu" && H.enable_rabbit_neighbor_gpu!(s.world;audit=rabbit_neighbor_backend=="gpu_audit")
+    conditions=(rabbit_neighbor_backend,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,
@@ -104,7 +107,7 @@ function crossing_main()
             report=animal_trial_report(s,predators;scents,minds)
             west(p)=p[1]<12+5sin((p[2]-6)/22+s.world.phase)
             rabbit_west=count(i->s.alive[i] && west((s.animals.x[i],s.animals.z[i])),eachindex(s.alive))
-            row=(day,absolute_day,elapsed_seconds=time()-started,rabbits=report.rabbits.alive,starvation=report.rabbits.starvation_deaths,
+            row=(neighbor_gpu=H.rabbit_neighbor_stats(),day,absolute_day,elapsed_seconds=time()-started,rabbits=report.rabbits.alive,starvation=report.rabbits.starvation_deaths,
                 births=report.rabbits.reproduction.births,pregnant=report.rabbits.reproduction.pregnant,
                 conceptions=report.rabbits.reproduction.conceptions,lost_pregnancies=report.rabbits.reproduction.lost_pregnancies,
                 grass_remaining=report.rabbits.grass_remaining,grass_grown=report.rabbits.grass_grown,grass_eaten=report.rabbits.grass_eaten,
@@ -118,10 +121,11 @@ function crossing_main()
             println("DAY ",day," rabbits=",row.rabbits," predators=",[p.alive for p in predators]," crossing=",counts);flush(stdout)
         end
     end
+    neighbor_gpu=H.rabbit_neighbor_stats();H.disable_rabbit_neighbor_gpu!()
     saved=deserialize(joinpath(crossing_output,"checkpoints","day-"*lpad(crossing_days,3,'0')*".jls"))
     @test saved.counts==counts
     @test Set(keys(H.rabbit_approach_base(saved.cohort.rabbit_approach).actors))==Set(keys(H.rabbit_approach_base(rabbit_approach).actors))
-    write(joinpath(crossing_output,"result.json"),JSON3.write((conditions,daily,crossing_records,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime)))
+    write(joinpath(crossing_output,"result.json"),JSON3.write((conditions,daily,crossing_records,neighbor_gpu,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime)))
     write(joinpath(crossing_output,"completed.json"),JSON3.write((days=crossing_days,start_day,end_day=start_day+crossing_days,verified=true,seconds=timing.time)))
 end
 crossing_main()

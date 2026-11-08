@@ -15,7 +15,7 @@ function observe_neighbors!(w,a,i,t)
         j=jx+(jz-1)*w.nx
         w.walkable[j] || return nothing
         p=center(w,j)
-        clear(w,(a.x[i],a.z[i]),p) || return nothing
+        rabbit_neighbor_clear(w,a,i,j,t,(a.x[i],a.z[i]),p) || return nothing
         direction=atan(p[2]-a.z[i],p[1]-a.x[i])
         grass=grass!(w,j,t)
         (vegetation=w.traits===nothing ? nothing : observe_grass!(w,j,t),cell=j,grass=grass,distance=hypot(p[1]-a.x[i],p[2]-a.z[i]),direction=direction)

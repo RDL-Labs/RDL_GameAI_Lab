@@ -78,6 +78,7 @@ function target!(w,a,i,t,policy=StateMachinePolicy())
 end
 include("../herbivore/approach.jl")
 include("../../lw/configured_paths/rabbit_swimming.jl")
+include("../herbivore/neighbor_batch.jl")
 function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing)
     fill!(demand,0.); empty!(active)
     n=length(a.x)
@@ -96,6 +97,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
             demand[k]+=requests[i]
         end
     end
+    prepare_rabbit_neighbor_batch!(w,a,t,policy,alive,overrides)
     # Simultaneous proportional allocation prevents first-agent access bias.
     for k in active
         amount=min(w.grass[k],demand[k]); ratio[k]=amount/demand[k]
