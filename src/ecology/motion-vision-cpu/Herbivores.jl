@@ -72,12 +72,12 @@ function grass!(w,k,t)
 end
 include("../herbivore/perception.jl")
 include("../herbivore/decision.jl")
-function target!(w,a,i,t,policy=StateMachinePolicy())
-    a.target[i]=choose_target(policy,observe_neighbors!(w,a,i,t),a.heading[i],a.previous_cell[i])
+function target!(w,a,i,t,policy=StateMachinePolicy(); grazing_cost=nothing)
+    a.target[i]=choose_target(policy,observe_neighbors!(w,a,i,t),a.heading[i],a.previous_cell[i]; grazing_cost=grazing_cost===nothing ? nothing : k->grazing_cost(i,k))
     a.next_sense[i]=t+10
 end
 include("../herbivore/approach.jl")
-function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing)
+function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing, grazing_cost=nothing)
     fill!(demand,0.); empty!(active)
     n=length(a.x)
     for i in 1:n
@@ -87,6 +87,9 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         a.sleepy[i]=a.state[i]==SLEEP ? max(0.,a.sleepy[i]-1/1200) : min(2.,a.sleepy[i]+1/4000)
         observation=observe_state!(w,a,i,t,threat);k=observation.cell
         a.state[i]=choose_state(policy,observation)
+        if grazing_cost!==nothing && a.state[i]==GRAZE && grazing_cost(i,k)>observation.grass
+            a.state[i]=SEARCH;a.target[i]=0;a.next_sense[i]=t
+        end
         overrides!==nothing && overrides[i]!=0 && (a.state[i]=overrides[i])
         requests[i]=a.state[i]==GRAZE ? min(.025,4-a.gut[i]) : 0.
         if requests[i]>0
@@ -111,7 +114,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
             else
                 # Nursing's forced SEARCH has a different goal; pause grass-approach evidence.
                 target_policy=overrides!==nothing && overrides[i]!=0 ? StateMachinePolicy() : policy
-                (t>=a.next_sense[i] || a.target[i]==0) && target!(w,a,i,t,target_policy)
+                (t>=a.next_sense[i] || a.target[i]==0) && target!(w,a,i,t,target_policy;grazing_cost=overrides!==nothing && overrides[i]!=0 ? nothing : grazing_cost)
                 if a.target[i]!=0
                     p=center(w,a.target[i]); a.heading[i]=atan(p[2]-a.z[i],p[1]-a.x[i])
                 end

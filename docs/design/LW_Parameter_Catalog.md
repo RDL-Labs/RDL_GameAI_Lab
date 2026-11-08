@@ -577,3 +577,19 @@ predatorsは0/2、grass_scaleは有限の正数。世界資源の既存wildlife.
 世界時刻・草・兎の身体/繁殖/乱数/Hを保存状態から保持し、草倍率の途中変更は拒否する。
 捕食者は既存試験の初期位置・身体条件と指定ドナーMBで新規導入。場所記憶の時刻を導入時へ合わせる。
 期間は追加日数、日次dayは追加後の日数、absolute_dayは元世界からの通算日数。
+
+### 母個体の幼体セル採食反発（2026-11-08）
+
+`configured_paths/rabbit_nest_grazing.jl`、`RABBIT_NEST_GRAZING`。
+生存する自分の離乳前の子のセルに対して、採食費用=1+4×草容量。
+capacity_multiplier=4、cost_floor=1は草量と同じ評価尺度の暫定値。
+現在のセル資源上限を上回るので母親はそこで採食せず探索へ移る。
+近傍の採食目標評価からも差し引くが、通行禁止・授乳禁止ではない。
+逃走/授乳の既存上書きを優先。他個体や離乳後/死亡後の子には適用しない。
+`G.advance!(...;nest_grazing_avoidance=false)`でOFF、既定true。
+子の位置・血縁・生存状態は世界データの直接参照という暫定固定。
+将来は観測・巣記憶・子との関係MBからの採食勾配に置換する。
+草の実量/観測値を書き換えず、行動の評価費用として接続。
+crossing_longrunのconditionsにONと係数、H目標変更時はrecordsに
+grazing_relation_changedを記録。保存状態のrequests/consumedでも作用を検査できる。
+新生児数×母数の全組合せ検索をせず、一回の走査で母→セル集合を構築する。
