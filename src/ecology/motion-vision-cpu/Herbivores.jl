@@ -77,6 +77,7 @@ function target!(w,a,i,t,policy=StateMachinePolicy())
     a.next_sense[i]=t+10
 end
 include("../herbivore/approach.jl")
+include("../../lw/configured_paths/rabbit_swimming.jl")
 function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing)
     fill!(demand,0.); empty!(active)
     n=length(a.x)
@@ -88,6 +89,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         observation=observe_state!(w,a,i,t,threat);k=observation.cell
         a.state[i]=choose_state(policy,observation)
         overrides!==nothing && overrides[i]!=0 && (a.state[i]=overrides[i])
+        a.state[i]=configured_rabbit_swim_state(policy,w,a,i,a.state[i],overrides)
         requests[i]=a.state[i]==GRAZE ? min(.025,4-a.gut[i]) : 0.
         if requests[i]>0
             demand[k]==0 && push!(active,k)
@@ -102,7 +104,9 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
     for i in 1:n
         alive!==nothing && !alive[i] && continue
         state=a.state[i]; k=cell(w,a.x[i],a.z[i]); a.counts[i,state]+=1
-        if state==GRAZE
+        if configured_rabbit_swim_step!(policy,w,a,i,t,overrides)
+            # Optional locomotion policy handled the step; shared body cost still follows.
+        elseif state==GRAZE
             amount=requests[i]*ratio[k]; a.gut[i]+=amount; a.consumed[i]+=amount
         elseif state==SEARCH || state==FLEE
             if state==FLEE

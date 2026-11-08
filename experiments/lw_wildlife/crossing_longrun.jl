@@ -1,6 +1,6 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [add_predators_from_checkpoint].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [add_predators_from_checkpoint]")
+length(ARGS) in (4,5,6,7,8,9) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint] [rabbit_swimming=false]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
@@ -8,6 +8,7 @@ const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
 # Default 3 preserves the existing comparison; 1.5 halves supply, not birth rules.
 const crossing_grass_scale=length(ARGS)<7 ? 3. : parse(Float64,ARGS[7])
 const crossing_population_checkpoint=length(ARGS)<8 ? nothing : abspath(ARGS[8])
+const rabbit_swimming_enabled=length(ARGS)>=9 && parse(Bool,ARGS[9])
 isfinite(crossing_grass_scale) && crossing_grass_scale>0 || error("grass_scale must be finite and positive")
 crossing_predator_count in (0,2) || error("predators must be 0 or 2")
 1<=crossing_days<=360 || error("days must be 1..360")
@@ -57,17 +58,24 @@ function crossing_main()
     physiology=PredatorPhysiology.(predators);scents=PredatorScentWorld(length(predators))
     prey_scents=PreyScentWorld(length(predators);cautious=true)
     rabbit_approach=population_saved===nothing ? H.RabbitApproachPolicy() : population_saved.cohort.rabbit_approach
+    if rabbit_swimming_enabled && !(rabbit_approach isa H.RabbitSwimmingPolicy)
+        rabbit_approach=H.RabbitSwimmingPolicy(rabbit_approach)
+    elseif !rabbit_swimming_enabled && rabbit_approach isa H.RabbitSwimmingPolicy
+        error("cannot disable swimming on a swimming checkpoint")
+    end
     cohort=(predators,minds,local_hunts=locals,pursuits,physiology,scents,prey_scents,rabbit_approach)
     conditions=(days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,
+        rabbit_swimming_enabled,rabbit_swimming=H.RABBIT_SWIMMING,
+        rabbit_swimming_fixed="optional configured candidate; exact river geometry; no opposite-bank food lookup; hunger/local H/local grass weighting; shore overrides interrupt; water commits to landing; no drowning/current/temperature",
         crossing_enabled,crossing=PREDATOR_CROSSING,rabbit_H=true,nest_grazing_avoidance=false,rabbit_burrow=G.RABBIT_BURROW,nursing_plan=G.RABBIT_NURSING_PLAN,grass_scale=crossing_grass_scale,nutrition=1.5,
         predator_energy=PREDATOR_ANIMAL_TRIAL,
         donor=donor===nothing ? nothing : abspath(ARGS[2]),donor_index=donor===nothing ? nothing : 2,human_scent=false,boundary=true,
         predator_removal=crossing_predator_count==0,
         introduction=population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "two new predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
-        fixed=population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming unchanged",
+        fixed=population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
         stop="requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained")
     write(joinpath(crossing_output,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
     cp(ARGS[1],joinpath(crossing_output,"input-origin.json"))
@@ -101,6 +109,7 @@ function crossing_main()
                 conceptions=report.rabbits.reproduction.conceptions,lost_pregnancies=report.rabbits.reproduction.lost_pregnancies,
                 grass_remaining=report.rabbits.grass_remaining,grass_grown=report.rabbits.grass_grown,grass_eaten=report.rabbits.grass_eaten,
                 rabbit_west,rabbit_east=report.rabbits.alive-rabbit_west,
+                rabbit_swimming=rabbit_swimming_enabled ? deepcopy(rabbit_approach.counts) : nothing,
                 predators=report.predators,crossing=deepcopy(counts),physiology=predator_physiology_report.(physiology))
             push!(daily,row)
             write(joinpath(crossing_output,"progress.json"),JSON3.write(row))
@@ -111,7 +120,7 @@ function crossing_main()
     end
     saved=deserialize(joinpath(crossing_output,"checkpoints","day-"*lpad(crossing_days,3,'0')*".jls"))
     @test saved.counts==counts
-    @test Set(keys(saved.cohort.rabbit_approach.actors))==Set(keys(rabbit_approach.actors))
+    @test Set(keys(H.rabbit_approach_base(saved.cohort.rabbit_approach).actors))==Set(keys(H.rabbit_approach_base(rabbit_approach).actors))
     write(joinpath(crossing_output,"result.json"),JSON3.write((conditions,daily,crossing_records,seconds=timing.time,bytes=timing.bytes,gc_seconds=timing.gctime)))
     write(joinpath(crossing_output,"completed.json"),JSON3.write((days=crossing_days,start_day,end_day=start_day+crossing_days,verified=true,seconds=timing.time)))
 end

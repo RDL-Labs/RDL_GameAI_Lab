@@ -627,3 +627,10 @@ enabled=falseは準備/帰巣の設定介入のみ無効化し、従来の日次
 nursed_dayは最終授乳日の記録のみ。日次の実施済みを要求/供給の遮断に使わない。
 conditions.nursing_plan、既存milk_in/out/nursing_visits/nursed_day、比較用eventsに記録。
 遠方・低資源で準備が間に合わない可能性は残る。子の余命からの緊急出発は未実装。
+
+
+## 2026-11-08 兎の任意渡河（暫定固定）
+
+地域的な草不足から移動できる候補としてRabbitSwimmingPolicyを追加。通常OFF。既存RabbitApproachPolicyを包み、探索中・岸から6以内で64tickごと（個体ずらし）に検討する。空腹と局所Hで確率上昇、近傍の観測草量で低下。対岸の草量は参照しない。
+川形状・着岸点の世界実状態参照は暫定固定。陸上速度0.2/水中0.1、消費0.012/0.036（各tick）。費用予測×1.5＋余力5を満たす場合のみ候補化。岸で授乳・逃避上書きがあれば中断、水中は着岸まで継続。障害物・境界は貫通せず、巣穴幼体は泳がない。流速・溺死・体温は未実装。将来は岸の観測・身体MBへ置換。
+実装はsrc/lw/configured_paths/rabbit_swimming.jl。crossing_longrun.jl第9引数rabbit_swimming=trueで有効化。conditions.jsonに条件、日別にselected/arrived/swim_ticks/interrupted累計、個体記録に選択・到着を保存。途中の目的地・乱数をチェックポイントで継承。水中に取り残すためON保存状態からOFFへの切替は拒否。
