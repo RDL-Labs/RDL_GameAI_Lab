@@ -18,7 +18,7 @@ grass_initial_profile=="patchy" && crossing_population_checkpoint!==nothing && e
 const rabbit_neighbor_backend=length(ARGS)>=10 ? ARGS[10] : "cpu"
 rabbit_neighbor_backend in ("cpu","batch_cpu","gpu","gpu_audit","auto","auto_audit") || error("unknown neighbor backend")
 isfinite(crossing_grass_scale) && crossing_grass_scale>0 || error("grass_scale must be finite and positive")
-crossing_predator_count in (0,2) || error("predators must be 0 or 2")
+crossing_predator_count in (0,1,2) || error("predators must be 0, 1 or 2")
 1<=crossing_days<=360 || error("days must be 1..360")
 ispath(crossing_output) && error("fresh output required")
 const crossing_repo=normpath(joinpath(@__DIR__,"../.."))
@@ -98,7 +98,7 @@ function crossing_main()
         predator_energy=PREDATOR_ANIMAL_TRIAL,
         donor=donor===nothing ? nothing : abspath(ARGS[2]),donor_index=donor===nothing ? nothing : 2,human_scent=false,boundary=true,
         predator_removal=crossing_predator_count==0,
-        introduction=preserve_predators ? "exact existing cohort continuation; bodies, memories, RNG, scents, pursuits retained" : population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "two new predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
+        introduction=preserve_predators ? "exact existing cohort continuation; bodies, memories, RNG, scents, pursuits retained" : population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "requested predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
         fixed=preserve_predators ? "no respawn or initial profile reapplication; current configured behaviors retained" : population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
         stop="requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained")
     write(joinpath(crossing_output,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
@@ -150,3 +150,4 @@ function crossing_main()
     write(joinpath(crossing_output,"completed.json"),JSON3.write((days=crossing_days,start_day,end_day=start_day+crossing_days,verified=true,seconds=timing.time)))
 end
 crossing_main()
+
