@@ -1,0 +1,2522 @@
+[
+  {
+    "day": 1,
+    "pop": 95,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 2,
+    "pop": 95,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 3,
+    "pop": 95,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 4,
+    "pop": 91,
+    "birth": 0,
+    "capture": 4,
+    "starve": 0
+  },
+  {
+    "day": 5,
+    "pop": 97,
+    "birth": 6,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 6,
+    "pop": 97,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 7,
+    "pop": 95,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 8,
+    "pop": 95,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 9,
+    "pop": 95,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 10,
+    "pop": 100,
+    "birth": 6,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 11,
+    "pop": 98,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 12,
+    "pop": 98,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 13,
+    "pop": 98,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 14,
+    "pop": 91,
+    "birth": 0,
+    "capture": 7,
+    "starve": 0
+  },
+  {
+    "day": 15,
+    "pop": 91,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 16,
+    "pop": 91,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 17,
+    "pop": 90,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 18,
+    "pop": 89,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 19,
+    "pop": 89,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 20,
+    "pop": 88,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 21,
+    "pop": 87,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 22,
+    "pop": 87,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 23,
+    "pop": 86,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 24,
+    "pop": 85,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 25,
+    "pop": 85,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 26,
+    "pop": 84,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 27,
+    "pop": 83,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 28,
+    "pop": 83,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 29,
+    "pop": 76,
+    "birth": 0,
+    "capture": 1,
+    "starve": 6
+  },
+  {
+    "day": 30,
+    "pop": 75,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 31,
+    "pop": 75,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 32,
+    "pop": 83,
+    "birth": 9,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 33,
+    "pop": 92,
+    "birth": 9,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 34,
+    "pop": 102,
+    "birth": 11,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 35,
+    "pop": 101,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 36,
+    "pop": 114,
+    "birth": 13,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 37,
+    "pop": 123,
+    "birth": 9,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 38,
+    "pop": 121,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 39,
+    "pop": 121,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 40,
+    "pop": 122,
+    "birth": 6,
+    "capture": 0,
+    "starve": 5
+  },
+  {
+    "day": 41,
+    "pop": 133,
+    "birth": 13,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 42,
+    "pop": 147,
+    "birth": 14,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 43,
+    "pop": 153,
+    "birth": 6,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 44,
+    "pop": 157,
+    "birth": 6,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 45,
+    "pop": 159,
+    "birth": 3,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 46,
+    "pop": 159,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 47,
+    "pop": 164,
+    "birth": 8,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 48,
+    "pop": 156,
+    "birth": 0,
+    "capture": 8,
+    "starve": 0
+  },
+  {
+    "day": 49,
+    "pop": 151,
+    "birth": 0,
+    "capture": 1,
+    "starve": 4
+  },
+  {
+    "day": 50,
+    "pop": 151,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 51,
+    "pop": 151,
+    "birth": 5,
+    "capture": 1,
+    "starve": 4
+  },
+  {
+    "day": 52,
+    "pop": 154,
+    "birth": 4,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 53,
+    "pop": 160,
+    "birth": 6,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 54,
+    "pop": 162,
+    "birth": 8,
+    "capture": 1,
+    "starve": 5
+  },
+  {
+    "day": 55,
+    "pop": 161,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 56,
+    "pop": 167,
+    "birth": 6,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 57,
+    "pop": 166,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 58,
+    "pop": 163,
+    "birth": 0,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 59,
+    "pop": 163,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 60,
+    "pop": 160,
+    "birth": 0,
+    "capture": 2,
+    "starve": 1
+  },
+  {
+    "day": 61,
+    "pop": 158,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 62,
+    "pop": 158,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 63,
+    "pop": 158,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 64,
+    "pop": 157,
+    "birth": 3,
+    "capture": 4,
+    "starve": 0
+  },
+  {
+    "day": 65,
+    "pop": 155,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 66,
+    "pop": 154,
+    "birth": 0,
+    "capture": 0,
+    "starve": 1
+  },
+  {
+    "day": 67,
+    "pop": 152,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 68,
+    "pop": 145,
+    "birth": 0,
+    "capture": 7,
+    "starve": 0
+  },
+  {
+    "day": 69,
+    "pop": 140,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 70,
+    "pop": 146,
+    "birth": 6,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 71,
+    "pop": 155,
+    "birth": 9,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 72,
+    "pop": 150,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 73,
+    "pop": 149,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 74,
+    "pop": 146,
+    "birth": 0,
+    "capture": 0,
+    "starve": 3
+  },
+  {
+    "day": 75,
+    "pop": 145,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 76,
+    "pop": 140,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 77,
+    "pop": 137,
+    "birth": 0,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 78,
+    "pop": 132,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 79,
+    "pop": 128,
+    "birth": 0,
+    "capture": 4,
+    "starve": 0
+  },
+  {
+    "day": 80,
+    "pop": 133,
+    "birth": 5,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 81,
+    "pop": 132,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 82,
+    "pop": 131,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 83,
+    "pop": 131,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 84,
+    "pop": 130,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 85,
+    "pop": 129,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 86,
+    "pop": 127,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 87,
+    "pop": 126,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 88,
+    "pop": 124,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 89,
+    "pop": 124,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 90,
+    "pop": 122,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 91,
+    "pop": 121,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 92,
+    "pop": 119,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 93,
+    "pop": 118,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 94,
+    "pop": 114,
+    "birth": 0,
+    "capture": 4,
+    "starve": 0
+  },
+  {
+    "day": 95,
+    "pop": 112,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 96,
+    "pop": 111,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 97,
+    "pop": 110,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 98,
+    "pop": 108,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 99,
+    "pop": 110,
+    "birth": 4,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 100,
+    "pop": 107,
+    "birth": 0,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 101,
+    "pop": 106,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 102,
+    "pop": 106,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 103,
+    "pop": 105,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 104,
+    "pop": 104,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 105,
+    "pop": 108,
+    "birth": 5,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 106,
+    "pop": 108,
+    "birth": 3,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 107,
+    "pop": 105,
+    "birth": 0,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 108,
+    "pop": 105,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 109,
+    "pop": 112,
+    "birth": 8,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 110,
+    "pop": 115,
+    "birth": 5,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 111,
+    "pop": 115,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 112,
+    "pop": 118,
+    "birth": 4,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 113,
+    "pop": 118,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 114,
+    "pop": 117,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 115,
+    "pop": 116,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 116,
+    "pop": 117,
+    "birth": 5,
+    "capture": 1,
+    "starve": 3
+  },
+  {
+    "day": 117,
+    "pop": 115,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 118,
+    "pop": 113,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 119,
+    "pop": 112,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 120,
+    "pop": 111,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 121,
+    "pop": 107,
+    "birth": 0,
+    "capture": 4,
+    "starve": 0
+  },
+  {
+    "day": 122,
+    "pop": 113,
+    "birth": 6,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 123,
+    "pop": 112,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 124,
+    "pop": 109,
+    "birth": 0,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 125,
+    "pop": 104,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 126,
+    "pop": 102,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 127,
+    "pop": 100,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 128,
+    "pop": 100,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 129,
+    "pop": 93,
+    "birth": 0,
+    "capture": 0,
+    "starve": 7
+  },
+  {
+    "day": 130,
+    "pop": 91,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 131,
+    "pop": 95,
+    "birth": 5,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 132,
+    "pop": 95,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 133,
+    "pop": 94,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 134,
+    "pop": 93,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 135,
+    "pop": 93,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 136,
+    "pop": 88,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 137,
+    "pop": 87,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 138,
+    "pop": 85,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 139,
+    "pop": 89,
+    "birth": 4,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 140,
+    "pop": 88,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 141,
+    "pop": 92,
+    "birth": 5,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 142,
+    "pop": 91,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 143,
+    "pop": 90,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 144,
+    "pop": 89,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 145,
+    "pop": 89,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 146,
+    "pop": 88,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 147,
+    "pop": 87,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 148,
+    "pop": 85,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 149,
+    "pop": 85,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 150,
+    "pop": 80,
+    "birth": 0,
+    "capture": 0,
+    "starve": 5
+  },
+  {
+    "day": 151,
+    "pop": 78,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 152,
+    "pop": 78,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 153,
+    "pop": 72,
+    "birth": 0,
+    "capture": 1,
+    "starve": 5
+  },
+  {
+    "day": 154,
+    "pop": 71,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 155,
+    "pop": 69,
+    "birth": 0,
+    "capture": 1,
+    "starve": 1
+  },
+  {
+    "day": 156,
+    "pop": 68,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 157,
+    "pop": 67,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 158,
+    "pop": 66,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 159,
+    "pop": 66,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 160,
+    "pop": 64,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 161,
+    "pop": 63,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 162,
+    "pop": 63,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 163,
+    "pop": 62,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 164,
+    "pop": 57,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 165,
+    "pop": 56,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 166,
+    "pop": 56,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 167,
+    "pop": 55,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 168,
+    "pop": 54,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 169,
+    "pop": 54,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 170,
+    "pop": 53,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 171,
+    "pop": 52,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 172,
+    "pop": 52,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 173,
+    "pop": 50,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 174,
+    "pop": 50,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 175,
+    "pop": 50,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 176,
+    "pop": 48,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 177,
+    "pop": 47,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 178,
+    "pop": 47,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 179,
+    "pop": 46,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 180,
+    "pop": 45,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 181,
+    "pop": 45,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 182,
+    "pop": 43,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 183,
+    "pop": 43,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 184,
+    "pop": 42,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 185,
+    "pop": 40,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 186,
+    "pop": 39,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 187,
+    "pop": 39,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 188,
+    "pop": 41,
+    "birth": 3,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 189,
+    "pop": 45,
+    "birth": 5,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 190,
+    "pop": 45,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 191,
+    "pop": 44,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 192,
+    "pop": 42,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 193,
+    "pop": 42,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 194,
+    "pop": 42,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 195,
+    "pop": 39,
+    "birth": 0,
+    "capture": 3,
+    "starve": 0
+  },
+  {
+    "day": 196,
+    "pop": 38,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 197,
+    "pop": 38,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 198,
+    "pop": 34,
+    "birth": 0,
+    "capture": 4,
+    "starve": 0
+  },
+  {
+    "day": 199,
+    "pop": 34,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 200,
+    "pop": 33,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 201,
+    "pop": 31,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 202,
+    "pop": 31,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 203,
+    "pop": 31,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 204,
+    "pop": 29,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 205,
+    "pop": 29,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 206,
+    "pop": 29,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 207,
+    "pop": 28,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 208,
+    "pop": 27,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 209,
+    "pop": 27,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 210,
+    "pop": 26,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 211,
+    "pop": 25,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 212,
+    "pop": 24,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 213,
+    "pop": 23,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 214,
+    "pop": 23,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 215,
+    "pop": 22,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 216,
+    "pop": 21,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 217,
+    "pop": 25,
+    "birth": 4,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 218,
+    "pop": 24,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 219,
+    "pop": 23,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 220,
+    "pop": 23,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 221,
+    "pop": 22,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 222,
+    "pop": 21,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 223,
+    "pop": 21,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 224,
+    "pop": 20,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 225,
+    "pop": 18,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 226,
+    "pop": 17,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 227,
+    "pop": 16,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 228,
+    "pop": 11,
+    "birth": 0,
+    "capture": 5,
+    "starve": 0
+  },
+  {
+    "day": 229,
+    "pop": 10,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 230,
+    "pop": 9,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 231,
+    "pop": 9,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 232,
+    "pop": 8,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 233,
+    "pop": 7,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 234,
+    "pop": 7,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 235,
+    "pop": 6,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 236,
+    "pop": 6,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 237,
+    "pop": 5,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 238,
+    "pop": 4,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 239,
+    "pop": 4,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 240,
+    "pop": 2,
+    "birth": 0,
+    "capture": 2,
+    "starve": 0
+  },
+  {
+    "day": 241,
+    "pop": 1,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 242,
+    "pop": 1,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 243,
+    "pop": 1,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 244,
+    "pop": 0,
+    "birth": 0,
+    "capture": 1,
+    "starve": 0
+  },
+  {
+    "day": 245,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 246,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 247,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 248,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 249,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 250,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 251,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 252,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 253,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 254,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 255,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 256,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 257,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 258,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 259,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 260,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 261,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 262,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 263,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 264,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 265,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 266,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 267,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 268,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 269,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 270,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 271,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 272,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 273,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 274,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 275,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 276,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 277,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 278,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 279,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 280,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 281,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 282,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 283,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 284,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 285,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 286,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 287,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 288,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 289,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 290,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 291,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 292,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 293,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 294,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 295,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 296,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 297,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 298,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 299,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 300,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 301,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 302,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 303,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 304,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 305,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 306,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 307,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 308,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 309,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 310,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 311,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 312,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 313,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 314,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 315,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 316,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 317,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 318,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 319,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 320,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 321,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 322,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 323,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 324,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 325,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 326,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 327,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 328,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 329,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 330,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 331,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 332,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 333,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 334,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 335,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 336,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 337,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 338,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 339,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 340,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 341,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 342,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 343,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 344,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 345,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 346,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 347,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 348,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 349,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 350,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 351,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 352,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 353,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 354,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 355,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 356,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 357,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 358,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 359,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  },
+  {
+    "day": 360,
+    "pop": 0,
+    "birth": 0,
+    "capture": 0,
+    "starve": 0
+  }
+]
