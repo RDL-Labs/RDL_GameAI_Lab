@@ -606,3 +606,7 @@ grazing_relation_changedを記録。保存状態のrequests/consumedでも作用
 enabled=falseを凍結前に設定すると旧草上待機へ戻る。繁殖OFFでは無効。
 conditions.rabbit_burrowへ設定、日次dependent/保存個体born,motherで対象を追跡可能。
 将来は穴の形状・入口の観測と出入り行動へ置換する。学習による隠れ行動ではない。
+
+捕食者なしの巣穴対照実験：crossing_longrunの第8引数の保存状態をpredators=0でも
+継続可能とした。元状態に捕食者がいないこと、草倍率一致、日末境界の検査は維持。
+年齢・繁殖/乱数・草・兎Hを引き継ぎ、再配置しない。donor引数は0匹時には未使用。

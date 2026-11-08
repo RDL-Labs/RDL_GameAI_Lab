@@ -27,9 +27,8 @@ function crossing_main()
     if population_saved===nothing
         s=G.build(scene,input.clock);configured_crossing_layout!(s)
     else
-        # Explicit intervention: add two predators to an existing predator-free world.
+        # Continue a predator-free world, optionally introducing two predators.
         # Keep world time, resources, rabbit physiology, RNG, families and learned H.
-        crossing_predator_count==2 || error("population checkpoint requires adding two predators")
         isempty(population_saved.cohort.predators) || error("only predator-free population checkpoints are supported")
         prior_conditions=JSON3.read(read(joinpath(dirname(dirname(crossing_population_checkpoint)),"conditions.json"),String))
         prior_conditions.grass_scale==crossing_grass_scale || error("cannot change grass scale on continuation")
@@ -67,8 +66,8 @@ function crossing_main()
         predator_energy=PREDATOR_ANIMAL_TRIAL,
         donor=donor===nothing ? nothing : abspath(ARGS[2]),donor_index=donor===nothing ? nothing : 2,human_scent=false,boundary=true,
         predator_removal=crossing_predator_count==0,
-        introduction=population_saved===nothing ? nothing : "two new predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
-        fixed=crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming unchanged",
+        introduction=population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "two new predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
+        fixed=population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming unchanged",
         stop="requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained")
     write(joinpath(crossing_output,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
     cp(ARGS[1],joinpath(crossing_output,"input-origin.json"))

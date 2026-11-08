@@ -15,13 +15,14 @@ function same_state(left,right)
     end
     false
 end
+expected_predators=length(ARGS)>=3 ? parse(Int,ARGS[3]) : 2
 prior=deserialize(ARGS[1])
 introduced=deserialize(joinpath(ARGS[2],"checkpoints/day-000.jls"))
 completion=JSON3.read(read(joinpath(ARGS[2],"completed.json"),String))
 last_saved=deserialize(joinpath(ARGS[2],"checkpoints/day-"*lpad(completion.days,3,'0')*".jls"))
 @testset "predator introduction preserves existing world" begin
     @test isempty(prior.cohort.predators)
-    @test length(introduced.cohort.predators)==2
+    @test length(introduced.cohort.predators)==expected_predators
     @test same_state(prior.world,introduced.world)
     @test same_state(prior.cohort.rabbit_approach,introduced.cohort.rabbit_approach)
     @test all(p->p.alive && p.food==PREDATOR_ANIMAL_TRIAL.initial_food,introduced.cohort.predators)
