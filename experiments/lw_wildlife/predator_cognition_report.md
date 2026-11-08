@@ -2248,3 +2248,8 @@ RABBIT_NEST_PREPARATION、既定enabled=true。src/lw/configured_paths/rabbit_ne
 母の既存life.nestに候補を保持（構造追加なし）。energy>=70、sleepy<1、睡眠状態でない、他のoverrideなし、直接到達可能なとき既存SEARCH/局所ポテンシャルで移動する。到着半径0.6。食事/睡眠/逃走を抑えず、到達後の強制待機はしない。選択tickに脅威overrideがあれば現在地を候補に保持。候補は妊娠ごと一回のため、その後の大きな環境変化への再計画は将来課題。
 出産時は従来どおり母の実位置を子の巣として確定。未到達でも出産延期や瞬間移動なし、既存の子の移送なし。現在地が不適地でも出産を救済する規則は追加していない。enabled=falseで旧方式。snapshot/実験conditionsに設定を掲載。将来は観測と場所MBの選択/学習・掘削へ置換する。
 検査: nest_preparation_checks.jl。半径/遮蔽/遠方草非依存/確率再現/割込み優先/出生実位置/保存再開と通常移動を検査。既存繁殖/身体収支検査も実施。長期の生存改善は未検証。
+
+## 現行ルール＋捕食者2体90日（2026-11-09 JST）
+run: C:/Users/ken_m/Documents/Codex/rabbit-current-predators90d-20261109
+新規diverse100体、西20東80、初期草patchy（61.26%）、capacity scale1.5、人0、兎泳ぎ/身体収支繁殖/巣穴/授乳/出産前巣候補選択ON、季節停止OFF、CPU/GPU auto。捕食者2体は従来のpursuit-fresh-mb-integrated-30d-20261107/day030のBのMBを継承、身体新規、渡河ON。旧保存の兎構造と切り離すためexport_predator_memory_donor.jlで旧凍結ソースから捕食者記憶/時刻のみexport。元保存不変。
+実行条件・fixed・donorはconditions.json、日次checkpointと出生/餓死/捕獲/渡河/身体を既存reportへ記録。捕食者死亡でも90日まで生態系を継続。前回捕食者なし版とは巣候補選択も違うため、捕食者だけの因果比較ではない。起動時点で生存・緩和効果は未判定。
