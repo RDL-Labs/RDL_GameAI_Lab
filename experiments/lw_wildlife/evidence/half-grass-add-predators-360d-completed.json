@@ -1,0 +1,158 @@
+{
+  "source": "C:/Users/ken_m/Documents/Codex/half-grass-add-predators-360d-20261108",
+  "completed": {
+    "days": 360,
+    "start_day": 360,
+    "end_day": 720,
+    "verified": true,
+    "seconds": 2530.0292452
+  },
+  "exit": {
+    "ended_utc": "2026-11-08T03:54:45.2207315Z",
+    "error": null,
+    "started_utc": "2026-11-08T03:12:08.1004607Z",
+    "exit_code": 0
+  },
+  "daily_rows": 360,
+  "initial_rabbits": 278,
+  "first_west_zero": {
+    "day": 198,
+    "absolute_day": 558,
+    "rabbits": 164,
+    "west": 0,
+    "east": 164,
+    "births_since_introduction": 593,
+    "starvation_since_introduction": 503,
+    "pregnant": 7,
+    "grass_remaining": 16506.034476675413,
+    "predators": [
+      {
+        "alive": true,
+        "captures": 94,
+        "food": 1717.585694444564
+      },
+      {
+        "alive": true,
+        "captures": 110,
+        "food": 1131.8684722231942
+      }
+    ]
+  },
+  "final": {
+    "day": 360,
+    "absolute_day": 720,
+    "rabbits": 112,
+    "west": 0,
+    "east": 112,
+    "births_since_introduction": 713,
+    "starvation_since_introduction": 515,
+    "pregnant": 0,
+    "grass_remaining": 17897.879169650674,
+    "predators": [
+      {
+        "alive": true,
+        "captures": 173,
+        "food": 908.4185637478695
+      },
+      {
+        "alive": true,
+        "captures": 191,
+        "food": 1036.594305556666
+      }
+    ]
+  },
+  "late": [
+    {
+      "day": 270,
+      "absolute_day": 630,
+      "rabbits": 184,
+      "west": 0,
+      "east": 184,
+      "births_since_introduction": 701,
+      "starvation_since_introduction": 511,
+      "pregnant": 3,
+      "grass_remaining": 16828.342623902347,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 134,
+          "food": 1768.5733333333787
+        },
+        {
+          "alive": true,
+          "captures": 150,
+          "food": 1033.0166687431456
+        }
+      ]
+    },
+    {
+      "day": 300,
+      "absolute_day": 660,
+      "rabbits": 164,
+      "west": 0,
+      "east": 164,
+      "births_since_introduction": 713,
+      "starvation_since_introduction": 515,
+      "pregnant": 0,
+      "grass_remaining": 15052.058947737916,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 146,
+          "food": 1207.997777778639
+        },
+        {
+          "alive": true,
+          "captures": 166,
+          "food": 1644.3579166668928
+        }
+      ]
+    },
+    {
+      "day": 330,
+      "absolute_day": 690,
+      "rabbits": 135,
+      "west": 0,
+      "east": 135,
+      "births_since_introduction": 713,
+      "starvation_since_introduction": 515,
+      "pregnant": 0,
+      "grass_remaining": 16959.911398181102,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 161,
+          "food": 900.7801058329283
+        },
+        {
+          "alive": true,
+          "captures": 180,
+          "food": 1703.3820634767587
+        }
+      ]
+    },
+    {
+      "day": 360,
+      "absolute_day": 720,
+      "rabbits": 112,
+      "west": 0,
+      "east": 112,
+      "births_since_introduction": 713,
+      "starvation_since_introduction": 515,
+      "pregnant": 0,
+      "grass_remaining": 17897.879169650674,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 173,
+          "food": 908.4185637478695
+        },
+        {
+          "alive": true,
+          "captures": 191,
+          "food": 1036.594305556666
+        }
+      ]
+    }
+  ]
+}
