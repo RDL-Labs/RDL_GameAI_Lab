@@ -1,0 +1,139 @@
+{
+  "source": "C:/Users/ken_m/Documents/Codex/burrow-predators-360d-20261108",
+  "completed": {
+    "days": 360,
+    "start_day": 360,
+    "end_day": 720,
+    "verified": true,
+    "seconds": 2130.1577526
+  },
+  "exit": {
+    "ended_utc": "2026-11-08T04:56:23.3861016Z",
+    "error": null,
+    "started_utc": "2026-11-08T04:20:26.4534403Z",
+    "exit_code": 0
+  },
+  "daily_rows": 360,
+  "initial_rabbits": 278,
+  "final": {
+    "day": 360,
+    "absolute_day": 720,
+    "seconds": 2130.080999851227,
+    "rabbits": 76,
+    "west": 1,
+    "east": 75,
+    "births": 677,
+    "starvation": 627,
+    "pregnant": 0,
+    "predators": [
+      {
+        "alive": true,
+        "captures": 165,
+        "food": 1195.5493055564348
+      },
+      {
+        "alive": false,
+        "captures": 87,
+        "food": 0
+      }
+    ]
+  },
+  "predator_death_days": [
+    null,
+    226
+  ],
+  "late": [
+    {
+      "day": 270,
+      "absolute_day": 630,
+      "seconds": 1870.930999994278,
+      "rabbits": 119,
+      "west": 1,
+      "east": 118,
+      "births": 677,
+      "starvation": 623,
+      "pregnant": 0,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 126,
+          "food": 1045.4262500010977
+        },
+        {
+          "alive": false,
+          "captures": 87,
+          "food": 0
+        }
+      ]
+    },
+    {
+      "day": 300,
+      "absolute_day": 660,
+      "seconds": 1961.4989998340607,
+      "rabbits": 102,
+      "west": 1,
+      "east": 101,
+      "births": 677,
+      "starvation": 627,
+      "pregnant": 0,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 139,
+          "food": 1118.109230806283
+        },
+        {
+          "alive": false,
+          "captures": 87,
+          "food": 0
+        }
+      ]
+    },
+    {
+      "day": 330,
+      "absolute_day": 690,
+      "seconds": 2052.689999818802,
+      "rabbits": 88,
+      "west": 1,
+      "east": 87,
+      "births": 677,
+      "starvation": 627,
+      "pregnant": 0,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 153,
+          "food": 1234.3240690511425
+        },
+        {
+          "alive": false,
+          "captures": 87,
+          "food": 0
+        }
+      ]
+    },
+    {
+      "day": 360,
+      "absolute_day": 720,
+      "seconds": 2130.080999851227,
+      "rabbits": 76,
+      "west": 1,
+      "east": 75,
+      "births": 677,
+      "starvation": 627,
+      "pregnant": 0,
+      "predators": [
+        {
+          "alive": true,
+          "captures": 165,
+          "food": 1195.5493055564348
+        },
+        {
+          "alive": false,
+          "captures": 87,
+          "food": 0
+        }
+      ]
+    }
+  ]
+}
