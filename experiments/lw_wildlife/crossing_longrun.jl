@@ -62,7 +62,7 @@ function crossing_main()
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,
-        crossing_enabled,crossing=PREDATOR_CROSSING,rabbit_H=true,nest_grazing_avoidance=false,rabbit_burrow=G.RABBIT_BURROW,grass_scale=crossing_grass_scale,nutrition=1.5,
+        crossing_enabled,crossing=PREDATOR_CROSSING,rabbit_H=true,nest_grazing_avoidance=false,rabbit_burrow=G.RABBIT_BURROW,nursing_plan=G.RABBIT_NURSING_PLAN,grass_scale=crossing_grass_scale,nutrition=1.5,
         predator_energy=PREDATOR_ANIMAL_TRIAL,
         donor=donor===nothing ? nothing : abspath(ARGS[2]),donor_index=donor===nothing ? nothing : 2,human_scent=false,boundary=true,
         predator_removal=crossing_predator_count==0,

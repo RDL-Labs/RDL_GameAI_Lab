@@ -1,18 +1,45 @@
-# 暫定固定：wildlife.reproduction=true のみ（既定false）。幼体は巣で待機し、
-# 母親は日に一度、授乳が必要な仔の出生位置へ戻る。位置は記憶の代用として直接保持。
-# 既存の採食・逃走FSMを保ち、母体不足なら採食、逃走は帰巣より優先する。
-# 将来は巣の観測・記憶と子の要求による目的選択へ置換する。学習成果とは扱わない。
+# 暫定固定：繁殖ON。子の不足・帰巣消費を直接参照し、まとめて採食してから授乳へ戻る。
+# 日付や実施回数では完了扱いしない。血縁/巣位置/子のenergyは認知の代用。
+# 逃走優先。胃の満杯/睡眠を尊重し、通常満腹85を超す備蓄は要求しない。
+# 将来は子との関係MB・身体需要・移動見積もりへ置換する。
+const RABBIT_NURSING_PLAN=(enabled=true,request_energy=4.,departure_cap=85.,
+    move_speed=.2,move_cost_per_tick=.012,travel_slack=1.5,gut_limit=3.8,
+    sleep_limit=1.,minimum_grass=.005)
+function configured_rabbit_nursing_forecast(s,mother,children)
+    a=s.animals;r=RABBIT_NURSING_PLAN
+    goal=s.life.nest[first(children)]
+    distance=hypot(a.x[mother]-goal[1],a.z[mother]-goal[2])
+    travel_ticks=max(0.,distance-RABBIT_LIFE.nurse_distance)/r.move_speed*r.travel_slack
+    milk=sum(max(0.,RABBIT_LIFE.milk_target-a.energy[i])+RABBIT_LIFE.infant_energy_per_day*travel_ticks/RABBIT_LIFE.day_ticks for i in children)
+    required=RABBIT_LIFE.maternal_reserve+milk/RABBIT_LIFE.milk_efficiency+travel_ticks*r.move_cost_per_tick
+    (goal=goal,travel_ticks=travel_ticks,milk=milk,departure_energy=min(r.departure_cap,required))
+end
 function configured_rabbit_nursing!(s,t)
     life=s.life;life===nothing && return
-    a=s.animals;day=div(t,RABBIT_LIFE.day_ticks)
+    a=s.animals;r=RABBIT_NURSING_PLAN
+    mothers=Dict{Int,Vector{Int}}()
     for i in eachindex(s.alive)
         life.moving[i]=s.alive[i] && !dependent(life,i,t)
-    end
-    for i in eachindex(s.alive)
-        s.alive[i] && dependent(life,i,t) && life.nursed_day[i]<day || continue
+        s.alive[i] && dependent(life,i,t) || continue
         mother=life.mother[i]
-        mother>0 && s.alive[mother] && a.energy[mother]>RABBIT_LIFE.maternal_reserve && s.overrides[mother]==0 || continue
-        goal=life.nest[i]
+        mother>0 && s.alive[mother] || continue
+        push!(get!(()->Int[],mothers,mother),i)
+    end
+    r.enabled || return
+    for (mother,children) in mothers
+        minimum(a.energy[i] for i in children)<=r.request_energy || continue
+        s.overrides[mother]==0 || continue
+        forecast=configured_rabbit_nursing_forecast(s,mother,children)
+        if a.energy[mother]<forecast.departure_energy
+            # 暫定固定：授乳準備の採食需要。満腹休息より優先、胃満杯/睡眠/逃走は保つ。
+            if a.gut[mother]<r.gut_limit && a.sleepy[mother]<r.sleep_limit
+                k=H.cell(s.world,a.x[mother],a.z[mother])
+                s.overrides[mother]=H.grass!(s.world,k,t)>=r.minimum_grass ? H.GRAZE : H.SEARCH
+                a.target[mother]=0;a.next_sense[mother]=t
+            end
+            continue
+        end
+        goal=forecast.goal
         hypot(a.x[mother]-goal[1],a.z[mother]-goal[2])<=RABBIT_LIFE.nurse_distance && continue
         s.overrides[mother]=H.SEARCH;a.target[mother]=H.cell(s.world,goal...);a.next_sense[mother]=t+1
         life.nest_return_ticks+=1

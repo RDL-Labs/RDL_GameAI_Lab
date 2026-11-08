@@ -121,6 +121,7 @@ end
  s.animals.x[1]=-6.;G.rabbit_birth!(s,1,0)
  s.animals.x[1]=-10.;s.animals.current_cell[1]=G.H.cell(s.world,-10.,6.)
  s.life.nursed_day[3:5].=-1
+ s.animals.energy[3:5].=4. # Hunger, not calendar alone, requests nursing.
  push!(s.world.obstacles,G.H.RDLMigrationProbe.Circle(-8.,6.,.4))
  initial=deepcopy(s);humans=[(1000.,1000.) for _ in s.previous_humans]
  for t in 0:99

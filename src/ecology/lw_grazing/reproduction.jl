@@ -159,13 +159,14 @@ function rabbit_nurse!(s,t)
     # Siblings share the available milk proportionally, without first-child priority.
     mothers=Dict{Int,Vector{Int}}()
     for i in eachindex(s.alive)
-        s.alive[i] && dependent(life,i,t) && life.nursed_day[i]<day || continue
+        s.alive[i] && dependent(life,i,t) && a.energy[i]<RABBIT_LIFE.milk_target || continue
         mother=life.mother[i];mother>0 && s.alive[mother] || continue
         hypot(a.x[mother]-a.x[i],a.z[mother]-a.z[i])<=RABBIT_LIFE.nurse_distance || continue
         s.overrides[mother]==H.FLEE && continue
         push!(get!(()->Int[],mothers,mother),i)
     end
     for (mother,children) in mothers
+        minimum(a.energy[i] for i in children)<=RABBIT_NURSING_PLAN.request_energy || continue
         needs=[max(0.,RABBIT_LIFE.milk_target-a.energy[i]) for i in children]
         requested=sum(needs);requested>0 || continue
         milk=min(requested,max(0.,a.energy[mother]-RABBIT_LIFE.maternal_reserve)*RABBIT_LIFE.milk_efficiency)

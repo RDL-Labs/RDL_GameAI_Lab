@@ -610,3 +610,20 @@ conditions.rabbit_burrowへ設定、日次dependent/保存個体born,motherで�
 捕食者なしの巣穴対照実験：crossing_longrunの第8引数の保存状態をpredators=0でも
 継続可能とした。元状態に捕食者がいないこと、草倍率一致、日末境界の検査は維持。
 年齢・繁殖/乱数・草・兎Hを引き継ぎ、再配置しない。donor引数は0匹時には未使用。
+
+### 授乳前のまとめ採食と不足による再要求（2026-11-08）
+
+`configured_paths/wildlife_reproduction.jl`のRABBIT_NURSING_PLAN。
+request_energy=4（幼体1日消費分）、milk_target=8は既存身体値。
+子の不足＋帰巣中の子の消費を効率.75で母体必要量へ換算し、母の留保35と帰巣消費を足す。
+move_speed=.2、move_cost_per_tick=.012は既存移動の値、travel_slack=1.5は直線距離への暫定余裕。
+departure_cap=85は既存通常満腹値。上限を超えた必要量を待ち続けず85で出発可能。
+準備中は満腹休息より採食を優先するがgut_limit=3.8、sleep_limit=1、minimum_grass=.005は
+既存の胃/睡眠/採食境界を保つ。採食速度・消化速度・身体容量は増やさない。
+enabled=falseは準備/帰巣の設定介入のみ無効化し、従来の日次打切りへは戻さない。
+血縁・子のenergy・巣座標・世界草量を直接参照する暫定固定。将来は観測と関係MBへ置換。
+母ごとに全幼体の不足を合算。1tickの小さな補充を繰り返さないよう子energy<=4で授乳を開始し、
+その場の兄弟の不足を8までまとめて補充する。供給不足なら次tick以降も再試行可能。
+nursed_dayは最終授乳日の記録のみ。日次の実施済みを要求/供給の遮断に使わない。
+conditions.nursing_plan、既存milk_in/out/nursing_visits/nursed_day、比較用eventsに記録。
+遠方・低資源で準備が間に合わない可能性は残る。子の余命からの緊急出発は未実装。
