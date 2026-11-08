@@ -181,7 +181,7 @@ end
 
 include("balance.jl")
 
-function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths=0)
+function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths=0,swimming_policy=nothing)
     w=s.world;a=s.animals
     for k in eachindex(w.grass);H.grass!(w,k,s.ticks);end
     prior=previous===nothing ? nothing : get(previous,:balances,nothing)
@@ -191,7 +191,7 @@ function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths
         digestion=balance_diagnostic("digestion",sum(a.consumed),sum(a.gut)+sum(a.digested);previous=old(:digestion)))
     captures=(s.predator===nothing ? 0 : s.predator.body.captures)+additional_predation_deaths
     @assert count(!,s.alive)==s.deaths+captures
-    @assert all(i->H.clear(w,(a.x[i],a.z[i]),(a.x[i],a.z[i])),eachindex(s.alive))
+    @assert all(i->H.clear(w,(a.x[i],a.z[i]),(a.x[i],a.z[i])) || H.configured_rabbit_swim_position_valid(swimming_policy,w,a,i),eachindex(s.alive))
     @assert all(isfinite,a.energy) && all(e->0<=e<=100,a.energy)
     @assert all(i->!s.alive[i] || sum(a.counts[i,:])==s.ticks-(s.life===nothing ? 0 : max(0,s.life.born[i])),eachindex(s.alive))
     (rule="lw-grazing-v1",balances=balances,count=length(s.alive),alive=count(s.alive),ticks=s.ticks,

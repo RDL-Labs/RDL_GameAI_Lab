@@ -68,9 +68,9 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
     animal_trial_prepare!(s,predators,t;scents,minds,prey_scents,motion_speed,local_hunts,physiology)
     animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition,prey_scents,local_hunts,physiology)
 end
-function animal_trial_report(s,predators;scents=nothing,minds=nothing)
+function animal_trial_report(s,predators;scents=nothing,minds=nothing,swimming_policy=nothing)
     captures=sum((p.visual.body.captures for p in predators);init=0)
-    report=(ambient_vision=G.AmbientVision.RULE,rabbits=G.snapshot(s;additional_predation_deaths=captures),predators=trial_predator_report.(predators))
+    report=(ambient_vision=G.AmbientVision.RULE,rabbits=G.snapshot(s;additional_predation_deaths=captures,swimming_policy),predators=trial_predator_report.(predators))
     scents!==nothing && (report=merge(report,(scent=scent_report(scents),)))
     minds===nothing ? report : merge(report,(cognition=predator_mind_report.(minds),))
 end

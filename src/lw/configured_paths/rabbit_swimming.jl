@@ -76,3 +76,11 @@ function configured_rabbit_swim_step!(p::RabbitSwimmingPolicy,w,a,i,t,overrides)
     end
     true
 end
+
+# Snapshot validation exception only for a recorded, geometrically valid water crossing.
+# Does not change locomotion or permit untracked water positions.
+configured_rabbit_swim_position_valid(policy,w,a,i)=false
+function configured_rabbit_swim_position_valid(policy::RabbitSwimmingPolicy,w,a,i)
+ p=(a.x[i],a.z[i])
+ haskey(policy.trips,i) && material(w.phase,p...)==WATER && configured_rabbit_swim_clear(w,p,p)
+end

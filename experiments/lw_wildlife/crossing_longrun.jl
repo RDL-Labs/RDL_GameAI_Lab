@@ -104,7 +104,7 @@ function crossing_main()
         animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition=1.5,prey_scents,local_hunts=locals,physiology,pursuits,grazing_policy=rabbit_approach)
         if (t+1)%17280==0
             absolute_day=div(t+1,17280);day=absolute_day-start_day
-            report=animal_trial_report(s,predators;scents,minds)
+            report=animal_trial_report(s,predators;scents,minds,swimming_policy=rabbit_approach)
             west(p)=p[1]<12+5sin((p[2]-6)/22+s.world.phase)
             rabbit_west=count(i->s.alive[i] && west((s.animals.x[i],s.animals.z[i])),eachindex(s.alive))
             row=(neighbor_gpu=H.rabbit_neighbor_stats(),day,absolute_day,elapsed_seconds=time()-started,rabbits=report.rabbits.alive,starvation=report.rabbits.starvation_deaths,
