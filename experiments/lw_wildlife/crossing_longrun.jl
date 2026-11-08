@@ -3,7 +3,7 @@ using JSON3,Serialization,Random,Test
 length(ARGS) in (4,5) || error("INPUT DONOR OUTPUT DAYS [crossing=true]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
-1<=crossing_days<=180 || error("days")
+1<=crossing_days<=360 || error("days must be 1..360")
 ispath(crossing_output) && error("fresh output required")
 const crossing_repo=normpath(joinpath(@__DIR__,"../.."))
 const crossing_source=joinpath(crossing_output,"source")
