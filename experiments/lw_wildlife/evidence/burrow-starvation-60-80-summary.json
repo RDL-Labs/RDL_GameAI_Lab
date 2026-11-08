@@ -1,0 +1,890 @@
+{
+  "count": 609,
+  "ages": {
+    "nursing": 274,
+    "28-35": 115,
+    "adult": 183,
+    "35-150": 37
+  },
+  "days": {
+    "65": 3,
+    "68": 24,
+    "69": 178,
+    "70": 230,
+    "71": 10,
+    "77": 13,
+    "78": 95,
+    "79": 48,
+    "80": 8
+  },
+  "side": {
+    "west": 445,
+    "east": 164
+  },
+  "states": {
+    "sleep": 274,
+    "search": 311,
+    "graze": 24
+  },
+  "nursing": {
+    "count": 274,
+    "mother": {
+      "alive": 57,
+      "dead": 217
+    },
+    "examples": [
+      {
+        "tick": 7326745,
+        "day": 65,
+        "id": 913,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 423,
+        "mother_energy": 84.72927012597908,
+        "mother_distance": 2.3298141176115483,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 19.00144675925926,
+        "state": "sleep",
+        "mother": 12,
+        "mother_alive": true,
+        "position": [
+          11.930795691987152,
+          48.533207455513754
+        ],
+        "gut": 0,
+        "cell": 3430,
+        "grass": 0.4296046122461935,
+        "capacity": 9.315250776154397,
+        "nearby_max": 9.14000916028597,
+        "demand": 0,
+        "allocation_ratio": 1
+      },
+      {
+        "tick": 7326745,
+        "day": 65,
+        "id": 914,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 423,
+        "mother_energy": 84.72927012597908,
+        "mother_distance": 2.3298141176115483,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 19.00144675925926,
+        "state": "sleep",
+        "mother": 12,
+        "mother_alive": true,
+        "position": [
+          11.930795691987152,
+          48.533207455513754
+        ],
+        "gut": 0,
+        "cell": 3430,
+        "grass": 0.4296046122461935,
+        "capacity": 9.315250776154397,
+        "nearby_max": 9.14000916028597,
+        "demand": 0,
+        "allocation_ratio": 1
+      },
+      {
+        "tick": 7326745,
+        "day": 65,
+        "id": 915,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 423,
+        "mother_energy": 84.72927012597908,
+        "mother_distance": 2.3298141176115483,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 19.00144675925926,
+        "state": "sleep",
+        "mother": 12,
+        "mother_alive": true,
+        "position": [
+          11.930795691987152,
+          48.533207455513754
+        ],
+        "gut": 0,
+        "cell": 3430,
+        "grass": 0.4296046122461935,
+        "capacity": 9.315250776154397,
+        "nearby_max": 9.14000916028597,
+        "demand": 0,
+        "allocation_ratio": 1
+      },
+      {
+        "tick": 7412039,
+        "day": 69,
+        "id": 1128,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 427,
+        "mother_energy": 0,
+        "mother_distance": 32.78835153650147,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 1.9374421296296296,
+        "state": "sleep",
+        "mother": 125,
+        "mother_alive": false,
+        "position": [
+          -60.00646779471728,
+          18.88518641223378
+        ],
+        "gut": 0,
+        "cell": 2434,
+        "grass": 0.27414068529666386,
+        "capacity": 10.681287580442731,
+        "nearby_max": 9.483893289319212,
+        "demand": 0,
+        "allocation_ratio": 0.2843398314238227
+      },
+      {
+        "tick": 7412039,
+        "day": 69,
+        "id": 1129,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 427,
+        "mother_energy": 0,
+        "mother_distance": 32.78835153650147,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 1.9374421296296296,
+        "state": "sleep",
+        "mother": 125,
+        "mother_alive": false,
+        "position": [
+          -60.00646779471728,
+          18.88518641223378
+        ],
+        "gut": 0,
+        "cell": 2434,
+        "grass": 0.27414068529666386,
+        "capacity": 10.681287580442731,
+        "nearby_max": 9.483893289319212,
+        "demand": 0,
+        "allocation_ratio": 0.2843398314238227
+      },
+      {
+        "tick": 7412039,
+        "day": 69,
+        "id": 1130,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 427,
+        "mother_energy": 0,
+        "mother_distance": 32.78835153650147,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 1.9374421296296296,
+        "state": "sleep",
+        "mother": 125,
+        "mother_alive": false,
+        "position": [
+          -60.00646779471728,
+          18.88518641223378
+        ],
+        "gut": 0,
+        "cell": 2434,
+        "grass": 0.27414068529666386,
+        "capacity": 10.681287580442731,
+        "nearby_max": 9.483893289319212,
+        "demand": 0,
+        "allocation_ratio": 0.2843398314238227
+      },
+      {
+        "tick": 7412039,
+        "day": 69,
+        "id": 1131,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 427,
+        "mother_energy": 0,
+        "mother_distance": 32.78835153650147,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 1.9374421296296296,
+        "state": "sleep",
+        "mother": 125,
+        "mother_alive": false,
+        "position": [
+          -60.00646779471728,
+          18.88518641223378
+        ],
+        "gut": 0,
+        "cell": 2434,
+        "grass": 0.27414068529666386,
+        "capacity": 10.681287580442731,
+        "nearby_max": 9.483893289319212,
+        "demand": 0,
+        "allocation_ratio": 0.2843398314238227
+      },
+      {
+        "tick": 7413120,
+        "day": 70,
+        "id": 972,
+        "west": true,
+        "energy": 0,
+        "last_nursed": 427,
+        "mother_energy": 0,
+        "mother_distance": 13.381451669944335,
+        "eaten_total": 0,
+        "travel_total": 0,
+        "age": 21,
+        "state": "sleep",
+        "mother": 540,
+        "mother_alive": false,
+        "position": [
+          -6.014939152553942,
+          -23.439151067543243
+        ],
+        "gut": 0,
+        "cell": 1117,
+        "grass": 0.029966853213442453,
+        "capacity": 9.330220243752894,
+        "nearby_max": 0.07167843430611166,
+        "demand": 0,
+        "allocation_ratio": 0.33476484670872647
+      }
+    ]
+  },
+  "nearby": {
+    "trace": 223,
+    "available": 104,
+    "none": 8
+  },
+  "regions": [
+    {
+      "day": 60,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 515,
+          "grass": 6587.931615717322,
+          "dependent": 331,
+          "energy": 32.738882692005134
+        },
+        {
+          "west": false,
+          "alive": 201,
+          "grass": 5853.008829697113,
+          "dependent": 107,
+          "energy": 41.59520751338235
+        }
+      ]
+    },
+    {
+      "day": 67,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 554,
+          "grass": 2881.4149910101946,
+          "dependent": 305,
+          "energy": 40.27137755989244
+        },
+        {
+          "west": false,
+          "alive": 212,
+          "grass": 4538.856242956308,
+          "dependent": 87,
+          "energy": 51.52498217141575
+        }
+      ]
+    },
+    {
+      "day": 68,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 530,
+          "grass": 953.1324253810376,
+          "dependent": 276,
+          "energy": 21.40142500802778
+        },
+        {
+          "west": false,
+          "alive": 216,
+          "grass": 4085.672449466235,
+          "dependent": 78,
+          "energy": 55.61364918985345
+        }
+      ]
+    },
+    {
+      "day": 69,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 352,
+          "grass": 1116.882884025997,
+          "dependent": 267,
+          "energy": 13.621741673352512
+        },
+        {
+          "west": false,
+          "alive": 216,
+          "grass": 4154.8556118635515,
+          "dependent": 78,
+          "energy": 55.498621429042075
+        }
+      ]
+    },
+    {
+      "day": 70,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 122,
+          "grass": 3521.42308041833,
+          "dependent": 41,
+          "energy": 56.87294552303492
+        },
+        {
+          "west": false,
+          "alive": 219,
+          "grass": 3635.3020699797125,
+          "dependent": 68,
+          "energy": 59.66543275948854
+        }
+      ]
+    },
+    {
+      "day": 71,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 112,
+          "grass": 6610.5985612014665,
+          "dependent": 18,
+          "energy": 71.79922875976645
+        },
+        {
+          "west": false,
+          "alive": 219,
+          "grass": 3525.0316909471007,
+          "dependent": 68,
+          "energy": 59.68008961052604
+        }
+      ]
+    },
+    {
+      "day": 76,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9870.710387619223,
+          "dependent": 15,
+          "energy": 74.44020181967565
+        },
+        {
+          "west": false,
+          "alive": 233,
+          "grass": 1409.340131569069,
+          "dependent": 61,
+          "energy": 63.03600908477479
+        }
+      ]
+    },
+    {
+      "day": 77,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9774.418932902681,
+          "dependent": 12,
+          "energy": 76.33706462350875
+        },
+        {
+          "west": false,
+          "alive": 220,
+          "grass": 754.2174717472258,
+          "dependent": 61,
+          "energy": 29.93811439519153
+        }
+      ]
+    },
+    {
+      "day": 78,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9748.497454469358,
+          "dependent": 12,
+          "energy": 76.35194673580612
+        },
+        {
+          "west": false,
+          "alive": 125,
+          "grass": 848.3825509809376,
+          "dependent": 61,
+          "energy": 27.2169461453601
+        }
+      ]
+    },
+    {
+      "day": 80,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9548.002583062385,
+          "dependent": 7,
+          "energy": 79.72569433721286
+        },
+        {
+          "west": false,
+          "alive": 80,
+          "grass": 4476.613214691004,
+          "dependent": 16,
+          "energy": 68.53015857749423
+        }
+      ]
+    }
+  ],
+  "source": "C:/Users/ken_m/Documents/Codex/burrow-starvation-60-80-audit.json",
+  "checks": [
+    {
+      "day": 60,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 515,
+          "grass": 6587.931615717322,
+          "dependent": 331,
+          "energy": 32.738882692005134
+        },
+        {
+          "west": false,
+          "alive": 201,
+          "grass": 5853.008829697113,
+          "dependent": 107,
+          "energy": 41.59520751338235
+        }
+      ]
+    },
+    {
+      "day": 61,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 515,
+          "grass": 6588.916840491774,
+          "dependent": 331,
+          "energy": 32.78725943149643
+        },
+        {
+          "west": false,
+          "alive": 201,
+          "grass": 5821.752756121915,
+          "dependent": 107,
+          "energy": 41.6003163963006
+        }
+      ]
+    },
+    {
+      "day": 62,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 531,
+          "grass": 6590.841842539236,
+          "dependent": 347,
+          "energy": 31.96216377555199
+        },
+        {
+          "west": false,
+          "alive": 212,
+          "grass": 5785.558116881057,
+          "dependent": 118,
+          "energy": 39.79089054867423
+        }
+      ]
+    },
+    {
+      "day": 63,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 539,
+          "grass": 6540.863237239089,
+          "dependent": 355,
+          "energy": 31.475838791522353
+        },
+        {
+          "west": false,
+          "alive": 212,
+          "grass": 5779.968198115048,
+          "dependent": 118,
+          "energy": 39.55543110395497
+        }
+      ]
+    },
+    {
+      "day": 64,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 550,
+          "grass": 6499.276626255796,
+          "dependent": 366,
+          "energy": 30.93575348035596
+        },
+        {
+          "west": false,
+          "alive": 212,
+          "grass": 5759.432604555541,
+          "dependent": 118,
+          "energy": 39.687373557317585
+        }
+      ]
+    },
+    {
+      "day": 65,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 550,
+          "grass": 5549.972614131737,
+          "dependent": 344,
+          "energy": 34.19573019579532
+        },
+        {
+          "west": false,
+          "alive": 212,
+          "grass": 5516.180620880824,
+          "dependent": 112,
+          "energy": 41.9965782411971
+        }
+      ]
+    },
+    {
+      "day": 66,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 550,
+          "grass": 4599.357877306651,
+          "dependent": 328,
+          "energy": 36.58298499656164
+        },
+        {
+          "west": false,
+          "alive": 212,
+          "grass": 5147.815904773338,
+          "dependent": 103,
+          "energy": 45.4194490990104
+        }
+      ]
+    },
+    {
+      "day": 67,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 554,
+          "grass": 2881.4149910101946,
+          "dependent": 305,
+          "energy": 40.27137755989244
+        },
+        {
+          "west": false,
+          "alive": 212,
+          "grass": 4538.856242956308,
+          "dependent": 87,
+          "energy": 51.52498217141575
+        }
+      ]
+    },
+    {
+      "day": 68,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 530,
+          "grass": 953.1324253810376,
+          "dependent": 276,
+          "energy": 21.40142500802778
+        },
+        {
+          "west": false,
+          "alive": 216,
+          "grass": 4085.672449466235,
+          "dependent": 78,
+          "energy": 55.61364918985345
+        }
+      ]
+    },
+    {
+      "day": 69,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 352,
+          "grass": 1116.882884025997,
+          "dependent": 267,
+          "energy": 13.621741673352512
+        },
+        {
+          "west": false,
+          "alive": 216,
+          "grass": 4154.8556118635515,
+          "dependent": 78,
+          "energy": 55.498621429042075
+        }
+      ]
+    },
+    {
+      "day": 70,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 122,
+          "grass": 3521.42308041833,
+          "dependent": 41,
+          "energy": 56.87294552303492
+        },
+        {
+          "west": false,
+          "alive": 219,
+          "grass": 3635.3020699797125,
+          "dependent": 68,
+          "energy": 59.66543275948854
+        }
+      ]
+    },
+    {
+      "day": 71,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 112,
+          "grass": 6610.5985612014665,
+          "dependent": 18,
+          "energy": 71.79922875976645
+        },
+        {
+          "west": false,
+          "alive": 219,
+          "grass": 3525.0316909471007,
+          "dependent": 68,
+          "energy": 59.68008961052604
+        }
+      ]
+    },
+    {
+      "day": 72,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 112,
+          "grass": 9048.577740006307,
+          "dependent": 18,
+          "energy": 71.82926700758892
+        },
+        {
+          "west": false,
+          "alive": 230,
+          "grass": 3105.91467938852,
+          "dependent": 71,
+          "energy": 59.924123830528465
+        }
+      ]
+    },
+    {
+      "day": 73,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 112,
+          "grass": 9780.71864655252,
+          "dependent": 18,
+          "energy": 71.8156127385623
+        },
+        {
+          "west": false,
+          "alive": 230,
+          "grass": 2776.998466431495,
+          "dependent": 67,
+          "energy": 61.1651298304007
+        }
+      ]
+    },
+    {
+      "day": 74,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 112,
+          "grass": 9764.528108507777,
+          "dependent": 12,
+          "energy": 76.10560644844654
+        },
+        {
+          "west": false,
+          "alive": 230,
+          "grass": 2415.1413799065995,
+          "dependent": 64,
+          "energy": 62.21219414421772
+        }
+      ]
+    },
+    {
+      "day": 75,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 112,
+          "grass": 9844.246079154047,
+          "dependent": 12,
+          "energy": 76.14817243062906
+        },
+        {
+          "west": false,
+          "alive": 230,
+          "grass": 2147.916930135023,
+          "dependent": 64,
+          "energy": 62.18912174460729
+        }
+      ]
+    },
+    {
+      "day": 76,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9870.710387619223,
+          "dependent": 15,
+          "energy": 74.44020181967565
+        },
+        {
+          "west": false,
+          "alive": 233,
+          "grass": 1409.340131569069,
+          "dependent": 61,
+          "energy": 63.03600908477479
+        }
+      ]
+    },
+    {
+      "day": 77,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9774.418932902681,
+          "dependent": 12,
+          "energy": 76.33706462350875
+        },
+        {
+          "west": false,
+          "alive": 220,
+          "grass": 754.2174717472258,
+          "dependent": 61,
+          "energy": 29.93811439519153
+        }
+      ]
+    },
+    {
+      "day": 78,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9748.497454469358,
+          "dependent": 12,
+          "energy": 76.35194673580612
+        },
+        {
+          "west": false,
+          "alive": 125,
+          "grass": 848.3825509809376,
+          "dependent": 61,
+          "energy": 27.2169461453601
+        }
+      ]
+    },
+    {
+      "day": 79,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9733.633435851742,
+          "dependent": 12,
+          "energy": 76.42265735427767
+        },
+        {
+          "west": false,
+          "alive": 83,
+          "grass": 2218.838388887151,
+          "dependent": 22,
+          "energy": 62.792453796122324
+        }
+      ]
+    },
+    {
+      "day": 80,
+      "same": true,
+      "regions": [
+        {
+          "west": true,
+          "alive": 115,
+          "grass": 9548.002583062385,
+          "dependent": 7,
+          "energy": 79.72569433721286
+        },
+        {
+          "west": false,
+          "alive": 80,
+          "grass": 4476.613214691004,
+          "dependent": 16,
+          "energy": 68.53015857749423
+        }
+      ]
+    }
+  ],
+  "living_mother": {
+    "total": 57,
+    "farther_than_nursing_radius": 57,
+    "energy_above_70": 43
+  },
+  "scope": "Replay days 60 through 80; 609 deaths, excludes 6 earlier deaths. All 21 day ends match original alive/position/energy/intake/action counters/grass."
+}
