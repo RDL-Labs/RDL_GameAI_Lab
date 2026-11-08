@@ -1,0 +1,615 @@
+{
+  "checks": [
+    {
+      "day": 149,
+      "same": true
+    },
+    {
+      "day": 150,
+      "same": true
+    },
+    {
+      "day": 151,
+      "same": true
+    },
+    {
+      "day": 152,
+      "same": true
+    }
+  ],
+  "deaths": 287,
+  "independent": 235,
+  "dependent": 52,
+  "dependent_dead_mother": 52,
+  "death_states": {
+    "search": 210,
+    "graze": 25,
+    "sleep": 52
+  },
+  "death_with_gut": 25,
+  "independent_current_grass_below_threshold": 201,
+  "independent_all_neighbors_below_threshold": 3,
+  "neighbor_max_quantiles": [
+    0.004176082655910158,
+    0.08193214805237245,
+    20.716102445215174
+  ],
+  "by_day": [
+    {
+      "day": 149,
+      "total": 18,
+      "dependent": 0
+    },
+    {
+      "day": 150,
+      "total": 210,
+      "dependent": 0
+    },
+    {
+      "day": 151,
+      "total": 26,
+      "dependent": 19
+    },
+    {
+      "day": 152,
+      "total": 33,
+      "dependent": 33
+    }
+  ],
+  "regions": [
+    {
+      "day": 120,
+      "side": "west",
+      "alive": 57,
+      "independent": 51,
+      "energy_mean": 84.97639918283689,
+      "energy_min": 83.99135189314691,
+      "gut_mean": 0.0017647058823529415,
+      "grass": 23570.005273957577,
+      "capacity": 24830.373051397844,
+      "local_low": 2
+    },
+    {
+      "day": 120,
+      "side": "east",
+      "alive": 338,
+      "independent": 252,
+      "energy_mean": 84.72757133622524,
+      "energy_min": 82.77693751188814,
+      "gut_mean": 0.0016071428571428575,
+      "grass": 9815.933311061981,
+      "capacity": 16885.463011683198,
+      "local_low": 0
+    },
+    {
+      "day": 140,
+      "side": "west",
+      "alive": 57,
+      "independent": 57,
+      "energy_mean": 84.91902861423529,
+      "energy_min": 83.00947707850287,
+      "gut_mean": 0.0014912280701754389,
+      "grass": 23421.522057895254,
+      "capacity": 24830.373051397844,
+      "local_low": 0
+    },
+    {
+      "day": 140,
+      "side": "east",
+      "alive": 410,
+      "independent": 319,
+      "energy_mean": 84.82949029260972,
+      "energy_min": 82.05279968653214,
+      "gut_mean": 0.002460846861883917,
+      "grass": 6105.050651281472,
+      "capacity": 16885.463011683198,
+      "local_low": 7
+    },
+    {
+      "day": 148,
+      "side": "west",
+      "alive": 57,
+      "independent": 57,
+      "energy_mean": 84.48804293759467,
+      "energy_min": 83.24786049863879,
+      "gut_mean": 0.0006140350877192983,
+      "grass": 23429.627119248107,
+      "capacity": 24830.373051397844,
+      "local_low": 0
+    },
+    {
+      "day": 148,
+      "side": "east",
+      "alive": 416,
+      "independent": 338,
+      "energy_mean": 83.65871505795201,
+      "energy_min": 4.035648148144993,
+      "gut_mean": 0.0017760699231493227,
+      "grass": 2589.174747051769,
+      "capacity": 16885.463011683198,
+      "local_low": 32
+    },
+    {
+      "day": 149,
+      "side": "west",
+      "alive": 57,
+      "independent": 57,
+      "energy_mean": 84.61796756652531,
+      "energy_min": 83.54105001963393,
+      "gut_mean": 0.0005263157894736842,
+      "grass": 23412.564670162403,
+      "capacity": 24830.373051397844,
+      "local_low": 0
+    },
+    {
+      "day": 149,
+      "side": "east",
+      "alive": 398,
+      "independent": 329,
+      "energy_mean": 49.29936923794493,
+      "energy_min": 1.9966452497588167,
+      "gut_mean": 0.001358713412410337,
+      "grass": 1417.6142860376062,
+      "capacity": 16885.463011683198,
+      "local_low": 225
+    },
+    {
+      "day": 150,
+      "side": "west",
+      "alive": 57,
+      "independent": 57,
+      "energy_mean": 84.93630842206356,
+      "energy_min": 84.04648394768395,
+      "gut_mean": 0.001929824561403509,
+      "grass": 23428.07502546581,
+      "capacity": 24830.373051397844,
+      "local_low": 1
+    },
+    {
+      "day": 150,
+      "side": "east",
+      "alive": 188,
+      "independent": 123,
+      "energy_mean": 44.60851792543325,
+      "energy_min": 0.008101851847308033,
+      "gut_mean": 0.007992812907291317,
+      "grass": 1515.1681334917303,
+      "capacity": 16885.463011683198,
+      "local_low": 50
+    },
+    {
+      "day": 152,
+      "side": "west",
+      "alive": 57,
+      "independent": 57,
+      "energy_mean": 84.91718423338266,
+      "energy_min": 83.01841243388563,
+      "gut_mean": 0.0009649122807017545,
+      "grass": 23434.972093593453,
+      "capacity": 24830.373051397844,
+      "local_low": 0
+    },
+    {
+      "day": 152,
+      "side": "east",
+      "alive": 129,
+      "independent": 121,
+      "energy_mean": 81.33278441032732,
+      "energy_min": 4.028935185182025,
+      "gut_mean": 0.0032644628099173572,
+      "grass": 9292.454470350025,
+      "capacity": 16885.463011683198,
+      "local_low": 0
+    },
+    {
+      "day": 153,
+      "side": "west",
+      "alive": 57,
+      "independent": 57,
+      "energy_mean": 84.57634525378208,
+      "energy_min": 83.30530023679597,
+      "gut_mean": 0.002719298245614037,
+      "grass": 23394.87124052851,
+      "capacity": 24830.373051397844,
+      "local_low": 0
+    },
+    {
+      "day": 153,
+      "side": "east",
+      "alive": 129,
+      "independent": 121,
+      "energy_mean": 84.68382259308684,
+      "energy_min": 82.06186649585246,
+      "gut_mean": 0.002231404958677687,
+      "grass": 12658.087471731775,
+      "capacity": 16885.463011683198,
+      "local_low": 0
+    },
+    {
+      "day": 300,
+      "side": "west",
+      "alive": 159,
+      "independent": 159,
+      "energy_mean": 84.86515061474806,
+      "energy_min": 83.1710849843573,
+      "gut_mean": 0.0019496855345911954,
+      "grass": 20790.226543827896,
+      "capacity": 24830.373051397844,
+      "local_low": 3
+    },
+    {
+      "day": 300,
+      "side": "east",
+      "alive": 305,
+      "independent": 305,
+      "energy_mean": 84.69188948308785,
+      "energy_min": 82.9946881598767,
+      "gut_mean": 0.002213114754098362,
+      "grass": 7267.242086543767,
+      "capacity": 16885.463011683198,
+      "local_low": 3
+    }
+  ],
+  "samples": [
+    {
+      "tick": 2559168,
+      "day": 148.1,
+      "alive": 473,
+      "energy_mean": 83.67071427192523,
+      "gut_mean": 0.002013534475526075,
+      "hungry": 4,
+      "search": 39
+    },
+    {
+      "tick": 2560896,
+      "day": 148.2,
+      "alive": 473,
+      "energy_mean": 82.34306942338418,
+      "gut_mean": 0.0021590264390698205,
+      "hungry": 3,
+      "search": 52
+    },
+    {
+      "tick": 2562624,
+      "day": 148.3,
+      "alive": 472,
+      "energy_mean": 80.7374013653518,
+      "gut_mean": 0.0023508897028267505,
+      "hungry": 1,
+      "search": 79
+    },
+    {
+      "tick": 2564352,
+      "day": 148.4,
+      "alive": 471,
+      "energy_mean": 78.80164900047804,
+      "gut_mean": 0.0016036197525722063,
+      "hungry": 1,
+      "search": 99
+    },
+    {
+      "tick": 2566080,
+      "day": 148.5,
+      "alive": 471,
+      "energy_mean": 76.5425393602649,
+      "gut_mean": 0.0020157034647674027,
+      "hungry": 2,
+      "search": 95
+    },
+    {
+      "tick": 2567808,
+      "day": 148.6,
+      "alive": 471,
+      "energy_mean": 74.77299299683746,
+      "gut_mean": 0.007240138511134348,
+      "hungry": 8,
+      "search": 110
+    },
+    {
+      "tick": 2569536,
+      "day": 148.7,
+      "alive": 471,
+      "energy_mean": 71.58860814606469,
+      "gut_mean": 0.002423289673845484,
+      "hungry": 19,
+      "search": 159
+    },
+    {
+      "tick": 2571264,
+      "day": 148.8,
+      "alive": 468,
+      "energy_mean": 67.526430718401,
+      "gut_mean": 0.0036476095776218713,
+      "hungry": 23,
+      "search": 177
+    },
+    {
+      "tick": 2572992,
+      "day": 148.9,
+      "alive": 462,
+      "energy_mean": 61.85836784118967,
+      "gut_mean": 0.0035931505617702616,
+      "hungry": 32,
+      "search": 199
+    },
+    {
+      "tick": 2574720,
+      "day": 149,
+      "alive": 455,
+      "energy_mean": 55.72047465620869,
+      "gut_mean": 0.0012652963201140606,
+      "hungry": 49,
+      "search": 208
+    },
+    {
+      "tick": 2576448,
+      "day": 149.1,
+      "alive": 435,
+      "energy_mean": 49.73539302357551,
+      "gut_mean": 0.0015599381857904111,
+      "hungry": 62,
+      "search": 203
+    },
+    {
+      "tick": 2578176,
+      "day": 149.2,
+      "alive": 426,
+      "energy_mean": 44.62542589194408,
+      "gut_mean": 0.001471219008017782,
+      "hungry": 93,
+      "search": 223
+    },
+    {
+      "tick": 2579904,
+      "day": 149.3,
+      "alive": 411,
+      "energy_mean": 39.253410220025955,
+      "gut_mean": 0.002173933510492351,
+      "hungry": 140,
+      "search": 202
+    },
+    {
+      "tick": 2581632,
+      "day": 149.4,
+      "alive": 369,
+      "energy_mean": 38.16700302862899,
+      "gut_mean": 0.0027803874221083388,
+      "hungry": 145,
+      "search": 179
+    },
+    {
+      "tick": 2583360,
+      "day": 149.5,
+      "alive": 328,
+      "energy_mean": 38.903003266665806,
+      "gut_mean": 0.002792513219716818,
+      "hungry": 135,
+      "search": 129
+    },
+    {
+      "tick": 2585088,
+      "day": 149.6,
+      "alive": 297,
+      "energy_mean": 40.98954848241081,
+      "gut_mean": 0.0032249845300799437,
+      "hungry": 110,
+      "search": 134
+    },
+    {
+      "tick": 2586816,
+      "day": 149.7,
+      "alive": 270,
+      "energy_mean": 45.31434477942855,
+      "gut_mean": 0.003722356628661193,
+      "hungry": 88,
+      "search": 96
+    },
+    {
+      "tick": 2588544,
+      "day": 149.8,
+      "alive": 262,
+      "energy_mean": 47.39171678905904,
+      "gut_mean": 0.002651078080139914,
+      "hungry": 82,
+      "search": 93
+    },
+    {
+      "tick": 2590272,
+      "day": 149.9,
+      "alive": 247,
+      "energy_mean": 53.97571579951245,
+      "gut_mean": 0.004778150803583435,
+      "hungry": 57,
+      "search": 66
+    },
+    {
+      "tick": 2592000,
+      "day": 150,
+      "alive": 245,
+      "energy_mean": 58.68286862203709,
+      "gut_mean": 0.0062108862931638175,
+      "hungry": 49,
+      "search": 45
+    },
+    {
+      "tick": 2593728,
+      "day": 150.1,
+      "alive": 238,
+      "energy_mean": 63.493613062629215,
+      "gut_mean": 0.002452575383797546,
+      "hungry": 34,
+      "search": 63
+    },
+    {
+      "tick": 2595456,
+      "day": 150.2,
+      "alive": 237,
+      "energy_mean": 68.65542878066331,
+      "gut_mean": 0.01191738332653435,
+      "hungry": 17,
+      "search": 34
+    },
+    {
+      "tick": 2597184,
+      "day": 150.3,
+      "alive": 235,
+      "energy_mean": 74.66351870220811,
+      "gut_mean": 0.006693557701381966,
+      "hungry": 7,
+      "search": 34
+    },
+    {
+      "tick": 2598912,
+      "day": 150.4,
+      "alive": 229,
+      "energy_mean": 80.3919130914297,
+      "gut_mean": 0.003536266525346327,
+      "hungry": 4,
+      "search": 26
+    },
+    {
+      "tick": 2600640,
+      "day": 150.5,
+      "alive": 229,
+      "energy_mean": 83.58271666196914,
+      "gut_mean": 0.0074362082469539275,
+      "hungry": 2,
+      "search": 4
+    },
+    {
+      "tick": 2602368,
+      "day": 150.6,
+      "alive": 229,
+      "energy_mean": 84.82319558221563,
+      "gut_mean": 0.006343329626867987,
+      "hungry": 0,
+      "search": 5
+    },
+    {
+      "tick": 2604096,
+      "day": 150.7,
+      "alive": 229,
+      "energy_mean": 84.6496544743767,
+      "gut_mean": 0.002196531791907515,
+      "hungry": 0,
+      "search": 2
+    },
+    {
+      "tick": 2605824,
+      "day": 150.8,
+      "alive": 229,
+      "energy_mean": 84.6644771167869,
+      "gut_mean": 0.002487130793164225,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2607552,
+      "day": 150.9,
+      "alive": 224,
+      "energy_mean": 84.87960145641513,
+      "gut_mean": 0.0015895953757225434,
+      "hungry": 0,
+      "search": 1
+    },
+    {
+      "tick": 2609280,
+      "day": 151,
+      "alive": 219,
+      "energy_mean": 84.82210135016247,
+      "gut_mean": 0.0011271676300578042,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2611008,
+      "day": 151.1,
+      "alive": 186,
+      "energy_mean": 84.87690323290927,
+      "gut_mean": 0.0012716763005780347,
+      "hungry": 0,
+      "search": 1
+    },
+    {
+      "tick": 2612736,
+      "day": 151.2,
+      "alive": 186,
+      "energy_mean": 84.64131039054372,
+      "gut_mean": 0.0023410404624277467,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2614464,
+      "day": 151.3,
+      "alive": 186,
+      "energy_mean": 84.76214653594157,
+      "gut_mean": 0.0007514450867052033,
+      "hungry": 0,
+      "search": 5
+    },
+    {
+      "tick": 2616192,
+      "day": 151.4,
+      "alive": 186,
+      "energy_mean": 84.91068116337136,
+      "gut_mean": 0.001647398843930636,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2617920,
+      "day": 151.5,
+      "alive": 186,
+      "energy_mean": 84.81955977314544,
+      "gut_mean": 0.005173410404624282,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2619648,
+      "day": 151.6,
+      "alive": 186,
+      "energy_mean": 84.7515648819594,
+      "gut_mean": 0.0025722543352601174,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2621376,
+      "day": 151.7,
+      "alive": 186,
+      "energy_mean": 84.74953785774515,
+      "gut_mean": 0.0026011560693641627,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2623104,
+      "day": 151.8,
+      "alive": 186,
+      "energy_mean": 84.83982600062254,
+      "gut_mean": 0.001763005780346821,
+      "hungry": 0,
+      "search": 1
+    },
+    {
+      "tick": 2624832,
+      "day": 151.9,
+      "alive": 186,
+      "energy_mean": 84.8755790308584,
+      "gut_mean": 0.0008670520231213874,
+      "hungry": 0,
+      "search": 0
+    },
+    {
+      "tick": 2626560,
+      "day": 152,
+      "alive": 186,
+      "energy_mean": 84.74798693078905,
+      "gut_mean": 0.002601156069364163,
+      "hungry": 0,
+      "search": 0
+    }
+  ]
+}
