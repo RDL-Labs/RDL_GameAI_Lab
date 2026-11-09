@@ -82,6 +82,7 @@ function target!(w,a,i,t,policy=StateMachinePolicy())
 end
 include("../herbivore/approach.jl")
 include("../../lw/configured_paths/rabbit_swimming.jl")
+include("../../lw/configured_paths/rabbit_local_rho_connection.jl")
 include("../herbivore/neighbor_batch.jl")
 include("../herbivore/locomotion.jl")
 include("../../lw/configured_paths/rabbit_grazing_motion.jl")
@@ -134,6 +135,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         grazing_move_cost=0.
         growth=development===nothing ? nothing : development(i)
         allowed=q->growth===nothing || hypot(q[1]-growth.nest[1],q[2]-growth.nest[2])<=growth.radius
+        configured_rabbit_rho_progress!(policy,a,i,t)
         if growth===nothing && configured_rabbit_swim_step!(policy,w,a,i,t,overrides)
             # Optional locomotion policy handled the step; shared body cost still follows.
         elseif state==GRAZE
@@ -161,6 +163,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 speed=min(speed,growth.radius)
             end
             steering!==nothing && state==SEARCH && (a.heading[i]=steering(w,a,i,speed,overrides))
+            state==SEARCH && (a.heading[i]=configured_rabbit_rho_heading!(policy,w,a,i,t,a.heading[i];allowed))
             p=(a.x[i],a.z[i]); a.heading[i]=configured_boundary_heading(w,p,a.heading[i]); q=(p[1]+speed*cos(a.heading[i]),p[2]+speed*sin(a.heading[i]))
             if state==FLEE && !clear(w,p,q)
                 # Choose the clear escape step farthest from the perceived threat.

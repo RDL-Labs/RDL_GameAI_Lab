@@ -1,6 +1,7 @@
 include("../../lw/configured_paths/rabbit_approach_parameters.jl")
 include("../../lw/configured_paths/rabbit_cover_foraging.jl")
 include("../../lw/configured_paths/rabbit_sparse_departure.jl")
+include("../../lw/configured_paths/rabbit_local_rho_experiment.jl")
 mutable struct RabbitApproachMemory
     H::Dict{Int,Float64}
     target::Int
@@ -9,8 +10,9 @@ mutable struct RabbitApproachMemory
     forecast::Int
     rng::Xoshiro
     records::Vector{Any}
+    local_rho::RabbitLocalRho
 end
-RabbitApproachMemory(seed)=RabbitApproachMemory(Dict{Int,Float64}(),0,0.,0,0,Xoshiro(seed),Any[])
+RabbitApproachMemory(seed)=RabbitApproachMemory(Dict{Int,Float64}(),0,0.,0,0,Xoshiro(seed),Any[],RabbitLocalRho())
 struct RabbitApproachPolicy
     actors::Dict{Int,RabbitApproachMemory}
     seed::Int

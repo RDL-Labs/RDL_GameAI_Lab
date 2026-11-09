@@ -15,7 +15,7 @@ function trial(enabled)
  steering=(w,a,i,speed,overrides)->begin
    base=G.configured_rabbit_potential(w,a,i,speed,overrides)
    # Both runs share the exact state up to the observed trapping episode.
-   enabled && i==71 && s.ticks>=1234059 ? configured_rabbit_local_rho!(memory,w,a,i,s.ticks,base) : base
+   enabled && i==71 && s.ticks>=1234059 ? configured_rabbit_local_rho!(memory,w,a,i,s.ticks,base;geometry=H) : base
  end
  timing=@elapsed for t in s.ticks:72*17280-1
   animal_trial_prepare!(s,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits)

@@ -685,3 +685,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 幼体段階採食: RABBIT_JUVENILE_GROWTH(enabled=true,start_days=18,range_at_weaning=8,burrow_radius=0.25)。18日丁度は0、18〜28日で採食口量・胃容量・消化速度を線形増加。通常代謝と幼体代謝4/日を同率混合し二重課金しない。行動半径0〜8、離乳後は制限解除。授乳は28日まで維持。巣から0.25を超えれば捕食・視覚対象、移行期は泳ぎ不可。経験由来でない暫定成長近似。enabled=falseで従来の28日一括切替へ戻す。将来は身体発達と採食経験へ置換。長期ランナーconditionsへ設定保存。生存そのものの抽選なし。
 
 - 2026-11-09 局所ρ実験（通常OFF/未接続）: rabbit_local_rho_experiment.jl。候補なしSEARCHのforecast_ticks=10、H_trigger=1、H_limit=32。半径0.4/0.8/1.2/1.6、32方向、arrival=0.21、visit_resolution=0.4、visit_penalty=0.7、heading_bonus=0.15、distance_cost=0.1、forecast_slack=2、speed=0.2。全て暫定実験係数。親MBへの共通接続は未実装。詳細とON/OFF結果はexperiments/lw_wildlife/local_rho_mother71.md。
+
+- 2026-11-09 局所ρ通常接続: RABBIT_LOCAL_RHO.enabled=true。RabbitApproachPolicy/泳ぎラッパーの全個体SEARCHに適用、逃走/泳ぎには不介入。通常目標あり・局所Hなしなら追加走査なし。幼体移動範囲は細候補にも適用。採食再開で局所圧を解除、他状態では中間目標中断。history_limit=64、visit_limit=256で記録を制限し累計は別保存。個体ごとのlocal_rhoをcheckpoint保存、長期日次local_rhoに発動個体数・照会点数・イベント累計を保存。RabbitApproachMemory型変更のため旧checkpointは旧凍結ソースで読む。局所ρは親MB全体のHと未統合、候補ありの停滞は従来処理のまま。
