@@ -1,4 +1,5 @@
 include("../../lw/configured_paths/rabbit_approach_parameters.jl")
+include("../../lw/configured_paths/rabbit_cover_foraging.jl")
 mutable struct RabbitApproachMemory
     H::Dict{Int,Float64}
     target::Int
@@ -14,7 +15,7 @@ struct RabbitApproachPolicy
     seed::Int
 end
 RabbitApproachPolicy(;seed=20261107)=RabbitApproachPolicy(Dict{Int,RabbitApproachMemory}(),seed)
-choose_state(::RabbitApproachPolicy,o)=choose_state(StateMachinePolicy(),o)
+choose_state(::RabbitApproachPolicy,o)=configured_rabbit_cover_state(choose_state(StateMachinePolicy(),o),o)
 approach_memory(policy,i)=get!(()->RabbitApproachMemory(policy.seed+i),policy.actors,i)
 approach_feedback!(policy,w,a,i,t)=nothing
 function approach_record!(m,row)
@@ -29,7 +30,7 @@ function target!(w,a,i,t,policy::RabbitApproachPolicy)
     end
     observations=filter(!isnothing,observe_neighbors!(w,a,i,t))
     isempty(observations) && (a.target[i]=0;return)
-    scores=[o.grass-.25o.distance+.2cos(o.direction-a.heading[i])-
+    scores=[o.grass+configured_rabbit_cover_bonus(o,a.energy[i])-.25o.distance+.2cos(o.direction-a.heading[i])-
         (o.cell==a.previous_cell[i] ? 1. : 0.)-get(m.H,o.cell,0.) for o in observations]
     pressure=maximum(get(m.H,o.cell,0.) for o in observations)
     chosen=if pressure==0

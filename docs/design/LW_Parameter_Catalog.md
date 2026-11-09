@@ -663,3 +663,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 草の初期残量: src/lw/configured_paths/rabbit_patchy_grass.jl / RABBIT_PATCHY_GRASS。seed20261110、区画幅20世界距離、残量比0.2〜1.0。暫定固定の世界初期条件で既定full、明示patchy時のみ。容量/再生速度は変更しない。
 
 - 出産前巣候補: src/lw/configured_paths/rabbit_nest_preparation.jl / RABBIT_NEST_PREPARATION。lead_days=3、観測半径8、採食評価半径3、距離費0.12、選択温度0.5、移動reserve70/眠気1未満、到着半径0.6。全て暫定固定。既定ON、将来は場所MBへ置換。
+
+- 2026-11-09 草の遮蔽と採食: src/lw/configured_paths/rabbit_cover_foraging.jl / RABBIT_COVER_FORAGING。enabled=false（比較試験のみON）、RabbitApproachPolicyのみ適用（泳ぎラッパーを含む）。reserve_low=25、reserve_full=85、cover_target_weight=2、exposure_weight=1、intake_scale=0.025。暫定固定の認知評価。既存の観測coverと身体reserveのみ参照。低reserveでは遮蔽作用0、余裕があるほど露出による採食離脱と遮蔽候補加点が増える。逃走・睡眠・休息は変更しない。enabled=falseで旧動作。将来は露出・採食経験MBへ置換。crossing_longrunのconditionsに記録。
