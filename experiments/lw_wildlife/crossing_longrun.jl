@@ -1,6 +1,6 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8,9,10,11,12) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy]")
+length(ARGS) in (4,5,6,7,8,9,10,11,12,13) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
@@ -15,6 +15,8 @@ rabbit_initial_profile=="diverse" && crossing_population_checkpoint!==nothing &&
 const grass_initial_profile=length(ARGS)>=12 ? ARGS[12] : "full"
 grass_initial_profile in ("full","patchy") || error("unknown grass profile")
 grass_initial_profile=="patchy" && crossing_population_checkpoint!==nothing && error("patchy grass requires fresh world")
+const rabbit_layout_profile=length(ARGS)>=13 ? ARGS[13] : "distributed"
+rabbit_layout_profile in ("distributed","legacy") || error("unknown layout")
 const rabbit_neighbor_backend=length(ARGS)>=10 ? ARGS[10] : "cpu"
 rabbit_neighbor_backend in ("cpu","batch_cpu","gpu","gpu_audit","auto","auto_audit") || error("unknown neighbor backend")
 isfinite(crossing_grass_scale) && crossing_grass_scale>0 || error("grass_scale must be finite and positive")
@@ -31,6 +33,7 @@ include(joinpath(crossing_source,"experiments/lw_wildlife/predator_generations.j
 include(joinpath(crossing_source,"src/lw/configured_paths/predator_crossing_layout.jl"))
 include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_diverse_start.jl"))
 include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_patchy_grass.jl"))
+include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_distributed_layout.jl"))
 function crossing_main()
     input=JSON3.read(read(ARGS[1],String));scene=merge((;pairs(input.scene)...),
         (positions=Tuple{Float64,Float64}[],wildlife=merge((;pairs(input.scene.wildlife)...),(count=95,predator_count=0,grass_scale=crossing_grass_scale,boundary_gradient=true))))
@@ -38,13 +41,14 @@ function crossing_main()
     if population_saved===nothing
         s=G.build(scene,input.clock)
         rabbit_initial_profile=="diverse" && configured_rabbit_diverse_start!(s)
-        configured_crossing_layout!(s)
+        layout_record=rabbit_layout_profile=="distributed" ? configured_rabbit_distributed_layout!(s) : (configured_crossing_layout!(s);CROSSING_LAYOUT)
     else
         # Continue a predator-free world, optionally introducing two predators.
         # Keep world time, resources, rabbit physiology, RNG, families and learned H.
         isempty(population_saved.cohort.predators) || length(population_saved.cohort.predators)==crossing_predator_count || error("cannot change existing predator roster on continuation")
         prior_conditions=JSON3.read(read(joinpath(dirname(dirname(crossing_population_checkpoint)),"conditions.json"),String))
         prior_conditions.grass_scale==crossing_grass_scale || error("cannot change grass scale on continuation")
+        layout_record=(rule="inherited",)
         s=population_saved.world
         !s.prepared && s.ticks%17280==0 || error("checkpoint must be an unprepared day boundary")
     end
@@ -91,7 +95,7 @@ function crossing_main()
     conditions=(rabbit_cover_foraging=H.RABBIT_COVER_FORAGING,preserve_predators,initial_profiles_inherited=population_saved===nothing ? nothing : (rabbit=get(prior_conditions,:rabbit_initial_profile,"unknown"),grass=get(prior_conditions,:grass_initial_profile,"unknown")),rabbit_nest_preparation=G.RABBIT_NEST_PREPARATION,grass_initial_profile,grass_initial_parameters=grass_initial_profile=="patchy" ? RABBIT_PATCHY_GRASS : nothing,grass_initial_record,rabbit_initial_profile,initial_profile_parameters=rabbit_initial_profile=="diverse" ? RABBIT_DIVERSE_START : nothing,rabbit_reproductive_condition=G.RABBIT_REPRODUCTIVE_CONDITION,rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
-        humans=0,predators=length(predators),rabbits=count(s.alive),layout=CROSSING_LAYOUT,
+        humans=0,predators=length(predators),rabbits=count(s.alive),layout=layout_record,
         rabbit_swimming_enabled,rabbit_swimming=H.RABBIT_SWIMMING,
         rabbit_swimming_fixed="optional configured candidate; exact river geometry; no opposite-bank food lookup; hunger/local H/local grass weighting; shore overrides interrupt; water commits to landing; no drowning/current/temperature",
         crossing_enabled,crossing=PREDATOR_CROSSING,rabbit_H=true,nest_grazing_avoidance=false,rabbit_burrow=G.RABBIT_BURROW,nursing_plan=G.RABBIT_NURSING_PLAN,grass_scale=crossing_grass_scale,nutrition=1.5,
@@ -99,7 +103,7 @@ function crossing_main()
         donor=donor===nothing ? nothing : abspath(ARGS[2]),donor_index=donor===nothing ? nothing : 2,human_scent=false,boundary=true,
         predator_removal=crossing_predator_count==0,
         introduction=preserve_predators ? "exact existing cohort continuation; bodies, memories, RNG, scents, pursuits retained" : population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "requested predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
-        fixed=preserve_predators ? "no respawn or initial profile reapplication; current configured behaviors retained" : population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "20 west / 80 east family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
+        fixed=preserve_predators ? "no respawn or initial profile reapplication; current configured behaviors retained" : population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "capacity-weighted distributed or legacy family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "capacity-weighted distributed or legacy family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
         stop="requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained")
     write(joinpath(crossing_output,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
     cp(ARGS[1],joinpath(crossing_output,"input-origin.json"))
