@@ -1,0 +1,27 @@
+using JSON3,Serialization,Test
+root=ARGS[1];include(joinpath(root,"source/experiments/lw_wildlife/predator_generations.jl"))
+function audit()
+ results=Any[]
+ for (day,m,child) in ((32,6,107),(42,3,117))
+  saved=deserialize(joinpath(root,"checkpoints/day-"*lpad(day-1,3,'0')*".jls"));s=saved.world;c=saved.cohort;a=s.animals
+  samples=Any[];stats=Dict{String,Int}();min_distance=Inf
+  H.enable_rabbit_neighbor_batch!(s.world;gpu=true,automatic=true)
+  for t in s.ticks:day*17280-1
+   animal_trial_prepare!(s,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits)
+   if s.alive[child]
+    dist=hypot(a.x[m]-a.x[child],a.z[m]-a.z[child]);min_distance=min(min_distance,dist)
+    key="override_"*string(s.overrides[m]);stats[key]=get(stats,key,0)+1
+    if t%60==0 || a.energy[child]<.01
+     push!(samples,(tick=t,energy=a.energy[m],child_energy=a.energy[child],distance=dist,override=s.overrides[m],state=a.state[m],target=a.target[m],position=(a.x[m],a.z[m]),nest=s.life.nest[child],child_position=(a.x[child],a.z[child]),child_state=a.state[child],child_gut=a.gut[child],nursed=s.life.nursed_day[child],blocked=a.blocked[m]))
+    end
+   end
+   animal_trial_advance!(s,c.predators,t;scents=c.scents,minds=c.minds,prey_nutrition=1.5,prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits,grazing_policy=c.rabbit_approach)
+  end
+  animal_trial_report(s,c.predators;scents=c.scents,minds=c.minds,swimming_policy=c.rabbit_approach)
+  expected=deserialize(joinpath(root,"checkpoints/day-"*lpad(day,3,'0')*".jls")).world
+  @test s.alive==expected.alive && a.x==expected.animals.x && a.energy==expected.animals.energy && s.world.grass==expected.world.grass
+  push!(results,(;day,m,child,stats,min_distance,samples))
+ end
+ write(ARGS[2],JSON3.write(results))
+end
+audit()
