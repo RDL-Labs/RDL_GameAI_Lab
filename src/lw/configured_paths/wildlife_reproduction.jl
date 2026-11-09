@@ -14,6 +14,22 @@ const RABBIT_NURSING_PLAN=(enabled=true,request_energy=4.,departure_cap=85.,
 # 暫定固定: 血縁/子の位置と不足を直接読む。巣到着では完了しない。
 # enabled=falseで旧巣目標へ戻す。将来は子との関係MB/成果評価へ置換。
 const RABBIT_NURSING_GOAL=(enabled=true,completion_tolerance=1e-9)
+# 暫定固定: 子の実energyと最後に見た危険位置を比較。学習済み評価ではない。
+# 必要性=(request_energy-min_child_energy)/request_energy、危険=(far-distance)/(far-near)。
+# 同点は警戒維持。距離3/10は現行視覚反応の基準に合わせた世界距離。
+# enabled=falseで旧警戒一律優先。将来は子/危険MBの関係拘束へ置換。
+const RABBIT_NURSING_ALERT=(enabled=true,near_distance=3.,far_distance=10.,history_limit=64)
+const RABBIT_NURSING_ALERT_STATS=Dict("considered"=>0,"allowed"=>0)
+const RABBIT_NURSING_ALERT_RECORDS=Any[]
+configured_nursing_alert_enabled(mother)=RABBIT_NURSING_ALERT.enabled
+function configured_nursing_alert_evidence(s,mother,children)
+    rule=RABBIT_NURSING_ALERT;a=s.animals
+    need=clamp((RABBIT_NURSING_PLAN.request_energy-minimum(a.energy[i] for i in children))/RABBIT_NURSING_PLAN.request_energy,0.,1.)
+    observed=s.seen_position[mother]
+    distance=hypot(a.x[mother]-observed[1],a.z[mother]-observed[2])
+    danger=clamp((rule.far_distance-distance)/(rule.far_distance-rule.near_distance),0.,1.)
+    (need=need,danger=danger,distance=distance,allow=need>danger)
+end
 configured_nursing_pending(life)=life.nursing_pending
 configured_nursing_targets(life)=life.nursing_targets
 function configured_rabbit_nursing_forecast(s,mother,children)
@@ -52,8 +68,19 @@ function configured_rabbit_nursing!(s,t)
         else
             minimum(a.energy[i] for i in children)<=r.request_energy || continue
         end
-        s.overrides[mother]==0 || continue
+        nursing_alert=s.overrides[mother]==H.ALERT && configured_nursing_alert_enabled(mother)
+        (s.overrides[mother]==0 || nursing_alert) || continue
         forecast=configured_rabbit_nursing_forecast(s,mother,children)
+        if nursing_alert
+            evidence=configured_nursing_alert_evidence(s,mother,children)
+            allow=evidence.allow && a.energy[mother]>=forecast.departure_energy
+            RABBIT_NURSING_ALERT_STATS["considered"]+=1
+            RABBIT_NURSING_ALERT_STATS["allowed"]+=allow
+            push!(RABBIT_NURSING_ALERT_RECORDS,(tick=t,mother=mother,need=evidence.need,danger=evidence.danger,distance=evidence.distance,mother_energy=a.energy[mother],departure_energy=forecast.departure_energy,allow=allow))
+            length(RABBIT_NURSING_ALERT_RECORDS)>RABBIT_NURSING_ALERT.history_limit && popfirst!(RABBIT_NURSING_ALERT_RECORDS)
+            allow || continue
+            # Do not erase ALERT until an approach is actually required.
+        end
         if a.energy[mother]<forecast.departure_energy
             # 暫定固定：授乳準備の採食需要。満腹休息より優先、胃満杯/睡眠/逃走は保つ。
             if a.gut[mother]<r.gut_limit && a.sleepy[mother]<r.sleep_limit

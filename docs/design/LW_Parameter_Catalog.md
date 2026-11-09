@@ -707,3 +707,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 指数型候補幅: RABBIT_EXPONENTIAL_CANDIDATES(enabled=true,minimum=1,maximum=8,full_H=20,curvature=3)。新方式では開始/解除ゲートを迂回しmax親/局所Hを使用。正規化Hの指数曲線を整数丸めして粗順位上位Nへ限定。設定はconfigured_pathsへ隔離、将来はMB想起へ置換。falseで旧ゲート復帰。観測は全近傍のまま、限定するのは遮蔽加点/確率選択。conditionsと日次candidate_workに設定/処理件数を保存。長期効果未確認。
 
 - 2026-11-09 授乳成立ゴール: RABBIT_NURSING_GOAL(enabled=true,completion_tolerance=1e-9)。子のenergy<=既存request_energy4で不足する同腹子をpendingへ登録、実際の乳供給でmilk_target8まで達した子だけ完了。局所到着/少量供給/危険中断では消去しない。死亡/離乳/母死亡は終了として除去。接近先は対象子の現在座標、最も低energy→距離→IDの順。既存の血縁/体力/位置への直接アクセスを使う暫定固定で将来MBへ置換。enabled=falseで巣目標に復帰。pending/targetsはRabbitLifeに保存、日次pending件数とconditions設定を記録。旧checkpointは凍結ソースで読む。
+
+- 2026-11-09 警戒と授乳必要性の比較: RABBIT_NURSING_ALERT(enabled=true,near_distance=3,far_distance=10,history_limit=64)。ALERTのみ、必要性clamp((request_energy4-min_child_energy)/4,0,1)と危険clamp((10-最後の観測位置までの距離)/7,0,1)を比較、必要性>危険かつ既存departure_energy以上なら授乳接近を許可。同点警戒維持。FLEEや他の割込みは変更しない。母の体力不足時は警戒を解除しない。子の体力/血縁への直接参照は暫定固定、将来MBへ置換。falseで旧警戒一律優先。日次nursing_alertに検討/許可累計、直近64判断はRABBIT_NURSING_ALERT_RECORDS（プロセス内、checkpoint未保存）。

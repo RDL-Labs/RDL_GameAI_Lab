@@ -1,0 +1,741 @@
+[
+  {
+    "enabled": false,
+    "day": 42,
+    "m": 3,
+    "child": 117,
+    "alive": false,
+    "energy": 0.0,
+    "mother_alive": false,
+    "mother_energy": 84.18766995881361,
+    "min_distance": 1.1903031539478528,
+    "blocked": 0,
+    "children": [
+      {
+        "id": 116,
+        "alive": false,
+        "energy": 5.297377140399949
+      },
+      {
+        "id": 117,
+        "alive": false,
+        "energy": 0.0
+      },
+      {
+        "id": 118,
+        "alive": false,
+        "energy": 0.0
+      },
+      {
+        "id": 119,
+        "alive": false,
+        "energy": 9.279658205566005
+      },
+      {
+        "id": 120,
+        "alive": false,
+        "energy": 0.0
+      },
+      {
+        "id": 121,
+        "alive": false,
+        "energy": 0.0
+      }
+    ],
+    "alert": {
+      "allowed": 0,
+      "considered": 0
+    },
+    "records": []
+  },
+  {
+    "enabled": true,
+    "day": 42,
+    "m": 3,
+    "child": 117,
+    "alive": false,
+    "energy": 0.0,
+    "mother_alive": false,
+    "mother_energy": 84.18766995881361,
+    "min_distance": 1.1903031539478528,
+    "blocked": 0,
+    "children": [
+      {
+        "id": 116,
+        "alive": false,
+        "energy": 5.297377140399949
+      },
+      {
+        "id": 117,
+        "alive": false,
+        "energy": 0.0
+      },
+      {
+        "id": 118,
+        "alive": false,
+        "energy": 0.0
+      },
+      {
+        "id": 119,
+        "alive": false,
+        "energy": 9.279658205566005
+      },
+      {
+        "id": 120,
+        "alive": false,
+        "energy": 0.0
+      },
+      {
+        "id": 121,
+        "alive": false,
+        "energy": 0.0
+      }
+    ],
+    "alert": {
+      "allowed": 0,
+      "considered": 210
+    },
+    "records": [
+      {
+        "tick": 711430,
+        "mother": 3,
+        "need": 0.46893214779449544,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 64.18793674539029,
+        "departure_energy": 66.77855787354298,
+        "allow": false
+      },
+      {
+        "tick": 711435,
+        "mother": 3,
+        "need": 0.4772993111818411,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 64.3498367453903,
+        "departure_energy": 66.92092838384053,
+        "allow": false
+      },
+      {
+        "tick": 711440,
+        "mother": 3,
+        "need": 0.4856675512661818,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 64.59903674539032,
+        "departure_energy": 67.13557981427229,
+        "allow": false
+      },
+      {
+        "tick": 711445,
+        "mother": 3,
+        "need": 0.49403686804751756,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 64.80323674539034,
+        "departure_energy": 67.27799626364163,
+        "allow": false
+      },
+      {
+        "tick": 711450,
+        "mother": 3,
+        "need": 0.5024072615258484,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 64.98013674539035,
+        "departure_energy": 67.49269363314518,
+        "allow": false
+      },
+      {
+        "tick": 711455,
+        "mother": 3,
+        "need": 0.510778731701174,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 65.13663674539036,
+        "departure_energy": 67.6351560215863,
+        "allow": false
+      },
+      {
+        "tick": 711460,
+        "mother": 3,
+        "need": 0.5191512785734949,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 65.31353674539038,
+        "departure_energy": 67.84989933016162,
+        "allow": false
+      },
+      {
+        "tick": 711465,
+        "mother": 3,
+        "need": 0.5275249021428108,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 65.54503674539039,
+        "departure_energy": 67.99240765767455,
+        "allow": false
+      },
+      {
+        "tick": 711470,
+        "mother": 3,
+        "need": 0.5358996024091216,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 65.70693674539041,
+        "departure_energy": 68.20719690532167,
+        "allow": false
+      },
+      {
+        "tick": 711475,
+        "mother": 3,
+        "need": 0.5442753793724275,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 65.95613674539042,
+        "departure_energy": 68.34975117190638,
+        "allow": false
+      },
+      {
+        "tick": 711480,
+        "mother": 3,
+        "need": 0.5526522330327284,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 66.13303674539044,
+        "departure_energy": 68.56458635862528,
+        "allow": false
+      },
+      {
+        "tick": 711485,
+        "mother": 3,
+        "need": 0.5610301633900244,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 66.28953674539045,
+        "departure_energy": 68.7860913350777,
+        "allow": false
+      },
+      {
+        "tick": 711490,
+        "mother": 3,
+        "need": 0.5694091704443154,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 66.46643674539047,
+        "departure_energy": 68.92206769007247,
+        "allow": false
+      },
+      {
+        "tick": 711495,
+        "mother": 3,
+        "need": 0.5777892541956013,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 66.69793674539048,
+        "departure_energy": 69.14361860559667,
+        "allow": false
+      },
+      {
+        "tick": 711500,
+        "mother": 3,
+        "need": 0.5861704146438824,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 66.8598367453905,
+        "departure_energy": 69.27964089966322,
+        "allow": false
+      },
+      {
+        "tick": 711505,
+        "mother": 3,
+        "need": 0.5945526517891585,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.10903674539051,
+        "departure_energy": 69.50123775425921,
+        "allow": false
+      },
+      {
+        "tick": 711510,
+        "mother": 3,
+        "need": 0.6029359656314296,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.31323674539053,
+        "departure_energy": 69.63730598739757,
+        "allow": false
+      },
+      {
+        "tick": 711515,
+        "mother": 3,
+        "need": 0.6113203561706957,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.34857776367893,
+        "departure_energy": 69.85894878106534,
+        "allow": false
+      },
+      {
+        "tick": 711520,
+        "mother": 3,
+        "need": 0.6197058234069568,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.34507661731145,
+        "departure_energy": 69.99506295327548,
+        "allow": false
+      },
+      {
+        "tick": 711525,
+        "mother": 3,
+        "need": 0.628092367340213,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.33697990081468,
+        "departure_energy": 70.21675168601506,
+        "allow": false
+      },
+      {
+        "tick": 711530,
+        "mother": 3,
+        "need": 0.6364799879704642,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.33681768100583,
+        "departure_energy": 70.35291179729698,
+        "allow": false
+      },
+      {
+        "tick": 711535,
+        "mother": 3,
+        "need": 0.6448686852977105,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.33538146365073,
+        "departure_energy": 70.57464646910832,
+        "allow": false
+      },
+      {
+        "tick": 711540,
+        "mother": 3,
+        "need": 0.6532584593219517,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.33125488912917,
+        "departure_energy": 70.71085251946205,
+        "allow": false
+      },
+      {
+        "tick": 711545,
+        "mother": 3,
+        "need": 0.6616493100431879,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.3264893858171,
+        "departure_energy": 70.93263313034518,
+        "allow": false
+      },
+      {
+        "tick": 711550,
+        "mother": 3,
+        "need": 0.6700412374614193,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.3229882394496,
+        "departure_energy": 71.06888511977068,
+        "allow": false
+      },
+      {
+        "tick": 711555,
+        "mother": 3,
+        "need": 0.6784342415766457,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.31489152295283,
+        "departure_energy": 71.29071166972561,
+        "allow": false
+      },
+      {
+        "tick": 711560,
+        "mother": 3,
+        "need": 0.686828322388867,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.31472930314398,
+        "departure_energy": 71.42700959822291,
+        "allow": false
+      },
+      {
+        "tick": 711565,
+        "mother": 3,
+        "need": 0.6952234798980834,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.31329308578889,
+        "departure_energy": 71.64888208724962,
+        "allow": false
+      },
+      {
+        "tick": 711570,
+        "mother": 3,
+        "need": 0.7036197141042948,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.30916651126732,
+        "departure_energy": 71.7852259548187,
+        "allow": false
+      },
+      {
+        "tick": 711575,
+        "mother": 3,
+        "need": 0.7120170250075013,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.30503607894285,
+        "departure_energy": 72.00714438291719,
+        "allow": false
+      },
+      {
+        "tick": 711580,
+        "mother": 3,
+        "need": 0.7204154126077027,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.30027057563078,
+        "departure_energy": 72.14353418955805,
+        "allow": false
+      },
+      {
+        "tick": 711585,
+        "mother": 3,
+        "need": 0.7288148769048992,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.29676942926328,
+        "departure_energy": 72.36549855672835,
+        "allow": false
+      },
+      {
+        "tick": 711590,
+        "mother": 3,
+        "need": 0.7372154178990908,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.28867271276651,
+        "departure_energy": 72.501934302441,
+        "allow": false
+      },
+      {
+        "tick": 711595,
+        "mother": 3,
+        "need": 0.7456170355902774,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.28851049295766,
+        "departure_energy": 72.72394460868308,
+        "allow": false
+      },
+      {
+        "tick": 711600,
+        "mother": 3,
+        "need": 0.7540197299784589,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.28707427560256,
+        "departure_energy": 72.86042629346754,
+        "allow": false
+      },
+      {
+        "tick": 711605,
+        "mother": 3,
+        "need": 0.7624235010636355,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.282947701081,
+        "departure_energy": 73.0824825387814,
+        "allow": false
+      },
+      {
+        "tick": 711610,
+        "mother": 3,
+        "need": 0.7708283488458072,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.27818219776893,
+        "departure_energy": 73.21901016263762,
+        "allow": false
+      },
+      {
+        "tick": 711615,
+        "mother": 3,
+        "need": 0.7792342733249739,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.27468105140143,
+        "departure_energy": 73.44111234702329,
+        "allow": false
+      },
+      {
+        "tick": 711620,
+        "mother": 3,
+        "need": 0.7876412745011355,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.26658433490466,
+        "departure_energy": 73.5776859099513,
+        "allow": false
+      },
+      {
+        "tick": 711625,
+        "mother": 3,
+        "need": 0.7960493523742923,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.2664221150958,
+        "departure_energy": 73.79983403340874,
+        "allow": false
+      },
+      {
+        "tick": 711630,
+        "mother": 3,
+        "need": 0.804458506944444,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.26498589774071,
+        "departure_energy": 73.93645353540855,
+        "allow": false
+      },
+      {
+        "tick": 711635,
+        "mother": 3,
+        "need": 0.8128687382115908,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.26085932321915,
+        "departure_energy": 74.15864759793779,
+        "allow": false
+      },
+      {
+        "tick": 711640,
+        "mother": 3,
+        "need": 0.8212800461757326,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.25672889089468,
+        "departure_energy": 74.29531303900937,
+        "allow": false
+      },
+      {
+        "tick": 711645,
+        "mother": 3,
+        "need": 0.8296924308368694,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.2519633875826,
+        "departure_energy": 74.5175530406104,
+        "allow": false
+      },
+      {
+        "tick": 711650,
+        "mother": 3,
+        "need": 0.8381058921950013,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.24846224121511,
+        "departure_energy": 74.65426442075376,
+        "allow": false
+      },
+      {
+        "tick": 711655,
+        "mother": 3,
+        "need": 0.8465204302501281,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.24036552471834,
+        "departure_energy": 74.87655036142657,
+        "allow": false
+      },
+      {
+        "tick": 711660,
+        "mother": 3,
+        "need": 0.8549360450022501,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.24020330490949,
+        "departure_energy": 75.01330768064174,
+        "allow": false
+      },
+      {
+        "tick": 711665,
+        "mother": 3,
+        "need": 0.863352736451367,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.2387670875544,
+        "departure_energy": 75.23563956038633,
+        "allow": false
+      },
+      {
+        "tick": 711670,
+        "mother": 3,
+        "need": 0.871770504597479,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.23464051303283,
+        "departure_energy": 75.37244281867329,
+        "allow": false
+      },
+      {
+        "tick": 711675,
+        "mother": 3,
+        "need": 0.880189349440586,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.22987500972076,
+        "departure_energy": 75.59482063748966,
+        "allow": false
+      },
+      {
+        "tick": 711680,
+        "mother": 3,
+        "need": 0.888609270980688,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.22637386335326,
+        "departure_energy": 75.73166983484842,
+        "allow": false
+      },
+      {
+        "tick": 711685,
+        "mother": 3,
+        "need": 0.8970302692177851,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.2182771468565,
+        "departure_energy": 75.95409359273658,
+        "allow": false
+      },
+      {
+        "tick": 711690,
+        "mother": 3,
+        "need": 0.9054523441518771,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.21811492704764,
+        "departure_energy": 76.09098872916711,
+        "allow": false
+      },
+      {
+        "tick": 711695,
+        "mother": 3,
+        "need": 0.9138754957829642,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.21667870969254,
+        "departure_energy": 76.31345842612707,
+        "allow": false
+      },
+      {
+        "tick": 711700,
+        "mother": 3,
+        "need": 0.9222997241110464,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.21255213517098,
+        "departure_energy": 76.4503995016294,
+        "allow": false
+      },
+      {
+        "tick": 711705,
+        "mother": 3,
+        "need": 0.9307250291361235,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.20842170284651,
+        "departure_energy": 76.67291513766115,
+        "allow": false
+      },
+      {
+        "tick": 711710,
+        "mother": 3,
+        "need": 0.9391514108581958,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.20365619953444,
+        "departure_energy": 76.80990215223524,
+        "allow": false
+      },
+      {
+        "tick": 711715,
+        "mother": 3,
+        "need": 0.947578869277263,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.20015505316694,
+        "departure_energy": 77.03246372733878,
+        "allow": false
+      },
+      {
+        "tick": 711720,
+        "mother": 3,
+        "need": 0.9560074043933252,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.19205833667017,
+        "departure_energy": 77.16949668098466,
+        "allow": false
+      },
+      {
+        "tick": 711725,
+        "mother": 3,
+        "need": 0.9644370162063824,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.19189611686132,
+        "departure_energy": 77.39210419516,
+        "allow": false
+      },
+      {
+        "tick": 711730,
+        "mother": 3,
+        "need": 0.9728677047164348,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.19045989950622,
+        "departure_energy": 77.52918308787768,
+        "allow": false
+      },
+      {
+        "tick": 711735,
+        "mother": 3,
+        "need": 0.981299469923482,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.18633332498466,
+        "departure_energy": 77.75183654112479,
+        "allow": false
+      },
+      {
+        "tick": 711740,
+        "mother": 3,
+        "need": 0.9897323118275244,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.18156782167259,
+        "departure_energy": 77.88896137291427,
+        "allow": false
+      },
+      {
+        "tick": 711745,
+        "mother": 3,
+        "need": 0.9981662304285618,
+        "danger": 0.7623087806422698,
+        "distance": 4.663838535504111,
+        "mother_energy": 67.17806667530509,
+        "departure_energy": 78.11166076523317,
+        "allow": false
+      }
+    ]
+  }
+]
