@@ -1,0 +1,3257 @@
+[
+  {
+    "name": "rabbit-cover-target90d-20261109",
+    "seconds": 337.1634165,
+    "deathDays": [
+      {
+        "day": 38,
+        "count": 6
+      },
+      {
+        "day": 58,
+        "count": 3
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "rabbits": 99,
+        "births": 0,
+        "starvation": 0,
+        "captures": 1,
+        "predator_alive": true,
+        "west": 20,
+        "east": 79,
+        "pregnant": 6,
+        "grass": 17868.985487076323
+      },
+      {
+        "day": 2,
+        "rabbits": 105,
+        "births": 6,
+        "starvation": 0,
+        "captures": 1,
+        "predator_alive": true,
+        "west": 26,
+        "east": 79,
+        "pregnant": 5,
+        "grass": 18621.81538556471
+      },
+      {
+        "day": 3,
+        "rabbits": 105,
+        "births": 6,
+        "starvation": 0,
+        "captures": 1,
+        "predator_alive": true,
+        "west": 26,
+        "east": 79,
+        "pregnant": 7,
+        "grass": 18722.437358595518
+      },
+      {
+        "day": 4,
+        "rabbits": 104,
+        "births": 6,
+        "starvation": 0,
+        "captures": 2,
+        "predator_alive": true,
+        "west": 26,
+        "east": 78,
+        "pregnant": 7,
+        "grass": 18734.878599304306
+      },
+      {
+        "day": 5,
+        "rabbits": 104,
+        "births": 6,
+        "starvation": 0,
+        "captures": 2,
+        "predator_alive": true,
+        "west": 26,
+        "east": 78,
+        "pregnant": 9,
+        "grass": 18726.57679369964
+      },
+      {
+        "day": 6,
+        "rabbits": 107,
+        "births": 9,
+        "starvation": 0,
+        "captures": 2,
+        "predator_alive": true,
+        "west": 29,
+        "east": 78,
+        "pregnant": 9,
+        "grass": 18714.22001331199
+      },
+      {
+        "day": 7,
+        "rabbits": 106,
+        "births": 9,
+        "starvation": 0,
+        "captures": 3,
+        "predator_alive": true,
+        "west": 29,
+        "east": 77,
+        "pregnant": 9,
+        "grass": 18734.100100328214
+      },
+      {
+        "day": 8,
+        "rabbits": 106,
+        "births": 9,
+        "starvation": 0,
+        "captures": 3,
+        "predator_alive": true,
+        "west": 29,
+        "east": 77,
+        "pregnant": 9,
+        "grass": 18762.26462488754
+      },
+      {
+        "day": 9,
+        "rabbits": 106,
+        "births": 9,
+        "starvation": 0,
+        "captures": 3,
+        "predator_alive": true,
+        "west": 29,
+        "east": 77,
+        "pregnant": 10,
+        "grass": 18758.813015385378
+      },
+      {
+        "day": 10,
+        "rabbits": 111,
+        "births": 15,
+        "starvation": 0,
+        "captures": 4,
+        "predator_alive": true,
+        "west": 35,
+        "east": 76,
+        "pregnant": 10,
+        "grass": 18560.17744719421
+      },
+      {
+        "day": 11,
+        "rabbits": 111,
+        "births": 15,
+        "starvation": 0,
+        "captures": 4,
+        "predator_alive": true,
+        "west": 35,
+        "east": 76,
+        "pregnant": 13,
+        "grass": 18613.2348919049
+      },
+      {
+        "day": 12,
+        "rabbits": 111,
+        "births": 15,
+        "starvation": 0,
+        "captures": 4,
+        "predator_alive": true,
+        "west": 35,
+        "east": 76,
+        "pregnant": 14,
+        "grass": 18622.533742095242
+      },
+      {
+        "day": 13,
+        "rabbits": 110,
+        "births": 15,
+        "starvation": 0,
+        "captures": 5,
+        "predator_alive": true,
+        "west": 35,
+        "east": 75,
+        "pregnant": 14,
+        "grass": 18632.91991313217
+      },
+      {
+        "day": 14,
+        "rabbits": 110,
+        "births": 15,
+        "starvation": 0,
+        "captures": 5,
+        "predator_alive": true,
+        "west": 35,
+        "east": 75,
+        "pregnant": 14,
+        "grass": 18684.040897336352
+      },
+      {
+        "day": 15,
+        "rabbits": 109,
+        "births": 15,
+        "starvation": 0,
+        "captures": 6,
+        "predator_alive": true,
+        "west": 35,
+        "east": 74,
+        "pregnant": 13,
+        "grass": 18712.526324040642
+      },
+      {
+        "day": 16,
+        "rabbits": 109,
+        "births": 15,
+        "starvation": 0,
+        "captures": 6,
+        "predator_alive": true,
+        "west": 35,
+        "east": 74,
+        "pregnant": 13,
+        "grass": 18551.224278619004
+      },
+      {
+        "day": 17,
+        "rabbits": 109,
+        "births": 15,
+        "starvation": 0,
+        "captures": 6,
+        "predator_alive": true,
+        "west": 35,
+        "east": 74,
+        "pregnant": 13,
+        "grass": 18557.67476987702
+      },
+      {
+        "day": 18,
+        "rabbits": 107,
+        "births": 15,
+        "starvation": 0,
+        "captures": 8,
+        "predator_alive": true,
+        "west": 35,
+        "east": 72,
+        "pregnant": 13,
+        "grass": 18585.952232781296
+      },
+      {
+        "day": 19,
+        "rabbits": 107,
+        "births": 15,
+        "starvation": 0,
+        "captures": 8,
+        "predator_alive": true,
+        "west": 35,
+        "east": 72,
+        "pregnant": 13,
+        "grass": 18611.050732255062
+      },
+      {
+        "day": 20,
+        "rabbits": 107,
+        "births": 15,
+        "starvation": 0,
+        "captures": 8,
+        "predator_alive": true,
+        "west": 35,
+        "east": 72,
+        "pregnant": 14,
+        "grass": 18443.06548952476
+      },
+      {
+        "day": 21,
+        "rabbits": 112,
+        "births": 21,
+        "starvation": 0,
+        "captures": 9,
+        "predator_alive": true,
+        "west": 41,
+        "east": 71,
+        "pregnant": 12,
+        "grass": 18493.724208035615
+      },
+      {
+        "day": 22,
+        "rabbits": 112,
+        "births": 21,
+        "starvation": 0,
+        "captures": 9,
+        "predator_alive": true,
+        "west": 41,
+        "east": 71,
+        "pregnant": 14,
+        "grass": 18524.52391243569
+      },
+      {
+        "day": 23,
+        "rabbits": 112,
+        "births": 21,
+        "starvation": 0,
+        "captures": 9,
+        "predator_alive": true,
+        "west": 41,
+        "east": 71,
+        "pregnant": 15,
+        "grass": 18553.637207110558
+      },
+      {
+        "day": 24,
+        "rabbits": 111,
+        "births": 21,
+        "starvation": 0,
+        "captures": 10,
+        "predator_alive": true,
+        "west": 41,
+        "east": 70,
+        "pregnant": 16,
+        "grass": 18557.661977399002
+      },
+      {
+        "day": 25,
+        "rabbits": 111,
+        "births": 21,
+        "starvation": 0,
+        "captures": 10,
+        "predator_alive": true,
+        "west": 41,
+        "east": 70,
+        "pregnant": 17,
+        "grass": 18569.336285588022
+      },
+      {
+        "day": 26,
+        "rabbits": 111,
+        "births": 21,
+        "starvation": 0,
+        "captures": 10,
+        "predator_alive": true,
+        "west": 41,
+        "east": 70,
+        "pregnant": 17,
+        "grass": 18561.03795858867
+      },
+      {
+        "day": 27,
+        "rabbits": 110,
+        "births": 21,
+        "starvation": 0,
+        "captures": 11,
+        "predator_alive": true,
+        "west": 41,
+        "east": 69,
+        "pregnant": 17,
+        "grass": 18597.67006803745
+      },
+      {
+        "day": 28,
+        "rabbits": 110,
+        "births": 21,
+        "starvation": 0,
+        "captures": 11,
+        "predator_alive": true,
+        "west": 41,
+        "east": 69,
+        "pregnant": 17,
+        "grass": 18590.078424055842
+      },
+      {
+        "day": 29,
+        "rabbits": 114,
+        "births": 25,
+        "starvation": 0,
+        "captures": 11,
+        "predator_alive": true,
+        "west": 45,
+        "east": 69,
+        "pregnant": 16,
+        "grass": 18562.907562959794
+      },
+      {
+        "day": 30,
+        "rabbits": 113,
+        "births": 25,
+        "starvation": 0,
+        "captures": 12,
+        "predator_alive": true,
+        "west": 45,
+        "east": 68,
+        "pregnant": 18,
+        "grass": 18553.80236697835
+      },
+      {
+        "day": 31,
+        "rabbits": 112,
+        "births": 25,
+        "starvation": 0,
+        "captures": 13,
+        "predator_alive": true,
+        "west": 45,
+        "east": 67,
+        "pregnant": 18,
+        "grass": 18401.241958972274
+      },
+      {
+        "day": 32,
+        "rabbits": 115,
+        "births": 28,
+        "starvation": 0,
+        "captures": 13,
+        "predator_alive": true,
+        "west": 45,
+        "east": 70,
+        "pregnant": 17,
+        "grass": 18410.573310204993
+      },
+      {
+        "day": 33,
+        "rabbits": 115,
+        "births": 28,
+        "starvation": 0,
+        "captures": 13,
+        "predator_alive": true,
+        "west": 45,
+        "east": 70,
+        "pregnant": 17,
+        "grass": 18401.196401932608
+      },
+      {
+        "day": 34,
+        "rabbits": 123,
+        "births": 37,
+        "starvation": 0,
+        "captures": 14,
+        "predator_alive": true,
+        "west": 45,
+        "east": 78,
+        "pregnant": 15,
+        "grass": 18369.372772688177
+      },
+      {
+        "day": 35,
+        "rabbits": 123,
+        "births": 37,
+        "starvation": 0,
+        "captures": 14,
+        "predator_alive": true,
+        "west": 45,
+        "east": 78,
+        "pregnant": 15,
+        "grass": 18279.285693777492
+      },
+      {
+        "day": 36,
+        "rabbits": 127,
+        "births": 42,
+        "starvation": 0,
+        "captures": 15,
+        "predator_alive": true,
+        "west": 45,
+        "east": 82,
+        "pregnant": 15,
+        "grass": 18357.934252644416
+      },
+      {
+        "day": 37,
+        "rabbits": 132,
+        "births": 47,
+        "starvation": 0,
+        "captures": 15,
+        "predator_alive": true,
+        "west": 45,
+        "east": 87,
+        "pregnant": 14,
+        "grass": 18348.018698992426
+      },
+      {
+        "day": 38,
+        "rabbits": 126,
+        "births": 47,
+        "starvation": 6,
+        "captures": 15,
+        "predator_alive": true,
+        "west": 45,
+        "east": 81,
+        "pregnant": 14,
+        "grass": 18371.30577119666
+      },
+      {
+        "day": 39,
+        "rabbits": 125,
+        "births": 47,
+        "starvation": 6,
+        "captures": 16,
+        "predator_alive": true,
+        "west": 45,
+        "east": 80,
+        "pregnant": 14,
+        "grass": 18198.696683772498
+      },
+      {
+        "day": 40,
+        "rabbits": 128,
+        "births": 50,
+        "starvation": 6,
+        "captures": 16,
+        "predator_alive": true,
+        "west": 45,
+        "east": 83,
+        "pregnant": 13,
+        "grass": 18208.83280809025
+      },
+      {
+        "day": 41,
+        "rabbits": 132,
+        "births": 55,
+        "starvation": 6,
+        "captures": 17,
+        "predator_alive": true,
+        "west": 45,
+        "east": 87,
+        "pregnant": 12,
+        "grass": 18179.56195050635
+      },
+      {
+        "day": 42,
+        "rabbits": 140,
+        "births": 63,
+        "starvation": 6,
+        "captures": 17,
+        "predator_alive": true,
+        "west": 45,
+        "east": 95,
+        "pregnant": 11,
+        "grass": 18186.436722450657
+      },
+      {
+        "day": 43,
+        "rabbits": 144,
+        "births": 67,
+        "starvation": 6,
+        "captures": 17,
+        "predator_alive": true,
+        "west": 45,
+        "east": 99,
+        "pregnant": 10,
+        "grass": 18207.292169272314
+      },
+      {
+        "day": 44,
+        "rabbits": 143,
+        "births": 67,
+        "starvation": 6,
+        "captures": 18,
+        "predator_alive": true,
+        "west": 45,
+        "east": 98,
+        "pregnant": 11,
+        "grass": 18251.89616910162
+      },
+      {
+        "day": 45,
+        "rabbits": 143,
+        "births": 67,
+        "starvation": 6,
+        "captures": 18,
+        "predator_alive": true,
+        "west": 45,
+        "east": 98,
+        "pregnant": 11,
+        "grass": 18284.25837412764
+      },
+      {
+        "day": 46,
+        "rabbits": 143,
+        "births": 67,
+        "starvation": 6,
+        "captures": 18,
+        "predator_alive": true,
+        "west": 45,
+        "east": 98,
+        "pregnant": 11,
+        "grass": 18320.13355277022
+      },
+      {
+        "day": 47,
+        "rabbits": 142,
+        "births": 67,
+        "starvation": 6,
+        "captures": 19,
+        "predator_alive": true,
+        "west": 45,
+        "east": 97,
+        "pregnant": 11,
+        "grass": 18347.570744817323
+      },
+      {
+        "day": 48,
+        "rabbits": 142,
+        "births": 67,
+        "starvation": 6,
+        "captures": 19,
+        "predator_alive": true,
+        "west": 45,
+        "east": 97,
+        "pregnant": 11,
+        "grass": 18351.79349200744
+      },
+      {
+        "day": 49,
+        "rabbits": 142,
+        "births": 67,
+        "starvation": 6,
+        "captures": 19,
+        "predator_alive": true,
+        "west": 45,
+        "east": 97,
+        "pregnant": 12,
+        "grass": 18348.473059147866
+      },
+      {
+        "day": 50,
+        "rabbits": 141,
+        "births": 67,
+        "starvation": 6,
+        "captures": 20,
+        "predator_alive": true,
+        "west": 45,
+        "east": 96,
+        "pregnant": 11,
+        "grass": 18152.74517060639
+      },
+      {
+        "day": 51,
+        "rabbits": 141,
+        "births": 67,
+        "starvation": 6,
+        "captures": 20,
+        "predator_alive": true,
+        "west": 45,
+        "east": 96,
+        "pregnant": 11,
+        "grass": 18188.904463251838
+      },
+      {
+        "day": 52,
+        "rabbits": 141,
+        "births": 67,
+        "starvation": 6,
+        "captures": 20,
+        "predator_alive": true,
+        "west": 45,
+        "east": 96,
+        "pregnant": 11,
+        "grass": 18162.745278925537
+      },
+      {
+        "day": 53,
+        "rabbits": 146,
+        "births": 73,
+        "starvation": 6,
+        "captures": 21,
+        "predator_alive": true,
+        "west": 45,
+        "east": 101,
+        "pregnant": 10,
+        "grass": 18148.922915818293
+      },
+      {
+        "day": 54,
+        "rabbits": 149,
+        "births": 76,
+        "starvation": 6,
+        "captures": 21,
+        "predator_alive": true,
+        "west": 45,
+        "east": 104,
+        "pregnant": 9,
+        "grass": 18135.919964675333
+      },
+      {
+        "day": 55,
+        "rabbits": 157,
+        "births": 84,
+        "starvation": 6,
+        "captures": 21,
+        "predator_alive": true,
+        "west": 45,
+        "east": 112,
+        "pregnant": 7,
+        "grass": 18143.62997199305
+      },
+      {
+        "day": 56,
+        "rabbits": 160,
+        "births": 88,
+        "starvation": 6,
+        "captures": 22,
+        "predator_alive": true,
+        "west": 45,
+        "east": 115,
+        "pregnant": 6,
+        "grass": 18152.26149440762
+      },
+      {
+        "day": 57,
+        "rabbits": 160,
+        "births": 88,
+        "starvation": 6,
+        "captures": 22,
+        "predator_alive": true,
+        "west": 45,
+        "east": 115,
+        "pregnant": 6,
+        "grass": 18190.282351939415
+      },
+      {
+        "day": 58,
+        "rabbits": 160,
+        "births": 91,
+        "starvation": 9,
+        "captures": 22,
+        "predator_alive": true,
+        "west": 45,
+        "east": 115,
+        "pregnant": 5,
+        "grass": 18122.18266068754
+      },
+      {
+        "day": 59,
+        "rabbits": 160,
+        "births": 91,
+        "starvation": 9,
+        "captures": 22,
+        "predator_alive": true,
+        "west": 45,
+        "east": 115,
+        "pregnant": 5,
+        "grass": 18130.325006395127
+      },
+      {
+        "day": 60,
+        "rabbits": 159,
+        "births": 91,
+        "starvation": 9,
+        "captures": 23,
+        "predator_alive": true,
+        "west": 44,
+        "east": 115,
+        "pregnant": 5,
+        "grass": 18150.046718436774
+      },
+      {
+        "day": 61,
+        "rabbits": 163,
+        "births": 95,
+        "starvation": 9,
+        "captures": 23,
+        "predator_alive": true,
+        "west": 44,
+        "east": 119,
+        "pregnant": 4,
+        "grass": 18032.064516434486
+      },
+      {
+        "day": 62,
+        "rabbits": 163,
+        "births": 95,
+        "starvation": 9,
+        "captures": 23,
+        "predator_alive": true,
+        "west": 44,
+        "east": 119,
+        "pregnant": 4,
+        "grass": 18044.07135224052
+      },
+      {
+        "day": 63,
+        "rabbits": 161,
+        "births": 95,
+        "starvation": 9,
+        "captures": 25,
+        "predator_alive": true,
+        "west": 42,
+        "east": 119,
+        "pregnant": 4,
+        "grass": 18002.896243831667
+      },
+      {
+        "day": 64,
+        "rabbits": 161,
+        "births": 95,
+        "starvation": 9,
+        "captures": 25,
+        "predator_alive": true,
+        "west": 42,
+        "east": 119,
+        "pregnant": 4,
+        "grass": 18056.868384025096
+      },
+      {
+        "day": 65,
+        "rabbits": 161,
+        "births": 95,
+        "starvation": 9,
+        "captures": 25,
+        "predator_alive": true,
+        "west": 42,
+        "east": 119,
+        "pregnant": 4,
+        "grass": 17900.52257260147
+      },
+      {
+        "day": 66,
+        "rabbits": 161,
+        "births": 95,
+        "starvation": 9,
+        "captures": 25,
+        "predator_alive": true,
+        "west": 42,
+        "east": 119,
+        "pregnant": 5,
+        "grass": 17783.27221139358
+      },
+      {
+        "day": 67,
+        "rabbits": 160,
+        "births": 95,
+        "starvation": 9,
+        "captures": 26,
+        "predator_alive": true,
+        "west": 41,
+        "east": 119,
+        "pregnant": 5,
+        "grass": 17846.756166444247
+      },
+      {
+        "day": 68,
+        "rabbits": 160,
+        "births": 95,
+        "starvation": 9,
+        "captures": 26,
+        "predator_alive": true,
+        "west": 41,
+        "east": 119,
+        "pregnant": 5,
+        "grass": 17840.85597370926
+      },
+      {
+        "day": 69,
+        "rabbits": 160,
+        "births": 95,
+        "starvation": 9,
+        "captures": 26,
+        "predator_alive": true,
+        "west": 41,
+        "east": 119,
+        "pregnant": 5,
+        "grass": 17725.834608724006
+      },
+      {
+        "day": 70,
+        "rabbits": 159,
+        "births": 95,
+        "starvation": 9,
+        "captures": 27,
+        "predator_alive": true,
+        "west": 40,
+        "east": 119,
+        "pregnant": 5,
+        "grass": 17580.17298797424
+      },
+      {
+        "day": 71,
+        "rabbits": 159,
+        "births": 95,
+        "starvation": 9,
+        "captures": 27,
+        "predator_alive": true,
+        "west": 40,
+        "east": 119,
+        "pregnant": 5,
+        "grass": 17336.7707193597
+      },
+      {
+        "day": 72,
+        "rabbits": 159,
+        "births": 95,
+        "starvation": 9,
+        "captures": 27,
+        "predator_alive": true,
+        "west": 41,
+        "east": 118,
+        "pregnant": 6,
+        "grass": 17195.337816963845
+      },
+      {
+        "day": 73,
+        "rabbits": 162,
+        "births": 100,
+        "starvation": 9,
+        "captures": 29,
+        "predator_alive": true,
+        "west": 44,
+        "east": 118,
+        "pregnant": 7,
+        "grass": 17286.924914965493
+      },
+      {
+        "day": 74,
+        "rabbits": 161,
+        "births": 100,
+        "starvation": 9,
+        "captures": 30,
+        "predator_alive": true,
+        "west": 43,
+        "east": 118,
+        "pregnant": 7,
+        "grass": 17339.10243394632
+      },
+      {
+        "day": 75,
+        "rabbits": 166,
+        "births": 106,
+        "starvation": 9,
+        "captures": 31,
+        "predator_alive": true,
+        "west": 42,
+        "east": 124,
+        "pregnant": 6,
+        "grass": 17356.864933666737
+      },
+      {
+        "day": 76,
+        "rabbits": 165,
+        "births": 106,
+        "starvation": 9,
+        "captures": 32,
+        "predator_alive": true,
+        "west": 41,
+        "east": 124,
+        "pregnant": 7,
+        "grass": 17428.042921056716
+      },
+      {
+        "day": 77,
+        "rabbits": 164,
+        "births": 106,
+        "starvation": 9,
+        "captures": 33,
+        "predator_alive": true,
+        "west": 40,
+        "east": 124,
+        "pregnant": 7,
+        "grass": 17488.14527181905
+      },
+      {
+        "day": 78,
+        "rabbits": 169,
+        "births": 112,
+        "starvation": 9,
+        "captures": 34,
+        "predator_alive": true,
+        "west": 45,
+        "east": 124,
+        "pregnant": 8,
+        "grass": 17474.62818937831
+      },
+      {
+        "day": 79,
+        "rabbits": 168,
+        "births": 112,
+        "starvation": 9,
+        "captures": 35,
+        "predator_alive": true,
+        "west": 44,
+        "east": 124,
+        "pregnant": 8,
+        "grass": 17496.19256139957
+      },
+      {
+        "day": 80,
+        "rabbits": 171,
+        "births": 116,
+        "starvation": 9,
+        "captures": 36,
+        "predator_alive": true,
+        "west": 43,
+        "east": 128,
+        "pregnant": 7,
+        "grass": 17526.25265582069
+      },
+      {
+        "day": 81,
+        "rabbits": 171,
+        "births": 116,
+        "starvation": 9,
+        "captures": 36,
+        "predator_alive": true,
+        "west": 43,
+        "east": 128,
+        "pregnant": 7,
+        "grass": 17526.42151061807
+      },
+      {
+        "day": 82,
+        "rabbits": 170,
+        "births": 116,
+        "starvation": 9,
+        "captures": 37,
+        "predator_alive": true,
+        "west": 42,
+        "east": 128,
+        "pregnant": 8,
+        "grass": 17369.809476640643
+      },
+      {
+        "day": 83,
+        "rabbits": 169,
+        "births": 116,
+        "starvation": 9,
+        "captures": 38,
+        "predator_alive": true,
+        "west": 41,
+        "east": 128,
+        "pregnant": 9,
+        "grass": 17335.95494695908
+      },
+      {
+        "day": 84,
+        "rabbits": 168,
+        "births": 116,
+        "starvation": 9,
+        "captures": 39,
+        "predator_alive": true,
+        "west": 40,
+        "east": 128,
+        "pregnant": 9,
+        "grass": 17141.304399444365
+      },
+      {
+        "day": 85,
+        "rabbits": 168,
+        "births": 116,
+        "starvation": 9,
+        "captures": 39,
+        "predator_alive": true,
+        "west": 40,
+        "east": 128,
+        "pregnant": 9,
+        "grass": 16951.64423411346
+      },
+      {
+        "day": 86,
+        "rabbits": 168,
+        "births": 116,
+        "starvation": 9,
+        "captures": 39,
+        "predator_alive": true,
+        "west": 40,
+        "east": 128,
+        "pregnant": 10,
+        "grass": 17046.34694838233
+      },
+      {
+        "day": 87,
+        "rabbits": 167,
+        "births": 116,
+        "starvation": 9,
+        "captures": 40,
+        "predator_alive": true,
+        "west": 39,
+        "east": 128,
+        "pregnant": 11,
+        "grass": 17015.206342518246
+      },
+      {
+        "day": 88,
+        "rabbits": 166,
+        "births": 116,
+        "starvation": 9,
+        "captures": 41,
+        "predator_alive": true,
+        "west": 38,
+        "east": 128,
+        "pregnant": 12,
+        "grass": 17066.871833236517
+      },
+      {
+        "day": 89,
+        "rabbits": 165,
+        "births": 116,
+        "starvation": 9,
+        "captures": 42,
+        "predator_alive": true,
+        "west": 37,
+        "east": 128,
+        "pregnant": 13,
+        "grass": 17058.870218559234
+      },
+      {
+        "day": 90,
+        "rabbits": 165,
+        "births": 116,
+        "starvation": 9,
+        "captures": 42,
+        "predator_alive": true,
+        "west": 37,
+        "east": 128,
+        "pregnant": 13,
+        "grass": 16933.735023760975
+      }
+    ],
+    "conditions": {
+      "rabbit_cover_foraging": {
+        "enabled": true,
+        "reserve_low": 25,
+        "reserve_full": 85,
+        "cover_target_weight": 2
+      },
+      "preserve_predators": false,
+      "initial_profiles_inherited": null,
+      "rabbit_nest_preparation": {
+        "enabled": true,
+        "lead_days": 3,
+        "observe_radius": 8,
+        "forage_radius": 3,
+        "distance_cost": 0.12,
+        "choice_temperature": 0.5,
+        "minimum_reserve": 70,
+        "sleep_limit": 1,
+        "arrival_radius": 0.6
+      },
+      "grass_initial_profile": "patchy",
+      "grass_initial_parameters": {
+        "seed": 20261110,
+        "patch_width": 20,
+        "fraction_min": 0.2,
+        "fraction_max": 1
+      },
+      "grass_initial_record": {
+        "initial_grass": 12776.877879240234,
+        "capacity": 20857.91803154052,
+        "fraction": 0.6125672686947731,
+        "patch_fraction_min": 0.2321442094309367,
+        "patch_fraction_max": 0.9697866413400009
+      },
+      "rabbit_initial_profile": "diverse",
+      "initial_profile_parameters": {
+        "seed": 20261109,
+        "total_count": 100,
+        "original_young": 5,
+        "dependent_count": 15,
+        "subadult_count": 20,
+        "family_size": 5,
+        "young_age_bands": [
+          [
+            3,
+            9
+          ],
+          [
+            11,
+            17
+          ],
+          [
+            19,
+            25
+          ]
+        ],
+        "adult_age": [
+          180,
+          540
+        ],
+        "subadult_age": [
+          35,
+          149
+        ],
+        "reserve_range": [
+          55,
+          85
+        ],
+        "sleepy_range": [
+          0,
+          1
+        ],
+        "recovering_mothers": 5
+      },
+      "rabbit_reproductive_condition": {
+        "enabled": true,
+        "reserve_low": 35,
+        "reserve_full": 85,
+        "balance_tau_days": 3,
+        "balance_scale_per_day": 5
+      },
+      "rabbit_breeding_season": {
+        "enabled": false
+      },
+      "rabbit_neighbor_backend": "auto",
+      "gpu_min_queries": 128,
+      "neighbor_gpu_scope": "static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",
+      "days": 90,
+      "start_day": 0,
+      "end_day": 90,
+      "population_checkpoint": null,
+      "initial_births": 0,
+      "initial_starvation": 0,
+      "humans": 0,
+      "predators": 1,
+      "rabbits": 100,
+      "layout": {
+        "west_rabbits": 20,
+        "seed": 20261108,
+        "bank_margin": 3
+      },
+      "rabbit_swimming_enabled": true,
+      "rabbit_swimming": {
+        "bank_range": 6,
+        "landing_margin": 1,
+        "swim_speed": 0.1,
+        "land_speed": 0.2,
+        "swim_cost": 0.036,
+        "land_cost": 0.012,
+        "energy_margin": 1.5,
+        "reserve": 5,
+        "interval": 64,
+        "prior_penalty": 5,
+        "hunger_reference": 65,
+        "hunger_scale": 15,
+        "H_scale": 4,
+        "grass_weight": 1,
+        "body_margin": 0.25
+      },
+      "rabbit_swimming_fixed": "optional configured candidate; exact river geometry; no opposite-bank food lookup; hunger/local H/local grass weighting; shore overrides interrupt; water commits to landing; no drowning/current/temperature",
+      "crossing_enabled": true,
+      "crossing": {
+        "prior_penalty": 2.5,
+        "swim_speed": 0.12,
+        "land_speed": 0.22,
+        "swim_move_multiplier": 4,
+        "landing_margin": 1,
+        "arrival_radius": 0.4,
+        "forecast_slack": 1.5,
+        "energy_margin": 1.2
+      },
+      "rabbit_H": true,
+      "nest_grazing_avoidance": false,
+      "rabbit_burrow": {
+        "enabled": true,
+        "rule": "dependent-young-inaccessible-at-birth-site"
+      },
+      "nursing_plan": {
+        "enabled": true,
+        "request_energy": 4,
+        "departure_cap": 85,
+        "move_speed": 0.2,
+        "move_cost_per_tick": 0.012,
+        "travel_slack": 1.5,
+        "gut_limit": 3.8,
+        "sleep_limit": 1,
+        "minimum_grass": 0.005
+      },
+      "grass_scale": 1.5,
+      "nutrition": 1.5,
+      "predator_energy": {
+        "day_ticks": 17280,
+        "daily_food": 300,
+        "move_food": 0.1,
+        "initial_food": 900,
+        "capacity": 1800,
+        "hunt_below": 600,
+        "adult_food": 900,
+        "minimum_size_fraction": 0.05,
+        "territory_radius": 20,
+        "rival_sight": 12,
+        "balance_atol": 1e-7,
+        "balance_rtol": 1e-10,
+        "retreat_difference": 0.1,
+        "retreat_speed": 0.3,
+        "warning_duration_ticks": 60,
+        "warning_cooldown_ticks": 600
+      },
+      "donor": "C:\\Users\\ken_m\\Documents\\Codex\\predator-memory-donor-20261109.jls",
+      "donor_index": 2,
+      "human_scent": false,
+      "boundary": true,
+      "predator_removal": false,
+      "introduction": null,
+      "fixed": "20 west / 80 east family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
+      "stop": "requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained"
+    }
+  },
+  {
+    "name": "rabbit-distributed90d-20261109",
+    "seconds": 327.5991728,
+    "deathDays": [
+      {
+        "day": 7,
+        "count": 5
+      },
+      {
+        "day": 62,
+        "count": 1
+      },
+      {
+        "day": 81,
+        "count": 6
+      },
+      {
+        "day": 87,
+        "count": 6
+      }
+    ],
+    "daily": [
+      {
+        "day": 1,
+        "rabbits": 99,
+        "births": 0,
+        "starvation": 0,
+        "captures": 1,
+        "predator_alive": true,
+        "west": 57,
+        "east": 42,
+        "pregnant": 5,
+        "grass": 17902.991400871702
+      },
+      {
+        "day": 2,
+        "rabbits": 105,
+        "births": 6,
+        "starvation": 0,
+        "captures": 1,
+        "predator_alive": true,
+        "west": 63,
+        "east": 42,
+        "pregnant": 5,
+        "grass": 18730.722982515435
+      },
+      {
+        "day": 3,
+        "rabbits": 105,
+        "births": 6,
+        "starvation": 0,
+        "captures": 1,
+        "predator_alive": true,
+        "west": 63,
+        "east": 42,
+        "pregnant": 5,
+        "grass": 18745.847401925446
+      },
+      {
+        "day": 4,
+        "rabbits": 104,
+        "births": 6,
+        "starvation": 0,
+        "captures": 2,
+        "predator_alive": true,
+        "west": 62,
+        "east": 42,
+        "pregnant": 7,
+        "grass": 18783.993186724685
+      },
+      {
+        "day": 5,
+        "rabbits": 104,
+        "births": 6,
+        "starvation": 0,
+        "captures": 2,
+        "predator_alive": true,
+        "west": 62,
+        "east": 42,
+        "pregnant": 7,
+        "grass": 18761.35499942133
+      },
+      {
+        "day": 6,
+        "rabbits": 107,
+        "births": 9,
+        "starvation": 0,
+        "captures": 2,
+        "predator_alive": true,
+        "west": 62,
+        "east": 45,
+        "pregnant": 7,
+        "grass": 18752.618398918312
+      },
+      {
+        "day": 7,
+        "rabbits": 101,
+        "births": 9,
+        "starvation": 5,
+        "captures": 3,
+        "predator_alive": true,
+        "west": 61,
+        "east": 40,
+        "pregnant": 7,
+        "grass": 18749.827182987356
+      },
+      {
+        "day": 8,
+        "rabbits": 100,
+        "births": 9,
+        "starvation": 5,
+        "captures": 4,
+        "predator_alive": true,
+        "west": 60,
+        "east": 40,
+        "pregnant": 8,
+        "grass": 18795.161449278316
+      },
+      {
+        "day": 9,
+        "rabbits": 100,
+        "births": 9,
+        "starvation": 5,
+        "captures": 4,
+        "predator_alive": true,
+        "west": 60,
+        "east": 40,
+        "pregnant": 9,
+        "grass": 18810.820480152994
+      },
+      {
+        "day": 10,
+        "rabbits": 106,
+        "births": 15,
+        "starvation": 5,
+        "captures": 4,
+        "predator_alive": true,
+        "west": 60,
+        "east": 46,
+        "pregnant": 8,
+        "grass": 18626.22809110204
+      },
+      {
+        "day": 11,
+        "rabbits": 104,
+        "births": 15,
+        "starvation": 5,
+        "captures": 6,
+        "predator_alive": true,
+        "west": 58,
+        "east": 46,
+        "pregnant": 8,
+        "grass": 18696.23011482017
+      },
+      {
+        "day": 12,
+        "rabbits": 104,
+        "births": 15,
+        "starvation": 5,
+        "captures": 6,
+        "predator_alive": true,
+        "west": 58,
+        "east": 46,
+        "pregnant": 9,
+        "grass": 18750.716157155883
+      },
+      {
+        "day": 13,
+        "rabbits": 104,
+        "births": 15,
+        "starvation": 5,
+        "captures": 6,
+        "predator_alive": true,
+        "west": 58,
+        "east": 46,
+        "pregnant": 9,
+        "grass": 18749.28162539131
+      },
+      {
+        "day": 14,
+        "rabbits": 104,
+        "births": 15,
+        "starvation": 5,
+        "captures": 6,
+        "predator_alive": true,
+        "west": 58,
+        "east": 46,
+        "pregnant": 9,
+        "grass": 18737.53262329367
+      },
+      {
+        "day": 15,
+        "rabbits": 103,
+        "births": 15,
+        "starvation": 5,
+        "captures": 7,
+        "predator_alive": true,
+        "west": 57,
+        "east": 46,
+        "pregnant": 9,
+        "grass": 18787.797738197773
+      },
+      {
+        "day": 16,
+        "rabbits": 103,
+        "births": 15,
+        "starvation": 5,
+        "captures": 7,
+        "predator_alive": true,
+        "west": 57,
+        "east": 46,
+        "pregnant": 9,
+        "grass": 18787.11329160592
+      },
+      {
+        "day": 17,
+        "rabbits": 103,
+        "births": 15,
+        "starvation": 5,
+        "captures": 7,
+        "predator_alive": true,
+        "west": 57,
+        "east": 46,
+        "pregnant": 9,
+        "grass": 18787.31332894786
+      },
+      {
+        "day": 18,
+        "rabbits": 102,
+        "births": 15,
+        "starvation": 5,
+        "captures": 8,
+        "predator_alive": true,
+        "west": 56,
+        "east": 46,
+        "pregnant": 9,
+        "grass": 18785.203827491467
+      },
+      {
+        "day": 19,
+        "rabbits": 102,
+        "births": 15,
+        "starvation": 5,
+        "captures": 8,
+        "predator_alive": true,
+        "west": 56,
+        "east": 46,
+        "pregnant": 10,
+        "grass": 18785.92341701255
+      },
+      {
+        "day": 20,
+        "rabbits": 102,
+        "births": 15,
+        "starvation": 5,
+        "captures": 8,
+        "predator_alive": true,
+        "west": 56,
+        "east": 46,
+        "pregnant": 10,
+        "grass": 18608.973797196595
+      },
+      {
+        "day": 21,
+        "rabbits": 107,
+        "births": 21,
+        "starvation": 5,
+        "captures": 9,
+        "predator_alive": true,
+        "west": 55,
+        "east": 52,
+        "pregnant": 10,
+        "grass": 18658.263290606603
+      },
+      {
+        "day": 22,
+        "rabbits": 107,
+        "births": 21,
+        "starvation": 5,
+        "captures": 9,
+        "predator_alive": true,
+        "west": 55,
+        "east": 52,
+        "pregnant": 13,
+        "grass": 18683.074352899253
+      },
+      {
+        "day": 23,
+        "rabbits": 107,
+        "births": 21,
+        "starvation": 5,
+        "captures": 9,
+        "predator_alive": true,
+        "west": 55,
+        "east": 52,
+        "pregnant": 14,
+        "grass": 18681.941689789106
+      },
+      {
+        "day": 24,
+        "rabbits": 106,
+        "births": 21,
+        "starvation": 5,
+        "captures": 10,
+        "predator_alive": true,
+        "west": 54,
+        "east": 52,
+        "pregnant": 14,
+        "grass": 18706.61113627258
+      },
+      {
+        "day": 25,
+        "rabbits": 106,
+        "births": 21,
+        "starvation": 5,
+        "captures": 10,
+        "predator_alive": true,
+        "west": 54,
+        "east": 52,
+        "pregnant": 14,
+        "grass": 18725.855612579926
+      },
+      {
+        "day": 26,
+        "rabbits": 106,
+        "births": 21,
+        "starvation": 5,
+        "captures": 10,
+        "predator_alive": true,
+        "west": 54,
+        "east": 52,
+        "pregnant": 14,
+        "grass": 18750.628459097523
+      },
+      {
+        "day": 27,
+        "rabbits": 105,
+        "births": 21,
+        "starvation": 5,
+        "captures": 11,
+        "predator_alive": true,
+        "west": 53,
+        "east": 52,
+        "pregnant": 14,
+        "grass": 18741.807107488392
+      },
+      {
+        "day": 28,
+        "rabbits": 105,
+        "births": 21,
+        "starvation": 5,
+        "captures": 11,
+        "predator_alive": true,
+        "west": 53,
+        "east": 52,
+        "pregnant": 14,
+        "grass": 18736.79264353647
+      },
+      {
+        "day": 29,
+        "rabbits": 108,
+        "births": 25,
+        "starvation": 5,
+        "captures": 12,
+        "predator_alive": true,
+        "west": 52,
+        "east": 56,
+        "pregnant": 13,
+        "grass": 18716.759225113947
+      },
+      {
+        "day": 30,
+        "rabbits": 108,
+        "births": 25,
+        "starvation": 5,
+        "captures": 12,
+        "predator_alive": true,
+        "west": 52,
+        "east": 56,
+        "pregnant": 13,
+        "grass": 18737.179953763545
+      },
+      {
+        "day": 31,
+        "rabbits": 108,
+        "births": 25,
+        "starvation": 5,
+        "captures": 12,
+        "predator_alive": true,
+        "west": 52,
+        "east": 56,
+        "pregnant": 13,
+        "grass": 18527.669228002444
+      },
+      {
+        "day": 32,
+        "rabbits": 107,
+        "births": 25,
+        "starvation": 5,
+        "captures": 13,
+        "predator_alive": true,
+        "west": 51,
+        "east": 56,
+        "pregnant": 12,
+        "grass": 18548.626647860772
+      },
+      {
+        "day": 33,
+        "rabbits": 113,
+        "births": 31,
+        "starvation": 5,
+        "captures": 13,
+        "predator_alive": true,
+        "west": 57,
+        "east": 56,
+        "pregnant": 12,
+        "grass": 18564.60153861148
+      },
+      {
+        "day": 34,
+        "rabbits": 113,
+        "births": 31,
+        "starvation": 5,
+        "captures": 13,
+        "predator_alive": true,
+        "west": 57,
+        "east": 56,
+        "pregnant": 12,
+        "grass": 18535.28588024089
+      },
+      {
+        "day": 35,
+        "rabbits": 121,
+        "births": 40,
+        "starvation": 5,
+        "captures": 14,
+        "predator_alive": true,
+        "west": 65,
+        "east": 56,
+        "pregnant": 11,
+        "grass": 18430.08062699097
+      },
+      {
+        "day": 36,
+        "rabbits": 121,
+        "births": 40,
+        "starvation": 5,
+        "captures": 14,
+        "predator_alive": true,
+        "west": 65,
+        "east": 56,
+        "pregnant": 12,
+        "grass": 18458.993983486747
+      },
+      {
+        "day": 37,
+        "rabbits": 124,
+        "births": 43,
+        "starvation": 5,
+        "captures": 14,
+        "predator_alive": true,
+        "west": 65,
+        "east": 59,
+        "pregnant": 11,
+        "grass": 18498.538720476376
+      },
+      {
+        "day": 38,
+        "rabbits": 123,
+        "births": 43,
+        "starvation": 5,
+        "captures": 15,
+        "predator_alive": true,
+        "west": 64,
+        "east": 59,
+        "pregnant": 14,
+        "grass": 18501.636717283112
+      },
+      {
+        "day": 39,
+        "rabbits": 127,
+        "births": 47,
+        "starvation": 5,
+        "captures": 15,
+        "predator_alive": true,
+        "west": 64,
+        "east": 63,
+        "pregnant": 13,
+        "grass": 18303.982559672353
+      },
+      {
+        "day": 40,
+        "rabbits": 132,
+        "births": 52,
+        "starvation": 5,
+        "captures": 15,
+        "predator_alive": true,
+        "west": 69,
+        "east": 63,
+        "pregnant": 12,
+        "grass": 18378.692606045806
+      },
+      {
+        "day": 41,
+        "rabbits": 131,
+        "births": 52,
+        "starvation": 5,
+        "captures": 16,
+        "predator_alive": true,
+        "west": 68,
+        "east": 63,
+        "pregnant": 13,
+        "grass": 18370.27365432398
+      },
+      {
+        "day": 42,
+        "rabbits": 131,
+        "births": 52,
+        "starvation": 5,
+        "captures": 16,
+        "predator_alive": true,
+        "west": 68,
+        "east": 63,
+        "pregnant": 14,
+        "grass": 18352.04316780086
+      },
+      {
+        "day": 43,
+        "rabbits": 137,
+        "births": 58,
+        "starvation": 5,
+        "captures": 16,
+        "predator_alive": true,
+        "west": 68,
+        "east": 69,
+        "pregnant": 13,
+        "grass": 18390.474927724907
+      },
+      {
+        "day": 44,
+        "rabbits": 137,
+        "births": 58,
+        "starvation": 5,
+        "captures": 16,
+        "predator_alive": true,
+        "west": 68,
+        "east": 69,
+        "pregnant": 13,
+        "grass": 18421.79682054278
+      },
+      {
+        "day": 45,
+        "rabbits": 136,
+        "births": 58,
+        "starvation": 5,
+        "captures": 17,
+        "predator_alive": true,
+        "west": 67,
+        "east": 69,
+        "pregnant": 13,
+        "grass": 18475.03179457113
+      },
+      {
+        "day": 46,
+        "rabbits": 136,
+        "births": 58,
+        "starvation": 5,
+        "captures": 17,
+        "predator_alive": true,
+        "west": 67,
+        "east": 69,
+        "pregnant": 13,
+        "grass": 18461.59082549274
+      },
+      {
+        "day": 47,
+        "rabbits": 136,
+        "births": 58,
+        "starvation": 5,
+        "captures": 17,
+        "predator_alive": true,
+        "west": 67,
+        "east": 69,
+        "pregnant": 15,
+        "grass": 18446.480374440864
+      },
+      {
+        "day": 48,
+        "rabbits": 135,
+        "births": 58,
+        "starvation": 5,
+        "captures": 18,
+        "predator_alive": true,
+        "west": 66,
+        "east": 69,
+        "pregnant": 15,
+        "grass": 18447.673775956355
+      },
+      {
+        "day": 49,
+        "rabbits": 134,
+        "births": 58,
+        "starvation": 5,
+        "captures": 19,
+        "predator_alive": true,
+        "west": 65,
+        "east": 69,
+        "pregnant": 15,
+        "grass": 18414.39411817165
+      },
+      {
+        "day": 50,
+        "rabbits": 139,
+        "births": 63,
+        "starvation": 5,
+        "captures": 19,
+        "predator_alive": true,
+        "west": 65,
+        "east": 74,
+        "pregnant": 14,
+        "grass": 18220.23786624
+      },
+      {
+        "day": 51,
+        "rabbits": 139,
+        "births": 63,
+        "starvation": 5,
+        "captures": 19,
+        "predator_alive": true,
+        "west": 65,
+        "east": 74,
+        "pregnant": 14,
+        "grass": 18235.138238874566
+      },
+      {
+        "day": 52,
+        "rabbits": 144,
+        "births": 68,
+        "starvation": 5,
+        "captures": 19,
+        "predator_alive": true,
+        "west": 70,
+        "east": 74,
+        "pregnant": 13,
+        "grass": 18188.478712283104
+      },
+      {
+        "day": 53,
+        "rabbits": 147,
+        "births": 72,
+        "starvation": 5,
+        "captures": 20,
+        "predator_alive": true,
+        "west": 69,
+        "east": 78,
+        "pregnant": 12,
+        "grass": 18192.73726048494
+      },
+      {
+        "day": 54,
+        "rabbits": 151,
+        "births": 76,
+        "starvation": 5,
+        "captures": 20,
+        "predator_alive": true,
+        "west": 73,
+        "east": 78,
+        "pregnant": 11,
+        "grass": 18251.340117842068
+      },
+      {
+        "day": 55,
+        "rabbits": 151,
+        "births": 76,
+        "starvation": 5,
+        "captures": 20,
+        "predator_alive": true,
+        "west": 73,
+        "east": 78,
+        "pregnant": 12,
+        "grass": 18294.75825571951
+      },
+      {
+        "day": 56,
+        "rabbits": 150,
+        "births": 76,
+        "starvation": 5,
+        "captures": 21,
+        "predator_alive": true,
+        "west": 72,
+        "east": 78,
+        "pregnant": 12,
+        "grass": 18382.58027930993
+      },
+      {
+        "day": 57,
+        "rabbits": 150,
+        "births": 76,
+        "starvation": 5,
+        "captures": 21,
+        "predator_alive": true,
+        "west": 72,
+        "east": 78,
+        "pregnant": 13,
+        "grass": 18365.98020786726
+      },
+      {
+        "day": 58,
+        "rabbits": 150,
+        "births": 76,
+        "starvation": 5,
+        "captures": 21,
+        "predator_alive": true,
+        "west": 72,
+        "east": 78,
+        "pregnant": 13,
+        "grass": 18218.545374702422
+      },
+      {
+        "day": 59,
+        "rabbits": 149,
+        "births": 76,
+        "starvation": 5,
+        "captures": 22,
+        "predator_alive": true,
+        "west": 71,
+        "east": 78,
+        "pregnant": 13,
+        "grass": 18245.760866760415
+      },
+      {
+        "day": 60,
+        "rabbits": 149,
+        "births": 76,
+        "starvation": 5,
+        "captures": 22,
+        "predator_alive": true,
+        "west": 71,
+        "east": 78,
+        "pregnant": 13,
+        "grass": 18279.96610062837
+      },
+      {
+        "day": 61,
+        "rabbits": 149,
+        "births": 76,
+        "starvation": 5,
+        "captures": 22,
+        "predator_alive": true,
+        "west": 71,
+        "east": 78,
+        "pregnant": 13,
+        "grass": 18288.908247011546
+      },
+      {
+        "day": 62,
+        "rabbits": 147,
+        "births": 76,
+        "starvation": 6,
+        "captures": 23,
+        "predator_alive": true,
+        "west": 69,
+        "east": 78,
+        "pregnant": 13,
+        "grass": 18121.03246600702
+      },
+      {
+        "day": 63,
+        "rabbits": 146,
+        "births": 76,
+        "starvation": 6,
+        "captures": 24,
+        "predator_alive": true,
+        "west": 68,
+        "east": 78,
+        "pregnant": 13,
+        "grass": 18163.773611606077
+      },
+      {
+        "day": 64,
+        "rabbits": 150,
+        "births": 81,
+        "starvation": 6,
+        "captures": 25,
+        "predator_alive": true,
+        "west": 67,
+        "east": 83,
+        "pregnant": 12,
+        "grass": 17874.460489117304
+      },
+      {
+        "day": 65,
+        "rabbits": 150,
+        "births": 81,
+        "starvation": 6,
+        "captures": 25,
+        "predator_alive": true,
+        "west": 67,
+        "east": 83,
+        "pregnant": 12,
+        "grass": 17908.21082948737
+      },
+      {
+        "day": 66,
+        "rabbits": 159,
+        "births": 90,
+        "starvation": 6,
+        "captures": 25,
+        "predator_alive": true,
+        "west": 67,
+        "east": 92,
+        "pregnant": 10,
+        "grass": 17815.208331516962
+      },
+      {
+        "day": 67,
+        "rabbits": 164,
+        "births": 96,
+        "starvation": 6,
+        "captures": 26,
+        "predator_alive": true,
+        "west": 72,
+        "east": 92,
+        "pregnant": 9,
+        "grass": 17814.066048263427
+      },
+      {
+        "day": 68,
+        "rabbits": 163,
+        "births": 96,
+        "starvation": 6,
+        "captures": 27,
+        "predator_alive": true,
+        "west": 71,
+        "east": 92,
+        "pregnant": 9,
+        "grass": 17765.419176517735
+      },
+      {
+        "day": 69,
+        "rabbits": 178,
+        "births": 111,
+        "starvation": 6,
+        "captures": 27,
+        "predator_alive": true,
+        "west": 71,
+        "east": 107,
+        "pregnant": 6,
+        "grass": 17650.85665256268
+      },
+      {
+        "day": 70,
+        "rabbits": 178,
+        "births": 111,
+        "starvation": 6,
+        "captures": 27,
+        "predator_alive": true,
+        "west": 71,
+        "east": 107,
+        "pregnant": 7,
+        "grass": 17701.321477871745
+      },
+      {
+        "day": 71,
+        "rabbits": 176,
+        "births": 111,
+        "starvation": 6,
+        "captures": 29,
+        "predator_alive": true,
+        "west": 69,
+        "east": 107,
+        "pregnant": 7,
+        "grass": 17684.262498489123
+      },
+      {
+        "day": 72,
+        "rabbits": 180,
+        "births": 117,
+        "starvation": 6,
+        "captures": 31,
+        "predator_alive": true,
+        "west": 67,
+        "east": 113,
+        "pregnant": 6,
+        "grass": 17457.552013733115
+      },
+      {
+        "day": 73,
+        "rabbits": 186,
+        "births": 123,
+        "starvation": 6,
+        "captures": 31,
+        "predator_alive": true,
+        "west": 73,
+        "east": 113,
+        "pregnant": 6,
+        "grass": 17520.754172896373
+      },
+      {
+        "day": 74,
+        "rabbits": 186,
+        "births": 123,
+        "starvation": 6,
+        "captures": 31,
+        "predator_alive": true,
+        "west": 73,
+        "east": 113,
+        "pregnant": 6,
+        "grass": 17571.982965529525
+      },
+      {
+        "day": 75,
+        "rabbits": 185,
+        "births": 123,
+        "starvation": 6,
+        "captures": 32,
+        "predator_alive": true,
+        "west": 72,
+        "east": 113,
+        "pregnant": 6,
+        "grass": 17642.085018446225
+      },
+      {
+        "day": 76,
+        "rabbits": 185,
+        "births": 123,
+        "starvation": 6,
+        "captures": 32,
+        "predator_alive": true,
+        "west": 72,
+        "east": 113,
+        "pregnant": 6,
+        "grass": 17642.84104901393
+      },
+      {
+        "day": 77,
+        "rabbits": 185,
+        "births": 123,
+        "starvation": 6,
+        "captures": 32,
+        "predator_alive": true,
+        "west": 72,
+        "east": 113,
+        "pregnant": 6,
+        "grass": 17643.886824612327
+      },
+      {
+        "day": 78,
+        "rabbits": 193,
+        "births": 132,
+        "starvation": 6,
+        "captures": 33,
+        "predator_alive": true,
+        "west": 76,
+        "east": 117,
+        "pregnant": 5,
+        "grass": 17625.06227018877
+      },
+      {
+        "day": 79,
+        "rabbits": 192,
+        "births": 132,
+        "starvation": 6,
+        "captures": 34,
+        "predator_alive": true,
+        "west": 75,
+        "east": 117,
+        "pregnant": 6,
+        "grass": 17511.193020043727
+      },
+      {
+        "day": 80,
+        "rabbits": 192,
+        "births": 132,
+        "starvation": 6,
+        "captures": 34,
+        "predator_alive": true,
+        "west": 75,
+        "east": 117,
+        "pregnant": 6,
+        "grass": 17575.319885670666
+      },
+      {
+        "day": 81,
+        "rabbits": 186,
+        "births": 132,
+        "starvation": 12,
+        "captures": 34,
+        "predator_alive": true,
+        "west": 69,
+        "east": 117,
+        "pregnant": 7,
+        "grass": 17400.113880419918
+      },
+      {
+        "day": 82,
+        "rabbits": 185,
+        "births": 132,
+        "starvation": 12,
+        "captures": 35,
+        "predator_alive": true,
+        "west": 68,
+        "east": 117,
+        "pregnant": 7,
+        "grass": 17321.59953489257
+      },
+      {
+        "day": 83,
+        "rabbits": 185,
+        "births": 132,
+        "starvation": 12,
+        "captures": 35,
+        "predator_alive": true,
+        "west": 68,
+        "east": 117,
+        "pregnant": 7,
+        "grass": 17279.694442727603
+      },
+      {
+        "day": 84,
+        "rabbits": 185,
+        "births": 132,
+        "starvation": 12,
+        "captures": 35,
+        "predator_alive": true,
+        "west": 69,
+        "east": 116,
+        "pregnant": 7,
+        "grass": 17305.179464798093
+      },
+      {
+        "day": 85,
+        "rabbits": 184,
+        "births": 132,
+        "starvation": 12,
+        "captures": 36,
+        "predator_alive": true,
+        "west": 68,
+        "east": 116,
+        "pregnant": 7,
+        "grass": 17345.661749720908
+      },
+      {
+        "day": 86,
+        "rabbits": 187,
+        "births": 135,
+        "starvation": 12,
+        "captures": 36,
+        "predator_alive": true,
+        "west": 67,
+        "east": 120,
+        "pregnant": 6,
+        "grass": 17351.797020580045
+      },
+      {
+        "day": 87,
+        "rabbits": 181,
+        "births": 135,
+        "starvation": 18,
+        "captures": 36,
+        "predator_alive": true,
+        "west": 61,
+        "east": 120,
+        "pregnant": 6,
+        "grass": 17363.71722444634
+      },
+      {
+        "day": 88,
+        "rabbits": 185,
+        "births": 140,
+        "starvation": 18,
+        "captures": 37,
+        "predator_alive": true,
+        "west": 60,
+        "east": 125,
+        "pregnant": 5,
+        "grass": 17394.40067971308
+      },
+      {
+        "day": 89,
+        "rabbits": 183,
+        "births": 140,
+        "starvation": 18,
+        "captures": 39,
+        "predator_alive": true,
+        "west": 58,
+        "east": 125,
+        "pregnant": 5,
+        "grass": 17454.992745330514
+      },
+      {
+        "day": 90,
+        "rabbits": 183,
+        "births": 140,
+        "starvation": 18,
+        "captures": 39,
+        "predator_alive": true,
+        "west": 58,
+        "east": 125,
+        "pregnant": 6,
+        "grass": 17447.17967341223
+      }
+    ],
+    "conditions": {
+      "rabbit_cover_foraging": {
+        "enabled": true,
+        "reserve_low": 25,
+        "reserve_full": 85,
+        "cover_target_weight": 2
+      },
+      "preserve_predators": false,
+      "initial_profiles_inherited": null,
+      "rabbit_nest_preparation": {
+        "enabled": true,
+        "lead_days": 3,
+        "observe_radius": 8,
+        "forage_radius": 3,
+        "distance_cost": 0.12,
+        "choice_temperature": 0.5,
+        "minimum_reserve": 70,
+        "sleep_limit": 1,
+        "arrival_radius": 0.6
+      },
+      "grass_initial_profile": "patchy",
+      "grass_initial_parameters": {
+        "seed": 20261110,
+        "patch_width": 20,
+        "fraction_min": 0.2,
+        "fraction_max": 1
+      },
+      "grass_initial_record": {
+        "initial_grass": 12776.877879240234,
+        "capacity": 20857.91803154052,
+        "fraction": 0.6125672686947731,
+        "patch_fraction_min": 0.2321442094309367,
+        "patch_fraction_max": 0.9697866413400009
+      },
+      "rabbit_initial_profile": "diverse",
+      "initial_profile_parameters": {
+        "seed": 20261109,
+        "total_count": 100,
+        "original_young": 5,
+        "dependent_count": 15,
+        "subadult_count": 20,
+        "family_size": 5,
+        "young_age_bands": [
+          [
+            3,
+            9
+          ],
+          [
+            11,
+            17
+          ],
+          [
+            19,
+            25
+          ]
+        ],
+        "adult_age": [
+          180,
+          540
+        ],
+        "subadult_age": [
+          35,
+          149
+        ],
+        "reserve_range": [
+          55,
+          85
+        ],
+        "sleepy_range": [
+          0,
+          1
+        ],
+        "recovering_mothers": 5
+      },
+      "rabbit_reproductive_condition": {
+        "enabled": true,
+        "reserve_low": 35,
+        "reserve_full": 85,
+        "balance_tau_days": 3,
+        "balance_scale_per_day": 5
+      },
+      "rabbit_breeding_season": {
+        "enabled": false
+      },
+      "rabbit_neighbor_backend": "auto",
+      "gpu_min_queries": 128,
+      "neighbor_gpu_scope": "static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",
+      "days": 90,
+      "start_day": 0,
+      "end_day": 90,
+      "population_checkpoint": null,
+      "initial_births": 0,
+      "initial_starvation": 0,
+      "humans": 0,
+      "predators": 1,
+      "rabbits": 100,
+      "layout": {
+        "rule": "capacity-weighted-family-dispersion",
+        "parameters": {
+          "seed": 20261109,
+          "tile_width": 16,
+          "bank_margin": 3
+        },
+        "west": 58,
+        "east": 42,
+        "west_capacity": 12106.250342360177,
+        "east_capacity": 8110.135394738085,
+        "families": 85,
+        "occupied_tiles": 58,
+        "tiles": [
+          {
+            "key": [
+              0,
+              0,
+              true
+            ],
+            "capacity": 281.3652385242356,
+            "quota": 1.3917682526600872,
+            "assigned": 1
+          },
+          {
+            "key": [
+              0,
+              1,
+              true
+            ],
+            "capacity": 488.3169291511104,
+            "quota": 2.415451186484931,
+            "assigned": 6
+          },
+          {
+            "key": [
+              0,
+              2,
+              true
+            ],
+            "capacity": 369.08229082381524,
+            "quota": 1.825659124353407,
+            "assigned": 2
+          },
+          {
+            "key": [
+              0,
+              3,
+              true
+            ],
+            "capacity": 379.00793326047574,
+            "quota": 1.8747561418210068,
+            "assigned": 2
+          },
+          {
+            "key": [
+              0,
+              4,
+              true
+            ],
+            "capacity": 421.64673559340906,
+            "quota": 2.0856682350478817,
+            "assigned": 2
+          },
+          {
+            "key": [
+              0,
+              5,
+              true
+            ],
+            "capacity": 423.93510802877444,
+            "quota": 2.096987629449652,
+            "assigned": 2
+          },
+          {
+            "key": [
+              0,
+              6,
+              true
+            ],
+            "capacity": 446.90662066897244,
+            "quota": 2.2106158166979983,
+            "assigned": 2
+          },
+          {
+            "key": [
+              0,
+              7,
+              true
+            ],
+            "capacity": 332.9997868446684,
+            "quota": 1.6471776467620227,
+            "assigned": 1
+          },
+          {
+            "key": [
+              1,
+              0,
+              true
+            ],
+            "capacity": 486.34975063233,
+            "quota": 2.4057205721982706,
+            "assigned": 6
+          },
+          {
+            "key": [
+              1,
+              1,
+              true
+            ],
+            "capacity": 282.6172626792895,
+            "quota": 1.3979613683402872,
+            "assigned": 1
+          },
+          {
+            "key": [
+              1,
+              2,
+              true
+            ],
+            "capacity": 335.4069918796354,
+            "quota": 1.6590848445483692,
+            "assigned": 1
+          },
+          {
+            "key": [
+              1,
+              3,
+              true
+            ],
+            "capacity": 434.33323334943645,
+            "quota": 2.1484217752751387,
+            "assigned": 2
+          },
+          {
+            "key": [
+              1,
+              4,
+              true
+            ],
+            "capacity": 244.3683424596071,
+            "quota": 1.2087637505411104,
+            "assigned": 1
+          },
+          {
+            "key": [
+              1,
+              5,
+              true
+            ],
+            "capacity": 156.17140249659593,
+            "quota": 0.7724991228774002,
+            "assigned": 1
+          },
+          {
+            "key": [
+              1,
+              6,
+              true
+            ],
+            "capacity": 259.27622192093344,
+            "quota": 1.2825053166904419,
+            "assigned": 1
+          },
+          {
+            "key": [
+              1,
+              7,
+              true
+            ],
+            "capacity": 376.20440702926,
+            "quota": 1.8608885481389614,
+            "assigned": 2
+          },
+          {
+            "key": [
+              2,
+              0,
+              true
+            ],
+            "capacity": 441.25195743306,
+            "quota": 2.1826451234719793,
+            "assigned": 2
+          },
+          {
+            "key": [
+              2,
+              1,
+              true
+            ],
+            "capacity": 66.01640257891911,
+            "quota": 0.3265489857456326,
+            "assigned": 0
+          },
+          {
+            "key": [
+              2,
+              2,
+              true
+            ],
+            "capacity": 24.79668620730913,
+            "quota": 0.12265637651445155,
+            "assigned": 0
+          },
+          {
+            "key": [
+              2,
+              3,
+              true
+            ],
+            "capacity": 315.7145140209537,
+            "quota": 1.561676345745614,
+            "assigned": 1
+          },
+          {
+            "key": [
+              2,
+              4,
+              true
+            ],
+            "capacity": 128.70454139343136,
+            "quota": 0.6366347727390802,
+            "assigned": 0
+          },
+          {
+            "key": [
+              2,
+              5,
+              true
+            ],
+            "capacity": 108.49430797554587,
+            "quota": 0.5366652050789296,
+            "assigned": 0
+          },
+          {
+            "key": [
+              2,
+              6,
+              true
+            ],
+            "capacity": 180.96506372310034,
+            "quota": 0.8951405363769783,
+            "assigned": 1
+          },
+          {
+            "key": [
+              2,
+              7,
+              true
+            ],
+            "capacity": 418.551878214887,
+            "quota": 2.070359576918932,
+            "assigned": 2
+          },
+          {
+            "key": [
+              3,
+              0,
+              true
+            ],
+            "capacity": 426.8657054252626,
+            "quota": 2.1114837784378975,
+            "assigned": 2
+          },
+          {
+            "key": [
+              3,
+              1,
+              true
+            ],
+            "capacity": 302.79833784907714,
+            "quota": 1.497786705233984,
+            "assigned": 1
+          },
+          {
+            "key": [
+              3,
+              2,
+              true
+            ],
+            "capacity": 379.49868013899527,
+            "quota": 1.8771836127097274,
+            "assigned": 2
+          },
+          {
+            "key": [
+              3,
+              3,
+              true
+            ],
+            "capacity": 406.8054205887263,
+            "quota": 2.012255928824183,
+            "assigned": 2
+          },
+          {
+            "key": [
+              3,
+              4,
+              true
+            ],
+            "capacity": 320.20278193833707,
+            "quota": 1.583877484840161,
+            "assigned": 1
+          },
+          {
+            "key": [
+              3,
+              5,
+              true
+            ],
+            "capacity": 337.97676178304835,
+            "quota": 1.6717961666255754,
+            "assigned": 1
+          },
+          {
+            "key": [
+              3,
+              6,
+              true
+            ],
+            "capacity": 432.6407661539759,
+            "quota": 2.1400500157654516,
+            "assigned": 2
+          },
+          {
+            "key": [
+              3,
+              7,
+              true
+            ],
+            "capacity": 452.22254969904304,
+            "quota": 2.236910967073545,
+            "assigned": 2
+          },
+          {
+            "key": [
+              4,
+              0,
+              false
+            ],
+            "capacity": 112.30018419927501,
+            "quota": 0.555490905543999,
+            "assigned": 0
+          },
+          {
+            "key": [
+              4,
+              0,
+              true
+            ],
+            "capacity": 132.31469690467415,
+            "quota": 0.6544923441081204,
+            "assigned": 0
+          },
+          {
+            "key": [
+              4,
+              1,
+              false
+            ],
+            "capacity": 160.2898174373976,
+            "quota": 0.7928707906639133,
+            "assigned": 1
+          },
+          {
+            "key": [
+              4,
+              1,
+              true
+            ],
+            "capacity": 75.03513115912725,
+            "quota": 0.37115996961530734,
+            "assigned": 0
+          },
+          {
+            "key": [
+              4,
+              2,
+              false
+            ],
+            "capacity": 119.72217851798929,
+            "quota": 0.5922036711947577,
+            "assigned": 0
+          },
+          {
+            "key": [
+              4,
+              2,
+              true
+            ],
+            "capacity": 88.65085434275983,
+            "quota": 0.4385099072386627,
+            "assigned": 0
+          },
+          {
+            "key": [
+              4,
+              3,
+              false
+            ],
+            "capacity": 15.322524225532153,
+            "quota": 0.07579259925484313,
+            "assigned": 0
+          },
+          {
+            "key": [
+              4,
+              3,
+              true
+            ],
+            "capacity": 175.5594375306003,
+            "quota": 0.8684017005494624,
+            "assigned": 1
+          },
+          {
+            "key": [
+              4,
+              4,
+              true
+            ],
+            "capacity": 254.57135576055197,
+            "quota": 1.2592327781587511,
+            "assigned": 1
+          },
+          {
+            "key": [
+              4,
+              5,
+              true
+            ],
+            "capacity": 318.7751633241437,
+            "quota": 1.5768157942256336,
+            "assigned": 1
+          },
+          {
+            "key": [
+              4,
+              6,
+              true
+            ],
+            "capacity": 381.7433026617272,
+            "quota": 1.8882865989305184,
+            "assigned": 2
+          },
+          {
+            "key": [
+              4,
+              7,
+              false
+            ],
+            "capacity": 7.64960262808203,
+            "quota": 0.03783862618947044,
+            "assigned": 0
+          },
+          {
+            "key": [
+              4,
+              7,
+              true
+            ],
+            "capacity": 218.1057902103731,
+            "quota": 1.078856493176899,
+            "assigned": 1
+          },
+          {
+            "key": [
+              5,
+              0,
+              false
+            ],
+            "capacity": 382.03353157335664,
+            "quota": 1.8897222111878411,
+            "assigned": 2
+          },
+          {
+            "key": [
+              5,
+              1,
+              false
+            ],
+            "capacity": 190.91734830365667,
+            "quota": 0.9443693387454121,
+            "assigned": 1
+          },
+          {
+            "key": [
+              5,
+              2,
+              false
+            ],
+            "capacity": 164.22559505379596,
+            "quota": 0.8123390461057155,
+            "assigned": 1
+          },
+          {
+            "key": [
+              5,
+              3,
+              false
+            ],
+            "capacity": 363.12094564109424,
+            "quota": 1.796171434218065,
+            "assigned": 2
+          },
+          {
+            "key": [
+              5,
+              4,
+              false
+            ],
+            "capacity": 249.8311607975798,
+            "quota": 1.2357854863202618,
+            "assigned": 1
+          },
+          {
+            "key": [
+              5,
+              5,
+              false
+            ],
+            "capacity": 292.08474271983863,
+            "quota": 1.4447920934939713,
+            "assigned": 1
+          },
+          {
+            "key": [
+              5,
+              6,
+              false
+            ],
+            "capacity": 213.08435331562382,
+            "quota": 1.054018043020427,
+            "assigned": 1
+          },
+          {
+            "key": [
+              5,
+              7,
+              false
+            ],
+            "capacity": 307.531531424835,
+            "quota": 1.52119936483254,
+            "assigned": 1
+          },
+          {
+            "key": [
+              6,
+              0,
+              false
+            ],
+            "capacity": 332.18457865698696,
+            "quota": 1.6431452336577086,
+            "assigned": 1
+          },
+          {
+            "key": [
+              6,
+              1,
+              false
+            ],
+            "capacity": 145.11660684657068,
+            "quota": 0.7178167687029888,
+            "assigned": 1
+          },
+          {
+            "key": [
+              6,
+              2,
+              false
+            ],
+            "capacity": 151.70998254115517,
+            "quota": 0.7504307867590713,
+            "assigned": 1
+          },
+          {
+            "key": [
+              6,
+              3,
+              false
+            ],
+            "capacity": 192.95819948507315,
+            "quota": 0.9544643735748642,
+            "assigned": 1
+          },
+          {
+            "key": [
+              6,
+              4,
+              false
+            ],
+            "capacity": 339.8502603537658,
+            "quota": 1.6810633946804867,
+            "assigned": 2
+          },
+          {
+            "key": [
+              6,
+              5,
+              false
+            ],
+            "capacity": 382.9116340628958,
+            "quota": 1.8940657298610517,
+            "assigned": 2
+          },
+          {
+            "key": [
+              6,
+              6,
+              false
+            ],
+            "capacity": 339.6702544675896,
+            "quota": 1.6801729986991423,
+            "assigned": 2
+          },
+          {
+            "key": [
+              6,
+              7,
+              false
+            ],
+            "capacity": 364.29588273123187,
+            "quota": 1.8019832400740523,
+            "assigned": 2
+          },
+          {
+            "key": [
+              7,
+              0,
+              false
+            ],
+            "capacity": 462.1765819744811,
+            "quota": 2.286148414384277,
+            "assigned": 6
+          },
+          {
+            "key": [
+              7,
+              1,
+              false
+            ],
+            "capacity": 366.1777046145091,
+            "quota": 1.8112916392495981,
+            "assigned": 2
+          },
+          {
+            "key": [
+              7,
+              2,
+              false
+            ],
+            "capacity": 333.7124216256489,
+            "quota": 1.6507026822963062,
+            "assigned": 1
+          },
+          {
+            "key": [
+              7,
+              3,
+              false
+            ],
+            "capacity": 441.6315216869621,
+            "quota": 2.184522631444166,
+            "assigned": 2
+          },
+          {
+            "key": [
+              7,
+              4,
+              false
+            ],
+            "capacity": 452.15535362381524,
+            "quota": 2.2365785828575846,
+            "assigned": 2
+          },
+          {
+            "key": [
+              7,
+              5,
+              false
+            ],
+            "capacity": 427.2653241029821,
+            "quota": 2.113460485268269,
+            "assigned": 2
+          },
+          {
+            "key": [
+              7,
+              6,
+              false
+            ],
+            "capacity": 429.3905028975031,
+            "quota": 2.12397264516746,
+            "assigned": 2
+          },
+          {
+            "key": [
+              7,
+              7,
+              false
+            ],
+            "capacity": 370.8150692288568,
+            "quota": 1.8342302825593064,
+            "assigned": 2
+          }
+        ]
+      },
+      "rabbit_swimming_enabled": true,
+      "rabbit_swimming": {
+        "bank_range": 6,
+        "landing_margin": 1,
+        "swim_speed": 0.1,
+        "land_speed": 0.2,
+        "swim_cost": 0.036,
+        "land_cost": 0.012,
+        "energy_margin": 1.5,
+        "reserve": 5,
+        "interval": 64,
+        "prior_penalty": 5,
+        "hunger_reference": 65,
+        "hunger_scale": 15,
+        "H_scale": 4,
+        "grass_weight": 1,
+        "body_margin": 0.25
+      },
+      "rabbit_swimming_fixed": "optional configured candidate; exact river geometry; no opposite-bank food lookup; hunger/local H/local grass weighting; shore overrides interrupt; water commits to landing; no drowning/current/temperature",
+      "crossing_enabled": true,
+      "crossing": {
+        "prior_penalty": 2.5,
+        "swim_speed": 0.12,
+        "land_speed": 0.22,
+        "swim_move_multiplier": 4,
+        "landing_margin": 1,
+        "arrival_radius": 0.4,
+        "forecast_slack": 1.5,
+        "energy_margin": 1.2
+      },
+      "rabbit_H": true,
+      "nest_grazing_avoidance": false,
+      "rabbit_burrow": {
+        "enabled": true,
+        "rule": "dependent-young-inaccessible-at-birth-site"
+      },
+      "nursing_plan": {
+        "enabled": true,
+        "request_energy": 4,
+        "departure_cap": 85,
+        "move_speed": 0.2,
+        "move_cost_per_tick": 0.012,
+        "travel_slack": 1.5,
+        "gut_limit": 3.8,
+        "sleep_limit": 1,
+        "minimum_grass": 0.005
+      },
+      "grass_scale": 1.5,
+      "nutrition": 1.5,
+      "predator_energy": {
+        "day_ticks": 17280,
+        "daily_food": 300,
+        "move_food": 0.1,
+        "initial_food": 900,
+        "capacity": 1800,
+        "hunt_below": 600,
+        "adult_food": 900,
+        "minimum_size_fraction": 0.05,
+        "territory_radius": 20,
+        "rival_sight": 12,
+        "balance_atol": 1e-7,
+        "balance_rtol": 1e-10,
+        "retreat_difference": 0.1,
+        "retreat_speed": 0.3,
+        "warning_duration_ticks": 60,
+        "warning_cooldown_ticks": 600
+      },
+      "donor": "C:\\Users\\ken_m\\Documents\\Codex\\predator-memory-donor-20261109.jls",
+      "donor_index": 2,
+      "human_scent": false,
+      "boundary": true,
+      "predator_removal": false,
+      "introduction": null,
+      "fixed": "capacity-weighted distributed or legacy family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
+      "stop": "requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained"
+    }
+  }
+]
