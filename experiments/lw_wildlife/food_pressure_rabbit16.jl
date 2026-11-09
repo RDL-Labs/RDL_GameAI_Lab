@@ -40,9 +40,10 @@ end
 if abspath(PROGRAM_FILE)==@__FILE__
 @testset "pressure gate boundaries" begin
  g=RabbitFoodPressureGate()
+ legacy_settings=merge(RABBIT_FOOD_PRESSURE_GATE,(release_on_intake=false,))
  enter=RABBIT_FOOD_PRESSURE_GATE.enter_H;leave=RABBIT_FOOD_PRESSURE_GATE.exit_H;mid=(enter+leave)/2
  for (p,active) in ((0.,false),(enter/1000,false),(prevfloat(enter),false),(enter,true),(mid,true),(leave,false),(mid,false),(enter+1,true),(0.,false))
-  @test configured_food_pressure_gate!(g,p,0)==(active ? p : 0.)
+  @test configured_food_pressure_gate!(g,p,0;settings=legacy_settings)==(active ? p : 0.)
   @test g.active==active
  end
  @test configured_food_pressure_gate!(g,.001,0;settings=merge(RABBIT_FOOD_PRESSURE_GATE,(enabled=false,)))==.001

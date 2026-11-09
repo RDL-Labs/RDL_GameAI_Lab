@@ -11,10 +11,11 @@ mutable struct RabbitFoodPressure
     records::Vector{Any}
 end
 RabbitFoodPressure()=RabbitFoodPressure(nothing,0.,0.,Any[])
-# 暫定固定の選択ゲート。H>=20で開始、H<=10で解除。
+# 暫定固定の選択ゲート。H>=20で開始、実際の食料摂取で解除。
+# release_on_intake=falseのみ旧exit_H=10による解除を使用。
 # 生のHは保持し、非活動時のみ選択へ渡す圧を0にする。
 # 将来は目的・経験に応じた許容帯へ置換。enabled=falseで旧H>0方式。
-const RABBIT_FOOD_PRESSURE_GATE=(enabled=true,enter_H=20.,exit_H=10.)
+const RABBIT_FOOD_PRESSURE_GATE=(enabled=true,enter_H=20.,exit_H=10.,release_on_intake=true)
 const RABBIT_FOOD_COOLING=(enabled=true,)
 mutable struct RabbitFoodPressureGate
     active::Bool
@@ -27,11 +28,14 @@ end
 # enabled=falseで選択時のみの旧更新へ戻す。局所Hは冷却しない。
 # 将来は食料確保MBの成果評価へ置換。未初期化の親予測を食事で作らない。
 function configured_food_intake_cooling!(parent,gate,a,i,t,amount,local_pressure)
-    RABBIT_FOOD_COOLING.enabled && amount>0 && parent.expected!==nothing || return
-    configured_food_pressure!(parent,a,i,t)
-    if gate.active && max(parent.H,local_pressure)<=RABBIT_FOOD_PRESSURE_GATE.exit_H
+    amount>0 || return
+    if RABBIT_FOOD_COOLING.enabled && parent.expected!==nothing
+        configured_food_pressure!(parent,a,i,t)
+    end
+    settings=RABBIT_FOOD_PRESSURE_GATE
+    if gate.active && (settings.release_on_intake || (RABBIT_FOOD_COOLING.enabled && max(parent.H,local_pressure)<=settings.exit_H))
         gate.active=false
-        push!(gate.records,(tick=t,active=false,H=max(parent.H,local_pressure),event="intake_cooling"))
+        push!(gate.records,(tick=t,active=false,H=max(parent.H,local_pressure),event=settings.release_on_intake ? "food_acquired" : "intake_cooling"))
     end
     while length(gate.records)>RABBIT_FOOD_PRESSURE_CONNECTION.history_limit
         popfirst!(gate.records)
@@ -42,12 +46,13 @@ function configured_food_pressure_gate!(gate,pressure,t;settings=RABBIT_FOOD_PRE
     gate.calls+=1
     settings.enabled || return pressure
     previous=gate.active
-    gate.active=gate.active ? pressure>settings.exit_H : pressure>=settings.enter_H
+    gate.active=gate.active ? (settings.release_on_intake || pressure>settings.exit_H) : pressure>=settings.enter_H
     gate.active_calls+=gate.active
     if previous!=gate.active
         push!(gate.records,(tick=t,active=gate.active,H=pressure))
     end
-    gate.active ? pressure : 0.
+    # Preserve the active choice mode even if pressure reaches zero before intake.
+    gate.active ? max(pressure,eps(Float64)) : 0.
 end
 function configured_food_pressure!(m,a,i,t)
     p=RABBIT_FOOD_PRESSURE;reserve=a.energy[i]+p.gut_conversion*a.gut[i]
