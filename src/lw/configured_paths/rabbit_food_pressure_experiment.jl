@@ -75,6 +75,9 @@ const RABBIT_FOOD_PRESSURE_CONNECTION=(enabled=true,history_limit=64)
 function configured_rabbit_food_selection!(memory,a,i,t,local_pressure)
     RABBIT_FOOD_PRESSURE_CONNECTION.enabled || return local_pressure
     parent_pressure=configured_food_pressure!(memory.food_pressure,a,i,t)
+    if RABBIT_EXPONENTIAL_CANDIDATES.enabled
+        return max(local_pressure,parent_pressure)
+    end
     selection_pressure=configured_food_pressure_gate!(memory.food_gate,max(local_pressure,parent_pressure),t)
     for records in (memory.food_pressure.records,memory.food_gate.records)
         while length(records)>RABBIT_FOOD_PRESSURE_CONNECTION.history_limit

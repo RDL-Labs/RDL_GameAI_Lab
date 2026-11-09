@@ -3,6 +3,7 @@ include("../../lw/configured_paths/rabbit_cover_foraging.jl")
 include("../../lw/configured_paths/rabbit_sparse_departure.jl")
 include("../../lw/configured_paths/rabbit_local_rho_experiment.jl")
 include("../../lw/configured_paths/rabbit_food_pressure_experiment.jl")
+include("../../lw/configured_paths/rabbit_exponential_candidates.jl")
 mutable struct RabbitApproachMemory
     H::Dict{Int,Float64}
     target::Int
@@ -36,13 +37,16 @@ function target!(w,a,i,t,policy::RabbitApproachPolicy)
     end
     observations=filter(!isnothing,observe_neighbors!(w,a,i,t))
     isempty(observations) && (a.target[i]=0;return)
-    scores=[o.grass+configured_rabbit_cover_bonus(o,a.energy[i])-.25o.distance+.2cos(o.direction-a.heading[i])-
-        (o.cell==a.previous_cell[i] ? 1. : 0.)-get(m.H,o.cell,0.) for o in observations]
     pressure=maximum(get(m.H,o.cell,0.) for o in observations)
     pressure=configured_rabbit_food_selection!(m,a,i,t,pressure)
-    chosen=if pressure==0
-        argmax(scores) # Familiar/no-error movement retains the existing cheap choice.
+    chosen=if RABBIT_EXPONENTIAL_CANDIDATES.enabled
+        configured_rabbit_candidate_choice(observations,a,i,m,pressure,RABBIT_APPROACH.temperature_scale)
     else
+      scores=[o.grass+configured_rabbit_cover_bonus(o,a.energy[i])-.25o.distance+.2cos(o.direction-a.heading[i])-
+          (o.cell==a.previous_cell[i] ? 1. : 0.)-get(m.H,o.cell,0.) for o in observations]
+      if pressure==0
+        argmax(scores)
+      else
         weights=exp.((scores.-maximum(scores))./(1+pressure/RABBIT_APPROACH.temperature_scale))
         threshold=rand(m.rng)*sum(weights);index=length(weights)
         for j in eachindex(weights)
@@ -50,6 +54,7 @@ function target!(w,a,i,t,policy::RabbitApproachPolicy)
             if threshold<=0;index=j;break;end
         end
         index
+      end
     end
     o=observations[chosen]
     if !haskey(m.H,o.cell) && length(m.H)>=RABBIT_APPROACH.memory_limit
