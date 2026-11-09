@@ -112,3 +112,7 @@
 将来は外部個体群と局所の狩り収支による移住へ置換。
 設定と結果はconditions/daily/resultのpopulation欄とmigration_eventsへ保存する。
 詳細と短期試験は `experiments/lw_wildlife/predator_population_exchange.md`。
+
+同日更新：出入りの反復を避けるため、流入100kに対し退場N<=100k-50へ変更。
+1体目は100で流入・50以下で退場、2体目は200で流入・150以下で退場。
+中間帯では現在の在場数を保つ。世界側の固定条件である点と、日次確認は変えない。

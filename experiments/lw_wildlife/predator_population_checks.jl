@@ -3,6 +3,8 @@ include("predator_generations.jl")
 include("../../src/lw/configured_paths/predator_population_exchange.jl")
 @testset "world predator immigration and emigration" begin
     @test configured_predator_population_target.([0,99,100,199,200,300])==[0,0,1,1,2,3]
+    @test configured_predator_population_target.([49,50,51,99,100],1)==[0,0,1,1,1]
+    @test configured_predator_population_target.([149,150,151,199,200],2)==[1,1,2,2,2]
     wildlife,predators=animal_trial_world(;adult_rabbits=295)
     cohort=(predators,minds=PredatorMind.(1:2),local_hunts=[LocalHunt(i;probabilistic_capture=true) for i in 1:2],
         pursuits=PredatorPursuit.(1:2),physiology=PredatorPhysiology.(predators),
@@ -56,5 +58,16 @@ include("../../src/lw/configured_paths/predator_population_exchange.jl")
         configured_predator_population_update!(saved.world,saved.cohort,saved.migration,51840)
         @test saved.migration.events==migration.events
         @test rand(saved.migration.rng)==rand(migration.rng)
+    end
+    # Consecutive day-boundary updates: no immigration/emigration churn near 100.
+    for (step,(rabbit_count,expected_residents)) in enumerate([
+        (251,3),(250,2),(199,2),(150,1),(99,1),(100,1),(99,1),
+        (51,1),(50,0),(99,0),(100,1)])
+        wildlife.alive.=false;wildlife.alive[1:rabbit_count].=true
+        previous_events=length(migration.events)
+        previous_residents=count(i->migration.present[i] && predators[i].alive,eachindex(predators))
+        configured_predator_population_update!(wildlife,cohort,migration,(3+step)*17280)
+        @test configured_predator_population_report(cohort,migration,rabbit_count).residents==expected_residents
+        @test length(migration.events)-previous_events==abs(expected_residents-previous_residents)
     end
 end
