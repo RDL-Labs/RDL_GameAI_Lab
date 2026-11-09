@@ -6,7 +6,7 @@ const RABBIT_GRAZING_MOTION=(enabled=true,interval_ticks=60,step_distance=.1,
     turn_amplitude=pi/4,turn_phase=2.399963229728653,offsets=(0.,pi/2,-pi/2),
     extra_cost_per_distance=(.012-.0047)/.2)
 const RABBIT_GRAZING_MOTION_STATS=Dict("attempts"=>0,"moved"=>0,"blocked"=>0)
-function configured_rabbit_grazing_motion!(w,a,i,t;enabled=RABBIT_GRAZING_MOTION.enabled)
+function configured_rabbit_grazing_motion!(w,a,i,t;enabled=RABBIT_GRAZING_MOTION.enabled,allowed=q->true)
     p=RABBIT_GRAZING_MOTION
     (!enabled || a.state[i]!=GRAZE || mod(t+i,p.interval_ticks)!=0) && return 0.
     RABBIT_GRAZING_MOTION_STATS["attempts"]+=1
@@ -15,7 +15,7 @@ function configured_rabbit_grazing_motion!(w,a,i,t;enabled=RABBIT_GRAZING_MOTION
     for offset in p.offsets
         heading=configured_boundary_heading(w,origin,base+offset)
         q=(origin[1]+p.step_distance*cos(heading),origin[2]+p.step_distance*sin(heading))
-        clear(w,origin,q) || continue
+        allowed(q) && clear(w,origin,q) || continue
         k=cell(w,q...)
         food=w.layers===nothing ? grass!(w,k,t) : configured_rabbit_layer_observation(observe_grass!(w,k,t),a.energy[i]).food
         food>0 || continue

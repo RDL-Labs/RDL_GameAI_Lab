@@ -25,7 +25,7 @@ function configured_rabbit_nursing!(s,t)
     a=s.animals;r=RABBIT_NURSING_PLAN
     mothers=Dict{Int,Vector{Int}}()
     for i in eachindex(s.alive)
-        life.moving[i]=s.alive[i] && !dependent(life,i,t)
+        life.moving[i]=s.alive[i] && configured_rabbit_self_feeding(s,i,t)
         s.alive[i] && dependent(life,i,t) || continue
         mother=life.mother[i]
         mother>0 && s.alive[mother] || continue

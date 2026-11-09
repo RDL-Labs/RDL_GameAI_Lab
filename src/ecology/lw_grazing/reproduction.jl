@@ -223,6 +223,7 @@ function rabbit_advance!(s,t)
     life=s.life;a=s.animals
     for i in eachindex(s.alive)
         s.alive[i] && dependent(life,i,t) || continue
+        configured_rabbit_self_feeding(s,i,t) && continue
         a.state[i]=H.SLEEP;a.counts[i,H.SLEEP]+=1
         a.energy[i]=max(0.,a.energy[i]-RABBIT_LIFE.infant_energy_per_day/RABBIT_LIFE.day_ticks)
     end

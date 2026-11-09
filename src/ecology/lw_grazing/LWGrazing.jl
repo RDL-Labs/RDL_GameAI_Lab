@@ -8,6 +8,7 @@ const V=DirectionalVision
 const H=V.H
 const P=V.P
 include("reproduction.jl")
+include("../../lw/configured_paths/rabbit_juvenile_growth.jl")
 include("../../lw/configured_paths/rabbit_burrow.jl")
 include("../../lw/configured_paths/wildlife_reproduction.jl")
 include("../../lw/configured_paths/rabbit_nest_preparation.jl")
@@ -107,7 +108,7 @@ function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additi
     fill!(s.overrides,0)
     for i in eachindex(s.alive)
         s.alive[i] || continue
-        s.life!==nothing && dependent(s.life,i,t) && continue
+        !configured_rabbit_self_feeding(s,i,t) && continue
         recent=t-s.last_seen[i]<=20
         remembered=s.seen_position[i]
         desired=recent ? atan(remembered[2]-a.z[i],remembered[1]-a.x[i]) : a.heading[i]+(pi/6)*sin(t/8+i)
@@ -170,7 +171,7 @@ function advance!(s::GrazingWorld,t::Int; nursing_potential=true,steering=nothin
         s.overrides[i]==H.FLEE && a.state[i]!=H.FLEE && (s.flee_entries[i]+=1)
     end
     H.step!(s.world,a,t,s.demand,s.ratio,s.requests,s.active;
-        policy=grazing_policy,
+        policy=grazing_policy,development=s.life===nothing ? nothing : (i->configured_rabbit_growth(s,i,t)),
         alive=s.life===nothing ? s.alive : s.life.moving,overrides=s.overrides,threat_positions=s.threats,
         steering=steering!==nothing ? steering : s.life!==nothing && nursing_potential ? configured_rabbit_potential : nothing)
     s.life!==nothing && rabbit_advance!(s,t)
