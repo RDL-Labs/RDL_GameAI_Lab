@@ -1,10 +1,12 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio] [prey_nutrition=1.5].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8,9,10,11,12,13,14,15) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio]")
+length(ARGS) in (4,5,6,7,8,9,10,11,12,13,14,15,16) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio] [prey_nutrition=1.5]")
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const predator_population_mode=length(ARGS)>=15 ? ARGS[15] : "fixed"
 predator_population_mode in ("fixed","ratio") || error("unknown predator population mode")
+const crossing_prey_nutrition=length(ARGS)>=16 ? parse(Float64,ARGS[16]) : 1.5
+isfinite(crossing_prey_nutrition) && crossing_prey_nutrition>0 || error("prey nutrition must be finite and positive")
 const crossing_predator_count=length(ARGS)<6 ? 2 : parse(Int,ARGS[6])
 # World resource condition: scales capacity, initial grass and capacity-based regrowth.
 # Default 3 preserves the existing comparison; 1.5 halves supply, not birth rules.
@@ -75,17 +77,17 @@ function crossing_main()
     # Explicit experiment intervention: remove predators before the first tick.
     # Default 2 preserves the reference run; 0 keeps rabbit/world setup unchanged.
     resize!(predators,crossing_predator_count)
-    donor=crossing_predator_count==0 ? nothing : deserialize(ARGS[2])
+    donor=crossing_predator_count==0 || ARGS[2]=="none" ? nothing : deserialize(ARGS[2])
     dc=donor===nothing ? nothing : donor.state[:predator_cohort]
     minds=PredatorMind[];locals=LocalHunt[];pursuits=PredatorPursuit.(eachindex(predators))
     for i in eachindex(predators)
-        m,l=configured_predator_mb_inherit(dc.minds[2],dc.local_hunts[2],i,101,donor.state[:wildlife].ticks)
+        m,l=dc===nothing ? (PredatorMind(i),LocalHunt(i;probabilistic_capture=true)) : configured_predator_mb_inherit(dc.minds[2],dc.local_hunts[2],i,101,donor.state[:wildlife].ticks)
         m.estimates["crossing_enabled"]=crossing_enabled ? 1. : 0.
         # Donor memories are rebased to the new actor's introduction time.
         if start_tick>0
             m.places=Dict{String,Any}(key=>merge(place,(seen=place.seen+start_tick,)) for (key,place) in m.places)
         end
-        configured_inherit_loop!(pursuits[i].loop,dc.pursuits[2].loop)
+        dc!==nothing && configured_inherit_loop!(pursuits[i].loop,dc.pursuits[2].loop)
         Random.seed!(predators[i].visual.rng,20261106+1000*101+i)
         push!(minds,m);push!(locals,l)
     end
@@ -108,12 +110,12 @@ function crossing_main()
         humans=0,predators=migration===nothing ? length(predators) : count(i->migration.present[i] && predators[i].alive,eachindex(predators)),predator_slots=length(predators),rabbits=count(s.alive),layout=layout_record,
         rabbit_swimming_enabled,rabbit_swimming=H.RABBIT_SWIMMING,
         rabbit_swimming_fixed="optional configured candidate; exact river geometry; no opposite-bank food lookup; hunger/local H/local grass weighting; shore overrides interrupt; water commits to landing; no drowning/current/temperature",
-        crossing_enabled,crossing=PREDATOR_CROSSING,rabbit_H=true,nest_grazing_avoidance=false,rabbit_burrow=G.RABBIT_BURROW,nursing_plan=G.RABBIT_NURSING_PLAN,grass_scale=crossing_grass_scale,nutrition=1.5,
-        predator_energy=PREDATOR_ANIMAL_TRIAL,
+        crossing_enabled,crossing=PREDATOR_CROSSING,rabbit_H=true,nest_grazing_avoidance=false,rabbit_burrow=G.RABBIT_BURROW,nursing_plan=G.RABBIT_NURSING_PLAN,grass_scale=crossing_grass_scale,nutrition=crossing_prey_nutrition,
+        predator_energy=PREDATOR_ANIMAL_TRIAL,adult_prey_energy=PREDATOR_ANIMAL_TRIAL.adult_food*crossing_prey_nutrition,adult_prey_basal_days=PREDATOR_ANIMAL_TRIAL.adult_food*crossing_prey_nutrition/PREDATOR_ANIMAL_TRIAL.daily_food,
         donor=donor===nothing ? nothing : abspath(ARGS[2]),donor_index=donor===nothing ? nothing : 2,human_scent=false,boundary=true,
         predator_removal=migration===nothing && crossing_predator_count==0,
         introduction=migration!==nothing ? "daily hysteretic ratio controller; fresh immigrant MB at walkable map edge; departures archived alive at last observation, outside simulation" : preserve_predators ? "exact existing cohort continuation; bodies, memories, RNG, scents, pursuits retained" : population_saved===nothing ? nothing : crossing_predator_count==0 ? "predator-free continuation; existing world/rabbit state preserved; no relocation" : "requested predators at existing trial spawn sites; inherited donor MB; existing rabbit/world clocks and H preserved; no rabbit relocation",
-        fixed=migration!==nothing ? "global rabbit count: arrivals at 100+50*(k-1), departures at N<=50*k; daily hysteretic instantaneous immigration/emigration; no outside ecology or walking to exit" : preserve_predators ? "no respawn or initial profile reapplication; current configured behaviors retained" : population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "capacity-weighted distributed or legacy family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "capacity-weighted distributed or legacy family-preserving spawn; inherited predator MB; exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
+        fixed=migration!==nothing ? "global rabbit count: arrivals at 100+50*(k-1), departures at N<=50*k; daily hysteretic instantaneous immigration/emigration; no outside ecology or walking to exit" : preserve_predators ? "no respawn or initial profile reapplication; current configured behaviors retained" : population_saved!==nothing && crossing_predator_count==0 ? "saved population without respawn; configured juvenile burrow; no maternal grazing repulsion" : crossing_predator_count==0 ? "capacity-weighted distributed or legacy family-preserving spawn; predators removed before first tick; rabbit rules unchanged" : "capacity-weighted distributed or legacy family-preserving spawn; optional donor MB (none means fresh); exact river geometry proposal; water movement continues to shore; no current/depth/drowning model; rabbit swimming separately controlled by rabbit_swimming_enabled",
         stop="requested duration; continue ecology after predator extinction; existing accounting/allocation safety stops retained")
     write(joinpath(crossing_output,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
     cp(ARGS[1],joinpath(crossing_output,"input-origin.json"))
@@ -142,7 +144,7 @@ function crossing_main()
             end
             p.alive && p.mode==:cross_river && crossing_water(s.world,(p.visual.body.x,p.visual.body.z)) && (counts[i]["swim_ticks"]+=1)
         end
-        animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition=1.5,prey_scents,local_hunts=locals,physiology,pursuits,grazing_policy=rabbit_approach,present=migration===nothing ? nothing : migration.present)
+        animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition=crossing_prey_nutrition,prey_scents,local_hunts=locals,physiology,pursuits,grazing_policy=rabbit_approach,present=migration===nothing ? nothing : migration.present)
         if (t+1)%17280==0
             absolute_day=div(t+1,17280);day=absolute_day-start_day
             report=animal_trial_report(s,predators;scents,minds,swimming_policy=rabbit_approach)
