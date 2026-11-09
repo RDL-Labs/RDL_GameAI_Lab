@@ -136,7 +136,7 @@ function crossing_main()
             report=animal_trial_report(s,predators;scents,minds,swimming_policy=rabbit_approach)
             west(p)=p[1]<12+5sin((p[2]-6)/22+s.world.phase)
             rabbit_west=count(i->s.alive[i] && west((s.animals.x[i],s.animals.z[i])),eachindex(s.alive))
-            row=(grazing_motion=copy(H.RABBIT_GRAZING_MOTION_STATS),neighbor_gpu=H.rabbit_neighbor_stats(),day,absolute_day,elapsed_seconds=time()-started,rabbits=report.rabbits.alive,starvation=report.rabbits.starvation_deaths,
+            row=(grazing_motion=copy(H.RABBIT_GRAZING_MOTION_STATS),neighbor_gpu=H.rabbit_neighbor_stats(),day,absolute_day,elapsed_seconds=time()-started,rabbits=report.rabbits.alive,starvation=report.rabbits.starvation_deaths,starvation_breakdown=report.rabbits.starvation_breakdown,
                 births=report.rabbits.reproduction.births,pregnant=report.rabbits.reproduction.pregnant,
                 conceptions=report.rabbits.reproduction.conceptions,lost_pregnancies=report.rabbits.reproduction.lost_pregnancies,
                 grass_layers=report.rabbits.grass_layers,grass_remaining=report.rabbits.grass_remaining,grass_grown=report.rabbits.grass_grown,grass_eaten=report.rabbits.grass_eaten,

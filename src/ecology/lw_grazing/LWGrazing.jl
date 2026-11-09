@@ -41,6 +41,7 @@ mutable struct GrazingWorld
     deaths::Int
     life::Union{Nothing,RabbitLife}
     predator::Union{Nothing,WildlifePredator}
+    starvation_records::Vector{NamedTuple}
 end
 
 function build(scene,clock;low_obstacles=true)
@@ -90,7 +91,7 @@ function build(scene,clock;low_obstacles=true)
         zeros(length(w.grass)),zeros(n),Int[],humans,zeros(Int,n),zeros(Int,n),zeros(Int,n),
         zeros(Int,length(humans)),positions,0,false,0,
         get(cfg,:reproduction,false) ? rabbit_life(n,seed,positions;initial_pregnancy_days) : nothing,
-        configured_wildlife_predator(w,a,cfg,seed))
+        configured_wildlife_predator(w,a,cfg,seed),NamedTuple[])
     rabbit_initial_young!(grazing_world,initial_young_count,initial_young_age)
     grazing_world.life!==nothing && rabbit_reserve_sample!(grazing_world,0)
     grazing_world
@@ -175,6 +176,7 @@ function advance!(s::GrazingWorld,t::Int; nursing_potential=true,steering=nothin
     s.life!==nothing && rabbit_advance!(s,t)
     for i in eachindex(s.alive)
         if s.alive[i] && a.energy[i]<=0
+            record_starvation!(s,i,t)
             s.alive[i]=false;s.deaths+=1
         end
     end
@@ -184,6 +186,23 @@ function advance!(s::GrazingWorld,t::Int; nursing_potential=true,steering=nothin
 end
 
 include("balance.jl")
+
+# Classification at the death tick, not the later report age. Unknown age remains
+# explicit when reproduction is disabled. No change to physiology or decisions.
+function record_starvation!(s,i,t)
+    life=s.life;mother=life===nothing ? 0 : life.mother[i]
+    dependent_young=life===nothing ? nothing : dependent(life,i,t)
+    push!(s.starvation_records,(id=i,tick=t,day=div(t,RABBIT_LIFE.day_ticks)+1,
+        category=dependent_young===nothing ? "unknown_age" : dependent_young ? "dependent_young" : "post_weaning",
+        age_days=life===nothing ? nothing : (t-life.born[i])/RABBIT_LIFE.day_ticks,
+        mother=mother,mother_alive=mother>0 ? s.alive[mother] : nothing,
+        last_nursed_day=life===nothing ? nothing : life.nursed_day[i]))
+end
+function starvation_breakdown(s)
+    (dependent_young=count(r->r.category=="dependent_young",s.starvation_records),
+     post_weaning=count(r->r.category=="post_weaning",s.starvation_records),
+     unknown_age=count(r->r.category=="unknown_age",s.starvation_records))
+end
 
 function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths=0,swimming_policy=nothing)
     w=s.world;a=s.animals
@@ -201,7 +220,7 @@ function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths
     (rule="lw-grazing-v1",balances=balances,count=length(s.alive),alive=count(s.alive),ticks=s.ticks,
      reproduction=rabbit_reproduction_snapshot(s),
      ambient_vision=AmbientVision.RULE,predator=wildlife_predator_snapshot(s),predation_deaths=captures,
-     starvation_deaths=s.deaths,grass_initial=w.initial,grass_grown=w.grown,
+     starvation_deaths=s.deaths,starvation_breakdown=starvation_breakdown(s),starvation_records=copy(s.starvation_records),grass_initial=w.initial,grass_grown=w.grown,
      grass_remaining=sum(w.grass),grass_eaten=w.eaten,grass_cells=count(>(0),w.capacity),grass_layers=H.grass_layer_snapshot(w),
      states=H.STATES,state_ticks=vec(sum(a.counts,dims=1)),human_seen=copy(s.human_seen),
      alert_entries=sum(s.alert_entries),flee_entries=sum(s.flee_entries),
