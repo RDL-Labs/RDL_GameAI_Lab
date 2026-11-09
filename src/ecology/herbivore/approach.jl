@@ -1,5 +1,6 @@
 include("../../lw/configured_paths/rabbit_approach_parameters.jl")
 include("../../lw/configured_paths/rabbit_cover_foraging.jl")
+include("../../lw/configured_paths/rabbit_sparse_departure.jl")
 mutable struct RabbitApproachMemory
     H::Dict{Int,Float64}
     target::Int
@@ -15,7 +16,7 @@ struct RabbitApproachPolicy
     seed::Int
 end
 RabbitApproachPolicy(;seed=20261107)=RabbitApproachPolicy(Dict{Int,RabbitApproachMemory}(),seed)
-choose_state(::RabbitApproachPolicy,o)=choose_state(StateMachinePolicy(),o)
+choose_state(::RabbitApproachPolicy,o)=configured_rabbit_sparse_state(choose_state(StateMachinePolicy(),o),o)
 approach_memory(policy,i)=get!(()->RabbitApproachMemory(policy.seed+i),policy.actors,i)
 approach_feedback!(policy,w,a,i,t)=nothing
 function approach_record!(m,row)

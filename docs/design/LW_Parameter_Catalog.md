@@ -667,3 +667,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 草の遮蔽への移動加点: src/lw/configured_paths/rabbit_cover_foraging.jl / RABBIT_COVER_FORAGING。enabled=true、RabbitApproachPolicyのみ適用（泳ぎラッパーを含む）。reserve_low=25、reserve_full=85、cover_target_weight=2。暫定固定の認知評価。観測coverに身体余裕を掛けて移動候補へ加点。空腹時は加点を弱め、reserve25以下で0。採食切り上げの状態上書きは撤去した。enabled=falseで旧候補評価。将来は露出・採食経験MBへ置換。crossing_longrunのconditionsに記録。
 
 - 2026-11-09 分散初期配置: src/lw/configured_paths/rabbit_distributed_layout.jl / RABBIT_DISTRIBUTED_LAYOUT。seed=20261109、tile_width=16世界距離、bank_margin=3。真の通行可能性と草容量を参照する暫定固定の実験初期条件。親子を保持し、区画容量比例の人数割当とグループ間距離を使う。crossing_longrunの第13引数distributed（新規の既定）/legacy（旧西20東80）。継続時は再配置せずinheritedを記録。草初期残量・身体・経験は変えない。将来は準備期間での自律分散へ置換。conditions.layoutに設定・各区画配分を保存。
+
+- 2026-11-09 薄い草からの採食離脱: src/lw/configured_paths/rabbit_sparse_departure.jl / RABBIT_SPARSE_DEPARTURE。enabled=true、density_hungry=0.005、density_comfortable=0.05、reserve_low=25、reserve_full=85。観測density（植生密度×残量比）が身体余裕に応じた線形閾値未満ならGRAZEをSEARCHへ変更。等号は採食継続。睡眠・休息・逃走や授乳overrideは従来どおり。暫定固定で将来は採食成果MBへ置換。無効化はenabled=false。conditionsへ記録。
