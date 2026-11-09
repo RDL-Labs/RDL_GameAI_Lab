@@ -15,7 +15,7 @@ struct RabbitApproachPolicy
     seed::Int
 end
 RabbitApproachPolicy(;seed=20261107)=RabbitApproachPolicy(Dict{Int,RabbitApproachMemory}(),seed)
-choose_state(::RabbitApproachPolicy,o)=configured_rabbit_cover_state(choose_state(StateMachinePolicy(),o),o)
+choose_state(::RabbitApproachPolicy,o)=choose_state(StateMachinePolicy(),o)
 approach_memory(policy,i)=get!(()->RabbitApproachMemory(policy.seed+i),policy.actors,i)
 approach_feedback!(policy,w,a,i,t)=nothing
 function approach_record!(m,row)

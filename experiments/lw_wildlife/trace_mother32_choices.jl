@@ -10,7 +10,6 @@ method=source[lo:prevind(source,hi)]
 cover_trial=length(ARGS)>=3 && ARGS[3]=="cover"
 if cover_trial
  Base.include_string(H,replace(read(joinpath(@__DIR__,"../../src/lw/configured_paths/rabbit_cover_foraging.jl"),String),"enabled=false"=>"enabled=true"),"cover_trial_parameters")
- Core.eval(H,:(choose_state(::RabbitApproachPolicy,o)=configured_rabbit_cover_state(choose_state(StateMachinePolicy(),o),o)))
  method=replace(method,"o.grass-.25o.distance"=>"o.grass+configured_rabbit_cover_bonus(o,a.energy[i])-.25o.distance")
 end
 method=replace(method,"    o=observations[chosen]"=>"    i==32 && push!(AUDIT_CHOICES,(tick=t,position=(a.x[i],a.z[i]),heading=a.heading[i],previous=a.previous_cell[i],observations=observations,scores=scores,H=[get(m.H,o.cell,0.) for o in observations],pressure=pressure,chosen=chosen))\n    o=observations[chosen]")
@@ -18,6 +17,8 @@ Base.include_string(H,method,"observer_target_selector")
 function audit()
  saved=deserialize(joinpath(root,"checkpoints/day-236.jls"));s=saved.world;c=saved.cohort;w=s.world;a=s.animals
  frames=Any[];states=Dict{String,Int}();trace=Any[];death=nothing
+ mother_consumed_start=a.consumed[32];daily=Any[]
+ println((mode=cover_trial ? "cover_target_only" : "baseline",start_day=326,end_day=328,cover_parameters=cover_trial ? H.RABBIT_COVER_FORAGING : nothing));flush(stdout)
  H.enable_rabbit_neighbor_batch!(w;gpu=true,automatic=true)
  for t in s.ticks:328*17280-1
   if s.alive[32]
@@ -44,11 +45,12 @@ function audit()
    if !cover_trial
     @test s.alive==expected.world.alive && a.x==b.x && a.z==b.z && a.energy==b.energy && a.counts==b.counts && w.grass==expected.world.world.grass
    end
-   println((day=day,cover_trial=cover_trial,alive=count(s.alive),mother_alive=s.alive[32],energy=a.energy[32],consumed=a.consumed[32]));flush(stdout)
+   row=(day=day,cover_trial=cover_trial,alive=count(s.alive),mother_alive=s.alive[32],energy=a.energy[32],consumed=a.consumed[32]-mother_consumed_start)
+   push!(daily,row);println(row);flush(stdout)
   end
  end
  children=[i for i in eachindex(s.alive) if s.life.mother[i]==32]
- write(ARGS[2],JSON3.write((cover_trial,frames,trace,choices=H.AUDIT_CHOICES,states,death,nest=s.life.nest[first(children)],world=(xmin=w.xmin,xmax=w.xmax,zmin=w.zmin,zmax=w.zmax,nx=w.nx,nz=w.nz,cellsize=w.cellsize,phase=w.phase,capacity=w.capacity,obstacles=[(x=o.x,z=o.z,radius=o.radius) for o in w.obstacles]))))
+ write(ARGS[2],JSON3.write((completed=true,mode=cover_trial ? "cover_target_only" : "baseline",daily,cover_trial,frames,trace,choices=H.AUDIT_CHOICES,states,death,nest=s.life.nest[first(children)],world=(xmin=w.xmin,xmax=w.xmax,zmin=w.zmin,zmax=w.zmax,nx=w.nx,nz=w.nz,cellsize=w.cellsize,phase=w.phase,capacity=w.capacity,obstacles=[(x=o.x,z=o.z,radius=o.radius) for o in w.obstacles]))))
 end
 audit()
 

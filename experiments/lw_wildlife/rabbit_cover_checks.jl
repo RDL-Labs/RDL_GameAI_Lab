@@ -1,24 +1,20 @@
 using Test
-const GRAZE=UInt8(2);const SEARCH=UInt8(1)
-include_string(Main,replace(read(joinpath(@__DIR__,"../../src/lw/configured_paths/rabbit_cover_foraging.jl"),String),"enabled=false"=>"enabled=true"))
-@testset "cover and hunger compete without overriding urgent states" begin
- observation(energy,cover;grass=.01)=(energy=energy,grass=grass,vegetation=(cover=cover,))
- @test configured_rabbit_cover_state(GRAZE,observation(75.,0.))==SEARCH
- @test configured_rabbit_cover_state(GRAZE,observation(25.,0.))==GRAZE
- @test configured_rabbit_cover_state(GRAZE,observation(75.,1.))==GRAZE
- @test configured_rabbit_cover_state(GRAZE,(energy=75.,grass=.01,vegetation=nothing))==GRAZE
- for state in UInt8[1,3,4,5,6]
-  @test configured_rabbit_cover_state(state,observation(75.,0.))==state
- end
- @test configured_rabbit_cover_bonus(observation(75.,1.),75.)>configured_rabbit_cover_bonus(observation(75.,0.),75.)
- @test configured_rabbit_cover_bonus(observation(25.,1.),25.)==0.
+include("../../src/ecology/motion-vision-cpu/Herbivores.jl")
+const H=Herbivores
+@testset "cover preference preserves all state decisions" begin
+    for old in UInt8.(1:6), energy in (10.,25.,65.,85.), grass in (0.,.004,.01,1.), threat in (false,true)
+        o=(old=old,energy=energy,gut=0.,sleepy=.3,grass=grass,threat=threat,vegetation=(cover=0.,))
+        @test H.choose_state(H.RabbitApproachPolicy(),o)==H.choose_state(H.StateMachinePolicy(),o)
+    end
+end
+@testset "dense cover preference weakens with hunger" begin
+    thin=(vegetation=(cover=.1,),);dense=(vegetation=(cover=.9,),)
+    @test H.configured_rabbit_cover_bonus(dense,75.)>H.configured_rabbit_cover_bonus(thin,75.)
+    @test H.configured_rabbit_cover_bonus(dense,75.)>H.configured_rabbit_cover_bonus(dense,40.)
+    @test H.configured_rabbit_cover_bonus(dense,25.)==0.
+    @test H.configured_rabbit_cover_bonus((vegetation=nothing,),75.)==0.
 end
 module DisabledCover
-const GRAZE=UInt8(2);const SEARCH=UInt8(1)
-include("../../src/lw/configured_paths/rabbit_cover_foraging.jl")
+include_string(@__MODULE__,replace(read(joinpath(@__DIR__,"../../src/lw/configured_paths/rabbit_cover_foraging.jl"),String),"enabled=true"=>"enabled=false"))
 end
-@testset "default off preserves legacy decisions" begin
- o=(energy=75.,grass=.01,vegetation=(cover=0.,))
- @test DisabledCover.configured_rabbit_cover_state(GRAZE,o)==GRAZE
- @test DisabledCover.configured_rabbit_cover_bonus(o,75.)==0.
-end
+@test DisabledCover.configured_rabbit_cover_bonus((vegetation=(cover=1.,),),75.)==0.

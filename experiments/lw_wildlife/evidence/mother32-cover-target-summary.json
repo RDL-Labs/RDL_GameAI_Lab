@@ -1,0 +1,42 @@
+{
+  "mode": "cover_target_only",
+  "daily": [
+    {
+      "day": 327,
+      "cover_trial": true,
+      "alive": 401,
+      "mother_alive": true,
+      "energy": 85.03299525781549,
+      "consumed": 36.760340954604544
+    },
+    {
+      "day": 328,
+      "cover_trial": true,
+      "alive": 339,
+      "mother_alive": true,
+      "energy": 62.32462102319074,
+      "consumed": 72.4994162091225
+    }
+  ],
+  "death": null,
+  "states": {
+    "sleep/override=0": 7787,
+    "search/override=1": 7780,
+    "graze/override=0": 1897,
+    "graze/override=2": 1275,
+    "rest/override=0": 14599,
+    "search/override=0": 1222
+  },
+  "choices": 171,
+  "last_position": [
+    22.85992399490807,
+    67.41039472336413
+  ],
+  "last_position_tick": 5667600,
+  "extent": {
+    "xmin": -3.3300268563063895,
+    "xmax": 36.44050397632998,
+    "zmin": 57.088997539710476,
+    "zmax": 67.52829334179991
+  }
+}

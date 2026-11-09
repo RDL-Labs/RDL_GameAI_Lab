@@ -664,4 +664,4 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 
 - 出産前巣候補: src/lw/configured_paths/rabbit_nest_preparation.jl / RABBIT_NEST_PREPARATION。lead_days=3、観測半径8、採食評価半径3、距離費0.12、選択温度0.5、移動reserve70/眠気1未満、到着半径0.6。全て暫定固定。既定ON、将来は場所MBへ置換。
 
-- 2026-11-09 草の遮蔽と採食: src/lw/configured_paths/rabbit_cover_foraging.jl / RABBIT_COVER_FORAGING。enabled=false（比較試験のみON）、RabbitApproachPolicyのみ適用（泳ぎラッパーを含む）。reserve_low=25、reserve_full=85、cover_target_weight=2、exposure_weight=1、intake_scale=0.025。暫定固定の認知評価。既存の観測coverと身体reserveのみ参照。低reserveでは遮蔽作用0、余裕があるほど露出による採食離脱と遮蔽候補加点が増える。逃走・睡眠・休息は変更しない。enabled=falseで旧動作。将来は露出・採食経験MBへ置換。crossing_longrunのconditionsに記録。
+- 2026-11-09 草の遮蔽への移動加点: src/lw/configured_paths/rabbit_cover_foraging.jl / RABBIT_COVER_FORAGING。enabled=true、RabbitApproachPolicyのみ適用（泳ぎラッパーを含む）。reserve_low=25、reserve_full=85、cover_target_weight=2。暫定固定の認知評価。観測coverに身体余裕を掛けて移動候補へ加点。空腹時は加点を弱め、reserve25以下で0。採食切り上げの状態上書きは撤去した。enabled=falseで旧候補評価。将来は露出・採食経験MBへ置換。crossing_longrunのconditionsに記録。
