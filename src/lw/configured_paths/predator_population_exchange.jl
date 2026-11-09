@@ -1,8 +1,8 @@
 # 暫定固定の世界境界条件。通常はOFF、crossing_longrunの第15引数ratioで有効。
-# 世界の生存兎数を直接数え、流入100匹刻み・退場50匹低い境界で日次調整する。
+# 世界の生存兎数を直接数え、初回100匹・以後50匹刻み、退場は50匹下で日次調整。
 # 個体の判断ではない。境界への歩行・場外生態は省略し、出入りを瞬時に扱う。
 # 将来は外部個体群と、局所の狩り収支による移住判断へ置換する。
-const PREDATOR_POPULATION_EXCHANGE=(rabbits_per_predator=100,departure_margin=50,
+const PREDATOR_POPULATION_EXCHANGE=(first_arrival_rabbits=100,rabbits_per_predator=50,departure_margin=50,
     interval_ticks=PREDATOR_ANIMAL_TRIAL.day_ticks,seed=20261109)
 mutable struct PredatorPopulationExchange
     present::BitVector
@@ -14,10 +14,10 @@ PredatorPopulationExchange(n)=PredatorPopulationExchange(trues(n),Any[],-1,
     MersenneTwister(PREDATOR_POPULATION_EXCHANGE.seed))
 function configured_predator_population_target(rabbits,residents=0)
     rule=PREDATOR_POPULATION_EXCHANGE
-    arrival_target=fld(max(0,rabbits),rule.rabbits_per_predator)
-    # Equality departs: resident k leaves at N <= 100k-50. Between thresholds
+    arrival_target=max(0,1+fld(rabbits-rule.first_arrival_rabbits,rule.rabbits_per_predator))
+    # Equality departs: k leaves at N <= first+(k-1)*step-margin. Between thresholds
     # retain existing residents; do not replace a dead resident below arrival N.
-    retention_limit=max(0,cld(rabbits+rule.departure_margin,rule.rabbits_per_predator)-1)
+    retention_limit=max(0,cld(rabbits-rule.first_arrival_rabbits+rule.departure_margin,rule.rabbits_per_predator))
     max(arrival_target,min(residents,retention_limit))
 end
 function configured_predator_boundary_position(world,rng)

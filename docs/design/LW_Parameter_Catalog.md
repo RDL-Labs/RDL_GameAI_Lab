@@ -715,3 +715,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 捕食者の場外交換: `PREDATOR_POPULATION_EXCHANGE`（`predator_population_exchange.jl`）。`rabbits_per_predator=100`、`interval_ticks=17280`（既存1日）、`seed=20261109`。`crossing_longrun`第15引数ratioのみON、既定fixed。生存兎（幼体含む）のfloor(N/100)へ日次調整。未学習個体を通行可能な最外周セルへ導入、余剰は境界に近い順に場外へ。いずれも移動を省略する暫定世界条件。場外は死亡と別のpresent/statusで保持し、世界への作用を停止。設定・日次在場/死亡/流入/流出数とイベントを保存。将来は外部個体群・局所成果による移住へ置換。詳細 `experiments/lw_wildlife/predator_population_exchange.md`。
 
 - 2026-11-09 捕食者退場幅: `PREDATOR_POPULATION_EXCHANGE.departure_margin=50`を追加。流入100k、退場N<=100k-50（kは在場捕食者数）。1体は50以下、2体は150以下で減員。中間帯は現状維持し、死亡分も流入境界未満では補充しない。日次確認・境界出現・場外停止は維持。target集計も現在在場数に依存する。初版のfloor(N/100)への強制一致を置換。
+
+- 2026-11-09 捕食者追加間隔の短縮: 負荷抑制目的の世界側固定条件。`first_arrival_rabbits=100`を新設、`rabbits_per_predator=50`、`departure_margin=50`。k体目流入は100+50(k-1)、退場はN<=50k。日次確認は維持。既存の100匹刻みを置換し、旧結果は再解釈しない。処理時間削減の実測は未確認。

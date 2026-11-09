@@ -2,15 +2,15 @@ using Test,Random,Serialization
 include("predator_generations.jl")
 include("../../src/lw/configured_paths/predator_population_exchange.jl")
 @testset "world predator immigration and emigration" begin
-    @test configured_predator_population_target.([0,99,100,199,200,300])==[0,0,1,1,2,3]
+    @test configured_predator_population_target.([0,99,100,149,150,199,200,300])==[0,0,1,1,2,2,3,5]
     @test configured_predator_population_target.([49,50,51,99,100],1)==[0,0,1,1,1]
-    @test configured_predator_population_target.([149,150,151,199,200],2)==[1,1,2,2,2]
-    wildlife,predators=animal_trial_world(;adult_rabbits=295)
+    @test configured_predator_population_target.([99,100,101,149,150],2)==[1,1,2,2,2]
+    wildlife,predators=animal_trial_world(;adult_rabbits=195)
     cohort=(predators,minds=PredatorMind.(1:2),local_hunts=[LocalHunt(i;probabilistic_capture=true) for i in 1:2],
         pursuits=PredatorPursuit.(1:2),physiology=PredatorPhysiology.(predators),
         scents=PredatorScentWorld(2),prey_scents=PreyScentWorld(2;cautious=true))
     migration=PredatorPopulationExchange(2)
-    @test count(wildlife.alive)==300
+    @test count(wildlife.alive)==200
     configured_predator_population_update!(wildlife,cohort,migration,0)
     @test length(predators)==3
     @test all(migration.present)
@@ -61,8 +61,8 @@ include("../../src/lw/configured_paths/predator_population_exchange.jl")
     end
     # Consecutive day-boundary updates: no immigration/emigration churn near 100.
     for (step,(rabbit_count,expected_residents)) in enumerate([
-        (251,3),(250,2),(199,2),(150,1),(99,1),(100,1),(99,1),
-        (51,1),(50,0),(99,0),(100,1)])
+        (151,3),(150,2),(149,2),(100,1),(99,1),(100,1),(99,1),
+        (51,1),(50,0),(99,0),(100,1),(149,1),(150,2),(149,2),(101,2),(100,1)])
         wildlife.alive.=false;wildlife.alive[1:rabbit_count].=true
         previous_events=length(migration.events)
         previous_residents=count(i->migration.present[i] && predators[i].alive,eachindex(predators))
