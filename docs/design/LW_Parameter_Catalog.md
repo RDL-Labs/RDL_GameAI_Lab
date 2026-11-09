@@ -711,3 +711,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 警戒と授乳必要性の比較: RABBIT_NURSING_ALERT(enabled=true,near_distance=3,far_distance=10,history_limit=64)。ALERTのみ、必要性clamp((request_energy4-min_child_energy)/4,0,1)と危険clamp((10-最後の観測位置までの距離)/7,0,1)を比較、必要性>危険かつ既存departure_energy以上なら授乳接近を許可。同点警戒維持。FLEEや他の割込みは変更しない。母の体力不足時は警戒を解除しない。子の体力/血縁への直接参照は暫定固定、将来MBへ置換。falseで旧警戒一律優先。日次nursing_alertに検討/許可累計、直近64判断はRABBIT_NURSING_ALERT_RECORDS（プロセス内、checkpoint未保存）。
 
 - 2026-11-09 巣穴退避: RABBIT_BURROW_REFUGE(enabled=true,near_distance=2)。離乳前で母IDを持つ幼体の自分の巣穴のみ。危険ALERT/FLEE時、巣内ならRESTで隠れ、巣外かつ距離2以内ならFLEEの向きを巣へ変更。速度は到着距離で上限、障害時は巣に近づく通行可能方向を選ぶ。通常衝突/幼体半径/境界勾配は維持。安全時は通常行動、母親/離乳後には不適用。暫定固定の既知避難先、将来避難場所MBへ置換。enabled=falseで旧危険応答。conditionsへ設定保存。物理保護の半径0.25は変更なし。
+
+- 2026-11-09 捕食者の場外交換: `PREDATOR_POPULATION_EXCHANGE`（`predator_population_exchange.jl`）。`rabbits_per_predator=100`、`interval_ticks=17280`（既存1日）、`seed=20261109`。`crossing_longrun`第15引数ratioのみON、既定fixed。生存兎（幼体含む）のfloor(N/100)へ日次調整。未学習個体を通行可能な最外周セルへ導入、余剰は境界に近い順に場外へ。いずれも移動を省略する暫定世界条件。場外は死亡と別のpresent/statusで保持し、世界への作用を停止。設定・日次在場/死亡/流入/流出数とイベントを保存。将来は外部個体群・局所成果による移住へ置換。詳細 `experiments/lw_wildlife/predator_population_exchange.md`。

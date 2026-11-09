@@ -102,3 +102,13 @@
 
 ## 2026-11-08 暦による兎の繁殖停止を既定OFF
 `RABBIT_BREEDING_SEASON.enabled=false`をconfigured_paths/wildlife_reproduction.jlに追加。新規妊娠を止めていたmod(day,365)<240をconfigured_rabbit_breeding_openへ隔離し、通常は通年許可。過去条件の再現にはenabled=true、日次処理の検査・呼出しではrabbit_daily!(...;seasonal_breeding=true)を使用可能。旧year_days/season_daysは再現用に保持。成熟150日、雌雄の遭遇、エネルギー70、妊娠・回復・受容周期など他の条件は維持。暦の直接参照は暫定固定で、将来は環境・身体条件へ置換。スナップショットとcrossing_longrunのconditionsにbreeding_seasonを記録。旧凍結ソース・既存結果は変更しない。変更後の長期実験は未実施。
+
+## 捕食者の流入・流出（2026-11-09）
+
+`predator_population_exchange.jl`は個体の学習ではなく、暫定の世界境界条件。
+長期ランナー第15引数ratioで生存兎100匹ごとに捕食者1体へ日次調整する（既定fixedで無効）。
+世界の総個体数を直接参照し、未学習個体の境界出現と余剰個体の場外退去を瞬時に行う。
+場外の歩行・生態は未実装。流出を死亡にせず、履歴・捕獲累計・IDを保って活動を停止。
+将来は外部個体群と局所の狩り収支による移住へ置換。
+設定と結果はconditions/daily/resultのpopulation欄とmigration_eventsへ保存する。
+詳細と短期試験は `experiments/lw_wildlife/predator_population_exchange.md`。

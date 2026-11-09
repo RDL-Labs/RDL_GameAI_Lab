@@ -21,28 +21,33 @@ function animal_trial_predators(s)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     predators
 end
-function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,pursuits=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
-    scents!==nothing && configured_scent_tick!(scents,predators,t)
+function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,pursuits=nothing,present=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
+    scents!==nothing && configured_scent_tick!(scents,predators,t;present)
+    resident_predators=present===nothing ? predators : predators[findall(present)]
     for (i,p) in enumerate(predators)
+        present!==nothing && !present[i] && continue
         if minds===nothing
-            configured_trial_plan!(s,p,predators,t;territory_evidence=scents===nothing ? nothing : scents.observed[i])
+            configured_trial_plan!(s,p,resident_predators,t;territory_evidence=scents===nothing ? nothing : scents.observed[i])
             scents!==nothing && configured_scent_choice!(scents,p,i,t)
         else
             attention=prey_scents===nothing ? nothing : prey_scents.active_target[i]
             physical=physiology===nothing ? nothing : physiology[i]
             planner=local_hunts===nothing ? nothing : (proxy,observations,tick)->configured_local_hunt_plan!(local_hunts[i],proxy,observations,tick;physiology=physical,pursuit=pursuits===nothing ? nothing : pursuits[i])
-            predator_mind_plan!(s,p,predators,minds[i],t;scents,index=i,search_attention=attention,local_planner=planner,physiology=physical)
+            predator_mind_plan!(s,p,resident_predators,minds[i],t;scents,index=i,search_attention=attention,local_planner=planner,physiology=physical)
             pursuits!==nothing && p.mode!=:hunt && configured_pursuit_close!(pursuits[i],t,"parent_changed")
         end
     end
     if prey_scents!==nothing
-        configured_prey_scent_tick!(prey_scents,s,predators,t)
-        for (i,p) in enumerate(predators);configured_prey_scent_steer!(prey_scents,p,i,t);end
+        configured_prey_scent_tick!(prey_scents,s,predators,t;present)
+        for (i,p) in enumerate(predators)
+            present!==nothing && !present[i] && continue
+            configured_prey_scent_steer!(prey_scents,p,i,t)
+        end
     end
     G.prepare!(s,humans,t;additional_predators=[p.visual for p in predators],
-        additional_predator_alive=[p.alive for p in predators],motion_speed,illumination)
+        additional_predator_alive=[p.alive && (present===nothing || present[i]) for (i,p) in enumerate(predators)],motion_speed,illumination)
 end
-function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,grazing_policy=G.H.StateMachinePolicy())
+function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,present=nothing,grazing_policy=G.H.StateMachinePolicy())
     rabbit_steering=human_scent===nothing ? nothing : (w,a,i,speed,overrides)->begin
         base=s.life===nothing ? a.heading[i] : G.configured_rabbit_potential(w,a,i,speed,overrides)
         configured_human_scent_heading(human_scent,a.x[i],a.z[i],base,t,:rabbit)
@@ -51,6 +56,7 @@ function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_n
     G.advance!(s,t;steering=rabbit_steering,grazing_policy)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
+        present!==nothing && !present[i] && continue
         search_speed=prey_scents!==nothing && prey_scents.active_target[i]!==nothing ? PREY_SCENT_CAUTION.speed : nothing
         attack_speed=local_hunts===nothing ? 1. : local_hunts[i].attack_speed
         movement_speed=local_hunts===nothing ? nothing : local_hunts[i].movement_speed

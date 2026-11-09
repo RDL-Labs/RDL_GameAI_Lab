@@ -89,15 +89,15 @@ function configured_scent_choice!(scents,p,i,t)
     target===nothing && return
     body.heading=atan(target.z-body.z,target.x-body.x);p.mode=:scent_return
 end
-function configured_scent_tick!(scents,predators,t)
+function configured_scent_tick!(scents,predators,t;present=nothing)
     rule=PREDATOR_MARKING
     if t%rule.mark_interval_ticks==0
         # World maintenance only; this does not disclose far-away marks to actors.
         filter!(pair->scent_strength(last(pair),t)>0,scents.marks)
-        for (i,p) in enumerate(predators);configured_scent_deposit!(scents,p,i,t);end
+        for (i,p) in enumerate(predators);(present===nothing || present[i]) && configured_scent_deposit!(scents,p,i,t);end
     end
     if t%rule.sniff_interval_ticks==0
-        for (i,p) in enumerate(predators);configured_scent_observe!(scents,p,i,t);end
+        for (i,p) in enumerate(predators);(present===nothing || present[i]) && configured_scent_observe!(scents,p,i,t);end
     end
 end
 scent_report(scents)=scents===nothing ? nothing :

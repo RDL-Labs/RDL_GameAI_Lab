@@ -27,7 +27,7 @@ PreyScentWorld(n;cautious=false)=PreyScentWorld(Dict{Tuple{Int,Int},PreyScentRec
     cautious,zeros(Int,n),zeros(Int,n),[Dict{Tuple{Int,Int},Int}() for _ in 1:n],Any[nothing for _ in 1:n],0)
 prey_scent_cell(x,z)=(floor(Int,x/PREY_SCENT.cell_size),floor(Int,z/PREY_SCENT.cell_size))
 prey_scent_strength(record,t)=record.strength*max(0.,1-(t-record.tick)/PREY_SCENT.lifetime)
-function configured_prey_scent_tick!(scent,s,predators,t)
+function configured_prey_scent_tick!(scent,s,predators,t;present=nothing)
     rule=PREY_SCENT
     if t%rule.deposit_interval==0
         # One mixed trace per cell, not per animal. Stationary live prey also emit.
@@ -43,6 +43,7 @@ function configured_prey_scent_tick!(scent,s,predators,t)
     # Bounded map has bounded cell count; lazy decay needs no per-tick world sweep.
     t%rule.sniff_interval==0 || return
     for (i,p) in enumerate(predators)
+        present!==nothing && !present[i] && continue
         scent.observed[i]=nothing
         p.alive && p.mode==:hunt || continue
         b=p.visual.body;b.state in (P.ATTACK,P.CHASE,P.RECOVER) && continue
