@@ -7,8 +7,9 @@ function export_grass()
   saved=deserialize(joinpath(root,"checkpoints/day-"*lpad(day,3,'0')*".jls"))
   s=saved.world;w=s.world
   geometry===nothing && (geometry=(xmin=w.xmin,zmin=w.zmin,nx=w.nx,nz=w.nz,cellsize=w.cellsize,capacity=copy(w.capacity)))
-  grass=[min(w.capacity[k],w.grass[k]+w.capacity[k]*max(0,s.ticks-w.updated[k])/(2*17280)) for k in eachindex(w.grass)]
-  push!(frames,(day=day,grass=grass,total=sum(grass)))
+  grass=[H.grass!(w,k,s.ticks) for k in eachindex(w.grass)]
+  layers=hasproperty(w,:layers) && w.layers!==nothing ? (short=copy(w.layers.short),long=copy(w.layers.long)) : nothing
+  push!(frames,(day=day,grass=grass,total=sum(grass),layers=layers))
  end
  write(ARGS[2],JSON3.write((;geometry,frames)))
  println("EXPORTED ",length(frames)," frames")

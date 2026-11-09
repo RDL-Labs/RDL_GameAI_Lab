@@ -669,3 +669,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 分散初期配置: src/lw/configured_paths/rabbit_distributed_layout.jl / RABBIT_DISTRIBUTED_LAYOUT。seed=20261109、tile_width=16世界距離、bank_margin=3。真の通行可能性と草容量を参照する暫定固定の実験初期条件。親子を保持し、区画容量比例の人数割当とグループ間距離を使う。crossing_longrunの第13引数distributed（新規の既定）/legacy（旧西20東80）。継続時は再配置せずinheritedを記録。草初期残量・身体・経験は変えない。将来は準備期間での自律分散へ置換。conditions.layoutに設定・各区画配分を保存。
 
 - 2026-11-09 薄い草からの採食離脱: src/lw/configured_paths/rabbit_sparse_departure.jl / RABBIT_SPARSE_DEPARTURE。enabled=true、density_hungry=0.005、density_comfortable=0.05、reserve_low=25、reserve_full=85。観測density（植生密度×残量比）が身体余裕に応じた線形閾値未満ならGRAZEをSEARCHへ変更。等号は採食継続。睡眠・休息・逃走や授乳overrideは従来どおり。暫定固定で将来は採食成果MBへ置換。無効化はenabled=false。conditionsへ記録。
+
+- 2026-11-09 二層草モデル: src/ecology/herbivore/grass_layers.jl / GRASS_LAYERS。初期short割合0.6、成熟時定数4日、従来同様空容量を2日で補充、短草の遮蔽係数0.2。容量を増やさず再生はshortへ、成熟はlongへ質量移送。crossing_longrun第14引数layered（新規既定）/single。src/lw/configured_paths/rabbit_grass_layers.jl の暫定固定選択: reserve55以下かつshort_density0.02未満ならlong、long一口量は通常の0.5。経験由来ではなく将来は味/採食成果MBへ置換。層別残量・累積採食・成熟量を日次保存。World型を拡張したため旧チェックポイントは旧凍結ソースで読む。

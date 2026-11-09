@@ -6,6 +6,8 @@ include("../state_ids.jl")
 const STATES=("search","graze","rest","sleep","flee","alert")
 const OFFSETS=((-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1))
 include("../herbivore/features.jl")
+include("../herbivore/grass_layers.jl")
+include("../../lw/configured_paths/rabbit_grass_layers.jl")
 mutable struct World
     xmin::Float64; zmin::Float64; xmax::Float64; zmax::Float64
     cellsize::Float64; nx::Int; nz::Int; phase::Float64
@@ -15,6 +17,7 @@ mutable struct World
     features::Vector{NamedTuple}
     traits::Union{Nothing,WorldFeatures.GrassTraits}
     grown::Float64; eaten::Float64; initial::Float64
+    layers::Union{Nothing,GrassLayers}
     boundary_gradient::Bool
 end
 include("../../lw/configured_paths/wildlife_boundary.jl")
@@ -45,7 +48,7 @@ function build(spec; seed=20261005, grass_scale=1.,rich=false)
     s=rich && !hasproperty(spec.scene,:world_features) ? WorldFeatures.enrich_scene(spec.scene;seed) : spec.scene; land=s.landscape; xmin,xmax,zmin,zmax=Float64.(land.extent)
     nx=round(Int,(xmax-xmin)/2); nz=round(Int,(zmax-zmin)/2); n=nx*nz
     objects=[RDLMigrationProbe.Circle(Float64(o.x),Float64(o.z),Float64(o.radius)) for o in vcat(collect(s.obstacles),collect(s.low_obstacles)) if !hasproperty(o,:solid) || o.solid]
-    w=World(xmin,zmin,xmax,zmax,2.,nx,nz,land.phase,zeros(UInt8,n),falses(n),zeros(n),zeros(n),zeros(Int,n),objects,rich ? NamedTuple[(x=Float64(o.x),z=Float64(o.z),radius=Float64(o.radius),height=Float64(o.height),color=UInt8(something(findfirst(==(o.color),WorldFeatures.COLORS),0)),kind=o.kind) for o in vcat(collect(s.obstacles),collect(s.low_obstacles))] : NamedTuple[],rich ? WorldFeatures.grass_traits(nx,nz;seed) : nothing,0.,0.,0.,Bool(get(get(s,:wildlife,NamedTuple()),:boundary_gradient,false)))
+    w=World(xmin,zmin,xmax,zmax,2.,nx,nz,land.phase,zeros(UInt8,n),falses(n),zeros(n),zeros(n),zeros(Int,n),objects,rich ? NamedTuple[(x=Float64(o.x),z=Float64(o.z),radius=Float64(o.radius),height=Float64(o.height),color=UInt8(something(findfirst(==(o.color),WorldFeatures.COLORS),0)),kind=o.kind) for o in vcat(collect(s.obstacles),collect(s.low_obstacles))] : NamedTuple[],rich ? WorldFeatures.grass_traits(nx,nz;seed) : nothing,0.,0.,0.,nothing,Bool(get(get(s,:wildlife,NamedTuple()),:boundary_gradient,false)))
     rng=MersenneTwister(seed)
     for k in 1:n
         p=center(w,k); m=material(w.phase,p...); w.material[k]=m
@@ -64,6 +67,7 @@ function build(spec; seed=20261005, grass_scale=1.,rich=false)
     w,a
 end
 function grass!(w,k,t)
+    w.layers!==nothing && return layered_grass_update!(w,k,t)
     # Lazy linear regeneration is exactly the same regardless of observation count.
     elapsed=t-w.updated[k]; elapsed>=0 || error("time reversal")
     add=min(w.capacity[k]-w.grass[k],w.capacity[k]*elapsed/(2*17280))
@@ -81,6 +85,7 @@ include("../../lw/configured_paths/rabbit_swimming.jl")
 include("../herbivore/neighbor_batch.jl")
 function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing)
     fill!(demand,0.); empty!(active)
+    w.layers!==nothing && fill!(w.layers.long_demand,0.)
     n=length(a.x)
     for i in 1:n
         alive!==nothing && !alive[i] && continue
@@ -93,15 +98,31 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         a.state[i]=configured_rabbit_swim_state(policy,w,a,i,a.state[i],overrides)
         requests[i]=a.state[i]==GRAZE ? min(.025,4-a.gut[i]) : 0.
         if requests[i]>0
-            demand[k]==0 && push!(active,k)
-            demand[k]+=requests[i]
+            if w.layers!==nothing && configured_rabbit_long_grass(observation.vegetation,a.energy[i])
+                demand[k]+w.layers.long_demand[k]==0 && push!(active,k)
+                requests[i]*=-RABBIT_GRASS_LAYERS.long_intake_factor
+                w.layers.long_demand[k]-=requests[i]
+            else
+                demand[k]+(w.layers===nothing ? 0. : w.layers.long_demand[k])==0 && push!(active,k)
+                demand[k]+=requests[i]
+            end
         end
     end
     prepare_rabbit_neighbor_batch!(w,a,t,policy,alive,overrides)
     # Simultaneous proportional allocation prevents first-agent access bias.
     for k in active
-        amount=min(w.grass[k],demand[k]); ratio[k]=amount/demand[k]
-        w.grass[k]-=amount; w.eaten+=amount
+        if w.layers===nothing
+            amount=min(w.grass[k],demand[k]); ratio[k]=amount/demand[k]
+            w.grass[k]-=amount; w.eaten+=amount
+        else
+            l=w.layers
+            short_amount=min(l.short[k],demand[k]);long_amount=min(l.long[k],l.long_demand[k])
+            ratio[k]=demand[k]>0 ? short_amount/demand[k] : 0.
+            l.long_ratio[k]=l.long_demand[k]>0 ? long_amount/l.long_demand[k] : 0.
+            l.short[k]-=short_amount;l.long[k]-=long_amount
+            l.short_eaten+=short_amount;l.long_eaten+=long_amount
+            w.grass[k]=l.short[k]+l.long[k];w.eaten+=short_amount+long_amount
+        end
     end
     for i in 1:n
         alive!==nothing && !alive[i] && continue
@@ -109,7 +130,8 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         if configured_rabbit_swim_step!(policy,w,a,i,t,overrides)
             # Optional locomotion policy handled the step; shared body cost still follows.
         elseif state==GRAZE
-            amount=requests[i]*ratio[k]; a.gut[i]+=amount; a.consumed[i]+=amount
+            amount=requests[i]<0 ? -requests[i]*w.layers.long_ratio[k] : requests[i]*ratio[k]
+            a.gut[i]+=amount; a.consumed[i]+=amount
         elseif state==SEARCH || state==FLEE
             if state==FLEE
                 threat_positions!==nothing && (threat=threat_positions[i])

@@ -202,7 +202,7 @@ function snapshot(s::GrazingWorld; previous=nothing, additional_predation_deaths
      reproduction=rabbit_reproduction_snapshot(s),
      ambient_vision=AmbientVision.RULE,predator=wildlife_predator_snapshot(s),predation_deaths=captures,
      starvation_deaths=s.deaths,grass_initial=w.initial,grass_grown=w.grown,
-     grass_remaining=sum(w.grass),grass_eaten=w.eaten,grass_cells=count(>(0),w.capacity),
+     grass_remaining=sum(w.grass),grass_eaten=w.eaten,grass_cells=count(>(0),w.capacity),grass_layers=H.grass_layer_snapshot(w),
      states=H.STATES,state_ticks=vec(sum(a.counts,dims=1)),human_seen=copy(s.human_seen),
      alert_entries=sum(s.alert_entries),flee_entries=sum(s.flee_entries),
      final=[(id=i,alive=s.alive[i],initial=s.initial_positions[i],position=(a.x[i],a.z[i]),
