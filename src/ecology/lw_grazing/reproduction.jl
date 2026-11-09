@@ -159,13 +159,14 @@ function rabbit_daily!(s,t;seasonal_breeding=RABBIT_BREEDING_SEASON.enabled)
             life.lost_investment+=life.invested[i];life.invested[i]=0.;life.due[i]=0;life.litter[i]=0
             life.lost_pregnancies+=1;continue
         end
-        paid=min(a.energy[i],RABBIT_LIFE.pregnancy_energy_per_day)
+        paid=t<=life.due[i] ? min(a.energy[i],RABBIT_LIFE.pregnancy_energy_per_day) : 0.
         a.energy[i]-=paid;life.invested[i]+=paid;life.gestation_out+=paid
         if a.energy[i]<=0
+            record_starvation!(s,i,t-1)
             s.alive[i]=false;s.deaths+=1
             life.lost_investment+=life.invested[i];life.invested[i]=0.;life.due[i]=0;life.litter[i]=0
             life.lost_pregnancies+=1
-        elseif t>=life.due[i]
+        elseif t>=life.due[i] && configured_rabbit_nest_allowed(s.world,(a.x[i],a.z[i]))
             rabbit_birth!(s,i,t)
         end
     end

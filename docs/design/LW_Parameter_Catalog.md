@@ -679,3 +679,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 短草再生の校正: GRASS_LAYERS.regrowth_days=0.1日へ変更（指数回復の時定数）。short_capacity_fraction=0.6、長草は残り0.4で総容量維持。長草が満量でも短草再生可能、成熟は長草満量で停止する世界近似。enable_grass_layers!のrenewal=trueが既定、falseとregrowth_days=2で旧式比較。一区画容量9に1/2/4匹を固定する診断で各30日比較し採用。詳細と固定診断の限界はexperiments/lw_wildlife/grass_regrowth_calibration.md。旧保存状態は凍結ソースを使用。
 
 - 2026-11-09 採食小移動: src/lw/configured_paths/rabbit_grazing_motion.jl / RABBIT_GRAZING_MOTION。enabled=true、interval_ticks=60（5分）、step_distance=0.1、turn_amplitude=π/4、turn_phase=2.399963229728653、候補offsets=(0,π/2,-π/2)。暫定固定で将来は採食成果MBへ置換。RabbitApproachPolicyと泳ぎラッパーのみ、採食成功・overrideなし時に実行。近傍3点の草量参照、同点は前向き優先。通常の衝突・座標更新と共通化し、移動距離当たり追加消費0.0365を適用。採食は移動前セル、探索ターゲットは小移動後に無効化。睡眠・休息・幼体待機には不適用。enabled=falseで無効化。crossing_longrun条件と日次grazing_motionに試行/成功/阻害を保存（統計はプロセス単位、継続起動では0開始）。
+
+- 2026-11-09 巣の境界回避: RABBIT_NEST_BOUNDARY.enabled=true。境界距離8.25以上（WILDLIFE_BOUNDARY.width+body_margin）を許可。初期生成・distributed配置・巣候補・出生位置に適用。巣候補は到着半径0.6も余白へ加える。予定日に禁止帯なら出産保留し、妊娠追加コストなしで巣準備を継続。候補未確保時は日次再検討。瞬間移動なし。暫定固定で将来は場所MBへ置換。enabled=falseで解除。旧legacy配置・旧保存状態は自動移設しない。出生保留はdueが現在tick以前として記録、長期ランナーconditionsにも設定保存。今回は長期未検証。

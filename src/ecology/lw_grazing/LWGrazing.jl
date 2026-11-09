@@ -75,7 +75,7 @@ function build(scene,clock;low_obstacles=true)
     candidates=Int[]
     for k in eachindex(w.grass)
         p=H.center(w,k)
-        w.capacity[k]>0 && rmin<=hypot(p[1]-scene.home[1],p[2]-scene.home[2])<=rmax &&
+        w.capacity[k]>0 && configured_rabbit_nest_allowed(w,p) && rmin<=hypot(p[1]-scene.home[1],p[2]-scene.home[2])<=rmax &&
             H.clear(w,p,p) && push!(candidates,k)
     end
     length(candidates)>=n || error("not enough distinct grazing spawn cells")

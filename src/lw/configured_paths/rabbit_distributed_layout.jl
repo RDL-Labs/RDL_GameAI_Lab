@@ -8,6 +8,7 @@ function configured_rabbit_distributed_layout!(s)
     rng=Random.Xoshiro(p.seed)
     west(k)=H.center(w,k)[1]<12+5sin((H.center(w,k)[2]-6)/22+w.phase)
     candidates=[k for k in eachindex(w.capacity) if w.walkable[k] && w.capacity[k]>0 &&
+        G.configured_rabbit_nest_allowed(w,H.center(w,k)) &&
         abs(H.center(w,k)[1]-(12+5sin((H.center(w,k)[2]-6)/22+w.phase)))>p.bank_margin]
     isempty(candidates) && error("no suitable grass cells")
     tiles=Dict{Tuple{Int,Int,Bool},Vector{Int}}()
