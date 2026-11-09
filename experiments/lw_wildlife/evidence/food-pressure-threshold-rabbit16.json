@@ -1,0 +1,82 @@
+{
+  "conditions": {
+    "forecast_ticks": 120,
+    "search_cost": 0.012,
+    "residual_scale": 4.0,
+    "H_limit": 32.0,
+    "gut_conversion": 3.0
+  },
+  "gate_conditions": {
+    "enabled": true,
+    "enter_H": 1.0,
+    "exit_H": 0.5
+  },
+  "baseline": {
+    "enabled": false,
+    "thresholded": false,
+    "gate": {
+      "calls": 0,
+      "active_calls": 0,
+      "records": []
+    },
+    "seconds": 7.6572414,
+    "alive": false,
+    "energy": 0.0,
+    "eaten": 3.0999999999971806,
+    "blocked": 0,
+    "peakH": 0.0,
+    "records": []
+  },
+  "treatment": {
+    "enabled": true,
+    "thresholded": false,
+    "gate": {
+      "calls": 0,
+      "active_calls": 0,
+      "records": []
+    },
+    "seconds": 1.9654037,
+    "alive": true,
+    "energy": 84.37998571466417,
+    "eaten": 24.874999999977376,
+    "blocked": 0,
+    "peakH": 0.5026750000000284,
+    "records": [
+      {
+        "event": "forecast",
+        "tick": 243787,
+        "reserve": 84.52173571464255,
+        "expected": 83.08173571464255
+      }
+    ]
+  },
+  "thresholded": {
+    "enabled": true,
+    "thresholded": true,
+    "gate": {
+      "calls": 164,
+      "active_calls": 22,
+      "records": [
+        {
+          "tick": 244261,
+          "active": true,
+          "H": 1.0006750000000473
+        }
+      ]
+    },
+    "seconds": 1.9701973,
+    "alive": true,
+    "energy": 84.42243571466402,
+    "eaten": 25.724999999976603,
+    "blocked": 0,
+    "peakH": 1.5316750000000674,
+    "records": [
+      {
+        "event": "forecast",
+        "tick": 243787,
+        "reserve": 84.52173571464255,
+        "expected": 83.08173571464255
+      }
+    ]
+  }
+}

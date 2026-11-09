@@ -689,3 +689,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 局所ρ通常接続: RABBIT_LOCAL_RHO.enabled=true。RabbitApproachPolicy/泳ぎラッパーの全個体SEARCHに適用、逃走/泳ぎには不介入。通常目標あり・局所Hなしなら追加走査なし。幼体移動範囲は細候補にも適用。採食再開で局所圧を解除、他状態では中間目標中断。history_limit=64、visit_limit=256で記録を制限し累計は別保存。個体ごとのlocal_rhoをcheckpoint保存、長期日次local_rhoに発動個体数・照会点数・イベント累計を保存。RabbitApproachMemory型変更のため旧checkpointは旧凍結ソースで読む。局所ρは親MB全体のHと未統合、候補ありの停滞は従来処理のまま。
 
 - 2026-11-09 食料確保の親H局所試験（通常未接続）: RABBIT_FOOD_PRESSURE。forecast_ticks=120、search_cost=0.012、residual_scale=4、H_limit=32、gut_conversion=3。探索開始の体力+消化見込みから固定予算1.44を差し引き、未回復分だけH化。局所到着で解除しない。候補選択時に評価、非選択中は前回値。実験は個体16のみ。既存のHゼロ/正の確率切替の不連続も作用。詳細はexperiments/lw_wildlife/food_pressure_rabbit16.md。将来は学習見積もりへ置換。
+
+- 2026-11-09 親H選択閾値の局所比較: RABBIT_FOOD_PRESSURE_GATE(enabled=true,enter_H=1.0,exit_H=0.5)。個体16の局所ランナーのみ、通常未接続。親/局所Hの最大が1以上で確率選択、0.5以下で解除、中間は状態保持。非活動時は選択圧のみ0、生のHと候補スコアは保持。更新は候補選択時だけ。enabled=falseで旧H>0切替。暫定固定で将来は目的・経験の許容帯へ置換。実験JSONに設定/発動ログ、詳細food_pressure_threshold_rabbit16.md。

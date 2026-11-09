@@ -6,11 +6,15 @@ Core.eval(H,:(const FOOD_PRESSURE_HOOK=Ref{Any}(nothing)))
 source=read(joinpath(root,"source/src/ecology/herbivore/approach.jl"),String)
 target="function target!("*split(split(source,"function target!(")[2],"function approach_feedback!")[1]
 target=replace(target,"pressure=maximum(get(m.H,o.cell,0.) for o in observations)"=>"pressure=max(maximum(get(m.H,o.cell,0.) for o in observations),FOOD_PRESSURE_HOOK[]===nothing ? 0. : FOOD_PRESSURE_HOOK[](i))")
+target=replace(target,"    chosen=if pressure==0"=>"    pressure=FOOD_GATE_HOOK[]===nothing ? pressure : FOOD_GATE_HOOK[](i,pressure)
+    chosen=if pressure==0")
+Core.eval(H,:(const FOOD_GATE_HOOK=Ref{Any}(nothing)))
 include_string(H,target)
-function trial(enabled)
+function trial(enabled;thresholded=false)
  saved=deserialize(joinpath(root,"checkpoints/day-014.jls"));s=saved.world;c=saved.cohort;a=s.animals
- memory=RabbitFoodPressure();samples=Any[];before=a.consumed[16];blocked=a.blocked[16]
+ memory=RabbitFoodPressure();gate=RabbitFoodPressureGate();samples=Any[];before=a.consumed[16];blocked=a.blocked[16]
  H.FOOD_PRESSURE_HOOK[]=enabled ? (i->i==16 ? configured_food_pressure!(memory,a,i,s.ticks) : 0.) : nothing
+ H.FOOD_GATE_HOOK[]=thresholded ? ((i,p)->i==16 ? configured_food_pressure_gate!(gate,p,s.ticks) : p) : nothing
  H.enable_rabbit_neighbor_batch!(s.world;gpu=true,automatic=true)
  timing=@elapsed for t in s.ticks:15*17280-1
   animal_trial_prepare!(s,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits)
@@ -26,10 +30,19 @@ function trial(enabled)
  end
  @test isapprox(s.world.initial+s.world.grown,sum(s.world.grass)+s.world.eaten;rtol=1e-8)
  @test all(p->H.clear(s.world,p.position,p.position),samples)
- (enabled,seconds=timing,alive=s.alive[16],energy=a.energy[16],eaten=a.consumed[16]-before,blocked=a.blocked[16]-blocked,peakH=memory.peak,records=memory.records,samples)
+ (enabled,thresholded,gate=(calls=gate.calls,active_calls=gate.active_calls,records=gate.records),seconds=timing,alive=s.alive[16],energy=a.energy[16],eaten=a.consumed[16]-before,blocked=a.blocked[16]-blocked,peakH=memory.peak,records=memory.records,samples)
 end
-baseline=trial(false);treatment=trial(true)
+@testset "pressure gate boundaries" begin
+ g=RabbitFoodPressureGate()
+ for (p,active) in ((0.,false),(.001,false),(.999,false),(1.,true),(.75,true),(.5,false),(.75,false),(1.1,true),(0.,false))
+  @test configured_food_pressure_gate!(g,p,0)==(active ? p : 0.)
+  @test g.active==active
+ end
+ @test configured_food_pressure_gate!(g,.001,0;settings=merge(RABBIT_FOOD_PRESSURE_GATE,(enabled=false,)))==.001
+end
+baseline=trial(false);treatment=trial(true);thresholded=trial(true;thresholded=true)
 # Verify shared approach to the incident, before parent pressure begins.
 @test filter(p->p.tick<243748,baseline.samples)==filter(p->p.tick<243748,treatment.samples)
-write(output,JSON3.write((;conditions=RABBIT_FOOD_PRESSURE,baseline,treatment)))
-for r in (baseline,treatment);println(JSON3.write((enabled=r.enabled,seconds=r.seconds,alive=r.alive,energy=r.energy,eaten=r.eaten,blocked=r.blocked,peakH=r.peakH)));end
+@test filter(p->p.tick<243748,baseline.samples)==filter(p->p.tick<243748,thresholded.samples)
+write(output,JSON3.write((;conditions=RABBIT_FOOD_PRESSURE,gate_conditions=RABBIT_FOOD_PRESSURE_GATE,baseline,treatment,thresholded)))
+for r in (baseline,treatment,thresholded);println(JSON3.write((enabled=r.enabled,thresholded=r.thresholded,gate=r.gate,seconds=r.seconds,alive=r.alive,energy=r.energy,eaten=r.eaten,blocked=r.blocked,peakH=r.peakH)));end

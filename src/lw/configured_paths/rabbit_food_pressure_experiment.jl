@@ -11,6 +11,28 @@ mutable struct RabbitFoodPressure
     records::Vector{Any}
 end
 RabbitFoodPressure()=RabbitFoodPressure(nothing,0.,0.,Any[])
+# 暫定固定の選択ゲート。通常未接続。H>=1で開始、H<=0.5で解除。
+# 生のHは保持し、非活動時のみ選択へ渡す圧を0にする。
+# 将来は目的・経験に応じた許容帯へ置換。enabled=falseで旧H>0方式。
+const RABBIT_FOOD_PRESSURE_GATE=(enabled=true,enter_H=1.,exit_H=.5)
+mutable struct RabbitFoodPressureGate
+    active::Bool
+    calls::Int
+    active_calls::Int
+    records::Vector{Any}
+end
+RabbitFoodPressureGate()=RabbitFoodPressureGate(false,0,0,Any[])
+function configured_food_pressure_gate!(gate,pressure,t;settings=RABBIT_FOOD_PRESSURE_GATE)
+    gate.calls+=1
+    settings.enabled || return pressure
+    previous=gate.active
+    gate.active=gate.active ? pressure>settings.exit_H : pressure>=settings.enter_H
+    gate.active_calls+=gate.active
+    if previous!=gate.active
+        push!(gate.records,(tick=t,active=gate.active,H=pressure))
+    end
+    gate.active ? pressure : 0.
+end
 function configured_food_pressure!(m,a,i,t)
     p=RABBIT_FOOD_PRESSURE;reserve=a.energy[i]+p.gut_conversion*a.gut[i]
     if m.expected===nothing
