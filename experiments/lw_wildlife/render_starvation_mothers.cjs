@@ -1,0 +1,30 @@
+const fs=require('fs');const sharp=require('C:/Users/ken_m/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+const a=JSON.parse(fs.readFileSync(process.argv[2]));const w=a.world;
+const mothers=a.deaths.filter(d=>d.children?.length).sort((a,b)=>b.children.length-a.children.length);const selected=mothers.slice(0,6);
+if(!selected.length)throw Error('No nursing mothers among target deaths');
+const cols=2,pw=650,ph=690,W=1360,H=160+Math.ceil(selected.length/cols)*ph;
+let svg=[`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="100%" height="100%" fill="#f6f7f2"/><g font-family="Yu Gothic UI,Meiryo,sans-serif" fill="#24343c">`];
+const txt=(x,y,t,size=18)=>svg.push(`<text x="${x}" y="${y}" font-size="${size}">${t}</text>`);
+txt(35,40,'授乳中の子を残して餓死した母親：通算328日目',28);txt(35,72,`対象94体のうち該当する母親 ${mothers.length}体。${selected.length}体を表示 ／ 経路は327日開始から死亡まで、60tick間隔`,18);
+txt(35,102,'青：327日　橙：328日　○：開始　×：死亡　紫◇：巣（子）　灰色：障害物',18);
+txt(35,129,'背景の緑：327日末の草残量／容量（濃いほど多い）。破線：世界境界。各図は個別縮尺、北が上。',17);
+const summaries=[];
+selected.forEach((m,i)=>{const ox=35+(i%cols)*pw,oy=160+Math.floor(i/cols)*ph,pts=a.traces[String(m.id)],nest=m.children[0].position;
+ const coords=pts.map(p=>[p.x,p.z]).concat([nest]);let xmin=Math.min(...coords.map(p=>p[0]))-4,xmax=Math.max(...coords.map(p=>p[0]))+4,zmin=Math.min(...coords.map(p=>p[1]))-4,zmax=Math.max(...coords.map(p=>p[1]))+4;
+ const span=Math.max(xmax-xmin,zmax-zmin,16),cx=(xmin+xmax)/2,cz=(zmin+zmax)/2;xmin=cx-span/2;zmin=cz-span/2;xmax=xmin+span;zmax=zmin+span;
+ const size=455,mx=ox+50,my=oy+62,sc=size/span,X=x=>mx+(x-xmin)*sc,Y=z=>my+(zmax-z)*sc;
+ const dist=Math.hypot(m.position[0]-nest[0],m.position[1]-nest[1]);
+ txt(ox,oy+24,`母 ${m.id} ／ 子 ${m.children.length}体 ／ 巣まで ${dist.toFixed(1)}`,23);txt(ox,oy+48,`死亡：328日目の${((m.tick/17280-327)*100).toFixed(1)}%時点 ／ ${m.state}`,16);
+ svg.push(`<defs><clipPath id="c${i}"><rect x="${mx}" y="${my}" width="${size}" height="${size}"/></clipPath></defs><g clip-path="url(#c${i})"><rect x="${mx}" y="${my}" width="${size}" height="${size}" fill="#e9e6dc"/>`);
+ a.maps[0].grass.forEach((g,k)=>{const x=w.xmin+(k%w.nx+.5)*w.cellsize,z=w.zmin+(Math.floor(k/w.nx)+.5)*w.cellsize;if(x<xmin-2||x>xmax+2||z<zmin-2||z>zmax+2)return;const f=w.capacity[k]>0?g/w.capacity[k]:0;svg.push(`<rect x="${X(x-w.cellsize/2)}" y="${Y(z+w.cellsize/2)}" width="${w.cellsize*sc+.1}" height="${w.cellsize*sc+.1}" fill="${w.capacity[k]>0?`hsl(105,30%,${95-53*f}%)`:'#e6e2d9'}"/>`)});
+ const river=[];for(let z=w.zmin;z<=w.zmax;z+=.5){let x=12+5*Math.sin((z-6)/22+w.phase),rw=1.2+.4*(1+Math.sin(z/13));river.push([x-rw/2,z]);}for(let z=w.zmax;z>=w.zmin;z-=.5){let x=12+5*Math.sin((z-6)/22+w.phase),rw=1.2+.4*(1+Math.sin(z/13));river.push([x+rw/2,z]);}svg.push(`<polygon points="${river.map(p=>X(p[0])+','+Y(p[1])).join(' ')}" fill="#b5dbe9"/>`);
+ svg.push(`<rect x="${X(w.xmin)}" y="${Y(w.zmax)}" width="${(w.xmax-w.xmin)*sc}" height="${(w.zmax-w.zmin)*sc}" fill="none" stroke="#a88f5b" stroke-width="2" stroke-dasharray="7 5"/>`);
+ for(const o of w.obstacles)svg.push(`<circle cx="${X(o.x)}" cy="${Y(o.z)}" r="${o.radius*sc}" fill="#737c7d" opacity=".7"/>`);
+ for(let j=1;j<pts.length;j++){let p=pts[j-1],q=pts[j];svg.push(`<path d="M ${X(p.x)} ${Y(p.z)} L ${X(q.x)} ${Y(q.z)}" fill="none" stroke="${q.tick<=327*17280?'#1876af':'#d56a19'}" stroke-width="1.5" opacity=".7"/>`)}
+ svg.push(`<circle cx="${X(pts[0].x)}" cy="${Y(pts[0].z)}" r="6" fill="white" stroke="#1876af" stroke-width="2"/>`);
+ const dx=X(m.position[0]),dy=Y(m.position[1]),nx=X(nest[0]),ny=Y(nest[1]);svg.push(`<path d="M ${dx-7} ${dy-7} l 14 14 M ${dx-7} ${dy+7} l 14 -14" stroke="#b52228" stroke-width="3"/><path d="M ${nx} ${ny-9} l 9 9 -9 9 -9 -9 Z" fill="#813cb4" stroke="white" stroke-width="1.5"/></g><rect x="${mx}" y="${my}" width="${size}" height="${size}" fill="none" stroke="#9ba6a1"/>`);
+ txt(mx,my+size+22,`x ${xmin.toFixed(0)}〜${xmax.toFixed(0)} ／ z ${zmin.toFixed(0)}〜${zmax.toFixed(0)}`,14);
+ const ex=mx,ey=my+size+45,ew=size,eh=72;svg.push(`<rect x="${ex}" y="${ey}" width="${ew}" height="${eh}" fill="white"/>`);for(const e of [0,40,80]){let y=ey+eh-e/90*eh;svg.push(`<path d="M ${ex} ${y} h ${ew}" stroke="#dce3df"/>`);txt(ex-30,y+5,String(e),12)}
+ svg.push(`<polyline points="${pts.map(p=>`${ex+(p.tick-326*17280)/(2*17280)*ew},${ey+eh-p.energy/90*eh}`).join(' ')}" fill="none" stroke="#ad343a" stroke-width="2"/>`);txt(ex,ey+eh+20,'327日開始',13);txt(ex+ew/2-20,ey+eh+20,'328日開始',13);txt(ex+ew-55,ey+eh+20,'328日末',13);txt(ox,oy+ph-6,'下段：母親のエネルギー（出生・授乳による消費も含む）',15);
+ summaries.push({id:m.id,children:m.children,death_tick:m.tick,death_state:m.state,nest_distance:dist,start_energy:pts[0].energy,end_energy:pts.at(-1).energy});
+});svg.push('</g></svg>');fs.writeFileSync(process.argv[3]+'.svg',svg.join(''));fs.writeFileSync(process.argv[3]+'-summary.json',JSON.stringify({total_mothers:mothers.length,shown:summaries,all_mothers:mothers},null,2));sharp(Buffer.from(svg.join(''))).png().toFile(process.argv[3]+'.png').then(()=>console.log(JSON.stringify({total_mothers:mothers.length,shown:summaries.map(m=>({id:m.id,children:m.children.length,distance:m.nest_distance,state:m.death_state}))})));
