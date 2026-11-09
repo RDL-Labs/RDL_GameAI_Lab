@@ -671,3 +671,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 薄い草からの採食離脱: src/lw/configured_paths/rabbit_sparse_departure.jl / RABBIT_SPARSE_DEPARTURE。enabled=true、density_hungry=0.005、density_comfortable=0.05、reserve_low=25、reserve_full=85。観測density（植生密度×残量比）が身体余裕に応じた線形閾値未満ならGRAZEをSEARCHへ変更。等号は採食継続。睡眠・休息・逃走や授乳overrideは従来どおり。暫定固定で将来は採食成果MBへ置換。無効化はenabled=false。conditionsへ記録。
 
 - 2026-11-09 二層草モデル: src/ecology/herbivore/grass_layers.jl / GRASS_LAYERS。初期short割合0.6、成熟時定数4日、従来同様空容量を2日で補充、短草の遮蔽係数0.2。容量を増やさず再生はshortへ、成熟はlongへ質量移送。crossing_longrun第14引数layered（新規既定）/single。src/lw/configured_paths/rabbit_grass_layers.jl の暫定固定選択: reserve55以下かつshort_density0.02未満ならlong、long一口量は通常の0.5。経験由来ではなく将来は味/採食成果MBへ置換。層別残量・累積採食・成熟量を日次保存。World型を拡張したため旧チェックポイントは旧凍結ソースで読む。
+
+- 2026-11-09 1m格子比較: rabbit_grid_refinement.jl、crossing_longrun第15引数cellsize=2（既定）/1。新規配置後・二層化前に親セルを4分割し容量と残量を1/4へ、植生と地形区分を継承。初期位置は保持。候補中心の軸方向範囲2mを保ち、1mでは24候補（2mは8）。草の評価量は従来4平方単位当たりへ換算。CPU/GPUバッチも候補数へ対応。実際の衝突判定は連続形状を使用。到着のセル進入判定・最低予測10tickは維持するため経路の選び直し頻度は変わり得る。新規のみ分割、継続では格子変更不可。

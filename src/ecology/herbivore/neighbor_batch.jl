@@ -54,10 +54,10 @@ function prepare_rabbit_neighbor_batch!(w,a,t,policy,alive,overrides)
  b=RABBIT_NEIGHBOR_BACKEND[];b===nothing && return
  b.world===w || error("GPU backend belongs to a different world")
  w.obstacles==b.obstacles || error("GPU static obstacle geometry changed; rebuild backend")
- b.tick=t;n=length(a.x)
+ b.tick=t;n=length(a.x);radius=rabbit_neighbor_radius(w);side=2radius+1;neighbor_count=side^2-1
  if size(b.slots,2)<n
-  b.queries=zeros(4,8n);b.gpu_queries=zeros(Float32,4,8n);b.gaps=zeros(Float32,8n);b.clear_results=zeros(Bool,8n)
-  b.slots=zeros(Int,9,n);b.origins=zeros(2,n)
+  b.queries=zeros(4,neighbor_count*n);b.gpu_queries=zeros(Float32,4,neighbor_count*n);b.gaps=zeros(Float32,neighbor_count*n);b.clear_results=zeros(Bool,neighbor_count*n)
+  b.slots=zeros(Int,side^2,n);b.origins=zeros(2,n)
  end
  fill!(b.slots,0)
  used=0
@@ -65,11 +65,11 @@ function prepare_rabbit_neighbor_batch!(w,a,t,policy,alive,overrides)
   alive!==nothing && !alive[i] && continue
   a.state[i]==SEARCH && rabbit_needs_neighbors(policy,a,i,t,overrides) || continue
   p=(a.x[i],a.z[i]);b.origins[1,i]=p[1];b.origins[2,i]=p[2];k=cell(w,p...);ix=mod(k-1,w.nx)+1;iz=div(k-1,w.nx)+1
-  for (dx,dz) in OFFSETS
+  for (dx,dz) in rabbit_neighbor_offsets(w)
    jx,jz=ix+dx,iz+dz
    1<=jx<=w.nx && 1<=jz<=w.nz || continue
    j=jx+(jz-1)*w.nx;w.walkable[j] || continue;q=center(w,j)
-   used+=1;b.slots[(dx+1)*3+dz+2,i]=used
+   used+=1;b.slots[(dx+radius)*side+dz+radius+1,i]=used
    b.queries[1,used]=p[1];b.queries[2,used]=p[2];b.queries[3,used]=q[1];b.queries[4,used]=q[2]
   end
  end
@@ -105,10 +105,10 @@ end
 function rabbit_neighbor_clear(w,a,i,j,t,p,q)
  b=RABBIT_NEIGHBOR_BACKEND[]
  b===nothing && return clear(w,p,q)
- slot=0
+ slot=0;radius=rabbit_neighbor_radius(w);side=2radius+1
  if b.tick==t && i<=size(b.slots,2) && b.origins[1,i]==p[1] && b.origins[2,i]==p[2]
   k=cell(w,p...);dx=mod(j-1,w.nx)-mod(k-1,w.nx);dz=div(j-1,w.nx)-div(k-1,w.nx)
-  if -1<=dx<=1 && -1<=dz<=1;slot=b.slots[(dx+1)*3+dz+2,i];end
+  if -radius<=dx<=radius && -radius<=dz<=radius;slot=b.slots[(dx+radius)*side+dz+radius+1,i];end
  end
  slot==0 && return clear(w,p,q)
  answer=w.xmin+.25<=q[1]<=w.xmax-.25 && w.zmin+.25<=q[2]<=w.zmax-.25 &&
