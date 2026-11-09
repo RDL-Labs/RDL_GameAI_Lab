@@ -42,4 +42,16 @@ H.enable_grass_layers!(w)
  @test H.configured_rabbit_layer_observation(o,30.).food==1.
  io=IOBuffer();serialize(io,w);seekstart(io);copy_world=deserialize(io)
  @test copy_world.layers.short==w.layers.short
+ # Full long grass must not prevent short regrowth; exact update is independent
+ # of observation cadence, including crossing the long-capacity boundary above.
+ fresh=G.build(input.scene,input.clock).world;H.enable_grass_layers!(fresh)
+ k=findfirst(>(0),fresh.capacity)
+ fresh.layers.short[k]=0.;fresh.layers.long[k]=fresh.capacity[k]*.4
+ fresh.grass[k]=fresh.layers.long[k];fresh.initial=sum(fresh.grass)
+ H.grass!(fresh,k,1728)
+ @test fresh.layers.short[k]≈fresh.capacity[k]*.6*(1-exp(-1))
+ @test fresh.layers.long[k]≈fresh.capacity[k]*.4
+ @test fresh.initial+fresh.grown≈sum(fresh.grass)+fresh.eaten
+ @test fresh.grass[k]<=fresh.capacity[k]
+ @test_throws ErrorException H.grass!(fresh,k,1727)
 end

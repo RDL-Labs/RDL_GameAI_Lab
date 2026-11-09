@@ -675,3 +675,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 1m格子比較: rabbit_grid_refinement.jl、crossing_longrun第15引数cellsize=2（既定）/1。新規配置後・二層化前に親セルを4分割し容量と残量を1/4へ、植生と地形区分を継承。初期位置は保持。候補中心の軸方向範囲2mを保ち、1mでは24候補（2mは8）。草の評価量は従来4平方単位当たりへ換算。CPU/GPUバッチも候補数へ対応。実際の衝突判定は連続形状を使用。到着のセル進入判定・最低予測10tickは維持するため経路の選び直し頻度は変わり得る。新規のみ分割、継続では格子変更不可。
 
 - 2026-11-09 格子細分化は負荷優先で撤回。通常処理は2m・8候補へ復帰、第15引数による格子選択も撤去。1m試験の凍結ソースと比較記録は保持。二層草と分散配置は維持。
+
+- 2026-11-09 短草再生の校正: GRASS_LAYERS.regrowth_days=0.1日へ変更（指数回復の時定数）。short_capacity_fraction=0.6、長草は残り0.4で総容量維持。長草が満量でも短草再生可能、成熟は長草満量で停止する世界近似。enable_grass_layers!のrenewal=trueが既定、falseとregrowth_days=2で旧式比較。一区画容量9に1/2/4匹を固定する診断で各30日比較し採用。詳細と固定診断の限界はexperiments/lw_wildlife/grass_regrowth_calibration.md。旧保存状態は凍結ソースを使用。
