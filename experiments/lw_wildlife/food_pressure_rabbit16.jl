@@ -10,11 +10,11 @@ target=replace(target,"    chosen=if pressure==0"=>"    pressure=FOOD_GATE_HOOK[
     chosen=if pressure==0")
 Core.eval(H,:(const FOOD_GATE_HOOK=Ref{Any}(nothing)))
 include_string(H,target)
-function trial(enabled;thresholded=false)
+function trial(enabled;thresholded=false,gate_settings=RABBIT_FOOD_PRESSURE_GATE)
  saved=deserialize(joinpath(root,"checkpoints/day-014.jls"));s=saved.world;c=saved.cohort;a=s.animals
  memory=RabbitFoodPressure();gate=RabbitFoodPressureGate();samples=Any[];before=a.consumed[16];blocked=a.blocked[16]
  H.FOOD_PRESSURE_HOOK[]=enabled ? (i->i==16 ? configured_food_pressure!(memory,a,i,s.ticks) : 0.) : nothing
- H.FOOD_GATE_HOOK[]=thresholded ? ((i,p)->i==16 ? configured_food_pressure_gate!(gate,p,s.ticks) : p) : nothing
+ H.FOOD_GATE_HOOK[]=thresholded ? ((i,p)->i==16 ? configured_food_pressure_gate!(gate,p,s.ticks;settings=gate_settings) : p) : nothing
  H.enable_rabbit_neighbor_batch!(s.world;gpu=true,automatic=true)
  timing=@elapsed for t in s.ticks:15*17280-1
   animal_trial_prepare!(s,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits)
@@ -32,6 +32,7 @@ function trial(enabled;thresholded=false)
  @test all(p->H.clear(s.world,p.position,p.position),samples)
  (enabled,thresholded,gate=(calls=gate.calls,active_calls=gate.active_calls,records=gate.records),seconds=timing,alive=s.alive[16],energy=a.energy[16],eaten=a.consumed[16]-before,blocked=a.blocked[16]-blocked,peakH=memory.peak,records=memory.records,samples)
 end
+if abspath(PROGRAM_FILE)==@__FILE__
 @testset "pressure gate boundaries" begin
  g=RabbitFoodPressureGate()
  for (p,active) in ((0.,false),(.001,false),(.999,false),(1.,true),(.75,true),(.5,false),(.75,false),(1.1,true),(0.,false))
@@ -46,3 +47,4 @@ baseline=trial(false);treatment=trial(true);thresholded=trial(true;thresholded=t
 @test filter(p->p.tick<243748,baseline.samples)==filter(p->p.tick<243748,thresholded.samples)
 write(output,JSON3.write((;conditions=RABBIT_FOOD_PRESSURE,gate_conditions=RABBIT_FOOD_PRESSURE_GATE,baseline,treatment,thresholded)))
 for r in (baseline,treatment,thresholded);println(JSON3.write((enabled=r.enabled,thresholded=r.thresholded,gate=r.gate,seconds=r.seconds,alive=r.alive,energy=r.energy,eaten=r.eaten,blocked=r.blocked,peakH=r.peakH)));end
+end
