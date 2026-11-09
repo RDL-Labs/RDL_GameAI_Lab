@@ -154,6 +154,7 @@ function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additi
         end
         # Only a last-observed position, never an unseen human's updated location.
         s.threats[i]=s.seen_position[i]
+        configured_rabbit_refuge_response!(s,i,t)
     end
     copyto!(s.previous_humans,humans)
     configured_rabbit_nursing!(s,t)
@@ -171,6 +172,7 @@ function advance!(s::GrazingWorld,t::Int; nursing_potential=true,steering=nothin
         s.overrides[i]==H.FLEE && a.state[i]!=H.FLEE && (s.flee_entries[i]+=1)
     end
     H.step!(s.world,a,t,s.demand,s.ratio,s.requests,s.active;
+        refuge=s.life===nothing ? nothing : (i->configured_rabbit_refuge_goal(s,i,t)),
         policy=grazing_policy,development=s.life===nothing ? nothing : (i->configured_rabbit_growth(s,i,t)),
         alive=s.life===nothing ? s.alive : s.life.moving,overrides=s.overrides,threat_positions=s.threats,
         steering=configured_nursing_steering(s,steering!==nothing ? steering : s.life!==nothing && nursing_potential ? configured_rabbit_potential : nothing))

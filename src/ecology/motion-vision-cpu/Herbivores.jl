@@ -86,7 +86,7 @@ include("../../lw/configured_paths/rabbit_local_rho_connection.jl")
 include("../herbivore/neighbor_batch.jl")
 include("../herbivore/locomotion.jl")
 include("../../lw/configured_paths/rabbit_grazing_motion.jl")
-function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing,development=nothing)
+function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing,development=nothing,refuge=nothing)
     fill!(demand,0.); empty!(active)
     w.layers!==nothing && fill!(w.layers.long_demand,0.)
     n=length(a.x)
@@ -147,6 +147,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 grazing_move_cost=configured_rabbit_grazing_motion!(w,a,i,t;allowed)
             end
         elseif state==SEARCH || state==FLEE
+            refuge_goal=state==FLEE && refuge!==nothing ? refuge(i) : nothing
             if state==FLEE
                 threat_positions!==nothing && (threat=threat_positions[i])
                 a.heading[i]=atan(a.z[i]-threat[2],a.x[i]-threat[1])
@@ -159,6 +160,10 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 end
             end
             speed=state==FLEE ? .6 : .2
+            if refuge_goal!==nothing
+                a.heading[i]=atan(refuge_goal[2]-a.z[i],refuge_goal[1]-a.x[i])
+                speed=min(speed,hypot(refuge_goal[1]-a.x[i],refuge_goal[2]-a.z[i]))
+            end
             if growth!==nothing && hypot(a.x[i]-growth.nest[1],a.z[i]-growth.nest[2])+speed>growth.radius
                 a.heading[i]=atan(growth.nest[2]-a.z[i],growth.nest[1]-a.x[i])
                 speed=min(speed,growth.radius)
@@ -172,7 +177,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 for offset in (pi/4,-pi/4,pi/2,-pi/2,3pi/4,-3pi/4,pi)
                     h=configured_boundary_heading(w,p,base+offset); candidate=(p[1]+speed*cos(h),p[2]+speed*sin(h))
                     clear(w,p,candidate) || continue
-                    score=hypot(candidate[1]-threat[1],candidate[2]-threat[2])
+                    score=refuge_goal===nothing ? hypot(candidate[1]-threat[1],candidate[2]-threat[2]) : -hypot(candidate[1]-refuge_goal[1],candidate[2]-refuge_goal[2])
                     if score>best; best=score; chosen=(candidate,h); end
                 end
                 if chosen!==nothing; q,a.heading[i]=chosen; end

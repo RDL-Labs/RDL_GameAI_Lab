@@ -709,3 +709,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 授乳成立ゴール: RABBIT_NURSING_GOAL(enabled=true,completion_tolerance=1e-9)。子のenergy<=既存request_energy4で不足する同腹子をpendingへ登録、実際の乳供給でmilk_target8まで達した子だけ完了。局所到着/少量供給/危険中断では消去しない。死亡/離乳/母死亡は終了として除去。接近先は対象子の現在座標、最も低energy→距離→IDの順。既存の血縁/体力/位置への直接アクセスを使う暫定固定で将来MBへ置換。enabled=falseで巣目標に復帰。pending/targetsはRabbitLifeに保存、日次pending件数とconditions設定を記録。旧checkpointは凍結ソースで読む。
 
 - 2026-11-09 警戒と授乳必要性の比較: RABBIT_NURSING_ALERT(enabled=true,near_distance=3,far_distance=10,history_limit=64)。ALERTのみ、必要性clamp((request_energy4-min_child_energy)/4,0,1)と危険clamp((10-最後の観測位置までの距離)/7,0,1)を比較、必要性>危険かつ既存departure_energy以上なら授乳接近を許可。同点警戒維持。FLEEや他の割込みは変更しない。母の体力不足時は警戒を解除しない。子の体力/血縁への直接参照は暫定固定、将来MBへ置換。falseで旧警戒一律優先。日次nursing_alertに検討/許可累計、直近64判断はRABBIT_NURSING_ALERT_RECORDS（プロセス内、checkpoint未保存）。
+
+- 2026-11-09 巣穴退避: RABBIT_BURROW_REFUGE(enabled=true,near_distance=2)。離乳前で母IDを持つ幼体の自分の巣穴のみ。危険ALERT/FLEE時、巣内ならRESTで隠れ、巣外かつ距離2以内ならFLEEの向きを巣へ変更。速度は到着距離で上限、障害時は巣に近づく通行可能方向を選ぶ。通常衝突/幼体半径/境界勾配は維持。安全時は通常行動、母親/離乳後には不適用。暫定固定の既知避難先、将来避難場所MBへ置換。enabled=falseで旧危険応答。conditionsへ設定保存。物理保護の半径0.25は変更なし。
