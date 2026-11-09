@@ -683,3 +683,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 巣の境界回避: RABBIT_NEST_BOUNDARY.enabled=true。境界距離8.25以上（WILDLIFE_BOUNDARY.width+body_margin）を許可。初期生成・distributed配置・巣候補・出生位置に適用。巣候補は到着半径0.6も余白へ加える。予定日に禁止帯なら出産保留し、妊娠追加コストなしで巣準備を継続。候補未確保時は日次再検討。瞬間移動なし。暫定固定で将来は場所MBへ置換。enabled=falseで解除。旧legacy配置・旧保存状態は自動移設しない。出生保留はdueが現在tick以前として記録、長期ランナーconditionsにも設定保存。今回は長期未検証。
 
 - 2026-11-09 幼体段階採食: RABBIT_JUVENILE_GROWTH(enabled=true,start_days=18,range_at_weaning=8,burrow_radius=0.25)。18日丁度は0、18〜28日で採食口量・胃容量・消化速度を線形増加。通常代謝と幼体代謝4/日を同率混合し二重課金しない。行動半径0〜8、離乳後は制限解除。授乳は28日まで維持。巣から0.25を超えれば捕食・視覚対象、移行期は泳ぎ不可。経験由来でない暫定成長近似。enabled=falseで従来の28日一括切替へ戻す。将来は身体発達と採食経験へ置換。長期ランナーconditionsへ設定保存。生存そのものの抽選なし。
+
+- 2026-11-09 局所ρ実験（通常OFF/未接続）: rabbit_local_rho_experiment.jl。候補なしSEARCHのforecast_ticks=10、H_trigger=1、H_limit=32。半径0.4/0.8/1.2/1.6、32方向、arrival=0.21、visit_resolution=0.4、visit_penalty=0.7、heading_bonus=0.15、distance_cost=0.1、forecast_slack=2、speed=0.2。全て暫定実験係数。親MBへの共通接続は未実装。詳細とON/OFF結果はexperiments/lw_wildlife/local_rho_mother71.md。
