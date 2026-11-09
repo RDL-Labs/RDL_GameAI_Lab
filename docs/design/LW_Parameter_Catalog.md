@@ -693,3 +693,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 親H選択閾値の局所比較: RABBIT_FOOD_PRESSURE_GATE(enabled=true,enter_H=1.0,exit_H=0.5)。個体16の局所ランナーのみ、通常未接続。親/局所Hの最大が1以上で確率選択、0.5以下で解除、中間は状態保持。非活動時は選択圧のみ0、生のHと候補スコアは保持。更新は候補選択時だけ。enabled=falseで旧H>0切替。暫定固定で将来は目的・経験の許容帯へ置換。実験JSONに設定/発動ログ、詳細food_pressure_threshold_rabbit16.md。
 
 - 2026-11-09 親H閾値の通常接続: RABBIT_FOOD_PRESSURE_CONNECTION(enabled=true,history_limit=64)。全RabbitApproachPolicy（泳ぎラッパー含む）の新規目標選択時のみ、局所Hと親Hの最大に1.0/0.5ゲートを適用。falseで親H接続前へ復帰。H計算・観測の毎tick追加なし。最初の選択時の身体予備量を固定基準とする暫定近似を局所試験から維持し、試行別の学習見積もりへの置換は未実装。履歴は64件、累計選択数は別保持。日次food_pressureに集計。メモリ型変更のため旧チェックポイントは旧凍結ソースで読む。
+
+- 2026-11-09 親H閾値の次回比較: RABBIT_FOOD_PRESSURE_GATEの暫定既定値をenter_H=4、exit_H=2へ変更。個体16の局所比較で採食再開時energy64.87を残した条件。最適値の確定ではない。同一初期条件の90日で1/0.5版と比較する。その他の式・接続・有効化条件は維持。
