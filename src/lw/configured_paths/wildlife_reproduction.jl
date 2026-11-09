@@ -11,9 +11,15 @@ configured_rabbit_breeding_open(day;enabled=RABBIT_BREEDING_SEASON.enabled)=
 const RABBIT_NURSING_PLAN=(enabled=true,request_energy=4.,departure_cap=85.,
     move_speed=.2,move_cost_per_tick=.012,travel_slack=1.5,gut_limit=3.8,
     sleep_limit=1.,minimum_grass=.005)
+# 暫定固定: 血縁/子の位置と不足を直接読む。巣到着では完了しない。
+# enabled=falseで旧巣目標へ戻す。将来は子との関係MB/成果評価へ置換。
+const RABBIT_NURSING_GOAL=(enabled=true,completion_tolerance=1e-9)
+configured_nursing_pending(life)=life.nursing_pending
+configured_nursing_targets(life)=life.nursing_targets
 function configured_rabbit_nursing_forecast(s,mother,children)
     a=s.animals;r=RABBIT_NURSING_PLAN
-    goal=s.life.nest[first(children)]
+    child=children[argmin([(a.energy[i],hypot(a.x[mother]-a.x[i],a.z[mother]-a.z[i]),i) for i in children])]
+    goal=RABBIT_NURSING_GOAL.enabled ? (a.x[child],a.z[child]) : s.life.nest[first(children)]
     distance=hypot(a.x[mother]-goal[1],a.z[mother]-goal[2])
     travel_ticks=max(0.,distance-RABBIT_LIFE.nurse_distance)/r.move_speed*r.travel_slack
     milk=sum(max(0.,RABBIT_LIFE.milk_target-a.energy[i])+RABBIT_LIFE.infant_energy_per_day*travel_ticks/RABBIT_LIFE.day_ticks for i in children)
@@ -23,6 +29,10 @@ end
 function configured_rabbit_nursing!(s,t)
     life=s.life;life===nothing && return
     a=s.animals;r=RABBIT_NURSING_PLAN
+    pending=configured_nursing_pending(life);targets=configured_nursing_targets(life)
+    empty!(targets)
+    filter!(i->s.alive[i] && dependent(life,i,t) && life.mother[i]>0 && s.alive[life.mother[i]],pending)
+    RABBIT_NURSING_GOAL.enabled || empty!(pending)
     mothers=Dict{Int,Vector{Int}}()
     for i in eachindex(s.alive)
         life.moving[i]=s.alive[i] && configured_rabbit_self_feeding(s,i,t)
@@ -33,7 +43,15 @@ function configured_rabbit_nursing!(s,t)
     end
     r.enabled || return
     for (mother,children) in mothers
-        minimum(a.energy[i] for i in children)<=r.request_energy || continue
+        if minimum(a.energy[i] for i in children)<=r.request_energy && RABBIT_NURSING_GOAL.enabled
+            union!(pending,(i for i in children if a.energy[i]<RABBIT_LIFE.milk_target))
+        end
+        if RABBIT_NURSING_GOAL.enabled
+            children=filter(i->i in pending,children)
+            isempty(children) && continue
+        else
+            minimum(a.energy[i] for i in children)<=r.request_energy || continue
+        end
         s.overrides[mother]==0 || continue
         forecast=configured_rabbit_nursing_forecast(s,mother,children)
         if a.energy[mother]<forecast.departure_energy
@@ -47,8 +65,20 @@ function configured_rabbit_nursing!(s,t)
         end
         goal=forecast.goal
         hypot(a.x[mother]-goal[1],a.z[mother]-goal[2])<=RABBIT_LIFE.nurse_distance && continue
+        RABBIT_NURSING_GOAL.enabled && (targets[mother]=goal)
         s.overrides[mother]=H.SEARCH;a.target[mother]=H.cell(s.world,goal...);a.next_sense[mother]=t+1
         life.nest_return_ticks+=1
+    end
+end
+
+function configured_nursing_steering(s,base)
+    s.life===nothing && return base
+    return function(w,a,i,speed,overrides)
+        goal=get(configured_nursing_targets(s.life),i,nothing)
+        if goal!==nothing && overrides!==nothing && overrides[i]==H.SEARCH
+            a.heading[i]=atan(goal[2]-a.z[i],goal[1]-a.x[i])
+        end
+        base===nothing ? a.heading[i] : base(w,a,i,speed,overrides)
     end
 end
 

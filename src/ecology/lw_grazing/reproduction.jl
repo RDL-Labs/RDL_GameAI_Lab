@@ -42,6 +42,8 @@ mutable struct RabbitLife
     reserve_previous::Vector{Float64}
     reserve_balance::Vector{Float64}
     reserve_sample_tick::Vector{Int}
+    nursing_pending::Set{Int}
+    nursing_targets::Dict{Int,Tuple{Float64,Float64}}
 end
 function rabbit_life(n,seed,positions;initial_pregnancy_days=Int[])
     rng=MersenneTwister(seed)
@@ -50,7 +52,7 @@ function rabbit_life(n,seed,positions;initial_pregnancy_days=Int[])
     life=RabbitLife(rng,sexes,fill(-RABBIT_LIFE.initial_age_days*RABBIT_LIFE.day_ticks,n),
         zeros(Int,n),zeros(Int,n),zeros(Int,n),zeros(n),zeros(Int,n),
         rand(rng,0:RABBIT_LIFE.receptivity_period-1,n),fill(-1,n),copy(positions),trues(n),
-        n,0,0,0,0,0.,0.,0.,0.,0.,0,0,fill(NaN,n),zeros(n),fill(-1,n))
+        n,0,0,0,0,0.,0.,0.,0.,0.,0,0,fill(NaN,n),zeros(n),fill(-1,n),Set{Int}(),Dict{Int,Tuple{Float64,Float64}}())
     females=findall(==(1),sexes)
     length(initial_pregnancy_days)<=length(females) || error("too many initial rabbit pregnancies")
     for (slot,elapsed) in enumerate(initial_pregnancy_days)
@@ -206,7 +208,8 @@ function rabbit_nurse!(s,t)
         push!(get!(()->Int[],mothers,mother),i)
     end
     for (mother,children) in mothers
-        minimum(a.energy[i] for i in children)<=RABBIT_NURSING_PLAN.request_energy || continue
+        (minimum(a.energy[i] for i in children)<=RABBIT_NURSING_PLAN.request_energy ||
+         any(i->i in configured_nursing_pending(life),children)) || continue
         needs=[max(0.,RABBIT_LIFE.milk_target-a.energy[i]) for i in children]
         requested=sum(needs);requested>0 || continue
         milk=min(requested,max(0.,a.energy[mother]-RABBIT_LIFE.maternal_reserve)*RABBIT_LIFE.milk_efficiency)
@@ -215,6 +218,9 @@ function rabbit_nurse!(s,t)
         life.milk_out+=cost;life.milk_in+=milk;life.nursing_visits+=1
         for (j,i) in enumerate(children)
             a.energy[i]+=milk*needs[j]/requested;life.nursed_day[i]=day
+            if a.energy[i]>=RABBIT_LIFE.milk_target-RABBIT_NURSING_GOAL.completion_tolerance
+                delete!(configured_nursing_pending(life),i)
+            end
         end
     end
 end

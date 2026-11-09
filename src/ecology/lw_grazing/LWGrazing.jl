@@ -173,7 +173,7 @@ function advance!(s::GrazingWorld,t::Int; nursing_potential=true,steering=nothin
     H.step!(s.world,a,t,s.demand,s.ratio,s.requests,s.active;
         policy=grazing_policy,development=s.life===nothing ? nothing : (i->configured_rabbit_growth(s,i,t)),
         alive=s.life===nothing ? s.alive : s.life.moving,overrides=s.overrides,threat_positions=s.threats,
-        steering=steering!==nothing ? steering : s.life!==nothing && nursing_potential ? configured_rabbit_potential : nothing)
+        steering=configured_nursing_steering(s,steering!==nothing ? steering : s.life!==nothing && nursing_potential ? configured_rabbit_potential : nothing))
     s.life!==nothing && rabbit_advance!(s,t)
     for i in eachindex(s.alive)
         if s.alive[i] && a.energy[i]<=0

@@ -705,3 +705,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 食料確保解除: RABBIT_FOOD_PRESSURE_GATE.release_on_intake=trueを既定。開始H20、解除は摂取量>0の成果で判定しH閾値を使わない。exit_H10はrelease_on_intake=falseの旧方式比較のみ。親Hの量的冷却は維持し局所Hは保持。採食中は選択ゲートを呼ばず、再度探索し候補選択した時に残存Hから再発動可能。Hが0になっても摂取前はモード保持、選択関数への圧はeps(Float64)でゼロ分岐と区別。暫定固定で将来は共通の成果/試行終了へ置換。記録food_acquired、設定はconditionsに保存。
 
 - 2026-11-09 指数型候補幅: RABBIT_EXPONENTIAL_CANDIDATES(enabled=true,minimum=1,maximum=8,full_H=20,curvature=3)。新方式では開始/解除ゲートを迂回しmax親/局所Hを使用。正規化Hの指数曲線を整数丸めして粗順位上位Nへ限定。設定はconfigured_pathsへ隔離、将来はMB想起へ置換。falseで旧ゲート復帰。観測は全近傍のまま、限定するのは遮蔽加点/確率選択。conditionsと日次candidate_workに設定/処理件数を保存。長期効果未確認。
+
+- 2026-11-09 授乳成立ゴール: RABBIT_NURSING_GOAL(enabled=true,completion_tolerance=1e-9)。子のenergy<=既存request_energy4で不足する同腹子をpendingへ登録、実際の乳供給でmilk_target8まで達した子だけ完了。局所到着/少量供給/危険中断では消去しない。死亡/離乳/母死亡は終了として除去。接近先は対象子の現在座標、最も低energy→距離→IDの順。既存の血縁/体力/位置への直接アクセスを使う暫定固定で将来MBへ置換。enabled=falseで巣目標に復帰。pending/targetsはRabbitLifeに保存、日次pending件数とconditions設定を記録。旧checkpointは凍結ソースで読む。
