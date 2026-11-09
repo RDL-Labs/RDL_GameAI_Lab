@@ -1,0 +1,36 @@
+{
+  "conditions": {
+    "forecast_ticks": 120,
+    "search_cost": 0.012,
+    "residual_scale": 4,
+    "H_limit": 32,
+    "gut_conversion": 3
+  },
+  "baseline": {
+    "enabled": false,
+    "seconds": 7.8843001,
+    "alive": false,
+    "energy": 0,
+    "eaten": 3.0999999999971806,
+    "blocked": 0,
+    "peakH": 0,
+    "records": []
+  },
+  "treatment": {
+    "enabled": true,
+    "seconds": 2.0457631,
+    "alive": true,
+    "energy": 84.37998571466417,
+    "eaten": 24.874999999977376,
+    "blocked": 0,
+    "peakH": 0.5026750000000284,
+    "records": [
+      {
+        "event": "forecast",
+        "tick": 243787,
+        "reserve": 84.52173571464255,
+        "expected": 83.08173571464255
+      }
+    ]
+  }
+}
