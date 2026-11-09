@@ -1,0 +1,9 @@
+{
+  "status": "stopped_by_user",
+  "day": 79,
+  "rabbits": 67,
+  "births": 90,
+  "starvation": 94,
+  "captures": 29,
+  "elapsed_seconds": 1376.4679999351501
+}
