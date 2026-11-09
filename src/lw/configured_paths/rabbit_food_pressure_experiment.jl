@@ -11,10 +11,10 @@ mutable struct RabbitFoodPressure
     records::Vector{Any}
 end
 RabbitFoodPressure()=RabbitFoodPressure(nothing,0.,0.,Any[])
-# 暫定固定の選択ゲート。H>=8で開始、H<=4で解除。
+# 暫定固定の選択ゲート。H>=20で開始、H<=10で解除。
 # 生のHは保持し、非活動時のみ選択へ渡す圧を0にする。
 # 将来は目的・経験に応じた許容帯へ置換。enabled=falseで旧H>0方式。
-const RABBIT_FOOD_PRESSURE_GATE=(enabled=true,enter_H=8.,exit_H=4.)
+const RABBIT_FOOD_PRESSURE_GATE=(enabled=true,enter_H=20.,exit_H=10.)
 const RABBIT_FOOD_COOLING=(enabled=true,)
 mutable struct RabbitFoodPressureGate
     active::Bool
