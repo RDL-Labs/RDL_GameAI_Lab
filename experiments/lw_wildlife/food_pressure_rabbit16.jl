@@ -10,15 +10,20 @@ target=replace(target,"    chosen=if pressure==0"=>"    pressure=FOOD_GATE_HOOK[
     chosen=if pressure==0")
 Core.eval(H,:(const FOOD_GATE_HOOK=Ref{Any}(nothing)))
 include_string(H,target)
-function trial(enabled;thresholded=false,gate_settings=RABBIT_FOOD_PRESSURE_GATE)
+function trial(enabled;thresholded=false,intake_cooling=false,gate_settings=RABBIT_FOOD_PRESSURE_GATE)
  saved=deserialize(joinpath(root,"checkpoints/day-014.jls"));s=saved.world;c=saved.cohort;a=s.animals
  memory=RabbitFoodPressure();gate=RabbitFoodPressureGate();samples=Any[];before=a.consumed[16];blocked=a.blocked[16]
  H.FOOD_PRESSURE_HOOK[]=enabled ? (i->i==16 ? configured_food_pressure!(memory,a,i,s.ticks) : 0.) : nothing
  H.FOOD_GATE_HOOK[]=thresholded ? ((i,p)->i==16 ? configured_food_pressure_gate!(gate,p,s.ticks;settings=gate_settings) : p) : nothing
  H.enable_rabbit_neighbor_batch!(s.world;gpu=true,automatic=true)
  timing=@elapsed for t in s.ticks:15*17280-1
+  intake_before=a.consumed[16]
   animal_trial_prepare!(s,c.predators,t;scents=c.scents,minds=c.minds,prey_scents=c.prey_scents,motion_speed=true,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits)
   animal_trial_advance!(s,c.predators,t;scents=c.scents,minds=c.minds,prey_nutrition=1.5,prey_scents=c.prey_scents,local_hunts=c.local_hunts,physiology=c.physiology,pursuits=c.pursuits,grazing_policy=c.rabbit_approach)
+  if intake_cooling && a.consumed[16]>intake_before
+   local_memory=H.rabbit_approach_base(c.rabbit_approach).actors[16]
+   configured_food_intake_cooling!(memory,gate,a,16,t,a.consumed[16]-intake_before,maximum(values(local_memory.H);init=0.))
+  end
   if s.alive[16]
    push!(samples,(tick=t,position=(a.x[16],a.z[16]),energy=a.energy[16],state=H.STATES[a.state[16]],H=memory.H,consumed=a.consumed[16]-before,cell=H.cell(s.world,a.x[16],a.z[16])))
   end

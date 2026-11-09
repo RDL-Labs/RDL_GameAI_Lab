@@ -141,6 +141,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         elseif state==GRAZE
             amount=requests[i]<0 ? -requests[i]*w.layers.long_ratio[k] : requests[i]*ratio[k]
             a.gut[i]+=amount; a.consumed[i]+=amount
+            configured_rabbit_food_intake!(policy,a,i,t,amount)
             # Consume at the allocated origin before moving; never debit destination.
             if amount>0 && (overrides===nothing || overrides[i]==0) && policy isa Union{RabbitApproachPolicy,RabbitSwimmingPolicy}
                 grazing_move_cost=configured_rabbit_grazing_motion!(w,a,i,t;allowed)

@@ -10,6 +10,14 @@ function configured_rabbit_rho_heading!(policy::Union{RabbitApproachPolicy,Rabbi
     configured_rabbit_local_rho!(r,w,a,i,t,base;geometry=@__MODULE__,allowed)
 end
 configured_rabbit_rho_progress!(policy,a,i,t)=nothing
+configured_rabbit_food_intake!(policy,a,i,t,amount)=nothing
+function configured_rabbit_food_intake!(policy::Union{RabbitApproachPolicy,RabbitSwimmingPolicy},a,i,t,amount)
+    RABBIT_FOOD_PRESSURE_CONNECTION.enabled && amount>0 || return
+    base=rabbit_approach_base(policy)
+    haskey(base.actors,i) || return
+    m=base.actors[i]
+    configured_food_intake_cooling!(m.food_pressure,m.food_gate,a,i,t,amount,maximum(values(m.H);init=0.))
+end
 function configured_rabbit_rho_progress!(policy::Union{RabbitApproachPolicy,RabbitSwimmingPolicy},a,i,t)
     base=rabbit_approach_base(policy)
     haskey(base.actors,i) || return

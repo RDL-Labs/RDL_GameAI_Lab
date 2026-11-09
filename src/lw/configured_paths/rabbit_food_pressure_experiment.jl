@@ -15,11 +15,27 @@ RabbitFoodPressure()=RabbitFoodPressure(nothing,0.,0.,Any[])
 # 生のHは保持し、非活動時のみ選択へ渡す圧を0にする。
 # 将来は目的・経験に応じた許容帯へ置換。enabled=falseで旧H>0方式。
 const RABBIT_FOOD_PRESSURE_GATE=(enabled=true,enter_H=4.,exit_H=2.)
+const RABBIT_FOOD_COOLING=(enabled=true,)
 mutable struct RabbitFoodPressureGate
     active::Bool
     calls::Int
     active_calls::Int
     records::Vector{Any}
+end
+
+# 暫定固定: 摂取後の胃内容を一度だけ評価。追加の栄養減算はしない。
+# enabled=falseで選択時のみの旧更新へ戻す。局所Hは冷却しない。
+# 将来は食料確保MBの成果評価へ置換。未初期化の親予測を食事で作らない。
+function configured_food_intake_cooling!(parent,gate,a,i,t,amount,local_pressure)
+    RABBIT_FOOD_COOLING.enabled && amount>0 && parent.expected!==nothing || return
+    configured_food_pressure!(parent,a,i,t)
+    if gate.active && max(parent.H,local_pressure)<=RABBIT_FOOD_PRESSURE_GATE.exit_H
+        gate.active=false
+        push!(gate.records,(tick=t,active=false,H=max(parent.H,local_pressure),event="intake_cooling"))
+    end
+    while length(gate.records)>RABBIT_FOOD_PRESSURE_CONNECTION.history_limit
+        popfirst!(gate.records)
+    end
 end
 RabbitFoodPressureGate()=RabbitFoodPressureGate(false,0,0,Any[])
 function configured_food_pressure_gate!(gate,pressure,t;settings=RABBIT_FOOD_PRESSURE_GATE)
