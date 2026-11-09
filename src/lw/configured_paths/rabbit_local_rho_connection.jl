@@ -29,3 +29,12 @@ function rabbit_rho_snapshot(policy)
     (queries=sum((m.local_rho.queries for m in memories);init=0),
      actors=count(m->m.local_rho.queries>0,memories),events=totals)
 end
+
+function rabbit_food_pressure_snapshot(policy)
+    policy isa Union{RabbitApproachPolicy,RabbitSwimmingPolicy} || return nothing
+    memories=values(rabbit_approach_base(policy).actors)
+    (actors=length(memories),calls=sum((m.food_gate.calls for m in memories);init=0),
+     active_calls=sum((m.food_gate.active_calls for m in memories);init=0),
+     active=count(m->m.food_gate.active,memories),
+     peakH=maximum((m.food_pressure.peak for m in memories);init=0.))
+end

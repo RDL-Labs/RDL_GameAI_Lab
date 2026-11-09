@@ -1,4 +1,4 @@
-# 暫定固定の親H局所実験。通常未接続、対象個体はランナーで指定。
+# 暫定固定の親H局所実験。通常接続はRABBIT_FOOD_PRESSURE_CONNECTIONで制御。
 # 探索開始時のenergy+3*gutを基準に固定予算120 SEARCH tick相当の1.44を許容。
 # それ以上の未回復分/4を親Hとする。局所到着では消さない。
 # 胃内容は消化見込みとして計上。生存抽選や経路禁止なし。
@@ -11,7 +11,7 @@ mutable struct RabbitFoodPressure
     records::Vector{Any}
 end
 RabbitFoodPressure()=RabbitFoodPressure(nothing,0.,0.,Any[])
-# 暫定固定の選択ゲート。通常未接続。H>=1で開始、H<=0.5で解除。
+# 暫定固定の選択ゲート。H>=1で開始、H<=0.5で解除。
 # 生のHは保持し、非活動時のみ選択へ渡す圧を0にする。
 # 将来は目的・経験に応じた許容帯へ置換。enabled=falseで旧H>0方式。
 const RABBIT_FOOD_PRESSURE_GATE=(enabled=true,enter_H=1.,exit_H=.5)
@@ -45,4 +45,20 @@ function configured_food_pressure!(m,a,i,t)
     end
     m.peak=max(m.peak,m.H)
     m.H
+end
+
+# 暫定固定の通常接続。enabled=trueで全兎の新規目標選択に適用。
+# 初回選択の身体予備量を固定基準とする局所実験と同じ近似。
+# 将来は各食料確保試行の学習見積もりへ置換。falseで接続前へ復帰。
+const RABBIT_FOOD_PRESSURE_CONNECTION=(enabled=true,history_limit=64)
+function configured_rabbit_food_selection!(memory,a,i,t,local_pressure)
+    RABBIT_FOOD_PRESSURE_CONNECTION.enabled || return local_pressure
+    parent_pressure=configured_food_pressure!(memory.food_pressure,a,i,t)
+    selection_pressure=configured_food_pressure_gate!(memory.food_gate,max(local_pressure,parent_pressure),t)
+    for records in (memory.food_pressure.records,memory.food_gate.records)
+        while length(records)>RABBIT_FOOD_PRESSURE_CONNECTION.history_limit
+            popfirst!(records)
+        end
+    end
+    selection_pressure
 end

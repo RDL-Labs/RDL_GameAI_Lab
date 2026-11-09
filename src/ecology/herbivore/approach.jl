@@ -2,6 +2,7 @@ include("../../lw/configured_paths/rabbit_approach_parameters.jl")
 include("../../lw/configured_paths/rabbit_cover_foraging.jl")
 include("../../lw/configured_paths/rabbit_sparse_departure.jl")
 include("../../lw/configured_paths/rabbit_local_rho_experiment.jl")
+include("../../lw/configured_paths/rabbit_food_pressure_experiment.jl")
 mutable struct RabbitApproachMemory
     H::Dict{Int,Float64}
     target::Int
@@ -11,8 +12,10 @@ mutable struct RabbitApproachMemory
     rng::Xoshiro
     records::Vector{Any}
     local_rho::RabbitLocalRho
+    food_pressure::RabbitFoodPressure
+    food_gate::RabbitFoodPressureGate
 end
-RabbitApproachMemory(seed)=RabbitApproachMemory(Dict{Int,Float64}(),0,0.,0,0,Xoshiro(seed),Any[],RabbitLocalRho())
+RabbitApproachMemory(seed)=RabbitApproachMemory(Dict{Int,Float64}(),0,0.,0,0,Xoshiro(seed),Any[],RabbitLocalRho(),RabbitFoodPressure(),RabbitFoodPressureGate())
 struct RabbitApproachPolicy
     actors::Dict{Int,RabbitApproachMemory}
     seed::Int
@@ -36,6 +39,7 @@ function target!(w,a,i,t,policy::RabbitApproachPolicy)
     scores=[o.grass+configured_rabbit_cover_bonus(o,a.energy[i])-.25o.distance+.2cos(o.direction-a.heading[i])-
         (o.cell==a.previous_cell[i] ? 1. : 0.)-get(m.H,o.cell,0.) for o in observations]
     pressure=maximum(get(m.H,o.cell,0.) for o in observations)
+    pressure=configured_rabbit_food_selection!(m,a,i,t,pressure)
     chosen=if pressure==0
         argmax(scores) # Familiar/no-error movement retains the existing cheap choice.
     else
