@@ -83,6 +83,8 @@ end
 include("../herbivore/approach.jl")
 include("../../lw/configured_paths/rabbit_swimming.jl")
 include("../herbivore/neighbor_batch.jl")
+include("../herbivore/locomotion.jl")
+include("../../lw/configured_paths/rabbit_grazing_motion.jl")
 function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing)
     fill!(demand,0.); empty!(active)
     w.layers!==nothing && fill!(w.layers.long_demand,0.)
@@ -127,11 +129,16 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
     for i in 1:n
         alive!==nothing && !alive[i] && continue
         state=a.state[i]; k=cell(w,a.x[i],a.z[i]); a.counts[i,state]+=1
+        grazing_move_cost=0.
         if configured_rabbit_swim_step!(policy,w,a,i,t,overrides)
             # Optional locomotion policy handled the step; shared body cost still follows.
         elseif state==GRAZE
             amount=requests[i]<0 ? -requests[i]*w.layers.long_ratio[k] : requests[i]*ratio[k]
             a.gut[i]+=amount; a.consumed[i]+=amount
+            # Consume at the allocated origin before moving; never debit destination.
+            if amount>0 && (overrides===nothing || overrides[i]==0) && policy isa Union{RabbitApproachPolicy,RabbitSwimmingPolicy}
+                grazing_move_cost=configured_rabbit_grazing_motion!(w,a,i,t)
+            end
         elseif state==SEARCH || state==FLEE
             if state==FLEE
                 threat_positions!==nothing && (threat=threat_positions[i])
@@ -158,16 +165,12 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 end
                 if chosen!==nothing; q,a.heading[i]=chosen; end
             end
-            if clear(w,p,q)
-                a.x[i],a.z[i]=q; a.distance[i]+=speed
-                next=cell(w,q...)
-                if next!=a.current_cell[i]; a.previous_cell[i]=a.current_cell[i]; a.current_cell[i]=next; end
-            else
+            if !rabbit_land_step!(w,a,i,q)
                 a.heading[i]+=pi/2; a.target[i]=0; a.next_sense[i]=t+10; a.blocked[i]+=1
             end
         end
         cost=state==SLEEP ? .002 : state==SEARCH ? .012 : state==FLEE ? .03 : .0047
-        a.energy[i]=max(0.,a.energy[i]-cost)
+        a.energy[i]=max(0.,a.energy[i]-cost-grazing_move_cost)
         a.energy[i]==0 && (a.starvation_ticks[i]+=1)
         (overrides===nothing || overrides[i]==0) && approach_feedback!(policy,w,a,i,t)
     end
