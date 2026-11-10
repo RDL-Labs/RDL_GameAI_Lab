@@ -1,0 +1,3327 @@
+{
+  "cutoff_day": 232,
+  "initial_rabbits": 105,
+  "target_day": 450,
+  "bird_rate": 0.8886352627358974,
+  "assumptions": "Constant window-specific birth/starvation and effective meal yields; one live ground predator; bird daily hysteresis 150/100; deterministic expected counts, not confidence intervals; ignores demographic lag and spatial accessibility.",
+  "scenarios": [
+    {
+      "window": 30,
+      "births_per_day": 0.6666666666666666,
+      "starvation_per_day": 0,
+      "predator_spent_per_day": 305.91945574885614,
+      "predator_effective_meal": 569.7331451756892,
+      "predator_captures_per_day": 0.5369521825073377,
+      "bird_captures_per_day": 0.8886352627358974,
+      "growth_bird_absent": 0.12971448415932896,
+      "growth_bird_present": -0.7589207785765685,
+      "first_arrival": null,
+      "first_departure": null,
+      "final_rabbits": 133.2777575467342,
+      "trajectory": [
+        {
+          "day": 233,
+          "rabbits": 105.12971448415934,
+          "bird": false
+        },
+        {
+          "day": 234,
+          "rabbits": 105.25942896831867,
+          "bird": false
+        },
+        {
+          "day": 235,
+          "rabbits": 105.38914345247801,
+          "bird": false
+        },
+        {
+          "day": 236,
+          "rabbits": 105.51885793663735,
+          "bird": false
+        },
+        {
+          "day": 237,
+          "rabbits": 105.64857242079668,
+          "bird": false
+        },
+        {
+          "day": 238,
+          "rabbits": 105.77828690495602,
+          "bird": false
+        },
+        {
+          "day": 239,
+          "rabbits": 105.90800138911536,
+          "bird": false
+        },
+        {
+          "day": 240,
+          "rabbits": 106.03771587327469,
+          "bird": false
+        },
+        {
+          "day": 241,
+          "rabbits": 106.16743035743403,
+          "bird": false
+        },
+        {
+          "day": 242,
+          "rabbits": 106.29714484159337,
+          "bird": false
+        },
+        {
+          "day": 243,
+          "rabbits": 106.4268593257527,
+          "bird": false
+        },
+        {
+          "day": 244,
+          "rabbits": 106.55657380991204,
+          "bird": false
+        },
+        {
+          "day": 245,
+          "rabbits": 106.68628829407137,
+          "bird": false
+        },
+        {
+          "day": 246,
+          "rabbits": 106.81600277823071,
+          "bird": false
+        },
+        {
+          "day": 247,
+          "rabbits": 106.94571726239005,
+          "bird": false
+        },
+        {
+          "day": 248,
+          "rabbits": 107.07543174654938,
+          "bird": false
+        },
+        {
+          "day": 249,
+          "rabbits": 107.20514623070872,
+          "bird": false
+        },
+        {
+          "day": 250,
+          "rabbits": 107.33486071486806,
+          "bird": false
+        },
+        {
+          "day": 251,
+          "rabbits": 107.4645751990274,
+          "bird": false
+        },
+        {
+          "day": 252,
+          "rabbits": 107.59428968318673,
+          "bird": false
+        },
+        {
+          "day": 253,
+          "rabbits": 107.72400416734607,
+          "bird": false
+        },
+        {
+          "day": 254,
+          "rabbits": 107.8537186515054,
+          "bird": false
+        },
+        {
+          "day": 255,
+          "rabbits": 107.98343313566474,
+          "bird": false
+        },
+        {
+          "day": 256,
+          "rabbits": 108.11314761982408,
+          "bird": false
+        },
+        {
+          "day": 257,
+          "rabbits": 108.24286210398341,
+          "bird": false
+        },
+        {
+          "day": 258,
+          "rabbits": 108.37257658814275,
+          "bird": false
+        },
+        {
+          "day": 259,
+          "rabbits": 108.50229107230209,
+          "bird": false
+        },
+        {
+          "day": 260,
+          "rabbits": 108.63200555646142,
+          "bird": false
+        },
+        {
+          "day": 261,
+          "rabbits": 108.76172004062076,
+          "bird": false
+        },
+        {
+          "day": 262,
+          "rabbits": 108.8914345247801,
+          "bird": false
+        },
+        {
+          "day": 263,
+          "rabbits": 109.02114900893943,
+          "bird": false
+        },
+        {
+          "day": 264,
+          "rabbits": 109.15086349309877,
+          "bird": false
+        },
+        {
+          "day": 265,
+          "rabbits": 109.2805779772581,
+          "bird": false
+        },
+        {
+          "day": 266,
+          "rabbits": 109.41029246141744,
+          "bird": false
+        },
+        {
+          "day": 267,
+          "rabbits": 109.54000694557678,
+          "bird": false
+        },
+        {
+          "day": 268,
+          "rabbits": 109.66972142973611,
+          "bird": false
+        },
+        {
+          "day": 269,
+          "rabbits": 109.79943591389545,
+          "bird": false
+        },
+        {
+          "day": 270,
+          "rabbits": 109.92915039805479,
+          "bird": false
+        },
+        {
+          "day": 271,
+          "rabbits": 110.05886488221412,
+          "bird": false
+        },
+        {
+          "day": 272,
+          "rabbits": 110.18857936637346,
+          "bird": false
+        },
+        {
+          "day": 273,
+          "rabbits": 110.3182938505328,
+          "bird": false
+        },
+        {
+          "day": 274,
+          "rabbits": 110.44800833469213,
+          "bird": false
+        },
+        {
+          "day": 275,
+          "rabbits": 110.57772281885147,
+          "bird": false
+        },
+        {
+          "day": 276,
+          "rabbits": 110.7074373030108,
+          "bird": false
+        },
+        {
+          "day": 277,
+          "rabbits": 110.83715178717014,
+          "bird": false
+        },
+        {
+          "day": 278,
+          "rabbits": 110.96686627132948,
+          "bird": false
+        },
+        {
+          "day": 279,
+          "rabbits": 111.09658075548882,
+          "bird": false
+        },
+        {
+          "day": 280,
+          "rabbits": 111.22629523964815,
+          "bird": false
+        },
+        {
+          "day": 281,
+          "rabbits": 111.35600972380749,
+          "bird": false
+        },
+        {
+          "day": 282,
+          "rabbits": 111.48572420796683,
+          "bird": false
+        },
+        {
+          "day": 283,
+          "rabbits": 111.61543869212616,
+          "bird": false
+        },
+        {
+          "day": 284,
+          "rabbits": 111.7451531762855,
+          "bird": false
+        },
+        {
+          "day": 285,
+          "rabbits": 111.87486766044483,
+          "bird": false
+        },
+        {
+          "day": 286,
+          "rabbits": 112.00458214460417,
+          "bird": false
+        },
+        {
+          "day": 287,
+          "rabbits": 112.13429662876351,
+          "bird": false
+        },
+        {
+          "day": 288,
+          "rabbits": 112.26401111292284,
+          "bird": false
+        },
+        {
+          "day": 289,
+          "rabbits": 112.39372559708218,
+          "bird": false
+        },
+        {
+          "day": 290,
+          "rabbits": 112.52344008124152,
+          "bird": false
+        },
+        {
+          "day": 291,
+          "rabbits": 112.65315456540085,
+          "bird": false
+        },
+        {
+          "day": 292,
+          "rabbits": 112.78286904956019,
+          "bird": false
+        },
+        {
+          "day": 293,
+          "rabbits": 112.91258353371953,
+          "bird": false
+        },
+        {
+          "day": 294,
+          "rabbits": 113.04229801787886,
+          "bird": false
+        },
+        {
+          "day": 295,
+          "rabbits": 113.1720125020382,
+          "bird": false
+        },
+        {
+          "day": 296,
+          "rabbits": 113.30172698619754,
+          "bird": false
+        },
+        {
+          "day": 297,
+          "rabbits": 113.43144147035687,
+          "bird": false
+        },
+        {
+          "day": 298,
+          "rabbits": 113.56115595451621,
+          "bird": false
+        },
+        {
+          "day": 299,
+          "rabbits": 113.69087043867555,
+          "bird": false
+        },
+        {
+          "day": 300,
+          "rabbits": 113.82058492283488,
+          "bird": false
+        },
+        {
+          "day": 301,
+          "rabbits": 113.95029940699422,
+          "bird": false
+        },
+        {
+          "day": 302,
+          "rabbits": 114.08001389115356,
+          "bird": false
+        },
+        {
+          "day": 303,
+          "rabbits": 114.20972837531289,
+          "bird": false
+        },
+        {
+          "day": 304,
+          "rabbits": 114.33944285947223,
+          "bird": false
+        },
+        {
+          "day": 305,
+          "rabbits": 114.46915734363157,
+          "bird": false
+        },
+        {
+          "day": 306,
+          "rabbits": 114.5988718277909,
+          "bird": false
+        },
+        {
+          "day": 307,
+          "rabbits": 114.72858631195024,
+          "bird": false
+        },
+        {
+          "day": 308,
+          "rabbits": 114.85830079610957,
+          "bird": false
+        },
+        {
+          "day": 309,
+          "rabbits": 114.98801528026891,
+          "bird": false
+        },
+        {
+          "day": 310,
+          "rabbits": 115.11772976442825,
+          "bird": false
+        },
+        {
+          "day": 311,
+          "rabbits": 115.24744424858758,
+          "bird": false
+        },
+        {
+          "day": 312,
+          "rabbits": 115.37715873274692,
+          "bird": false
+        },
+        {
+          "day": 313,
+          "rabbits": 115.50687321690626,
+          "bird": false
+        },
+        {
+          "day": 314,
+          "rabbits": 115.6365877010656,
+          "bird": false
+        },
+        {
+          "day": 315,
+          "rabbits": 115.76630218522493,
+          "bird": false
+        },
+        {
+          "day": 316,
+          "rabbits": 115.89601666938427,
+          "bird": false
+        },
+        {
+          "day": 317,
+          "rabbits": 116.0257311535436,
+          "bird": false
+        },
+        {
+          "day": 318,
+          "rabbits": 116.15544563770294,
+          "bird": false
+        },
+        {
+          "day": 319,
+          "rabbits": 116.28516012186228,
+          "bird": false
+        },
+        {
+          "day": 320,
+          "rabbits": 116.41487460602161,
+          "bird": false
+        },
+        {
+          "day": 321,
+          "rabbits": 116.54458909018095,
+          "bird": false
+        },
+        {
+          "day": 322,
+          "rabbits": 116.67430357434029,
+          "bird": false
+        },
+        {
+          "day": 323,
+          "rabbits": 116.80401805849962,
+          "bird": false
+        },
+        {
+          "day": 324,
+          "rabbits": 116.93373254265896,
+          "bird": false
+        },
+        {
+          "day": 325,
+          "rabbits": 117.0634470268183,
+          "bird": false
+        },
+        {
+          "day": 326,
+          "rabbits": 117.19316151097763,
+          "bird": false
+        },
+        {
+          "day": 327,
+          "rabbits": 117.32287599513697,
+          "bird": false
+        },
+        {
+          "day": 328,
+          "rabbits": 117.4525904792963,
+          "bird": false
+        },
+        {
+          "day": 329,
+          "rabbits": 117.58230496345564,
+          "bird": false
+        },
+        {
+          "day": 330,
+          "rabbits": 117.71201944761498,
+          "bird": false
+        },
+        {
+          "day": 331,
+          "rabbits": 117.84173393177431,
+          "bird": false
+        },
+        {
+          "day": 332,
+          "rabbits": 117.97144841593365,
+          "bird": false
+        },
+        {
+          "day": 333,
+          "rabbits": 118.10116290009299,
+          "bird": false
+        },
+        {
+          "day": 334,
+          "rabbits": 118.23087738425232,
+          "bird": false
+        },
+        {
+          "day": 335,
+          "rabbits": 118.36059186841166,
+          "bird": false
+        },
+        {
+          "day": 336,
+          "rabbits": 118.490306352571,
+          "bird": false
+        },
+        {
+          "day": 337,
+          "rabbits": 118.62002083673033,
+          "bird": false
+        },
+        {
+          "day": 338,
+          "rabbits": 118.74973532088967,
+          "bird": false
+        },
+        {
+          "day": 339,
+          "rabbits": 118.879449805049,
+          "bird": false
+        },
+        {
+          "day": 340,
+          "rabbits": 119.00916428920834,
+          "bird": false
+        },
+        {
+          "day": 341,
+          "rabbits": 119.13887877336768,
+          "bird": false
+        },
+        {
+          "day": 342,
+          "rabbits": 119.26859325752702,
+          "bird": false
+        },
+        {
+          "day": 343,
+          "rabbits": 119.39830774168635,
+          "bird": false
+        },
+        {
+          "day": 344,
+          "rabbits": 119.52802222584569,
+          "bird": false
+        },
+        {
+          "day": 345,
+          "rabbits": 119.65773671000503,
+          "bird": false
+        },
+        {
+          "day": 346,
+          "rabbits": 119.78745119416436,
+          "bird": false
+        },
+        {
+          "day": 347,
+          "rabbits": 119.9171656783237,
+          "bird": false
+        },
+        {
+          "day": 348,
+          "rabbits": 120.04688016248303,
+          "bird": false
+        },
+        {
+          "day": 349,
+          "rabbits": 120.17659464664237,
+          "bird": false
+        },
+        {
+          "day": 350,
+          "rabbits": 120.30630913080171,
+          "bird": false
+        },
+        {
+          "day": 351,
+          "rabbits": 120.43602361496104,
+          "bird": false
+        },
+        {
+          "day": 352,
+          "rabbits": 120.56573809912038,
+          "bird": false
+        },
+        {
+          "day": 353,
+          "rabbits": 120.69545258327972,
+          "bird": false
+        },
+        {
+          "day": 354,
+          "rabbits": 120.82516706743905,
+          "bird": false
+        },
+        {
+          "day": 355,
+          "rabbits": 120.95488155159839,
+          "bird": false
+        },
+        {
+          "day": 356,
+          "rabbits": 121.08459603575773,
+          "bird": false
+        },
+        {
+          "day": 357,
+          "rabbits": 121.21431051991706,
+          "bird": false
+        },
+        {
+          "day": 358,
+          "rabbits": 121.3440250040764,
+          "bird": false
+        },
+        {
+          "day": 359,
+          "rabbits": 121.47373948823574,
+          "bird": false
+        },
+        {
+          "day": 360,
+          "rabbits": 121.60345397239507,
+          "bird": false
+        },
+        {
+          "day": 361,
+          "rabbits": 121.73316845655441,
+          "bird": false
+        },
+        {
+          "day": 362,
+          "rabbits": 121.86288294071375,
+          "bird": false
+        },
+        {
+          "day": 363,
+          "rabbits": 121.99259742487308,
+          "bird": false
+        },
+        {
+          "day": 364,
+          "rabbits": 122.12231190903242,
+          "bird": false
+        },
+        {
+          "day": 365,
+          "rabbits": 122.25202639319176,
+          "bird": false
+        },
+        {
+          "day": 366,
+          "rabbits": 122.38174087735109,
+          "bird": false
+        },
+        {
+          "day": 367,
+          "rabbits": 122.51145536151043,
+          "bird": false
+        },
+        {
+          "day": 368,
+          "rabbits": 122.64116984566976,
+          "bird": false
+        },
+        {
+          "day": 369,
+          "rabbits": 122.7708843298291,
+          "bird": false
+        },
+        {
+          "day": 370,
+          "rabbits": 122.90059881398844,
+          "bird": false
+        },
+        {
+          "day": 371,
+          "rabbits": 123.03031329814777,
+          "bird": false
+        },
+        {
+          "day": 372,
+          "rabbits": 123.16002778230711,
+          "bird": false
+        },
+        {
+          "day": 373,
+          "rabbits": 123.28974226646645,
+          "bird": false
+        },
+        {
+          "day": 374,
+          "rabbits": 123.41945675062578,
+          "bird": false
+        },
+        {
+          "day": 375,
+          "rabbits": 123.54917123478512,
+          "bird": false
+        },
+        {
+          "day": 376,
+          "rabbits": 123.67888571894446,
+          "bird": false
+        },
+        {
+          "day": 377,
+          "rabbits": 123.8086002031038,
+          "bird": false
+        },
+        {
+          "day": 378,
+          "rabbits": 123.93831468726313,
+          "bird": false
+        },
+        {
+          "day": 379,
+          "rabbits": 124.06802917142247,
+          "bird": false
+        },
+        {
+          "day": 380,
+          "rabbits": 124.1977436555818,
+          "bird": false
+        },
+        {
+          "day": 381,
+          "rabbits": 124.32745813974114,
+          "bird": false
+        },
+        {
+          "day": 382,
+          "rabbits": 124.45717262390048,
+          "bird": false
+        },
+        {
+          "day": 383,
+          "rabbits": 124.58688710805981,
+          "bird": false
+        },
+        {
+          "day": 384,
+          "rabbits": 124.71660159221915,
+          "bird": false
+        },
+        {
+          "day": 385,
+          "rabbits": 124.84631607637849,
+          "bird": false
+        },
+        {
+          "day": 386,
+          "rabbits": 124.97603056053782,
+          "bird": false
+        },
+        {
+          "day": 387,
+          "rabbits": 125.10574504469716,
+          "bird": false
+        },
+        {
+          "day": 388,
+          "rabbits": 125.2354595288565,
+          "bird": false
+        },
+        {
+          "day": 389,
+          "rabbits": 125.36517401301583,
+          "bird": false
+        },
+        {
+          "day": 390,
+          "rabbits": 125.49488849717517,
+          "bird": false
+        },
+        {
+          "day": 391,
+          "rabbits": 125.6246029813345,
+          "bird": false
+        },
+        {
+          "day": 392,
+          "rabbits": 125.75431746549384,
+          "bird": false
+        },
+        {
+          "day": 393,
+          "rabbits": 125.88403194965318,
+          "bird": false
+        },
+        {
+          "day": 394,
+          "rabbits": 126.01374643381251,
+          "bird": false
+        },
+        {
+          "day": 395,
+          "rabbits": 126.14346091797185,
+          "bird": false
+        },
+        {
+          "day": 396,
+          "rabbits": 126.27317540213119,
+          "bird": false
+        },
+        {
+          "day": 397,
+          "rabbits": 126.40288988629052,
+          "bird": false
+        },
+        {
+          "day": 398,
+          "rabbits": 126.53260437044986,
+          "bird": false
+        },
+        {
+          "day": 399,
+          "rabbits": 126.6623188546092,
+          "bird": false
+        },
+        {
+          "day": 400,
+          "rabbits": 126.79203333876853,
+          "bird": false
+        },
+        {
+          "day": 401,
+          "rabbits": 126.92174782292787,
+          "bird": false
+        },
+        {
+          "day": 402,
+          "rabbits": 127.0514623070872,
+          "bird": false
+        },
+        {
+          "day": 403,
+          "rabbits": 127.18117679124654,
+          "bird": false
+        },
+        {
+          "day": 404,
+          "rabbits": 127.31089127540588,
+          "bird": false
+        },
+        {
+          "day": 405,
+          "rabbits": 127.44060575956522,
+          "bird": false
+        },
+        {
+          "day": 406,
+          "rabbits": 127.57032024372454,
+          "bird": false
+        },
+        {
+          "day": 407,
+          "rabbits": 127.70003472788387,
+          "bird": false
+        },
+        {
+          "day": 408,
+          "rabbits": 127.82974921204321,
+          "bird": false
+        },
+        {
+          "day": 409,
+          "rabbits": 127.95946369620255,
+          "bird": false
+        },
+        {
+          "day": 410,
+          "rabbits": 128.08917818036187,
+          "bird": false
+        },
+        {
+          "day": 411,
+          "rabbits": 128.21889266452118,
+          "bird": false
+        },
+        {
+          "day": 412,
+          "rabbits": 128.3486071486805,
+          "bird": false
+        },
+        {
+          "day": 413,
+          "rabbits": 128.4783216328398,
+          "bird": false
+        },
+        {
+          "day": 414,
+          "rabbits": 128.6080361169991,
+          "bird": false
+        },
+        {
+          "day": 415,
+          "rabbits": 128.7377506011584,
+          "bird": false
+        },
+        {
+          "day": 416,
+          "rabbits": 128.86746508531772,
+          "bird": false
+        },
+        {
+          "day": 417,
+          "rabbits": 128.99717956947703,
+          "bird": false
+        },
+        {
+          "day": 418,
+          "rabbits": 129.12689405363633,
+          "bird": false
+        },
+        {
+          "day": 419,
+          "rabbits": 129.25660853779564,
+          "bird": false
+        },
+        {
+          "day": 420,
+          "rabbits": 129.38632302195495,
+          "bird": false
+        },
+        {
+          "day": 421,
+          "rabbits": 129.51603750611426,
+          "bird": false
+        },
+        {
+          "day": 422,
+          "rabbits": 129.64575199027357,
+          "bird": false
+        },
+        {
+          "day": 423,
+          "rabbits": 129.77546647443287,
+          "bird": false
+        },
+        {
+          "day": 424,
+          "rabbits": 129.90518095859218,
+          "bird": false
+        },
+        {
+          "day": 425,
+          "rabbits": 130.0348954427515,
+          "bird": false
+        },
+        {
+          "day": 426,
+          "rabbits": 130.1646099269108,
+          "bird": false
+        },
+        {
+          "day": 427,
+          "rabbits": 130.2943244110701,
+          "bird": false
+        },
+        {
+          "day": 428,
+          "rabbits": 130.42403889522942,
+          "bird": false
+        },
+        {
+          "day": 429,
+          "rabbits": 130.55375337938872,
+          "bird": false
+        },
+        {
+          "day": 430,
+          "rabbits": 130.68346786354803,
+          "bird": false
+        },
+        {
+          "day": 431,
+          "rabbits": 130.81318234770734,
+          "bird": false
+        },
+        {
+          "day": 432,
+          "rabbits": 130.94289683186665,
+          "bird": false
+        },
+        {
+          "day": 433,
+          "rabbits": 131.07261131602596,
+          "bird": false
+        },
+        {
+          "day": 434,
+          "rabbits": 131.20232580018526,
+          "bird": false
+        },
+        {
+          "day": 435,
+          "rabbits": 131.33204028434457,
+          "bird": false
+        },
+        {
+          "day": 436,
+          "rabbits": 131.46175476850388,
+          "bird": false
+        },
+        {
+          "day": 437,
+          "rabbits": 131.5914692526632,
+          "bird": false
+        },
+        {
+          "day": 438,
+          "rabbits": 131.7211837368225,
+          "bird": false
+        },
+        {
+          "day": 439,
+          "rabbits": 131.8508982209818,
+          "bird": false
+        },
+        {
+          "day": 440,
+          "rabbits": 131.9806127051411,
+          "bird": false
+        },
+        {
+          "day": 441,
+          "rabbits": 132.11032718930042,
+          "bird": false
+        },
+        {
+          "day": 442,
+          "rabbits": 132.24004167345973,
+          "bird": false
+        },
+        {
+          "day": 443,
+          "rabbits": 132.36975615761904,
+          "bird": false
+        },
+        {
+          "day": 444,
+          "rabbits": 132.49947064177834,
+          "bird": false
+        },
+        {
+          "day": 445,
+          "rabbits": 132.62918512593765,
+          "bird": false
+        },
+        {
+          "day": 446,
+          "rabbits": 132.75889961009696,
+          "bird": false
+        },
+        {
+          "day": 447,
+          "rabbits": 132.88861409425627,
+          "bird": false
+        },
+        {
+          "day": 448,
+          "rabbits": 133.01832857841558,
+          "bird": false
+        },
+        {
+          "day": 449,
+          "rabbits": 133.14804306257489,
+          "bird": false
+        },
+        {
+          "day": 450,
+          "rabbits": 133.2777575467342,
+          "bird": false
+        }
+      ]
+    },
+    {
+      "window": 60,
+      "births_per_day": 0.7166666666666667,
+      "starvation_per_day": 0,
+      "predator_spent_per_day": 304.51867893823595,
+      "predator_effective_meal": 596.5174487687268,
+      "predator_captures_per_day": 0.5104941683881901,
+      "bird_captures_per_day": 0.8886352627358974,
+      "growth_bird_absent": 0.2061724982784766,
+      "growth_bird_present": -0.6824627644574208,
+      "first_arrival": null,
+      "first_departure": null,
+      "final_rabbits": 149.94560462470793,
+      "trajectory": [
+        {
+          "day": 233,
+          "rabbits": 105.20617249827848,
+          "bird": false
+        },
+        {
+          "day": 234,
+          "rabbits": 105.41234499655695,
+          "bird": false
+        },
+        {
+          "day": 235,
+          "rabbits": 105.61851749483543,
+          "bird": false
+        },
+        {
+          "day": 236,
+          "rabbits": 105.8246899931139,
+          "bird": false
+        },
+        {
+          "day": 237,
+          "rabbits": 106.03086249139238,
+          "bird": false
+        },
+        {
+          "day": 238,
+          "rabbits": 106.23703498967086,
+          "bird": false
+        },
+        {
+          "day": 239,
+          "rabbits": 106.44320748794934,
+          "bird": false
+        },
+        {
+          "day": 240,
+          "rabbits": 106.64937998622781,
+          "bird": false
+        },
+        {
+          "day": 241,
+          "rabbits": 106.85555248450629,
+          "bird": false
+        },
+        {
+          "day": 242,
+          "rabbits": 107.06172498278477,
+          "bird": false
+        },
+        {
+          "day": 243,
+          "rabbits": 107.26789748106324,
+          "bird": false
+        },
+        {
+          "day": 244,
+          "rabbits": 107.47406997934172,
+          "bird": false
+        },
+        {
+          "day": 245,
+          "rabbits": 107.6802424776202,
+          "bird": false
+        },
+        {
+          "day": 246,
+          "rabbits": 107.88641497589867,
+          "bird": false
+        },
+        {
+          "day": 247,
+          "rabbits": 108.09258747417715,
+          "bird": false
+        },
+        {
+          "day": 248,
+          "rabbits": 108.29875997245563,
+          "bird": false
+        },
+        {
+          "day": 249,
+          "rabbits": 108.5049324707341,
+          "bird": false
+        },
+        {
+          "day": 250,
+          "rabbits": 108.71110496901258,
+          "bird": false
+        },
+        {
+          "day": 251,
+          "rabbits": 108.91727746729106,
+          "bird": false
+        },
+        {
+          "day": 252,
+          "rabbits": 109.12344996556953,
+          "bird": false
+        },
+        {
+          "day": 253,
+          "rabbits": 109.32962246384801,
+          "bird": false
+        },
+        {
+          "day": 254,
+          "rabbits": 109.53579496212649,
+          "bird": false
+        },
+        {
+          "day": 255,
+          "rabbits": 109.74196746040496,
+          "bird": false
+        },
+        {
+          "day": 256,
+          "rabbits": 109.94813995868344,
+          "bird": false
+        },
+        {
+          "day": 257,
+          "rabbits": 110.15431245696192,
+          "bird": false
+        },
+        {
+          "day": 258,
+          "rabbits": 110.3604849552404,
+          "bird": false
+        },
+        {
+          "day": 259,
+          "rabbits": 110.56665745351887,
+          "bird": false
+        },
+        {
+          "day": 260,
+          "rabbits": 110.77282995179735,
+          "bird": false
+        },
+        {
+          "day": 261,
+          "rabbits": 110.97900245007582,
+          "bird": false
+        },
+        {
+          "day": 262,
+          "rabbits": 111.1851749483543,
+          "bird": false
+        },
+        {
+          "day": 263,
+          "rabbits": 111.39134744663278,
+          "bird": false
+        },
+        {
+          "day": 264,
+          "rabbits": 111.59751994491126,
+          "bird": false
+        },
+        {
+          "day": 265,
+          "rabbits": 111.80369244318973,
+          "bird": false
+        },
+        {
+          "day": 266,
+          "rabbits": 112.00986494146821,
+          "bird": false
+        },
+        {
+          "day": 267,
+          "rabbits": 112.21603743974669,
+          "bird": false
+        },
+        {
+          "day": 268,
+          "rabbits": 112.42220993802516,
+          "bird": false
+        },
+        {
+          "day": 269,
+          "rabbits": 112.62838243630364,
+          "bird": false
+        },
+        {
+          "day": 270,
+          "rabbits": 112.83455493458212,
+          "bird": false
+        },
+        {
+          "day": 271,
+          "rabbits": 113.04072743286059,
+          "bird": false
+        },
+        {
+          "day": 272,
+          "rabbits": 113.24689993113907,
+          "bird": false
+        },
+        {
+          "day": 273,
+          "rabbits": 113.45307242941755,
+          "bird": false
+        },
+        {
+          "day": 274,
+          "rabbits": 113.65924492769602,
+          "bird": false
+        },
+        {
+          "day": 275,
+          "rabbits": 113.8654174259745,
+          "bird": false
+        },
+        {
+          "day": 276,
+          "rabbits": 114.07158992425298,
+          "bird": false
+        },
+        {
+          "day": 277,
+          "rabbits": 114.27776242253145,
+          "bird": false
+        },
+        {
+          "day": 278,
+          "rabbits": 114.48393492080993,
+          "bird": false
+        },
+        {
+          "day": 279,
+          "rabbits": 114.6901074190884,
+          "bird": false
+        },
+        {
+          "day": 280,
+          "rabbits": 114.89627991736688,
+          "bird": false
+        },
+        {
+          "day": 281,
+          "rabbits": 115.10245241564536,
+          "bird": false
+        },
+        {
+          "day": 282,
+          "rabbits": 115.30862491392384,
+          "bird": false
+        },
+        {
+          "day": 283,
+          "rabbits": 115.51479741220231,
+          "bird": false
+        },
+        {
+          "day": 284,
+          "rabbits": 115.72096991048079,
+          "bird": false
+        },
+        {
+          "day": 285,
+          "rabbits": 115.92714240875927,
+          "bird": false
+        },
+        {
+          "day": 286,
+          "rabbits": 116.13331490703774,
+          "bird": false
+        },
+        {
+          "day": 287,
+          "rabbits": 116.33948740531622,
+          "bird": false
+        },
+        {
+          "day": 288,
+          "rabbits": 116.5456599035947,
+          "bird": false
+        },
+        {
+          "day": 289,
+          "rabbits": 116.75183240187317,
+          "bird": false
+        },
+        {
+          "day": 290,
+          "rabbits": 116.95800490015165,
+          "bird": false
+        },
+        {
+          "day": 291,
+          "rabbits": 117.16417739843013,
+          "bird": false
+        },
+        {
+          "day": 292,
+          "rabbits": 117.3703498967086,
+          "bird": false
+        },
+        {
+          "day": 293,
+          "rabbits": 117.57652239498708,
+          "bird": false
+        },
+        {
+          "day": 294,
+          "rabbits": 117.78269489326556,
+          "bird": false
+        },
+        {
+          "day": 295,
+          "rabbits": 117.98886739154403,
+          "bird": false
+        },
+        {
+          "day": 296,
+          "rabbits": 118.19503988982251,
+          "bird": false
+        },
+        {
+          "day": 297,
+          "rabbits": 118.40121238810099,
+          "bird": false
+        },
+        {
+          "day": 298,
+          "rabbits": 118.60738488637946,
+          "bird": false
+        },
+        {
+          "day": 299,
+          "rabbits": 118.81355738465794,
+          "bird": false
+        },
+        {
+          "day": 300,
+          "rabbits": 119.01972988293642,
+          "bird": false
+        },
+        {
+          "day": 301,
+          "rabbits": 119.2259023812149,
+          "bird": false
+        },
+        {
+          "day": 302,
+          "rabbits": 119.43207487949337,
+          "bird": false
+        },
+        {
+          "day": 303,
+          "rabbits": 119.63824737777185,
+          "bird": false
+        },
+        {
+          "day": 304,
+          "rabbits": 119.84441987605032,
+          "bird": false
+        },
+        {
+          "day": 305,
+          "rabbits": 120.0505923743288,
+          "bird": false
+        },
+        {
+          "day": 306,
+          "rabbits": 120.25676487260728,
+          "bird": false
+        },
+        {
+          "day": 307,
+          "rabbits": 120.46293737088575,
+          "bird": false
+        },
+        {
+          "day": 308,
+          "rabbits": 120.66910986916423,
+          "bird": false
+        },
+        {
+          "day": 309,
+          "rabbits": 120.87528236744271,
+          "bird": false
+        },
+        {
+          "day": 310,
+          "rabbits": 121.08145486572118,
+          "bird": false
+        },
+        {
+          "day": 311,
+          "rabbits": 121.28762736399966,
+          "bird": false
+        },
+        {
+          "day": 312,
+          "rabbits": 121.49379986227814,
+          "bird": false
+        },
+        {
+          "day": 313,
+          "rabbits": 121.69997236055661,
+          "bird": false
+        },
+        {
+          "day": 314,
+          "rabbits": 121.90614485883509,
+          "bird": false
+        },
+        {
+          "day": 315,
+          "rabbits": 122.11231735711357,
+          "bird": false
+        },
+        {
+          "day": 316,
+          "rabbits": 122.31848985539204,
+          "bird": false
+        },
+        {
+          "day": 317,
+          "rabbits": 122.52466235367052,
+          "bird": false
+        },
+        {
+          "day": 318,
+          "rabbits": 122.730834851949,
+          "bird": false
+        },
+        {
+          "day": 319,
+          "rabbits": 122.93700735022747,
+          "bird": false
+        },
+        {
+          "day": 320,
+          "rabbits": 123.14317984850595,
+          "bird": false
+        },
+        {
+          "day": 321,
+          "rabbits": 123.34935234678443,
+          "bird": false
+        },
+        {
+          "day": 322,
+          "rabbits": 123.5555248450629,
+          "bird": false
+        },
+        {
+          "day": 323,
+          "rabbits": 123.76169734334138,
+          "bird": false
+        },
+        {
+          "day": 324,
+          "rabbits": 123.96786984161986,
+          "bird": false
+        },
+        {
+          "day": 325,
+          "rabbits": 124.17404233989834,
+          "bird": false
+        },
+        {
+          "day": 326,
+          "rabbits": 124.38021483817681,
+          "bird": false
+        },
+        {
+          "day": 327,
+          "rabbits": 124.58638733645529,
+          "bird": false
+        },
+        {
+          "day": 328,
+          "rabbits": 124.79255983473377,
+          "bird": false
+        },
+        {
+          "day": 329,
+          "rabbits": 124.99873233301224,
+          "bird": false
+        },
+        {
+          "day": 330,
+          "rabbits": 125.20490483129072,
+          "bird": false
+        },
+        {
+          "day": 331,
+          "rabbits": 125.4110773295692,
+          "bird": false
+        },
+        {
+          "day": 332,
+          "rabbits": 125.61724982784767,
+          "bird": false
+        },
+        {
+          "day": 333,
+          "rabbits": 125.82342232612615,
+          "bird": false
+        },
+        {
+          "day": 334,
+          "rabbits": 126.02959482440463,
+          "bird": false
+        },
+        {
+          "day": 335,
+          "rabbits": 126.2357673226831,
+          "bird": false
+        },
+        {
+          "day": 336,
+          "rabbits": 126.44193982096158,
+          "bird": false
+        },
+        {
+          "day": 337,
+          "rabbits": 126.64811231924006,
+          "bird": false
+        },
+        {
+          "day": 338,
+          "rabbits": 126.85428481751853,
+          "bird": false
+        },
+        {
+          "day": 339,
+          "rabbits": 127.06045731579701,
+          "bird": false
+        },
+        {
+          "day": 340,
+          "rabbits": 127.26662981407549,
+          "bird": false
+        },
+        {
+          "day": 341,
+          "rabbits": 127.47280231235396,
+          "bird": false
+        },
+        {
+          "day": 342,
+          "rabbits": 127.67897481063244,
+          "bird": false
+        },
+        {
+          "day": 343,
+          "rabbits": 127.88514730891092,
+          "bird": false
+        },
+        {
+          "day": 344,
+          "rabbits": 128.0913198071894,
+          "bird": false
+        },
+        {
+          "day": 345,
+          "rabbits": 128.29749230546787,
+          "bird": false
+        },
+        {
+          "day": 346,
+          "rabbits": 128.50366480374635,
+          "bird": false
+        },
+        {
+          "day": 347,
+          "rabbits": 128.70983730202482,
+          "bird": false
+        },
+        {
+          "day": 348,
+          "rabbits": 128.9160098003033,
+          "bird": false
+        },
+        {
+          "day": 349,
+          "rabbits": 129.12218229858178,
+          "bird": false
+        },
+        {
+          "day": 350,
+          "rabbits": 129.32835479686025,
+          "bird": false
+        },
+        {
+          "day": 351,
+          "rabbits": 129.53452729513873,
+          "bird": false
+        },
+        {
+          "day": 352,
+          "rabbits": 129.7406997934172,
+          "bird": false
+        },
+        {
+          "day": 353,
+          "rabbits": 129.94687229169568,
+          "bird": false
+        },
+        {
+          "day": 354,
+          "rabbits": 130.15304478997416,
+          "bird": false
+        },
+        {
+          "day": 355,
+          "rabbits": 130.35921728825264,
+          "bird": false
+        },
+        {
+          "day": 356,
+          "rabbits": 130.5653897865311,
+          "bird": false
+        },
+        {
+          "day": 357,
+          "rabbits": 130.7715622848096,
+          "bird": false
+        },
+        {
+          "day": 358,
+          "rabbits": 130.97773478308807,
+          "bird": false
+        },
+        {
+          "day": 359,
+          "rabbits": 131.18390728136654,
+          "bird": false
+        },
+        {
+          "day": 360,
+          "rabbits": 131.39007977964502,
+          "bird": false
+        },
+        {
+          "day": 361,
+          "rabbits": 131.5962522779235,
+          "bird": false
+        },
+        {
+          "day": 362,
+          "rabbits": 131.80242477620197,
+          "bird": false
+        },
+        {
+          "day": 363,
+          "rabbits": 132.00859727448045,
+          "bird": false
+        },
+        {
+          "day": 364,
+          "rabbits": 132.21476977275893,
+          "bird": false
+        },
+        {
+          "day": 365,
+          "rabbits": 132.4209422710374,
+          "bird": false
+        },
+        {
+          "day": 366,
+          "rabbits": 132.62711476931588,
+          "bird": false
+        },
+        {
+          "day": 367,
+          "rabbits": 132.83328726759436,
+          "bird": false
+        },
+        {
+          "day": 368,
+          "rabbits": 133.03945976587283,
+          "bird": false
+        },
+        {
+          "day": 369,
+          "rabbits": 133.2456322641513,
+          "bird": false
+        },
+        {
+          "day": 370,
+          "rabbits": 133.4518047624298,
+          "bird": false
+        },
+        {
+          "day": 371,
+          "rabbits": 133.65797726070826,
+          "bird": false
+        },
+        {
+          "day": 372,
+          "rabbits": 133.86414975898674,
+          "bird": false
+        },
+        {
+          "day": 373,
+          "rabbits": 134.07032225726522,
+          "bird": false
+        },
+        {
+          "day": 374,
+          "rabbits": 134.2764947555437,
+          "bird": false
+        },
+        {
+          "day": 375,
+          "rabbits": 134.48266725382217,
+          "bird": false
+        },
+        {
+          "day": 376,
+          "rabbits": 134.68883975210065,
+          "bird": false
+        },
+        {
+          "day": 377,
+          "rabbits": 134.89501225037912,
+          "bird": false
+        },
+        {
+          "day": 378,
+          "rabbits": 135.1011847486576,
+          "bird": false
+        },
+        {
+          "day": 379,
+          "rabbits": 135.30735724693608,
+          "bird": false
+        },
+        {
+          "day": 380,
+          "rabbits": 135.51352974521456,
+          "bird": false
+        },
+        {
+          "day": 381,
+          "rabbits": 135.71970224349303,
+          "bird": false
+        },
+        {
+          "day": 382,
+          "rabbits": 135.9258747417715,
+          "bird": false
+        },
+        {
+          "day": 383,
+          "rabbits": 136.13204724004999,
+          "bird": false
+        },
+        {
+          "day": 384,
+          "rabbits": 136.33821973832846,
+          "bird": false
+        },
+        {
+          "day": 385,
+          "rabbits": 136.54439223660694,
+          "bird": false
+        },
+        {
+          "day": 386,
+          "rabbits": 136.75056473488542,
+          "bird": false
+        },
+        {
+          "day": 387,
+          "rabbits": 136.9567372331639,
+          "bird": false
+        },
+        {
+          "day": 388,
+          "rabbits": 137.16290973144237,
+          "bird": false
+        },
+        {
+          "day": 389,
+          "rabbits": 137.36908222972085,
+          "bird": false
+        },
+        {
+          "day": 390,
+          "rabbits": 137.57525472799932,
+          "bird": false
+        },
+        {
+          "day": 391,
+          "rabbits": 137.7814272262778,
+          "bird": false
+        },
+        {
+          "day": 392,
+          "rabbits": 137.98759972455628,
+          "bird": false
+        },
+        {
+          "day": 393,
+          "rabbits": 138.19377222283475,
+          "bird": false
+        },
+        {
+          "day": 394,
+          "rabbits": 138.39994472111323,
+          "bird": false
+        },
+        {
+          "day": 395,
+          "rabbits": 138.6061172193917,
+          "bird": false
+        },
+        {
+          "day": 396,
+          "rabbits": 138.81228971767018,
+          "bird": false
+        },
+        {
+          "day": 397,
+          "rabbits": 139.01846221594866,
+          "bird": false
+        },
+        {
+          "day": 398,
+          "rabbits": 139.22463471422714,
+          "bird": false
+        },
+        {
+          "day": 399,
+          "rabbits": 139.4308072125056,
+          "bird": false
+        },
+        {
+          "day": 400,
+          "rabbits": 139.6369797107841,
+          "bird": false
+        },
+        {
+          "day": 401,
+          "rabbits": 139.84315220906257,
+          "bird": false
+        },
+        {
+          "day": 402,
+          "rabbits": 140.04932470734104,
+          "bird": false
+        },
+        {
+          "day": 403,
+          "rabbits": 140.25549720561952,
+          "bird": false
+        },
+        {
+          "day": 404,
+          "rabbits": 140.461669703898,
+          "bird": false
+        },
+        {
+          "day": 405,
+          "rabbits": 140.66784220217647,
+          "bird": false
+        },
+        {
+          "day": 406,
+          "rabbits": 140.87401470045495,
+          "bird": false
+        },
+        {
+          "day": 407,
+          "rabbits": 141.08018719873343,
+          "bird": false
+        },
+        {
+          "day": 408,
+          "rabbits": 141.2863596970119,
+          "bird": false
+        },
+        {
+          "day": 409,
+          "rabbits": 141.49253219529038,
+          "bird": false
+        },
+        {
+          "day": 410,
+          "rabbits": 141.69870469356886,
+          "bird": false
+        },
+        {
+          "day": 411,
+          "rabbits": 141.90487719184733,
+          "bird": false
+        },
+        {
+          "day": 412,
+          "rabbits": 142.1110496901258,
+          "bird": false
+        },
+        {
+          "day": 413,
+          "rabbits": 142.3172221884043,
+          "bird": false
+        },
+        {
+          "day": 414,
+          "rabbits": 142.52339468668276,
+          "bird": false
+        },
+        {
+          "day": 415,
+          "rabbits": 142.72956718496124,
+          "bird": false
+        },
+        {
+          "day": 416,
+          "rabbits": 142.93573968323972,
+          "bird": false
+        },
+        {
+          "day": 417,
+          "rabbits": 143.1419121815182,
+          "bird": false
+        },
+        {
+          "day": 418,
+          "rabbits": 143.34808467979667,
+          "bird": false
+        },
+        {
+          "day": 419,
+          "rabbits": 143.55425717807515,
+          "bird": false
+        },
+        {
+          "day": 420,
+          "rabbits": 143.76042967635362,
+          "bird": false
+        },
+        {
+          "day": 421,
+          "rabbits": 143.9666021746321,
+          "bird": false
+        },
+        {
+          "day": 422,
+          "rabbits": 144.17277467291058,
+          "bird": false
+        },
+        {
+          "day": 423,
+          "rabbits": 144.37894717118905,
+          "bird": false
+        },
+        {
+          "day": 424,
+          "rabbits": 144.58511966946753,
+          "bird": false
+        },
+        {
+          "day": 425,
+          "rabbits": 144.791292167746,
+          "bird": false
+        },
+        {
+          "day": 426,
+          "rabbits": 144.99746466602448,
+          "bird": false
+        },
+        {
+          "day": 427,
+          "rabbits": 145.20363716430296,
+          "bird": false
+        },
+        {
+          "day": 428,
+          "rabbits": 145.40980966258144,
+          "bird": false
+        },
+        {
+          "day": 429,
+          "rabbits": 145.61598216085991,
+          "bird": false
+        },
+        {
+          "day": 430,
+          "rabbits": 145.8221546591384,
+          "bird": false
+        },
+        {
+          "day": 431,
+          "rabbits": 146.02832715741687,
+          "bird": false
+        },
+        {
+          "day": 432,
+          "rabbits": 146.23449965569534,
+          "bird": false
+        },
+        {
+          "day": 433,
+          "rabbits": 146.44067215397382,
+          "bird": false
+        },
+        {
+          "day": 434,
+          "rabbits": 146.6468446522523,
+          "bird": false
+        },
+        {
+          "day": 435,
+          "rabbits": 146.85301715053077,
+          "bird": false
+        },
+        {
+          "day": 436,
+          "rabbits": 147.05918964880925,
+          "bird": false
+        },
+        {
+          "day": 437,
+          "rabbits": 147.26536214708773,
+          "bird": false
+        },
+        {
+          "day": 438,
+          "rabbits": 147.4715346453662,
+          "bird": false
+        },
+        {
+          "day": 439,
+          "rabbits": 147.67770714364468,
+          "bird": false
+        },
+        {
+          "day": 440,
+          "rabbits": 147.88387964192316,
+          "bird": false
+        },
+        {
+          "day": 441,
+          "rabbits": 148.09005214020164,
+          "bird": false
+        },
+        {
+          "day": 442,
+          "rabbits": 148.2962246384801,
+          "bird": false
+        },
+        {
+          "day": 443,
+          "rabbits": 148.5023971367586,
+          "bird": false
+        },
+        {
+          "day": 444,
+          "rabbits": 148.70856963503707,
+          "bird": false
+        },
+        {
+          "day": 445,
+          "rabbits": 148.91474213331554,
+          "bird": false
+        },
+        {
+          "day": 446,
+          "rabbits": 149.12091463159402,
+          "bird": false
+        },
+        {
+          "day": 447,
+          "rabbits": 149.3270871298725,
+          "bird": false
+        },
+        {
+          "day": 448,
+          "rabbits": 149.53325962815097,
+          "bird": false
+        },
+        {
+          "day": 449,
+          "rabbits": 149.73943212642945,
+          "bird": false
+        },
+        {
+          "day": 450,
+          "rabbits": 149.94560462470793,
+          "bird": false
+        }
+      ]
+    },
+    {
+      "window": 90,
+      "births_per_day": 0.6111111111111112,
+      "starvation_per_day": 0,
+      "predator_spent_per_day": 304.84469679260155,
+      "predator_effective_meal": 594.0320224622936,
+      "predator_captures_per_day": 0.513178894849817,
+      "bird_captures_per_day": 0.8886352627358974,
+      "growth_bird_absent": 0.09793221626129411,
+      "growth_bird_present": -0.7907030464746033,
+      "first_arrival": null,
+      "first_departure": null,
+      "final_rabbits": 126.34922314496313,
+      "trajectory": [
+        {
+          "day": 233,
+          "rabbits": 105.0979322162613,
+          "bird": false
+        },
+        {
+          "day": 234,
+          "rabbits": 105.1958644325226,
+          "bird": false
+        },
+        {
+          "day": 235,
+          "rabbits": 105.2937966487839,
+          "bird": false
+        },
+        {
+          "day": 236,
+          "rabbits": 105.3917288650452,
+          "bird": false
+        },
+        {
+          "day": 237,
+          "rabbits": 105.4896610813065,
+          "bird": false
+        },
+        {
+          "day": 238,
+          "rabbits": 105.58759329756779,
+          "bird": false
+        },
+        {
+          "day": 239,
+          "rabbits": 105.68552551382909,
+          "bird": false
+        },
+        {
+          "day": 240,
+          "rabbits": 105.78345773009039,
+          "bird": false
+        },
+        {
+          "day": 241,
+          "rabbits": 105.88138994635169,
+          "bird": false
+        },
+        {
+          "day": 242,
+          "rabbits": 105.97932216261299,
+          "bird": false
+        },
+        {
+          "day": 243,
+          "rabbits": 106.07725437887429,
+          "bird": false
+        },
+        {
+          "day": 244,
+          "rabbits": 106.17518659513559,
+          "bird": false
+        },
+        {
+          "day": 245,
+          "rabbits": 106.27311881139688,
+          "bird": false
+        },
+        {
+          "day": 246,
+          "rabbits": 106.37105102765818,
+          "bird": false
+        },
+        {
+          "day": 247,
+          "rabbits": 106.46898324391948,
+          "bird": false
+        },
+        {
+          "day": 248,
+          "rabbits": 106.56691546018078,
+          "bird": false
+        },
+        {
+          "day": 249,
+          "rabbits": 106.66484767644208,
+          "bird": false
+        },
+        {
+          "day": 250,
+          "rabbits": 106.76277989270338,
+          "bird": false
+        },
+        {
+          "day": 251,
+          "rabbits": 106.86071210896468,
+          "bird": false
+        },
+        {
+          "day": 252,
+          "rabbits": 106.95864432522598,
+          "bird": false
+        },
+        {
+          "day": 253,
+          "rabbits": 107.05657654148727,
+          "bird": false
+        },
+        {
+          "day": 254,
+          "rabbits": 107.15450875774857,
+          "bird": false
+        },
+        {
+          "day": 255,
+          "rabbits": 107.25244097400987,
+          "bird": false
+        },
+        {
+          "day": 256,
+          "rabbits": 107.35037319027117,
+          "bird": false
+        },
+        {
+          "day": 257,
+          "rabbits": 107.44830540653247,
+          "bird": false
+        },
+        {
+          "day": 258,
+          "rabbits": 107.54623762279377,
+          "bird": false
+        },
+        {
+          "day": 259,
+          "rabbits": 107.64416983905507,
+          "bird": false
+        },
+        {
+          "day": 260,
+          "rabbits": 107.74210205531637,
+          "bird": false
+        },
+        {
+          "day": 261,
+          "rabbits": 107.84003427157766,
+          "bird": false
+        },
+        {
+          "day": 262,
+          "rabbits": 107.93796648783896,
+          "bird": false
+        },
+        {
+          "day": 263,
+          "rabbits": 108.03589870410026,
+          "bird": false
+        },
+        {
+          "day": 264,
+          "rabbits": 108.13383092036156,
+          "bird": false
+        },
+        {
+          "day": 265,
+          "rabbits": 108.23176313662286,
+          "bird": false
+        },
+        {
+          "day": 266,
+          "rabbits": 108.32969535288416,
+          "bird": false
+        },
+        {
+          "day": 267,
+          "rabbits": 108.42762756914546,
+          "bird": false
+        },
+        {
+          "day": 268,
+          "rabbits": 108.52555978540676,
+          "bird": false
+        },
+        {
+          "day": 269,
+          "rabbits": 108.62349200166805,
+          "bird": false
+        },
+        {
+          "day": 270,
+          "rabbits": 108.72142421792935,
+          "bird": false
+        },
+        {
+          "day": 271,
+          "rabbits": 108.81935643419065,
+          "bird": false
+        },
+        {
+          "day": 272,
+          "rabbits": 108.91728865045195,
+          "bird": false
+        },
+        {
+          "day": 273,
+          "rabbits": 109.01522086671325,
+          "bird": false
+        },
+        {
+          "day": 274,
+          "rabbits": 109.11315308297455,
+          "bird": false
+        },
+        {
+          "day": 275,
+          "rabbits": 109.21108529923585,
+          "bird": false
+        },
+        {
+          "day": 276,
+          "rabbits": 109.30901751549715,
+          "bird": false
+        },
+        {
+          "day": 277,
+          "rabbits": 109.40694973175844,
+          "bird": false
+        },
+        {
+          "day": 278,
+          "rabbits": 109.50488194801974,
+          "bird": false
+        },
+        {
+          "day": 279,
+          "rabbits": 109.60281416428104,
+          "bird": false
+        },
+        {
+          "day": 280,
+          "rabbits": 109.70074638054234,
+          "bird": false
+        },
+        {
+          "day": 281,
+          "rabbits": 109.79867859680364,
+          "bird": false
+        },
+        {
+          "day": 282,
+          "rabbits": 109.89661081306494,
+          "bird": false
+        },
+        {
+          "day": 283,
+          "rabbits": 109.99454302932624,
+          "bird": false
+        },
+        {
+          "day": 284,
+          "rabbits": 110.09247524558754,
+          "bird": false
+        },
+        {
+          "day": 285,
+          "rabbits": 110.19040746184884,
+          "bird": false
+        },
+        {
+          "day": 286,
+          "rabbits": 110.28833967811013,
+          "bird": false
+        },
+        {
+          "day": 287,
+          "rabbits": 110.38627189437143,
+          "bird": false
+        },
+        {
+          "day": 288,
+          "rabbits": 110.48420411063273,
+          "bird": false
+        },
+        {
+          "day": 289,
+          "rabbits": 110.58213632689403,
+          "bird": false
+        },
+        {
+          "day": 290,
+          "rabbits": 110.68006854315533,
+          "bird": false
+        },
+        {
+          "day": 291,
+          "rabbits": 110.77800075941663,
+          "bird": false
+        },
+        {
+          "day": 292,
+          "rabbits": 110.87593297567793,
+          "bird": false
+        },
+        {
+          "day": 293,
+          "rabbits": 110.97386519193923,
+          "bird": false
+        },
+        {
+          "day": 294,
+          "rabbits": 111.07179740820052,
+          "bird": false
+        },
+        {
+          "day": 295,
+          "rabbits": 111.16972962446182,
+          "bird": false
+        },
+        {
+          "day": 296,
+          "rabbits": 111.26766184072312,
+          "bird": false
+        },
+        {
+          "day": 297,
+          "rabbits": 111.36559405698442,
+          "bird": false
+        },
+        {
+          "day": 298,
+          "rabbits": 111.46352627324572,
+          "bird": false
+        },
+        {
+          "day": 299,
+          "rabbits": 111.56145848950702,
+          "bird": false
+        },
+        {
+          "day": 300,
+          "rabbits": 111.65939070576832,
+          "bird": false
+        },
+        {
+          "day": 301,
+          "rabbits": 111.75732292202962,
+          "bird": false
+        },
+        {
+          "day": 302,
+          "rabbits": 111.85525513829091,
+          "bird": false
+        },
+        {
+          "day": 303,
+          "rabbits": 111.95318735455221,
+          "bird": false
+        },
+        {
+          "day": 304,
+          "rabbits": 112.05111957081351,
+          "bird": false
+        },
+        {
+          "day": 305,
+          "rabbits": 112.14905178707481,
+          "bird": false
+        },
+        {
+          "day": 306,
+          "rabbits": 112.24698400333611,
+          "bird": false
+        },
+        {
+          "day": 307,
+          "rabbits": 112.34491621959741,
+          "bird": false
+        },
+        {
+          "day": 308,
+          "rabbits": 112.4428484358587,
+          "bird": false
+        },
+        {
+          "day": 309,
+          "rabbits": 112.54078065212,
+          "bird": false
+        },
+        {
+          "day": 310,
+          "rabbits": 112.6387128683813,
+          "bird": false
+        },
+        {
+          "day": 311,
+          "rabbits": 112.7366450846426,
+          "bird": false
+        },
+        {
+          "day": 312,
+          "rabbits": 112.8345773009039,
+          "bird": false
+        },
+        {
+          "day": 313,
+          "rabbits": 112.9325095171652,
+          "bird": false
+        },
+        {
+          "day": 314,
+          "rabbits": 113.0304417334265,
+          "bird": false
+        },
+        {
+          "day": 315,
+          "rabbits": 113.1283739496878,
+          "bird": false
+        },
+        {
+          "day": 316,
+          "rabbits": 113.2263061659491,
+          "bird": false
+        },
+        {
+          "day": 317,
+          "rabbits": 113.3242383822104,
+          "bird": false
+        },
+        {
+          "day": 318,
+          "rabbits": 113.4221705984717,
+          "bird": false
+        },
+        {
+          "day": 319,
+          "rabbits": 113.520102814733,
+          "bird": false
+        },
+        {
+          "day": 320,
+          "rabbits": 113.61803503099429,
+          "bird": false
+        },
+        {
+          "day": 321,
+          "rabbits": 113.71596724725559,
+          "bird": false
+        },
+        {
+          "day": 322,
+          "rabbits": 113.81389946351689,
+          "bird": false
+        },
+        {
+          "day": 323,
+          "rabbits": 113.91183167977819,
+          "bird": false
+        },
+        {
+          "day": 324,
+          "rabbits": 114.00976389603949,
+          "bird": false
+        },
+        {
+          "day": 325,
+          "rabbits": 114.10769611230079,
+          "bird": false
+        },
+        {
+          "day": 326,
+          "rabbits": 114.20562832856209,
+          "bird": false
+        },
+        {
+          "day": 327,
+          "rabbits": 114.30356054482338,
+          "bird": false
+        },
+        {
+          "day": 328,
+          "rabbits": 114.40149276108468,
+          "bird": false
+        },
+        {
+          "day": 329,
+          "rabbits": 114.49942497734598,
+          "bird": false
+        },
+        {
+          "day": 330,
+          "rabbits": 114.59735719360728,
+          "bird": false
+        },
+        {
+          "day": 331,
+          "rabbits": 114.69528940986858,
+          "bird": false
+        },
+        {
+          "day": 332,
+          "rabbits": 114.79322162612988,
+          "bird": false
+        },
+        {
+          "day": 333,
+          "rabbits": 114.89115384239118,
+          "bird": false
+        },
+        {
+          "day": 334,
+          "rabbits": 114.98908605865248,
+          "bird": false
+        },
+        {
+          "day": 335,
+          "rabbits": 115.08701827491377,
+          "bird": false
+        },
+        {
+          "day": 336,
+          "rabbits": 115.18495049117507,
+          "bird": false
+        },
+        {
+          "day": 337,
+          "rabbits": 115.28288270743637,
+          "bird": false
+        },
+        {
+          "day": 338,
+          "rabbits": 115.38081492369767,
+          "bird": false
+        },
+        {
+          "day": 339,
+          "rabbits": 115.47874713995897,
+          "bird": false
+        },
+        {
+          "day": 340,
+          "rabbits": 115.57667935622027,
+          "bird": false
+        },
+        {
+          "day": 341,
+          "rabbits": 115.67461157248157,
+          "bird": false
+        },
+        {
+          "day": 342,
+          "rabbits": 115.77254378874287,
+          "bird": false
+        },
+        {
+          "day": 343,
+          "rabbits": 115.87047600500416,
+          "bird": false
+        },
+        {
+          "day": 344,
+          "rabbits": 115.96840822126546,
+          "bird": false
+        },
+        {
+          "day": 345,
+          "rabbits": 116.06634043752676,
+          "bird": false
+        },
+        {
+          "day": 346,
+          "rabbits": 116.16427265378806,
+          "bird": false
+        },
+        {
+          "day": 347,
+          "rabbits": 116.26220487004936,
+          "bird": false
+        },
+        {
+          "day": 348,
+          "rabbits": 116.36013708631066,
+          "bird": false
+        },
+        {
+          "day": 349,
+          "rabbits": 116.45806930257196,
+          "bird": false
+        },
+        {
+          "day": 350,
+          "rabbits": 116.55600151883326,
+          "bird": false
+        },
+        {
+          "day": 351,
+          "rabbits": 116.65393373509455,
+          "bird": false
+        },
+        {
+          "day": 352,
+          "rabbits": 116.75186595135585,
+          "bird": false
+        },
+        {
+          "day": 353,
+          "rabbits": 116.84979816761715,
+          "bird": false
+        },
+        {
+          "day": 354,
+          "rabbits": 116.94773038387845,
+          "bird": false
+        },
+        {
+          "day": 355,
+          "rabbits": 117.04566260013975,
+          "bird": false
+        },
+        {
+          "day": 356,
+          "rabbits": 117.14359481640105,
+          "bird": false
+        },
+        {
+          "day": 357,
+          "rabbits": 117.24152703266235,
+          "bird": false
+        },
+        {
+          "day": 358,
+          "rabbits": 117.33945924892365,
+          "bird": false
+        },
+        {
+          "day": 359,
+          "rabbits": 117.43739146518494,
+          "bird": false
+        },
+        {
+          "day": 360,
+          "rabbits": 117.53532368144624,
+          "bird": false
+        },
+        {
+          "day": 361,
+          "rabbits": 117.63325589770754,
+          "bird": false
+        },
+        {
+          "day": 362,
+          "rabbits": 117.73118811396884,
+          "bird": false
+        },
+        {
+          "day": 363,
+          "rabbits": 117.82912033023014,
+          "bird": false
+        },
+        {
+          "day": 364,
+          "rabbits": 117.92705254649144,
+          "bird": false
+        },
+        {
+          "day": 365,
+          "rabbits": 118.02498476275274,
+          "bird": false
+        },
+        {
+          "day": 366,
+          "rabbits": 118.12291697901404,
+          "bird": false
+        },
+        {
+          "day": 367,
+          "rabbits": 118.22084919527533,
+          "bird": false
+        },
+        {
+          "day": 368,
+          "rabbits": 118.31878141153663,
+          "bird": false
+        },
+        {
+          "day": 369,
+          "rabbits": 118.41671362779793,
+          "bird": false
+        },
+        {
+          "day": 370,
+          "rabbits": 118.51464584405923,
+          "bird": false
+        },
+        {
+          "day": 371,
+          "rabbits": 118.61257806032053,
+          "bird": false
+        },
+        {
+          "day": 372,
+          "rabbits": 118.71051027658183,
+          "bird": false
+        },
+        {
+          "day": 373,
+          "rabbits": 118.80844249284313,
+          "bird": false
+        },
+        {
+          "day": 374,
+          "rabbits": 118.90637470910443,
+          "bird": false
+        },
+        {
+          "day": 375,
+          "rabbits": 119.00430692536573,
+          "bird": false
+        },
+        {
+          "day": 376,
+          "rabbits": 119.10223914162702,
+          "bird": false
+        },
+        {
+          "day": 377,
+          "rabbits": 119.20017135788832,
+          "bird": false
+        },
+        {
+          "day": 378,
+          "rabbits": 119.29810357414962,
+          "bird": false
+        },
+        {
+          "day": 379,
+          "rabbits": 119.39603579041092,
+          "bird": false
+        },
+        {
+          "day": 380,
+          "rabbits": 119.49396800667222,
+          "bird": false
+        },
+        {
+          "day": 381,
+          "rabbits": 119.59190022293352,
+          "bird": false
+        },
+        {
+          "day": 382,
+          "rabbits": 119.68983243919482,
+          "bird": false
+        },
+        {
+          "day": 383,
+          "rabbits": 119.78776465545612,
+          "bird": false
+        },
+        {
+          "day": 384,
+          "rabbits": 119.88569687171741,
+          "bird": false
+        },
+        {
+          "day": 385,
+          "rabbits": 119.98362908797871,
+          "bird": false
+        },
+        {
+          "day": 386,
+          "rabbits": 120.08156130424001,
+          "bird": false
+        },
+        {
+          "day": 387,
+          "rabbits": 120.17949352050131,
+          "bird": false
+        },
+        {
+          "day": 388,
+          "rabbits": 120.27742573676261,
+          "bird": false
+        },
+        {
+          "day": 389,
+          "rabbits": 120.37535795302391,
+          "bird": false
+        },
+        {
+          "day": 390,
+          "rabbits": 120.4732901692852,
+          "bird": false
+        },
+        {
+          "day": 391,
+          "rabbits": 120.5712223855465,
+          "bird": false
+        },
+        {
+          "day": 392,
+          "rabbits": 120.6691546018078,
+          "bird": false
+        },
+        {
+          "day": 393,
+          "rabbits": 120.7670868180691,
+          "bird": false
+        },
+        {
+          "day": 394,
+          "rabbits": 120.8650190343304,
+          "bird": false
+        },
+        {
+          "day": 395,
+          "rabbits": 120.9629512505917,
+          "bird": false
+        },
+        {
+          "day": 396,
+          "rabbits": 121.060883466853,
+          "bird": false
+        },
+        {
+          "day": 397,
+          "rabbits": 121.1588156831143,
+          "bird": false
+        },
+        {
+          "day": 398,
+          "rabbits": 121.2567478993756,
+          "bird": false
+        },
+        {
+          "day": 399,
+          "rabbits": 121.3546801156369,
+          "bird": false
+        },
+        {
+          "day": 400,
+          "rabbits": 121.4526123318982,
+          "bird": false
+        },
+        {
+          "day": 401,
+          "rabbits": 121.5505445481595,
+          "bird": false
+        },
+        {
+          "day": 402,
+          "rabbits": 121.64847676442079,
+          "bird": false
+        },
+        {
+          "day": 403,
+          "rabbits": 121.74640898068209,
+          "bird": false
+        },
+        {
+          "day": 404,
+          "rabbits": 121.84434119694339,
+          "bird": false
+        },
+        {
+          "day": 405,
+          "rabbits": 121.94227341320469,
+          "bird": false
+        },
+        {
+          "day": 406,
+          "rabbits": 122.04020562946599,
+          "bird": false
+        },
+        {
+          "day": 407,
+          "rabbits": 122.13813784572729,
+          "bird": false
+        },
+        {
+          "day": 408,
+          "rabbits": 122.23607006198858,
+          "bird": false
+        },
+        {
+          "day": 409,
+          "rabbits": 122.33400227824988,
+          "bird": false
+        },
+        {
+          "day": 410,
+          "rabbits": 122.43193449451118,
+          "bird": false
+        },
+        {
+          "day": 411,
+          "rabbits": 122.52986671077248,
+          "bird": false
+        },
+        {
+          "day": 412,
+          "rabbits": 122.62779892703378,
+          "bird": false
+        },
+        {
+          "day": 413,
+          "rabbits": 122.72573114329508,
+          "bird": false
+        },
+        {
+          "day": 414,
+          "rabbits": 122.82366335955638,
+          "bird": false
+        },
+        {
+          "day": 415,
+          "rabbits": 122.92159557581768,
+          "bird": false
+        },
+        {
+          "day": 416,
+          "rabbits": 123.01952779207897,
+          "bird": false
+        },
+        {
+          "day": 417,
+          "rabbits": 123.11746000834027,
+          "bird": false
+        },
+        {
+          "day": 418,
+          "rabbits": 123.21539222460157,
+          "bird": false
+        },
+        {
+          "day": 419,
+          "rabbits": 123.31332444086287,
+          "bird": false
+        },
+        {
+          "day": 420,
+          "rabbits": 123.41125665712417,
+          "bird": false
+        },
+        {
+          "day": 421,
+          "rabbits": 123.50918887338547,
+          "bird": false
+        },
+        {
+          "day": 422,
+          "rabbits": 123.60712108964677,
+          "bird": false
+        },
+        {
+          "day": 423,
+          "rabbits": 123.70505330590807,
+          "bird": false
+        },
+        {
+          "day": 424,
+          "rabbits": 123.80298552216937,
+          "bird": false
+        },
+        {
+          "day": 425,
+          "rabbits": 123.90091773843066,
+          "bird": false
+        },
+        {
+          "day": 426,
+          "rabbits": 123.99884995469196,
+          "bird": false
+        },
+        {
+          "day": 427,
+          "rabbits": 124.09678217095326,
+          "bird": false
+        },
+        {
+          "day": 428,
+          "rabbits": 124.19471438721456,
+          "bird": false
+        },
+        {
+          "day": 429,
+          "rabbits": 124.29264660347586,
+          "bird": false
+        },
+        {
+          "day": 430,
+          "rabbits": 124.39057881973716,
+          "bird": false
+        },
+        {
+          "day": 431,
+          "rabbits": 124.48851103599846,
+          "bird": false
+        },
+        {
+          "day": 432,
+          "rabbits": 124.58644325225976,
+          "bird": false
+        },
+        {
+          "day": 433,
+          "rabbits": 124.68437546852105,
+          "bird": false
+        },
+        {
+          "day": 434,
+          "rabbits": 124.78230768478235,
+          "bird": false
+        },
+        {
+          "day": 435,
+          "rabbits": 124.88023990104365,
+          "bird": false
+        },
+        {
+          "day": 436,
+          "rabbits": 124.97817211730495,
+          "bird": false
+        },
+        {
+          "day": 437,
+          "rabbits": 125.07610433356625,
+          "bird": false
+        },
+        {
+          "day": 438,
+          "rabbits": 125.17403654982755,
+          "bird": false
+        },
+        {
+          "day": 439,
+          "rabbits": 125.27196876608885,
+          "bird": false
+        },
+        {
+          "day": 440,
+          "rabbits": 125.36990098235015,
+          "bird": false
+        },
+        {
+          "day": 441,
+          "rabbits": 125.46783319861144,
+          "bird": false
+        },
+        {
+          "day": 442,
+          "rabbits": 125.56576541487274,
+          "bird": false
+        },
+        {
+          "day": 443,
+          "rabbits": 125.66369763113404,
+          "bird": false
+        },
+        {
+          "day": 444,
+          "rabbits": 125.76162984739534,
+          "bird": false
+        },
+        {
+          "day": 445,
+          "rabbits": 125.85956206365664,
+          "bird": false
+        },
+        {
+          "day": 446,
+          "rabbits": 125.95749427991794,
+          "bird": false
+        },
+        {
+          "day": 447,
+          "rabbits": 126.05542649617924,
+          "bird": false
+        },
+        {
+          "day": 448,
+          "rabbits": 126.15335871244054,
+          "bird": false
+        },
+        {
+          "day": 449,
+          "rabbits": 126.25129092870183,
+          "bird": false
+        },
+        {
+          "day": 450,
+          "rabbits": 126.34922314496313,
+          "bird": false
+        }
+      ]
+    }
+  ]
+}
