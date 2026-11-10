@@ -30,7 +30,5 @@ function audit_case(day,ids)
  return (day=day+3,matched,totals,rows,final=[(id=i,alive=s.alive[i],energy=s.animals.energy[i],consumed=s.animals.consumed[i],intake=s.animals.consumed[i]-initial_consumed[i],position=(s.animals.x[i],s.animals.z[i])) for i in ids])
 end
 results=[audit_case(2385,(2162,2163,2164,2165,2166))]
-write(joinpath(@__DIR__,"evidence/food-search-expanded-three-days.json"),JSON3.write(results))
+write(joinpath(@__DIR__,baseline ? "evidence/food-search-baseline-three-days.json" : "evidence/food-search-expanded-three-days.json"),JSON3.write(results))
 for r in results;println(JSON3.write((day=r.day,matched=r.matched,totals=r.totals,final=r.final)));end
-
-
