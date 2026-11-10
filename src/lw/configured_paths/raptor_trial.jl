@@ -3,7 +3,7 @@
 # 将来は観測/身体/場所MBと外部個体群へ置換。時刻は既存17280tick/日。
 const RAPTOR_TRIAL=(arrival_rabbits=150,departure_rabbits=100,day_ticks=17280,
     scan_ticks=120,rest_ticks=4320,flight_speed=1.,sight=40.,reach=2.5,
-    capture_base=.65,alert_penalty=.25,cover_penalty=.3,
+    capture_base=.75,alert_penalty=.25,cover_penalty=.3,
     daily_food=100.,initial_food=100.,capacity=250.,hunt_below=80.,adult_food=200.,
     eating_ticks=720,threat_range=8.,minimum_light=.25,seed=20261110,event_limit=256,
     tree_kind=1,minimum_tree_height=3.)
