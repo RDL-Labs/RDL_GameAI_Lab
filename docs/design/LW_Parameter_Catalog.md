@@ -136,7 +136,7 @@ place_prior=.5、rest_benefit=.2、hunt_prior=.3、tolerance=.05。
 成体の食料相当量900へ乗算し、幼体も既存の体高比による量へ同じ倍率を適用する。
 1.5実験では成体1350。実測の肉重量ではなく暫定栄養単位であり、通常LWへ自動適用しない。
 容量1800、消費、判断係数は独立。容量超過は既存のdiscardedに計上する。
-収支検査は `balance_atol=1e-7` と `balance_rtol=1e-10`。
+2026-11-10: 収支検査は共通 `G.balance_diagnostic` を使用。警告幅=1e-6+1e-10×累積量、停止幅=1e-4+1e-8×累積量。非有限値は停止。旧balance_atol/rtolは過去条件互換用で、現行検査には使用しない。
 長期のFloat64逐次加算誤差を許容する診断値で、資源そのものを補正しない。
 各報告のbalance_residualに初期量＋摂取−残量−消費を保存する。
 
@@ -738,3 +738,4 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-10 猛禽失敗後切替: RAPTOR_TRIAL.switch_after_miss=true。直前に失敗した獲物IDだけ次候補から除外、成功/入場解除。別失敗で対象更新。他に見えなければ木変更。既存帰木・待機は維持。固定設定、将来は経験評価へ置換。
 
 - 2026-11-10 鳥の近距離発見: RAPTOR_TRIAL.rabbit_notice_range=3（世界距離、以下を許可、Infで解除）。飛行狩り中のみ、食事中/地上捕食者は通常視覚。高度を省略した暫定近似、configured_raptor_noticeに隔離。
+

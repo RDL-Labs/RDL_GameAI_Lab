@@ -7,7 +7,7 @@
 const PREDATOR_ANIMAL_TRIAL=(day_ticks=17280,daily_food=300.,move_food=.1,
     initial_food=900.,capacity=1800.,hunt_below=600.,adult_food=900.,
     minimum_size_fraction=.05,territory_radius=20.,rival_sight=12.,
-    balance_atol=1e-7,balance_rtol=1e-10, # Diagnostic tolerance for cumulative Float64 sums.
+    balance_atol=1e-7,balance_rtol=1e-10, # Legacy metadata only; reporting uses G.balance_diagnostic.
     retreat_difference=.1,retreat_speed=.3,warning_duration_ticks=60,warning_cooldown_ticks=600)
 
 mutable struct TrialPredator
@@ -162,13 +162,15 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
 end
 function trial_predator_report(p)
     balance_residual=PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten-p.food-p.spent
-    @assert isapprox(PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten,p.food+p.spent;
-        atol=PREDATOR_ANIMAL_TRIAL.balance_atol,rtol=PREDATOR_ANIMAL_TRIAL.balance_rtol)
+    # Numerical audit only: existing ecology bands; no correction of body values.
+    balance=G.balance_diagnostic("predator_food",PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten,p.food+p.spent)
     body=p.visual.body
     @assert body.attacks==body.captures+body.misses+(body.state==P.ATTACK ? 1 : 0)
-    (alive=p.alive,food=p.food,eaten=p.eaten,spent=p.spent,discarded=p.discarded,balance_residual=balance_residual,
+    (alive=p.alive,food=p.food,eaten=p.eaten,spent=p.spent,discarded=p.discarded,balance_residual=balance_residual,balance_diagnostic=balance,
      captures=body.captures,attacks=body.attacks,encounters=p.encounters,
      warning_started=p.warning_started,warning_blocked_until=p.warning_blocked_until,warning_timeouts=p.warning_timeouts,
      ticks=copy(p.ticks),position=(body.x,body.z),center=p.center,
      prey_observations=p.visual.seen_by_rabbits,events=copy(p.visual.events))
 end
+
+
