@@ -5,15 +5,16 @@ const RABBIT_DIVERSE_START=(seed=20261109,total_count=100,original_young=5,depen
     family_size=5,young_age_bands=((3,9),(11,17),(19,25)),adult_age=(180,540),
     subadult_age=(35,149),reserve_range=(55.,85.),sleepy_range=(0.,1.),recovering_mothers=5)
 function configured_rabbit_diverse_start!(s)
-    s.ticks==0 && length(s.alive)==RABBIT_DIVERSE_START.total_count || error("diverse start requires fresh 100 rabbits")
+    s.ticks==0 && length(s.alive)>=RABBIT_DIVERSE_START.total_count || error("diverse start requires fresh population of at least 100 rabbits")
+    rabbit_total=length(s.alive)
     life=s.life;a=s.animals;r=RABBIT_DIVERSE_START;rng=Random.Xoshiro(r.seed);day=G.RABBIT_LIFE.day_ticks
     initial_children=findall(>(0),life.mother)
     length(initial_children)==r.original_young || error("requires original five young")
     original_mother=only(unique(life.mother[initial_children]))
-    eligible=shuffle(rng,[i for i in 1:(r.total_count-r.original_young) if life.due[i]==0 && i!=original_mother])
+    eligible=shuffle(rng,[i for i in 1:(rabbit_total-r.original_young) if life.due[i]==0 && i!=original_mother])
     extra_young=r.dependent_count-r.original_young
     children=vcat(initial_children,eligible[1:extra_young]);subadults=eligible[extra_young+1:extra_young+r.subadult_count]
-    adults=setdiff(collect(1:r.total_count),vcat(children,subadults))
+    adults=setdiff(collect(1:rabbit_total),vcat(children,subadults))
     mothers=vcat(original_mother,shuffle(rng,[i for i in adults if life.sex[i]==1 && life.due[i]==0 && i!=original_mother])[1:2])
     for i in adults
         life.born[i]=-rand(rng,r.adult_age[1]:r.adult_age[2])*day

@@ -728,3 +728,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 世界個体数・木一覧参照、飛行、固定食事/休息/退避は暫定設定でありMB学習ではない。
 設定値・単位・観測近似・未接続の食べ残し・置換方針・記録は
 [猛禽実験仕様](../../experiments/lw_wildlife/raptor_trial.md)に記載。
+
+- 2026-11-10 初期兎総数: crossing_longrun第18引数initial_rabbits、既定100、範囲100..10000、新規のみ。幼体込み。diverseでは幼体15/若齢20を維持し残りは成体。raptor_initial_checks.jl 8検査PASS。
