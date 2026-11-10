@@ -1,0 +1,3439 @@
+{
+  "completed": {
+    "days": 90,
+    "start_day": 0,
+    "end_day": 90,
+    "verified": true,
+    "seconds": 274.8909455
+  },
+  "seconds": 274.8909455,
+  "bytes": 198759127565,
+  "gc_seconds": 16.0774474,
+  "neighbor_gpu": {
+    "device": "Intel(R) Arc(TM) 140V GPU (16GB)",
+    "automatic": true,
+    "gpu_min_queries": 128,
+    "cpu_batches": 174974,
+    "gpu_batches": 0,
+    "cpu_queries": 1755263,
+    "gpu_queries": 0,
+    "batches": 174974,
+    "queries": 1755263,
+    "hits": 1552345,
+    "fallbacks": 0,
+    "audit": false
+  },
+  "daily": [
+    {
+      "day": 1,
+      "rabbits": 148,
+      "births": 0,
+      "starvation": 0,
+      "elapsed_seconds": 8.967999935150146,
+      "bird_captures": 1,
+      "bird_attempts": 1,
+      "predator_captures": 1
+    },
+    {
+      "day": 2,
+      "rabbits": 148,
+      "births": 0,
+      "starvation": 0,
+      "elapsed_seconds": 13.536999940872192,
+      "bird_captures": 1,
+      "bird_attempts": 1,
+      "predator_captures": 1
+    },
+    {
+      "day": 3,
+      "rabbits": 152,
+      "births": 5,
+      "starvation": 0,
+      "elapsed_seconds": 16.574000120162964,
+      "bird_captures": 2,
+      "bird_attempts": 2,
+      "predator_captures": 1
+    },
+    {
+      "day": 4,
+      "rabbits": 151,
+      "births": 5,
+      "starvation": 0,
+      "elapsed_seconds": 19.94600009918213,
+      "bird_captures": 2,
+      "bird_attempts": 2,
+      "predator_captures": 2
+    },
+    {
+      "day": 5,
+      "rabbits": 150,
+      "births": 5,
+      "starvation": 0,
+      "elapsed_seconds": 23.19700002670288,
+      "bird_captures": 3,
+      "bird_attempts": 5,
+      "predator_captures": 2
+    },
+    {
+      "day": 6,
+      "rabbits": 155,
+      "births": 11,
+      "starvation": 0,
+      "elapsed_seconds": 26.365999937057495,
+      "bird_captures": 3,
+      "bird_attempts": 5,
+      "predator_captures": 3
+    },
+    {
+      "day": 7,
+      "rabbits": 154,
+      "births": 11,
+      "starvation": 0,
+      "elapsed_seconds": 29.439000129699707,
+      "bird_captures": 4,
+      "bird_attempts": 6,
+      "predator_captures": 3
+    },
+    {
+      "day": 8,
+      "rabbits": 154,
+      "births": 11,
+      "starvation": 0,
+      "elapsed_seconds": 32.4210000038147,
+      "bird_captures": 4,
+      "bird_attempts": 6,
+      "predator_captures": 3
+    },
+    {
+      "day": 9,
+      "rabbits": 152,
+      "births": 11,
+      "starvation": 0,
+      "elapsed_seconds": 35.854000091552734,
+      "bird_captures": 5,
+      "bird_attempts": 13,
+      "predator_captures": 4
+    },
+    {
+      "day": 10,
+      "rabbits": 152,
+      "births": 11,
+      "starvation": 0,
+      "elapsed_seconds": 38.96399998664856,
+      "bird_captures": 5,
+      "bird_attempts": 13,
+      "predator_captures": 4
+    },
+    {
+      "day": 11,
+      "rabbits": 155,
+      "births": 15,
+      "starvation": 0,
+      "elapsed_seconds": 41.986000061035156,
+      "bird_captures": 6,
+      "bird_attempts": 15,
+      "predator_captures": 4
+    },
+    {
+      "day": 12,
+      "rabbits": 154,
+      "births": 15,
+      "starvation": 0,
+      "elapsed_seconds": 44.93600010871887,
+      "bird_captures": 6,
+      "bird_attempts": 15,
+      "predator_captures": 5
+    },
+    {
+      "day": 13,
+      "rabbits": 153,
+      "births": 15,
+      "starvation": 0,
+      "elapsed_seconds": 47.91600012779236,
+      "bird_captures": 7,
+      "bird_attempts": 17,
+      "predator_captures": 5
+    },
+    {
+      "day": 14,
+      "rabbits": 153,
+      "births": 15,
+      "starvation": 0,
+      "elapsed_seconds": 50.848999977111816,
+      "bird_captures": 7,
+      "bird_attempts": 17,
+      "predator_captures": 5
+    },
+    {
+      "day": 15,
+      "rabbits": 157,
+      "births": 21,
+      "starvation": 0,
+      "elapsed_seconds": 53.871999979019165,
+      "bird_captures": 8,
+      "bird_attempts": 18,
+      "predator_captures": 6
+    },
+    {
+      "day": 16,
+      "rabbits": 157,
+      "births": 21,
+      "starvation": 0,
+      "elapsed_seconds": 57.019999980926514,
+      "bird_captures": 8,
+      "bird_attempts": 18,
+      "predator_captures": 6
+    },
+    {
+      "day": 17,
+      "rabbits": 156,
+      "births": 21,
+      "starvation": 0,
+      "elapsed_seconds": 60.22200012207031,
+      "bird_captures": 9,
+      "bird_attempts": 19,
+      "predator_captures": 6
+    },
+    {
+      "day": 18,
+      "rabbits": 155,
+      "births": 21,
+      "starvation": 0,
+      "elapsed_seconds": 63.34700012207031,
+      "bird_captures": 9,
+      "bird_attempts": 19,
+      "predator_captures": 7
+    },
+    {
+      "day": 19,
+      "rabbits": 153,
+      "births": 21,
+      "starvation": 0,
+      "elapsed_seconds": 66.49699997901917,
+      "bird_captures": 11,
+      "bird_attempts": 22,
+      "predator_captures": 7
+    },
+    {
+      "day": 20,
+      "rabbits": 147,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 69.59100008010864,
+      "bird_captures": 11,
+      "bird_attempts": 22,
+      "predator_captures": 8
+    },
+    {
+      "day": 21,
+      "rabbits": 146,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 72.55400013923645,
+      "bird_captures": 12,
+      "bird_attempts": 23,
+      "predator_captures": 8
+    },
+    {
+      "day": 22,
+      "rabbits": 143,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 75.61300015449524,
+      "bird_captures": 14,
+      "bird_attempts": 27,
+      "predator_captures": 9
+    },
+    {
+      "day": 23,
+      "rabbits": 139,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 78.55299997329712,
+      "bird_captures": 18,
+      "bird_attempts": 33,
+      "predator_captures": 9
+    },
+    {
+      "day": 24,
+      "rabbits": 139,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 81.34599995613098,
+      "bird_captures": 18,
+      "bird_attempts": 33,
+      "predator_captures": 9
+    },
+    {
+      "day": 25,
+      "rabbits": 138,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 84.50600004196167,
+      "bird_captures": 19,
+      "bird_attempts": 34,
+      "predator_captures": 9
+    },
+    {
+      "day": 26,
+      "rabbits": 136,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 87.5569999217987,
+      "bird_captures": 19,
+      "bird_attempts": 34,
+      "predator_captures": 11
+    },
+    {
+      "day": 27,
+      "rabbits": 134,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 90.45700001716614,
+      "bird_captures": 20,
+      "bird_attempts": 36,
+      "predator_captures": 12
+    },
+    {
+      "day": 28,
+      "rabbits": 134,
+      "births": 21,
+      "starvation": 5,
+      "elapsed_seconds": 93.19099998474121,
+      "bird_captures": 20,
+      "bird_attempts": 36,
+      "predator_captures": 12
+    },
+    {
+      "day": 29,
+      "rabbits": 139,
+      "births": 27,
+      "starvation": 5,
+      "elapsed_seconds": 95.91000008583069,
+      "bird_captures": 21,
+      "bird_attempts": 39,
+      "predator_captures": 12
+    },
+    {
+      "day": 30,
+      "rabbits": 138,
+      "births": 27,
+      "starvation": 5,
+      "elapsed_seconds": 98.8510000705719,
+      "bird_captures": 21,
+      "bird_attempts": 39,
+      "predator_captures": 13
+    },
+    {
+      "day": 31,
+      "rabbits": 137,
+      "births": 27,
+      "starvation": 5,
+      "elapsed_seconds": 101.92799997329712,
+      "bird_captures": 22,
+      "bird_attempts": 40,
+      "predator_captures": 13
+    },
+    {
+      "day": 32,
+      "rabbits": 143,
+      "births": 33,
+      "starvation": 5,
+      "elapsed_seconds": 104.92499995231628,
+      "bird_captures": 22,
+      "bird_attempts": 40,
+      "predator_captures": 13
+    },
+    {
+      "day": 33,
+      "rabbits": 148,
+      "births": 42,
+      "starvation": 6,
+      "elapsed_seconds": 108.01900005340576,
+      "bird_captures": 24,
+      "bird_attempts": 42,
+      "predator_captures": 14
+    },
+    {
+      "day": 34,
+      "rabbits": 151,
+      "births": 45,
+      "starvation": 6,
+      "elapsed_seconds": 111.23399996757507,
+      "bird_captures": 24,
+      "bird_attempts": 42,
+      "predator_captures": 14
+    },
+    {
+      "day": 35,
+      "rabbits": 150,
+      "births": 45,
+      "starvation": 6,
+      "elapsed_seconds": 114.37199997901917,
+      "bird_captures": 25,
+      "bird_attempts": 43,
+      "predator_captures": 14
+    },
+    {
+      "day": 36,
+      "rabbits": 149,
+      "births": 45,
+      "starvation": 6,
+      "elapsed_seconds": 117.38000011444092,
+      "bird_captures": 25,
+      "bird_attempts": 43,
+      "predator_captures": 15
+    },
+    {
+      "day": 37,
+      "rabbits": 152,
+      "births": 49,
+      "starvation": 6,
+      "elapsed_seconds": 120.35199999809265,
+      "bird_captures": 26,
+      "bird_attempts": 44,
+      "predator_captures": 15
+    },
+    {
+      "day": 38,
+      "rabbits": 155,
+      "births": 52,
+      "starvation": 6,
+      "elapsed_seconds": 123.33100008964539,
+      "bird_captures": 26,
+      "bird_attempts": 44,
+      "predator_captures": 15
+    },
+    {
+      "day": 39,
+      "rabbits": 159,
+      "births": 58,
+      "starvation": 6,
+      "elapsed_seconds": 126.3420000076294,
+      "bird_captures": 27,
+      "bird_attempts": 45,
+      "predator_captures": 16
+    },
+    {
+      "day": 40,
+      "rabbits": 162,
+      "births": 63,
+      "starvation": 6,
+      "elapsed_seconds": 129.23399996757507,
+      "bird_captures": 29,
+      "bird_attempts": 47,
+      "predator_captures": 16
+    },
+    {
+      "day": 41,
+      "rabbits": 162,
+      "births": 63,
+      "starvation": 6,
+      "elapsed_seconds": 131.97699999809265,
+      "bird_captures": 29,
+      "bird_attempts": 47,
+      "predator_captures": 16
+    },
+    {
+      "day": 42,
+      "rabbits": 160,
+      "births": 63,
+      "starvation": 6,
+      "elapsed_seconds": 134.77800011634827,
+      "bird_captures": 30,
+      "bird_attempts": 48,
+      "predator_captures": 17
+    },
+    {
+      "day": 43,
+      "rabbits": 156,
+      "births": 63,
+      "starvation": 9,
+      "elapsed_seconds": 137.4670000076294,
+      "bird_captures": 30,
+      "bird_attempts": 48,
+      "predator_captures": 18
+    },
+    {
+      "day": 44,
+      "rabbits": 155,
+      "births": 63,
+      "starvation": 9,
+      "elapsed_seconds": 140.12400007247925,
+      "bird_captures": 31,
+      "bird_attempts": 49,
+      "predator_captures": 18
+    },
+    {
+      "day": 45,
+      "rabbits": 170,
+      "births": 78,
+      "starvation": 9,
+      "elapsed_seconds": 142.7810001373291,
+      "bird_captures": 31,
+      "bird_attempts": 49,
+      "predator_captures": 18
+    },
+    {
+      "day": 46,
+      "rabbits": 168,
+      "births": 78,
+      "starvation": 9,
+      "elapsed_seconds": 145.43600010871887,
+      "bird_captures": 32,
+      "bird_attempts": 51,
+      "predator_captures": 19
+    },
+    {
+      "day": 47,
+      "rabbits": 178,
+      "births": 88,
+      "starvation": 9,
+      "elapsed_seconds": 148.0310001373291,
+      "bird_captures": 32,
+      "bird_attempts": 51,
+      "predator_captures": 19
+    },
+    {
+      "day": 48,
+      "rabbits": 171,
+      "births": 88,
+      "starvation": 15,
+      "elapsed_seconds": 150.91100001335144,
+      "bird_captures": 33,
+      "bird_attempts": 52,
+      "predator_captures": 19
+    },
+    {
+      "day": 49,
+      "rabbits": 175,
+      "births": 93,
+      "starvation": 15,
+      "elapsed_seconds": 153.85400009155273,
+      "bird_captures": 33,
+      "bird_attempts": 52,
+      "predator_captures": 20
+    },
+    {
+      "day": 50,
+      "rabbits": 180,
+      "births": 99,
+      "starvation": 15,
+      "elapsed_seconds": 156.7020001411438,
+      "bird_captures": 34,
+      "bird_attempts": 56,
+      "predator_captures": 20
+    },
+    {
+      "day": 51,
+      "rabbits": 183,
+      "births": 102,
+      "starvation": 15,
+      "elapsed_seconds": 159.9300000667572,
+      "bird_captures": 34,
+      "bird_attempts": 56,
+      "predator_captures": 20
+    },
+    {
+      "day": 52,
+      "rabbits": 180,
+      "births": 102,
+      "starvation": 15,
+      "elapsed_seconds": 163.5569999217987,
+      "bird_captures": 36,
+      "bird_attempts": 59,
+      "predator_captures": 21
+    },
+    {
+      "day": 53,
+      "rabbits": 178,
+      "births": 107,
+      "starvation": 20,
+      "elapsed_seconds": 166.84899997711182,
+      "bird_captures": 36,
+      "bird_attempts": 59,
+      "predator_captures": 23
+    },
+    {
+      "day": 54,
+      "rabbits": 182,
+      "births": 112,
+      "starvation": 20,
+      "elapsed_seconds": 169.6690001487732,
+      "bird_captures": 37,
+      "bird_attempts": 61,
+      "predator_captures": 23
+    },
+    {
+      "day": 55,
+      "rabbits": 182,
+      "births": 112,
+      "starvation": 20,
+      "elapsed_seconds": 172.2940001487732,
+      "bird_captures": 37,
+      "bird_attempts": 61,
+      "predator_captures": 23
+    },
+    {
+      "day": 56,
+      "rabbits": 176,
+      "births": 112,
+      "starvation": 20,
+      "elapsed_seconds": 175.22000002861023,
+      "bird_captures": 39,
+      "bird_attempts": 68,
+      "predator_captures": 27
+    },
+    {
+      "day": 57,
+      "rabbits": 176,
+      "births": 112,
+      "starvation": 20,
+      "elapsed_seconds": 178.03399991989136,
+      "bird_captures": 39,
+      "bird_attempts": 68,
+      "predator_captures": 27
+    },
+    {
+      "day": 58,
+      "rabbits": 173,
+      "births": 112,
+      "starvation": 20,
+      "elapsed_seconds": 180.7850000858307,
+      "bird_captures": 42,
+      "bird_attempts": 75,
+      "predator_captures": 27
+    },
+    {
+      "day": 59,
+      "rabbits": 172,
+      "births": 112,
+      "starvation": 20,
+      "elapsed_seconds": 183.71200013160706,
+      "bird_captures": 42,
+      "bird_attempts": 75,
+      "predator_captures": 28
+    },
+    {
+      "day": 60,
+      "rabbits": 175,
+      "births": 118,
+      "starvation": 20,
+      "elapsed_seconds": 186.65300011634827,
+      "bird_captures": 45,
+      "bird_attempts": 85,
+      "predator_captures": 28
+    },
+    {
+      "day": 61,
+      "rabbits": 184,
+      "births": 127,
+      "starvation": 20,
+      "elapsed_seconds": 189.29500007629395,
+      "bird_captures": 45,
+      "bird_attempts": 85,
+      "predator_captures": 28
+    },
+    {
+      "day": 62,
+      "rabbits": 180,
+      "births": 127,
+      "starvation": 20,
+      "elapsed_seconds": 191.9190001487732,
+      "bird_captures": 46,
+      "bird_attempts": 86,
+      "predator_captures": 31
+    },
+    {
+      "day": 63,
+      "rabbits": 175,
+      "births": 127,
+      "starvation": 25,
+      "elapsed_seconds": 194.36800003051758,
+      "bird_captures": 46,
+      "bird_attempts": 86,
+      "predator_captures": 31
+    },
+    {
+      "day": 64,
+      "rabbits": 171,
+      "births": 127,
+      "starvation": 25,
+      "elapsed_seconds": 197.5,
+      "bird_captures": 50,
+      "bird_attempts": 90,
+      "predator_captures": 31
+    },
+    {
+      "day": 65,
+      "rabbits": 170,
+      "births": 127,
+      "starvation": 25,
+      "elapsed_seconds": 200.49300003051758,
+      "bird_captures": 50,
+      "bird_attempts": 90,
+      "predator_captures": 32
+    },
+    {
+      "day": 66,
+      "rabbits": 168,
+      "births": 127,
+      "starvation": 25,
+      "elapsed_seconds": 203.6470000743866,
+      "bird_captures": 51,
+      "bird_attempts": 91,
+      "predator_captures": 33
+    },
+    {
+      "day": 67,
+      "rabbits": 168,
+      "births": 127,
+      "starvation": 25,
+      "elapsed_seconds": 206.62199997901917,
+      "bird_captures": 51,
+      "bird_attempts": 91,
+      "predator_captures": 33
+    },
+    {
+      "day": 68,
+      "rabbits": 167,
+      "births": 127,
+      "starvation": 25,
+      "elapsed_seconds": 209.47300004959106,
+      "bird_captures": 52,
+      "bird_attempts": 93,
+      "predator_captures": 33
+    },
+    {
+      "day": 69,
+      "rabbits": 162,
+      "births": 127,
+      "starvation": 25,
+      "elapsed_seconds": 212.64199995994568,
+      "bird_captures": 56,
+      "bird_attempts": 102,
+      "predator_captures": 34
+    },
+    {
+      "day": 70,
+      "rabbits": 166,
+      "births": 131,
+      "starvation": 25,
+      "elapsed_seconds": 215.69600009918213,
+      "bird_captures": 56,
+      "bird_attempts": 102,
+      "predator_captures": 34
+    },
+    {
+      "day": 71,
+      "rabbits": 165,
+      "births": 131,
+      "starvation": 25,
+      "elapsed_seconds": 218.59100008010864,
+      "bird_captures": 57,
+      "bird_attempts": 104,
+      "predator_captures": 34
+    },
+    {
+      "day": 72,
+      "rabbits": 158,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 221.6819999217987,
+      "bird_captures": 57,
+      "bird_attempts": 104,
+      "predator_captures": 36
+    },
+    {
+      "day": 73,
+      "rabbits": 157,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 224.78600001335144,
+      "bird_captures": 58,
+      "bird_attempts": 105,
+      "predator_captures": 36
+    },
+    {
+      "day": 74,
+      "rabbits": 157,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 227.86100006103516,
+      "bird_captures": 58,
+      "bird_attempts": 105,
+      "predator_captures": 36
+    },
+    {
+      "day": 75,
+      "rabbits": 155,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 230.7699999809265,
+      "bird_captures": 59,
+      "bird_attempts": 110,
+      "predator_captures": 37
+    },
+    {
+      "day": 76,
+      "rabbits": 155,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 233.57200002670288,
+      "bird_captures": 59,
+      "bird_attempts": 110,
+      "predator_captures": 37
+    },
+    {
+      "day": 77,
+      "rabbits": 154,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 236.4340000152588,
+      "bird_captures": 60,
+      "bird_attempts": 111,
+      "predator_captures": 37
+    },
+    {
+      "day": 78,
+      "rabbits": 151,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 239.2630000114441,
+      "bird_captures": 60,
+      "bird_attempts": 111,
+      "predator_captures": 40
+    },
+    {
+      "day": 79,
+      "rabbits": 148,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 242.35000014305115,
+      "bird_captures": 62,
+      "bird_attempts": 115,
+      "predator_captures": 41
+    },
+    {
+      "day": 80,
+      "rabbits": 147,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 245.30800008773804,
+      "bird_captures": 62,
+      "bird_attempts": 115,
+      "predator_captures": 42
+    },
+    {
+      "day": 81,
+      "rabbits": 146,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 248.3159999847412,
+      "bird_captures": 63,
+      "bird_attempts": 168,
+      "predator_captures": 42
+    },
+    {
+      "day": 82,
+      "rabbits": 146,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 251.16499996185303,
+      "bird_captures": 63,
+      "bird_attempts": 168,
+      "predator_captures": 42
+    },
+    {
+      "day": 83,
+      "rabbits": 145,
+      "births": 131,
+      "starvation": 30,
+      "elapsed_seconds": 254.02900004386902,
+      "bird_captures": 63,
+      "bird_attempts": 168,
+      "predator_captures": 43
+    },
+    {
+      "day": 84,
+      "rabbits": 149,
+      "births": 135,
+      "starvation": 30,
+      "elapsed_seconds": 256.8900001049042,
+      "bird_captures": 63,
+      "bird_attempts": 168,
+      "predator_captures": 43
+    },
+    {
+      "day": 85,
+      "rabbits": 154,
+      "births": 140,
+      "starvation": 30,
+      "elapsed_seconds": 259.8029999732971,
+      "bird_captures": 63,
+      "bird_attempts": 168,
+      "predator_captures": 43
+    },
+    {
+      "day": 86,
+      "rabbits": 150,
+      "births": 140,
+      "starvation": 30,
+      "elapsed_seconds": 262.84299993515015,
+      "bird_captures": 66,
+      "bird_attempts": 171,
+      "predator_captures": 44
+    },
+    {
+      "day": 87,
+      "rabbits": 156,
+      "births": 146,
+      "starvation": 30,
+      "elapsed_seconds": 265.8050000667572,
+      "bird_captures": 66,
+      "bird_attempts": 171,
+      "predator_captures": 44
+    },
+    {
+      "day": 88,
+      "rabbits": 157,
+      "births": 149,
+      "starvation": 30,
+      "elapsed_seconds": 268.77999997138977,
+      "bird_captures": 68,
+      "bird_attempts": 176,
+      "predator_captures": 44
+    },
+    {
+      "day": 89,
+      "rabbits": 156,
+      "births": 149,
+      "starvation": 30,
+      "elapsed_seconds": 271.8220000267029,
+      "bird_captures": 68,
+      "bird_attempts": 176,
+      "predator_captures": 45
+    },
+    {
+      "day": 90,
+      "rabbits": 160,
+      "births": 155,
+      "starvation": 30,
+      "elapsed_seconds": 274.87400007247925,
+      "bird_captures": 70,
+      "bird_attempts": 178,
+      "predator_captures": 45
+    }
+  ],
+  "final_raptor": {
+    "present": true,
+    "mode": "rest",
+    "position": [
+      -36.602264649121054,
+      -14.952380383597031
+    ],
+    "food": 147.9838348399846,
+    "captures": 70,
+    "attempts": 178,
+    "scans": 181,
+    "arrivals": 2,
+    "departures": 1,
+    "interrupted_meals": 5,
+    "eaten": 8534.476890391421,
+    "remains": 1295.252401863978,
+    "ticks": {
+      "outside": 71435,
+      "return": 6102,
+      "hunt": 6024,
+      "arrive": 64,
+      "eat": 45424,
+      "observe": 181,
+      "rest": 1425951,
+      "depart": 19
+    },
+    "events": [
+      {
+        "tick": 916627,
+        "kind": "target",
+        "details": {
+          "id": 185,
+          "position": [
+            -25.637437077979477,
+            -7.6866041636670515
+          ]
+        }
+      },
+      {
+        "tick": 916649,
+        "kind": "miss",
+        "details": {
+          "id": 185,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 916792,
+        "kind": "target",
+        "details": {
+          "id": 11,
+          "position": [
+            8.481393198260609,
+            11.46141876680605
+          ]
+        }
+      },
+      {
+        "tick": 916822,
+        "kind": "capture",
+        "details": {
+          "id": 11,
+          "probability": 0.5180493157973968,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 917452,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            14.838675809144817,
+            19.181095474600355
+          ],
+          "amount": 25.21990740737462
+        }
+      },
+      {
+        "tick": 950401,
+        "kind": "target",
+        "details": {
+          "id": 93,
+          "position": [
+            -13.929476444279484,
+            -2.5156272426829642
+          ]
+        }
+      },
+      {
+        "tick": 950416,
+        "kind": "miss",
+        "details": {
+          "id": 93,
+          "probability": 0.5403743269512468
+        }
+      },
+      {
+        "tick": 950552,
+        "kind": "target",
+        "details": {
+          "id": 40,
+          "position": [
+            -17.904868868381286,
+            -11.95799238407587
+          ]
+        }
+      },
+      {
+        "tick": 950579,
+        "kind": "capture",
+        "details": {
+          "id": 40,
+          "probability": 0.6,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 950580,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -26.734210045969817,
+            -18.177536930884713
+          ],
+          "amount": 200.0
+        }
+      },
+      {
+        "tick": 950728,
+        "kind": "target",
+        "details": {
+          "id": 29,
+          "position": [
+            15.067594669972966,
+            -0.46457490567716553
+          ]
+        }
+      },
+      {
+        "tick": 950758,
+        "kind": "miss",
+        "details": {
+          "id": 29,
+          "probability": 0.46267682685279915
+        }
+      },
+      {
+        "tick": 950909,
+        "kind": "target",
+        "details": {
+          "id": 96,
+          "position": [
+            -27.753596737475572,
+            -23.801788136355597
+          ]
+        }
+      },
+      {
+        "tick": 950950,
+        "kind": "miss",
+        "details": {
+          "id": 96,
+          "probability": 0.47719922248877583
+        }
+      },
+      {
+        "tick": 951112,
+        "kind": "target",
+        "details": {
+          "id": 29,
+          "position": [
+            15.530611172478894,
+            -0.47974679997624736
+          ]
+        }
+      },
+      {
+        "tick": 951143,
+        "kind": "miss",
+        "details": {
+          "id": 29,
+          "probability": 0.46267682685279915
+        }
+      },
+      {
+        "tick": 951295,
+        "kind": "target",
+        "details": {
+          "id": 29,
+          "position": [
+            15.671132123904268,
+            -1.16859455269779
+          ]
+        }
+      },
+      {
+        "tick": 951325,
+        "kind": "miss",
+        "details": {
+          "id": 29,
+          "probability": 0.46267682685279915
+        }
+      },
+      {
+        "tick": 951476,
+        "kind": "target",
+        "details": {
+          "id": 29,
+          "position": [
+            15.480316233312363,
+            -0.5730884171298853
+          ]
+        }
+      },
+      {
+        "tick": 951506,
+        "kind": "capture",
+        "details": {
+          "id": 29,
+          "probability": 0.46267682685279915,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 984961,
+        "kind": "target",
+        "details": {
+          "id": 187,
+          "position": [
+            -25.78694008957,
+            -2.84675850872983
+          ]
+        }
+      },
+      {
+        "tick": 984987,
+        "kind": "capture",
+        "details": {
+          "id": 187,
+          "probability": 0.49571700132584917,
+          "meal": 10.131265500683298
+        }
+      },
+      {
+        "tick": 985854,
+        "kind": "target",
+        "details": {
+          "id": 184,
+          "position": [
+            -26.27394694897572,
+            -9.68173802117714
+          ]
+        }
+      },
+      {
+        "tick": 985881,
+        "kind": "miss",
+        "details": {
+          "id": 184,
+          "probability": 0.4957170013234795
+        }
+      },
+      {
+        "tick": 986028,
+        "kind": "target",
+        "details": {
+          "id": 90,
+          "position": [
+            -8.751682524907924,
+            -28.916208518630253
+          ]
+        }
+      },
+      {
+        "tick": 986063,
+        "kind": "miss",
+        "details": {
+          "id": 90,
+          "probability": 0.47615081395197645
+        }
+      },
+      {
+        "tick": 986219,
+        "kind": "target",
+        "details": {
+          "id": 62,
+          "position": [
+            -17.910002782455507,
+            -32.41460797215459
+          ]
+        }
+      },
+      {
+        "tick": 986261,
+        "kind": "miss",
+        "details": {
+          "id": 62,
+          "probability": 0.45894123414713045
+        }
+      },
+      {
+        "tick": 986424,
+        "kind": "target",
+        "details": {
+          "id": 184,
+          "position": [
+            -28.897030727409167,
+            -8.385548099673157
+          ]
+        }
+      },
+      {
+        "tick": 986450,
+        "kind": "capture",
+        "details": {
+          "id": 184,
+          "probability": 0.4957170013234795,
+          "meal": 10.166078471522283
+        }
+      },
+      {
+        "tick": 987318,
+        "kind": "target",
+        "details": {
+          "id": 186,
+          "position": [
+            -26.659851800951735,
+            -8.021872583444843
+          ]
+        }
+      },
+      {
+        "tick": 987341,
+        "kind": "miss",
+        "details": {
+          "id": 186,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 987485,
+        "kind": "target",
+        "details": {
+          "id": 72,
+          "position": [
+            -0.3525362677437716,
+            21.77890215022691
+          ]
+        }
+      },
+      {
+        "tick": 987520,
+        "kind": "capture",
+        "details": {
+          "id": 72,
+          "probability": 0.48358727619782976,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 988201,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            1.4082363722653914,
+            31.216045770528318
+          ],
+          "amount": 10.87026063879302
+        }
+      },
+      {
+        "tick": 1019521,
+        "kind": "target",
+        "details": {
+          "id": 185,
+          "position": [
+            -25.509402779364166,
+            -5.705663764491954
+          ]
+        }
+      },
+      {
+        "tick": 1019543,
+        "kind": "miss",
+        "details": {
+          "id": 185,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1019686,
+        "kind": "target",
+        "details": {
+          "id": 186,
+          "position": [
+            -30.8819677588753,
+            -11.336253533722765
+          ]
+        }
+      },
+      {
+        "tick": 1019713,
+        "kind": "miss",
+        "details": {
+          "id": 186,
+          "probability": 0.4657687941758899
+        }
+      },
+      {
+        "tick": 1019861,
+        "kind": "target",
+        "details": {
+          "id": 90,
+          "position": [
+            -11.055059494010136,
+            -37.08596232711737
+          ]
+        }
+      },
+      {
+        "tick": 1019906,
+        "kind": "miss",
+        "details": {
+          "id": 90,
+          "probability": 0.4520193533166377
+        }
+      },
+      {
+        "tick": 1020072,
+        "kind": "target",
+        "details": {
+          "id": 16,
+          "position": [
+            -38.309186192735346,
+            -8.683276587025395
+          ]
+        }
+      },
+      {
+        "tick": 1020117,
+        "kind": "miss",
+        "details": {
+          "id": 16,
+          "probability": 0.5078364592025001
+        }
+      },
+      {
+        "tick": 1020283,
+        "kind": "target",
+        "details": {
+          "id": 186,
+          "position": [
+            -29.78870740647577,
+            -11.839636502321715
+          ]
+        }
+      },
+      {
+        "tick": 1020311,
+        "kind": "miss",
+        "details": {
+          "id": 186,
+          "probability": 0.4672313119779127
+        }
+      },
+      {
+        "tick": 1020459,
+        "kind": "target",
+        "details": {
+          "id": 170,
+          "position": [
+            7.595769713562612,
+            32.924772014321064
+          ]
+        }
+      },
+      {
+        "tick": 1020508,
+        "kind": "capture",
+        "details": {
+          "id": 170,
+          "probability": 0.49997414430244513,
+          "meal": 20.80255193523002
+        }
+      },
+      {
+        "tick": 1021399,
+        "kind": "target",
+        "details": {
+          "id": 186,
+          "position": [
+            -30.067840210930306,
+            -9.384810490934012
+          ]
+        }
+      },
+      {
+        "tick": 1021427,
+        "kind": "miss",
+        "details": {
+          "id": 186,
+          "probability": 0.5047415015727769
+        }
+      },
+      {
+        "tick": 1021576,
+        "kind": "target",
+        "details": {
+          "id": 186,
+          "position": [
+            -31.907680182821757,
+            -8.845772446486086
+          ]
+        }
+      },
+      {
+        "tick": 1021605,
+        "kind": "capture",
+        "details": {
+          "id": 186,
+          "probability": 0.5062384345397394,
+          "meal": 11.02677796969258
+        }
+      },
+      {
+        "tick": 1026675,
+        "kind": "target",
+        "details": {
+          "id": 185,
+          "position": [
+            -26.61132608910602,
+            -7.374647872270694
+          ]
+        }
+      },
+      {
+        "tick": 1026698,
+        "kind": "miss",
+        "details": {
+          "id": 185,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1027024,
+        "kind": "target",
+        "details": {
+          "id": 104,
+          "position": [
+            -33.6550199244754,
+            56.78512699278612
+          ]
+        }
+      },
+      {
+        "tick": 1027036,
+        "kind": "capture",
+        "details": {
+          "id": 104,
+          "probability": 0.45651577043891295,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1027746,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -36.78959631921528,
+            61.90122226413705
+          ],
+          "amount": 2.980950275249983
+        }
+      },
+      {
+        "tick": 1057123,
+        "kind": "target",
+        "details": {
+          "id": 88,
+          "position": [
+            -37.04435827145944,
+            59.71790770604558
+          ]
+        }
+      },
+      {
+        "tick": 1057143,
+        "kind": "capture",
+        "details": {
+          "id": 88,
+          "probability": 0.5328280993050462,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1057769,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -44.19744652566533,
+            65.37586310680246
+          ],
+          "amount": 26.255787037004467
+        }
+      },
+      {
+        "tick": 1088641,
+        "kind": "target",
+        "details": {
+          "id": 200,
+          "position": [
+            -35.90896458783963,
+            58.609714617144185
+          ]
+        }
+      },
+      {
+        "tick": 1088650,
+        "kind": "capture",
+        "details": {
+          "id": 200,
+          "probability": 0.714473864493208,
+          "meal": 10.547143556966908
+        }
+      },
+      {
+        "tick": 1089501,
+        "kind": "target",
+        "details": {
+          "id": 201,
+          "position": [
+            -41.20241456892959,
+            56.72491005415537
+          ]
+        }
+      },
+      {
+        "tick": 1089515,
+        "kind": "capture",
+        "details": {
+          "id": 201,
+          "probability": 0.5286092135295959,
+          "meal": 10.568276177844702
+        }
+      },
+      {
+        "tick": 1094569,
+        "kind": "target",
+        "details": {
+          "id": 202,
+          "position": [
+            -34.256814648133606,
+            63.797023968001014
+          ]
+        }
+      },
+      {
+        "tick": 1094584,
+        "kind": "capture",
+        "details": {
+          "id": 202,
+          "probability": 0.46759240014397097,
+          "meal": 10.692683411901776
+        }
+      },
+      {
+        "tick": 1095440,
+        "kind": "target",
+        "details": {
+          "id": 140,
+          "position": [
+            -15.553730759837732,
+            47.458150277793145
+          ]
+        }
+      },
+      {
+        "tick": 1095466,
+        "kind": "capture",
+        "details": {
+          "id": 140,
+          "probability": 0.4904620487574161,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1096152,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -5.7635595863741,
+            44.595887467658095
+          ],
+          "amount": 9.68426055408031
+        }
+      },
+      {
+        "tick": 1125529,
+        "kind": "target",
+        "details": {
+          "id": 119,
+          "position": [
+            -17.159192092681383,
+            62.163692753816605
+          ]
+        }
+      },
+      {
+        "tick": 1125555,
+        "kind": "capture",
+        "details": {
+          "id": 119,
+          "probability": 0.4593571821436959,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1126181,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -8.963722627205756,
+            64.7161304743952
+          ],
+          "amount": 26.22106481478224
+        }
+      },
+      {
+        "tick": 1157761,
+        "kind": "target",
+        "details": {
+          "id": 75,
+          "position": [
+            -44.36166159454403,
+            46.37131357914733
+          ]
+        }
+      },
+      {
+        "tick": 1157786,
+        "kind": "miss",
+        "details": {
+          "id": 75,
+          "probability": 0.49211188354330765
+        }
+      },
+      {
+        "tick": 1157932,
+        "kind": "target",
+        "details": {
+          "id": 118,
+          "position": [
+            -11.828868606026235,
+            54.85134083209687
+          ]
+        }
+      },
+      {
+        "tick": 1157961,
+        "kind": "capture",
+        "details": {
+          "id": 118,
+          "probability": 0.47170221881403873,
+          "meal": 96.76893727751735
+        }
+      },
+      {
+        "tick": 1175041,
+        "kind": "target",
+        "details": {
+          "id": 130,
+          "position": [
+            -48.39416735581518,
+            55.34758677831404
+          ]
+        }
+      },
+      {
+        "tick": 1175069,
+        "kind": "miss",
+        "details": {
+          "id": 130,
+          "probability": 0.4927360038462205
+        }
+      },
+      {
+        "tick": 1175218,
+        "kind": "target",
+        "details": {
+          "id": 181,
+          "position": [
+            -11.074442991387832,
+            41.57681970274861
+          ]
+        }
+      },
+      {
+        "tick": 1175250,
+        "kind": "capture",
+        "details": {
+          "id": 181,
+          "probability": 0.47451834228207457,
+          "meal": 15.908174208267829
+        }
+      },
+      {
+        "tick": 1176123,
+        "kind": "target",
+        "details": {
+          "id": 100,
+          "position": [
+            -56.65029431767165,
+            50.16516549984963
+          ]
+        }
+      },
+      {
+        "tick": 1176155,
+        "kind": "miss",
+        "details": {
+          "id": 100,
+          "probability": 0.5134159889580545
+        }
+      },
+      {
+        "tick": 1176307,
+        "kind": "target",
+        "details": {
+          "id": 183,
+          "position": [
+            -5.040908932274658,
+            48.0659842635498
+          ]
+        }
+      },
+      {
+        "tick": 1176344,
+        "kind": "capture",
+        "details": {
+          "id": 183,
+          "probability": 0.49378234151186284,
+          "meal": 15.943328203924054
+        }
+      },
+      {
+        "tick": 1181423,
+        "kind": "target",
+        "details": {
+          "id": 100,
+          "position": [
+            -59.740683229896675,
+            46.38666157492299
+          ]
+        }
+      },
+      {
+        "tick": 1181457,
+        "kind": "miss",
+        "details": {
+          "id": 100,
+          "probability": 0.4565306397161213
+        }
+      },
+      {
+        "tick": 1181610,
+        "kind": "target",
+        "details": {
+          "id": 179,
+          "position": [
+            -12.210774765765125,
+            35.99565705231299
+          ]
+        }
+      },
+      {
+        "tick": 1181644,
+        "kind": "capture",
+        "details": {
+          "id": 179,
+          "probability": 0.44477380790232124,
+          "meal": 16.11436884519401
+        }
+      },
+      {
+        "tick": 1182520,
+        "kind": "target",
+        "details": {
+          "id": 148,
+          "position": [
+            -6.698187739777538,
+            61.94935229337722
+          ]
+        }
+      },
+      {
+        "tick": 1182555,
+        "kind": "miss",
+        "details": {
+          "id": 148,
+          "probability": 0.4986077272430846
+        }
+      },
+      {
+        "tick": 1182711,
+        "kind": "target",
+        "details": {
+          "id": 8,
+          "position": [
+            0.4827904970802781,
+            56.663322947817946
+          ]
+        }
+      },
+      {
+        "tick": 1182751,
+        "kind": "miss",
+        "details": {
+          "id": 8,
+          "probability": 0.4846933849764759
+        }
+      },
+      {
+        "tick": 1182912,
+        "kind": "target",
+        "details": {
+          "id": 130,
+          "position": [
+            -59.55482092698904,
+            58.19107426912058
+          ]
+        }
+      },
+      {
+        "tick": 1182947,
+        "kind": "capture",
+        "details": {
+          "id": 130,
+          "probability": 0.5334420314408961,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1183623,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -59.74507061277805,
+            64.20670080316327
+          ],
+          "amount": 12.315827053347235
+        }
+      },
+      {
+        "tick": 1213000,
+        "kind": "target",
+        "details": {
+          "id": 42,
+          "position": [
+            -52.91041866230391,
+            52.99546155712925
+          ]
+        }
+      },
+      {
+        "tick": 1213032,
+        "kind": "miss",
+        "details": {
+          "id": 42,
+          "probability": 0.4927360038462205
+        }
+      },
+      {
+        "tick": 1213184,
+        "kind": "target",
+        "details": {
+          "id": 42,
+          "position": [
+            -60.17095986474594,
+            55.62658035617963
+          ]
+        }
+      },
+      {
+        "tick": 1213218,
+        "kind": "capture",
+        "details": {
+          "id": 42,
+          "probability": 0.4927360038462205,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1213848,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -60.060690782140654,
+            61.275932347297996
+          ],
+          "amount": 25.086805555522744
+        }
+      },
+      {
+        "tick": 1244161,
+        "kind": "target",
+        "details": {
+          "id": 111,
+          "position": [
+            -48.835191783032805,
+            30.734113115542755
+          ]
+        }
+      },
+      {
+        "tick": 1244200,
+        "kind": "capture",
+        "details": {
+          "id": 111,
+          "probability": 0.47441443602499067,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1244846,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -55.88056798069069,
+            22.548596990491376
+          ],
+          "amount": 20.613425925892187
+        }
+      },
+      {
+        "tick": 1278721,
+        "kind": "target",
+        "details": {
+          "id": 75,
+          "position": [
+            -57.89713733384337,
+            43.64302670826167
+          ]
+        }
+      },
+      {
+        "tick": 1278756,
+        "kind": "miss",
+        "details": {
+          "id": 75,
+          "probability": 0.4816149859499152
+        }
+      },
+      {
+        "tick": 1278910,
+        "kind": "target",
+        "details": {
+          "id": 237,
+          "position": [
+            -53.22910415494106,
+            34.67514149258619
+          ]
+        }
+      },
+      {
+        "tick": 1278943,
+        "kind": "miss",
+        "details": {
+          "id": 237,
+          "probability": 0.4824603586557318
+        }
+      },
+      {
+        "tick": 1279096,
+        "kind": "target",
+        "details": {
+          "id": 172,
+          "position": [
+            -8.195792541409547,
+            24.768843883089637
+          ]
+        }
+      },
+      {
+        "tick": 1279141,
+        "kind": "miss",
+        "details": {
+          "id": 172,
+          "probability": 0.4462410959784223
+        }
+      },
+      {
+        "tick": 1279307,
+        "kind": "target",
+        "details": {
+          "id": 148,
+          "position": [
+            2.019628207397981,
+            63.28057145774613
+          ]
+        }
+      },
+      {
+        "tick": 1279350,
+        "kind": "miss",
+        "details": {
+          "id": 148,
+          "probability": 0.47445856607578185
+        }
+      },
+      {
+        "tick": 1279514,
+        "kind": "target",
+        "details": {
+          "id": 75,
+          "position": [
+            -60.03263789852922,
+            40.57806532569499
+          ]
+        }
+      },
+      {
+        "tick": 1279551,
+        "kind": "capture",
+        "details": {
+          "id": 75,
+          "probability": 0.4816149853208874,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1313281,
+        "kind": "target",
+        "details": {
+          "id": 100,
+          "position": [
+            -58.92816166834296,
+            49.31056895653848
+          ]
+        }
+      },
+      {
+        "tick": 1313314,
+        "kind": "capture",
+        "details": {
+          "id": 100,
+          "probability": 0.4565306397161213,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1347841,
+        "kind": "target",
+        "details": {
+          "id": 167,
+          "position": [
+            -5.069225567677064,
+            29.64949570806878
+          ]
+        }
+      },
+      {
+        "tick": 1347884,
+        "kind": "capture",
+        "details": {
+          "id": 167,
+          "probability": 0.5320623621980622,
+          "meal": 36.07491900278772
+        }
+      },
+      {
+        "tick": 1352968,
+        "kind": "target",
+        "details": {
+          "id": 87,
+          "position": [
+            -57.57611526631437,
+            31.56479932470569
+          ]
+        }
+      },
+      {
+        "tick": 1353011,
+        "kind": "miss",
+        "details": {
+          "id": 87,
+          "probability": 0.5019290908979159
+        }
+      },
+      {
+        "tick": 1353173,
+        "kind": "target",
+        "details": {
+          "id": 182,
+          "position": [
+            4.392811618603385,
+            37.835531364736376
+          ]
+        }
+      },
+      {
+        "tick": 1353221,
+        "kind": "miss",
+        "details": {
+          "id": 182,
+          "probability": 0.4819522851205099
+        }
+      },
+      {
+        "tick": 1353390,
+        "kind": "target",
+        "details": {
+          "id": 107,
+          "position": [
+            4.802195448628489,
+            46.61789222494876
+          ]
+        }
+      },
+      {
+        "tick": 1353437,
+        "kind": "capture",
+        "details": {
+          "id": 107,
+          "probability": 0.5529592235249025,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1354145,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            15.485562508461664,
+            45.03496194699225
+          ],
+          "amount": 3.5575578915543247
+        }
+      },
+      {
+        "tick": 1383522,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            8.464809236524172,
+            52.848140652003245
+          ]
+        }
+      },
+      {
+        "tick": 1383562,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1383723,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            9.102113915445948,
+            52.62257890410216
+          ]
+        }
+      },
+      {
+        "tick": 1383763,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1383924,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            8.005782936861703,
+            52.89155123317377
+          ]
+        }
+      },
+      {
+        "tick": 1383964,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1384125,
+        "kind": "target",
+        "details": {
+          "id": 97,
+          "position": [
+            -59.26610481186675,
+            39.98010999115363
+          ]
+        }
+      },
+      {
+        "tick": 1384162,
+        "kind": "capture",
+        "details": {
+          "id": 97,
+          "probability": 0.4816149853208874,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1384163,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -59.521630947334195,
+            33.62727593362766
+          ],
+          "amount": 200.0
+        }
+      },
+      {
+        "tick": 1384319,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            8.0123137884338,
+            52.79844232240206
+          ]
+        }
+      },
+      {
+        "tick": 1384358,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1384518,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            8.068423838750821,
+            53.802932260758325
+          ]
+        }
+      },
+      {
+        "tick": 1384558,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1384719,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            7.780795420791807,
+            52.97907740072598
+          ]
+        }
+      },
+      {
+        "tick": 1384758,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1384918,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.825544632474378,
+            53.17963729141432
+          ]
+        }
+      },
+      {
+        "tick": 1384958,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1385119,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            8.081554558693655,
+            52.98263046497175
+          ]
+        }
+      },
+      {
+        "tick": 1385159,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1385320,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            7.913365566449812,
+            52.89431389609707
+          ]
+        }
+      },
+      {
+        "tick": 1385359,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1385519,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            8.010467935259127,
+            53.45173835047537
+          ]
+        }
+      },
+      {
+        "tick": 1385559,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1385720,
+        "kind": "target",
+        "details": {
+          "id": 176,
+          "position": [
+            -8.598311264811768,
+            21.869567058619975
+          ]
+        }
+      },
+      {
+        "tick": 1385766,
+        "kind": "miss",
+        "details": {
+          "id": 176,
+          "probability": 0.46085099469947594
+        }
+      },
+      {
+        "tick": 1385933,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            8.531523281673289,
+            53.879637716024654
+          ]
+        }
+      },
+      {
+        "tick": 1385973,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1386134,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            8.100644955820666,
+            53.04194760119591
+          ]
+        }
+      },
+      {
+        "tick": 1386174,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1386335,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            8.091053944480883,
+            52.92152923766401
+          ]
+        }
+      },
+      {
+        "tick": 1386374,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1386534,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            7.946600831754054,
+            53.342905499208754
+          ]
+        }
+      },
+      {
+        "tick": 1386573,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1386733,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            8.034132446414157,
+            53.093728792956554
+          ]
+        }
+      },
+      {
+        "tick": 1386772,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1386932,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.264485418822034,
+            53.9599939620599
+          ]
+        }
+      },
+      {
+        "tick": 1386972,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1387133,
+        "kind": "target",
+        "details": {
+          "id": 63,
+          "position": [
+            -48.967525318230656,
+            31.63402066216278
+          ]
+        }
+      },
+      {
+        "tick": 1387170,
+        "kind": "miss",
+        "details": {
+          "id": 63,
+          "probability": 0.46057602654027113
+        }
+      },
+      {
+        "tick": 1387328,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.791488564449058,
+            53.16918314187385
+          ]
+        }
+      },
+      {
+        "tick": 1387368,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1387529,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.086074340455303,
+            52.710758394015976
+          ]
+        }
+      },
+      {
+        "tick": 1387568,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1387728,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            8.455749710333535,
+            53.86700128073343
+          ]
+        }
+      },
+      {
+        "tick": 1387768,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1387929,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            8.009228476067598,
+            53.35612926508626
+          ]
+        }
+      },
+      {
+        "tick": 1387968,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1388128,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.451125705618868,
+            53.922399124940725
+          ]
+        }
+      },
+      {
+        "tick": 1388168,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1388329,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            7.911863829832001,
+            52.568579412867514
+          ]
+        }
+      },
+      {
+        "tick": 1388369,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1388530,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            7.8454249472523125,
+            52.993035960325656
+          ]
+        }
+      },
+      {
+        "tick": 1388569,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1388729,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.046832732501493,
+            52.51766159149523
+          ]
+        }
+      },
+      {
+        "tick": 1388769,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1388930,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.015302128299616,
+            53.251480623994006
+          ]
+        }
+      },
+      {
+        "tick": 1388970,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1389131,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.76902616227579,
+            53.15156876643499
+          ]
+        }
+      },
+      {
+        "tick": 1389170,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1389330,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.908720973962238,
+            52.92079510286771
+          ]
+        }
+      },
+      {
+        "tick": 1389370,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1389531,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.825579431059866,
+            53.18900711958575
+          ]
+        }
+      },
+      {
+        "tick": 1389570,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1389730,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            7.921792989084146,
+            52.94062559810145
+          ]
+        }
+      },
+      {
+        "tick": 1389769,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1389929,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.009642931285825,
+            53.85624975371201
+          ]
+        }
+      },
+      {
+        "tick": 1389968,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1390128,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.85733728518632,
+            53.41599002836936
+          ]
+        }
+      },
+      {
+        "tick": 1390167,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1390327,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.924336726405014,
+            53.57718626097223
+          ]
+        }
+      },
+      {
+        "tick": 1390366,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1390526,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.138738119870915,
+            53.89682635047317
+          ]
+        }
+      },
+      {
+        "tick": 1390566,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1390727,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.748782499138975,
+            52.912280957323475
+          ]
+        }
+      },
+      {
+        "tick": 1390767,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1390928,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            7.9215254595294455,
+            53.576830937221686
+          ]
+        }
+      },
+      {
+        "tick": 1390967,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1391127,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            7.496241421207515,
+            53.22235651668371
+          ]
+        }
+      },
+      {
+        "tick": 1391166,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1391326,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            7.720690455885622,
+            53.44151389917632
+          ]
+        }
+      },
+      {
+        "tick": 1391365,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1391525,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            8.003480356174336,
+            53.77122011666885
+          ]
+        }
+      },
+      {
+        "tick": 1391564,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1391724,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.720031063222259,
+            52.740095741930325
+          ]
+        }
+      },
+      {
+        "tick": 1391764,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1391925,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            7.679833640467976,
+            53.08206513997457
+          ]
+        }
+      },
+      {
+        "tick": 1391964,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1392124,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            7.6620890328967155,
+            53.50038469794782
+          ]
+        }
+      },
+      {
+        "tick": 1392163,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1392323,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.732410348942058,
+            53.604081965444436
+          ]
+        }
+      },
+      {
+        "tick": 1392362,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1392522,
+        "kind": "target",
+        "details": {
+          "id": 275,
+          "position": [
+            7.876866093327369,
+            53.74233318609578
+          ]
+        }
+      },
+      {
+        "tick": 1392562,
+        "kind": "miss",
+        "details": {
+          "id": 275,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1392723,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            7.622931026316632,
+            53.01606784234732
+          ]
+        }
+      },
+      {
+        "tick": 1392762,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1392922,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            7.982887479757409,
+            52.86833599878105
+          ]
+        }
+      },
+      {
+        "tick": 1392961,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1393121,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            7.748555055090086,
+            53.92967714814476
+          ]
+        }
+      },
+      {
+        "tick": 1393160,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1393320,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            7.727811179170563,
+            53.42487444315605
+          ]
+        }
+      },
+      {
+        "tick": 1393359,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1393519,
+        "kind": "target",
+        "details": {
+          "id": 274,
+          "position": [
+            8.021438559761375,
+            53.462672533080486
+          ]
+        }
+      },
+      {
+        "tick": 1393558,
+        "kind": "miss",
+        "details": {
+          "id": 274,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1393718,
+        "kind": "target",
+        "details": {
+          "id": 276,
+          "position": [
+            7.924991256166208,
+            52.57491289574534
+          ]
+        }
+      },
+      {
+        "tick": 1393758,
+        "kind": "miss",
+        "details": {
+          "id": 276,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1393919,
+        "kind": "target",
+        "details": {
+          "id": 277,
+          "position": [
+            7.997354736163571,
+            53.43570072374962
+          ]
+        }
+      },
+      {
+        "tick": 1393958,
+        "kind": "miss",
+        "details": {
+          "id": 277,
+          "probability": 0.0
+        }
+      },
+      {
+        "tick": 1397345,
+        "kind": "hungry_departure",
+        "details": {}
+      },
+      {
+        "tick": 1397364,
+        "kind": "departure",
+        "details": {}
+      },
+      {
+        "tick": 1468800,
+        "kind": "arrival",
+        "details": {
+          "rabbits": 154
+        }
+      },
+      {
+        "tick": 1473148,
+        "kind": "target",
+        "details": {
+          "id": 248,
+          "position": [
+            -42.60115509675474,
+            -16.460025927060887
+          ]
+        }
+      },
+      {
+        "tick": 1473161,
+        "kind": "capture",
+        "details": {
+          "id": 248,
+          "probability": 0.5072158113340591,
+          "meal": 15.49031743197781
+        }
+      },
+      {
+        "tick": 1478216,
+        "kind": "target",
+        "details": {
+          "id": 109,
+          "position": [
+            -37.71984512730348,
+            -9.382879194281928
+          ]
+        }
+      },
+      {
+        "tick": 1478228,
+        "kind": "capture",
+        "details": {
+          "id": 109,
+          "probability": 0.5007885009560762,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1478229,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -38.90027941279086,
+            -3.500143869822235
+          ],
+          "amount": 200.0
+        }
+      },
+      {
+        "tick": 1478362,
+        "kind": "target",
+        "details": {
+          "id": 38,
+          "position": [
+            -36.995184434306644,
+            -22.697081233353146
+          ]
+        }
+      },
+      {
+        "tick": 1478379,
+        "kind": "capture",
+        "details": {
+          "id": 38,
+          "probability": 0.48835775615659766,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1479078,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -37.45120408146926,
+            -31.68552081324696
+          ],
+          "amount": 6.005363728259055
+        }
+      },
+      {
+        "tick": 1508455,
+        "kind": "target",
+        "details": {
+          "id": 61,
+          "position": [
+            -32.846834552911865,
+            -2.6091217694124285
+          ]
+        }
+      },
+      {
+        "tick": 1508479,
+        "kind": "miss",
+        "details": {
+          "id": 61,
+          "probability": 0.5057112973136312
+        }
+      },
+      {
+        "tick": 1508624,
+        "kind": "target",
+        "details": {
+          "id": 252,
+          "position": [
+            -47.52396968730089,
+            -14.996249608594027
+          ]
+        }
+      },
+      {
+        "tick": 1508646,
+        "kind": "capture",
+        "details": {
+          "id": 252,
+          "probability": 0.5352461167745068,
+          "meal": 16.07172088443935
+        }
+      },
+      {
+        "tick": 1513710,
+        "kind": "target",
+        "details": {
+          "id": 250,
+          "position": [
+            -27.507512570112375,
+            -4.447314493509801
+          ]
+        }
+      },
+      {
+        "tick": 1513735,
+        "kind": "miss",
+        "details": {
+          "id": 250,
+          "probability": 0.4547399485775504
+        }
+      },
+      {
+        "tick": 1513881,
+        "kind": "target",
+        "details": {
+          "id": 69,
+          "position": [
+            -48.864100658444464,
+            -22.95932676799261
+          ]
+        }
+      },
+      {
+        "tick": 1513896,
+        "kind": "miss",
+        "details": {
+          "id": 69,
+          "probability": 0.7715005855773895
+        }
+      },
+      {
+        "tick": 1514032,
+        "kind": "target",
+        "details": {
+          "id": 30,
+          "position": [
+            -38.750065527004736,
+            -29.298413658365984
+          ]
+        }
+      },
+      {
+        "tick": 1514057,
+        "kind": "capture",
+        "details": {
+          "id": 30,
+          "probability": 0.5342439627639607,
+          "meal": 200.0
+        }
+      },
+      {
+        "tick": 1514743,
+        "kind": "leftovers",
+        "details": {
+          "position": [
+            -40.26031573735544,
+            -39.38598741532735
+          ],
+          "amount": 9.677044958475705
+        }
+      },
+      {
+        "tick": 1544120,
+        "kind": "target",
+        "details": {
+          "id": 211,
+          "position": [
+            -48.68600729936917,
+            -9.513910842133557
+          ]
+        }
+      },
+      {
+        "tick": 1544143,
+        "kind": "capture",
+        "details": {
+          "id": 211,
+          "probability": 0.5302417937405641,
+          "meal": 24.52320256345556
+        }
+      },
+      {
+        "tick": 1549207,
+        "kind": "target",
+        "details": {
+          "id": 69,
+          "position": [
+            -49.83609226064422,
+            -23.906478280831973
+          ]
+        }
+      },
+      {
+        "tick": 1549223,
+        "kind": "capture",
+        "details": {
+          "id": 69,
+          "probability": 0.7714664783556324,
+          "meal": 107.58100264694193
+        }
+      }
+    ]
+  },
+  "final_starvation": {
+    "dependent_young": 29,
+    "post_weaning": 1,
+    "unknown_age": 0
+  }
+}
