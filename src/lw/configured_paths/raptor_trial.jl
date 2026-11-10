@@ -6,7 +6,12 @@ const RAPTOR_TRIAL=(arrival_rabbits=150,departure_rabbits=100,day_ticks=17280,
     capture_base=.85,alert_penalty=.25,cover_penalty=.3,
     daily_food=100.,initial_food=100.,capacity=250.,hunt_below=80.,adult_food=200.,
     eating_ticks=720,threat_range=8.,minimum_light=.25,seed=20261110,event_limit=256,
-    tree_kind=1,minimum_tree_height=3.,switch_after_miss=true)
+    tree_kind=1,minimum_tree_height=3.,switch_after_miss=true,rabbit_notice_range=3.)
+
+# 暫定固定: 飛行高度を解かず、狩り飛行中だけ平面距離3以内で兎の視覚対象にする。
+# 3は未較正の世界距離、Infで追加制限なし。食事中は地上の通常観測を維持。
+# 視野・遮蔽・動体・危険記憶は既存処理。将来は高度と見かけの大きさへ置換。
+configured_raptor_notice(bird,distance)=bird.mode!=:hunt || distance<=RAPTOR_TRIAL.rabbit_notice_range
 
 mutable struct RaptorTrial
     visual::G.WildlifePredator

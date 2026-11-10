@@ -51,7 +51,9 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
         push!(wildlife_active,raptor.present && raptor.mode in (:hunt,:eat))
     end
     G.prepare!(s,humans,t;additional_predators=wildlife_visuals,
-        additional_predator_alive=wildlife_active,motion_speed,illumination)
+        additional_predator_alive=wildlife_active,
+        additional_predator_visible=raptor===nothing ? nothing : ((index,distance)->index<=length(predators) || configured_raptor_notice(raptor,distance)),
+        motion_speed,illumination)
 end
 function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,present=nothing,grazing_policy=G.H.StateMachinePolicy())
     rabbit_steering=human_scent===nothing ? nothing : (w,a,i,speed,overrides)->begin

@@ -736,3 +736,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-10 猛禽捕獲率再調整: RAPTOR_TRIAL.capture_baseを0.75→0.85。警戒減点0.25・草遮蔽係数0.3・距離/生存/巣穴判定は不変。暫定世界確率の変更で、実測成功率85%という意味ではない。
 
 - 2026-11-10 猛禽失敗後切替: RAPTOR_TRIAL.switch_after_miss=true。直前に失敗した獲物IDだけ次候補から除外、成功/入場解除。別失敗で対象更新。他に見えなければ木変更。既存帰木・待機は維持。固定設定、将来は経験評価へ置換。
+
+- 2026-11-10 鳥の近距離発見: RAPTOR_TRIAL.rabbit_notice_range=3（世界距離、以下を許可、Infで解除）。飛行狩り中のみ、食事中/地上捕食者は通常視覚。高度を省略した暫定近似、configured_raptor_noticeに隔離。

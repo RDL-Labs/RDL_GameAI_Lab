@@ -140,3 +140,5 @@ crossing_longrunのcrossing=trueで有効、falseでは従来の水通行禁止�
 [猛禽実験仕様](../../experiments/lw_wildlife/raptor_trial.md)に記載。
 
 猛禽のswitch_after_miss（既定true）は失敗直後の同じ獲物再選択を防ぐ暫定固定。configured_raptor_failed_target/scanに隔離。falseで従来、成功/再入場で解除。記録は既存target/miss/capture、条件はraptor_ruleに保存。別の幼体間の往復は許容。
+
+猛禽の飛行高度の代替としてrabbit_notice_range=3で兎の新規観測を近距離に制限。狩り飛行時のみ。地上摂食時と既存危険記憶は維持。Infで追加制限を無効化。将来は高度・見かけサイズへ置換。

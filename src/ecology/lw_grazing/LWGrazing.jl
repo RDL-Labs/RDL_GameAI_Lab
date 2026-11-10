@@ -98,7 +98,7 @@ function build(scene,clock;low_obstacles=true)
     grazing_world
 end
 
-function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing,motion_speed=false,illumination=AmbientVision.illumination(t))
+function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additional_predator_alive=nothing,additional_predator_visible=nothing,motion_speed=false,illumination=AmbientVision.illumination(t))
     t==s.ticks && !s.prepared || error("grazing perception must run once before actions")
     length(humans)==length(s.previous_humans) || error("grazing human roster changed")
     w=s.world;a=s.animals
@@ -119,6 +119,7 @@ function prepare!(s::GrazingWorld,humans,t::Int; additional_predators=(), additi
             additional_predator_alive!==nothing && extra_index>0 && !additional_predator_alive[extra_index] && continue
             p=targets[j];d=hypot(p[1]-a.x[i],p[2]-a.z[i])
             d<=10 && d<distance || continue
+            extra_index>0 && additional_predator_visible!==nothing && !additional_predator_visible(extra_index,d) && continue
             bearing=atan(p[2]-a.z[i],p[1]-a.x[i])
             P.field_factor(bearing-s.gaze[i],true)>0 || continue
             previous=j<=length(humans) ? s.previous_humans[j] : predators[j-length(humans)].previous_position
