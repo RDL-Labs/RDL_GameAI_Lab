@@ -1,0 +1,1132 @@
+{
+  "completed": {
+    "days": 288,
+    "start_day": 162,
+    "end_day": 450,
+    "verified": true,
+    "seconds": 2350.7155176
+  },
+  "seconds": 2350.7155176,
+  "bytes": 1045322566941,
+  "gc_seconds": 115.2071463,
+  "blocks": [
+    {
+      "from": 163,
+      "to": 180,
+      "seconds": 88.67300009727478,
+      "seconds_per_day": 4.926277783181932,
+      "captures": 8,
+      "rabbits": 131
+    },
+    {
+      "from": 181,
+      "to": 270,
+      "seconds": 469.8380000591278,
+      "seconds_per_day": 5.220422222879198,
+      "captures": 53,
+      "rabbits": 205
+    },
+    {
+      "from": 271,
+      "to": 360,
+      "seconds": 711.9670000076294,
+      "seconds_per_day": 7.910744444529215,
+      "captures": 55,
+      "rabbits": 285
+    },
+    {
+      "from": 361,
+      "to": 450,
+      "seconds": 1080.1749999523163,
+      "seconds_per_day": 12.001944443914626,
+      "captures": 45,
+      "rabbits": 545
+    }
+  ],
+  "final": {
+    "absolute_day": 450,
+    "rabbits": 545,
+    "rabbit_west": 38,
+    "rabbit_east": 507,
+    "births": 798,
+    "starvation": 95,
+    "starvation_breakdown": {
+      "dependent_young": 94,
+      "post_weaning": 1,
+      "unknown_age": 0
+    },
+    "predators": [
+      {
+        "alive": true,
+        "food": 1698.9782830972,
+        "eaten": 139080.7632360332,
+        "spent": 138281.78494836247,
+        "discarded": 0.0,
+        "balance_residual": 4.573521437123418E-06,
+        "captures": 258,
+        "attacks": 582,
+        "encounters": 0,
+        "warning_started": -1,
+        "warning_blocked_until": 0,
+        "warning_timeouts": 0,
+        "ticks": {
+          "idle": 7599855,
+          "hunt": 132019,
+          "cross_river": 11381,
+          "visit_food": 12882,
+          "visit_rest": 1156,
+          "rest": 18707
+        },
+        "position": [
+          41.53180942352238,
+          -40.81007850897721
+        ],
+        "center": [
+          -9.0,
+          5.0
+        ],
+        "prey_observations": 8929746,
+        "events": [
+          {
+            "tick": 5820990,
+            "kind": "probability_miss",
+            "id": 224,
+            "probability": 0.4199447663811149,
+            "distance": 1.2613827298415963,
+            "reason": "draw"
+          },
+          {
+            "tick": 5820993,
+            "kind": "probability_miss",
+            "id": 224,
+            "probability": 0.4657660031557707,
+            "distance": 0.5999999999999973,
+            "reason": "draw"
+          },
+          {
+            "tick": 5820997,
+            "kind": "probability_miss",
+            "id": 224,
+            "probability": 0.48212049197877177,
+            "distance": 0.6000000000000031,
+            "reason": "draw"
+          },
+          {
+            "tick": 5821000,
+            "kind": "capture",
+            "id": 224,
+            "probability": 0.48212049197877177,
+            "distance": 0.6000000000000031,
+            "reason": "draw"
+          },
+          {
+            "tick": 5872707,
+            "kind": "capture",
+            "id": 467,
+            "probability": 0.7142513031724146,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          {
+            "tick": 5875726,
+            "kind": "capture",
+            "id": 465,
+            "probability": 0.44326837053967,
+            "distance": 1.1431175029452971,
+            "reason": "draw"
+          },
+          {
+            "tick": 5878756,
+            "kind": "probability_miss",
+            "id": 466,
+            "probability": 0.43873353249064967,
+            "distance": 1.126399965290523,
+            "reason": "draw"
+          },
+          {
+            "tick": 5878759,
+            "kind": "capture",
+            "id": 466,
+            "probability": 0.4717914465577146,
+            "distance": 0.5992705865318771,
+            "reason": "draw"
+          },
+          {
+            "tick": 5881729,
+            "kind": "probability_miss",
+            "id": 415,
+            "probability": 0.5104770698234111,
+            "distance": 0.6986955457235874,
+            "reason": "draw"
+          },
+          {
+            "tick": 5881732,
+            "kind": "probability_miss",
+            "id": 415,
+            "probability": 0.3765318728770794,
+            "distance": 0.6696159887448118,
+            "reason": "draw"
+          },
+          {
+            "tick": 5881735,
+            "kind": "capture",
+            "id": 415,
+            "probability": 0.37431271447747405,
+            "distance": 0.57806032250791,
+            "reason": "draw"
+          },
+          {
+            "tick": 5891365,
+            "kind": "capture",
+            "id": 354,
+            "probability": 0.5143789323325969,
+            "distance": 0.6865166556641399,
+            "reason": "draw"
+          },
+          {
+            "tick": 5911906,
+            "kind": "capture",
+            "id": 223,
+            "probability": 0.41835335590398737,
+            "distance": 1.269179618722502,
+            "reason": "draw"
+          },
+          {
+            "tick": 5963660,
+            "kind": "probability_miss",
+            "id": 461,
+            "probability": 0.424654493561245,
+            "distance": 1.2486755263554319,
+            "reason": "draw"
+          },
+          {
+            "tick": 5963663,
+            "kind": "capture",
+            "id": 461,
+            "probability": 0.46844257777811377,
+            "distance": 0.5999999999999979,
+            "reason": "draw"
+          },
+          {
+            "tick": 5967424,
+            "kind": "capture",
+            "id": 361,
+            "probability": 0.4399763163174024,
+            "distance": 1.263675314026495,
+            "reason": "draw"
+          },
+          {
+            "tick": 5989356,
+            "kind": "probability_miss",
+            "id": 462,
+            "probability": 0.4138721372293311,
+            "distance": 1.2718534351477606,
+            "reason": "draw"
+          },
+          {
+            "tick": 5989360,
+            "kind": "capture",
+            "id": 462,
+            "probability": 0.47918651832320697,
+            "distance": 0.6000000000000003,
+            "reason": "draw"
+          },
+          {
+            "tick": 5993304,
+            "kind": "probability_miss",
+            "id": 479,
+            "probability": 0.42454450815684175,
+            "distance": 1.2214985289249918,
+            "reason": "draw"
+          },
+          {
+            "tick": 5993307,
+            "kind": "capture",
+            "id": 479,
+            "probability": 0.4685739271209783,
+            "distance": 0.5999999999999995,
+            "reason": "draw"
+          },
+          {
+            "tick": 5996960,
+            "kind": "probability_miss",
+            "id": 480,
+            "probability": 0.4586635059103932,
+            "distance": 1.0801370872629115,
+            "reason": "draw"
+          },
+          {
+            "tick": 5996963,
+            "kind": "probability_miss",
+            "id": 480,
+            "probability": 0.473733116284478,
+            "distance": 0.6000000000000014,
+            "reason": "draw"
+          },
+          {
+            "tick": 5996966,
+            "kind": "probability_miss",
+            "id": 480,
+            "probability": 0.46636094589432325,
+            "distance": 0.6000000000000014,
+            "reason": "draw"
+          },
+          {
+            "tick": 5996969,
+            "kind": "capture",
+            "id": 480,
+            "probability": 0.4818103100918901,
+            "distance": 0.6000000000000014,
+            "reason": "draw"
+          },
+          {
+            "tick": 6000502,
+            "kind": "probability_miss",
+            "id": 290,
+            "probability": 0.5030205170851146,
+            "distance": 0.755579679691033,
+            "reason": "draw"
+          },
+          {
+            "tick": 6000505,
+            "kind": "capture",
+            "id": 290,
+            "probability": 0.591138653719879,
+            "distance": 0.19999999999999862,
+            "reason": "draw"
+          },
+          {
+            "tick": 6043624,
+            "kind": "capture",
+            "id": 471,
+            "probability": 0.44381582640015443,
+            "distance": 1.1502017921125332,
+            "reason": "draw"
+          },
+          {
+            "tick": 6047832,
+            "kind": "probability_miss",
+            "id": 249,
+            "probability": 0.44869497186692014,
+            "distance": 1.1662993174660827,
+            "reason": "draw"
+          },
+          {
+            "tick": 6047835,
+            "kind": "probability_miss",
+            "id": 249,
+            "probability": 0.4793028626614932,
+            "distance": 0.5999999999999983,
+            "reason": "draw"
+          },
+          {
+            "tick": 6047838,
+            "kind": "capture",
+            "id": 249,
+            "probability": 0.4793028626614932,
+            "distance": 0.5999999999999983,
+            "reason": "draw"
+          },
+          {
+            "tick": 6099482,
+            "kind": "capture",
+            "id": 226,
+            "probability": 0.40596123790810357,
+            "distance": 1.2888495246407332,
+            "reason": "draw"
+          },
+          {
+            "tick": 6151223,
+            "kind": "probability_miss",
+            "id": 51,
+            "probability": 0.5578678475324591,
+            "distance": 0.6383259529221287,
+            "reason": "draw"
+          },
+          {
+            "tick": 6151226,
+            "kind": "probability_miss",
+            "id": 51,
+            "probability": 0.33565994845738145,
+            "distance": 1.1086554390135444,
+            "reason": "draw"
+          },
+          {
+            "tick": 6151440,
+            "kind": "probability_miss",
+            "id": 51,
+            "probability": 0.4627674680524843,
+            "distance": 1.1756893836648543,
+            "reason": "draw"
+          },
+          {
+            "tick": 6151443,
+            "kind": "capture",
+            "id": 51,
+            "probability": 0.49487776943886047,
+            "distance": 0.6000000000000016,
+            "reason": "draw"
+          },
+          {
+            "tick": 6202749,
+            "kind": "probability_miss",
+            "id": 485,
+            "probability": 0.4216039242704428,
+            "distance": 1.2837769334918903,
+            "reason": "draw"
+          },
+          {
+            "tick": 6202753,
+            "kind": "probability_miss",
+            "id": 485,
+            "probability": 0.516083801605596,
+            "distance": 0.5999999999999982,
+            "reason": "draw"
+          },
+          {
+            "tick": 6202756,
+            "kind": "capture",
+            "id": 485,
+            "probability": 0.466277246787982,
+            "distance": 0.5999999999999982,
+            "reason": "draw"
+          },
+          {
+            "tick": 6207348,
+            "kind": "probability_miss",
+            "id": 321,
+            "probability": 0.4157181478312567,
+            "distance": 1.2831919327134607,
+            "reason": "draw"
+          },
+          {
+            "tick": 6207351,
+            "kind": "capture",
+            "id": 321,
+            "probability": 0.46502885706541064,
+            "distance": 0.5999999999999991,
+            "reason": "draw"
+          },
+          {
+            "tick": 6244582,
+            "kind": "capture",
+            "id": 391,
+            "probability": 0.4325738116089455,
+            "distance": 1.279695345078052,
+            "reason": "draw"
+          },
+          {
+            "tick": 6266571,
+            "kind": "probability_miss",
+            "id": 355,
+            "probability": 0.4434557325349497,
+            "distance": 1.0840796562389265,
+            "reason": "draw"
+          },
+          {
+            "tick": 6266574,
+            "kind": "capture",
+            "id": 355,
+            "probability": 0.46090847753809905,
+            "distance": 0.5999999999999985,
+            "reason": "draw"
+          },
+          {
+            "tick": 6297580,
+            "kind": "probability_miss",
+            "id": 438,
+            "probability": 0.46006905030715506,
+            "distance": 1.1332114691500135,
+            "reason": "draw"
+          },
+          {
+            "tick": 6297583,
+            "kind": "capture",
+            "id": 438,
+            "probability": 0.4851079858923924,
+            "distance": 0.5736823835518866,
+            "reason": "draw"
+          },
+          {
+            "tick": 6310229,
+            "kind": "probability_miss",
+            "id": 460,
+            "probability": 0.4664068290927661,
+            "distance": 1.071598741694393,
+            "reason": "draw"
+          },
+          {
+            "tick": 6310233,
+            "kind": "probability_miss",
+            "id": 460,
+            "probability": 0.48181031009189035,
+            "distance": 0.6000000000000003,
+            "reason": "draw"
+          },
+          {
+            "tick": 6310236,
+            "kind": "capture",
+            "id": 460,
+            "probability": 0.48181031009189035,
+            "distance": 0.6000000000000003,
+            "reason": "draw"
+          },
+          {
+            "tick": 6317413,
+            "kind": "capture",
+            "id": 220,
+            "probability": 0.4436320318702117,
+            "distance": 1.1435778134371433,
+            "reason": "draw"
+          },
+          {
+            "tick": 6369213,
+            "kind": "capture",
+            "id": 516,
+            "probability": 0.31844257777811297,
+            "distance": 0.600000000000003,
+            "reason": "draw"
+          },
+          {
+            "tick": 6372161,
+            "kind": "capture",
+            "id": 514,
+            "probability": 0.4949358564570808,
+            "distance": 0.5999999999999983,
+            "reason": "draw"
+          },
+          {
+            "tick": 6374959,
+            "kind": "capture",
+            "id": 105,
+            "probability": 0.5213724040947098,
+            "distance": 0.44906912689167816,
+            "reason": "draw"
+          },
+          {
+            "tick": 6426714,
+            "kind": "probability_miss",
+            "id": 472,
+            "probability": 0.43532567160258034,
+            "distance": 1.17106183393299,
+            "reason": "draw"
+          },
+          {
+            "tick": 6426717,
+            "kind": "probability_miss",
+            "id": 472,
+            "probability": 0.46172309342400464,
+            "distance": 0.6000001247272423,
+            "reason": "draw"
+          },
+          {
+            "tick": 6426720,
+            "kind": "capture",
+            "id": 472,
+            "probability": 0.46172285106460953,
+            "distance": 0.5999999999999995,
+            "reason": "draw"
+          },
+          {
+            "tick": 6434975,
+            "kind": "probability_miss",
+            "id": 274,
+            "probability": 0.465411983053898,
+            "distance": 0.9681138938671592,
+            "reason": "draw"
+          },
+          {
+            "tick": 6434978,
+            "kind": "capture",
+            "id": 274,
+            "probability": 0.4692409810006338,
+            "distance": 0.5784457678980619,
+            "reason": "draw"
+          },
+          {
+            "tick": 6486733,
+            "kind": "capture",
+            "id": 161,
+            "probability": 0.4561145623304428,
+            "distance": 1.189494831858828,
+            "reason": "draw"
+          },
+          {
+            "tick": 6538479,
+            "kind": "capture",
+            "id": 482,
+            "probability": 0.4173565662153793,
+            "distance": 1.230559148969161,
+            "reason": "draw"
+          },
+          {
+            "tick": 6547000,
+            "kind": "capture",
+            "id": 346,
+            "probability": 0.4144348835609385,
+            "distance": 1.2803272129382504,
+            "reason": "draw"
+          },
+          {
+            "tick": 6588480,
+            "kind": "capture",
+            "id": 484,
+            "probability": 0.43075014747352774,
+            "distance": 1.2335857861801747,
+            "reason": "draw"
+          },
+          {
+            "tick": 6597569,
+            "kind": "probability_miss",
+            "id": 483,
+            "probability": 0.41886418933126196,
+            "distance": 1.2724863111766034,
+            "reason": "draw"
+          },
+          {
+            "tick": 6597572,
+            "kind": "probability_miss",
+            "id": 483,
+            "probability": 0.4695664390092406,
+            "distance": 0.5999999999999972,
+            "reason": "draw"
+          },
+          {
+            "tick": 6597575,
+            "kind": "capture",
+            "id": 483,
+            "probability": 0.5897660031557714,
+            "distance": 0.19999999999999327,
+            "reason": "draw"
+          },
+          {
+            "tick": 6606785,
+            "kind": "capture",
+            "id": 275,
+            "probability": 0.43918798447334545,
+            "distance": 1.163004309448248,
+            "reason": "draw"
+          },
+          {
+            "tick": 6658641,
+            "kind": "capture",
+            "id": 222,
+            "probability": 0.7062024427193254,
+            "distance": 0.0,
+            "reason": "draw"
+          },
+          {
+            "tick": 6710334,
+            "kind": "probability_miss",
+            "id": 159,
+            "probability": 0.42709482829835815,
+            "distance": 1.2011475411614305,
+            "reason": "draw"
+          },
+          {
+            "tick": 6710337,
+            "kind": "probability_miss",
+            "id": 159,
+            "probability": 0.47450074402144354,
+            "distance": 0.5999989501883521,
+            "reason": "draw"
+          },
+          {
+            "tick": 6710340,
+            "kind": "capture",
+            "id": 159,
+            "probability": 0.47465212611891444,
+            "distance": 0.5990428466630264,
+            "reason": "draw"
+          },
+          {
+            "tick": 6762060,
+            "kind": "probability_miss",
+            "id": 117,
+            "probability": 0.4642307895903116,
+            "distance": 0.6000000000000012,
+            "reason": "draw"
+          },
+          {
+            "tick": 6762063,
+            "kind": "probability_miss",
+            "id": 117,
+            "probability": 0.4831919313890082,
+            "distance": 0.6000000000000012,
+            "reason": "draw"
+          },
+          {
+            "tick": 6762106,
+            "kind": "probability_miss",
+            "id": 117,
+            "probability": 0.4384646116968114,
+            "distance": 1.1600000000000152,
+            "reason": "draw"
+          },
+          {
+            "tick": 6762746,
+            "kind": "probability_miss",
+            "id": 356,
+            "probability": 0.4572228629989513,
+            "distance": 1.0147185301878048,
+            "reason": "draw"
+          },
+          {
+            "tick": 6762749,
+            "kind": "capture",
+            "id": 356,
+            "probability": 0.491111110630772,
+            "distance": 0.5796742219806224,
+            "reason": "draw"
+          },
+          {
+            "tick": 6810790,
+            "kind": "capture",
+            "id": 365,
+            "probability": 0.4377298808527101,
+            "distance": 1.2014560311984923,
+            "reason": "draw"
+          },
+          {
+            "tick": 6861947,
+            "kind": "probability_miss",
+            "id": 357,
+            "probability": 0.4455520874801957,
+            "distance": 1.0588241532159737,
+            "reason": "draw"
+          },
+          {
+            "tick": 6861950,
+            "kind": "probability_miss",
+            "id": 357,
+            "probability": 0.4589537267003347,
+            "distance": 0.5999999999999996,
+            "reason": "draw"
+          },
+          {
+            "tick": 6861953,
+            "kind": "probability_miss",
+            "id": 357,
+            "probability": 0.5904389743945881,
+            "distance": 0.1999999999999999,
+            "reason": "draw"
+          },
+          {
+            "tick": 6862729,
+            "kind": "probability_miss",
+            "id": 364,
+            "probability": 0.49958340754319386,
+            "distance": 0.5009893361499586,
+            "reason": "draw"
+          },
+          {
+            "tick": 6862733,
+            "kind": "probability_miss",
+            "id": 364,
+            "probability": 0.4810295377784797,
+            "distance": 0.5279755421060419,
+            "reason": "draw"
+          },
+          {
+            "tick": 6862737,
+            "kind": "probability_miss",
+            "id": 364,
+            "probability": 0.4693553579471153,
+            "distance": 0.5789243118783304,
+            "reason": "draw"
+          },
+          {
+            "tick": 6863395,
+            "kind": "probability_miss",
+            "id": 359,
+            "probability": 0.4957025330589884,
+            "distance": 1.0268591683813197,
+            "reason": "draw"
+          },
+          {
+            "tick": 6863398,
+            "kind": "probability_miss",
+            "id": 359,
+            "probability": 0.47460358632651123,
+            "distance": 0.6000000000000028,
+            "reason": "draw"
+          },
+          {
+            "tick": 6863401,
+            "kind": "capture",
+            "id": 359,
+            "probability": 0.37860358632651336,
+            "distance": 0.1999999999999919,
+            "reason": "draw"
+          },
+          {
+            "tick": 6912072,
+            "kind": "capture",
+            "id": 371,
+            "probability": 0.4749449224951079,
+            "distance": 0.8465150707485704,
+            "reason": "draw"
+          },
+          {
+            "tick": 6963770,
+            "kind": "capture",
+            "id": 155,
+            "probability": 0.4276711073377937,
+            "distance": 1.2307687906455662,
+            "reason": "draw"
+          },
+          {
+            "tick": 7015515,
+            "kind": "probability_miss",
+            "id": 499,
+            "probability": 0.42083147051130254,
+            "distance": 1.253088647630306,
+            "reason": "draw"
+          },
+          {
+            "tick": 7015518,
+            "kind": "capture",
+            "id": 499,
+            "probability": 0.45630177743349315,
+            "distance": 0.5999999999999999,
+            "reason": "draw"
+          },
+          {
+            "tick": 7029717,
+            "kind": "capture",
+            "id": 372,
+            "probability": 0.429982971641194,
+            "distance": 1.2350040867263372,
+            "reason": "draw"
+          },
+          {
+            "tick": 7081473,
+            "kind": "capture",
+            "id": 498,
+            "probability": 0.4389967722732108,
+            "distance": 1.1766284092343584,
+            "reason": "draw"
+          },
+          {
+            "tick": 7097757,
+            "kind": "capture",
+            "id": 497,
+            "probability": 0.4289138334989314,
+            "distance": 1.1342093769746728,
+            "reason": "draw"
+          },
+          {
+            "tick": 7111731,
+            "kind": "probability_miss",
+            "id": 128,
+            "probability": 0.45345038685253636,
+            "distance": 1.1202044900828882,
+            "reason": "draw"
+          },
+          {
+            "tick": 7111734,
+            "kind": "probability_miss",
+            "id": 128,
+            "probability": 0.47763961030678953,
+            "distance": 0.5999999999999991,
+            "reason": "draw"
+          },
+          {
+            "tick": 7111737,
+            "kind": "capture",
+            "id": 128,
+            "probability": 0.4766831052657988,
+            "distance": 0.6000000000000006,
+            "reason": "draw"
+          },
+          {
+            "tick": 7163958,
+            "kind": "probability_miss",
+            "id": 291,
+            "probability": 0.4699867022436484,
+            "distance": 1.1264857427708566,
+            "reason": "draw"
+          },
+          {
+            "tick": 7163961,
+            "kind": "capture",
+            "id": 291,
+            "probability": 0.49422442108698544,
+            "distance": 0.5999999999999998,
+            "reason": "draw"
+          },
+          {
+            "tick": 7214697,
+            "kind": "probability_miss",
+            "id": 510,
+            "probability": 0.4597368976410078,
+            "distance": 1.0971234632484106,
+            "reason": "draw"
+          },
+          {
+            "tick": 7214701,
+            "kind": "probability_miss",
+            "id": 510,
+            "probability": 0.5020781419640047,
+            "distance": 0.6000000000000033,
+            "reason": "draw"
+          },
+          {
+            "tick": 7214704,
+            "kind": "capture",
+            "id": 510,
+            "probability": 0.5963611636265076,
+            "distance": 0.2000000000000034,
+            "reason": "draw"
+          },
+          {
+            "tick": 7231022,
+            "kind": "probability_miss",
+            "id": 419,
+            "probability": 0.45962131742617396,
+            "distance": 1.0574412661200614,
+            "reason": "draw"
+          },
+          {
+            "tick": 7231025,
+            "kind": "capture",
+            "id": 419,
+            "probability": 0.4728532762306576,
+            "distance": 0.5997425235986761,
+            "reason": "draw"
+          },
+          {
+            "tick": 7277087,
+            "kind": "probability_miss",
+            "id": 248,
+            "probability": 0.442443359147814,
+            "distance": 1.1813976179261267,
+            "reason": "draw"
+          },
+          {
+            "tick": 7277090,
+            "kind": "capture",
+            "id": 248,
+            "probability": 0.47592455175325626,
+            "distance": 0.5991943331100877,
+            "reason": "draw"
+          },
+          {
+            "tick": 7328779,
+            "kind": "capture",
+            "id": 605,
+            "probability": 0.4525044823542888,
+            "distance": 1.0037281950103154,
+            "reason": "draw"
+          },
+          {
+            "tick": 7334680,
+            "kind": "capture",
+            "id": 349,
+            "probability": 0.428346228067629,
+            "distance": 1.1661722907196643,
+            "reason": "draw"
+          },
+          {
+            "tick": 7386485,
+            "kind": "capture",
+            "id": 311,
+            "probability": 0.43567546351354924,
+            "distance": 1.14684981284555,
+            "reason": "draw"
+          },
+          {
+            "tick": 7438285,
+            "kind": "capture",
+            "id": 525,
+            "probability": 0.41294489848260335,
+            "distance": 1.269238806247813,
+            "reason": "draw"
+          },
+          {
+            "tick": 7453967,
+            "kind": "capture",
+            "id": 443,
+            "probability": 0.4244935746623779,
+            "distance": 1.200225103030371,
+            "reason": "draw"
+          },
+          {
+            "tick": 7492577,
+            "kind": "capture",
+            "id": 441,
+            "probability": 0.44853730266197317,
+            "distance": 1.1781008652171476,
+            "reason": "draw"
+          },
+          {
+            "tick": 7532668,
+            "kind": "probability_miss",
+            "id": 606,
+            "probability": 0.42441329183123966,
+            "distance": 1.270167490649711,
+            "reason": "draw"
+          },
+          {
+            "tick": 7532672,
+            "kind": "probability_miss",
+            "id": 606,
+            "probability": 0.51578381449905,
+            "distance": 0.5999999999999976,
+            "reason": "draw"
+          },
+          {
+            "tick": 7532675,
+            "kind": "capture",
+            "id": 606,
+            "probability": 0.4593883772883228,
+            "distance": 0.599890314093085,
+            "reason": "draw"
+          },
+          {
+            "tick": 7540862,
+            "kind": "capture",
+            "id": 475,
+            "probability": 0.5218584115876739,
+            "distance": 0.3168219425161428,
+            "reason": "draw"
+          },
+          {
+            "tick": 7574600,
+            "kind": "probability_miss",
+            "id": 432,
+            "probability": 0.4329261785728792,
+            "distance": 1.1732349838393423,
+            "reason": "draw"
+          },
+          {
+            "tick": 7574603,
+            "kind": "capture",
+            "id": 432,
+            "probability": 0.476500417413167,
+            "distance": 0.6000128465685803,
+            "reason": "draw"
+          },
+          {
+            "tick": 7626640,
+            "kind": "probability_miss",
+            "id": 711,
+            "probability": 0.44278748126761647,
+            "distance": 1.0863664514725413,
+            "reason": "draw"
+          },
+          {
+            "tick": 7626643,
+            "kind": "probability_miss",
+            "id": 711,
+            "probability": 0.4625781308094549,
+            "distance": 0.5999999999999986,
+            "reason": "draw"
+          },
+          {
+            "tick": 7626646,
+            "kind": "probability_miss",
+            "id": 711,
+            "probability": 0.4625781308094544,
+            "distance": 0.6000000000000003,
+            "reason": "draw"
+          },
+          {
+            "tick": 7627323,
+            "kind": "capture",
+            "id": 195,
+            "probability": 0.5097327369450032,
+            "distance": 0.666743812785275,
+            "reason": "draw"
+          },
+          {
+            "tick": 7676983,
+            "kind": "probability_miss",
+            "id": 594,
+            "probability": 0.4402569137774473,
+            "distance": 1.1764972081462322,
+            "reason": "draw"
+          },
+          {
+            "tick": 7676987,
+            "kind": "probability_miss",
+            "id": 594,
+            "probability": 0.47901938188374743,
+            "distance": 0.5960672540668818,
+            "reason": "draw"
+          },
+          {
+            "tick": 7676990,
+            "kind": "probability_miss",
+            "id": 594,
+            "probability": 0.4756621516139695,
+            "distance": 0.5963621267967449,
+            "reason": "draw"
+          },
+          {
+            "tick": 7677714,
+            "kind": "probability_miss",
+            "id": 449,
+            "probability": 0.43679925321068036,
+            "distance": 1.231850474406697,
+            "reason": "draw"
+          },
+          {
+            "tick": 7677717,
+            "kind": "probability_miss",
+            "id": 449,
+            "probability": 0.4803906412677595,
+            "distance": 0.5779929741754939,
+            "reason": "draw"
+          },
+          {
+            "tick": 7677720,
+            "kind": "capture",
+            "id": 449,
+            "probability": 0.4010253999318474,
+            "distance": 0.603046771064666,
+            "reason": "draw"
+          },
+          {
+            "tick": 7719411,
+            "kind": "capture",
+            "id": 351,
+            "probability": 0.4381921101208949,
+            "distance": 1.1559343632051293,
+            "reason": "draw"
+          },
+          {
+            "tick": 7770922,
+            "kind": "probability_miss",
+            "id": 433,
+            "probability": 0.41987428472622157,
+            "distance": 1.2290956651313467,
+            "reason": "draw"
+          },
+          {
+            "tick": 7770925,
+            "kind": "capture",
+            "id": 433,
+            "probability": 0.4605295911472369,
+            "distance": 0.6000000000000011,
+            "reason": "draw"
+          }
+        ]
+      }
+    ]
+  },
+  "neighbor_gpu": {
+    "device": "Intel(R) Arc(TM) 140V GPU (16GB)",
+    "automatic": true,
+    "gpu_min_queries": 128,
+    "cpu_batches": 794750,
+    "gpu_batches": 0,
+    "cpu_queries": 12276922,
+    "gpu_queries": 0,
+    "batches": 794750,
+    "queries": 12276922,
+    "hits": 11527044,
+    "fallbacks": 0,
+    "audit": false
+  }
+}
