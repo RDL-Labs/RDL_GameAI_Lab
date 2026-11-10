@@ -1,3 +1,4 @@
+include("rabbit_food_search.jl")
 # 暫定固定の親H局所実験。通常接続はRABBIT_FOOD_PRESSURE_CONNECTIONで制御。
 # 探索開始時のenergy+3*gutを基準に固定予算120 SEARCH tick相当の1.44を許容。
 # それ以上の未回復分/4を親Hとする。局所到着では消さない。
@@ -32,6 +33,7 @@ function configured_food_intake_cooling!(parent,gate,a,i,t,amount,local_pressure
     if RABBIT_FOOD_COOLING.enabled && parent.expected!==nothing
         configured_food_pressure!(parent,a,i,t)
     end
+    configured_food_search_update!(parent,a,i,t;intake=true)
     settings=RABBIT_FOOD_PRESSURE_GATE
     if gate.active && (settings.release_on_intake || (RABBIT_FOOD_COOLING.enabled && max(parent.H,local_pressure)<=settings.exit_H))
         gate.active=false
@@ -60,7 +62,7 @@ function configured_food_pressure!(m,a,i,t)
         m.expected=reserve-p.forecast_ticks*p.search_cost
         push!(m.records,(event="forecast",tick=t,reserve=reserve,expected=m.expected))
     end
-    m.H=clamp((m.expected-reserve)/p.residual_scale,0.,p.H_limit)
+    m.H=clamp(max((m.expected-reserve)/p.residual_scale,configured_food_search_pressure(m,reserve)),0.,p.H_limit)
     if m.H>m.peak+.1
         push!(m.records,(event="pressure",tick=t,H=m.H,reserve=reserve))
     end
@@ -86,3 +88,4 @@ function configured_rabbit_food_selection!(memory,a,i,t,local_pressure)
     end
     selection_pressure
 end
+

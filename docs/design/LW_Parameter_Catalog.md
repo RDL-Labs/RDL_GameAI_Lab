@@ -746,3 +746,10 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 累積調整残高=供給−計上量、前回報告ありの場合のみincrementを計算（なしはnull）。
 調整後差はresidual−調整残高。身体・資源は不変。停止判定は調整前の差に適用する。
 追加の許容係数は設けず既存の警告／停止幅を使う。詳細と検証はwildlifeのraptor_trial.md。
+
+### 兎の食料親試行と空間探索（2026-11-10）
+
+`configured_paths/rabbit_food_search.jl` / RABBIT_FOOD_SEARCH。
+既定enabled=true、forecast_ticks=120（SEARCH tickのみ）、recovery_gain=1.44（energy+3gut）、full_reserve=85、range_H=4、maximum_radius=3（区画半径）。既存の探索予算120×0.012を初期回復幅に使用する暫定認知値。経験による更新は未実装。
+時間超過と未回復分から親Hを評価し、局所区画到着では終了しない。身体不変。低Hは従来8近隣、最大48観測候補（通行確認あり）。見積もり状態は親records内へ保存、構造体の保存互換維持。
+検証・制限はexperiments/lw_wildlife/juvenile_trap_audit.md。

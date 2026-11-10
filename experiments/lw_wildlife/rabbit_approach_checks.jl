@@ -30,3 +30,22 @@ include("animals_only.jl")
     @test restored.actors[i].H==m.H
     @test rand(restored.actors[i].rng)==rand(m.rng)
 end
+@testset "Parent food pressure survives cell arrivals and expands observation" begin
+ s,_=animal_trial_world();w=s.world;a=s.animals;i=1
+ policy=H.RabbitApproachPolicy();m=H.approach_memory(policy,i)
+ a.energy[i]=5.;a.gut[i]=0.;a.state[i]=H.SEARCH
+ k=H.cell(w,a.x[i],a.z[i])
+ for tick in 1:2000
+  m.target=k;m.H[k]=1.
+  H.approach_feedback!(policy,w,a,i,tick)
+ end
+ @test m.H[k]==0.
+ @test m.food_pressure.H>4.
+ @test H.configured_food_search_state(m.food_pressure).search_ticks==2000
+ near=filter(!isnothing,H.observe_neighbors!(w,a,i,2000;radius=1))
+ far=filter(!isnothing,H.observe_neighbors!(w,a,i,2000;radius=2))
+ @test Set(o.cell for o in near) ⊆ Set(o.cell for o in far)
+ @test all(o->H.clear(w,(a.x[i],a.z[i]),H.center(w,o.cell)),far)
+ H.target!(w,a,i,2000,policy)
+ @test last(m.records).search_radius>1
+end

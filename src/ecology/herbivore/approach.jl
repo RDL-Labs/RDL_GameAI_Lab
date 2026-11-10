@@ -35,7 +35,9 @@ function target!(w,a,i,t,policy::RabbitApproachPolicy)
     if m.target!=0
         a.target[i]=m.target;a.next_sense[i]=t+RABBIT_APPROACH.minimum_ticks;return
     end
-    observations=filter(!isnothing,observe_neighbors!(w,a,i,t))
+    parent_pressure=configured_rabbit_food_selection!(m,a,i,t,0.)
+    radius=configured_food_search_radius(parent_pressure)
+    observations=filter(!isnothing,observe_neighbors!(w,a,i,t;radius))
     isempty(observations) && (a.target[i]=0;return)
     pressure=maximum(get(m.H,o.cell,0.) for o in observations)
     pressure=configured_rabbit_food_selection!(m,a,i,t,pressure)
@@ -65,11 +67,16 @@ function target!(w,a,i,t,policy::RabbitApproachPolicy)
     m.target=o.cell;m.start_distance=o.distance;m.elapsed=0
     m.forecast=max(RABBIT_APPROACH.minimum_ticks,ceil(Int,o.distance/RABBIT_APPROACH.speed))
     a.target[i]=o.cell;a.next_sense[i]=t+RABBIT_APPROACH.minimum_ticks
-    approach_record!(m,(event="choice",tick=t,target=o.cell,H=m.H[o.cell],pressure=pressure,forecast=m.forecast))
+    approach_record!(m,(event="choice",tick=t,target=o.cell,H=m.H[o.cell],pressure=pressure,forecast=m.forecast,search_radius=radius,parent_H=m.food_pressure.H))
 end
 function approach_feedback!(policy::RabbitApproachPolicy,w,a,i,t)
     haskey(policy.actors,i) || return
-    m=policy.actors[i];m.target==0 && return
+    m=policy.actors[i]
+    if a.state[i]==SEARCH
+        configured_food_search_update!(m.food_pressure,a,i,t;search_tick=true)
+        configured_food_pressure!(m.food_pressure,a,i,t)
+    end
+    m.target==0 && return
     a.state[i]==SEARCH || return # Other actions cannot credit or debit this approach.
     # Entering the selected cell is local movement success, not food/energy success.
     if cell(w,a.x[i],a.z[i])==m.target
@@ -86,3 +93,5 @@ function approach_feedback!(policy::RabbitApproachPolicy,w,a,i,t)
     approach_record!(m,(event="forecast",tick=t,target=m.target,residual=residual,H=m.H[m.target],elapsed=m.elapsed,distance=distance))
     m.target=0;a.target[i]=0;a.next_sense[i]=t+1
 end
+
+
