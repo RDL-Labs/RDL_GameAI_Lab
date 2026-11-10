@@ -212,3 +212,12 @@ RAPTOR_TRIAL.switch_after_miss=true。次の獲物選択で直前に失敗した
 別の幼体に切り替わるが同じ群れの間を往復し、食料切れは残った。
 この単一ケースで改善したとは言わない。失敗群全体を避ける規則は今回導入していない。
 証拠evidence/raptor-switch-day81.json、再現raptor_switch_audit.jl。
+
+### 幼体の退避は鳥の視認によるものか
+raptor_awareness_audit.jlで切替版81日目を再現。巣穴で失敗した49件すべてで、
+捕獲試行直前100tick以内に当該幼体が鳥（seen_actor=2）を新たに観測し、
+巣穴外でFLEE overrideを受けたことを確認。偶然の帰巣だけではない。
+例: 幼体274はtick1384157、鳥距離7.482/巣距離0.855で視認→FLEE、
+次tickには巣距離0.255、その後穴内へ。既存の近距離巣穴退避によるもの。
+現在の鳥観測は地上捕食者と同じ平面視野/動体検出の近似で、飛行高度・上空視野は未モデル化。
+証拠evidence/raptor-awareness-day81.json。調査のみで挙動変更なし。
