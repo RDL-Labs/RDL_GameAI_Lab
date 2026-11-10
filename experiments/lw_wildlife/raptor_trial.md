@@ -67,3 +67,9 @@ diverseは従来100匹と同じ幼体15・若齢20を維持し、残りを年齢
 栄養1.0、草1.5、二層草、初期草patchy、配置distributed、初期身体diverse、
 泳ぎON、CPU/GPU auto、人なし。日次保存、完走後に生態・時間を評価する。
 出力：C:/Users/ken_m/Documents/Codex/raptor150-90d-20261110。
+
+2026-11-10 12:33 JST起動、ソース84a211a。conditions.jsonで兎150・鳥ON・
+地上捕食者1・90日・CPU/GPU autoを確認。
+専用タスクRDL-Julia-ccd12811cc4044569dc05539b56dfd8f、通常優先度、1スレッド。
+ジョブ接頭辞は出力末尾-job。開始記録であり完了ではない。
+完了はexit_code=0とcompleted.days=90/verified=trueの両方で確認し、専用タスクを削除する。
