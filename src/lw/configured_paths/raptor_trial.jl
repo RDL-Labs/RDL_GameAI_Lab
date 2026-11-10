@@ -6,7 +6,7 @@ const RAPTOR_TRIAL=(arrival_rabbits=150,departure_rabbits=100,day_ticks=17280,
     capture_base=.85,alert_penalty=.25,cover_penalty=.3,
     daily_food=100.,initial_food=100.,capacity=250.,hunt_below=80.,adult_food=200.,
     eating_ticks=720,threat_range=8.,minimum_light=.25,seed=20261110,event_limit=256,
-    tree_kind=1,minimum_tree_height=3.)
+    tree_kind=1,minimum_tree_height=3.,switch_after_miss=true)
 
 mutable struct RaptorTrial
     visual::G.WildlifePredator
@@ -78,9 +78,21 @@ function configured_raptor_visible(s,bird,i,t)
     !any(o->hypot(o.x-origin[1],o.z-origin[2])>o.radius &&
         H.RDLMigrationProbe.segment_hit(origin,prey,o,0.),s.world.obstacles)
 end
-function configured_raptor_scan!(bird,s,t)
+# 暫定固定: switch_after_miss=trueで直前に失敗した獲物だけ次の選択から除外。
+# 有界イベント履歴を使い保存型を変更しない。成功で解除、別の失敗で対象更新。
+# 他に見えなければ既存の別の木への移動。将来は失敗経験による関係評価へ置換。
+function configured_raptor_failed_target(bird)
+    for event in Iterators.reverse(bird.events)
+        event.kind=="miss" && return event.details.id
+        event.kind in ("capture","arrival") && return 0
+    end
+    0
+end
+function configured_raptor_scan!(bird,s,t;switch_after_miss=RAPTOR_TRIAL.switch_after_miss)
     bird.scans+=1;best=0;best_score=-Inf
+    excluded=switch_after_miss ? configured_raptor_failed_target(bird) : 0
     for i in eachindex(s.alive)
+        i==excluded && continue
         configured_raptor_visible(s,bird,i,t) || continue
         cover=H.grass_cover!(s.world,H.cell(s.world,s.animals.x[i],s.animals.z[i]),t;body_height=G.rabbit_height(s,i))
         rand(bird.visual.rng)<1/(1+cover) || continue

@@ -138,3 +138,5 @@ crossing_longrunのcrossing=trueで有効、falseでは従来の水通行禁止�
 世界個体数・木一覧参照、飛行、固定食事/休息/退避は暫定設定でありMB学習ではない。
 設定値・単位・観測近似・未接続の食べ残し・置換方針・記録は
 [猛禽実験仕様](../../experiments/lw_wildlife/raptor_trial.md)に記載。
+
+猛禽のswitch_after_miss（既定true）は失敗直後の同じ獲物再選択を防ぐ暫定固定。configured_raptor_failed_target/scanに隔離。falseで従来、成功/再入場で解除。記録は既存target/miss/capture、条件はraptor_ruleに保存。別の幼体間の往復は許容。
