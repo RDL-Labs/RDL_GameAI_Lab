@@ -13,8 +13,8 @@ param(
     [Parameter(Mandatory, ParameterSetName='Launch')][string[]]$JuliaArguments,
     [Parameter(Mandatory, ParameterSetName='Launch')][string]$RunPrefix,
     [Parameter(ParameterSetName='Launch')][ValidateRange(1,256)][int]$Threads=1,
-    # Explicit wall-time safety limit, unrelated to simulation days.
-    [Parameter(ParameterSetName='Launch')][ValidateRange(1,168)][int]$MaxHours=24,
+    # Explicit wall-time limit; 0 disables it for user-requested open-ended runs.
+    [Parameter(ParameterSetName='Launch')][ValidateRange(0,168)][int]$MaxHours=24,
     [Parameter(Mandatory, ParameterSetName='Worker')][string]$WorkerConfig
 )
 $ErrorActionPreference='Stop'
@@ -69,3 +69,4 @@ Register-ScheduledTask -TaskName $runTaskName -Action $runAction -Principal $run
 @{task_name=$runTaskName;registered_utc=[DateTime]::UtcNow.ToString('o');max_hours=$MaxHours;scheduler_priority=4;user=$runUser;config=$runConfigPath} | ConvertTo-Json | Set-Content -LiteralPath ($RunPrefix+'.launch.json') -Encoding UTF8
 Start-ScheduledTask -TaskName $runTaskName
 Get-Content -LiteralPath ($RunPrefix+'.launch.json')
+
