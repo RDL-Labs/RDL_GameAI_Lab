@@ -35,12 +35,15 @@ vision_factor(enabled,moved,tracked)=!enabled || moved || tracked ? 1. : .55
 function recover!(p)
     p.state=RECOVER; p.timer=120; p.target=0; p.pursuit=0
 end
+include("../../lw/configured_paths/predator_terrain.jl")
 function move!(w,p,speed; turn=true)
     old=(p.x,p.z)
     for offset in (turn ? (0.,pi/4,-pi/4,pi/2,-pi/2,pi) : (0.,))
-        h=H.configured_boundary_heading(w,old,p.heading+offset); q=(p.x+speed*cos(h),p.z+speed*sin(h))
-        if H.clear(w,old,q)
-            p.x,p.z=q; p.heading=h; p.distance+=speed; return true
+        h=H.configured_boundary_heading(w,old,p.heading+offset)
+        terrain_speed=configured_predator_terrain_speed(w,old,h,speed)
+        q=(p.x+terrain_speed*cos(h),p.z+terrain_speed*sin(h))
+        if configured_predator_terrain_clear(w,old,q)
+            p.x,p.z=q; p.heading=h; p.distance+=terrain_speed; return true
         end
     end
     p.blocked+=1; p.heading+=pi/2; false

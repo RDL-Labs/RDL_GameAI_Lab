@@ -719,3 +719,5 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 - 2026-11-09 捕食者追加間隔の短縮: 負荷抑制目的の世界側固定条件。`first_arrival_rabbits=100`を新設、`rabbits_per_predator=50`、`departure_margin=50`。k体目流入は100+50(k-1)、退場はN<=50k。日次確認は維持。既存の100匹刻みを置換し、旧結果は再解釈しない。処理時間削減の実測は未確認。
 
 - 2026-11-09 捕食者1体・獲物栄養半減の比較条件: `crossing_longrun.jl`第16引数`prey_nutrition`を追加（既定1.5で従来維持、正の有限値のみ）。今回0.75を指定し、成体900×0.75=675、基礎消費300/日で2.25日分。移動・回復費用と容量は不変。幼体は既存体格倍率を掛ける。conditionsに倍率・成体栄養・基礎消費換算日数を保存。捕食者数1、population=fixedで流入出/補充なし。DONOR=noneなら新規MBを選べる。実験世界・身体条件であり認知の固定選択ではない。
+
+- 2026-11-10 捕食者の高コスト水地形: `predator_terrain.jl` / `PREDATOR_TERRAIN(water_speed=0.12,water_move_multiplier=4)`。旧渡河速度/消費倍率を維持し、探索・接近・攻撃・場所移動の共通移動へ適用。world単位で既定OFF、crossing_longrunのcrossing=trueではON。始点/終点/中点の水判定で速度上限、実移動距離に移動費を一度だけ加算。岩衝突/境界は維持。水中の固定継続・専用渡河候補・水を理由とする追跡除外はON時無効。局所予測にも低速と追加距離費を反映。長距離MB見積もりの完全な水路費用積分は未実装。設定はconditions.predator_terrainへ保存。世界参照はWeakKeyDictで、checkpoint読込後はランナーで再設定。旧凍結実験は旧方式のまま。

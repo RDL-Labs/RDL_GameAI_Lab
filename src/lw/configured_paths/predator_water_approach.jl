@@ -4,6 +4,7 @@
 # 将来は地形観測MBの不確実な到達予測/橋・迂回経路に置換する。
 const PREDATOR_WATER_APPROACH=(enabled=true,sample_step=.5)
 function configured_predator_water_crossing(w,origin,target;enabled=PREDATOR_WATER_APPROACH.enabled)
+    P.configured_predator_terrain_enabled(w) && return false
     enabled || return false
     distance=hypot(target[1]-origin[1],target[2]-origin[2])
     steps=max(1,ceil(Int,distance/PREDATOR_WATER_APPROACH.sample_step))

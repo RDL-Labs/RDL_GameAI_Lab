@@ -17,7 +17,7 @@ function configured_capture_path(w,p,q)
     steps=max(1,ceil(Int,distance/CAPTURE_WORLD.path_step));prior=p
     for k in 1:steps
         next=(p[1]+(q[1]-p[1])*k/steps,p[2]+(q[2]-p[2])*k/steps)
-        H.clear(w,prior,next) || return false
+        P.configured_predator_terrain_clear(w,prior,next) || return false
         prior=next
     end
     true

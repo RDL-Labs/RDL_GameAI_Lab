@@ -8,8 +8,10 @@ crossing_water(w,p)=H.material(w.phase,p...)==H.WATER
 # 暫定固定: 選択済み渡河は水中で休息へ切替せず岸まで継続。死亡は上位で終了。
 # 明示ON時だけ使用。将来は泳ぎ/上陸/中断の身体MBへ置換。
 configured_crossing_committed(w,mind,p)=mind.selected!==nothing &&
+    !P.configured_predator_terrain_enabled(w) &&
     mind.selected["action"]==:cross_river && crossing_water(w,(p.visual.body.x,p.visual.body.z))
 function configured_crossing_candidate!(rows,mind,p,w;physiology=nothing)
+    P.configured_predator_terrain_enabled(w) && return # Normal movement handles costly water.
     get(mind.estimates,"crossing_enabled",0.)>0 || return
     b=p.visual.body;r=PREDATOR_CROSSING
     river=12+5sin((b.z-6)/22+w.phase);width=1.2+.4*(1+sin(b.z/13))

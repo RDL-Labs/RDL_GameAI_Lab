@@ -70,9 +70,9 @@ function local_hunt_rollout(w,origin,forecast)
     for k in 1:LOCAL_HUNT.horizon
         target=(forecast.x+k*forecast.vx,forecast.z+k*forecast.vz)
         dx=target[1]-p[1];dz=target[2]-p[2];distance=hypot(dx,dz)
-        speed=min(LOCAL_HUNT.attack_speed,distance)
+        speed=P.configured_predator_terrain_speed(w,p,atan(dz,dx),min(LOCAL_HUNT.attack_speed,distance))
         q=distance>0 ? (w.boundary_gradient ? H.configured_boundary_step(w,p,atan(dz,dx),speed) : (p[1]+speed*dx/distance,p[2]+speed*dz/distance)) : p
-        H.clear(w,p,q) || return nothing
+        P.configured_predator_terrain_clear(w,p,q) || return nothing
         k==1 && (first_step=(heading=atan(dz,dx),speed=speed))
         hypot(q[1]-target[1],q[2]-target[2])<=LOCAL_HUNT.contact_radius && return first_step
         p=q
@@ -175,9 +175,9 @@ function configured_local_hunt_plan!(state,s,observations,t;physiology=nothing,p
     if b.state==P.ATTACK
         if attack===nothing
             # Failure to predict capture is not proof that the next step is impossible.
-            angle=atan(o.z-b.z,o.x-b.x);speed=min(rule.attack_speed,o.distance)
+            angle=atan(o.z-b.z,o.x-b.x);speed=P.configured_predator_terrain_speed(s.world,origin,angle,min(rule.attack_speed,o.distance))
             q=H.configured_boundary_step(s.world,origin,angle,speed)
-            if H.clear(s.world,origin,q)
+            if P.configured_predator_terrain_clear(s.world,origin,q)
                 b.heading=angle;state.attack_speed=speed
                 state.counts["uncertain_continuation"]=get(state.counts,"uncertain_continuation",0)+1
                 b.counts[b.state]+=1;return true
@@ -193,13 +193,13 @@ function configured_local_hunt_plan!(state,s,observations,t;physiology=nothing,p
         "heading"=>attack.heading,"speed"=>attack.speed))
     heading=atan(o.z-b.z,o.x-b.x)
     for (name,offset) in (("approach",0.),("left",rule.side_angle),("right",-rule.side_angle),("withdraw",pi))
-        angle=heading+offset;q=H.configured_boundary_step(s.world,origin,angle,rule.approach_speed)
-        H.clear(s.world,origin,q) || continue
+        angle=heading+offset;terrain_speed=P.configured_predator_terrain_speed(s.world,origin,angle,rule.approach_speed);q=H.configured_boundary_step(s.world,origin,angle,terrain_speed)
+        P.configured_predator_terrain_clear(s.world,origin,q) || continue
         future=state.probabilistic_capture ? local_capture_opportunity(s.world,q,forecast) : local_hunt_rollout(s.world,q,forecast)
         progress=o.distance-hypot(q[1]-o.x,q[2]-o.z)
         priority=name=="withdraw" ? rule.withdraw_priority : rule.approach_priority
         learning_gradient=estimate===nothing ? 0. : CAPTURE_ESTIMATE.weight*(local_capture_estimate(state,q,forecast).value-estimate.value)
-        push!(rows,LW.D("method"=>name,"question"=>"local_position","priority"=>priority+progress+learning_gradient+(future===nothing ? 0. : rule.future_attack_bonus),"heading"=>angle,"speed"=>rule.approach_speed))
+        push!(rows,LW.D("method"=>name,"question"=>"local_position","priority"=>priority+progress+learning_gradient-rule.cost_weight*P.configured_predator_terrain_extra_distance(s.world,origin,q)+(future===nothing ? 0. : rule.future_attack_bonus),"heading"=>angle,"speed"=>rule.approach_speed))
     end
     attack===nothing && push!(rows,LW.D("method"=>"wait","question"=>"capture_opportunity","priority"=>rule.wait_priority,"heading"=>heading,"speed"=>0.))
     state.selected=LW.choose_method!(state.loop,rows,state.loop.sequence+1)
