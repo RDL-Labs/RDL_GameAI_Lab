@@ -273,3 +273,15 @@ configured_raptor_noticeに隔離し、G.prepare!の任意可視性フィルタ�
 CPU近傍照会は1755263→1221928と減ったが全時間は増え、内訳未計測なので原因は断定しない。
 GPU実行0。会計の相対約1e-10丸め警告は停止閾値未満。
 証拠evidence/raptor150-near3-90d.json。完了専用タスクを削除し保存状態は保持。
+
+## 近距離発見版・追加360日 起動
+2026-11-10 13:34 JST、ソースeeb9c38。90日末保存から追加360日、通算450日まで。
+元保存C:/Users/ken_m/Documents/Codex/raptor150-near3-90d-20261110/checkpoints/day-090.jls。
+兎167、鳥在場・捕獲70/食料163.59、地上捕食者生存・捕獲42から継承。
+世界・家族・身体・MB・乱数・鳥状態を保持。初期身体/草分散は再適用しない。
+鳥捕獲率0.85、失敗後別獲物、飛行発見距離3、150出現/100退場、最大1羽。
+地上捕食者1・栄養1.0、草1.5/二層再生、兎泳ぎ、CPU/GPU auto、人なしを維持。
+出力C:/Users/ken_m/Documents/Codex/raptor-near3-continue360d-20261110。
+タスクRDL-Julia-a5e79d167b5c498abe7a483090e86019、通常優先度、1スレッド、上限24h。
+開始記録。完了はexit_code=0とcompleted.days=360/start_day=90/end_day=450/verified=true。
+完了確認後に専用タスクを削除、日次保存は保持。
