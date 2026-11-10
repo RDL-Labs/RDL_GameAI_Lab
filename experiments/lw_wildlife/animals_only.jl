@@ -21,7 +21,7 @@ function animal_trial_predators(s)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     predators
 end
-function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,pursuits=nothing,present=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
+function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,pursuits=nothing,present=nothing,raptor=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
     scents!==nothing && configured_scent_tick!(scents,predators,t;present)
     resident_predators=present===nothing ? predators : predators[findall(present)]
     for (i,p) in enumerate(predators)
@@ -44,8 +44,14 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
             configured_prey_scent_steer!(prey_scents,p,i,t)
         end
     end
-    G.prepare!(s,humans,t;additional_predators=[p.visual for p in predators],
-        additional_predator_alive=[p.alive && (present===nothing || present[i]) for (i,p) in enumerate(predators)],motion_speed,illumination)
+    wildlife_visuals=[p.visual for p in predators]
+    wildlife_active=[p.alive && (present===nothing || present[i]) for (i,p) in enumerate(predators)]
+    if raptor!==nothing
+        push!(wildlife_visuals,raptor.visual)
+        push!(wildlife_active,raptor.present && raptor.mode in (:hunt,:eat))
+    end
+    G.prepare!(s,humans,t;additional_predators=wildlife_visuals,
+        additional_predator_alive=wildlife_active,motion_speed,illumination)
 end
 function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,present=nothing,grazing_policy=G.H.StateMachinePolicy())
     rabbit_steering=human_scent===nothing ? nothing : (w,a,i,speed,overrides)->begin
@@ -74,8 +80,8 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
     animal_trial_prepare!(s,predators,t;scents,minds,prey_scents,motion_speed,local_hunts,physiology)
     animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition,prey_scents,local_hunts,physiology)
 end
-function animal_trial_report(s,predators;scents=nothing,minds=nothing,swimming_policy=nothing)
-    captures=sum((p.visual.body.captures for p in predators);init=0)
+function animal_trial_report(s,predators;scents=nothing,minds=nothing,swimming_policy=nothing,raptor=nothing)
+    captures=sum((p.visual.body.captures for p in predators);init=0)+(raptor===nothing ? 0 : raptor.captures)
     report=(ambient_vision=G.AmbientVision.RULE,rabbits=G.snapshot(s;additional_predation_deaths=captures,swimming_policy),predators=trial_predator_report.(predators))
     scents!==nothing && (report=merge(report,(scent=scent_report(scents),)))
     minds===nothing ? report : merge(report,(cognition=predator_mind_report.(minds),))

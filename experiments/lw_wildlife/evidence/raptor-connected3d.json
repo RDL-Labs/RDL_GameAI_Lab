@@ -1,0 +1,536 @@
+{
+  "source": "raptor-connected3d-20261110",
+  "start_day": 278,
+  "end_day": 281,
+  "seconds": 27.2431274,
+  "bytes": 12312518385,
+  "gc_seconds": 1.1403382,
+  "days": [
+    {
+      "day": 1,
+      "rabbits": 228,
+      "elapsed_seconds": 12.96399998664856,
+      "raptor": {
+        "present": true,
+        "mode": "rest",
+        "position": [
+          28.145319137789954,
+          -15.016834760941762
+        ],
+        "food": 183.9699074073954,
+        "captures": 1,
+        "attempts": 6,
+        "scans": 6,
+        "arrivals": 1,
+        "departures": 0,
+        "interrupted_meals": 0,
+        "eaten": 183.9699074074152,
+        "remains": 16.030092592585184,
+        "ticks": {
+          "return": 131,
+          "hunt": 135,
+          "arrive": 36,
+          "eat": 663,
+          "observe": 6,
+          "rest": 16309
+        },
+        "events": [
+          {
+            "tick": 4803840,
+            "kind": "arrival",
+            "details": {
+              "rabbits": 220
+            }
+          },
+          {
+            "tick": 4808196,
+            "kind": "target",
+            "details": {
+              "id": 62,
+              "position": [
+                18.030661198237265,
+                -14.019465183202572
+              ]
+            }
+          },
+          {
+            "tick": 4808215,
+            "kind": "miss",
+            "details": {
+              "id": 62,
+              "probability": 0.4
+            }
+          },
+          {
+            "tick": 4808355,
+            "kind": "target",
+            "details": {
+              "id": 279,
+              "position": [
+                19.03253483332596,
+                -23.187884690562562
+              ]
+            }
+          },
+          {
+            "tick": 4808377,
+            "kind": "miss",
+            "details": {
+              "id": 279,
+              "probability": 0.24618332028530235
+            }
+          },
+          {
+            "tick": 4808520,
+            "kind": "target",
+            "details": {
+              "id": 213,
+              "position": [
+                8.660506324721934,
+                -22.915821725450307
+              ]
+            }
+          },
+          {
+            "tick": 4808548,
+            "kind": "miss",
+            "details": {
+              "id": 213,
+              "probability": 0.24618332028530232
+            }
+          },
+          {
+            "tick": 4808695,
+            "kind": "target",
+            "details": {
+              "id": 246,
+              "position": [
+                37.77696303761211,
+                -14.465574013752097
+              ]
+            }
+          },
+          {
+            "tick": 4808715,
+            "kind": "miss",
+            "details": {
+              "id": 246,
+              "probability": 0.27573439242836395
+            }
+          },
+          {
+            "tick": 4808856,
+            "kind": "target",
+            "details": {
+              "id": 108,
+              "position": [
+                23.26933026347599,
+                -2.6019919233475646
+              ]
+            }
+          },
+          {
+            "tick": 4808879,
+            "kind": "miss",
+            "details": {
+              "id": 108,
+              "probability": 0.4
+            }
+          },
+          {
+            "tick": 4809023,
+            "kind": "target",
+            "details": {
+              "id": 167,
+              "position": [
+                10.14654541127784,
+                -16.73029172180507
+              ]
+            }
+          },
+          {
+            "tick": 4809046,
+            "kind": "capture",
+            "details": {
+              "id": 167,
+              "probability": 0.31470018488604123,
+              "meal": 200.0
+            }
+          },
+          {
+            "tick": 4809709,
+            "kind": "leftovers",
+            "details": {
+              "position": [
+                8.848895377020247,
+                -22.495944897581854
+              ],
+              "amount": 16.030092592585184
+            }
+          }
+        ]
+      }
+    },
+    {
+      "day": 2,
+      "rabbits": 226,
+      "elapsed_seconds": 21.24399995803833,
+      "raptor": {
+        "present": true,
+        "mode": "rest",
+        "position": [
+          28.145319137789954,
+          -15.016834760941762
+        ],
+        "food": 83.9699074073772,
+        "captures": 1,
+        "attempts": 6,
+        "scans": 6,
+        "arrivals": 1,
+        "departures": 0,
+        "interrupted_meals": 0,
+        "eaten": 183.9699074074152,
+        "remains": 16.030092592585184,
+        "ticks": {
+          "return": 131,
+          "hunt": 135,
+          "arrive": 36,
+          "eat": 663,
+          "observe": 6,
+          "rest": 33589
+        },
+        "events": [
+          {
+            "tick": 4803840,
+            "kind": "arrival",
+            "details": {
+              "rabbits": 220
+            }
+          },
+          {
+            "tick": 4808196,
+            "kind": "target",
+            "details": {
+              "id": 62,
+              "position": [
+                18.030661198237265,
+                -14.019465183202572
+              ]
+            }
+          },
+          {
+            "tick": 4808215,
+            "kind": "miss",
+            "details": {
+              "id": 62,
+              "probability": 0.4
+            }
+          },
+          {
+            "tick": 4808355,
+            "kind": "target",
+            "details": {
+              "id": 279,
+              "position": [
+                19.03253483332596,
+                -23.187884690562562
+              ]
+            }
+          },
+          {
+            "tick": 4808377,
+            "kind": "miss",
+            "details": {
+              "id": 279,
+              "probability": 0.24618332028530235
+            }
+          },
+          {
+            "tick": 4808520,
+            "kind": "target",
+            "details": {
+              "id": 213,
+              "position": [
+                8.660506324721934,
+                -22.915821725450307
+              ]
+            }
+          },
+          {
+            "tick": 4808548,
+            "kind": "miss",
+            "details": {
+              "id": 213,
+              "probability": 0.24618332028530232
+            }
+          },
+          {
+            "tick": 4808695,
+            "kind": "target",
+            "details": {
+              "id": 246,
+              "position": [
+                37.77696303761211,
+                -14.465574013752097
+              ]
+            }
+          },
+          {
+            "tick": 4808715,
+            "kind": "miss",
+            "details": {
+              "id": 246,
+              "probability": 0.27573439242836395
+            }
+          },
+          {
+            "tick": 4808856,
+            "kind": "target",
+            "details": {
+              "id": 108,
+              "position": [
+                23.26933026347599,
+                -2.6019919233475646
+              ]
+            }
+          },
+          {
+            "tick": 4808879,
+            "kind": "miss",
+            "details": {
+              "id": 108,
+              "probability": 0.4
+            }
+          },
+          {
+            "tick": 4809023,
+            "kind": "target",
+            "details": {
+              "id": 167,
+              "position": [
+                10.14654541127784,
+                -16.73029172180507
+              ]
+            }
+          },
+          {
+            "tick": 4809046,
+            "kind": "capture",
+            "details": {
+              "id": 167,
+              "probability": 0.31470018488604123,
+              "meal": 200.0
+            }
+          },
+          {
+            "tick": 4809709,
+            "kind": "leftovers",
+            "details": {
+              "position": [
+                8.848895377020247,
+                -22.495944897581854
+              ],
+              "amount": 16.030092592585184
+            }
+          }
+        ]
+      }
+    },
+    {
+      "day": 3,
+      "rabbits": 225,
+      "elapsed_seconds": 27.222999811172485,
+      "raptor": {
+        "present": true,
+        "mode": "rest",
+        "position": [
+          28.145319137789954,
+          -15.016834760941762
+        ],
+        "food": 157.7604166666499,
+        "captures": 2,
+        "attempts": 7,
+        "scans": 7,
+        "arrivals": 1,
+        "departures": 0,
+        "interrupted_meals": 0,
+        "eaten": 357.7604166667061,
+        "remains": 42.239583333293346,
+        "ticks": {
+          "return": 159,
+          "hunt": 163,
+          "arrive": 36,
+          "eat": 1289,
+          "observe": 7,
+          "rest": 50186
+        },
+        "events": [
+          {
+            "tick": 4803840,
+            "kind": "arrival",
+            "details": {
+              "rabbits": 220
+            }
+          },
+          {
+            "tick": 4808196,
+            "kind": "target",
+            "details": {
+              "id": 62,
+              "position": [
+                18.030661198237265,
+                -14.019465183202572
+              ]
+            }
+          },
+          {
+            "tick": 4808215,
+            "kind": "miss",
+            "details": {
+              "id": 62,
+              "probability": 0.4
+            }
+          },
+          {
+            "tick": 4808355,
+            "kind": "target",
+            "details": {
+              "id": 279,
+              "position": [
+                19.03253483332596,
+                -23.187884690562562
+              ]
+            }
+          },
+          {
+            "tick": 4808377,
+            "kind": "miss",
+            "details": {
+              "id": 279,
+              "probability": 0.24618332028530235
+            }
+          },
+          {
+            "tick": 4808520,
+            "kind": "target",
+            "details": {
+              "id": 213,
+              "position": [
+                8.660506324721934,
+                -22.915821725450307
+              ]
+            }
+          },
+          {
+            "tick": 4808548,
+            "kind": "miss",
+            "details": {
+              "id": 213,
+              "probability": 0.24618332028530232
+            }
+          },
+          {
+            "tick": 4808695,
+            "kind": "target",
+            "details": {
+              "id": 246,
+              "position": [
+                37.77696303761211,
+                -14.465574013752097
+              ]
+            }
+          },
+          {
+            "tick": 4808715,
+            "kind": "miss",
+            "details": {
+              "id": 246,
+              "probability": 0.27573439242836395
+            }
+          },
+          {
+            "tick": 4808856,
+            "kind": "target",
+            "details": {
+              "id": 108,
+              "position": [
+                23.26933026347599,
+                -2.6019919233475646
+              ]
+            }
+          },
+          {
+            "tick": 4808879,
+            "kind": "miss",
+            "details": {
+              "id": 108,
+              "probability": 0.4
+            }
+          },
+          {
+            "tick": 4809023,
+            "kind": "target",
+            "details": {
+              "id": 167,
+              "position": [
+                10.14654541127784,
+                -16.73029172180507
+              ]
+            }
+          },
+          {
+            "tick": 4809046,
+            "kind": "capture",
+            "details": {
+              "id": 167,
+              "probability": 0.31470018488604123,
+              "meal": 200.0
+            }
+          },
+          {
+            "tick": 4809709,
+            "kind": "leftovers",
+            "details": {
+              "position": [
+                8.848895377020247,
+                -22.495944897581854
+              ],
+              "amount": 16.030092592585184
+            }
+          },
+          {
+            "tick": 4839086,
+            "kind": "target",
+            "details": {
+              "id": 121,
+              "position": [
+                14.052208419186206,
+                -26.93372287788904
+              ]
+            }
+          },
+          {
+            "tick": 4839114,
+            "kind": "capture",
+            "details": {
+              "id": 121,
+              "probability": 0.4,
+              "meal": 200.0
+            }
+          },
+          {
+            "tick": 4839740,
+            "kind": "leftovers",
+            "details": {
+              "position": [
+                7.983804269477954,
+                -33.7381963246581
+              ],
+              "amount": 26.209490740708162
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

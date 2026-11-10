@@ -1,6 +1,7 @@
-# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio] [prey_nutrition=1.5].
+# Frozen animal-only bridge: INPUT DONOR.jls OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio] [prey_nutrition=1.5] [raptor=false].
 using JSON3,Serialization,Random,Test
-length(ARGS) in (4,5,6,7,8,9,10,11,12,13,14,15,16) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio] [prey_nutrition=1.5]")
+length(ARGS) in (4,5,6,7,8,9,10,11,12,13,14,15,16,17) || error("INPUT DONOR OUTPUT DAYS [crossing=true] [predators=2] [grass_scale=3] [population_checkpoint|none] [rabbit_swimming=false] [neighbor_backend=cpu|batch_cpu|gpu|gpu_audit|auto|auto_audit] [initial_profile=baseline|diverse] [grass_initial_profile=full|patchy] [layout=distributed|legacy] [grass_model=layered|single] [predator_population=fixed|ratio] [prey_nutrition=1.5] [raptor=false]")
+const raptor_enabled=length(ARGS)>=17 && parse(Bool,ARGS[17])
 const crossing_output=abspath(ARGS[3]);const crossing_days=parse(Int,ARGS[4])
 const crossing_enabled=length(ARGS)==4 || parse(Bool,ARGS[5])
 const predator_population_mode=length(ARGS)>=15 ? ARGS[15] : "fixed"
@@ -41,6 +42,7 @@ include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_diverse_start.j
 include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_patchy_grass.jl"))
 include(joinpath(crossing_source,"src/lw/configured_paths/rabbit_distributed_layout.jl"))
 include(joinpath(crossing_source,"src/lw/configured_paths/predator_population_exchange.jl"))
+include(joinpath(crossing_source,"src/lw/configured_paths/raptor_trial.jl"))
 function crossing_main()
     input=JSON3.read(read(ARGS[1],String));scene=merge((;pairs(input.scene)...),
         (positions=Tuple{Float64,Float64}[],wildlife=merge((;pairs(input.scene.wildlife)...),(count=95,predator_count=0,grass_scale=crossing_grass_scale,boundary_gradient=true))))
@@ -105,7 +107,10 @@ function crossing_main()
     migration=predator_population_mode=="ratio" ? (population_saved!==nothing && hasproperty(population_saved,:migration) && population_saved.migration!==nothing ? population_saved.migration : PredatorPopulationExchange(length(predators))) : nothing
     migration!==nothing && configured_predator_population_update!(s,cohort,migration,start_tick;crossing_enabled)
     rabbit_neighbor_backend!="cpu" && H.enable_rabbit_neighbor_batch!(s.world;gpu=rabbit_neighbor_backend!="batch_cpu",audit=endswith(rabbit_neighbor_backend,"_audit"),automatic=startswith(rabbit_neighbor_backend,"auto"))
-    conditions=(predator_terrain=(enabled=crossing_enabled,rule=P.PREDATOR_TERRAIN),predator_population_mode,predator_population_rule=migration===nothing ? nothing : PREDATOR_POPULATION_EXCHANGE,predator_population_fixed="ratio only: global live rabbit count; daily arrivals at 100+50*(k-1), departures at N<=50*k; instantaneous edge immigration and off-map emigration; fresh entrant MB; no off-map simulation",rabbit_burrow_refuge=G.RABBIT_BURROW_REFUGE,rabbit_nursing_alert=G.RABBIT_NURSING_ALERT,rabbit_nursing_goal=G.RABBIT_NURSING_GOAL,rabbit_exponential_candidates=H.RABBIT_EXPONENTIAL_CANDIDATES,rabbit_food_cooling=H.RABBIT_FOOD_COOLING,rabbit_food_pressure=H.RABBIT_FOOD_PRESSURE,rabbit_food_pressure_gate=H.RABBIT_FOOD_PRESSURE_GATE,rabbit_food_pressure_connection=H.RABBIT_FOOD_PRESSURE_CONNECTION,rabbit_local_rho=H.RABBIT_LOCAL_RHO,rabbit_juvenile_growth=G.RABBIT_JUVENILE_GROWTH,rabbit_nest_boundary=G.RABBIT_NEST_BOUNDARY,rabbit_grazing_motion=H.RABBIT_GRAZING_MOTION,grass_model,grass_layers=H.GRASS_LAYERS,rabbit_grass_layers=H.RABBIT_GRASS_LAYERS,rabbit_sparse_departure=H.RABBIT_SPARSE_DEPARTURE,rabbit_cover_foraging=H.RABBIT_COVER_FORAGING,preserve_predators,initial_profiles_inherited=population_saved===nothing ? nothing : (rabbit=get(prior_conditions,:rabbit_initial_profile,"unknown"),grass=get(prior_conditions,:grass_initial_profile,"unknown")),rabbit_nest_preparation=G.RABBIT_NEST_PREPARATION,grass_initial_profile,grass_initial_parameters=grass_initial_profile=="patchy" ? RABBIT_PATCHY_GRASS : nothing,grass_initial_record,rabbit_initial_profile,initial_profile_parameters=rabbit_initial_profile=="diverse" ? RABBIT_DIVERSE_START : nothing,rabbit_reproductive_condition=G.RABBIT_REPRODUCTIVE_CONDITION,rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
+    saved_raptor=population_saved!==nothing && hasproperty(population_saved,:raptor) ? population_saved.raptor : nothing
+    !raptor_enabled && saved_raptor!==nothing && error("cannot discard saved raptor accounting")
+    raptor=raptor_enabled ? (saved_raptor===nothing ? configured_raptor(s,scene) : saved_raptor) : nothing
+    conditions=(raptor_enabled,raptor_fixed="optional single-bird FSM; daily global rabbit count arrival>=150/departure<=100; exact tree list; 2D elevated sight; no MB; resting observation off; leftovers recorded only; outside body reset on return",raptor_rule=raptor_enabled ? RAPTOR_TRIAL : nothing,predator_terrain=(enabled=crossing_enabled,rule=P.PREDATOR_TERRAIN),predator_population_mode,predator_population_rule=migration===nothing ? nothing : PREDATOR_POPULATION_EXCHANGE,predator_population_fixed="ratio only: global live rabbit count; daily arrivals at 100+50*(k-1), departures at N<=50*k; instantaneous edge immigration and off-map emigration; fresh entrant MB; no off-map simulation",rabbit_burrow_refuge=G.RABBIT_BURROW_REFUGE,rabbit_nursing_alert=G.RABBIT_NURSING_ALERT,rabbit_nursing_goal=G.RABBIT_NURSING_GOAL,rabbit_exponential_candidates=H.RABBIT_EXPONENTIAL_CANDIDATES,rabbit_food_cooling=H.RABBIT_FOOD_COOLING,rabbit_food_pressure=H.RABBIT_FOOD_PRESSURE,rabbit_food_pressure_gate=H.RABBIT_FOOD_PRESSURE_GATE,rabbit_food_pressure_connection=H.RABBIT_FOOD_PRESSURE_CONNECTION,rabbit_local_rho=H.RABBIT_LOCAL_RHO,rabbit_juvenile_growth=G.RABBIT_JUVENILE_GROWTH,rabbit_nest_boundary=G.RABBIT_NEST_BOUNDARY,rabbit_grazing_motion=H.RABBIT_GRAZING_MOTION,grass_model,grass_layers=H.GRASS_LAYERS,rabbit_grass_layers=H.RABBIT_GRASS_LAYERS,rabbit_sparse_departure=H.RABBIT_SPARSE_DEPARTURE,rabbit_cover_foraging=H.RABBIT_COVER_FORAGING,preserve_predators,initial_profiles_inherited=population_saved===nothing ? nothing : (rabbit=get(prior_conditions,:rabbit_initial_profile,"unknown"),grass=get(prior_conditions,:grass_initial_profile,"unknown")),rabbit_nest_preparation=G.RABBIT_NEST_PREPARATION,grass_initial_profile,grass_initial_parameters=grass_initial_profile=="patchy" ? RABBIT_PATCHY_GRASS : nothing,grass_initial_record,rabbit_initial_profile,initial_profile_parameters=rabbit_initial_profile=="diverse" ? RABBIT_DIVERSE_START : nothing,rabbit_reproductive_condition=G.RABBIT_REPRODUCTIVE_CONDITION,rabbit_breeding_season=G.RABBIT_BREEDING_SEASON,rabbit_neighbor_backend,gpu_min_queries=H.RABBIT_NEIGHBOR_GPU_MIN_QUERIES,neighbor_gpu_scope="static obstacle neighbor visibility only; CPU river/grass/H/choice; Float32 gap with CPU boundary fallback",days=crossing_days,start_day,end_day=start_day+crossing_days,
         population_checkpoint=crossing_population_checkpoint,
         initial_births=s.life.births,initial_starvation=s.deaths,
         humans=0,predators=migration===nothing ? length(predators) : count(i->migration.present[i] && predators[i].alive,eachindex(predators)),predator_slots=length(predators),rabbits=count(s.alive),layout=layout_record,
@@ -121,7 +126,7 @@ function crossing_main()
     write(joinpath(crossing_output,"conditions.json"),JSON3.write(conditions));println(JSON3.write(conditions));flush(stdout)
     cp(ARGS[1],joinpath(crossing_output,"input-origin.json"))
     mkpath(joinpath(crossing_output,"checkpoints"))
-    serialize(joinpath(crossing_output,"checkpoints/day-000.jls"),(world=s,cohort=cohort,migration=migration))
+    serialize(joinpath(crossing_output,"checkpoints/day-000.jls"),(world=s,cohort=cohort,migration=migration,raptor=raptor))
     counts=preserve_predators && hasproperty(population_saved,:counts) ? deepcopy(population_saved.counts) : [Dict("selected"=>0,"arrived"=>0,"failed"=>0,"interrupted"=>0,"swim_ticks"=>0) for _ in eachindex(predators)]
     while length(counts)<length(predators);push!(counts,Dict("selected"=>0,"arrived"=>0,"failed"=>0,"interrupted"=>0,"swim_ticks"=>0));end
     crossing_records=Any[];daily=Any[];started=time()
@@ -130,8 +135,17 @@ function crossing_main()
             configured_predator_population_update!(s,cohort,migration,t;crossing_enabled)
             while length(counts)<length(predators);push!(counts,Dict("selected"=>0,"arrived"=>0,"failed"=>0,"interrupted"=>0,"swim_ticks"=>0));end
         end
+        if raptor!==nothing && t%RAPTOR_TRIAL.day_ticks==0
+            raptor_was_present=raptor.present
+            configured_raptor_population!(raptor,count(s.alive),t)
+            if !raptor_was_present && raptor.present
+                raptor.visual.body.x,raptor.visual.body.z=configured_raptor_edge(s.world,raptor.destination)
+            elseif raptor.mode==:depart
+                raptor.destination=configured_raptor_edge(s.world,(raptor.visual.body.x,raptor.visual.body.z))
+            end
+        end
         sequences=[m.loop.sequence for m in minds];completed=[m.completed for m in minds]
-        animal_trial_prepare!(s,predators,t;scents,minds,prey_scents,motion_speed=true,local_hunts=locals,physiology,pursuits,present=migration===nothing ? nothing : migration.present)
+        animal_trial_prepare!(s,predators,t;raptor,scents,minds,prey_scents,motion_speed=true,local_hunts=locals,physiology,pursuits,present=migration===nothing ? nothing : migration.present)
         for i in eachindex(predators)
             migration!==nothing && !migration.present[i] && continue
             m=minds[i];p=predators[i]
@@ -146,12 +160,13 @@ function crossing_main()
             p.alive && p.mode==:cross_river && crossing_water(s.world,(p.visual.body.x,p.visual.body.z)) && (counts[i]["swim_ticks"]+=1)
         end
         animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition=crossing_prey_nutrition,prey_scents,local_hunts=locals,physiology,pursuits,grazing_policy=rabbit_approach,present=migration===nothing ? nothing : migration.present)
+        raptor!==nothing && configured_raptor_step!(raptor,s,predators,t;present=migration===nothing ? nothing : migration.present)
         if (t+1)%17280==0
             absolute_day=div(t+1,17280);day=absolute_day-start_day
-            report=animal_trial_report(s,predators;scents,minds,swimming_policy=rabbit_approach)
+            report=animal_trial_report(s,predators;raptor,scents,minds,swimming_policy=rabbit_approach)
             west(p)=p[1]<12+5sin((p[2]-6)/22+s.world.phase)
             rabbit_west=count(i->s.alive[i] && west((s.animals.x[i],s.animals.z[i])),eachindex(s.alive))
-            row=(predator_population=migration===nothing ? nothing : configured_predator_population_report(cohort,migration,count(s.alive)),nursing_alert=copy(G.RABBIT_NURSING_ALERT_STATS),nursing_pending=s.life===nothing ? 0 : length(G.configured_nursing_pending(s.life)),candidate_work=copy(H.RABBIT_CANDIDATE_STATS),food_pressure=H.rabbit_food_pressure_snapshot(rabbit_approach),local_rho=H.rabbit_rho_snapshot(rabbit_approach),grazing_motion=copy(H.RABBIT_GRAZING_MOTION_STATS),neighbor_gpu=H.rabbit_neighbor_stats(),day,absolute_day,elapsed_seconds=time()-started,rabbits=report.rabbits.alive,starvation=report.rabbits.starvation_deaths,starvation_breakdown=report.rabbits.starvation_breakdown,
+            row=(raptor=raptor===nothing ? nothing : configured_raptor_report(raptor),predator_population=migration===nothing ? nothing : configured_predator_population_report(cohort,migration,count(s.alive)),nursing_alert=copy(G.RABBIT_NURSING_ALERT_STATS),nursing_pending=s.life===nothing ? 0 : length(G.configured_nursing_pending(s.life)),candidate_work=copy(H.RABBIT_CANDIDATE_STATS),food_pressure=H.rabbit_food_pressure_snapshot(rabbit_approach),local_rho=H.rabbit_rho_snapshot(rabbit_approach),grazing_motion=copy(H.RABBIT_GRAZING_MOTION_STATS),neighbor_gpu=H.rabbit_neighbor_stats(),day,absolute_day,elapsed_seconds=time()-started,rabbits=report.rabbits.alive,starvation=report.rabbits.starvation_deaths,starvation_breakdown=report.rabbits.starvation_breakdown,
                 births=report.rabbits.reproduction.births,pregnant=report.rabbits.reproduction.pregnant,
                 conceptions=report.rabbits.reproduction.conceptions,lost_pregnancies=report.rabbits.reproduction.lost_pregnancies,
                 grass_layers=report.rabbits.grass_layers,grass_remaining=report.rabbits.grass_remaining,grass_grown=report.rabbits.grass_grown,grass_eaten=report.rabbits.grass_eaten,
@@ -161,7 +176,7 @@ function crossing_main()
             push!(daily,row)
             write(joinpath(crossing_output,"progress.json"),JSON3.write(row))
             open(joinpath(crossing_output,"daily.jsonl"),"a") do io;println(io,JSON3.write(row));end
-            serialize(joinpath(crossing_output,"checkpoints","day-"*lpad(day,3,'0')*".jls"),(world=s,cohort=cohort,counts=counts,migration=migration))
+            serialize(joinpath(crossing_output,"checkpoints","day-"*lpad(day,3,'0')*".jls"),(world=s,cohort=cohort,counts=counts,migration=migration,raptor=raptor))
             println("DAY ",day," rabbits=",row.rabbits," predators=",migration===nothing ? [p.alive for p in predators] : row.predator_population," crossing=",counts);flush(stdout)
         end
     end
