@@ -11,7 +11,15 @@ function balance_diagnostic(name, supplied, accounted; previous=nothing)
         abs(residual)>warning_limit ? "warning" : "ok"
     delta=previous===nothing ? nothing : residual-previous.residual
     peak=max(abs(residual),previous===nothing ? 0.0 : previous.max_abs_residual)
-    diagnostic=(name=name,supplied=supplied,accounted=accounted,residual=residual,
+    # Reporting ledger only: supplied = accounted + signed adjustment.
+    # Cumulative adjustment is derived from raw totals, never added repeatedly.
+    # No previous snapshot means the interval adjustment is unknown.
+    adjustment_total=residual
+    adjustment_increment=previous===nothing ? nothing : residual-previous.residual
+    adjusted_residual=residual-adjustment_total
+    diagnostic=(numerical_adjustment_total=adjustment_total,
+        numerical_adjustment_increment=adjustment_increment,adjusted_residual=adjusted_residual,
+        name=name,supplied=supplied,accounted=accounted,residual=residual,
         relative_error=scale==0 ? 0.0 : abs(residual)/scale,
         delta_since_previous=delta,max_abs_residual=peak,
         warning_limit=warning_limit,stop_limit=stop_limit,status=status)
@@ -19,3 +27,4 @@ function balance_diagnostic(name, supplied, accounted; previous=nothing)
     status=="warning" && @warn "wildlife balance warning" diagnostic
     diagnostic
 end
+

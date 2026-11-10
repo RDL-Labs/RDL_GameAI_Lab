@@ -739,3 +739,10 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 
 - 2026-11-10 鳥の近距離発見: RAPTOR_TRIAL.rabbit_notice_range=3（世界距離、以下を許可、Infで解除）。飛行狩り中のみ、食事中/地上捕食者は通常視覚。高度を省略した暫定近似、configured_raptor_noticeに隔離。
 
+
+### 数値誤差の報告勘定（2026-11-10）
+
+共通 `balance_diagnostic` は調整前residualと符号付きnumerical_adjustment_totalを併記する。
+累積調整残高=供給−計上量、前回報告ありの場合のみincrementを計算（なしはnull）。
+調整後差はresidual−調整残高。身体・資源は不変。停止判定は調整前の差に適用する。
+追加の許容係数は設けず既存の警告／停止幅を使う。詳細と検証はwildlifeのraptor_trial.md。

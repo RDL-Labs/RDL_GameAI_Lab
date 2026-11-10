@@ -20,10 +20,13 @@ function audit()
  supplied=900+p.eaten;accounted=p.food+p.spent
  result=(day=551,ticks,initial_residual=Float64(initial),final_residual=Float64(residual()),change=Float64(changes),peak_single_tick_residual_change=Float64(peak),food=p.food,eaten=p.eaten,spent=p.spent,alive=p.alive,old_check=isapprox(supplied,accounted;atol=1e-7,rtol=1e-10),relative_error=Float64(abs(residual())/max(supplied,accounted)),captures=p.visual.body.captures)
  @assert peak<1e-9
+ Base.include(G,joinpath(@__DIR__,"../../src/ecology/lw_grazing/balance.jl"))
  report_source=read(joinpath(@__DIR__,"../../src/lw/configured_paths/predator_animal_trial.jl"),String)
  Base.include_string(Main,"function trial_predator_report(p)"*split(report_source,"function trial_predator_report(p)";limit=2)[2])
  report=Base.invokelatest(trial_predator_report,p)
  @assert report.balance_diagnostic.status=="ok"
+ @assert report.balance_diagnostic.numerical_adjustment_total==report.balance_diagnostic.residual
+ @assert report.balance_diagnostic.adjusted_residual==0.
  @assert report.food==p.food && report.eaten==p.eaten && report.spent==p.spent
  for (supplied,accounted) in ((100.,101.),(NaN,100.),(100.,Inf))
   rejected=false
@@ -34,4 +37,5 @@ function audit()
  write(joinpath(@__DIR__,"evidence/predator-balance-day551.json"),JSON3.write(result));println(JSON3.write(result))
 end
 audit()
+
 
