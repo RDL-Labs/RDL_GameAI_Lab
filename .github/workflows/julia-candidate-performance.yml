@@ -1,0 +1,46 @@
+name: Julia candidate forecast full-run comparison
+run-name: Candidate reuse 60-day paired performance
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  paired:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 8c6e5da87e66e4c04c42163df191d4920483f6b8
+          path: _baseline
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - uses: julia-actions/cache@v2
+      - name: Locked environment
+        run: |
+          julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
+          git diff --exit-code -- Project.toml Manifest.toml
+      - name: Freeze identical input and source difference
+        run: |
+          julia --startup-file=no --project=. experiments/lw_wildlife/candidate_cloud_prepare.jl _baseline . outputs/candidate-pair
+          lscpu > outputs/candidate-pair/runner-cpu.txt
+      - name: Sequential baseline and optimized 60 days
+        run: |
+          julia --startup-file=no --project=. outputs/candidate-pair/controller.jl outputs/candidate-pair "$GITHUB_WORKSPACE" 60
+      - name: Upload daily timing and equality evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: candidate-paired60-${{ github.run_id }}
+          path: |
+            outputs/candidate-pair/**/*.json
+            outputs/candidate-pair/**/*.log
+            outputs/candidate-pair/*.txt
+            outputs/candidate-pair/*.jl
+            outputs/candidate-pair/*/source/**
+          retention-days: 14

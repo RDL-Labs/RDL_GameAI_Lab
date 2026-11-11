@@ -139,3 +139,12 @@ sourceはbaseline/optimizedへ別々に凍結し、ファイルハッシュ差�
 単発・固定実行順の全期間比較なので、外部負荷や順序効果を排除した速度保証にはしない。
 STOPファイルはルートまたは各方式ディレクトリへ置くと日末で停止（次方式へ進まない）。
 Scheduler一回タスク、8時間上限。開始時点では完了結果なし。
+
+同日、ユーザー指示でGitHub Actionsにも同条件の比較を追加。
+`julia-candidate-performance.yml` を手動起動し、Ubuntu 24.04・Julia 1.13.1・1スレッドで
+同一ジョブ内にbaseline→optimizedを逐次実行する。基準は8c6e5daを固定checkout。
+`candidate_cloud_prepare.jl` で4体のID一覧を両方式へ接続し、ソース差1ファイルを検査。
+入力 `candidate_longrun_input.json` はローカルとSHA256一致
+（081c82619f913719bd07e89d826f1954a1d202f4b59b6395cea854238e707755）。
+日別集計・照合結果・凍結ソース・ログを14日Artifactsへ保存（大きなJLSチェックポイントは含めない）。
+各環境内の前後比を比較する。OS/CPU/共有ランナーの差を混ぜて、このPCとクラウドの絶対速度差を最適化効果にしない。
