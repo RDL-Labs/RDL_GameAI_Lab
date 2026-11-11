@@ -112,7 +112,7 @@ function rabbit_neighbor_clear(w,a,i,j,t,p,q)
  end
  slot==0 && return clear(w,p,q)
  answer=w.xmin+.25<=q[1]<=w.xmax-.25 && w.zmin+.25<=q[2]<=w.zmax-.25 &&
-  material(w.phase,q...)!=WATER && material(w.phase,(p[1]+q[1])/2,(p[2]+q[2])/2)!=WATER && b.clear_results[slot]
+  (RABBIT_TERRAIN.enabled || (material(w.phase,q...)!=WATER && material(w.phase,(p[1]+q[1])/2,(p[2]+q[2])/2)!=WATER)) && b.clear_results[slot]
  b.audit && answer!=clear(w,p,q) && error("GPU/CPU neighbor geometry mismatch")
  b.hits+=1;answer
 end

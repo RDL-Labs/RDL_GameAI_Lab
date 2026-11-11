@@ -17,9 +17,14 @@ s=G.build(input.scene,input.clock);w=s.world
  @test all(c->G.configured_rabbit_nest_allowed(w,c.position;extra_margin=G.RABBIT_NEST_PREPARATION.arrival_radius),candidates)
  s.life.due[mother]=17280;s.life.litter[mother]=3;s.life.invested[mother]=30.
  before=s.life.births;G.rabbit_daily!(s,17280)
- @test s.life.births==before
- @test s.life.due[mother]==17280
+ @test s.life.births==before+3
+ @test s.life.due[mother]==0
+ children=findall(i->s.life.mother[i]==mother && s.life.born[i]==17280,eachindex(s.alive))
+ @test length(children)==3
+ @test all(i->s.initial_positions[i]==(63.,-43.),children)
+ @test all(i->!G.configured_rabbit_in_burrow(s,i,17280),children)
+ @test all(i->G.configured_rabbit_refuge_goal(s,i,17280)===nothing,children)
  safe=candidates[1].position;s.animals.x[mother],s.animals.z[mother]=safe
  G.rabbit_daily!(s,34560)
- @test s.life.births>=before+3
+ @test s.life.births==before+3
 end

@@ -168,7 +168,7 @@ function rabbit_daily!(s,t;seasonal_breeding=RABBIT_BREEDING_SEASON.enabled)
             s.alive[i]=false;s.deaths+=1
             life.lost_investment+=life.invested[i];life.invested[i]=0.;life.due[i]=0;life.litter[i]=0
             life.lost_pregnancies+=1
-        elseif t>=life.due[i] && configured_rabbit_nest_allowed(s.world,(a.x[i],a.z[i]))
+        elseif configured_rabbit_birth_ready(s,i,t)
             rabbit_birth!(s,i,t)
         end
     end

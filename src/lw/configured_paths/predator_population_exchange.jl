@@ -87,3 +87,23 @@ function configured_predator_population_report(cohort,migration,rabbits)
      departures=count(!,migration.present),
      status=[!migration.present[i] ? "outside" : p.alive ? "resident" : "dead" for (i,p) in enumerate(cohort.predators)])
 end
+
+# 暫定固定・replace実験専用: 死亡後、次の日次境界で外部個体を補充。
+# 生存個体数は指定数に維持し、兎数を条件にしない。既存の新規ID・境界配置を共用。
+# 学習済み個体の復活ではない。将来は外部個体群・移住判断へ置換。
+function configured_predator_replacement_update!(world_state,cohort,migration,t;crossing_enabled=true,target=1)
+    t%PREDATOR_POPULATION_EXCHANGE.interval_ticks==0 && t!=migration.last_tick || return
+    migration.last_tick=t
+    for actor in eachindex(cohort.predators)
+        p=cohort.predators[actor]
+        migration.present[actor] && !p.alive || continue
+        any(e->e.event=="replacement_death" && e.actor==actor,migration.events) && continue
+        push!(migration.events,(event="replacement_death",tick=t,actor=actor,
+            position=(p.visual.body.x,p.visual.body.z),food=p.food,captures=p.visual.body.captures,
+            mode=string(p.mode),body=predator_physiology_report(cohort.physiology[actor])))
+    end
+    residents=count(i->migration.present[i] && cohort.predators[i].alive,eachindex(cohort.predators))
+    for _ in 1:max(0,target-residents)
+        configured_predator_population_arrive!(world_state,cohort,migration,t;crossing_enabled)===nothing && break
+    end
+end

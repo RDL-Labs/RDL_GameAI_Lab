@@ -101,7 +101,8 @@ end
 function configured_nursing_steering(s,base)
     s.life===nothing && return base
     return function(w,a,i,speed,overrides)
-        goal=get(configured_nursing_targets(s.life),i,nothing)
+        goal=configured_maternal_boundary_goal(s,i,s.ticks)
+        goal===nothing && (goal=get(configured_nursing_targets(s.life),i,nothing))
         if goal!==nothing && overrides!==nothing && overrides[i]==H.SEARCH
             a.heading[i]=atan(goal[2]-a.z[i],goal[1]-a.x[i])
         end

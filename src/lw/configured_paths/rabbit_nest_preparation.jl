@@ -7,10 +7,30 @@ const RABBIT_NEST_PREPARATION=(enabled=true,lead_days=3,observe_radius=8.,
     minimum_reserve=70.,sleep_limit=1.,arrival_radius=.6)
 # 暫定固定: 境界帯には巣を作らない。既定ON。世界境界の直接参照。
 # 反発幅8+身体余白0.25を共用。将来は場所の安全性MBへ置換。
-# 出産予定日に圏外なら出産を保留し、通常移動で巣準備を続ける。
-# 保留中に妊娠投資を増やさない。出生位置の瞬間移動は行わない。
+# 巣設置の制約であり、出産という身体現象は止めない。
 const RABBIT_NEST_BOUNDARY=(enabled=true,)
+# 暫定身体ルール: 予定日の最初の日次処理で現在地出産。場所待ちによる延期なし。
+# postpone_for_site=trueは旧挙動比較専用。将来は分娩時間・身体状態のモデルへ置換。
+# 旧保存の超過妊娠も次の日次処理で終了し、遡及出生・追加投資はしない。
+const RABBIT_BIRTH_TIMING=(postpone_for_site=false,)
+# 暫定固定: 出産準備期の母親を境界帯から通常移動で内側へ誘導する。
+# 採食・休息より優先、既存の危険割込みは維持。世界境界を直接参照。
+# enabled=falseで従来の勾配のみ。将来は安全な出産場所を探すMBへ置換。
+const RABBIT_MATERNAL_BOUNDARY=(enabled=true,)
+function configured_maternal_boundary_goal(s,mother,t)
+    RABBIT_MATERNAL_BOUNDARY.enabled && s.life!==nothing && s.alive[mother] || return nothing
+    due=s.life.due[mother]
+    due>0 && due-t<=RABBIT_NEST_PREPARATION.lead_days*RABBIT_LIFE.day_ticks || return nothing
+    w=s.world;a=s.animals;p=(a.x[mother],a.z[mother])
+    margin=H.WILDLIFE_BOUNDARY.width+H.WILDLIFE_BOUNDARY.body_margin
+    min(p[1]-w.xmin,w.xmax-p[1],p[2]-w.zmin,w.zmax-p[2])<margin || return nothing
+    inset=margin+RABBIT_NEST_PREPARATION.arrival_radius
+    (clamp(p[1],w.xmin+inset,w.xmax-inset),clamp(p[2],w.zmin+inset,w.zmax-inset))
+end
+configured_rabbit_birth_ready(s,mother,t)=t>=s.life.due[mother] &&
+    (!RABBIT_BIRTH_TIMING.postpone_for_site || configured_rabbit_nest_allowed(s.world,(s.animals.x[mother],s.animals.z[mother])))
 function configured_rabbit_nest_allowed(w,p;enabled=RABBIT_NEST_BOUNDARY.enabled,extra_margin=0.)
+    H.material(w.phase,p...)==H.WATER && return false
     !enabled && return true
     margin=H.WILDLIFE_BOUNDARY.width+H.WILDLIFE_BOUNDARY.body_margin+extra_margin
     min(p[1]-w.xmin,w.xmax-p[1],p[2]-w.zmin,w.zmax-p[2])>=margin
@@ -35,7 +55,7 @@ function configured_rabbit_nest_candidates(s,mother,t)
             hypot(p[1]-q[1],p[2]-q[2])<=r.forage_radius && H.clear(w,p,q) || continue
             food+=observed_grass[slot];cells+=1
         end
-        score=log1p(food/max(1,cells))-r.distance_cost*hypot(p[1]-origin[1],p[2]-origin[2])
+        score=log1p(food/max(1,cells))-r.distance_cost*H.configured_rabbit_terrain_distance(w,origin,p)
         push!(candidates,(position=p,score=score,observed_grass=food))
     end
     candidates
@@ -45,8 +65,16 @@ function configured_rabbit_nest_preparation!(s,t;enabled=RABBIT_NEST_PREPARATION
     life=s.life;a=s.animals;r=RABBIT_NEST_PREPARATION
     for mother in eachindex(s.alive)
         s.alive[mother] && life.due[mother]>0 && life.due[mother]-t<=r.lead_days*RABBIT_LIFE.day_ticks || continue
-        # One observation/choice per pregnancy, or the initial late-pregnancy fixture.
-        if t==max(0,life.due[mother]-r.lead_days*RABBIT_LIFE.day_ticks) || (t%RABBIT_LIFE.day_ticks==0 && !configured_rabbit_nest_allowed(s.world,life.nest[mother]))
+        boundary_goal=configured_maternal_boundary_goal(s,mother,t)
+        if boundary_goal!==nothing && s.overrides[mother]==0 && a.energy[mother]>0
+            s.overrides[mother]=H.SEARCH
+            a.target[mother]=H.cell(s.world,boundary_goal...);a.next_sense[mother]=t+1
+            continue
+        end
+        # 暫定固定: 日次の再確認で、境界条件だけでなく現在地からの通行不能も
+        # 再選択理由にする。毎tickの全候補生成は避ける。将来は場所MBの失敗評価へ。
+        origin=(a.x[mother],a.z[mother])
+        if t==max(0,life.due[mother]-r.lead_days*RABBIT_LIFE.day_ticks) || (t%RABBIT_LIFE.day_ticks==0 && (!configured_rabbit_nest_allowed(s.world,life.nest[mother]) || !H.clear(s.world,origin,life.nest[mother])))
             life.nest[mother]=(a.x[mother],a.z[mother])
             if s.overrides[mother]==0
                 candidates=configured_rabbit_nest_candidates(s,mother,t)

@@ -7,10 +7,14 @@ const RABBIT_BURROW=(enabled=true,rule="dependent-young-inaccessible-at-birth-si
 # 距離2は世界距離の初期値。安全時の通常採食は維持。将来は避難場所MBへ置換。
 # enabled=falseで従来の巣外への逃走に戻す。母親/離乳後への保護拡大なし。
 const RABBIT_BURROW_REFUGE=(enabled=true,near_distance=2.)
+# 暫定固定: 巣設置不可の出生場所には穴の保護を生成しない。
+# 出生位置を直接参照する近道。将来は実際の巣オブジェクトの有無へ置換。
+configured_rabbit_birth_shelter(s,i)=configured_rabbit_nest_allowed(s.world,s.life.nest[i])
 configured_burrow_refuge_enabled()=RABBIT_BURROW_REFUGE.enabled
 function configured_rabbit_refuge_goal(s,i,t)
     configured_burrow_refuge_enabled() && RABBIT_BURROW.enabled && s.life!==nothing || return nothing
     s.life.mother[i]>0 && dependent(s.life,i,t) || return nothing
+    configured_rabbit_birth_shelter(s,i) || return nothing
     nest=s.life.nest[i]
     hypot(s.animals.x[i]-nest[1],s.animals.z[i]-nest[2])<=RABBIT_BURROW_REFUGE.near_distance ? nest : nothing
 end
@@ -20,5 +24,5 @@ function configured_rabbit_refuge_response!(s,i,t)
     s.overrides[i]=configured_rabbit_in_burrow(s,i,t) ? H.REST : H.FLEE
 end
 configured_rabbit_in_burrow(s,i,t)=RABBIT_BURROW.enabled && s.life!==nothing &&
-    s.life.mother[i]>0 && dependent(s.life,i,t) &&
+    s.life.mother[i]>0 && dependent(s.life,i,t) && configured_rabbit_birth_shelter(s,i) &&
     (!configured_rabbit_self_feeding(s,i,t) || hypot(s.animals.x[i]-s.life.nest[i][1],s.animals.z[i]-s.life.nest[i][2])<=RABBIT_JUVENILE_GROWTH.burrow_radius)

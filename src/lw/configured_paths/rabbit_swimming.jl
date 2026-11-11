@@ -41,13 +41,18 @@ function configured_rabbit_swim_candidate(w,a,i,t,p)
     a.energy[i]>r.reserve+r.energy_margin*cost || return nothing
     observations=filter(!isnothing,observe_neighbors!(w,a,i,t))
     grass=isempty(observations) ? 0. : maximum(o.grass for o in observations)
-    m=approach_memory(p.base,i);pressure=isempty(m.H) ? 0. : maximum(values(m.H))
+    # 暫定接続: 渡河は現在の採食未達だけで促進する。過去区画の移動失敗は
+    # その区画の評価に残し、全域の移動圧へ転用しない。採食解決で親Hは0。
+    # 将来は渡河と現在の親目的の関係予測へ置換する。
+    m=approach_memory(p.base,i);pressure=m.food_pressure.H
     score=(r.hunger_reference-a.energy[i])/r.hunger_scale+pressure/r.H_scale-r.prior_penalty-r.grass_weight*grass
     (goal=goal,cost=cost,probability=1/(1+exp(-clamp(score,-50.,50.))))
 end
 function configured_rabbit_swim_step!(p::RabbitSwimmingPolicy,w,a,i,t,overrides)
     r=RABBIT_SWIMMING;wet=material(w.phase,a.x[i],a.z[i])==WATER
     if !haskey(p.trips,i)
+        # 高コスト地形版では独立した渡河抽選を使わず、通常の目的移動で渡る。
+        RABBIT_TERRAIN.enabled && return false
         a.state[i]==SEARCH && (overrides===nothing || overrides[i]==0) && mod(t+i,r.interval)==0 || return false
         candidate=configured_rabbit_swim_candidate(w,a,i,t,p);candidate===nothing && return false
         m=approach_memory(p.base,i)

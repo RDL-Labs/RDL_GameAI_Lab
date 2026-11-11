@@ -28,7 +28,11 @@ function configured_food_search_update!(parent,a,i,t;search_tick=false,intake=fa
     achieved=intake && reserve>=state.goal
     state=merge(state,(active=!achieved,search_ticks=ticks,))
     configured_food_search_store!(parent,state)
-    achieved && (parent.H=0.;parent.expected=nothing)
+    if achieved
+        push!(parent.records,(event="food_goal_resolved",tick=t,H_before=parent.H,reserve=reserve,goal=state.goal))
+        parent.H=0.;parent.expected=nothing
+        while length(parent.records)>RABBIT_FOOD_PRESSURE_CONNECTION.history_limit;popfirst!(parent.records);end
+    end
 end
 function configured_food_search_pressure(parent,reserve)
     state=configured_food_search_state(parent)

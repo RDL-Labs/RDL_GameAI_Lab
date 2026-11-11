@@ -39,9 +39,10 @@ function material(phase,x,z)
 end
 cell(w,x,z)=clamp(floor(Int,(x-w.xmin)/w.cellsize)+1,1,w.nx)+(clamp(floor(Int,(z-w.zmin)/w.cellsize)+1,1,w.nz)-1)*w.nx
 center(w,k)=(w.xmin+(mod(k-1,w.nx)+.5)*w.cellsize,w.zmin+(div(k-1,w.nx)+.5)*w.cellsize)
+include("../../lw/configured_paths/rabbit_terrain.jl")
 function clear(w,p,q)
     w.xmin+.25<=q[1]<=w.xmax-.25 && w.zmin+.25<=q[2]<=w.zmax-.25 || return false
-    material(w.phase,q...)!=WATER && material(w.phase,(p[1]+q[1])/2,(p[2]+q[2])/2)!=WATER || return false
+    RABBIT_TERRAIN.enabled || (material(w.phase,q...)!=WATER && material(w.phase,(p[1]+q[1])/2,(p[2]+q[2])/2)!=WATER) || return false
     !any(o->RDLMigrationProbe.segment_hit(p,q,o,.25),w.obstacles)
 end
 function build(spec; seed=20261005, grass_scale=1.,rich=false)
@@ -132,7 +133,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
     for i in 1:n
         alive!==nothing && !alive[i] && continue
         state=a.state[i]; k=cell(w,a.x[i],a.z[i]); a.counts[i,state]+=1
-        grazing_move_cost=0.
+        grazing_move_cost=0.;terrain_move=false
         growth=development===nothing ? nothing : development(i)
         allowed=q->growth===nothing || hypot(q[1]-growth.nest[1],q[2]-growth.nest[2])<=growth.radius
         configured_rabbit_rho_progress!(policy,a,i,t)
@@ -182,11 +183,18 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                 end
                 if chosen!==nothing; q,a.heading[i]=chosen; end
             end
+            if RABBIT_TERRAIN.enabled && configured_rabbit_terrain_wet(w,p,q)
+                step_length=min(hypot(q[1]-p[1],q[2]-p[2]),RABBIT_TERRAIN.water_speed)
+                direction=atan(q[2]-p[2],q[1]-p[1])
+                q=(p[1]+step_length*cos(direction),p[2]+step_length*sin(direction))
+                terrain_move=true
+            end
             if !allowed(q) || !rabbit_land_step!(w,a,i,q)
                 a.heading[i]+=pi/2; a.target[i]=0; a.next_sense[i]=t+10; a.blocked[i]+=1
             end
         end
         cost=state==SLEEP ? .002 : state==SEARCH ? .012 : state==FLEE ? .03 : .0047
+        terrain_move && (cost*=RABBIT_TERRAIN.water_cost_multiplier)
         growth!==nothing && (cost=growth.infant_cost*(1-growth.fraction)+cost*growth.fraction)
         a.energy[i]=max(0.,a.energy[i]-cost-grazing_move_cost)
         a.energy[i]==0 && (a.starvation_ticks[i]+=1)
