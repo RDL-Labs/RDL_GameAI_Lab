@@ -1,17 +1,24 @@
 # Scenario policies retained for compatibility; these are not learned MB decisions.
+# 暫定固定: 非MB実行用の旧疲労停止。MB版はfatigue_forecastで置換。
+# 新規既定経路には使わず、身体限界とは区別する。
+configured_legacy_fatigue_continue(body)=body.strain<CONFIGURED_LIMITS.navigation_rest_strain && body.reserve>0
 configured_plan(action,rule;kwargs...)=D("action"=>action,"configured_rule"=>rule,(string(k)=>v for (k,v) in kwargs)...)
 function configured_routine_priority(hungry,edible,can_eat,at_home,stock,phase,local_us,quiet_us,pending,overrides;enabled=true)
     enabled || return nothing
     hungry && edible && can_eat && return configured_plan("eat","immediate_meal")
     at_home && hungry && stock>0 && return configured_plan("retrieve","hungry_store_retrieve")
-    phase=="night" && local_us>=quiet_us && !overrides.bypass_scheduled_rest && return configured_plan("rest","quiet_night")
+    # 暫定固定: configured_routine_actions=true (既定)。観測済み拠点内だけで
+    # clock.quiet_night_us以後の休息を優先する。外の帰還を時刻だけで止めない。
+    # configured_rule=quiet_nightに記録。将来は安全経験・身体要求のMB選択へ置換。
+    at_home && phase=="night" && local_us>=quiet_us && !overrides.bypass_scheduled_rest && return configured_plan("rest","quiet_night")
     pending && !overrides.bypass_social_wait && return configured_plan("rest","pending_social_reply")
     nothing
 end
 function configured_navigation_priority(returning,at_home,inventory,phase,overrides;enabled=true)
     enabled || return nothing
     returning && at_home && return configured_plan(inventory>0 ? "deposit" : "rest","home_service")
-    phase=="orientation" && !overrides.bypass_scheduled_rest && return configured_plan("rest","scheduled_orientation")
+    # Morning phase alone does not stop ongoing navigation. Fatigue/rest remains
+    # an ordinary bodily choice; initial training is handled separately.
     nothing
 end
 function configured_near_food(returning,target,origins;enabled=true)

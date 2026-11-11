@@ -1,0 +1,146 @@
+{
+  "baseline": {
+    "completion": {
+      "completed": true,
+      "completed_days": 30,
+      "requested_days": 30,
+      "last_day": 30,
+      "mode": "baseline",
+      "stop_reason": "requested_days",
+      "total_seconds": 1966.6322934999998,
+      "save_seconds": 44.3179738,
+      "call_seconds": 2041.6659887,
+      "process_seconds": 2050.9684186,
+      "allocated_bytes": 398272013241,
+      "gc_seconds": 58.0521806
+    },
+    "actors": [
+      {
+        "actor": "npc_a",
+        "final_reserve": 90.00444444441155,
+        "minimum_day_end_reserve": 65.942591232379,
+        "return_purpose_completions": 32.0,
+        "eat": 36.0,
+        "walk": 10860.0,
+        "rest": 484534.0,
+        "fish": 19304.0
+      },
+      {
+        "actor": "npc_b",
+        "final_reserve": 83.58666666661225,
+        "minimum_day_end_reserve": 82.87333333327652,
+        "return_purpose_completions": 30.0,
+        "eat": 38.0,
+        "walk": 13693.0,
+        "rest": 477794.0,
+        "fish": 20834.0
+      },
+      {
+        "actor": "npc_c",
+        "final_reserve": 84.81604723440624,
+        "minimum_day_end_reserve": 83.68555555550147,
+        "return_purpose_completions": 20.0,
+        "eat": 36.0,
+        "walk": 15710.0,
+        "rest": 465214.0,
+        "fish": 32401.0
+      },
+      {
+        "actor": "npc_d",
+        "final_reserve": 91.47222222219425,
+        "minimum_day_end_reserve": 78.02666666659297,
+        "return_purpose_completions": 12.0,
+        "eat": 40.0,
+        "walk": 14394.0,
+        "rest": 478603.0,
+        "fish": 19285.0
+      }
+    ],
+    "blocks": [
+      {
+        "first_day": 1,
+        "mean_seconds": 65.86391951
+      },
+      {
+        "first_day": 11,
+        "mean_seconds": 62.00021357000001
+      },
+      {
+        "first_day": 21,
+        "mean_seconds": 68.79909626999999
+      }
+    ]
+  },
+  "boxes": {
+    "completion": {
+      "completed": true,
+      "completed_days": 30,
+      "requested_days": 30,
+      "last_day": 30,
+      "mode": "boxes",
+      "stop_reason": "requested_days",
+      "total_seconds": 1526.5769491999997,
+      "save_seconds": 35.330171,
+      "call_seconds": 1595.1186154,
+      "process_seconds": 1603.7762089,
+      "allocated_bytes": 317557885148,
+      "gc_seconds": 46.4310197
+    },
+    "actors": [
+      {
+        "actor": "npc_a",
+        "final_reserve": 86.9399999999562,
+        "minimum_day_end_reserve": 76.10888888880876,
+        "return_purpose_completions": 6.0,
+        "eat": 45.0,
+        "walk": 14191.0,
+        "rest": 475211.0,
+        "fish": 22606.0
+      },
+      {
+        "actor": "npc_b",
+        "final_reserve": 84.34777777772591,
+        "minimum_day_end_reserve": 63.96555555543533,
+        "return_purpose_completions": 5.0,
+        "eat": 36.0,
+        "walk": 13874.0,
+        "rest": 468644.0,
+        "fish": 30713.0
+      },
+      {
+        "actor": "npc_c",
+        "final_reserve": 89.00999999996314,
+        "minimum_day_end_reserve": 73.80462962946567,
+        "return_purpose_completions": 16.0,
+        "eat": 41.0,
+        "walk": 15339.0,
+        "rest": 474128.0,
+        "fish": 23532.0
+      },
+      {
+        "actor": "npc_d",
+        "final_reserve": 92.51777777775268,
+        "minimum_day_end_reserve": 74.41222222213658,
+        "return_purpose_completions": 6.0,
+        "eat": 39.0,
+        "walk": 12711.0,
+        "rest": 481540.0,
+        "fish": 19094.0
+      }
+    ],
+    "blocks": [
+      {
+        "first_day": 1,
+        "mean_seconds": 49.166107
+      },
+      {
+        "first_day": 11,
+        "mean_seconds": 53.59018442
+      },
+      {
+        "first_day": 21,
+        "mean_seconds": 49.9014035
+      }
+    ]
+  }
+}

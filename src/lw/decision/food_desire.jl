@@ -66,7 +66,7 @@ function food_use_forecast(map,foods,actor,kind,prepared,gut,reserve,facilities,
  (;output,cost,skill,quality,liking)
 end
 function food_desire_candidates(map,foods,a,gut,reserve,at_home,stores,facilities,position;processing=true,items=nothing)
- candidates=Any[];pressure=max(0.,(100-reserve)/20.)
+ candidates=Any[];pressure=haskey(map,"hunger_forecast") ? hunger_pressure(reserve) : max(0.,(100-reserve)/20.)
  for kind in RDLBody.FOOD_KIND_IDS, source_quality in 1:4
   held=food_held_quality(foods,a,kind,source_quality)
   held || (at_home && food_stored_quality_count(foods,a,stores,kind,source_quality)>0) || continue
@@ -179,6 +179,10 @@ function food_desire_result!(map,plan,status,kind,liking,now)
   food_desire_record!(state,D("us"=>now,"kind"=>"condition_checked","status"=>status,"intent"=>state["intent"]))
   state["intent"]=nothing;state["next_us"]=now+64_000_000
  elseif status=="ate"
+  if haskey(map,"hunger_forecast")
+   h=map["hunger_forecast"];h["forecast"]=nothing;h["H"]=0.
+   # Ingestion resolves the meal attempt; digestion/body recovery remains gradual.
+  end
   food_desire_record!(state,D("us"=>now,"kind"=>"meal","food_kind"=>kind,"liking"=>liking,"intent"=>state["intent"]))
   state["intent"]=nothing;state["next_us"]=now+1_000_000
  elseif get(plan,"food_desire",false) && status in ("unavailable","preparation_unavailable","no_ingredient","no_edible_food")

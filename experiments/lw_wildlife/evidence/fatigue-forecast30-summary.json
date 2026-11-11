@@ -1,0 +1,65 @@
+{
+  "completed": {
+    "completed": true,
+    "completed_days": 30,
+    "requested_days": 30,
+    "first_day": 1,
+    "last_day": 30,
+    "mode": "boxes",
+    "stop_reason": "requested_days",
+    "total_seconds": 1091.908069,
+    "save_seconds": 49.7248827,
+    "call_seconds": 1167.7575548,
+    "process_seconds": 1178.4385938,
+    "allocated_bytes": 202510651303,
+    "gc_seconds": 36.6294122
+  },
+  "actors": [
+    {
+      "actor": "npc_a",
+      "reserve": 65.26777777766192,
+      "unload_days": 18,
+      "unloaded_units": 27.0,
+      "outside_days": 0,
+      "fatigue_records": 0
+    },
+    {
+      "actor": "npc_b",
+      "reserve": 88.89999999996277,
+      "unload_days": 16,
+      "unloaded_units": 28.0,
+      "outside_days": 1,
+      "fatigue_records": 0
+    },
+    {
+      "actor": "npc_c",
+      "reserve": 66.36999999988784,
+      "unload_days": 21,
+      "unloaded_units": 30.0,
+      "outside_days": 1,
+      "fatigue_records": 0
+    },
+    {
+      "actor": "npc_d",
+      "reserve": 84.55444444439327,
+      "unload_days": 20,
+      "unloaded_units": 44.0,
+      "outside_days": 1,
+      "fatigue_records": 0
+    }
+  ],
+  "blocks": [
+    {
+      "block": "0",
+      "mean_seconds": 35.04085273
+    },
+    {
+      "block": "1",
+      "mean_seconds": 39.91113061
+    },
+    {
+      "block": "2",
+      "mean_seconds": 34.23882356
+    }
+  ]
+}

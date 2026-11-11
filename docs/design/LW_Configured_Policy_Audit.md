@@ -9,7 +9,7 @@
 | 定時・積載帰還 | configured_paths/return_purpose.jl | return/night期または荷物6以上で帰還要求、帰着・荷下ろしまで保持 | 現行LW常時。後続の身体・日次MBが上書きし得る。独立OFF未提供 | return_purposeのentries/completed。将来、日次MB等の要求だけへ置換 |
 | 空腹時摂食・倉庫取り出し | routine_actions.jl | 可食物・胃容量・在庫を確認して即時行動 | scene.configured_routine_actions、既定true | events.configured_rule=immediate_meal/hungry_store_retrieve。通常候補へ置換対象 |
 | 夜間静止・応答待ち | 同上 | quiet_night以降、または未完の援助要求でrest。身体優先の解除を維持 | 同上 | quiet_night/pending_social_reply。時間・待機の候補評価へ置換対象 |
-| 拠点作業・定時orientation休息 | 同上 | 帰還目的で拠点内ならdeposit/rest、orientation期ならrest | 同上 | home_service/scheduled_orientation |
+| 拠点作業 | 同上 | 帰還目的で拠点内ならdeposit/rest。毎朝orientation期の定時休息は2026-11-11削除 | 同上 | home_service（scheduled_orientationは旧ログのみ） |
 | 近距離食料即時作業 | 同上 | 探索目的、観測目標1.25以内ならpickup/recover | 同上（basic_loop経路）。旧非MB経路は互換挙動を保持 | near_food_work。到着後の作業候補へ置換対象 |
 | 拠点見学後の学習用休息 | 同上 | configured_camp_experience、見学完了、場所MB未完了、拠点内 | 既存camp experience設定、既定off | camp_learning_rest。初期経験の固定補助 |
 | 作業候補の初期priority=5 | 同上 | 即時作業を通常の結果学習へ接続する単一候補 | 既存basic_loop接続 | method=work。候補が一つなので比較選択ではない |

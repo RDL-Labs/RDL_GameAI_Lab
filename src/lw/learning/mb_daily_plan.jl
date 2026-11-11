@@ -177,7 +177,35 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
         a["plan_started_us"]=now;a["plan_epoch"]=0;a["plan_operations"]=0;a["plan_energy"]=0.;a["day_us"]=day_us
         a["target_ref"]=get(evidence,"site_ref",nothing)
     end
-    a["closed"] && return configured_daily_plan_stay(replenishing)
+    hunger=get(s,"hunger_forecast",nothing)
+    if a["closed"]
+        hunger===nothing && return configured_daily_plan_stay(replenishing)
+        hunger["intensity"]<=0 && return configured_daily_plan_stay(false)
+        # Completed provision work stays complete. Evaluate how to eat, rather
+        # than reopening its success record because a body latch is still on.
+        decision=get(hunger,"closed_choice",nothing)
+        if decision!==nothing && decision["plan_started_us"]==a["started_us"] && now<decision["next_us"]
+            return decision["home"]
+        end
+        evidence=mb_daily_evidence(s,move,reserve,strain,now)
+        food=mb_daily_estimate(state,evidence["mode"]*":legacy",evidence["seconds"])
+        back=mb_daily_estimate(state,"return",home===nothing ? 128. : mb_travel_seconds(home["distance"]))
+        at_home && (back=D("seconds"=>1.,"energy"=>0.))
+        stock=get(hunger,"home_stock",0)
+        known=max(stock,inventory)>0 ? 1. : 0.
+        rate=get(get(s["parent_mb"],"resources",D()),"metabolic_rate",0.)
+        food_score=hunger_relief_score(hunger,reserve,food["seconds"],food["energy"]+rate*food["seconds"],evidence["confidence"])
+        home_score=hunger_relief_score(hunger,reserve,back["seconds"],back["energy"]+rate*back["seconds"],known)+log1p(max(0,stock))
+        candidates=[D("method"=>"eat_via_food","priority"=>food_score),D("method"=>"eat_via_home","priority"=>home_score)]
+        loop=BasicLoop("hunger-relief";probabilistic=true);loop.H=hunger["H"]
+        probabilities=method_distribution(loop,candidates)
+        selected_home=rand(state["rng"])>=probabilities[1]
+        chosen=selected_home ? back : food
+        hunger_expect!(hunger,selected_home ? "home" : "food",now,reserve,chosen["seconds"],chosen["energy"]+rate*chosen["seconds"])
+        hunger["closed_choice"]=D("plan_started_us"=>a["started_us"],"next_us"=>now+HUNGER_FORECAST_RULES.review_us,"home"=>selected_home)
+        mb_daily_log!(state["decisions"],D("us"=>now,"scope"=>"hunger_after_delivery","return_probability"=>probabilities[2],"H"=>hunger["H"],"candidates"=>candidates,"observed_home_stock"=>stock))
+        return selected_home
+    end
     for ref in get(move,"empty_food_sites",Int[])
         ref in state["known_sites"] || continue
         push!(state["empty_sites"],ref)
@@ -232,13 +260,22 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     t=max(t,forecast["seconds"]-elapsed);e=max(e,forecast["energy"]-(a["energy"]-a["plan_energy"]))
     continue_score,return_score=configured_daily_plan_scores(evidence["confidence"],inventory,reserve,
         replenishing,budget_penalty(t,e),budget_penalty(back["seconds"],back["energy"]),return_hint)
+    if hunger!==nothing
+        continue_score+=hunger_relief_score(hunger,reserve,food["seconds"],food["energy"]+rate*food["seconds"],evidence["confidence"])
+        return_score+=hunger_relief_score(hunger,reserve,back["seconds"],back["energy"]+rate*back["seconds"],max(inventory,get(hunger,"home_stock",0))>0 ? 1. : 0.)
+    end
     loop=BasicLoop("daily-provisions";probabilistic=true)
     loop.rng=state["rng"]
     delay=mb_response(s,"delay",(elapsed-forecast["seconds"])/max(1.,.25forecast["seconds"]))
     loop.H=min(32.,max(delay,budget_penalty(t,e)))
+    hunger!==nothing && (loop.H=max(loop.H,hunger["H"]))
     candidates=[D("method"=>"continue_food","priority"=>continue_score),D("method"=>"return_home","priority"=>return_score)]
     probabilities=method_distribution(loop,candidates)
     choice=rand(loop.rng)<probabilities[1] ? "food" : "home"
+    if hunger!==nothing
+        chosen=choice=="home" ? back : food
+        hunger_expect!(hunger,choice,now,reserve,chosen["seconds"],chosen["energy"]+rate*chosen["seconds"])
+    end
     # Rest/processing at camp must not fabricate completion of an outing.
     stage=choice=="home" ? "return" : mode
     prior=a["stage"]

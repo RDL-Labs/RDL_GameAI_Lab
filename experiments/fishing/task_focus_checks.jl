@@ -67,3 +67,18 @@ end
  @test r.inventory[a]==[7]
  @test LW.food_audit!(r,w,stock,0,stores)===nothing
 end
+@testset "rest shares light attention without motion shielding" begin
+ b=LW.Body(10.,.2,90.,0.);p=LW.D("action"=>"rest","target"=>"home")
+ s=LW.task_focus_state()
+ LW.task_focus_record!(s,p,"performed",b,(0.,0.),0.,"return",0,0,nothing)
+ @test LW.task_focus_continue!(s,b,(0.,0.),0.,"return",1_000_000,nothing)
+ @test s["plan"]["target"]=="home"
+ @test !LW.task_focus_continue!(s,LW.Body(10.,0.,90.,0.),(0.,0.),0.,"return",2_000_000,nothing)
+ @test s["wakeups"]["recovered"]==1
+ LW.task_focus_record!(s,p,"performed",b,(0.,0.),0.,"return",0,0,nothing)
+ @test !LW.task_focus_continue!(s,b,(0.,0.),0.,"return",1_000_000,LW.D("distance"=>7.);need=100.)
+ LW.task_focus_record!(s,p,"performed",b,(0.,0.),0.,"return",0,0,nothing)
+ @test !LW.task_focus_continue!(s,b,(0.,0.),0.,"return",64_000_000,nothing)
+ LW.task_focus_record!(s,p,"performed",b,(0.,0.),0.,"return",0,0,nothing;rest_enabled=false)
+ @test !s["active"]
+end

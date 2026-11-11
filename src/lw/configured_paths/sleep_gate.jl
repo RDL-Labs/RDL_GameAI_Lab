@@ -1,13 +1,18 @@
-# Explicit initial sleep schedule: first performed night rest enters sleep;
-# morning releases the external-input gate. Memory consolidation is independent.
+# 暫定固定: scene.sleep_external_gate (default true) stops external input after
+# performed night rest at an observed home, until morning, to reduce cognition cost.
+# Uses the caller's home observation, not hidden world coordinates. Outside rest
+# remains ordinary cognition. Replace with safety/anxiety-based sleep selection later.
+# Memory consolidation is independent of this configured input gate.
 function configured_sleep_gate_active(learning,now,day_us)
     gate=get(learning["sleep"],"external_gate",nothing)
-    gate!==nothing && gate["active"] && gate["day"]==div(now,day_us)
+    gate!==nothing && gate["active"] && get(gate,"at_home",false) && gate["day"]==div(now,day_us)
 end
 function configured_sleep_gate_enter!(learning,now,day_us;at_home=false)
+    at_home || return nothing
     sleep=learning["sleep"]
     gate=get!(()->D("active"=>false,"day"=>div(now,day_us),"entered_us"=>nothing,"blocked_ticks"=>0),sleep,"external_gate")
-    if !gate["active"]
+    if !configured_sleep_gate_active(learning,now,day_us)
+        gate["day"]=div(now,day_us)
         gate["active"]=true;gate["entered_us"]=now+1_000_000;gate["at_home"]=at_home
     end
     gate

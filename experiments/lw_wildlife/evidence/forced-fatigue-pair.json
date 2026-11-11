@@ -1,0 +1,192 @@
+[
+  {
+    "strain": 0.85,
+    "forecast": false,
+    "injection": {
+      "us": 160096000000,
+      "position": [
+        5.817835732880444,
+        4.886455705085341
+      ],
+      "reserve": 87.59498148140727,
+      "original_strain": 0.020874999999999998,
+      "strain": 0.85,
+      "observed_home_distance": 5.923444395916747,
+      "inventory": 0
+    },
+    "arrival_seconds": 74,
+    "rest_ticks": 167,
+    "walk_ticks": 10,
+    "max_strain": 0.8475,
+    "final": {
+      "us": 160276000000,
+      "position": [
+        0.9069803723651195,
+        5.826402314259445
+      ],
+      "strain": 0.42875000000000735,
+      "reserve": 89.40220370362795,
+      "action": "rest"
+    },
+    "choices": null,
+    "call_seconds": 83.9166874,
+    "outside_rest_ticks": 64,
+    "observed_ticks": 181
+  },
+  {
+    "strain": 0.85,
+    "forecast": true,
+    "injection": {
+      "us": 160096000000,
+      "position": [
+        5.817835732880444,
+        4.886455705085341
+      ],
+      "reserve": 87.59498148140727,
+      "original_strain": 0.020874999999999998,
+      "strain": 0.85,
+      "observed_home_distance": 5.923444395916747,
+      "inventory": 0
+    },
+    "arrival_seconds": 10,
+    "rest_ticks": 167,
+    "walk_ticks": 11,
+    "max_strain": 0.8562499999999998,
+    "final": {
+      "us": 160276000000,
+      "position": [
+        0.6873721674651847,
+        6.400283488147605
+      ],
+      "strain": 0.43187500000000734,
+      "reserve": 89.40192592585018,
+      "action": "rest"
+    },
+    "choices": {
+      "records": [
+        {
+          "source": "observed_goal",
+          "seconds": 11.0,
+          "walk_status": "performed",
+          "relief": 0.9855072463768116,
+          "strain": 0.85,
+          "predicted_strain": 0.8554999999999994,
+          "continued": true,
+          "rest_score": 0.1999999999999969,
+          "predicted_reserve": 87.58072222214794,
+          "continue_probability": 0.8915659984085252,
+          "family": "home",
+          "continue_score": 2.778466183574879,
+          "us": 160096000000,
+          "reserve": 87.59498148140727
+        }
+      ],
+      "choice": true,
+      "next_us": 160107000000,
+      "rested": 0,
+      "continued": 1,
+      "target_key": [
+        "home",
+        "home"
+      ]
+    },
+    "call_seconds": 12.801373,
+    "outside_rest_ticks": 0,
+    "observed_ticks": 181
+  },
+  {
+    "strain": 0.95,
+    "forecast": false,
+    "injection": {
+      "us": 160096000000,
+      "position": [
+        5.817835732880444,
+        4.886455705085341
+      ],
+      "reserve": 87.59498148140727,
+      "original_strain": 0.020874999999999998,
+      "strain": 0.95,
+      "observed_home_distance": 5.923444395916747,
+      "inventory": 0
+    },
+    "arrival_seconds": 74,
+    "rest_ticks": 167,
+    "walk_ticks": 11,
+    "max_strain": 0.9475,
+    "final": {
+      "us": 160276000000,
+      "position": [
+        0.43236490633038904,
+        5.9836923628977345
+      ],
+      "strain": 0.5318750000000089,
+      "reserve": 89.40192592585018,
+      "action": "rest"
+    },
+    "choices": null,
+    "call_seconds": 12.2793959,
+    "outside_rest_ticks": 64,
+    "observed_ticks": 181
+  },
+  {
+    "strain": 0.95,
+    "forecast": true,
+    "injection": {
+      "us": 160096000000,
+      "position": [
+        5.817835732880444,
+        4.886455705085341
+      ],
+      "reserve": 87.59498148140727,
+      "original_strain": 0.020874999999999998,
+      "strain": 0.95,
+      "observed_home_distance": 5.923444395916747,
+      "inventory": 0
+    },
+    "arrival_seconds": 74,
+    "rest_ticks": 167,
+    "walk_ticks": 11,
+    "max_strain": 0.9475,
+    "final": {
+      "us": 160276000000,
+      "position": [
+        0.43236490633038904,
+        5.9836923628977345
+      ],
+      "strain": 0.5318750000000089,
+      "reserve": 89.40192592585018,
+      "action": "rest"
+    },
+    "choices": {
+      "records": [
+        {
+          "source": "observed_goal",
+          "seconds": 11.0,
+          "walk_status": "performed",
+          "relief": 0.9855072463768116,
+          "strain": 0.95,
+          "predicted_strain": 0.9554999999999993,
+          "continued": false,
+          "rest_score": 0.6999999999999964,
+          "predicted_reserve": 87.58072222214794,
+          "continue_probability": 0.7515391018010497,
+          "family": "home",
+          "continue_score": 2.2784661835748796,
+          "us": 160096000000,
+          "reserve": 87.59498148140727
+        }
+      ],
+      "choice": false,
+      "next_us": 160107000000,
+      "rested": 1,
+      "continued": 0,
+      "target_key": [
+        "home",
+        "home"
+      ]
+    },
+    "call_seconds": 12.7836775,
+    "outside_rest_ticks": 64,
+    "observed_ticks": 181
+  }
+]

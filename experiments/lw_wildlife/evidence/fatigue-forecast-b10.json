@@ -1,0 +1,75 @@
+{
+  "day": 10,
+  "fatigue": {
+    "npc_b": null,
+    "npc_a": null,
+    "npc_d": null,
+    "npc_c": null
+  },
+  "actions_match_hunger_baseline": true,
+  "physical_match_hunger_baseline": true,
+  "day_seconds": 26.4409351,
+  "actors": [
+    {
+      "actor": "npc_b",
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0.0,
+        "damage": 0.0,
+        "burst": 10.0,
+        "reserve": 90.10549655629923
+      },
+      "position": [
+        0.7753044910801705,
+        5.461201467543433
+      ],
+      "stock": 1
+    },
+    {
+      "actor": "npc_a",
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0.0,
+        "damage": 0.0,
+        "burst": 10.0,
+        "reserve": 92.39425229328089
+      },
+      "position": [
+        1.1609853738949318,
+        5.986217289681529
+      ],
+      "stock": 0
+    },
+    {
+      "actor": "npc_d",
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0.0,
+        "damage": 0.0,
+        "burst": 10.0,
+        "reserve": 88.78333333329572
+      },
+      "position": [
+        1.0591372587477614,
+        5.392112384969889
+      ],
+      "stock": 1
+    },
+    {
+      "actor": "npc_c",
+      "body": {
+        "rule": "layered-body-human-scale-v1",
+        "strain": 0.0,
+        "damage": 0.0,
+        "burst": 10.0,
+        "reserve": 90.45222222219083
+      },
+      "position": [
+        0.7916890078129343,
+        6.542868004676578
+      ],
+      "stock": 1
+    }
+  ],
+  "source": "C:/Users/ken_m/Documents/Codex/fatigue-forecast-b10-20261111-r2/result.json"
+}

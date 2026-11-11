@@ -1,5 +1,11 @@
 include("parameters.jl")
 
+# 暫定固定: scene.rest_task_focus=true (既定)、task_focusも必要。
+# 選択済み休息を既存64秒レビューまで軽い動体観測で継続し、観測費用を減らす。
+# 身体の疲労解消を直接参照する。親目的は変更せず、将来はMBの休息見積りへ置換。
+configured_rest_focus(plan,status;enabled=true)=enabled && plan["action"]=="rest" && status=="performed"
+configured_rest_recovered(s,body)=s["plan"]["action"]=="rest" && get(s,"strain",0.)>0 && body.strain<=0
+
 # 暫定固定: task_interrupt_shield=true (既定)。作業中の弱い動体割込みを抑える。
 # 自分の食料不安とゲーム作業進捗を直接参照するショートカット。
 # 身体限界・定期再観測は遮断しない。将来はMBの作業期待と注意配分へ置換。

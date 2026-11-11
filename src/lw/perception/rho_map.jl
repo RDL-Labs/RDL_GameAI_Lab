@@ -1,12 +1,48 @@
 # Fixed operational profiles over the SAME finite observations; no new sensing.
-function rho_map(ground,obstacles,profile)
+function rho_map(ground,obstacles,profile;boxes=false)
     profile in ("coarse","fine") || error("invalid rho_map profile: $profile")
     ground["source"]["observation"]==obstacles["source"] || error("rho_map source mismatch")
-    map=local_structures(ground,obstacles;max_link=profile=="coarse" ? 2.5 : 1.0)
+    compact=boxes && profile=="coarse"
+    map=local_structures(ground,obstacles;max_link=profile=="coarse" ? 2.5 : 1.0,compact)
+    map["boundary_representation"]=compact ? "observed_group_boxes" : "sample_points"
+    if compact
+        for group in map["groups"]
+            group["kind"] in ("obstacle","water") || continue
+            points=group["points"]
+            group["observed_bounds"]=(minimum(p[1] for p in points),maximum(p[1] for p in points),
+                minimum(p[2] for p in points),maximum(p[2] for p in points))
+        end
+    end
     map["rho"]=profile
     map["coverage"]=obstacles["coverage"]
     map["output_limited"]=obstacles["output_limited"]
     map
+end
+
+# Cognitive approximation only: bounds enclose observed samples, not world geometry.
+# Zero inside is a conservative solid approximation; fine rho restores sampled gaps.
+rho_box_distance(bounds,point)=hypot(max(bounds[1]-point[1],0.,point[1]-bounds[2]),
+    max(bounds[3]-point[2],0.,point[2]-bounds[4]))
+
+# Nearness alone does not request detail. Reuse existing confirmation state and
+# executed movement evidence; no new H threshold or forced movement is introduced.
+function rho_box_profile(estimate,receipt;explicit_fine=false)
+    checking=get(estimate,"checking",false)
+    moving=receipt!==nothing && get(receipt,"action","") in ("walk","run")
+    blocked=moving && (get(receipt,"status","")!="performed" ||
+        iszero(hypot(receipt["forward"],receipt["right"])))
+    confirming=receipt!==nothing && get(receipt,"action","")=="scan"
+    explicit_fine || checking || blocked || confirming ? "fine" : "coarse"
+end
+
+function rho_observed_map!(state,ground,obstacles,profile;boxes=false)
+    previous=get(state,"observation",nothing)
+    representation=boxes && profile=="coarse" ? "observed_group_boxes" : "sample_points"
+    if previous!==nothing && previous["source"]==ground["source"] &&
+       get(previous,"rho",nothing)==profile && get(previous,"boundary_representation",nothing)==representation
+        return previous
+    end
+    rho_map(ground,obstacles,profile;boxes)
 end
 
 # A sampled depth discontinuity is a passage hypothesis, not a known exit.
@@ -84,7 +120,7 @@ function rho_potential(map,point,heading;clearance=2.,water_weight=.35,road_weig
     for g in map["groups"]
         points=g["points"];isempty(points) && continue
         if g["kind"] in ("obstacle","water")
-            d=minimum(hypot(x-p[1],z-p[2]) for p in points)
+            d=haskey(g,"observed_bounds") ? rho_box_distance(g["observed_bounds"],point) : minimum(hypot(x-p[1],z-p[2]) for p in points)
             weight=g["kind"]=="water" ? water_weight : 1.
             repulsion+=weight*clearance*max(0.,1-d/boundary_range)^3
         elseif g["kind"]=="worn_ground" && length(points)>=3
@@ -126,10 +162,16 @@ function rho_local_field(map;clearance=2.,span=.5,water_weight=.35,road_weight=.
     radius=abs(span)+range
     radius+=16eps(max(1.,radius)) # Conservative floating-point boundary inclusion.
     surfaces=Vector{Tuple{Float64,Vector{Tuple{Float64,Float64}}}}()
+    boxes=Tuple{Float64,NTuple{4,Float64}}[]
     roads=Tuple{Float64,Float64,Float64}[]
     for g in map["groups"]
         points=g["points"];isempty(points) && continue
         if g["kind"] in ("obstacle","water")
+            if haskey(g,"observed_bounds")
+                bounds=NTuple{4,Float64}(g["observed_bounds"])
+                rho_box_distance(bounds,(0.,0.))<=radius && push!(boxes,(g["kind"]=="water" ? Float64(water_weight) : 1.,bounds))
+                continue
+            end
             local_points=Tuple{Float64,Float64}[(p[1],p[2]) for p in points if hypot(p...)<=radius]
             isempty(local_points) || push!(surfaces,(g["kind"]=="water" ? Float64(water_weight) : 1.,local_points))
         elseif g["kind"]=="worn_ground" && length(points)>=3
@@ -144,12 +186,16 @@ function rho_local_field(map;clearance=2.,span=.5,water_weight=.35,road_weight=.
             push!(roads,(Float64(road_weight)*proximity,ux,uz))
         end
     end
-    (surfaces=surfaces,roads=roads,clearance=Float64(clearance),range=range)
+    (surfaces=surfaces,boxes=boxes,roads=roads,clearance=Float64(clearance),range=range)
 end
 function rho_local_potential(field,point,heading)
     x,z=point;attraction=-(x*sind(heading)+z*cosd(heading));repulsion=0.;road=0.
     for (weight,points) in field.surfaces
         d=minimum(hypot(x-p[1],z-p[2]) for p in points)
+        repulsion+=weight*field.clearance*max(0.,1-d/field.range)^3
+    end
+    for (weight,bounds) in field.boxes
+        d=rho_box_distance(bounds,point)
         repulsion+=weight*field.clearance*max(0.,1-d/field.range)^3
     end
     for (gain,ux,uz) in field.roads

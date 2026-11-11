@@ -1,0 +1,91 @@
+{
+  "days": 30,
+  "last_day": 60,
+  "total_seconds": 1615.4362520999996,
+  "save_seconds": 211.55762609999996,
+  "actors": [
+    {
+      "actor": "npc_a",
+      "reserve": 95.76444444443086,
+      "minimum_day_end_reserve": 46.06777777759753,
+      "final_position": [
+        1.217309296884038,
+        5.7539407434628504
+      ],
+      "unload_days": 23,
+      "unloaded_units": 64.0,
+      "outside_days": 1,
+      "fatigue": null
+    },
+    {
+      "actor": "npc_b",
+      "reserve": 87.06444444440169,
+      "minimum_day_end_reserve": 63.39641640504131,
+      "final_position": [
+        -1.1563806256065283,
+        6.360084420799025
+      ],
+      "unload_days": 19,
+      "unloaded_units": 34.0,
+      "outside_days": 1,
+      "fatigue": null
+    },
+    {
+      "actor": "npc_c",
+      "reserve": 84.20222222216987,
+      "minimum_day_end_reserve": 71.66203028460889,
+      "final_position": [
+        -0.10313443560766519,
+        7.002056316765925
+      ],
+      "unload_days": 25,
+      "unloaded_units": 46.0,
+      "outside_days": 1,
+      "fatigue": null
+    },
+    {
+      "actor": "npc_d",
+      "reserve": 84.11111111105845,
+      "minimum_day_end_reserve": 46.94937707737546,
+      "final_position": [
+        1.2039744591418544,
+        5.707422379103557
+      ],
+      "unload_days": 22,
+      "unloaded_units": 51.0,
+      "outside_days": 1,
+      "fatigue": null
+    }
+  ],
+  "blocks": [
+    {
+      "block": "0",
+      "days": 10,
+      "mean_seconds": 50.82737061000001
+    },
+    {
+      "block": "1",
+      "days": 10,
+      "mean_seconds": 56.91073136999999
+    },
+    {
+      "block": "2",
+      "days": 10,
+      "mean_seconds": 53.80552322999999
+    }
+  ],
+  "slowest": [
+    {
+      "day": 40,
+      "total_seconds": 89.1966471
+    },
+    {
+      "day": 46,
+      "total_seconds": 79.4787419
+    },
+    {
+      "day": 31,
+      "total_seconds": 79.2799018
+    }
+  ]
+}

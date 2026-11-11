@@ -4,7 +4,7 @@ structure_kind(appearance)=appearance in ("bare_ground","trampled_grass") ? "wor
 structure_memory(actor)=D("actor"=>actor,"source"=>nothing,"capture_us"=>-1,"sequence"=>0,
     "models"=>Any[],"events"=>Any[],"observation"=>nothing)
 
-function local_structures(ground,obstacles;max_link=2.5)
+function local_structures(ground,obstacles;max_link=2.5,compact=false)
     nodes=Any[];edges=Tuple{Int,Int}[]
     for (i,c) in enumerate(ground["cells"])
         push!(nodes,D("sample"=>i,"layer"=>"ground","kind"=>structure_kind(c["appearance"]),
@@ -52,8 +52,8 @@ function local_structures(ground,obstacles;max_link=2.5)
         sort!(component)
         push!(groups,D("kind"=>nodes[seed]["kind"],"layer"=>nodes[seed]["layer"],"samples"=>component,
             "points"=>[nodes[i]["point"] for i in component],
-            "links"=>[e for e in links if first(e["samples"]) in component],
-            "boundaries"=>[e for e in boundaries if any(i->i in component,e["samples"])],
+            "links"=>compact ? nothing : [e for e in links if first(e["samples"]) in component],
+            "boundaries"=>compact ? nothing : [e for e in boundaries if any(i->i in component,e["samples"])],
             "outside_observation"=>"unknown","continuity"=>"between_samples_unverified"))
     end
     breaks=Any[]
@@ -74,14 +74,17 @@ end
 
 function update_structures!(state,ob,result)
     source=ob["source"];source["actor"]==state["actor"] || error("structure_actor")
-    source["observation"]==state["source"] && return state
-    linked=result!==nothing && result["actor"]==state["actor"] && result["source"]==state["source"] &&
-        result["before_us"]==state["capture_us"] && result["after_us"]==source["capture_us"]
+    same_observation=source["observation"]==state["source"]
+    previous=state["observation"]
+    same_observation && previous!==nothing && get(previous,"rho",nothing)==get(ob,"rho",nothing) &&
+        get(previous,"boundary_representation",nothing)==get(ob,"boundary_representation",nothing) && return state
+    linked=same_observation || (result!==nothing && result["actor"]==state["actor"] && result["source"]==state["source"] &&
+        result["before_us"]==state["capture_us"] && result["after_us"]==source["capture_us"])
     empty!(state["events"])
     if state["source"]!==nothing && !linked
         empty!(state["models"]);push!(state["events"],"body_correspondence_unavailable")
     end
-    if linked
+    if linked && !same_observation
         sn,cs=sincosd(result["yaw"])
         for m in state["models"]
             m["points"]=[(cs*(x-result["right"])-sn*(z-result["forward"]),sn*(x-result["right"])+cs*(z-result["forward"])) for (x,z) in m["points"]]

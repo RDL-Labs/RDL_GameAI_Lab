@@ -1,5 +1,10 @@
 # 数値設定の配置と意味
 
+2026-11-11: `experiments/lw_wildlife/humans_learned_predators.jl` の
+`integrated_ecology_setup` は人間接続比較用の世界条件（兎150、地上捕食者1、草1.5、栄養1.0）。
+第8引数trueのみで有効。既存の生態系実験値を再使用し、通常の判断に追加しない。
+固定設定と未接続範囲は `experiments/lw_wildlife/humans_current_ecology.md` に記載。
+
 2026-11-06。現行値を保った隔離の第1段階。数値を変える改善ではない。
 同じ値でも、身体限界・感覚・行動判断の意味が違うものは同じ定数へ結合しない。
 
@@ -753,3 +758,56 @@ RabbitNeighborBatchをCPU/GPU共通に変更。要求はFloat64の始点・終�
 既定enabled=true、forecast_ticks=120（SEARCH tickのみ）、recovery_gain=1.44（energy+3gut）、full_reserve=85、range_H=4、maximum_radius=3（区画半径）。既存の探索予算120×0.012を初期回復幅に使用する暫定認知値。経験による更新は未実装。
 時間超過と未回復分から親Hを評価し、局所区画到着では終了しない。身体不変。低Hは従来8近隣、最大48観測候補（通行確認あり）。見積もり状態は親records内へ保存、構造体の保存互換維持。
 検証・制限はexperiments/lw_wildlife/juvenile_trap_audit.md。
+# 2026-11-10 兎の高コスト水地形
+
+出産準備期の境界離脱: `RABBIT_MATERNAL_BOUNDARY.enabled=true`。
+境界幅・身体余白・準備開始日・到達余白は既存設定を共用。母親の通常行動を内側へのSEARCHへ上書きする暫定固定。
+
+同日の出産時期修正: `rabbit_nest_preparation.jl` の `RABBIT_BIRTH_TIMING.postpone_for_site=false`。
+予定日出産を既定とし、trueは旧場所待ち比較専用。巣設置不可では出生しても穴の保護なし。
+詳細 `experiments/lw_wildlife/birth_deadline_notes.md`。
+
+`src/lw/configured_paths/rabbit_terrain.jl` の `RABBIT_TERRAIN`:
+enabled=true、water_speed=0.10距離/tick、water_cost_multiplier=3.0、probe_spacing=0.5距離。
+既存泳ぎ速度・探索消費比を使う暫定身体／地形設定。詳細は `experiments/lw_wildlife/rabbit_terrain_notes.md`。
+
+## 2026-11-11 人間の観測境界の四角近似
+
+`scene.rho_box_boundaries=false`（既定）。trueで連続観測群ごとの障害物・水の四角近似。
+近距離だけでは詳細化せず、既存の確認状態・scan・直前の移動失敗でfineにする認知規則。
+新しい数値閾値は追加しない。世界の衝突・身体限界や強制行動ではない。
+goal_arrival/ground_continuity/有効ρが必要。詳細は
+`experiments/lw_wildlife/human_box_boundaries.md`。初版は試験用で既定OFF。
+
+## 2026-11-11 帰還観察の範囲
+
+`HOME_ACTIVITY_RADIUS=1.25` は実座標の出入りを計数する観察専用値。
+既存depositの合法範囲と合わせたもの。行動・知覚・報酬の閾値を変更しない。
+定義・検証は `experiments/lw_wildlife/human_box_boundaries.md` を参照。
+
+## 2026-11-11 休息の集中観測
+
+scene.rest_task_focus=true（既定）、task_focusも必要。既存TASK_ATTENTIONの64秒レビュー、
+reserve低下2超、動体範囲8を共用。疲労の正→0は回復による再判断。
+新しい数値閾値なし。暫定継続ルールと制限はexperiments/fishing/task_focus_report.md。
+
+## 2026-11-11 空腹感の解消予測
+
+HUNGER_FORECAST_RULES: onset=80（reserve）、scale=20（reserve）、power=2、
+delay_scale=64秒、review_us=64000000μs。身体法則ではなく認知の初期設定。
+scene.hunger_forecast=trueで接続、falseは旧補給固定制御との比較用。
+詳細はLW_Daily_Provision_Plan.mdの連続空腹感節。
+
+## 疲労見積もり（2026-11-11）
+
+`src/lw/parameters.jl` の `FATIGUE_FORECAST_RULES` は通常移動の初期認知係数。
+onset=.8（以上で評価）、scale=.2、delay_seconds=64秒、unknown_seconds=128秒、
+continue_prior=2、risk_gain=8、record_limit=64件。身体のstrain限界1とは別。
+`scene.fatigue_forecast=true`で既存MBへ接続。詳細は[疲労見積もり](LW_Fatigue_Forecast.md)。
+
+## 未完了用件の待機（2026-11-11）
+
+`TASK_WAIT_RULES.message_seconds=3`秒は既存の社会観測の通知寿命と一致させる値。
+新しい返答期限ではない。待機期限は送信時のpending.deadlineをそのまま保持する。
+task_focus有効時も、該当する返答通知または期限切れで通常観測へ戻る。
+まず援助要求の返答待ちに接続。取引提案等の全待機が移行済みという意味ではない。

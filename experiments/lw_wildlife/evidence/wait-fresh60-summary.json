@@ -1,0 +1,88 @@
+{
+  "completed_days": 60,
+  "total_seconds": 2986.0874535000003,
+  "save_seconds": 115.62052139999999,
+  "blocks": [
+    {
+      "days": 10,
+      "mean_seconds": 23.238142440000004,
+      "save_seconds": 3.4840113
+    },
+    {
+      "days": 10,
+      "mean_seconds": 21.80568439,
+      "save_seconds": 4.8313633
+    },
+    {
+      "days": 10,
+      "mean_seconds": 33.21388962,
+      "save_seconds": 8.7026127
+    },
+    {
+      "days": 10,
+      "mean_seconds": 83.480272,
+      "save_seconds": 20.8818712
+    },
+    {
+      "days": 10,
+      "mean_seconds": 78.46875820999999,
+      "save_seconds": 30.9740386
+    },
+    {
+      "days": 10,
+      "mean_seconds": 58.401998690000006,
+      "save_seconds": 46.74662429999999
+    }
+  ],
+  "slowest": [
+    {
+      "day": 39,
+      "total_seconds": 160.6691416,
+      "save_seconds": 0.0
+    },
+    {
+      "day": 41,
+      "total_seconds": 155.7567574,
+      "save_seconds": 0.0
+    },
+    {
+      "day": 40,
+      "total_seconds": 119.7856252,
+      "save_seconds": 4.591074
+    }
+  ],
+  "actors": [
+    {
+      "actor": "npc_a",
+      "reserve": 90.8166666666365,
+      "unload_days": 28,
+      "outside_days": 2,
+      "wait_deadline": 33,
+      "wait_reply": 23
+    },
+    {
+      "actor": "npc_b",
+      "reserve": 84.28111111105902,
+      "unload_days": 42,
+      "outside_days": 1,
+      "wait_deadline": 79,
+      "wait_reply": 8
+    },
+    {
+      "actor": "npc_c",
+      "reserve": 84.79555555550519,
+      "unload_days": 38,
+      "outside_days": 2,
+      "wait_deadline": 48,
+      "wait_reply": 19
+    },
+    {
+      "actor": "npc_d",
+      "reserve": 91.67888888886098,
+      "unload_days": 37,
+      "outside_days": 3,
+      "wait_deadline": 138,
+      "wait_reply": 34
+    }
+  ]
+}
