@@ -21,7 +21,8 @@ function mb_return_outlook!(s,now)
     end
     expanded=0
     while !isempty(queue) && expanded<256
-        sort!(queue,by=x->(x.cost,x.node,x.path_key))
+        # Initial home keys are sorted; the tail sort maintains this order.
+        # popfirst!, continue and truncation preserve it, so do not sort twice.
         item=popfirst!(queue);haskey(paths,item.node) && continue
         expanded+=1
         paths[item.node]=D("path"=>item.path,"cost"=>item.cost,"energy"=>item.energy)

@@ -116,7 +116,8 @@ function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=
     queue=[(node=start,path=String[],cost=0.,visited=Set([start]),path_key="")]
     expanded=0;solution=nothing
     while !isempty(queue) && expanded<max_expansions
-        sort!(queue,by=x->(x.cost,x.path_key));item=popfirst!(queue);expanded+=1
+        # Initially one item; subsequent insertions are sorted at the loop tail.
+        item=popfirst!(queue);expanded+=1
         n=get(s["nodes"],item.node,nothing)
         if !isempty(item.path) && n!==nothing && n[goal]
             solution=(node=item.node,path=item.path,cost=item.cost,visited=item.visited);break

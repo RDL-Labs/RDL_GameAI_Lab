@@ -1,0 +1,1688 @@
+{
+  "note": "CPU sampled after 512 tick warmup and checkpoint reload; includes extra odd-day checkpoint saving. Events not compared: original odd-day full checkpoint absent. Call-site samples include callees; do not add parent and child samples.",
+  "days": [
+    {
+      "day": 39,
+      "artifact_path": "C:/Users/ken_m/Documents/Codex/wait-profile39-20261111",
+      "timing": {
+        "thinking:npc_a": 821.0,
+        "thinking:npc_d": 5440.0,
+        "focused:npc_a": 1904.0,
+        "focused:npc_d": 11840.0,
+        "sleep_seconds": 3.508632,
+        "sleeping:npc_a": 5759.0,
+        "focused:npc_c": 11374.0,
+        "focused:npc_b": 13437.0,
+        "daily_seconds": 1.1079402,
+        "save_seconds": 6.3202697,
+        "thinking:npc_c": 5906.0,
+        "day_seconds": 173.2945072,
+        "thinking:npc_b": 3843.0,
+        "paused:npc_a": 8796.0
+      },
+      "matched": {
+        "counts": true,
+        "physical": true,
+        "events": null,
+        "home_activity": true
+      },
+      "call_seconds": 180.3112467,
+      "allocated_bytes": 26904869610,
+      "gc_seconds": 7.1496757,
+      "actions": {
+        "npc_b": {
+          "request": 2,
+          "rest": 2439,
+          "item_accept": 0,
+          "pickup": 0,
+          "item_offer": 0,
+          "refuse": 0,
+          "scan": 545,
+          "eat": 1,
+          "give": 0,
+          "retrieve": 0,
+          "fish": 11286,
+          "process_food": 120,
+          "discard_food": 0,
+          "deposit": 0,
+          "item_counter": 0,
+          "observe_salt_sample": 0,
+          "item_pickup": 0,
+          "item_decline": 0,
+          "walk": 2887
+        },
+        "npc_a": {
+          "request": 0,
+          "rest": 15164,
+          "item_accept": 0,
+          "pickup": 0,
+          "item_offer": 0,
+          "refuse": 0,
+          "scan": 76,
+          "eat": 2,
+          "give": 0,
+          "retrieve": 1,
+          "fish": 1144,
+          "process_food": 240,
+          "deposit": 1,
+          "observe_salt_sample": 0,
+          "item_pickup": 0,
+          "item_decline": 0,
+          "walk": 652
+        },
+        "npc_d": {
+          "request": 5,
+          "rest": 4814,
+          "pickup": 0,
+          "item_offer": 0,
+          "refuse": 0,
+          "scan": 1368,
+          "eat": 0,
+          "give": 0,
+          "retrieve": 0,
+          "fish": 7473,
+          "process_food": 0,
+          "discard_food": 0,
+          "deposit": 0,
+          "item_counter": 0,
+          "observe_salt_sample": 0,
+          "item_decline": 0,
+          "item_pickup": 0,
+          "walk": 3620
+        },
+        "npc_c": {
+          "request": 1,
+          "rest": 5655,
+          "pickup": 1,
+          "item_offer": 0,
+          "refuse": 1,
+          "scan": 1447,
+          "eat": 1,
+          "give": 0,
+          "retrieve": 0,
+          "fish": 6248,
+          "process_food": 0,
+          "item_counter": 0,
+          "deposit": 0,
+          "discard_food": 0,
+          "observe_salt_sample": 0,
+          "item_pickup": 1,
+          "walk": 3925
+        }
+      },
+      "active_samples": 14150,
+      "day_call_sites": [
+        {
+          "samples": 8,
+          "line": 1076,
+          "code": "movement_inertia && record_continuation!(inertia[a],plan,s,source)"
+        },
+        {
+          "samples": 8,
+          "line": 518,
+          "code": "security=food_security_for!(mb_simulation ? mb_maps[a] : nothing,relations===nothing ? nothing : relations[a])"
+        },
+        {
+          "samples": 8,
+          "line": 397,
+          "code": "now=sec*1_000_000;w.seconds=sec"
+        },
+        {
+          "samples": 8,
+          "line": 691,
+          "code": "t=pop!(pending,a);s=loops[a][t.family]"
+        },
+        {
+          "samples": 8,
+          "line": 715,
+          "code": "mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)"
+        },
+        {
+          "samples": 8,
+          "line": 1507,
+          "code": "food_desire && food_desire_result!(mb_maps[a],plan,status,eaten_kind,meal_liking,now+1_000_000)"
+        },
+        {
+          "samples": 8,
+          "line": 1168,
+          "code": "configured_sleep_gate_tick!(learning[a],w,a,counts,events,previous,now)"
+        },
+        {
+          "samples": 8,
+          "line": 1525,
+          "code": "@assert shared+sum(stock)+sum(values(w.inventory))+sum(values(stores))+w.consumed+food_waste_total(foods)==initial+replenished"
+        },
+        {
+          "samples": 8,
+          "line": 627,
+          "code": "returning=observing ? false : configured_returning!(purposes[a],phase,w.inventory[a],at_home,now)"
+        },
+        {
+          "samples": 8,
+          "line": 702,
+          "code": "search_review_result!(reposition_states[a],t.family,s.trial.method,target!==nothing,t.status==\"performed\")"
+        },
+        {
+          "samples": 8,
+          "line": 736,
+          "code": "active=Set(m[\"model_ref\"] for m in ground_models[a][\"models\"])"
+        },
+        {
+          "samples": 8,
+          "line": 1396,
+          "code": "haskey(plan,\"gradient_source\") && gradient_result!(relations===nothing ? nothing : relations[a],plan[\"gradient_source\"],status;actual=status==\"transferred\" ? 1. : 0.,now)"
+        },
+        {
+          "samples": 8,
+          "line": 1309,
+          "code": "meal_index=foods===nothing || action!=\"eat\" ? 1 : food_meal_index(foods,a,guts===nothing ? nothing : guts[a],premeal.reserve,get(plan,\"food_kind\",0);quality=get(plan,\"food_quality\",0))"
+        },
+        {
+          "samples": 8,
+          "line": 717,
+          "code": "configured_home_rest_enabled && t.family==\"home\" && goal && t.moved &&"
+        },
+        {
+          "samples": 9,
+          "line": 400,
+          "code": "collapsed_ids=Tuple(a for a in IDS if configured_collapse_active(w.bodies[a];enabled=get(spec,:collapse_cognition_gate,true)))"
+        },
+        {
+          "samples": 9,
+          "line": 505,
+          "code": "item_expire!(items,now)"
+        },
+        {
+          "samples": 9,
+          "line": 908,
+          "code": "elseif !fatigue_continue || w.bodies[a].reserve<=0 || w.bodies[a].strain>=1"
+        },
+        {
+          "samples": 9,
+          "line": 647,
+          "code": "mb_simulation && mb_plan_context!(mb_maps[a],now,clock.day_us,w.bodies[a].reserve,metabolism[a])"
+        },
+        {
+          "samples": 10,
+          "line": 1513,
+          "code": "push!(events,D(\"us\"=>now,\"actor\"=>a,\"phase\"=>phase,\"purpose_family\"=>leg,\"action\"=>action,\"status\"=>status,\"target\"=>get(plan,\"target\",nothing),"
+        },
+        {
+          "samples": 10,
+          "line": 794,
+          "code": "elseif (routine=configured_routine_priority(!food_desire && (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80),"
+        },
+        {
+          "samples": 10,
+          "line": 482,
+          "code": "selection_trails && resolve_trail!(trails[a],a,w.bodies[a].reserve,\"ob:$now:$a\",now)"
+        },
+        {
+          "samples": 10,
+          "line": 1454,
+          "code": "pending[a]=merge(pending[a],(status=status,moved=w.positions[a]!=p,))"
+        },
+        {
+          "samples": 10,
+          "line": 1411,
+          "code": "embedded_rest_feedback!(mb_maps[a][\"embedded_rest\"],h!==nothing && h[\"distance\"]<=1.25,"
+        },
+        {
+          "samples": 10,
+          "line": 572,
+          "code": "selection_trails && (plans[a][\"trail_parent\"]=(reserve=w.bodies[a].reserve,H=hunger[a][\"H\"]))"
+        },
+        {
+          "samples": 10,
+          "line": 561,
+          "code": "for a in thinking_ids;record_skyline!(skyline_states[a],skyline_views[a]);end"
+        },
+        {
+          "samples": 11,
+          "line": 643,
+          "code": "returning=embedded_rest_request!(mb_maps[a][\"embedded_rest\"],w.bodies[a].strain,w.bodies[a].reserve,"
+        },
+        {
+          "samples": 11,
+          "line": 565,
+          "code": "hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails || night_fear_enabled) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high,safe_home=camp_safe_zone ? spec.home : nothing,illumination=visual_illumination) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 11,
+          "line": 1238,
+          "code": "push!(g[\"records\"],D(\"source\"=>op,\"load\"=>w.inventory[a],\"resistance\"=>resistance,"
+        },
+        {
+          "samples": 11,
+          "line": 1338,
+          "code": "food_remove!(foods,a,meal_index)"
+        },
+        {
+          "samples": 12,
+          "line": 1156,
+          "code": "trade_work_wait && configured_trade_departure_guard!(plans,incidental_items,trade_workers,now,clock.day_us;relations)"
+        },
+        {
+          "samples": 12,
+          "line": 1038,
+          "code": "bundle_trace=experience_bundles ? project_bundles!(bundles[a],candidates,s,bundle_contexts[a],phase,now;credit=bundle_credit) : nothing"
+        },
+        {
+          "samples": 12,
+          "line": 530,
+          "code": "homes=Dict{String,Any}(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode==\"off\" ? 60 : 6,illumination=visual_illumination) for a in thinking_ids)"
+        },
+        {
+          "samples": 13,
+          "line": 1057,
+          "code": "goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)"
+        },
+        {
+          "samples": 13,
+          "line": 567,
+          "code": "bundle_contexts=(experience_bundles || selection_trails) ? Dict(a=>bundle_context(w.inventory[a],w.bodies[a],moves[a],hazard_views[a]) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 13,
+          "line": 398,
+          "code": "visual_illumination=AmbientVision.illumination(sec;day_seconds=clock.day_us/1e6,night_start=clock.phase_boundaries_us[3]/1e6)"
+        },
+        {
+          "samples": 13,
+          "line": 407,
+          "code": "sleeping_ids=get(spec,:sleep_external_gate,true) ? Tuple(a for a in IDS if configured_sleep_gate_active(learning[a],now,clock.day_us)) : ()"
+        },
+        {
+          "samples": 13,
+          "line": 1415,
+          "code": "tread!(wear,op,a,p,w.positions[a],wear_offset+now;walkable=dry)"
+        },
+        {
+          "samples": 14,
+          "line": 1529,
+          "code": "home_activity_position!(storage_stats[\"home_activity\"],observer_actor,w.positions[observer_actor],spec.home,w.inventory[observer_actor],now+1_000_000,clock.day_us)"
+        },
+        {
+          "samples": 14,
+          "line": 1462,
+          "code": "horizon_result!(horizons[a],a,op,phase,observed_status,status in (\"picked_up\",\"recovered\"))"
+        },
+        {
+          "samples": 15,
+          "line": 416,
+          "code": "push!(motion_objects,(actor=b,x=p[1],z=p[2],vx=p[1]-prior[1],vz=p[2]-prior[2]))"
+        },
+        {
+          "samples": 15,
+          "line": 1179,
+          "code": "plan=plans[a];action=plan[\"action\"];op=\"op:$now:$a\";p=w.positions[a];before_yaw=yaw[a];status=\"performed\""
+        },
+        {
+          "samples": 15,
+          "line": 526,
+          "code": "relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),thinking_ids)"
+        },
+        {
+          "samples": 16,
+          "line": 1548,
+          "code": "items!==nothing && (daily[end][\"portable_items\"]=item_snapshot(items))"
+        },
+        {
+          "samples": 16,
+          "line": 574,
+          "code": "trade_workers=trade_work_wait ? configured_trade_workers(previous) : ()"
+        },
+        {
+          "samples": 16,
+          "line": 1510,
+          "code": "task_focus_record!(mb_maps[a][\"task_focus\"],plan,status,w.bodies[a],w.positions[a],yaw[a],phase,now,w.inventory[a],homes[a];enabled=focus_enabled,rest_enabled=get(spec,:rest_task_focus,true),pending_wait=states[a][\"pending\"])"
+        },
+        {
+          "samples": 16,
+          "line": 449,
+          "code": "record_ground_patterns!(ground_views[a],view,patterns)"
+        },
+        {
+          "samples": 17,
+          "line": 1418,
+          "code": "dx=w.positions[a][1]-p[1];dz=w.positions[a][2]-p[2];sn,cs=sincosd(before_yaw)"
+        },
+        {
+          "samples": 17,
+          "line": 1457,
+          "code": "inertia[a][\"receipt\"]=(actor=a,source=op,executed_us=now+1_000_000,phase=phase,family=leg,"
+        },
+        {
+          "samples": 17,
+          "line": 531,
+          "code": "sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],\"ob:$now:$a\",now) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 18,
+          "line": 945,
+          "code": "append!(candidates,skyline_home_candidates(skyline_states[a],skyline_views[a],moves[a]))"
+        },
+        {
+          "samples": 18,
+          "line": 893,
+          "code": "roll_target=gradient_roll_observed_target(mb_maps[a],roll_target,landmarks===nothing ? nothing : landmarks[a],skyline_views===nothing ? nothing : skyline_views[a])"
+        },
+        {
+          "samples": 19,
+          "line": 1502,
+          "code": "daily_delivery_enabled && mb_daily_result!(mb_maps[a],plan,status,now,"
+        },
+        {
+          "samples": 19,
+          "line": 1473,
+          "code": "use_trail!(trails[a],a,op,get(plan,\"trail_trace\",nothing),get(plan,\"method\",nothing),status,plan[\"trail_parent\"].reserve,plan[\"trail_parent\"].H,refs)"
+        },
+        {
+          "samples": 19,
+          "line": 716,
+          "code": "mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)"
+        },
+        {
+          "samples": 19,
+          "line": 1300,
+          "code": "status=work_status==\"worked\" ? food_process!(foods,a;kind=Int(foods.inventory[a][raw_index]),salt_id=get(plan,\"salt_id\",nothing),items,now) : work_status"
+        },
+        {
+          "samples": 20,
+          "line": 751,
+          "code": "elseif fishing_training && (fish_lesson=configured_fishing_training_plan(mb_maps[a][\"fishing_training\"],foods.inventory[a],at_home,guts===nothing || can_ingest(guts[a]),moves[a][\"visible\"];items=items,actor=a))!==nothing"
+        },
+        {
+          "samples": 20,
+          "line": 705,
+          "code": "child_increment=mb_simulation ? mb_route_H_increment!(mb_maps[a],t.family,t.source,goal,now) : nothing"
+        },
+        {
+          "samples": 20,
+          "line": 937,
+          "code": "aid_values=food_aid_values(w.bodies[a],guts===nothing ? nothing : guts[a],kinds;map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a))"
+        },
+        {
+          "samples": 20,
+          "line": 894,
+          "code": "plan=gradient_roll_plan!(mb_maps[a],get(ground_receipts,a,nothing),now,yaw[a],family,phase,loops[a][family].H,roll_target)"
+        },
+        {
+          "samples": 22,
+          "line": 1037,
+          "code": "body_selected=body_field ? method_choice(s,candidates)[\"method\"] : nothing"
+        },
+        {
+          "samples": 22,
+          "line": 1406,
+          "code": "configured_home_rest_step!(mb_maps[a],loops[a][\"home\"],h!==nothing && h[\"distance\"]<=1.25,"
+        },
+        {
+          "samples": 22,
+          "line": 586,
+          "code": "integrate(a,now,obs[a]);o=obs[a];plan=nothing;home=homes[a]"
+        },
+        {
+          "samples": 22,
+          "line": 1382,
+          "code": "foods!==nothing && food_retrieve!(foods,a,shared_stores,guts===nothing ? nothing : guts[a],w.bodies[a].reserve;kind=get(plan,\"food_kind\",0),quality=get(plan,\"food_quality\",0))"
+        },
+        {
+          "samples": 22,
+          "line": 1315,
+          "code": "r=communicate!(w,a,op,action,get(plan,\"target\",nothing),get(plan,\"reply_to\",nothing);food_kind=delivered_kind,unsolicited=get(plan,\"visual_aid\",false) && get(plan,\"reply_to\",nothing)===nothing)"
+        },
+        {
+          "samples": 23,
+          "line": 722,
+          "code": "mb_parent_arrival_sync!(mb_maps[a],loops[a][g],g,now)"
+        },
+        {
+          "samples": 23,
+          "line": 934,
+          "code": "candidates=search_candidates(moves[a],target,s)"
+        },
+        {
+          "samples": 23,
+          "line": 741,
+          "code": "messages=[m for m in reverse(o[\"messages\"]) if !(m[\"id\"] in answered[a]) && m[\"kind\"] in (\"request\",\"warn\",\"reach\")]"
+        },
+        {
+          "samples": 23,
+          "line": 1036,
+          "code": "body_applied=body_field && project_body_methods!(candidates,hunger[a],w.bodies[a],phase)"
+        },
+        {
+          "samples": 24,
+          "line": 1123,
+          "code": "mb_parent_begin!(mb_maps[a],plan,parent_family,parent_target,now)"
+        },
+        {
+          "samples": 24,
+          "line": 963,
+          "code": "append!(candidates,ground_proposals(ground_models[a],moves[a]))"
+        },
+        {
+          "samples": 24,
+          "line": 609,
+          "code": "goal_arrival_advance!(mb_maps[a][\"goal_arrival\"][g],get(ground_receipts,a,nothing))"
+        },
+        {
+          "samples": 25,
+          "line": 589,
+          "code": "foods!==nothing && mb_simulation && food_condition_observe!(mb_maps[a],foods.inventory[a],shared_stores ? foods.shared : foods.personal[a],at_home,now,clock.day_us;foods,actor=a,shared_stores)"
+        },
+        {
+          "samples": 25,
+          "line": 1526,
+          "code": "foods!==nothing && food_audit!(foods,w,stock,shared,stores)"
+        },
+        {
+          "samples": 26,
+          "line": 1035,
+          "code": "body_before=body_field ? method_choice(s,candidates)[\"method\"] : nothing"
+        },
+        {
+          "samples": 26,
+          "line": 453,
+          "code": "rho_baselines[a]=rho_profile==\"home-distance\" ? home_distance_profile!(mb_maps[a][\"home_distance\"],get(ground_receipts,a,nothing)) : rho_profile"
+        },
+        {
+          "samples": 26,
+          "line": 1149,
+          "code": "gradient_roll_enroll!(mb_maps[a],plan,now,yaw[a],family,phase,loops[a][family].H,roll_target;direction_distance=get(spec,:gradient_direction_distance,0.))"
+        },
+        {
+          "samples": 27,
+          "line": 1468,
+          "code": "remember_bundle!(bundles[a],D(\"actor\"=>a,\"operation\"=>op,\"capture_us\"=>now,\"executed_us\"=>now+1_000_000,"
+        },
+        {
+          "samples": 27,
+          "line": 524,
+          "code": "expressions=relations===nothing ? nothing : Dict(a=>configured_expression(w.bodies[a];anxiety=food_anxiety(food_security(relations[a])),fear=night_fear_enabled ? mb_maps[a][\"night_fear\"][\"H\"]/8 : 0.) for a in IDS)"
+        },
+        {
+          "samples": 27,
+          "line": 917,
+          "code": "plan=incidental_item_plan!(incidental_items[a],item_view,w.bodies[a],loops[a][family],now;"
+        },
+        {
+          "samples": 28,
+          "line": 428,
+          "code": "task_focus_continue!(fs,w.bodies[a],w.positions[a],yaw[a],focus_phase,now,notice;"
+        },
+        {
+          "samples": 28,
+          "line": 437,
+          "code": "thinking_ids=Tuple(a for a in IDS if !(a in paused_ids) && !(a in sleeping_ids) && !(a in collapsed_ids) && !(a in focused_ids));Main.tick!(thinking_ids,sleeping_ids,paused_ids,focused_ids)"
+        },
+        {
+          "samples": 28,
+          "line": 1402,
+          "code": "incidental_item_result!(incidental_items[a],plan,status,max(0.,repetition_before.reserve-w.bodies[a].reserve),now)"
+        },
+        {
+          "samples": 28,
+          "line": 969,
+          "code": "append!(candidates,horizon_candidates(horizons[a],landmarks[a],moves[a]))"
+        },
+        {
+          "samples": 29,
+          "line": 755,
+          "code": "elseif food_desire && (desire_plan=food_desire_plan!(mb_maps[a],loops[a][\"food\"],foods,a,guts===nothing ? nothing : guts[a],w.bodies[a],at_home,shared_stores ? foods.shared : foods.personal[a],facilities,w.positions[a],now;requested=food_hungry || (post_return_meal && at_home && configured_return_meal_due(mb_maps[a],now,clock.day_us)),processing=food_processing_enabled,items=items))!==nothing"
+        },
+        {
+          "samples": 30,
+          "line": 566,
+          "code": "contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a];climbs=climbs===nothing ? nothing : climbs[a]) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 30,
+          "line": 915,
+          "code": "item_view=item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;"
+        },
+        {
+          "samples": 30,
+          "line": 481,
+          "code": "hunger_update!(hunger[a],a,now,w.bodies[a].reserve;continuous=get(spec,:hunger_forecast,true))"
+        },
+        {
+          "samples": 31,
+          "line": 1429,
+          "code": "max_radius[a]=max(max_radius[a],hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2]))"
+        },
+        {
+          "samples": 32,
+          "line": 1546,
+          "code": "foods!==nothing && (daily[end][\"food_resources\"]=food_snapshot(foods))"
+        },
+        {
+          "samples": 32,
+          "line": 712,
+          "code": "resolve_method!(s,t.source,method_evidence,forecast_increment!==nothing ? goal : (t.phase==phase || goal ? goal : nothing);"
+        },
+        {
+          "samples": 32,
+          "line": 947,
+          "code": "reposition && append!(candidates,reposition_candidates!(reposition_states[a],a,moves[a],now;purpose=family,home_unresolved=returning && target===nothing && s.H>=s.threshold,linked=s.receipt!==nothing && s.receipt.source==\"op:$(now-1_000_000):$a\"))"
+        },
+        {
+          "samples": 33,
+          "line": 515,
+          "code": "fishing_enabled && foreach(a->fishing_observation!(foods,a,moves[a][\"visible\"]),thinking_ids)"
+        },
+        {
+          "samples": 34,
+          "line": 427,
+          "code": "notice=get(fs,\"active\",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles,illumination=visual_illumination) : nothing"
+        },
+        {
+          "samples": 34,
+          "line": 491,
+          "code": "for a in thinking_ids;observe_sky!(sky[a],sky_sample(a,\"ob:$now:$a\",now,yaw[a],clock));end"
+        },
+        {
+          "samples": 36,
+          "line": 1490,
+          "code": "fishing_training && configured_fishing_training_result!(mb_maps[a][\"fishing_training\"],action,status,eaten_kind,"
+        },
+        {
+          "samples": 36,
+          "line": 1419,
+          "code": "ground_receipts[a]=D(\"actor\"=>a,\"source\"=>\"ob:$now:$a\",\"operation\"=>op,"
+        },
+        {
+          "samples": 36,
+          "line": 980,
+          "code": "active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)"
+        },
+        {
+          "samples": 38,
+          "line": 1505,
+          "code": "post_return_meal && configured_return_meal_record!(mb_maps[a],action,status,hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2])<=1.25,now+1_000_000,clock.day_us)"
+        },
+        {
+          "samples": 39,
+          "line": 965,
+          "code": "append!(candidates,rho_opening_candidates(ground_models[a][\"structures\"][\"observation\"],moves[a]))"
+        },
+        {
+          "samples": 39,
+          "line": 493,
+          "code": "obs=Dict(a=>observe(w,a) for a in thinking_ids)"
+        },
+        {
+          "samples": 41,
+          "line": 768,
+          "code": "decision,trace=experienced_response(current,states[a][\"records\"],aid_view(a),a,\"respond:$now:$a:$(m[\"id\"])\";retention=food_body ? retention_cost(current,hunger[a]) : 0.,relation=relations===nothing ? nothing : relations[a],now,available_food=aid_reply_kind>0)"
+        },
+        {
+          "samples": 42,
+          "line": 1319,
+          "code": "social_relation_event!(relations[a],plan[\"target\"],\"aid_given\",op,now;"
+        },
+        {
+          "samples": 44,
+          "line": 1017,
+          "code": "projected,field_trace=harvest_field(candidates,moves[a],harvest[a],a,now;enabled=true)"
+        },
+        {
+          "samples": 46,
+          "line": 1117,
+          "code": "plan[\"scan_angle\"]=orientation_scan!(sky[a],clock)"
+        },
+        {
+          "samples": 48,
+          "line": 1056,
+          "code": "goal_arrival_enabled && goal_arrival_project!(mb_maps[a][\"goal_arrival\"][family],candidates,moves[a],family,now)"
+        },
+        {
+          "samples": 54,
+          "line": 999,
+          "code": "filter!(p->!startswith(first(p),\"mb_chunk:\") || haskey(mb_maps[a][\"chunks\"],first(p)[10:end]),s.methods)"
+        },
+        {
+          "samples": 56,
+          "line": 557,
+          "code": "current_landmarks=landmark_routes && items!==nothing ? vcat(landmark_objects,item_light_objects(items,w)) : landmark_objects"
+        },
+        {
+          "samples": 59,
+          "line": 1498,
+          "code": "acquisition_result!(mb_maps[a],acquisition[\"technique\"],acquisition[\"ref\"],get(acquisition,\"acquire_seconds\",acquisition[\"seconds\"]),1.,status==\"picked_up\";sensitivity=mb_maps[a][\"sensitivity\"][\"delay\"],now,"
+        },
+        {
+          "samples": 67,
+          "line": 1055,
+          "code": "mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))"
+        },
+        {
+          "samples": 69,
+          "line": 1059,
+          "code": "plan=choose_method!(s,candidates,source)"
+        },
+        {
+          "samples": 73,
+          "line": 406,
+          "code": "paused_ids=post_return_idle ? Set(a for a in IDS if !(a in collapsed_ids) && (!trade_idle || configured_trade_idle_ready!(mb_maps[a],incidental_items[a],items,w,a,now,clock.day_us;social_notice=relations!==nothing && (get(relations[a],\"aid_delivery\",nothing)!==nothing || configured_social_notice(w,a,answered[a])))) && configured_post_return_idle!(mb_maps[a],now,clock.day_us,bounds[3];pending=haskey(pending,a),observing=configured_observation_enabled && now<clock.day_us,require_meal=post_return_meal)) : ()"
+        },
+        {
+          "samples": 75,
+          "line": 1034,
+          "code": "field_selected=sleep_actions ? sleep_without : method_choice(s,candidates)"
+        },
+        {
+          "samples": 77,
+          "line": 1133,
+          "code": "applied=steer_structure!(plan,goal,lateral_views[a],structure_state,w,a,yaw,"
+        },
+        {
+          "samples": 81,
+          "line": 1262,
+          "code": "receipt=item_execute!(items,shared_stores ? nothing : foods,w,stores,spec.home,a,op,action,now;"
+        },
+        {
+          "samples": 82,
+          "line": 998,
+          "code": "filter!(p->!(startswith(first(p),\"mb_route:\") || startswith(first(p),\"mb_recheck:\") || startswith(first(p),\"mb_abandon:\")) || (mb_maps[a][\"routes\"][\"active\"]!==nothing && (first(p)==\"mb_route:\"*mb_maps[a][\"routes\"][\"active\"][\"id\"] || first(p)==\"mb_recheck:\"*mb_maps[a][\"routes\"][\"active\"][\"id\"] || first(p)==\"mb_abandon:\"*mb_maps[a][\"routes\"][\"active\"][\"id\"])),s.methods)"
+        },
+        {
+          "samples": 85,
+          "line": 525,
+          "code": "social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions,rho=get(rho_baselines,a,\"coarse\"),attention=social_attention(relations[a],now),illumination=visual_illumination) for a in thinking_ids)"
+        },
+        {
+          "samples": 85,
+          "line": 706,
+          "code": "forecast_increment=mb_simulation ? mb_parent_H_increment!(mb_maps[a],t.family,t.source,goal,now;"
+        },
+        {
+          "samples": 87,
+          "line": 689,
+          "code": "movement_inertia && observe_inertia!(inertia[a],a,now,inertia_view(moves[a],landmarks[a],hazard_views[a]))"
+        },
+        {
+          "samples": 87,
+          "line": 558,
+          "code": "landmarks=landmark_routes ? Dict(a=>landmark_fan(current_landmarks,w.positions[a],yaw[a],\"ob:$now:$a\";night=phase==\"night\",all_colors=general_landmarks,illumination=visual_illumination) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 89,
+          "line": 1000,
+          "code": "filter!(p->!startswith(first(p),\"mb_sim:\") || haskey(mb_maps[a][\"edges\"],first(p)[8:end]),s.methods)"
+        },
+        {
+          "samples": 89,
+          "line": 447,
+          "code": "view=ground_appearance(w,a,yaw,wear,now;dry=dry,illumination=visual_illumination)"
+        },
+        {
+          "samples": 89,
+          "line": 938,
+          "code": "social_options=social_approach_candidates(social_views[a],moves[a],relations[a],s,now;"
+        },
+        {
+          "samples": 101,
+          "line": 563,
+          "code": "climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 105,
+          "line": 598,
+          "code": "food_targets=acquisition_targets!(mb_maps[a],food_targets,loops[a][\"food\"],now;home=home,anxiety=food_anxiety(get(mb_maps[a],\"food_security\",nothing)),committed_ref=committed,"
+        },
+        {
+          "samples": 112,
+          "line": 1443,
+          "code": "mb_simulation && mb_record!(mb_maps[a],get(plan,\"configured_observation\",false) ? merge(plan,D(\"purpose_family\"=>nothing)) : plan,status,repetition_before.reserve-w.bodies[a].reserve,now;turn=wrap_angle(yaw[a]-before_yaw),distance=hypot(w.positions[a][1]-p[1],w.positions[a][2]-p[2]))"
+        },
+        {
+          "samples": 113,
+          "line": 957,
+          "code": "append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a][\"source\"];include_routes=!relation_field,include_observed=!general_landmarks))"
+        },
+        {
+          "samples": 121,
+          "line": 1438,
+          "code": "general_sleep && !(a in focused_ids) && remember_general!(general[a],a,op,action,status,get(plan,\"target\",nothing),phase,now+1_000_000;context=contexts[a],direction=get(plan,\"direction\",nothing),retain=sleep_retention)"
+        },
+        {
+          "samples": 125,
+          "line": 450,
+          "code": "ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing),patterns)"
+        },
+        {
+          "samples": 133,
+          "line": 1527,
+          "code": "items!==nothing && item_audit!(items,w)"
+        },
+        {
+          "samples": 149,
+          "line": 520,
+          "code": "food_security_update!(security,mb_simulation ? mb_maps[a] : nothing,w.bodies[a],guts===nothing ? nothing : guts[a],"
+        },
+        {
+          "samples": 151,
+          "line": 958,
+          "code": "relation_field && append!(candidates,relation_candidates!(relation_fields[a],moves[a],landmarks[a],routes[a],family,landmarks[a][\"source\"]))"
+        },
+        {
+          "samples": 151,
+          "line": 1047,
+          "code": "project_rho_affordance!(candidates,ground_models[a][\"structures\"][\"observation\"])"
+        },
+        {
+          "samples": 171,
+          "line": 1286,
+          "code": "status=fishing_tick!(foods,w,cargo,food,stock,a,plan[\"food_ref\"]+1,now,op)"
+        },
+        {
+          "samples": 177,
+          "line": 1012,
+          "code": "candidates=ground_candidates(candidates,moves[a],w.inventory[a])"
+        },
+        {
+          "samples": 179,
+          "line": 1039,
+          "code": "trail_trace=selection_trails ? project_trails!(trails[a],candidates,s,bundle_contexts[a],phase) : nothing"
+        },
+        {
+          "samples": 187,
+          "line": 559,
+          "code": "skyline_views=skyline_mode==\"off\" ? nothing : Dict(a=>(!get(spec,:predictive_skyline,false) ? skyline_fan(skyline_objects,w.positions[a],yaw[a],\"ob:$now:$a\";subrays=skyline_mode==\"subrays\",illumination=visual_illumination) : interval_skyline!(() -> skyline_fan(skyline_objects,w.positions[a],yaw[a],\"ob:$now:$a\";subrays=skyline_mode==\"subrays\",illumination=visual_illumination),skyline_states[a],get(ground_receipts,a,nothing),now,\"ob:$now:$a\";skyline_schedule_inputs(mb_maps[a],landmarks===nothing ? nothing : landmarks[a],moves[a],homes[a])...,fine=get(rho_baselines,a,\"fine\")==\"fine\",enabled=true,illumination=visual_illumination)) for a in thinking_ids)"
+        },
+        {
+          "samples": 193,
+          "line": 983,
+          "code": "fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)"
+        },
+        {
+          "samples": 246,
+          "line": 975,
+          "code": "mb_simulation && mb_goal_cue_project!(mb_maps[a],cue_options,pool,family,s.H,now)"
+        },
+        {
+          "samples": 250,
+          "line": 443,
+          "code": "lateral_views=lateral_side!=\"off\" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],\"ob:$now:$a\") for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 275,
+          "line": 1435,
+          "code": "process_sleep!(a,now,day,action,status)"
+        },
+        {
+          "samples": 287,
+          "line": 448,
+          "code": "patterns=ground_patterns(view)"
+        },
+        {
+          "samples": 287,
+          "line": 738,
+          "code": "filter!(kv->!startswith(first(kv),\"ground_\") || first(kv) in active,loop.methods)"
+        },
+        {
+          "samples": 289,
+          "line": 732,
+          "code": "update_structures!(ground_models[a][\"structures\"],structure,receipt)"
+        },
+        {
+          "samples": 289,
+          "line": 513,
+          "code": "moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high,"
+        },
+        {
+          "samples": 317,
+          "line": 974,
+          "code": "cue_options=cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold)"
+        },
+        {
+          "samples": 341,
+          "line": 973,
+          "code": "pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],\"ob:$now:$a\";level=min(2,floor(Int,s.H/s.threshold)))"
+        },
+        {
+          "samples": 354,
+          "line": 1170,
+          "code": "process_sleep!(a,now,day,\"rest\",\"performed\")"
+        },
+        {
+          "samples": 365,
+          "line": 988,
+          "code": "mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))"
+        },
+        {
+          "samples": 406,
+          "line": 976,
+          "code": "mb_simulation && mb_exploration_project!(mb_maps[a],cue_options,family,s.H,now)"
+        },
+        {
+          "samples": 411,
+          "line": 731,
+          "code": "structure=effective==\"off\" ? local_structures(view,lateral_views[a]) : rho_observed_map!(ground_models[a][\"structures\"],view,lateral_views[a],effective;boxes=get(spec,:rho_box_boundaries,false))"
+        },
+        {
+          "samples": 474,
+          "line": 591,
+          "code": "mb_simulation && mb_observe!(mb_maps[a],landmarks[a],now;home=at_home,food=any(f->f[\"distance\"]<=1.25,moves[a][\"visible\"]))"
+        },
+        {
+          "samples": 519,
+          "line": 1551,
+          "code": "Main.timers[\"daily_seconds\"]=(time_ns()-daily_profile_ns)/1e9;save_profile_ns=time_ns();checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code);Main.timers[\"save_seconds\"]=(time_ns()-save_profile_ns)/1e9;Main.finish!(@lw_capture())"
+        },
+        {
+          "samples": 542,
+          "line": 992,
+          "code": "fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)"
+        },
+        {
+          "samples": 588,
+          "line": 1053,
+          "code": "mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))"
+        },
+        {
+          "samples": 609,
+          "line": 1054,
+          "code": "mb_simulation && phase==\"exploration\" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))"
+        },
+        {
+          "samples": 1155,
+          "line": 662,
+          "code": "returning=provision_stay ? true : mb_daily_request!(mb_maps[a],moves[a],home,at_home,w.inventory[a],"
+        }
+      ]
+    },
+    {
+      "day": 41,
+      "artifact_path": "C:/Users/ken_m/Documents/Codex/wait-profile41-20261111",
+      "timing": {
+        "thinking:npc_a": 2359.0,
+        "thinking:npc_d": 4710.0,
+        "focused:npc_a": 9544.0,
+        "sleeping:npc_b": 5555.0,
+        "focused:npc_d": 6811.0,
+        "sleep_seconds": 7.0538071,
+        "sleeping:npc_a": 5377.0,
+        "focused:npc_c": 12552.0,
+        "sleeping:npc_d": 5759.0,
+        "focused:npc_b": 7893.0,
+        "daily_seconds": 1.2419017,
+        "save_seconds": 6.6319442,
+        "thinking:npc_c": 4728.0,
+        "day_seconds": 155.4121264,
+        "thinking:npc_b": 3832.0
+      },
+      "matched": {
+        "counts": true,
+        "physical": true,
+        "events": null,
+        "home_activity": true
+      },
+      "call_seconds": 161.8024885,
+      "allocated_bytes": 27266774327,
+      "gc_seconds": 6.8677889,
+      "actions": {
+        "npc_b": {
+          "request": 0,
+          "rest": 7868,
+          "item_accept": 0,
+          "pickup": 4,
+          "item_offer": 0,
+          "refuse": 3,
+          "scan": 366,
+          "inspect_food": 0,
+          "eat": 5,
+          "give": 0,
+          "retrieve": 0,
+          "fish": 6003,
+          "process_food": 120,
+          "discard_food": 0,
+          "deposit": 0,
+          "item_counter": 0,
+          "observe_salt_sample": 0,
+          "item_pickup": 1,
+          "item_decline": 0,
+          "walk": 2910
+        },
+        "npc_a": {
+          "request": 0,
+          "rest": 7810,
+          "item_accept": 0,
+          "pickup": 0,
+          "item_offer": 0,
+          "refuse": 0,
+          "scan": 283,
+          "eat": 0,
+          "give": 0,
+          "retrieve": 0,
+          "fish": 7444,
+          "process_food": 0,
+          "deposit": 0,
+          "observe_salt_sample": 0,
+          "item_pickup": 0,
+          "item_decline": 0,
+          "walk": 1743
+        },
+        "npc_d": {
+          "request": 9,
+          "rest": 7383,
+          "pickup": 0,
+          "item_offer": 0,
+          "refuse": 4,
+          "scan": 599,
+          "eat": 0,
+          "give": 0,
+          "retrieve": 0,
+          "fish": 5518,
+          "process_food": 0,
+          "discard_food": 0,
+          "deposit": 0,
+          "item_counter": 0,
+          "observe_salt_sample": 0,
+          "item_decline": 0,
+          "item_pickup": 0,
+          "walk": 3767
+        },
+        "npc_c": {
+          "request": 16,
+          "rest": 4680,
+          "pickup": 0,
+          "item_offer": 0,
+          "refuse": 1,
+          "scan": 825,
+          "eat": 0,
+          "give": 0,
+          "retrieve": 0,
+          "fish": 8473,
+          "process_food": 0,
+          "item_counter": 0,
+          "deposit": 0,
+          "discard_food": 0,
+          "observe_salt_sample": 0,
+          "item_pickup": 0,
+          "walk": 3285
+        }
+      },
+      "active_samples": 13010,
+      "day_call_sites": [
+        {
+          "samples": 8,
+          "line": 1550,
+          "code": "relations!==nothing && (daily[end][\"social_relationships\"]=relation_snapshot())"
+        },
+        {
+          "samples": 8,
+          "line": 545,
+          "code": "prediction=harvest_predict(harvest[a],sections[a])"
+        },
+        {
+          "samples": 8,
+          "line": 530,
+          "code": "homes=Dict{String,Any}(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode==\"off\" ? 60 : 6,illumination=visual_illumination) for a in thinking_ids)"
+        },
+        {
+          "samples": 8,
+          "line": 898,
+          "code": "plan=choose_method!(loops[a][family],[plan],source)"
+        },
+        {
+          "samples": 8,
+          "line": 1473,
+          "code": "use_trail!(trails[a],a,op,get(plan,\"trail_trace\",nothing),get(plan,\"method\",nothing),status,plan[\"trail_parent\"].reserve,plan[\"trail_parent\"].H,refs)"
+        },
+        {
+          "samples": 8,
+          "line": 751,
+          "code": "elseif fishing_training && (fish_lesson=configured_fishing_training_plan(mb_maps[a][\"fishing_training\"],foods.inventory[a],at_home,guts===nothing || can_ingest(guts[a]),moves[a][\"visible\"];items=items,actor=a))!==nothing"
+        },
+        {
+          "samples": 8,
+          "line": 980,
+          "code": "active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)"
+        },
+        {
+          "samples": 8,
+          "line": 1462,
+          "code": "horizon_result!(horizons[a],a,op,phase,observed_status,status in (\"picked_up\",\"recovered\"))"
+        },
+        {
+          "samples": 8,
+          "line": 1300,
+          "code": "status=work_status==\"worked\" ? food_process!(foods,a;kind=Int(foods.inventory[a][raw_index]),salt_id=get(plan,\"salt_id\",nothing),items,now) : work_status"
+        },
+        {
+          "samples": 9,
+          "line": 572,
+          "code": "selection_trails && (plans[a][\"trail_parent\"]=(reserve=w.bodies[a].reserve,H=hunger[a][\"H\"]))"
+        },
+        {
+          "samples": 9,
+          "line": 574,
+          "code": "trade_workers=trade_work_wait ? configured_trade_workers(previous) : ()"
+        },
+        {
+          "samples": 9,
+          "line": 1057,
+          "code": "goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)"
+        },
+        {
+          "samples": 9,
+          "line": 407,
+          "code": "sleeping_ids=get(spec,:sleep_external_gate,true) ? Tuple(a for a in IDS if configured_sleep_gate_active(learning[a],now,clock.day_us)) : ()"
+        },
+        {
+          "samples": 9,
+          "line": 1338,
+          "code": "food_remove!(foods,a,meal_index)"
+        },
+        {
+          "samples": 10,
+          "line": 505,
+          "code": "item_expire!(items,now)"
+        },
+        {
+          "samples": 10,
+          "line": 1529,
+          "code": "home_activity_position!(storage_stats[\"home_activity\"],observer_actor,w.positions[observer_actor],spec.home,w.inventory[observer_actor],now+1_000_000,clock.day_us)"
+        },
+        {
+          "samples": 10,
+          "line": 567,
+          "code": "bundle_contexts=(experience_bundles || selection_trails) ? Dict(a=>bundle_context(w.inventory[a],w.bodies[a],moves[a],hazard_views[a]) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 11,
+          "line": 1411,
+          "code": "embedded_rest_feedback!(mb_maps[a][\"embedded_rest\"],h!==nothing && h[\"distance\"]<=1.25,"
+        },
+        {
+          "samples": 11,
+          "line": 1478,
+          "code": "counts[a][action]=get(counts[a],action,0)+1"
+        },
+        {
+          "samples": 11,
+          "line": 1454,
+          "code": "pending[a]=merge(pending[a],(status=status,moved=w.positions[a]!=p,))"
+        },
+        {
+          "samples": 12,
+          "line": 1457,
+          "code": "inertia[a][\"receipt\"]=(actor=a,source=op,executed_us=now+1_000_000,phase=phase,family=leg,"
+        },
+        {
+          "samples": 12,
+          "line": 841,
+          "code": "plan=visual_aid_plan!(relations[a],social_views[a],w.bodies[a],guts===nothing ? nothing : guts[a],"
+        },
+        {
+          "samples": 12,
+          "line": 586,
+          "code": "integrate(a,now,obs[a]);o=obs[a];plan=nothing;home=homes[a]"
+        },
+        {
+          "samples": 12,
+          "line": 794,
+          "code": "elseif (routine=configured_routine_priority(!food_desire && (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80),"
+        },
+        {
+          "samples": 12,
+          "line": 716,
+          "code": "mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)"
+        },
+        {
+          "samples": 13,
+          "line": 934,
+          "code": "candidates=search_candidates(moves[a],target,s)"
+        },
+        {
+          "samples": 13,
+          "line": 565,
+          "code": "hazard_views=(hazard_mode || general_sleep || movement_inertia || selection_trails || night_fear_enabled) ? Dict(a=>hazard_observation(w,a,yaw,hazard_mode ? hazard_sources : Any[],sec+div(world_offset,1_000_000);visual_obstacles=high,safe_home=camp_safe_zone ? spec.home : nothing,illumination=visual_illumination) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 13,
+          "line": 1513,
+          "code": "push!(events,D(\"us\"=>now,\"actor\"=>a,\"phase\"=>phase,\"purpose_family\"=>leg,\"action\"=>action,\"status\"=>status,\"target\"=>get(plan,\"target\",nothing),"
+        },
+        {
+          "samples": 14,
+          "line": 1179,
+          "code": "plan=plans[a];action=plan[\"action\"];op=\"op:$now:$a\";p=w.positions[a];before_yaw=yaw[a];status=\"performed\""
+        },
+        {
+          "samples": 14,
+          "line": 526,
+          "code": "relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),thinking_ids)"
+        },
+        {
+          "samples": 14,
+          "line": 969,
+          "code": "append!(candidates,horizon_candidates(horizons[a],landmarks[a],moves[a]))"
+        },
+        {
+          "samples": 15,
+          "line": 1406,
+          "code": "configured_home_rest_step!(mb_maps[a],loops[a][\"home\"],h!==nothing && h[\"distance\"]<=1.25,"
+        },
+        {
+          "samples": 15,
+          "line": 453,
+          "code": "rho_baselines[a]=rho_profile==\"home-distance\" ? home_distance_profile!(mb_maps[a][\"home_distance\"],get(ground_receipts,a,nothing)) : rho_profile"
+        },
+        {
+          "samples": 15,
+          "line": 491,
+          "code": "for a in thinking_ids;observe_sky!(sky[a],sky_sample(a,\"ob:$now:$a\",now,yaw[a],clock));end"
+        },
+        {
+          "samples": 16,
+          "line": 1418,
+          "code": "dx=w.positions[a][1]-p[1];dz=w.positions[a][2]-p[2];sn,cs=sincosd(before_yaw)"
+        },
+        {
+          "samples": 16,
+          "line": 768,
+          "code": "decision,trace=experienced_response(current,states[a][\"records\"],aid_view(a),a,\"respond:$now:$a:$(m[\"id\"])\";retention=food_body ? retention_cost(current,hunger[a]) : 0.,relation=relations===nothing ? nothing : relations[a],now,available_food=aid_reply_kind>0)"
+        },
+        {
+          "samples": 17,
+          "line": 1117,
+          "code": "plan[\"scan_angle\"]=orientation_scan!(sky[a],clock)"
+        },
+        {
+          "samples": 17,
+          "line": 1076,
+          "code": "movement_inertia && record_continuation!(inertia[a],plan,s,source)"
+        },
+        {
+          "samples": 17,
+          "line": 449,
+          "code": "record_ground_patterns!(ground_views[a],view,patterns)"
+        },
+        {
+          "samples": 18,
+          "line": 741,
+          "code": "messages=[m for m in reverse(o[\"messages\"]) if !(m[\"id\"] in answered[a]) && m[\"kind\"] in (\"request\",\"warn\",\"reach\")]"
+        },
+        {
+          "samples": 18,
+          "line": 1415,
+          "code": "tread!(wear,op,a,p,w.positions[a],wear_offset+now;walkable=dry)"
+        },
+        {
+          "samples": 18,
+          "line": 947,
+          "code": "reposition && append!(candidates,reposition_candidates!(reposition_states[a],a,moves[a],now;purpose=family,home_unresolved=returning && target===nothing && s.H>=s.threshold,linked=s.receipt!==nothing && s.receipt.source==\"op:$(now-1_000_000):$a\"))"
+        },
+        {
+          "samples": 18,
+          "line": 643,
+          "code": "returning=embedded_rest_request!(mb_maps[a][\"embedded_rest\"],w.bodies[a].strain,w.bodies[a].reserve,"
+        },
+        {
+          "samples": 19,
+          "line": 736,
+          "code": "active=Set(m[\"model_ref\"] for m in ground_models[a][\"models\"])"
+        },
+        {
+          "samples": 19,
+          "line": 1036,
+          "code": "body_applied=body_field && project_body_methods!(candidates,hunger[a],w.bodies[a],phase)"
+        },
+        {
+          "samples": 19,
+          "line": 609,
+          "code": "goal_arrival_advance!(mb_maps[a][\"goal_arrival\"][g],get(ground_receipts,a,nothing))"
+        },
+        {
+          "samples": 20,
+          "line": 1510,
+          "code": "task_focus_record!(mb_maps[a][\"task_focus\"],plan,status,w.bodies[a],w.positions[a],yaw[a],phase,now,w.inventory[a],homes[a];enabled=focus_enabled,rest_enabled=get(spec,:rest_task_focus,true),pending_wait=states[a][\"pending\"])"
+        },
+        {
+          "samples": 20,
+          "line": 1055,
+          "code": "mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))"
+        },
+        {
+          "samples": 20,
+          "line": 722,
+          "code": "mb_parent_arrival_sync!(mb_maps[a],loops[a][g],g,now)"
+        },
+        {
+          "samples": 20,
+          "line": 1468,
+          "code": "remember_bundle!(bundles[a],D(\"actor\"=>a,\"operation\"=>op,\"capture_us\"=>now,\"executed_us\"=>now+1_000_000,"
+        },
+        {
+          "samples": 20,
+          "line": 915,
+          "code": "item_view=item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;"
+        },
+        {
+          "samples": 20,
+          "line": 1149,
+          "code": "gradient_roll_enroll!(mb_maps[a],plan,now,yaw[a],family,phase,loops[a][family].H,roll_target;direction_distance=get(spec,:gradient_direction_distance,0.))"
+        },
+        {
+          "samples": 20,
+          "line": 1037,
+          "code": "body_selected=body_field ? method_choice(s,candidates)[\"method\"] : nothing"
+        },
+        {
+          "samples": 20,
+          "line": 427,
+          "code": "notice=get(fs,\"active\",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles,illumination=visual_illumination) : nothing"
+        },
+        {
+          "samples": 20,
+          "line": 963,
+          "code": "append!(candidates,ground_proposals(ground_models[a],moves[a]))"
+        },
+        {
+          "samples": 22,
+          "line": 1548,
+          "code": "items!==nothing && (daily[end][\"portable_items\"]=item_snapshot(items))"
+        },
+        {
+          "samples": 22,
+          "line": 524,
+          "code": "expressions=relations===nothing ? nothing : Dict(a=>configured_expression(w.bodies[a];anxiety=food_anxiety(food_security(relations[a])),fear=night_fear_enabled ? mb_maps[a][\"night_fear\"][\"H\"]/8 : 0.) for a in IDS)"
+        },
+        {
+          "samples": 22,
+          "line": 1526,
+          "code": "foods!==nothing && food_audit!(foods,w,stock,shared,stores)"
+        },
+        {
+          "samples": 23,
+          "line": 493,
+          "code": "obs=Dict(a=>observe(w,a) for a in thinking_ids)"
+        },
+        {
+          "samples": 24,
+          "line": 1035,
+          "code": "body_before=body_field ? method_choice(s,candidates)[\"method\"] : nothing"
+        },
+        {
+          "samples": 24,
+          "line": 481,
+          "code": "hunger_update!(hunger[a],a,now,w.bodies[a].reserve;continuous=get(spec,:hunger_forecast,true))"
+        },
+        {
+          "samples": 24,
+          "line": 531,
+          "code": "sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],\"ob:$now:$a\",now) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 24,
+          "line": 1402,
+          "code": "incidental_item_result!(incidental_items[a],plan,status,max(0.,repetition_before.reserve-w.bodies[a].reserve),now)"
+        },
+        {
+          "samples": 25,
+          "line": 1315,
+          "code": "r=communicate!(w,a,op,action,get(plan,\"target\",nothing),get(plan,\"reply_to\",nothing);food_kind=delivered_kind,unsolicited=get(plan,\"visual_aid\",false) && get(plan,\"reply_to\",nothing)===nothing)"
+        },
+        {
+          "samples": 27,
+          "line": 1502,
+          "code": "daily_delivery_enabled && mb_daily_result!(mb_maps[a],plan,status,now,"
+        },
+        {
+          "samples": 27,
+          "line": 893,
+          "code": "roll_target=gradient_roll_observed_target(mb_maps[a],roll_target,landmarks===nothing ? nothing : landmarks[a],skyline_views===nothing ? nothing : skyline_views[a])"
+        },
+        {
+          "samples": 28,
+          "line": 937,
+          "code": "aid_values=food_aid_values(w.bodies[a],guts===nothing ? nothing : guts[a],kinds;map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a))"
+        },
+        {
+          "samples": 31,
+          "line": 755,
+          "code": "elseif food_desire && (desire_plan=food_desire_plan!(mb_maps[a],loops[a][\"food\"],foods,a,guts===nothing ? nothing : guts[a],w.bodies[a],at_home,shared_stores ? foods.shared : foods.personal[a],facilities,w.positions[a],now;requested=food_hungry || (post_return_meal && at_home && configured_return_meal_due(mb_maps[a],now,clock.day_us)),processing=food_processing_enabled,items=items))!==nothing"
+        },
+        {
+          "samples": 31,
+          "line": 1505,
+          "code": "post_return_meal && configured_return_meal_record!(mb_maps[a],action,status,hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2])<=1.25,now+1_000_000,clock.day_us)"
+        },
+        {
+          "samples": 31,
+          "line": 917,
+          "code": "plan=incidental_item_plan!(incidental_items[a],item_view,w.bodies[a],loops[a][family],now;"
+        },
+        {
+          "samples": 31,
+          "line": 1319,
+          "code": "social_relation_event!(relations[a],plan[\"target\"],\"aid_given\",op,now;"
+        },
+        {
+          "samples": 32,
+          "line": 1123,
+          "code": "mb_parent_begin!(mb_maps[a],plan,parent_family,parent_target,now)"
+        },
+        {
+          "samples": 34,
+          "line": 1429,
+          "code": "max_radius[a]=max(max_radius[a],hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2]))"
+        },
+        {
+          "samples": 34,
+          "line": 894,
+          "code": "plan=gradient_roll_plan!(mb_maps[a],get(ground_receipts,a,nothing),now,yaw[a],family,phase,loops[a][family].H,roll_target)"
+        },
+        {
+          "samples": 34,
+          "line": 965,
+          "code": "append!(candidates,rho_opening_candidates(ground_models[a][\"structures\"][\"observation\"],moves[a]))"
+        },
+        {
+          "samples": 36,
+          "line": 1017,
+          "code": "projected,field_trace=harvest_field(candidates,moves[a],harvest[a],a,now;enabled=true)"
+        },
+        {
+          "samples": 37,
+          "line": 428,
+          "code": "task_focus_continue!(fs,w.bodies[a],w.positions[a],yaw[a],focus_phase,now,notice;"
+        },
+        {
+          "samples": 40,
+          "line": 566,
+          "code": "contexts=general_sleep ? Dict(a=>sleep_context(moves[a],hazard_views[a];climbs=climbs===nothing ? nothing : climbs[a]) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 40,
+          "line": 712,
+          "code": "resolve_method!(s,t.source,method_evidence,forecast_increment!==nothing ? goal : (t.phase==phase || goal ? goal : nothing);"
+        },
+        {
+          "samples": 40,
+          "line": 1034,
+          "code": "field_selected=sleep_actions ? sleep_without : method_choice(s,candidates)"
+        },
+        {
+          "samples": 41,
+          "line": 437,
+          "code": "thinking_ids=Tuple(a for a in IDS if !(a in paused_ids) && !(a in sleeping_ids) && !(a in collapsed_ids) && !(a in focused_ids));Main.tick!(thinking_ids,sleeping_ids,paused_ids,focused_ids)"
+        },
+        {
+          "samples": 42,
+          "line": 1546,
+          "code": "foods!==nothing && (daily[end][\"food_resources\"]=food_snapshot(foods))"
+        },
+        {
+          "samples": 43,
+          "line": 999,
+          "code": "filter!(p->!startswith(first(p),\"mb_chunk:\") || haskey(mb_maps[a][\"chunks\"],first(p)[10:end]),s.methods)"
+        },
+        {
+          "samples": 43,
+          "line": 557,
+          "code": "current_landmarks=landmark_routes && items!==nothing ? vcat(landmark_objects,item_light_objects(items,w)) : landmark_objects"
+        },
+        {
+          "samples": 46,
+          "line": 406,
+          "code": "paused_ids=post_return_idle ? Set(a for a in IDS if !(a in collapsed_ids) && (!trade_idle || configured_trade_idle_ready!(mb_maps[a],incidental_items[a],items,w,a,now,clock.day_us;social_notice=relations!==nothing && (get(relations[a],\"aid_delivery\",nothing)!==nothing || configured_social_notice(w,a,answered[a])))) && configured_post_return_idle!(mb_maps[a],now,clock.day_us,bounds[3];pending=haskey(pending,a),observing=configured_observation_enabled && now<clock.day_us,require_meal=post_return_meal)) : ()"
+        },
+        {
+          "samples": 47,
+          "line": 1490,
+          "code": "fishing_training && configured_fishing_training_result!(mb_maps[a][\"fishing_training\"],action,status,eaten_kind,"
+        },
+        {
+          "samples": 49,
+          "line": 515,
+          "code": "fishing_enabled && foreach(a->fishing_observation!(foods,a,moves[a][\"visible\"]),thinking_ids)"
+        },
+        {
+          "samples": 51,
+          "line": 1419,
+          "code": "ground_receipts[a]=D(\"actor\"=>a,\"source\"=>\"ob:$now:$a\",\"operation\"=>op,"
+        },
+        {
+          "samples": 55,
+          "line": 1498,
+          "code": "acquisition_result!(mb_maps[a],acquisition[\"technique\"],acquisition[\"ref\"],get(acquisition,\"acquire_seconds\",acquisition[\"seconds\"]),1.,status==\"picked_up\";sensitivity=mb_maps[a][\"sensitivity\"][\"delay\"],now,"
+        },
+        {
+          "samples": 61,
+          "line": 1059,
+          "code": "plan=choose_method!(s,candidates,source)"
+        },
+        {
+          "samples": 64,
+          "line": 558,
+          "code": "landmarks=landmark_routes ? Dict(a=>landmark_fan(current_landmarks,w.positions[a],yaw[a],\"ob:$now:$a\";night=phase==\"night\",all_colors=general_landmarks,illumination=visual_illumination) for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 71,
+          "line": 998,
+          "code": "filter!(p->!(startswith(first(p),\"mb_route:\") || startswith(first(p),\"mb_recheck:\") || startswith(first(p),\"mb_abandon:\")) || (mb_maps[a][\"routes\"][\"active\"]!==nothing && (first(p)==\"mb_route:\"*mb_maps[a][\"routes\"][\"active\"][\"id\"] || first(p)==\"mb_recheck:\"*mb_maps[a][\"routes\"][\"active\"][\"id\"] || first(p)==\"mb_abandon:\"*mb_maps[a][\"routes\"][\"active\"][\"id\"])),s.methods)"
+        },
+        {
+          "samples": 71,
+          "line": 1056,
+          "code": "goal_arrival_enabled && goal_arrival_project!(mb_maps[a][\"goal_arrival\"][family],candidates,moves[a],family,now)"
+        },
+        {
+          "samples": 73,
+          "line": 525,
+          "code": "social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions,rho=get(rho_baselines,a,\"coarse\"),attention=social_attention(relations[a],now),illumination=visual_illumination) for a in thinking_ids)"
+        },
+        {
+          "samples": 74,
+          "line": 706,
+          "code": "forecast_increment=mb_simulation ? mb_parent_H_increment!(mb_maps[a],t.family,t.source,goal,now;"
+        },
+        {
+          "samples": 77,
+          "line": 975,
+          "code": "mb_simulation && mb_goal_cue_project!(mb_maps[a],cue_options,pool,family,s.H,now)"
+        },
+        {
+          "samples": 77,
+          "line": 1262,
+          "code": "receipt=item_execute!(items,shared_stores ? nothing : foods,w,stores,spec.home,a,op,action,now;"
+        },
+        {
+          "samples": 78,
+          "line": 1133,
+          "code": "applied=steer_structure!(plan,goal,lateral_views[a],structure_state,w,a,yaw,"
+        },
+        {
+          "samples": 80,
+          "line": 598,
+          "code": "food_targets=acquisition_targets!(mb_maps[a],food_targets,loops[a][\"food\"],now;home=home,anxiety=food_anxiety(get(mb_maps[a],\"food_security\",nothing)),committed_ref=committed,"
+        },
+        {
+          "samples": 85,
+          "line": 1000,
+          "code": "filter!(p->!startswith(first(p),\"mb_sim:\") || haskey(mb_maps[a][\"edges\"],first(p)[8:end]),s.methods)"
+        },
+        {
+          "samples": 89,
+          "line": 957,
+          "code": "append!(candidates,landmark_candidates(moves[a],landmarks[a],routes[a],family,landmarks[a][\"source\"];include_routes=!relation_field,include_observed=!general_landmarks))"
+        },
+        {
+          "samples": 91,
+          "line": 1435,
+          "code": "process_sleep!(a,now,day,action,status)"
+        },
+        {
+          "samples": 91,
+          "line": 983,
+          "code": "fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)"
+        },
+        {
+          "samples": 93,
+          "line": 938,
+          "code": "social_options=social_approach_candidates(social_views[a],moves[a],relations[a],s,now;"
+        },
+        {
+          "samples": 95,
+          "line": 1443,
+          "code": "mb_simulation && mb_record!(mb_maps[a],get(plan,\"configured_observation\",false) ? merge(plan,D(\"purpose_family\"=>nothing)) : plan,status,repetition_before.reserve-w.bodies[a].reserve,now;turn=wrap_angle(yaw[a]-before_yaw),distance=hypot(w.positions[a][1]-p[1],w.positions[a][2]-p[2]))"
+        },
+        {
+          "samples": 96,
+          "line": 447,
+          "code": "view=ground_appearance(w,a,yaw,wear,now;dry=dry,illumination=visual_illumination)"
+        },
+        {
+          "samples": 98,
+          "line": 689,
+          "code": "movement_inertia && observe_inertia!(inertia[a],a,now,inertia_view(moves[a],landmarks[a],hazard_views[a]))"
+        },
+        {
+          "samples": 104,
+          "line": 958,
+          "code": "relation_field && append!(candidates,relation_candidates!(relation_fields[a],moves[a],landmarks[a],routes[a],family,landmarks[a][\"source\"]))"
+        },
+        {
+          "samples": 112,
+          "line": 1047,
+          "code": "project_rho_affordance!(candidates,ground_models[a][\"structures\"][\"observation\"])"
+        },
+        {
+          "samples": 116,
+          "line": 1012,
+          "code": "candidates=ground_candidates(candidates,moves[a],w.inventory[a])"
+        },
+        {
+          "samples": 123,
+          "line": 563,
+          "code": "climbs=climbing ? Dict(a=>[climb_sample(w,a,yaw[a],i,low,high,base_resistance_at) for i in 0:4] for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 127,
+          "line": 1527,
+          "code": "items!==nothing && item_audit!(items,w)"
+        },
+        {
+          "samples": 132,
+          "line": 450,
+          "code": "ground_continuity && update_ground!(ground_models[a],view,get(ground_receipts,a,nothing),patterns)"
+        },
+        {
+          "samples": 138,
+          "line": 1438,
+          "code": "general_sleep && !(a in focused_ids) && remember_general!(general[a],a,op,action,status,get(plan,\"target\",nothing),phase,now+1_000_000;context=contexts[a],direction=get(plan,\"direction\",nothing),retain=sleep_retention)"
+        },
+        {
+          "samples": 169,
+          "line": 559,
+          "code": "skyline_views=skyline_mode==\"off\" ? nothing : Dict(a=>(!get(spec,:predictive_skyline,false) ? skyline_fan(skyline_objects,w.positions[a],yaw[a],\"ob:$now:$a\";subrays=skyline_mode==\"subrays\",illumination=visual_illumination) : interval_skyline!(() -> skyline_fan(skyline_objects,w.positions[a],yaw[a],\"ob:$now:$a\";subrays=skyline_mode==\"subrays\",illumination=visual_illumination),skyline_states[a],get(ground_receipts,a,nothing),now,\"ob:$now:$a\";skyline_schedule_inputs(mb_maps[a],landmarks===nothing ? nothing : landmarks[a],moves[a],homes[a])...,fine=get(rho_baselines,a,\"fine\")==\"fine\",enabled=true,illumination=visual_illumination)) for a in thinking_ids)"
+        },
+        {
+          "samples": 182,
+          "line": 988,
+          "code": "mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))"
+        },
+        {
+          "samples": 194,
+          "line": 976,
+          "code": "mb_simulation && mb_exploration_project!(mb_maps[a],cue_options,family,s.H,now)"
+        },
+        {
+          "samples": 213,
+          "line": 520,
+          "code": "food_security_update!(security,mb_simulation ? mb_maps[a] : nothing,w.bodies[a],guts===nothing ? nothing : guts[a],"
+        },
+        {
+          "samples": 218,
+          "line": 443,
+          "code": "lateral_views=lateral_side!=\"off\" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],\"ob:$now:$a\") for a in thinking_ids) : nothing"
+        },
+        {
+          "samples": 218,
+          "line": 1286,
+          "code": "status=fishing_tick!(foods,w,cargo,food,stock,a,plan[\"food_ref\"]+1,now,op)"
+        },
+        {
+          "samples": 246,
+          "line": 448,
+          "code": "patterns=ground_patterns(view)"
+        },
+        {
+          "samples": 259,
+          "line": 738,
+          "code": "filter!(kv->!startswith(first(kv),\"ground_\") || first(kv) in active,loop.methods)"
+        },
+        {
+          "samples": 273,
+          "line": 973,
+          "code": "pool=observed_cues(landmarks[a],skyline_views===nothing ? nothing : skyline_views[a],structure_view,moves[a],hazard_views===nothing ? nothing : hazard_views[a],\"ob:$now:$a\";level=min(2,floor(Int,s.H/s.threshold)))"
+        },
+        {
+          "samples": 283,
+          "line": 1039,
+          "code": "trail_trace=selection_trails ? project_trails!(trails[a],candidates,s,bundle_contexts[a],phase) : nothing"
+        },
+        {
+          "samples": 284,
+          "line": 731,
+          "code": "structure=effective==\"off\" ? local_structures(view,lateral_views[a]) : rho_observed_map!(ground_models[a][\"structures\"],view,lateral_views[a],effective;boxes=get(spec,:rho_box_boundaries,false))"
+        },
+        {
+          "samples": 292,
+          "line": 513,
+          "code": "moves=Dict(a=>movement_observation(w,a,yaw,food,stock;resistance_at=resistance_at,run_resistance_at=base_resistance_at,running=running,visual_obstacles=high,"
+        },
+        {
+          "samples": 295,
+          "line": 974,
+          "code": "cue_options=cue_candidates!(cue_states[a],pool,moves[a],s.H,s.threshold)"
+        },
+        {
+          "samples": 300,
+          "line": 732,
+          "code": "update_structures!(ground_models[a][\"structures\"],structure,receipt)"
+        },
+        {
+          "samples": 406,
+          "line": 591,
+          "code": "mb_simulation && mb_observe!(mb_maps[a],landmarks[a],now;home=at_home,food=any(f->f[\"distance\"]<=1.25,moves[a][\"visible\"]))"
+        },
+        {
+          "samples": 427,
+          "line": 1551,
+          "code": "Main.timers[\"daily_seconds\"]=(time_ns()-daily_profile_ns)/1e9;save_profile_ns=time_ns();checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code);Main.timers[\"save_seconds\"]=(time_ns()-save_profile_ns)/1e9;Main.finish!(@lw_capture())"
+        },
+        {
+          "samples": 470,
+          "line": 1170,
+          "code": "process_sleep!(a,now,day,\"rest\",\"performed\")"
+        },
+        {
+          "samples": 483,
+          "line": 1053,
+          "code": "mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))"
+        },
+        {
+          "samples": 634,
+          "line": 1054,
+          "code": "mb_simulation && phase==\"exploration\" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))"
+        },
+        {
+          "samples": 926,
+          "line": 662,
+          "code": "returning=provision_stay ? true : mb_daily_request!(mb_maps[a],moves[a],home,at_home,w.inventory[a],"
+        },
+        {
+          "samples": 1373,
+          "line": 992,
+          "code": "fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)"
+        }
+      ]
+    }
+  ]
+}
