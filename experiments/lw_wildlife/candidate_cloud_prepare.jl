@@ -3,7 +3,8 @@ baseline_repo=abspath(ARGS[1]);optimized_repo=abspath(ARGS[2]);root=abspath(ARGS
 ispath(root) && error("fresh output required")
 input_path=joinpath(@__DIR__,"candidate_longrun_input.json")
 input=JSON3.read(read(input_path,String))
-@assert input.config.days==60 && input.config.seed==20261007
+# The shared template retains 30; the runner explicitly sets requested days=60.
+@assert input.config.days==30 && input.config.seed==20261007
 @assert !input.scene.wildlife.enabled
 @assert collect(input.scene.experimental_actor_ids)==["npc_a","npc_b","npc_c","npc_d"]
 for (variant,repository) in (("baseline",baseline_repo),("optimized",optimized_repo))
