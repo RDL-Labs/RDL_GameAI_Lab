@@ -160,10 +160,25 @@ function mb_parent_daily_epoch!(s,goal)
 end
 function mb_parent_candidates!(s,candidates,goal,target)
     mb_parent_daily_epoch!(s,goal)
+    # Non-route candidates use the same goal/target/model in this call. Learning
+    # happens before the loop; route forecasts use separate model keys. Keep the
+    # reuse local so new observations/resources are reflected on the next call.
+    plain_estimate=nothing;plain_budget=nothing
     for p in candidates
-        estimate=mb_parent_estimate!(s,p,goal,target)
+        if haskey(p,"mb_path")
+            estimate=mb_parent_estimate!(s,p,goal,target)
+            budget=mb_plan_budget(s,estimate,goal)
+        else
+            if plain_estimate===nothing
+                plain_estimate=mb_parent_estimate!(s,p,goal,target)
+                plain_budget=mb_plan_budget(s,plain_estimate,goal)
+            end
+            # Forecast fields are scalar. Nested planning and later return-home
+            # records belong to each candidate, never to a shared mutable dict.
+            estimate=copy(plain_estimate)
+            budget=plain_budget===nothing ? nothing : copy(plain_budget)
+        end
         p["mb_parent_estimate"]=estimate
-        budget=mb_plan_budget(s,estimate,goal)
         if budget!==nothing
             estimate["planning"]=budget
             p["priority"]-=budget["penalty"]

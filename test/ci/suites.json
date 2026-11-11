@@ -204,6 +204,10 @@
     },
     {
       "args": [],
+      "path": "experiments/rock_gate/parent_candidate_reuse_checks.jl"
+    },
+    {
+      "args": [],
       "path": "experiments/julia_migration/lw_integrated/mb_daily_plan_checks.jl"
     },
     {

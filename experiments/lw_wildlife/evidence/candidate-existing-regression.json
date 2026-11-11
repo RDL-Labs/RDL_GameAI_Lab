@@ -1,0 +1,16 @@
+{
+  "test": "experiments/rock_gate/parent_plan_switch_checks.jl",
+  "baseline_override": "experiments/lw_wildlife/candidate_parent_regression.jl",
+  "baseline_source_root": "C:/Users/ken_m/Documents/Codex/human-single-sort-fresh60-20261111",
+  "baseline_and_optimized": {
+    "exit_code": 1,
+    "observation_checks_pass": 5,
+    "integration_checks_pass": 3,
+    "integration_checks_fail": 4,
+    "failed_lines": [32, 34, 37, 39],
+    "depletion_switches": [],
+    "subsequent_testsets_executed": false
+  },
+  "budget_checks_including_dependencies": {"exit_code": 0, "pass": 161},
+  "scope": "Same pre-existing failures when only candidate evaluation is restored; underlying depletion scenario cause not diagnosed."
+}
