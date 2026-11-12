@@ -51,3 +51,19 @@ rabbit_composition_checks: 27項目PASS。
 
 実行: julia --project=. experiments/lw_wildlife/rabbit_composition_checks.jl
 証拠: experiments/lw_wildlife/evidence/rabbit-composition-20261112.json
+
+## 通常360日実験への接続
+
+ecology_scat360.jl は捕食者/兎の身体組成を既定ONに変更。
+OUTPUT SEED [DAYS=360] [COMPOSITION=true] [RABBIT_COMPOSITION=true]。
+低水準crossing_longrunは任意第23引数で兎の身体組成を選択（旧引数は従来OFF）。
+保存にrabbit_compositionを含め、日別JSONには生存兎の組成と幼体区分を記録する。
+復元時にON/OFF変更を拒否し、既存個体の組成を作り直さない。
+生まれた個体は既存の出生エネルギーから追加登録。
+地上捕食者/猛禽双方へ同じ状態を渡し、捕食時の栄養価を反映する。
+
+PC seed20261112、GitHub seed20261113。比較元は捕食者のみ組成ONのb59784e。
+人なし、兎150、捕食者1、草1.5、獲物栄養倍率0.5、糞ON、CPU1thread。
+捕食者補充は兎100以上、猛禽は150で出現/100以下で退場の固定条件を継続。
+捕獲、摂取、兎餓死、捕食者死亡、経過秒を比較する。
+行動や個体数も変わるので総実行時間の変化を純粋な高速化とは扱わない。

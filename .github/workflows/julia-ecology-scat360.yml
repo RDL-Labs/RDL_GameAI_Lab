@@ -5,7 +5,11 @@ on:
       composition:
         description: Enable predator body composition and bounded fat storage
         type: boolean
-        default: false
+        default: true
+      rabbit_composition:
+        description: Enable rabbit body composition and prey nutrition
+        type: boolean
+        default: true
 permissions:
   contents: read
 jobs:
@@ -24,7 +28,7 @@ jobs:
       - name: Dependencies
         run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
       - name: Animal-only 360 days
-        run: julia --startup-file=no --project=. experiments/lw_wildlife/ecology_scat360.jl outputs/ecology-scat360 20261113 360 ${{ inputs.composition }}
+        run: julia --startup-file=no --project=. experiments/lw_wildlife/ecology_scat360.jl outputs/ecology-scat360 20261113 360 ${{ inputs.composition }} ${{ inputs.rabbit_composition }}
       - name: Preserve records and final checkpoint
         if: always()
         uses: actions/upload-artifact@v4
