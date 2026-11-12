@@ -104,7 +104,12 @@ end
 @testset "LW Sleep adopts relation MBs and leaves the old model untouched" begin
     # Sleep still uses the production 2,880-second rest requirement. Keep that
     # duration and shorten only the waking schedule; no test-only Sleep trigger.
-    r=integration_run(integration_scene(),integration_clock(3000;orientation=60,exploration=60,night=120))
+    # Fixed scheduled sleep is now camp-only. Place all participants inside a
+    # small camp enclosure rather than relying on the old global night freeze.
+    camp_scene(relationships)=merge(integration_scene(;relationships),
+        (positions=[[0.,0.],[.3,0.],[-.3,0.]],
+         obstacles=Any[(x=1.2sind(a),z=1.2cosd(a),radius=.35,height=2.,color="gray") for a in 0:20:340]))
+    r=integration_run(camp_scene(true),integration_clock(3000;orientation=60,exploration=60,night=120))
     for a in LW.IDS
         mb=r["social_relationships"][a]["mb"]
         @test r["final_agents"][a]["sleep"]["sleep"]["cycle"]["status"]=="completed"
@@ -115,7 +120,7 @@ end
     @test !isempty(r["social_relationships"][IA]["mb"]["nodes"])
     # Anticipatory requests can also make A a responder; both channels are valid.
     @test all(n["channel"] in ("aid_received","aid_given") for n in values(r["social_relationships"][IA]["mb"]["nodes"]))
-    legacy=integration_run(integration_scene(relationships=false),integration_clock(3000;orientation=60,exploration=60,night=120))
+    legacy=integration_run(camp_scene(false),integration_clock(3000;orientation=60,exploration=60,night=120))
     @test !haskey(legacy,"social_relationships")
     @test !isempty(legacy["final_agents"][IA]["social"]["model"])
     @test legacy["final_agents"][IA]["social"]["cycles"]==[0]
