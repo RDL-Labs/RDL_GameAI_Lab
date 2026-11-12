@@ -3,8 +3,12 @@
 # DONOR_INDEX=0 starts fresh MBs; donor directory is not read in that mode.
 # DONOR_GENERATION also accepts an integrated checkpoint .jls file.
 using JSON3, Serialization, SHA, Test
-length(ARGS) in 4:8 || error("INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX] [HUMAN_SCENT=false] [RABBIT_H=false] [CURRENT_ECOLOGY=false]")
+length(ARGS) in 4:10 || error("INPUT DONOR_GENERATION NEW_OUTPUT DAYS [DONOR_INDEX] [HUMAN_SCENT=false] [RABBIT_H=false] [CURRENT_ECOLOGY=false] [BACKEND=auto] [CHECKPOINT_INTERVAL=1]")
 const current_ecology=length(ARGS)>=8 && parse(Bool,ARGS[8])
+const integrated_backend=length(ARGS)>=9 ? ARGS[9] : "auto"
+integrated_backend in ("auto","batch_cpu") || error("backend must be auto or batch_cpu")
+const integrated_save_interval=length(ARGS)>=10 ? parse(Int,ARGS[10]) : 1
+integrated_save_interval>0 || error("positive checkpoint interval required")
 # 暫定固定の比較実験設定。第8引数のみで有効。通常判断を変更しない。
 const integrated_ecology_setup=(rabbits=150,predators=1,grass_scale=1.5,prey_nutrition=1.0)
 const integrated_predator_count=current_ecology ? integrated_ecology_setup.predators : 2
@@ -68,6 +72,9 @@ patch_bridge(day_file,"            checkpoint_dir!==nothing && checkpoint_save",
     "            Main.integrated_predator_daily!(daily[end],predator_cohort,length(daily),w)\n            checkpoint_dir!==nothing && checkpoint_save")
 patch_bridge(joinpath(frozen_root,"src/lw/simulation/checkpoint.jl"),
     "incidental_items items relations trades foods wildlife mb_maps", "predator_cohort incidental_items items relations trades foods wildlife mb_maps")
+# Save current state every requested interval, plus final/manual-stop boundaries.
+patch_bridge(day_file,"checkpoint_dir!==nothing && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)",
+    "checkpoint_dir!==nothing && (mod(length(daily),Main.integrated_save_interval)==0 || length(daily)==days || isfile(joinpath(Main.integrated_output,\"STOP\"))) && checkpoint_save(checkpoint_dir,length(daily),@lw_capture(),checkpoint_identity,checkpoint_code)")
 # Load exactly one LW module so donor serialization and human world share types.
 include(joinpath(frozen_root,"experiments/lw_wildlife/predator_generations.jl"))
 include(joinpath(frozen_root,"experiments/lw_wildlife/proximity_observer.jl"))
@@ -91,7 +98,7 @@ function integrated_predator_cohort(wildlife)
         configured_rabbit_distributed_layout!(wildlife)
         H.enable_grass_layers!(wildlife.world)
         P.configured_predator_terrain_enable!(wildlife.world;enabled=true)
-        H.enable_rabbit_neighbor_batch!(wildlife.world;gpu=true,audit=false,automatic=true)
+        H.enable_rabbit_neighbor_batch!(wildlife.world;gpu=integrated_backend=="auto",audit=false,automatic=integrated_backend=="auto")
         @assert count(wildlife.alive)==integrated_ecology_setup.rabbits
     end
     predators=animal_trial_predators(wildlife)
@@ -208,7 +215,7 @@ function integrated_predator_daily!(day,c,number,w)
     open(joinpath(integrated_output,"daily.jsonl"),"a") do io;println(io,JSON3.write(row));end
     println("INTEGRATED_DAY ",JSON3.write(row));flush(stdout)
 end
-const bridge_conditions=(current_ecology,ecology_setup=current_ecology ? integrated_ecology_setup : nothing,ecology_fixed=current_ecology ? "distributed initial layout; layered grass; auto CPU/GPU; river cost; daily predator replacement; raptor arrival150/departure100" : nothing,days=requested_days,actors=human_roster,donor=selected_donor==0 ? nothing : donor_directory,donor_index=selected_donor,
+const bridge_conditions=(current_ecology,integrated_backend,checkpoint_interval_days=integrated_save_interval,ecology_setup=current_ecology ? integrated_ecology_setup : nothing,ecology_fixed=current_ecology ? "distributed initial layout; layered grass; selected neighbor backend; river cost; daily predator replacement; raptor arrival150/departure100" : nothing,days=requested_days,actors=human_roster,donor=selected_donor==0 ? nothing : donor_directory,donor_index=selected_donor,
     human_features=Dict(k=>get(human_input["scene"],k,nothing) for k in
         ("item_exchange","food_exchange","social_relationships","configured_negotiation","food_processing","game_proficiency","typed_food","food_batch_expiry","food_security_provision","incidental_items","item_attention","gradient_logging","configured_trade_idle","configured_trade_work_wait")),
     predator_mb_initialization=selected_donor==0 ? "fresh; no donor read; no inherited experience" : "inherited donor MB",

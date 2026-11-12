@@ -1,5 +1,23 @@
 # 人間と現行生態系の接続試験
 
+## 2026-11-12 現行人間＋動物の60日再接続
+
+`human_ecology_dual60.jl OUTPUT HUMAN_SEED WILDLIFE_SEED [DAYS=60]`。
+直近の人間4体比較入力candidate_longrun_input.jsonを使い、初期状態から現行生態系を再接続。
+人間感度A/B=0.5、C/D=1、MB持越しなし。四角近似境界をON。
+加工・技能・食品期限・食料不安・共通物品/食品取引・交渉・人間関係・勾配記録を維持。
+別系統food_exchangeは従来通りOFF（共通item_exchangeはON）。
+兎150（初期幼体込み）・地上捕食者1・猛禽、二層草倍率1.5、泳ぎ・繁殖あり。
+研修・拠点休息/認知停止・取引待機・人臭/固定拠点臭・捕食者補充・猛禽150/100出入は既存設定。
+人間の狩猟、捕食者の対人攻撃は追加しない。
+
+両環境1thread・batch_cpu、日別記録は毎日、checkpointは2日ごとと最終日。
+橋渡しランナーの第9/10引数にbackend/save intervalを追加。省略時auto/1で旧実験互換。
+PC人間seed20261007・動物seed20261112、クラウド人間20261008・動物20261113。
+地形とサブシステム独立seedのすべてを変更するわけではない。別seedなので機械速度比較ではない。
+ソースは出力先sourceへ凍結。PC出力 C:/Users/ken_m/Documents/Codex/human-ecology60-20261112/。
+クラウドは手動workflow `julia-human-ecology-longrun.yml`、上限6時間、記録と最終checkpointを14日保持。
+
 2026-11-11。`humans_learned_predators.jl` の第8引数trueで選択する。
 第8引数を省略した旧条件は維持。現行条件はdonor index=0、rabbit H=trueを必要とする。
 
