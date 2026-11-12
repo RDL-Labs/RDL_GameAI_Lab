@@ -832,3 +832,7 @@ task_focus有効時も、該当する返答通知または期限切れで通常�
 
 捕食者replace補充は `PREDATOR_POPULATION_EXCHANGE.replacement_min_rabbits=100`。
 100以上で補充、未満では補充しない。生存個体の退場条件ではない。
+
+捕食者の消費予測は `ecology/lw_grazing/predator_cost_forecast.jl`。
+既存daily_food/day_ticksとmove_food*move_speedを初期値に使い、行動別の
+実消費/経過tickで更新する。新規の調整係数なし。Predator_Cost_Day55_20261112.md参照。

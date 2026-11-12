@@ -2,6 +2,7 @@
 # acquisition residuals call the SAME functions used by human LW actors.
 include("../../lw/configured_paths/predator_cognition_parameters.jl")
 include("../../lw/configured_paths/predator_rest_place.jl")
+include("predator_cost_forecast.jl")
 include("../../lw/configured_paths/predator_food_demand.jl")
 include("../../lw/configured_paths/predator_idle_gate.jl")
 include("../../lw/configured_paths/predator_food_site.jl")
@@ -110,6 +111,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
         LW.resolve_prediction!(mind.loop,mind.trial["id"],c["expected"],observed ? actual : nothing;
             observed,fulfilled,tolerance=rule.tolerance)
     end
+    predator_cost_learn!(mind,action,mind.trial["elapsed"],p.spent-mind.start_spent)
     if action==:hunt
         captured && predator_food_site_gain!(mind,p,p.eaten-mind.start_eaten)
         samples=get(mind.estimates,"hunt_samples",0.)+1

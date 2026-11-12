@@ -9,8 +9,8 @@ function configured_predator_food_demand!(rows,p,mind)
     for candidate in rows
         candidate["action"] in (:hunt,:visit_food,:cross_river) || continue
         # A food waypoint includes the subsequent acquisition episode, not just arrival.
-        horizon=candidate["forecast"]+(candidate["action"] in (:visit_food,:cross_river) ? rule.episode_ticks : 0)
-        cost=world_rule.daily_food/world_rule.day_ticks*horizon
+        cost=predator_cost_rate(mind,candidate["action"])*candidate["forecast"]+
+            (candidate["action"] in (:visit_food,:cross_river) ? predator_cost_rate(mind,:hunt)*rule.episode_ticks : 0.)
         candidate["food_demand_forecast"]=(deficit=deficit,useful_gain=useful_gain,cost=cost,
             net=(deficit-cost)/rule.food_value_scale)
         candidate["action"]==:hunt && (candidate["expected"]=(useful_gain-cost)/rule.food_value_scale)
