@@ -1,9 +1,12 @@
-name: Julia regression checks
+name: Julia optional regression checks
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
+    inputs:
+      suite:
+        description: Feature suite (behavior and legacy checks; not mandatory on every change)
+        type: choice
+        default: all
+        options: [all, boundaries, food, social, portable, navigation, observation, animals, wildlife]
 permissions:
   contents: read
 jobs:
@@ -13,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [boundaries, food, social, portable, navigation, observation, animals, wildlife]
+        suite: ${{ fromJSON(inputs.suite == 'all' && '["boundaries","food","social","portable","navigation","observation","animals","wildlife"]' || format('["{0}"]', inputs.suite)) }}
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2

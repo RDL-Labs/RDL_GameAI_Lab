@@ -9,7 +9,15 @@ for entries in values(suites), entry in entries
     path in paths && error("Duplicate CI entry: $path")
     push!(paths,path)
 end
-length(ARGS)==1 || error("Pass a suite name or --list")
+core_paths=JSON3.read(read(joinpath(@__DIR__,"core.json"),String),Vector{String})
+length(unique(core_paths))==length(core_paths) || error("Duplicate core entry")
+all(path->path in paths,core_paths) || error("Core entry missing from suite catalog")
+entries_by_path=Dict(entry["path"]=>entry for entries in values(suites) for entry in entries)
+suites["core"]=[entries_by_path[path] for path in core_paths]
+length(ARGS)==1 || error("Pass a suite name, --list or --validate")
+if ARGS[1]=="--validate"
+    println("Validated $(length(paths)) catalog entries; $(length(core_paths)) core entries");exit()
+end
 if ARGS[1]=="--list"
     println(join(sort!(collect(keys(suites))),"\n"));exit()
 end

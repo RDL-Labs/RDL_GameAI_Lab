@@ -1,0 +1,30 @@
+name: Julia core contracts
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      JULIA_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - name: Dependencies
+        run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Core contracts
+        run: julia --startup-file=no --project=. test/ci/run.jl core
+      - name: Preserve individual test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: julia-core-logs
+          path: outputs/ci/core/
+          if-no-files-found: warn

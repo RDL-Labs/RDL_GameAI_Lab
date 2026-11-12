@@ -1,0 +1,11 @@
+[
+  "test/layer_dependencies.jl",
+  "run.jl",
+  "test/lw_policy.jl",
+  "test/memory_blocks.jl",
+  "test/shared_world_policies.jl",
+  "experiments/food_exchange/checks.jl",
+  "experiments/portable_items/checks.jl",
+  "experiments/lw_wildlife/reproduction_checks.jl",
+  "experiments/lw_wildlife/historical_neighbor_checks.jl"
+]

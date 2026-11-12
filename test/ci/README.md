@@ -1,5 +1,44 @@
 # Julia CIの区分と実行方法
 
+## 現行運用（2026-11-12）
+
+仕様変更の多い行動結果を、毎回の必須検査から分離する。テストを削除したり、失敗を成功扱いに
+する変更ではない。常時は「壊さない契約」、機能検査は変更した領域に応じて選ぶ。
+
+| 実行枠 | 起動 | 内容 |
+|---|---|---|
+| Julia core contracts | main push / PR / 手動 | core.jsonで選んだ9本。依存・起動・観測分離・MB副作用・共通世界・食品取引・物品所有・繁殖・近傍作業領域 |
+| Julia LW daily checkpoint | main push / PR / 手動 | 日次保存と再開一致、別プロセス復元 |
+| Julia optional regression checks | 手動のみ | 既存8スイートを1区分またはallで選択。行動仕様・詳細機能・旧モデル |
+
+`suites.json`は全77本のカタログ、`core.json`はその部分集合。引数はカタログを再利用し二重管理しない。
+常時は従来76本＋保存系から9本＋保存系へ縮小。保存系に混在していたhome_distance_checksは
+observationスイートへ移動。各ファイルに複数項目があるため、これはassert件数ではない。
+既存ファイルを選ぶ単位なので、一部の具体的な数値条件は残る。将来coreに行動頻度の条件が増えたら
+ファイル分割か機能別への移動を検討し、常時枠を無条件に拡大しない。
+
+```sh
+julia --startup-file=no --project=. test/ci/run.jl --validate
+julia --startup-file=no --project=. test/ci/run.jl core
+julia --startup-file=no --project=. test/ci/run.jl social
+```
+
+GitHubではActions → Julia optional regression checks → Run workflow → suiteを選ぶ。
+認知・H・ρ・社会応答を変えた場合は対応する機能別検査と実験を実施する。旧herbivore/predator-cpuを
+変更した場合はboundaries/animalsも実施する。既存スイートは混在があるため、名前だけで旧系と断定しない。
+「必ず帰還」「拒否が必ず発生」「一定回数交換」などの確率的行動結果は、通常は実験で評価する。
+無効化フラグや二重取引禁止など明示的な契約は、機能別でも合否検査として維持する。
+
+常時ジョブ名は`core`と`checkpoint`。リポジトリのbranch protection/rulesetで旧matrixのジョブを
+必須指定している場合は管理設定の更新が必要（この変更では管理設定を変更していない）。
+ファイル別ログと終了コードは従来通りoutputs/ci配下とActions artifactに保存する。
+
+整理時の検証: カタログ77本/常時9本の参照・重複・存在確認PASS。
+Windows Julia 1.13.1でcore 9/9本PASS、各子プロセス実時間合計約75.5秒
+（起動・コンパイル込み、保存再開workflowは別）。今回シミュレーション本体は変更していない。
+
+## 過去の整理記録（以下の通常CI区分・件数は当時のもの）
+
 2026-11-06。通常回帰検査は `test/ci/suites.json` を唯一の一覧とし、
 GitHub Actionsとローカルで `julia --startup-file=no --project=. test/ci/run.jl <suite>` を実行する。
 `--list` は一覧・パス存在・重複を検査する。
