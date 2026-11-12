@@ -95,6 +95,8 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
     p.ticks[p.mode]=get(p.ticks,p.mode,0)+1
     p.visual.previous_position=(body.x,body.z)
     p.alive || return
+    composition_previous_food=p.food;composition_previous_eaten=p.eaten
+    composition_factor=physiology===nothing ? 1. : predator_composition_factor(physiology)
     previous_distance=body.distance;previous_captures=body.captures
     terrain_origin=(body.x,body.z)
     crossing_extra_cost=0.
@@ -112,6 +114,12 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
             push!(p.visual.events,(tick=t,kind="body_limited",id=body.target,reason="body_limited"))
         end
     end
+    if composition_factor<1
+        search_speed=(search_speed===nothing ? PREDATOR_COGNITION.move_speed : search_speed)*composition_factor
+        movement_speed=(movement_speed===nothing ? (body.state==P.CHASE ? PREDATOR_COMPOSITION.default_chase_speed : PREDATOR_COGNITION.move_speed) : movement_speed)*composition_factor
+        scent_speed*=composition_factor;attack_speed*=composition_factor
+        composition_factor==0 && (p.mode=:collapsed;body.state=P.REST;body.target=0)
+    end
     if steering!==nothing && p.mode in (:hunt,:retreat,:scent_return,:scent_avoid,:visit_food,:visit_rest)
         reversal=p.mode==:retreat ? pi : 0.
         body.heading=steering(body.x,body.z,body.heading+reversal,t)-reversal
@@ -126,12 +134,12 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
     elseif p.mode==:cross_river
         crossing_speed=physiology!==nothing && (physiology.body.strain>=1 || physiology.body.damage>=1) ? 0. : PREDATOR_CROSSING.land_speed
         if P.configured_predator_terrain_enabled(s.world)
-            P.move!(s.world,body,crossing_speed)
+            P.move!(s.world,body,crossing_speed*composition_factor)
         else
-            crossing_extra_cost=configured_crossing_step!(s.world,body,crossing_speed)
+            crossing_extra_cost=configured_crossing_step!(s.world,body,crossing_speed*composition_factor)
         end
     elseif p.mode==:retreat
-        body.heading+=pi;P.move!(s.world,body,physiology!==nothing && (physiology.body.strain>=1 || physiology.body.damage>=1) ? 0. : rule.retreat_speed)
+        body.heading+=pi;P.move!(s.world,body,physiology!==nothing && (physiology.body.strain>=1 || physiology.body.damage>=1) ? 0. : rule.retreat_speed*composition_factor)
     elseif p.mode in (:scent_return,:scent_avoid)
         P.move!(s.world,body,scent_speed)
     elseif p.mode in (:visit_food,:visit_rest)
@@ -159,6 +167,7 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
     end
     p.food<=0 && (p.alive=false)
     physiology!==nothing && predator_physiology_update!(physiology,p,body.distance-previous_distance,attacking,p.mode==:rest)
+    physiology!==nothing && configured_predator_composition_sync!(physiology,p,composition_previous_food,composition_previous_eaten)
 end
 function trial_predator_report(p)
     balance_residual=PREDATOR_ANIMAL_TRIAL.initial_food+p.eaten-p.food-p.spent
@@ -172,5 +181,3 @@ function trial_predator_report(p)
      ticks=copy(p.ticks),position=(body.x,body.z),center=p.center,
      prey_observations=p.visual.seen_by_rabbits,events=copy(p.visual.events))
 end
-
-

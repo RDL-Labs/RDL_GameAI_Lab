@@ -38,3 +38,4 @@ function predator_physiology_update!(state,p,moved,attacking,resting)
 end
 predator_physiology_report(s)=(burst=s.body.burst,strain=s.body.strain,reserve=s.body.reserve,
     damage=s.body.damage,need=predator_recovery_need(s.body),limited_ticks=s.limited_ticks)
+include("predator_composition.jl")

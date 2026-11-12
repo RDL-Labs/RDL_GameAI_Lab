@@ -286,7 +286,11 @@
     },
     {
       "args": [],
-        "path": "experiments/lw_wildlife/predator_foraging_checks.jl"
+        "path": "experiments/lw_wildlife/predator_composition_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/lw_wildlife/predator_foraging_checks.jl"
     },
     {
       "args": [],

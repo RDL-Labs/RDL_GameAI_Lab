@@ -10,6 +10,7 @@ include("types.jl")
 include("../data/food_ids.jl")
 include("parameters.jl")
 include("physiology.jl")
+include("composition.jl")
 include("actions.jl")
 include("digestion.jl")
 

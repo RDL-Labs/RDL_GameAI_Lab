@@ -847,3 +847,12 @@ task_focus有効時も、該当する返答通知または期限切れで通常�
 餌場反発にも同じ増幅を適用。現在地のhuntにも適用する。
 既存の場所別600tick不成果・指数反発は変更しない。
 固定移動/巡回禁止なし。無効化時は旧選択へ戻る。将来は維持需要の学習予測へ置換。
+
+## 共通身体組成・捕食者局所接続（2026-11-12）
+
+`PREDATOR_COMPOSITION`（configured_paths/predator_composition.jl）:
+即利用割合1/6、脂肪割合1/2、残り消耗可能タンパク。構造維持下限300、
+collapse_fraction=.5、repair_per_tick=.05。すべて暫定エネルギー相当単位。
+初期総エネルギーは従来900のまま。default_chase_speed=.5は既存方向視覚モデルの初期値。
+ComposedPredatorPhysiologyを明示した局所試験だけON。通常ランナーは旧型。
+詳細・制限・試験条件: Shared_Body_Composition_20261112.md。

@@ -141,6 +141,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
 end
 function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_attention=nothing,local_planner=nothing,physiology=nothing,idle_gate=PREDATOR_IDLE_GATE.enabled)
     rule=PREDATOR_COGNITION;body=p.visual.body
+    configured_predator_collapse_hold!(physiology,p,mind,t) && return
     rival=trial_visible_rival(s,p,predators,t)
     rival.actor!==nothing && !p.last_rival && p.alive && (p.encounters+=1)
     p.last_rival=rival.actor!==nothing
