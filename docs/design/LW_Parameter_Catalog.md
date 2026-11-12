@@ -860,3 +860,12 @@ ComposedPredatorPhysiologyを明示した局所試験だけON。通常ランナ�
 脂肪蓄積追加: storage_reserve_floor=300（即利用分の留保）、fat_capacity=900、
 fat_storage_per_day=30（17280tick/日で換算）。消費/修復後に共通composition_store_fat!で転送。
 初期値を生物学的較正済みとは扱わない。蓄積はタンパク修復完了・非へたり込み時のみ。
+
+## 兎の身体組成（2026-11-12）
+
+`RABBIT_COMPOSITION`: protein_min=15、protein_target=30、collapse_protein=22.5、
+initial_fat=20、reserve_floor=35、fat_capacity=40、storage_per_day=1、repair_per_day=2、
+reference_edible=50。全て正規化エネルギー相当量の暫定値。
+既存energy0..100の内訳であって追加備蓄ではない。RabbitCompositionState明示時だけ有効。
+離乳前の行動は既存発達処理優先。離乳時に総量不変で成体配分へ移行。
+詳細と未実装範囲: Rabbit_Body_Composition_20261112.md。

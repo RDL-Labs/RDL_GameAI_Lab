@@ -87,7 +87,7 @@ include("../../lw/configured_paths/rabbit_local_rho_connection.jl")
 include("../herbivore/neighbor_batch.jl")
 include("../herbivore/locomotion.jl")
 include("../../lw/configured_paths/rabbit_grazing_motion.jl")
-function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing,development=nothing,refuge=nothing)
+function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), threat=nothing, alive=nothing, overrides=nothing, threat_positions=nothing, steering=nothing,development=nothing,refuge=nothing,mobility=nothing)
     fill!(demand,0.); empty!(active)
     w.layers!==nothing && fill!(w.layers.long_demand,0.)
     n=length(a.x)
@@ -102,6 +102,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         a.state[i]=choose_state(policy,observation)
         overrides!==nothing && overrides[i]!=0 && (a.state[i]=overrides[i])
         a.state[i]=configured_rabbit_swim_state(policy,w,a,i,a.state[i],overrides)
+        mobility!==nothing && mobility(i)==0 && (a.state[i]=SLEEP)
         requests[i]=a.state[i]==GRAZE ? max(0.,min(.025*fraction,4*fraction-a.gut[i])) : 0.
         if requests[i]>0
             if w.layers!==nothing && configured_rabbit_long_grass(observation.vegetation,a.energy[i])
@@ -137,14 +138,14 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
         growth=development===nothing ? nothing : development(i)
         allowed=q->growth===nothing || hypot(q[1]-growth.nest[1],q[2]-growth.nest[2])<=growth.radius
         configured_rabbit_rho_progress!(policy,a,i,t)
-        if growth===nothing && configured_rabbit_swim_step!(policy,w,a,i,t,overrides)
+        if growth===nothing && (mobility===nothing || mobility(i)==1) && configured_rabbit_swim_step!(policy,w,a,i,t,overrides)
             # Optional locomotion policy handled the step; shared body cost still follows.
         elseif state==GRAZE
             amount=requests[i]<0 ? -requests[i]*w.layers.long_ratio[k] : requests[i]*ratio[k]
             a.gut[i]+=amount; a.consumed[i]+=amount
             configured_rabbit_food_intake!(policy,a,i,t,amount)
             # Consume at the allocated origin before moving; never debit destination.
-            if amount>0 && (overrides===nothing || overrides[i]==0) && policy isa Union{RabbitApproachPolicy,RabbitSwimmingPolicy}
+            if amount>0 && (mobility===nothing || mobility(i)==1) && (overrides===nothing || overrides[i]==0) && policy isa Union{RabbitApproachPolicy,RabbitSwimmingPolicy}
                 grazing_move_cost=configured_rabbit_grazing_motion!(w,a,i,t;allowed)
             end
         elseif state==SEARCH || state==FLEE
@@ -160,7 +161,7 @@ function step!(w,a,t,demand,ratio,requests,active; policy=StateMachinePolicy(), 
                     p=center(w,a.target[i]); a.heading[i]=atan(p[2]-a.z[i],p[1]-a.x[i])
                 end
             end
-            speed=state==FLEE ? .6 : .2
+            speed=(state==FLEE ? .6 : .2)*(mobility===nothing ? 1. : mobility(i))
             if refuge_goal!==nothing
                 a.heading[i]=atan(refuge_goal[2]-a.z[i],refuge_goal[1]-a.x[i])
                 speed=min(speed,hypot(refuge_goal[1]-a.x[i],refuge_goal[2]-a.z[i]))

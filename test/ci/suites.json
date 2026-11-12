@@ -286,7 +286,11 @@
     },
     {
       "args": [],
-        "path": "experiments/lw_wildlife/predator_fat_storage_checks.jl"
+        "path": "experiments/lw_wildlife/rabbit_composition_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/lw_wildlife/predator_fat_storage_checks.jl"
     },
     {
       "args": [],

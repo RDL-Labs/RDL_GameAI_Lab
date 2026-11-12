@@ -90,7 +90,7 @@ function configured_trial_plan!(s,p,others,t; territory_evidence=nothing)
     body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
     G.configured_wildlife_predator_plan!(trial_proxy(s,p),t)
 end
-function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,search_speed=nothing,attack_speed=1.,movement_speed=nothing,probabilistic_capture=false,physiology=nothing,steering=nothing)
+function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,search_speed=nothing,attack_speed=1.,movement_speed=nothing,probabilistic_capture=false,physiology=nothing,steering=nothing,rabbit_composition=nothing)
     rule=PREDATOR_ANIMAL_TRIAL;body=p.visual.body
     p.ticks[p.mode]=get(p.ticks,p.mode,0)+1
     p.visual.previous_position=(body.x,body.z)
@@ -150,7 +150,7 @@ function configured_trial_advance!(s,p,t; scent_speed=0.,prey_nutrition=1.,searc
         # Approximate volume from visible body height; not calibrated rabbit mass.
         fraction=clamp((G.rabbit_height(s,victim)/G.RABBIT_LIFE.adult_height)^3,rule.minimum_size_fraction,1.)
         # Trial-only nutrition multiplier (default 1); capacity and choice rules stay separate.
-        meal=rule.adult_food*fraction*prey_nutrition
+        meal=(rabbit_composition===nothing ? rule.adult_food*fraction : configured_rabbit_meal(rabbit_composition,s,victim,rule.adult_food,fraction))*prey_nutrition
         accepted=min(meal,rule.capacity-p.food)
         p.food+=accepted;p.eaten+=accepted;p.discarded+=meal-accepted
         body.timer=0 # Replace the legacy fixed half-day rest with food balance.

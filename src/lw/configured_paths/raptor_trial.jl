@@ -112,7 +112,7 @@ function configured_raptor_scan!(bird,s,t;switch_after_miss=RAPTOR_TRIAL.switch_
         bird.perch=mod1(bird.perch+1,length(bird.perches));configured_raptor_return!(bird)
     end
 end
-function configured_raptor_capture!(bird,s,t;prey_nutrition=1.)
+function configured_raptor_capture!(bird,s,t;prey_nutrition=1.,rabbit_composition=nothing)
     bird.attempts+=1;i=bird.target;chance=0.
     valid=1<=i<=length(s.alive) && s.alive[i] && !G.configured_rabbit_in_burrow(s,i,t)
     if valid
@@ -129,7 +129,8 @@ function configured_raptor_capture!(bird,s,t;prey_nutrition=1.)
     if valid && rand(bird.visual.rng)<chance
         s.alive[i]=false;bird.captures+=1;bird.mode=:eat
         bird.visual.body.x=s.animals.x[i];bird.visual.body.z=s.animals.z[i]
-        bird.meal=prey_nutrition*RAPTOR_TRIAL.adult_food*clamp((G.rabbit_height(s,i)/G.RABBIT_LIFE.adult_height)^3,0.,1.)
+        fraction=clamp((G.rabbit_height(s,i)/G.RABBIT_LIFE.adult_height)^3,0.,1.)
+        bird.meal=prey_nutrition*(rabbit_composition===nothing ? RAPTOR_TRIAL.adult_food*fraction : configured_rabbit_meal(rabbit_composition,s,i,RAPTOR_TRIAL.adult_food,fraction))
         bird.meal_rate=bird.meal/RAPTOR_TRIAL.eating_ticks
         configured_raptor_event!(bird,t,"capture";id=i,probability=chance,meal=bird.meal)
     else
@@ -138,7 +139,7 @@ function configured_raptor_capture!(bird,s,t;prey_nutrition=1.)
     end
 end
 # 休息中は定数時間の消費と期日確認のみ。獲物走査も候補評価も行わない。
-function configured_raptor_step!(bird,s,predators,t;present=nothing,prey_nutrition=1.)
+function configured_raptor_step!(bird,s,predators,t;present=nothing,prey_nutrition=1.,rabbit_composition=nothing)
     bird.ticks[bird.mode]=get(bird.ticks,bird.mode,0)+1
     bird.present || return
     body=bird.visual.body;bird.visual.previous_position=(body.x,body.z)
@@ -178,7 +179,7 @@ function configured_raptor_step!(bird,s,predators,t;present=nothing,prey_nutriti
         distance>0 && (body.x+=step*dx/distance;body.z+=step*dz/distance)
         if distance<=RAPTOR_TRIAL.flight_speed
             if bird.mode==:hunt
-                configured_raptor_capture!(bird,s,t;prey_nutrition)
+                configured_raptor_capture!(bird,s,t;prey_nutrition,rabbit_composition)
             elseif bird.mode==:depart
                 bird.present=false;bird.mode=:outside;bird.departures+=1
                 configured_raptor_event!(bird,t,"departure")
