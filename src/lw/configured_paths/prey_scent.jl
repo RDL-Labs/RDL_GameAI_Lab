@@ -1,3 +1,4 @@
+include("predator_scat_cue.jl")
 # 暫定固定・動物単独実験のみ、既定OFF。種別を区別しない獲物臭の地表痕跡。
 # 風・拡散なし。世界の付着セルと近傍で嗅いだコピーを分離し、遠方の現在位置は渡さない。
 # 探索中だけ濃い近傍セルへ向きを補助する固定設定。視認追跡/攻撃を上書きしない。
@@ -27,7 +28,7 @@ PreyScentWorld(n;cautious=false)=PreyScentWorld(Dict{Tuple{Int,Int},PreyScentRec
     cautious,zeros(Int,n),zeros(Int,n),[Dict{Tuple{Int,Int},Int}() for _ in 1:n],Any[nothing for _ in 1:n],0)
 prey_scent_cell(x,z)=(floor(Int,x/PREY_SCENT.cell_size),floor(Int,z/PREY_SCENT.cell_size))
 prey_scent_strength(record,t)=record.strength*max(0.,1-(t-record.tick)/PREY_SCENT.lifetime)
-function configured_prey_scent_tick!(scent,s,predators,t;present=nothing)
+function configured_prey_scent_tick!(scent,s,predators,t;present=nothing,scat_state=nothing)
     rule=PREY_SCENT
     if t%rule.deposit_interval==0
         # One mixed trace per cell, not per animal. Stationary live prey also emit.
@@ -59,6 +60,10 @@ function configured_prey_scent_tick!(scent,s,predators,t;present=nothing)
             if signal>best
                 best=signal;scent.observed[i]=(target=target,signal=signal,tick=t)
             end
+        end
+        if scat_state!==nothing
+            cue=configured_predator_scat_cue(scat_state,scent,p,i,t,best)
+            cue!==nothing && (scent.observed[i]=cue)
         end
         scent.observed[i]!==nothing && (scent.detections+=1)
     end

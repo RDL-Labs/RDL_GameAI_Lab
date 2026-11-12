@@ -286,6 +286,10 @@
     },
     {
       "args": [],
+        "path": "experiments/lw_wildlife/predator_scat_checks.jl"
+      },
+      {
+        "args": [],
         "path": "experiments/lw_wildlife/scat_trace_checks.jl"
       },
       {

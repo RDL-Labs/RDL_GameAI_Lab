@@ -22,7 +22,7 @@ function animal_trial_predators(s)
     predators=[configured_trial_predator(s,centers[i],20261106+i) for i in 1:2]
     predators
 end
-function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,pursuits=nothing,present=nothing,raptor=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t))
+function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_scents=nothing,motion_speed=false,local_hunts=nothing,physiology=nothing,pursuits=nothing,present=nothing,raptor=nothing,humans=Tuple{Float64,Float64}[],illumination=G.AmbientVision.illumination(t),scat_state=nothing)
     scents!==nothing && configured_scent_tick!(scents,predators,t;present)
     resident_predators=present===nothing ? predators : predators[findall(present)]
     for (i,p) in enumerate(predators)
@@ -39,7 +39,7 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
         end
     end
     if prey_scents!==nothing
-        configured_prey_scent_tick!(prey_scents,s,predators,t;present)
+        configured_prey_scent_tick!(prey_scents,s,predators,t;present,scat_state)
         for (i,p) in enumerate(predators)
             present!==nothing && !present[i] && continue
             configured_prey_scent_steer!(prey_scents,p,i,t)
