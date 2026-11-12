@@ -37,7 +37,7 @@ function configured_predator_population_arrive!(world_state,cohort,migration,t;c
     mind.estimates["crossing_enabled"]=crossing_enabled ? 1. : 0.
     push!(cohort.predators,predator);push!(cohort.minds,mind)
     push!(cohort.local_hunts,LocalHunt(actor;probabilistic_capture=true))
-    push!(cohort.pursuits,PredatorPursuit(actor));push!(cohort.physiology,PredatorPhysiology(predator))
+    push!(cohort.pursuits,PredatorPursuit(actor));push!(cohort.physiology,eltype(cohort.physiology)===ComposedPredatorPhysiology ? ComposedPredatorPhysiology(predator) : PredatorPhysiology(predator))
     scent_slot=PredatorScentWorld(1)
     for field in (:memory,:observed,:deposits,:own_observations,:foreign_observations)
         append!(getproperty(cohort.scents,field),getproperty(scent_slot,field))

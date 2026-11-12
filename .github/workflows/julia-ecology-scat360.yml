@@ -1,6 +1,11 @@
 name: Animal ecology scat 360 days
 on:
   workflow_dispatch:
+    inputs:
+      composition:
+        description: Enable predator body composition and bounded fat storage
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -19,7 +24,7 @@ jobs:
       - name: Dependencies
         run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
       - name: Animal-only 360 days
-        run: julia --startup-file=no --project=. experiments/lw_wildlife/ecology_scat360.jl outputs/ecology-scat360 20261113
+        run: julia --startup-file=no --project=. experiments/lw_wildlife/ecology_scat360.jl outputs/ecology-scat360 20261113 360 ${{ inputs.composition }}
       - name: Preserve records and final checkpoint
         if: always()
         uses: actions/upload-artifact@v4
@@ -30,5 +35,3 @@ jobs:
             outputs/ecology-scat360/run/*.json
             outputs/ecology-scat360/run/checkpoints/day-360.jls
           retention-days: 14
-
-

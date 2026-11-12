@@ -95,3 +95,13 @@ COMPOSITION_REPORT環境変数でJSON保存先を指定。
 自然な採食判断でこの備蓄が形成されることや、通常世界での生存改善は未検証。
 実行：julia --project=. experiments/lw_wildlife/predator_fat_storage_checks.jl
 証拠：experiments/lw_wildlife/evidence/predator-fat-storage-20261112.json
+
+## 通常世界360日への接続
+
+crossing_longrun.jl の任意第22引数（既定false）と ecology_scat360.jl の第4引数で
+身体組成を明示選択する。通常世界でも初期個体と死亡後の補充個体を同じ身体型で作成。
+保存復元時に身体モデルの切替を拒否。条件JSONに有効フラグと係数、日次報告に身体組成を保存。
+GitHubの手動workflowも composition=true で選択可能。省略時は旧モデル。
+補充は兎100以上、栄養半減、猛禽150/100、草1.5、兎150、人なしの従来条件。
+PC seed20261112、cloud seed20261113。人からの給餌/救助は無し。
+補充検査は旧/組成型双方・保存復元を含め22項目PASS。
