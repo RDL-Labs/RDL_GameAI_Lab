@@ -5,7 +5,7 @@ const PREDATOR_IDLE_GATE=(enabled=true,)
 function configured_predator_idle_hold!(mind,p,rival,t,physiology;enabled=PREDATOR_IDLE_GATE.enabled)
     holding=enabled && physiology!==nothing && p.alive && mind.trial!==nothing &&
         mind.selected["action"]==:idle && rival.actor===nothing &&
-        p.food>=PREDATOR_ANIMAL_TRIAL.initial_food &&
+        predator_food_deficit(p,physiology)<=0 &&
         predator_recovery_need(physiology.body)<=PREDATOR_BODY.need_band
     if holding
         get!(mind.trial,"idle_gate_since",t-1)

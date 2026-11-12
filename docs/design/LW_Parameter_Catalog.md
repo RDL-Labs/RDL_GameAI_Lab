@@ -869,3 +869,8 @@ reference_edible=50。全て正規化エネルギー相当量の暫定値。
 既存energy0..100の内訳であって追加備蓄ではない。RabbitCompositionState明示時だけ有効。
 離乳前の行動は既存発達処理優先。離乳時に総量不変で成体配分へ移行。
 詳細と未実装範囲: Rabbit_Body_Composition_20261112.md。
+
+2026-11-12: 身体組成ありの地上捕食者の空腹充足目安も
+PREDATOR_COMPOSITION.storage_reserve_floor=300を共有する。
+predator_food_deficitはavailableとの差だけを使い、脂肪・組織で満腹にしない。
+消費支持の下限は既存のavailable=0。身体組成なしの基準900は維持。

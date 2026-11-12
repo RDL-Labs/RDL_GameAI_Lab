@@ -24,7 +24,7 @@ function configured_crossing_candidate!(rows,mind,p,w;physiology=nothing)
         PREDATOR_ANIMAL_TRIAL.move_food*(distance+(r.swim_move_multiplier-1)*width)
     p.food>cost*r.energy_margin || return
     physiology!==nothing && physiology.body.strain+distance*PREDATOR_BODY.move_strain>=1 && return
-    hunger=max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-p.food)/PREDATOR_COGNITION.food_pressure_scale)
+    hunger=predator_hunger(p,physiology)
     push!(rows,LW.D("method"=>(direction>0 ? "cross:east" : "cross:west"),"action"=>:cross_river,
         "question"=>"reached_other_bank","priority"=>PREDATOR_COGNITION.food_weight*hunger-r.prior_penalty-cost/PREDATOR_COGNITION.food_value_scale,
         "forecast"=>forecast,"expected"=>PREDATOR_COGNITION.place_prior,"target"=>target,

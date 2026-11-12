@@ -39,7 +39,7 @@ function predator_remember_place!(mind,p,kind,t)
 end
 function predator_candidates(mind,p,rival,scents,i;physiology=nothing,world=nothing)
     rule=PREDATOR_COGNITION;body=p.visual.body
-    hunger=max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-p.food)/rule.food_pressure_scale)
+    hunger=predator_hunger(p,physiology)
     rest_need=physiology===nothing ? nothing : predator_recovery_need(physiology.body)
     rest_pressure=rest_need===nothing ? rule.rest_weight : PREDATOR_BODY.rest_need_weight*rest_need
     rest_forecast=physiology===nothing ? rule.episode_ticks : predator_rest_forecast(physiology.body,rule.episode_ticks)
@@ -80,8 +80,8 @@ function predator_candidates(mind,p,rival,scents,i;physiology=nothing,world=noth
             "expected"=>rule.place_prior))
     end
     world!==nothing && configured_crossing_candidate!(rows,mind,p,world;physiology)
-    physiology!==nothing && configured_predator_food_demand!(rows,p,mind)
-    configured_predator_foraging_pressure!(rows,mind,p)
+    physiology!==nothing && configured_predator_food_demand!(rows,p,mind;physiology)
+    configured_predator_foraging_pressure!(rows,mind,p;physiology)
     rows
 end
 function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
@@ -158,8 +158,8 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
         if physiology!==nothing && body.state!=P.ATTACK
             if mind.selected["action"]==:rest
                 recovered=predator_recovery_need(physiology.body)<=PREDATOR_BODY.need_band
-                hunger_before=max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-mind.start_food)/rule.food_pressure_scale)
-                hunger_now=max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-p.food)/rule.food_pressure_scale)
+                hunger_before=get(mind.selected,"body_start_hunger",max(0.,(PREDATOR_ANIMAL_TRIAL.initial_food-mind.start_food)/rule.food_pressure_scale))
+                hunger_now=predator_hunger(p,physiology)
                 hunger_changed=rule.food_weight*(hunger_now-hunger_before)>rule.tolerance
                 body_reconsider=recovered || hunger_changed
                 body_reconsider && (mind.selected["body_end_reason"]=recovered ? "recovered" : "hunger_changed")
@@ -181,6 +181,7 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
         mind.selected=LW.choose_method!(mind.loop,rows,source)
         c=mind.selected
         physiology!==nothing && (c["body_start_need"]=predator_recovery_need(physiology.body))
+        c["body_start_hunger"]=predator_hunger(p,physiology)
         c["rival_heading"]=body.heading
         mind.trial=LW.action_trial(source,c["method"],c["question"],c["forecast"])
         mind.start_food=p.food;mind.start_spent=p.spent;mind.start_eaten=p.eaten
