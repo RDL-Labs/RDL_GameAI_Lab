@@ -1,0 +1,34 @@
+name: Animal ecology scat 360 days
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ecology:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - uses: julia-actions/cache@v2
+      - name: Dependencies
+        run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Animal-only 360 days
+        run: julia --startup-file=no --project=. experiments/lw_wildlife/ecology_scat360.jl outputs/ecology-scat360 20261113
+      - name: Preserve records and final checkpoint
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecology-scat360-${{ github.run_id }}
+          path: |
+            outputs/ecology-scat360/*.json
+            outputs/ecology-scat360/run/*.json
+            outputs/ecology-scat360/run/checkpoints/day-360.jls
+          retention-days: 14
+
+
