@@ -836,3 +836,14 @@ task_focus有効時も、該当する返答通知または期限切れで通常�
 捕食者の消費予測は `ecology/lw_grazing/predator_cost_forecast.jl`。
 既存daily_food/day_ticksとmove_food*move_speedを初期値に使い、行動別の
 実消費/経過tickで更新する。新規の調整係数なし。Predator_Cost_Day55_20261112.md参照。
+
+## 捕食者の採食不成果と空腹（2026-11-12）
+
+`predator_foraging_pressure.jl` の `PREDATOR_FORAGING_PRESSURE`:
+`enabled=true`, `hunger_gain=1.0`。暫定認知係数。
+採食・餌場移動・渡河の自己消費から摂取を引いた未補填量を保持し、
+既存food_value_scaleで正規化。空腹の増幅は1+hunger_gain*hunger。
+選択用H=max(既存親H,未補填量/scale)*増幅。二重加算せず選択時だけ使用。
+餌場反発にも同じ増幅を適用。現在地のhuntにも適用する。
+既存の場所別600tick不成果・指数反発は変更しない。
+固定移動/巡回禁止なし。無効化時は旧選択へ戻る。将来は維持需要の学習予測へ置換。

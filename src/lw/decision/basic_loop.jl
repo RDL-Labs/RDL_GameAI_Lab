@@ -89,7 +89,7 @@ function method_distribution(s::BasicLoop,candidates)
     scores=map(candidates) do c
         n=get(s.methods,c["method"],MethodNode(0,s.threshold,0))
         learned=log1p(n.reward)
-        local_temperature=get(c,"goal_arrival",false) ? 1. : temperature
+        local_temperature=get(c,"goal_arrival",false) ? 1. : (haskey(c,"decision_H") ? 1+max(s.H,c["decision_H"])/s.threshold : temperature)
         (c["priority"]+learned-failure_repulsion(n)-min(2.,n.H/n.threshold))/local_temperature+get(c,"observation_log_prior",0.)
     end
     weights=exp.(max.(-600.,scores.-maximum(scores)));weights./=sum(weights)
@@ -107,6 +107,7 @@ function choose_method!(s::BasicLoop,candidates,source)
     check(length(names)==length(unique(names)),"loop_duplicate_candidate")
     check(all(isfinite(c["priority"]) for c in candidates),"loop_score")
     check(all(isfinite(get(c,"observation_log_prior",0.)) for c in candidates),"loop_observation_score")
+    check(all(c->!haskey(c,"decision_H") || (c["decision_H"] isa Real && isfinite(c["decision_H"]) && c["decision_H"]>=0),candidates),"loop_decision_H")
     for name in names
         get!(s.methods,name) do
             MethodNode(0,s.threshold,0)

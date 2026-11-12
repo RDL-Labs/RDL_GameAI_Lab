@@ -6,6 +6,7 @@ include("predator_cost_forecast.jl")
 include("../../lw/configured_paths/predator_food_demand.jl")
 include("../../lw/configured_paths/predator_idle_gate.jl")
 include("../../lw/configured_paths/predator_food_site.jl")
+include("../../lw/configured_paths/predator_foraging_pressure.jl")
 include("../../lw/configured_paths/predator_crossing.jl")
 mutable struct PredatorMind
     loop::LW.BasicLoop
@@ -80,6 +81,7 @@ function predator_candidates(mind,p,rival,scents,i;physiology=nothing,world=noth
     end
     world!==nothing && configured_crossing_candidate!(rows,mind,p,world;physiology)
     physiology!==nothing && configured_predator_food_demand!(rows,p,mind)
+    configured_predator_foraging_pressure!(rows,mind,p)
     rows
 end
 function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
@@ -111,6 +113,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
         LW.resolve_prediction!(mind.loop,mind.trial["id"],c["expected"],observed ? actual : nothing;
             observed,fulfilled,tolerance=rule.tolerance)
     end
+    predator_foraging_result!(mind,action,p.spent-mind.start_spent,p.eaten-mind.start_eaten)
     predator_cost_learn!(mind,action,mind.trial["elapsed"],p.spent-mind.start_spent)
     if action==:hunt
         captured && predator_food_site_gain!(mind,p,p.eaten-mind.start_eaten)
@@ -131,6 +134,7 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
         "forecast"=>c["forecast"],"elapsed"=>mind.trial["elapsed"],"expected"=>c["expected"],"actual"=>observed ? actual : nothing,
         "H"=>mind.loop.H,"trial_H"=>mind.trial["H"],"fulfilled"=>fulfilled,
         "body_end_reason"=>get(c,"body_end_reason",nothing)))
+    mind.records[end]["foraging_pressure"]=get(c,"foraging_pressure",nothing)
     mind.records[end]["food_demand_forecast"]=get(c,"food_demand_forecast",nothing)
     length(mind.records)>rule.history_limit && popfirst!(mind.records)
     mind.completed+=1;mind.trial=nothing;mind.selected=nothing
