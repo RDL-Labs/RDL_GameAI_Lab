@@ -3,7 +3,7 @@ include("../../world_features.jl")
 function grass_cover!(w,k,t;body_height=.4)
     body_height>0 || throw(ArgumentError("positive body height required"))
     amount=grass!(w,k,t);fraction=w.capacity[k]>0 ? clamp(amount/w.capacity[k],0.,1.) : 0.
-    if w.layers!==nothing && w.capacity[k]>0
+    if hasproperty(w,:layers) && w.layers!==nothing && w.capacity[k]>0
         fraction=(GRASS_LAYERS.short_cover_weight*w.layers.short[k]+w.layers.long[k])/w.capacity[k]
     end
     w.traits===nothing && return fraction
@@ -16,7 +16,7 @@ function observe_grass!(w,k,t)
      height=traits===nothing ? .4 : traits.height[k],
      density=(traits===nothing ? 1. : traits.density[k])*fraction,food=amount,
      cover=grass_cover!(w,k,t))
-    w.layers===nothing && return observed
+    (!hasproperty(w,:layers) || w.layers===nothing) && return observed
     scale=w.capacity[k]>0 ? (traits===nothing ? 1. : traits.density[k])/w.capacity[k] : 0.
     merge(observed,(short_food=w.layers.short[k],long_food=w.layers.long[k],
         short_density=w.layers.short[k]*scale,long_density=w.layers.long[k]*scale))

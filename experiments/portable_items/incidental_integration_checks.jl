@@ -46,14 +46,17 @@ end
     @test q["portable_items"]["counts"]["picked_up"]==0
     orientation=merge(INC_CLOCK,(phase_boundaries_us=fill(INC_CLOCK.day_us,4),))
     q=LW.lw_day(incidental_scene(),orientation;basic_loop=true,landmark_routes=true)
-    @test all(q["incidental_items"][a]["decisions"]==0 for a in INC_IDS)
+    # Morning phase alone no longer forces rest; explicit training above does.
+    @test sum(q["incidental_items"][a]["decisions"] for a in INC_IDS)>0
     deposit_scene=merge(incidental_scene(),(positions=[[0.,0.],[0.,0.],[0.,8.]],))
     q=incidental_run(deposit_scene)
     @test first(filter(e->e["actor"]=="npc_b",q["events"]))["action"]=="deposit"
     night=merge(INC_CLOCK,(phase_boundaries_us=[0,0,0,120_000_000],quiet_night_us=0))
     q=LW.lw_day(incidental_scene(),night;basic_loop=true,landmark_routes=true)
-    @test all(q["incidental_items"][a]["decisions"]==0 for a in INC_IDS)
-    @test q["portable_items"]["counts"]["picked_up"]==0
+    # Scheduled night rest applies inside camp only; outside work may continue.
+    @test q["incidental_items"]["npc_a"]["decisions"]==0
+    @test get(q["counts"]["npc_a"],"rest",0)>0
+    @test sum(q["incidental_items"][a]["decisions"] for a in ("npc_b","npc_c"))>0
 end
 @testset "checkpoint preserves optional-choice RNG experience and parent state" begin
     scene=incidental_scene();identity="incidental-pickup-integration"

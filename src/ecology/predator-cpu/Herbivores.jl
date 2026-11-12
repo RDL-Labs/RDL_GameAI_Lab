@@ -68,6 +68,9 @@ function grass!(w,k,t)
     w.grass[k]+=add; w.grown+=add; w.updated[k]=t
     w.grass[k]
 end
+# Single-layer legacy adapter: shared observation, direct geometry (no batch).
+include("../../lw/configured_paths/rabbit_grass_layers.jl")
+rabbit_neighbor_clear(w::World,a,i,j,t,p,q)=clear(w,p,q)
 include("../herbivore/perception.jl")
 include("../herbivore/decision.jl")
 function target!(w,a,i,t,policy=StateMachinePolicy())

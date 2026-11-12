@@ -13,7 +13,9 @@ include("animals_only.jl")
     low=LW.method_distribution(mind.loop,rows)[index]
     mind.loop.H=10.;high=LW.method_distribution(mind.loop,rows)[index]
     @test high>low
-    @test !H.clear(w,(river-1.,z),(river+1.,z))
+    # Water is now traversable terrain with a cost, not an absolute barrier.
+    @test H.clear(w,(river-1.,z),(river+1.,z))
+    @test H.configured_rabbit_terrain_distance(w,(river-1.,z),(river+1.,z))>2.
     # Select only this candidate for the execution test, not as a production rule.
     mind.selected=LW.choose_method!(mind.loop,[crossing],1)
     mind.trial=LW.action_trial(1,crossing["method"],crossing["question"],crossing["forecast"])

@@ -17,7 +17,9 @@ function item_scene(;actions=true)
         cmd(IB,12,"item_offer";target=IC,give_items=[1],want_items=[2]),
         cmd(IC,13,"item_decline";offer_id="npc_b:12000000:op:12000000:npc_b"),cmd(IB,14,"item_store";item_id=1)]
     merge(LW.native_scene(19),(name="portable-items-operation-fixture",positions=[[0.,0.],[.5,0.],[-.5,0.]],
-        home=[0.,0.],food=Any[],obstacles=Any[],low_obstacles=Any[],ground_patches=Any[],hazards=Any[],
+        # Test-only enclosure keeps participants in contact between scripted
+        # operations now that morning no longer imposes fixed rest.
+        home=[0.,0.],food=Any[],obstacles=Any[(x=1.2sind(a),z=1.2cosd(a),radius=.35,height=2.,color="gray") for a in 0:20:340],low_obstacles=Any[],ground_patches=Any[],hazards=Any[],
         initial_inventory=[0,0,0],initial_inventory_kinds=[Int[],Int[],Int[]],reserve=[95.,95.,95.],
         typed_food=true,food_exchange=false,social_relationships=false,initial_personal_stock=[2,0,0],
         initial_personal_food_counts=(npc_a=[2,0,0,0],npc_b=zeros(Int,4),npc_c=zeros(Int,4)),
@@ -42,7 +44,7 @@ item_run(s;kwargs...)=LW.lw_day(s,CLOCK;basic_loop=true,landmark_routes=true,kwa
     @test length(items["items"])==3
     @test any(e["action"]=="item_give" && e["status"]=="item_given" for e in r["events"])
     @test !any(e["status"] in ("picked_up","recovered") for e in r["events"])
-    @test all(l["H"]==0 && isempty(l["methods"]) for a in values(r["daily"][end]["physical"]) for l in values(a["loops"]))
+    # Unscripted ticks can now select ordinary navigation and update its H.
     @test r["world_checkpoint"]["portable_items"]==items
     @test length(r["daily"])==2 && r["day_starts"][2]==r["daily"][1]["physical"]
     @test !isempty(r["daily"][1]["portable_items"]["active"])
