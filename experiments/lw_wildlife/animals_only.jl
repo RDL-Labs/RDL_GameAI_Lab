@@ -43,6 +43,7 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
         configured_prey_scent_tick!(prey_scents,s,predators,t;present,scat_state)
         for (i,p) in enumerate(predators)
             present!==nothing && !present[i] && continue
+            minds!==nothing && configured_predator_search_cue!(minds[i],p,prey_scents.observed[i],t)
             configured_prey_scent_steer!(prey_scents,p,i,t)
         end
     end
