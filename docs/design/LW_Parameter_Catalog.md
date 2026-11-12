@@ -884,3 +884,23 @@ predator_food_deficitはavailableとの差だけを使い、脂肪・組織で�
 PREDATOR_COMPOSITION.reference_energy=900, usable_protein=300,
 extra_available_fraction=1/3。基準900超過分は糖1/3・脂肪2/3へ配分し組織量は増やさない。
 標準初期糖300・脂肪750・タンパク600（維持下限300）、合計利用可能1350。
+
+## 共通の指数型探索範囲（2026-11-12）
+
+共通関数 src/common/relational_expansion.jl:
+f=expm1(curvature*clamp(H/full_H,0,1))/expm1(curvature)。
+兎の候補数と捕食者の探索半径が同じ関数を使用する。Hの単位・尺度は用途別。
+捕食者は既存の親Hと未回収採食消費の大きい方を空腹で増幅した selection_H を読む。
+ここで別のHを加算しない。歩行・視認・仮目標到達は採食成果として扱わない。
+
+PREDATOR_SEARCH_EXPANSION: 半径4..64、full_H=2、曲率3、到着半径2、
+移動所要時間の2倍で仮目標を更新、境界余白2、既定ON。
+mind.estimates["search_expansion_enabled"]=0でOFF。
+獲物の内部位置を参照せず、現在位置からランダム方向へ仮目標を置く。
+SEARCH時のみ方角を保持し、視認追跡・匂い手掛かりは優先する。
+世界境界のクランプは暫定の幾何ショートカット。将来は観測MBの区画候補へ置換する。
+候補を毎tick大量列挙せず、仮目標と期限をestimatesへ保持し保存復元する。
+
+H20の初回試験は死亡までH約1.8、最大半径約4.99に留まった。
+同じ係数を異なるH尺度へそのまま流用しない。捕食者は食料評価900単位の
+未回収消費を使うため、当面H2で最大とした。最適値を実証したものではない。

@@ -1,3 +1,4 @@
+include("../../common/relational_expansion.jl")
 # 暫定固定の候補幅。学習した強度の代わりに既存の草/距離/方向/失敗Hを粗順位に使用。
 # 前半を抑える指数3、H20で最大8候補。将来は共通MBの関係想起へ置換。
 # enabled=falseで旧ゲート方式。近傍観測/通行確認の削減は含まない。
@@ -7,8 +8,7 @@ function configured_rabbit_candidate_count(pressure,available;settings=RABBIT_EX
     available<=0 && return 0
     upper=min(available,settings.maximum)
     lower=min(upper,settings.minimum)
-    h=clamp(pressure/settings.full_H,0.,1.)
-    fraction=expm1(settings.curvature*h)/expm1(settings.curvature)
+    fraction=relational_expansion_fraction(pressure;full_H=settings.full_H,curvature=settings.curvature)
     clamp(round(Int,lower+(upper-lower)*fraction),lower,upper)
 end
 function configured_rabbit_candidate_choice(observations,a,i,m,pressure,temperature_scale)

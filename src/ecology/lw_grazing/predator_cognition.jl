@@ -8,6 +8,7 @@ include("../../lw/configured_paths/predator_idle_gate.jl")
 include("../../lw/configured_paths/predator_food_site.jl")
 include("../../lw/configured_paths/predator_foraging_pressure.jl")
 include("../../lw/configured_paths/predator_crossing.jl")
+include("../../lw/configured_paths/predator_search_expansion.jl")
 mutable struct PredatorMind
     loop::LW.BasicLoop
     acquisition::Dict{String,Any}
@@ -194,6 +195,7 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
     if p.mode==:hunt
         body.state==P.REST && (body.state=P.SEARCH;body.timer=0)
         G.configured_wildlife_predator_plan!(trial_proxy(s,p),t;search_attention,local_planner)
+        configured_predator_search_expansion!(mind,p,s.world,t;physiology,search_attention)
     else
         body.state=P.REST;body.target=0;body.pursuit=0;body.timer=0
         if haskey(mind.selected,"target")
@@ -209,5 +211,6 @@ function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_
 end
 predator_mind_report(mind)=(loop=LW.loop_snapshot(mind.loop),places=deepcopy(mind.places),
     food_site_evidence=Dict(k=>v for (k,v) in mind.estimates if startswith(k,"food_site:")),
+    search_expansion=Dict(k=>v for (k,v) in mind.estimates if startswith(k,"search:")),
     single_rest_place=PREDATOR_COGNITION.single_rest_place,
     completed=mind.completed,records=deepcopy(mind.records),active=deepcopy(mind.trial))
