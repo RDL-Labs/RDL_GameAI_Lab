@@ -1,21 +1,32 @@
 using Serialization,JSON3,Random,Test
-include(joinpath(@__DIR__,"predator_generations.jl"))
-include(joinpath(@__DIR__,"../../src/lw/configured_paths/raptor_trial.jl"))
-include(joinpath(@__DIR__,"../../src/lw/configured_paths/predator_population_exchange.jl"))
-saved=deserialize("C:/Users/ken_m/Documents/Codex/rabbit-fresh3000-20261110/run-v2/checkpoints/day-257.jls")
-s=saved.world;c=saved.cohort;m=PredatorPopulationExchange(length(c.predators));old=c.predators[1];oldcapt=old.visual.body.captures
-configured_predator_replacement_update!(s,c,m,s.ticks)
-@test length(c.predators)==2
-@test !old.alive && old.visual.body.captures==oldcapt
-@test c.predators[2].alive && c.predators[2].visual.body.captures==0
-@test isempty(c.minds[2].places) && isempty(c.minds[2].records)
-@test c.predators[2].food==PREDATOR_ANIMAL_TRIAL.initial_food
-@test length(c.physiology)==length(c.pursuits)==length(m.present)==2
-@test count(e->e.event=="replacement_death",m.events)==1
-configured_predator_replacement_update!(s,c,m,s.ticks)
-@test length(c.predators)==2
-configured_predator_replacement_update!(s,c,m,s.ticks+17280)
-@test length(c.predators)==2
-io=IOBuffer();serialize(io,(s=s,c=c,m=m));seekstart(io);copy=deserialize(io)
-@test copy.c.predators[2].alive && !copy.c.predators[1].alive
-println("replacement checks: 10 PASS")
+include("predator_generations.jl")
+include("../../src/lw/configured_paths/predator_population_exchange.jl")
+@testset "replacement rabbit threshold" begin
+    s,ps=animal_trial_world(adult_rabbits=150);resize!(ps,1)
+    c=(predators=ps,minds=[PredatorMind(1)],local_hunts=[LocalHunt(1;probabilistic_capture=true)],
+       pursuits=[PredatorPursuit(1)],physiology=PredatorPhysiology.(ps),
+       scents=PredatorScentWorld(1),prey_scents=PreyScentWorld(1;cautious=true))
+    m=PredatorPopulationExchange(1);ps[1].alive=false;ps[1].food=0.
+    s.alive.=false;s.alive[1:99].=true
+    configured_predator_replacement_update!(s,c,m,0)
+    @test length(ps)==1
+    @test count(e->e.event=="replacement_death",m.events)==1
+    s.alive[100]=true
+    configured_predator_replacement_update!(s,c,m,17280)
+    @test length(ps)==2 && ps[2].alive
+    @test ps[2].food==PREDATOR_ANIMAL_TRIAL.initial_food
+    @test isempty(c.minds[2].places)
+    configured_predator_replacement_update!(s,c,m,17280)
+    @test length(ps)==2
+    s.alive.=false
+    configured_predator_replacement_update!(s,c,m,34560)
+    @test ps[2].alive && m.present[2]
+    ps[2].alive=false
+    configured_predator_replacement_update!(s,c,m,51840)
+    @test length(ps)==2
+    @test count(e->e.event=="replacement_death",m.events)==2
+    io=IOBuffer();serialize(io,(s,c,m));seekstart(io);s2,c2,m2=deserialize(io)
+    s2.alive[1:100].=true
+    configured_predator_replacement_update!(s2,c2,m2,69120)
+    @test length(c2.predators)==3
+end

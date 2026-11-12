@@ -3,7 +3,7 @@
 # 個体の判断ではない。境界への歩行・場外生態は省略し、出入りを瞬時に扱う。
 # 将来は外部個体群と、局所の狩り収支による移住判断へ置換する。
 const PREDATOR_POPULATION_EXCHANGE=(first_arrival_rabbits=100,rabbits_per_predator=50,departure_margin=50,
-    interval_ticks=PREDATOR_ANIMAL_TRIAL.day_ticks,seed=20261109)
+    interval_ticks=PREDATOR_ANIMAL_TRIAL.day_ticks,seed=20261109,replacement_min_rabbits=100)
 mutable struct PredatorPopulationExchange
     present::BitVector
     events::Vector{Any}
@@ -89,9 +89,10 @@ function configured_predator_population_report(cohort,migration,rabbits)
 end
 
 # 暫定固定・replace実験専用: 死亡後、次の日次境界で外部個体を補充。
-# 生存個体数は指定数に維持し、兎数を条件にしない。既存の新規ID・境界配置を共用。
+# 兎100体以上でのみ指定数まで補充。生存個体の強制退場はしない。
+# replacement_min_rabbits=0で従来の無条件補充。世界の生存数を直接参照する暫定固定。
 # 学習済み個体の復活ではない。将来は外部個体群・移住判断へ置換。
-function configured_predator_replacement_update!(world_state,cohort,migration,t;crossing_enabled=true,target=1)
+function configured_predator_replacement_update!(world_state,cohort,migration,t;crossing_enabled=true,target=1,replacement_min_rabbits=PREDATOR_POPULATION_EXCHANGE.replacement_min_rabbits)
     t%PREDATOR_POPULATION_EXCHANGE.interval_ticks==0 && t!=migration.last_tick || return
     migration.last_tick=t
     for actor in eachindex(cohort.predators)
@@ -103,6 +104,7 @@ function configured_predator_replacement_update!(world_state,cohort,migration,t;
             mode=string(p.mode),body=predator_physiology_report(cohort.physiology[actor])))
     end
     residents=count(i->migration.present[i] && cohort.predators[i].alive,eachindex(cohort.predators))
+    count(world_state.alive)>=replacement_min_rabbits || return
     for _ in 1:max(0,target-residents)
         configured_predator_population_arrive!(world_state,cohort,migration,t;crossing_enabled)===nothing && break
     end

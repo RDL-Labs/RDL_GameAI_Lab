@@ -82,3 +82,12 @@ predator_scat_checks.jl: 局所11検査＋3日利用確認1検査PASS。
 チェックポイントへscat_stateを追加し、復元時は引継ぐ。旧保存状態には新規作成。
 PC seed20261112、GitHub seed20261113。別シードなので純粋な速度比較ではない。
 日末STOPファイルで停止可能。日ごとに保存、ソース凍結。
+
+## 補充条件の変更（360日終了後）
+
+2026-11-12。replaceモードは兎が100体以上の場合だけ不足捕食者を補充する。
+既存個体は退場させず、100体未満でも死亡記録を残す。
+PREDATOR_POPULATION_EXCHANGE.replacement_min_rabbits=100。
+関数keyword replacement_min_rabbits=0で旧方式へ戻す。日次判定は維持。
+これは世界総数を使う暫定固定であり、個体の判断ではない。
+既存360日結果/凍結ソースは変更しない。

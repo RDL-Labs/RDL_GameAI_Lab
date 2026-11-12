@@ -829,3 +829,6 @@ task_focus有効時も、該当する返答通知または期限切れで通常�
 
 捕食者の糞手がかり重みは `predator_scat_cue.jl` のPREDATOR_SCAT_CUE。
 新鮮さ重み0.25..1、信号スケール4、量上限1。SCAT_TRACEと合わせて任意実験のみ。
+
+捕食者replace補充は `PREDATOR_POPULATION_EXCHANGE.replacement_min_rabbits=100`。
+100以上で補充、未満では補充しない。生存個体の退場条件ではない。
