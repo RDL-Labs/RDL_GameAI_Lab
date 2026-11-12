@@ -3,6 +3,7 @@
 include("../../lw/configured_paths/predator_cognition_parameters.jl")
 include("../../lw/configured_paths/predator_rest_place.jl")
 include("../../lw/configured_paths/predator_food_demand.jl")
+include("../../lw/configured_paths/predator_idle_gate.jl")
 include("../../lw/configured_paths/predator_food_site.jl")
 include("../../lw/configured_paths/predator_crossing.jl")
 mutable struct PredatorMind
@@ -132,13 +133,14 @@ function predator_mind_close!(mind,p,rival,t;dead=false,physiology=nothing)
     length(mind.records)>rule.history_limit && popfirst!(mind.records)
     mind.completed+=1;mind.trial=nothing;mind.selected=nothing
 end
-function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_attention=nothing,local_planner=nothing,physiology=nothing)
+function predator_mind_plan!(s,p,predators,mind,t;scents=nothing,index=1,search_attention=nothing,local_planner=nothing,physiology=nothing,idle_gate=PREDATOR_IDLE_GATE.enabled)
     rule=PREDATOR_COGNITION;body=p.visual.body
     rival=trial_visible_rival(s,p,predators,t)
     rival.actor!==nothing && !p.last_rival && p.alive && (p.encounters+=1)
     p.last_rival=rival.actor!==nothing
+    configured_predator_idle_hold!(mind,p,rival,t,physiology;enabled=idle_gate) && return
     if mind.trial!==nothing
-        LW.action_trial_step!(mind.trial,1.,max(0.,p.spent-mind.start_spent-mind.trial["energy"]);now=t)
+        LW.action_trial_step!(mind.trial,configured_predator_idle_elapsed!(mind,t),max(0.,p.spent-mind.start_spent-mind.trial["energy"]);now=t)
         captured=body.captures>mind.start_capture
         if mind.selected["action"]==:hunt && p.alive && !captured
             predator_food_site_effort!(mind,p)

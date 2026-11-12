@@ -811,3 +811,11 @@ continue_prior=2、risk_gain=8、record_limit=64件。身体のstrain限界1と�
 新しい返答期限ではない。待機期限は送信時のpending.deadlineをそのまま保持する。
 task_focus有効時も、該当する返答通知または期限切れで通常観測へ戻る。
 まず援助要求の返答待ちに接続。取引提案等の全待機が移行済みという意味ではない。
+
+## 捕食者の満腹待機ゲート（2026-11-12）
+
+`src/lw/configured_paths/predator_idle_gate.jl` の `PREDATOR_IDLE_GATE.enabled=true`。
+`predator_mind_plan!(...;idle_gate=false)` で旧方式へ戻す。閾値は既存の
+`PREDATOR_ANIMAL_TRIAL.initial_food` と `PREDATOR_BODY.need_band` を再利用する。
+満腹待機だけを継続し、身体回復の休息を置換しない。暫定の認知省エネ設定であり、
+身体・捕獲確率・餌の栄養は変更しない。詳細は `Predator_Idle_Gate_20261112.md`。
