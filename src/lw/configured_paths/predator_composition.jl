@@ -7,6 +7,7 @@ const PREDATOR_COMPOSITION=(available_fraction=1/6,fat_fraction=1/2,
     structural_protein=300.,collapse_fraction=.5,repair_per_tick=.05,
     # 暫定身体値: 1日分の即利用備蓄を残し最大30/日で脂肪化、上限900。
     # 過剰摂食や行動は強制しない。将来は体格・栄養・需要見積もりで設定。
+    fat_support_level=300., # 暫定: 糖相当分がこの量以下で脂肪の消費分担が連続的に増える。
     storage_reserve_floor=300.,fat_capacity=900.,fat_storage_per_day=30.)
 mutable struct ComposedPredatorPhysiology
     body::LW.Body
@@ -26,7 +27,7 @@ function configured_predator_composition_sync!(s,p,previous_food,previous_eaten)
     s isa ComposedPredatorPhysiology || return
     gain=p.eaten-previous_eaten
     LW.RDLBody.composition_feed!(s.composition,gain)
-    LW.RDLBody.composition_consume!(s.composition,max(0.,previous_food+gain-p.food))
+    LW.RDLBody.composition_consume!(s.composition,max(0.,previous_food+gain-p.food);fat_support_level=PREDATOR_COMPOSITION.fat_support_level)
     LW.RDLBody.composition_repair!(s.composition,PREDATOR_COMPOSITION.repair_per_tick)
     rule=PREDATOR_COMPOSITION
     LW.RDLBody.composition_store_fat!(s.composition;reserve_floor=rule.storage_reserve_floor,

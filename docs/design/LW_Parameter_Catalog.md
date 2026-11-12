@@ -874,3 +874,8 @@ reference_edible=50。全て正規化エネルギー相当量の暫定値。
 PREDATOR_COMPOSITION.storage_reserve_floor=300を共有する。
 predator_food_deficitはavailableとの差だけを使い、脂肪・組織で満腹にしない。
 消費支持の下限は既存のavailable=0。身体組成なしの基準900は維持。
+
+2026-11-12追記: PREDATOR_COMPOSITION.fat_support_level=300（エネルギー相当量）。
+糖低下時の脂肪分担率 clamp(1-available/level,0,1) の尺度。
+空腹充足値と現在は同値だが、消費分担の役割なので独立設定。
+共通composition_consume!の既定0は従来順序、捕食者身体組成のみ300を渡す。

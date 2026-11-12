@@ -18,10 +18,15 @@ function Composition(;available,fat,protein,protein_min,protein_target,collapse_
 end
 composition_energy(c)=c.available+c.fat+max(0.,c.protein-c.protein_min)
 composition_mobility(c)=!c.alive || c.collapsed ? 0. : clamp((c.protein-c.protein_min)/(c.protein_target-c.protein_min),0.,1.)
-function composition_consume!(c,amount)
+function composition_consume!(c,amount;fat_support_level=0.)
     isfinite(amount) && amount>=0 || throw(ArgumentError("consumption"))
+    isfinite(fat_support_level) && fat_support_level>=0 || throw(ArgumentError("fat support level"))
     c.alive || return 0.
     used=min(amount,composition_energy(c));remaining=used
+    # Below the support level, fat shares expenditure without replenishing liquid.
+    # Allocation uses the pre-step liquid level; unmet fat demand falls back to liquid.
+    fat_share=fat_support_level>0 ? clamp(1-c.available/fat_support_level,0.,1.) : 0.
+    take=min(c.fat,used*fat_share);c.fat-=take;remaining-=take
     take=min(c.available,remaining);c.available-=take;remaining-=take
     take=min(c.fat,remaining);c.fat-=take;remaining-=take
     c.protein=max(c.protein_min,c.protein-remaining)
