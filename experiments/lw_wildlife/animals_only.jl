@@ -2,6 +2,7 @@ using JSON3, Serialization, Test
 include("../../src/lw/LW.jl")
 const G=LW.LWGrazing;const H=G.H;const P=G.P
 include("../../src/lw/configured_paths/predator_animal_trial.jl")
+include("../../src/lw/configured_paths/scat_traces.jl")
 include("../../src/lw/configured_paths/predator_physiology.jl")
 include("../../src/lw/configured_paths/human_scent.jl")
 include("../../src/lw/configured_paths/predator_marking.jl")
@@ -55,13 +56,14 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
         additional_predator_visible=raptor===nothing ? nothing : ((index,distance)->index<=length(predators) || configured_raptor_notice(raptor,distance)),
         motion_speed,illumination)
 end
-function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,present=nothing,grazing_policy=G.H.StateMachinePolicy())
+function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,present=nothing,grazing_policy=G.H.StateMachinePolicy(),scat_state=nothing)
     rabbit_steering=human_scent===nothing ? nothing : (w,a,i,speed,overrides)->begin
         base=s.life===nothing ? a.heading[i] : G.configured_rabbit_potential(w,a,i,speed,overrides)
         configured_human_scent_heading(human_scent,a.x[i],a.z[i],base,t,:rabbit)
     end
     predator_steering=human_scent===nothing ? nothing : (x,z,heading,tick)->configured_human_scent_heading(human_scent,x,z,heading,tick,:predator)
     G.advance!(s,t;steering=rabbit_steering,grazing_policy)
+    scat_state!==nothing && configured_scat_step!(scat_state,s,predators,t;present)
     # Alternate contact resolution order to avoid permanent first-predator privilege.
     for i in (iseven(t) ? eachindex(predators) : reverse(eachindex(predators)))
         present!==nothing && !present[i] && continue

@@ -819,3 +819,10 @@ task_focus有効時も、該当する返答通知または期限切れで通常�
 `PREDATOR_ANIMAL_TRIAL.initial_food` と `PREDATOR_BODY.need_band` を再利用する。
 満腹待機だけを継続し、身体回復の休息を置換しない。暫定の認知省エネ設定であり、
 身体・捕獲確率・餌の栄養は変更しない。詳細は `Predator_Idle_Gate_20261112.md`。
+
+## 糞の痕跡（2026-11-12）
+
+`configured_paths/scat_traces.jl` のSCAT_TRACE。半日個別保持、区画幅4、
+兎24まとまり/日、地上捕食者6まとまり/日、区画量半減期10日。
+身体エネルギーから無次元の量だけを近似し、身体収支とは独立。
+任意sidecarで既定OFF。詳細は `Scat_Traces_20261112.md`。
