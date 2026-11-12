@@ -7,6 +7,12 @@ include("../../src/lw/configured_paths/predator_population_exchange.jl")
     c=(predators=ps,minds=[PredatorMind(1)],local_hunts=[LocalHunt(1;probabilistic_capture=true)],
        pursuits=[PredatorPursuit(1)],physiology=body_constructor.(ps),
        scents=PredatorScentWorld(1),prey_scents=PreyScentWorld(1;cautious=true))
+    if body_constructor===ComposedPredatorPhysiology
+        @test ps[1].food==1350.
+        @test c.physiology[1].composition.available==300.
+        @test c.physiology[1].composition.fat==750.
+        @test c.physiology[1].composition.protein==600.
+    end
     m=PredatorPopulationExchange(1);ps[1].alive=false;ps[1].food=0.
     s.alive.=false;s.alive[1:99].=true
     configured_predator_replacement_update!(s,c,m,0)
@@ -16,6 +22,12 @@ include("../../src/lw/configured_paths/predator_population_exchange.jl")
     configured_predator_replacement_update!(s,c,m,17280)
     @test length(ps)==2 && ps[2].alive
     @test ps[2].food==PREDATOR_ANIMAL_TRIAL.initial_food
+    if body_constructor===ComposedPredatorPhysiology
+        @test c.physiology[2].composition.available==300.
+        @test c.physiology[2].composition.fat==750.
+        @test c.physiology[2].composition.protein_target==600.
+        @test c.physiology[2].composition.collapse_protein==450.
+    end
     @test isempty(c.minds[2].places)
     configured_predator_replacement_update!(s,c,m,17280)
     @test length(ps)==2

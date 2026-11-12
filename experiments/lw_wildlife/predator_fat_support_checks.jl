@@ -15,7 +15,7 @@ const B=LW.RDLBody
  @test c.available==0 && c.fat==0 && c.protein==593
  @test_throws ArgumentError B.composition_consume!(c,1.;fat_support_level=-1.)
  # Compare identical resting expenditure, no meals; actual predator adapter for new.
- s,ps=animal_trial_world();p=ps[1];physical=ComposedPredatorPhysiology(p)
+ s,ps=animal_trial_world();p=ps[1];p.food=900.;physical=ComposedPredatorPhysiology(p)
  old=deepcopy(physical.composition);rows=Any[];max_error=0.
  for t in 0:3*17280
   if t>0
@@ -37,7 +37,7 @@ const B=LW.RDLBody
  @test rows[end].current.usable≈rows[end].old.usable atol=1e-6
  before=predator_hunger(p,physical)
  # Separate living hungry body for food response and persistence check.
- s,ps=animal_trial_world();p=ps[1];physical=ComposedPredatorPhysiology(p)
+ s,ps=animal_trial_world();p=ps[1];p.food=900.;physical=ComposedPredatorPhysiology(p)
  B.composition_consume!(physical.composition,10.;fat_support_level=300.)
  p.food=B.composition_energy(physical.composition)
  h=predator_hunger(p,physical)

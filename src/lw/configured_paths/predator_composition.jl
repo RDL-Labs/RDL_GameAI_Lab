@@ -1,8 +1,9 @@
 # 暫定固定・局所試験のみ明示的にComposedPredatorPhysiology(p)でON。
-# 既存初期備蓄900を150/450/消耗可能タンパク300に分配（追加エネルギーなし）。
+# 初期・補充1350を糖300/脂肪750/消耗可能タンパク300に分配。組織量は固定。
 # 維持組織300は燃料から除外。生物学的に較正した値ではない。
 # 給餌は試験APIによる直接補給。将来は栄養組成・消化・人の給餌行動へ置換。
 const PREDATOR_COMPOSITION=(available_fraction=1/6,fat_fraction=1/2,
+    reference_energy=900.,usable_protein=300.,extra_available_fraction=1/3, # 暫定: 旧900超過分を糖1/3・脂肪2/3へ。
     default_chase_speed=.5, # mirror directional predator default until shared species speeds
     structural_protein=300.,collapse_fraction=.5,repair_per_tick=.05,
     # 暫定身体値: 1日分の即利用備蓄を残し最大30/日で脂肪化、上限900。
@@ -15,8 +16,11 @@ mutable struct ComposedPredatorPhysiology
     composition::LW.RDLBody.Composition
 end
 function ComposedPredatorPhysiology(p)
-    r=PREDATOR_COMPOSITION;usable_protein=p.food*(1-r.available_fraction-r.fat_fraction)
-    c=LW.RDLBody.Composition(available=p.food*r.available_fraction,fat=p.food*r.fat_fraction,
+    r=PREDATOR_COMPOSITION;usable_protein=min(p.food,r.usable_protein)
+    base_energy=min(p.food,r.reference_energy);extra=max(0.,p.food-r.reference_energy)
+    liquid=min(max(0.,p.food-usable_protein),base_energy*r.available_fraction+extra*r.extra_available_fraction)
+    fat=max(0.,p.food-usable_protein-liquid)
+    c=LW.RDLBody.Composition(available=liquid,fat=fat,
         protein=r.structural_protein+usable_protein,protein_min=r.structural_protein,
         protein_target=r.structural_protein+usable_protein,
         collapse_protein=r.structural_protein+r.collapse_fraction*usable_protein)

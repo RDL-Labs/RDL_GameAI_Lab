@@ -1,7 +1,7 @@
 include("animals_only.jl")
 const B=LW.RDLBody
 @testset "liquid hunger persists while fat supports consumption" begin
- s,ps=animal_trial_world();p=ps[1];physical=ComposedPredatorPhysiology(p)
+ s,ps=animal_trial_world();p=ps[1];p.food=900.;physical=ComposedPredatorPhysiology(p)
  c=physical.composition
  initial=B.composition_energy(c)
  @test predator_food_deficit(p,physical)==150.

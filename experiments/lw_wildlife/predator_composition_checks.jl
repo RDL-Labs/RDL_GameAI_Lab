@@ -17,7 +17,7 @@ const B=LW.RDLBody
  @test_throws ArgumentError B.composition_consume!(c,-1.)
 end
 function deprivation(;rescue=false)
- s,ps=animal_trial_world();p=ps[1];physical=ComposedPredatorPhysiology(p);mind=PredatorMind(1)
+ s,ps=animal_trial_world();p=ps[1];p.food=900.;physical=ComposedPredatorPhysiology(p);mind=PredatorMind(1)
  max_balance_error=0.;rows=Any[];collapsed_tick=nothing;fed=false;recovered_tick=nothing
  for t in 1:4*17280
   predator_mind_plan!(s,p,ps,mind,t;physiology=physical)
@@ -63,7 +63,7 @@ end
  @test B.composition_snapshot(s2.composition)==B.composition_snapshot(b.physical.composition)
  @test s2.body.reserve==p2.food
  # Actual motion adapter slows a depleted but not collapsed body.
- s,ps=animal_trial_world();p=ps[1];physical=ComposedPredatorPhysiology(p)
+ s,ps=animal_trial_world();p=ps[1];p.food=900.;physical=ComposedPredatorPhysiology(p)
  B.composition_consume!(physical.composition,675.);p.food=B.composition_energy(physical.composition)
  physical.body=LW.Body(10.,0.,p.food,0.);p.mode=:visit_food;p.visual.body.heading=0.
  @test 0<predator_composition_factor(physical)<1

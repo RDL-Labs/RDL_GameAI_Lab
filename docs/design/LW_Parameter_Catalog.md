@@ -879,3 +879,8 @@ predator_food_deficitはavailableとの差だけを使い、脂肪・組織で�
 糖低下時の脂肪分担率 clamp(1-available/level,0,1) の尺度。
 空腹充足値と現在は同値だが、消費分担の役割なので独立設定。
 共通composition_consume!の既定0は従来順序、捕食者身体組成のみ300を渡す。
+
+2026-11-12: PREDATOR_ANIMAL_TRIAL.initial_food=1350（初期と補充に共通）。
+PREDATOR_COMPOSITION.reference_energy=900, usable_protein=300,
+extra_available_fraction=1/3。基準900超過分は糖1/3・脂肪2/3へ配分し組織量は増やさない。
+標準初期糖300・脂肪750・タンパク600（維持下限300）、合計利用可能1350。

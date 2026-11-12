@@ -5,7 +5,7 @@
 # 縄張り中心は初期配置、視認した相手への防衛/撤退は距離勾配で決める。
 # 将来は身体需要・経験MBによる選択と摂食/消化に置換。人への対応は未接続。
 const PREDATOR_ANIMAL_TRIAL=(day_ticks=17280,daily_food=300.,move_food=.1,
-    initial_food=900.,capacity=1800.,hunt_below=600.,adult_food=900.,
+    initial_food=1350.,capacity=1800.,hunt_below=600.,adult_food=900.,
     minimum_size_fraction=.05,territory_radius=20.,rival_sight=12.,
     balance_atol=1e-7,balance_rtol=1e-10, # Legacy metadata only; reporting uses G.balance_diagnostic.
     retreat_difference=.1,retreat_speed=.3,warning_duration_ticks=60,warning_cooldown_ticks=600)
