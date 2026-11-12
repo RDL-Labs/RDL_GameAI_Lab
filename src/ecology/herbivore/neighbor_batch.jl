@@ -11,6 +11,9 @@ mutable struct RabbitNeighborBatch
  obstacles::Vector{RDLMigrationProbe.Circle}
  queries::Matrix{Float64};gpu_queries::Matrix{Float32};gaps::Vector{Float32};clear_results::Vector{Bool}
  slots::Matrix{Int};origins::Matrix{Float64}
+ # Derived scratch only: clear columns used by the previous batch, including
+ # actors that died or stopped searching. Never renumber persistent actor IDs.
+ touched::Vector{Int}
  automatic::Bool;gpu_min_queries::Int;cpu_batches::Int;gpu_batches::Int;cpu_queries::Int;gpu_queries_total::Int
  tick::Int;audit::Bool;batches::Int;queries_total::Int;hits::Int;fallbacks::Int
 end
@@ -24,7 +27,7 @@ function enable_rabbit_neighbor_batch!(w;gpu=false,audit=false,automatic=false,g
   maximum(abs, (w.xmin,w.xmax,w.zmin,w.zmax))<=1000 || error("GPU map extent exceeds validated envelope")
   all(o->max(abs(o.x),abs(o.z),abs(o.radius))<=1000,w.obstacles) || error("GPU obstacle extent")
  end
- b=RabbitNeighborBatch(gpu ? RabbitNeighborOpenCL.Backend(w) : nothing,w,copy(w.obstacles),zeros(4,0),zeros(Float32,4,0),Float32[],Bool[],zeros(Int,9,0),zeros(2,0),automatic,gpu_min_queries,0,0,0,0,-1,audit,0,0,0,0)
+ b=RabbitNeighborBatch(gpu ? RabbitNeighborOpenCL.Backend(w) : nothing,w,copy(w.obstacles),zeros(4,0),zeros(Float32,4,0),Float32[],Bool[],zeros(Int,9,0),zeros(2,0),Int[],automatic,gpu_min_queries,0,0,0,0,-1,audit,0,0,0,0)
  RABBIT_NEIGHBOR_BACKEND[]=b;b
 end
 enable_rabbit_neighbor_gpu!(w;audit=false)=enable_rabbit_neighbor_batch!(w;gpu=true,audit)
@@ -56,14 +59,26 @@ function prepare_rabbit_neighbor_batch!(w,a,t,policy,alive,overrides)
  w.obstacles==b.obstacles || error("GPU static obstacle geometry changed; rebuild backend")
  b.tick=t;n=length(a.x)
  if size(b.slots,2)<n
-  b.queries=zeros(4,8n);b.gpu_queries=zeros(Float32,4,8n);b.gaps=zeros(Float32,8n);b.clear_results=zeros(Bool,8n)
-  b.slots=zeros(Int,9,n);b.origins=zeros(2,n)
+  # Execution capacity, not population capacity: doubling amortizes births.
+  # All entries are rebuilt below; no old geometry results need copying.
+  capacity=max(n,2size(b.slots,2))
+  b.queries=zeros(4,8capacity);b.gpu_queries=zeros(Float32,4,8capacity);b.gaps=zeros(Float32,8capacity);b.clear_results=zeros(Bool,8capacity)
+  b.slots=zeros(Int,9,capacity);b.origins=zeros(2,capacity)
+ else
+  for actor_id in b.touched, slot_id in axes(b.slots,1)
+   b.slots[slot_id,actor_id]=0
+  end
  end
- fill!(b.slots,0)
+ empty!(b.touched)
  used=0
- for i in 1:n
-  alive!==nothing && !alive[i] && continue
+ i=0
+ while true
+  # findnext on BitVector skips dead historical IDs word-wise, in original order.
+  next_actor=alive===nothing ? i+1 : findnext(alive,i+1)
+  (next_actor===nothing || next_actor>n) && break
+  i=next_actor
   a.state[i]==SEARCH && rabbit_needs_neighbors(policy,a,i,t,overrides) || continue
+  push!(b.touched,i)
   p=(a.x[i],a.z[i]);b.origins[1,i]=p[1];b.origins[2,i]=p[2];k=cell(w,p...);ix=mod(k-1,w.nx)+1;iz=div(k-1,w.nx)+1
   for (dx,dz) in OFFSETS
    jx,jz=ix+dx,iz+dz

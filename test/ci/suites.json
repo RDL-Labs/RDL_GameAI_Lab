@@ -310,6 +310,10 @@
     },
     {
       "args": [],
+      "path": "experiments/lw_wildlife/historical_neighbor_checks.jl"
+    },
+    {
+      "args": [],
       "path": "experiments/lw_wildlife/checks.jl"
     },
     {
