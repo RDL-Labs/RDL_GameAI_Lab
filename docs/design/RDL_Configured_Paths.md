@@ -142,3 +142,6 @@ crossing_longrunのcrossing=trueで有効、falseでは従来の水通行禁止�
 猛禽のswitch_after_miss（既定true）は失敗直後の同じ獲物再選択を防ぐ暫定固定。configured_raptor_failed_target/scanに隔離。falseで従来、成功/再入場で解除。記録は既存target/miss/capture、条件はraptor_ruleに保存。別の幼体間の往復は許容。
 
 猛禽の飛行高度の代替としてrabbit_notice_range=3で兎の新規観測を近距離に制限。狩り飛行時のみ。地上摂食時と既存危険記憶は維持。Infで追加制限を無効化。将来は高度・見かけサイズへ置換。
+
+## 弱い匂いを含む不成果抑制（2026-11-12）
+捕食者のcautious匂い操舵＋mindで既定ON。区画ごと120tick不成果で600tick除外。scent_all_strengths=0で旧方式。捕獲時のみ直近区画の記録を解除する暫定固定判断。保存先と将来の置換方針・局所比較は [専用記録](Predator_Scent_Failure_20261112.md) を参照。

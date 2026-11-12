@@ -68,8 +68,18 @@ function configured_prey_scent_tick!(scent,s,predators,t;present=nothing,scat_st
         scent.observed[i]!==nothing && (scent.detections+=1)
     end
 end
-function configured_prey_scent_steer!(scent,p,i,t)
+function configured_prey_scent_steer!(scent,p,i,t;mind=nothing)
     observation=scent.observed[i];b=p.visual.body
+    all_strengths=mind!==nothing && get(mind.estimates,"scent_all_strengths",1.)>0
+    if all_strengths
+        e=mind.estimates
+        if b.captures>get(e,"scent:last_captures",Float64(b.captures)) && haskey(e,"scent:last_x")
+            successful=(Int(e["scent:last_x"]),Int(e["scent:last_z"]))
+            delete!(e,"scent:effort:"*string(successful))
+            delete!(scent.cooldown[i],successful)
+        end
+        e["scent:last_captures"]=Float64(b.captures)
+    end
     scent.active_target[i]=nothing
     b.state in (P.CHASE,P.ATTACK) && (scent.unconfirmed[i]=0)
     p.alive && p.mode==:hunt && b.state==P.SEARCH || return
@@ -78,12 +88,28 @@ function configured_prey_scent_steer!(scent,p,i,t)
     if scent.cautious
         key=prey_scent_cell(observation.target...)
         t<get(scent.cooldown[i],key,0) && return
-        if observation.signal>=PREY_SCENT_CAUTION.strong_signal
+        if all_strengths
+            # 暫定: 強弱によらず、区画ごとの匂い探索120tickで600tick見込みを下げる。
+            # 視認は捕食成果ではない。保存済みestimatesを使用し、真の獲物位置は見ない。
+            # 将来は経験に基づく成果見積もりへ置換。scent_all_strengths=0で従来へ。
+            evidence="scent:effort:"*string(key)
+            effort=get(mind.estimates,evidence,0.)+1
+            mind.estimates[evidence]=effort
+            mind.estimates["scent:last_x"]=Float64(key[1]);mind.estimates["scent:last_z"]=Float64(key[2])
+            if effort>=PREY_SCENT_CAUTION.unconfirmed_ticks
+                scent.cooldown[i][key]=t+PREY_SCENT_CAUTION.cooldown_ticks
+                delete!(mind.estimates,evidence)
+                mind.estimates["scent:rejected"]=get(mind.estimates,"scent:rejected",0.)+1
+                scent.rejected+=1;return
+            end
+        elseif observation.signal>=PREY_SCENT_CAUTION.strong_signal
             scent.unconfirmed[i]+=1
             if scent.unconfirmed[i]>=PREY_SCENT_CAUTION.unconfirmed_ticks
                 scent.cooldown[i][key]=t+PREY_SCENT_CAUTION.cooldown_ticks
                 scent.unconfirmed[i]=0;scent.rejected+=1;return
             end
+        end
+        if observation.signal>=PREY_SCENT_CAUTION.strong_signal
             scent.active_target[i]=observation.target;scent.caution_ticks[i]+=1
         end
     end

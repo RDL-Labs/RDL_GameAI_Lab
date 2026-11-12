@@ -47,7 +47,7 @@ function replay(root,enabled;day=68,actor=2)
  samples=Any[];cells=Set{Tuple{Int,Int}}();max_radius=0.;origin=nothing;tracked=Set{Int}();tracking_ticks=0;diag=Dict{String,Any}("active_ticks"=>0,"within16"=>0,"within6"=>0,"attack_geometry"=>0,"min_distance"=>Inf,"closest"=>nothing,"start"=>nothing)
  elapsed=@elapsed for t in s.ticks:(day+3)*17280-1
   configured_predator_replacement_update!(s,c,saved.migration,t;target=1)
-  for m in c.minds;m.estimates["search_expansion_enabled"]=enabled ? 1. : 0.;m.estimates["no_cue_search_enabled"]=0.;end
+  for m in c.minds;m.estimates["scent_all_strengths"]=0.;m.estimates["search_expansion_enabled"]=enabled ? 1. : 0.;m.estimates["no_cue_search_enabled"]=0.;end
   if t%17280==0
    was=bird.present;configured_raptor_population!(bird,count(s.alive),t)
    if !was && bird.present

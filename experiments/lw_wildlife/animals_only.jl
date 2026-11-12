@@ -44,7 +44,7 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
         for (i,p) in enumerate(predators)
             present!==nothing && !present[i] && continue
             minds!==nothing && configured_predator_search_cue!(minds[i],p,prey_scents.observed[i],t)
-            configured_prey_scent_steer!(prey_scents,p,i,t)
+            configured_prey_scent_steer!(prey_scents,p,i,t;mind=minds===nothing ? nothing : minds[i])
         end
     end
     wildlife_visuals=[p.visual for p in predators]

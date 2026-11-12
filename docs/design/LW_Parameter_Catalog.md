@@ -916,3 +916,6 @@ PREDATOR_NO_CUE_SEARCH=(enabled=true,missing_sniffs=3,minimum_radius=32)。
 ヒントのない地域を不在確定にはしない。暫定固定の半径・回数は将来学習見積もりへ置換。
 mind.estimates["no_cue_search_enabled"]=0でHのみの方式へ戻せる。
 観測結果・仮目標は既存estimatesへ保存し、保存形式の型変更なし。
+
+### 匂い不成果の対象拡張（2026-11-12）
+PREY_SCENT_CAUTION.unconfirmed_ticks=120 / cooldown_ticks=600を弱い匂いにも適用。値は据え置き。mind.estimatesのscent_all_strengthsは未指定時1（ON）、0で従来。詳細: [局所比較](Predator_Scent_Failure_20261112.md)。
