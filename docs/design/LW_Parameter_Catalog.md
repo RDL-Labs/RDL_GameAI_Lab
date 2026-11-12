@@ -856,3 +856,7 @@ collapse_fraction=.5、repair_per_tick=.05。すべて暫定エネルギー相�
 初期総エネルギーは従来900のまま。default_chase_speed=.5は既存方向視覚モデルの初期値。
 ComposedPredatorPhysiologyを明示した局所試験だけON。通常ランナーは旧型。
 詳細・制限・試験条件: Shared_Body_Composition_20261112.md。
+
+脂肪蓄積追加: storage_reserve_floor=300（即利用分の留保）、fat_capacity=900、
+fat_storage_per_day=30（17280tick/日で換算）。消費/修復後に共通composition_store_fat!で転送。
+初期値を生物学的較正済みとは扱わない。蓄積はタンパク修復完了・非へたり込み時のみ。

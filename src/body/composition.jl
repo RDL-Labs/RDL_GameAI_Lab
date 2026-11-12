@@ -51,3 +51,13 @@ function composition_repair!(c,amount)
     transfer
 end
 composition_snapshot(c)=(available=c.available,fat=c.fat,protein=c.protein,usable=composition_energy(c),mobility=composition_mobility(c),collapsed=c.collapsed,alive=c.alive)
+
+# Transfer only genuine liquid surplus after the caller has paid maintenance,
+# activity and tissue repair. Rates/capacity are species parameters, not policy.
+function composition_store_fat!(c;reserve_floor,fat_capacity,rate,dt=1.)
+    all(x->isfinite(x) && x>=0,(reserve_floor,fat_capacity,rate,dt)) || throw(ArgumentError("fat storage parameters"))
+    c.alive && !c.collapsed && c.protein>=c.protein_target || return 0.
+    transfer=min(max(0.,c.available-reserve_floor),max(0.,fat_capacity-c.fat),rate*dt)
+    c.available-=transfer;c.fat+=transfer
+    transfer
+end
