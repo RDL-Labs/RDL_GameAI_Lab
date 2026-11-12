@@ -36,12 +36,12 @@ mutable struct RaptorTrial
     ticks::Dict{Symbol,Int}
     events::Vector{NamedTuple}
 end
-function configured_raptor(s,scene)
+function configured_raptor(s,scene;seed=RAPTOR_TRIAL.seed)
     rule=RAPTOR_TRIAL
     perches=Tuple{Float64,Float64}[(Float64(o.x),Float64(o.z)) for o in scene.obstacles
         if get(o,:kind,0)==rule.tree_kind && get(o,:height,0.)>=rule.minimum_tree_height]
     isempty(perches) && error("raptor requires tree perches")
-    visual=G.configured_wildlife_predator(s.world,s.animals,(predator_count=1,),rule.seed)
+    visual=G.configured_wildlife_predator(s.world,s.animals,(predator_count=1,),seed)
     RaptorTrial(visual,perches,1,:outside,false,0,first(perches),0,rule.initial_food,
         0.,0.,0,0,0,0,0,0,0.,0.,Dict{Symbol,Int}(),NamedTuple[])
 end
@@ -57,15 +57,15 @@ function configured_raptor_leave_meal!(bird,t)
     bird.remains+=bird.meal;bird.meal=0.
 end
 # 日次ヒステリシス。1羽のみ。画面外は非計算、出現時の身体は暫定再設定。
-function configured_raptor_population!(bird,n,t)
+function configured_raptor_population!(bird,n,t;arrival=RAPTOR_TRIAL.arrival_rabbits,departure=RAPTOR_TRIAL.departure_rabbits)
     t%RAPTOR_TRIAL.day_ticks==0 || return
-    if !bird.present && n>=RAPTOR_TRIAL.arrival_rabbits
+    if !bird.present && n>=arrival
         bird.present=true;bird.mode=:arrive;bird.arrivals+=1;bird.food=RAPTOR_TRIAL.initial_food
         bird.perch=rand(bird.visual.rng,eachindex(bird.perches));bird.destination=bird.perches[bird.perch]
         bird.visual.body.x=bird.destination[1];bird.visual.body.z=bird.destination[2]
         # Entry is finalized by the world adapter at the nearest map edge.
         configured_raptor_event!(bird,t,"arrival";rabbits=n)
-    elseif bird.present && n<=RAPTOR_TRIAL.departure_rabbits && bird.mode!=:depart
+    elseif bird.present && n<=departure && bird.mode!=:depart
         configured_raptor_leave_meal!(bird,t);bird.mode=:depart;bird.target=0
         configured_raptor_event!(bird,t,"departure_started";rabbits=n)
     end
@@ -198,3 +198,37 @@ configured_raptor_report(bird)=(present=bird.present,mode=bird.mode,position=(bi
     food=bird.food,captures=bird.captures,attempts=bird.attempts,scans=bird.scans,arrivals=bird.arrivals,
     departures=bird.departures,interrupted_meals=bird.interrupted_meals,eaten=bird.eaten,
     remains=bird.remains,ticks=copy(bird.ticks),events=copy(bird.events))
+
+# 暫定固定: 世界の兎総数を用い150+50*(slot-1)で追加、100+50*(slot-1)で退場。
+# 通常single、長期調整ランナーratio50で有効。外部個体群の観測/移入モデルに将来置換。
+const RAPTOR_POPULATION=(step=50,)
+configured_raptor_birds(bird)=(bird,)
+configured_raptor_birds(birds::Vector{RaptorTrial})=birds
+configured_raptor_captures(bird)=bird.captures
+configured_raptor_captures(birds::Vector{RaptorTrial})=sum((b.captures for b in birds);init=0)
+function configured_raptor_population_world!(raptor,s,scene,t)
+    t%RAPTOR_TRIAL.day_ticks==0 || return
+    n=count(s.alive)
+    if raptor isa Vector{RaptorTrial}
+        required=max(0,1+fld(n-RAPTOR_TRIAL.arrival_rabbits,RAPTOR_POPULATION.step))
+        while length(raptor)<required
+            push!(raptor,configured_raptor(s,scene;seed=RAPTOR_TRIAL.seed+length(raptor)))
+        end
+    end
+    for (slot,bird) in enumerate(configured_raptor_birds(raptor))
+        was_present=bird.present
+        offset=(slot-1)*RAPTOR_POPULATION.step
+        configured_raptor_population!(bird,n,t;arrival=RAPTOR_TRIAL.arrival_rabbits+offset,departure=RAPTOR_TRIAL.departure_rabbits+offset)
+        if !was_present && bird.present
+            bird.visual.body.x,bird.visual.body.z=configured_raptor_edge(s.world,bird.destination)
+        elseif bird.mode==:depart
+            bird.destination=configured_raptor_edge(s.world,(bird.visual.body.x,bird.visual.body.z))
+        end
+    end
+end
+function configured_raptor_step!(birds::Vector{RaptorTrial},s,predators,t;kwargs...)
+    for bird in birds
+        configured_raptor_step!(bird,s,predators,t;kwargs...)
+    end
+end
+configured_raptor_report(birds::Vector{RaptorTrial})=(present=count(b->b.present,birds),captures=configured_raptor_captures(birds),birds=configured_raptor_report.(birds))

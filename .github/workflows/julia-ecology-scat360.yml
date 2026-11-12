@@ -13,7 +13,7 @@ on:
       ground_nutrition:
         description: Ground predator prey nutrition multiplier (raptor stays 0.5)
         type: string
-        default: '0.5'
+        default: '1.0'
 permissions:
   contents: read
 jobs:

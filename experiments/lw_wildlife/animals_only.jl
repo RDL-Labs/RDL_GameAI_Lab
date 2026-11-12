@@ -50,12 +50,14 @@ function animal_trial_prepare!(s,predators,t;scents=nothing,minds=nothing,prey_s
     wildlife_visuals=[p.visual for p in predators]
     wildlife_active=[p.alive && (present===nothing || present[i]) for (i,p) in enumerate(predators)]
     if raptor!==nothing
-        push!(wildlife_visuals,raptor.visual)
-        push!(wildlife_active,raptor.present && raptor.mode in (:hunt,:eat))
+        for bird in configured_raptor_birds(raptor)
+            push!(wildlife_visuals,bird.visual)
+            push!(wildlife_active,bird.present && bird.mode in (:hunt,:eat))
+        end
     end
     G.prepare!(s,humans,t;additional_predators=wildlife_visuals,
         additional_predator_alive=wildlife_active,
-        additional_predator_visible=raptor===nothing ? nothing : ((index,distance)->index<=length(predators) || configured_raptor_notice(raptor,distance)),
+        additional_predator_visible=raptor===nothing ? nothing : ((index,distance)->index<=length(predators) || configured_raptor_notice(configured_raptor_birds(raptor)[index-length(predators)],distance)),
         motion_speed,illumination)
 end
 function animal_trial_advance!(s,predators,t;scents=nothing,minds=nothing,prey_nutrition=1.,prey_scents=nothing,local_hunts=nothing,physiology=nothing,human_scent=nothing,pursuits=nothing,present=nothing,grazing_policy=G.H.StateMachinePolicy(),scat_state=nothing,rabbit_composition=nothing)
@@ -89,7 +91,7 @@ function animal_trial_step!(s,predators,t;scents=nothing,minds=nothing,prey_nutr
     animal_trial_advance!(s,predators,t;scents,minds,prey_nutrition,prey_scents,local_hunts,physiology)
 end
 function animal_trial_report(s,predators;scents=nothing,minds=nothing,swimming_policy=nothing,raptor=nothing)
-    captures=sum((p.visual.body.captures for p in predators);init=0)+(raptor===nothing ? 0 : raptor.captures)
+    captures=sum((p.visual.body.captures for p in predators);init=0)+(raptor===nothing ? 0 : configured_raptor_captures(raptor))
     report=(ambient_vision=G.AmbientVision.RULE,rabbits=G.snapshot(s;additional_predation_deaths=captures,swimming_policy),predators=trial_predator_report.(predators))
     scents!==nothing && (report=merge(report,(scent=scent_report(scents),)))
     minds===nothing ? report : merge(report,(cognition=predator_mind_report.(minds),))

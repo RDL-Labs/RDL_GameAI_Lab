@@ -145,3 +145,17 @@ crossing_longrunのcrossing=trueで有効、falseでは従来の水通行禁止�
 
 ## 弱い匂いを含む不成果抑制（2026-11-12）
 捕食者のcautious匂い操舵＋mindで既定ON。区画ごと120tick不成果で600tick除外。scent_all_strengths=0で旧方式。捕獲時のみ直近区画の記録を解除する暫定固定判断。保存先と将来の置換方針・局所比較は [専用記録](Predator_Scent_Failure_20261112.md) を参照。
+
+## 猛禽50体刻みの調整（2026-11-12）
+動物長期ランナーecology_scat360の既定は地上捕食栄養1.0、猛禽0.5。
+猛禽ratio50は兎150/200/250体で1/2/3羽、100/150/200体以下で対応スロットが退場する。
+日次・世界総数を直接参照する調整用の暫定固定。MBによる移住判断ではない。
+raptor_trial.jlのRAPTOR_POPULATION.step=50に隔離。crossing_longrun第24引数ratio50で有効、
+未指定singleは旧1羽方式。猛禽自体は第17引数falseでOFF（保存個体の破棄は禁止）。
+各羽は独立RNGと身体を持つ。安定スロット順で処理し、捕獲済みの兎は再捕獲できない。
+場外は既存の再入場時身体リセットを維持。退場済みスロットと捕獲履歴は保持する。
+日別raptorは合計present/capturesとbirds配列、チェックポイントは各羽の状態/RNGを保持。
+旧1羽保存はratio50への復元時に1要素へ変換、群れ保存をsingleとして捨てる復元は拒否。
+将来は外部個体群・観測による移住へ置換する。長期バランスは未評価。
+専用検査: experiments/lw_wildlife/raptor_population_checks.jl（7項目PASS）。
+通常ecology_scat360でも既定栄養1.0・ratio50の1日試験が正常完了（verified=true）。

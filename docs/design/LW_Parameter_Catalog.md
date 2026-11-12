@@ -919,3 +919,9 @@ mind.estimates["no_cue_search_enabled"]=0でHのみの方式へ戻せる。
 
 ### 匂い不成果の対象拡張（2026-11-12）
 PREY_SCENT_CAUTION.unconfirmed_ticks=120 / cooldown_ticks=600を弱い匂いにも適用。値は据え置き。mind.estimatesのscent_all_strengthsは未指定時1（ON）、0で従来。詳細: [局所比較](Predator_Scent_Failure_20261112.md)。
+
+### 猛禽の段階追加・栄養基準（2026-11-12）
+RAPTOR_POPULATION.step=50匹。初回RAPTOR_TRIAL.arrival_rabbits=150、退場100を起点に
+各スロットへ50*(slot-1)を加算。日次判定、以上で入場・以下で退場。
+ecology_scat360はratio50、地上栄養倍率の既定1.0（引数6で変更可）、猛禽0.5維持。
+通常crossing_longrunは第24引数single既定、ratio50で追加有効。設定経路一覧に詳細。

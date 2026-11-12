@@ -1,13 +1,13 @@
 # Execution wrapper only; retain the established animal-only world and fixed rules.
-# OUTPUT SEED [DAYS=360] [COMPOSITION=true] [RABBIT_COMPOSITION=true] [GROUND_NUTRITION=0.5]. Seed changes wildlife initialization, not every subsystem RNG.
+# OUTPUT SEED [DAYS=360] [COMPOSITION=true] [RABBIT_COMPOSITION=true] [GROUND_NUTRITION=1.0]. Seed changes wildlife initialization, not every subsystem RNG.
 using JSON3
-length(ARGS) in (2,3,4,5,6) || error("OUTPUT SEED [DAYS=360] [COMPOSITION=true] [RABBIT_COMPOSITION=true] [GROUND_NUTRITION=0.5]")
+length(ARGS) in (2,3,4,5,6) || error("OUTPUT SEED [DAYS=360] [COMPOSITION=true] [RABBIT_COMPOSITION=true] [GROUND_NUTRITION=1.0]")
 ecology_output=abspath(ARGS[1])
 ecology_seed=parse(Int,ARGS[2])
 ecology_days=length(ARGS)>=3 ? parse(Int,ARGS[3]) : 360
 ecology_composition=length(ARGS)>=4 ? parse(Bool,ARGS[4]) : true
 ecology_rabbit_composition=length(ARGS)>=5 ? parse(Bool,ARGS[5]) : true
-ecology_ground_nutrition=length(ARGS)>=6 ? parse(Float64,ARGS[6]) : 0.5
+ecology_ground_nutrition=length(ARGS)>=6 ? parse(Float64,ARGS[6]) : 1.0
 isfinite(ecology_ground_nutrition) && ecology_ground_nutrition>0 || error("ground nutrition must be finite and positive")
 1<=ecology_days<=360 || error("days must be 1..360")
 ispath(ecology_output) && error("fresh output required")
@@ -16,7 +16,7 @@ ecology_input=JSON3.read(read(joinpath(@__DIR__,"ecology_dual_input.json"),Strin
 ecology_input["scene"]["wildlife"]["seed"]=ecology_seed
 ecology_input_path=joinpath(ecology_output,"input.json")
 write(ecology_input_path,JSON3.write(ecology_input))
-write(joinpath(ecology_output,"request.json"),JSON3.write((rabbit_composition=ecology_rabbit_composition,composition=ecology_composition,days=ecology_days,seed=ecology_seed,humans=0,scat=true,ground_prey_nutrition=ecology_ground_nutrition,raptor_prey_nutrition=.5,backend="batch_cpu",source_policy="current checkout; run/source is the frozen ecology implementation",fixed_rules="predator daily replacement; raptor arrival>=150 departure<=100",threads=Threads.nthreads())))
+write(joinpath(ecology_output,"request.json"),JSON3.write((rabbit_composition=ecology_rabbit_composition,composition=ecology_composition,days=ecology_days,seed=ecology_seed,humans=0,scat=true,ground_prey_nutrition=ecology_ground_nutrition,raptor_prey_nutrition=.5,backend="batch_cpu",source_policy="current checkout; run/source is the frozen ecology implementation",fixed_rules="predator daily replacement; raptor ratio50 arrival>=150+50*(slot-1) departure<=100+50*(slot-1)",threads=Threads.nthreads())))
 empty!(ARGS)
-append!(ARGS,[ecology_input_path,"none",joinpath(ecology_output,"run"),string(ecology_days),"true","1","1.5","none","true","batch_cpu","baseline","full","distributed","layered","replace",string(ecology_ground_nutrition),"true","150","false","true","0.5",string(ecology_composition),string(ecology_rabbit_composition)])
+append!(ARGS,[ecology_input_path,"none",joinpath(ecology_output,"run"),string(ecology_days),"true","1","1.5","none","true","batch_cpu","baseline","full","distributed","layered","replace",string(ecology_ground_nutrition),"true","150","false","true","0.5",string(ecology_composition),string(ecology_rabbit_composition),"ratio50"])
 include("crossing_longrun.jl")
