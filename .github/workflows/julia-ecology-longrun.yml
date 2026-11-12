@@ -1,0 +1,32 @@
+name: Animal-only ecology long run
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ecology:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      JULIA_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13.1'
+      - uses: julia-actions/cache@v2
+      - name: Dependencies
+        run: julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Animal-only 90 days
+        run: julia --startup-file=no --project=. experiments/lw_wildlife/ecology_dual90.jl outputs/ecology-dual90 20261113
+      - name: Preserve records and final checkpoint
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecology-dual90-${{ github.run_id }}
+          path: |
+            outputs/ecology-dual90/*.json
+            outputs/ecology-dual90/run/*.json
+            outputs/ecology-dual90/run/checkpoints/day-090.jls
+          retention-days: 14
