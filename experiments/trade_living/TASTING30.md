@@ -45,3 +45,22 @@ incidental_items各socialのdecisions/need_skipped/proposedも全員0。
 
 内部実行318.38秒（コンパイル込み）、worker全体360.61秒。
 供給15＋研修9の局所検査PASS、33日終了時の全員研修完了・日別収支・補充検査PASS。
+
+## 交換0件の入口調査
+
+item_attention.trade_detailsはA5366/B5297/C5336/D2410。倉庫観測自体は動作。
+4日末保存状態から観測を再構築すると、全員に他の3体がtrade_partnersとして入り、
+相手の食品在庫が見える。一方、全員の非食品のheld/storedと相手の所有物は0。
+
+入力はitem_exchange=true、food_exchange=false。
+item_social_plan!のcandidateは(!isempty(give)||!isempty(want))を必須とする。
+give/wantは非食品の物品IDで、give_food/want_foodではない。
+候補生成も物品対食料・物品対物品などが中心で、食料同士の種候補を生成しない。
+この条件では候補が空になり、decisions加算前にreturn nothing。
+別系統のfood_trade_plan!はfood_exchange=falseで未接続。
+
+したがって今回の交換0は、味を知らない/味の差が弱い/全員が取引拒否という
+結果ではない。食料同士の交換経路を有効化できていなかった設定・接続の見落とし。
+研修の味学習と援助の結果は観測できたが、食品交換の評価実験としては未成立。
+調査のみで修正・再実行なし。次は食料同士の提案を既存の複合評価・交渉へ
+通す経路を確認/接続し、局所検査後に再実験する必要がある。
