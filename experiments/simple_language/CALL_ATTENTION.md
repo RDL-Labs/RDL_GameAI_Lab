@@ -1,0 +1,22 @@
+# 呼びかけ→視認→関係MB 局所試験（2026-11-15）
+
+通常生活から未接続の合成fixture。call_attention_checks.jlで12項目PASS。
+声の特徴・文字色は未導入。自分の名前「アキ！」は初期知識として設定。
+暫定固定: CALL_PROBE.radius=8、bearing_step=15度、identity_cone=15度。
+世界側の距離から受信可否と粗い方角だけを作る。音の遮蔽・睡眠は今回はモデル外、
+hearing=falseで受信不可。listener側へ話者ID・正確な位置は渡さない。
+名前一致で方角を向き、既存social_sightの視野・遮蔽検査により視認候補を取得する。
+昼間illumination=1で固定。候補1名なら暫定対応し、そのrefでsocial_relation_biasを呼ぶ。
+視認した個体のID識別は既存の初期能力で、外見からの識別学習を実装したものではない。
+
+- 背後から呼ばれた後に振り向き、見えたBの関係MBに接続。
+- 障害物で見えない場合はunseen、複数ならambiguous。関係MB選択は保留。
+- 範囲外、聴覚OFF、別名への呼びかけは対応する段階で停止。
+- 呼び手Bが隠れ、その方向にCだけ見えた場合にはCへ誤対応し得る。
+  世界の話者IDで正解補正していないことを確認。口の動き等による照合は将来課題。
+- 合成した援助経験からの関係を参照し、参照前後で本人の関係状態は不変。
+
+名前の学習・通常の注意/ρ選択・時間を使う旋回・応答選択・経験更新は未接続。
+視認後に本当に発話者だと確定したという意味ではない。
+結果: call_attention_result.json。実ログ由来の前回fixtureは使わず、公開データに含めない。
+実行: julia --startup-file=no --project=. experiments/simple_language/call_attention_checks.jl
