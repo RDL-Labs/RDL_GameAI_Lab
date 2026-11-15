@@ -925,3 +925,9 @@ RAPTOR_POPULATION.step=50匹。初回RAPTOR_TRIAL.arrival_rabbits=150、退場10
 各スロットへ50*(slot-1)を加算。日次判定、以上で入場・以下で退場。
 ecology_scat360はratio50、地上栄養倍率の既定1.0（引数6で変更可）、猛禽0.5維持。
 通常crossing_longrunは第24引数single既定、ratio50で追加有効。設定経路一覧に詳細。
+
+### 呼びかけの局所識別実験
+CALL_INSPECTION: rhos=coarse/medium/fine、step=0.5世界距離、max_moves=12回、
+near_lower=1.25（観測距離帯下端以下で停止）、body_radius=0.2世界距離。
+実験専用の暫定値、通常OFF。設定経路call_inspection_probe.jlに隔離、詳細は
+[局所試験](../../experiments/simple_language/APPEARANCE.md)。

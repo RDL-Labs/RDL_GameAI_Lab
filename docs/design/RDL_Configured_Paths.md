@@ -159,3 +159,8 @@ raptor_trial.jlのRAPTOR_POPULATION.step=50に隔離。crossing_longrun第24引�
 将来は外部個体群・観測による移住へ置換する。長期バランスは未評価。
 専用検査: experiments/lw_wildlife/raptor_population_checks.jl（7項目PASS）。
 通常ecology_scat360でも既定栄養1.0・ratio50の1日試験が正常完了（verified=true）。
+
+### 呼びかけ識別の局所注視・接近
+`call_inspection_probe.jl` の configured_call_inspection_choice / move! は実験専用、通常未接続。
+曖昧ならρを上げ、その後観測方角へ接近する暫定固定。身体消費を省略した位置更新を含む。
+設定・停止条件・将来の共通判断への置換・結果は [局所試験](../../experiments/simple_language/APPEARANCE.md) を参照。
