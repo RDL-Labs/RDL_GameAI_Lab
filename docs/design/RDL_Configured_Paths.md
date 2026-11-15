@@ -183,3 +183,10 @@ identity_confirmation_probe.jlのconfigured_confirm_candidates/orbit!は実験�
 既知として独立した本人記憶を設定する暫定固定。世界参照は初期教示のショートカット。
 将来は名前教示と出会いの経験へ置換。記録はrelation.identity_observation。
 行動・配送は既存方式のまま。実験範囲はexperiments/trade_living/IDENTITY.md。
+
+## 名前呼びかけと振り向き（2026-11-15）
+`configured_paths/identity_call.jl`。configured_identity_calls既定false。
+trade_livingの未選択時に、曖昧な外見候補の既知名を呼ぶ／自分への呼びかけにscanで応答。
+暫定固定、名前ごと1日1回。関係MBの学習で選んだ行動ではない。
+記録relation.identity_observation.calls、将来は共通MBの確認行動候補へ置換。
+身体処理は通常scan。旧援助要求の休息解除は変えない。詳細はtrade_living/IDENTITY.md。

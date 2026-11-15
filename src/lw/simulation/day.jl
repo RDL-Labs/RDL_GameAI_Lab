@@ -36,6 +36,7 @@ include(joinpath(@__DIR__, "../configured_paths/routine_actions.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_living.jl"))
 include(joinpath(@__DIR__, "../configured_paths/peer_identity_memory.jl"))
 include(joinpath(@__DIR__, "../perception/peer_identity.jl"))
+include(joinpath(@__DIR__, "../configured_paths/identity_call.jl"))
 include(joinpath(@__DIR__, "../learning/social_relations.jl"))
 include(joinpath(@__DIR__, "../decision/social_response.jl"))
 include(joinpath(@__DIR__, "../decision/food_body.jl"))
@@ -535,9 +536,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         for a in IDS
             fs=get!(task_focus_state,mb_maps[a],"task_focus")
+            identity_call_notice=get(spec,:configured_identity_calls,false) && relations!==nothing ? configured_identity_call_notice!(relations[a],now) : nothing
             notice=get(fs,"active",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles,illumination=visual_illumination) : nothing
             task_focus_continue!(fs,w.bodies[a],w.positions[a],yaw[a],focus_phase,now,notice;
-                wait_notice=task_wait_notice(fs,w.inbox[a],now),
+                wait_notice=identity_call_notice===nothing ? task_wait_notice(fs,w.inbox[a],now) : identity_call_notice,
                 shield=get(spec,:task_interrupt_shield,true),
                 need=notice===nothing ? 0. : food_anxiety(get(mb_maps[a],"food_security",nothing)),
                 progress=notice===nothing ? 0. : configured_task_progress(foods,a,fs["plan"]["action"]),
@@ -982,6 +984,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if plan===nothing && trades!==nothing && !observing && phase!="night" && at_home && w.inventory[a]==0
                 plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;
                     map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a),allow_start=trade_start_available(states[a],now,clock.day_us),relation=relations===nothing ? nothing : relations[a])
+            end
+            if plan===nothing && get(spec,:configured_trade_living,false)
+                get(spec,:configured_identity_calls,false) && relations!==nothing && (plan=configured_identity_call_plan!(relations[a],yaw[a],now,clock.day_us))
             end
             if plan===nothing && get(spec,:configured_trade_living,false)
                 plan=configured_trade_living_wait(true)
@@ -1474,6 +1479,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     foods!==nothing && food_track_cargo!(foods,dropped,food,a,op,action,status,action=="recover" ? plan["food_ref"]+1 : 0)
                 elseif action=="scan"
                     yaw[a]=mod(yaw[a]+get(plan,"scan_angle",60)+180,360)-180
+                    if get(spec,:configured_identity_calls,false) && (get(plan,"identity_answer",false) || haskey(plan,"identity_call_name"))
+                        configured_identity_call_execute!(relations,w,a,plan,spec.peer_identity_roster,now)
+                    end
                     get(plan,"home_distance_confirm",false) && (mb_maps[a]["home_distance"]["scan_selected"]+=1)
                 elseif action=="pickup"
                     j=plan["food_ref"]+1;f=food[j]

@@ -954,3 +954,9 @@ identity_confirmation_probe.jlは通常未接続の暫定固定。名前呼び�
 minimum3（観測要素数）、records32（変化履歴上限）。量子化は2/4/8階調。
 局所版の仮設定を維持。scene.peer_identity_rosterに名前と5個の0〜1特徴を明記。
 既定OFF。通常の行動上のρ変更・注視コストを設定する値ではない。
+
+## 名前呼びかけ（2026-11-15）
+`IDENTITY_CALL_RULES`：range8（世界距離）、bearing_step15（度）、
+interval_us64000000、lifetime_us64000000（μs）、records32件。
+同じ名前につき1日1回は確認の連発防止の暫定固定。範囲の等号は受信、期限の等号は失効。
+既定OFF。音響遮蔽は未導入、短い呼びかけの検査用モデル。
