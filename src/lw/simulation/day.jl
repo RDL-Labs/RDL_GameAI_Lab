@@ -37,6 +37,7 @@ include(joinpath(@__DIR__, "../configured_paths/trade_living.jl"))
 include(joinpath(@__DIR__, "../configured_paths/peer_identity_memory.jl"))
 include(joinpath(@__DIR__, "../perception/peer_identity.jl"))
 include(joinpath(@__DIR__, "../configured_paths/identity_call.jl"))
+include(joinpath(@__DIR__, "../configured_paths/personal_food_supply.jl"))
 include(joinpath(@__DIR__, "../learning/social_relations.jl"))
 include(joinpath(@__DIR__, "../decision/social_response.jl"))
 include(joinpath(@__DIR__, "../decision/food_body.jl"))
@@ -573,6 +574,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
         if local_us==0
+            replenished+=configured_personal_food_supply!(foods,stores,replenishments,get(spec,:personal_food_supply,nothing),day,now;shared_stores)
             push!(day_starts,physical())
             if day>0 || world_offset>0
                 day>0 && (learning=Dict(a=>sleeper(day) for a in IDS))

@@ -39,6 +39,16 @@ native_main([joinpath(out,"run"),"--spec",joinpath(out,"input.json"),"--checkpoi
 r=JSON3.read(read(joinpath(out,"run/result.json"),String))
 @test length(r.daily)==input.config.days
 @test Set(keys(r.final_agents))==Set(Symbol.(roster))
-@test all(d->d.replenished_food==0,r.daily)
+if haskey(input.scene,:personal_food_supply)
+    supplied_daily=sum(row.quantity for row in values(input.scene.personal_food_supply))
+    @test r.replenished_food==input.config.days*supplied_daily
+    @test length(r.replenishments)==input.config.days*length(input.scene.personal_food_supply)
+    for (index,day) in enumerate(r.daily)
+        @test day.replenished_food==index*supplied_daily
+        @test r.initial_food+day.replenished_food==day.consumed+day.discarded_food+day.ground+day.shared_stock+sum(a.inventory+a.personal_stock for a in values(day.physical))
+    end
+else
+    @test all(d->d.replenished_food==0,r.daily)
+end
 write(joinpath(out,"completed.json"),JSON3.write((kind="finite-trade-living",days=input.config.days,actors=roster)))
 println("COMPLETED finite trade living")
