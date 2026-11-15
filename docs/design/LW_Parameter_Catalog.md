@@ -971,3 +971,11 @@ scene.personal_food_supply：個体ごとkind/quantityを指定、未指定OFF�
 TASTING_TRAINING_KINDS=(1,4,8)を1日1種類、3日。
 標準品質2の実食samples>0が全員そろってから通常生活30日（合計33日）。
 供給は既存実験量2個/体/日。余りを保持。味の値そのものは固定しない。
+
+## 学習した通信の取引見通し（2026-11-15）
+`src/lw/decision/trade_communication.jl` の `TRADE_COMMUNICATION_RULES.prior_samples=2.0`。
+既存の成立予測を2観測分として残し、学習済みの受渡し/引き戻し件数と混合する暫定値。
+`item_social_plan!` の `communication=nothing` が既定で従来動作。
+同じ相手・提案に結びついた現在の観測のみ適用（observed_us<=now<expires_us）。
+語句とジェスチャーの同一観測は1件。未知・未観測は補正なし。能力や取引を強制しない。
+通常生活からの引数供給は未接続。局所アダプターと検査はexperiments/simple_language/learned_trade*。

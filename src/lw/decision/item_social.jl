@@ -1,6 +1,7 @@
 # Optional possession changes use the same observable interest as pickup,
 # common BasicLoop selection, and owner-local social MB predictions. Unobserved
 # peer stock, hidden kind, preference and valuation are not read by this policy.
+include("trade_communication.jl")
 function item_social_state!(state)
     get!(state,"social") do
         a=state["actor"]
@@ -109,7 +110,7 @@ function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[]
     relational_transition(before,item_social_utility(after,stock.-gf.+wf,values,weights;prepared)).delta
 end
 
-function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true)
+function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true,communication=nothing)
     require_need && error("necessity admission was replaced by compound trade valuation")
     view===nothing && return nothing
     body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
@@ -169,6 +170,8 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         evidence=item_exchange_prediction(support,exchange_give,exchange_want)
         prior=trace===nothing ? .5 : trace["profile"]["trade_probability"]
         probability=response && !counter ? 1. : (2prior+evidence.predicted)/(2+evidence.successes+evidence.failures)
+        communication_prediction=trade_communication_prediction(probability,communication,other,offer_id,now)
+        communication_prediction===nothing || (probability=communication_prediction["probability"])
         field=relational_transition(0.,subjective;probability)
         expected=field.expected
         # Shape-based methods generalize over object IDs. Actual refs bind only
@@ -185,6 +188,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
             "exchange_evidence"=>D("successes"=>evidence.successes,"failures"=>evidence.failures),
             "observed_context"=>observed,"terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
             "give_items"=>give,"want_items"=>want,"give_food"=>gf,"want_food"=>wf,"offer_id"=>offer_id))
+        communication_prediction===nothing || (candidates[end]["communication_prediction"]=communication_prediction)
     end
     if response
         o=first(incoming)
