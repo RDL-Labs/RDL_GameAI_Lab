@@ -571,3 +571,9 @@ ONでは行動・学習が変わるため、全ログの一致を求めない。
 [R15]: https://github.com/RDL-Labs/RDL_GameAI_Lab/blob/d95caf4a107ccbc471739beaa4d8ee33c524c4b5/docs/design/RDL_GameAI_簡易会話からプレイヤー介入まで.md
 [R16]: https://github.com/RDL-Labs/RDL_GameAI_Lab/blob/d95caf4a107ccbc471739beaa4d8ee33c524c4b5/docs/reflections/2026-10-30_language_and_desire_decomposition.md
 [R17]: https://github.com/RDL-Labs/RDL_GameAI_Lab/blob/d95caf4a107ccbc471739beaa4d8ee33c524c4b5/src/lw/learning/social_memory.jl
+
+## 局所試験の記録（2026-11-15）
+
+[名前付き援助の局所プロトタイプ](../../experiments/simple_language/README.md)を追加。
+21項目PASS。固定応答で語彙解釈から現物移動までを試した範囲であり、
+本案の段階A全体や通常生活への接続が完了したという意味ではない。

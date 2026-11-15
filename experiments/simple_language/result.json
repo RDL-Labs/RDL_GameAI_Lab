@@ -1,0 +1,1 @@
+{"scope":"isolated fixed-response prototype; no life loop or MB updates","cases":[{"case":"named_request","result":{"status":"transferred","kind":3,"quality":4,"deadline":30}},{"case":"unknown_name","result":{"status":"unknown_name"}},{"case":"give_marker","result":{"status":"give_marker"}},{"case":"declined","result":{"status":"declined"}}]}
