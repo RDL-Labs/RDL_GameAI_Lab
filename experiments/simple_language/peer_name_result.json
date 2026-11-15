@@ -1,0 +1,1 @@
+{"scope":"synthetic seeded owner memories; visual identity still supplied by existing API","cases":[{"case":"known_peer","result":{"status":"recalled","names":[],"reply":"ハル？"}},{"case":"misassociated_visible_peer","result":{"status":"recalled","names":["ナツ"],"reply":"ナツ？"}}]}
