@@ -34,6 +34,8 @@ include(joinpath(@__DIR__, "../world/dropped_cargo.jl"))
 include(joinpath(@__DIR__, "../configured_paths/return_purpose.jl"))
 include(joinpath(@__DIR__, "../configured_paths/routine_actions.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_living.jl"))
+include(joinpath(@__DIR__, "../configured_paths/peer_identity_memory.jl"))
+include(joinpath(@__DIR__, "../perception/peer_identity.jl"))
 include(joinpath(@__DIR__, "../learning/social_relations.jl"))
 include(joinpath(@__DIR__, "../decision/social_response.jl"))
 include(joinpath(@__DIR__, "../decision/food_body.jl"))
@@ -634,6 +636,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         social_views=relations===nothing ? nothing : Dict(a=>social_sight(w,a,yaw[a],now;visual_obstacles=high,expressions,rho=get(rho_baselines,a,"coarse"),attention=social_attention(relations[a],now),illumination=visual_illumination) for a in thinking_ids)
         relations!==nothing && foreach(a->social_relations_observe!(relations[a],obs[a],now),thinking_ids)
         relations!==nothing && foreach(a->(relations[a]["social_view"]=social_views[a]),thinking_ids)
+        if relations!==nothing && get(spec,:peer_identity_roster,nothing)!==nothing
+            foreach(a->peer_identity_observe!(relations[a],social_views[a],w,a,yaw,spec.peer_identity_roster,now),thinking_ids)
+        end
         trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations,open_stores,actors=Tuple(a for a in IDS if !(a in collapsed_ids)))
 
         homes=Dict{String,Any}(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6,illumination=visual_illumination) for a in thinking_ids)

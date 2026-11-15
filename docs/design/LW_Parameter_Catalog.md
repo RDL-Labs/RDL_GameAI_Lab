@@ -948,3 +948,9 @@ identity_confirmation_probe.jlは通常未接続の暫定固定。名前呼び�
 個人備蓄A果実12、B生ドングリ24、C加工ドングリ12、D塩焼き魚8。
 実験用の偏った有限供給であり栄養等価ではない。食品期限は既存値。
 `scene.configured_trade_living` は既定false、当実験のみtrue。
+
+## 人物認識（診断用、2026-11-15）
+`PEER_IDENTITY_RULES`：near2/middle4（世界距離）、front45/side120（度）、
+minimum3（観測要素数）、records32（変化履歴上限）。量子化は2/4/8階調。
+局所版の仮設定を維持。scene.peer_identity_rosterに名前と5個の0〜1特徴を明記。
+既定OFF。通常の行動上のρ変更・注視コストを設定する値ではない。

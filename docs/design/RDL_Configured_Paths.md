@@ -177,3 +177,9 @@ identity_confirmation_probe.jlのconfigured_confirm_candidates/orbit!は実験�
 未選択なら探索の代わりに待機する暫定固定。状態の正解参照なし。
 `method/configured_rule=trade_living_wait` に記録し、将来は生活計画MBへ置換する。
 条件は `experiments/trade_living/README.md`。通常実行へ自動適用しない。
+
+## 人物認識の診断接続（2026-11-15）
+`scene.peer_identity_roster`未指定はOFF。configured_peer_identity_memoryで全員の名前・外見を
+既知として独立した本人記憶を設定する暫定固定。世界参照は初期教示のショートカット。
+将来は名前教示と出会いの経験へ置換。記録はrelation.identity_observation。
+行動・配送は既存方式のまま。実験範囲はexperiments/trade_living/IDENTITY.md。
