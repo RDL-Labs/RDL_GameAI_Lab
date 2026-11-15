@@ -931,3 +931,9 @@ CALL_INSPECTION: rhos=coarse/medium/fine、step=0.5世界距離、max_moves=12�
 near_lower=1.25（観測距離帯下端以下で停止）、body_radius=0.2世界距離。
 実験専用の暫定値、通常OFF。設定経路call_inspection_probe.jlに隔離、詳細は
 [局所試験](../../experiments/simple_language/APPEARANCE.md)。
+
+### 局所外見の向き
+実験appearance_probe.jlのAPPEARANCE_VIEWはfront_degrees=45、side_degrees=120、
+minimum_observed=3。角度差の絶対値（度、境界を含む）で5/3/1要素を観測。
+未観測はnothing。局所headings指定時のみ、通常未接続。生理的根拠のない暫定値。
+詳細は [外見局所検査](../../experiments/simple_language/APPEARANCE.md)。
