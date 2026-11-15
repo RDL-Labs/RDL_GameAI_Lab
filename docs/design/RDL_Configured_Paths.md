@@ -170,3 +170,10 @@ identity_confirmation_probe.jlのconfigured_confirm_candidates/orbit!は実験�
 名前呼び・回り込みの固定費用と再試行抑制を用いる。通常OFF、明示includeで有効。
 相手の反応は合成fixture、通常の応答や移動への接続ではない。
 設定・観測の制限・置換予定は[外見局所実験](../../experiments/simple_language/APPEARANCE.md)参照。
+# 追加：有限備蓄の取引生活実験
+
+`configured_paths/trade_living.jl` の `configured_trade_living_wait`。
+`scene.configured_trade_living` は既定false。既存の食事・加工・社会判断後、
+未選択なら探索の代わりに待機する暫定固定。状態の正解参照なし。
+`method/configured_rule=trade_living_wait` に記録し、将来は生活計画MBへ置換する。
+条件は `experiments/trade_living/README.md`。通常実行へ自動適用しない。

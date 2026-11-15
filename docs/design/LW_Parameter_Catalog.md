@@ -942,3 +942,9 @@ minimum_observed=3。角度差の絶対値（度、境界を含む）で5/3/1要
 identity_confirmation_probe.jlは通常未接続の暫定固定。名前呼び費用0.1、回り込み費用0.25、
 再呼出減点1/回、回り込み45度・上限8回。援助関係の重みを確認候補へ暫定流用。
 [局所検査と未接続範囲](../../experiments/simple_language/APPEARANCE.md)を参照。
+# 追加：取引生活の有限備蓄（2026-11-15）
+
+`experiments/trade_living/input.json`：10日・4体、初期reserve70、
+個人備蓄A果実12、B生ドングリ24、C加工ドングリ12、D塩焼き魚8。
+実験用の偏った有限供給であり栄養等価ではない。食品期限は既存値。
+`scene.configured_trade_living` は既定false、当実験のみtrue。

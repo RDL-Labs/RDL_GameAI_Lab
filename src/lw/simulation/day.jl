@@ -33,6 +33,7 @@ include(joinpath(@__DIR__, "../decision/climbing.jl"))
 include(joinpath(@__DIR__, "../world/dropped_cargo.jl"))
 include(joinpath(@__DIR__, "../configured_paths/return_purpose.jl"))
 include(joinpath(@__DIR__, "../configured_paths/routine_actions.jl"))
+include(joinpath(@__DIR__, "../configured_paths/trade_living.jl"))
 include(joinpath(@__DIR__, "../learning/social_relations.jl"))
 include(joinpath(@__DIR__, "../decision/social_response.jl"))
 include(joinpath(@__DIR__, "../decision/food_body.jl"))
@@ -976,6 +977,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if plan===nothing && trades!==nothing && !observing && phase!="night" && at_home && w.inventory[a]==0
                 plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;
                     map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a),allow_start=trade_start_available(states[a],now,clock.day_us),relation=relations===nothing ? nothing : relations[a])
+            end
+            if plan===nothing && get(spec,:configured_trade_living,false)
+                plan=configured_trade_living_wait(true)
             end
             if plan===nothing && provision_stay
                 plan=D("action"=>"rest","method"=>"provision_stay","provision_choice"=>true)
