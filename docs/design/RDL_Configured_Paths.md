@@ -164,3 +164,9 @@ raptor_trial.jlのRAPTOR_POPULATION.step=50に隔離。crossing_longrun第24引�
 `call_inspection_probe.jl` の configured_call_inspection_choice / move! は実験専用、通常未接続。
 曖昧ならρを上げ、その後観測方角へ接近する暫定固定。身体消費を省略した位置更新を含む。
 設定・停止条件・将来の共通判断への置換・結果は [局所試験](../../experiments/simple_language/APPEARANCE.md) を参照。
+
+### 人物確認候補の局所アダプター
+identity_confirmation_probe.jlのconfigured_confirm_candidates/orbit!は実験専用。
+名前呼び・回り込みの固定費用と再試行抑制を用いる。通常OFF、明示includeで有効。
+相手の反応は合成fixture、通常の応答や移動への接続ではない。
+設定・観測の制限・置換予定は[外見局所実験](../../experiments/simple_language/APPEARANCE.md)参照。

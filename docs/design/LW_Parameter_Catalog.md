@@ -937,3 +937,8 @@ near_lower=1.25（観測距離帯下端以下で停止）、body_radius=0.2世�
 minimum_observed=3。角度差の絶対値（度、境界を含む）で5/3/1要素を観測。
 未観測はnothing。局所headings指定時のみ、通常未接続。生理的根拠のない暫定値。
 詳細は [外見局所検査](../../experiments/simple_language/APPEARANCE.md)。
+
+### 局所の人物確認候補
+identity_confirmation_probe.jlは通常未接続の暫定固定。名前呼び費用0.1、回り込み費用0.25、
+再呼出減点1/回、回り込み45度・上限8回。援助関係の重みを確認候補へ暫定流用。
+[局所検査と未接続範囲](../../experiments/simple_language/APPEARANCE.md)を参照。
