@@ -7,6 +7,17 @@ ispath(OUTPUT) && error("fresh output required")
 const HERE=@__DIR__
 mkpath(OUTPUT);cp(joinpath(BASE,"source"),joinpath(OUTPUT,"source"))
 cp(HERE,joinpath(OUTPUT,"communication"))
+const LEARNED_CONTROL=get(ENV,"RDL_LEARNED_TRADE","0")=="1"
+if LEARNED_CONTROL
+ for file in ("item_social.jl","gradient_trace.jl","trade_communication.jl")
+  cp(joinpath(HERE,"../../src/lw/decision",file),joinpath(OUTPUT,"source/src/lw/decision",file);force=true)
+ end
+ daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl")
+ daytext=read(daypath,String)
+ daytext=replace(daytext,"plan=item_social_plan!("=>"plan=learned_channel_plan!(")
+ MODE=="continue" && (daytext=replace(daytext,"saved=checkpoint_load(resume_from,checkpoint_identity,checkpoint_code,days)"=>"saved=learned_channel_checkpoint(resume_from,checkpoint_identity,checkpoint_code,days)"))
+ write(daypath,daytext)
+end
 input=JSON3.read(read(joinpath(BASE,"input.json"),String),Dict{String,Any})
 const STARTDAY=MODE=="train" ? 0 : Int(JSON3.read(read(joinpath(BASE,"completed.json"),String)).days)
 input["config"]["days"]=MODE=="train" ? 3 : STARTDAY+20
@@ -28,7 +39,7 @@ write(joinpath(OUTPUT,"input.json"),JSON3.write(input))
 if MODE=="join"
  daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl")
  text=read(daypath,String)
- needle="saved=checkpoint_load(resume_from,checkpoint_identity,checkpoint_code,days)"
+ needle=LEARNED_CONTROL ? "saved=learned_channel_checkpoint(resume_from,checkpoint_identity,checkpoint_code,days)" : "saved=checkpoint_load(resume_from,checkpoint_identity,checkpoint_code,days)"
  @assert length(findall(needle,text))==1
  write(daypath,replace(text,needle=>"saved=cohort_join_checkpoint(resume_from,checkpoint_identity,checkpoint_code,days,@lw_capture())"))
  reportpath=joinpath(OUTPUT,"source/src/lw/simulation/integrated.jl")
@@ -45,6 +56,7 @@ include(joinpath(OUTPUT,"communication/trade_channels.jl"))
 const CHANNEL_MEMORIES=MODE=="train" ? Dict(a=>TradeChannelObserver() for a in IDS) : deserialize(joinpath(BASE,"communication_state.bin"))
 MODE=="join" && (CHANNEL_MEMORIES["npc_e"]=TradeChannelObserver())
 const CHANNELS=Dict("npc_a"=>(true,true),"npc_b"=>(true,false),"npc_c"=>(false,true),"npc_d"=>(false,false),"npc_e"=>(false,false))
+LEARNED_CONTROL && include(joinpath(OUTPUT,"communication/learned_living.jl"))
 function live_channel_execute!(yaw,thinking,items,foods,w,stores,home,actor,op,action,now;kwargs...)
  observers=Dict(a=>(memory=CHANNEL_MEMORIES[a],yaw=yaw[a],attending=a in thinking) for a in IDS if a!=actor)
  speech,gesture=CHANNELS[actor]
@@ -68,6 +80,7 @@ end
 report=Dict(a=>Dict("events"=>length(m.processed),"episodes"=>length(m.roles.receipts),"words"=>m.words.evidence,
  "associations"=>[Dict("context"=>k[1],"token"=>k[2],"outcomes"=>v,"prediction"=>role_predict(m.roles,k...)) for (k,v) in m.roles.associations]) for (a,m) in CHANNEL_MEMORIES)
 write(joinpath(OUTPUT,"communication_result.json"),JSON3.write(report))
+LEARNED_CONTROL && write(joinpath(OUTPUT,"learned_control.json"),JSON3.write(LEARNED_CHANNEL_STATS))
 serialize(joinpath(OUTPUT,"communication_state.bin"),CHANNEL_MEMORIES)
 write(joinpath(OUTPUT,"completed.json"),JSON3.write((days=length(result.daily),start_day=STARTDAY,elapsed_seconds=elapsed,trade_counts=result.portable_items.counts)))
 println("COMPLETED ",elapsed)
