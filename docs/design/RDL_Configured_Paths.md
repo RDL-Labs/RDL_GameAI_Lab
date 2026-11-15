@@ -196,3 +196,10 @@ trade_livingの未選択時に、曖昧な外見候補の既知名を呼ぶ／�
 世界側の暫定固定。日初に所有者別の種類/数量を倉庫に追加しreplenishmentsへ記録。
 品質/期限/資源収支を更新し、台帳で同日重複を防止。個体の判断を上書きしない。
 将来は生産・配送などの世界過程へ置換。条件はexperiments/trade_living/SUPPLY.md。
+
+## 三食品の実食研修（2026-11-15）
+configured_paths/tasting_training.jl、configured_tasting_training既定false。
+最初の3日を果実/加工ドングリ/塩焼き魚の実食に割り当て、実食後は翌日まで固定待機。
+名前・レシピ既知と同様の初期教示用。味値は通常の身体・摂食によって記憶される。
+3日後の全員の実食記録検査が失敗すれば停止。成功時に通常供給生活へ移る。
+記録mb_map.tasting_trainingと既存food_taste_experiences。将来は自発的な試食へ置換。

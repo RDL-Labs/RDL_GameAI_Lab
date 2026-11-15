@@ -38,6 +38,7 @@ include(joinpath(@__DIR__, "../configured_paths/peer_identity_memory.jl"))
 include(joinpath(@__DIR__, "../perception/peer_identity.jl"))
 include(joinpath(@__DIR__, "../configured_paths/identity_call.jl"))
 include(joinpath(@__DIR__, "../configured_paths/personal_food_supply.jl"))
+include(joinpath(@__DIR__, "../configured_paths/tasting_training.jl"))
 include(joinpath(@__DIR__, "../learning/social_relations.jl"))
 include(joinpath(@__DIR__, "../decision/social_response.jl"))
 include(joinpath(@__DIR__, "../decision/food_body.jl"))
@@ -574,7 +575,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         day=div(now,clock.day_us);local_us=mod(now,clock.day_us)
         if local_us==0
-            replenished+=configured_personal_food_supply!(foods,stores,replenishments,get(spec,:personal_food_supply,nothing),day,now;shared_stores)
+            get(spec,:configured_tasting_training,false) && configured_tasting_ready!(mb_maps,day,now)
+            personal_supply=get(spec,:personal_food_supply,nothing)
+            get(spec,:configured_tasting_training,false) && (personal_supply=configured_tasting_supply(personal_supply,day))
+            replenished+=configured_personal_food_supply!(foods,stores,replenishments,personal_supply,day,now;shared_stores)
             push!(day_starts,physical())
             if day>0 || world_offset>0
                 day>0 && (learning=Dict(a=>sleeper(day) for a in IDS))
@@ -864,6 +868,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if plan!==nothing
                 # Safety has authority before social, food and night priorities.
+            elseif get(spec,:configured_tasting_training,false) && (taste_lesson=configured_tasting_plan(mb_maps[a],foods,a,guts===nothing || can_ingest(guts[a]),at_home,day))!==nothing
+                plan=taste_lesson
             elseif (aid_delivery_plan=aid_response_continue!(relations===nothing ? nothing : relations[a],aid_delivery_kinds,o["others"],now))!==nothing
                 plan=aid_delivery_plan
             elseif fishing_training && (fish_lesson=configured_fishing_training_plan(mb_maps[a]["fishing_training"],foods.inventory[a],at_home,guts===nothing || can_ingest(guts[a]),moves[a]["visible"];items=items,actor=a))!==nothing

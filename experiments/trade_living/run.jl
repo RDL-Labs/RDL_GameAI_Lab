@@ -40,6 +40,13 @@ native_main([joinpath(out,"run"),"--spec",joinpath(out,"input.json"),"--checkpoi
 r=JSON3.read(read(joinpath(out,"run/result.json"),String))
 @test length(r.daily)==input.config.days
 @test Set(keys(r.final_agents))==Set(Symbol.(roster))
+if get(input.scene,:configured_tasting_training,false)
+    @test input.config.days==33
+    for actor in roster
+        @test r.mb_map[Symbol(actor)].tasting_training.kinds==[1,4,8]
+        @test r.mb_map[Symbol(actor)].tasting_training.completed_us==3*r.ended_us÷input.config.days
+    end
+end
 if haskey(input.scene,:personal_food_supply)
     supplied_daily=sum(row.quantity for row in values(input.scene.personal_food_supply))
     @test r.replenished_food==input.config.days*supplied_daily
