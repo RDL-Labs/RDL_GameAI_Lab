@@ -5,6 +5,7 @@ const original=abspath(ARGS[1]);const out=abspath(ARGS[2])
 const repo=normpath(joinpath(@__DIR__,"../.."))
 ispath(out) && error("fresh output required")
 const input=JSON3.read(read(original,String))
+const experiment_kind=haskey(input.scene,:personal_food_supply) ? "personal-supply-trade-living" : "finite-trade-living"
 @assert input.scene.configured_trade_living
 @assert isempty(input.scene.food) && input.config.food=="finite"
 @assert !input.scene.wildlife.enabled
@@ -15,7 +16,7 @@ isempty(get(input.scene,:configured_item_actions,Any[])) || error("placement run
 const placed=get(input.scene,:loose_items,get(input.scene,:portable_items,Any[]))
 isempty(placed) && error("place loose items first")
 const incidental=get(input.scene,:incidental_items,false)
-println("FINITE TRADE LIVING: $(input.config.days) days; no food sites, regrowth or forced trades")
+println("$experiment_kind: $(input.config.days) days; no food sites or forced trades")
 mkpath(out);const snapshot=joinpath(out,"source");mkpath(joinpath(snapshot,"integrations"))
 cp(joinpath(repo,"src"),joinpath(snapshot,"src"))
 cp(joinpath(repo,"integrations/lightweight_julia"),joinpath(snapshot,"integrations/lightweight_julia"))
@@ -50,5 +51,5 @@ if haskey(input.scene,:personal_food_supply)
 else
     @test all(d->d.replenished_food==0,r.daily)
 end
-write(joinpath(out,"completed.json"),JSON3.write((kind="finite-trade-living",days=input.config.days,actors=roster)))
-println("COMPLETED finite trade living")
+write(joinpath(out,"completed.json"),JSON3.write((kind=experiment_kind,days=input.config.days,actors=roster)))
+println("COMPLETED $experiment_kind")
