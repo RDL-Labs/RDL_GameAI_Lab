@@ -274,7 +274,7 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
         check(item_id==0 && target in IDS && target!=a &&
             (action=="item_counter" ? offer_id isa AbstractString : offer_id===nothing),"item_offer_target")
         check(isempty(intersect(give,want)),"item_offer_overlap")
-        check(!isempty(give) || !isempty(want),"item_offer_needs_item")
+        check(!isempty(give) || !isempty(want) || any(!iszero,gf) || any(!iszero,wf),"item_offer_needs_terms")
             # A single empty leg expresses a gift proposal or a request. Both
             # still require the recipient's explicit acceptance; no forced take.
     else

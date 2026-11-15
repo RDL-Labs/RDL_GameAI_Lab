@@ -142,7 +142,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         (!response || counter) && any(k->wf[k]>observed_food_count(view,other,k;fallback=typemax(Int)),eachindex(wf)) && return
         relief=trade_food_relief(body,gut,stock,gf,wf;security)
         isempty(intersect(give,want)) || return
-        (!isempty(give) || !isempty(want)) && sum(gf)<=4 && sum(wf)<=4 || return
+        (!isempty(give) || !isempty(want) || any(!iszero,gf) || any(!iszero,wf)) && sum(gf)<=4 && sum(wf)<=4 || return
         gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"],prepared)
         gain===nothing && return
         before_salt=length(intersect(prepared.refs,salts))
@@ -227,6 +227,16 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         end
     else
         partners=social_peer_scope!(relation,get(view,"trade_partners",String[]),loop,need,now)
+        # Food-only exchanges share valuation, consent, negotiation and receipts
+        # with physical items. Start with one unit; existing refinement varies quantities.
+        if stock!==nothing
+            for other in partners, give_kind in eachindex(available), want_kind in eachindex(available)
+                give_kind!=want_kind && available[give_kind]>0 && observed_food_count(view,other,want_kind)>0 || continue
+                gf=zeros(Int,length(available));wf=zeros(Int,length(available))
+                gf[give_kind]=1;wf[want_kind]=1
+                candidate(other,Int[],Int[],gf,wf)
+            end
+        end
         own=Iterators.take(view["own"]["held"],4)
         if stock!==nothing
             # Tender a possession for needed, observed food.
