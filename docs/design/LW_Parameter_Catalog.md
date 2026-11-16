@@ -1012,3 +1012,14 @@ true時のみ、観測済みの複数提案を同じ選択へ載せる。通常�
 seeds=32、decision_us=3000000、original_units=1、interrupt_units=3。
 提示1秒/2秒、相手の返答4秒、備蓄・配置は試験fixtureのみで、通常の行動規則ではない。
 詳細は `experiments/simple_language/COMPETING_TRADE.md`。
+
+## 魚の要求呼びかけ（2026-11-16）
+`experiments/simple_language/want_fish.jl` のWANT_FISH：kind=8（塩焼き魚）、
+word=魚、request_word=欲しい、appearance=fish-form、utterance_us=3000000、
+trials=32、stock=20、teaching_samples=3。すべて局所試験用。
+返答価値はlog1p(本人の魚数)×(1-clamp(既存の食料不足量,0,1))。
+不足1食分で価値0へ飽和する暫定写像。返答費用はVOICE_DIALOGUEを再利用。
+語句役割と魚カテゴリの対応、発話時刻は暫定固定で、学習済み構文ではない。
+`item_social_plan!` のrequested_foodは既定nothing（制限なし）。指定時のみ
+新規提案を要求食料を含む候補へ絞る。相手の承諾判断や逆提案は制限しない。
+通常生活未接続。詳細は `experiments/simple_language/WANT_FISH.md`。

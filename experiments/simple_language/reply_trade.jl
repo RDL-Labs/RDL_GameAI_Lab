@@ -39,14 +39,14 @@ function reply_relation_projection(relation,identity)
  projected["social_view"]=nothing
  projected
 end
-function reply_trade_plan!(fixture,actor,identity,state,relation,now)
+function reply_trade_plan!(fixture,actor,identity,state,relation,now;requested_food=nothing)
  identity.status=="recognized" || return nothing
  view=LW.item_visible(fixture.s,fixture.w,(0.,0.),actor,identity.bearing,now;open_stores=true,foods=fixture.foods)
  # Attend only the currently seen interlocutor; no truth-ID equality gate.
  filter!(==(identity.handle),view["trade_partners"])
  filter!(o->o["proposer"]==identity.handle,view["incoming"])
  LW.item_social_observe!(state,view;relation)
- LW.item_social_plan!(state,view,fixture.w.bodies[actor],nothing,fixture.foods.personal[actor],now;relation)
+ LW.item_social_plan!(state,view,fixture.w.bodies[actor],nothing,fixture.foods.personal[actor],now;relation,requested_food)
 end
 function reply_trade_execute!(fixture,actor,state,relation,plan,now)
  args=Dict{Symbol,Any}(Symbol(k)=>plan[k] for k in ("target","offer_id","give_items","want_items","give_food","want_food") if haskey(plan,k))

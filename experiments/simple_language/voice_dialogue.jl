@@ -28,7 +28,7 @@ end
 function voice_word_matches(memory,text)
  [(word=String(token),prediction=observed_word_prediction(memory,String(token))) for token in unique(split(text))]
 end
-function voice_listener_step!(world,listener,mind,event;now_us=event.start_us)
+function voice_listener_step!(world,listener,mind,event;now_us=event.start_us,response_interest=nothing)
  if haskey(mind.processed,event.id)
   prior=mind.processed[event.id]
   prior.event==event || error("conflicting voice event ID")
@@ -52,8 +52,9 @@ function voice_listener_step!(world,listener,mind,event;now_us=event.start_us)
    matches=words===nothing ? [] : voice_word_matches(mind.vocabulary,words.text)
    known=filter(m->m.prediction.status=="provisional",matches)
    expected_interest=isempty(known) ? 0. : maximum(get(mind.interests,m.prediction.appearance,0.)*m.prediction.share for m in known)
+   response_interest===nothing || (expected_interest=response_interest(known,words))
    scores=Pair{String,Float64}["silent"=>0.,"clarify"=>LW.relational_transition(0.,isempty(known) ? VOICE_DIALOGUE.clarification_value : 0.;cost=VOICE_DIALOGUE.reply_cost+mind.focus_cost).expected]
-   isempty(known) || push!(scores,"interested"=>LW.relational_transition(0.,expected_interest;cost=VOICE_DIALOGUE.reply_cost+mind.focus_cost).expected)
+   (isempty(known) || expected_interest===nothing) || push!(scores,"interested"=>LW.relational_transition(0.,expected_interest;cost=VOICE_DIALOGUE.reply_cost+mind.focus_cost).expected)
    response=voice_select!(mind.response,scores,event.id*":response")
    reply=response.method=="silent" ? nothing : (id=event.id*":reply:"*listener,source=listener,
     text=response.method=="interested" ? VOICE_DIALOGUE.interested : VOICE_DIALOGUE.clarify,

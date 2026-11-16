@@ -110,7 +110,7 @@ function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[]
     relational_transition(before,item_social_utility(after,stock.-gf.+wf,values,weights;prepared)).delta
 end
 
-function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true,communication=nothing,compare_incoming=false)
+function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true,communication=nothing,compare_incoming=false,requested_food=nothing)
     require_need && error("necessity admission was replaced by compound trade valuation")
     view===nothing && return nothing
     body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
@@ -137,6 +137,8 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
     recall_support=D() # local: never survives selection or experience updates
     fit_materials=IdDict{Any,ItemFitMaterial}() # query/prototype preparation shared within this decision
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
+        # Optional explicit request narrows new proposals, not the recipient's consent.
+        !response && requested_food!==nothing && wf[requested_food]<=0 && return
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
         # New requests and counteroffers stay within the observed warehouse.
         # An incoming offer is its own evidence; execution revalidates ownership.
