@@ -61,7 +61,7 @@ function live_channel_execute!(yaw,thinking,items,foods,w,stores,home,actor,op,a
  observers=Dict(a=>(memory=CHANNEL_MEMORIES[a],yaw=yaw[a],attending=a in thinking) for a in IDS if a!=actor)
  speech,gesture=CHANNELS[actor]
  trade_channel_execute!(observers,items,foods,w,stores,home,actor,op,action,now;
-  speech,gesture,appearances=Dict(1=>"fruit-form",3=>"acorn-form",4=>"meal-form",8=>"fish-form"),kwargs...)
+  speech,gesture,actor_memory=CHANNEL_MEMORIES[actor],appearances=Dict(1=>"fruit-form",3=>"acorn-form",4=>"meal-form",8=>"fish-form"),kwargs...)
 end
 occursin("cohort_join_checkpoint",read(joinpath(OUTPUT,"source/src/lw/simulation/day.jl"),String)) && include(joinpath(OUTPUT,"communication/cohort_join.jl"))
 arguments=[joinpath(OUTPUT,"run"),"--spec",joinpath(OUTPUT,"input.json"),"--checkpoint-dir",joinpath(OUTPUT,"checkpoints")]

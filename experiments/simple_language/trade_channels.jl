@@ -12,9 +12,22 @@ mutable struct TradeChannelObserver
 end
 TradeChannelObserver()=TradeChannelObserver(ObservedVocabulary(),RoleExperience(),Dict{String,Any}(),Set{String}())
 
+# Own executed outcome resolves an already observed peer presentation. Do not
+# teach the actor its own utterance, or invent a missed peer expression.
+function trade_channel_own_result!(memory,result)
+    memory===nothing && return false
+    status=result["status"]
+    status in ("exchanged","declined") || return false
+    prior=pop!(memory.pending,result["offer_id"],nothing)
+    prior===nothing && return false
+    role_learn!(memory.roles,prior[1],prior[2],
+        status=="exchanged" ? "object-transferred" : "object-withdrawn")
+end
+
 function trade_channel_execute!(observers,s,foods,w,stores,home,actor,op,action,now;
-        speech=true,gesture=true,appearances=Dict{Int,String}(),kwargs...)
+        speech=true,gesture=true,appearances=Dict{Int,String}(),actor_memory=nothing,kwargs...)
     result=LW.item_execute!(s,foods,w,stores,home,actor,op,action,now;kwargs...)
+    trade_channel_own_result!(actor_memory,result)
     status=result["status"]
     haskey(TRADE_CHANNEL_SIGNALS,status) || return result
     word,motion,role=TRADE_CHANNEL_SIGNALS[status]
