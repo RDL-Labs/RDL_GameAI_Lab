@@ -110,7 +110,7 @@ function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[]
     relational_transition(before,item_social_utility(after,stock.-gf.+wf,values,weights;prepared)).delta
 end
 
-function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true,communication=nothing)
+function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true,communication=nothing,compare_incoming=false)
     require_need && error("necessity admission was replaced by compound trade valuation")
     view===nothing && return nothing
     body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
@@ -191,7 +191,11 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         communication_prediction===nothing || (candidates[end]["communication_prediction"]=communication_prediction)
     end
     if response
-        o=first(incoming)
+        # Opt-in concurrent proposals: evaluate each using the same subjective
+        # valuation, then select once. Default retains the first-offer policy.
+        response_candidates=Any[]
+        for o in (compare_incoming ? incoming : incoming[1:1])
+        candidates=Any[]
         candidate(o["proposer"],o["want_items"],o["give_items"],o["want_food"],o["give_food"];offer_id=o["id"])
         if isempty(candidates) && view["outgoing"]===nothing && mind["pending"]===nothing && get(o,"round",0)<configured_negotiation_limit(get(view,"configured_negotiation",false))
             give=Int.(o["want_items"]);want=Int.(o["give_items"])
@@ -229,6 +233,9 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
             "question"=>"subjective_possession_value","priority"=>0.,"expected"=>0.,
             "offer_id"=>o["id"],"partner"=>o["proposer"],"trace"=>nothing))
         end
+        append!(response_candidates,candidates)
+        end
+        candidates=response_candidates
     else
         partners=social_peer_scope!(relation,get(view,"trade_partners",String[]),loop,need,now)
         # Food-only exchanges share valuation, consent, negotiation and receipts

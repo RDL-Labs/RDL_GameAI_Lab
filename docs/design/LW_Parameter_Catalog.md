@@ -1004,3 +1004,11 @@ experiments/simple_language/reply_trade.jlのREPLY_TRADE：bearing_cone=15度、
 初期rhoはfine（暫定固定）、自律的な精細化や接近ではない。交渉8ステップは局所試験の
 打切りであり、通常のconfigured_negotiationの逆提案上限を変更しない。
 名前/外見既知・倉庫公開・返答待ち中の視認・双方の接触配置は固定検査条件。
+
+## 第三者の競合提案（2026-11-16）
+`item_social_plan!` の `compare_incoming=false` は局所比較用の明示的な切替。
+true時のみ、観測済みの複数提案を同じ選択へ載せる。通常生活の呼出しは変更しない。
+`experiments/simple_language/competing_trade_checks.jl` のCOMPETING_TRADEは
+seeds=32、decision_us=3000000、original_units=1、interrupt_units=3。
+提示1秒/2秒、相手の返答4秒、備蓄・配置は試験fixtureのみで、通常の行動規則ではない。
+詳細は `experiments/simple_language/COMPETING_TRADE.md`。
