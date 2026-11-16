@@ -66,6 +66,10 @@ if MODE=="join"
  @assert length(findall(reportneedle,reporttext))==1
  write(reportpath,replace(reporttext,reportneedle=>"for n in r[\"daily\"] if haskey(n[\"sleep\"],a)]"))
 end
+if get(ENV,"RDL_WANT_AUDIT","0")=="1"
+ include(joinpath(HERE,"want_audit_instrument.jl"))
+ want_audit_instrument!(OUTPUT)
+end
 include(joinpath(OUTPUT,"source/integrations/lightweight_julia/native.jl"))
 const LW=Main
 include(joinpath(OUTPUT,"communication/trade_observation.jl"))

@@ -1,0 +1,5 @@
+ENV["RDL_LEARNED_TRADE"]="1"
+ENV["RDL_WANT_VOICE"]="1"
+ENV["RDL_WANT_AUDIT"]="1"
+ENV["RDL_COHORT_DAYS"]="18"
+include("cohort_run.jl")
