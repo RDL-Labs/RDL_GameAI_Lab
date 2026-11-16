@@ -59,7 +59,14 @@ const CHANNELS=Dict("npc_a"=>(true,true),"npc_b"=>(true,false),"npc_c"=>(false,t
 include(joinpath(OUTPUT,"communication/alternate_vocabulary.jl"))
 const ALTERNATE_E=get(ENV,"RDL_ALTERNATE_E","0")=="1"
 ALTERNATE_E && (CHANNELS["npc_e"]=(true,true))
-write(joinpath(OUTPUT,"channel_conditions.json"),JSON3.write((alternate_e=ALTERNATE_E,channels=CHANNELS,e_words=ALTERNATE_E ? ALTERNATE_E_WORDS : nothing)))
+const NO_GESTURES=get(ENV,"RDL_NO_GESTURES","0")=="1"
+if NO_GESTURES
+ for actor in keys(CHANNELS)
+  CHANNELS[actor]=(CHANNELS[actor][1],false)
+ end
+ @assert all(!channel[2] for channel in values(CHANNELS))
+end
+write(joinpath(OUTPUT,"channel_conditions.json"),JSON3.write((alternate_e=ALTERNATE_E,no_gestures=NO_GESTURES,channels=CHANNELS,e_words=ALTERNATE_E ? ALTERNATE_E_WORDS : nothing)))
 LEARNED_CONTROL && include(joinpath(OUTPUT,"communication/learned_living.jl"))
 function live_channel_execute!(yaw,thinking,items,foods,w,stores,home,actor,op,action,now;kwargs...)
  observers=Dict(a=>(memory=CHANNEL_MEMORIES[a],yaw=yaw[a],attending=a in thinking) for a in IDS if a!=actor)
