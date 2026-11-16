@@ -25,12 +25,13 @@ function trade_channel_own_result!(memory,result)
 end
 
 function trade_channel_execute!(observers,s,foods,w,stores,home,actor,op,action,now;
-        speech=true,gesture=true,appearances=Dict{Int,String}(),actor_memory=nothing,kwargs...)
+        speech=true,gesture=true,appearances=Dict{Int,String}(),actor_memory=nothing,spoken_words=nothing,kwargs...)
     result=LW.item_execute!(s,foods,w,stores,home,actor,op,action,now;kwargs...)
     trade_channel_own_result!(actor_memory,result)
     status=result["status"]
     haskey(TRADE_CHANNEL_SIGNALS,status) || return result
     word,motion,role=TRADE_CHANNEL_SIGNALS[status]
+    spoken_words===nothing || (word=spoken_words[status])
     offer_id=result["offer_id"]
     # Only foods explicitly displayed by the proposer are exposed, not warehouse.
     shown=String[]
