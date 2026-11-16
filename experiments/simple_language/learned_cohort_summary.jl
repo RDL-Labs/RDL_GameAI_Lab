@@ -1,7 +1,7 @@
 using JSON3
 root=abspath(only(ARGS))
 summary=Dict{String,Any}()
-for stage in ("continue20","mixed20-v2")
+for stage in ("continue20",isdir(joinpath(root,"mixed20-v2")) ? "mixed20-v2" : "mixed20")
  path=joinpath(root,stage)
  result=JSON3.read(read(joinpath(path,"run/result.json"),String))
  applied=Dict{String,Any}()
