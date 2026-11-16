@@ -997,3 +997,10 @@ reply_cost=.4、clarification_value=1、orient_us=1000000、reply_volume=1、rep
 語句照合は既存ObservedVocabularyのminimum_samples=2、minimum_share=.7を使用。
 返答は固定の「話を聞きたい」「もう一度？」または沈黙。相手への同意・取引成立ではない。
 通常生活に未接続。教材3観測、関心3、集中費用8、発話3秒、16シードは検査fixtureのみ。
+
+## 返答から人物認識・交渉の局所接続（2026-11-16）
+experiments/simple_language/reply_trade.jlのREPLY_TRADE：bearing_cone=15度、step_us=1000000、max_steps=8。
+音の粗い方向の周辺を視認し、5要素の既存peer_identity_patch/matchを利用。
+初期rhoはfine（暫定固定）、自律的な精細化や接近ではない。交渉8ステップは局所試験の
+打切りであり、通常のconfigured_negotiationの逆提案上限を変更しない。
+名前/外見既知・倉庫公開・返答待ち中の視認・双方の接触配置は固定検査条件。
