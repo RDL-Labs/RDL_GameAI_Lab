@@ -1023,3 +1023,10 @@ trials=32、stock=20、teaching_samples=3。すべて局所試験用。
 `item_social_plan!` のrequested_foodは既定nothing（制限なし）。指定時のみ
 新規提案を要求食料を含む候補へ絞る。相手の承諾判断や逆提案は制限しない。
 通常生活未接続。詳細は `experiments/simple_language/WANT_FISH.md`。
+
+## 要求呼びかけの生活実験接続（2026-11-16）
+`configured_paths/voice_request.jl` のCONFIGURED_WANT_VOICE：reply_window_us=8000000、
+volume=1、wait_scan=0度。発話長はWANT_FISHの3秒、1日1回の要求機会は暫定固定。
+RDL_WANT_VOICE=1のcohort実験だけ有効、通常OFF。最初の認識済み返答を選ぶ。
+発話の時刻・語句・注意yaw・fineρ・待機は将来の共通候補に置換予定。
+RDL_COHORT_DAYSは区間日数、既定20。詳細は `experiments/simple_language/WANT_COHORT.md`。

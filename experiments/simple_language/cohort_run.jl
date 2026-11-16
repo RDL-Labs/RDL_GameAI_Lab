@@ -8,6 +8,7 @@ const HERE=@__DIR__
 mkpath(OUTPUT);cp(joinpath(BASE,"source"),joinpath(OUTPUT,"source"))
 cp(HERE,joinpath(OUTPUT,"communication"))
 const LEARNED_CONTROL=get(ENV,"RDL_LEARNED_TRADE","0")=="1"
+const WANT_VOICE=get(ENV,"RDL_WANT_VOICE","0")=="1"
 if LEARNED_CONTROL
  for file in ("item_social.jl","gradient_trace.jl","trade_communication.jl")
   cp(joinpath(HERE,"../../src/lw/decision",file),joinpath(OUTPUT,"source/src/lw/decision",file);force=true)
@@ -18,9 +19,26 @@ if LEARNED_CONTROL
  MODE=="continue" && (daytext=replace(daytext,"saved=checkpoint_load(resume_from,checkpoint_identity,checkpoint_code,days)"=>"saved=learned_channel_checkpoint(resume_from,checkpoint_identity,checkpoint_code,days)"))
  write(daypath,daytext)
 end
+if WANT_VOICE
+ @assert LEARNED_CONTROL
+ cp(joinpath(HERE,"../../src/lw/configured_paths/voice_request.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/voice_request.jl");force=true)
+ cp(joinpath(HERE,"../../src/perception/sound_level.jl"),joinpath(OUTPUT,"source/src/perception/sound_level.jl");force=true)
+ voicepath=joinpath(OUTPUT,"communication/voice_broadcast.jl")
+ write(voicepath,replace(read(voicepath,String),"../../src/perception/sound_level.jl"=>"../source/src/perception/sound_level.jl"))
+ daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl");daytext=read(daypath,String)
+ # A continuation already contains these explicit experiment hooks.
+ if !occursin("configured_want_tick!",daytext)
+  needle="        trade_views=trades===nothing"
+  @assert length(findall(needle,daytext))==1
+  daytext=replace(daytext,needle=>"        configured_want_tick!(WANT_VOICE_STATE,w,yaw,thinking_ids,foods,relations,spec.peer_identity_roster,now)\n"*needle)
+  @assert length(findall("plan=learned_channel_plan!(",daytext))==1
+  daytext=replace(daytext,"plan=learned_channel_plan!("=>"plan=configured_want_plan!(WANT_VOICE_STATE,clock.day_us,")
+ end
+ write(daypath,daytext)
+end
 input=JSON3.read(read(joinpath(BASE,"input.json"),String),Dict{String,Any})
 const STARTDAY=MODE=="train" ? 0 : Int(JSON3.read(read(joinpath(BASE,"completed.json"),String)).days)
-input["config"]["days"]=MODE=="train" ? 3 : STARTDAY+20
+input["config"]["days"]=MODE=="train" ? 3 : STARTDAY+parse(Int,get(ENV,"RDL_COHORT_DAYS","20"))
 if MODE in ("train","join")
  scene=input["scene"]
  @assert scene["experimental_actor_ids"]==["npc_a","npc_b","npc_c","npc_d"]
@@ -68,6 +86,16 @@ if NO_GESTURES
 end
 write(joinpath(OUTPUT,"channel_conditions.json"),JSON3.write((alternate_e=ALTERNATE_E,no_gestures=NO_GESTURES,channels=CHANNELS,e_words=ALTERNATE_E ? ALTERNATE_E_WORDS : nothing)))
 LEARNED_CONTROL && include(joinpath(OUTPUT,"communication/learned_living.jl"))
+if WANT_VOICE
+ include(joinpath(OUTPUT,"communication/voice_dialogue.jl"))
+ include(joinpath(OUTPUT,"communication/reply_trade.jl"))
+ include(joinpath(OUTPUT,"communication/want_fish.jl"))
+ include(joinpath(OUTPUT,"source/src/lw/configured_paths/voice_request.jl"))
+ const WANT_VOICE_STATE=MODE!="train" && isfile(joinpath(BASE,"want_voice_state.bin")) ? deserialize(joinpath(BASE,"want_voice_state.bin")) : configured_want_state(IDS)
+ if MODE=="join"
+  WANT_VOICE_STATE["listeners"]["npc_e"]=VoiceListener("npc_e";seed=5,vocabulary=ObservedVocabulary())
+ end
+end
 function live_channel_execute!(yaw,thinking,items,foods,w,stores,home,actor,op,action,now;kwargs...)
  observers=Dict(a=>(memory=CHANNEL_MEMORIES[a],yaw=yaw[a],attending=a in thinking) for a in IDS if a!=actor)
  speech,gesture=CHANNELS[actor]
@@ -93,5 +121,9 @@ report=Dict(a=>Dict("events"=>length(m.processed),"episodes"=>length(m.roles.rec
 write(joinpath(OUTPUT,"communication_result.json"),JSON3.write(report))
 LEARNED_CONTROL && write(joinpath(OUTPUT,"learned_control.json"),JSON3.write(LEARNED_CHANNEL_STATS))
 serialize(joinpath(OUTPUT,"communication_state.bin"),CHANNEL_MEMORIES)
+if WANT_VOICE
+ serialize(joinpath(OUTPUT,"want_voice_state.bin"),WANT_VOICE_STATE)
+ write(joinpath(OUTPUT,"want_voice_result.json"),JSON3.write((records=WANT_VOICE_STATE["records"],pending=collect(keys(WANT_VOICE_STATE["pending"])),days=length(result.daily))))
+end
 write(joinpath(OUTPUT,"completed.json"),JSON3.write((days=length(result.daily),start_day=STARTDAY,elapsed_seconds=elapsed,trade_counts=result.portable_items.counts)))
 println("COMPLETED ",elapsed)
