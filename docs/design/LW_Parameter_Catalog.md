@@ -988,3 +988,12 @@ notice_strength=.04、word_strength=.15、bearing_step=15度。各閾値以上�
 語句取得には別途attending=trueが必要（既定false）。音を検出しても注意や応答を強制しない。
 発信音量は既定1、比較用大声4。生理学的校正ではなく実験値。通常LW・既存8単位の
 聴覚判定は変更しない。反響・遮音・背景雑音・発話消費・自律声量選択は未実装。
+
+## 音から注意・語句照合・返答の局所接続（2026-11-16）
+experiments/simple_language/voice_dialogue.jlのVOICE_DIALOGUE：attention_cost=.5、
+reply_cost=.4、clarification_value=1、orient_us=1000000、reply_volume=1、reply_us=2000000。
+費用/価値は相対選択スコア、時間はμs。生理学的定数ではなく暫定の実験値。
+注意の価値はlog1p(受信強度/notice_strength)、集中費用を差し引く。
+語句照合は既存ObservedVocabularyのminimum_samples=2、minimum_share=.7を使用。
+返答は固定の「話を聞きたい」「もう一度？」または沈黙。相手への同意・取引成立ではない。
+通常生活に未接続。教材3観測、関心3、集中費用8、発話3秒、16シードは検査fixtureのみ。
