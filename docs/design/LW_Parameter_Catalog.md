@@ -979,3 +979,12 @@ TASTING_TRAINING_KINDS=(1,4,8)を1日1種類、3日。
 同じ相手・提案に結びついた現在の観測のみ適用（observed_us<=now<expires_us）。
 語句とジェスチャーの同一観測は1件。未知・未観測は補正なし。能力や取引を強制しない。
 通常生活からの引数供給は未接続。局所アダプターと検査はexperiments/simple_language/learned_trade*。
+
+## 声量と距離の局所音響試験（2026-11-16）
+src/perception/sound_level.jl: 相対強度I=volume/(1+(distance/reference_distance)^2)。
+reference_distance既定4世界距離単位、有限な近距離強度と距離減衰を持つ暫定近似。dBではない。
+experiments/simple_language/voice_broadcast.jlのVOICE_BROADCASTはreference_distance=4、
+notice_strength=.04、word_strength=.15、bearing_step=15度。各閾値以上で検出/語句取得。
+語句取得には別途attending=trueが必要（既定false）。音を検出しても注意や応答を強制しない。
+発信音量は既定1、比較用大声4。生理学的校正ではなく実験値。通常LW・既存8単位の
+聴覚判定は変更しない。反響・遮音・背景雑音・発話消費・自律声量選択は未実装。
