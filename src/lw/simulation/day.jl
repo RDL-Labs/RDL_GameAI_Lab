@@ -539,9 +539,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         for a in IDS
             fs=get!(task_focus_state,mb_maps[a],"task_focus")
             identity_call_notice=get(spec,:configured_identity_calls,false) && relations!==nothing ? configured_identity_call_notice!(relations[a],now) : nothing
+            item_pending=incidental_items===nothing ? nothing : get(get(incidental_items[a],"social",D()),"pending",nothing)
+            trade_notice=item_exchange_enabled ? task_trade_notice!(fs,items,w,a,now;pending_offer=item_pending===nothing ? nothing : item_pending["offer_id"]) : nothing
             notice=get(fs,"active",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles,illumination=visual_illumination) : nothing
             task_focus_continue!(fs,w.bodies[a],w.positions[a],yaw[a],focus_phase,now,notice;
-                wait_notice=identity_call_notice===nothing ? task_wait_notice(fs,w.inbox[a],now) : identity_call_notice,
+                wait_notice=trade_notice!==nothing ? trade_notice : identity_call_notice===nothing ? task_wait_notice(fs,w.inbox[a],now) : identity_call_notice,
                 shield=get(spec,:task_interrupt_shield,true),
                 need=notice===nothing ? 0. : food_anxiety(get(mb_maps[a],"food_security",nothing)),
                 progress=notice===nothing ? 0. : configured_task_progress(foods,a,fs["plan"]["action"]),

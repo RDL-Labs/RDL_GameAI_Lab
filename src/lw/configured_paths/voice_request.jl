@@ -72,6 +72,7 @@ function configured_want_plan!(voice,day_us,state,observed,body,gut,stock,now;al
    selected=deepcopy(observed);filter!(==(identity.handle),selected["trade_partners"])
    projected=reply_relation_projection(relation,identity)
    plan=learned_channel_plan!(state,selected,body,gut,stock,now;allow_start,relation=projected,requested_food=WANT_FISH.kind,kwargs...)
+   reply_relation_record!(relation,projected)
    if plan!==nothing
     plan["request_call_id"]=pending["event"].id
     configured_want_record!(voice,"proposal",actor,now;target=identity.handle,source=plan["source"])

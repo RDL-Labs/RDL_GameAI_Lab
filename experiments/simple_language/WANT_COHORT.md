@@ -123,3 +123,5 @@ Eの要求語句学習は元から未接続であり、20日で自然習得し�
 
 手順：`want_audit_run.jl continue BASE OUTPUT` →
 `want_audit_summary.jl ORIGINAL_ROOT OUTPUT`。診断は凍結コピーだけへ追加。
+
+その後の待機通知・要求者ログ修正と同一22日目の比較は `TRADE_WAKE_FIX.md` を参照。

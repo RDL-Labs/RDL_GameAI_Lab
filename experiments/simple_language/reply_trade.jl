@@ -39,6 +39,13 @@ function reply_relation_projection(relation,identity)
  projected["social_view"]=nothing
  projected
 end
+function reply_relation_record!(relation,projected)
+ # Persist owner-side diagnostics/use receipts, never projected peer identities.
+ for key in ("gradient_maps","choices","use_counts","use_receipts")
+  haskey(projected,key) && (relation[key]=projected[key])
+ end
+ nothing
+end
 function reply_trade_plan!(fixture,actor,identity,state,relation,now;requested_food=nothing)
  identity.status=="recognized" || return nothing
  view=LW.item_visible(fixture.s,fixture.w,(0.,0.),actor,identity.bearing,now;open_stores=true,foods=fixture.foods)

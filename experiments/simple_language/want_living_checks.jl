@@ -25,6 +25,8 @@ living_proposals=0
    global living_proposals+=1
    @test p["target"]==ITEM_B && p["want_food"][WANT_FISH.kind]>0
    @test reply_trade_execute!(f,ITEM_A,state,relations[ITEM_A],p,2_000_000)["status"]=="offered"
+   @test any(r->r["source"]==p["source"],relations[ITEM_A]["gradient_maps"]["records"])
+   @test relations[ITEM_A]["use_counts"]["trade_offer"]>0
   end
   configured_want_tick!(voice,f.w,headings,[ITEM_A,ITEM_B,ITEM_C],f.foods,relations,WANT_ROSTER,8_000_000)
   @test isempty(voice["pending"])

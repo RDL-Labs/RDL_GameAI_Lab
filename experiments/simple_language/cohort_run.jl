@@ -36,6 +36,21 @@ if WANT_VOICE
  end
  write(daypath,daytext)
 end
+if WANT_VOICE
+ cp(joinpath(HERE,"../../src/lw/decision/task_focus.jl"),joinpath(OUTPUT,"source/src/lw/decision/task_focus.jl");force=true)
+ daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl");daytext=read(daypath,String)
+ if !occursin("task_trade_notice!",daytext)
+  marker="            notice=get(fs,\"active\",false) && focus_enabled"
+  @assert length(findall(marker,daytext))==1
+  wake_from=parse(Int,get(ENV,"RDL_WANT_WAKE_FROM","0")) # replay-only activation boundary
+  injection="            item_pending=incidental_items===nothing ? nothing : get(get(incidental_items[a],\"social\",D()),\"pending\",nothing)\n            trade_notice=item_exchange_enabled && now>=$wake_from ? task_trade_notice!(fs,items,w,a,now;pending_offer=item_pending===nothing ? nothing : item_pending[\"offer_id\"]) : nothing\n"
+  daytext=replace(daytext,marker=>injection*marker)
+  old="wait_notice=identity_call_notice===nothing ? task_wait_notice(fs,w.inbox[a],now) : identity_call_notice,"
+  @assert length(findall(old,daytext))==1
+  daytext=replace(daytext,old=>"wait_notice=trade_notice!==nothing ? trade_notice : identity_call_notice===nothing ? task_wait_notice(fs,w.inbox[a],now) : identity_call_notice,")
+ end
+ write(daypath,daytext)
+end
 input=JSON3.read(read(joinpath(BASE,"input.json"),String),Dict{String,Any})
 const STARTDAY=MODE=="train" ? 0 : Int(JSON3.read(read(joinpath(BASE,"completed.json"),String)).days)
 input["config"]["days"]=MODE=="train" ? 3 : STARTDAY+parse(Int,get(ENV,"RDL_COHORT_DAYS","20"))

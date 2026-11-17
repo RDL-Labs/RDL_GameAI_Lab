@@ -2,6 +2,27 @@ include("../parameters.jl")
 include("../perception/task_motion.jl")
 include("../configured_paths/task_interrupt.jl")
 task_focus_state()=D("active"=>false,"skipped"=>0,"wakeups"=>D())
+# Addressed item proposals/results use a separate channel from aid inbox packets.
+# Resume low-cost rest so normal observation/consent can run; never accept here.
+function task_trade_notice!(s,items,w,actor,now;pending_offer=nothing)
+    items===nothing && return nothing
+    get(s,"active",false) && get(get(s,"plan",D()),"action",nothing)=="rest" || return nothing
+    for offer in values(items["offers"])
+        offer["target"]==actor && offer["created_us"]<=now<offer["expires_us"] || continue
+        item_contact(w,actor,offer["proposer"]) || continue
+        s["last_trade_notice"]=D("offer_id"=>offer["id"],"us"=>now,"kind"=>"proposal")
+        return "trade_offer"
+    end
+    if pending_offer!==nothing
+        for receipt in items["notices"][actor]
+            get(receipt,"offer_id",nothing)==pending_offer && receipt["us"]<=now || continue
+            receipt["status"] in ("exchanged","declined","expired","unavailable") || continue
+            s["last_trade_notice"]=D("offer_id"=>pending_offer,"us"=>now,"kind"=>receipt["status"])
+            return "trade_result"
+        end
+    end
+    nothing
+end
 # A pending obligation survives low-cost attention. Only delivered inbox packets
 # are checked here, using observe's visibility window; no peer intent/world scan.
 function task_wait_notice(s,inbox,now)
