@@ -39,6 +39,11 @@ end
 if WANT_VOICE
  cp(joinpath(HERE,"../../src/lw/decision/task_focus.jl"),joinpath(OUTPUT,"source/src/lw/decision/task_focus.jl");force=true)
  daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl");daytext=read(daypath,String)
+ if !occursin("configured_want_observe_meal!",daytext)
+  meal_marker="                    eaten_kind=actual_kind;meal_liking=liking"
+  @assert length(findall(meal_marker,daytext))==1
+  daytext=replace(daytext,meal_marker=>meal_marker*"\n                    mb_simulation && configured_want_observe_meal!(mb_maps,social_views,a,actual_kind,now)")
+ end
  if !occursin("task_trade_notice!",daytext)
   marker="            notice=get(fs,\"active\",false) && focus_enabled"
   @assert length(findall(marker,daytext))==1

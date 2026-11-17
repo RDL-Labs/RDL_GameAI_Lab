@@ -14,6 +14,29 @@ function configured_want_vocabulary()
  end
  vocabulary
 end
+function configured_want_known_food(map,kind)
+ map===nothing && return false
+ appearance=LW.RDLBody.FOOD_APPEARANCE[kind]
+ tastes=get(map,"food_taste_experiences",D())
+ tasted=any((key==appearance || startswith(key,appearance*":quality:")) && get(value,"samples",0)>0 for (key,value) in tastes)
+ tasted || get(get(get(map,"observed_food_eating",D()),appearance,D()),"samples",0)>0
+end
+# 暫定固定: request experiment only. A visible contact-range meal exposes its
+# food appearance; appearance/category recognition is initial knowledge, not taste.
+# Reuse current social sight (FOV, occlusion, light); no new all-world observation.
+# Replace this coarse contact gate with learned food-part recognition later.
+function configured_want_observe_meal!(maps,social_views,eater,kind,now)
+ (maps===nothing || social_views===nothing || !(kind in LW.RDLBody.FOOD_KIND_IDS)) && return
+ appearance=LW.RDLBody.FOOD_APPEARANCE[kind]
+ for (observer,sight) in social_views
+  observer==eater && continue
+  get(sight,"capture_us",-1)==now || continue
+  any(p->p["ref"]==eater && get(p,"contact",false),sight["peers"]) || continue
+  records=get!(()->D(),maps[observer],"observed_food_eating")
+  record=get!(()->D("samples"=>0),records,appearance)
+  record["samples"]+=1;record["last_us"]=now
+ end
+end
 function configured_want_desire(body,gut,stock;map=nothing,kitchen=nothing,relation=nothing)
  stock===nothing && return nothing
  weights=LW.food_trade_weights(body,gut;map,kitchen)
@@ -21,6 +44,7 @@ function configured_want_desire(body,gut,stock;map=nothing,kitchen=nothing,relat
  valuation=LW.trade_valuation_context(body,gut,security,D(),nothing)
  candidates=Any[]
  for kind in LW.RDLBody.FOOD_KIND_IDS
+  configured_want_known_food(map,kind) || continue
   weights[kind]>0 || continue
   after=copy(stock);after[kind]+=1
   material=weights[kind]*(log1p(after[kind])-log1p(stock[kind]))
