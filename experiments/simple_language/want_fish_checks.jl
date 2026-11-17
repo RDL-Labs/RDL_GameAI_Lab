@@ -5,8 +5,8 @@ include("reply_trade.jl")
 include("want_fish.jl")
 const WANT_ROSTER=Dict(ITEM_A=>Dict("name"=>"アキ","features"=>[.1,.2,.3,.4,.1]),
  ITEM_B=>Dict("name"=>"ハル","features"=>[.8,.7,.6,.9,.8]),ITEM_C=>Dict("name"=>"ソラ","features"=>[.6,.8,.9,.6,.7]))
-function want_fixture(;fish=WANT_FISH.stock,far=false)
- f=item_fixture(objects=Any[],food_counts=[[20,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,fish],[20,0,0,0,0,0,0,0]],scene=(configured_negotiation=true,))
+function want_fixture(;fish=WANT_FISH.stock,far=false,peer_stock=[0,0,0,0,0,0,0,fish])
+ f=item_fixture(objects=Any[],food_counts=[[20,0,0,0,0,0,0,0],peer_stock,[20,0,0,0,0,0,0,0]],scene=(configured_negotiation=true,))
  empty!(f.w.obstacles);f.w.positions[ITEM_A]=(0.,0.);f.w.positions[ITEM_B]=(0.,far ? 40. : .8);f.w.positions[ITEM_C]=(1.,0.)
  f
 end

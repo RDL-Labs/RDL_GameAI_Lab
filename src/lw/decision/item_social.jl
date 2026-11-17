@@ -138,7 +138,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
     fit_materials=IdDict{Any,ItemFitMaterial}() # query/prototype preparation shared within this decision
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         # Optional explicit request narrows new proposals, not the recipient's consent.
-        !response && requested_food!==nothing && wf[requested_food]<=0 && return
+        !response && requested_food!==nothing && wf[requested_food]<=gf[requested_food] && return
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
         # New requests and counteroffers stay within the observed warehouse.
         # An incoming offer is its own evidence; execution revalidates ownership.
