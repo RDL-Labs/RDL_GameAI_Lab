@@ -10,7 +10,7 @@ cp(HERE,joinpath(OUTPUT,"communication"))
 const LEARNED_CONTROL=get(ENV,"RDL_LEARNED_TRADE","0")=="1"
 const WANT_VOICE=get(ENV,"RDL_WANT_VOICE","0")=="1"
 if LEARNED_CONTROL
- for file in ("item_social.jl","gradient_trace.jl","trade_communication.jl")
+ for file in ("item_social.jl","gradient_trace.jl","trade_communication.jl","food_exchange.jl")
   cp(joinpath(HERE,"../../src/lw/decision",file),joinpath(OUTPUT,"source/src/lw/decision",file);force=true)
  end
  daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl")

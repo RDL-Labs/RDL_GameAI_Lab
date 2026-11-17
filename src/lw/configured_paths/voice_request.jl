@@ -12,15 +12,38 @@ function configured_want_vocabulary()
  for kind in LW.RDLBody.FOOD_KIND_IDS, i in 1:WANT_FISH.teaching_samples
   learn_observed_words!(vocabulary,(id="request-teaching:$kind:$i",text=CONFIGURED_WANT_WORDS[kind],motion=nothing,appearances=[configured_want_appearance(kind)]))
  end
+ for i in 1:WANT_FISH.teaching_samples
+  learn_observed_words!(vocabulary,(id="request-role:$i",text=WANT_FISH.request_word,motion=nothing,appearances=["request-intent"]))
+ end
  vocabulary
 end
-function configured_want_known_food(map,kind)
- map===nothing && return false
- appearance=LW.RDLBody.FOOD_APPEARANCE[kind]
- tastes=get(map,"food_taste_experiences",D())
- tasted=any((key==appearance || startswith(key,appearance*":quality:")) && get(value,"samples",0)>0 for (key,value) in tastes)
- tasted || get(get(get(map,"observed_food_eating",D()),appearance,D()),"samples",0)>0
+function configured_want_recall(map)
+ map===nothing && return Int[]
+ recalled=Int[]
+ # Start from the owner's retained relations, never the world's food catalog.
+ # Registry lookup only decodes the recalled appearance for the physical API.
+ for group in ("food_taste_experiences","observed_food_eating")
+  for (key,record) in get(map,group,D())
+   get(record,"samples",0)>0 || continue
+   appearance=first(split(key,":quality:"))
+   kind=findfirst(==(appearance),LW.RDLBody.FOOD_APPEARANCE)
+   kind===nothing || push!(recalled,kind)
+  end
+ end
+ sort!(unique!(recalled))
 end
+configured_want_known_food(map,kind)=kind in configured_want_recall(map)
+function configured_want_expression(vocabulary,appearance)
+ matches=Pair{String,Float64}[]
+ for token in keys(vocabulary.evidence)
+  prediction=observed_word_prediction(vocabulary,token)
+  prediction.status=="provisional" && prediction.appearance==appearance || continue
+  push!(matches,token=>prediction.samples*prediction.share)
+ end
+ isempty(matches) && return nothing
+ sort!(matches;by=p->(-p.second,p.first));first(matches).first
+end
+configured_want_word(vocabulary,kind)=configured_want_expression(vocabulary,configured_want_appearance(kind))
 # 暫定固定: request experiment only. A visible contact-range meal exposes its
 # food appearance; appearance/category recognition is initial knowledge, not taste.
 # Reuse current social sight (FOV, occlusion, light); no new all-world observation.
@@ -39,15 +62,14 @@ function configured_want_observe_meal!(maps,social_views,eater,kind,now)
 end
 function configured_want_desire(body,gut,stock;map=nothing,kitchen=nothing,relation=nothing)
  stock===nothing && return nothing
- weights=LW.food_trade_weights(body,gut;map,kitchen)
  security=map===nothing ? food_security(relation) : get(map,"food_security",food_security(relation))
  valuation=LW.trade_valuation_context(body,gut,security,D(),nothing)
  candidates=Any[]
- for kind in LW.RDLBody.FOOD_KIND_IDS
-  configured_want_known_food(map,kind) || continue
-  weights[kind]>0 || continue
+ for kind in configured_want_recall(map)
+  weight=LW.food_trade_weight(body,gut,kind;map,kitchen)
+  weight>0 || continue
   after=copy(stock);after[kind]+=1
-  material=weights[kind]*(log1p(after[kind])-log1p(stock[kind]))
+  material=weight*(log1p(after[kind])-log1p(stock[kind]))
   gradient=LW.trade_compound_gradient(stock,after,material,valuation)
   gradient["total"]>0 || continue
   push!(candidates,(kind=kind,gradient=gradient))
@@ -57,11 +79,13 @@ function configured_want_desire(body,gut,stock;map=nothing,kitchen=nothing,relat
 end
 function configured_want_interest(body,stock,known,words;security=nothing)
  words===nothing && return nothing
- WANT_FISH.request_word in split(words.text) || return nothing
+ any(m->m.prediction.appearance=="request-intent",known) || return nothing
  strengths=Float64[]
- for kind in LW.RDLBody.FOOD_KIND_IDS
-  CONFIGURED_WANT_WORDS[kind] in split(words.text) || continue
-  any(m->m.prediction.appearance==configured_want_appearance(kind),known) || continue
+ for appearance in unique([m.prediction.appearance for m in known])
+  kind=appearance==WANT_FISH.appearance ? WANT_FISH.kind :
+      startswith(appearance,"request-food-") ? tryparse(Int,replace(appearance,"request-food-"=>"")) : nothing
+  kind===nothing && continue
+  kind in eachindex(stock) || continue
   stock[kind]>0 || continue
   push!(strengths,log1p(stock[kind])*(1-clamp(LW.trade_food_need(body,nothing,stock;security),0.,1.)))
  end
@@ -151,12 +175,16 @@ function configured_want_plan!(voice,day_us,state,observed,body,gut,stock,now;al
     get(voice["last_day"],actor,-1)!=day && observed["outgoing"]===nothing && mind["pending"]===nothing && now>=mind["next_us"]
   desire=configured_want_desire(body,gut,stock;map=get(kwargs,:map,nothing),kitchen=get(kwargs,:kitchen,nothing),relation)
   desire===nothing && return learned_channel_plan!(state,observed,body,gut,stock,now;allow_start,relation,kwargs...)
+  word=configured_want_word(voice["listeners"][actor].vocabulary,desire.kind)
+  request_word=configured_want_expression(voice["listeners"][actor].vocabulary,"request-intent")
+  # No known expression: no catalog fallback and no invented word.
+  (word===nothing || request_word===nothing) && return learned_channel_plan!(state,observed,body,gut,stock,now;allow_start,relation,kwargs...)
   voice["last_day"][actor]=day
   # Bound deduplication history to live utterances; completed calls never replay.
   for listener in values(voice["listeners"])
    filter!(p->p.second.event.start_us+CONFIGURED_WANT_VOICE.reply_window_us>now,listener.processed)
   end
-  event=(id="want:$actor:$now",source=actor,text=CONFIGURED_WANT_WORDS[desire.kind]*" 欲しい",volume=CONFIGURED_WANT_VOICE.volume,start_us=now,duration_us=WANT_FISH.utterance_us)
+  event=(id="want:$actor:$now",source=actor,text=word*" "*request_word,volume=CONFIGURED_WANT_VOICE.volume,start_us=now,duration_us=WANT_FISH.utterance_us)
   voice["pending"][actor]=D("event"=>event,"requested_food"=>desire.kind,"heard"=>Set{String}(),"replies"=>Any[],"delivered"=>Set{String}(),"identity"=>nothing)
   configured_want_record!(voice,"call",actor,now;id=event.id,requested_food=desire.kind,text=event.text,gradient=desire.gradient)
   return D("action"=>"scan","method"=>"voice_request_call","scan_angle"=>CONFIGURED_WANT_VOICE.wait_scan,"configured_rule"=>"voice_request_call")

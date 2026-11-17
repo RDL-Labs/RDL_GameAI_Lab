@@ -60,6 +60,31 @@ end
  @test configured_want_desire(body,nothing,stock;map=maps[ITEM_A]).kind==2
 end
 println("living request proposals=",living_proposals)
+@testset "owner memory supplies referents and words" begin
+ map=request_test_map()
+ @test configured_want_recall(map)==[1,4,8]
+ @test isempty(configured_want_recall(D()))
+ vocabulary=ObservedVocabulary()
+ @test configured_want_word(vocabulary,1)===nothing
+ for i in 1:3
+  learn_observed_words!(vocabulary,(id="alternate:$i",text="ポム",motion=nothing,appearances=[configured_want_appearance(1)]))
+  learn_observed_words!(vocabulary,(id="alternate-role:$i",text="クレ",motion=nothing,appearances=["request-intent"]))
+ end
+ @test configured_want_word(vocabulary,1)=="ポム"
+ @test configured_want_word(vocabulary,8)===nothing
+ f=want_fixture();body=f.w.bodies[ITEM_A]
+ stock=fill(10_000,8);stock[1]=0
+ voice=configured_want_state((ITEM_A,ITEM_B,ITEM_C))
+ voice["listeners"][ITEM_A].vocabulary=vocabulary
+ state=LW.incidental_item_state(ITEM_A,1)
+ configured_want_plan!(voice,17_280_000_000,state,item_view(f,ITEM_A;open_stores=true),body,nothing,stock,0;map)
+ @test voice["pending"][ITEM_A]["event"].text=="ポム クレ"
+ words=(text="ポム クレ",)
+ known=filter(m->m.prediction.status=="provisional",voice_word_matches(vocabulary,words.text))
+ @test configured_want_interest(body,[2,0,0,0,0,0,0,0],known,words)!==nothing
+ @test configured_want_interest(body,[2,0,0,0,0,0,0,0],[],words)===nothing
+ @test LW.food_trade_weights(body,nothing;map)==[LW.food_trade_weight(body,nothing,k;map) for k in 1:8]
+end
 @testset "request subject follows own marginal food desire" begin
  f=want_fixture();body=f.w.bodies[ITEM_A]
  fruit_stock=fill(10_000,8);fruit_stock[1]=0

@@ -24,22 +24,22 @@ function food_social_context(body;give_kind=0,want_kind=0,give_count=0,want_coun
     want_kind>0 && merge!(context,D("want_kind"=>want_kind,"want_count"=>want_count))
     context
 end
-function food_trade_weights(body,gut;map=nothing,kitchen=nothing)
+function food_trade_weight(body,gut,kind;map=nothing,kitchen=nothing)
     need=clamp((80-body.reserve)/80,0.,1.)
-    Base.map(RDLBody.FOOD_KIND_IDS) do kind
-        best=nothing
-        for prepared in (false,true)
-            forecast=food_use_forecast(map,kitchen===nothing ? nothing : kitchen.foods,
-                kitchen===nothing ? nothing : kitchen.actor,kind,prepared,gut,body.reserve,
-                kitchen===nothing ? () : kitchen.facilities,kitchen===nothing ? (0.,0.) : kitchen.position;
-                processing=kitchen!==nothing && kitchen.processing)
-            forecast===nothing && continue
-            value=.2+.6need+food_taste_value(forecast.liking,body.reserve)-forecast.cost
-            best=best===nothing ? value : max(best,value)
-        end
-        something(best,0.)-food_condition_aversion(map,kind)
-    end |> collect
+    best=nothing
+    for prepared in (false,true)
+        forecast=food_use_forecast(map,kitchen===nothing ? nothing : kitchen.foods,
+            kitchen===nothing ? nothing : kitchen.actor,kind,prepared,gut,body.reserve,
+            kitchen===nothing ? () : kitchen.facilities,kitchen===nothing ? (0.,0.) : kitchen.position;
+            processing=kitchen!==nothing && kitchen.processing)
+        forecast===nothing && continue
+        value=.2+.6need+food_taste_value(forecast.liking,body.reserve)-forecast.cost
+        best=best===nothing ? value : max(best,value)
+    end
+    something(best,0.)-food_condition_aversion(map,kind)
 end
+food_trade_weights(body,gut;map=nothing,kitchen=nothing) =
+    [food_trade_weight(body,gut,kind;map,kitchen) for kind in RDLBody.FOOD_KIND_IDS]
 function food_trade_gain(stock,weights,g,n,h,m)
     stock[g]>=n || return nothing
     weights[g]*(log1p(stock[g]-n)-log1p(stock[g]))+
