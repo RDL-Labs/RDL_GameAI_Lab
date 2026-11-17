@@ -38,3 +38,13 @@
 要求者Bの同じsourceのgradient_maps記録が日末にも残ることを確認した。
 通知の見落としを解消した結果であり、取引の成立を強制・保証する修正ではない。
 26日目の個別分岐や20＋20日の全面再試験は未実施。
+
+## 修正版20＋20日の起動（2026-11-17）
+
+8dc4403の修正で同じ13日末から33日末、Eの独立実食研修3日を挟んで53日末まで実行。
+want_fixed_cohort_suite.jlで通知修正を初めから有効、診断ログOFF、異語彙Eなし、
+ジェスチャーありを明示。食料補充・初期語句・Eの空の社会/通信記憶等はWANT_COHORTと同じ。
+1スレッド、実時間上限なし。結果は未確認。
+出力：`C:/Users/ken_m/Documents/Codex/communication-want-fixed-cohort-20261117`。
+worker：`C:/Users/ken_m/Documents/Codex/communication-want-fixed-worker-20261117`。
+前回の結果と凍結ソースは変更しない。
