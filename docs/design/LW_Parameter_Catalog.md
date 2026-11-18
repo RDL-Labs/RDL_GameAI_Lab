@@ -3,6 +3,8 @@
 2026-11-18: `configured_paths/api_trade_agent.jl` の `CONFIGURED_API_AGENT` は
 局所API個体実験専用（通常OFF）。１日12回／全24回、観測保持128件、自己メモ2000文字、
 出力700token。費用・入力長を制限する暫定値で、認知の学習結果ではない。
+自由表現版は日末の日記700tokenを別枠で1日1回追加。合計判断上限は12×交流日数。
+scarce局所条件はE初期果実2個・教育3日各1個・教育後補充0、独立援助OFF。
 ３日実食教育＋２日交流、応答中の世界停止、上限時の継続／拒否を含む条件は
 `experiments/simple_language/API_AGENT.md` に記載。
 

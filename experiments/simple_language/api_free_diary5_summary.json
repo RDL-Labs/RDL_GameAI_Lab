@@ -1,0 +1,60 @@
+{
+  "days": 5,
+  "elapsed_seconds": 276.4037277,
+  "model": "gpt-4.1-2025-04-14",
+  "decisions": 24,
+  "diaries": 5,
+  "speech": 0,
+  "gestures": 0,
+  "cap_hits": 334,
+  "E_body": {
+    "rule": "layered-body-human-scale-v1",
+    "strain": 0.0,
+    "damage": 0.0,
+    "burst": 10.0,
+    "reserve": 65.60111111099575
+  },
+  "E_stock": 0,
+  "E_supply": [
+    {
+      "day": 0,
+      "kind": 1,
+      "added": 1
+    },
+    {
+      "day": 1,
+      "kind": 4,
+      "added": 1
+    },
+    {
+      "day": 2,
+      "kind": 8,
+      "added": 1
+    },
+    {
+      "day": 3,
+      "kind": 1,
+      "added": 0
+    },
+    {
+      "day": 4,
+      "kind": 1,
+      "added": 0
+    }
+  ],
+  "world_counts": {
+    "given": 0,
+    "offered": 10,
+    "dropped": 0,
+    "picked_up": 0,
+    "retrieved": 0,
+    "declined": 8,
+    "unavailable": 0,
+    "exchanged": 2,
+    "stored": 0,
+    "expired": 0
+  },
+  "input_tokens": 95712.0,
+  "output_tokens": 8822.0,
+  "api_seconds": 83.69299960136414
+}
