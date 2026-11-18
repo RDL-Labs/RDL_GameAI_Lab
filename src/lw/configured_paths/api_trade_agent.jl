@@ -18,9 +18,9 @@ function configured_api_supply(supply,day;scarce=CONFIGURED_API_SCARCE)
     end
     copied
 end
-# No independent aid route in the scarcity scenario: food must pass through the
-# trade protocol (which may still agree to a one-sided transfer). Default false.
-configured_api_aid_allowed()=!CONFIGURED_API_SCARCE
+# Scarcity controls replenishment only. All actors retain the normal independent
+# aid request and visual aid routes; enabling them does not force an aid action.
+configured_api_aid_allowed()=true
 const CONFIGURED_API_FOODS=("果実","肉","生ドングリ","加工ドングリ","生魚","腐敗食料","焼き魚","塩焼き魚")
 const CONFIGURED_API_HISTORY=Any[]
 const CONFIGURED_API_CALLS=Dict{Int,Int}()

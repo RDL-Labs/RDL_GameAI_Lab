@@ -1,6 +1,9 @@
 using JSON3,Test
 const OUTPUT=mktempdir()
 include("../../src/lw/configured_paths/api_trade_agent.jl")
+@testset "Aid remains available in scarcity" begin
+    @test configured_api_aid_allowed()
+end
 @testset "API projection boundary" begin
     candidate=Dict("action"=>"item_accept","offer_id"=>"x","partner"=>"npc_a",
         "MB"=>"PRIVATE_SENTINEL","priority"=>999.,"expected"=>999.)
