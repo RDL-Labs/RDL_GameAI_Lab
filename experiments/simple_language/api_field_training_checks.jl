@@ -28,7 +28,7 @@ include("api_field_training_instrument.jl")
     @test configured_api_fish_active(fish)
     ENV["RDL_API_FIELD_TRAINING"]="1"
     configured_api_training_observe!("npc_e",maps["npc_e"],201)
-    @test !configured_api_diary_due(10)
+    @test configured_api_diary_due(1)
     configured_fishing_training_result!(fish,"eat","ate",RDLBody.COOKED_FISH,true,202)
     @test fish["stage"]=="trial"
     configured_fishing_training_result!(fish,"fish","no_catch",0,false,203)

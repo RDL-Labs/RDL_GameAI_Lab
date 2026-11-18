@@ -13,6 +13,7 @@ length(ARGS)<4 || ARGS[4] in ("supplied","scarce","exploration","field_training"
 ENV["RDL_API_SCARCE"]=API_SCARCE ? "1" : "0"
 ENV["RDL_API_DAILY_CALLS"]=API_EXPLORATION ? "96" : "12"
 ENV["RDL_API_TOTAL_CALLS"]=string((API_EXPLORATION ? 96 : 12)*(API_FIELD_TRAINING ? API_DAYS : API_DAYS-3))
+API_FIELD_TRAINING && (ENV["RDL_API_DAILY_CALLS"]=ENV["RDL_API_TOTAL_CALLS"]) # same total budget; allow uneven daily work
 ENV["RDL_API_FIELD_TRAINING"]=API_FIELD_TRAINING ? "1" : "0"
 ispath(API_OUTPUT) && error("fresh output required")
 if !haskey(ENV,"OPENAI_API_KEY")
@@ -37,11 +38,13 @@ try
 catch failure
     cause=failure
     while cause isa LoadError;cause=cause.error;end
-    if isdefined(Main,:ConfiguredAPIReserveStop) && cause isa ConfiguredAPIReserveStop
-        write(joinpath(API_OUTPUT,"completed.json"),JSON3.write((status="stopped",reason="E_reserve_zero",requested_days=API_DAYS,
+    stop_reason=isdefined(Main,:configured_api_stop_reason) ? Base.invokelatest(getglobal,Main,:configured_api_stop_reason) : nothing
+    reason=stop_reason===nothing ? nothing : Base.invokelatest(stop_reason,cause)
+    if reason!==nothing
+        write(joinpath(API_OUTPUT,"completed.json"),JSON3.write((status="stopped",reason=reason,requested_days=API_DAYS,
             completed_full_days=div(cause.us,17_280_000_000),ended_us=cause.us,elapsed_days=cause.us/17_280_000_000,
-            state_file="reserve-zero-state.bin")))
-        println("API experiment stopped: E reserve zero at us=$(cause.us)")
+            state_file=reason=="E_reserve_zero" ? "reserve-zero-state.bin" : "api-budget-state.bin")))
+        println("API experiment stopped: $reason at us=$(cause.us)")
     else
         rethrow()
     end

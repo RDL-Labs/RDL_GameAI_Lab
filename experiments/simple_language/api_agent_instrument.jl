@@ -42,12 +42,11 @@ if API_EXPLORATION
     api_text=replace(api_text,supply_marker=>"            day>=3 && (personal_supply=nothing)\n"*supply_marker)
     nav_marker="                            plan=choose_method!(s,candidates,source)"
     @assert length(findall(nav_marker,api_text))==1
-    api_text=replace(api_text,nav_marker=>"                            plan=configured_api_navigation!(a,s,candidates,source,w.bodies[a],foods.personal[a],now,yaw[a],landmarks===nothing ? nothing : landmarks[a])")
+    api_text=replace(api_text,nav_marker=>"                            plan=configured_api_navigation!(a,s,candidates,source,w.bodies[a],foods.personal[a],now,yaw[a],landmarks===nothing ? nothing : landmarks[a];navigation_context=(purpose=family,phase=phase,observed_target=target,observed_moves=moves[a]),budget_capture=()->@lw_capture())")
     result_marker="            counts[a][action]=get(counts[a],action,0)+1"
     @assert length(findall(result_marker,api_text))==1
     api_text=replace(api_text,result_marker=>"            configured_api_nav_result!(a,action,status,now)\n"*result_marker)
-    # E uses the explicit API continuation, not the independent gradient-roll choice.
-    api_text=replace(api_text,"if get(spec,:gradient_roll,false) &&"=>"if a!=\"npc_e\" && get(spec,:gradient_roll,false) &&")
+    # Keep ordinary gradient-roll enrollment, continuation and reconsideration for E too.
     cp(joinpath(HERE,"../../src/lw/configured_paths/api_navigation.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/api_navigation.jl"))
 end
 stop_marker="        advance_physiology!(w,metabolism,guts,food_body)"
@@ -95,7 +94,7 @@ diary_marker="            checkpoint_dir!==nothing && checkpoint_save"
 api_text=replace(api_text,diary_marker=>"            configured_api_diary!(length(daily),now,w.bodies[\"npc_e\"],foods.personal[\"npc_e\"],items[\"notices\"][\"npc_e\"])\n"*diary_marker)
 if API_FIELD_TRAINING
     daily_marker="            configured_api_diary!(length(daily),now,"
-    api_text=replace(api_text,daily_marker=>"            configured_api_training_report!(mb_maps,length(daily),now)\n"*daily_marker)
+    api_text=replace(api_text,daily_marker=>"            configured_api_nav_flush!(now)\n            configured_api_training_report!(mb_maps,length(daily),now)\n"*daily_marker)
 end
 api_text=replace(api_text,marker=>marker*"\n                    configured_api_meal!(a,actual_kind,liking,now,premeal.reserve,w.bodies[a].reserve)")
 API_FIELD_TRAINING && (api_text=api_field_training_instrument(api_text))
