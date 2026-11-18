@@ -1,0 +1,290 @@
+{
+  "run": "C:/Users/ken_m/Documents/Codex/api-agent5-v4-20261118",
+  "days": 5,
+  "training_days": 3,
+  "interaction_days": 2,
+  "model": "gpt-4.1-2025-04-14",
+  "api_calls": 6,
+  "api_seconds": 17.182999849319458,
+  "input_tokens": 8323.0,
+  "output_tokens": 1284.0,
+  "elapsed_seconds": 234.749044,
+  "world_counts": {
+    "given": 0,
+    "offered": 12,
+    "dropped": 0,
+    "picked_up": 0,
+    "retrieved": 0,
+    "declined": 11,
+    "unavailable": 0,
+    "exchanged": 1,
+    "stored": 0,
+    "expired": 0
+  },
+  "api_actor_body": {
+    "rule": "layered-body-human-scale-v1",
+    "strain": 0.0,
+    "damage": 0.0,
+    "burst": 10.0,
+    "reserve": 85.60351851839413
+  },
+  "api_actor_decisions": 6,
+  "api_actor_outcomes": [
+    {
+      "source": "items:response:npc_e:51966000000",
+      "partner": "npc_c",
+      "expected": 0.44128566652495127,
+      "us": 51967000000,
+      "actual": 0.0,
+      "reason": "countered",
+      "necessity": {
+        "relief": 0.0,
+        "purpose": "food_security",
+        "required": false,
+        "before": 0.0
+      },
+      "subjective_gain": 0.8825713330499025,
+      "terms": {
+        "give_food": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "give_items": [],
+        "want_items": [],
+        "want_food": [
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "counter_of": "npc_c:51965000000:op:51965000000:npc_c",
+      "exchange_evidence": {
+        "failures": 0.0,
+        "successes": 0.0
+      },
+      "status": "declined",
+      "action": "item_counter"
+    },
+    {
+      "source": "items:response:npc_e:51968000000",
+      "partner": "npc_c",
+      "expected": 0.0,
+      "us": 51968000000,
+      "actual": 0.0,
+      "reason": null,
+      "necessity": null,
+      "subjective_gain": null,
+      "terms": null,
+      "counter_of": null,
+      "exchange_evidence": null,
+      "status": "declined",
+      "action": "item_decline"
+    },
+    {
+      "source": "items:offer:npc_e:69244000000",
+      "partner": "npc_d",
+      "expected": 1.4056376093916136,
+      "us": 69245000000,
+      "actual": 0.0,
+      "reason": "countered",
+      "necessity": {
+        "relief": 0.0,
+        "purpose": "food_security",
+        "required": false,
+        "before": 0.0
+      },
+      "subjective_gain": 2.8141980008086116,
+      "terms": {
+        "give_food": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "give_items": [],
+        "want_items": [],
+        "want_food": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "counter_of": null,
+      "exchange_evidence": {
+        "failures": 0.03124332724640155,
+        "successes": 0.0
+      },
+      "status": "declined",
+      "action": "item_offer"
+    },
+    {
+      "source": "items:response:npc_e:69246000000",
+      "partner": "npc_d",
+      "expected": 0.005641357553004241,
+      "us": 69247000000,
+      "actual": 0.0,
+      "reason": null,
+      "necessity": {
+        "relief": 0.0,
+        "purpose": "food_security",
+        "required": false,
+        "before": 0.0
+      },
+      "subjective_gain": 0.016516687268232383,
+      "terms": {
+        "give_food": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "give_items": [],
+        "want_items": [],
+        "want_food": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "counter_of": "npc_d:69245000000:op:69245000000:npc_d",
+      "exchange_evidence": {
+        "failures": 0.1353352832366127,
+        "successes": 0.0
+      },
+      "status": "declined",
+      "action": "item_counter"
+    }
+  ],
+  "selected": [
+    {
+      "event": "self_selected",
+      "us": 51902000000,
+      "option": {
+        "id": 1,
+        "action": "continue",
+        "partner": null,
+        "give": null,
+        "receive": null,
+        "give_objects": [],
+        "receive_objects": []
+      },
+      "reason": "今はreserveが十分高く、strainやdamageもないので、特にすぐ交換や提案の必要がないため。現状維持で問題ない。"
+    },
+    {
+      "event": "self_selected",
+      "us": 51966000000,
+      "option": {
+        "id": 1,
+        "action": "item_counter",
+        "partner": "npc_c",
+        "give": {
+          "果実": 1
+        },
+        "receive": {
+          "加工ドングリ": 3
+        },
+        "give_objects": [],
+        "receive_objects": []
+      },
+      "reason": "果実は自分にとって比較的美味しいがストックに余裕があり、加工ドングリは好みでないものの非常食として利用価値はある。果実1つで加工ドングリ3つは悪くない条件に見えるので、他者と交換を試みる経験を積む。"
+    },
+    {
+      "event": "self_selected",
+      "us": 51968000000,
+      "option": {
+        "id": 1,
+        "action": "item_decline",
+        "partner": "npc_c",
+        "give": {
+          "果実": 1
+        },
+        "receive": {
+          "加工ドングリ": 2
+        },
+        "give_objects": [],
+        "receive_objects": []
+      },
+      "reason": "加工ドングリは自分にとってlikingがかなり低く、2つとの交換では魅力を感じないため、今回は断る。"
+    },
+    {
+      "event": "self_selected",
+      "us": 69180000000,
+      "option": {
+        "id": 1,
+        "action": "continue",
+        "partner": null,
+        "give": null,
+        "receive": null,
+        "give_objects": [],
+        "receive_objects": []
+      },
+      "reason": "reserve・strain・damageともに問題なく、急いで交換などをする必要がない。選択肢を観察しつつ現状維持する。"
+    },
+    {
+      "event": "self_selected",
+      "us": 69244000000,
+      "option": {
+        "id": 16,
+        "action": "item_offer",
+        "partner": "npc_d",
+        "give": {
+          "果実": 1
+        },
+        "receive": {
+          "塩焼き魚": 1
+        },
+        "give_objects": [],
+        "receive_objects": []
+      },
+      "reason": "塩焼き魚はこれまでの経験で非常に美味しく、満足度が高かったため、果実1つとの交換は良い機会だと判断した。自身のreserveも十分あるため、ストックの果実を活用する価値があると考えた。"
+    },
+    {
+      "event": "self_selected",
+      "us": 69246000000,
+      "option": {
+        "id": 1,
+        "action": "item_counter",
+        "partner": "npc_d",
+        "give": {
+          "果実": 1
+        },
+        "receive": {
+          "果実": 1
+        },
+        "give_objects": [],
+        "receive_objects": []
+      },
+      "reason": "選択肢1は果実1つ同士の交換提案であり、損も得もなく負担が少ないため、相手の反応傾向や他者との交渉パターン把握の経験として有用。果実は自分の好みも悪くなく在庫にも余裕がある。失うリスクが小さい。"
+    }
+  ],
+  "cap_hits": 0
+}

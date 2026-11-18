@@ -1,5 +1,11 @@
 # 数値設定の配置と意味
 
+2026-11-18: `configured_paths/api_trade_agent.jl` の `CONFIGURED_API_AGENT` は
+局所API個体実験専用（通常OFF）。１日12回／全24回、観測保持128件、自己メモ2000文字、
+出力700token。費用・入力長を制限する暫定値で、認知の学習結果ではない。
+３日実食教育＋２日交流、応答中の世界停止、上限時の継続／拒否を含む条件は
+`experiments/simple_language/API_AGENT.md` に記載。
+
 2026-11-11: `experiments/lw_wildlife/humans_learned_predators.jl` の
 `integrated_ecology_setup` は人間接続比較用の世界条件（兎150、地上捕食者1、草1.5、栄養1.0）。
 第8引数trueのみで有効。既存の生態系実験値を再使用し、通常の判断に追加しない。
