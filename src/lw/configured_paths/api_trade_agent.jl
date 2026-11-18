@@ -21,7 +21,20 @@ end
 # Scarcity controls replenishment only. All actors retain the normal independent
 # aid request and visual aid routes; enabling them does not force an aid action.
 configured_api_aid_allowed()=true
-const CONFIGURED_API_FOODS=("果実","肉","生ドングリ","加工ドングリ","生魚","腐敗食料","焼き魚","塩焼き魚")
+# 暫定固定: initial body education and opaque names for this local experiment.
+# Names teach reference only, never taste/utility; replace with witnessed naming later.
+const CONFIGURED_API_FOODS=("ネポ","ザク","リム","トセ","ワヌ","ヘキ","ソラフ","パネ")
+const CONFIGURED_API_FORMS=("形カ","形ソ","形ヌ","形レ","形ホ","形ミ","形テ","形ユ")
+const CONFIGURED_API_BODY_LESSON="身体の初期知識：reserveは身体のエネルギー残量、strainは疲労、damageは損傷。食べ物は消化されて時間差で身体へ供給される。食べた直後のreserveが同じでも食事が無効とはいえない。活動と時間経過でエネルギーを使う。休息は疲労を軽減するが食事の代わりではない。在庫と身体の蓄えは別で、在庫ゼロでも即座に倒れるわけではない。最初の３日は品目の呼称・外見・実食の感覚を結びつける教育期間。味の良し悪しや他者の好みは教わっておらず経験から考える。"
+function configured_api_input(context)
+    # Projection only: keep world IDs and other actors' semantics unchanged.
+    text=JSON3.write(context)
+    for (label,kind) in (("加工ドングリ",4),("生ドングリ",3),("塩焼き魚",8),("焼き魚",7),("腐敗食料",6),("生魚",5),("果実",1),("肉",2),
+                         ("fruit-form",1),("acorn-form",3),("meal-form",4),("fish-form",8))
+        text=replace(text,label=>(endswith(label,"-form") ? CONFIGURED_API_FORMS[kind] : CONFIGURED_API_FOODS[kind]))
+    end
+    text
+end
 const CONFIGURED_API_HISTORY=Any[]
 const CONFIGURED_API_CALLS=Dict{Int,Int}()
 const CONFIGURED_API_MEMORY=Ref("")
@@ -56,7 +69,7 @@ function configured_api_diary!(day,now,body,stock,notices)
         own_trade_notices=own_notices,remembered=CONFIGURED_API_MEMORY[])
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=700,
         instructions="あなたは個体Eです。今日は終わりました。本人が観測・体験したことだけを材料に、日本語で短い日記を書いてください。感想、相手への印象、未知の言葉の仮説、明日の意図も自由に。自分の推測と経験を区別し、未観測の相手の内心や成功を創作しないこと。自分の既存メモも誤り得ます。日記本文のみ。",
-        input=JSON3.write(context))
+        input=configured_api_input((initial_knowledge=CONFIGURED_API_BODY_LESSON,experience=context)))
     write(joinpath(OUTPUT,"diary-request-$day.json"),JSON3.write(payload))
     buffer=IOBuffer();started=time()
     response=Downloads.request("https://api.openai.com/v1/responses";method="POST",
@@ -78,6 +91,10 @@ function configured_api_record!(record)
 end
 function configured_api_meal!(actor,kind,liking,now,before,after)
     actor==CONFIGURED_API_AGENT.actor || return
+    if now<3*17_280_000_000
+        configured_api_record!((event="naming_lesson",us=now,name=CONFIGURED_API_FOODS[kind],
+            appearance=CONFIGURED_API_FORMS[kind],instruction="この外見の品目をこの呼称で呼ぶ。味は自分で食べて確かめる。"))
+    end
     configured_api_record!((event="self_ate",us=now,food=CONFIGURED_API_FOODS[kind],experienced_liking=liking,
         own_reserve_before=before,own_reserve_after=after))
 end
@@ -126,7 +143,7 @@ function configured_api_choose!(loop,candidates,source,state,view,body,stock,now
     instructions*=" さらにJSONにspeechとgestureを含める。speechは自由な発話（黙るなら空文字）、gestureはnone/present/release/withdrawから自由に一つ選ぶ。言葉は相手が理解するとは限らず、ジェスチャーだけで物品は移動しない。発話と行動の候補は別。speechは短く、日記は他者には見えません。"
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=CONFIGURED_API_AGENT.output_tokens,
         text=(format=(type="json_object",),),instructions= instructions,
-        input=JSON3.write((format_request="Return JSON with choice, reason, memory.",observation=context)))
+        input=configured_api_input((format_request="Return JSON with choice, reason, memory.",initial_knowledge=CONFIGURED_API_BODY_LESSON,observation=context)))
     number=sum(values(CONFIGURED_API_CALLS);init=0)+1
     write(joinpath(OUTPUT,"api-request-$(number).json"),JSON3.write(payload))
     buffer=IOBuffer();started=time()

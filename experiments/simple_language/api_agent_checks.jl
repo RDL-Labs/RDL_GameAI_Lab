@@ -9,18 +9,18 @@ end
         "MB"=>"PRIVATE_SENTINEL","priority"=>999.,"expected"=>999.)
     offer=Dict("id"=>"x","give_food"=>[0,0,0,0,0,0,0,2],"want_food"=>[1,0,0,0,0,0,0,0],"give_items"=>Int[],"want_items"=>Int[])
     projected=configured_api_option(candidate,Dict("incoming"=>[offer]),1)
-    @test projected.give==Dict("果実"=>1)
-    @test projected.receive==Dict("塩焼き魚"=>2)
+    @test projected.give==Dict("ネポ"=>1)
+    @test projected.receive==Dict("パネ"=>2)
     @test !occursin("PRIVATE_SENTINEL",JSON3.write(projected))
     @test !occursin("expected",JSON3.write(projected))
     configured_api_meal!("npc_a",1,.8,1,80.,80.)
     @test isempty(CONFIGURED_API_HISTORY)
     configured_api_meal!("npc_e",1,.8,1,80.,80.)
-    @test length(CONFIGURED_API_HISTORY)==1
+    @test length(CONFIGURED_API_HISTORY)==2
     configured_api_public!("npc_e",nothing,nothing,2)
-    @test length(CONFIGURED_API_HISTORY)==1
+    @test length(CONFIGURED_API_HISTORY)==2
     configured_api_public!("npc_a",(text="秘密",motion=nothing,appearances=[]),nothing,2)
-    @test length(CONFIGURED_API_HISTORY)==1
+    @test length(CONFIGURED_API_HISTORY)==2
 end
 @testset "Budget diagnostics are not experienced" begin
     before=length(CONFIGURED_API_HISTORY)
@@ -52,4 +52,17 @@ end
     decoded=JSON3.read(JSON3.write(supply))
     @test configured_api_supply(decoded,3;scarce=true)["npc_e"]["quantity"]==0
     @test configured_api_supply(decoded,2;scarce=true)["npc_a"]["quantity"]==2
+end
+
+@testset "Opaque food and body education" begin
+    @test length(unique(CONFIGURED_API_FOODS))==8
+    encoded=configured_api_input((stock=Dict("塩焼き魚"=>1),seen=["fruit-form","meal-form"],lesson=CONFIGURED_API_BODY_LESSON))
+    @test !occursin("塩焼き魚",encoded)
+    @test !occursin("fruit-form",encoded)
+    @test occursin("パネ",encoded) && occursin("形カ",encoded)
+    @test occursin("時間差",encoded)
+    before=length(CONFIGURED_API_HISTORY)
+    configured_api_meal!("npc_e",4,.3,4*17_280_000_000,70.,70.)
+    @test length(CONFIGURED_API_HISTORY)==before+1
+    @test CONFIGURED_API_HISTORY[end].food=="トセ"
 end
