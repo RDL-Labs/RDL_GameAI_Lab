@@ -1,0 +1,63 @@
+{
+  "days": 5,
+  "seconds": 277.7421851,
+  "diary_days": [
+    4,
+    5
+  ],
+  "speech": 24,
+  "gestures": 0,
+  "peer_MB": [
+    {
+      "actor": "npc_a",
+      "all_utterance_receipts": 12,
+      "nodes": 12,
+      "E_utterances": 11,
+      "E_recognized": 0,
+      "E_unknown": 11,
+      "E_with_objects": 0,
+      "old_relationship_equal_except_new_MB": true,
+      "actions_equal": true
+    },
+    {
+      "actor": "npc_b",
+      "all_utterance_receipts": 3,
+      "nodes": 3,
+      "E_utterances": 2,
+      "E_recognized": 2,
+      "E_unknown": 0,
+      "E_with_objects": 2,
+      "old_relationship_equal_except_new_MB": true,
+      "actions_equal": true
+    },
+    {
+      "actor": "npc_c",
+      "all_utterance_receipts": 4,
+      "nodes": 3,
+      "E_utterances": 1,
+      "E_recognized": 0,
+      "E_unknown": 1,
+      "E_with_objects": 0,
+      "old_relationship_equal_except_new_MB": true,
+      "actions_equal": true
+    },
+    {
+      "actor": "npc_d",
+      "all_utterance_receipts": 5,
+      "nodes": 4,
+      "E_utterances": 2,
+      "E_recognized": 2,
+      "E_unknown": 0,
+      "E_with_objects": 2,
+      "old_relationship_equal_except_new_MB": true,
+      "actions_equal": true
+    }
+  ],
+  "E_body": {
+    "rule": "layered-body-human-scale-v1",
+    "strain": 0.0,
+    "damage": 0.0,
+    "burst": 10.0,
+    "reserve": 85.57907407394931
+  }
+}

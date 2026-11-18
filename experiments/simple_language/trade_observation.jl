@@ -17,9 +17,12 @@ function observe_trade_event(w,observer,yaw,event;attending=true)
     heard=w.hearing[observer] && hypot(origin[1]-position[1],origin[2]-position[2])<=TRADE_OBSERVATION.hearing_radius
     seen=event.actor in visible
     (!heard && !seen) && return nothing
-    (id=event.id,text=heard ? event.text : "",motion=seen ? event.motion : nothing,
+    observation=(id=event.id,text=heard ? event.text : "",motion=seen ? event.motion : nothing,
      appearances=seen ? copy(event.appearances) : String[])
+    receive_observed_utterance!(w,observer,yaw,event,observation)
 end
+
+include("utterance_context.jl")
 
 function learn_observed_words!(memory,observation)
     observation===nothing && return false

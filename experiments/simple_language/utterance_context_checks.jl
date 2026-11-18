@@ -1,6 +1,5 @@
 include("../portable_items/checks.jl")
 include("trade_observation.jl")
-include("utterance_context.jl")
 @testset "All utterances bind perceived context without semantic oracle" begin
     f=item_fixture(objects=[placed_item(1,1;x=0.,z=2.),placed_item(2,2;x=1.,z=2.),placed_item(3,3;x=0.,z=-3.)])
     f.w.positions[ITEM_A]=(0.,2.);f.w.positions[ITEM_B]=(1.,2.);f.w.positions[ITEM_C]=(0.,0.)
@@ -41,4 +40,36 @@ include("utterance_context.jl")
         unknown_speaker_retained=unseen.speaker===nothing,language_prediction=observed_word_prediction(words,"ネポ"),
         existing_relationship_unchanged=all(relation[k]==v for (k,v) in baseline))
     write(joinpath(@__DIR__,"utterance_context_result.json"),JSON3.write(report))
+end
+include("role_probe.jl")
+include("trade_channels.jl")
+include("voice_broadcast.jl")
+@testset "Live common receiver hooks" begin
+    f=item_fixture(objects=[placed_item(1,1;x=0.,z=2.)])
+    f.w.positions[ITEM_A]=(0.,2.);f.w.positions[ITEM_B]=(1.,2.);f.w.positions[ITEM_C]=(0.,0.)
+    relations=Dict(a=>LW.social_relations_state(a;relational=true) for a in LW.IDS)
+    memories=Dict(a=>TradeChannelObserver() for a in LW.IDS)
+    yaw=Dict(a=>0. for a in LW.IDS)
+    bind_utterance_context!(relations,memories,f.s,ITEM_HOME,10,yaw)
+    try
+        for (i,role) in enumerate((:attention,:initiative,:response))
+            event=(id="live-$i",actor=ITEM_A,role=role,text="ネポ",motion=nothing,appearances=String[])
+            observed=role_public_observation(f.w,ITEM_C,0.,event)
+            @test observed.speaker==ITEM_A
+            @test haskey(relations[ITEM_C]["utterance_mb"]["receipts"],event.id)
+            learn_observed_words!(memories[ITEM_C].words,observed)
+        end
+        @test observed_word_prediction(memories[ITEM_C].words,"ネポ").samples==3
+        voice_observation(f.w,ITEM_A,ITEM_C,"呼びかけ";attending=true,event_id="broadcast-1")
+        broadcast_voice(f.w,ITEM_A,"返答";attention=Dict(ITEM_C=>true),event_id="reply-1")
+        @test length(relations[ITEM_C]["utterance_mb"]["receipts"])==5
+        @test !haskey(relations[ITEM_B],"utterance_mb")
+        path=tempname();serialize(path,relations)
+        restored=deserialize(path)
+        bind_utterance_context!(restored,memories,f.s,ITEM_HOME,10,yaw)
+        voice_observation(f.w,ITEM_A,ITEM_C,"呼びかけ";attending=true,event_id="broadcast-1")
+        @test length(restored[ITEM_C]["utterance_mb"]["receipts"])==5
+    finally
+        UTTERANCE_LIVE_CONTEXT[]=nothing
+    end
 end

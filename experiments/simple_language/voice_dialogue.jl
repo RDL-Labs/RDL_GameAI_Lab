@@ -48,7 +48,7 @@ function voice_listener_step!(world,listener,mind,event;now_us=event.start_us,re
    mind.yaw=cue.bearing
    # Only the remaining live utterance can be heard after orienting. No retroactive text.
    listen_us=now_us+VOICE_DIALOGUE.orient_us
-   words=listen_us<event.start_us+event.duration_us ? voice_observation(world,event.source,listener,event.text;volume=event.volume,attending=true) : nothing
+   words=listen_us<event.start_us+event.duration_us ? voice_observation(world,event.source,listener,event.text;volume=event.volume,attending=true,event_id=event.id) : nothing
    matches=words===nothing ? [] : voice_word_matches(mind.vocabulary,words.text)
    known=filter(m->m.prediction.status=="provisional",matches)
    expected_interest=isempty(known) ? 0. : maximum(get(mind.interests,m.prediction.appearance,0.)*m.prediction.share for m in known)
@@ -68,7 +68,7 @@ end
 function voice_dialogue!(world,listeners,event)
  results=Dict(a=>voice_listener_step!(world,a,listeners[a],event) for a in sort(collect(keys(listeners))) if a!=event.source)
  # Reply emission is broadcast too. No automatic understanding or recursive reply loop.
- replies=Dict(a=>broadcast_voice(world,a,r.reply.text;volume=r.reply.volume,
+ replies=Dict(a=>broadcast_voice(world,a,r.reply.text;volume=r.reply.volume,event_id=r.reply.id,
   attention=Dict(event.source=>true)) for (a,r) in results if hasproperty(r,:reply) && r.reply!==nothing)
  (listeners=results,reply_reception=replies)
 end

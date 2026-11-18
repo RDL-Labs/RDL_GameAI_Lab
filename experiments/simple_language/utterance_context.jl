@@ -3,6 +3,9 @@
 # a true referent, speaker intention, favorable relationship or successful trade.
 function observe_utterance_context(w,observer,yaw,event,now;attending=true,items=nothing,home=(0.,0.))
     heard=observe_trade_event(w,observer,yaw,event;attending)
+    project_utterance_context(w,observer,yaw,event,now,heard;items,home)
+end
+function project_utterance_context(w,observer,yaw,event,now,heard;items=nothing,home=(0.,0.))
     (heard===nothing || isempty(strip(heard.text))) && return nothing
     sight=LW.social_sight(w,observer,yaw,now;illumination=1.)
     speaker=any(p->p["ref"]==event.actor,sight["peers"]) ? event.actor : nothing
@@ -11,7 +14,24 @@ function observe_utterance_context(w,observer,yaw,event,now;attending=true,items
     objects=[Dict(k=>deepcopy(row[k]) for k in ("ref","color","size","light_source") if haskey(row,k)) for row in rows]
     forms=[JSON3.write((color=get(row,"color",nothing),size=get(row,"size",nothing),light_source=get(row,"light_source",nothing))) for row in objects]
     (id=String(event.id),us=now,text=String(heard.text),speaker=speaker,
-        motion=heard.motion,objects=objects,appearances=unique(vcat(String.(heard.appearances),forms)))
+        motion=hasproperty(heard,:motion) ? heard.motion : nothing,objects=objects,
+        appearances=unique(vcat(hasproperty(heard,:appearances) ? String.(heard.appearances) : String[],forms)))
+end
+
+# Live bindings point at the simulation's existing per-owner dictionaries.
+# Only the binding is transient; the actual MB is checkpointed in relations.
+const UTTERANCE_LIVE_CONTEXT=Ref{Any}(nothing)
+function bind_utterance_context!(relations,memories,items,home,now,yaw)
+    UTTERANCE_LIVE_CONTEXT[]=(;relations,memories,items,home,now,yaw)
+end
+function receive_observed_utterance!(w,observer,yaw,event,heard)
+    ctx=UTTERANCE_LIVE_CONTEXT[]
+    (ctx===nothing || ctx.relations===nothing || !haskey(ctx.relations,observer)) && return heard
+    observed=project_utterance_context(w,observer,yaw,event,ctx.now,heard;items=ctx.items,home=ctx.home)
+    observed===nothing && return heard
+    remember_utterance_context!(ctx.relations[observer],ctx.memories[observer].words,observed)
+    # Preserve sensory-specific fields (strength, words_available, transfers).
+    merge(heard,observed)
 end
 
 function remember_utterance_context!(relation,vocabulary,observed)

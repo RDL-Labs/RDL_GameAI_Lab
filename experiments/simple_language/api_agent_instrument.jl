@@ -46,6 +46,9 @@ api_text=replace(api_text,aid_transfer_marker=>"                action==\"give\"
 execution_marker="            plan=plans[a];action=plan[\"action\"];"
 @assert length(findall(execution_marker,api_text))==1
 api_text=replace(api_text,execution_marker=>"            configured_api_continue_expression!(a,w,yaw,thinking_ids,now)\n"*execution_marker)
+binding_marker="        trade_views=trades===nothing"
+@assert length(findall(binding_marker,api_text))==1
+api_text=replace(api_text,binding_marker=>"        bind_utterance_context!(relations,CHANNEL_MEMORIES,items,spec.home,now,yaw)\n"*binding_marker)
 diary_marker="            checkpoint_dir!==nothing && checkpoint_save"
 @assert length(findall(diary_marker,api_text))==1
 api_text=replace(api_text,diary_marker=>"            configured_api_diary!(length(daily),now,w.bodies[\"npc_e\"],foods.personal[\"npc_e\"],items[\"notices\"][\"npc_e\"])\n"*diary_marker)

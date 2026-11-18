@@ -134,7 +134,7 @@ function configured_want_tick!(voice,w,yaw,thinking,foods,relations,roster,now)
    push!(pending["delivered"],reply.peer)
    configured_want_record!(voice,"reply",reply.peer,now;caller,interested=reply.interested)
    reply.interested || continue
-   cue=voice_observation(w,reply.peer,caller,reply.event.text;volume=reply.event.volume,attending=true)
+   cue=voice_observation(w,reply.peer,caller,reply.event.text;volume=reply.event.volume,attending=true,event_id=reply.event.id)
    cue===nothing && continue
    yaw[caller]=cue.bearing
    memory=get!(()->configured_peer_identity_memory(caller,roster),relations[caller],"identity_observation")

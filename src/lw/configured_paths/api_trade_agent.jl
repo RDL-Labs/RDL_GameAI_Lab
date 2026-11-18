@@ -125,6 +125,8 @@ function configured_api_public!(observer,observation,scene,now)
         text=observation===nothing ? nothing : observation.text,
         gesture=observation===nothing ? nothing : observation.motion,
         appearances=observation===nothing ? nothing : observation.appearances,
+        observed_speaker=observation===nothing || !hasproperty(observation,:speaker) ? nothing : observation.speaker,
+        observed_objects=observation===nothing || !hasproperty(observation,:objects) ? Any[] : observation.objects,
         transfers=observation===nothing || !hasproperty(observation,:transfers) ? Any[] : observation.transfers,scene=scene))
 end
 function configured_api_option(candidate,view,index)
