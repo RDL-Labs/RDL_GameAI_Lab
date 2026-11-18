@@ -110,7 +110,14 @@ function configured_api_diary!(day,now,body,stock,notices)
         input=IOBuffer(JSON3.write(payload)),output=buffer,timeout=120)
     raw=String(take!(buffer));write(joinpath(OUTPUT,"diary-response-$day.json"),raw)
     response.status==200 || error("diary API HTTP $(response.status)")
-    result=JSON3.read(raw);result.status=="completed" || error("incomplete diary")
+    result=JSON3.read(raw)
+    if !configured_api_diary_complete(result)
+        # Operator diagnostic only: truncated diaries are not completed experiences.
+        diagnostic=(event="diary_unavailable",day=day,status=result.status,
+            details=get(result,:incomplete_details,nothing),elapsed_seconds=time()-started)
+        open(joinpath(OUTPUT,"api-events.jsonl"),"a") do io;println(io,JSON3.write(diagnostic));end
+        return nothing
+    end
     diary=join([String(c.text) for o in result.output if o.type=="message" for c in o.content if c.type=="output_text"],"\n")
     write(joinpath(OUTPUT,"diary-$day.md"),diary)
     configured_api_record!((event="private_diary",day=day,us=now,text=diary,elapsed_seconds=time()-started))
@@ -207,3 +214,5 @@ function configured_api_choose!(loop,candidates,source,state,view,body,stock,now
     plan["selection_mode"]="configured_api"
     plan
 end
+
+configured_api_diary_complete(result)=get(result,:status,nothing)=="completed"

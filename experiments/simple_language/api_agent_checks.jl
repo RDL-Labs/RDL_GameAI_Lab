@@ -103,3 +103,7 @@ end
     @test deserialize(joinpath(output,"reserve-zero-state.bin")).state[:sentinel]==17
     @test JSON3.read(read(joinpath(output,"stopped.json"),String)).biological_death==false
 end
+@testset "Incomplete diary remains diagnostic" begin
+    @test configured_api_diary_complete(JSON3.read("{\"status\":\"completed\"}"))
+    @test !configured_api_diary_complete(JSON3.read("{\"status\":\"incomplete\"}"))
+end
