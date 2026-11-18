@@ -10,10 +10,14 @@ ispath(LLM_OUTPUT) && error("fresh output required")
 haskey(ENV,"OPENAI_API_KEY") || error("API key missing")
 mkpath(LLM_OUTPUT)
 const LLM_MODEL="gpt-4.1-mini"
+const LLM_VECTORS=get(ENV,"RDL_LLM_VECTORS","0")=="1"
 const LLM_FOOD_NAMES=("果実","肉","生ドングリ","加工ドングリ","生魚","腐敗食料","焼き魚","塩焼き魚")
 food_terms(xs)=Dict(LLM_FOOD_NAMES[k]=>n for (k,n) in enumerate(xs) if n>0)
 function render_utterance(context,history)
  instructions="あなたはゲーム個体の発話翻訳器です。MBが決めた今回の行動と提示条件だけを短い日本語1～2文にしてください。giveは自分が渡す物、wantは相手から受け取る物。数量を変えない。counterは逆提案、acceptは承諾、declineは拒否です。入力にない感情、理由、約束、相手の内心を足さない。過去の会話は参考のみで今回の条件を優先。発話だけを出力。"
+ if LLM_VECTORS
+  instructions*=" 各ベクトルの軸と数値から本人の文脈を解釈し、必要なら短い理由を含めて自然に発話してください。定型の理由文は与えません。nullは未観測で0とは違います。初期評価を実際に食べた記憶と取り違えない。正の利益は好意や援助とは限りません。数値そのものは読み上げず、誰が何を渡すかを明確にしてください。"
+ end
  payload=JSON3.write((model=LLM_MODEL,store=false,max_output_tokens=220,instructions,
      input=JSON3.write((context,history))))
  output=IOBuffer();started=time()
@@ -25,6 +29,25 @@ function render_utterance(context,history)
  result.status=="completed" || error("incomplete API response")
  utterance=join([String(c.text) for o in result.output if o.type=="message" for c in o.content if c.type=="output_text"],"\n")
  (text=utterance,usage=result.usage,elapsed_seconds=time()-started)
+end
+function mb_vectors(plan,stock,context)
+ food_rows=Any[]
+ for k in eachindex(stock)
+  name=LLM_FOOD_NAMES[k];give=get(context["give"],name,0);want=get(context["want"],name,0)
+  give+want>0 || continue
+  weight=plan["weights"][k]
+  delta=weight*(log1p(stock[k]-give+want)-log1p(stock[k]))
+  push!(food_rows,(object=name,vector=[stock[k],give,want,weight,delta,nothing],source="plan.weights and owner stock; initial valuation, no tasting history in this fixture"))
+ end
+ gradient=get(plan,"compound_gradient",Dict())
+ axes=["material","security","aid","relationship","waste_relief","cost","total","need_before","need_after"]
+ (food_axes=["own_count","give_count","receive_count","subjective_weight","quantity_utility_delta","experienced_taste"],
+  food_axis_meaning="counts are items; weight is subjective utility, not measured deliciousness; delta>0 is beneficial, delta<0 is loss; no normalization across unrelated axes",
+  foods=food_rows,trade_axes=axes,trade_vector=[get(gradient,k,nothing) for k in axes],
+  trade_axis_meaning="first six components add to total; positive supports transaction, negative resists; need_before/after are predicted food deficits, 0 means no deficit, not unknown",
+  evidence=get(plan,"exchange_evidence",nothing),expected=get(plan,"expected",nothing),
+  relation_profile=get(plan,"trace",nothing)===nothing ? nothing : get(plan["trace"],"profile",nothing),
+  note="Only the acting individual's estimates. Missing relationship history must not be invented; prior/default values are not experienced facts.")
 end
 function run_local()
  f=item_fixture(objects=Any[],food_counts=[[20,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,20],zeros(Int,8)],scene=(configured_negotiation=true,))
@@ -48,6 +71,7 @@ function run_local()
    offer=f.s["offers"][plan["offer_id"]]
    context["give"]=food_terms(offer["want_food"]);context["want"]=food_terms(offer["give_food"])
   end
+  LLM_VECTORS && (context["mb_vectors"]=mb_vectors(plan,f.foods.personal[actor],context))
   generated=render_utterance(context,history)
   receipt=reply_trade_execute!(f,actor,states[actor],relations[actor],plan,now)
   push!(history,(speaker=actor,text=generated.text))
@@ -59,6 +83,6 @@ function run_local()
  end
  @test item_checks(f)===nothing
  @test sum(sum(v) for v in values(initial))==sum(sum(v) for v in values(f.foods.personal))
- write(joinpath(LLM_OUTPUT,"completed.json"),JSON3.write((calls=length(records),initial,final=f.foods.personal,counts=f.s["counts"],mode="MB decision with LLM rendering only")))
+ write(joinpath(LLM_OUTPUT,"completed.json"),JSON3.write((calls=length(records),initial,final=f.foods.personal,counts=f.s["counts"],vectors=LLM_VECTORS,mode="MB decision with LLM rendering only")))
 end
 run_local()
