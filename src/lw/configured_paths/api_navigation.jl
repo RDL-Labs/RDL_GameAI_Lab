@@ -21,7 +21,7 @@ function configured_api_navigation!(actor,loop,candidates,source,body,stock,now,
     actor==CONFIGURED_API_AGENT.actor || return choose_method!(loop,candidates,source)
     options=deepcopy(candidates)
     for c in options;c["api_movement"]=configured_api_nav_projection(c,yaw);end
-    wait=Dict{String,Any}("action"=>"rest","method"=>"api_navigation_wait","priority"=>0.)
+    wait=Dict{String,Any}("action"=>"rest","method"=>"api_navigation_wait","priority"=>0.,"question"=>"rested")
     push!(options,wait)
     if now<get(CONFIGURED_API_NAV,"next_us",0)
         method=get(CONFIGURED_API_NAV,"method","")
