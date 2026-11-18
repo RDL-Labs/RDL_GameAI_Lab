@@ -1,0 +1,55 @@
+{
+  "days": 5,
+  "E_body": {
+    "rule": "layered-body-human-scale-v1",
+    "strain": 0.0,
+    "damage": 0.0,
+    "burst": 10.0,
+    "reserve": 85.57907407394931
+  },
+  "E_actions": {
+    "request": 43,
+    "rest": 86220,
+    "eat": 6,
+    "process_food": 120,
+    "retrieve": 5,
+    "scan": 6
+  },
+  "aid_outcomes": {
+    "npc_b": {
+      "given": 1,
+      "no_response_observed": 13,
+      "refuse": 0,
+      "request_not_executed": 0,
+      "unobserved": 0
+    },
+    "npc_a": {
+      "given": 0,
+      "no_response_observed": 10,
+      "refuse": 1,
+      "request_not_executed": 0,
+      "unobserved": 0
+    },
+    "npc_d": {
+      "given": 0,
+      "no_response_observed": 8,
+      "refuse": 0,
+      "request_not_executed": 0,
+      "unobserved": 0
+    },
+    "npc_c": {
+      "given": 0,
+      "no_response_observed": 10,
+      "refuse": 0,
+      "request_not_executed": 0,
+      "unobserved": 0
+    }
+  },
+  "decisions": 24,
+  "diaries": [
+    "diary-4.md",
+    "diary-5.md"
+  ],
+  "speech": 0,
+  "gestures": 0
+}

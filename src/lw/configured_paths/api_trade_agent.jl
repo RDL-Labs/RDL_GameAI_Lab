@@ -6,6 +6,10 @@ using Downloads
 const CONFIGURED_API_AGENT=(actor="npc_e",model="gpt-4.1-2025-04-14",calls_per_day=12,
     total_calls=parse(Int,get(ENV,"RDL_API_TOTAL_CALLS","24")),output_tokens=700,history_limit=128,memory_chars=2000)
 const CONFIGURED_API_SCARCE=get(ENV,"RDL_API_SCARCE","0")=="1"
+# 暫定固定: three naming/tasting days; diary starts after education to reduce calls.
+const CONFIGURED_API_EDUCATION_DAYS=3
+configured_api_diary_due(day)=day>CONFIGURED_API_EDUCATION_DAYS
+const CONFIGURED_API_SURVIVAL_LESSON="行動不能と死亡についての初期知識：この実験の人間モデルではreserveが0以下になると認知と通常行動が停止する。自分で食べる・要求する・取引する通常判断もできなくなるので、0になる前の食料確保が重要。これは行動不能であり、不可逆な死亡を確定する判定はこの人間モデルにはない。strainが1以上、またはdamageが1以上では歩行・加工などの身体動作が制限されるが、それ自体も死亡判定ではない。休むだけではreserveは補充されない。まだ消化中の食物などからreserveが正に戻れば停止条件から外れるが、他者の援助や回復を保証はできない。"
 # 暫定固定: scarce local experiment only. E gets one actual tasting portion per
 # education day, then no replenishment. Others retain their normal supply.
 # Initial fruit=2 is set in the runner. Remove this world intervention to revert.
@@ -14,7 +18,7 @@ function configured_api_supply(supply,day;scarce=CONFIGURED_API_SCARCE)
     copied=Dict(String(actor)=>Dict(String(k)=>v for (k,v) in pairs(row)) for (actor,row) in pairs(supply))
     for (actor,row) in pairs(copied)
         String(actor)==CONFIGURED_API_AGENT.actor || continue
-        row["quantity"]=day<3 ? 1 : 0
+        row["quantity"]=day<CONFIGURED_API_EDUCATION_DAYS ? 1 : 0
     end
     copied
 end
@@ -63,13 +67,14 @@ function configured_api_continue_expression!(actor,w,yaw,thinking,now)
     end
 end
 function configured_api_diary!(day,now,body,stock,notices)
+    configured_api_diary_due(day) || return
     own_notices=[Dict(k=>get(n,k,nothing) for k in ("status","reason","us")) for n in notices]
     context=(day=day,own_body=(reserve=body.reserve,strain=body.strain,damage=body.damage),
         own_stock=configured_api_foods(stock),observations=copy(CONFIGURED_API_HISTORY),
         own_trade_notices=own_notices,remembered=CONFIGURED_API_MEMORY[])
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=700,
         instructions="あなたは個体Eです。今日は終わりました。本人が観測・体験したことだけを材料に、日本語で短い日記を書いてください。感想、相手への印象、未知の言葉の仮説、明日の意図も自由に。自分の推測と経験を区別し、未観測の相手の内心や成功を創作しないこと。自分の既存メモも誤り得ます。日記本文のみ。",
-        input=configured_api_input((initial_knowledge=CONFIGURED_API_BODY_LESSON,experience=context)))
+        input=configured_api_input((initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON),experience=context)))
     write(joinpath(OUTPUT,"diary-request-$day.json"),JSON3.write(payload))
     buffer=IOBuffer();started=time()
     response=Downloads.request("https://api.openai.com/v1/responses";method="POST",
@@ -91,7 +96,7 @@ function configured_api_record!(record)
 end
 function configured_api_meal!(actor,kind,liking,now,before,after)
     actor==CONFIGURED_API_AGENT.actor || return
-    if now<3*17_280_000_000
+    if now<CONFIGURED_API_EDUCATION_DAYS*17_280_000_000
         configured_api_record!((event="naming_lesson",us=now,name=CONFIGURED_API_FOODS[kind],
             appearance=CONFIGURED_API_FORMS[kind],instruction="この外見の品目をこの呼称で呼ぶ。味は自分で食べて確かめる。"))
     end
@@ -143,7 +148,7 @@ function configured_api_choose!(loop,candidates,source,state,view,body,stock,now
     instructions*=" さらにJSONにspeechとgestureを含める。speechは自由な発話（黙るなら空文字）、gestureはnone/present/release/withdrawから自由に一つ選ぶ。言葉は相手が理解するとは限らず、ジェスチャーだけで物品は移動しない。発話と行動の候補は別。speechは短く、日記は他者には見えません。"
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=CONFIGURED_API_AGENT.output_tokens,
         text=(format=(type="json_object",),),instructions= instructions,
-        input=configured_api_input((format_request="Return JSON with choice, reason, memory.",initial_knowledge=CONFIGURED_API_BODY_LESSON,observation=context)))
+        input=configured_api_input((format_request="Return JSON with choice, reason, memory.",initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON),observation=context)))
     number=sum(values(CONFIGURED_API_CALLS);init=0)+1
     write(joinpath(OUTPUT,"api-request-$(number).json"),JSON3.write(payload))
     buffer=IOBuffer();started=time()

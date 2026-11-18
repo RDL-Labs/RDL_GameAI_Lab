@@ -3,7 +3,7 @@
 2026-11-18: `configured_paths/api_trade_agent.jl` の `CONFIGURED_API_AGENT` は
 局所API個体実験専用（通常OFF）。１日12回／全24回、観測保持128件、自己メモ2000文字、
 出力700token。費用・入力長を制限する暫定値で、認知の学習結果ではない。
-自由表現版は日末の日記700tokenを別枠で1日1回追加。合計判断上限は12×交流日数。
+自由表現版は教育後の日末の日記700tokenを別枠で1日1回追加。`CONFIGURED_API_EDUCATION_DAYS=3`の教育期間は日記なし（5日試験は2回）。合計判断上限は12×交流日数。
 scarce局所条件はE初期果実2個・教育3日各1個・教育後補充0。独立援助要求・視覚援助は全員ON（既存判断を使用、成立の強制なし）。
 ３日実食教育＋２日交流、応答中の世界停止、上限時の継続／拒否を含む条件は
 `experiments/simple_language/API_AGENT.md` に記載。
@@ -1038,4 +1038,3 @@ volume=1、wait_scan=0度。発話長はWANT_FISHの3秒、1日1回の要求機�
 RDL_WANT_VOICE=1のcohort実験だけ有効、通常OFF。最初の認識済み返答を選ぶ。
 発話の時刻・語句・注意yaw・fineρ・待機は将来の共通候補に置換予定。
 RDL_COHORT_DAYSは区間日数、既定20。詳細は `experiments/simple_language/WANT_COHORT.md`。
-

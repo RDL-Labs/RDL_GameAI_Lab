@@ -66,3 +66,14 @@ end
     @test length(CONFIGURED_API_HISTORY)==before+1
     @test CONFIGURED_API_HISTORY[end].food=="トセ"
 end
+@testset "Collapse lesson and post-education diary" begin
+    include("../../src/lw/configured_paths/collapse_gate.jl")
+    @test configured_collapse_active((reserve=0.,))
+    @test !configured_collapse_active((reserve=0.001,))
+    @test !configured_collapse_active((reserve=0.,);enabled=false)
+    @test !any(configured_api_diary_due,1:3)
+    @test all(configured_api_diary_due,4:5)
+    @test configured_api_diary!(3,0,nothing,nothing,nothing)===nothing
+    @test !isfile(joinpath(OUTPUT,"diary-request-3.json"))
+    @test occursin("不可逆な死亡を確定する判定はこの人間モデルにはない",CONFIGURED_API_SURVIVAL_LESSON)
+end
