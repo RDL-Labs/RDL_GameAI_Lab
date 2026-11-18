@@ -1,4 +1,24 @@
 cp(joinpath(HERE,"../../src/lw/configured_paths/api_trade_agent.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/api_trade_agent.jl"))
+if API_EXPLORATION
+    standard=JSON3.read(read(API_STANDARD_INPUT,String),Dict{String,Any})
+    for key in ("food","regrowth_days","regrowth_capacity","ground")
+        haskey(standard["config"],key) && (input["config"][key]=standard["config"][key])
+    end
+    initial_stock=Int(first(standard["scene"]["initial_personal_stock"]))
+    input["scene"]["initial_personal_stock"]=fill(initial_stock,5)
+    for actor in input["scene"]["experimental_actor_ids"]
+        input["scene"]["initial_personal_food_counts"][actor]=[initial_stock,0,0,0,0,0,0,0]
+    end
+    # Keep the tested communication/identity setup; restore standard world resources.
+    for key in ("food","ground_patches","food_season","obstacles","low_obstacles","landscape","food_facilities","visual_landmarks","home")
+        haskey(standard["scene"],key) && (input["scene"][key]=deepcopy(standard["scene"][key]))
+    end
+    input["scene"]["configured_trade_living"]=false
+    input["scene"]["name"]="API exploration: standard resources, no daily supply"
+    # Education portions only; no replenishment after the three tasting days.
+    for row in values(input["scene"]["personal_food_supply"]);row["quantity"]=1;end
+    write(joinpath(OUTPUT,"input.json"),JSON3.write(input))
+end
 for (i,actor) in enumerate(input["scene"]["experimental_actor_ids"])
     @assert sum(input["scene"]["initial_personal_food_counts"][actor])==input["scene"]["initial_personal_stock"][i]
 end
@@ -12,6 +32,20 @@ api_text=replace(api_text,"        isempty(candidates) && return nothing"=>"    
 write(api_path,replace(api_text,"plan=choose_method!(loop,candidates,source)"=>"plan=configured_api_choose!(loop,candidates,source,state,view,body,stock,now)"))
 api_day=joinpath(OUTPUT,"source/src/lw/simulation/day.jl")
 api_text=read(api_day,String)
+if API_EXPLORATION
+    supply_marker="            replenished+=configured_personal_food_supply!"
+    @assert length(findall(supply_marker,api_text))==1
+    api_text=replace(api_text,supply_marker=>"            day>=3 && (personal_supply=nothing)\n"*supply_marker)
+    nav_marker="                            plan=choose_method!(s,candidates,source)"
+    @assert length(findall(nav_marker,api_text))==1
+    api_text=replace(api_text,nav_marker=>"                            plan=configured_api_navigation!(a,s,candidates,source,w.bodies[a],foods.personal[a],now,yaw[a],landmarks===nothing ? nothing : landmarks[a])")
+    result_marker="            counts[a][action]=get(counts[a],action,0)+1"
+    @assert length(findall(result_marker,api_text))==1
+    api_text=replace(api_text,result_marker=>"            configured_api_nav_result!(a,action,status,now)\n"*result_marker)
+    # E uses the explicit API continuation, not the independent gradient-roll choice.
+    api_text=replace(api_text,"if get(spec,:gradient_roll,false) &&"=>"if a!=\"npc_e\" && get(spec,:gradient_roll,false) &&")
+    cp(joinpath(HERE,"../../src/lw/configured_paths/api_navigation.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/api_navigation.jl"))
+end
 stop_marker="        advance_physiology!(w,metabolism,guts,food_body)"
 @assert length(findall(stop_marker,api_text))==1
 api_text=replace(api_text,stop_marker=>"        configured_api_check_stop!(w.bodies[\"npc_e\"],now+1_000_000,()->@lw_capture();phase=\"after_actions\")\n"*stop_marker*"\n        configured_api_check_stop!(w.bodies[\"npc_e\"],now+1_000_000,()->@lw_capture();phase=\"after_physiology\")")
@@ -67,3 +101,4 @@ marker="        if status==\"offered\""
 @assert length(findall(marker,api_text))==1
 write(api_channels,replace(api_text,marker=>"        configured_api_public!(observer,observation,scene,now)\n"*marker))
 include(joinpath(OUTPUT,"source/src/lw/configured_paths/api_trade_agent.jl"))
+API_EXPLORATION && include(joinpath(OUTPUT,"source/src/lw/configured_paths/api_navigation.jl"))

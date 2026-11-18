@@ -16,7 +16,7 @@ function configured_api_check_stop!(body,now,capture;output=OUTPUT,phase="tick")
     write(joinpath(output,"stopped.json"),JSON3.write((reason="E_reserve_zero",actor="npc_e",us=now,phase=phase,reserve=body.reserve,biological_death=false)))
     throw(ConfiguredAPIReserveStop(Int(now)))
 end
-const CONFIGURED_API_AGENT=(actor="npc_e",model="gpt-4.1-2025-04-14",calls_per_day=12,
+const CONFIGURED_API_AGENT=(actor="npc_e",model="gpt-4.1-2025-04-14",calls_per_day=parse(Int,get(ENV,"RDL_API_DAILY_CALLS","12")),
     total_calls=parse(Int,get(ENV,"RDL_API_TOTAL_CALLS","24")),output_tokens=700,history_limit=128,memory_chars=2000)
 const CONFIGURED_API_SCARCE=get(ENV,"RDL_API_SCARCE","0")=="1"
 # 暫定固定: three naming/tasting days; diary starts after education to reduce calls.
@@ -163,7 +163,8 @@ function configured_api_option(candidate,view,index)
         give=terms===nothing ? nothing : configured_api_foods(terms["give_food"]),
         receive=terms===nothing ? nothing : configured_api_foods(terms["want_food"]),
         give_objects=terms===nothing ? Int[] : terms["give_items"],
-        receive_objects=terms===nothing ? Int[] : terms["want_items"])
+        receive_objects=terms===nothing ? Int[] : terms["want_items"],
+        movement=get(candidate,"api_movement",nothing))
 end
 function configured_api_choose!(loop,candidates,source,state,view,body,stock,now)
     state["actor"]==CONFIGURED_API_AGENT.actor || return choose_method!(loop,candidates,source)
@@ -181,9 +182,10 @@ function configured_api_choose!(loop,candidates,source,state,view,body,stock,now
         own_body=(reserve=body.reserve,strain=body.strain,damage=body.damage),
         own_stock=stock===nothing ? nothing : configured_api_foods(stock),
         observations=copy(CONFIGURED_API_HISTORY),own_trade_notices=notices,
-        remembered=CONFIGURED_API_MEMORY[],options=[configured_api_option(c,view,i) for (i,c) in enumerate(ordered)])
+        remembered=CONFIGURED_API_MEMORY[],navigation=get(view,"navigation",nothing),options=[configured_api_option(c,view,i) for (i,c) in enumerate(ordered)])
     instructions="あなたは世界内の個体Eです。自分の観測・身体感覚・所持品・過去の経験だけが届きます。他者の内心や世界の評価式は知りません。生活し、体験から学び、他者と関わってください。初期教育は実際に食べた結果として与えます。未知の語句や動作の意味は観測から仮説を持てますが確定しないでください。自分のreserveはエネルギー残量、strainは疲労、damageは損傷です。味の数値はそのとき自分が感じたものです。optionsは操作候補で価値順ではありません。giveは自分から渡す、receiveは自分が受け取る物。item_offer提示,item_counter逆提案,item_accept承諾,item_decline拒否,continue継続。提示だけでは物は動かず相手の承諾が必要です。候補IDを一つ選びJSONのみで返してください: {\"choice\":整数,\"reason\":短い理由,\"memory\":次回保持する経験と未確定の仮説}。隠れた出来事を創作しない。memoryは2000文字以内。"
     instructions*=" JSONにはchoice, speech, gesture, reason, memoryの５欄を必ず含めてください。speechは短く。"*CONFIGURED_API_INPUT_LESSON
+    haskey(view,"navigation") && (instructions*=" 移動の選択です。movementのrelative_degreesは現在向きからの旋回角、walkは歩く、scanは見回す、restは休む。観測と候補だけを頼りに選んでください。次の確認まで選択した進み方を継続しますが、実行可能候補から消えれば待機します。自動食料補充はありません。")
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=CONFIGURED_API_AGENT.output_tokens,
         text=(format=(type="json_object",),),instructions= instructions,
         input=configured_api_input((format_request="Return JSON with choice, speech, gesture, reason, memory.",input_fields=configured_api_input_fields(),initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON,CONFIGURED_API_INPUT_LESSON),observation=context)))

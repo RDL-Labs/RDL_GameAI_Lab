@@ -1038,3 +1038,9 @@ volume=1、wait_scan=0度。発話長はWANT_FISHの3秒、1日1回の要求機�
 RDL_WANT_VOICE=1のcohort実験だけ有効、通常OFF。最初の認識済み返答を選ぶ。
 発話の時刻・語句・注意yaw・fineρ・待機は将来の共通候補に置換予定。
 RDL_COHORT_DAYSは区間日数、既定20。詳細は `experiments/simple_language/WANT_COHORT.md`。
+
+### API探索の暫定設定（2026-11-18）
+`src/lw/configured_paths/api_navigation.jl` の `CONFIGURED_API_NAV_INTERVAL_US=600_000_000` は
+API探索実験だけの再判断・行動結果集計間隔。600秒、自然認知の閾値ではない。
+`RDL_API_DAILY_CALLS` 既定12、探索ランナー96。総上限は教育後日数×日上限。
+上限後の移動待機は実験費用制御。通常LWではこのモジュールを読み込まない。

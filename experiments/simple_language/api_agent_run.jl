@@ -1,13 +1,17 @@
 # Local fresh five-day run: three tasting days + two interaction days, A-D MB, E API.
 using JSON3
-2<=length(ARGS)<=4 || error("usage: api_agent_run.jl BASE NEW_OUTPUT [DAYS=5] [supplied|scarce]")
+2<=length(ARGS)<=5 || error("usage: api_agent_run.jl BASE NEW_OUTPUT [DAYS=5] [supplied|scarce|exploration] [STANDARD_INPUT]")
 const API_BASE=abspath(ARGS[1]); const API_OUTPUT=abspath(ARGS[2])
 const API_DAYS=length(ARGS)>=3 ? parse(Int,ARGS[3]) : 5
 API_DAYS>=4 || error("at least three education days and one interaction day")
 const API_SCARCE=length(ARGS)>=4 && ARGS[4]=="scarce"
-length(ARGS)<4 || ARGS[4] in ("supplied","scarce") || error("unknown supply condition")
+const API_EXPLORATION=length(ARGS)>=4 && ARGS[4]=="exploration"
+API_EXPLORATION && length(ARGS)!=5 && error("exploration requires STANDARD_INPUT")
+const API_STANDARD_INPUT=API_EXPLORATION ? abspath(ARGS[5]) : ""
+length(ARGS)<4 || ARGS[4] in ("supplied","scarce","exploration") || error("unknown supply condition")
 ENV["RDL_API_SCARCE"]=API_SCARCE ? "1" : "0"
-ENV["RDL_API_TOTAL_CALLS"]=string(12*(API_DAYS-3))
+ENV["RDL_API_DAILY_CALLS"]=API_EXPLORATION ? "96" : "12"
+ENV["RDL_API_TOTAL_CALLS"]=string((API_EXPLORATION ? 96 : 12)*(API_DAYS-3))
 ispath(API_OUTPUT) && error("fresh output required")
 if !haskey(ENV,"OPENAI_API_KEY")
     ENV["OPENAI_API_KEY"]=strip(read(`powershell -NoProfile -Command "[Environment]::GetEnvironmentVariable('OPENAI_API_KEY','User')"`,String))
