@@ -17,6 +17,10 @@ if API_EXPLORATION
     input["scene"]["name"]="API exploration: standard resources, no daily supply"
     # Education portions only; no replenishment after the three tasting days.
     for row in values(input["scene"]["personal_food_supply"]);row["quantity"]=1;end
+    if API_FIELD_TRAINING
+        include(joinpath(HERE,"api_field_training_instrument.jl"))
+        api_field_training_input!(input)
+    end
     write(joinpath(OUTPUT,"input.json"),JSON3.write(input))
 end
 for (i,actor) in enumerate(input["scene"]["experimental_actor_ids"])
@@ -89,7 +93,13 @@ api_text=replace(api_text,binding_marker=>"        bind_utterance_context!(relat
 diary_marker="            checkpoint_dir!==nothing && checkpoint_save"
 @assert length(findall(diary_marker,api_text))==1
 api_text=replace(api_text,diary_marker=>"            configured_api_diary!(length(daily),now,w.bodies[\"npc_e\"],foods.personal[\"npc_e\"],items[\"notices\"][\"npc_e\"])\n"*diary_marker)
-write(api_day,replace(api_text,marker=>marker*"\n                    configured_api_meal!(a,actual_kind,liking,now,premeal.reserve,w.bodies[a].reserve)"))
+if API_FIELD_TRAINING
+    daily_marker="            configured_api_diary!(length(daily),now,"
+    api_text=replace(api_text,daily_marker=>"            configured_api_training_report!(mb_maps,length(daily),now)\n"*daily_marker)
+end
+api_text=replace(api_text,marker=>marker*"\n                    configured_api_meal!(a,actual_kind,liking,now,premeal.reserve,w.bodies[a].reserve)")
+API_FIELD_TRAINING && (api_text=api_field_training_instrument(api_text))
+write(api_day,api_text)
 api_channels=joinpath(OUTPUT,"communication/trade_channels.jl")
 api_text=read(api_channels,String)
 event_marker="    for (observer,settings) in observers"
@@ -102,3 +112,7 @@ marker="        if status==\"offered\""
 write(api_channels,replace(api_text,marker=>"        configured_api_public!(observer,observation,scene,now)\n"*marker))
 include(joinpath(OUTPUT,"source/src/lw/configured_paths/api_trade_agent.jl"))
 API_EXPLORATION && include(joinpath(OUTPUT,"source/src/lw/configured_paths/api_navigation.jl"))
+if API_FIELD_TRAINING
+    cp(joinpath(HERE,"../../src/lw/configured_paths/api_field_training.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/api_field_training.jl"))
+    include(joinpath(OUTPUT,"source/src/lw/configured_paths/api_field_training.jl"))
+end
