@@ -1,0 +1,28 @@
+{
+  "days": 5,
+  "seconds": 279.4959638,
+  "decisions": 24,
+  "speech": 24,
+  "gestures": 4,
+  "heard_records": 16,
+  "E_body": {
+    "rule": "layered-body-human-scale-v1",
+    "strain": 0.0,
+    "damage": 0.0,
+    "burst": 10.0,
+    "reserve": 85.57907407394931
+  },
+  "E_actions": {
+    "request": 43,
+    "rest": 86220,
+    "eat": 6,
+    "process_food": 120,
+    "retrieve": 5,
+    "scan": 6
+  },
+  "diaries": [
+    "diary-4.md",
+    "diary-5.md"
+  ],
+  "transfer_detail_in_run": false
+}

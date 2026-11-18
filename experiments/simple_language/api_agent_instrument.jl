@@ -39,6 +39,10 @@ if !occursin("task_trade_notice!",api_text)
 end
 marker="                    eaten_kind=actual_kind;meal_liking=liking"
 @assert length(findall(marker,api_text))==1
+# Explicit local public handover display, only after actual aid transfer succeeds.
+aid_transfer_marker="                if relations!==nothing && action in (\"give\",\"refuse\")"
+@assert length(findall(aid_transfer_marker,api_text))==1
+api_text=replace(api_text,aid_transfer_marker=>"                action==\"give\" && status==\"transferred\" && configured_api_aid_transfer!(w,yaw,thinking_ids,a,get(plan,\"target\",nothing),delivered_kind,now)\n"*aid_transfer_marker)
 execution_marker="            plan=plans[a];action=plan[\"action\"];"
 @assert length(findall(execution_marker,api_text))==1
 api_text=replace(api_text,execution_marker=>"            configured_api_continue_expression!(a,w,yaw,thinking_ids,now)\n"*execution_marker)

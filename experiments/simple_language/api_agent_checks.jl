@@ -77,3 +77,19 @@ end
     @test !isfile(joinpath(OUTPUT,"diary-request-3.json"))
     @test occursin("不可逆な死亡を確定する判定はこの人間モデルにはない",CONFIGURED_API_SURVIVAL_LESSON)
 end
+@testset "Independent expression input fields" begin
+    fields=configured_api_input_fields()
+    @test fields.speech.available
+    @test fields.speech.available_with_continue
+    @test fields.gesture.available_with_continue
+    @test fields.gesture.choices==CONFIGURED_API_GESTURES
+    @test fields.speech.empty_means=="沈黙"
+    @test occursin("発言禁止ではない",CONFIGURED_API_INPUT_LESSON)
+end
+@testset "Transfer projection to E" begin
+    observed=(text="",motion=nothing,appearances=String[],transfers=[(from_visible_ref="npc_a",to_visible_ref="npc_b",appearance="meal-form",quantity=1)])
+    configured_api_public!("npc_e",observed,"object-transferred",999)
+    @test CONFIGURED_API_HISTORY[end].transfers==observed.transfers
+    @test occursin("形レ",configured_api_input(CONFIGURED_API_HISTORY[end]))
+    @test !occursin("meal-form",configured_api_input(CONFIGURED_API_HISTORY[end]))
+end

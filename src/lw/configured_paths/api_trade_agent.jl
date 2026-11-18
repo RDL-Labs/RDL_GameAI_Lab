@@ -44,6 +44,21 @@ const CONFIGURED_API_CALLS=Dict{Int,Int}()
 const CONFIGURED_API_MEMORY=Ref("")
 const CONFIGURED_API_EXPRESSIONS=Dict{Int,Any}()
 const CONFIGURED_API_GESTURES=("none","present","release","withdraw")
+# Local API interface explanation, not a command to speak or a learned motive.
+const CONFIGURED_API_INPUT_LESSON="入力欄は独立しています。①choice欄：身体・取引操作をoptionsのIDから選ぶ。continueは操作を変更しない意味で、発言禁止ではない。②speech欄：自由な文字入力欄。ここに書いた文字は周囲へ声として送られる。optionsがcontinueだけでも入力でき、話すための候補や許可を別に待つ必要はない。空文字なら沈黙。何を話すか、黙るかは自分で決める。③gesture欄：none/present/release/withdrawから独立して選ぶ。声や動作が相手に届くかは観測条件により、理解・返答・受け渡しは保証されない。発言やジェスチャーだけで所有物は移動しない。reasonとmemoryは私的記録で相手には届かない。"
+configured_api_input_fields()=(choice=(kind="操作候補ID",source="options"),
+    speech=(kind="自由文字入力",available=true,available_with_continue=true,empty_means="沈黙"),
+    gesture=(kind="独立した選択欄",choices=CONFIGURED_API_GESTURES,available_with_continue=true))
+function configured_api_aid_transfer!(w,yaw,thinking,actor,target,kind,now)
+    (target===nothing || kind===nothing) && return
+    amounts=zeros(Int,length(CONFIGURED_API_FOODS));amounts[kind]=1
+    displayed=Dict("proposer"=>actor,"target"=>target,"give_food"=>amounts,"want_food"=>zero(amounts))
+    observer=CONFIGURED_API_AGENT.actor
+    transfers=trade_visible_transfers(w,observer,yaw[observer],displayed,
+        Dict(k=>CONFIGURED_API_FORMS[k] for k in eachindex(CONFIGURED_API_FORMS));attending=observer in thinking)
+    isempty(transfers) && return
+    configured_api_public!(observer,(text="",motion=nothing,appearances=String[],transfers=transfers),"object-transferred",now)
+end
 function configured_api_expression(event,now)
     event.actor==CONFIGURED_API_AGENT.actor || return event
     expression=pop!(CONFIGURED_API_EXPRESSIONS,Int(now),nothing)
@@ -74,7 +89,7 @@ function configured_api_diary!(day,now,body,stock,notices)
         own_trade_notices=own_notices,remembered=CONFIGURED_API_MEMORY[])
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=700,
         instructions="あなたは個体Eです。今日は終わりました。本人が観測・体験したことだけを材料に、日本語で短い日記を書いてください。感想、相手への印象、未知の言葉の仮説、明日の意図も自由に。自分の推測と経験を区別し、未観測の相手の内心や成功を創作しないこと。自分の既存メモも誤り得ます。日記本文のみ。",
-        input=configured_api_input((initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON),experience=context)))
+        input=configured_api_input((initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON,CONFIGURED_API_INPUT_LESSON),experience=context)))
     write(joinpath(OUTPUT,"diary-request-$day.json"),JSON3.write(payload))
     buffer=IOBuffer();started=time()
     response=Downloads.request("https://api.openai.com/v1/responses";method="POST",
@@ -109,7 +124,8 @@ function configured_api_public!(observer,observation,scene,now)
     configured_api_record!((event="perceived",us=now,
         text=observation===nothing ? nothing : observation.text,
         gesture=observation===nothing ? nothing : observation.motion,
-        appearances=observation===nothing ? nothing : observation.appearances,scene=scene))
+        appearances=observation===nothing ? nothing : observation.appearances,
+        transfers=observation===nothing || !hasproperty(observation,:transfers) ? Any[] : observation.transfers,scene=scene))
 end
 function configured_api_option(candidate,view,index)
     terms=get(candidate,"terms",nothing)
@@ -145,10 +161,10 @@ function configured_api_choose!(loop,candidates,source,state,view,body,stock,now
         observations=copy(CONFIGURED_API_HISTORY),own_trade_notices=notices,
         remembered=CONFIGURED_API_MEMORY[],options=[configured_api_option(c,view,i) for (i,c) in enumerate(ordered)])
     instructions="あなたは世界内の個体Eです。自分の観測・身体感覚・所持品・過去の経験だけが届きます。他者の内心や世界の評価式は知りません。生活し、体験から学び、他者と関わってください。初期教育は実際に食べた結果として与えます。未知の語句や動作の意味は観測から仮説を持てますが確定しないでください。自分のreserveはエネルギー残量、strainは疲労、damageは損傷です。味の数値はそのとき自分が感じたものです。optionsは操作候補で価値順ではありません。giveは自分から渡す、receiveは自分が受け取る物。item_offer提示,item_counter逆提案,item_accept承諾,item_decline拒否,continue継続。提示だけでは物は動かず相手の承諾が必要です。候補IDを一つ選びJSONのみで返してください: {\"choice\":整数,\"reason\":短い理由,\"memory\":次回保持する経験と未確定の仮説}。隠れた出来事を創作しない。memoryは2000文字以内。"
-    instructions*=" さらにJSONにspeechとgestureを含める。speechは自由な発話（黙るなら空文字）、gestureはnone/present/release/withdrawから自由に一つ選ぶ。言葉は相手が理解するとは限らず、ジェスチャーだけで物品は移動しない。発話と行動の候補は別。speechは短く、日記は他者には見えません。"
+    instructions*=" JSONにはchoice, speech, gesture, reason, memoryの５欄を必ず含めてください。speechは短く。"*CONFIGURED_API_INPUT_LESSON
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=CONFIGURED_API_AGENT.output_tokens,
         text=(format=(type="json_object",),),instructions= instructions,
-        input=configured_api_input((format_request="Return JSON with choice, reason, memory.",initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON),observation=context)))
+        input=configured_api_input((format_request="Return JSON with choice, speech, gesture, reason, memory.",input_fields=configured_api_input_fields(),initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON,CONFIGURED_API_INPUT_LESSON),observation=context)))
     number=sum(values(CONFIGURED_API_CALLS);init=0)+1
     write(joinpath(OUTPUT,"api-request-$(number).json"),JSON3.write(payload))
     buffer=IOBuffer();started=time()
