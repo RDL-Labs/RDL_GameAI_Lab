@@ -93,3 +93,13 @@ end
     @test occursin("形レ",configured_api_input(CONFIGURED_API_HISTORY[end]))
     @test !occursin("meal-form",configured_api_input(CONFIGURED_API_HISTORY[end]))
 end
+@testset "Reserve-zero stop preserves state" begin
+    output=mktempdir();captured=Ref(false)
+    capture=()->(captured[]=true;Dict(:sentinel=>17))
+    @test !configured_api_check_stop!((reserve=.001,),1,capture;output)
+    @test !captured[]
+    @test_throws ConfiguredAPIReserveStop configured_api_check_stop!((reserve=0.,),2,capture;output)
+    @test captured[]
+    @test deserialize(joinpath(output,"reserve-zero-state.bin")).state[:sentinel]==17
+    @test JSON3.read(read(joinpath(output,"stopped.json"),String)).biological_death==false
+end

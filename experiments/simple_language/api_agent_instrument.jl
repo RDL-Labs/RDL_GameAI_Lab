@@ -12,6 +12,9 @@ api_text=replace(api_text,"        isempty(candidates) && return nothing"=>"    
 write(api_path,replace(api_text,"plan=choose_method!(loop,candidates,source)"=>"plan=configured_api_choose!(loop,candidates,source,state,view,body,stock,now)"))
 api_day=joinpath(OUTPUT,"source/src/lw/simulation/day.jl")
 api_text=read(api_day,String)
+stop_marker="        advance_physiology!(w,metabolism,guts,food_body)"
+@assert length(findall(stop_marker,api_text))==1
+api_text=replace(api_text,stop_marker=>"        configured_api_check_stop!(w.bodies[\"npc_e\"],now+1_000_000,()->@lw_capture();phase=\"after_actions\")\n"*stop_marker*"\n        configured_api_check_stop!(w.bodies[\"npc_e\"],now+1_000_000,()->@lw_capture();phase=\"after_physiology\")")
 if API_SCARCE
     supply_marker="            replenished+=configured_personal_food_supply!"
     @assert length(findall(supply_marker,api_text))==1

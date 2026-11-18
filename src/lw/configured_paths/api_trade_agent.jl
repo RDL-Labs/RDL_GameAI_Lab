@@ -3,6 +3,19 @@
 # Three actual tasting days precede trade. World pauses during API calls.
 # Replace daily cap/candidate gate with autonomous attention/production later.
 using Downloads
+using Serialization
+# 暫定固定: user-requested experiment termination, not biological death.
+# Check after actions and physiology; preserve forensic state, no forced recovery.
+struct ConfiguredAPIReserveStop <: Exception
+    us::Int
+end
+function configured_api_check_stop!(body,now,capture;output=OUTPUT,phase="tick")
+    body.reserve>0 && return false
+    state=capture()
+    serialize(joinpath(output,"reserve-zero-state.bin"),(format="api-reserve-stop-v1",us=now,phase=phase,state=state))
+    write(joinpath(output,"stopped.json"),JSON3.write((reason="E_reserve_zero",actor="npc_e",us=now,phase=phase,reserve=body.reserve,biological_death=false)))
+    throw(ConfiguredAPIReserveStop(Int(now)))
+end
 const CONFIGURED_API_AGENT=(actor="npc_e",model="gpt-4.1-2025-04-14",calls_per_day=12,
     total_calls=parse(Int,get(ENV,"RDL_API_TOTAL_CALLS","24")),output_tokens=700,history_limit=128,memory_chars=2000)
 const CONFIGURED_API_SCARCE=get(ENV,"RDL_API_SCARCE","0")=="1"

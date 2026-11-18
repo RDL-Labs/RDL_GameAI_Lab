@@ -207,3 +207,15 @@ B/Dの2件は可視の白い小物32個（世界側では岩塩）とも共起�
 内部状態全体やRNGの完全一致までは調べていない。発言はAPI非決定的なので効果の厳密な対照試験ではない。
 Eの最終reserve85.5791、strain/damage0。相手側MB変化の集計は`api_context_mb5_summary.json`。
 援助・取引の移動詳細フックも接続したが、Eの可視条件を満たす移動詳細記録は今回0件。
+
+## 30日上限・E reserveゼロで停止
+
+API局所実験は行動処理後と生理更新後にEのreserve<=0を検査し、到達したtickで停止する。
+これはユーザー指定の終了条件で、生物学的死亡ではない。正の間は状態コピーを実行しない。
+停止時はreserve-zero-state.binへ@lw_captureの状態を単一グラフとして保存し、stopped.jsonへ時刻と段階を記録。
+途中停止専用のcompleted.jsonにはstatus=stopped、requested_days、completed_full_days、elapsed_daysを記録。
+日末未到達分を完了日として水増しせず、通常のrun/result.jsonが生成されたとは扱わない。
+保存は調査用のtick途中状態であり、通常の日末checkpointとして直接再開できる形式ではない。
+上限到達時は従来の日別検査とcompleted.jsonを使う。API局所57項目PASS（停止6項目を追加）。
+30日条件：初期状態から、教育3日＋交流27日、教育中日記なし、援助ON、E教育後補充0。
+判断APIは1日12回・最大324回、日記最大27回。共通発言MB・可視受け渡しを維持。

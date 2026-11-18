@@ -25,5 +25,18 @@ marker="include(joinpath(OUTPUT,\"source/integrations/lightweight_julia/native.j
 @assert length(findall(marker,runner))==1
 runner=replace(runner,marker=>injection*"\n"*marker)
 empty!(ARGS);append!(ARGS,["train",API_BASE,API_OUTPUT])
-include_string(Main,runner,joinpath(@__DIR__,"api_agent_generated.jl"))
+try
+    include_string(Main,runner,joinpath(@__DIR__,"api_agent_generated.jl"))
+catch failure
+    cause=failure
+    while cause isa LoadError;cause=cause.error;end
+    if isdefined(Main,:ConfiguredAPIReserveStop) && cause isa ConfiguredAPIReserveStop
+        write(joinpath(API_OUTPUT,"completed.json"),JSON3.write((status="stopped",reason="E_reserve_zero",requested_days=API_DAYS,
+            completed_full_days=div(cause.us,17_280_000_000),ended_us=cause.us,elapsed_days=cause.us/17_280_000_000,
+            state_file="reserve-zero-state.bin")))
+        println("API experiment stopped: E reserve zero at us=$(cause.us)")
+    else
+        rethrow()
+    end
+end
 write(joinpath(API_OUTPUT,"api-summary.json"),JSON3.write((calls=CONFIGURED_API_CALLS,memory=CONFIGURED_API_MEMORY[],actor=CONFIGURED_API_AGENT.actor,model=CONFIGURED_API_AGENT.model)))
