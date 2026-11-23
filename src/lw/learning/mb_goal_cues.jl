@@ -6,16 +6,22 @@ function mb_goal_cue_project!(s,candidates,pool,goal,H,now)
         D("offered"=>0,"selected"=>0,"by_goal"=>D(),"records"=>Any[],"cache"=>D())
     end
     cache=get(stats["cache"],goal,nothing)
+    goal_ref=goal=="food" ? get(get(get(s,"acquisition",D()),"choice",nothing)===nothing ? D() : s["acquisition"]["choice"],"ref",nothing) : nothing
     # Derived index only: 64-second refresh does not expire memories or forbid recall.
-    if cache===nothing || cache["credits"]!=s["chunk_goal_credits"] || now>=cache["refresh_us"]
-        cache=D("terminals"=>mb_channel_terminals(s,goal),"credits"=>s["chunk_goal_credits"],"refresh_us"=>now+64_000_000)
+    if cache===nothing || get(cache,"goal_ref",nothing)!=goal_ref || cache["credits"]!=s["chunk_goal_credits"] || now>=cache["refresh_us"]
+        cache=D("terminals"=>mb_channel_terminals(s,goal),"goal_ref"=>goal_ref,"credits"=>s["chunk_goal_credits"],"refresh_us"=>now+64_000_000)
         stats["cache"][goal]=cache
     end
     terminals=cache["terminals"];isempty(terminals) && return candidates
+    if goal=="food"
+        terminals=filter(pair->food_goal_matches(s,D("mb_chunk"=>last(pair).chunk)),terminals)
+        isempty(terminals) && return candidates
+    end
     # Derived purpose index is reused until the existing refresh/credit boundary.
     # Do not inspect every node's features merely to choose which node to inspect.
     ordered=get!(cache,"ordered_terminals") do
-        sort(collect(keys(terminals)),by=k->(-terminals[k].depth/(1+terminals[k].cost),k))
+        all_terminals=cache["terminals"]
+        sort(collect(keys(all_terminals)),by=k->(-all_terminals[k].depth/(1+all_terminals[k].cost),k))
     end
     cues=Dict(c["key"]=>c for c in pool.items)
     function usable(match)
@@ -30,7 +36,7 @@ function mb_goal_cue_project!(s,candidates,pool,goal,H,now)
         end
     end
     matches=mb_correspondences(s,keys(terminals),now;scope="goal_cue",H=H,
-        ordered_targets=ordered,usable=usable)
+        ordered_targets=filter(k->haskey(terminals,k),ordered),usable=usable)
     for p in candidates
         cue=get(cues,p["method"],nothing)
         (cue===nothing || cue["kind"]!="shape" || p["action"]!="walk") && continue

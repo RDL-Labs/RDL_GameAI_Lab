@@ -146,13 +146,13 @@ function mb_daily_evidence(s,move,reserve,strain,now)
     !isempty(visible) && return D("mode"=>"known_food","source"=>get(first(visible),"acquisition","pickup")=="fishing" ? "fishing_spot" : "visible","confidence"=>1.,
         "seconds"=>max(1.,selected===nothing ? mb_travel_seconds(first(visible)["distance"])+get(first(visible),"acquisition_seconds",1.) : get(selected,"acquire_seconds",selected["seconds"])),"candidate"=>nothing,"site_ref"=>get(first(visible),"ref",nothing))
     arrival=get(get(s,"goal_arrival",D()),"food",nothing)
-    if arrival!==nothing && arrival["mode"]=="approach"
+    if selected===nothing && arrival!==nothing && arrival["mode"]=="approach"
         e=arrival["estimate"]
         return D("mode"=>"known_food","source"=>"provisional_location","confidence"=>arrival["confidence"],
             "seconds"=>max(1.,mb_travel_seconds(hypot(e["forward"],e["right"]))+1),"candidate"=>nothing)
     end
     # Reuse the same uncertain chunk correspondence as ordinary navigation.
-    options=filter(p->!mb_food_site_empty(s,get(p,"food_ref",nothing)),mb_chunk_candidates!(s,move,"food",reserve,strain,now;H=0))
+    options=filter(p->!mb_food_site_empty(s,get(p,"food_ref",nothing)) && food_goal_matches(s,p),mb_chunk_candidates!(s,move,"food",reserve,strain,now;H=0))
     isempty(options) && return D("mode"=>"unknown_food","source"=>"no_usable_memory","confidence"=>0.,"seconds"=>128.,"candidate"=>nothing)
     p=first(options)
     D("mode"=>"known_food","source"=>"remembered_route","confidence"=>get(p,"mb_recognition_confidence",.5),

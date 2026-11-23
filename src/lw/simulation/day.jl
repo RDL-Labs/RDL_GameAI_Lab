@@ -722,11 +722,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             mb_simulation && mb_search_resistance_observe!(mb_maps[a],moves[a],landmarks[a],search_receipt,now;rho=get(rho_baselines,a,rho_profile))
             observing=configured_observation_enabled && now<clock.day_us
             food_targets=acorn_quest ? configured_acorn_quest_food_targets(mb_maps[a]["training_quest"],moves[a]["visible"]) : moves[a]["visible"]
-            if mb_simulation && fishing_enabled && !acorn_quest && !(fishing_training && configured_fishing_training_active(mb_maps[a]["fishing_training"]))
-                cast=get(get(foods.game.fishing,a,D()),"active",nothing)
+            if mb_simulation && !acorn_quest && !(fishing_training && configured_fishing_training_active(mb_maps[a]["fishing_training"]))
+                cast=foods===nothing ? nothing : get(get(foods.game.fishing,a,D()),"active",nothing)
                 committed=cast!==nothing && cast["last_us"]+1_000_000==now ? cast["site"]-1 : nothing
                 food_targets=acquisition_targets!(mb_maps[a],food_targets,loops[a]["food"],now;home=home,anxiety=food_anxiety(get(mb_maps[a],"food_security",nothing)),committed_ref=committed,
-                    body=w.bodies[a],gut=guts===nothing ? nothing : guts[a],own_stock=shared_stores ? foods.shared : foods.personal[a],held=foods.inventory[a])
+                    body=w.bodies[a],gut=guts===nothing ? nothing : guts[a],own_stock=foods===nothing ? nothing : shared_stores ? foods.shared : foods.personal[a],held=foods===nothing ? () : foods.inventory[a])
             end
             camp_view=configured_camp_landmark ? configured_camp_landmark_view(landmark_objects,w.positions[a],yaw[a];night=phase=="night") : nothing
             configured_camp_landmark && configured_camp_landmark_observe!(observation_states[a]["camp_landmark"],camp_view,home,observing,now)
@@ -1131,10 +1131,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                     append!(chunk_candidates,fresh)
                                 end
                                 mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,body_energy(w.bodies[a]),w.bodies[a].strain,now))
+                                food_goal_route_filter!(mb_maps[a],chunk_candidates,family)
                                 active=mb_maps[a]["routes"]["active"]
                                 filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"] || startswith(p["method"],"mb_route:"),chunk_candidates)
                                 if isempty(chunk_candidates)
                                     fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,body_energy(w.bodies[a]),w.bodies[a].strain,now)
+                                    food_goal_route_filter!(mb_maps[a],fresh,family)
                                     filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
                                     append!(candidates,fresh)
                                 else
@@ -1198,11 +1200,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                             mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))
                             mb_simulation && phase=="exploration" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,body_energy(w.bodies[a]),now))
                             mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
+                            mb_simulation && food_goal_navigation_filter!(mb_maps[a],candidates,family)
                             goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
                             goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
-                            mb_simulation && mb_search_resistance_project!(mb_maps[a],candidates,family,moves[a],now)
+                            # Food-source absence is evaluated before navigation in
+                            # acquisition_targets!; do not penalize mere passage here.
                             plan=choose_method!(s,candidates,source)
-                            mb_simulation && mb_search_resistance_selected!(mb_maps[a],plan,now)
                             if haskey(plan,"social_peer")
                                 stats=relations[a]["approach"];stats["selected"]+=1
                                 push!(stats["records"],D("us"=>now,"peer"=>plan["social_peer"],"method"=>plan["method"],

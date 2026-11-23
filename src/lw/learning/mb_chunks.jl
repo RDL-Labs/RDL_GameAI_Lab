@@ -91,6 +91,7 @@ function mb_channel_terminals(s,goal)
     s["chunks_enabled"] || return terminals
     for id in sort(collect(keys(s["chunks"])))
         c=s["chunks"][id];c["goal"]==goal && c["successes"]>0 || continue
+        goal=="food" && !food_goal_matches(s,D("mb_chunk"=>id)) && continue
         path=c["edges"];isempty(path) && continue
         all(k->haskey(s["edges"],k),path) || continue
         all(s["edges"][path[i]]["to"]==s["edges"][path[i+1]]["from"] for i in 1:length(path)-1) || continue
@@ -114,6 +115,7 @@ function mb_chunk_candidates!(s,move,goal,reserve,strain,now;H=0)
     entries=Dict{String,Vector{Tuple{String,Int}}}();strength=Dict{String,Float64}()
     for id in sort(collect(keys(s["chunks"])))
         c=s["chunks"][id];c["goal"]==goal || continue
+        goal=="food" && !food_goal_matches(s,D("mb_chunk"=>id)) && continue
         all(k->haskey(s["edges"],k),c["edges"]) || (mb_reject!(s,"chunk","missing_edge");continue)
         for (index,edge) in enumerate(c["edges"])
             origin=s["edges"][edge]["from"]

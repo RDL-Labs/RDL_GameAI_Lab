@@ -119,7 +119,7 @@ function mb_search(s,start,goal,now;max_depth=4,max_expansions=64,first_allowed=
         # Initially one item; subsequent insertions are sorted at the loop tail.
         item=popfirst!(queue);expanded+=1
         n=get(s["nodes"],item.node,nothing)
-        if !isempty(item.path) && n!==nothing && n[goal]
+        if !isempty(item.path) && n!==nothing && n[goal] && (goal!="food" || food_goal_node_matches(s,item.node))
             solution=(node=item.node,path=item.path,cost=item.cost,visited=item.visited);break
         end
         channel=terminals===nothing ? nothing : get(terminals,item.node,nothing)

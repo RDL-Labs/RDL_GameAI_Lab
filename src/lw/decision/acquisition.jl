@@ -2,6 +2,7 @@
 # Forecasts freeze per unresolved episode; need pressure is never learned as failure.
 include("../learning/action_trial.jl")
 include("../parameters.jl")
+include("food_goal.jl")
 acquisition_state()=D("sites"=>D(),"methods"=>D(),"choice"=>nothing,"next_us"=>0,"records"=>Any[],"active"=>nothing,"sequence"=>0,"trials"=>Any[])
 acquisition_key(method,site)=string(method,":",method=="explore" ? "unknown" : site)
 acquisition_episode(seconds)=D("forecast"=>max(1.,Float64(seconds)),"elapsed"=>0.,"H"=>0.,"completed"=>0)
@@ -113,6 +114,10 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
   choice["ref"]===nothing && return Any[]
   i=findfirst(v->v["ref"]==choice["ref"],visible)
   i!==nothing && return Any[visible[i]]
+  if get(choice,"source",nothing)=="memory"
+   availability=mb_food_availability(map,D("goal"=>"food","food_ref"=>choice["ref"]))
+   availability==choice["food_availability"] && return Any[]
+  end
  end
  if owned===nothing && own_stock!==nothing
   owned=copy(own_stock)
@@ -138,6 +143,21 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
    waste=max(0.,food_expected_waste(more,forecast)-food_expected_waste(owned,forecast))
   end
   push!(rows,D("method"=>string(method,":",v["ref"]),"priority"=>value.score-2waste,"expected_extra_waste"=>waste,"ref"=>v["ref"],"technique"=>method,"seconds"=>seconds,"acquire_seconds"=>acquire,"travel_seconds"=>travel,"work_seconds"=>work,"preparation_seconds"=>preparation,"uncertainty"=>uncertainty,"gradient"=>value))
+ end
+ # Recall sources before constructing a path. Multiple paths to one source do
+ # not create extra goal votes. The existing parent estimate is a rough prior.
+ remembered=food_goal_sources(map,visible)
+ if !isempty(remembered)
+  prior=mb_parent_estimate!(map,D(),"food",nothing;use_arrival=false)
+  for source in remembered
+   ref=source["ref"];seconds=Float64(prior["upper_actions"])
+   technique=haskey(s["sites"],acquisition_key("fishing",ref)) ? "fishing" : "pickup"
+   value=acquisition_value(map,technique,ref,seconds,1.,anxiety)
+   availability=mb_food_availability(map,D("goal"=>"food","food_ref"=>ref))
+   push!(rows,D("method"=>technique*":"*string(ref),"priority"=>value.score+log1p(source["strength"])+log(availability),
+    "ref"=>ref,"technique"=>technique,"source"=>"memory","seconds"=>seconds,"uncertainty"=>1.,
+    "food_availability"=>availability,"gradient"=>value))
+  end
  end
  # Searching remains a candidate even when an old opportunity is visible.
  search=mb_parent_estimate!(map,D(),"food",nothing;use_arrival=false)
