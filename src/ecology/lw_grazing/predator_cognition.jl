@@ -24,7 +24,7 @@ mutable struct PredatorMind
     records::Vector{Any}
     completed::Int
 end
-PredatorMind(i)=PredatorMind(LW.BasicLoop("predator:$i:maintain";probabilistic=true,seed=20261106+i),
+PredatorMind(i)=PredatorMind(LW.BasicLoop("predator:$i:maintain";h_mode=:legacy,probabilistic=true,seed=20261106+i),
     LW.D(),LW.D(),Dict{String,Float64}(),nothing,nothing,0.,0.,0.,0,Inf,Any[],0)
 function predator_remember_place!(mind,p,kind,t)
     rule=PREDATOR_COGNITION;body=p.visual.body

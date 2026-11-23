@@ -1,7 +1,7 @@
 # Forecasts describe required effort; available resources do not grow with them.
 function mb_plan_context!(s,now,day_us,reserve,metabolic_loss)
     s["parent_mb"]["resources"]=D("now"=>now,"deadline_us"=>(fld(now,day_us)+1)*day_us,
-        "reserve"=>max(0.,Float64(reserve)),"metabolic_rate"=>now>0 ? max(0.,metabolic_loss/(now/1e6)) : 0.)
+        "energy"=>max(0.,Float64(reserve)),"metabolic_rate"=>now>0 ? max(0.,metabolic_loss/(now/1e6)) : 0.)
 end
 function mb_plan_budget(s,e,goal)
     ctx=get(s["parent_mb"],"resources",nothing);ctx===nothing && return nothing
@@ -22,8 +22,8 @@ function mb_plan_budget(s,e,goal)
     seconds=max(1.,(deadline-ctx["now"])/1e6)
     energy=e["expected_energy"]+e["expected_actions"]*ctx["metabolic_rate"]
     time_gap=max(0.,e["expected_actions"]/seconds-1)
-    energy_gap=max(0.,energy/max(.01,ctx["reserve"])-1)
-    D("deadline_us"=>deadline,"available_seconds"=>seconds,"available_energy"=>ctx["reserve"],
+    energy_gap=max(0.,energy/max(.01,ctx["energy"])-1)
+    D("deadline_us"=>deadline,"available_seconds"=>seconds,"available_energy"=>ctx["energy"],
       "predicted_energy_with_metabolism"=>energy,"metabolic_rate"=>ctx["metabolic_rate"],
       "time_gap"=>time_gap,"energy_gap"=>energy_gap,"penalty"=>2log1p(time_gap)+2log1p(energy_gap))
 end
@@ -37,6 +37,6 @@ function mb_plan_pressure(s,a,now)
     late=max(0.,(now-budget["deadline_us"])/1e6)/max(1.,budget["available_seconds"])
     time_gap=log1p(max(0.,remaining/available-1))+late
     energy=max(0.,e["expected_energy"]-a["energy"])+remaining*ctx["metabolic_rate"]
-    energy_gap=log1p(max(0.,energy/max(.01,ctx["reserve"])-1))
+    energy_gap=log1p(max(0.,energy/max(.01,ctx["energy"])-1))
     max(mb_response(s,"delay",time_gap),mb_response(s,"energy",energy_gap))
 end

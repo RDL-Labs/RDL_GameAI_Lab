@@ -5,6 +5,23 @@ food_security_state()=D("H"=>0.,"required"=>1.,"shortfall"=>0.,"next_us"=>0,
     "last_us"=>nothing,"last_metabolism"=>0.,"rate"=>nothing,"samples"=>0,
     "estimate"=>nothing,"records"=>Any[],"attention"=>nothing,"requests"=>0)
 food_security(s)=s===nothing ? nothing : get(s,"food_security",nothing)
+food_sugar_forecast(body,state,seconds;uncertainty=0.)=nothing
+function food_sugar_forecast(body::RDLBody.HumanBody,state,seconds;uncertainty=0.)
+    p=RDLBody.MACRO_PARAMETERS;n=body.nutrients
+    duration=max(0.,Float64(seconds))*(1+max(0.,Float64(uncertainty)))
+    # 本人の実測消費。未学習時のみ現在の身体・活動から初期見込みを作る。
+    estimate=state===nothing ? nothing : get(state,"estimate",nothing)
+    initial=(p.basal_rate+p.tissue_maintenance_rate*n.tissue+p.activity_rate*body.activity)*body.hours_per_second
+    rate=estimate===nothing || get(estimate,"samples",0)==0 ? initial : max(eps(),estimate["metabolic_rate"])
+    gut_total=sum(n.gut)
+    pending=gut_total>0 ? n.gut[1]*min(1.,p.absorption_rate*body.hours_per_second*duration/gut_total) : 0.
+    available=max(0.,n.sugar)+pending
+    deficit=max(0.,rate*duration-available)
+    D("source"=>"sugar_and_digestible_carbohydrate","seconds"=>duration,"rate"=>rate,
+      "sugar"=>n.sugar,"pending_sugar"=>pending,"available"=>available,
+      "required"=>rate*duration,"deficit"=>deficit,"runway"=>available/max(eps(),rate),
+      "penalty"=>SUGAR_FORECAST_RULES.cost_gain*log1p(deficit/p.sugar_reference))
+end
 "Expressed anxiety is distinct from the raw shortage retained for planning."
 food_anxiety(s)=s===nothing ? 0. : FOOD_SECURITY_RULES.anxiety_gain*max(0.,get(s,"H",0.)/max(1.,get(s,"required",1.))-FOOD_SECURITY_RULES.anxiety_band)^FOOD_SECURITY_RULES.anxiety_power
 
@@ -24,12 +41,14 @@ function food_self_reliance(state,map,body)
             get(get(get(acquisition,"sites",D()),acquisition_key(technique,get(choice,"ref",nothing)),D()),"H",0.))
     end
     rate=max(eps(Float64),estimate["metabolic_rate"])
-    energy=max(0.,body.reserve-FOOD_SECURITY_RULES.reserve_floor)+get(state,"supplied",0.)*RDLBody.MEAL_ENERGY
+    energy=body_spendable(body,FOOD_SECURITY_RULES.reserve_floor)+get(state,"supplied",0.)*get(state,"meal_energy",RDLBody.MEAL_ENERGY)
     runway=energy/rate
     duration=max(1.,seconds*(1+uncertainty))
+    sugar_forecast=food_sugar_forecast(body,state,seconds;uncertainty)
+    sugar_forecast!==nothing && (runway=sugar_forecast["runway"])
     confidence=clamp(runway/duration,0.,1.)/(1+uncertainty+failure)
     D("confidence"=>confidence,"seconds"=>duration,"base_seconds"=>seconds,"runway"=>runway,
-        "uncertainty"=>uncertainty,"failure"=>failure)
+        "uncertainty"=>uncertainty,"failure"=>failure,"sugar_forecast"=>sugar_forecast)
 end
 function food_request_ready(state,now)
     state!==nothing && (food_anxiety(state)>0 || get(state,"body_shortfall",0.)>0) && now>=get(state,"next_request_us",0)
@@ -41,11 +60,19 @@ function food_request_considered!(state,now)
     true
 end
 
+# Provisioning uses immediately held sugar, not emergency fat/tissue reserves.
+# Human food_self_reliance also uses the sugar forecast; legacy Body retains
+# body_spendable. This changes planning, not metabolism or nutrient absorption.
+food_security_buffer(body)=body_spendable(body,FOOD_SECURITY_RULES.reserve_floor)
+food_security_buffer(body::RDLBody.HumanBody)=max(0.,body.nutrients.sugar)
+
 function food_security_update!(state,map,body,gut,stock,kinds,metabolic_loss,now,day_us;target=nothing)
     day_seconds=day_us/1e6
+    meal_energy=RDLBody.meal_energy(gut)
+    state["meal_energy"]=meal_energy
     if state["estimate"]===nothing || now>=state["next_us"]
         previous=state["last_us"]
-        if previous!==nothing && now>previous && body.reserve>0
+        if previous!==nothing && now>previous && body_alive(body)
             rate=max(0.,metabolic_loss-state["last_metabolism"])/((now-previous)/1e6)
             state["rate"]=state["rate"]===nothing ? rate : .9state["rate"]+.1rate
             state["samples"]+=1
@@ -61,15 +88,15 @@ function food_security_update!(state,map,body,gut,stock,kinds,metabolic_loss,now
         # The uncertainty allowance is an explicit prior, not a promised supply.
         # Learned MB duration and movement energy supplement measured metabolism.
         horizon=choice===nothing ? max(day_seconds,Float64(estimate["upper_actions"]))+2day_seconds : 3day_seconds+Float64(estimate["upper_actions"])
-        rate=state["rate"]===nothing ? RDLBody.MEAL_ENERGY/day_seconds : state["rate"]
+        rate=state["rate"]===nothing ? meal_energy/day_seconds : state["rate"]
         state["estimate"]=D("horizon_seconds"=>horizon,"energy"=>rate*horizon+estimate["energy"],
             "search_energy"=>estimate["energy"],
             "source"=>estimate["source"],"search_seconds"=>estimate["upper_actions"],
             "metabolic_rate"=>rate,"samples"=>state["samples"])
         state["next_us"]=now+FOOD_SECURITY_RULES.forecast_interval_us
     end
-    # Preserve a reserve floor rather than treating the whole body as expendable.
-    required=max(1.,(state["estimate"]["energy"]-max(0.,body.reserve-FOOD_SECURITY_RULES.reserve_floor))/RDLBody.MEAL_ENERGY)
+    # Fat can sustain an outing, but does not excuse postponing food acquisition.
+    required=max(1.,(state["estimate"]["energy"]-food_security_buffer(body))/meal_energy)
     units(k)=RDLBody.food_edible(k) ? 1. : RDLBody.FOOD_PROCESS_OUTPUT[k]!=0 ? .65 : map===nothing ? 0. : food_condition_usable(map,k)
     supplied=gut===nothing ? 0. : gut.gut
     days_ahead=ceil(Int,state["estimate"]["horizon_seconds"]/day_seconds)
@@ -87,7 +114,7 @@ function food_security_update!(state,map,body,gut,stock,kinds,metabolic_loss,now
     before=state["H"];shortfall=max(0.,required-supplied)
     state["required"]=required;state["shortfall"]=shortfall;state["supplied"]=supplied
     state["H"]=max(0.,shortfall-FOOD_SECURITY_RULES.raw_residual_band) # residual band, never a per-tick failure counter
-    state["body_shortfall"]=max(0.,(FOOD_SECURITY_RULES.request_reserve_floor-body.reserve)/FOOD_SECURITY_RULES.request_reserve_floor)
+    state["body_shortfall"]=body_demand(body)
     state["self_reliance"]=food_self_reliance(state,map,body)
     if isempty(state["records"]) || now-last(state["records"])["us"]>=64_000_000
         push!(state["records"],D("us"=>now,"required"=>required,"supplied"=>supplied,
@@ -116,7 +143,7 @@ function food_provision_candidates(security)
     pressure=security["H"] # Small shortages still motivate preparation, before felt anxiety.
     margin=max(0.,supplied-required)/required
     estimate=security["estimate"]
-    cost=estimate===nothing ? 0. : max(0.,get(estimate,"search_energy",0.))/RDLBody.MEAL_ENERGY
+    cost=estimate===nothing ? 0. : max(0.,get(estimate,"search_energy",0.))/get(security,"meal_energy",RDLBody.MEAL_ENERGY)
     # Forecast relief versus the value of retaining a sufficient stock without
     # spending effort. Log scaling avoids a linear domination by large stores.
     relief=log1p(pressure);slack=log1p(margin)

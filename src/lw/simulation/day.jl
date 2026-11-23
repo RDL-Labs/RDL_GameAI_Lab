@@ -66,6 +66,7 @@ include(joinpath(@__DIR__, "../world/portable_items.jl"))
 include(joinpath(@__DIR__, "../world/item_tasting.jl"))
 include(joinpath(@__DIR__, "../configured_paths/item_actions.jl"))
 include(joinpath(@__DIR__, "../decision/basic_loop.jl"))
+include(joinpath(@__DIR__, "../decision/navigation_forecast.jl"))
 include(joinpath(@__DIR__, "../learning/food_condition.jl"))
 include(joinpath(@__DIR__, "../decision/food_desire.jl"))
 include(joinpath(@__DIR__, "../decision/fishing.jl"))
@@ -287,8 +288,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             # Stable actor identity, independent of action RNG and roster order.
             bytes=sha256("lw-taste:"*a)
             preference=ntuple(i->0.6*(2Int(bytes[i])/255-1),3)
-            Digestion(;taste_preference=preference)
-        end for a in IDS)
+            Digestion(;taste_preference=preference,macronutrients=get(spec,:macronutrient_body,true),
+                reserve=spec.reserve[actor_index],day_seconds=clock.day_us/1e6)
+        end for (actor_index,a) in enumerate(IDS))
     end
     meal_kind=digestion_mode=="meat" ? 2 : 1
     metabolism=Dict(a=>0. for a in IDS)
@@ -380,7 +382,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
         "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing) for a in IDS)
     for (i,a) in enumerate(IDS)
-        w.inventory[a]=spec.initial_inventory[i];w.bodies[a]=Body(10.,0.,spec.reserve[i],0.)
+        w.inventory[a]=spec.initial_inventory[i];w.bodies[a]=guts!==nothing && guts[a].macro_body!==nothing ? HumanBody(guts[a].macro_body.body,guts[a].macro_body.hours_per_second) : Body(10.,0.,spec.reserve[i],0.)
         append!(cargo[a],fill(nothing,w.inventory[a]))
         hasproperty(spec,:initial_personal_stock) && (stores[a]=spec.initial_personal_stock[i])
     end
@@ -427,7 +429,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     incidental_items=incidental_enabled ? D(a=>incidental_item_state(a,choice_seed) for a in IDS) : nothing
     incidental_snapshot()=D(a=>incidental_item_snapshot(incidental_items[a]) for a in IDS)
     exchange_enabled=get(spec,:food_exchange,false)
-    open_stores=get(spec,:open_stores,true)
+    open_stores=get(spec,:open_stores,false)
     check(open_stores isa Bool,"open_stores_flag")
     check(exchange_enabled isa Bool,"food_exchange_flag")
     check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
@@ -518,7 +520,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         paused_ids=post_return_idle ? Set(a for a in IDS if !(a in collapsed_ids) && (!trade_idle || configured_trade_idle_ready!(mb_maps[a],incidental_items[a],items,w,a,now,clock.day_us;social_notice=relations!==nothing && (get(relations[a],"aid_delivery",nothing)!==nothing || configured_social_notice(w,a,answered[a])))) && configured_post_return_idle!(mb_maps[a],now,clock.day_us,bounds[3];pending=haskey(pending,a),observing=configured_observation_enabled && now<clock.day_us,require_meal=post_return_meal)) : ()
-        sleeping_ids=get(spec,:sleep_external_gate,true) ? Tuple(a for a in IDS if configured_sleep_gate_active(learning[a],now,clock.day_us)) : ()
+        sleeping_ids=get(spec,:sleep_external_gate,true) ? Tuple(a for a in IDS if !haskey(pending,a) && configured_sleep_gate_active(learning[a],now,clock.day_us)) : ()
         focus_phase=mod(now,clock.day_us)<bounds[1] ? "orientation" : mod(now,clock.day_us)<bounds[2] ? "exploration" : mod(now,clock.day_us)<bounds[3] ? "return" : "night"
         focused_ids=String[]
         motion_objects=Any[]
@@ -543,6 +545,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             trade_notice=item_exchange_enabled ? task_trade_notice!(fs,items,w,a,now;pending_offer=item_pending===nothing ? nothing : item_pending["offer_id"]) : nothing
             notice=get(fs,"active",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles,illumination=visual_illumination) : nothing
             task_focus_continue!(fs,w.bodies[a],w.positions[a],yaw[a],focus_phase,now,notice;
+                pending_result=haskey(pending,a),
                 wait_notice=trade_notice!==nothing ? trade_notice : identity_call_notice===nothing ? task_wait_notice(fs,w.inbox[a],now) : identity_call_notice,
                 shield=get(spec,:task_interrupt_shield,true),
                 need=notice===nothing ? 0. : food_anxiety(get(mb_maps[a],"food_security",nothing)),
@@ -599,8 +602,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         phase=local_us<bounds[1] ? "orientation" : local_us<bounds[2] ? "exploration" : local_us<bounds[3] ? "return" : "night"
         if food_body
             for a in (thinking_ids...,focused_ids...)
-                hunger_update!(hunger[a],a,now,w.bodies[a].reserve;continuous=get(spec,:hunger_forecast,true))
-                selection_trails && resolve_trail!(trails[a],a,w.bodies[a].reserve,"ob:$now:$a",now)
+                physical_body_demand=guts!==nothing && guts[a].macro_body!==nothing ?
+                    RDLBody.Macronutrients.body_signals(guts[a].macro_body.body,RDLBody.MACRO_PARAMETERS).body_demand : nothing
+                hunger_update!(hunger[a],a,now,body_energy(w.bodies[a]);continuous=get(spec,:hunger_forecast,true),body_demand=physical_body_demand)
+                selection_trails && resolve_trail!(trails[a],a,body_energy(w.bodies[a]),"ob:$now:$a",now)
                 bundle_credit && resolve_bundle_credit!(bundles[a],hunger[a])
             end
         end
@@ -693,7 +698,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         plans=D()
         for a in focused_ids
             fs=mb_maps[a]["task_focus"];plans[a]=copy(fs["plan"]);homes[a]=fs["home"]
-            selection_trails && (plans[a]["trail_parent"]=(reserve=w.bodies[a].reserve,H=hunger[a]["H"]))
+            selection_trails && (plans[a]["trail_parent"]=(energy=body_energy(w.bodies[a]),H=hunger[a]["H"]))
         end
         trade_workers=trade_work_wait ? configured_trade_workers(previous) : ()
         if trade_work_wait
@@ -758,17 +763,17 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             forecast_request_ready=relations!==nothing && food_request_ready(food_security(relations[a]),now)
             if body_purpose && !get(spec,:hunger_forecast,true)
-                parent_choice=configured_body_purpose!(configured_body_states[a],hunger[a],w.bodies[a].reserve,returning,at_home,
+                parent_choice=configured_body_purpose!(configured_body_states[a],hunger[a],body_energy(w.bodies[a]),returning,at_home,
                     at_home ? (shared_stores ? shared : stores[a]) : 0,now)
                 returning=parent_choice.returning;replenishing=parent_choice.replenishing
             end
             configured_overrides=configured_body_overrides(replenishing,states[a]["pending"]!==nothing)
             if embedded_rest_enabled && !observing
-                returning=embedded_rest_request!(mb_maps[a]["embedded_rest"],w.bodies[a].strain,w.bodies[a].reserve,
+                returning=embedded_rest_request!(mb_maps[a]["embedded_rest"],w.bodies[a].strain,body_energy(w.bodies[a]),
                     hunger[a]["intensity"],replenishing,returning,now,clock.day_us,loops[a]["home"].rng)
             end
-            food_hungry=food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80
-            mb_simulation && mb_plan_context!(mb_maps[a],now,clock.day_us,w.bodies[a].reserve,metabolism[a])
+            food_hungry=food_body ? hunger_select(hunger[a]) : body_demand(w.bodies[a])>0
+            mb_simulation && mb_plan_context!(mb_maps[a],now,clock.day_us,body_energy(w.bodies[a]),metabolism[a])
             edible_on_hand=foods===nothing ? w.inventory[a]>0 : food_has_edible(foods,a)
             configured_action=food_desire ? nothing : foods===nothing ? configured_body_action(replenishing,w.inventory[a],guts===nothing || can_ingest(guts[a]),
                 at_home,at_home ? (shared_stores ? shared : stores[a]) : 0) :
@@ -784,7 +789,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 else
                     provision_stay=provision_enabled && food_provision_stay!(mb_maps[a],get(mb_maps[a],"food_security",nothing),at_home,now,clock.day_us)
                     returning=provision_stay ? true : mb_daily_request!(mb_maps[a],moves[a],home,at_home,w.inventory[a],
-                        w.bodies[a].reserve,w.bodies[a].strain,now,clock.day_us;replenishing=replenishing,return_hint=returning)
+                        body_energy(w.bodies[a]),w.bodies[a].strain,now,clock.day_us;replenishing=replenishing,return_hint=returning)
                 end
             end
             # Forecast shortage can redirect the purpose before hunger, never force a meal.
@@ -828,14 +833,18 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 mb_parent_H=s.H
                 child_increment=mb_simulation ? mb_route_H_increment!(mb_maps[a],t.family,t.source,goal,now) : nothing
                 forecast_increment=mb_simulation ? mb_parent_H_increment!(mb_maps[a],t.family,t.source,goal,now;
-                    child_increment=child_increment===nothing ? 0 : child_increment) : nothing
-                forecast_increment===nothing && (forecast_increment=child_increment)
+                    child_increment=s.h_mode==:forecast_difference || child_increment===nothing ? 0 : child_increment) : nothing
+                s.h_mode==:legacy && forecast_increment===nothing && (forecast_increment=child_increment)
                 t.question=="social_contact" && forecast_increment===nothing && (forecast_increment=0.)
                 completion_reward=mb_simulation ? mb_parent_reward(mb_maps[a],t.family,t.source,now) : nothing
                 method_evidence=forecast_method_evidence(forecast_increment,goal,t.phase==phase,value)
+                movement_forecast=get(t,:movement_forecast,nothing)
+                movement_evidence=navigation_forecast_result(movement_forecast,home,moves[a]["visible"];sensitivity=mb_maps[a]["sensitivity"]["delay"])
+                navigation_forecast_record!(mb_maps[a],movement_forecast,movement_evidence)
                 resolve_method!(s,t.source,method_evidence,forecast_increment!==nothing ? goal : (t.phase==phase || goal ? goal : nothing);
                     creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true),
-                    goal_H_increment=forecast_increment===nothing ? 1 : forecast_increment,completion_reward=completion_reward)
+                    goal_H_increment=forecast_increment===nothing ? 1 : forecast_increment,completion_reward=completion_reward,
+                    goal_forecast=forecast_increment===nothing ? nothing : (forecast_increment,0.),method_forecast=movement_evidence)
                 mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)
                 mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)
                 configured_home_rest_enabled && t.family=="home" && goal && t.moved &&
@@ -917,12 +926,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     visual_pending=get(get(relations[a],"visual_aid",D()),"pending",nothing)
                     visual_pending!==nothing && visual_pending["target"]==t && (plan=merge(visual_pending,plan))
                 end
-            elseif (routine=configured_routine_priority(!food_desire && (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80),
+            elseif (routine=configured_routine_priority(!food_desire && (food_body ? hunger_select(hunger[a]) : body_demand(w.bodies[a])>0),
                     edible_on_hand,guts===nothing || can_ingest(guts[a]),at_home,shared_stores ? shared : stores[a],
                     phase,local_us,clock.quiet_night_us,states[a]["pending"]!==nothing,configured_overrides;
                     enabled=get(spec,:configured_routine_actions,true)))!==nothing
                 plan=routine
-            elseif (relations!==nothing ? forecast_request_ready : (food_body ? hunger_select(hunger[a]) : w.bodies[a].reserve<80)) && !configured_overrides.suppress_repeat_request && states[a]["pending"]===nothing
+            elseif (relations!==nothing ? forecast_request_ready : (food_body ? hunger_select(hunger[a]) : body_demand(w.bodies[a])>0)) && !configured_overrides.suppress_repeat_request && states[a]["pending"]===nothing
                 forecast_request_ready && food_request_considered!(food_security(relations[a]),now)
                 if relations!==nothing
                     aid_stock_view=open_stores && !shared_stores ? observed_food_stores(foods,w,spec.home,a) : D()
@@ -953,7 +962,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         social_aid_begin!(relations[a]["aid"],a*":"*op,target,now;probability=prediction["probability"]*aid_resource_forecast["factor"],values=aid_values,deadline_us=now+AID_RESOURCE_RULES.reply_window_us,
                             kind_probabilities=prediction["kind_probabilities"],source_refs=prediction["source_refs"],mb_ids=prediction["mb_ids"],context=merge(situation,D(
                                 "anxiety"=>food_anxiety(food_security(relations[a])),
-                                "reserve"=>w.bodies[a].reserve,"shortfall"=>food_security(relations[a])["shortfall"],
+                                "energy"=>body_energy(w.bodies[a]),"shortfall"=>food_security(relations[a])["shortfall"],
                                 "resource_prediction"=>aid_resource_forecast,
                                 "self_reliance"=>get(food_security(relations[a]),"self_reliance",nothing))))
                         states[a]["pending"]["social_context"]=situation
@@ -1007,10 +1016,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if observing && plan===nothing
                 plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
-                plan===nothing && configured_camp_landmark && (plan=configured_camp_landmark_tour!(observation_states[a]["camp_landmark"],spec.home,w.positions[a],yaw[a],sec,camp_view,w.bodies[a].reserve,w.bodies[a].strain,local_us,clock;experience=configured_camp_experience,exterior=get(spec,:configured_camp_exterior,false),landmark_view=landmarks===nothing ? nothing : landmarks[a],skyline_view=skyline_views===nothing ? nothing : skyline_views[a]))
+                plan===nothing && configured_camp_landmark && (plan=configured_camp_landmark_tour!(observation_states[a]["camp_landmark"],spec.home,w.positions[a],yaw[a],sec,camp_view,body_energy(w.bodies[a]),w.bodies[a].strain,local_us,clock;experience=configured_camp_experience,exterior=get(spec,:configured_camp_exterior,false),landmark_view=landmarks===nothing ? nothing : landmarks[a],skyline_view=skyline_views===nothing ? nothing : skyline_views[a]))
                 # Disabled camp training has no landmark/place state to read.
                 plan===nothing && configured_camp_experience && (plan=configured_camp_learning_rest(configured_camp_experience,observation_states[a]["camp_landmark"]["tour_completed"],mb_maps[a]["place_mb"]["complete"],at_home))
-                plan===nothing && (plan=configured_observation_plan(observation_states[a],w.positions[a],yaw[a],sec,local_us,clock,w.bodies[a].reserve,w.bodies[a].strain))
+                plan===nothing && (plan=configured_observation_plan(observation_states[a],w.positions[a],yaw[a],sec,local_us,clock,body_energy(w.bodies[a]),w.bodies[a].strain))
             end
             fatigue_continue=configured_legacy_fatigue_continue(w.bodies[a])
             if get(spec,:fatigue_forecast,true) && plan===nothing && basic_loop && mb_simulation && !observing && !at_home
@@ -1019,7 +1028,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     fatigue_target,returning,loops[a][returning ? "home" : "food"],now)
             end
             if get(spec,:gradient_roll,false) && plan===nothing && basic_loop && !observing && !at_home &&
-                    phase in ("exploration","return") && fatigue_continue && w.bodies[a].reserve>0
+                    phase in ("exploration","return") && fatigue_continue && body_alive(w.bodies[a])
                 family=returning ? "home" : "food"
                 roll_target=returning ? home : isempty(food_targets) ? nothing : first(food_targets)
                 roll_target=gradient_roll_observed_target(mb_maps[a],roll_target,landmarks===nothing ? nothing : landmarks[a],skyline_views===nothing ? nothing : skyline_views[a])
@@ -1037,12 +1046,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 if (routine=configured_navigation_priority(returning,at_home,w.inventory[a],phase,configured_overrides;
                         enabled=get(spec,:configured_routine_actions,true)))!==nothing
                     plan=routine
-                elseif !fatigue_continue || w.bodies[a].reserve<=0 || w.bodies[a].strain>=1
+                elseif !fatigue_continue || !body_alive(w.bodies[a]) || w.bodies[a].strain>=1
                     plan=D("action"=>"rest","method"=>"fatigue_forecast_rest")
                 elseif basic_loop
                     family=returning ? "home" : "food"
                     if incidental_items!==nothing
-                        urgency=food_body ? hunger[a]["intensity"] : clamp((80-w.bodies[a].reserve)/80,0.,1.)
+                        urgency=food_body ? hunger[a]["intensity"] : clamp((80-body_energy(w.bodies[a]))/80,0.,1.)
                         night_fear_enabled && (urgency=max(urgency,clamp(mb_maps[a]["night_fear"]["H"]/32,0.,1.)))
                         item_view=item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
                             purpose=:pickup,H=loops[a][family].H,pressure=urgency,visual_obstacles=high) : o["items"]
@@ -1109,19 +1118,19 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 append!(candidates,cue_options)
                             end
                             if mb_simulation && (target===nothing || mb_maps[a]["routes"]["active"]!==nothing)
-                                active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
+                                active_candidates=mb_route_candidates!(mb_maps[a],moves[a],family,body_energy(w.bodies[a]),w.bodies[a].strain,now;H=s.H)
                                 chunk_candidates=copy(active_candidates)
                                 if isempty(active_candidates) || s.H>=s.threshold
-                                    fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,w.bodies[a].reserve,w.bodies[a].strain,now;H=s.H)
+                                    fresh=mb_chunk_candidates!(mb_maps[a],moves[a],family,body_energy(w.bodies[a]),w.bodies[a].strain,now;H=s.H)
                                     active=mb_maps[a]["routes"]["active"]
                                     filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
                                     append!(chunk_candidates,fresh)
                                 end
-                                mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now))
+                                mb_sleep && append!(chunk_candidates,mb_sleep_candidates!(mb_maps[a],moves[a],family,navigation_H,s.threshold,body_energy(w.bodies[a]),w.bodies[a].strain,now))
                                 active=mb_maps[a]["routes"]["active"]
                                 filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"] || startswith(p["method"],"mb_route:"),chunk_candidates)
                                 if isempty(chunk_candidates)
-                                    fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,w.bodies[a].reserve,w.bodies[a].strain,now)
+                                    fresh=mb_simulate!(mb_maps[a],moves[a],family,navigation_H,s.threshold,body_energy(w.bodies[a]),w.bodies[a].strain,now)
                                     filter!(p->active===nothing || get(p,"mb_route",nothing)!=active["id"],fresh)
                                     append!(candidates,fresh)
                                 else
@@ -1183,7 +1192,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                                 c!==nothing && push!(candidates,c)
                             end
                             mb_simulation && (candidates=mb_parent_candidates!(mb_maps[a],candidates,family,target))
-                            mb_simulation && phase=="exploration" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,w.bodies[a].reserve,now))
+                            mb_simulation && phase=="exploration" && (candidates=mb_project_return!(mb_maps[a],candidates,moves[a],family,body_energy(w.bodies[a]),now))
                             mb_simulation && (candidates=mb_route_control!(mb_maps[a],candidates,s,family,now))
                             goal_arrival_enabled && goal_arrival_project!(mb_maps[a]["goal_arrival"][family],candidates,moves[a],family,now)
                             goal_arrival_enabled && mb_parent_arrival_sync!(mb_maps[a],s,family,now)
@@ -1238,7 +1247,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     plan=configured_legacy_navigation(returning,home,moves[a],dropped["origins"] )
                 end
             end
-            if basic_loop && !(get(plan,"configured_rule",nothing) in ("wait_before_trade_offer","wait_for_trade_reply")) && !get(plan,"configured_observation",false) && !haskey(pending,a) && (plan["action"] in ("pickup","recover","deposit") || (at_home && plan["action"]=="rest" && loops[a]["home"].H>0))
+            # Residual H is not an unfinished home-confirmation operation. Only
+            # the legacy reset-on-success loop needs the old rest confirmation.
+            if basic_loop && !(get(plan,"configured_rule",nothing) in ("wait_before_trade_offer","wait_for_trade_reply")) && !get(plan,"configured_observation",false) && !haskey(pending,a) && (plan["action"] in ("pickup","recover","deposit") || (at_home && plan["action"]=="rest" && loops[a]["home"].h_mode==:legacy && loops[a]["home"].H>0))
                 family=plan["action"] in ("pickup","recover") ? "food" : "home"
                 question=plan["action"]=="recover" ? "recovered" : family=="food" ? "acquired" : "home_confirmed"
                 source="op:$now:$a"
@@ -1281,7 +1292,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 gradient_roll_enroll!(mb_maps[a],plan,now,yaw[a],family,phase,loops[a][family].H,roll_target;direction_distance=get(spec,:gradient_direction_distance,0.))
             end
             bundle_credit && (plan["bundle_parent"]=D("actor"=>a,"due"=>hunger[a]["due"],"H"=>hunger[a]["H"]))
-            selection_trails && (plan["trail_parent"]=(reserve=w.bodies[a].reserve,H=hunger[a]["H"]))
+            selection_trails && (plan["trail_parent"]=(energy=body_energy(w.bodies[a]),H=hunger[a]["H"]))
+            if basic_loop && haskey(pending,a)
+                navigation_family=pending[a].family
+                navigation_target=navigation_family=="home" ? home : isempty(food_targets) ? nothing : first(food_targets)
+                pending[a]=merge(pending[a],(movement_forecast=navigation_forecast(plan,moves[a],navigation_target,navigation_family),))
+            end
             plans[a]=plan
         end
         # Ordered action resolution: receipts are stamped at the end of this second.
@@ -1438,7 +1454,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
             elseif action in ("eat","request","give","refuse","warn","withdraw","wait")
                 premeal=w.bodies[a]
-                meal_index=foods===nothing || action!="eat" ? 1 : food_meal_index(foods,a,guts===nothing ? nothing : guts[a],premeal.reserve,get(plan,"food_kind",0);quality=get(plan,"food_quality",0))
+                meal_index=foods===nothing || action!="eat" ? 1 : food_meal_index(foods,a,guts===nothing ? nothing : guts[a],body_energy(premeal),get(plan,"food_kind",0);quality=get(plan,"food_quality",0))
                 actual_kind=foods===nothing ? meal_kind : meal_index>0 && action=="eat" ? Int(foods.inventory[a][meal_index]) : 0
                 if action=="eat" && (meal_index==0 || (guts!==nothing && !can_ingest(guts[a])))
                     r=D("status"=>meal_index==0 ? "no_edible_food" : "gut_full")
@@ -1463,7 +1479,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     liking=FOOD_LIKING[actual_kind]+quality_bonus
                     if guts!==nothing
                         w.bodies[a]=premeal # food transfer stays committed; energy waits for digestion
-                        liking=ingest!(guts[a],actual_kind,premeal.reserve,now;quality_bonus)
+                        liking=ingest!(guts[a],actual_kind,body_energy(premeal),now;quality_bonus)
                     end
                     deleteat!(cargo[a],meal_index)
                     if foods!==nothing
@@ -1514,7 +1530,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         w.inventory[a]=0
                         home_activity_unload!(storage_stats["home_activity"],a,observer_unloaded_amount,w.positions[a],now+1_000_000,clock.day_us)
                     elseif legal && (shared_stores ? shared : stores[a])>0 && (get(plan,"food_kind",0)==0 || (foods!==nothing && get(plan,"food_kind",0) in RDLBody.FOOD_KIND_IDS && (shared_stores ? foods.shared : foods.personal[a])[plan["food_kind"]]>0))
-                        foods!==nothing && food_retrieve!(foods,a,shared_stores,guts===nothing ? nothing : guts[a],w.bodies[a].reserve;kind=get(plan,"food_kind",0),quality=get(plan,"food_quality",0))
+                        foods!==nothing && food_retrieve!(foods,a,shared_stores,guts===nothing ? nothing : guts[a],body_energy(w.bodies[a]);kind=get(plan,"food_kind",0),quality=get(plan,"food_quality",0))
                         if shared_stores
                             shared-=1;storage_stats["taken"]+=1
                         else
@@ -1534,7 +1550,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 length(storage_stats["records"])>32 && popfirst!(storage_stats["records"])
             end
             if get(plan,"incidental_item",false)
-                incidental_item_result!(incidental_items[a],plan,status,max(0.,repetition_before.reserve-w.bodies[a].reserve),now)
+                incidental_item_result!(incidental_items[a],plan,status,max(0.,body_energy(repetition_before)-body_energy(w.bodies[a])),now)
             end
             if configured_home_rest_enabled
                 h=homes[a]
@@ -1575,7 +1591,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 harvest_pending[a]=(op=op,before=deepcopy(sections[a]),status=status,executed=now+1_000_000,
                     prediction=frozen_prediction,position=p,yaw=yaw[a])
             end
-            mb_simulation && mb_record!(mb_maps[a],get(plan,"configured_observation",false) ? merge(plan,D("purpose_family"=>nothing)) : plan,status,repetition_before.reserve-w.bodies[a].reserve,now;turn=wrap_angle(yaw[a]-before_yaw),distance=hypot(w.positions[a][1]-p[1],w.positions[a][2]-p[2]))
+            mb_simulation && mb_record!(mb_maps[a],get(plan,"configured_observation",false) ? merge(plan,D("purpose_family"=>nothing)) : plan,status,body_energy(repetition_before)-body_energy(w.bodies[a]),now;turn=wrap_angle(yaw[a]-before_yaw),distance=hypot(w.positions[a][1]-p[1],w.positions[a][2]-p[2]))
             if repetition_pressure && !(a in focused_ids)
                 method=get(plan,"method",nothing)
                 # Protected/automatic actions break the chain; no forced wake-up.
@@ -1585,7 +1601,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 changed=w.positions[a]!=p || b.strain<repetition_before.strain-1e-9 || b.burst>repetition_before.burst+1e-9 || status in ("picked_up","recovered","dropped","ate","transferred")
                 repetition_result!(repetitions[a],op,now+1_000_000,active ? method : nothing,view;changed=changed)
             end
-            if haskey(pending,a)
+            if haskey(pending,a) && pending[a].status=="unexecuted"
+                pending[a].source=="op:$now:$a" || error("pending_execution_binding")
+                pending_movement=get(pending[a],:movement_forecast,nothing)
+                if pending_movement!==nothing && pending_movement["action"]!=action
+                    pending[a]=merge(pending[a],(movement_forecast=nothing,))
+                end
                 pending[a]=merge(pending[a],(status=status,moved=w.positions[a]!=p,))
             end
             if movement_inertia
@@ -1605,7 +1626,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if selection_trails
                 bt=get(plan,"bundle_trace",nothing);refs=bt===nothing ? String[] : bt["contributors"]
-                use_trail!(trails[a],a,op,get(plan,"trail_trace",nothing),get(plan,"method",nothing),status,plan["trail_parent"].reserve,plan["trail_parent"].H,refs)
+                use_trail!(trails[a],a,op,get(plan,"trail_trace",nothing),get(plan,"method",nothing),status,plan["trail_parent"].energy,plan["trail_parent"].H,refs)
             end
             configured_observation_enabled && now<clock.day_us && configured_observation_record!(observation_states[a],mb_maps[a],w.positions[a],action,now,clock.day_us)
             goal_arrival_enabled && action in ("pickup","recover","fish") && status in ("picked_up","recovered") && goal_arrival_update!(mb_maps[a]["goal_arrival"]["food"],nothing,nothing,0.,now+1_000_000;completed=true)
@@ -1631,11 +1652,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 acquisition=get(get(mb_maps[a],"acquisition",D()),"choice",nothing)
                 if acquisition!==nothing && get(plan,"purpose_family",nothing)=="food" && (!(action in ("fish","pickup")) || get(plan,"food_ref",nothing)==acquisition["ref"]) && action in ("fish","pickup","walk","run","scan")
                     acquisition_result!(mb_maps[a],acquisition["technique"],acquisition["ref"],get(acquisition,"acquire_seconds",acquisition["seconds"]),1.,status=="picked_up";sensitivity=mb_maps[a]["sensitivity"]["delay"],now,
-                        energy=repetition_before.reserve-w.bodies[a].reserve)
+                        energy=body_energy(repetition_before)-body_energy(w.bodies[a]))
                 end
             end
             daily_delivery_enabled && mb_daily_result!(mb_maps[a],plan,status,now,
-                repetition_before.reserve-w.bodies[a].reserve,daily_cargo_before;
+                body_energy(repetition_before)-body_energy(w.bodies[a]),daily_cargo_before;
                 acquired_source=isempty(cargo[a]) ? nothing : last(cargo[a]),delivered_sources=delivered)
             post_return_meal && configured_return_meal_record!(mb_maps[a],action,status,hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2])<=1.25,now+1_000_000,clock.day_us)
             trade_idle && status=="ate" && haskey(mb_maps[a],"configured_trade_idle") && (mb_maps[a]["configured_trade_idle"]["ready"]=false)
@@ -1656,7 +1677,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         wildlife!==nothing && LWGrazing.advance!(wildlife,sec)
-        advance_physiology!(w,metabolism,guts,food_body)
+        advance_physiology!(w,metabolism,guts,food_body;plans,sleeping_ids)
         @assert shared+sum(stock)+sum(values(w.inventory))+sum(values(stores))+w.consumed+food_waste_total(foods)==initial+replenished
         foods!==nothing && food_audit!(foods,w,stock,shared,stores)
         items!==nothing && item_audit!(items,w)
@@ -1675,6 +1696,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             push!(daily,D("physical"=>physical(),"sleep"=>deepcopy(learning),"counts"=>deepcopy(counts),
                 "shared_stock"=>shared,"ground"=>sum(stock),"consumed"=>w.consumed,"discarded_food"=>food_waste_total(foods),"replenished_food"=>replenished))
             daily[end]["home_activity"]=home_activity_snapshot(storage_stats["home_activity"])
+            guts!==nothing && (daily[end]["digestion"]=D(a=>digestion_snapshot(guts[a]) for a in IDS))
             wildlife!==nothing && (daily[end]["wildlife"]=LWGrazing.snapshot(wildlife;
                 previous=length(daily)>1 ? get(daily[end-1],"wildlife",nothing) : nothing))
             foods!==nothing && (daily[end]["food_resources"]=food_snapshot(foods))

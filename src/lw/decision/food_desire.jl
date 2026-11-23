@@ -29,7 +29,35 @@ function food_expected_taste(map,kind,gut,reserve;quality=2)
  return base
 end
 # Decision weight only. The sensory experience stored after eating stays in taste units.
-food_taste_value(liking,reserve)=liking*(1+2clamp(reserve/100,0.,1.))
+food_physical_demand(gut,energy)=gut===nothing || gut.macro_body===nothing ? clamp((80-energy)/80,0.,1.) : RDLBody.Macronutrients.body_signals(gut.macro_body.body,RDLBody.MACRO_PARAMETERS).body_demand
+food_eating_demand(gut,energy)=gut===nothing || gut.macro_body===nothing ? food_physical_demand(gut,energy) : RDLBody.Macronutrients.body_signals(gut.macro_body.body,RDLBody.MACRO_PARAMETERS;pending_nutrition=true).body_demand
+food_taste_value(liking,energy,gut=nothing)=liking*(1+2(1-food_physical_demand(gut,energy)))
+
+# A provisional conversion from remembered nutrient fit to trade utility, not
+# a mandatory food choice. Unknown foods acquire no composition from the world
+# catalogue here. Existing taste priors remain separate from this learned term.
+const FOOD_NUTRIENT_TRADE_GAIN = 1.0
+function food_nutrient_trade_evidence(map,gut,kind)
+    demand=gut===nothing || gut.macro_body===nothing ? (0.,0.,0.) : RDLBody.nutrient_need(gut)
+    experiences=map===nothing ? nothing : get(map,"food_taste_experiences",nothing)
+    composition=(0.,0.,0.);samples=0.
+    if experiences!==nothing
+        for quality in 1:4
+            experience=get(experiences,food_taste_key(kind,quality),nothing)
+            experience===nothing && continue
+            haskey(experience,"composition") || continue
+            n=max(0.,Float64(get(experience,"samples",0)))
+            remembered=experience["composition"]
+            composition=ntuple(i->composition[i]+n*remembered[i],3)
+            samples+=n
+        end
+    end
+    samples>0 && (composition=ntuple(i->composition[i]/samples,3))
+    fullness=gut===nothing || gut.macro_body===nothing ? 0. :
+        RDLBody.Macronutrients.body_signals(gut.macro_body.body,RDLBody.MACRO_PARAMETERS).fullness
+    relief=(1-fullness)*sum(demand[i]*composition[i] for i in 1:3)
+    (;demand,composition,samples,fullness,relief,utility=FOOD_NUTRIENT_TRADE_GAIN*relief)
+end
 
 # Same local recipe forecast for an owned ingredient and a proposed ingredient.
 function recognized_salt(map,row)
@@ -59,14 +87,14 @@ function food_use_forecast(map,foods,actor,kind,prepared,gut,reserve,facilities,
  output!=0 && RDLBody.food_edible(output) || return nothing
  prepared && (!processing || food_facility_for(facilities,position,kind)===nothing) && return nothing
  ticks=(held ? 0 : 1)+(prepared ? RDLBody.FOOD_PROCESS_TICKS[kind] : 0)+1
- cost=ticks/1800.0*(1+max(0.,(100-reserve)/20.))
+ cost=ticks/1800.0*(1+5food_physical_demand(gut,reserve))
  skill=prepared && hasproperty(foods,:game) ? food_skill_forecast(foods,actor,kind) : nothing
  quality=prepared ? (skill===nothing ? 2 : skill.quality) : source_quality
  liking=food_expected_taste(map,output,gut,reserve;quality)
  (;output,cost,skill,quality,liking)
 end
 function food_desire_candidates(map,foods,a,gut,reserve,at_home,stores,facilities,position;processing=true,items=nothing)
- candidates=Any[];pressure=haskey(map,"hunger_forecast") ? hunger_pressure(reserve) : max(0.,(100-reserve)/20.)
+ candidates=Any[];pressure=5food_eating_demand(gut,reserve)
  for kind in RDLBody.FOOD_KIND_IDS, source_quality in 1:4
   held=food_held_quality(foods,a,kind,source_quality)
   held || (at_home && food_stored_quality_count(foods,a,stores,kind,source_quality)>0) || continue
@@ -93,7 +121,7 @@ function food_desire_candidates(map,foods,a,gut,reserve,at_home,stores,facilitie
    forecast=food_use_forecast(map,foods,a,kind,prepared,gut,reserve,facilities,position;processing,held,source_quality,salted)
    forecast===nothing && continue
    (;output,cost,skill,quality,liking)=forecast
-   field=relational_transition(0.,pressure+food_taste_value(liking,reserve);cost)
+   field=relational_transition(0.,pressure+food_taste_value(liking,reserve,gut);cost)
    clock=get(map,"food_clock",(now=0,day_us=17_280_000_000))
    urgency=mod(clock.now,clock.day_us)/clock.day_us
    # Choosing this meal uses a limited eating opportunity before its expected loss.
@@ -115,7 +143,7 @@ function food_desire_candidates(map,foods,a,gut,reserve,at_home,stores,facilitie
   for meal in meals
    disadvantage=max(0.,best-meal["priority"])
    aversion=max(0.,-meal["expected_liking"])
-   penalty=4.0*clamp(reserve/100,0.,1.)*aversion*disadvantage
+   penalty=4.0*(1-food_physical_demand(gut,reserve))*aversion*disadvantage
    meal["alternative_penalty"]=penalty
    meal["priority"]-=penalty
   end
@@ -124,6 +152,11 @@ function food_desire_candidates(map,foods,a,gut,reserve,at_home,stores,facilitie
  candidates
 end
 function food_desire_plan!(map,loop,foods,a,gut,body,at_home,stores,facilities,position,now;requested=false,processing=true,items=nothing)
+ # Absorption is delayed, but queued nutrients already reduce additional eating.
+ # This does not change physical ability, hunger history or trade admission.
+ if gut!==nothing && gut.macro_body!==nothing
+  requested=requested && food_eating_demand(gut,body_energy(body))>0
+ end
  state=get!(food_desire_state,map,"food_desire")
  intent=state["intent"]
  if intent===nothing
@@ -132,7 +165,7 @@ function food_desire_plan!(map,loop,foods,a,gut,body,at_home,stores,facilities,p
       any(k->food_condition_aversion(map,k)>0 && (k in foods.inventory[a] || at_home && stores[k]>0),RDLBody.FOOD_KIND_IDS))
    return nothing
   end
-  candidates=food_desire_candidates(map,foods,a,gut,body.reserve,at_home,stores,facilities,position;processing,items)
+  candidates=food_desire_candidates(map,foods,a,gut,body_energy(body),at_home,stores,facilities,position;processing,items)
   if !requested || gut!==nothing && !can_ingest(gut)
    filter!(c->get(c,"discard",false) || get(c,"defer",false),candidates)
   end

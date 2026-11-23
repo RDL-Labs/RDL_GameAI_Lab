@@ -1,5 +1,17 @@
 using Test
 include("../../src/lw/LW.jl")
+@testset "pending operation is observed before focus" begin
+ b=LW.Body(10.,.2,90.,0.)
+ for (action,status) in (("rest","performed"),("fish","fishing"),("process_food","processing"))
+  s=LW.task_focus_state();p=LW.D("action"=>action)
+  LW.task_focus_record!(s,p,status,b,(0.,0.),0.,"return",0,0,nothing)
+  @test !LW.task_focus_continue!(s,b,(0.,0.),0.,"return",1_000_000,nothing;pending_result=true)
+  @test s["wakeups"]["pending_result"]==1
+  @test s["skipped"]==0
+  LW.task_focus_record!(s,p,status,b,(0.,0.),0.,"return",1_000_000,0,nothing)
+  @test LW.task_focus_continue!(s,b,(0.,0.),0.,"return",2_000_000,nothing)
+ end
+end
 @testset "contextual interruption shielding" begin
  motion=LW.D("distance"=>6.)
  @test LW.configured_task_interrupt(motion,0.,0.).wake

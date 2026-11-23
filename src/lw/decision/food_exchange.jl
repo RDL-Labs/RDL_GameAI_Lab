@@ -1,10 +1,15 @@
 # Initial valuation adapter; selection and experience use the common BasicLoop.
 # Peer stock is used only through explicit observations; private utility stays hidden.
-function observed_food_count(view,other,k;fallback=4)
+function observed_food_count(view,other,k)
     stocks=get(view,"observed_food_stocks",nothing)
-    stocks===nothing && return legacy_unobserved_food_count(fallback)
-    haskey(stocks,other) ? get(stocks[other],k,0) : 0
+    stocks!==nothing && haskey(stocks,other) && return get(stocks[other],k,0)
+    # A proposal reveals its offered quantity, not the owner's full warehouse.
+    quantities=[get(o["give_food"],k,0) for o in get(view,"incoming",Any[])
+                if get(o,"proposer",nothing)==other && haskey(o,"give_food") && get(o["give_food"],k,0)>0]
+    isempty(quantities) ? nothing : maximum(quantities)
 end
+# Zero candidates is not an observation of zero stock.
+observed_food_candidate_count(view,other,k)=something(observed_food_count(view,other,k),0)
 const FOOD_TRADE_INTERVAL_US=64_000_000
 const FOOD_TRADE_TOLERANCE=.05
 function food_trade_state(seed;relational=false)
@@ -19,25 +24,32 @@ function food_aid_values(body,gut,kinds;map=nothing,kitchen=nothing)
     [weights[k]*log1p(1/(1+count(==(k),kinds))) for k in RDLBody.FOOD_KIND_IDS]
 end
 function food_social_context(body;give_kind=0,want_kind=0,give_count=0,want_count=0)
-    context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
+    context=D("need"=>body_demand(body))
     give_kind>0 && merge!(context,D("give_kind"=>give_kind,"give_count"=>give_count))
     want_kind>0 && merge!(context,D("want_kind"=>want_kind,"want_count"=>want_count))
     context
 end
-function food_trade_weight(body,gut,kind;map=nothing,kitchen=nothing)
-    need=clamp((80-body.reserve)/80,0.,1.)
+function food_trade_evaluation(body,gut,kind;map=nothing,kitchen=nothing)
+    need=body_demand(body)
     best=nothing
     for prepared in (false,true)
         forecast=food_use_forecast(map,kitchen===nothing ? nothing : kitchen.foods,
-            kitchen===nothing ? nothing : kitchen.actor,kind,prepared,gut,body.reserve,
+            kitchen===nothing ? nothing : kitchen.actor,kind,prepared,gut,body_energy(body),
             kitchen===nothing ? () : kitchen.facilities,kitchen===nothing ? (0.,0.) : kitchen.position;
             processing=kitchen!==nothing && kitchen.processing)
         forecast===nothing && continue
-        value=.2+.6need+food_taste_value(forecast.liking,body.reserve)-forecast.cost
-        best=best===nothing ? value : max(best,value)
+        nutrition=food_nutrient_trade_evidence(map,gut,forecast.output)
+        base=.2+.6need+food_taste_value(forecast.liking,body_energy(body),gut)-forecast.cost
+        value=base+nutrition.utility
+        if best===nothing || value>best.value
+            best=(;value,base,output=forecast.output,nutrition)
+        end
     end
-    something(best,0.)-food_condition_aversion(map,kind)
+    aversion=food_condition_aversion(map,kind)
+    best===nothing ? (value=-aversion,base=-aversion,output=0,nutrition=nothing) :
+        merge(best,(value=best.value-aversion,base=best.base-aversion))
 end
+food_trade_weight(body,gut,kind;map=nothing,kitchen=nothing)=food_trade_evaluation(body,gut,kind;map,kitchen).value
 food_trade_weights(body,gut;map=nothing,kitchen=nothing) =
     [food_trade_weight(body,gut,kind;map,kitchen) for kind in RDLBody.FOOD_KIND_IDS]
 function food_trade_gain(stock,weights,g,n,h,m)
@@ -63,7 +75,7 @@ function food_trade_resolve!(loop,source,expected,weights,result;relational=fals
     # Freeze valuation at selection; evaluate only the committed swap, excluding
     # intervening meals/withdrawals and never reading the partner's warehouse.
     actual=food_trade_actual(weights,result;valuation)
-    if relational
+    if relational || loop.h_mode==:forecast_difference
         return resolve_prediction!(loop,source,expected,actual;fulfilled=exchanged,tolerance=FOOD_TRADE_TOLERANCE)
     end
     legacy_food_trade_resolve!(loop,source,expected,actual,exchanged,FOOD_TRADE_TOLERANCE)
@@ -139,7 +151,7 @@ function food_trade_plan!(t,a,view,body,gut,now;map=nothing,kitchen=nothing,rela
     partners=social_peer_scope!(relation,view["partners"],mind["offer"],trade_food_need(body,gut,stock;security),now)
     candidates=Any[]
     relation_traces=D()
-    for other in partners, g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:min(4,observed_food_count(view,other,h))
+    for other in partners, g in RDLBody.FOOD_KIND_IDS, n in 1:min(4,stock[g]), h in RDLBody.FOOD_KIND_IDS, m in 1:min(4,observed_food_candidate_count(view,other,h))
         g==h && continue
         situation=food_social_context(body;give_kind=g,want_kind=h,give_count=n,want_count=m)
         situation=social_observed_context(relation,other,situation)

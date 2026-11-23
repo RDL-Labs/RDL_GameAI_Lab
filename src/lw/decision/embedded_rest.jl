@@ -8,7 +8,7 @@ function embedded_rest_request!(state,strain,reserve,hunger,replenishing,schedul
     # A bounded sleep-need proxy, not a claim about human physiology.
     need=clamp(max(strain,state["awake_seconds"]/(.5day_us/1_000_000)),0.,1.)
     value=state["place_value"]
-    food_pressure=max(hunger,clamp((80-reserve)/60,0.,1.))
+    food_pressure=hunger # caller supplies current bodily demand; no second legacy energy threshold
     probability=need/(1+exp(1+6food_pressure-8need*value))
     state["need"]=need;state["probability"]=probability;state["decisions"]+=1
     # Existing body-maintenance intervention still takes precedence during urgent hunger.

@@ -75,7 +75,7 @@ end
     @test all(configured_api_diary_due,4:5)
     @test configured_api_diary!(3,0,nothing,nothing,nothing)===nothing
     @test !isfile(joinpath(OUTPUT,"diary-request-3.json"))
-    @test occursin("不可逆な死亡を確定する判定はこの人間モデルにはない",CONFIGURED_API_SURVIVAL_LESSON)
+    @test occursin("組織の生存下限で不可逆に死亡",CONFIGURED_API_SURVIVAL_LESSON)
 end
 @testset "Independent expression input fields" begin
     fields=configured_api_input_fields()
@@ -93,15 +93,19 @@ end
     @test occursin("形レ",configured_api_input(CONFIGURED_API_HISTORY[end]))
     @test !occursin("meal-form",configured_api_input(CONFIGURED_API_HISTORY[end]))
 end
-@testset "Reserve-zero stop preserves state" begin
+@testset "Body death stop preserves state" begin
     output=mktempdir();captured=Ref(false)
     capture=()->(captured[]=true;Dict(:sentinel=>17))
-    @test !configured_api_check_stop!((reserve=.001,),1,capture;output)
+    gut=Digestion(macronutrients=true)
+    human=HumanBody(gut.macro_body.body,gut.macro_body.hours_per_second)
+    human.nutrients.sugar=0.;human.nutrients.fat=0.
+    @test !configured_api_check_stop!(human,1,capture;output)
     @test !captured[]
-    @test_throws ConfiguredAPIReserveStop configured_api_check_stop!((reserve=0.,),2,capture;output)
+    human.nutrients.alive=false
+    @test_throws ConfiguredAPIBodyStop configured_api_check_stop!(human,2,capture;output)
     @test captured[]
-    @test deserialize(joinpath(output,"reserve-zero-state.bin")).state[:sentinel]==17
-    @test JSON3.read(read(joinpath(output,"stopped.json"),String)).biological_death==false
+    @test deserialize(joinpath(output,"body-stopped-state.bin")).state[:sentinel]==17
+    @test JSON3.read(read(joinpath(output,"stopped.json"),String)).biological_death==true
 end
 @testset "Incomplete diary remains diagnostic" begin
     @test configured_api_diary_complete(JSON3.read("{\"status\":\"completed\"}"))

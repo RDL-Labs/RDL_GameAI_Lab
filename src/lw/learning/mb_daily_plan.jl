@@ -259,7 +259,8 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     forecast=a["forecast"];elapsed=(now-a["plan_started_us"])/1e6
     t=max(t,forecast["seconds"]-elapsed);e=max(e,forecast["energy"]-(a["energy"]-a["plan_energy"]))
     continue_score,return_score=configured_daily_plan_scores(evidence["confidence"],inventory,reserve,
-        replenishing,budget_penalty(t,e),budget_penalty(back["seconds"],back["energy"]),return_hint)
+        replenishing,budget_penalty(t,e),budget_penalty(back["seconds"],back["energy"]),return_hint;
+        body_demand=hunger!==nothing && get(hunger,"demand_source",nothing)=="macronutrients" ? hunger["intensity"] : nothing)
     if hunger!==nothing
         continue_score+=hunger_relief_score(hunger,reserve,food["seconds"],food["energy"]+rate*food["seconds"],evidence["confidence"])
         return_score+=hunger_relief_score(hunger,reserve,back["seconds"],back["energy"]+rate*back["seconds"],max(inventory,get(hunger,"home_stock",0))>0 ? 1. : 0.)

@@ -46,9 +46,9 @@ function reply_relation_record!(relation,projected)
  end
  nothing
 end
-function reply_trade_plan!(fixture,actor,identity,state,relation,now;requested_food=nothing)
+function reply_trade_plan!(fixture,actor,identity,state,relation,now;requested_food=nothing,open_stores=false)
  identity.status=="recognized" || return nothing
- view=LW.item_visible(fixture.s,fixture.w,(0.,0.),actor,identity.bearing,now;open_stores=true,foods=fixture.foods)
+ view=LW.item_visible(fixture.s,fixture.w,(0.,0.),actor,identity.bearing,now;open_stores,foods=fixture.foods)
  # Attend only the currently seen interlocutor; no truth-ID equality gate.
  filter!(==(identity.handle),view["trade_partners"])
  filter!(o->o["proposer"]==identity.handle,view["incoming"])

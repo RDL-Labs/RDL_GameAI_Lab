@@ -22,11 +22,16 @@ function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=
         lower,upper=distance<=1.25 ? (0.,1.25) : distance<=2 ? (1.25,2.) :
             distance<=4 ? (2.,4.) : distance<=8 ? (4.,8.) : (8.,Float64(max_distance))
         upper=min(upper,Float64(max_distance))
+        appearance_rules=BODY_APPEARANCE_RULES
+        resolution=distance<=appearance_rules.near_distance ?
+            (attention==other && rho=="fine" ? appearance_rules.attended_steps : appearance_rules.near_steps) : appearance_rules.distant_steps
+        emitted_appearance=configured_body_appearance(w.bodies[other])
+        observed_appearance=emitted_appearance===nothing ? nothing :
+            map(value->round(resolution*value)/resolution,emitted_appearance)
         # Visible distant appearance is coarse; near attended faces can be refined. Quantized
         # appearance never includes reserve, damage, inventory or cause labels.
         face=if distance<=max_distance
             emitted=expressions===nothing ? configured_expression(w.bodies[other]) : expressions[other]
-            resolution=distance<=4 ? (attention==other && rho=="fine" ? 8. : 4.) : 1.
             (calm=round(resolution*emitted.calm)/resolution,
              distress=round(resolution*emitted.distress)/resolution,fear=round(resolution*emitted.fear)/resolution)
         else
@@ -34,6 +39,7 @@ function social_sight(w,actor,yaw,now;visual_obstacles=w.obstacles,max_distance=
         end
         push!(peers,D("ref"=>other,"angle"=>clamp(15round(angle/15),-half_fov,half_fov),
             "expression"=>face,
+            "body_appearance"=>observed_appearance,
             "range_lower"=>lower,"range_upper"=>upper,"distance"=>(lower+upper)/2,
             "contact"=>distance<=1.25))
     end

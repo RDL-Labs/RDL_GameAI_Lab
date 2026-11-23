@@ -1,4 +1,9 @@
 # Owner-side cognition settings. Separate from physical ability in body/parameters.
+if !isdefined(@__MODULE__, :SUGAR_FORECAST_RULES)
+    # 暫定認知近似。糖の不足をreference Eで正規化し候補費用にする。
+    # 脂肪動員を予測しない保守的な食事期限であり、生存限界ではない。
+    const SUGAR_FORECAST_RULES=(cost_gain=2.,)
+end
 # Guards support the existing component-level include entrypoints.
 if !isdefined(@__MODULE__, :TASK_WAIT_RULES)
     # Seconds: mirrors the existing social observe packet visibility window.

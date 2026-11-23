@@ -1,6 +1,6 @@
 # Compatibility only: pre-relational experiments. Do not use as the default
 # evaluation contract for relation-enabled LW runs.
-legacy_unobserved_food_count(fallback)=fallback
+
 
 function legacy_food_trade_resolve!(loop,source,expected,actual,exchanged,tolerance)
     pressure=max(0.,expected-actual-tolerance,-actual-tolerance)

@@ -6,13 +6,26 @@ acquisition_state()=D("sites"=>D(),"methods"=>D(),"choice"=>nothing,"next_us"=>0
 acquisition_key(method,site)=string(method,":",method=="explore" ? "unknown" : site)
 acquisition_episode(seconds)=D("forecast"=>max(1.,Float64(seconds)),"elapsed"=>0.,"H"=>0.,"completed"=>0)
 function acquisition_publish!(state,trial;achieved=false)
+ elapsed_delta=max(0.,trial["elapsed"]-get(trial,"published_elapsed",0.))
+ observed_delta=achieved && !get(trial,"published_success",false) ? 1. : 0.
  for (table,key) in ((state["sites"],trial["key"]),(state["methods"],trial["method"]))
   summary=get!(() -> acquisition_episode(trial["forecast"]),table,key)
-  summary["forecast"]=trial["forecast"];summary["elapsed"]=achieved ? 0. : trial["elapsed"]
-  summary["H"]=achieved ? 0. : trial["H"];summary["trial_id"]=trial["id"]
+  # Each scope keeps its own frozen expectation while unresolved, including
+  # across site switches. A catch is an observation, not a blanket H reset.
+  if summary["H"]==0 && get(summary,"trial_id",nothing)!=trial["id"]
+   summary["forecast"]=trial["forecast"]
+  end
+  balance=get!(() -> forecast_difference_state(summary["H"]),summary,"forecast_balance")
+  sensitivity=get(trial,"sensitivity",1.)
+  forecast_difference!(balance,sensitivity*elapsed_delta/summary["forecast"],sensitivity*observed_delta)
+  summary["elapsed"]+=elapsed_delta
+  summary["H"]=balance["H"];summary["trial_id"]=trial["id"]
   summary["status"]=trial["status"]
-  achieved && (summary["completed"]+=1)
+  observed_delta>0 && (summary["completed"]+=1)
  end
+ trial["H"]=state["sites"][trial["key"]]["H"]
+ trial["published_elapsed"]=trial["elapsed"]
+ achieved && (trial["published_success"]=true)
 end
 function acquisition_finish!(map,status,evidence;clear_choice=true)
  state=get(map,"acquisition",nothing);state===nothing && return false
@@ -62,6 +75,7 @@ function acquisition_result!(map,method,site,seconds,elapsed,success; sensitivit
   get!(trial,"total_seconds",choice["seconds"]);get!(trial,"uncertainty",choice["uncertainty"])
  end
  action_trial_step!(trial,elapsed,energy;now,sensitivity) || return
+ trial["sensitivity"]=sensitivity
  acquisition_publish!(s,trial)
  success && acquisition_finish!(map,"achieved","picked_up")
 end
@@ -121,7 +135,19 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
  seconds=Float64(search["upper_actions"])
  value=acquisition_value(map,"explore","unknown",seconds,1.,anxiety)
  push!(rows,D("method"=>"explore","priority"=>value.score,"ref"=>nothing,"technique"=>"explore","seconds"=>seconds,"uncertainty"=>1.,"gradient"=>value))
- probabilities=method_distribution(loop,rows);u=rand(loop.rng);index=length(rows);acc=0.
+ # 各候補の食事までの糖予算。同じ計算を探索にも適用し、特定手段を禁止しない。
+ # 探索の未知の加工時間等は既存見積もりの限界として残す。
+ for candidate in rows
+  forecast=food_sugar_forecast(body,get(map,"food_security",nothing),candidate["seconds"];uncertainty=candidate["uncertainty"])
+  if forecast!==nothing
+   candidate["sugar_forecast"]=forecast
+   candidate["priority"]-=forecast["penalty"]
+  end
+ end
+ # 暫定の関係同定: 既存techniqueを共有関係キーとする。方法の固定順位はない。
+ # 将来は学習したMBのまとまりを渡す。場所数だけで親関係の重みを水増ししない。
+ relation_keys=[candidate["technique"] for candidate in rows]
+ probabilities=relational_candidate_distribution(loop,rows,relation_keys);u=rand(loop.rng);index=length(rows);acc=0.
  for i in eachindex(rows);acc+=probabilities[i];if u<acc;index=i;break;end;end
  selected=copy(rows[index])
  selected["observed_keys"]=[acquisition_key(get(v,"acquisition","pickup"),v["ref"]) for v in visible]
@@ -136,7 +162,8 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
   end
  end
  s["choice"]=selected;s["next_us"]=now+64_000_000
- push!(s["records"],D("us"=>now,"anxiety"=>anxiety,"choice"=>rows[index]["method"],"candidates"=>rows,"probabilities"=>probabilities))
+ push!(s["records"],D("us"=>now,"anxiety"=>anxiety,"choice"=>rows[index]["method"],"candidates"=>rows,"probabilities"=>probabilities,
+     "relation_keys"=>relation_keys,"distribution_rule"=>"relation_peak_mass"))
  length(s["records"])>64 && popfirst!(s["records"])
  ref=rows[index]["ref"]
  ref===nothing ? Any[] : Any[v for v in visible if v["ref"]==ref]

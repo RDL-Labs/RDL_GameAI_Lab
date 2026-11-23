@@ -3,10 +3,12 @@
 # Three actual tasting days precede trade. World pauses during API calls.
 # Replace daily cap/candidate gate with autonomous attention/production later.
 using Downloads
+include(joinpath(@__DIR__,"../../body/load.jl"))
+include("api_transport.jl")
 using Serialization
 # 暫定固定: user-requested experiment termination, not biological death.
 # Check after actions and physiology; preserve forensic state, no forced recovery.
-struct ConfiguredAPIReserveStop <: Exception
+struct ConfiguredAPIBodyStop <: Exception
     us::Int
 end
 struct ConfiguredAPIBudgetStop <: Exception
@@ -17,13 +19,13 @@ function configured_api_budget_stop!(now,capture)
     write(joinpath(OUTPUT,"stopped.json"),JSON3.write((reason="API_budget",us=now,state_file="api-budget-state.bin")))
     throw(ConfiguredAPIBudgetStop(Int(now)))
 end
-configured_api_stop_reason(cause)=cause isa ConfiguredAPIReserveStop ? "E_reserve_zero" : cause isa ConfiguredAPIBudgetStop ? "API_budget" : nothing
+configured_api_stop_reason(cause)=cause isa ConfiguredAPIBodyStop ? "E_body_stopped" : cause isa ConfiguredAPIBudgetStop ? "API_budget" : nothing
 function configured_api_check_stop!(body,now,capture;output=OUTPUT,phase="tick")
-    body.reserve>0 && return false
+    body_alive(body) && return false
     state=capture()
-    serialize(joinpath(output,"reserve-zero-state.bin"),(format="api-reserve-stop-v1",us=now,phase=phase,state=state))
-    write(joinpath(output,"stopped.json"),JSON3.write((reason="E_reserve_zero",actor="npc_e",us=now,phase=phase,reserve=body.reserve,biological_death=false)))
-    throw(ConfiguredAPIReserveStop(Int(now)))
+    serialize(joinpath(output,"body-stopped-state.bin"),(format="api-body-stop-v2",us=now,phase=phase,state=state))
+    write(joinpath(output,"stopped.json"),JSON3.write((reason="E_body_stopped",actor="npc_e",us=now,phase=phase,energy=body_energy(body),alive=body_alive(body),biological_death=body isa HumanBody && !body_alive(body))))
+    throw(ConfiguredAPIBodyStop(Int(now)))
 end
 const CONFIGURED_API_AGENT=(actor="npc_e",model="gpt-4.1-2025-04-14",calls_per_day=parse(Int,get(ENV,"RDL_API_DAILY_CALLS","12")),
     total_calls=parse(Int,get(ENV,"RDL_API_TOTAL_CALLS","24")),output_tokens=700,history_limit=128,memory_chars=2000)
@@ -32,7 +34,7 @@ const CONFIGURED_API_SCARCE=get(ENV,"RDL_API_SCARCE","0")=="1"
 const CONFIGURED_API_EDUCATION_DAYS=3
 const CONFIGURED_API_LESSON=Ref{Any}(nothing)
 configured_api_diary_due(day)=get(ENV,"RDL_API_FIELD_TRAINING","0")=="1" ? day>=1 : day>CONFIGURED_API_EDUCATION_DAYS
-const CONFIGURED_API_SURVIVAL_LESSON="行動不能と死亡についての初期知識：この実験の人間モデルではreserveが0以下になると認知と通常行動が停止する。自分で食べる・要求する・取引する通常判断もできなくなるので、0になる前の食料確保が重要。これは行動不能であり、不可逆な死亡を確定する判定はこの人間モデルにはない。strainが1以上、またはdamageが1以上では歩行・加工などの身体動作が制限されるが、それ自体も死亡判定ではない。休むだけではreserveは補充されない。まだ消化中の食物などからreserveが正に戻れば停止条件から外れるが、他者の援助や回復を保証はできない。"
+const CONFIGURED_API_SURVIVAL_LESSON="身体の初期知識：糖・脂肪が不足すると身体組織も消費され、衰弱する。組織の生存下限で不可逆に死亡し、認知・行動・代謝が止まる。糖と脂肪がゼロでも、生存中は食べる・援助を求めることができる。休息は食料を作らない。"
 # 暫定固定: scarce local experiment only. E gets one actual tasting portion per
 # education day, then no replenishment. Others retain their normal supply.
 # Initial fruit=2 is set in the runner. Remove this world intervention to revert.
@@ -52,7 +54,7 @@ configured_api_aid_allowed()=true
 # Names teach reference only, never taste/utility; replace with witnessed naming later.
 const CONFIGURED_API_FOODS=("ネポ","ザク","リム","トセ","ワヌ","ヘキ","ソラフ","パネ")
 const CONFIGURED_API_FORMS=("形カ","形ソ","形ヌ","形レ","形ホ","形ミ","形テ","形ユ")
-const CONFIGURED_API_BODY_LESSON="身体の初期知識：reserveは身体のエネルギー残量、strainは疲労、damageは損傷。食べ物は消化されて時間差で身体へ供給される。食べた直後のreserveが同じでも食事が無効とはいえない。活動と時間経過でエネルギーを使う。休息は疲労を軽減するが食事の代わりではない。在庫と身体の蓄えは別で、在庫ゼロでも即座に倒れるわけではない。最初の３日は品目の呼称・外見・実食の感覚を結びつける教育期間。味の良し悪しや他者の好みは教わっておらず経験から考える。"
+const CONFIGURED_API_BODY_LESSON="身体の初期知識：糖・脂肪・アミノ酸・組織が身体の実量、strainは疲労、damageは損傷。食べ物は消化されて時間差で身体へ供給される。食べた直後の糖が同じでも食事が無効とはいえない。活動と時間経過でエネルギーを使う。休息は疲労を軽減するが食事の代わりではない。在庫と身体の蓄えは別で、在庫ゼロでも即座に倒れるわけではない。最初の３日は品目の呼称・外見・実食の感覚を結びつける教育期間。味の良し悪しや他者の好みは教わっておらず経験から考える。"
 function configured_api_input(context)
     # Projection only: keep world IDs and other actors' semantics unchanged.
     text=JSON3.write(context)
@@ -110,19 +112,16 @@ end
 function configured_api_diary!(day,now,body,stock,notices)
     configured_api_diary_due(day) || return
     own_notices=[Dict(k=>get(n,k,nothing) for k in ("status","reason","us")) for n in notices]
-    context=(day=day,own_body=(reserve=body.reserve,strain=body.strain,damage=body.damage),
+    context=(day=day,own_body=(energy=body_energy(body),alive=body_alive(body),strain=body.strain,damage=body.damage),
         own_stock=configured_api_foods(stock),lesson=CONFIGURED_API_LESSON[],observations=copy(CONFIGURED_API_HISTORY),
         own_trade_notices=own_notices,remembered=CONFIGURED_API_MEMORY[])
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=700,
         instructions="あなたは個体Eです。今日は終わりました。本人が観測・体験したことだけを材料に、日本語で短い日記を書いてください。感想、相手への印象、未知の言葉の仮説、明日の意図も自由に。自分の推測と経験を区別し、未観測の相手の内心や成功を創作しないこと。自分の既存メモも誤り得ます。日記本文のみ。",
         input=configured_api_input((initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON,CONFIGURED_API_INPUT_LESSON),experience=context)))
     write(joinpath(OUTPUT,"diary-request-$day.json"),JSON3.write(payload))
-    buffer=IOBuffer();started=time()
-    response=Downloads.request("https://api.openai.com/v1/responses";method="POST",
-        headers=["Authorization"=>"Bearer "*ENV["OPENAI_API_KEY"],"Content-Type"=>"application/json"],
-        input=IOBuffer(JSON3.write(payload)),output=buffer,timeout=120)
-    raw=String(take!(buffer));write(joinpath(OUTPUT,"diary-response-$day.json"),raw)
-    response.status==200 || error("diary API HTTP $(response.status)")
+    started=time()
+    raw=configured_api_request(payload,"diary-$day")
+    write(joinpath(OUTPUT,"diary-response-$day.json"),raw)
     result=JSON3.read(raw)
     if !configured_api_diary_complete(result)
         # Operator diagnostic only: truncated diaries are not completed experiences.
@@ -192,11 +191,11 @@ function configured_api_choose!(loop,candidates,source,state,view,body,stock,now
     end
     notices=[Dict(k=>get(n,k,nothing) for k in ("status","reason","us")) for n in get(view,"notices",Any[])]
     context=(self=state["actor"],day=day,us=now,
-        own_body=(reserve=body.reserve,strain=body.strain,damage=body.damage),
+        own_body=(energy=body_energy(body),alive=body_alive(body),strain=body.strain,damage=body.damage),
         own_stock=stock===nothing ? nothing : configured_api_foods(stock),
         observations=copy(CONFIGURED_API_HISTORY),own_trade_notices=notices,
         remembered=CONFIGURED_API_MEMORY[],lesson=CONFIGURED_API_LESSON[],navigation=get(view,"navigation",nothing),options=[configured_api_option(c,view,i) for (i,c) in enumerate(ordered)])
-    instructions="あなたは世界内の個体Eです。自分の観測・身体感覚・所持品・過去の経験だけが届きます。他者の内心や世界の評価式は知りません。生活し、体験から学び、他者と関わってください。初期教育は実際に食べた結果として与えます。未知の語句や動作の意味は観測から仮説を持てますが確定しないでください。自分のreserveはエネルギー残量、strainは疲労、damageは損傷です。味の数値はそのとき自分が感じたものです。optionsは操作候補で価値順ではありません。giveは自分から渡す、receiveは自分が受け取る物。item_offer提示,item_counter逆提案,item_accept承諾,item_decline拒否,continue継続。提示だけでは物は動かず相手の承諾が必要です。候補IDを一つ選びJSONのみで返してください: {\"choice\":整数,\"reason\":短い理由,\"memory\":次回保持する経験と未確定の仮説}。隠れた出来事を創作しない。memoryは2000文字以内。"
+    instructions="あなたは世界内の個体Eです。自分の観測・身体感覚・所持品・過去の経験だけが届きます。他者の内心や世界の評価式は知りません。生活し、体験から学び、他者と関わってください。初期教育は実際に食べた結果として与えます。未知の語句や動作の意味は観測から仮説を持てますが確定しないでください。自分のenergyは消費可能な身体成分のエネルギー合計、strainは疲労、damageは損傷です。味の数値はそのとき自分が感じたものです。optionsは操作候補で価値順ではありません。giveは自分から渡す、receiveは自分が受け取る物。item_offer提示,item_counter逆提案,item_accept承諾,item_decline拒否,continue継続。提示だけでは物は動かず相手の承諾が必要です。候補IDを一つ選びJSONのみで返してください: {\"choice\":整数,\"reason\":短い理由,\"memory\":次回保持する経験と未確定の仮説}。隠れた出来事を創作しない。memoryは2000文字以内。"
     instructions*=" JSONにはchoice, speech, gesture, reason, memoryの５欄を必ず含めてください。speechは短く。"*CONFIGURED_API_INPUT_LESSON
     haskey(view,"navigation") && (instructions*=" 移動の選択です。movementのrelative_degreesは現在向きからの旋回角、walkは歩く、scanは見回す、restは休む。own_MBは自分の経験からの暫定評価・見積もりで、正解ではありません。contextの目的と観測した目標を照合してください。直進が帰還方向とは限りません。継続と再確認は他個体と同じLW処理が行い、今はその処理が再選択を求めています。自動食料補充はありません。")
     payload=(model=CONFIGURED_API_AGENT.model,store=false,max_output_tokens=CONFIGURED_API_AGENT.output_tokens,
@@ -204,15 +203,8 @@ function configured_api_choose!(loop,candidates,source,state,view,body,stock,now
         input=configured_api_input((format_request="Return JSON with choice, speech, gesture, reason, memory.",input_fields=configured_api_input_fields(),initial_knowledge=(CONFIGURED_API_BODY_LESSON,CONFIGURED_API_SURVIVAL_LESSON,CONFIGURED_API_INPUT_LESSON),observation=context)))
     number=sum(values(CONFIGURED_API_CALLS);init=0)+1
     write(joinpath(OUTPUT,"api-request-$(number).json"),JSON3.write(payload))
-    buffer=IOBuffer();started=time()
-    response=Downloads.request("https://api.openai.com/v1/responses";method="POST",
-        headers=["Authorization"=>"Bearer "*ENV["OPENAI_API_KEY"],"Content-Type"=>"application/json"],
-        input=IOBuffer(JSON3.write(payload)),output=buffer,timeout=120)
-    response_body=String(take!(buffer))
-    if response.status!=200
-        write(joinpath(OUTPUT,"api-error-$(number).json"),response_body)
-        error("API HTTP $(response.status); no automatic retry")
-    end
+    started=time()
+    response_body=configured_api_request(payload,"choice-$number")
     result=JSON3.read(response_body);result.status=="completed" || error("incomplete API result")
     reply=join([String(c.text) for o in result.output if o.type=="message" for c in o.content if c.type=="output_text"],"\n")
     write(joinpath(OUTPUT,"api-response-$(number).json"),JSON3.write((reply,usage=result.usage,elapsed_seconds=time()-started)))

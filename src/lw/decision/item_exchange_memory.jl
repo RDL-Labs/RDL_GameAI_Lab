@@ -234,3 +234,18 @@ function item_exchange_option(state,feature;stock=nothing,weights=nothing)
     end
     best
 end
+
+# Owner-local acquisition history, not current stock. Direction matters: want is
+# what this actor received; give alone is not evidence of a supplier.
+function item_exchange_supplier_support(state,kind,partners)
+    support=Dict{String,Float64}()
+    for memory in get(state,"exchange_relations",Any[])
+        peer=memory["partner"]
+        peer in partners || continue
+        received=get(memory["want"]["food"],kind,0)-get(memory["give"]["food"],kind,0)
+        received>0 && memory["successes"]>0 || continue
+        strength=log1p(memory["successes"])*item_exchange_response(memory,memory["give"],memory["want"])
+        support[peer]=get(support,peer,0.)+strength
+    end
+    support
+end

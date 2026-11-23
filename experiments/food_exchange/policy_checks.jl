@@ -150,7 +150,8 @@ end
     event=last(loop.events)
     @test result["status"]=="exchanged" && event.E==0 && event.goal_E==0
     @test event.reward≈plan["trade_gain"]-LW.FOOD_TRADE_TOLERANCE
-    @test loop.H==0. && loop.methods[plan["method"]].reward>0
+    @test loop.H≈2.0-LW.FOOD_TRADE_TOLERANCE
+    @test loop.methods[plan["method"]].reward>0 # Matching this swap does not erase past deficit.
     @test policy_audit(x)===nothing
 
     # C trades with A before B answers A's pending proposal. The later swap is
@@ -175,11 +176,12 @@ end
     @test LW.FOOD_TRADE_TOLERANCE<actual<plan["trade_gain"]-LW.FOOD_TRADE_TOLERANCE
     LW.food_trade_views!(x.t,x.r,x.w,PHOME,4_000_000;open_stores=true)
     event=last(loop.events)
-    @test event.E==0 && event.goal_E==1 && event.reward==0.
+    @test event.E≈plan["trade_gain"]-actual-LW.FOOD_TRADE_TOLERANCE
+    @test event.goal_E==event.E && event.reward≈actual-LW.FOOD_TRADE_TOLERANCE
     @test event.goal_H_increment≈plan["trade_gain"]-actual-LW.FOOD_TRADE_TOLERANCE
     @test loop.H≈event.goal_H_increment
-    @test !event.failed && loop.methods[plan["method"]].failure_count==0
-    @test loop.credit_path==[plan["method"]] && x.t["minds"][PA]["pending"]===nothing
+    @test event.failed && loop.methods[plan["method"]].failure_count==1
+    @test isempty(loop.credit_path) && x.t["minds"][PA]["pending"]===nothing
     settled=LW.loop_snapshot(loop)
     LW.food_trade_views!(x.t,x.r,x.w,PHOME,5_000_000;open_stores=true)
     @test LW.loop_snapshot(loop)==settled && policy_audit(x)===nothing
@@ -193,8 +195,9 @@ end
         "neutral-accept","trade_accept",1_000_000;offer_id=id)
     LW.food_trade_views!(x.t,x.r,x.w,PHOME,2_000_000;open_stores=true)
     event=last(loop.events)
-    @test event.E===nothing && event.goal_E===nothing && event.reward==0.
-    @test loop.H==2. && event.goal_H_increment==0. && loop.trial===nothing
+    @test event.E==0. && event.goal_E==0. && event.reward==0.
+    @test loop.H≈2.0-LW.FOOD_TRADE_TOLERANCE
+    @test event.goal_H_increment==0. && loop.trial===nothing
     @test policy_audit(x)===nothing
 end
 

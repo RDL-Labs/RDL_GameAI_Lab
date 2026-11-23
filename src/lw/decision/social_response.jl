@@ -7,26 +7,23 @@ function experienced_response(obs,records,pressure,owner,seed;retention=0.,relat
         return response(obs,true),nothing
     end
     sources=String[];weight=0.
-    for (id,r) in (relation===nothing && !hasproperty(pressure,:loop) ? records : D())
-        check(r["agent_id"]==owner,"response_source_owner")
-        r["target"]==other && r["outcome"]=="refuse" || continue
-        evidence=pressure.methods[other].records[id]
-        check(evidence["E"]==1 && evidence["evidence"]["source"]==r["source_observation_id"],"response_evidence")
-        push!(sources,id);weight=max(weight,min(2.,.6*evidence["H_after"]))
-    end
+    # Receiving aid and deciding to provide it are different questions. Keep
+    # request H intact; neither its temperature nor legacy refusal H belongs
+    # to this response. Relationship experience still enters through the MB.
     relation!==nothing && check(relation["actor"]==owner,"response_relation_owner")
     unified=hasproperty(pressure,:loop)
-    situation=social_observed_context(relation,other,D("need"=>clamp((80-obs["body"]["reserve"])/80,0.,1.)))
+    response_loop=unified ? BasicLoop(owner*":provide-aid";probabilistic=true) : nothing
+    situation=social_observed_context(relation,other,D("need"=>body_observed_demand(obs["body"])))
     relationship=relation===nothing ? nothing : unified ?
-        social_relation_bias(relation,other,"give";situation,H=pressure.parent.H) :
+        social_relation_bias(relation,other,"give";situation,H=0.) :
         social_relation_bias(relation,other,"give")
     relationship!==nothing && (relationship["applies_to"]="give")
-    reserve=obs["body"]["reserve"];need=max(0.,(80-reserve)/40)
+    reserve=body_observed_energy(obs["body"]);need=2body_observed_demand(obs["body"])
     score=1.0 - need - weight - retention - food_anxiety(food_security(relation)) + get(situation,"distress",0.) + (relationship===nothing ? 0. : relationship["weight"])
     probability=if !available_food
         0.
     elseif unified
-        method_distribution(pressure.loop,Any[
+        method_distribution(response_loop,Any[
             D("method"=>"refuse:"*other,"priority"=>0.),
             D("method"=>"give:"*other,"priority"=>score)])[2]
     else
@@ -42,11 +39,13 @@ function experienced_response(obs,records,pressure,owner,seed;retention=0.,relat
         D("method"=>"give:"*other,"action"=>"give","priority"=>score,"context"=>situation,
           "components"=>components,"gradient_relation"=>relationship,"feasible"=>available_food)]
     selected=action=="give" ? candidates[2] : candidates[1]
-    gradient_capture!(relation,unified ? pressure.loop : nothing,candidates,selected,seed,now;
+    gradient_capture!(relation,response_loop,candidates,selected,seed,now;
         channel="aid_response",probabilities=[1-probability,probability])
     trace=D("source"=>seed,"other"=>other,"weight"=>weight,"sources"=>sources,
         "need"=>need,"retention_cost"=>retention,"give_probability"=>probability,"draw"=>draw,"selected"=>action,
         "authority"=>"local response use rule; not inferred intent")
+    trace["pressure_scope"]="provide-aid-current-evaluation"
+    trace["response_H"]=0.
     unified && (trace["selection"]="common_H_distribution")
     relationship!==nothing && (trace["relationship"]=relationship)
     (action,other,m["id"]),trace
@@ -88,7 +87,7 @@ function experienced_request(obs,records,pressure,owner,other,seed;relation=noth
     end
     relation!==nothing && check(relation["actor"]==owner,"request_relation_owner")
     unified=hasproperty(pressure,:loop)
-    situation=social_observed_context(relation,other,D("need"=>clamp((80-obs["body"]["reserve"])/80,0.,1.)))
+    situation=social_observed_context(relation,other,D("need"=>body_observed_demand(obs["body"])))
     relationship=relation===nothing ? nothing : unified ?
         social_relation_bias(relation,other,"request";situation,H=pressure.parent.H) :
         social_relation_bias(relation,other,"request")

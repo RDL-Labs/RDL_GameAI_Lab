@@ -11,15 +11,13 @@ function gradient_capture!(relation,loop,candidates,chosen,source,now;channel="s
     index in keep || push!(keep,index)
     rows=Any[]
     for i in keep
-        c=candidates[i];node=loop===nothing ? nothing : get(loop.methods,c["method"],nothing)
-        learned=node===nothing ? 0. : log1p(node.reward)
-        repulsion=node===nothing ? 0. : failure_repulsion(node)
-        method_H=node===nothing ? 0. : min(2.,node.H/node.threshold)
-        temperature=loop===nothing || get(c,"goal_arrival",false) ? 1. : 1+loop.H/loop.threshold
+        c=candidates[i]
+        parts=loop===nothing ? (learned=0.,repulsion=0.,penalty=0.,temperature=1.,score=c["priority"]+get(c,"observation_log_prior",0.)) : method_score_parts(loop,c)
+        learned=parts.learned;repulsion=parts.repulsion;method_H=parts.penalty;temperature=parts.temperature
         row=D("method"=>c["method"],"base"=>c["priority"],"learned"=>learned,
             "repulsion"=>repulsion,"method_penalty"=>method_H,"temperature"=>temperature,
             "prior"=>get(c,"observation_log_prior",0.),"probability"=>probs[i],"feasible"=>get(c,"feasible",true),
-            "log_weight"=>(c["priority"]+learned-repulsion-method_H)/temperature+get(c,"observation_log_prior",0.))
+            "log_weight"=>parts.score)
         for k in ("action","target","partner","expected","trade_gain","trade_expected_gain","context","trade_context","observed_context","terms","components","compound_gradient","communication_prediction")
             haskey(c,k) && (row[k]=deepcopy(c[k]))
         end

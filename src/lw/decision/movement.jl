@@ -6,19 +6,19 @@ function evaluate_movement(::EnergyMovementPolicy,o)
     for sample in o.walks
         angle=sample.angle
         goal=target===nothing ? 1.0+abs(angle)/90 : min(10.,hypot(target["forward"]-cos(deg2rad(Float64(angle))),target["right"]-sin(deg2rad(Float64(angle)))))
-        _,status,_,delta=step(b,"walk",o.load,sample.resistance,sample.clear)
-        cost=status=="performed" ? goal-delta["reserve"]/max(b.reserve,.001)-delta["burst"]/max(b.burst,.001)+delta["strain"] : nothing
+        _,status,predicted_distance,delta=step(b,"walk",o.load,sample.resistance,sample.clear)
+        cost=status=="performed" ? goal-body_energy_delta(delta)/max(body_energy(b),.001)-delta["burst"]/max(b.burst,.001)+delta["strain"] : nothing
         if cost!==nothing && cost<best
             best=cost;chosen=sample.ref
         end
         push!(rows,D("ref"=>sample.ref,"action"=>"walk","clear"=>sample.clear,"resistance"=>sample.resistance,"load"=>o.load,"goal_cost"=>goal,
-            "status"=>status,"cost"=>cost,"expected_delta"=>delta))
+            "status"=>status,"cost"=>cost,"distance"=>predicted_distance,"expected_delta"=>delta))
     end
     run_rows=Any[]
     for sample in o.runs
         _,status,d,delta=step(b,"run",o.load,sample.resistance,sample.clear)
         push!(run_rows,D("ref"=>sample.ref,"action"=>"run","clear"=>sample.clear,"resistance"=>sample.resistance,
-            "load"=>o.load,"status"=>status,"cost"=>status=="performed" ? -delta["reserve"] : nothing,
+            "load"=>o.load,"status"=>status,"cost"=>status=="performed" ? -body_energy_delta(delta) : nothing,
             "distance"=>d,"expected_delta"=>delta))
     end
     D("movement_surface"=>D("schema"=>"l15a-current-surface-rays-v1",

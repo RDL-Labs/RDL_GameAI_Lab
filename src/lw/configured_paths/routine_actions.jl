@@ -1,7 +1,7 @@
 # Scenario policies retained for compatibility; these are not learned MB decisions.
 # 暫定固定: 非MB実行用の旧疲労停止。MB版はfatigue_forecastで置換。
 # 新規既定経路には使わず、身体限界とは区別する。
-configured_legacy_fatigue_continue(body)=body.strain<CONFIGURED_LIMITS.navigation_rest_strain && body.reserve>0
+configured_legacy_fatigue_continue(body)=body.strain<CONFIGURED_LIMITS.navigation_rest_strain && body_alive(body)
 configured_plan(action,rule;kwargs...)=D("action"=>action,"configured_rule"=>rule,(string(k)=>v for (k,v) in kwargs)...)
 function configured_routine_priority(hungry,edible,can_eat,at_home,stock,phase,local_us,quiet_us,pending,overrides;enabled=true)
     enabled || return nothing

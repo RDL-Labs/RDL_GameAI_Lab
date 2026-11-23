@@ -16,6 +16,8 @@ function chunk_trip!(s,t)
 end
 @testset "goal H credited chunks" begin
  s=mb_map_state("a";chunks=true);chunk_trip!(s,0)
+ @test_throws ErrorException mb_goal_result!(s,"home","op:0:a",true,8,0,2_000_000)
+ @test s["chunk_goal_credits"]==0 && length(s["route_trace"])==2
  @test length(s["route_trace"])==2 && isempty(s["chunks"])
  @test !mb_goal_result!(s,"home","op:1000000:a",false,8,9,2_000_000)
  @test isempty(s["chunks"])

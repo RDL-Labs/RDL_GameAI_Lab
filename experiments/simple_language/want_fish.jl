@@ -1,6 +1,6 @@
 # 暫定固定: local request vocabulary/production and appearance-to-food grounding.
 # Not normal-life policy. Replace authored wording/grounding with learned roles.
-const WANT_FISH=(kind=8,word="魚",request_word="欲しい",appearance="fish-form",
+const WANT_FISH=(kind=8,word="塩焼き魚",request_word="欲しい",appearance="fish-form",
  utterance_us=3_000_000,trials=32,stock=20,teaching_samples=3)
 function want_fish_interest(body,stock,known,words;security=nothing)
  words===nothing && return nothing

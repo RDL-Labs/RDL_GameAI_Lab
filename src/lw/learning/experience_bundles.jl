@@ -1,6 +1,6 @@
 # Own unmet-goal conjunctions; unvalidated local materials, not canonical T1.
 bundle_state(actor)=D("actor"=>actor,"active"=>Any[],"dormant"=>Any[],"history"=>Any[],"used"=>Set{String}(),"comparison"=>0,"sequence"=>0,"usage"=>D(),"cycles"=>Int[],"reviews"=>Any[],"woken"=>0,"changes"=>0,"matched"=>0)
-bundle_context(inventory,body,move,hazard)=Any[food_band(inventory),move["food_coverage"],!isempty(move["visible"]),hazard["coverage"],!isempty(hazard["features"]),body.reserve<=80,body.strain>=.8]
+bundle_context(inventory,body,move,hazard)=Any[food_band(inventory),move["food_coverage"],!isempty(move["visible"]),hazard["coverage"],!isempty(hazard["features"]),body_demand(body)>0,body.strain>=.8]
 function remember_bundle!(s,record)
     record["actor"]==s["actor"] || error("bundle_owner")
     push!(s["history"],deepcopy(record));length(s["history"])>8 && popfirst!(s["history"])

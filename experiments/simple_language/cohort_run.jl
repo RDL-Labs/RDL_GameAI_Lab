@@ -10,7 +10,7 @@ cp(HERE,joinpath(OUTPUT,"communication"))
 const LEARNED_CONTROL=get(ENV,"RDL_LEARNED_TRADE","0")=="1"
 const WANT_VOICE=get(ENV,"RDL_WANT_VOICE","0")=="1"
 if LEARNED_CONTROL
- for file in ("item_social.jl","gradient_trace.jl","trade_communication.jl","food_exchange.jl")
+ for file in ("item_social.jl","item_exchange_memory.jl","gradient_trace.jl","trade_communication.jl","food_exchange.jl")
   cp(joinpath(HERE,"../../src/lw/decision",file),joinpath(OUTPUT,"source/src/lw/decision",file);force=true)
  end
  daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl")
@@ -57,6 +57,8 @@ if WANT_VOICE
  write(daypath,daytext)
 end
 input=JSON3.read(read(joinpath(BASE,"input.json"),String),Dict{String,Any})
+# Fresh communication runs hide warehouses; old checkpoints retain their scene contract.
+MODE=="train" && (input["scene"]["open_stores"]=false)
 const STARTDAY=MODE=="train" ? 0 : Int(JSON3.read(read(joinpath(BASE,"completed.json"),String)).days)
 input["config"]["days"]=MODE=="train" ? 3 : STARTDAY+parse(Int,get(ENV,"RDL_COHORT_DAYS","20"))
 if MODE in ("train","join")

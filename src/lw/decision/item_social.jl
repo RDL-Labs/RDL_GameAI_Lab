@@ -110,10 +110,10 @@ function item_social_gain(own,stock,values,weights,give,want,gf,wf;visible=Any[]
     relational_transition(before,item_social_utility(after,stock.-gf.+wf,values,weights;prepared)).delta
 end
 
-function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true,communication=nothing,compare_incoming=false,requested_food=nothing)
+function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=nothing,relation=nothing,require_need=false,allow_start=true,communication=nothing,compare_incoming=false,requested_food=nothing,supply_request=nothing)
     require_need && error("necessity admission was replaced by compound trade valuation")
     view===nothing && return nothing
-    body.reserve>0 && body.strain<.8 && body.damage<1 || return nothing
+    body_alive(body) && body.strain<.8 && body.damage<1 || return nothing
     mind=item_social_state!(state)
     incoming=get(view,"incoming",Any[])
     response=!isempty(incoming)
@@ -127,22 +127,26 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
     weights=stock===nothing ? zeros(length(RDLBody.FOOD_KIND_IDS)) : food_trade_weights(body,gut;map,kitchen)
     available=stock===nothing ? zeros(Int,length(RDLBody.FOOD_KIND_IDS)) : copy(stock)
     prepared=item_social_prepare(state,view,available,weights)
-    salted=kitchen===nothing ? nothing : food_use_forecast(map,kitchen.foods,state["actor"],RDLBody.FISH_FOOD,true,gut,body.reserve,kitchen.facilities,kitchen.position;processing=kitchen.processing,salted=true)
-    unit=salted===nothing ? 0. : max(0.,.2+.6clamp((80-body.reserve)/80,0.,1.)+food_taste_value(salted.liking,body.reserve)-salted.cost-weights[RDLBody.FISH_FOOD])
+    salted=kitchen===nothing ? nothing : food_use_forecast(map,kitchen.foods,state["actor"],RDLBody.FISH_FOOD,true,gut,body_energy(body),kitchen.facilities,kitchen.position;processing=kitchen.processing,salted=true)
+    unit=salted===nothing ? 0. : max(0.,.2+.6body_demand(body)+food_taste_value(salted.liking,body_energy(body),gut)-salted.cost-weights[RDLBody.FISH_FOOD])
     salts=Set(Int(row["ref"]) for row in Iterators.flatten((prepared.rows,view["visible"])) if recognized_salt(map,row))
     values=prepared.values
-    context=D("need"=>clamp((80-body.reserve)/80,0.,1.))
+    context=D("need"=>body_demand(body))
     candidates=Any[]
     peer_valuations=D()
     recall_support=D() # local: never survives selection or experience updates
     fit_materials=IdDict{Any,ItemFitMaterial}() # query/prototype preparation shared within this decision
+    supply_audit=supply_request===nothing ? nothing : D("evaluated"=>0,"unfavorable"=>0,"feasible"=>0)
+    supply_audit===nothing || (state["last_supply_evaluation"]=supply_audit)
     function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)
         # Optional explicit request narrows new proposals, not the recipient's consent.
         !response && requested_food!==nothing && wf[requested_food]<=gf[requested_food] && return
         stock===nothing && (any(!iszero,gf) || any(!iszero,wf)) && return
+        supply_request!==nothing && (!response || counter) && (gf[supply_request.kind]<=wf[supply_request.kind] || any(k->k!=supply_request.kind && gf[k]>0,eachindex(gf))) && return
         # New requests and counteroffers stay within the observed warehouse.
         # An incoming offer is its own evidence; execution revalidates ownership.
-        (!response || counter) && any(k->wf[k]>observed_food_count(view,other,k;fallback=typemax(Int)),eachindex(wf)) && return
+        (!response || counter) && any(k->wf[k]>observed_food_candidate_count(view,other,k) && !(supply_request!==nothing && other==supply_request.partner && k in supply_request.known_kinds),eachindex(wf)) && return
+        supply_audit===nothing || (supply_audit["evaluated"]+=1)
         relief=trade_food_relief(body,gut,stock,gf,wf;security)
         isempty(intersect(give,want)) || return
         (!isempty(give) || !isempty(want) || any(!iszero,gf) || any(!iszero,wf)) && sum(gf)<=4 && sum(wf)<=4 || return
@@ -162,7 +166,10 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         subjective=gradient["total"]
         # A valuation admissibility band, not a probability of accepting a loss.
         # Need/taste, possessions and social MB evidence remain owner-relative.
-        subjective>=-.01 || return
+        if subjective<-.01
+            supply_audit===nothing || (supply_audit["unfavorable"]+=1)
+            return
+        end
         exchange_give=item_exchange_prepared_bundle(prepared.by_ref,give,gf);exchange_want=item_exchange_prepared_bundle(prepared.by_ref,want,wf)
         (exchange_give===nothing || exchange_want===nothing) && return
         key=item_exchange_key(other,exchange_give,exchange_want)
@@ -178,6 +185,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         expected=field.expected
         # Shape-based methods generalize over object IDs. Actual refs bind only
         # the current transfer. The bounded method table is shared-loop machinery.
+        supply_audit===nothing || (supply_audit["feasible"]+=1)
         action=counter ? "item_counter" : response ? "item_accept" : "item_offer"
         push!(candidates,D("method"=>"$action:$key",
             "action"=>action,"question"=>"subjective_possession_value",
@@ -240,11 +248,25 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         candidates=response_candidates
     else
         partners=social_peer_scope!(relation,get(view,"trade_partners",String[]),loop,need,now)
+        # A heard request permits offering OWN stock and asking for a remembered
+        # food in return. Requested terms are not observations of peer stock.
+        if supply_request!==nothing && supply_request.partner in partners && stock!==nothing
+            other=supply_request.partner;kind=supply_request.kind
+            for n in 1:min(4,available[kind])
+                gf=zeros(Int,length(available));gf[kind]=n
+                candidate(other,Int[],Int[],gf,zeros(Int,length(available)))
+                for wanted in supply_request.known_kinds, m in 1:4
+                    wanted==kind && continue
+                    wf=zeros(Int,length(available));wf[wanted]=m
+                    candidate(other,Int[],Int[],gf,wf)
+                end
+            end
+        end
         # Food-only exchanges share valuation, consent, negotiation and receipts
         # with physical items. Start with one unit; existing refinement varies quantities.
         if stock!==nothing
             for other in partners, give_kind in eachindex(available), want_kind in eachindex(available)
-                give_kind!=want_kind && available[give_kind]>0 && observed_food_count(view,other,want_kind)>0 || continue
+                give_kind!=want_kind && available[give_kind]>0 && observed_food_candidate_count(view,other,want_kind)>0 || continue
                 gf=zeros(Int,length(available));wf=zeros(Int,length(available))
                 gf[give_kind]=1;wf[want_kind]=1
                 candidate(other,Int[],Int[],gf,wf)
@@ -253,7 +275,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         own=Iterators.take(view["own"]["held"],4)
         if stock!==nothing
             # Tender a possession for needed, observed food.
-            for other in partners, held in own, k in eachindex(available), n in 1:min(4,observed_food_count(view,other,k))
+            for other in partners, held in own, k in eachindex(available), n in 1:min(4,observed_food_candidate_count(view,other,k))
                 wf=zeros(Int,length(RDLBody.FOOD_KIND_IDS));wf[k]=n
                 candidate(other,[Int(held["ref"])],Int[],zeros(Int,length(RDLBody.FOOD_KIND_IDS)),wf)
             end

@@ -5,7 +5,7 @@ using .RDLMigrationProbe
 const ANGLES=(-90,-45,0,45,90)
 include(joinpath(@__DIR__, "../../body/load.jl"))
 include("../../data/lw_agent.jl")
-bodydict(b)=Dict("rule"=>"layered-body-human-scale-v1", "burst"=>b.burst,
+bodydict(b::Body)=Dict("rule"=>"layered-body-human-scale-v1", "burst"=>b.burst,
     "strain"=>b.strain,"reserve"=>b.reserve,"damage"=>b.damage)
 state(a)=Dict("x"=>a.x,"z"=>a.z,"yaw"=>a.yaw,"inventory"=>a.inventory,"body"=>bodydict(a.body))
 
@@ -84,3 +84,9 @@ function main()
         JSON3.write(io,results)
     end
 end
+
+bodydict(b::HumanBody)=Dict{String,Any}("rule"=>"three-nutrient-human-v2",
+    "burst"=>b.burst,"strain"=>b.strain,"damage"=>b.damage,
+    "energy"=>body_energy(b),"alive"=>body_alive(b),"mobility"=>body_mobility(b),
+    "body_demand"=>body_demand(b),"sugar"=>b.nutrients.sugar,"fat"=>b.nutrients.fat,
+    "tissue"=>b.nutrients.tissue,"amino"=>b.nutrients.amino)

@@ -9,9 +9,9 @@ function fatigue_forecast(body,load,seconds,relief;resistance=1.)
     rested,_,_,_=step(body,"rest",load)
     duration=max(1.,Float64(seconds))
     strain_rate=max(0.,walked.strain-body.strain)
-    reserve_rate=max(0.,body.reserve-metabolize(walked,1.).reserve)
+    reserve_rate=max(0.,body_energy(body)-body_energy(metabolize(walked,1.)))
     predicted_strain=body.strain+strain_rate*duration
-    predicted_reserve=body.reserve-reserve_rate*duration
+    predicted_reserve=body_energy(body)-reserve_rate*duration
     pressure=(max(0.,body.strain-rules.onset)/rules.scale)^2
     rest_gain=max(0.,body.strain-rested.strain)*min(duration,rules.delay_seconds)/rules.scale
     risk=rules.risk_gain*(max(0.,predicted_strain-1)/rules.scale+max(0.,-predicted_reserve)/HUNGER_FORECAST_RULES.scale)
@@ -19,7 +19,7 @@ function fatigue_forecast(body,load,seconds,relief;resistance=1.)
     continue_score=rules.continue_prior+benefit-pressure-risk
     rest_score=pressure+rest_gain
     probability=status=="performed" ? 1/(1+exp(clamp(rest_score-continue_score,-700.,700.))) : 0.
-    D("seconds"=>duration,"predicted_strain"=>predicted_strain,"predicted_reserve"=>predicted_reserve,
+    D("seconds"=>duration,"predicted_strain"=>predicted_strain,"predicted_energy"=>predicted_reserve,
         "continue_score"=>continue_score,"rest_score"=>rest_score,"continue_probability"=>probability,
         "walk_status"=>status,"relief"=>relief)
 end
@@ -27,12 +27,12 @@ end
 function fatigue_navigation_continue!(map,body,load,target,returning,loop,now)
     rules=FATIGUE_FORECAST_RULES
     # Below onset there is no fatigue intervention and no additional random draw.
-    body.strain<rules.onset && body.reserve>0 && return true
+    body.strain<rules.onset && body_alive(body) && return true
     state=get!(() -> D("records"=>Any[],"continued"=>0,"rested"=>0),map,"fatigue_forecast")
     family=returning ? "home" : "food"
     target_key=(family,target===nothing ? nothing : get(target,"ref",family))
     if get(state,"target_key",nothing)==target_key && now<get(state,"next_us",0) &&
-            body.strain<1 && body.reserve>0 && get(state,"choice",false)
+            body.strain<1 && body_alive(body) && get(state,"choice",false)
         return true
     end
     seconds=target===nothing ? rules.unknown_seconds : mb_travel_seconds(target["distance"])
@@ -48,7 +48,7 @@ function fatigue_navigation_continue!(map,body,load,target,returning,loop,now)
     forecast["walk_status"]=="performed" && (forecast["continue_probability"]=method_distribution(loop,candidates)[1])
     chosen=forecast["continue_probability"]>0 && rand(loop.rng)<forecast["continue_probability"]
     record=merge(forecast,D("us"=>now,"source"=>source,"family"=>returning ? "home" : "food",
-        "strain"=>body.strain,"reserve"=>body.reserve,"continued"=>chosen))
+        "strain"=>body.strain,"energy"=>body_energy(body),"continued"=>chosen))
     state["choice"]=chosen;state["target_key"]=target_key
     state["next_us"]=now+round(Int,min(seconds,rules.delay_seconds)*1e6)
     state[chosen ? "continued" : "rested"]+=1

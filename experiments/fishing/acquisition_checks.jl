@@ -3,10 +3,10 @@ include("../../src/lw/LW.jl")
 @testset "hierarchical acquisition residual and contextual pressure" begin
  m=LW.mb_map_state(first(LW.IDS));method="fishing"
  LW.acquisition_result!(m,method,1,100.,99.,false)
- @test m["acquisition"]["sites"]["fishing:1"]["H"]==0
+ @test m["acquisition"]["sites"]["fishing:1"]["H"]≈.99
  LW.acquisition_result!(m,method,1,10000.,51.,false)
  @test m["acquisition"]["sites"]["fishing:1"]["forecast"]==100
- @test m["acquisition"]["sites"]["fishing:1"]["H"]==.5
+ @test m["acquisition"]["sites"]["fishing:1"]["H"]≈1.5
  v=LW.acquisition_value(m,method,1,100.,1.,0.)
  other=LW.acquisition_value(m,method,2,100.,1.,0.)
  @test v.local_repulsion>other.local_repulsion
@@ -16,11 +16,11 @@ include("../../src/lw/LW.jl")
  @test urgent.score<other.score
  @test LW.acquisition_value(m,method,2,100.,1.,0.)==other # no permanent need penalty
  LW.acquisition_result!(m,method,2,100.,50.,true)
- @test m["acquisition"]["methods"][method]["H"]==0
- @test m["acquisition"]["sites"]["fishing:1"]["H"]==.5 # other site history intact
+ @test m["acquisition"]["methods"][method]["H"]≈1. # Catch does not erase the prior deficit.
+ @test m["acquisition"]["sites"]["fishing:1"]["H"]≈1.5 # other site history intact
  LW.acquisition_result!(m,"hunting",3,100.,150.,false)
- @test m["acquisition"]["sites"]["hunting:3"]["H"]==.5
- @test m["acquisition"]["methods"]["fishing"]["H"]==0
+ @test m["acquisition"]["sites"]["hunting:3"]["H"]≈1.5
+ @test m["acquisition"]["methods"]["fishing"]["H"]≈1.
  # Serializing forecasts preserves unresolved pressure.
  io=IOBuffer();serialize(io,m);seekstart(io);copy=deserialize(io)
  @test copy["acquisition"]["sites"]==m["acquisition"]["sites"]
@@ -73,5 +73,5 @@ end
  LW.acquisition_result!(m,"pickup",1,10.,10.,true)
  LW.acquisition_result!(m,"pickup",1,100.,50.,false)
  @test m["acquisition"]["sites"]["pickup:1"]["forecast"]==100
- @test m["acquisition"]["methods"]["pickup"]["H"]==0
+ @test m["acquisition"]["methods"]["pickup"]["H"]≈.5
 end

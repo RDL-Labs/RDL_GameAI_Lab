@@ -31,5 +31,15 @@ function api_field_training_instrument(text)
                  "            personal_supply=configured_api_training_supply!(mb_maps,day,now,clock.day_us)")
     anchor="            food_targets=acorn_quest ?"
     replace_once(anchor,"            configured_api_training_observe!(a,mb_maps[a],now;observed=landmarks===nothing ? nothing : landmarks[a],heading=yaw[a])\n"*anchor)
+    anchor="            at_home=home!==nothing && home[\"distance\"]<=1.25"
+    replace_once(anchor,anchor*"\n            replenished+=configured_api_teacher_handover!(mb_maps[a],foods,w,cargo,replenishments,a,at_home,now)")
+    for (function_name,state_key) in (("configured_acorn_quest_training_plan","training_quest"),("configured_fishing_training_plan","fishing_training"))
+        # Wrap only the plan call, preserving existing arguments and branch priority.
+        pattern=Regex(function_name*"\\(mb_maps\\[a\\].*?(?=\\)!==nothing)")
+        matches=collect(eachmatch(pattern,text));@assert length(matches)==1
+        original=only(matches).match
+        replacement="configured_api_training_available_plan(mb_maps[a][\"$state_key\"],"*original*",foods.inventory[a],foods.personal[a],now)"
+        replace_once(original,replacement)
+    end
     text
 end

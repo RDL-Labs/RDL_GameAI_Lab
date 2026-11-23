@@ -297,7 +297,7 @@ function item_execute!(s,foods,w,stores,home,a,op,action,now;
     status="unavailable";reason="unknown_item";id=offer_id;recorded=false
     own_before=nothing;own_after=nothing
     body=w.bodies[a]
-    if !(body.reserve>0 && body.damage<1 && body.strain<1)
+    if !(body_alive(body) && body.damage<1 && body.strain<1)
         reason="body_limited"
     elseif action in ("item_offer","item_counter")
         previous=action=="item_counter" ? get(s["offers"],offer_id,nothing) : nothing

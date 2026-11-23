@@ -12,7 +12,7 @@ function climb_sample(w,a,yaw,index,low,high,resistance_at)
     _,status,d,delta=step(b,"climb",w.inventory[a],resistance,clear)
     D("direction"=>index,"action"=>"climb","height"=>height,"capacity"=>capacity,
       "path_clear"=>!any(c->segment_hit(p,q,c,.2),high),"landing_clear"=>landing,"clear"=>clear,"load"=>w.inventory[a],"resistance"=>resistance,
-      "status"=>status,"cost"=>status=="performed" ? -delta["reserve"] : nothing,
+      "status"=>status,"cost"=>status=="performed" ? -body_energy_delta(delta) : nothing,
       "distance"=>d,"expected_delta"=>delta)
 end
 

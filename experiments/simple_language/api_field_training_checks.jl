@@ -23,7 +23,7 @@ include("api_field_training_instrument.jl")
     configured_acorn_quest_result!(q,"eat","ate",107;kind=1)
     @test q["stage"]=="completed"
     @test isempty(configured_api_training_supply!(maps,1,199,100))
-    @test configured_api_training_supply!(maps,2,200,100)["npc_e"]==Dict("kind"=>5,"quantity"=>1)
+    @test isempty(configured_api_training_supply!(maps,2,200,100)) # activation, handover waits for home
     @test isempty(configured_api_training_supply!(maps,2,200,100))
     @test configured_api_fish_active(fish)
     ENV["RDL_API_FIELD_TRAINING"]="1"
@@ -46,4 +46,33 @@ include("api_field_training_instrument.jl")
     patched=api_field_training_instrument(source)
     @test occursin("configured_api_training_supply!",patched)
     @test !occursin("fishing_training_requires_initial_tasting_sample",patched)
+end
+@testset "Teacher handover and material shortage" begin
+    w=world(true)
+    for a in IDS;w.inventory[a]=0;end
+    stores=Dict(a=>0 for a in IDS)
+    foods=food_resources((typed_food=true,food_batch_expiry=true),w,Any[],Int[],0,stores)
+    cargo=Dict(a=>Any[] for a in IDS);ledger=Any[];a=first(IDS)
+    q=configured_acorn_quest_state(;tasting=true);q["stage"]="taste_fruit"
+    fish=configured_fishing_training_state();fish["stage"]="waiting_acorn"
+    map=Dict{String,Any}("training_quest"=>q,"fishing_training"=>fish)
+    @test configured_api_teacher_handover!(map,foods,w,cargo,ledger,a,false,1)==0
+    @test configured_api_teacher_handover!(map,foods,w,cargo,ledger,a,true,2)==1
+    @test foods.inventory[a]==[1]
+    @test foods.added[1]==w.inventory[a]==length(cargo[a])==1
+    @test length(foods.game.age.inventory[a])==1
+    restored=deepcopy(map)
+    @test configured_api_teacher_handover!(restored,foods,w,cargo,ledger,a,true,3)==0
+    @test length(ledger)==1
+    plan=D("action"=>"retrieve","food_kind"=>1)
+    @test configured_api_training_available_plan(q,plan,UInt8[],zeros(Int,8),4)===nothing
+    @test configured_api_training_available_plan(q,plan,UInt8[],zeros(Int,8),5)===nothing
+    @test count(r->r["kind"]=="teacher_material_unavailable",q["records"])==1
+    stock=zeros(Int,8);stock[1]=1
+    @test configured_api_training_available_plan(q,plan,UInt8[],stock,6)===plan
+    @test !q["material_wait"]
+    q["stage"]="completed";fish["stage"]="taste"
+    @test configured_api_teacher_handover!(map,foods,w,cargo,ledger,a,true,7)==1
+    @test foods.inventory[a]==[1,5]
+    @test sum(foods.added)==w.inventory[a]==length(cargo[a])==2
 end

@@ -1,6 +1,6 @@
 mutable struct ContactWorld
     inventory::Dict{String,Int}
-    bodies::Dict{String,Body}
+    bodies::Dict{String,AbstractBody}
     inbox::Dict{String,Vector{Any}}
     hearing::Dict{String,Bool}
     receipts::D

@@ -33,11 +33,12 @@ function task_wait_notice(s,inbox,now)
         m["time"]*1e6<wait["deadline"],inbox) && return "wait_reply"
     now>=wait["deadline"] ? "wait_deadline" : nothing
 end
-function task_focus_continue!(s,body,position,yaw,phase,now,motion;enabled=true,shield=true,need=0.,progress=0.,wait_notice=nothing)
+function task_focus_continue!(s,body,position,yaw,phase,now,motion;enabled=true,shield=true,need=0.,progress=0.,wait_notice=nothing,pending_result=false)
     get(s,"active",false) || return false
-    reason=!enabled ? "disabled" : wait_notice!==nothing ? wait_notice : phase!=s["phase"] ? "phase" : position!=s["position"] || yaw!=s["yaw"] ? "pose" :
-        body.reserve<=0 || step(body,s["plan"]["action"],s["load"])[2]!=(s["plan"]["action"]=="rest" ? "rested" : "worked") ? "body" :
-        body.reserve<s["reserve"]-TASK_ATTENTION.reserve_change || body.damage>s["damage"] ? "body_change" :
+    # Settle the previous operation against its next observation before skipping.
+    reason=pending_result ? "pending_result" : !enabled ? "disabled" : wait_notice!==nothing ? wait_notice : phase!=s["phase"] ? "phase" : position!=s["position"] || yaw!=s["yaw"] ? "pose" :
+        !body_alive(body) || step(body,s["plan"]["action"],s["load"])[2]!=(s["plan"]["action"]=="rest" ? "rested" : "worked") ? "body" :
+        body_energy(body)<s["energy"]-TASK_ATTENTION.reserve_change || body.damage>s["damage"] ? "body_change" :
         configured_rest_recovered(s,body) ? "recovered" : now>=s["review_us"] ? "review" : nothing
     if reason===nothing && motion!==nothing
         gate=configured_task_interrupt(motion,need,progress;enabled=shield && s["plan"]["action"]!="rest")
@@ -64,7 +65,7 @@ function task_focus_record!(s,plan,status,body,position,yaw,phase,now,load,home;
     end
     if !get(s,"active",false)
         merge!(s,D("active"=>true,"plan"=>deepcopy(plan),"position"=>position,"yaw"=>yaw,"phase"=>phase,
-            "reserve"=>body.reserve,"damage"=>body.damage,"strain"=>body.strain,"load"=>load,"home"=>deepcopy(home),
+            "energy"=>body_energy(body),"damage"=>body.damage,"strain"=>body.strain,"load"=>load,"home"=>deepcopy(home),
             "review_us"=>now+TASK_ATTENTION.review_us))
     end
 end

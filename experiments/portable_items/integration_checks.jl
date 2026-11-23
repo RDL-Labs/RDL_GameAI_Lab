@@ -32,7 +32,7 @@ item_run(s;kwargs...)=LW.lw_day(s,CLOCK;basic_loop=true,landmark_routes=true,kwa
 @testset "LW portable actions conserve items and food without inventing utility" begin
     r=item_run(item_scene();days=2)
     items=r["portable_items"];counts=items["counts"]
-    @test r["world_checkpoint"]["open_stores"]===true
+    @test r["world_checkpoint"]["open_stores"]===false
     @test counts["picked_up"]==4 && counts["stored"]==5 && counts["retrieved"]==2
     @test counts["given"]==1 && counts["dropped"]==1 && counts["offered"]==3
     @test counts["exchanged"]==2 && counts["declined"]==1 && counts["unavailable"]==0

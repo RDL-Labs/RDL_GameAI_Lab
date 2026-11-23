@@ -4,13 +4,14 @@
 # are shortcuts, to be replaced by learned production/attention/partner choice.
 # Loaded by the cohort runner AFTER the experimental voice/recognition adapters.
 const CONFIGURED_WANT_VOICE=(reply_window_us=8_000_000,volume=1.,wait_scan=0.)
-# 暫定固定の語句表。品目の価値は設定しない。将来は発話生成の学習へ置換する。
-const CONFIGURED_WANT_WORDS=("果実","肉","生ドングリ","加工ドングリ","生魚","腐敗食料","焼き魚","魚")
+# 構築側の読みやすい初期教材名。語の正解表ではなく、個体の語句は自由な記号。
+# 品目ID・外見・個体の学習語彙を分離し、発話は語彙記憶から選ぶ。
+const CONFIGURED_WANT_WORDS=("果実","肉","生ドングリ","加工ドングリ","生魚","腐敗食料","焼き魚","塩焼き魚")
 configured_want_appearance(kind)=kind==8 ? WANT_FISH.appearance : "request-food-$(kind)"
-function configured_want_vocabulary()
+function configured_want_vocabulary(;words=CONFIGURED_WANT_WORDS)
  vocabulary=ObservedVocabulary()
  for kind in LW.RDLBody.FOOD_KIND_IDS, i in 1:WANT_FISH.teaching_samples
-  learn_observed_words!(vocabulary,(id="request-teaching:$kind:$i",text=CONFIGURED_WANT_WORDS[kind],motion=nothing,appearances=[configured_want_appearance(kind)]))
+  learn_observed_words!(vocabulary,(id="request-teaching:$kind:$i",text=words[kind],motion=nothing,appearances=[configured_want_appearance(kind)]))
  end
  for i in 1:WANT_FISH.teaching_samples
   learn_observed_words!(vocabulary,(id="request-role:$i",text=WANT_FISH.request_word,motion=nothing,appearances=["request-intent"]))
@@ -95,6 +96,20 @@ function configured_want_state(ids;fresh=false)
  Dict("listeners"=>Dict(a=>VoiceListener(a;seed=i,vocabulary=a=="npc_e" ? ObservedVocabulary() : configured_want_vocabulary()) for (i,a) in enumerate(ids)),
       "pending"=>Dict{String,Any}(),"last_day"=>Dict{String,Int}(),"records"=>Any[])
 end
+# 暫定固定: voice experiment only. Known names address a visible partner;
+# everyone may hear, but non-addressees do not join this directed request yet.
+# Replace explicit address routing with learned pragmatic interpretation later.
+function configured_want_addressee!(state,observed,relation,kind,now)
+ names=relation===nothing ? D() : get(get(relation,"identity_observation",D()),"names",D())
+ peers=filter(p->haskey(names,p),get(observed,"trade_partners",String[]))
+ support=LW.item_exchange_supplier_support(state,kind,peers)
+ scores=Pair{String,Float64}["broadcast"=>0.]
+ append!(scores,[peer=>support[peer] for peer in sort!(collect(keys(support)))])
+ loop=get!(() -> LW.BasicLoop(state["actor"]*":request-address";probabilistic=true,seed=state["loop"].seed),state,"request_address_loop")
+ choice=voice_select!(loop,scores,"address:$(state["actor"]):$now")
+ peer=choice.method=="broadcast" ? nothing : choice.method
+ (peer=peer,name=peer===nothing ? nothing : names[peer],support=support,probabilities=choice.probabilities)
+end
 function configured_want_record!(state,event,actor,now;kwargs...)
  push!(state["records"],D("event"=>event,"actor"=>actor,"us"=>now, (String(k)=>v for (k,v) in kwargs)...))
 end
@@ -110,7 +125,7 @@ function configured_want_tick!(voice,w,yaw,thinking,foods,relations,roster,now)
    peer==caller && continue
    peer in thinking || continue
    body=w.bodies[peer]
-   body.reserve>0 && body.damage<1 && body.strain<1 || continue
+   body_alive(body) && body.damage<1 && body.strain<1 || continue
    if !(peer in pending["heard"]) && event.start_us<=now<event.start_us+event.duration_us
     mind=voice["listeners"][peer]
     r=voice_listener_step!(w,peer,mind,event;now_us=now,
@@ -118,7 +133,7 @@ function configured_want_tick!(voice,w,yaw,thinking,foods,relations,roster,now)
     push!(pending["heard"],peer)
     if r.status=="oriented"
      yaw[peer]=mind.yaw
-     if r.reply!==nothing
+     if r.reply!==nothing && (get(pending,"addressee",nothing)===nothing || pending["addressee"]==peer)
       push!(pending["replies"],(peer=peer,event=r.reply,interested=r.response.method=="interested"))
      end
     end
@@ -142,6 +157,7 @@ function configured_want_tick!(voice,w,yaw,thinking,foods,relations,roster,now)
    configured_want_record!(voice,"recognition",caller,now;peer=reply.peer,status=identity.status)
    if identity.status=="recognized" && pending["identity"]===nothing
     pending["identity"]=identity
+    get!(()->Dict{String,Any}(),voice,"supply_requests")[reply.peer]=(partner=caller,kind=pending["requested_food"],expires=event.start_us+CONFIGURED_WANT_VOICE.reply_window_us,call_id=event.id)
    end
   end
  end
@@ -151,6 +167,29 @@ function configured_want_plan!(voice,day_us,state,observed,body,gut,stock,now;al
  observed===nothing && return nothing
  if !isempty(observed["incoming"])
   return learned_channel_plan!(state,observed,body,gut,stock,now;allow_start,relation,kwargs...)
+ end
+ supply_requests=get!(()->Dict{String,Any}(),voice,"supply_requests")
+ if haskey(supply_requests,actor)
+  request=supply_requests[actor]
+  if now>=request.expires
+   delete!(supply_requests,actor)
+  elseif request.partner in get(observed,"trade_partners",String[])
+   # Request receipt is an external event: reconsider once now rather than wait
+   # beyond its lifetime for the background 64-second poll. Existing busy/trial
+   # gates, daily initiation allowance and subjective acceptance stay in force.
+   mind=item_social_state!(state);mind["next_us"]=min(mind["next_us"],now)
+   selected=deepcopy(observed);filter!(==(request.partner),selected["trade_partners"])
+   plan=learned_channel_plan!(state,selected,body,gut,stock,now;allow_start,relation,
+       supply_request=(partner=request.partner,kind=request.kind,known_kinds=configured_want_recall(get(kwargs,:map,nothing))),kwargs...)
+   configured_want_record!(voice,"supply_considered",actor,now;caller=request.partner,requested_food=request.kind,
+       candidates=mind["candidates"],decisions=mind["decisions"],action=plan===nothing ? nothing : plan["action"])
+   delete!(supply_requests,actor)
+   if plan!==nothing
+    plan["request_call_id"]=request.call_id
+    configured_want_record!(voice,"proposal",actor,now;target=request.partner,source=plan["source"])
+    return plan
+   end
+  end
  end
  pending=get(voice["pending"],actor,nothing)
  if pending!==nothing
@@ -184,9 +223,11 @@ function configured_want_plan!(voice,day_us,state,observed,body,gut,stock,now;al
   for listener in values(voice["listeners"])
    filter!(p->p.second.event.start_us+CONFIGURED_WANT_VOICE.reply_window_us>now,listener.processed)
   end
-  event=(id="want:$actor:$now",source=actor,text=word*" "*request_word,volume=CONFIGURED_WANT_VOICE.volume,start_us=now,duration_us=WANT_FISH.utterance_us)
-  voice["pending"][actor]=D("event"=>event,"requested_food"=>desire.kind,"heard"=>Set{String}(),"replies"=>Any[],"delivered"=>Set{String}(),"identity"=>nothing)
-  configured_want_record!(voice,"call",actor,now;id=event.id,requested_food=desire.kind,text=event.text,gradient=desire.gradient)
+  address=configured_want_addressee!(state,observed,relation,desire.kind,now)
+  spoken=(address.name===nothing ? "" : address.name*" ")*word*" "*request_word
+  event=(id="want:$actor:$now",source=actor,text=spoken,volume=CONFIGURED_WANT_VOICE.volume,start_us=now,duration_us=WANT_FISH.utterance_us)
+  voice["pending"][actor]=D("event"=>event,"addressee"=>address.peer,"requested_food"=>desire.kind,"heard"=>Set{String}(),"replies"=>Any[],"delivered"=>Set{String}(),"identity"=>nothing)
+  configured_want_record!(voice,"call",actor,now;id=event.id,requested_food=desire.kind,text=event.text,gradient=desire.gradient,addressee=address.peer,supplier_support=address.support,address_probabilities=address.probabilities)
   return D("action"=>"scan","method"=>"voice_request_call","scan_angle"=>CONFIGURED_WANT_VOICE.wait_scan,"configured_rule"=>"voice_request_call")
  end
  learned_channel_plan!(state,observed,body,gut,stock,now;allow_start,relation,kwargs...)

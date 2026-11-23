@@ -28,7 +28,7 @@ mutable struct LocalHunt
     probabilistic_capture::Bool
     capture_experience::Dict{String,Tuple{Int,Int}}
 end
-LocalHunt(i;probabilistic_capture=false)=LocalHunt(LW.BasicLoop("predator:$i:capture";probabilistic=true,seed=20261107+i),
+LocalHunt(i;probabilistic_capture=false)=LocalHunt(LW.BasicLoop("predator:$i:capture";h_mode=:legacy,probabilistic=true,seed=20261107+i),
     Dict{Int,NamedTuple}(),nothing,1.,nothing,Dict{String,Int}(),Any[],0,0,0.,nothing,0,0.,Any[],probabilistic_capture,Dict{String,Tuple{Int,Int}}())
 function local_capture_estimate(state,origin,forecast)
     dx=forecast.x-origin[1];dz=forecast.z-origin[2];distance=hypot(dx,dz)

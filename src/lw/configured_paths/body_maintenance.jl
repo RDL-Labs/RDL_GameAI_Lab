@@ -4,7 +4,7 @@ configured_body_state(actor)=D("id"=>"$actor:energy-maintenance","actor"=>actor,
     "replenishing"=>false,"selected"=>nothing,"decisions"=>0,"food_overrides"=>0,"switches"=>0,"records"=>Any[])
 function configured_body_purpose!(s,h,reserve,return_requested,at_home,local_stock,now)
     s["actor"]==h["actor"] || error("body_purpose_owner")
-    reserve>80 && (s["replenishing"]=false)
+    h["intensity"]<=0 && (s["replenishing"]=false)
     hunger_select(h) && (s["replenishing"]=true)
     # Only currently accessible, observed storage is supplied by the adapter.
     replenish=s["replenishing"]
@@ -14,7 +14,7 @@ function configured_body_purpose!(s,h,reserve,return_requested,at_home,local_sto
     if s["selected"]!=family
         s["switches"]+=1
         push!(s["records"],D("source"=>"ob:$now:$(s["actor"])","from"=>s["selected"],"to"=>family,
-            "reserve"=>reserve,"hunger_pressure"=>h["intensity"],"replenishing"=>replenish,
+            "energy"=>reserve,"hunger_pressure"=>h["intensity"],"replenishing"=>replenish,
             "return_pending"=>return_requested))
         length(s["records"])>32 && popfirst!(s["records"])
     end

@@ -12,7 +12,7 @@ mutable struct PredatorPursuit
     counts::Dict{String,Int}
     records::Vector{Any}
 end
-PredatorPursuit(i)=PredatorPursuit(LW.BasicLoop("predator:$i:pursuit";probabilistic=true,seed=20261107+i),
+PredatorPursuit(i)=PredatorPursuit(LW.BasicLoop("predator:$i:pursuit";h_mode=:legacy,probabilistic=true,seed=20261107+i),
     Dict{Int,NamedTuple}(),Dict{Int,Int}(),nothing,Dict{String,Int}(),Any[])
 pursuit_count!(p,k)=(p.counts[k]=get(p.counts,k,0)+1)
 function pursuit_radial(p,b,o,t)

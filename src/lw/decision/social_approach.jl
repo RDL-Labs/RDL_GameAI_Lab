@@ -42,7 +42,7 @@ function social_approach_candidates(view,move,relation,loop,now;purpose="aid",fo
         # The common exploration walk has base priority 1.5. Additional value
         # is an expected owner-side gain, discounted by observed travel expense.
         # The same aid probability is not added again as a social-bias bonus.
-        reserve_cost=max(0.,-get(get(row,"expected_delta",D()),"reserve",0.))
+        reserve_cost=max(0.,-body_energy_delta(get(row,"expected_delta",D())))
         priority=1.5+2log1p(expected)-.2log1p(peer["distance"])-reserve_cost
         push!(out,D("method"=>"social_approach:$purpose:$other","action"=>"walk",
             "direction"=>parse(Int,row["ref"]),"steering_angle"=>angle,"priority"=>priority,

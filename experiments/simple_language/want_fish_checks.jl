@@ -14,7 +14,7 @@ rows=Any[]
 @testset "want fish broadcast to consented exchange" begin
  for scenario in ("stocked","no_fish","unknown_word","out_of_range"),seed in 1:WANT_FISH.trials
   f=want_fixture(fish=scenario=="no_fish" ? 0 : WANT_FISH.stock,far=scenario=="out_of_range")
-  event=(id="want-fish",source=ITEM_A,text="魚 欲しい",volume=1.,start_us=0,duration_us=WANT_FISH.utterance_us)
+  event=(id="want-fish",source=ITEM_A,text=WANT_FISH.word*" "*WANT_FISH.request_word,volume=1.,start_us=0,duration_us=WANT_FISH.utterance_us)
   listeners=Dict(peer=>VoiceListener(peer;seed,vocabulary=scenario=="unknown_word" ? ObservedVocabulary() : want_fish_vocabulary()) for peer in (ITEM_B,ITEM_C))
   replies=Dict(peer=>voice_listener_step!(f.w,peer,listeners[peer],event;
    response_interest=(known,words)->want_fish_interest(f.w.bodies[peer],f.foods.personal[peer],known,words)) for peer in (ITEM_B,ITEM_C))
@@ -53,9 +53,9 @@ rows=Any[]
  @test all(r->r.scenario=="stocked" || r.fish_received==0,rows)
  # Existing security term lowers response value when the supplier is hungry.
  stock=[0,0,0,0,0,0,0,1];known=[(prediction=(appearance=WANT_FISH.appearance,),)]
- @test want_fish_interest(LW.Body(10,0,10,0),stock,known,(text="魚 欲しい",)) <= want_fish_interest(LW.Body(10,0,90,0),stock,known,(text="魚 欲しい",))
- @test want_fish_interest(LW.Body(10,0,90,0),stock,known,(text="魚 欲しい",);security=Dict("required"=>5.)) < want_fish_interest(LW.Body(10,0,90,0),stock,known,(text="魚 欲しい",))
- @test want_fish_interest(LW.Body(10,0,90,0),stock,known,(text="魚",))===nothing
+ @test want_fish_interest(LW.Body(10,0,10,0),stock,known,(text=WANT_FISH.word*" "*WANT_FISH.request_word,)) <= want_fish_interest(LW.Body(10,0,90,0),stock,known,(text=WANT_FISH.word*" "*WANT_FISH.request_word,))
+ @test want_fish_interest(LW.Body(10,0,90,0),stock,known,(text=WANT_FISH.word*" "*WANT_FISH.request_word,);security=Dict("required"=>5.)) < want_fish_interest(LW.Body(10,0,90,0),stock,known,(text=WANT_FISH.word*" "*WANT_FISH.request_word,))
+ @test want_fish_interest(LW.Body(10,0,90,0),stock,known,(text=WANT_FISH.word,))===nothing
  @test want_fish_interest(LW.Body(10,0,90,0),stock,known,nothing)===nothing
 end
 summary=[(scenario=s,interested=count(r->r.scenario==s && r.interested,rows),

@@ -51,7 +51,7 @@ function mb_goal_result!(s,goal,source,resolved,H_before,H_after,now;completion_
     s["chunks_enabled"] || return false
     resolved===true || return false
     s["last_chunk_operation"]===nothing && return false
-    source==s["last_chunk_operation"] || error("mb_chunk_result_binding")
+    source==s["last_chunk_operation"] || error("mb_chunk_result_binding: actor=$(s["actor"]) source=$source observed=$(s["last_chunk_operation"]) now=$now current_us=$(s["current_us"]) goal=$goal")
     source==s["last_chunk_credit"] && return false
     s["last_chunk_credit"]=source
     path=copy(s["route_trace"]);family=s["trace_goal"];mb_trace_reset!(s)

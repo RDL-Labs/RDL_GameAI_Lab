@@ -15,9 +15,9 @@ include(joinpath(@__DIR__,"checks.jl"))
     end
     p=pressure_update(nothing,records,"a")
     d,t=experienced_response(obs,records,p,"a","fixed")
-    @test t["weight"]==1.8 || isapprox(t["weight"],1.8)
-    @test t["give_probability"]<base["give_probability"]
-    @test length(t["sources"])==3
+    @test t["weight"]==0
+    @test t["give_probability"]==base["give_probability"]
+    @test isempty(t["sources"])
     q,request=experienced_request(obs,records,p,"a","b","fixed")
     @test request["request_probability"]<request_base["request_probability"]
     @test length(request["sources"])==3

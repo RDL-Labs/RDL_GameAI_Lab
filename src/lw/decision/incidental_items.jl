@@ -71,9 +71,10 @@ end
 function incidental_item_candidates(state,view,body,parent_loop;family,pressure=0.,stock=nothing,gut=nothing,map=nothing,kitchen=nothing)
     view===nothing && return Any[]
     check(incidental_finite(pressure) && pressure>=0,"incidental_pressure")
-    reserve=Float64(incidental_body(body,"reserve",100.))
+    alive=body isa AbstractBody ? body_alive(body) :
+        Bool(incidental_body(body,"alive",incidental_body(body,"reserve",0.)>0))
     strain=Float64(incidental_body(body,"strain",0.));damage=Float64(incidental_body(body,"damage",0.))
-    (reserve>0 && strain<1 && damage<1) || return Any[]
+    (alive && strain<1 && damage<1) || return Any[]
     capacity=get(view,"carry_capacity",nothing);load=get(view,"own_load",nothing)
     (capacity isa AbstractDict && load isa AbstractDict) || return Any[]
     mass=get(capacity,"mass",nothing);size=get(capacity,"size",nothing);held=get(load,"mass",nothing)
@@ -108,7 +109,9 @@ function incidental_item_candidates(state,view,body,parent_loop;family,pressure=
     isempty(candidates) && return Any[]
     pickups=sort!(collect(values(candidates));by=c->(-c["expected_benefit"],c["observed_distance"],c["method"]))
     length(pickups)>8 && resize!(pickups,8)
-    urgency=max(Float64(pressure),clamp((80-reserve)/80,0.,1.),clamp(strain,0.,1.),clamp(damage,0.,1.))
+    demand=body isa AbstractBody ? body_demand(body) :
+        Float64(incidental_body(body,"body_demand",clamp((80-incidental_body(body,"reserve",80.))/80,0.,1.)))
+    urgency=max(Float64(pressure),demand,clamp(strain,0.,1.),clamp(damage,0.,1.))
     parent_method=parent_loop.last_method===nothing ? nothing : get(parent_loop.methods,parent_loop.last_method,nothing)
     continuation=parent_method===nothing ? 0. : clamp(log1p(parent_method.reward)-failure_repulsion(parent_method),0.,2.)
     result=Any[D("method"=>"continue_activity","action"=>"continue","priority"=>2.0+continuation,

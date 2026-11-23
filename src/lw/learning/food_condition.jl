@@ -108,8 +108,9 @@ function food_expiry_forecast(map,body,gut;now=nothing,day_us=nothing,delay_seco
     remaining=max(0.,(day_us-mod(now,day_us))/1e6-delay_seconds)
     security=map===nothing ? nothing : get(map,"food_security",nothing)
     rate=security===nothing ? nothing : get(security,"rate",nothing)
-    rate=rate===nothing ? RDLBody.MEAL_ENERGY/(day_us/1e6) : rate
-    capacity=max(0.,(100-body.reserve+remaining*rate)/RDLBody.MEAL_ENERGY-(gut===nothing ? 0. : gut.gut))
+    meal_energy=RDLBody.meal_energy(gut)
+    rate=rate===nothing ? meal_energy/(day_us/1e6) : rate
+    capacity=max(0.,(body_food_gap(body)+remaining*rate)/meal_energy-(gut===nothing ? 0. : gut.gut))
     D("capacity"=>capacity,"risk"=>[1-food_storage_survival(map,k,1) for k in RDLBody.FOOD_KIND_IDS],
       "remaining_seconds"=>remaining,"urgency"=>1-remaining/(day_us/1e6),"us"=>now)
 end

@@ -1,6 +1,6 @@
 # 暫定固定: API field_training runner only. A staged curriculum, not a learned goal.
 # Camp tour and eating/processing use existing scaffolds; outbound/return E navigation
-# stays API-controlled. One fish sample is supplied once after acorn completion.
+# stays API-controlled. Teacher samples are handed over at home once per lesson.
 # Replace this teacher-imposed curriculum with observed instruction in future.
 configured_api_fish_active(q)=!(q["stage"] in ("waiting_acorn","completed"))
 const CONFIGURED_API_TRAINING_OBSERVATION_US=Ref(-600_000_000)
@@ -15,11 +15,44 @@ function configured_api_training_supply!(maps,day,now,day_us)
         map=maps[actor];fish=map["fishing_training"]
         if fish["stage"]=="waiting_acorn" && configured_acorn_quest_released(map["training_quest"],now,day_us)
             fish["stage"]="taste"
-            push!(fish["records"],Dict("kind"=>"teacher_fish_sample","us"=>now,"quantity"=>1,"food_kind"=>5))
-            supply[actor]=Dict("kind"=>5,"quantity"=>1)
         end
     end
     supply
+end
+# 暫定固定: field_training only (ordinary LW OFF). A teacher robot at home
+# hands one fruit/fish sample to each learner at the corresponding stage.
+# This world-side supply is recorded, not a learned production or social action.
+# Replace with instruction/physical teacher interaction later. Persistent lesson
+# records prevent duplicate grants after restore; missing granted food pauses teaching.
+function configured_api_teacher_handover!(map,foods,w,cargo,ledger,actor,at_home,now)
+    at_home || return 0
+    quest=map["training_quest"];fish=map["fishing_training"]
+    lesson=quest["stage"]=="taste_fruit" ? "fruit" : fish["stage"]=="taste" ? "fish" : nothing
+    lesson===nothing && return 0
+    grants=get!(()->Dict{String,Any}(),map,"teacher_grants")
+    haskey(grants,lesson) && return 0
+    kind=lesson=="fruit" ? 1 : Int(RDLBody.FISH_FOOD)
+    deadline=food_deadline(foods,kind)
+    food_push!(foods,actor,kind;deadline)
+    foods.added[kind]+=1;w.inventory[actor]+=1;push!(cargo[actor],nothing)
+    record=D("source"=>"teacher_robot","lesson"=>lesson,"actor"=>actor,
+             "kind"=>kind,"added"=>1,"us"=>now,"deadline"=>deadline)
+    grants[lesson]=copy(record);push!(ledger,record)
+    actor==CONFIGURED_API_AGENT.actor && configured_api_record!((event="teacher_handover",us=now,food=CONFIGURED_API_FOODS[kind],quantity=1))
+    1
+end
+function configured_api_training_available_plan(q,plan,inventory,stock,now)
+    plan===nothing && return nothing
+    if get(plan,"action",nothing)=="retrieve"
+        kind=Int(plan["food_kind"])
+        if !(kind in inventory) && stock[kind]<=0
+            get(q,"material_wait",false) || push!(q["records"],D("kind"=>"teacher_material_unavailable","us"=>now,"food_kind"=>kind))
+            q["material_wait"]=true
+            return nothing
+        end
+    end
+    q["material_wait"]=false
+    plan
 end
 function configured_api_training_observe!(actor,map,now;observed=nothing,heading=nothing)
     actor==CONFIGURED_API_AGENT.actor || return

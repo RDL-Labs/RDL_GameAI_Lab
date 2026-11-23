@@ -1,3 +1,4 @@
+cp(joinpath(HERE,"../../src/lw/configured_paths/api_transport.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/api_transport.jl");force=true)
 cp(joinpath(HERE,"../../src/lw/configured_paths/api_trade_agent.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/api_trade_agent.jl"))
 if API_EXPLORATION
     standard=JSON3.read(read(API_STANDARD_INPUT,String),Dict{String,Any})
@@ -96,7 +97,7 @@ if API_FIELD_TRAINING
     daily_marker="            configured_api_diary!(length(daily),now,"
     api_text=replace(api_text,daily_marker=>"            configured_api_nav_flush!(now)\n            configured_api_training_report!(mb_maps,length(daily),now)\n"*daily_marker)
 end
-api_text=replace(api_text,marker=>marker*"\n                    configured_api_meal!(a,actual_kind,liking,now,premeal.reserve,w.bodies[a].reserve)")
+api_text=replace(api_text,marker=>marker*"\n                    configured_api_meal!(a,actual_kind,liking,now,body_energy(premeal),body_energy(w.bodies[a]))")
 API_FIELD_TRAINING && (api_text=api_field_training_instrument(api_text))
 write(api_day,api_text)
 api_channels=joinpath(OUTPUT,"communication/trade_channels.jl")

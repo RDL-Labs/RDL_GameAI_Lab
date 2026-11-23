@@ -29,9 +29,11 @@ function configured_daily_delivery_request!(s,returning,replenishing,inventory,a
     true # Existing home navigation/rest; safety and eating keep their priority.
 end
 # Scenario bootstrap preferences, not learned MBs or a universal biological rule.
-function configured_daily_plan_scores(confidence,inventory,reserve,replenishing,roundtrip_penalty,return_penalty,return_hint)
+function configured_daily_plan_scores(confidence,inventory,reserve,replenishing,roundtrip_penalty,return_penalty,return_hint;body_demand=nothing)
     food=3.0+log1p(confidence)-roundtrip_penalty-log1p(inventory)
-    replenishing && (food+=2log1p(max(0.,60-reserve)))
+    # Existing provisional food preference; current human demand replaces the
+    # old fuel threshold. Legacy fixtures can still supply the old scalar.
+    replenishing && (food+=2log1p(body_demand===nothing ? max(0.,60-reserve) : 60body_demand))
     home=roundtrip_penalty+4log1p(inventory)-return_penalty+Float64(return_hint)
     food,home
 end
