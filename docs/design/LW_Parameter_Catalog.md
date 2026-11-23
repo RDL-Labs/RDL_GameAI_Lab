@@ -1,5 +1,47 @@
 # 数値設定の配置と意味
 
+## 人側の見込み差H（2026-11-23）
+
+BasicLoopの既定h_mode=:forecast_differenceでは温度1、H減点は既存MethodNode.thresholdで尺度化する。
+新しい減点係数は追加しない。旧上限2と親H温度はlegacyのみ。
+取引の許容幅は既存値（食品0.05、物品0.01）、acquisitionは0。許容幅は累積差へ一度適用する。
+詳細・未移行範囲は [人側見込み差H](LW_Human_Forecast_Difference_H_20261123.md)。
+
+## 糖による候補の食事見込み（2026-11-22）
+
+`src/lw/parameters.jl` の `SUGAR_FORECAST_RULES.cost_gain=2` は、糖referenceで
+正規化した不足のlog1pを候補費用へ変換する暫定認知係数。身体限界ではない。
+詳細・未対応範囲は [糖予算見積もり](LW_Sugar_Candidate_Forecast_20261122.md)。
+
+## 三栄養素身体・局所試作（2026-11-20）
+
+`src/body/macronutrients.jl` の `MacroParameters` は未接続の身体試作専用。
+量は抽象エネルギー相当E、時間はhour。糖容量45/目安30、脂肪容量400/目安200、
+組織目標100/下限50、材料容量12/目安6、腸容量120。基礎費2E/h＋組織量×0.002、
+活動費は強度×4E/h。消化18E/h、脂肪動員上限6E/h、安静脂肪分担0.65、
+強度補正−0.35、糖不足補正+0.25。材料再利用0.75、通常損耗0.025E/h＋強度×0.06。
+修復は覚醒0.025/睡眠0.30E/h、補助費0.35E/E。糖新生上限2E/h・効率0.8、
+余剰糖脂肪化3E/h・効率0.85（容量超過時の即時処理はREADME参照）。
+身体要求値（body_demand）の現在の重みは全栄養1/3。
+`body_demand_squared=true`で各不足度を二乗してから合成（falseは等重み線形比較）。
+腸抑制0.60は合成後に引く。生の不足度と二乗後の栄養別要求も別々に記録する。
+旧0.65/0.20/0.15→中間0.45/0.40/0.15→1/6・3/6・2/6は履歴。
+1：3：2は本来ユーザーが供給調整後の要求結果の目安として述べたもので、重み指定では
+なかったため撤回。等重み・二乗で試す指示を現在の仕様とする。
+食事配分・代謝・栄養変換・身体量の推移は変更しない。
+主観的な空腹感とは区別する。旧hungerからの改称時は式・係数を維持し、その後に上記調整。
+すべて暫定ゲーム値であり、医学生理学の測定値・従来LWの係数ではない。
+
+`src/lw/configured_paths/body_local_cycle.jl` の `CONFIGURED_BODY_CYCLE` は検査用固定入力。
+通常OFF、局所runnerのみON。5分刻み、24h×10日、16時一食90E、糖/タンパク/脂質比50/25/25%。
+6時起床、8–14探索、14–16帰還、22–6睡眠。通常AIの選択には接続しない。
+設定・区間はsummary.json/timeline.csvへ記録。詳しくは
+[三栄養素局所実験](../../experiments/body_macronutrients/README.md)。
+
+同局所実験の`compare.jl / DIET_COMPARISON`は同一摂取量比較用の食事入力。
+混合C/P/F=50/25/25%、糖質70/15/15%、脂質15/15/70%、タンパク質15/70/15%。
+全条件90E/日×10日、初期身体・固定生活・身体係数は同一。通常の食品組成や選択には未接続。
+
 2026-11-18: `configured_paths/api_trade_agent.jl` の `CONFIGURED_API_AGENT` は
 局所API個体実験専用（通常OFF）。１日12回／全24回、観測保持128件、自己メモ2000文字、
 出力700token。費用・入力長を制限する暫定値で、認知の学習結果ではない。
@@ -1053,3 +1095,62 @@ API共通移動版（2026-11-18）では600秒の移動保持を廃止し、通�
 確認・再判断を使用する。600秒は研修観測の記録間引きだけに残る。
 field_trainingのAPI選択総予算は96×要求日数（5日なら480回）を維持し日間配分を自由化。
 上限到達時は試験停止と状態保存に変更。研修中も初日から日記を作成する。
+
+### API研修教官（2026-11-18）
+field_training専用・通常OFF。果実実食時1個、魚実食時生魚1個を拠点で一度だけ支給。
+教材の最小単位として各1個。src/lw/configured_paths/api_field_training.jlに隔離。
+teacher_grantsとreplenishmentsへ記録。生活補充・通常MBによる生産ではない。
+
+### API通信再試行（2026-11-18）
+api_transport.jl: CONFIGURED_API_RETRY_LIMIT=8（初回込み）。429のrate_limit_exceededのみ。
+サービス指定待機に1秒余裕、指定なしは2^attempt秒・最大60秒。
+世界の認知・身体パラメータではなく通信運用設定。待機中に世界時間は進めない。
+
+### 人間三栄養素・LW接続（2026-11-20追加）
+
+- `src/body/macronutrients.jl`: E・時間単位の身体パラメータ。要求は各不足の二乗、等重み。
+- `src/body/macro_bridge.jl`: 初期糖32E・脂肪200E・アミノ酸8E、組織はtarget100E。
+  reserve初期比は糖脂肪だけに反映。232E↔reserve100の互換投影。
+  歩行強度.65、旧歩行消費比で活動強度を推定（上限1）、休息と睡眠は0。
+- `src/body/digestion.jl`: `FOOD_NUTRIENT_ENERGY`はC/P/F順、可食一個20E。
+  `scene.macronutrient_body=true`が消化有効時の既定。falseで旧モデル。
+  新しい固定行動はなし。既存の食事・睡眠の結果を身体へ反映する。
+- 詳細・互換性・未移行範囲は`experiments/body_macronutrients/README.md`参照。
+
+### 栄養需要から取引評価（2026-11-20）
+
+- `src/lw/decision/food_desire.jl`: `FOOD_NUTRIENT_TRADE_GAIN=1.0`。
+  現在のC/P/F不足二乗と、本人の摂取経験に残る成分比の内積を価値へ換算する暫定係数。
+  胃の充満率で弱める。成分未経験なら0。取引・品目・相手を強制する閾値ではない。
+- 既存の記憶された味・備蓄・関係・費用との複合評価に加算。
+  交渉時点の重みと需要を保持し、結果評価時に現在の身体で再計算しない。
+
+## 人間の旧reserve撤去（2026-11-20）
+
+現行の三栄養素人間は `src/body/human.jl`。`HumanBody` にreserveはない。
+`MacroParameters.tissue_target=100`、`tissue_minimum=50`、その間の活動能力は線形。
+組織下限で不可逆死亡。糖・脂肪ゼロだけでは停止しない。これらはゲーム身体の暫定値。
+活動強度は既存歩行校正0.65を基準に旧行為費の比を継承し、0..1へ制限する。
+活動実費は `activity_rate=4 E/hour`、時計は `24/day_seconds`。
+栄養の実量更新は一実行tickに一度、候補予測ではコピーする。
+味・取引・補給には栄養由来の身体要求、計画の消費には実量Eを渡す。一食20 E。
+旧シーンの初期reserve入力変換と、動物/旧fixtureのBodyは隔離して残す。
+以前の100/232換算・reserve0での人間認知停止の記述は旧実装の記録であり、現行には適用しない。
+詳細: [新人間身体の状態・検査](LW_Human_Body_Without_Reserve_20261120.md)。
+
+## 身体組成の外見投影（2026-11-20）
+
+関連する摂食判断の追加：[消化待ち栄養](LW_Pending_Nutrition_Satiety_20261120.md)。
+`body_signals`の`pending_nutrition`は既定false。食事候補のみtrueとして、実際の消化待ちC/P/Fを加算する。
+新規係数はなく、既存の要求基準・二乗・胃内容量補正を使う。身体実量や取引評価は変更しない。
+
+`configured_paths/expression.jl` の `BODY_APPEARANCE_RULES` は暫定の身体→外見変換。
+行動の固定選択ではない。人間の roundness=脂肪/(2×脂肪基準量)、build=組織/組織基準量、
+weakness=1−活動能力を0..1に収める。正常基準の丸みは0.5、肉付き1、衰弱0。
+痩せと現在の空腹を同一視せず、衰弱のみ既存distressの原因にも加える。
+`social_sight` の視界・遮蔽を通った個体に `body_appearance` を添付。
+4以下は4段、注視対象かつfineρなら8段、遠方は1段の丸め幅（それぞれ5/9/2値）。
+他者の実栄養量、生死フラグや原因の診断を公開しない。旧Bodyの外見はnothing。
+身体・衝突形状・人物識別5特徴は変更しない。Godot等の描画メッシュへの反映は未実施。
+`experiments/body_macronutrients/appearance_checks.jl`: 18項目PASS。
+単調な外見変化、満腹直後にも残る衰弱、距離/ρ/注視、遮蔽、観測の副作用なし、保存を検査。
